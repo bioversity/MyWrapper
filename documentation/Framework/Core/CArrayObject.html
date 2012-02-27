@@ -1,0 +1,662 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class CArrayObject</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name"><img src="../../media/images/Class_logo.png"
+														alt=" Class"
+														title=" Class"
+														style="vertical-align: middle"> CArrayObject</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+							<a href="#sec-descendents">Descendents</a>
+			|													<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+											<a href="#sec-consts">Constants</a>
+						
+			</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Common virtual ancestor.</p>
+<p class="description"><p>This class represents the ancestor of most entity mapped classes, it maps objects to an  array by deriving from ArrayObject and it defines a couple of general  purpose utility static methods.</p><p>The library uses the following conventions:</p><p><strong>Naming standards</strong></p><p><ul><li><strong>Classes</strong>: All class names in this library start with a capital (<em>C</em>), for
+        instance <em>CAnotherClass</em>, followed by a name starting with another capital
+        letter.</li><li><strong>Public methods</strong>: All public method names should begin with a capital letter,
+        for instance <em>AnotherMethod()</em>.</li><li><strong>Protected and private methods</strong>: All protected and private method names should
+        begin with an underscore, for instance <em>_AnotherMethod()</em>. Another case in
+        which names would start with an underscore is with core static methods.</li><li><strong>Members</strong>: All members should start with lowercase (<em>m</em>), followed
+        by a capital letter. For instance <em>mMember</em>.</li><li><strong>Static members</strong>: All static members should begin with lowercase (<em>s</em>), so
+        a static member could be <em>CSomeClass::$sStaticMember</em>.</li><li><strong>Definitions</strong>: All definitions should start with a (<em>k</em>) and be followed
+        by a code and ending with an uppercase name, for instance <em>kTAG_DOMAIN</em> would
+        be the definition of a domain tag.</li><li><strong>Method arguments</strong>: All method arguments should start with either <em>the</em>,
+        for parameters holding miscellaneous values, such as <em>$theVariable</em>,, or with a
+        lowercase verb, such as <em>is</em>, <em>has</em> or <em>do</em>, for parameters holding a
+        flag value, such as <em>isProtected</em>.</li><li><strong>Local variables</strong>: All local variables should be in <em>lowercase</em>, for
+        instance <em>$local_counter</em>.</li></ul></p><p>In general, abstract classes implement public interfaces which call a protected  implementation. Usually the public methods should not be overridden, while derived  classes may implement custom behaviours in the protected interface.</p><p>This class implements the following interfaces:</p><p><ul><li><em>Offsets</em>: In this class there cannot be an offset with a <em>NULL</em> value,
+        the offset itself should be <a href="../../Framework/Core/CArrayObject.html#methodoffsetUnset">deleted</a> in that case. Because of
+        this we also override the inherited behaviour by suppressing notices and warnings
+        when <a href="../../Framework/Core/CArrayObject.html#methodoffsetGet">getting</a> non-existant offsets.</li><li><em>JSON encoding</em>: Derived classes will use JSON for web-services, so we provide
+        two static methods to <a href="../../Framework/Core/CArrayObject.html#method_JsonEncode">encode</a> and <a href="../../Framework/Core/CArrayObject.html#method_JsonDecode">decode</a>
+        JSON strings allowing for exceptions on errors.</li><li><em>String formatting</em>: We provide a generalised static method to
+        <a href="../../Framework/Core/CArrayObject.html#method_StringNormalise">format</a> strings which accepts a bitfield parameter that
+        indicates which operation to perform, such as <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_UTF8">UTF8</a>
+        encode, <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_LTRIM">left</a> and <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_RTRIM">right</a>
+        trim, <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_NULL">NULL</a> handling, <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_NOCASE">case</a>
+        insensitive conversion, <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_URL">URL</a>,
+        <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_HTML">HTML</a> and <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_HEX">HEX</a> encoding and
+        <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_HASH">hashing</a>.</li><li><em>Time formatting</em>: We provide a generalised static
+        <a href="../../Framework/Core/CArrayObject.html#method_DurationString">method</a> to display duration strings.</li></ul></p></p>
+		<p class="notes">
+			Located in <a class="field" href="_classes---CArrayObject.php.html">/classes/CArrayObject.php</a> (line <span class="field">102</span>)
+		</p>
+		
+				
+		<pre>ArrayObject
+   |
+   --CArrayObject</pre>
+	
+			</div>
+</div>
+
+	<a name="sec-descendents"></a>
+	<div class="info-box">
+		<div class="info-box-title">Direct descendents</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+			<span class="disabled">Descendents</span>
+			|															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+															<a href="#sec-consts">Constants</a>
+							
+					</div>
+		<div class="info-box-body">
+			<table cellpadding="2" cellspacing="0" class="class-table">
+				<tr>
+					<th class="class-table-header">Class</th>
+					<th class="class-table-header">Description</th>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; white-space: nowrap">
+						<img src="../../media/images/Class.png"
+								 alt=" class"
+								 title=" class"
+								 style="vertical-align: center"/>
+						<a href="../../Framework/Core/CStatusObject.html">CStatusObject</a>
+					</td>
+					<td>
+											Status object.
+										</td>
+				</tr>
+							</table>
+		</div>
+	</div>
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendants</a> |
+															<a href="#sec-consts">Constants</a>
+							
+									<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																				<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">string</span>
+										<a href="#_DurationString" title="details" class="method-name">_DurationString</a>
+											(<span class="var-type">float</span>&nbsp;<span class="var-name">$theTime</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">array</span>
+										<a href="#_JsonDecode" title="details" class="method-name">_JsonDecode</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theData</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">string</span>
+										<a href="#_JsonEncode" title="details" class="method-name">_JsonEncode</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theData</span>)
+									</div>
+																								<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">mixed</span>
+										<a href="#_StringNormalise" title="details" class="method-name">_StringNormalise</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theString</span>, [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_DEFAULT</span>])
+									</div>
+																				<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">array</span>
+										<a href="#keys" title="details" class="method-name">keys</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#offsetGet" title="details" class="method-name">offsetGet</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#offsetSet" title="details" class="method-name">offsetSet</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>, <span class="var-type">string|NULL</span>&nbsp;<span class="var-name">$theValue</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#offsetUnset" title="details" class="method-name">offsetUnset</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">array</span>
+										<a href="#values" title="details" class="method-name">values</a>
+										()
+									</div>
+																																								<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#_ManageOffset" title="details" class="method-name">_ManageOffset</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																			</div>
+		</div>
+	</div>		
+
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+													<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+<a name="method_DurationString" id="_DurationString"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static _DurationString</span> (line <span class="line-number">565</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return a formatted duration.</p>
+<p class="description"><p>This function will return a formatted duration string in H:MM:SS:mmmmm format, where  <em>H</em> stands for hours, <em>M</em> stands for minutes, <em>S</em> stands for seconds  and <em>m</em> stands for milliseconds, from the value of <em>microtime( TRUE )</em>.</p><p><em>Note: The provided value should be a difference between two timestamps taken with
+ microtime( true ).</em></p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			_DurationString
+		</span>
+					(<span class="var-type">float</span>&nbsp;<span class="var-name">$theTime</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">float</span>
+				<span class="var-name">$theTime</span><span class="var-description">: Microtime difference.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_JsonDecode" id="_JsonDecode"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static _JsonDecode</span> (line <span class="line-number">314</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return JSON decoded data.</p>
+<p class="description"><p>This method will return an array representation of the provided JSON string.</p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			_JsonDecode
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$theData</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theData</span><span class="var-description">: Input data.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_JsonEncode" id="_JsonEncode"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static _JsonEncode</span> (line <span class="line-number">253</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return JSON encoded data.</p>
+<p class="description"><p>This method will return the provided array or object into a JSON encoded string.</p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			_JsonEncode
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theData</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theData</span><span class="var-description">: Input data.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_StringNormalise" id="_StringNormalise"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static _StringNormalise</span> (line <span class="line-number">435</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Normalise string.</p>
+<p class="description"><p>This method can be used to format a string, the provided modifiers bitfield  determines what manipulations are applied:</p><p><ul><li><strong><a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_UTF8">kFLAG_MODIFIER_UTF8</a></strong>: Convert the string to
+        the <em>UTF8</em> character set.</li><li><strong><a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_LTRIM">kFLAG_MODIFIER_LTRIM</a></strong>: Apply left trimming to
+        the string.</li><li><strong><a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_RTRIM">kFLAG_MODIFIER_RTRIM</a></strong>: Apply right trimming
+        to the string.</li><li><strong><a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_TRIM">kFLAG_MODIFIER_TRIM</a></strong>: Apply both left and
+        right trimming to the string.</li><li><strong><a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_NULL">kFLAG_MODIFIER_NULL</a></strong>: If this flag is set and
+        the resulting string is empty, the method will return <em>NULL</em>.
+     <ul><li><strong><a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_NULLSTR">kFLAG_MODIFIER_NULLSTR</a></strong>: If this flag
+            is set and the resulting string is empty, the method will return the
+            '<em>NULL</em>' string; this option implies that the
+            <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_NULL">kFLAG_MODIFIER_NULL</a> is also set.</li></ul></li><li><strong><a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_NOCASE">kFLAG_MODIFIER_NOCASE</a></strong>: Set the string to
+        lowercase, this is the default way to generate a case insensitive string.</li><li><strong><a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_URL">kFLAG_MODIFIER_URL</a></strong>: URL-encode the string;
+        note that this option and <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_HTML">kFLAG_MODIFIER_HTML</a> are
+        mutually exclusive.</li><li><strong><a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_HTML">kFLAG_MODIFIER_HTML</a></strong>: HTML-encode the string;
+        note that this option and <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_URL">kFLAG_MODIFIER_URL</a> are
+        mutually exclusive.</li><li><strong><a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_HEX">kFLAG_MODIFIER_HEX</a></strong>: Convert the string to
+        hexadecimal; note that this option and <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_MASK_HASH">hashing</a>
+        are mutually exclusive.
+     <ul><li><strong><a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_HEXEXP">kFLAG_MODIFIER_HEXEXP</a></strong>: Convert the
+            string to a hexadecimal expression; note that this option implies
+            <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_HEX">kFLAG_MODIFIER_HEX</a>, and this option and
+            <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_MASK_HASH">hashing</a> are mutually exclusive.</li></ul></li><li><strong><a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_HASH">kFLAG_MODIFIER_HASH</a></strong>: If this bit is set
+        the resulting string will be hashed using the <em>md5</em> algorithm resulting in
+        a 32 character hexadecimal string; this option is mutually exclusive with the
+        <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_MASK_HEX">kFLAG_MODIFIER_MASK_HEX</a> option.
+     <ul><li><strong><a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_HASH_BIN">kFLAG_MODIFIER_HASH_BIN</a></strong>: If this bit
+            is set, the resulting value should be a 16 character binary string; if the
+            bit is <em>OFF</em>, the resulting value should be a 32 character hexadecimal
+            string.</li></ul></li></ul></p><p>The order in which these modifications are applied are as stated.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_HEX">kFLAG_MODIFIER_HEX</a>, <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_HEXEXP">kFLAG_MODIFIER_HEXEXP</a></li>
+				<li><span class="field">see:</span> <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_HASH">kFLAG_MODIFIER_HASH</a>, <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_HASH_BIN">kFLAG_MODIFIER_HASH_BIN</a></li>
+				<li><span class="field">see:</span> <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_NOCASE">kFLAG_MODIFIER_NOCASE</a>, <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_URL">kFLAG_MODIFIER_URL</a>, <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_HTML">kFLAG_MODIFIER_HTML</a></li>
+				<li><span class="field">see:</span> <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_NULL">kFLAG_MODIFIER_NULL</a>, <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_NULLSTR">kFLAG_MODIFIER_NULLSTR</a></li>
+				<li><span class="field">see:</span> <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_UTF8">kFLAG_MODIFIER_UTF8</a></li>
+				<li><span class="field">see:</span> <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_LTRIM">kFLAG_MODIFIER_LTRIM</a>, <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_RTRIM">kFLAG_MODIFIER_RTRIM</a>, <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_TRIM">kFLAG_MODIFIER_TRIM</a></li>
+				<li><span class="field">see:</span> <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_DEFAULT">kFLAG_DEFAULT</a>, <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_MASK">kFLAG_MODIFIER_MASK</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			_StringNormalise
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$theString</span>, [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_DEFAULT</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theString</span><span class="var-description">: String to normalise.</span>			</li>
+					<li>
+				<span class="var-type">bitfield</span>
+				<span class="var-name">$theModifiers</span><span class="var-description">: Modifiers bitfield.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodkeys" id="keys"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">keys</span> (line <span class="line-number">211</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return object's keys.</p>
+<p class="description"><p>This method has the same function as array's <em>array_keys()</em>, it will return an  array comprised of all object's offsets.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			keys
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodoffsetGet" id="offsetGet"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">offsetGet</span> (line <span class="line-number">134</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return a value at a given offset.</p>
+<p class="description"><p>This method should return the value corresponding to the provided offset.</p><p>This method is overloaded to prevent notices from being triggered when seeking  non-existing offsets.</p><p>In this class no offset may have a <em>NULL</em> value, if this method returns a  <em>NULL</em> value, it means that the offset doesn't exist.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			offsetGet
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theOffset</span><span class="var-description">: Offset.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt>ArrayObject::offsetGet ( $index )</dt>
+					</dl>
+			
+	</div>
+<a name="methodoffsetSet" id="offsetSet"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">offsetSet</span> (line <span class="line-number">154</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set a value for a given offset.</p>
+<p class="description"><p>This method should set the provided value corresponding to the provided offset.</p><p>This method is overloaded to prevent setting <em>NULL</em> values: if this is the case,  the method will <a href="../../Framework/Core/CArrayObject.html#methodoffsetUnset">delete</a> the offset.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			offsetSet
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>, <span class="var-type">string|NULL</span>&nbsp;<span class="var-name">$theValue</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theOffset</span><span class="var-description">: Offset.</span>			</li>
+					<li>
+				<span class="var-type">string|NULL</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Value to set at offset.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt>ArrayObject::offsetSet ( $index, $newval )</dt>
+					</dl>
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Framework/Core/CStatusObject.html#methodoffsetSet">CStatusObject::offsetSet()</a>
+								: Set a value for a given offset.
+							</li>
+					<li>
+				<a href="../../Objects/Entities/CUser.html#methodoffsetSet">CUser::offsetSet()</a>
+								: Set a value for a given offset.
+							</li>
+				</ul>
+	</div>
+<a name="methodoffsetUnset" id="offsetUnset"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">offsetUnset</span> (line <span class="line-number">186</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Reset a value for a given offset.</p>
+<p class="description"><p>This method should reset the value corresponding to the provided offset.</p><p>We overload this method to prevent notices on non-existing offsets.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			offsetUnset
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theOffset</span><span class="var-description">: Offset.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt>ArrayObject::offsetUnset ( $index )</dt>
+					</dl>
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Framework/Core/CStatusObject.html#methodoffsetUnset">CStatusObject::offsetUnset()</a>
+								: Reset a value for a given offset.
+							</li>
+					<li>
+				<a href="../../Objects/Entities/CUser.html#methodoffsetUnset">CUser::offsetUnset()</a>
+								: Reset a value for a given offset.
+							</li>
+				</ul>
+	</div>
+<a name="methodvalues" id="values"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">values</span> (line <span class="line-number">227</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return object's values.</p>
+<p class="description"><p>This method has the same function as array's <em>array_values()</em>, it will return an  array comprised of all object's values.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			values
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method_ManageOffset" id="_ManageOffset"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_ManageOffset</span> (line <span class="line-number">620</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage an offset.</p>
+<p class="description"><p>This library implements a standard interface for managing object properties using  methods, this method extends the approach to offset members:</p><p><ul><li><strong>$theOffset</strong>: The offset to manage.</li><li><strong>$theValue</strong>: The value or operation:
+	 <ul><li><em>NULL</em>: Return the offset's current value.</li><li><em>FALSE</em>: Delete the offset.</li><li><em>other</em>: Any other type represents the offset's new value.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
+	 <ul><li><em>TRUE</em>: Return the value of the offset <em>before</em> it was eventually
+			modified.</li><li><em>FALSE</em>: Return the value of the offset <em>after</em> it was eventually
+			modified.</li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			_ManageOffset
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theOffset</span><span class="var-description">: Offset.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Value or operation.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname">ArrayObject (Internal Class)</span></p>
+					<blockquote>
+													<img src="../../media/images/Constructor.png" alt=" "/>
+							<span class="method-name">constructor __construct ( $array )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">append ( $value )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">asort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">count (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">exchangeArray ( $array )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getArrayCopy (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getFlags (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getIterator (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getIteratorClass (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">ksort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">natcasesort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">natsort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetExists ( $index )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetGet ( $index )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetSet ( $index, $newval )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetUnset ( $index )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">serialize (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">setFlags ( $flags )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">setIteratorClass ( $iteratorClass )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">uasort ( $cmp_function )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">uksort ( $cmp_function )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">unserialize ( $serialized )</span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+	<a name="sec-consts"></a>
+	<div class="info-box">
+		<div class="info-box-title">Class Constants</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendants</a> |
+										<a href="#sec-var-summary">Constants</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+										<h4>Inherited Constants</h4>
+				<A NAME='inherited_consts'><!-- --></A>
+									<p>Inherited from <span class="classname">ArrayObject (Internal Class)</span></p>
+					<blockquote>
+													<img src="../../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name">ARRAY_AS_PROPS = 2</span><br>
+							</span>
+													<img src="../../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name">STD_PROP_LIST = 1</span><br>
+							</span>
+											</blockquote> 
+										
+		</div>
+	</div>
+	
+	<p class="notes" id="credit">
+		Documentation generated on Fri, 24 Feb 2012 18:34:34 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

@@ -1,0 +1,650 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class CException</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name"><img src="../../media/images/Class_logo.png"
+														alt=" Class"
+														title=" Class"
+														style="vertical-align: middle"> CException</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+													<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Exception class.</p>
+<p class="description"><p>This class extends the built-in <em>Exception</em> class by adding a series of additional  members and functionality.</p><p><a href="../../Framework/Core/CException.html#methodSeverity">Severity</a> represents the severity of the exception such as  <em>error</em>, <em>warning</em>, etc. You are free to set any value, but in this library we  support the following standard:  <ul><li><strong><a href="../../Framework/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_IDLE">Idle</a></strong>: Idle state.</li><li><strong><a href="../../Framework/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_NOTICE">Notice</a></strong>: Statistical information or message.</li><li><strong><a href="../../Framework/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_MESSAGE">Message</a></strong>: A message.</li><li><strong><a href="../../Framework/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_WARNING">Warning</a></strong>: A warning.</li><li><strong><a href="../../Framework/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_ERROR">Error</a></strong>: An error.</li><li><strong><a href="../../Framework/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_FATAL">Fatal</a></strong>: A fatal error.</li><li><strong><a href="../../Framework/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_BUG">Bug</a></strong>: A bug.</li></ul></p><p>References() represent a list of reference values structured as an  array of key/value pairs where the key represents the reference label or name and the  value the reference value. Labels must be strings, values can be of any type.</p><p>Note that this class does not throw exceptions (hahaha), operations that fail are simply  aborted.</p></p>
+		<p class="notes">
+			Located in <a class="field" href="_classes---CException.php.html">/classes/CException.php</a> (line <span class="field">71</span>)
+		</p>
+		
+				
+		<pre>Exception
+   |
+   --CException</pre>
+	
+			</div>
+</div>
+
+
+
+	<a name="sec-var-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variable Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+						<span class="disabled">Vars</span> (<a href="#sec-vars">details</a>)
+							| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<div class="var-summary">
+																																<div class="var-title">
+					<img src="../../media/images/Variable.png" alt=" " />
+					<span class="var-type">array</span>
+					<a href="#$mReferences" title="details" class="var-name">$mReferences</a>
+				</div>
+																<div class="var-title">
+					<img src="../../media/images/Variable.png" alt=" " />
+					<span class="var-type">string</span>
+					<a href="#$mSeverity" title="details" class="var-name">$mSeverity</a>
+				</div>
+											</div>
+		</div>
+	</div>
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+																		<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																				<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">string</span>
+										<a href="#AsHTML" title="details" class="method-name">AsHTML</a>
+											(<span class="var-type">Exception</span>&nbsp;<span class="var-name">$theException</span>)
+									</div>
+																																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">void</span>
+										<a href="#_Exception2HTML" title="details" class="method-name">_Exception2HTML</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$theTable</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$theElement</span>, [<span class="var-type">NULL|TRUE|string</span>&nbsp;<span class="var-name">$theSource</span> = <span class="var-default">NULL</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">array</span>
+										<a href="#_Trace" title="details" class="method-name">_Trace</a>
+											(<span class="var-type">Exception</span>&nbsp;<span class="var-name">$theException</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">void</span>
+										<a href="#_Trace2HTML" title="details" class="method-name">_Trace2HTML</a>
+											(<span class="var-type">DOMNode</span>&nbsp;<span class="var-name">$theTable</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$theElement</span>)
+									</div>
+																																				<div class="method-definition">
+					<img src="../../media/images/Constructor.png" alt=" "/>
+											<span class="method-result">CException</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+											([<span class="var-type">string</span>&nbsp;<span class="var-name">$theMessage</span> = <span class="var-default">NULL</span>], [<span class="var-type">integer</span>&nbsp;<span class="var-name">$theCode</span> = <span class="var-default">NULL</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$theSeverity</span> = <span class="var-default">NULL</span>], [<span class="var-type">array</span>&nbsp;<span class="var-name">$theReferences</span> = <span class="var-default">NULL</span>], [<span class="var-type">Exception</span>&nbsp;<span class="var-name">$thePrevious</span> = <span class="var-default">NULL</span>])
+									</div>
+																								<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#Reference" title="details" class="method-name">Reference</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIndex</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#Severity" title="details" class="method-name">Severity</a>
+											([<span class="var-type">NULL|FALSE|integer</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>])
+									</div>
+																																								<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">string</span>
+										<a href="#_TraceArgumentString" title="details" class="method-name">_TraceArgumentString</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">string</span>
+										<a href="#__toString" title="details" class="method-name">__toString</a>
+										()
+									</div>
+											</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			
+<a name="var$mReferences" id="$mReferences"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<img src="../../media/images/Variable.png" />
+		<span class="var-title">
+			<span class="var-type">array</span>
+			<span class="var-name">$mReferences</span>
+			 = <span class="var-default">array()</span>			(line <span class="line-number">89</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Exception references.</p>
+<p class="description"><p>This data member holds the list of exception references.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$mSeverity" id="$mSeverity"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<img src="../../media/images/Variable.png" />
+		<span class="var-title">
+			<span class="var-type">string</span>
+			<span class="var-name">$mSeverity</span>
+			 = <span class="var-default"> NULL</span>			(line <span class="line-number">80</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Exception severity.</p>
+<p class="description"><p>This data member holds the exception severity.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+							<h4>Inherited Variables</h4>
+				<A NAME='inherited_vars'><!-- --></A>
+									<p>Inherited from <span class="classname">Exception (Internal Class)</span></p>
+					<blockquote>
+													<img src="../../media/images/Variable.png" />
+							<span class="var-title">
+								<span class="var-name">$code</span><br>
+							</span>
+													<img src="../../media/images/Variable.png" />
+							<span class="var-title">
+								<span class="var-name">$file</span><br>
+							</span>
+													<img src="../../media/images/Variable.png" />
+							<span class="var-title">
+								<span class="var-name">$line</span><br>
+							</span>
+													<img src="../../media/images/Variable.png" />
+							<span class="var-title">
+								<span class="var-name">$message</span><br>
+							</span>
+													<img src="../../media/images/PrivateVariable.png" />
+							<span class="var-title">
+								<span class="var-name">$previous</span><br>
+							</span>
+													<img src="../../media/images/PrivateVariable.png" />
+							<span class="var-title">
+								<span class="var-name">$string</span><br>
+							</span>
+													<img src="../../media/images/PrivateVariable.png" />
+							<span class="var-title">
+								<span class="var-name">$trace</span><br>
+							</span>
+											</blockquote> 
+										
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+															<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+														<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+<a name="methodAsHTML" id="AsHTML"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static AsHTML</span> (line <span class="line-number">593</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Display an exception.</p>
+<p class="description"><p>This method can be used to display exceptions in a web browser page.</p></p>
+	<ul class="tags">
+				<li><span class="field">uses:</span> Value()</li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Core/CException.html#methodReference">CException::Reference()</a></li>
+				<li><span class="field">uses:</span> Argument()</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			AsHTML
+		</span>
+					(<span class="var-type">Exception</span>&nbsp;<span class="var-name">$theException</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">Exception|<a href="../../Framework/Core/CException.html">CException</a></span>
+				<span class="var-name">$theException</span><span class="var-description">: Exception object.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_Exception2HTML" id="_Exception2HTML"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static _Exception2HTML</span> (line <span class="line-number">971</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return the exception as HTML.</p>
+<p class="description"><p>This method can be used to return the provided exception as HTML code, it is assumed  that the element will be placed in an HTML table, so the method will return a series  of table rows.</p><p>The method accepts the following parameters:</p><p><ul><li><strong>$theTable</strong>: The HTML table in which we want to place the trace.</li><li><strong>$theElement</strong>: The exception, it must be an Exception, if any other type is
+		passed, the method will return <em>NULL</em>.</li><li><strong>$theSource</strong>: This parameter is used to provide a link to the source file:
+	 <ul><li><em>NULL</em>: No source file management.</li><li><em>TRUE</em>: The default source file viewer will be used.</li><li><em>string</em>: The method will execute the provided string as a shell
+			command line.</li></ul></li></ul></p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_Exception2HTML
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$theTable</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$theElement</span>, [<span class="var-type">NULL|TRUE|string</span>&nbsp;<span class="var-name">$theSource</span> = <span class="var-default">NULL</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$theElement</span><span class="var-description">: Trace element.</span>			</li>
+					<li>
+				<span class="var-type">NULL|TRUE|string</span>
+				<span class="var-name">$theSource</span><span class="var-description">: Source file control.</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$theTable</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_Trace" id="_Trace"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static _Trace</span> (line <span class="line-number">677</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return the exception trace.</p>
+<p class="description"><p>This method can be used to return the exception trace in the order in which it was  called. The main utility of this method is to manage forwarded exceptions.</p><p>The method will return an array indexed by file path and line number hash in which  the value is either an exception or a trace array. If you run in PHP version &lt; 3.0.x  the first element will be an exception and the others will be traces, if you run a  higher version of PHP you can forward exceptions, so the elements will be mixed.</p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			_Trace
+		</span>
+					(<span class="var-type">Exception</span>&nbsp;<span class="var-name">$theException</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">Exception</span>
+				<span class="var-name">$theException</span><span class="var-description">: Exception to trace.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_Trace2HTML" id="_Trace2HTML"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static _Trace2HTML</span> (line <span class="line-number">800</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return the exception trace element as HTML.</p>
+<p class="description"><p>This method can be used to return the trace element as HTML code.</p><p>The method accepts the following parameters:</p><p><ul><li><strong>$theTable</strong>: The HTML table in which we want to place the trace.</li><li><strong>$theElement</strong>: The trace element, it must be an array, if any other type is
+		passed, the method will return <em>NULL</em>.</li></ul></p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_Trace2HTML
+		</span>
+					(<span class="var-type">DOMNode</span>&nbsp;<span class="var-name">$theTable</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$theElement</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">DOMNode</span>
+				<span class="var-name">$theTable</span><span class="var-description">: HTML table.</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$theElement</span><span class="var-description">: Trace element.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Constructor.png" />
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">150</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Instantiate class.</p>
+<p class="description"><p>The first two parameters follow the inherited interface, the constructor adds support  for the extended class members:</p><p><ul><li><strong>$theMessage</strong>: This parameter represents the inherited <em>message</em>.</li><li><strong>$theCode</strong>: This parameter represents the inherited <em>code</em>.</li><li><strong>$theSeverity</strong>: This parameter holds <a href="../../Framework/Core/CException.html#methodSeverity">the</a> exception
+        type, level or severity:
+     <ul><li><em><a href="../../Framework/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_IDLE">kMESSAGE_TYPE_IDLE</a></em>: This indicates an idle
+            state.</li><li><em><a href="../../Framework/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_NOTICE">kMESSAGE_TYPE_NOTICE</a></em>: This indicates an
+            informative note or message.</li><li><em><a href="../../Framework/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_WARNING">kMESSAGE_TYPE_WARNING</a></em>: This indicates a
+            warning.</li><li><em><a href="../../Framework/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_ERROR">kMESSAGE_TYPE_ERROR</a></em>: This indicates an error.</li><li><em><a href="../../Framework/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_FATAL">kMESSAGE_TYPE_FATAL</a></em>: This indicates a fatal
+            error, in general this should halt program execution.</li><li><em><a href="../../Framework/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_BUG">kMESSAGE_TYPE_BUG</a></em>: This indicates a bug, such
+            exceptions should be logged and forwarded to developers.</li></ul></li><li><strong>$theReferences</strong>: This parameter holds the exception's references
+        References(), it is an array indexed by reference label or term
+        holding the reference value as value.</li><li><strong>$thePrevious</strong>: This parameter represents the previous exception when
+        forwarding.</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> UserNamespace()</li>
+				<li><span class="field">uses:</span> UserMessages()</li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Core/CException.html#methodSeverity">CException::Severity()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Core/CException.html#methodReference">CException::Reference()</a></li>
+				<li><span class="field">uses:</span> CodeUser()</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">CException</span>
+		<span class="method-name">
+			__construct
+		</span>
+					([<span class="var-type">string</span>&nbsp;<span class="var-name">$theMessage</span> = <span class="var-default">NULL</span>], [<span class="var-type">integer</span>&nbsp;<span class="var-name">$theCode</span> = <span class="var-default">NULL</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$theSeverity</span> = <span class="var-default">NULL</span>], [<span class="var-type">array</span>&nbsp;<span class="var-name">$theReferences</span> = <span class="var-default">NULL</span>], [<span class="var-type">Exception</span>&nbsp;<span class="var-name">$thePrevious</span> = <span class="var-default">NULL</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theMessage</span><span class="var-description">: Exception message.</span>			</li>
+					<li>
+				<span class="var-type">integer</span>
+				<span class="var-name">$theCode</span><span class="var-description">: Exception code.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theSeverity</span><span class="var-description">: Exception severity.</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$theReferences</span><span class="var-description">: Exception references.</span>			</li>
+					<li>
+				<span class="var-type">Exception</span>
+				<span class="var-name">$thePrevious</span><span class="var-description">: Previous exception.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt>Exception::constructor __construct ( [$message = ], [$code = ], [$previous = ] )</dt>
+					</dl>
+			
+	</div>
+<a name="methodReference" id="Reference"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Reference</span> (line <span class="line-number">494</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set or return an exception reference.</p>
+<p class="description"><p>This method can be used to set, retrieve and remove exception references.  References are a key/value pair that provide additional information on the exception.</p><p><ul><li><strong>$theIndex</strong>: This represents the reference label or name, if you provide
+		the parameter, it will be used as an array index to either retrieve, set or
+		remove elements, depending on the next parameter's value. If you omit the
+		parameter or pass <em>NULL</em> the method will consider the whole list of
+		references.</li><li><strong>$theValue</strong>: This represents the reference value:
+	 <ul><li><em>NULL</em>: This value indicates that we want to retrieve a reference. If
+			<em>$theIndex</em> is provided, the method will return the entry matching it,
+			if there is no match, the method will return <em>NULL</em>. If
+			<em>$theIndex</em> is omitted or <em>NULL</em>, the method will return the full
+			references array.</li><li><em>FALSE</em>: This value indicates that we want to delete a reference. If
+			<em>$theIndex</em> is provided, the method will delete the entry matching it
+			and return <em>NULL</em>. If <em>$theIndex</em> is omitted or <em>NULL</em>, the
+			method will delete all references and return an empty array.</li><li><em>Any other type</em>: Other types of value are considered as a value to
+			replace or be added to the references list: if <em>$theIndex</em> is provided,
+			the method will add or replace the matching element in the list and return
+			the eventual value <em>after</em> it was modified. If <em>$theIndex</em> is
+			omitted or <em>NULL</em>, the operation depends on the type of value:
+		 <ul><li><em>array</em>: The provided array will replace the current list and the
+				method will return the list <em>after</em> it was replaced.</li><li><em>Any other type</em>: The provided value will be appended to the list
+				by using a numeric index and the method will always return the provided
+				value.</li></ul></li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> Exception reference.</li>
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Core/CException.html#methodAsHTML">CException::AsHTML()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Core/CException.html#method__construct">CException::__construct()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			Reference
+		</span>
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIndex</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: NULL, FALSE, reference value or list.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theIndex</span><span class="var-description">: Reference element index.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodSeverity" id="Severity"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Severity</span> (line <span class="line-number">426</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set or return the exception severity.</p>
+<p class="description"><p>When providing <em>$theValue</em>:</p><p><ul><li><em>NULL</em>: Retrieve the current value.</li><li><em>FALSE</em>: Reset the value to <em>NULL</em>.</li><li><em>Integer</em>: Set the member to the provided value:
+	 <ul><li><em><a href="../../Framework/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_IDLE">kMESSAGE_TYPE_IDLE</a></em>: Idle state.</li><li><em><a href="../../Framework/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_NOTICE">kMESSAGE_TYPE_NOTICE</a></em>: A notice is an
+            informative message that does not imply an error, nor a situation that
+            should be handled; it can be considered as statistical data.</li><li><em><a href="../../Framework/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_MESSAGE">kMESSAGE_TYPE_MESSAGE</a></em>: A message is an
+            informative message that is addressed to somebody, although it does not
+            imply an error or warning, it was issued to a receiving party.</li><li><em><a href="../../Framework/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_WARNING">kMESSAGE_TYPE_WARNING</a></em>: Warnings are
+            informative data that indicate a potential problem, although they do not
+            imply an error, they indicate a potential problem or an issue that should be
+            addressed at least at a later stage.</li><li><em><a href="../../Framework/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_ERROR">kMESSAGE_TYPE_ERROR</a></em>: Errors indicate that
+            something prevented an operation from being performed, this does not
+            necessarily mean that the whole process is halted, but that the results of
+            an operation will not be as expected.</li><li><em><a href="../../Framework/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_FATAL">kMESSAGE_TYPE_FATAL</a></em>: Fatal errors are
+            <a href="../../Framework/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_ERROR">errors</a> that result in stopping the whole
+            process: in this case the error will prevent other operations from being
+            performed and the whole process should be halted.</li><li><em><a href="../../Framework/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_BUG">kMESSAGE_TYPE_BUG</a></em>: Bugs, as opposed to
+            <a href="../../Framework/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_ERROR">errors</a>, result from internal causes independant
+            from external factors. A bug indicates that an operation will never execute
+            as stated, it does not necessarily mean that it is
+            <a href="../../Framework/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_FATAL">fatal</a>, but rather that the behaviour of an
+            operation does not correspond to its declaration.</li></ul></li></ul></p><p>The above mentioned codes are integer based, each state is represented by an  interval, we encourage using the above mentioned codes, but this is not enforced.</p><p>When setting or resetting the value, the method will return it <em>after</em> any  modification was made.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> Exception severity or type.</li>
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Core/CException.html#method__construct">CException::__construct()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			Severity
+		</span>
+					([<span class="var-type">NULL|FALSE|integer</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">NULL|FALSE|integer</span>
+				<span class="var-name">$theValue</span><span class="var-description">: NULL, FALSE or exception severity.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_TraceArgumentString" id="_TraceArgumentString"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_TraceArgumentString</span> (line <span class="line-number">742</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return the trace argument string.</p>
+<p class="description"><p>This method can be used to return the string representation of a trace argument.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			_TraceArgumentString
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Trace argument.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method__toString" id="__toString"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">__toString</span> (line <span class="line-number">188</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return the object name.</p>
+<p class="description"><p>In this class we return the stack trace.</p></p>
+	<ul class="tags">
+				<li><span class="field">return:</span> The stack trace.</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			__toString
+		</span>
+				()
+			</div>
+	
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt>Exception::__toString (  )</dt>
+					</dl>
+			
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname">Exception (Internal Class)</span></p>
+					<blockquote>
+													<img src="../../media/images/Constructor.png" alt=" "/>
+							<span class="method-name">constructor __construct ( [$message = ], [$code = ], [$previous = ] )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getCode (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getFile (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getLine (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getMessage (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getPrevious (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getTrace (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getTraceAsString (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">__clone (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">__toString (  )</span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+	
+	<p class="notes" id="credit">
+		Documentation generated on Fri, 24 Feb 2012 18:34:34 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

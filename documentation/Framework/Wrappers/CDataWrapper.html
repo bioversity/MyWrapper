@@ -1,0 +1,1177 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class CDataWrapper</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name"><img src="../../media/images/Class_logo.png"
+														alt=" Class"
+														title=" Class"
+														style="vertical-align: middle"> CDataWrapper</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+							<a href="#sec-descendents">Descendents</a>
+			|											<a href="#sec-vars">Vars</a>
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+											<a href="#sec-consts">Constants</a>
+						
+			</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Data wrapper.</p>
+<p class="description"><p>This class implements a data store wrapper web-service.</p><p>The main goal of this class is to provide a framework for building concrete data store  web-service wrappers.</p><p>The class introduces a series of new operations and filter options that must be  developed in derived classes which implement a specific data store.</p><p>These new functionalities require a new set of parameters:</p><p><ul><li><em>Data store parameters</em>: In order to refer to a specific data store we need
+		two parameters:
+	 <ul><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATABASE">kAPI_DATABASE</a></em>: Database, this parameter should
+            indicate the database or equivalent concept where the data should be stored or
+            retrieved. This parameter can be compared to the database part of an SQL table
+            reference (<em>DATABASE</em>.TABLE).</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_CONTAINER">kAPI_CONTAINER</a></em>: Container, this parameter should
+            indicate which container within the <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATABASE">database</a> should be
+            used to store or retrieve the data. This parameter can be compared to the table
+            part of an SQL table reference (DATABASE.<em>TABLE</em>).</li></ul></li><li><em>Paging parameters</em>: Query results may possibly return large amounts of data,
+        this means that a paging mechanism should be set in place:
+     <ul><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_PAGE_START">kAPI_PAGE_START</a></em>: Page start, this parameter
+            indicates the starting page or record.</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_PAGE_LIMIT">kAPI_PAGE_LIMIT</a></em>: Number of pages, this parameter
+            indicates the maximum number of pages or records that the operation should
+            return.</li></ul></li><li><em>Data parameters</em>: To express a query a series of parameters are required:
+     <ul><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_QUERY">kAPI_DATA_QUERY</a></em>: Query, this parameter is used
+            when retrieving data, it represents the filter or selection query; it must be
+            expressed as one of the query <a href="../../Framework/Persistence/CQuery.html">class</a> siblings. This parameter can
+            be compared to the <em>WHERE</em> part of an SQL query.</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_FIELD">kAPI_DATA_FIELD</a></em>: Fields, this parameter indicates
+            which elements of the selected objects we want returned. This parameter can be
+            compared to the <em>SELECT</em> part of an SQL query.</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_SORT">kAPI_DATA_SORT</a></em>: Sort fields, this parameter
+            indicates the sort order, the list of data elements by which the result is to
+            be sorted. This parameter can be compared to the <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_FIELD">field</a>
+            parameter or to the <em>ORDER BY</em> part of an SQL query.</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_OBJECT">kAPI_DATA_OBJECT</a></em>: Object data, this parameter
+            represents the data to be stored in the database, the type should ideally be
+            abstracted from the data store engine. This parameter can be compared to the
+            <em>VALUES</em> or <em>SET</em> part of an SQL query.</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_OPTIONS">kAPI_DATA_OPTIONS</a></em>: Data store options, this
+            parameter represents the options governing data store and retrieve operations.
+            In general it will be the options when storing data and the actual
+            implementation is the responsibility of derived classes:
+         <ul><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OPT_SAFE">kAPI_OPT_SAFE</a></em>: Safe commit option, this tag is
+                relevant only when committing data. If this option is <em>OFF</em>, it means
+                we want to perform an asynchronous operation: the store operation will occur
+                in the background and the program execution will not wait for it to finish;
+                this also means that the client is responsible for checking whether the
+                operation completed. If the option is <em>ON</em>, the operation is
+                synchronous, which means that the program will wait for the store operation
+                to complete.</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OPT_FSYNC">kAPI_OPT_FSYNC</a></em>: File sync option, this tag is
+                relevant only when committing data. If the option is <em>ON</em>, it means
+                that the store operation will wait until the data is actually written to
+                disk; which may not necessarily be the case even if the
+                <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OPT_SAFE">kAPI_OPT_SAFE</a> option was on. When this option is set,
+                it is implied that the <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OPT_SAFE">kAPI_OPT_SAFE</a> option is also
+                on. If the option is <em>OFF</em>, it means that the data will be synched to
+                disk only when the buffer is flushed.</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OPT_TIMEOUT">kAPI_OPT_TIMEOUT</a></em>: Operation timeout, it
+                represents the time in milliseconds beyond which the client will stop
+                waiting for a response and expect a time out status.</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OPT_SINGLE">kAPI_OPT_SINGLE</a></em>: First element, this option
+                is used by the <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OP_DEL">delete</a> operation: if <em>ON</em>, only the
+                first object satisfying the <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_QUERY">query</a> will be deleted;
+                if <em>OFF</em> all selected elements will be deleted.</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OPT_SINGLE">kAPI_OPT_SINGLE</a></em>: First element, this option</li></ul></li></ul></li></ul></p><p>The new operations declared in this class are:</p><p><ul><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OP_COUNT">kAPI_OP_COUNT</a></em>: This operation requests a count, which
+        is an integer indicating the total number of elements satisfying a
+        <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_QUERY">query</a>.</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OP_GET">kAPI_OP_GET</a></em>: This operation is equivalent to a read
+        query, it requests a list of objects satisfying the provided
+        <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_QUERY">query</a>.</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OP_SET">kAPI_OP_SET</a></em>: This operation is equivalent to an insert
+        for new objects or an update for existing objects, the operation will replace the
+        object in the data store with the one provided in the
+        <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_OBJECT">kAPI_DATA_OBJECT</a> parameter.</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OP_UPDATE">kAPI_OP_UPDATE</a></em>: This operation is equivalent to an
+        update operation, this implies that the object must already exist in the data store
+        and that the operation will replace the object in the data store with the one
+        provided in the <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_OBJECT">kAPI_DATA_OBJECT</a> parameter.</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OP_INSERT">kAPI_OP_INSERT</a></em>: This operation is equivalent to an
+        insert operation, this implies that the object must not already exist in the data
+        store.</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OP_MODIFY">kAPI_OP_MODIFY</a></em>: This operation indicates that we want
+        to modify the contents of an existing object and that the
+        <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_OBJECT">provided</a> data represents only the changed elements.</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OP_DEL">kAPI_OP_DEL</a></em>: This operation indicates that we want to
+        delete the elements matching the provided <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_QUERY">query</a>: the
+        first one only, if the provided <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OPT_SINGLE">kAPI_OPT_SINGLE</a> option is
+        on, or all if off or omitted.</li></ul></p><p>The added functionality implies that a series of additional sections will be returned in  the response:</p><p><ul><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_PAGING">kAPI_DATA_PAGING</a></em>: Paging section, this section will
+        return the paging information of the current operation. It will return the provided
+        <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_PAGE_START">start</a> and <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_PAGE_LIMIT">limit</a> parameters and:
+     <ul><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_PAGE_COUNT">kAPI_PAGE_COUNT</a></em>: This element of the section will
+            hold the actual number of selected objects, this number will be either equal or
+            smaller than the provided <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_PAGE_LIMIT">limit</a> parameter.</li></ul></li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_RESPONSE">kAPI_DATA_RESPONSE</a></em>: Response, this section will
+        hold the results of the operation.</li></ul></p></p>
+		<p class="notes">
+			Located in <a class="field" href="_classes---CDataWrapper.php.html">/classes/CDataWrapper.php</a> (line <span class="field">177</span>)
+		</p>
+		
+				
+		<pre>ArrayObject
+   |
+   --<a href="../../Framework/Core/CArrayObject.html">CArrayObject</a>
+      |
+      --<a href="../../Framework/Core/CStatusObject.html">CStatusObject</a>
+         |
+         --<a href="../../Framework/Wrappers/CWrapper.html">CWrapper</a>
+            |
+            --CDataWrapper</pre>
+	
+			</div>
+</div>
+
+	<a name="sec-descendents"></a>
+	<div class="info-box">
+		<div class="info-box-title">Direct descendents</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+			<span class="disabled">Descendents</span>
+			|												<a href="#sec-vars">Vars</a>
+								|															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+															<a href="#sec-consts">Constants</a>
+							
+					</div>
+		<div class="info-box-body">
+			<table cellpadding="2" cellspacing="0" class="class-table">
+				<tr>
+					<th class="class-table-header">Class</th>
+					<th class="class-table-header">Description</th>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; white-space: nowrap">
+						<img src="../../media/images/Class.png"
+								 alt=" class"
+								 title=" class"
+								 style="vertical-align: center"/>
+						<a href="../../Framework/Wrappers/CMongoDataWrapper.html">CMongoDataWrapper</a>
+					</td>
+					<td>
+											Mongo data wrapper.
+										</td>
+				</tr>
+							</table>
+		</div>
+	</div>
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendants</a> |
+															<a href="#sec-consts">Constants</a>
+							
+															<a href="#sec-vars">Vars</a>
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																																																																																																																																																																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">array</span>
+										<a href="#_DecodeParameter" title="details" class="method-name">_DecodeParameter</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theParameter</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_FormatFields" title="details" class="method-name">_FormatFields</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_FormatObject" title="details" class="method-name">_FormatObject</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_FormatOptions" title="details" class="method-name">_FormatOptions</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_FormatQuery" title="details" class="method-name">_FormatQuery</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_FormatRequest" title="details" class="method-name">_FormatRequest</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_FormatSort" title="details" class="method-name">_FormatSort</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_InitOptions" title="details" class="method-name">_InitOptions</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_ParseContainer" title="details" class="method-name">_ParseContainer</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_ParseDatabase" title="details" class="method-name">_ParseDatabase</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_ParseFields" title="details" class="method-name">_ParseFields</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_ParseObject" title="details" class="method-name">_ParseObject</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_ParseOptions" title="details" class="method-name">_ParseOptions</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_ParsePaging" title="details" class="method-name">_ParsePaging</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_ParseQuery" title="details" class="method-name">_ParseQuery</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_ParseRequest" title="details" class="method-name">_ParseRequest</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_ParseSort" title="details" class="method-name">_ParseSort</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_ValidateFields" title="details" class="method-name">_ValidateFields</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_ValidateOperation" title="details" class="method-name">_ValidateOperation</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_ValidateOptions" title="details" class="method-name">_ValidateOptions</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_ValidateRequest" title="details" class="method-name">_ValidateRequest</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_ValidateSort" title="details" class="method-name">_ValidateSort</a>
+										()
+									</div>
+											</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+												<a href="#sec-consts">Constants</a>
+							
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			
+							<h4>Inherited Variables</h4>
+				<A NAME='inherited_vars'><!-- --></A>
+									<p>Inherited from <span class="classname"><a href="../../Framework/Wrappers/CWrapper.html">CWrapper</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Variable.png" />
+							<span class="var-title">
+								<span class="var-name"><a href="../../Framework/Wrappers/CWrapper.html#var$mReceivedStamp">CWrapper::$mReceivedStamp</a></span><br>
+							</span>
+											</blockquote> 
+									<p>Inherited from <span class="classname"><a href="../../Framework/Core/CStatusObject.html">CStatusObject</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Variable.png" />
+							<span class="var-title">
+								<span class="var-name"><a href="../../Framework/Core/CStatusObject.html#var$mStatus">CStatusObject::$mStatus</a></span><br>
+							</span>
+											</blockquote> 
+										
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+															<a href="#sec-vars">Vars</a>
+														<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+<a name="method_DecodeParameter" id="_DecodeParameter"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_DecodeParameter</span> (line <span class="line-number">1021</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Decode parameter.</p>
+<p class="description"><p>This method can be used to decode a parameter according to the provided format.</p><p>The method will return the decoded parameter.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			_DecodeParameter
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$theParameter</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theParameter</span><span class="var-description">: Parameter offset.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_FormatFields" id="_FormatFields"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_FormatFields</span> (line <span class="line-number">647</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Format fields.</p>
+<p class="description"><p>This method will format the request fields.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_FormatFields
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method_FormatObject" id="_FormatObject"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_FormatObject</span> (line <span class="line-number">675</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Format object.</p>
+<p class="description"><p>This method will format the request object.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_FormatObject
+		</span>
+				()
+			</div>
+	
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Framework/Wrappers/CMongoDataWrapper.html#method_FormatObject">CMongoDataWrapper::_FormatObject()</a>
+								: Format object.
+							</li>
+				</ul>
+	</div>
+<a name="method_FormatOptions" id="_FormatOptions"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_FormatOptions</span> (line <span class="line-number">689</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Format options.</p>
+<p class="description"><p>This method will format the request options.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_FormatOptions
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method_FormatQuery" id="_FormatQuery"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_FormatQuery</span> (line <span class="line-number">633</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Format query.</p>
+<p class="description"><p>This method will format the request query.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_FormatQuery
+		</span>
+				()
+			</div>
+	
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Framework/Wrappers/CMongoDataWrapper.html#method_FormatQuery">CMongoDataWrapper::_FormatQuery()</a>
+								: Format query.
+							</li>
+				</ul>
+	</div>
+<a name="method_FormatRequest" id="_FormatRequest"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_FormatRequest</span> (line <span class="line-number">306</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Format request.</p>
+<p class="description"><p>This method should perform any needed formatting before the request will be handled.</p><p>In this class we handle the parameters to be decoded</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_FormatRequest
+		</span>
+				()
+			</div>
+	
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Framework/Wrappers/CWrapper.html#method_FormatRequest">CWrapper::_FormatRequest()</a></dt>
+						<dd>Format request.</dd>
+					</dl>
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Framework/Wrappers/CMongoDataWrapper.html#method_FormatRequest">CMongoDataWrapper::_FormatRequest()</a>
+								: Format request.
+							</li>
+				</ul>
+	</div>
+<a name="method_FormatSort" id="_FormatSort"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_FormatSort</span> (line <span class="line-number">661</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Format sort.</p>
+<p class="description"><p>This method will format the request sort.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_FormatSort
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method_InitOptions" id="_InitOptions"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_InitOptions</span> (line <span class="line-number">200</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Initialise options.</p>
+<p class="description"><p>We overload this method to normalise the <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_PAGING">paging</a> options.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_InitOptions
+		</span>
+				()
+			</div>
+	
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Framework/Wrappers/CWrapper.html#method_InitOptions">CWrapper::_InitOptions()</a></dt>
+						<dd>Initialise options.</dd>
+					</dl>
+			
+	</div>
+<a name="method_ParseContainer" id="_ParseContainer"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_ParseContainer</span> (line <span class="line-number">468</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Parse container.</p>
+<p class="description"><p>This method will parse the request container.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_ParseContainer
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method_ParseDatabase" id="_ParseDatabase"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_ParseDatabase</span> (line <span class="line-number">442</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Parse database.</p>
+<p class="description"><p>This method will parse the request database.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_ParseDatabase
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method_ParseFields" id="_ParseFields"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_ParseFields</span> (line <span class="line-number">520</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Parse fields.</p>
+<p class="description"><p>This method will parse the request fields.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_ParseFields
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method_ParseObject" id="_ParseObject"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_ParseObject</span> (line <span class="line-number">572</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Parse object.</p>
+<p class="description"><p>This method will parse the request object.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_ParseObject
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method_ParseOptions" id="_ParseOptions"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_ParseOptions</span> (line <span class="line-number">598</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Parse options.</p>
+<p class="description"><p>This method will parse the request options.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_ParseOptions
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method_ParsePaging" id="_ParsePaging"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_ParsePaging</span> (line <span class="line-number">378</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Parse paging.</p>
+<p class="description"><p>This method will parse the request pager.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_ParsePaging
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method_ParseQuery" id="_ParseQuery"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_ParseQuery</span> (line <span class="line-number">494</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Parse query.</p>
+<p class="description"><p>This method will parse the request query.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_ParseQuery
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method_ParseRequest" id="_ParseRequest"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_ParseRequest</span> (line <span class="line-number">271</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Parse request.</p>
+<p class="description"><p>This method should be used to parse the request, check the request elements and make  any necessary adjustments before the request is <a href="../../Framework/Wrappers/CDataWrapper.html#method_ValidateRequest">validated</a>.</p><p>This is also where the relevant request elements will be logged to the relative  response sections.</p><p>The method is called by the <a href="../../Framework/Wrappers/CWrapper.html#method__construct">constructor</a> and should be  overloaded to handle derived classes custom elements.</p><p>In this class we handle the paging request.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_ParseRequest
+		</span>
+				()
+			</div>
+	
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Framework/Wrappers/CWrapper.html#method_ParseRequest">CWrapper::_ParseRequest()</a></dt>
+						<dd>Parse request.</dd>
+					</dl>
+			
+	</div>
+<a name="method_ParseSort" id="_ParseSort"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_ParseSort</span> (line <span class="line-number">546</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Parse sort.</p>
+<p class="description"><p>This method will parse the request sort.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_ParseSort
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method_ValidateFields" id="_ValidateFields"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_ValidateFields</span> (line <span class="line-number">881</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Validate field selection reference.</p>
+<p class="description"><p>This method can be used to check whether the provided  <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_FIELD">field</a> parameter is valid.</p><p>In this class we ensure that the fields list is an array.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_ValidateFields
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method_ValidateOperation" id="_ValidateOperation"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_ValidateOperation</span> (line <span class="line-number">713</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Validate request operation.</p>
+<p class="description"><p>This method can be used to check whether the provided  <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">operation</a> parameter is valid.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_ValidateOperation
+		</span>
+				()
+			</div>
+	
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Framework/Wrappers/CWrapper.html#method_ValidateOperation">CWrapper::_ValidateOperation()</a></dt>
+						<dd>Validate request operation.</dd>
+					</dl>
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Framework/Wrappers/CMongoDataWrapper.html#method_ValidateOperation">CMongoDataWrapper::_ValidateOperation()</a>
+								: Validate request operation.
+							</li>
+				</ul>
+	</div>
+<a name="method_ValidateOptions" id="_ValidateOptions"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_ValidateOptions</span> (line <span class="line-number">967</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Validate sort selection reference.</p>
+<p class="description"><p>This method can be used to check whether the provided  <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_SORT">sort</a> parameter is valid.</p><p>In this class we ensure that the sort list is an array.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_ValidateOptions
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method_ValidateRequest" id="_ValidateRequest"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_ValidateRequest</span> (line <span class="line-number">341</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Validate request.</p>
+<p class="description"><p>This method should check that the request is valid and that all required parameters  have been sent.</p><p>In this class we check the <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">format</a> and  <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">operation</a> codes (their presence is checked by the  <a href="../../Framework/Wrappers/CWrapper.html#method__construct">constructor</a>.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_ValidateRequest
+		</span>
+				()
+			</div>
+	
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Framework/Wrappers/CWrapper.html#method_ValidateRequest">CWrapper::_ValidateRequest()</a></dt>
+						<dd>Validate request.</dd>
+					</dl>
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Framework/Wrappers/CMongoDataWrapper.html#method_ValidateRequest">CMongoDataWrapper::_ValidateRequest()</a>
+								: Validate request.
+							</li>
+				</ul>
+	</div>
+<a name="method_ValidateSort" id="_ValidateSort"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_ValidateSort</span> (line <span class="line-number">924</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Validate sort selection reference.</p>
+<p class="description"><p>This method can be used to check whether the provided  <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_SORT">sort</a> parameter is valid.</p><p>In this class we ensure that the sort list is an array.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_ValidateSort
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../Framework/Wrappers/CWrapper.html">CWrapper</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Constructor.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Wrappers/CWrapper.html#method__construct">CWrapper::__construct()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Wrappers/CWrapper.html#methodHandleRequest">CWrapper::HandleRequest()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Wrappers/CWrapper.html#method_EncodeResponse">CWrapper::_EncodeResponse()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Wrappers/CWrapper.html#method_Exception2Status">CWrapper::_Exception2Status()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Wrappers/CWrapper.html#method_FormatRequest">CWrapper::_FormatRequest()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Wrappers/CWrapper.html#method_HandleRequest">CWrapper::_HandleRequest()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Wrappers/CWrapper.html#method_Handle_Debug">CWrapper::_Handle_Debug()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Wrappers/CWrapper.html#method_Handle_Ping">CWrapper::_Handle_Ping()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Wrappers/CWrapper.html#method_InitOptions">CWrapper::_InitOptions()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Wrappers/CWrapper.html#method_InitResources">CWrapper::_InitResources()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Wrappers/CWrapper.html#method_InitStatus">CWrapper::_InitStatus()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Wrappers/CWrapper.html#method_OffsetManage">CWrapper::_OffsetManage()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Wrappers/CWrapper.html#method_ParseFormat">CWrapper::_ParseFormat()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Wrappers/CWrapper.html#method_ParseOperation">CWrapper::_ParseOperation()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Wrappers/CWrapper.html#method_ParseRequest">CWrapper::_ParseRequest()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Wrappers/CWrapper.html#method_ParseTiming">CWrapper::_ParseTiming()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Wrappers/CWrapper.html#method_ValidateFormat">CWrapper::_ValidateFormat()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Wrappers/CWrapper.html#method_ValidateOperation">CWrapper::_ValidateOperation()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Wrappers/CWrapper.html#method_ValidateRequest">CWrapper::_ValidateRequest()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../Framework/Core/CStatusObject.html">CStatusObject</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CStatusObject.html#methodoffsetSet">CStatusObject::offsetSet()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CStatusObject.html#methodoffsetUnset">CStatusObject::offsetUnset()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CStatusObject.html#method_IsDirty">CStatusObject::_IsDirty()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CStatusObject.html#method_ManageBitField">CStatusObject::_ManageBitField()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CStatusObject.html#method_Status">CStatusObject::_Status()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../Framework/Core/CArrayObject.html">CArrayObject</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CArrayObject.html#methodkeys">CArrayObject::keys()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CArrayObject.html#methodoffsetGet">CArrayObject::offsetGet()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CArrayObject.html#methodoffsetSet">CArrayObject::offsetSet()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CArrayObject.html#methodoffsetUnset">CArrayObject::offsetUnset()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CArrayObject.html#methodvalues">CArrayObject::values()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CArrayObject.html#method_DurationString">CArrayObject::_DurationString()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CArrayObject.html#method_JsonDecode">CArrayObject::_JsonDecode()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CArrayObject.html#method_JsonEncode">CArrayObject::_JsonEncode()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CArrayObject.html#method_StringNormalise">CArrayObject::_StringNormalise()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname">ArrayObject (Internal Class)</span></p>
+					<blockquote>
+													<img src="../../media/images/Constructor.png" alt=" "/>
+							<span class="method-name">constructor __construct ( $array )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">append ( $value )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">asort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">count (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">exchangeArray ( $array )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getArrayCopy (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getFlags (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getIterator (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getIteratorClass (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">ksort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">natcasesort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">natsort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetExists ( $index )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetGet ( $index )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetSet ( $index, $newval )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetUnset ( $index )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">serialize (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">setFlags ( $flags )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">setIteratorClass ( $iteratorClass )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">uasort ( $cmp_function )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">uksort ( $cmp_function )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">unserialize ( $serialized )</span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+	<a name="sec-consts"></a>
+	<div class="info-box">
+		<div class="info-box-title">Class Constants</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendants</a> |
+										<a href="#sec-var-summary">Constants</a> (<span class="disabled">details</span>)
+						
+			
+												<a href="#sec-vars">Vars</a>
+														| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+										<h4>Inherited Constants</h4>
+				<A NAME='inherited_consts'><!-- --></A>
+									<p>Inherited from <span class="classname">ArrayObject (Internal Class)</span></p>
+					<blockquote>
+													<img src="../../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name">ARRAY_AS_PROPS = 2</span><br>
+							</span>
+													<img src="../../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name">STD_PROP_LIST = 1</span><br>
+							</span>
+											</blockquote> 
+										
+		</div>
+	</div>
+	
+	<p class="notes" id="credit">
+		Documentation generated on Fri, 24 Feb 2012 18:34:34 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

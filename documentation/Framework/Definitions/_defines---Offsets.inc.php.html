@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs for page Offsets.inc.php</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="file-name"><img src="../../media/images/Page_logo.png" alt="File" style="vertical-align: middle">/defines/Offsets.inc.php</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+											<a href="#sec-constants">Constants</a>
+										</div>
+	<div class="info-box-body">	
+		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Default offsets.</p>
+<p class="description"><p>This file contains the definitions of the default offsets or tags used by objects in this  library, whenever choosing offsets for <a href="../../Framework/Persistence/CPersistentObject.html">persistent</a> objects, you  should first make sure that they are not among those defined in this file.</p></p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Milko A. Škofič &lt;<a href="mailto:m.skofic@cgiar.org">m.skofic@cgiar.org</a>&gt;</li>
+				<li><span class="field">version:</span> 1.00 29/05/2009                 2.00 23/11/2010                 3.00 18/02/2012</li>
+			</ul>
+		
+			</div>
+</div>
+		
+
+	
+	<a name="sec-constants"></a>	
+	<div class="info-box">
+		<div class="info-box-title">Constants</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+									<span class="disabled">Constants</span>
+											</div>
+		<div class="info-box-body">	
+			<a name="definekOFFSET_MAIL"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kOFFSET_MAIL</span> = ':MAIL'
+			(line <span class="line-number">189</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">User e-mail offset.</p>
+<p class="description"><p>This is the tag that represents an e-mail, the value is a string.</p><p>Cardinality: any.</p></p>
+	
+		
+</div>
+<a name="definekOFFSET_PASSWORD"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kOFFSET_PASSWORD</span> = ':PASS'
+			(line <span class="line-number">180</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Password offset.</p>
+<p class="description"><p>This is the tag that represents a password; the value is a string.</p><p>Cardinality: zero or one.</p></p>
+	
+		
+</div>
+<a name="definekTAG_ANNOTATION"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kTAG_ANNOTATION</span> = ':ANNOTATION'
+			(line <span class="line-number">167</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Annotation.</p>
+<p class="description"><p>This tag is used as the default offset for indicating a list of annotations, in general  it will contain a list of key/value pairs.</p><p>Cardinality: zero or one.</p></p>
+	
+		
+</div>
+<a name="definekTAG_CLASS"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kTAG_CLASS</span> = ':CLASS'
+			(line <span class="line-number">79</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Class tag.</p>
+<p class="description"><p>This is the tag is an offset that should be used to store the object's class name, it  will be used to <a href="../../Framework/Persistence/CMongoUnitObject.html#methodNewObject">instantiate</a> objects when loading  them from their containers.</p></p>
+	
+		
+</div>
+<a name="definekTAG_CODE"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kTAG_CODE</span> = ':CODE'
+			(line <span class="line-number">119</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Code offset.</p>
+<p class="description"><p>This tag is used as the default offset for indicating an attribute's code or acronym.</p></p>
+	
+		
+</div>
+<a name="definekTAG_COLLECTION_REFERENCE"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kTAG_COLLECTION_REFERENCE</span> = '$ref'
+			(line <span class="line-number">59</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Collection name reference tag.</p>
+<p class="description"><p>This tag is the offset used to indicate a collection within an object reference.</p></p>
+	
+		
+</div>
+<a name="definekTAG_DATA"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kTAG_DATA</span> = ':DATA'
+			(line <span class="line-number">112</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Data.</p>
+<p class="description"><p>This tag is used as the default offset for indicating an attribute's data or content.</p><p>Cardinality: one.</p></p>
+	
+		
+</div>
+<a name="definekTAG_DATABASE_REFERENCE"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kTAG_DATABASE_REFERENCE</span> = '$db'
+			(line <span class="line-number">66</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Database name reference tag.</p>
+<p class="description"><p>This tag is the offset used to indicate a database within an object reference.</p></p>
+	
+		
+</div>
+<a name="definekTAG_DESCRIPTION"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kTAG_DESCRIPTION</span> = ':DESCRIPTION'
+			(line <span class="line-number">136</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Description.</p>
+<p class="description"><p>This tag is used as the default offset for indicating an attribute's description or  definition.</p><p>Cardinality: zero or one.</p></p>
+	
+		
+</div>
+<a name="definekTAG_ID_NATIVE"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kTAG_ID_NATIVE</span> = '_id'
+			(line <span class="line-number">40</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Local unique identifier offset.</p>
+<p class="description"><p>This is the tag that represents the object's unique identifier, this offset should hold  a scalar value which uniquely identifies the object within the collection that holds it.</p><p>This should not be confused with the unique global identifier, which represents the value  or values used by the public to refer to that object.</p><p>This value should be tightly integrated with the database.</p></p>
+	
+		
+</div>
+<a name="definekTAG_ID_REFERENCE"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kTAG_ID_REFERENCE</span> = '$id'
+			(line <span class="line-number">52</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Identifier reference tag.</p>
+<p class="description"><p>This is the tag is the offset used to indicate an object unique identifier within an  object reference.</p></p>
+	
+		
+</div>
+<a name="definekTAG_LANGUAGE"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kTAG_LANGUAGE</span> = ':LANGUAGE'
+			(line <span class="line-number">146</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Language.</p>
+<p class="description"><p>This tag is used as the default offset for indicating the language of an attribute, it  should be the 2 character ISO 639 language code.</p><p>Cardinality: zero or one.</p></p>
+	
+		
+</div>
+<a name="definekTAG_NAME"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kTAG_NAME</span> = ':NAME'
+			(line <span class="line-number">126</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Name offset.</p>
+<p class="description"><p>This tag is used as the default offset for indicating an attribute's name.</p></p>
+	
+		
+</div>
+<a name="definekTAG_STATUS"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kTAG_STATUS</span> = ':STATUS'
+			(line <span class="line-number">157</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Status.</p>
+<p class="description"><p>This tag is used as the default offset for indicating an attribute's status or state, it  will generally be an array of tags defining the various states associated with the  object.</p><p>Cardinality: zero or one.</p></p>
+	
+		
+</div>
+<a name="definekTAG_TYPE"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kTAG_TYPE</span> = ':TYPE'
+			(line <span class="line-number">103</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Type.</p>
+<p class="description"><p>This tag is used as the default offset for indicating an attribute's type.</p><p>Cardinality: one.</p></p>
+	
+		
+</div>
+<a name="definekTAG_VERSION"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kTAG_VERSION</span> = ':VERSION'
+			(line <span class="line-number">90</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Version tag.</p>
+<p class="description"><p>This is the tag is an offset that should be used to represent the object's version, the  version is a value that should change each time the object is saved: it can be used to  check whether an object was modified since the last time it was read.</p><p>By default it is an integer incremented each time the object is saved.</p></p>
+	
+		
+</div>
+		</div>
+	</div>
+	
+	
+	
+	<p class="notes" id="credit">
+		Documentation generated on Fri, 24 Feb 2012 18:34:36 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

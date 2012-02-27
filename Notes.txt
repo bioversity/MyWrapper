@@ -1,0 +1,52 @@
+Query example:
+
+array
+(
+	'$AND' => array
+	(
+		array
+		(
+			0 => array
+			(
+				':SUBJECT' => 'INSTCODE',
+				':OPERATOR' => '$PX',
+				':TYPE' => 'string',
+				':DATA' => 'ITA'
+			),
+
+			1 => array
+			(
+				':SUBJECT' => 'AccessionID',
+				':OPERATOR' => '$EQ',
+				':TYPE' => 'binary',
+				':DATA' => '439f1680e1b15f8928d7d5561e8a9ebd'
+			),
+
+			2 => array
+			(
+				'$OR' => array
+				(
+					0 => array
+					(
+						':SUBJECT' => 'OTHERNUMB.INSTCODE',
+						':OPERATOR' => '$PX',
+						':TYPE' => 'string',
+						':DATA' => 'FRA'
+					),
+
+					1 => array
+					(
+						':SUBJECT' => 'ELEVATION',
+						':OPERATOR' => '$IRG',
+						':TYPE' => 'int32',
+						':DATA' => array
+						(
+							0 => 186,
+							1 => 103
+						)
+					),
+				)
+			)
+		)
+	)
+);
