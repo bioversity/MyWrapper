@@ -33,28 +33,31 @@ require_once( kPATH_LIBRARY_SOURCE."CMongoUnitObject.php" );
  * represents a user. This object features a minimum set of properties that can be set via
  * {@link Offsets.inc.php offsets}.
  *
- * This class implements only the required attributes of a user, derived classes may
- * implement more specialised functions.
+ * This class implements only the required attributes of a user:
  *
  * <ul>
- *	<li><i>{@link kTAG_CODE kTAG_CODE}</i>: This offset represents the user
- *		code, it is a string that represents the user access code.
+ *	<li><i>{@link kTAG_CODE kTAG_CODE}</i>: The user code. This required property represents
+ *		the user code. If empty, by default it will be initialised as the user's
+ *		{@link kOFFSET_MAIL e-mail}. No two users may share the same value.
+ *		The class features a member accessor {@link Code() method} to manage this property.
  *	<li><i>{@link kOFFSET_PASSWORD kOFFSET_PASSWORD}</i>: This offset represents the user
- *		access password, it is a string.
- *	<li><i>{@link kTAG_NAME kTAG_NAME}</i>: This offset represents the user
- *		full name.
- *	<li><i>{@link kOFFSET_MAIL kOFFSET_MAIL}</i>: This offset represents the user
- *		e-mail address.
+ *		access password, it will be used in the authentication process.
+ *		The class features a member accessor {@link Password() method} to manage this
+ *		property.
+ *	<li><i>{@link kTAG_NAME kTAG_NAME}</i>: This offset represents the user full name.
+ *		The class features a member accessor {@link Name() method} to manage this property.
+ *	<li><i>{@link kOFFSET_MAIL kOFFSET_MAIL}</i>: This offset represents the user e-mail.
+ *		The class features a member accessor {@link Mail() method} to manage this property.
  * </ul>
  *
  * All the above attributes are required prior to {@link Commit() committing} an object: the
  * object's {@link _IsInited() inited} {@link kFLAG_STATE_INITED status} depends on having
  * all of the above offsets set.
  *
- * By default, the object's unique {@link kTAG_ID_NATIVE identifier} is linked to the user's
- * {@link kTAG_CODE code}, so you should not set the {@link kTAG_ID_NATIVE identifier}
- * manually. Also for that reason, it will not be permitted to change that value once an
- * object has been {@link Commit() committed}.
+ * By default, the object's unique {@link kTAG_ID_NATIVE identifier} will be provided by the
+ * system, whenever a new user is created, we shall use the
+ * {@link kTAG_ID_NATIVE identifier} provided by MongoDB; this value should never be
+ * changed.
  *
  * This class also features a static {@link DefaultCollection() method} that should return
  * the default collection object.
@@ -107,7 +110,7 @@ class CUser extends CMongoUnitObject
 	 */
 	public function Code( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kTAG_CODE, $theValue, $getOld );			// ==>
+		return $this->_ManageOffset( kTAG_CODE, $theValue, $getOld );				// ==>
 
 	} // Code.
 
@@ -145,7 +148,7 @@ class CUser extends CMongoUnitObject
 	 */
 	public function Password( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kOFFSET_PASSWORD, $theValue, $getOld );			// ==>
+		return $this->_ManageOffset( kOFFSET_PASSWORD, $theValue, $getOld );		// ==>
 
 	} // Password.
 
@@ -183,7 +186,7 @@ class CUser extends CMongoUnitObject
 	 */
 	public function Name( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kTAG_NAME, $theValue, $getOld )	;		// ==>
+		return $this->_ManageOffset( kTAG_NAME, $theValue, $getOld )	;			// ==>
 
 	} // Name.
 
@@ -282,48 +285,20 @@ class CUser extends CMongoUnitObject
 	/**
 	 * Set a value for a given offset.
 	 *
-	 * We overload this method to:
-	 *
-	 * <ul>
-	 *	<li><i>Lock {@link kTAG_CODE code}</i>: The user's {@link kTAG_CODE code}
-	 *		may not be modified once the object has been {@link Commit() committed}.
-	 *	<li><i>Set {@link _IsInited() inited} {@link kFLAG_STATE_INITED status}</i>: The
-	 *		object is considered initialised only if it has {@link kTAG_CODE code},
-	 *		{@link kOFFSET_PASSWORD password}, {@link kTAG_NAME name} and
-	 *		{@link kOFFSET_MAIL e-mail}.
-	 * </ul>
+	 * We overload this method to manage the {@link _Is Inited() inited}
+	 * {@link kFLAG_STATE_INITED status}: this is set if {@link kTAG_CODE code},
+	 * {@link kOFFSET_PASSWORD password} and {@link kTAG_NAME name} are set.
 	 *
 	 * @param string				$theOffset			Offset.
 	 * @param string|NULL			$theValue			Value to set at offset.
 	 *
 	 * @access public
 	 *
-	 * @throws CException
-	 *
-	 * @see kERROR_PROTECTED
-	 *
 	 * @uses _IsInited()
 	 * @uses _IsCommitted()
 	 */
 	public function offsetSet( $theOffset, $theValue )
 	{
-		//
-		// Lock code.
-		//
-		if( $this->_IsCommitted() )
-		{
-			//
-			// Handle code.
-			//
-			if( ($theOffset == kTAG_CODE)
-			 && ($theValue !== $this->offsetGet( kTAG_CODE )) )
-				throw new CException
-						( "Cannot modify this offset",
-						  kERROR_PROTECTED,
-						  kMESSAGE_TYPE_ERROR,
-						  array( 'Offset' => kTAG_CODE ) );				// !@! ==>
-		}
-		
 		//
 		// Call parent method.
 		//
@@ -333,10 +308,9 @@ class CUser extends CMongoUnitObject
 		// Set inited flag.
 		//
 		if( $theValue !== NULL )
-			$this->_IsInited( $this->offsetExists( kTAG_CODE ) &&
+			$this->_IsInited( $this->offsetExists( kOFFSET_MAIL ) &&
 							  $this->offsetExists( kOFFSET_PASSWORD ) &&
-							  $this->offsetExists( kTAG_NAME ) &&
-							  $this->offsetExists( kOFFSET_MAIL ) );
+							  $this->offsetExists( kTAG_NAME ) );
 	
 	} // offsetSet.
 
@@ -348,39 +322,19 @@ class CUser extends CMongoUnitObject
 	/**
 	 * Reset a value for a given offset.
 	 *
-	 * We overload this method to {@link _IsInited() check} if the object has all required
-	 * attributes.
+	 * We overload this method to manage the {@link _Is Inited() inited}
+	 * {@link kFLAG_STATE_INITED status}: this is set if {@link kTAG_CODE code},
+	 * {@link kOFFSET_PASSWORD password} and {@link kTAG_NAME name} are set.
 	 *
 	 * @param string				$theOffset			Offset.
 	 *
 	 * @access public
-	 *
-	 * @throws CException
-	 *
-	 * @see kERROR_PROTECTED
 	 *
 	 * @uses _IsInited()
 	 * @uses _IsCommitted()
 	 */
 	public function offsetUnset( $theOffset )
 	{
-		//
-		// Lock code.
-		//
-		if( $this->_IsCommitted() )
-		{
-			//
-			// Handle code.
-			//
-			if( ($theOffset == kTAG_CODE)
-			 && ($theValue !== $this->offsetGet( kTAG_CODE )) )
-				throw new CException
-						( "Cannot modify this offset",
-						  kERROR_PROTECTED,
-						  kMESSAGE_TYPE_ERROR,
-						  array( 'Offset' => kTAG_CODE ) );				// !@! ==>
-		}
-		
 		//
 		// Call parent method.
 		//
@@ -389,36 +343,11 @@ class CUser extends CMongoUnitObject
 		//
 		// Set inited flag.
 		//
-		$this->_IsInited( $this->offsetExists( kTAG_CODE ) &&
+		$this->_IsInited( $this->offsetExists( kOFFSET_MAIL ) &&
 						  $this->offsetExists( kOFFSET_PASSWORD ) &&
-						  $this->offsetExists( kTAG_NAME ) &&
-						  $this->offsetExists( kOFFSET_MAIL ) );
+						  $this->offsetExists( kTAG_NAME ) );
 	
 	} // offsetUnset.
-
-		
-
-/*=======================================================================================
- *																						*
- *							PROTECTED IDENTIFICATION INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	_id																				*
-	 *==================================================================================*/
-
-	/**
-	 * Return the object's unique identifier.
-	 *
-	 * In this class the user's {@link kTAG_CODE code} is the unique identifier.
-	 *
-	 * @access protected
-	 * @return string
-	 */
-	protected function _id()				{	return $this->offsetGet( kTAG_CODE );	}
 
 		
 
@@ -455,8 +384,7 @@ class CUser extends CMongoUnitObject
 		//
 		// Check required offsets.
 		//
-		$this->_IsInited( $this->offsetExists( kTAG_CODE ) &&
-						  $this->offsetExists( kOFFSET_PASSWORD ) &&
+		$this->_IsInited( $this->offsetExists( kOFFSET_PASSWORD ) &&
 						  $this->offsetExists( kTAG_NAME ) &&
 						  $this->offsetExists( kOFFSET_MAIL ) );
 		
@@ -495,6 +423,12 @@ class CUser extends CMongoUnitObject
 	 */
 	protected function _PrepareStore( &$theContainer, &$theIdentifier )
 	{
+		//
+		// Init code.
+		//
+		if( ! $this->offsetExists( kTAG_CODE ) )
+			$this->offsetSet( kTAG_CODE, $this->offsetGet( kOFFSET_MAIL ) );
+		
 		//
 		// Check if inited.
 		//

@@ -31,6 +31,22 @@ require_once( kPATH_LIBRARY_SOURCE."CMongoUnitObject.php" );
 
 
 /*=======================================================================================
+ *	TEST CLASS																			*
+ *======================================================================================*/
+
+//
+// Test class.
+//
+class MyTest extends CMongoUnitObject
+{
+	protected function _id()
+	{
+		return $this->offsetGet( 'SURNAME' );										// ==>
+	}
+}
+
+
+/*=======================================================================================
  *	TEST MONGO PERSISTENT OBJECTS														*
  *======================================================================================*/
 
@@ -79,43 +95,53 @@ try
 	//
 	echo( '<h3>Persistence</h3>' );
 	
-	echo( '<i>$identifier = $test->Commit( $collection );</i><br>' );
-	$identifier = $test->Commit( $collection );
-	echo( "$identifier<pre>" ); print_r( $test ); echo( '</pre>' );
-	
-	echo( '<i>$test = new CMongoUnitObject( $collection, $identifier );</i><br>' );
-	$test = new CMongoUnitObject( $collection, $identifier );
+	echo( '<h4>Let Mongo give the ID</h4>' );
+	$test = new CMongoUnitObject( $container );
+	echo( '<i>$test = new CMongoUnitObject( $container );</i><br>' );
+	$first = $test->Commit( $collection );
+	echo( '<i>$first = $test->Commit( $collection );</i><br>' );
+	echo( "<pre>" ); print_r( $first ); echo( '</pre>' );
 	echo( "<pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
 	
-	echo( '<i>new CMongoUnitObject( array( \'NAME\' => \'TEST\' ) );</i><br>' );
-	$test = new CMongoUnitObject( array( 'NAME' => 'TEST' ) );
-	echo( '<i>$identifier = $test->Commit( $collection, \'NEW\' );</i><br>' );
-	$identifier = $test->Commit( $collection, 'NEW' );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	
-	echo( '<i>$test = new CMongoUnitObject( $collection, \'NEW\' );</i><br>' );
-	$test = new CMongoUnitObject( $collection, 'NEW' );
+	echo( '<h4>Let class give the ID</h4>' );
+	$test = new MyTest( $container );
+	echo( '<i>$test = new MyTest( $container );</i><br>' );
+	$second = $test->Commit( $collection );
+	echo( '<i>$second = $test->Commit( $collection );</i><br>' );
+	echo( "<pre>" ); print_r( $second ); echo( '</pre>' );
 	echo( "<pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
 	
-	echo( '<i>$test[ \'NEW\' ] = \'NEW\';</i><br>' );
-	echo( '<i>$test->Commit( $collection );</i><br>' );
-	$test[ 'NEW' ] = 'NEW';
-	$test->Commit( $collection );
+	echo( '<h4>Provide the ID</h4>' );
+	$test = new CMongoUnitObject( $container );
+	echo( '<i>$test = new CMongoUnitObject( $container );</i><br>' );
+	$third = $test->Commit( $collection, 'ID' );
+	echo( '<i>$third = $test->Commit( $collection, \'ID\' );</i><br>' );
+	echo( "<pre>" ); print_r( $third ); echo( '</pre>' );
 	echo( "<pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
 	
-	echo( '<i>$test = new CMongoObject();</i><br>' );
-	echo( '<i>$test[ \'OTHER\' ] = \'Other\';</i><br>' );
-	echo( '<i>$test->Commit( $collection, \'OTHER\' );;</i><br>' );
-	echo( '<i>$test = NewObject( $collection, \'OTHER\' );</i><br>' );
-	$test = new CMongoObject();
-	$test[ 'OTHER' ] = 'Other';
-	$test->Commit( $collection, 'OTHER' );
-	$test = CMongoUnitObject::NewObject( $collection, 'OTHER' );
+	echo( '<h4>Retrieve first with NewObject()</h4>' );
+	echo( '<i>$test = CMongoUnitObject::NewObject( $collection, $first );</i><br>' );
+	$test = CMongoUnitObject::NewObject( $collection, $first );
+	echo( "<pre>" ); print_r( $first ); echo( '</pre>' );
 	echo( "<pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
 	
-	echo( '<i>$test = NewObject( $collection, \'NEW\' );</i><br>' );
-	$test = CMongoUnitObject::NewObject( $collection, 'NEW' );
+	echo( '<h4>Retrieve second with NewObject()</h4>' );
+	echo( '<i>$test = CMongoUnitObject::NewObject( $collection, $second );</i><br>' );
+	$test = CMongoUnitObject::NewObject( $collection, $second );
+	echo( "<pre>" ); print_r( $second ); echo( '</pre>' );
 	echo( "<pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<h4>Retrieve third with NewObject()</h4>' );
+	echo( '<i>$test = CMongoUnitObject::NewObject( $collection, $third );</i><br>' );
+	$test = CMongoUnitObject::NewObject( $collection, $third );
+	echo( "<pre>" ); print_r( $third ); echo( '</pre>' );
+	echo( "<pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
 }
 
 //

@@ -186,7 +186,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static SerialiseNativeObject</span> (line <span class="line-number">355</span>)
+		<span class="method-title">static SerialiseNativeObject</span> (line <span class="line-number">362</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -321,7 +321,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FindObject</span> (line <span class="line-number">559</span>)
+		<span class="method-title">_FindObject</span> (line <span class="line-number">566</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -362,7 +362,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareFind</span> (line <span class="line-number">602</span>)
+		<span class="method-title">_PrepareFind</span> (line <span class="line-number">609</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -398,26 +398,18 @@
 						<dd>Normalise parameters of a find.</dd>
 					</dl>
 			
-			<hr class="separator" />
-		<div class="notes">Redefined in descendants as:</div>
-		<ul class="redefinitions">
-					<li>
-				<a href="../../Framework/Persistence/CMongoUnitObject.html#method_PrepareFind">CMongoUnitObject::_PrepareFind()</a>
-								: Normalise parameters of a find.
-							</li>
-				</ul>
 	</div>
 <a name="method_PrepareStore" id="_PrepareStore"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareStore</span> (line <span class="line-number">659</span>)
+		<span class="method-title">_PrepareStore</span> (line <span class="line-number">666</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Normalise parameters of a store.</p>
-<p class="description"><p>The duty of this method is to ensure that the parameters provided to a  <a href="../../Framework/Persistence/CMongoObject.html#method_StoreObject">store</a> operation are ready.</p><p>The method should first check if the provided container is of the correct type, then  it should ensure that the identifier is valid or determine the identifier from the  object's contents.</p><p>Any errors should raise an exception.</p><p>In this class we only support <em>arrays</em> and <em>ArrayObject</em> containers, if  the identifier is missing we assume we want to append the object in the container.</p></p>
+<p class="description"><p>The duty of this method is to ensure that the parameters provided to a  <a href="../../Framework/Persistence/CMongoObject.html#method_StoreObject">store</a> operation are ready.</p><p>The method should first check if the provided container is of the correct type, then  it should ensure that the identifier is valid or determine the identifier from the  object's contents.</p><p>Any errors should raise an exception.</p><p>In this class we only support <em>arrays</em> and <em>ArrayObject</em> containers, if  the identifier is provided, we set the object's <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">ID</a> with it.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> kERROR_OPTION_MISSING kERROR_UNSUPPORTED</li>
 				<li><span class="field">throws:</span> CException</li>
@@ -466,7 +458,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_StoreObject</span> (line <span class="line-number">522</span>)
+		<span class="method-title">_StoreObject</span> (line <span class="line-number">529</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -649,7 +641,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 24 Feb 2012 18:34:35 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Mon, 27 Feb 2012 19:35:09 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

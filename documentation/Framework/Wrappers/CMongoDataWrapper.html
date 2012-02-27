@@ -28,9 +28,18 @@
 	<div class="info-box-body">
         		<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Mongo data wrapper.</p>
-<p class="description"><p>This class overloads its <a href="../../Framework/Wrappers/CDataWrapper.html">ancestor</a> to implement a web-service that  uses a MongoDB data store to manage objects.</p></p>
+<p class="description"><p>This class overloads its <a href="../../Framework/Wrappers/CDataWrapper.html">ancestor</a> to implement a web-service that  uses a MongoDB data store to manage objects.</p><p>This class implements the various elements declared in its <a href="../../Framework/Wrappers/CDataWrapper.html">ancestor</a>  and adds the following options:</p><p><ul><li><em><a href="../../Framework/Wrappers/_classes---CMongoDataWrapper.inc.php.html#definekAPI_OP_GET_ONE">kAPI_OP_GET_ONE</a></em>: This
+        <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">operation</a> is equivalent to the
+        <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OP_GET">kAPI_OP_GET</a> operation, except that it will only return the first
+        found element. It is equivalent to the Mongo findOne() method.</li><li><em><a href="../../Framework/Wrappers/_classes---CMongoDataWrapper.inc.php.html#definekAPI_OP_GET_OBJECT_REF">kAPI_OP_GET_OBJECT_REF</a></em>: This
+        <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">operation</a> will return an object referenced by an object
+        reference (<em>MongoDBRef</em>). With this command you will not provide the
+        <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_CONTAINER">container</a> and the <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_QUERY">query</a>, but you
+        will provide an object reference in the <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_OBJECT">kAPI_DATA_OBJECT</a>
+        parameter. Remember to <a href="../../Framework/Persistence/CMongoObject.html#methodSerialiseObject">serialise</a> the
+        reference before providing it to the wrapper.</li></ul></p></p>
 		<p class="notes">
-			Located in <a class="field" href="_classes---CMongoDataWrapper.php.html">/classes/CMongoDataWrapper.php</a> (line <span class="field">67</span>)
+			Located in <a class="field" href="_classes---CMongoDataWrapper.php.html">/classes/CMongoDataWrapper.php</a> (line <span class="field">84</span>)
 		</p>
 		
 				
@@ -236,7 +245,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FormatContainer</span> (line <span class="line-number">220</span>)
+		<span class="method-title">_FormatContainer</span> (line <span class="line-number">237</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -262,7 +271,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FormatDatabase</span> (line <span class="line-number">185</span>)
+		<span class="method-title">_FormatDatabase</span> (line <span class="line-number">202</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -288,7 +297,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FormatObject</span> (line <span class="line-number">298</span>)
+		<span class="method-title">_FormatObject</span> (line <span class="line-number">315</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -320,7 +329,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FormatQuery</span> (line <span class="line-number">268</span>)
+		<span class="method-title">_FormatQuery</span> (line <span class="line-number">285</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -352,7 +361,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FormatRequest</span> (line <span class="line-number">116</span>)
+		<span class="method-title">_FormatRequest</span> (line <span class="line-number">133</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -384,7 +393,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_HandleOptions</span> (line <span class="line-number">1103</span>)
+		<span class="method-title">_HandleOptions</span> (line <span class="line-number">1115</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -418,7 +427,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_HandleRequest</span> (line <span class="line-number">522</span>)
+		<span class="method-title">_HandleRequest</span> (line <span class="line-number">539</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -450,7 +459,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_Count</span> (line <span class="line-number">622</span>)
+		<span class="method-title">_Handle_Count</span> (line <span class="line-number">634</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -476,7 +485,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_Delete</span> (line <span class="line-number">1020</span>)
+		<span class="method-title">_Handle_Delete</span> (line <span class="line-number">1032</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -502,7 +511,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_Get</span> (line <span class="line-number">720</span>)
+		<span class="method-title">_Handle_Get</span> (line <span class="line-number">732</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -528,7 +537,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_GetObjectByReference</span> (line <span class="line-number">581</span>)
+		<span class="method-title">_Handle_GetObjectByReference</span> (line <span class="line-number">598</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -554,7 +563,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_GetOne</span> (line <span class="line-number">650</span>)
+		<span class="method-title">_Handle_GetOne</span> (line <span class="line-number">662</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -580,7 +589,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_Insert</span> (line <span class="line-number">956</span>)
+		<span class="method-title">_Handle_Insert</span> (line <span class="line-number">968</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -606,7 +615,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_Set</span> (line <span class="line-number">897</span>)
+		<span class="method-title">_Handle_Set</span> (line <span class="line-number">909</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -632,7 +641,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_InitResources</span> (line <span class="line-number">91</span>)
+		<span class="method-title">_InitResources</span> (line <span class="line-number">108</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -664,7 +673,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateObject</span> (line <span class="line-number">441</span>)
+		<span class="method-title">_ValidateObject</span> (line <span class="line-number">458</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -690,7 +699,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateOperation</span> (line <span class="line-number">341</span>)
+		<span class="method-title">_ValidateOperation</span> (line <span class="line-number">358</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -722,7 +731,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateQuery</span> (line <span class="line-number">478</span>)
+		<span class="method-title">_ValidateQuery</span> (line <span class="line-number">495</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -748,7 +757,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateRequest</span> (line <span class="line-number">147</span>)
+		<span class="method-title">_ValidateRequest</span> (line <span class="line-number">164</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -991,7 +1000,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 24 Feb 2012 18:34:35 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Mon, 27 Feb 2012 19:35:09 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

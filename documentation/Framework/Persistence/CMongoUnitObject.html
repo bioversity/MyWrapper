@@ -32,9 +32,15 @@
 <p class="description"><p>A unit object represents a main class, an object that should not be mixed with objects of  other classes. In general, if an object is to refer to a unit object, it should use an  object reference rather than embedding the object.</p><p>This class overloads its <a href="../../Framework/Persistence/CMongoObject.html">ancestor</a> by adding two default offsets:</p><p><ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CLASS">kTAG_CLASS</a></em>: This offset will be automatically filled
         with the object's class name when <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">committing</a>, this is used to
         <a href="../../Framework/Persistence/CMongoUnitObject.html#methodNewObject">instantiate</a> the correct class in mixed classes collections.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_VERSION">kTAG_VERSION</a></em>: This offset will be automatically
-        incremented each time the object is updated.</li></ul></p><p>These offsets should be managed by this class and should be considered read-only  attributes.</p><p>This class declares a static <a href="../../Framework/Persistence/CMongoUnitObject.html#methodNewObject">method</a> that will make use of the  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CLASS">class</a> information to instantiate an object of the correct class.</p><p>Classes derived from this one should return a string that represents the object's unique  identifier in a protected <a href="../../Framework/Persistence/CMongoUnitObject.html#method_id">method</a>: if no <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a> is  provided when <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">committing</a> the object, this string will be hashed and the  binary string will be used as the object's unique identifier. When instantiating a  derived object, if the identifier is a string, it is assumed it represents the value of  the <a href="../../Framework/Persistence/CMongoUnitObject.html#method_id">_id()</a> method.</p></p>
+        incremented each time the object is updated.</li></ul></p><p>These offsets should be managed by this class and should be considered read-only  attributes.</p><p>This class declares a static <a href="../../Framework/Persistence/CMongoUnitObject.html#methodNewObject">method</a> that will make use of the  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CLASS">class</a> information to instantiate an object of the correct class.</p><p>Derived classes share a common identification workflow applied when  <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">saving</a> a new object:</p><p><ul><li><em>Object <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">ID</a></em>: If set among the object's offsets, this
+        will be the value used to uniquely identify the object.</li><li><em>Object <a href="../../Framework/Persistence/CMongoUnitObject.html#method_id">identifier</a></em>: If the object <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">ID</a> was
+        not explicitly set, a protected method, <a href="../../Framework/Persistence/CMongoUnitObject.html#method_id">id()</a>, will be used to get a
+        string that represents the object's unique identifier. This string will be hashed
+        and the resulting 16 character binary string will become the object's unique
+        <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a>.</li><li><em>Mongo default</em>: If the previous method returns <em>NULL</em>, this is the
+        indication that we want Mongo to assign a default identifier.</li></ul></p></p>
 		<p class="notes">
-			Located in <a class="field" href="_classes---CMongoUnitObject.php.html">/classes/CMongoUnitObject.php</a> (line <span class="field">62</span>)
+			Located in <a class="field" href="_classes---CMongoUnitObject.php.html">/classes/CMongoUnitObject.php</a> (line <span class="field">70</span>)
 		</p>
 		
 				
@@ -110,17 +116,11 @@
 										<a href="#NewObject" title="details" class="method-name">NewObject</a>
 											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span> = <span class="var-default">NULL</span>])
 									</div>
-																																																				<div class="method-definition">
+																																												<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">string</span>
 										<a href="#_id" title="details" class="method-name">_id</a>
 										()
-									</div>
-																<div class="method-definition">
-					<img src="../../media/images/Method.png" alt=" "/>
-											<span class="method-result">void</span>
-										<a href="#_PrepareFind" title="details" class="method-name">_PrepareFind</a>
-											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>)
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -179,12 +179,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static NewObject</span> (line <span class="line-number">90</span>)
+		<span class="method-title">static NewObject</span> (line <span class="line-number">101</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Instantiate object.</p>
-<p class="description"><p>This method can be used to instantiate an object from a mixed class data store, it  expects the container to be a MongoCollection and the identifier to be of the correct  type.</p></p>
+<p class="description"><p>This method can be used to instantiate an object from a mixed class data store, it  expects the container to be a MongoCollection and the identifier to be of the correct  type.</p><p>When storing derived objects this method makes use of the <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CLASS">class</a>  offset to instantiate the object of the correct type.</p></p>
 	
 	<div class="method-signature">
 		<span class="method-result">void</span>
@@ -210,12 +210,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_id</span> (line <span class="line-number">156</span>)
+		<span class="method-title">_id</span> (line <span class="line-number">177</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Return the object's unique identifier.</p>
-<p class="description"><p>All derived classes must implement this method, it should return a string which  uniquely identifies the object; this value will be hashed and set as a binary string  in the object's identifier <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">offset</a>.</p></p>
+<p class="description"><p>This method can be used to return a string value that represents the object's unique  identifier, when <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">saving</a> the object for the first time, if this  method returns a value, this will be hashed into a 16 character binary string and set  as the object's <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">ID</a>.</p><p>If this method returns <em>NULL</em>, it is assumed that we want MongoDB to assign a  default ID.</p><p>If the object already has an id <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">offset</a>, this method will not  be used.</p><p>By default we let the system choose an identifier.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
 			</ul>
@@ -230,68 +230,27 @@
 	
 		
 			
-			<hr class="separator" />
-		<div class="notes">Redefined in descendants as:</div>
-		<ul class="redefinitions">
-					<li>
-				<a href="../../Objects/Entities/CUser.html#method_id">CUser::_id()</a>
-								: Return the object's unique identifier.
-							</li>
-				</ul>
 	</div>
-<a name="method_PrepareFind" id="_PrepareFind"><!-- --></a>
+<a name="method_PrepareStore" id="_PrepareStore"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareFind</span> (line <span class="line-number">189</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Normalise parameters of a find.</p>
-<p class="description"><p>We overload this method to check whether the provided container is a MongoCollection.</p><p>If the identifier was provided as a string, it will be hashed and converted to a  MongoBinData object.</p></p>
-	<ul class="tags">
-				<li><span class="field">see:</span> kERROR_OPTION_MISSING kERROR_UNSUPPORTED</li>
-				<li><span class="field">throws:</span> CException</li>
-				<li><span class="field">access:</span> protected</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			_PrepareFind
-		</span>
-					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">reference</span>
-				<span class="var-name">&$theContainer</span><span class="var-description">: Object container.</span>			</li>
-					<li>
-				<span class="var-type">reference</span>
-				<span class="var-name">&$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
-				</ul>
-		
-			<hr class="separator" />
-		<div class="notes">Redefinition of:</div>
-		<dl>
-			<dt><a href="../../Framework/Persistence/CMongoObject.html#method_PrepareFind">CMongoObject::_PrepareFind()</a></dt>
-						<dd>Normalise parameters of a find.</dd>
-					</dl>
-			
-	</div>
-<a name="method_PrepareStore" id="_PrepareStore"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareStore</span> (line <span class="line-number">222</span>)
+		<span class="method-title">_PrepareStore</span> (line <span class="line-number">221</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Normalise parameters of a store.</p>
-<p class="description"><p>We overload this method to handle the <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CLASS">kTAG_CLASS</a>, the  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_VERSION">kTAG_VERSION</a> offsets and set the default identifier  value.</p></p>
+<p class="description"><p>We <a href="../../Framework/Persistence/CMongoObject.html#method_PrepareStore">overload</a> this method to perform the  following actions:</p><p><ul><li><em>Call <a href="../../Framework/Persistence/CMongoObject.html">parent</a> <a href="../../Framework/Persistence/CMongoObject.html#method_PrepareStore">method</a></em>: The parent method will check if the container is of the correct type and
+        set the object <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">ID</a> with the value provided in the
+        identifier parameter if not <em>NULL</em>.</li><li><em>Manage <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">ID</a></em>: This class introduces the unique
+        identifier <a href="../../Framework/Persistence/CMongoUnitObject.html#method_id">concept</a>. If the identifier parameter is empty, the
+        method will check if the <a href="../../Framework/Persistence/CMongoUnitObject.html#method_id">_id()</a> method returns a value: in this
+        case it will both set the identifier parameter and the object
+        <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">ID</a> to the binary hash of that value.</li><li><em>Manage <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CLASS">class</a></em>: If not already set, this method will
+        record the object's class among the offsets.</li><li><em>Manage <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_VERSION">version</a></em>: If set, the method will increment
+        its value, if not set, it will initialise it to zero.
+        record the object's class among the offsets.</li></ul></p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
 			</ul>
@@ -492,7 +451,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 24 Feb 2012 18:34:35 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Mon, 27 Feb 2012 19:35:10 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

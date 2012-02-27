@@ -49,12 +49,20 @@ require_once( kPATH_LIBRARY_SOURCE."CMongoObject.php" );
  * This class declares a static {@link NewObject() method} that will make use of the
  * {@link kTAG_CLASS class} information to instantiate an object of the correct class.
  *
- * Classes derived from this one should return a string that represents the object's unique
- * identifier in a protected {@link _id() method}: if no {@link kTAG_ID_NATIVE identifier} is
- * provided when {@link Commit() committing} the object, this string will be hashed and the
- * binary string will be used as the object's unique identifier. When instantiating a
- * derived object, if the identifier is a string, it is assumed it represents the value of
- * the {@link _id() _id()} method.
+ * Derived classes share a common identification workflow applied when
+ * {@link Commit() saving} a new object:
+ *
+ * <ul>
+ *	<li><i>Object {@link kTAG_ID_NATIVE ID}</i>: If set among the object's offsets, this
+ *		will be the value used to uniquely identify the object.
+ *	<li><i>Object {@link _id() identifier}</i>: If the object {@link kTAG_ID_NATIVE ID} was
+ *		not explicitly set, a protected method, {@link _id() id()}, will be used to get a
+ *		string that represents the object's unique identifier. This string will be hashed
+ *		and the resulting 16 character binary string will become the object's unique
+ *		{@link kTAG_ID_NATIVE identifier}.
+ *	<li><i>Mongo default</i>: If the previous method returns <i>NULL</i>, this is the
+ *		indication that we want Mongo to assign a default identifier.
+ * </ul>
  *
  * @package		Framework
  * @subpackage	Persistence
@@ -81,6 +89,9 @@ class CMongoUnitObject extends CMongoObject
 	 * This method can be used to instantiate an object from a mixed class data store, it
 	 * expects the container to be a MongoCollection and the identifier to be of the correct
 	 * type.
+	 *
+	 * When storing derived objects this method makes use of the {@link kTAG_CLASS class}
+	 * offset to instantiate the object of the correct type.
 	 *
 	 * @param mixed					$theContainer		Persistent container.
 	 * @param mixed					$theIdentifier		Object identifier.
@@ -122,6 +133,7 @@ class CMongoUnitObject extends CMongoObject
 		if( array_key_exists( kTAG_CLASS, $data ) )
 		{
 			$class = $data[ kTAG_CLASS ];
+
 			return new $class( $theContainer, $theIdentifier );						// ==>
 		}
 		
@@ -146,14 +158,23 @@ class CMongoUnitObject extends CMongoObject
 	/**
 	 * Return the object's unique identifier.
 	 *
-	 * All derived classes must implement this method, it should return a string which
-	 * uniquely identifies the object; this value will be hashed and set as a binary string
-	 * in the object's identifier {@link kTAG_ID_NATIVE offset}.
+	 * This method can be used to return a string value that represents the object's unique
+	 * identifier, when {@link Commit() saving} the object for the first time, if this
+	 * method returns a value, this will be hashed into a 16 character binary string and set
+	 * as the object's {@link kTAG_ID_NATIVE ID}.
+	 *
+	 * If this method returns <i>NULL</i>, it is assumed that we want MongoDB to assign a
+	 * default ID.
+	 *
+	 * If the object already has an id {@link kTAG_ID_NATIVE offset}, this method will not
+	 * be used.
+	 *
+	 * By default we let the system choose an identifier.
 	 *
 	 * @access protected
 	 * @return string
 	 */
-	protected function _id()															   {}
+	protected function _id()											{	return NULL;	}
 
 		
 
@@ -166,53 +187,31 @@ class CMongoUnitObject extends CMongoObject
 
 	 
 	/*===================================================================================
-	 *	_PrepareFind																	*
-	 *==================================================================================*/
-
-	/**
-	 * Normalise parameters of a find.
-	 *
-	 * We overload this method to check whether the provided container is a MongoCollection.
-	 *
-	 * If the identifier was provided as a string, it will be hashed and converted to a
-	 * MongoBinData object.
-	 *
-	 * @param reference			   &$theContainer		Object container.
-	 * @param reference			   &$theIdentifier		Object identifier.
-	 *
-	 * @access protected
-	 *
-	 * @throws CException
-	 *
-	 * @see kERROR_OPTION_MISSING kERROR_UNSUPPORTED
-	 */
-	protected function _PrepareFind( &$theContainer, &$theIdentifier )
-	{
-		//
-		// Call parent method.
-		//
-		parent::_PrepareFind( $theContainer, $theIdentifier );
-		
-		//
-		// Convert identifier.
-		//
-		if( ($theIdentifier !== NULL)
-		 && (! $theIdentifier instanceof MongoBinData) )
-			$theIdentifier = new MongoBinData( md5( (string) $theIdentifier, TRUE ) );
-	
-	} // _PrepareFind.
-
-	 
-	/*===================================================================================
 	 *	_PrepareStore																	*
 	 *==================================================================================*/
 
 	/**
 	 * Normalise parameters of a store.
 	 *
-	 * We overload this method to handle the {@link kTAG_CLASS kTAG_CLASS}, the
-	 * {@link kTAG_VERSION kTAG_VERSION} offsets and set the default identifier
-	 * value.
+	 * We {@link CMongoObject::_PrepareStore() overload} this method to perform the
+	 * following actions:
+	 *
+	 * <ul>
+	 *	<li><i>Call {@link CMongoObject parent} {@link CMongoObject::_PrepareStore() method}
+	 *		</i>: The parent method will check if the container is of the correct type and
+	 *		set the object {@link kTAG_ID_NATIVE ID} with the value provided in the
+	 *		identifier parameter if not <i>NULL</i>.
+	 *	<li><i>Manage {@link kTAG_ID_NATIVE ID}</i>: This class introduces the unique
+	 *		identifier {@link _id() concept}. If the identifier parameter is empty, the
+	 *		method will check if the {@link _id() _id()} method returns a value: in this
+	 *		case it will both set the identifier parameter and the object
+	 *		{@link kTAG_ID_NATIVE ID} to the binary hash of that value.
+	 *	<li><i>Manage {@link kTAG_CLASS class}</i>: If not already set, this method will
+	 *		record the object's class among the offsets.
+	 *	<li><i>Manage {@link kTAG_VERSION version}</i>: If set, the method will increment
+	 *		its value, if not set, it will initialise it to zero.
+	 *		record the object's class among the offsets.
+	 * </ul>
 	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
@@ -228,15 +227,26 @@ class CMongoUnitObject extends CMongoObject
 		
 		//
 		// Set identifier.
+		// Note that if not NULL parent method will have set the offset.
 		//
 		if( $theIdentifier === NULL )
-			$theIdentifier = new MongoBinData( md5( $this->_id(), TRUE ) );
-		
-		//
-		// Set id.
-		//
-		if( ! $this->offsetExists( kTAG_ID_NATIVE ) )
-			$this->offsetSet( kTAG_ID_NATIVE, $theIdentifier );
+		{
+			//
+			// Get unique identifier.
+			//
+			if( ($id = $this->_id()) !== NULL )
+			{
+				//
+				// Copy identifier.
+				//
+				$theIdentifier = new MongoBinData( md5( $id, TRUE ) );
+				
+				//
+				// Set offset.
+				//
+				$this->offsetSet( kTAG_ID_NATIVE, $theIdentifier );
+			}
+		}
 		
 		//
 		// Set class.

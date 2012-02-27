@@ -61,6 +61,23 @@ require_once( kPATH_LIBRARY_DEFINES."Session.inc.php" );
  * This class overloads its {@link CDataWrapper ancestor} to implement a web-service that
  * uses a MongoDB data store to manage objects.
  *
+ * This class implements the various elements declared in its {@link CDataWrapper ancestor}
+ * and adds the following options:
+ *
+ * <ul>
+ *	<li><i>{@link kAPI_OP_GET_ONE kAPI_OP_GET_ONE}</i>: This
+ *		{@link kAPI_OPERATION operation} is equivalent to the
+ *		{@link kAPI_OP_GET kAPI_OP_GET} operation, except that it will only return the first
+ *		found element. It is equivalent to the Mongo findOne() method.
+ *	<li><i>{@link kAPI_OP_GET_OBJECT_REF kAPI_OP_GET_OBJECT_REF}</i>: This
+ *		{@link kAPI_OPERATION operation} will return an object referenced by an object
+ *		reference (<i>MongoDBRef</i>). With this command you will not provide the
+ *		{@link kAPI_CONTAINER container} and the {@link kAPI_DATA_QUERY query}, but you
+ *		will provide an object reference in the {@link kAPI_DATA_OBJECT kAPI_DATA_OBJECT}
+ *		parameter. Remember to {@link CMongoObject::SerialiseObject() serialise} the
+ *		reference before providing it to the wrapper.
+ * </ul>
+ *
  *	@package	Framework
  *	@subpackage	Wrappers
  */
@@ -581,15 +598,10 @@ class CMongoDataWrapper extends CDataWrapper
 	protected function _Handle_GetObjectByReference()
 	{
 		//
-		// Cast to reference.
-		//
-		$reference = new CMongoObjectReference( $_REQUEST[ kAPI_DATA_OBJECT ],
-												$_REQUEST[ kAPI_CONTAINER ] );
-		
-		//
 		// Resolve reference.
 		//
-		$object = MongoDBRef::get( $_REQUEST[ kAPI_DATABASE ], $reference );
+		$object = MongoDBRef::get( $_REQUEST[ kAPI_DATABASE ],
+								   $_REQUEST[ kAPI_DATA_OBJECT ] );
 		
 		//
 		// Set total count.

@@ -9,9 +9,8 @@
 /**
  *	{@link CMongoDataWrapper CMongoDataWrapper} definitions.
  *
- *	This file contains common definitions used by the
- * {@link CMongoDataWrapper CMongoDataWrapper}
- *	class.
+ * This file contains common definitions used by the
+ * {@link CMongoDataWrapper CMongoDataWrapper} class.
  *
  *	@package	Framework
  *	@subpackage	Wrappers
@@ -36,7 +35,12 @@ define( "kAPI_OP_GET_ONE",			'get-one' );
 /**
  * GET-OBJECT-REF web-service.
  *
- * This tag defines a web service that returns an object when provided an object reference.
+ * This tag defines a web service that returns an object when provided an object reference:
+ * with this option you do not provide a {@link kAPI_DATA_QUERY query} but you provide a
+ * {@link MongoRefObject reference} object in the {@link kAPI_DATA_OBJECT object} parameter.
+ *
+ * Note that as with other values in the {@link kAPI_DATA_OBJECT object} parameter, you must
+ * {@link CMongoObject::SerialiseObject() serialise} the value.
  */
 define( "kAPI_OP_GET_OBJECT_REF",	'GetObjectByReference' );
 

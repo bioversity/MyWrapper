@@ -652,7 +652,7 @@ class CMongoObject extends CPersistentObject
 	 * Any errors should raise an exception.
 	 *
 	 * In this class we only support <i>arrays</i> and <i>ArrayObject</i> containers, if
-	 * the identifier is missing we assume we want to append the object in the container.
+	 * the identifier is provided, we set the object's {@link kTAG_ID_NATIVE ID} with it.
 	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.

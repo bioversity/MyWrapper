@@ -55,8 +55,7 @@ try
 	
 	$container = array( kTAG_CODE => 'Milko',
 						kOFFSET_PASSWORD => 'Secret',
-						kTAG_NAME => 'Milko A. Škofič',
-						kOFFSET_MAIL => 'm.skofic@cgiar.org' );
+						kTAG_NAME => 'Milko A. Škofič' );
 	echo( 'Container:<pre>' ); print_r( $container ); echo( '</pre>' );
 	echo( '<i>$test = new CUser( $container );</i><br>' );
 	$test = new CUser( $container );
@@ -66,12 +65,12 @@ try
 	echo( '<i>$test->Code( \'JOHN\' );</i><br>' );
 	echo( '<i>$test->Password( \'unknown\' );</i><br>' );
 	echo( '<i>$test->Name( \'John Smith\' );</i><br>' );
-	echo( '<i>$test->Mail( \'js@mail.local\' );</i><br>' );
+	echo( '<i>$test->Mail( \'m.skofic@cgiar.org\' );</i><br>' );
 	$test = new CUser();
 	$test->Code( 'JOHN' );
 	$test->Password( 'unknown' );
 	$test->Name( 'John Smith' );
-	$test->Mail( 'js@mail.local' );
+	$test->Mail( 'm.skofic@cgiar.org' );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	 
 	//
@@ -79,8 +78,7 @@ try
 	//
 	echo( '<h3>Persistence</h3>' );
 
-	$container = array( kTAG_CODE => 'Milko',
-						kOFFSET_PASSWORD => 'Secret',
+	$container = array( kOFFSET_PASSWORD => 'Secret',
 						kTAG_NAME => 'Milko A. Škofič',
 						kOFFSET_MAIL => 'm.skofic@cgiar.org' );
 	echo( '<i>$test = new CUser( $container );</i><br>' );

@@ -1101,6 +1101,41 @@ try
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	
+	echo( '<h4>kAPI_OP_GET_OBJECT_REF in JSON</h4>' );
+	//
+	// Test GET REFERENCE in JSON.
+	//
+	$user_id = new MongoBinData( md5( 'Milko', TRUE ) );
+	$object = MongoDBRef::create( 'USERS', $user_id );
+	$object = CMongoObject::SerialiseObject( $object, TRUE );
+	$object_json = json_encode( $object );
+	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_JSON),
+					 (kAPI_OPERATION.'='.kAPI_OP_GET_OBJECT_REF),
+					 (kAPI_DATABASE.'='."TEST"),
+					 (kAPI_DATA_OBJECT.'='.urlencode( $object_json )),
+					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
+	$request = $url.'?'.implode( '&', $params );
+	$response = file_get_contents( $request );
+	$decoded = json_decode( $response, TRUE );
+	//
+	// Display.
+	//
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.htmlspecialchars( $response ).kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
 	echo( '<h3>DONE</h3>' );
 }
 catch( Exception $error )
