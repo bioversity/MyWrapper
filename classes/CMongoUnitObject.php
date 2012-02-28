@@ -122,22 +122,31 @@ class CMongoUnitObject extends CMongoObject
 		//
 		// Find object.
 		//
-		$data = $theContainer->findOne( array( kTAG_ID_NATIVE => $theIdentifier ),
-										array( kTAG_CLASS => TRUE ) );
+		$data = $theContainer->findOne( array( kTAG_ID_NATIVE => $theIdentifier ) );
 		if( $data === NULL )
 			return NULL;															// ==>
 		
 		//
-		// Instantiate object.
+		// Instantiate specific class.
 		//
 		if( array_key_exists( kTAG_CLASS, $data ) )
 		{
 			$class = $data[ kTAG_CLASS ];
-
-			return new $class( $theContainer, $theIdentifier );						// ==>
+			$object = new $class( $theContainer, $theIdentifier );
 		}
 		
-		return new CMongoObject( $theContainer, $theIdentifier );					// ==>
+		//
+		// Instantiate default class.
+		//
+		else
+			$object = new CMongoObject( $theContainer, $theIdentifier );
+		
+		//
+		// Set committed.
+		//
+		$object->_IsCommitted( TRUE );
+		
+		return $object;																// ==>
 		
 	} // NewObject.
 
