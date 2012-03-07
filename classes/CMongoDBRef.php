@@ -15,7 +15,7 @@
 
 /*=======================================================================================
  *																						*
- *									CMongoDBRef.php									*
+ *										CMongoDBRef.php									*
  *																						*
  *======================================================================================*/
 
@@ -30,8 +30,8 @@ require_once( kPATH_LIBRARY_SOURCE."CPersistentObject.php" );
  * Mongo object reference.
  *
  * This class implements the MongoDBRef class as an instance: that is, a
- * {@link CPersistentObject CPersistentObject} derived object which contains as properties the
- * elements comprising a Mongo object reference.
+ * {@link CPersistentObject CPersistentObject} derived object which contains as properties
+ * the elements comprising a Mongo object reference.
  *
  * The object properties are the same as the MongoDBRef properties:
  *
@@ -42,8 +42,10 @@ require_once( kPATH_LIBRARY_SOURCE."CPersistentObject.php" );
  *	<li><i>{@link kTAG_ID_REFERENCE kTAG_ID_REFERENCE}</i>: Object identifier.
  * </ul>
  *
- * This class adds the class element, {@link kTAG_CLASS kTAG_CLASS}, to store the object
- * type.
+ * This class adds a new reference offset, {@link kTAG_CLASS kTAG_CLASS}, which is used to
+ * instantiate the correct class when dereferencing; this property is either set
+ * {@link ClassName() explicitly} or it is taken from the provided reference
+ * {@link kTAG_CLASS offset} when {@link __construct() constructing} the object.
  *
  *	@package	Framework
  *	@subpackage	Persistence
@@ -80,6 +82,13 @@ class CMongoDBRef extends CPersistentObject
 	 *		{@link kTAG_CLASS class} in the reference.
 	 * </ul>
 	 *
+	 * In the presence of both parameters, the provided collection takes the precedence
+	 * over the referenced collection (and database).
+	 *
+	 * When providing either a reference or an object, the class
+	 * {@link kTAG_CLASS reference} will be set only if the provided reference or object has
+	 * it.
+	 *
 	 * The parameters to this method are:
 	 *
 	 * <ul>
@@ -106,66 +115,109 @@ class CMongoDBRef extends CPersistentObject
 			 || ($theReference instanceof ArrayObject) )
 			{
 				//
-				// Handle referenced object.
+				// Handle reference.
 				//
-				if( $theContainer !== NULL )
+				if( MongoDBRef::isRef( (array) $theReference ) )
 				{
 					//
-					// Check container type.
+					// Save reference.
 					//
-					if( $theContainer instanceof MongoCollection )
+					$reference = (array) $theReference;
+					
+					//
+					// Handle provided container.
+					//
+					if( $theContainer !== NULL )
 					{
 						//
-						// Build reference.
+						// Check container type.
 						//
-				@@@ It looks as if this call doesn't work @@@
-						$reference = $theContainer->createDBRef( $theReference );
-						if( ! MongoDBRef::isRef( $reference ) )
+						if( $theContainer instanceof MongoCollection )
+						{
+							//
+							// Set collection reference.
+							//
+							$reference[ kTAG_COLLECTION_REFERENCE ]
+								= $theContainer->getName();
+							
+							//
+							// Set database reference.
+							//
+							if( array_key_exists( kTAG_DATABASE_REFERENCE, $reference ) )
+								$reference[ kTAG_DATABASE_REFERENCE ]
+									= (string) $theContainer->db;
+						
+						} // Valid container type.
+						
+						else
 							throw new CException
-									( "The provided object parameter cannot be referenced",
+									( "The provided container parameter is invalid",
 									  kERROR_INVALID_PARAMETER,
 									  kMESSAGE_TYPE_ERROR,
-									  array( 'Reference' => $theReference ) );	// !@! ==>
-						
-						//
-						// Instantiate object.
-						//
-						parent::__construct( (array) $reference );
+									  array( 'Container' => $theContainer ) );	// !@! ==>
 					
-					} // Provided collection.
-					
-					else
-						throw new CException
-								( "The provided container parameter is invalid",
-								  kERROR_INVALID_PARAMETER,
-								  kMESSAGE_TYPE_ERROR,
-								  array( 'Container' => $theContainer ) );		// !@! ==>
+					} // Provided container.
 				
-				} // Provided container.
+				} // Provided reference.
 				
 				//
-				// Handle reference.
+				// Handle object.
 				//
 				else
 				{
 					//
-					// Check reference.
+					// Init reference.
 					//
-					if( ! MongoDBRef::isRef( (array) $theReference ) )
-						throw new CException
-								( "The provided reference  parameter is invalid",
-								  kERROR_INVALID_PARAMETER,
-								  kMESSAGE_TYPE_ERROR,
-								  array( 'Reference' => $theReference ) );		// !@! ==>
+					$reference = Array();
 					
 					//
-					// Instantiate object.
+					// Load object ID.
 					//
-					parent::__construct( (array) $theReference );
+					if( array_key_exists( kTAG_ID_NATIVE, (array) $theReference ) )
+						$reference[ kTAG_ID_REFERENCE ] = $theReference[ kTAG_ID_NATIVE ];
+					else
+						throw new CException
+								( "Unable to find object identifier",
+								  kERROR_INVALID_PARAMETER,
+								  kMESSAGE_TYPE_ERROR,
+								  array( 'Identifier' => kTAG_ID_NATIVE,
+								  		 'Object' => $theReference ) );			// !@! ==>
+					
+					//
+					// Handle provided container.
+					//
+					if( $theContainer !== NULL )
+					{
+						//
+						// Check container type.
+						//
+						if( $theContainer instanceof MongoCollection )
+							$reference[ kTAG_COLLECTION_REFERENCE ]
+								= $theContainer->getName();
+						
+						else
+							throw new CException
+									( "The provided container parameter is invalid",
+									  kERROR_INVALID_PARAMETER,
+									  kMESSAGE_TYPE_ERROR,
+									  array( 'Container' => $theContainer ) );	// !@! ==>
+					
+					} // Provided container.
+					
+					//
+					// Set class.
+					//
+					if( array_key_exists( kTAG_CLASS, (array) $theReference ) )
+						$reference[ kTAG_CLASS ] = $theReference[ kTAG_CLASS ];
 				
-				} // Provided reference.
+				} // Provided object.
+				
+				//
+				// Instantiate object.
+				//
+				parent::__construct( $reference );
 			
-			} // Correct type.
+			} // Valid reference or object.
 			
 			else
 				throw new CException
@@ -258,16 +310,6 @@ class CMongoDBRef extends CPersistentObject
 		if( $theContainer instanceof MongoDB )
 		{
 			//
-			// Check for database.
-			//
-			if( ! $this->offsetExists( kTAG_COLLECTION_REFERENCE ) )
-				throw new CException
-						( "Missing collection reference",
-						  kERROR_OPTION_MISSING,
-						  kMESSAGE_TYPE_ERROR,
-						  array( 'Reference' => $this ) );						// !@! ==>
-			
-			//
 			// Get collection.
 			//
 			$theContainer
@@ -294,10 +336,14 @@ class CMongoDBRef extends CPersistentObject
 			return NULL;															// ==>
 		
 		//
-		// Get class.
+		// Get class from reference.
 		//
 		if( $this->offsetExists( kTAG_CLASS ) )
 			$class = $this->offsetGet( kTAG_CLASS );
+		
+		//
+		// Get class from object.
+		//
 		elseif( array_key_exists( kTAG_CLASS, $data ) )
 			$class = $data[ kTAG_CLASS ];
 		
@@ -404,8 +450,18 @@ class CMongoDBRef extends CPersistentObject
 	 */
 	public function Collection( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset
-			( kTAG_COLLECTION_REFERENCE, $theValue, $getOld );						// ==>
+		//
+		// Handle offset.
+		//
+		$result = $this->_ManageOffset( kTAG_COLLECTION_REFERENCE, $theValue, $getOld );
+		
+		//
+		// Set inited status.
+		//
+		if( MongoDBRef::isRef( (array) $this ) )
+			$this->_IsInited( TRUE );
+		
+		return $result;																// ==>
 
 	} // Collection.
 
@@ -443,7 +499,18 @@ class CMongoDBRef extends CPersistentObject
 	 */
 	public function Identifier( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kTAG_ID_REFERENCE, $theValue, $getOld );		// ==>
+		//
+		// Handle offset.
+		//
+		$result = $this->_ManageOffset( kTAG_ID_REFERENCE, $theValue, $getOld );
+		
+		//
+		// Set inited status.
+		//
+		if( MongoDBRef::isRef( (array) $this ) )
+			$this->_IsInited( TRUE );
+		
+		return $result;																// ==>
 
 	} // Identifier.
 

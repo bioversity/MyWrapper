@@ -87,18 +87,20 @@ try
 	echo( '<i>$test = new CMongoDBRef();</i><br>' );
 	$test = new CMongoDBRef();
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
 	
 	$ref = array( kTAG_COLLECTION_REFERENCE => 'Collection', kTAG_ID_REFERENCE => 'ID' );
 	echo( 'Reference<pre>' ); print_r( $ref ); echo( '</pre>' );
 	echo( '<i>$test = new CMongoDBRef( $ref );</i><br>' );
 	$test = new CMongoDBRef( $ref );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
 	
 	try
 	{
-		$object = new Class1( array( 'Name' => 'Milko', 'Surname' => 'Skofic' ) );
 		echo( '<i>$object = new Class1( array( \'Name\' => \'Milko\', \'Surname\' => \'Skofic\' ) );</i><br>' );
-		echo( 'Object<pre>' ); print_r( $object ); echo( '</pre>' );
+		$object = new Class1( array( 'Name' => 'Milko', 'Surname' => 'Skofic' ) );
+		echo( '<pre>' ); print_r( $object ); echo( '</pre>' );
 		echo( '<i>$test = new CMongoDBRef( $object, $collection );</i><br>' );
 		$test = new CMongoDBRef( $object, $collection );
 		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
@@ -108,6 +110,7 @@ try
 		echo( CException::AsHTML( $error ) );
 		echo( '<br>' );
 	}
+	echo( '<hr>' );
 
 	$object = new Class1( array( 'Name' => 'Milko', 'Surname' => 'Skofic' ) );
 	echo( '<i>$object = new Class1( array( \'Name\' => \'Milko\', \'Surname\' => \'Skofic\' ) );</i><br>' );
@@ -117,7 +120,31 @@ try
 	echo( '<i>$test = new CMongoDBRef( $object, $collection );</i><br>' );
 	$test = new CMongoDBRef( $object, $collection );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-exit;
+	echo( '<hr>' );
+	
+	$ref = array( kTAG_COLLECTION_REFERENCE => 'Collection',
+				  kTAG_ID_REFERENCE => 'ID',
+				  kTAG_DATABASE_REFERENCE => 'OtherDatabase' );
+	echo( 'Reference<pre>' ); print_r( $ref ); echo( '</pre>' );
+	echo( '<i>$test = new CMongoDBRef( $ref, $collection );</i><br>' );
+	$test = new CMongoDBRef( $ref, $collection );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
+	 
+	//
+	// Test resolve.
+	//
+	echo( '<h3>Resolve</h3>' );
+	
+	$ref = array( kTAG_ID_REFERENCE => $id, kTAG_COLLECTION_REFERENCE => $collection->getname() );
+	echo( '<i>$ref = array( kTAG_ID_REFERENCE => $id, kTAG_COLLECTION_REFERENCE => $collection->getname() );</i><br>' );
+	echo( '<i>$test = new CMongoDBRef( $ref );</i><br>' );
+	$test = new CMongoDBRef( $ref );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	$object = $test->Resolve( $collection );
+	echo( '<i>$object = $test->Resolve( $collection );</i><br>' );
+	echo( '<pre>' ); print_r( $object ); echo( '</pre>' );
+	echo( '<hr>' );
 }
 
 //
