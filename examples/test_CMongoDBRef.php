@@ -47,7 +47,7 @@ class Class1 extends CMongoUnitObject{}
 //
 // Test class 2.
 //
-class Class2 extends CMongoUnitObject{}
+class Class2 extends CMongoObject{}
 
 
 /*=======================================================================================
@@ -140,6 +140,19 @@ try
 	echo( '<i>$ref = array( kTAG_ID_REFERENCE => $id, kTAG_COLLECTION_REFERENCE => $collection->getname() );</i><br>' );
 	echo( '<i>$test = new CMongoDBRef( $ref );</i><br>' );
 	$test = new CMongoDBRef( $ref );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	$object = $test->Resolve( $collection );
+	echo( '<i>$object = $test->Resolve( $collection );</i><br>' );
+	echo( '<pre>' ); print_r( $object ); echo( '</pre>' );
+	echo( '<hr>' );
+
+	$object = new Class2( array( 'Name' => 'Luca', 'Surname' => 'Sampieri' ) );
+	echo( '<i>$object = new Class2( array( \'Name\' => \'Luca\', \'Surname\' => \'Sampieri\' ) );</i><br>' );
+	echo( '<i>$id = $object->Commit( $collection );</i><br>' );
+	$id = $object->Commit( $collection );
+	echo( '<pre>' ); print_r( $object ); echo( '</pre>' );
+	echo( '<i>$test = new CMongoDBRef( $object, $collection );</i><br>' );
+	$test = new CMongoDBRef( $object, $collection );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	$object = $test->Resolve( $collection );
 	echo( '<i>$object = $test->Resolve( $collection );</i><br>' );

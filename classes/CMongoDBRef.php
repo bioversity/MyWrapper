@@ -288,7 +288,7 @@ class CMongoDBRef extends CPersistentObject
 			//
 			// Check for database.
 			//
-			if( ! $this->offsetExists( kTAG_DATABASE_REFERENCE ) )
+			if( ($database = $this->Database()) === NULL )
 				throw new CException
 						( "Missing database reference",
 						  kERROR_OPTION_MISSING,
@@ -298,9 +298,7 @@ class CMongoDBRef extends CPersistentObject
 			//
 			// Get database.
 			//
-			$theContainer
-				= $theContainer->selectDB
-					( (string) $this->offsetGet( kTAG_DATABASE_REFERENCE ) );
+			$theContainer = $theContainer->selectDB( (string) $database );
 		
 		} // Provided Mongo.
 		
@@ -308,15 +306,7 @@ class CMongoDBRef extends CPersistentObject
 		// Handle MongoDB
 		//
 		if( $theContainer instanceof MongoDB )
-		{
-			//
-			// Get collection.
-			//
-			$theContainer
-				= $theContainer->selectCollection
-					( (string) $this->offsetGet( kTAG_COLLECTION_REFERENCE ) );
-		
-		} // Provided MongoDB.
+			$theContainer = $theContainer->selectCollection( $this->Collection() );
 		
 		//
 		// Handle MongoCollection.
@@ -338,20 +328,26 @@ class CMongoDBRef extends CPersistentObject
 		//
 		// Get class from reference.
 		//
-		if( $this->offsetExists( kTAG_CLASS ) )
-			$class = $this->offsetGet( kTAG_CLASS );
-		
+		$class = $this->ClassName();
+
 		//
 		// Get class from object.
 		//
-		elseif( array_key_exists( kTAG_CLASS, $data ) )
-			$class = $data[ kTAG_CLASS ];
+		if( $class === NULL )
+		{
+			//
+			// Get class from object.
+			//
+			if( array_key_exists( kTAG_CLASS, $data ) )
+				$class = $data[ kTAG_CLASS ];
+			
+			//
+			// Return data.
+			//
+			else
+				return $data;														// ==>
 		
-		//
-		// No object class.
-		//
-		else
-			return $data;															// ==>
+		} // Class not in reference.
 		
 		//
 		// Instantiate.
