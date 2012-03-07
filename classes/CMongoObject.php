@@ -437,7 +437,7 @@ class CMongoObject extends CPersistentObject
 				switch( $theElement[ kTAG_TYPE ] )
 				{
 					case kDATA_TYPE_MongoId:
-						return new MongoId( $theElement[ kTAG_DATA ] );			// ==>
+						return new MongoId( $theElement[ kTAG_DATA ] );				// ==>
 				
 					case kDATA_TYPE_MongoCode:
 						$tmp1 = $theElement[ kTAG_DATA ][ kOBJ_TYPE_CODE_SRC ];
@@ -472,7 +472,7 @@ class CMongoObject extends CPersistentObject
 					case kDATA_TYPE_BINARY:
 					case kDATA_TYPE_MongoBinData:
 						return new MongoBinData
-								( pack( 'H*', $theElement[ kTAG_DATA ] ) );		// ==>
+								( pack( 'H*', $theElement[ kTAG_DATA ] ) );			// ==>
 				
 					case kDATA_TYPE_INT32:
 					case kDATA_TYPE_MongoInt32:
@@ -565,7 +565,7 @@ class CMongoObject extends CPersistentObject
 	 */
 	protected function _FindObject( &$theContainer, &$theIdentifier )
 	{
-		return $theContainer->findOne( array( kTAG_ID_NATIVE => $theIdentifier ) );		// ==>
+		return $theContainer->findOne( array( kTAG_ID_NATIVE => $theIdentifier ) );	// ==>
 	
 	} // _FindObject.
 

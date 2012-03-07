@@ -1039,7 +1039,7 @@ class CDataWrapper extends CWrapper
 				case kDATA_TYPE_JSON:
 					try
 					{
-						$_REQUEST[ $theParameter ] = self::_JsonDecode( $encoded );
+						$_REQUEST[ $theParameter ] = self::JsonDecode( $encoded );
 					}
 					catch( Exception $error )
 					{

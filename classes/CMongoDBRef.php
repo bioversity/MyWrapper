@@ -178,7 +178,7 @@ class CMongoDBRef extends CPersistentObject
 					else
 						throw new CException
 								( "Unable to find object identifier",
-								  kERROR_INVALID_PARAMETER,
+								  kERROR_INVALID_STATE,
 								  kMESSAGE_TYPE_ERROR,
 								  array( 'Identifier' => kTAG_ID_NATIVE,
 								  		 'Object' => $theReference ) );			// !@! ==>

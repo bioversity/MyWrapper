@@ -80,7 +80,7 @@ try
 
 	$container = array( kOFFSET_PASSWORD => 'Secret',
 						kTAG_NAME => 'Milko A. Škofič',
-						kOFFSET_MAIL => 'm.skofic@cgiar.org' );
+						kOFFSET_EMAIL => 'm.skofic@cgiar.org' );
 	echo( '<i>$test = new CUser( $container );</i><br>' );
 	echo( '<i>$identifier = $test->Commit( $collection );</i><br>' );
 	$test = new CUser( $container );

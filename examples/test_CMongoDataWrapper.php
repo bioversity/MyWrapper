@@ -485,7 +485,7 @@ try
 					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
 	$request = $url.'?'.implode( '&', $params );
 	$response = file_get_contents( $request );
-	$decoded = CArrayObject::_JsonDecode( $response );
+	$decoded = CObject::JsonDecode( $response );
 	//
 	// Display.
 	//
@@ -516,7 +516,7 @@ try
 					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
 	$request = $url.'?'.implode( '&', $params );
 	$response = file_get_contents( $request );
-	$decoded = CArrayObject::_JsonDecode( $response );
+	$decoded = CObject::JsonDecode( $response );
 	//
 	// Display.
 	//
@@ -547,7 +547,7 @@ try
 					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
 	$request = $url.'?'.implode( '&', $params );
 	$response = file_get_contents( $request );
-	$decoded = CArrayObject::_JsonDecode( $response );
+	$decoded = CObject::JsonDecode( $response );
 	//
 	// Display.
 	//

@@ -1,21 +1,21 @@
 <?php
 
 /**
- * <i>CUser</i> class definition.
+ * <i>CDataset</i> class definition.
  *
- * This file contains the class definition of <b>CUser</b> which represents a class mapping
- * a general purpose user.
+ * This file contains the class definition of <b>CDataset</b> which represents the base
+ * class mapping dataset objects.
  *
  *	@package	Objects
- *	@subpackage	Entities
+ *	@subpackage	Data
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
- *	@version	1.00 21/02/2012
+ *	@version	1.00 07/03/2012
  */
 
 /*=======================================================================================
  *																						*
- *										CUser.php										*
+ *										CDataset.php									*
  *																						*
  *======================================================================================*/
 
@@ -67,7 +67,7 @@ require_once( kPATH_LIBRARY_SOURCE."CMongoUnitObject.php" );
  *	@package	Objects
  *	@subpackage	Entities
  */
-class CUser extends CMongoUnitObject
+class CDataset extends CMongoUnitObject
 {
 		
 
@@ -461,7 +461,7 @@ class CUser extends CMongoUnitObject
 
 	 
 
-} // class CUser.
+} // class CDataset.
 
 
 ?>

@@ -1,21 +1,21 @@
 <?php
 
 /**
- * <i>CUser</i> class definition.
+ * <i>CEntity</i> class definition.
  *
- * This file contains the class definition of <b>CUser</b> which represents a class mapping
- * a general purpose user.
+ * This file contains the class definition of <b>CEntity</b> which represents a class
+ * mapping a general purpose entity.
  *
  *	@package	Objects
  *	@subpackage	Entities
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
- *	@version	1.00 21/02/2012
+ *	@version	1.00 07/03/2012
  */
 
 /*=======================================================================================
  *																						*
- *										CUser.php										*
+ *										CEntity.php										*
  *																						*
  *======================================================================================*/
 
@@ -27,15 +27,14 @@
 require_once( kPATH_LIBRARY_SOURCE."CMongoUnitObject.php" );
 
 /**
- * User ancestor.
+ * Entity ancestor.
  *
- * This class is the ancestor of user classes in this library, it implements an object that
- * represents a basic user. This object features a minimum set of properties that can be set
- * via {@link Offsets.inc.php offsets}.
- *
- * This class implements only the required attributes of a user:
+ * This class is the ancestor of entity classes in this library, entities are either
+ * institutions or individuals, this class implements the elements common to both:
  *
  * <ul>
+ *	<li><i>{@link kTAG_NAME kTAG_NAME}</i>: This offset represents the entity full name.
+
  *	<li><i>{@link kTAG_CODE kTAG_CODE}</i>: The user code. This required property represents
  *		the user code. If empty, by default it will be initialised as the user's
  *		{@link kOFFSET_EMAIL e-mail}. Although no two users should share the same value, in
@@ -67,7 +66,7 @@ require_once( kPATH_LIBRARY_SOURCE."CMongoUnitObject.php" );
  *	@package	Objects
  *	@subpackage	Entities
  */
-class CUser extends CMongoUnitObject
+class CEntity extends CMongoUnitObject
 {
 		
 
@@ -461,7 +460,7 @@ class CUser extends CMongoUnitObject
 
 	 
 
-} // class CUser.
+} // class CEntity.
 
 
 ?>

@@ -81,9 +81,9 @@ define( "kTAG_CLASS",							':CLASS' );
 /**
  * Version tag.
  *
- * This is the tag is an offset that should be used to represent the object's version, the
- * version is a value that should change each time the object is saved: it can be used to
- * check whether an object was modified since the last time it was read.
+ * This tag is an offset that should be used to represent the object's version, the version
+ * is a value that should change each time the object is saved: it can be used to check
+ * whether an object was modified since the last time it was read.
  *
  * By default it is an integer incremented each time the object is saved.
  */
@@ -96,18 +96,17 @@ define( "kTAG_VERSION",							':VERSION' );
 /**
  * Type.
  *
- * This tag is used as the default offset for indicating an attribute's type.
- *
- * Cardinality: one.
+ * This tag is used as the default offset for indicating an attribute's type, in general it
+ * is used in an array in conjunction with the {@link kTAG_DATA data} offset to indicate the
+ * data type of the item.
  */
 define( "kTAG_TYPE",							':TYPE' );
 
 /**
  * Data.
  *
- * This tag is used as the default offset for indicating an attribute's data or content.
- *
- * Cardinality: one.
+ * This tag is used as the default offset for indicating an attribute's data or content, in
+ * general this tag is used with the {@link kTAG_TYPE type} offset when storing 
  */
 define( "kTAG_DATA",							':DATA' );
 
@@ -130,8 +129,6 @@ define( "kTAG_NAME",							':NAME' );
  *
  * This tag is used as the default offset for indicating an attribute's description or
  * definition.
- *
- * Cardinality: zero or one.
  */
 define( "kTAG_DESCRIPTION",						':DESCRIPTION' );
 
@@ -140,8 +137,6 @@ define( "kTAG_DESCRIPTION",						':DESCRIPTION' );
  *
  * This tag is used as the default offset for indicating the language of an attribute, it
  * should be the 2 character ISO 639 language code.
- *
- * Cardinality: zero or one.
  */
 define( "kTAG_LANGUAGE",						':LANGUAGE' );
 
@@ -151,8 +146,6 @@ define( "kTAG_LANGUAGE",						':LANGUAGE' );
  * This tag is used as the default offset for indicating an attribute's status or state, it
  * will generally be an array of tags defining the various states associated with the
  * object.
- *
- * Cardinality: zero or one.
  */
 define( "kTAG_STATUS",							':STATUS' );
 
@@ -161,32 +154,34 @@ define( "kTAG_STATUS",							':STATUS' );
  *
  * This tag is used as the default offset for indicating a list of annotations, in general
  * it will contain a list of key/value pairs.
- *
- * Cardinality: zero or one.
  */
 define( "kTAG_ANNOTATION",						':ANNOTATION' );
 
 /*=======================================================================================
- *	GENERAL PURPOSE OFFSETS																*
+ *	DEFAULT PROPERTY OFFSETS															*
  *======================================================================================*/
 
 /**
  * Password offset.
  *
  * This is the tag that represents a password; the value is a string.
- *
- * Cardinality: zero or one.
  */
 define( "kOFFSET_PASSWORD",						':PASS' );
 
 /**
- * User e-mail offset.
+ * Mail offset.
  *
- * This is the tag that represents an e-mail, the value is a string.
- *
- * Cardinality: any.
+ * This is the tag that represents a mailing address, the value may either be a string or
+ * an array.
  */
 define( "kOFFSET_MAIL",							':MAIL' );
+
+/**
+ * E-mail offset.
+ *
+ * This is the tag that represents an e-mail, the value may either be a string or an array.
+ */
+define( "kOFFSET_EMAIL",						':EMAIL' );
 
 
 ?>

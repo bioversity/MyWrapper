@@ -1,21 +1,21 @@
 <?php
 
 /**
- * {@link CArrayObject.php Base} object test suite.
+ * {@link CObject.php Base} object test suite.
  *
  * This file contains routines to test and demonstrate the behaviour of the
- * base object {@link CArrayObject class}.
+ * base object {@link CObject class}.
  *
  *	@package	Test
  *	@subpackage	Framework
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
- *	@version	1.00 13/12/2012
+ *	@version	1.00 07/03/2012
  */
 
 /*=======================================================================================
  *																						*
- *									test_CArrayObject.php								*
+ *									test_CObject.php									*
  *																						*
  *======================================================================================*/
 
@@ -27,7 +27,25 @@ require_once( '/Library/WebServer/Library/wrapper/includes.inc.php' );
 //
 // Class includes.
 //
-require_once( kPATH_LIBRARY_SOURCE."CArrayObject.php" );
+require_once( kPATH_LIBRARY_SOURCE."CObject.php" );
+
+
+/*=======================================================================================
+ *	DEFINE TEST CLASS																	*
+ *======================================================================================*/
+ 
+//
+// Declare test class.
+//
+class MyTest extends CObject
+{
+	private $mMember = NULL;
+	 
+	function Member( $theValue, $getOld = FALSE )
+	{
+		return $this->_ManageMember( $this->mMember, $theValue, $getOld );			// ==>
+	}
+}
 
 
 /*=======================================================================================
@@ -37,7 +55,7 @@ require_once( kPATH_LIBRARY_SOURCE."CArrayObject.php" );
 //
 // Instantiate test class.
 //
-$test = new CArrayObject();
+$test = new MyTest();
 
 //
 // Get a timer.
@@ -49,28 +67,6 @@ $start = microtime( TRUE );
 //
 try
 {
-	//
-	// Test offsets.
-	//
-	echo( '<h3>Offsets</h3>' );
-	
-	$test[ 'Name' ] = 'Milko';
-	$test[ 'Surname' ] = 'Skofic';
-	echo( '<i>$test[ \'Name\' ] = \'Milko\';<br>'
-		 .'$test[ \'Surname\' ] = \'Skofic\';</i><br>' );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	
-	$x1 = $test[ 'Name' ];
-	$x2 = $test[ 'non-existant' ];
-	if( $x2 === NULL )
-		$x2 = '<i>NULL</i>';
-	echo( '<i>$test[ \'Name\' ] = </i>'.$x1.'<br>' );
-	echo( '<i>$test[ \'non-existant\' ] = </i>'."$x2<br><br>" );
-	
-	$test[ 'Surname' ] = NULL;
-	echo( '$test[ \'Surname\' ] = NULL;</i><br>' );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	
 	//
 	// Test JSON.
 	//
@@ -176,17 +172,27 @@ try
 	echo( CObject::DurationString( $end - $start )."<br><br>" );
 	
 	//
-	// Test array functions.
+	// Test member maagement functions.
 	//
-	echo( '<h3>Array functions</h3>' );
+	echo( '<h3>member management functions</h3>' );
 	
-	$norm = $test->keys();
-	echo( '$test-><i>keys()</i>;<br>' );
-	echo( '<pre>' ); print_r( $norm ); echo( '</pre>' );
+	$res = $test->Member( 1 );
+	echo( '$res = $test->Member( 1 );<br>' );
+	echo( 'Test<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Result<pre>' ); print_r( $res ); echo( '</pre>' );
+	echo( '<hr>' );
 	
-	$norm = $test->values();
-	echo( '$test-><i>values()</i>;<br>' );
-	echo( '<pre>' ); print_r( $norm ); echo( '</pre>' );
+	$res = $test->Member( 2 );
+	echo( '$res = $test->Member( 2 );<br>' );
+	echo( 'Test<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Result<pre>' ); print_r( $res ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	$res = $test->Member( 3, TRUE );
+	echo( '$res = $test->Member( 3, TRUE );<br>' );
+	echo( 'Test<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Result<pre>' ); print_r( $res ); echo( '</pre>' );
+	echo( '<hr>' );
 }
 
 //

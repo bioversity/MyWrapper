@@ -1210,7 +1210,7 @@ class CWrapper extends CStatusObject
 			case kDATA_TYPE_JSON:
 				try
 				{
-					return self::_JsonEncode( $this->getArrayCopy() );				// ==>
+					return self::JsonEncode( $this->getArrayCopy() );				// ==>
 				}
 				catch( Exception $error )
 				{
