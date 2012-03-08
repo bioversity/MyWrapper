@@ -84,5 +84,16 @@ define( "kERROR_PROTECTED",					-7 );			// Protected.
  */
 define( "kERROR_NOT_FOUND",					-8 );			// Not found.
 
+/**
+ * Duplicate.
+ *
+ * This error is raised when a duplicate element is found in a collection which is supposed
+ * to have unique elements.
+ *
+ * In general this is the error that will be raised when
+ * {@link kFLAG_PERSIST_INSERT inserting} a duplicate element in a container.
+ */
+define( "kERROR_DUPLICATE",					-9 );			// Duplicate.
+
 
 ?>

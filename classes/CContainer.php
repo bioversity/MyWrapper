@@ -32,21 +32,21 @@ require_once( kPATH_LIBRARY_SOURCE."CObject.php" );
  * This <i>abstract</i> class is the ancestor of all persistent object data stores, it
  * implements the common interfaces shared by all concrete instances of object data stores.
  *
- * The main duty of this object is to store, retrieve and delete objects from a persistent
- * container.
+ * The class is designed to work with one object at the time, which means that it expects
+ * and returns one object, it does not handle object collections.
+ *
+ * Persistence operations are performed through three methods:
  *
  * <ul>
- *	<li><i>{@link Commit() Commit}</i>: This method will commit the provided object into the
- *		current object store.
- *	<li><i>{@link Load() Load}</i>: This method will search for the object identified by
- *		the provided value in the object store and return it.
- *	<li><i>{@link Delete() Delete}</i>: This method will search for the object identified by
- *		the provided value in the object store and delete it.
+ *	<li><i>{@link Commit() Commit}</i>: This method will insert, replace or modify objects
+ *		in the current object store.
+ *	<li><i>{@link Load() Load}</i>: This method will retrieve objects from the current
+ *		object store.
+ *	<li><i>{@link Delete() Delete}</i>: This method will remove objects from the current
+ *		object store.
  * </ul>
  *
- * The class is designed to work with one object at the time, which means that it expects
- * and returns one object. The identifier of the object must be stored under the
- * {@link kTAG_ID_NATIVE kTAG_ID_NATIVE} key.
+ * The class features a {@link Container() member} that holds the native data store.
  *
  * @package		Framework
  * @subpackage	Persistence
@@ -79,11 +79,15 @@ abstract class CContainer extends CObject
 	/**
 	 * Instantiate class.
 	 *
-	 * The constructor is used to instantiate the class with a native data store, the method
-	 * expects a single parameter that represents the native database, table or container.
+	 * You instantiate the class with a native data store, the method expects a single
+	 * parameter that will be handled specifically by specialised derived classes.
 	 *
-	 * Although the container provides a default value for the parameter, this will not be
-	 * accepted, since concrete instances must provide their custom default container.
+	 * This method should only be overloaded if you need to set a default value, or if you
+	 * need to make specific initialisation before this method sets the
+	 * {@link Container() container}.
+	 *
+	 * You should check the type of the provided parameter in the
+	 * {@link Container() Container()} method rather than here.
 	 *
 	 * @param mixed					$theContainer		Native persistent container.
 	 *
@@ -124,7 +128,10 @@ abstract class CContainer extends CObject
 	 * The second parameter is a boolean which if <i>TRUE</i> will return the <i>old</i>
 	 * value when setting a new value; if <i>FALSE</i>, it will return the newly set value.
 	 *
-	 * It is not allowed to delete the container.
+	 * One is not allowed to delete the container.
+	 *
+	 * In derived classes you should overload this method to check if the provided container
+	 * is of the correct type.
 	 *
 	 * @param mixed					$theValue			Persistent container or operation.
 	 * @param boolean				$getOld				TRUE get old value.
@@ -155,35 +162,101 @@ abstract class CContainer extends CObject
 	/**
 	 * Commit provided object.
 	 *
-	 * This method can be used to commit the provided object to the current data store.
+	 * This method can be used to commit the provided object to the current data store, it
+	 * expects three parameters:
 	 *
-	 * The provided object must be either an array or an ArrayObject.
+	 * <ul>
+	 *	<li><b>$theObject</b>: The object to be committed.
+	 *	<li><b>$theIdentifier</b>: This parameter is expected to be the object's unique
+	 *		identifier within the container, it will be the {@link Load() access} key to the
+	 *		object once committed. The default value is <i>NULL</i>, this will generally be
+	 *		the case when inserting objects that expect their identifier to be computed by
+	 *		the container itself; in all other cases the parameter is required.
+	 *	<li><b>$theModifiers</b>: This parameter represents the commit operation options, by
+	 *		default we assume it is a bitfield where the following values apply:
+	 *	 <ul>
+	 *		<li><i>{@link kFLAG_PERSIST_INSERT kFLAG_PERSIST_INSERT}</i>: The provided
+	 *			object will be inserted in the container, it is assumed that no other
+	 *			element in the container shares the same identifier, in that case the method
+	 *			must raise an {@link kERROR_DUPLICATE exception}.
+	 *		<li><i>{@link kFLAG_PERSIST_UPDATE kFLAG_PERSIST_UPDATE}</i>: The provided
+	 *			object will replace the existing object. In this case the method expects
+	 *			the container to have an entry with the same key as the provided identifier,
+	 *			if this is not the case the method must raise an
+	 *			{@link kERROR_NOT_FOUND exception}. With this option it is assumed that the
+	 *			provided object's attributes will replace all the existing object's ones.
+	 *		<li><i>{@link kFLAG_PERSIST_MODIFY kFLAG_PERSIST_MODIFY}</i>: The provided
+	 *			object is assumed to contain a subset of an existing object's attributes,
+	 *			these provided attributes will be appended or replace the existing ones.
+	 *			In this case the method expects the container to have an entry with the
+	 *			same key as the provided identifier, if this is not the case the method must
+	 *			raise an {@link kERROR_NOT_FOUND exception}.
+	 *		<li><i>{@link kFLAG_PERSIST_REPLACE kFLAG_PERSIST_REPLACE}</i>: The provided
+	 *			object will be {@link kFLAG_PERSIST_INSERT inserted}, if the identifier
+	 *			doesn't match any container elements, or it will
+	 *			{@link kFLAG_PERSIST_UPDATE replace} the existing object. As with
+	 *			{@link kFLAG_PERSIST_UPDATE update}, it is assumed that the provided
+	 *			object's attributes will replace all the existing object's ones.
+	 *		<li><i>{@link kFLAG_PERSIST_DELETE kFLAG_PERSIST_DELETE}</i>: This option
+	 *			assumes you want to remove the object from the container, although this
+	 *			operation has its own public {@link Delete() method}, derived classes can
+	 *			use this option to implement a <i>deleted state</i>, rather than actually
+	 *			removing the object from the container.
+	 *	 </ul>
+	 * </ul>
 	 *
-	 * The method will return the object's unique {@link kTAG_ID_NATIVE identifier} and
-	 * raise an exception if not successful.
+	 * The method will return the object's key within the container or raise an exception if
+	 * the operation was not successful.
+	 *
+	 * This method relies on a virtual {@link _Commit() method} that will perform the actual
+	 * operation, here we only perform the following controls:
+	 *
+	 * <ul>
+	 *	<li><i>Check identifier</i>: by default we assume that all operations except
+	 *		{@link kFLAG_PERSIST_INSERT insert} require the identifier to be provided. If
+	 *		you handle default values for identifiers, you should overload this method.
+	 *	<li><i>{@link _Commit() Commit}</i>: we call the protected interface to perform the
+	 *		requested operation, this interface must be implemented by derived classes.
+	 * </ul>
+	 *
+	 * By default we assume the provided object to be either an array or an ArrayObject.
 	 *
 	 * The actual operation will be performed by a protected {@link _Commit() method}.
 	 *
 	 * @param mixed					$theObject			Object to commit.
-	 * @param mixed					$theOptions			Commit options.
+	 * @param mixed					$theIdentifier		Object identifier.
+	 * @param bitfield				$theModifiers		Commit modifiers.
 	 *
 	 * @access public
 	 * @return mixed
 	 */
-	public function Commit( $theObject, $theOptions = NULL )
+	public function Commit( $theObject,
+							$theIdentifier = NULL,
+							$theModifiers = kFLAG_PERSIST_REPLACE )
 	{
 		//
-		// Check object type.
+		// Identifier is required
 		//
-		if( is_array( $theObject )
-		 || ($theObject instanceof ArrayObject) )
-			return $this->_Commit( $theObject, $theOptions );						// ==>
+		if( (! ($theModifiers & kFLAG_PERSIST_INSERT))	// Not an insert
+		 && ($theIdentifier === NULL) )					// and missing identifier.
+			throw new CException
+				( "Requested operation expects identifier",
+				  kERROR_OPTION_MISSING,
+				  kMESSAGE_TYPE_ERROR,
+				  array( 'Identifier' => $theIdentifier,
+						 'Modifiers' => $theModifiers ) );						// !@! ==>
+		
+		//
+		// Perform operation.
+		//
+		if( $theModifiers & kFLAG_PERSIST_MASK )
+			return $this->_Commit( $theObject, $theIdentifier, $theModifiers );		// ==>
 
 		throw new CException
-			( "Invalid object",
+			( "Invalid operation options",
 			  kERROR_INVALID_PARAMETER,
 			  kMESSAGE_TYPE_ERROR,
-			  array( 'Object' => $theObject ) );								// !@! ==>
+			  array( 'Modifiers' => $theModifiers ) );							// !@! ==>
 
 	} // Commit.
 
@@ -195,23 +268,32 @@ abstract class CContainer extends CObject
 	/**
 	 * Load object.
 	 *
-	 * This method can be used to load an object identified by the provided identifier from
-	 * the data store.
+	 * This method can be used to load an object fron the container:
 	 *
-	 * The method will return the found object, or it will return <i>NULL</i>.
+	 * <ul>
+	 *	<li><b>$theIdentifier</i>: The key to the object in the container.
+	 *	<li><b>$theModifiers</i>: Optional bitfield that can be used to provide options for
+	 *		the operation. In this class we do not use this parameter.
+	 * </ul>
+	 *
+	 * The method should return the found object, or <i>NULL</i> if not found.
+	 *
+	 * In this class we simply call the protected {@link _Load() method} which must be
+	 * implemented by derived classes. You should only overload this method if you need to
+	 * initialise or process the identifier before passing it to the protected interface.
 	 *
 	 * @param mixed					$theIdentifier		Object identifier.
-	 * @param mixed					$theOptions			Load options.
+	 * @param bitfield				$theModifiers		Load modifiers.
 	 *
 	 * @access public
 	 * @return mixed
 	 */
-	public function Load( $theIdentifier, $theOptions = NULL )
+	public function Load( $theIdentifier, $theModifiers = kFLAG_DEFAULT )
 	{
 		//
 		// Perform load.
 		//
-		return $this->_Load( $theIdentifier, $theOptions );							// ==>
+		return $this->_Load( $theIdentifier, $theModifiers );						// ==>
 
 	} // Load.
 
@@ -223,23 +305,32 @@ abstract class CContainer extends CObject
 	/**
 	 * Delete object.
 	 *
-	 * This method can be used to remove an object identified by the provided identifier
-	 * from the data store.
+	 * This method can be used to remove an object fron the container:
 	 *
-	 * The method will return the object, if found, or it will return <i>NULL</i>.
+	 * <ul>
+	 *	<li><b>$theIdentifier</i>: The key to the object in the container.
+	 *	<li><b>$theModifiers</i>: Optional bitfield that can be used to provide options for
+	 *		the operation. In this class we do not use this parameter.
+	 * </ul>
+	 *
+	 * The method should return the deleted object, or <i>NULL</i> if not found.
+	 *
+	 * In this class we simply call the protected {@link _Delete() method} which must be
+	 * implemented by derived classes. You should only overload this method if you need to
+	 * initialise or process the identifier before passing it to the protected interface.
 	 *
 	 * @param mixed					$theIdentifier		Object identifier.
-	 * @param mixed					$theOptions			Delete options.
+	 * @param bitfield				$theModifiers		Delete modifiers.
 	 *
 	 * @access public
 	 * @return mixed
 	 */
-	public function Delete( $theIdentifier, $theOptions = NULL )
+	public function Delete( $theIdentifier, $theModifiers = kFLAG_DEFAULT )
 	{
 		//
 		// Perform delete.
 		//
-		return $this->_Delete( $theIdentifier, $theOptions );						// ==>
+		return $this->_Delete( $theIdentifier, $theModifiers );						// ==>
 
 	} // Delete.
 
@@ -260,12 +351,14 @@ abstract class CContainer extends CObject
 	/**
 	 * Get container reference.
 	 *
-	 * This method can be used to retrieve a reference to the native container member.
+	 * This method can be used to retrieve a reference to the native container member, this
+	 * can be useful when the native {@link Container() container} is not an object passed
+	 * by reference.
 	 *
 	 * @access protected
 	 * @return mixed
 	 */
-	protected function &_Container()						{	return &$this->mContainer;	}
+	protected function &_Container()						{	return $this->mContainer;	}
 
 		
 
@@ -284,21 +377,52 @@ abstract class CContainer extends CObject
 	/**
 	 * Commit provided object.
 	 *
-	 * Derived classes must implement this method to perform the actual storage of the
-	 * provided.
+	 * Derived classes must implement this method to actually store the provided object in
+	 * the container, it expects three parameters:
 	 *
-	 * The provided object will be either an array or an ArrayObject.
+	 * <ul>
+	 *	<li><b>$theObject</b>: The object to be committed.
+	 *	<li><b>$theIdentifier</b>: This parameter is expected to be the object's unique
+	 *		identifier within the container.
+	 *	<li><b>$theModifiers</b>: This parameter represents the commit operation options, by
+	 *		default we assume it is a bitfield where the following values apply:
+	 *	 <ul>
+	 *		<li><i>{@link kFLAG_PERSIST_INSERT kFLAG_PERSIST_INSERT}</i>: The provided
+	 *			object will be inserted in the container, it is assumed that no other
+	 *			element in the container shares the same identifier, in that case the method
+	 *			must raise an {@link kERROR_DUPLICATE exception}.
+	 *		<li><i>{@link kFLAG_PERSIST_UPDATE kFLAG_PERSIST_UPDATE}</i>: The provided
+	 *			object will replace the existing object. In this case the method expects
+	 *			the container to have an entry with the same key as the provided identifier,
+	 *			if this is not the case the method must raise an
+	 *			{@link kERROR_NOT_FOUND exception}. With this option it is assumed that the
+	 *			provided object's attributes will replace all the existing object's ones.
+	 *		<li><i>{@link kFLAG_PERSIST_MODIFY kFLAG_PERSIST_MODIFY}</i>: The provided
+	 *			object is assumed to contain a subset of an existing object's attributes,
+	 *			these provided attributes will be appended or replace the existing ones.
+	 *			In this case the method expects the container to have an entry with the
+	 *			same key as the provided identifier, if this is not the case the method must
+	 *			raise an {@link kERROR_NOT_FOUND exception}.
+	 *		<li><i>{@link kFLAG_PERSIST_REPLACE kFLAG_PERSIST_REPLACE}</i>: The provided
+	 *			object will be {@link kFLAG_PERSIST_INSERT inserted}, if the identifier
+	 *			doesn't match any container elements, or it will
+	 *			{@link kFLAG_PERSIST_UPDATE replace} the existing object. As with
+	 *			{@link kFLAG_PERSIST_UPDATE update}, it is assumed that the provided
+	 *			object's attributes will replace all the existing object's ones.
+	 *	 </ul>
+	 * </ul>
 	 *
-	 * The method will return the object's unique {@link kTAG_ID_NATIVE identifier} and
-	 * raise an exception if not successful.
+	 * The method should return the object's key within the container or raise an exception
+	 * if the operation was not successful.
 	 *
 	 * @param mixed					$theObject			Object to commit.
-	 * @param mixed					$theOptions			Delete options.
+	 * @param mixed					$theIdentifier		Object identifier.
+	 * @param bitfield				$theModifiers		Commit modifiers.
 	 *
 	 * @access protected
 	 * @return mixed
 	 */
-	abstract protected function _Commit( $theObject, $theOptions = NULL );
+	abstract protected function _Commit( $theObject, $theIdentifier, $theModifiers );
 
 	 
 	/*===================================================================================
@@ -308,18 +432,23 @@ abstract class CContainer extends CObject
 	/**
 	 * Load object.
 	 *
-	 * Derived classes must implement this method to perform the actual search for the
-	 * object identified by the provided identifier.
+	 * Derived classes must implement this method to perform the actual retrieval of objects
+	 * from the container.
 	 *
-	 * The method will return the found object or <i>NULL</i> if not found.
+	 * <ul>
+	 *	<li><b>$theIdentifier</i>: The key to the object in the container.
+	 *	<li><b>$theModifiers</i>: Bitfield containing the operation options.
+	 * </ul>
+	 *
+	 * The method should return the found object or <i>NULL</i> if not found.
 	 *
 	 * @param mixed					$theIdentifier		Object identifier.
-	 * @param mixed					$theOptions			Delete options.
+	 * @param bitfield				$theModifiers		Load modifiers.
 	 *
 	 * @access protected
 	 * @return mixed
 	 */
-	abstract protected function _Load( $theIdentifier, $theOptions = NULL );
+	abstract protected function _Load( $theIdentifier, $theModifiers );
 
 	 
 	/*===================================================================================
@@ -329,18 +458,23 @@ abstract class CContainer extends CObject
 	/**
 	 * Load object.
 	 *
-	 * Derived classes must implement this method to perform the actual search for the
-	 * object identified by the provided identifier.
+	 * Derived classes must implement this method to perform the actual removal of objects
+	 * from the container.
 	 *
-	 * The method will return the found (deleted) object or <i>NULL</i> if not found.
+	 * <ul>
+	 *	<li><b>$theIdentifier</i>: The key to the object in the container.
+	 *	<li><b>$theModifiers</i>: Bitfield containing the operation options.
+	 * </ul>
+	 *
+	 * The method should return the removed object or <i>NULL</i> if not found.
 	 *
 	 * @param mixed					$theIdentifier		Object identifier.
-	 * @param mixed					$theOptions			Delete options.
+	 * @param bitfield				$theModifiers		Delete modifiers.
 	 *
 	 * @access protected
 	 * @return mixed
 	 */
-	abstract protected function _Delete( $theIdentifier, $theOptions = NULL );
+	abstract protected function _Delete( $theIdentifier, $theModifiers );
 
 	 
 

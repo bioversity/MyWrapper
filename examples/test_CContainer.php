@@ -44,7 +44,7 @@ require_once( kPATH_LIBRARY_SOURCE."CContainer.php" );
 //
 class MyTest extends CContainer
 {
-	protected function _Commit( $theObject, $theOptions = NULL )
+	protected function _Commit( $theObject, $theIdentifier, $theModifiers )
 	{
 		$container = $this->Container();
 		
@@ -59,7 +59,7 @@ class MyTest extends CContainer
 		return $id;																	// ==>
 	}
 
-	protected function _Load( $theIdentifier, $theOptions = NULL )
+	protected function _Load( $theIdentifier, $theModifiers )
 	{
 		$container = $this->Container();
 		
@@ -80,7 +80,7 @@ class MyTest extends CContainer
 		return NULL;																// ==>
 	}
 
-	protected function _Delete( $theIdentifier, $theOptions = NULL )
+	protected function _Delete( $theIdentifier, $theModifiers )
 	{
 		$container = $this->Container();
 		

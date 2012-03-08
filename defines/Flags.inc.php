@@ -61,6 +61,13 @@ define( "kFLAG_STATE_DIRTY",			0x00000002 );		// Dirty.
  */
 define( "kFLAG_STATE_COMMITTED",		0x00000004 );		// Committed.
 
+/**
+ * State: Custom.
+ *
+ * This bitfield value indicates a custom state.
+ */
+define( "kFLAG_STATE_CUSTOM",			0x00000008 );		// Custom.
+
 /*=======================================================================================
  *	OBJECT STATUS FLAGS - MASKS															*
  *======================================================================================*/
@@ -70,7 +77,77 @@ define( "kFLAG_STATE_COMMITTED",		0x00000004 );		// Committed.
  *
  * This value masks all the state flags.
  */
-define( "kFLAG_STATE_MASK",				0x00000003 );		// State mask.
+define( "kFLAG_STATE_MASK",				0x0000000F );		// State mask.
+
+/*=======================================================================================
+ *	PERSISTENCE ACTION FLAGS															*
+ *======================================================================================*/
+
+/**
+ * Persist: Insert.
+ *
+ * This bitfield value indicates that we intend to insert an object in a container, this
+ * means that if a duplicate object already exists, the operation should fail.
+ */
+define( "kFLAG_PERSIST_INSERT",			0x00000010 );		// Insert.
+
+/**
+ * Persist: Update.
+ *
+ * This bitfield value indicates that we intend to update an object in a container, this
+ * means that the object must exist, or the operation must fail. This operation assumes that
+ * the provided object will replace the entire contents of the existing one.
+ */
+define( "kFLAG_PERSIST_UPDATE",			0x00000020 );		// Update.
+
+/**
+ * Persist: Modify.
+ *
+ * This bitfield value indicates that we intend to modify an existing object, the difference
+ * with the {@link kFLAG_PERSIST_UPDATE update} operation is that while the latter will
+ * replace the whole object, in this case only the matching object attributes will be
+ * updated and the unmatched ones will be left untouched. This option applies when adding
+ * or modifying a subset of an object.
+ */
+define( "kFLAG_PERSIST_MODIFY",			0x00000060 );		// Modify.
+
+/**
+ * Persist: Replace.
+ *
+ * This bitfield value indicates that we intend to either
+ * {@link kFLAG_PERSIST_INSERT insert} an object, if it doesn't already exist, or
+ * {@link kFLAG_PERSIST_UPDATE update} an existing object. In the latter case, this
+ * operation assumes that the provided object will replace the entire contents of the
+ * existing one.
+ */
+define( "kFLAG_PERSIST_REPLACE",		0x00000030 );		// Replace.
+
+/**
+ * Persist: Delete.
+ *
+ * This bitfield value indicates that we intend to delete an object from a container, if
+ * the object doesn't exist, the operation should still succeed.
+ */
+define( "kFLAG_PERSIST_DELETE",			0x00000080 );		// Delete.
+
+/*=======================================================================================
+ *	PERSISTENCE ACTION FLAGS - MASKS													*
+ *======================================================================================*/
+
+/**
+ * Write mask.
+ *
+ * This value masks the access flags that imply writing to the collection, with the
+ * exception of {@link kFLAG_PERSIST_DELETE deleting}.
+ */
+define( "kFLAG_PERSIST_WRITE_MASK",		0x00000070 );		// Write mask.
+
+/**
+ * Persist mask.
+ *
+ * This value masks the access flags that imply modification of the collection.
+ */
+define( "kFLAG_PERSIST_MASK",			0x000000F0 );		// Persist mask.
 
 /*=======================================================================================
  *	STRING MODIFIER FLAGS																*
@@ -81,7 +158,7 @@ define( "kFLAG_STATE_MASK",				0x00000003 );		// State mask.
  *
  * If the flag is set, the string will be converted to the UTF8 character set.
  */
-define( "kFLAG_MODIFIER_UTF8",		0x00080000 );			// Convert to UTF8.
+define( "kFLAG_MODIFIER_UTF8",			0x00080000 );		// Convert to UTF8.
 
 /**
  * Modifier: Left trim.
@@ -91,7 +168,7 @@ define( "kFLAG_MODIFIER_UTF8",		0x00080000 );			// Convert to UTF8.
  * This modification will be applied after the eventual {@link kFLAG_MODIFIER_UTF8 UTF-8}
  * conversion.
  */
-define( "kFLAG_MODIFIER_LTRIM",		0x00100000 );			// Left trim.
+define( "kFLAG_MODIFIER_LTRIM",			0x00100000 );		// Left trim.
 
 /**
  * Modifier: Right trim.
@@ -101,7 +178,7 @@ define( "kFLAG_MODIFIER_LTRIM",		0x00100000 );			// Left trim.
  * This modification will be applied after the eventual {@link kFLAG_MODIFIER_UTF8 UTF-8}
  * conversion.
  */
-define( "kFLAG_MODIFIER_RTRIM",		0x00200000 );			// Left trim.
+define( "kFLAG_MODIFIER_RTRIM",			0x00200000 );		// Left trim.
 
 /**
  * Modifier: Trim.
@@ -113,7 +190,7 @@ define( "kFLAG_MODIFIER_RTRIM",		0x00200000 );			// Left trim.
  * This modification will be applied after the eventual {@link kFLAG_MODIFIER_UTF8 UTF-8}
  * conversion.
  */
-define( "kFLAG_MODIFIER_TRIM",		0x00300000 );			// Trim.
+define( "kFLAG_MODIFIER_TRIM",			0x00300000 );		// Trim.
 
 /**
  * Modifier: NULL.
@@ -123,7 +200,7 @@ define( "kFLAG_MODIFIER_TRIM",		0x00300000 );			// Trim.
  * This modification will be applied after the eventual {@link kFLAG_MODIFIER_UTF8 UTF-8}
  * and {@link kFLAG_MODIFIER_TRIM trim} conversions.
  */
-define( "kFLAG_MODIFIER_NULL",		0x00400000 );			// NULL.
+define( "kFLAG_MODIFIER_NULL",			0x00400000 );		// NULL.
 
 /**
  * Modifier: NULL string.
@@ -135,7 +212,7 @@ define( "kFLAG_MODIFIER_NULL",		0x00400000 );			// NULL.
  * This modification will be applied after the eventual {@link kFLAG_MODIFIER_UTF8 UTF-8}
  * and {@link kFLAG_MODIFIER_TRIM trim} conversions.
  */
-define( "kFLAG_MODIFIER_NULLSTR",	0x00C00000 );			// NULL string.
+define( "kFLAG_MODIFIER_NULLSTR",		0x00C00000 );		// NULL string.
 
 /**
  * Modifier: Case insensitive.
@@ -148,7 +225,7 @@ define( "kFLAG_MODIFIER_NULLSTR",	0x00C00000 );			// NULL string.
  * This modification will be applied after the eventual {@link kFLAG_MODIFIER_UTF8 UTF-8},
  * {@link kFLAG_MODIFIER_TRIM trim} and {@link kFLAG_MODIFIER_NULL NULL} conversions.
  */
-define( "kFLAG_MODIFIER_NOCASE",	0x01000000 );			// Case insensitive.
+define( "kFLAG_MODIFIER_NOCASE",		0x01000000 );		// Case insensitive.
 
 /**
  * Modifier: Encode for URL.
@@ -160,7 +237,7 @@ define( "kFLAG_MODIFIER_NOCASE",	0x01000000 );			// Case insensitive.
  * {@link kFLAG_MODIFIER_TRIM trim}, {@link kFLAG_MODIFIER_NULL NULL} and
  * {@link kFLAG_MODIFIER_NOCASE lowercase} conversions.
  */
-define( "kFLAG_MODIFIER_URL",		0x02000000 );			// URL-encode.
+define( "kFLAG_MODIFIER_URL",			0x02000000 );		// URL-encode.
 
 /**
  * Modifier: Encode for HTML.
@@ -172,7 +249,7 @@ define( "kFLAG_MODIFIER_URL",		0x02000000 );			// URL-encode.
  * {@link kFLAG_MODIFIER_TRIM trim}, {@link kFLAG_MODIFIER_NULL NULL} and
  * {@link kFLAG_MODIFIER_NOCASE lowercase} conversions.
  */
-define( "kFLAG_MODIFIER_HTML",		0x04000000 );			// HTML-encode.
+define( "kFLAG_MODIFIER_HTML",			0x04000000 );		// HTML-encode.
 
 /**
  * Modifier: HEX.
@@ -186,7 +263,7 @@ define( "kFLAG_MODIFIER_HTML",		0x04000000 );			// HTML-encode.
  * {@link kFLAG_MODIFIER_NOCASE lowercase} and {@link kFLAG_MODIFIER_URL url} or
  * {@link kFLAG_MODIFIER_HTML HTML} conversions.
  */
-define( "kFLAG_MODIFIER_HEX",		0x08000000 );			// Convert to hexadecimal.
+define( "kFLAG_MODIFIER_HEX",			0x08000000 );		// Convert to hexadecimal.
 
 /**
  * Modifier: HEX expression.
@@ -202,7 +279,7 @@ define( "kFLAG_MODIFIER_HEX",		0x08000000 );			// Convert to hexadecimal.
  * {@link kFLAG_MODIFIER_NOCASE lowercase} and {@link kFLAG_MODIFIER_URL url} or
  * {@link kFLAG_MODIFIER_HTML HTML} conversions.
  */
-define( "kFLAG_MODIFIER_HEXEXP",	0x18000000 );			// Convert to hexadecimal expr.
+define( "kFLAG_MODIFIER_HEXEXP",		0x18000000 );		// Convert to hexadecimal expr.
 
 /**
  * Modifier: hash.
@@ -216,7 +293,7 @@ define( "kFLAG_MODIFIER_HEXEXP",	0x18000000 );			// Convert to hexadecimal expr.
  * {@link kFLAG_MODIFIER_NOCASE lowercase} and {@link kFLAG_MODIFIER_URL url} or
  * {@link kFLAG_MODIFIER_HTML HTML} conversions.
  */
-define( "kFLAG_MODIFIER_HASH",		0x20000000 );			// Hash to 32 character hex.
+define( "kFLAG_MODIFIER_HASH",			0x20000000 );		// Hash to 32 character hex.
 
 /**
  * Modifier: binary hash.
@@ -232,7 +309,7 @@ define( "kFLAG_MODIFIER_HASH",		0x20000000 );			// Hash to 32 character hex.
  * {@link kFLAG_MODIFIER_NOCASE lowercase} and {@link kFLAG_MODIFIER_URL url} or
  * {@link kFLAG_MODIFIER_HTML HTML} conversions.
  */
-define( "kFLAG_MODIFIER_HASH_BIN",	0x60000000 );			// Hash to 16 character binary.
+define( "kFLAG_MODIFIER_HASH_BIN",		0x60000000 );		// Hash to 16 character binary.
 
 /*=======================================================================================
  *	STRING MODIFIER FLAGS - MASKS														*
@@ -243,35 +320,35 @@ define( "kFLAG_MODIFIER_HASH_BIN",	0x60000000 );			// Hash to 16 character binar
  *
  * This value masks both trim flags.
  */
-define( "kFLAG_MODIFIER_MASK_TRIM",	0x00300000 );			// Trim mask.
+define( "kFLAG_MODIFIER_MASK_TRIM",		0x00300000 );		// Trim mask.
 
 /**
  * NULL mask.
  *
  * This value masks both the NULL flags.
  */
-define( "kFLAG_MODIFIER_MASK_NULL",	0x00C00000 );			// NULL mask.
+define( "kFLAG_MODIFIER_MASK_NULL",		0x00C00000 );		// NULL mask.
 
 /**
  * HEX mask.
  *
  * This value masks both the HEX flags.
  */
-define( "kFLAG_MODIFIER_MASK_HEX",	0x18000000 );			// HEX mask.
+define( "kFLAG_MODIFIER_MASK_HEX",		0x18000000 );		// HEX mask.
 
 /**
  * Hash mask.
  *
  * This value masks the both hash flags.
  */
-define( "kFLAG_MODIFIER_MASK_HASH",	0x60000000 );			// Hash mask.
+define( "kFLAG_MODIFIER_MASK_HASH",		0x60000000 );		// Hash mask.
 
 /**
  * Modifiers mask.
  *
  * This value masks the string modifier flags.
  */
-define( "kFLAG_MODIFIER_MASK",		0x7FF80000 );			// Mask.
+define( "kFLAG_MODIFIER_MASK",			0x7FF80000 );		// Mask.
 
 /*=======================================================================================
  *	DEFAULT FLAGS																		*
@@ -282,14 +359,14 @@ define( "kFLAG_MODIFIER_MASK",		0x7FF80000 );			// Mask.
  *
  * This bitfield value represents the default flags state.
  */
-define( "kFLAG_DEFAULT",			0x00000000 );			// Default mask.
+define( "kFLAG_DEFAULT",				0x00000000 );		// Default mask.
 
 /**
  * Status mask.
  *
  * This bitfield value represents the default flags mask.
  */
-define( "kFLAG_DEFAULT_MASK",		0x7FFFFFFF );			// Default flags mask.
+define( "kFLAG_DEFAULT_MASK",			0x7FFFFFFF );		// Default flags mask.
 
 
 ?>

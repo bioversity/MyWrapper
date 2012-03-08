@@ -309,7 +309,7 @@ class CMongoDBRef extends CPersistentObject
 			$theContainer = $theContainer->selectCollection( $this->Collection() );
 		
 		//
-		// Handle MongoCollection.
+		// Enforce MongoCollection.
 		//
 		if( ! $theContainer instanceof MongoCollection )
 			throw new CException
