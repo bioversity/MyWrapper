@@ -35,21 +35,22 @@ require_once( kPATH_LIBRARY_SOURCE."CStatusObject.php" );
  * common interfaces that concrete persistent instances will implement to manage persistent
  * objects.
  *
- * Classes derived from this one must share the same constructor which accepts two
- * parameters: the collection in which the object is stored and the key to it.
+ * This class declares two main operations: {@link __construct() loading} an object from a
+ * container and {@link Commit() storing} the object into a container. These operations
+ * consist of a public interface which declares the operation steps and a protected
+ * interface which implements the operation.
  *
- * The class implements a public interface which sets the operation standards, and a
- * protected interface that derived classes may overload to implement specialised data 
- * tores.
+ * This class recognises two types of persistent object stores:
  *
  * <ul>
- *	<li>The {@link __construct() constructor} is used to instantiate either empty or
- *		initialised objects, or to load an object from the container in which it resides.
- *	<li>{Commit() Commit} is used to store objects in containers.
- *	<li>This class does not feature a <i>Delete</i> method, because this is the
- *		responsibility of the collections; derived classes that implement a consistent
- *		method to get an object's unique identifier will implement this functionality.
+ *	<li><i>Arrays</i> and <i>ArrayObjects</i>: These arrays are considered as the object
+ *		database.
+ *	<li><i>{@link CContainer Container} derived objects</i>: These will be objects derived
+ *		from the {@link CContainer CContainer} class which implement native database stores.
  * </ul>
+ *
+ * In general, derived classes should overload the protected interface and use the public
+ * one.
  *
  * @package		Framework
  * @subpackage	Persistence
