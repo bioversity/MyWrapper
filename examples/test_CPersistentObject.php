@@ -45,28 +45,89 @@ $test = new CPersistentObject();
 try
 {
 	//
-	// Test instantiation.
+	// Test object content.
 	//
-	echo( '<h3>Instantiation</h3>' );
+	echo( '<h3>Object content</h3>' );
 	
-	echo( '<i>new CPersistentObject();</i><br>' );
+	echo( '<i>Empty object</i><br>' );
+	echo( '<i>$test = new CPersistentObject();</i><br>' );
+	$test = new CPersistentObject();
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
 	
+	echo( '<i>Filled object</i><br>' );
+	echo( '<i>$test = new CPersistentObject( array( \'Name\' => \'Milko\' ) );</i><br>' );
+	$test = new CPersistentObject( array( 'Name' => 'Milko' ) );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	//
+	// Test container content.
+	//
+	echo( '<h3>Container content</h3>' );
+	
+	echo( '<i>Load from container</i><br>' );
 	$container = array( array( 'NAME' => 'Milko', 'SURNAME' => 'Skofic' ) );
 	echo( 'Container:<pre>' ); print_r( $container ); echo( '</pre>' );
-	echo( '<i>new CPersistentObject( $container, 0 );</i><br>' );
+	echo( '<i>$test = new CPersistentObject( $container, 0 );</i><br>' );
 	$test = new CPersistentObject( $container, 0 );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>Missing from container</i><br>' );
+	echo( '<i>$test = new CPersistentObject( $container, 1 );</i><br>' );
+	$test = new CPersistentObject( $container, 1 );
+	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	try
+	{
+		echo( '<i>new CPersistentObject( \'pippo\' );</i><br>' );
+		$test = new CPersistentObject( 'pippo' );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	}
+	catch( Exception $error )
+	{
+		echo( CException::AsHTML( $error ) );
+		echo( '<br>' );
+	}
+	
+	//
+	// Commit to container.
+	//
+	echo( '<h3>Commit to container</h3>' );
+	
+	$content = array( 'NAME' => 'Milko', 'SURNAME' => 'Skofic' );
+	$test = new CPersistentObject( $content );
+	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
+	$container = Array();
+	echo( 'Container:<pre>' ); print_r( $container ); echo( '</pre>' );
+	$id = $test->Commit( $container, 0 );
+	echo( '<i>$id = $test->Commit( $container, 0 );</i><br>' );
+	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Container:<pre>' ); print_r( $container ); echo( '</pre>' );
+	echo( '<hr>' );
+exit;
+
+	$container = array( array( 'NAME' => 'Milko', 'SURNAME' => 'Skofic' ) );
+	echo( 'Container:<pre>' ); print_r( $container ); echo( '</pre>' );
+	echo( '<i>$test = new CPersistentObject( $container );</i><br>' );
+	$test = new CPersistentObject( $container );
+	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Container:<pre>' ); print_r( $container ); echo( '</pre>' );
+	echo( '<hr>' );
 	
 	echo( '<i>new CPersistentObject( $container, 1 );</i><br>' );
 	$test = new CPersistentObject( $container, 1 );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
 	
 	$container = array( 'NAME' => 'Milko', 'SURNAME' => 'Skofic' );
 	echo( 'Container:<pre>' ); print_r( $container ); echo( '</pre>' );
 	echo( '<i>new CPersistentObject( $container );</i><br>' );
 	$test = new CPersistentObject( $container );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
 	
 	try
 	{
@@ -109,8 +170,8 @@ try
 	echo( "ID: $id<pre>" ); print_r( $container ); echo( '</pre>' );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre><hr>' );
 
-	$id = $test->Commit( $container );
 	echo( '<i>$id = $test->Commit( $container, \'other\' );</i><br>' );
+	$id = $test->Commit( $container );
 	echo( "ID: $id<pre>" ); print_r( $container ); echo( '</pre>' );
 	echo( ($id === NULL)?'OK: object not dirty<hr>':'Not ok<hr>' );
 

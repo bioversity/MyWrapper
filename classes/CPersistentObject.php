@@ -1,4 +1,6 @@
 <?php
+@@@ Consider either: - Making container parameter of Commit a reference,
+					 - or enforcing objects as containers in Commit.
 
 /**
  * <i>CPersistentObject</i> class definition.
@@ -231,15 +233,11 @@ class CPersistentObject extends CStatusObject
 	 * the protected interface:
 	 *
 	 * <ul>
-	 *	<li><i>{@link _CheckContainer() _CheckContainer}()</i>: This method can be used to
-	 *		verify the container and normalise the identifier.
-	 *	<li><i>{@link _CheckIdentifier() _CheckIdentifier}()</i>: This method can be used to
-	 *		verify or initialise the identifier.
-	 *	<li><i>{@link _StoreObject() _StoreObject}()</i>: This method will save the object
-	 *		in the container.
+	 *	<li><i>{@link _PrepareStore() _PrepareStore}()</i>: This method can be used to
+	 *		initialise or manage both the container and the identifier.
+	 *	<li><i>{@link _StoreObject() _StoreObject}()</i>: This method will perform the
+	 *		actual commit.
 	 * </ul>
-	 *
-	 * In this class we support <i>array</i> and <i>ArrayObject</i> containers.
 	 *
 	 * @param mixed					$theContainer		Persistent container.
 	 * @param mixed					$theIdentifier		Object identifier.
@@ -271,7 +269,7 @@ class CPersistentObject extends CStatusObject
 			//
 			// Store object.
 			//
-			$this->_StoreObject( $theContainer, $theIdentifier );
+			$theIdentifier = $this->_StoreObject( $theContainer, $theIdentifier );
 			
 			//
 			// Set status.
@@ -424,9 +422,12 @@ class CPersistentObject extends CStatusObject
 	 * The duty of this method is to store the current object in the provided container
 	 * identified by the provided identifier.
 	 *
-	 * Both the {@link _CheckContainer() container} and the
-	 * {@link _CheckIdentifier() identifier} must have been checked beforehand, this means
-	 * that this method expects correct parameters.
+	 * This class handles arrays, ArrayObjects and {@link CContainer CContainer} derived
+	 * instances.
+	 *
+	 * The method should expect both parameters to have been previously set, its main duty
+	 * is only to perform the actual storage, in derived classes you should intercept
+	 * custom containers, or call the parent method.
 	 *
 	 * <i>Note: the duty of this method is to store only the array part of the object,
 	 * properties should be ignored.</i>
@@ -435,10 +436,26 @@ class CPersistentObject extends CStatusObject
 	 * @param reference			   &$theIdentifier		Object identifier.
 	 *
 	 * @access protected
+	 * @return mixed
 	 */
 	protected function _StoreObject( &$theContainer, &$theIdentifier )
 	{
-		$theContainer[ (string) $theIdentifier ] = (array) $this;
+		//
+		// Handle containers.
+		//
+		if( $theContainer instanceof CContainer )
+			return $theContainer->Commit
+				( $this, $theIdentifier, kFLAG_PERSIST_REPLACE );					// ==>
+		
+		//
+		// Handle arrays and ArrayObjects.
+		//
+		if( $theIdentifier === NULL )
+			$theContainer[] = (array) $this;
+		else
+			$theContainer[ (string) $theIdentifier ] = (array) $this;
+		
+		return $theIdentifier;														// ==>
 	
 	} // _StoreObject.
 
@@ -454,12 +471,12 @@ class CPersistentObject extends CStatusObject
 	 * in the container <i>$theContainer</i> and return its contents or <i>NULL</i> if not
 	 * found.
 	 *
-	 * In derived classes you should overload this method to handle the specific data store
-	 * you will be supporting.
+	 * This class handles arrays, ArrayObjects and {@link CContainer CContainer} derived
+	 * instances.
 	 *
-	 * Both the {@link _CheckContainer() container} and the
-	 * {@link _CheckIdentifier() identifier} must have been checked beforehand, this means
-	 * that this method expects correct parameters.
+	 * The method should expect both parameters to have been previously set, its main duty
+	 * is only to perform the actual retrieval, in derived classes you should intercept
+	 * custom containers, or call the parent method.
 	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
@@ -469,6 +486,15 @@ class CPersistentObject extends CStatusObject
 	 */
 	protected function _FindObject( &$theContainer, &$theIdentifier )
 	{
+		//
+		// Handle containers.
+		//
+		if( $theContainer instanceof CContainer )
+			return $theContainer->Load( $theIdentifier );							// ==>
+		
+		//
+		// Handle arrays and ArrayObjects.
+		//
 		return @$theContainer[ (string) $theIdentifier ];							// ==>
 	
 	} // _FindObject.
@@ -585,12 +611,6 @@ class CPersistentObject extends CStatusObject
 					  kERROR_UNSUPPORTED,
 					  kMESSAGE_TYPE_ERROR,
 					  array( 'Container' => $theContainer ) );					// !@! ==>
-		
-		//
-		// Set identifier.
-		//
-		if( $theIdentifier === NULL )
-			$theIdentifier = count( $theContainer );
 	
 	} // _PrepareStore.
 
