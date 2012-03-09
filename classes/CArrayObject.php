@@ -22,13 +22,6 @@
  *======================================================================================*/
 
 /**
- * Common interface.
- *
- * This include file contains the common interface elements.
- */
-require_once( kPATH_LIBRARY_SOURCE."CObject.php" );
-
-/**
  *	Common ancestor.
  *
  * This class represents the ancestor of most entity mapped classes, it maps objects to an

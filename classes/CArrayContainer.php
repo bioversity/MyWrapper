@@ -143,16 +143,16 @@ class CArrayContainer extends CContainer
 	 * We {@link CContainer::Commit() overload} this method to check whether the provided
 	 * object is either an array or an ArrayObject.
 	 *
-	 * @param mixed					$theObject			Object to commit.
+	 * @param reference			   &$theObject			Object to commit.
 	 * @param mixed					$theIdentifier		Object identifier.
 	 * @param bitfield				$theModifiers		Commit modifiers.
 	 *
 	 * @access public
 	 * @return mixed
 	 */
-	public function Commit( $theObject,
-							$theIdentifier = NULL,
-							$theModifiers = kFLAG_PERSIST_REPLACE )
+	public function Commit( &$theObject,
+							 $theIdentifier = NULL,
+							 $theModifiers = kFLAG_PERSIST_REPLACE )
 	{
 		//
 		// Check object.
@@ -201,14 +201,14 @@ class CArrayContainer extends CContainer
 	 * option, in this class we do not, so we shall raise an
 	 * {@link kERROR_INVALID_PARAMETER exception}.
 	 *
-	 * @param mixed					$theObject			Object to commit.
+	 * @param reference			   &$theObject			Object to commit.
 	 * @param mixed					$theIdentifier		Object identifier.
 	 * @param bitfield				$theModifiers		Commit modifiers.
 	 *
 	 * @access protected
 	 * @return mixed
 	 */
-	protected function _Commit( $theObject, $theIdentifier, $theModifiers )
+	protected function _Commit( &$theObject, $theIdentifier, $theModifiers )
 	{
 		//
 		// Get container reference.
@@ -341,17 +341,22 @@ class CArrayContainer extends CContainer
 	 * The method will cast the identifier to a string.
 	 *
 	 * @param mixed					$theIdentifier		Object identifier.
-	 * @param mixed					$theOptions			Delete options.
+	 * @param bitfield				$theModifiers		Load modifiers.
 	 *
 	 * @access protected
 	 * @return mixed
 	 */
-	protected function _Load( $theIdentifier, $theOptions = NULL )
+	protected function _Load( $theIdentifier, $theModifiers )
 	{
 		//
 		// Get container reference.
 		//
 		$container = & $this->_Container();
+		if( $container === NULL )
+			throw new CException
+				( "Missing native container",
+				  kERROR_INVALID_STATE,
+				  kMESSAGE_TYPE_ERROR );										// !@! ==>
 		
 		//
 		// Return match.
@@ -376,17 +381,22 @@ class CArrayContainer extends CContainer
 	 * The method will cast the identifier to a string.
 	 *
 	 * @param mixed					$theIdentifier		Object identifier.
-	 * @param mixed					$theOptions			Delete options.
+	 * @param bitfield				$theModifiers		Load modifiers.
 	 *
 	 * @access protected
 	 * @return mixed
 	 */
-	protected function _Delete( $theIdentifier, $theOptions = NULL )
+	protected function _Delete( $theIdentifier, $theModifiers )
 	{
 		//
 		// Get container reference.
 		//
 		$container = & $this->_Container();
+		if( $container === NULL )
+			throw new CException
+				( "Missing native container",
+				  kERROR_INVALID_STATE,
+				  kMESSAGE_TYPE_ERROR );										// !@! ==>
 		
 		//
 		// Delete match.

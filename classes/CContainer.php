@@ -223,16 +223,16 @@ abstract class CContainer extends CObject
 	 *
 	 * The actual operation will be performed by a protected {@link _Commit() method}.
 	 *
-	 * @param mixed					$theObject			Object to commit.
+	 * @param reference			   &$theObject			Object to commit.
 	 * @param mixed					$theIdentifier		Object identifier.
 	 * @param bitfield				$theModifiers		Commit modifiers.
 	 *
 	 * @access public
 	 * @return mixed
 	 */
-	public function Commit( $theObject,
-							$theIdentifier = NULL,
-							$theModifiers = kFLAG_PERSIST_REPLACE )
+	public function Commit( &$theObject,
+							 $theIdentifier = NULL,
+							 $theModifiers = kFLAG_PERSIST_REPLACE )
 	{
 		//
 		// Identifier is required
@@ -415,14 +415,14 @@ abstract class CContainer extends CObject
 	 * The method should return the object's key within the container or raise an exception
 	 * if the operation was not successful.
 	 *
-	 * @param mixed					$theObject			Object to commit.
+	 * @param reference			   &$theObject			Object to commit.
 	 * @param mixed					$theIdentifier		Object identifier.
 	 * @param bitfield				$theModifiers		Commit modifiers.
 	 *
 	 * @access protected
 	 * @return mixed
 	 */
-	abstract protected function _Commit( $theObject, $theIdentifier, $theModifiers );
+	abstract protected function _Commit( &$theObject, $theIdentifier, $theModifiers );
 
 	 
 	/*===================================================================================
