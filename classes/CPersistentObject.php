@@ -233,7 +233,7 @@ class CPersistentObject extends CStatusObject
 	 *
 	 * <ul>
 	 *	<li><i>{@link _PrepareStore() _PrepareStore}()</i>: This method can be used to
-	 *		initialise or manage both the container and the identifier.
+	 *		initialise or check both the container and the identifier.
 	 *	<li><i>{@link _StoreObject() _StoreObject}()</i>: This method will perform the
 	 *		actual commit.
 	 * </ul>
@@ -282,6 +282,33 @@ class CPersistentObject extends CStatusObject
 		return NULL;																// ==>
 		
 	} // Commit.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC PERSISTENCE UTILITIES							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	Uncommit																		*
+	 *==================================================================================*/
+
+	/**
+	 * Reset {@link _IsCommitted() committed} status.
+	 *
+	 * This method can be used to reset the object's {@link kFLAG_STATE_COMMITTED committed}
+	 * {@link _IsCommitted() status}, this may be necessary when copying an object from one
+	 * container to the other, since the object will be {@link Commit() committed} only if
+	 * the {@link kFLAG_STATE_COMMITTED committed} {@link _IsCommitted() status} is not set,
+	 * or if the {@link kFLAG_STATE_DIRTY dirsty} {@link _IsDirty() status} is set.
+	 *
+	 * @access public
+	 */
+	public function Uncommit()							{	$this->_IsCommitted( FALSE );	}
 
 		
 
@@ -356,16 +383,14 @@ class CPersistentObject extends CStatusObject
 	 * The duty of this method is to instantiate an object with the provided data.
 	 *
 	 * This class expects the content to be either <i>NULL</i>, meaning we are instantiating
-	 * an empty object, or an <i>ArrayObject</i>, meaning we are instantiating an object
-	 * from data; other types will raise an {@link kERROR_INVALID_PARAMETER exception}.
+	 * an empty object, an <i>array</i> or an <i>ArrayObject</i>, in which case we are
+	 * instantiating an object from the provided data; other types should either be handled
+	 * by derived classes or raise an {@link kERROR_INVALID_PARAMETER exception}.
 	 *
-	 * Derived classes should handle other types of content, or let the parent method
-	 * handle it.
-	 *
-	 * The method should return a boolean where <i>TRUE</i> indicates that the object was
+	 * The method returns a boolean where <i>TRUE</i> indicates that the object was
 	 * instantiated with data, and <i>FALSE</i> indicating that the object is empty. This
-	 * will be used to determine whether to set the object {@link _IsCommitted() committed}
-	 * or not. Note that we expect the content to be an array, not a scalar.
+	 * will be used to set the object {@link _IsCommitted() committed}
+	 * {@link kFLAG_STATE_COMMITTED flag}.
 	 *
 	 * The parameter is provided as a reference.
 	 *
@@ -423,15 +448,16 @@ class CPersistentObject extends CStatusObject
 	/**
 	 * Store object in container.
 	 *
-	 * The duty of this method is to store the current object in the provided container
-	 * identified by the provided identifier.
+	 * The duty of this method is to store the current object in the provided container with
+	 * a key provided by the identifier.
 	 *
-	 * This class handles arrays, ArrayObjects and {@link CContainer CContainer} derived
-	 * instances.
+	 * This class can store objects in ArrayObject containers and in
+	 * {@link CContainer CContainer} derived instances, in the latter case the storing will
+	 * be delegated to the container.
 	 *
-	 * The method should expect both parameters to have been previously set, its main duty
-	 * is only to perform the actual storage, in derived classes you should intercept
-	 * custom containers, or call the parent method.
+	 * The method should expect both parameters to have been previously
+	 * {@link _PrepareStore() checked}, its main duty is to perform the actual storage.
+	 * In derived classes you should intercept custom containers, or call the parent method.
 	 *
 	 * <i>Note: the duty of this method is to store only the array part of the object,
 	 * properties should be ignored.</i>
@@ -445,17 +471,37 @@ class CPersistentObject extends CStatusObject
 	protected function _StoreObject( &$theContainer, &$theIdentifier )
 	{
 		//
-		// Handle containers.
+		// Let the container handle it.
 		//
 		if( $theContainer instanceof CContainer )
 			return $theContainer->Commit
 				( $this, $theIdentifier, kFLAG_PERSIST_REPLACE );					// ==>
 		
 		//
-		// Handle arrays and ArrayObjects.
+		// Handle ArrayObjects.
 		//
 		if( $theIdentifier === NULL )
+		{
+			//
+			// Append.
+			//
 			$theContainer[] = (array) $this;
+			
+			//
+			// Copy array.
+			//
+			$tmp = $theContainer->getArrayCopy();
+			
+			//
+			// Point to last element.
+			//
+			end( $tmp );
+			
+			//
+			// Get key.
+			//
+			$theIdentifier = key( $tmp );
+		}
 		else
 			$theContainer[ (string) $theIdentifier ] = (array) $this;
 		
@@ -548,7 +594,13 @@ class CPersistentObject extends CStatusObject
 		//
 		// Check container.
 		//
-		if( ! $theContainer instanceof ArrayObject )
+		if( $theContainer === NULL )
+			throw new CException
+					( "Missing container",
+					  kERROR_OPTION_MISSING,
+					  kMESSAGE_TYPE_ERROR );									// !@! ==>
+		elseif( (! $theContainer instanceof CContainer)
+			 && (! $theContainer instanceof ArrayObject) )
 			throw new CException
 					( "Unsupported container type",
 					  kERROR_UNSUPPORTED,
@@ -565,17 +617,17 @@ class CPersistentObject extends CStatusObject
 	/**
 	 * Normalise parameters of a store.
 	 *
-	 * The duty of this method is to ensure that the parameters provided to a
-	 * {@link _StoreObject() store} operation are ready.
+	 * The duty of this method is to ensure that the parameters provided to the
+	 * {@link _StoreObject() store} operation are correct.
 	 *
-	 * The method should first check if the provided container is of the correct type, then
-	 * it should ensure that the identifier is valid or determine the identifier from the
-	 * object's contents.
+	 * In this class we ensure that the container is either an ArrayObject or a
+	 * {@link CContainer CContainer} derived instance, any other type will raise an
+	 * exception. In derived classes you should handle your custom containers or delegate to
+	 * the parent.
+	 *
+	 * In this class we do not check the identifier.
 	 *
 	 * Any errors should raise an exception.
-	 *
-	 * In this class we only support <i>arrays</i> and <i>ArrayObject</i> containers, if
-	 * the identifier is missing we assume we want to append the object in the container.
 	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
@@ -596,7 +648,7 @@ class CPersistentObject extends CStatusObject
 					( "Missing object container",
 					  kERROR_OPTION_MISSING,
 					  kMESSAGE_TYPE_ERROR );									// !@! ==>
-		elseif( (! is_array( $theContainer ))
+		elseif( (! $theContainer instanceof CContainer)
 			 && (! $theContainer instanceof ArrayObject) )
 			throw new CException
 					( "Unsupported container type",
