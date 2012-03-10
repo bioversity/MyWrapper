@@ -29,10 +29,8 @@
 	<div class="info-box-body">
         		<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Persistent objects ancestor.</p>
-<p class="description"><p>This class is the ancestor of all persistent classes in this library, it implements the  common interfaces that concrete persistent instances will implement to manage persistent  objects.</p><p>Classes derived from this one must share the same constructor which accepts two  parameters: the collection in which the object is stored and the key to it.</p><p>The class implements a public interface which sets the operation standards, and a  protected interface that derived classes may overload to implement specialised data  tores.</p><p><ul><li>The <a href="../../Framework/Persistence/CPersistentObject.html#method__construct">constructor</a> is used to instantiate either empty or
-        initialised objects, or to load an object from the container in which it resides.</li><li>{Commit() Commit} is used to store objects in containers.</li><li>This class does not feature a <em>Delete</em> method, because this is the
-        responsibility of the collections; derived classes that implement a consistent
-        method to get an object's unique identifier will implement this functionality.</li></ul></p></p>
+<p class="description"><p>This class is the ancestor of all persistent classes in this library, it implements the  common interfaces that concrete persistent instances will implement to manage persistent  objects.</p><p>This class declares two main operations: <a href="../../Framework/Persistence/CPersistentObject.html#method__construct">loading</a> an object from a  container and <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">storing</a> the object into a container. These operations  consist of a public interface which declares the operation steps and a protected  interface which implements the operation.</p><p>This class recognises two types of persistent object stores:</p><p><ul><li><em>ArrayObjects</em>: These arrays are considered as the object database.</li><li><em><a href="../../Framework/Persistence/CContainer.html">Container</a> derived objects</em>: These will be objects derived
+        from the <a href="../../Framework/Persistence/CContainer.html">CContainer</a> class which implement native database stores.</li></ul></p><p>In general, derived classes should overload the protected interface and use the public  one.</p></p>
 		<p class="notes">
 			Located in <a class="field" href="_classes---CPersistentObject.php.html">/classes/CPersistentObject.php</a> (line <span class="field">57</span>)
 		</p>
@@ -66,6 +64,18 @@
 				<tr>
 					<th class="class-table-header">Class</th>
 					<th class="class-table-header">Description</th>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; white-space: nowrap">
+						<img src="../../media/images/Class.png"
+								 alt=" class"
+								 title=" class"
+								 style="vertical-align: center"/>
+						<a href="../../Framework/Persistence/CMongoDBRef.html">CMongoDBRef</a>
+					</td>
+					<td>
+											Mongo object reference.
+										</td>
 				</tr>
 								<tr>
 					<td style="padding-right: 2em; white-space: nowrap">
@@ -144,7 +154,7 @@
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
-											<span class="method-result">void</span>
+											<span class="method-result">mixed</span>
 										<a href="#_StoreObject" title="details" class="method-name">_StoreObject</a>
 											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>)
 									</div>
@@ -195,11 +205,11 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Constructor.png" />
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">160</span>)
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">159</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -208,8 +218,7 @@
 		object, if the next parameter is missing, or the persistent store in which the
 		object resides. If missing, we assume we want to create an empty object.
 	 <ul><li><em>NULL</em>: In this case it is assumed you want to instantiate an empty
-			object, the next parameter will be ignored.</li><li><em>Array</em> or <em>ArrayObject</em>: In this case we assume the parameter
-			represents either:
+			object, the next parameter will be ignored.</li><li><em>ArrayObject</em>: In this case we assume the parameter represents either:
 		 <ul><li>the object <em>contents</em>: if the next parameter is missing, or</li><li>the object <em>container</em>: if the next parameter is provided.</li></ul></li><li><em>Other</em>: Any other type should be handled by derived classes, or passed
 			here where we raise an <a href="../../Framework/Definitions/_defines---Errors.inc.php.html#definekERROR_UNSUPPORTED">exception</a>.</li></ul></li><li><strong>$theIdentifier</strong>: This parameter represents the key or query that will be
         used to locate the object in the container provided in the first parameter.
@@ -224,21 +233,22 @@
         the provided <em>$theIdentifier</em> as a key or query, and if:
      <ul><li><em>Found</em>: We set the <a href="../../Framework/Persistence/CPersistentObject.html#method_IsCommitted">committed</a>
             <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_COMMITTED">flag</a> on.</li><li><em>Not found</em>: We instantiate an empty object and ignore the
-            <a href="../../Framework/Persistence/CPersistentObject.html#method_IsCommitted">committed</a> <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_COMMITTED">flag</a>.</li></ul></li></ul></p><p>The <a href="../../Framework/Core/CStatusObject.html#method_IsInited">inited</a> <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">flag</a> is the responsibility  of derived classes, here we do not manage it.</p><p>In derived classes you should not overload this method, instead, you should overload  the protected interface:</p><p><ul><li><em>_CheckContainer()()</em>: This method can be used to
-        verify the container and normalise the identifier, it will only be called when
-        loading the object from a container.</li><li><em>_CheckIdentifier()()</em>: This method can be used to
-        verify the identifier, it will only be called when loading the object from a
-        container.</li><li><em><a href="../../Framework/Persistence/CPersistentObject.html#method_FindObject">_FindObject</a>()</em>: This method will retrieve the object
-        from a container.</li><li><em><a href="../../Framework/Persistence/CPersistentObject.html#method_CreateObject">_CreateObject</a>()</em>: This method is responsible for
-        instantiating the object from its contents.</li></ul></p></p>
+            <a href="../../Framework/Persistence/CPersistentObject.html#method_IsCommitted">committed</a> <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_COMMITTED">flag</a>.</li></ul></li></ul></p><p>The <a href="../../Framework/Core/CStatusObject.html#method_IsInited">inited</a> <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">flag</a> is the responsibility  of derived classes, here we do not manage it.</p><p>In derived classes you should not overload this method, instead, you should overload  the protected interface:</p><p><ul><li><em><a href="../../Framework/Persistence/CPersistentObject.html#method_PrepareFind">_PrepareFind</a>()</em>: This method can be used to
+        initialise or normalise the container and identifier; this method will only be
+        called if the identifier was provided, in other words, when loading the object
+        from a container. In this class this method will ensure that the container is
+        an ArrayObject.</li><li><em><a href="../../Framework/Persistence/CPersistentObject.html#method_FindObject">_FindObject</a>()</em>: This method will perform the actual
+        retrieval of the object from the container, it is only called if the identifier
+        was provided.</li><li><em><a href="../../Framework/Persistence/CPersistentObject.html#method_CreateObject">_CreateObject</a>()</em>: This method will instantiate the
+        contents of the object, that is: with the container, if the identifier was not
+        provided; or with the result of the object <a href="../../Framework/Persistence/CPersistentObject.html#method_FindObject">retrieval</a>.</li></ul></p></p>
 	<ul class="tags">
 				<li><span class="field">throws:</span> CException</li>
 				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Persistence/CPersistentObject.html#method_PrepareFind">CPersistentObject::_PrepareFind()</a></li>
 				<li><span class="field">uses:</span> <a href="../../Framework/Persistence/CPersistentObject.html#method_FindObject">CPersistentObject::_FindObject()</a></li>
-				<li><span class="field">uses:</span> <a href="../../Framework/Persistence/CPersistentObject.html#method_IsCommitted">CPersistentObject::_IsCommitted()</a></li>
 				<li><span class="field">uses:</span> <a href="../../Framework/Persistence/CPersistentObject.html#method_CreateObject">CPersistentObject::_CreateObject()</a></li>
-				<li><span class="field">uses:</span> _CheckContainer()</li>
-				<li><span class="field">uses:</span> _CheckIdentifier()</li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Persistence/CPersistentObject.html#method_IsCommitted">CPersistentObject::_IsCommitted()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -259,23 +269,33 @@
 				</ul>
 		
 			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Framework/Persistence/CMongoDBRef.html#method__construct">CMongoDBRef::__construct()</a>
+								: Instantiate class.
+							</li>
+				</ul>
 	</div>
 <a name="methodCommit" id="Commit"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Commit</span> (line <span class="line-number">257</span>)
+		<span class="method-title">Commit</span> (line <span class="line-number">255</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Commit the object into a container.</p>
 <p class="description"><p>This method should be used to commit the object to a container, the method accepts  two parameters:</p><p><ul><li><strong>$theContainer</strong>: This parameter represents the <em>container</em> in which
-		the object is to be stored.</li><li><strong>$theIdentifier</strong>: This parameter represents the unique identifier of the
-		object within the container provided in the first parameter.</li></ul></p><p>The method will only operate if either the <a href="../../Framework/Persistence/CPersistentObject.html#method_IsCommitted">committed</a>  <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_COMMITTED">flag</a> is <em>not</em> set, or the  <a href="../../Framework/Core/CStatusObject.html#method_IsDirty">dirty</a> <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_DIRTY">flag</a> is <em>set</em>, if none of  these two conditions are satisfied, the method will just exit.</p><p>The method will by default <em>set</em> the <a href="../../Framework/Persistence/CPersistentObject.html#method_IsCommitted">committed</a>  <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_COMMITTED">flag</a> and <em>reset</em> the <a href="../../Framework/Core/CStatusObject.html#method_IsDirty">dirty</a>  <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_DIRTY">flag</a>.</p><p>This method should raise an exception if any error occurs.</p><p>The method should return the unique identifier of the object or <em>NULL</em> if the  operation was not performed.</p><p>In derived classes you should not overload this method, instead, you should overload  the protected interface:</p><p><ul><li><em>_CheckContainer()()</em>: This method can be used to
-        verify the container and normalise the identifier.</li><li><em>_CheckIdentifier()()</em>: This method can be used to
-        verify or initialise the identifier.</li><li><em><a href="../../Framework/Persistence/CPersistentObject.html#method_StoreObject">_StoreObject</a>()</em>: This method will save the object
-        in the container.</li></ul></p><p>In this class we support <em>array</em> and <em>ArrayObject</em> containers.</p></p>
+		the object is to be stored. It may either be a <a href="../../Framework/Persistence/CContainer.html">CContainer</a>
+        derived instance or an <em>ArrayObject</em> which will be considered the
+        persistent object store. This parameter may also be omitted, in which case
+        derived classes will have to implement a default collection.</li><li><strong>$theIdentifier</strong>: This parameter represents the unique identifier of the
+        object within the container provided in the first parameter.</li></ul></p><p>The method will only operate if either the <a href="../../Framework/Persistence/CPersistentObject.html#method_IsCommitted">committed</a>  <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_COMMITTED">flag</a> is <em>not</em> set, or the  <a href="../../Framework/Core/CStatusObject.html#method_IsDirty">dirty</a> <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_DIRTY">flag</a> is <em>set</em>, if none of  these two conditions are satisfied, the method will just exit.</p><p>The method will by default <em>set</em> the <a href="../../Framework/Persistence/CPersistentObject.html#method_IsCommitted">committed</a>  <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_COMMITTED">flag</a> and <em>reset</em> the <a href="../../Framework/Core/CStatusObject.html#method_IsDirty">dirty</a>  <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_DIRTY">flag</a>.</p><p>This method should raise an exception if any error occurs.</p><p>The method should return the unique identifier of the object or <em>NULL</em> if the  operation was not performed.</p><p>In derived classes you should not overload this method, instead, you should overload  the protected interface:</p><p><ul><li><em><a href="../../Framework/Persistence/CPersistentObject.html#method_PrepareStore">_PrepareStore</a>()</em>: This method can be used to
+        initialise or manage both the container and the identifier.</li><li><em><a href="../../Framework/Persistence/CPersistentObject.html#method_StoreObject">_StoreObject</a>()</em>: This method will perform the
+        actual commit.</li></ul></p></p>
 	<ul class="tags">
 				<li><span class="field">throws:</span> CException</li>
 				<li><span class="field">access:</span> public</li>
@@ -306,16 +326,16 @@
 			
 	</div>
 <a name="method_CreateObject" id="_CreateObject"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_CreateObject</span> (line <span class="line-number">378</span>)
+		<span class="method-title">_CreateObject</span> (line <span class="line-number">381</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Create object.</p>
-<p class="description"><p>The duty of this object is to instantiate an object with the data it is provided.</p><p>This class expects the content to be either an <em>array</em> or an <em>ArrayObject</em>,  other types will raise an <a href="../../Framework/Definitions/_defines---Errors.inc.php.html#definekERROR_INVALID_PARAMETER">exception</a>. Derived classes  should only overload this method if necessary.</p><p>The method should return a boolean where <em>TRUE</em> indicates that the object was  instantiated with data, and <em>FALSE</em> if the object is empty.</p><p>The parameter is provided as a reference.</p></p>
+<p class="description"><p>The duty of this method is to instantiate an object with the provided data.</p><p>This class expects the content to be either <em>NULL</em>, meaning we are instantiating  an empty object, or an <em>ArrayObject</em>, meaning we are instantiating an object  from data; other types will raise an <a href="../../Framework/Definitions/_defines---Errors.inc.php.html#definekERROR_INVALID_PARAMETER">exception</a>.</p><p>Derived classes should handle other types of content, or let the parent method  handle it.</p><p>The method should return a boolean where <em>TRUE</em> indicates that the object was  instantiated with data, and <em>FALSE</em> indicating that the object is empty. This  will be used to determine whether to set the object <a href="../../Framework/Persistence/CPersistentObject.html#method_IsCommitted">committed</a>  or not. Note that we expect the content to be an array, not a scalar.</p><p>The parameter is provided as a reference.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../Framework/Definitions/_defines---Errors.inc.php.html#definekERROR_UNSUPPORTED">kERROR_UNSUPPORTED</a></li>
 				<li><span class="field">throws:</span> CException</li>
@@ -342,22 +362,30 @@
 		<div class="notes">Redefined in descendants as:</div>
 		<ul class="redefinitions">
 					<li>
+				<a href="../../Objects/Entities/CDataset.html#method_CreateObject">CDataset::_CreateObject()</a>
+								: Create object.
+							</li>
+					<li>
+				<a href="../../Objects/Entities/CEntity.html#method_CreateObject">CEntity::_CreateObject()</a>
+								: Create object.
+							</li>
+					<li>
 				<a href="../../Objects/Entities/CUser.html#method_CreateObject">CUser::_CreateObject()</a>
 								: Create object.
 							</li>
 				</ul>
 	</div>
 <a name="method_FindObject" id="_FindObject"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FindObject</span> (line <span class="line-number">469</span>)
+		<span class="method-title">_FindObject</span> (line <span class="line-number">489</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Find object.</p>
-<p class="description"><p>The duty of this method is to locate the object identified by <em>$theIdentifier</em>  in the container <em>$theContainer</em> and return its contents or <em>NULL</em> if not  found.</p><p>In derived classes you should overload this method to handle the specific data store  you will be supporting.</p><p>Both the _CheckContainer() and the  _CheckIdentifier() must have been checked beforehand, this means  that this method expects correct parameters.</p></p>
+<p class="description"><p>The duty of this method is to locate the object identified by <em>$theIdentifier</em>  in the container <em>$theContainer</em> and return its contents or <em>NULL</em> if not  found.</p><p>The method should expect both parameters to have been previously checked: in this  class, the container must be an <em>ArrayObject</em> representing either the actual  container, or a <a href="../../Framework/Persistence/CContainer.html">CContainer</a> derived instance which will take care  of locating the object within its managed native container.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
 				<li><span class="field">usedby:</span> <a href="../../Framework/Persistence/CPersistentObject.html#method__construct">CPersistentObject::__construct()</a></li>
@@ -391,11 +419,11 @@
 				</ul>
 	</div>
 <a name="method_IsCommitted" id="_IsCommitted"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_IsCommitted</span> (line <span class="line-number">333</span>)
+		<span class="method-title">_IsCommitted</span> (line <span class="line-number">331</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -405,11 +433,15 @@
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_COMMITTED">kFLAG_STATE_COMMITTED</a></li>
 				<li><span class="field">access:</span> protected</li>
-				<li><span class="field">usedby:</span> <a href="../../Objects/Entities/CUser.html#methodoffsetUnset">CUser::offsetUnset()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../Objects/Entities/CEntity.html#methodoffsetUnset">CEntity::offsetUnset()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../Objects/Entities/CUser.html#methodoffsetSet">CUser::offsetSet()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../Objects/Entities/CUser.html#methodoffsetUnset">CUser::offsetUnset()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../Objects/Entities/CEntity.html#methodoffsetSet">CEntity::offsetSet()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../Objects/Entities/CDataset.html#methodoffsetSet">CDataset::offsetSet()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../Framework/Persistence/CPersistentObject.html#method__construct">CPersistentObject::__construct()</a></li>
-				<li><span class="field">uses:</span> <a href="../../Framework/Core/CStatusObject.html#method_ManageBitField">CStatusObject::_ManageBitField()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">CPersistentObject::Commit()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Core/CStatusObject.html#method_ManageBitField">CStatusObject::_ManageBitField()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../Objects/Entities/CDataset.html#methodoffsetUnset">CDataset::offsetUnset()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -429,20 +461,21 @@
 			
 	</div>
 <a name="method_PrepareFind" id="_PrepareFind"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareFind</span> (line <span class="line-number">512</span>)
+		<span class="method-title">_PrepareFind</span> (line <span class="line-number">546</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Normalise parameters of a find.</p>
-<p class="description"><p>The duty of this method is to ensure that the parameters provided to a  <a href="../../Framework/Persistence/CPersistentObject.html#method_FindObject">find</a> operation are ready.</p><p>The method should first check if the provided container is of the correct type, then  it should ensure that the identifier is valid.</p><p>Any errors should raise an exception.</p><p>In this class we only support <em>arrays</em> and <em>ArrayObject</em> containers and the  identifier must not be empty.</p></p>
+<p class="description"><p>The duty of this method is to ensure that the parameters provided to a  <a href="../../Framework/Persistence/CPersistentObject.html#method_FindObject">find</a> operation are valid.</p><p>The method should first check if the provided container is of the correct type, then  it should ensure that the identifier is valid.</p><p>We know that the identifier cannot be missing, since this method is only called if  the identifier was provided. We should check that the provided container is of the  correct type. In derived classes you should first handle your custom types, then  let the parent method handle other types.</p><p>Any errors should raise an exception.</p><p>In this class we only support <em>ArrayObject</em> containers and the identifier is not  expected to be <em>NULL</em>.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> kERROR_OPTION_MISSING kERROR_UNSUPPORTED</li>
 				<li><span class="field">throws:</span> CException</li>
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Persistence/CPersistentObject.html#method__construct">CPersistentObject::__construct()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -473,11 +506,11 @@
 				</ul>
 	</div>
 <a name="method_PrepareStore" id="_PrepareStore"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareStore</span> (line <span class="line-number">570</span>)
+		<span class="method-title">_PrepareStore</span> (line <span class="line-number">589</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -519,22 +552,30 @@
 								: Normalise parameters of a store.
 							</li>
 					<li>
+				<a href="../../Objects/Entities/CDataset.html#method_PrepareStore">CDataset::_PrepareStore()</a>
+								: Normalise parameters of a store.
+							</li>
+					<li>
+				<a href="../../Objects/Entities/CEntity.html#method_PrepareStore">CEntity::_PrepareStore()</a>
+								: Normalise parameters of a store.
+							</li>
+					<li>
 				<a href="../../Objects/Entities/CUser.html#method_PrepareStore">CUser::_PrepareStore()</a>
 								: Normalise parameters of a store.
 							</li>
 				</ul>
 	</div>
 <a name="method_StoreObject" id="_StoreObject"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_StoreObject</span> (line <span class="line-number">438</span>)
+		<span class="method-title">_StoreObject</span> (line <span class="line-number">445</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Store object in container.</p>
-<p class="description"><p>The duty of this method is to store the current object in the provided container  identified by the provided identifier.</p><p>Both the _CheckContainer() and the  _CheckIdentifier() must have been checked beforehand, this means  that this method expects correct parameters.</p><p><em>Note: the duty of this method is to store only the array part of the object,
+<p class="description"><p>The duty of this method is to store the current object in the provided container  identified by the provided identifier.</p><p>This class handles arrays, ArrayObjects and <a href="../../Framework/Persistence/CContainer.html">CContainer</a> derived  instances.</p><p>The method should expect both parameters to have been previously set, its main duty  is only to perform the actual storage, in derived classes you should intercept  custom containers, or call the parent method.</p><p><em>Note: the duty of this method is to store only the array part of the object,
  properties should be ignored.</em></p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
@@ -542,7 +583,7 @@
 			</ul>
 	
 	<div class="method-signature">
-		<span class="method-result">void</span>
+		<span class="method-result">mixed</span>
 		<span class="method-name">
 			_StoreObject
 		</span>
@@ -600,15 +641,7 @@
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Framework/Core/CArrayObject.html#methodvalues">CArrayObject::values()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Framework/Core/CArrayObject.html#method_DurationString">CObject::DurationString()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Framework/Core/CArrayObject.html#method_JsonDecode">CObject::JsonDecode()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Framework/Core/CArrayObject.html#method_JsonEncode">CObject::JsonEncode()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Framework/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Framework/Core/CArrayObject.html#method_StringNormalise">CObject::StringNormalise()</a></span><br>
 											</blockquote>
 									<!-- =========== Summary =========== -->
 					<p>Inherited From <span class="classname">ArrayObject (Internal Class)</span></p>
@@ -695,7 +728,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Mon, 27 Feb 2012 19:35:10 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Sat, 10 Mar 2012 01:26:52 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

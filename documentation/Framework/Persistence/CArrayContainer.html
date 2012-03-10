@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class CArrayContainer</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name"><img src="../../media/images/Class_logo.png"
+														alt=" Class"
+														title=" Class"
+														style="vertical-align: middle"> CArrayContainer</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+													<a href="#sec-vars">Vars</a>
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Array persistent data store.</p>
+<p class="description"><p>This class extends its <a href="../../Framework/Persistence/CContainer.html">ancestor</a> to implement a concrete object store  instance consisting of an array or ArrayObject. All other concrete instances of  persistent object stores derive from this class, so that they might fall back onto a  default working implementation.</p></p>
+		<p class="notes">
+			Located in <a class="field" href="_classes---CArrayContainer.php.html">/classes/CArrayContainer.php</a> (line <span class="field">40</span>)
+		</p>
+		
+				
+		<pre><a href="../../Framework/Core/CObject.html">CObject</a>
+   |
+   --<a href="../../Framework/Persistence/CContainer.html">CContainer</a>
+      |
+      --CArrayContainer</pre>
+	
+			</div>
+</div>
+
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+																		<a href="#sec-vars">Vars</a>
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																																<div class="method-definition">
+					<img src="../../media/images/Constructor.png" alt=" "/>
+											<span class="method-result">CArrayContainer</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span> = <span class="var-default">NULL</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#Commit" title="details" class="method-name">Commit</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theObject</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span> = <span class="var-default">NULL</span>], [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_PERSIST_REPLACE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#Container" title="details" class="method-name">Container</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#_Commit" title="details" class="method-name">_Commit</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theObject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>, <span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#_Delete" title="details" class="method-name">_Delete</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>, <span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#_Load" title="details" class="method-name">_Load</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>, <span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span>)
+									</div>
+											</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			
+							<h4>Inherited Variables</h4>
+				<A NAME='inherited_vars'><!-- --></A>
+									<p>Inherited from <span class="classname"><a href="../../Framework/Persistence/CContainer.html">CContainer</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Variable.png" />
+							<span class="var-title">
+								<span class="var-name"><a href="../../Framework/Persistence/CContainer.html#var$mContainer">CContainer::$mContainer</a></span><br>
+							</span>
+											</blockquote> 
+										
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+															<a href="#sec-vars">Vars</a>
+														<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Constructor.png" />
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">66</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Instantiate class.</p>
+<p class="description"><p>We <a href="../../Framework/Persistence/CContainer.html#method__construct">overload</a> this method to provide a default  native container, which, in this case, will be an empty array.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">CArrayContainer</span>
+		<span class="method-name">
+			__construct
+		</span>
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span> = <span class="var-default">NULL</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theContainer</span><span class="var-description">: Native persistent container.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Framework/Persistence/CContainer.html#method__construct">CContainer::__construct()</a></dt>
+						<dd>Instantiate class.</dd>
+					</dl>
+			
+	</div>
+<a name="methodCommit" id="Commit"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Commit</span> (line <span class="line-number">153</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Commit provided object.</p>
+<p class="description"><p>We <a href="../../Framework/Persistence/CContainer.html#methodCommit">overload</a> this method to check whether the provided  object is either an array or an ArrayObject.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			Commit
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theObject</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span> = <span class="var-default">NULL</span>], [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_PERSIST_REPLACE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theObject</span><span class="var-description">: Object to commit.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+					<li>
+				<span class="var-type">bitfield</span>
+				<span class="var-name">$theModifiers</span><span class="var-description">: Commit modifiers.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Framework/Persistence/CContainer.html#methodCommit">CContainer::Commit()</a></dt>
+						<dd>Commit provided object.</dd>
+					</dl>
+			
+	</div>
+<a name="methodContainer" id="Container"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Container</span> (line <span class="line-number">107</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage persistent container.</p>
+<p class="description"><p>We <a href="../../Framework/Persistence/CContainer.html#methodContainer">overload</a> this method to ensure that the provided  container is either an array or an ArrayObject.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			Container
+		</span>
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Persistent container or operation.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Framework/Persistence/CContainer.html#methodContainer">CContainer::Container()</a></dt>
+						<dd>Manage persistent container.</dd>
+					</dl>
+			
+	</div>
+<a name="method_Commit" id="_Commit"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_Commit</span> (line <span class="line-number">211</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Commit provided object.</p>
+<p class="description"><p>We implement this method to handle array or ArrayObject stores and we ensure provided  options are followed.</p><p>By default the object must be an array or ArrayObject, any other type will raise an  <a href="../../Framework/Definitions/_defines---Errors.inc.php.html#definekERROR_INVALID_PARAMETER">exception</a>.</p><p>The provided identifier will be cast to a string. If it is <em>NULL</em>, it means that  the object is to be appended in the container and the method assumes the  <a href="../../Framework/Persistence/CArrayContainer.html#methodCommit">caller</a> has determined that it is an  <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_INSERT">insert</a> operation.</p><p>Although the <a href="../../Framework/Persistence/CArrayContainer.html#methodCommit">caller</a> accepts the <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_DELETE">delete</a>  option, in this class we do not, so we shall raise an  <a href="../../Framework/Definitions/_defines---Errors.inc.php.html#definekERROR_INVALID_PARAMETER">exception</a>.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			_Commit
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theObject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>, <span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theObject</span><span class="var-description">: Object to commit.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+					<li>
+				<span class="var-type">bitfield</span>
+				<span class="var-name">$theModifiers</span><span class="var-description">: Commit modifiers.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Framework/Persistence/CContainer.html#method_Commit">CContainer::_Commit()</a></dt>
+						<dd>Commit provided object.</dd>
+					</dl>
+			
+	</div>
+<a name="method_Delete" id="_Delete"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_Delete</span> (line <span class="line-number">389</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Delete object.</p>
+<p class="description"><p>We implement this method to handle array or ArrayObject stores.</p><p>The method will cast the identifier to a string.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			_Delete
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>, <span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+					<li>
+				<span class="var-type">bitfield</span>
+				<span class="var-name">$theModifiers</span><span class="var-description">: Load modifiers.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Framework/Persistence/CContainer.html#method_Delete">CContainer::_Delete()</a></dt>
+						<dd>Load object.</dd>
+					</dl>
+			
+	</div>
+<a name="method_Load" id="_Load"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_Load</span> (line <span class="line-number">349</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Load object.</p>
+<p class="description"><p>We implement this method to handle array or ArrayObject stores.</p><p>The method will cast the identifier to a string.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			_Load
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>, <span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+					<li>
+				<span class="var-type">bitfield</span>
+				<span class="var-name">$theModifiers</span><span class="var-description">: Load modifiers.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Framework/Persistence/CContainer.html#method_Load">CContainer::_Load()</a></dt>
+						<dd>Load object.</dd>
+					</dl>
+			
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../Framework/Persistence/CContainer.html">CContainer</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Constructor.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Persistence/CContainer.html#method__construct">CContainer::__construct()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Persistence/CContainer.html#methodCommit">CContainer::Commit()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Persistence/CContainer.html#methodContainer">CContainer::Container()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Persistence/CContainer.html#methodDelete">CContainer::Delete()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Persistence/CContainer.html#methodLoad">CContainer::Load()</a></span><br>
+													<img src="../../media/images/AbstractMethod.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Persistence/CContainer.html#method_Commit">CContainer::_Commit()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Persistence/CContainer.html#method_Container">CContainer::_Container()</a></span><br>
+													<img src="../../media/images/AbstractMethod.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Persistence/CContainer.html#method_Delete">CContainer::_Delete()</a></span><br>
+													<img src="../../media/images/AbstractMethod.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Persistence/CContainer.html#method_Load">CContainer::_Load()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../Framework/Core/CObject.html">CObject</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CObject.html#methodDurationString">CObject::DurationString()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CObject.html#methodJsonDecode">CObject::JsonDecode()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CObject.html#methodJsonEncode">CObject::JsonEncode()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CObject.html#methodStringNormalise">CObject::StringNormalise()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CObject.html#method_ManageMember">CObject::_ManageMember()</a></span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+	
+	<p class="notes" id="credit">
+		Documentation generated on Sat, 10 Mar 2012 01:26:50 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

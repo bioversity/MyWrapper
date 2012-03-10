@@ -3,13 +3,13 @@
   <html xmlns="http://www.w3.org/1999/xhtml">
 		<head>
 			<!-- template designed by Marco Von Ballmoos -->
-			<title>Docs for page CQuery.php</title>
+			<title>Docs for page CMongoContainer.php</title>
 			<link rel="stylesheet" href="../../media/stylesheet.css" />
 			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
 		</head>
 		<body>
 			<div class="page-body">			
-<h2 class="file-name"><img src="../../media/images/Page_logo.png" alt="File" style="vertical-align: middle">/classes/CQuery.php</h2>
+<h2 class="file-name"><img src="../../media/images/Page_logo.png" alt="File" style="vertical-align: middle">/classes/CMongoContainer.php</h2>
 
 <a name="sec-description"></a>
 <div class="info-box">
@@ -21,11 +21,11 @@
 												</div>
 	<div class="info-box-body">	
 		<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description"><em>CQuery</em> class definition.</p>
-<p class="description"><p>This file contains the class definition of <strong>CQuery</strong> which represents a query object.</p></p>
+<p class="short-description"><em>CMongoContainer</em> class definition.</p>
+<p class="description"><p>This file contains the class definition of <strong>CMongoContainer</strong> which implements a  MongoDB object store.</p></p>
 	<ul class="tags">
 				<li><span class="field">author:</span> Milko A. Škofič &lt;<a href="mailto:m.skofic@cgiar.org">m.skofic@cgiar.org</a>&gt;</li>
-				<li><span class="field">version:</span> 1.00 12/06/2011                 2.00 22/02/2012</li>
+				<li><span class="field">version:</span> 1.00 08/03/2012</li>
 			</ul>
 		
 			</div>
@@ -50,10 +50,10 @@
 						<img src="../../media/images/Class.png"
 								 alt=" class"
 								 title=" class"/>
-						<a href="../../Framework/Persistence/CQuery.html">CQuery</a>
+						<a href="../../Framework/Persistence/CMongoContainer.html">CMongoContainer</a>
 					</td>
 					<td>
-											Query.
+											Mongo persistent data store.
 										</td>
 				</tr>
 							</table>
@@ -69,14 +69,14 @@
 				|						<span class="disabled">Includes</span>
 														</div>
 		<div class="info-box-body">	
-			<a name="_kPATH_LIBRARY_SOURCE_CStatusObject_php"><!-- --></a>
+			<a name="_kPATH_LIBRARY_SOURCE_CContainer_php"><!-- --></a>
 <div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Page.png" alt=" " />
 		<span class="include-title">
 			<span class="include-type">require_once</span>
-			(<span class="include-name"><a href="../../Framework/Core/_classes---CStatusObject.php.html">kPATH_LIBRARY_SOURCE."CStatusObject.php"</a></span>)
+			(<span class="include-name"><a href="../../Framework/Persistence/_classes---CContainer.php.html">kPATH_LIBRARY_SOURCE."CContainer.php"</a></span>)
 			(line <span class="line-number">27</span>)
 		</span>
 	</div>
@@ -84,40 +84,6 @@
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Ancestor.</p>
 <p class="description"><p>This include file contains the parent class definitions.</p></p>
-	
-</div>
-<a name="_kPATH_LIBRARY_DEFINES_Types_inc_php"><!-- --></a>
-<div class="oddrow">
-	
-	<div>
-		<img src="../../media/images/Page.png" alt=" " />
-		<span class="include-title">
-			<span class="include-type">require_once</span>
-			(<span class="include-name"><a href="../../Framework/Definitions/_defines---Types.inc.php.html">Types.inc.php</a></span>)
-			(line <span class="line-number">34</span>)
-		</span>
-	</div>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Types.</p>
-<p class="description"><p>This include file contains all data type definitions.</p></p>
-	
-</div>
-<a name="_kPATH_LIBRARY_DEFINES_Operators_inc_php"><!-- --></a>
-<div class="evenrow">
-	
-	<div>
-		<img src="../../media/images/Page.png" alt=" " />
-		<span class="include-title">
-			<span class="include-type">require_once</span>
-			(<span class="include-name"><a href="../../Framework/Definitions/_defines---Operators.inc.php.html">Operators.inc.php</a></span>)
-			(line <span class="line-number">41</span>)
-		</span>
-	</div>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Operators.</p>
-<p class="description"><p>This include file contains all operator definitions.</p></p>
 	
 </div>
 <a name="_kPATH_LIBRARY_DEFINES_Offsets_inc_php"><!-- --></a>
@@ -128,30 +94,13 @@
 		<span class="include-title">
 			<span class="include-type">require_once</span>
 			(<span class="include-name"><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html">Offsets.inc.php</a></span>)
-			(line <span class="line-number">48</span>)
+			(line <span class="line-number">34</span>)
 		</span>
 	</div>
 
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Offsets.</p>
 <p class="description"><p>This include file contains all default offset definitions.</p></p>
-	
-</div>
-<a name="_kPATH_LIBRARY_SOURCE_CQuery_inc_php"><!-- --></a>
-<div class="evenrow">
-	
-	<div>
-		<img src="../../media/images/Page.png" alt=" " />
-		<span class="include-title">
-			<span class="include-type">require_once</span>
-			(<span class="include-name"><a href="../../Framework/Persistence/_classes---CQuery.inc.php.html">kPATH_LIBRARY_SOURCE."CQuery.inc.php"</a></span>)
-			(line <span class="line-number">55</span>)
-		</span>
-	</div>
-
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Local definitions.</p>
-<p class="description"><p>This include file contains all local definitions to this class.</p></p>
 	
 </div>
 		</div>
@@ -161,7 +110,7 @@
 	
 	
 	<p class="notes" id="credit">
-		Documentation generated on Sat, 10 Mar 2012 01:26:52 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Sat, 10 Mar 2012 01:26:51 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

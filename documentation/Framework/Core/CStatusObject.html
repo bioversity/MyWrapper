@@ -39,7 +39,7 @@
         This class will set this state by default when <a href="../../Framework/Core/CStatusObject.html#methodoffsetSet">setting</a> or
         <a href="../../Framework/Core/CStatusObject.html#methodoffsetUnset">deleting</a> array store elements.</li></ul></p></p>
 		<p class="notes">
-			Located in <a class="field" href="_classes---CStatusObject.php.html">/classes/CStatusObject.php</a> (line <span class="field">60</span>)
+			Located in <a class="field" href="_classes---CStatusObject.php.html">/classes/CStatusObject.php</a> (line <span class="field">67</span>)
 		</p>
 		
 				
@@ -200,14 +200,14 @@
 		<div class="info-box-body">
 			
 <a name="var$mStatus" id="$mStatus"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<img src="../../media/images/Variable.png" />
 		<span class="var-title">
 			<span class="var-type">bitfield</span>
 			<span class="var-name">$mStatus</span>
-			 = <span class="var-default"> kFLAG_DEFAULT</span>			(line <span class="line-number">69</span>)
+			 = <span class="var-default"> kFLAG_DEFAULT</span>			(line <span class="line-number">76</span>)
 		</span>
 	</div>
 
@@ -240,11 +240,11 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="methodoffsetSet" id="offsetSet"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetSet</span> (line <span class="line-number">100</span>)
+		<span class="method-title">offsetSet</span> (line <span class="line-number">107</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -284,17 +284,25 @@
 		<div class="notes">Redefined in descendants as:</div>
 		<ul class="redefinitions">
 					<li>
+				<a href="../../Objects/Entities/CDataset.html#methodoffsetSet">CDataset::offsetSet()</a>
+								: Set a value for a given offset.
+							</li>
+					<li>
+				<a href="../../Objects/Entities/CEntity.html#methodoffsetSet">CEntity::offsetSet()</a>
+								: Set a value for a given offset.
+							</li>
+					<li>
 				<a href="../../Objects/Entities/CUser.html#methodoffsetSet">CUser::offsetSet()</a>
 								: Set a value for a given offset.
 							</li>
 				</ul>
 	</div>
 <a name="methodoffsetUnset" id="offsetUnset"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetUnset</span> (line <span class="line-number">134</span>)
+		<span class="method-title">offsetUnset</span> (line <span class="line-number">141</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -331,17 +339,25 @@
 		<div class="notes">Redefined in descendants as:</div>
 		<ul class="redefinitions">
 					<li>
+				<a href="../../Objects/Entities/CDataset.html#methodoffsetUnset">CDataset::offsetUnset()</a>
+								: Reset a value for a given offset.
+							</li>
+					<li>
+				<a href="../../Objects/Entities/CEntity.html#methodoffsetUnset">CEntity::offsetUnset()</a>
+								: Reset a value for a given offset.
+							</li>
+					<li>
 				<a href="../../Objects/Entities/CUser.html#methodoffsetUnset">CUser::offsetUnset()</a>
 								: Reset a value for a given offset.
 							</li>
 				</ul>
 	</div>
 <a name="method_IsDirty" id="_IsDirty"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_IsDirty</span> (line <span class="line-number">286</span>)
+		<span class="method-title">_IsDirty</span> (line <span class="line-number">293</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -374,11 +390,11 @@
 			
 	</div>
 <a name="method_IsInited" id="_IsInited"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_IsInited</span> (line <span class="line-number">240</span>)
+		<span class="method-title">_IsInited</span> (line <span class="line-number">247</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -388,9 +404,13 @@
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">kFLAG_STATE_INITED</a></li>
 				<li><span class="field">access:</span> protected</li>
-				<li><span class="field">usedby:</span> <a href="../../Objects/Entities/CUser.html#methodoffsetUnset">CUser::offsetUnset()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../Objects/Entities/CUser.html#methodoffsetSet">CUser::offsetSet()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../Objects/Entities/CUser.html#methodoffsetUnset">CUser::offsetUnset()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../Objects/Entities/CEntity.html#methodoffsetUnset">CEntity::offsetUnset()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../Objects/Entities/CDataset.html#methodoffsetUnset">CDataset::offsetUnset()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../Objects/Entities/CDataset.html#methodoffsetSet">CDataset::offsetSet()</a></li>
 				<li><span class="field">uses:</span> <a href="../../Framework/Core/CStatusObject.html#method_ManageBitField">CStatusObject::_ManageBitField()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../Objects/Entities/CEntity.html#methodoffsetSet">CEntity::offsetSet()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -410,11 +430,11 @@
 			
 	</div>
 <a name="method_ManageBitField" id="_ManageBitField"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ManageBitField</span> (line <span class="line-number">337</span>)
+		<span class="method-title">_ManageBitField</span> (line <span class="line-number">344</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -453,11 +473,11 @@
 			
 	</div>
 <a name="method_Status" id="_Status"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Status</span> (line <span class="line-number">191</span>)
+		<span class="method-title">_Status</span> (line <span class="line-number">198</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -503,15 +523,7 @@
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Framework/Core/CArrayObject.html#methodvalues">CArrayObject::values()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Framework/Core/CArrayObject.html#method_DurationString">CObject::DurationString()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Framework/Core/CArrayObject.html#method_JsonDecode">CObject::JsonDecode()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Framework/Core/CArrayObject.html#method_JsonEncode">CObject::JsonEncode()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Framework/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Framework/Core/CArrayObject.html#method_StringNormalise">CObject::StringNormalise()</a></span><br>
 											</blockquote>
 										
 		</div>
@@ -519,7 +531,7 @@
 
 	
 	<p class="notes" id="credit">
-		Documentation generated on Mon, 27 Feb 2012 19:35:10 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Sat, 10 Mar 2012 01:26:52 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

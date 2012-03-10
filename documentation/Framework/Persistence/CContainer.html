@@ -1,0 +1,707 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class CContainer</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name"><img src="../../media/images/AbstractClass_logo.png"
+														alt="Abstract Class"
+														title="Abstract Class"
+														style="vertical-align: middle"> CContainer</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+							<a href="#sec-descendents">Descendents</a>
+			|											<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Persistent objects data store ancestor.</p>
+<p class="description"><p>This <em>abstract</em> class is the ancestor of all persistent object data stores, it  implements the common interfaces shared by all concrete instances of object data stores.</p><p>The class is designed to work with one object at the time, which means that it expects  and returns one object, it does not handle object collections.</p><p>Persistence operations are performed through three methods:</p><p><ul><li><em><a href="../../Framework/Persistence/CContainer.html#methodCommit">Commit</a></em>: This method will insert, replace or modify objects
+        in the current object store.</li><li><em><a href="../../Framework/Persistence/CContainer.html#methodLoad">Load</a></em>: This method will retrieve objects from the current
+        object store.</li><li><em><a href="../../Framework/Persistence/CContainer.html#methodDelete">Delete</a></em>: This method will remove objects from the current
+        object store.</li></ul></p><p>The class features a <a href="../../Framework/Persistence/CContainer.html#methodContainer">member</a> that holds the native data store.</p></p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_classes---CContainer.php.html">/classes/CContainer.php</a> (line <span class="field">54</span>)
+		</p>
+		
+				
+		<pre><a href="../../Framework/Core/CObject.html">CObject</a>
+   |
+   --CContainer</pre>
+	
+			</div>
+</div>
+
+	<a name="sec-descendents"></a>
+	<div class="info-box">
+		<div class="info-box-title">Direct descendents</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+			<span class="disabled">Descendents</span>
+			|												<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+								|															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<table cellpadding="2" cellspacing="0" class="class-table">
+				<tr>
+					<th class="class-table-header">Class</th>
+					<th class="class-table-header">Description</th>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; white-space: nowrap">
+						<img src="../../media/images/Class.png"
+								 alt=" class"
+								 title=" class"
+								 style="vertical-align: center"/>
+						<a href="../../Framework/Persistence/CArrayContainer.html">CArrayContainer</a>
+					</td>
+					<td>
+											Array persistent data store.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; white-space: nowrap">
+						<img src="../../media/images/Class.png"
+								 alt=" class"
+								 title=" class"
+								 style="vertical-align: center"/>
+						<a href="../../Framework/Persistence/CMongoContainer.html">CMongoContainer</a>
+					</td>
+					<td>
+											Mongo persistent data store.
+										</td>
+				</tr>
+							</table>
+		</div>
+	</div>
+
+
+	<a name="sec-var-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variable Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendants</a> |
+						<span class="disabled">Vars</span> (<a href="#sec-vars">details</a>)
+							| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<div class="var-summary">
+																								<div class="var-title">
+					<img src="../../media/images/Variable.png" alt=" " />
+					<span class="var-type">mixed</span>
+					<a href="#$mContainer" title="details" class="var-name">$mContainer</a>
+				</div>
+											</div>
+		</div>
+	</div>
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendants</a> |
+																		<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																																																								<div class="method-definition">
+					<img src="../../media/images/Constructor.png" alt=" "/>
+											<span class="method-result">CContainer</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span> = <span class="var-default">NULL</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#Commit" title="details" class="method-name">Commit</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theObject</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span> = <span class="var-default">NULL</span>], [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_PERSIST_REPLACE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#Container" title="details" class="method-name">Container</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#Delete" title="details" class="method-name">Delete</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>, [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_DEFAULT</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#Load" title="details" class="method-name">Load</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>, [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_DEFAULT</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/AbstractMethod.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#_Commit" title="details" class="method-name">_Commit</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theObject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>, <span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#_Container" title="details" class="method-name">&amp;_Container</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/AbstractMethod.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#_Delete" title="details" class="method-name">_Delete</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>, <span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/AbstractMethod.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#_Load" title="details" class="method-name">_Load</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>, <span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span>)
+									</div>
+											</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			
+<a name="var$mContainer" id="$mContainer"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<img src="../../media/images/Variable.png" />
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$mContainer</span>
+			 = <span class="var-default"> NULL</span>			(line <span class="line-number">63</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Persistent data store.</p>
+<p class="description"><p>This data member holds the native persistent store.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+						
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+															<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+														<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Constructor.png" />
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">96</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Instantiate class.</p>
+<p class="description"><p>You instantiate the class with a native data store, the method expects a single  parameter that will be handled specifically by specialised derived classes.</p><p>This method should only be overloaded if you need to set a default value, or if you  need to make specific initialisation before this method sets the  <a href="../../Framework/Persistence/CContainer.html#methodContainer">container</a>.</p><p>You should check the type of the provided parameter in the  <a href="../../Framework/Persistence/CContainer.html#methodContainer">Container()</a> method rather than here.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">CContainer</span>
+		<span class="method-name">
+			__construct
+		</span>
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span> = <span class="var-default">NULL</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theContainer</span><span class="var-description">: Native persistent container.</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Framework/Persistence/CArrayContainer.html#method__construct">CArrayContainer::__construct()</a>
+								: Instantiate class.
+							</li>
+				</ul>
+	</div>
+<a name="methodCommit" id="Commit"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Commit</span> (line <span class="line-number">233</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Commit provided object.</p>
+<p class="description"><p>This method can be used to commit the provided object to the current data store, it  expects three parameters:</p><p><ul><li><strong>$theObject</strong>: The object to be committed.</li><li><strong>$theIdentifier</strong>: This parameter is expected to be the object's unique
+		identifier within the container, it will be the <a href="../../Framework/Persistence/CContainer.html#methodLoad">access</a> key to the
+        object once committed. The default value is <em>NULL</em>, this will generally be
+        the case when inserting objects that expect their identifier to be computed by
+        the container itself; in all other cases the parameter is required.</li><li><strong>$theModifiers</strong>: This parameter represents the commit operation options, by
+        default we assume it is a bitfield where the following values apply:
+     <ul><li><em><a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_INSERT">kFLAG_PERSIST_INSERT</a></em>: The provided
+            object will be inserted in the container, it is assumed that no other
+            element in the container shares the same identifier, in that case the method
+            must raise an <a href="../../Framework/Definitions/_defines---Errors.inc.php.html#definekERROR_DUPLICATE">exception</a>.</li><li><em><a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_UPDATE">kFLAG_PERSIST_UPDATE</a></em>: The provided
+            object will replace the existing object. In this case the method expects
+            the container to have an entry with the same key as the provided identifier,
+            if this is not the case the method must raise an
+            <a href="../../Framework/Definitions/_defines---Errors.inc.php.html#definekERROR_NOT_FOUND">exception</a>. With this option it is assumed that the
+            provided object's attributes will replace all the existing object's ones.</li><li><em><a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_MODIFY">kFLAG_PERSIST_MODIFY</a></em>: The provided
+            object is assumed to contain a subset of an existing object's attributes,
+            these provided attributes will be appended or replace the existing ones.
+            In this case the method expects the container to have an entry with the
+            same key as the provided identifier, if this is not the case the method must
+            raise an <a href="../../Framework/Definitions/_defines---Errors.inc.php.html#definekERROR_NOT_FOUND">exception</a>.</li><li><em><a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_REPLACE">kFLAG_PERSIST_REPLACE</a></em>: The provided
+            object will be <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_INSERT">inserted</a>, if the identifier
+            doesn't match any container elements, or it will
+            <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_UPDATE">replace</a> the existing object. As with
+            <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_UPDATE">update</a>, it is assumed that the provided
+            object's attributes will replace all the existing object's ones.</li><li><em><a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_DELETE">kFLAG_PERSIST_DELETE</a></em>: This option
+            assumes you want to remove the object from the container, although this
+            operation has its own public <a href="../../Framework/Persistence/CContainer.html#methodDelete">method</a>, derived classes can
+            use this option to implement a <em>deleted state</em>, rather than actually
+            removing the object from the container.</li></ul></li></ul></p><p>The method will return the object's key within the container or raise an exception if  the operation was not successful.</p><p>This method relies on a virtual <a href="../../Framework/Persistence/CContainer.html#method_Commit">method</a> that will perform the actual  operation, here we only perform the following controls:</p><p><ul><li><em>Check identifier</em>: by default we assume that all operations except
+        <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_INSERT">insert</a> require the identifier to be provided. If
+        you handle default values for identifiers, you should overload this method.</li><li><em><a href="../../Framework/Persistence/CContainer.html#method_Commit">Commit</a></em>: we call the protected interface to perform the
+        requested operation, this interface must be implemented by derived classes.</li></ul></p><p>By default we assume the provided object to be either an array or an ArrayObject.</p><p>The actual operation will be performed by a protected <a href="../../Framework/Persistence/CContainer.html#method_Commit">method</a>.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			Commit
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theObject</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span> = <span class="var-default">NULL</span>], [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_PERSIST_REPLACE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theObject</span><span class="var-description">: Object to commit.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+					<li>
+				<span class="var-type">bitfield</span>
+				<span class="var-name">$theModifiers</span><span class="var-description">: Commit modifiers.</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Framework/Persistence/CArrayContainer.html#methodCommit">CArrayContainer::Commit()</a>
+								: Commit provided object.
+							</li>
+					<li>
+				<a href="../../Framework/Persistence/CMongoContainer.html#methodCommit">CMongoContainer::Commit()</a>
+								: Commit provided object.
+							</li>
+				</ul>
+	</div>
+<a name="methodContainer" id="Container"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Container</span> (line <span class="line-number">142</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage persistent container.</p>
+<p class="description"><p>This method can be used to manage the persistent container, it accepts a single  parameter which represents either the container or the requested operation,  depending on its value:</p><p><ul><li><em>NULL</em>: Return the current value.</li><li><em>other</em>: Set the value with the provided parameter.</li></ul></p><p>The second parameter is a boolean which if <em>TRUE</em> will return the <em>old</em>  value when setting a new value; if <em>FALSE</em>, it will return the newly set value.</p><p>One is not allowed to delete the container.</p><p>In derived classes you should overload this method to check if the provided container  is of the correct type.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			Container
+		</span>
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Persistent container or operation.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Framework/Persistence/CArrayContainer.html#methodContainer">CArrayContainer::Container()</a>
+								: Manage persistent container.
+							</li>
+					<li>
+				<a href="../../Framework/Persistence/CMongoContainer.html#methodContainer">CMongoContainer::Container()</a>
+								: Manage persistent container.
+							</li>
+				</ul>
+	</div>
+<a name="methodDelete" id="Delete"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Delete</span> (line <span class="line-number">328</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Delete object.</p>
+<p class="description"><p>This method can be used to remove an object fron the container:</p><p></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			Delete
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>, [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_DEFAULT</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+					<li>
+				<span class="var-type">bitfield</span>
+				<span class="var-name">$theModifiers</span><span class="var-description">: Delete modifiers.</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Framework/Persistence/CMongoContainer.html#methodDelete">CMongoContainer::Delete()</a>
+								: Delete object.
+							</li>
+				</ul>
+	</div>
+<a name="methodLoad" id="Load"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Load</span> (line <span class="line-number">291</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Load object.</p>
+<p class="description"><p>This method can be used to load an object fron the container:</p><p></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			Load
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>, [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_DEFAULT</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+					<li>
+				<span class="var-type">bitfield</span>
+				<span class="var-name">$theModifiers</span><span class="var-description">: Load modifiers.</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Framework/Persistence/CMongoContainer.html#methodLoad">CMongoContainer::Load()</a>
+								: Load object.
+							</li>
+				</ul>
+	</div>
+<a name="method_Commit" id="_Commit"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/AbstractMethod.png" />
+		<span class="method-title">_Commit</span> (line <span class="line-number">425</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Commit provided object.</p>
+<p class="description"><p>Derived classes must implement this method to actually store the provided object in  the container, it expects three parameters:</p><p><ul><li><strong>$theObject</strong>: The object to be committed.</li><li><strong>$theIdentifier</strong>: This parameter is expected to be the object's unique
+		identifier within the container.</li><li><strong>$theModifiers</strong>: This parameter represents the commit operation options, by
+		default we assume it is a bitfield where the following values apply:
+	 <ul><li><em><a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_INSERT">kFLAG_PERSIST_INSERT</a></em>: The provided
+            object will be inserted in the container, it is assumed that no other
+            element in the container shares the same identifier, in that case the method
+            must raise an <a href="../../Framework/Definitions/_defines---Errors.inc.php.html#definekERROR_DUPLICATE">exception</a>.</li><li><em><a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_UPDATE">kFLAG_PERSIST_UPDATE</a></em>: The provided
+            object will replace the existing object. In this case the method expects
+            the container to have an entry with the same key as the provided identifier,
+            if this is not the case the method must raise an
+            <a href="../../Framework/Definitions/_defines---Errors.inc.php.html#definekERROR_NOT_FOUND">exception</a>. With this option it is assumed that the
+            provided object's attributes will replace all the existing object's ones.</li><li><em><a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_MODIFY">kFLAG_PERSIST_MODIFY</a></em>: The provided
+            object is assumed to contain a subset of an existing object's attributes,
+            these provided attributes will be appended or replace the existing ones.
+            In this case the method expects the container to have an entry with the
+            same key as the provided identifier, if this is not the case the method must
+            raise an <a href="../../Framework/Definitions/_defines---Errors.inc.php.html#definekERROR_NOT_FOUND">exception</a>.</li><li><em><a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_REPLACE">kFLAG_PERSIST_REPLACE</a></em>: The provided
+            object will be <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_INSERT">inserted</a>, if the identifier
+            doesn't match any container elements, or it will
+            <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_UPDATE">replace</a> the existing object. As with
+            <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_UPDATE">update</a>, it is assumed that the provided
+            object's attributes will replace all the existing object's ones.</li></ul></li></ul></p><p>The method should return the object's key within the container or raise an exception  if the operation was not successful.</p></p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			_Commit
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theObject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>, <span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theObject</span><span class="var-description">: Object to commit.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+					<li>
+				<span class="var-type">bitfield</span>
+				<span class="var-name">$theModifiers</span><span class="var-description">: Commit modifiers.</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Framework/Persistence/CArrayContainer.html#method_Commit">CArrayContainer::_Commit()</a>
+								: Commit provided object.
+							</li>
+					<li>
+				<a href="../../Framework/Persistence/CMongoContainer.html#method_Commit">CMongoContainer::_Commit()</a>
+								: Commit provided object.
+							</li>
+				</ul>
+	</div>
+<a name="method_Container" id="_Container"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_Container</span> (line <span class="line-number">361</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get container reference.</p>
+<p class="description"><p>This method can be used to retrieve a reference to the native container member, this  can be useful when the native <a href="../../Framework/Persistence/CContainer.html#methodContainer">container</a> is not an object passed  by reference.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			&amp;_Container
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method_Delete" id="_Delete"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/AbstractMethod.png" />
+		<span class="method-title">_Delete</span> (line <span class="line-number">477</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Load object.</p>
+<p class="description"><p>Derived classes must implement this method to perform the actual removal of objects  from the container.</p><p></p></p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			_Delete
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>, <span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+					<li>
+				<span class="var-type">bitfield</span>
+				<span class="var-name">$theModifiers</span><span class="var-description">: Delete modifiers.</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Framework/Persistence/CArrayContainer.html#method_Delete">CArrayContainer::_Delete()</a>
+								: Delete object.
+							</li>
+					<li>
+				<a href="../../Framework/Persistence/CMongoContainer.html#method_Delete">CMongoContainer::_Delete()</a>
+								: Delete object.
+							</li>
+				</ul>
+	</div>
+<a name="method_Load" id="_Load"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/AbstractMethod.png" />
+		<span class="method-title">_Load</span> (line <span class="line-number">451</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Load object.</p>
+<p class="description"><p>Derived classes must implement this method to perform the actual retrieval of objects  from the container.</p><p></p></p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			_Load
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>, <span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+					<li>
+				<span class="var-type">bitfield</span>
+				<span class="var-name">$theModifiers</span><span class="var-description">: Load modifiers.</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Framework/Persistence/CArrayContainer.html#method_Load">CArrayContainer::_Load()</a>
+								: Load object.
+							</li>
+					<li>
+				<a href="../../Framework/Persistence/CMongoContainer.html#method_Load">CMongoContainer::_Load()</a>
+								: Load object.
+							</li>
+				</ul>
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../Framework/Core/CObject.html">CObject</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CObject.html#methodDurationString">CObject::DurationString()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CObject.html#methodJsonDecode">CObject::JsonDecode()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CObject.html#methodJsonEncode">CObject::JsonEncode()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CObject.html#methodStringNormalise">CObject::StringNormalise()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CObject.html#method_ManageMember">CObject::_ManageMember()</a></span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+	
+	<p class="notes" id="credit">
+		Documentation generated on Sat, 10 Mar 2012 01:26:50 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>
