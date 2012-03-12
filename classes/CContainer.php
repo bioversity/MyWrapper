@@ -27,6 +27,13 @@
 require_once( kPATH_LIBRARY_SOURCE."CObject.php" );
 
 /**
+ * Types.
+ *
+ * This include file contains all type definitions.
+ */
+require_once( kPATH_LIBRARY_DEFINES."Types.inc.php" );
+
+/**
  * Persistent objects data store ancestor.
  *
  * This <i>abstract</i> class is the ancestor of all persistent object data stores, it
@@ -271,8 +278,8 @@ abstract class CContainer extends CObject
 	 * This method can be used to load an object fron the container:
 	 *
 	 * <ul>
-	 *	<li><b>$theIdentifier</i>: The key to the object in the container.
-	 *	<li><b>$theModifiers</i>: Optional bitfield that can be used to provide options for
+	 *	<li><b>$theIdentifier</b>: The key to the object in the container.
+	 *	<li><b>$theModifiers</b>: Optional bitfield that can be used to provide options for
 	 *		the operation. In this class we do not use this parameter.
 	 * </ul>
 	 *
@@ -308,8 +315,8 @@ abstract class CContainer extends CObject
 	 * This method can be used to remove an object fron the container:
 	 *
 	 * <ul>
-	 *	<li><b>$theIdentifier</i>: The key to the object in the container.
-	 *	<li><b>$theModifiers</i>: Optional bitfield that can be used to provide options for
+	 *	<li><b>$theIdentifier</b>: The key to the object in the container.
+	 *	<li><b>$theModifiers</b>: Optional bitfield that can be used to provide options for
 	 *		the operation. In this class we do not use this parameter.
 	 * </ul>
 	 *
@@ -333,6 +340,158 @@ abstract class CContainer extends CObject
 		return $this->_Delete( $theIdentifier, $theModifiers );						// ==>
 
 	} // Delete.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC CONVERSION INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	Encode																			*
+	 *==================================================================================*/
+
+	/**
+	 * Encode provided data.
+	 *
+	 * This method can be used to encode the provided object into a format suitable for the
+	 * current container, the method expects the provided data to be an object or data that
+	 * will have to be stored in the current container.
+	 *
+	 * The duty of this method is to scan the provided data for elements that need to be
+	 * encoded to be compatible with the current container, these elements are expected to
+	 * be either arrays or ArrayObjects and they should have have the following structure:
+	 *
+	 * <ul>
+	 *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: This offset represents the data type in
+	 *		which the data contained in the next offset is encoded.
+	 *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: This offset represents the actual data, it
+	 *		may be a scalar or an array containing the subcomponents of the data.
+	 * </ul>
+	 *
+	 * The method accepts a single parameter which must be an array or ArrayObject instance,
+	 * it will perform the encoding on the object itself. If you need to restore later the
+	 * object to the state in which it was provided to this method, you should use the
+	 * counter method {@link Decode() Decode}.
+	 *
+	 * The method will traverse the provided object selecting only structures, if the
+	 * structure contains both the {@link kTAG_TYPE type} and {@link kTAG_DATA data}
+	 * offsets, it will pass the corresponding object element by reference to the protected
+	 * {@link _Encode() method} that will take care of performing the conversion and
+	 * replacing the provided element; if the element does not have the required offsets,
+	 * the method will recurse on that element.
+	 *
+	 * @param reference			   &$theObject			Object to encode.
+	 *
+	 * @access public
+	 */
+	public function Encode( &$theObject )
+	{
+		//
+		// Check provided data.
+		//
+		if( (! is_array( $theObject ))
+		 && (! $theObject instanceof ArrayObject) )
+			throw new CException
+				( "Invalid object type, expecting an array or ArrayObject derived instance",
+				  kERROR_INVALID_PARAMETER,
+				  kMESSAGE_TYPE_ERROR,
+				  array( 'Object' => $theObject ) );							// !@! ==>
+		
+		//
+		// Traverse object.
+		//
+		foreach( $theObject as $key => $value )
+		{
+			//
+			// Intercept structs.
+			//
+			if( is_array( $value )
+			 || ($value instanceof ArrayObject) )
+			{
+				//
+				// Try conversion.
+				//
+				if( array_key_exists( kTAG_TYPE, (array) $value )
+				 && array_key_exists( kTAG_DATA, (array) $value ) )
+					$this->_Encode( $theObject[ $key ] );
+				
+				//
+				// Recurse.
+				//
+				else
+					$this->Encode( $theObject[ $key ] );
+			
+			} // Is a struct.
+		
+		} // Traversing object.
+	
+	} // Encode.
+
+	 
+	/*===================================================================================
+	 *	Decode																			*
+	 *==================================================================================*/
+
+	/**
+	 * Decode provided data.
+	 *
+	 * This method should be used on objects encoded with the {@link Encode() Encode}
+	 * method, its duty is to restore the provided object to the state it was when provided
+	 * to the {@link Encode() Encode} method.
+	 *
+	 * The duty of this method is to scan the provided data for elements that need to be
+	 * decoded, these will be in general of a type known to the current container, when
+	 * decoded, these custom data types will be converted to an array structured as follows:
+	 *
+	 * <ul>
+	 *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: This offset represents the data type in
+	 *		which the data contained in the next offset is encoded.
+	 *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: This offset represents the actual data, it
+	 *		may be a scalar or an array containing the subcomponents of the data.
+	 * </ul>
+	 *
+	 * The method accepts a single parameter which must be an array or ArrayObject instance,
+	 * it will perform the conversion on the object itself. If you need to restore later the
+	 * object to the state in which it was provided to this method, you should use the
+	 * counter method {@link Encode() Encode}.
+	 *
+	 * The method will traverse the provided object selecting only scalar elements which
+	 * will be passed by reference to the protected {@link _Decode() method} that will check
+	 * the element and perform the conversion if necessary; structured elements will be
+	 * recursed.
+	 *
+	 * @param reference			   &$theObject			Object to decode.
+	 *
+	 * @access public
+	 */
+	public function Decode( &$theObject )
+	{
+		//
+		// Intercept structures.
+		//
+		if( is_array( $theObject )
+		 || ($theObject instanceof ArrayObject) )
+		{
+			//
+			// Recurse.
+			//
+			foreach( $theObject as $key => $value )
+				$this->Decode( $theObject[ $key ] );
+		
+		} // Is a struct.
+		
+		//
+		// Decode.
+		//
+		else
+			$this->_Decode( $theObject );
+	
+	} // Decode.
 
 		
 
@@ -436,8 +595,8 @@ abstract class CContainer extends CObject
 	 * from the container.
 	 *
 	 * <ul>
-	 *	<li><b>$theIdentifier</i>: The key to the object in the container.
-	 *	<li><b>$theModifiers</i>: Bitfield containing the operation options.
+	 *	<li><b>$theIdentifier</b>: The key to the object in the container.
+	 *	<li><b>$theModifiers</b>: Bitfield containing the operation options.
 	 * </ul>
 	 *
 	 * The method should return the found object or <i>NULL</i> if not found.
@@ -462,8 +621,8 @@ abstract class CContainer extends CObject
 	 * from the container.
 	 *
 	 * <ul>
-	 *	<li><b>$theIdentifier</i>: The key to the object in the container.
-	 *	<li><b>$theModifiers</i>: Bitfield containing the operation options.
+	 *	<li><b>$theIdentifier</b>: The key to the object in the container.
+	 *	<li><b>$theModifiers</b>: Bitfield containing the operation options.
 	 * </ul>
 	 *
 	 * The method should return the removed object or <i>NULL</i> if not found.
@@ -475,6 +634,74 @@ abstract class CContainer extends CObject
 	 * @return mixed
 	 */
 	abstract protected function _Delete( $theIdentifier, $theModifiers );
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED CONVERSION INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	_Encode																			*
+	 *==================================================================================*/
+
+	/**
+	 * Encode provided data element.
+	 *
+	 * This method should convert the provided structure into a custom data type compatible
+	 * with the current container.
+	 *
+	 * This method is called by a public {@link Encode() interface} which traverses an
+	 * object and provides this method with all array or ArrayObject elements.
+	 *
+	 * The method can be guaranteed to receive structures containing the
+	 * {@link kTAG_TYPE type} and {@link kTAG_DATA data} offsets, its duty is to intercept
+	 * custom data types in the {@link kTAG_TYPE type} offset and convert the data provided
+	 * in the {@link kTAG_DATA data} directly into the provided element.
+	 *
+	 * In this class we perform no data conversion.
+	 *
+	 * @param reference			   &$theElement			Element to encode.
+	 *
+	 * @access protected
+	 */
+	protected function _Encode( &$theElement )											   {}
+
+	 
+	/*===================================================================================
+	 *	_Decode																			*
+	 *==================================================================================*/
+
+	/**
+	 * Decode provided data element.
+	 *
+	 * This method should convert the provided scalar into a structure containing the
+	 * {@link kTAG_TYPE type} and the normalised {@link kTAG_DATA data}, and replace the
+	 * provided reference with this structure.
+	 *
+	 * This method is called by a public {@link Decode() interface} which traverses an
+	 * object and provides this method with all scalar elements.
+	 *
+	 * This method should select all data types that are considered custom and convert the
+	 * element into an array in which the data type is set in the {@link kTAG_TYPE type}
+	 * offset, and the normalised data in the {@link kTAG_DATA data} offset.
+	 *
+	 * For instance, a binary data object would be converted into an array where the
+	 * {@link kTAG_TYPE type} offset would be set as {@link kDATA_TYPE_BINARY binary} and
+	 * the {@link kTAG_DATA data} offset would be set with the hexadecimal representstion
+	 * of that data.
+	 *
+	 * The conversion is performed on the provided element itself.
+	 *
+	 * @param reference			   &$theElement			Element to encode.
+	 *
+	 * @access protected
+	 */
+	protected function _Decode( &$theElement )											   {}
 
 	 
 

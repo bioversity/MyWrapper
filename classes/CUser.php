@@ -24,7 +24,7 @@
  *
  * This include file contains the parent class definitions.
  */
-require_once( kPATH_LIBRARY_SOURCE."CMongoUnitObject.php" );
+require_once( kPATH_LIBRARY_SOURCE."CPersistentUnitObject.php" );
 
 /**
  * User ancestor.
@@ -49,7 +49,7 @@ require_once( kPATH_LIBRARY_SOURCE."CMongoUnitObject.php" );
  *	<li><i>{@link kTAG_NAME kTAG_NAME}</i>: This offset represents the user full name.
  *		The class features a member accessor {@link Name() method} to manage this property.
  *	<li><i>{@link kOFFSET_EMAIL kOFFSET_EMAIL}</i>: This offset represents the user e-mail.
- *		The class features a member accessor {@link Mail() method} to manage this property.
+ *		The class features a member accessor {@link Email() method} to manage this property.
  * </ul>
  *
  * All the above attributes are required prior to {@link Commit() committing} an object: the
@@ -67,8 +67,52 @@ require_once( kPATH_LIBRARY_SOURCE."CMongoUnitObject.php" );
  *	@package	Objects
  *	@subpackage	Entities
  */
-class CUser extends CMongoUnitObject
+class CUser extends CPersistentUnitObject
 {
+		
+
+/*=======================================================================================
+ *																						*
+ *											MAGIC										*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	__construct																		*
+	 *==================================================================================*/
+
+	/**
+	 * Instantiate class.
+	 *
+	 * We {@link CPersistentObject::__construct() overload} the constructor to initialise
+	 * the {@link _IsInited() inited} {@link kFLAG_STATE_INITED flag} if the
+	 * {@link Code() code}, {@link Password() password}, {@link Name() name} and
+	 * {@link Email() e-mail} elements are set.
+	 *
+	 * @param mixed					$theContainer		Persistent container.
+	 * @param mixed					$theIdentifier		Object identifier.
+	 *
+	 * @access public
+	 */
+	public function __construct( $theContainer = NULL, $theIdentifier = NULL )
+	{
+		//
+		// Call parent method.
+		//
+		parent::__construct( $theContainer, $theIdentifier );
+		
+		//
+		// Set inited status.
+		//
+		$this->_IsInited( $this->offsetExists( kTAG_CODE ) &&
+						  $this->offsetExists( kOFFSET_PASSWORD ) &&
+						  $this->offsetExists( kTAG_NAME ) &&
+						  $this->offsetExists( kOFFSET_EMAIL ) );
+		
+	} // Constructor.
+
 		
 
 /*=======================================================================================
@@ -194,7 +238,7 @@ class CUser extends CMongoUnitObject
 
 	 
 	/*===================================================================================
-	 *	Mail																			*
+	 *	Email																			*
 	 *==================================================================================*/
 
 	/**
@@ -224,11 +268,11 @@ class CUser extends CMongoUnitObject
 	 * @access public
 	 * @return string
 	 */
-	public function Mail( $theValue = NULL, $getOld = FALSE )
+	public function Email( $theValue = NULL, $getOld = FALSE )
 	{
 		return $this->_ManageOffset( kOFFSET_EMAIL, $theValue, $getOld );			// ==>
 
-	} // Mail.
+	} // Email.
 
 		
 
@@ -310,9 +354,10 @@ class CUser extends CMongoUnitObject
 		// Set inited flag.
 		//
 		if( $theValue !== NULL )
-			$this->_IsInited( $this->offsetExists( kOFFSET_EMAIL ) &&
+			$this->_IsInited( $this->offsetExists( kTAG_CODE ) &&
 							  $this->offsetExists( kOFFSET_PASSWORD ) &&
-							  $this->offsetExists( kTAG_NAME ) );
+							  $this->offsetExists( kTAG_NAME ) &&
+							  $this->offsetExists( kOFFSET_EMAIL ) );
 	
 	} // offsetSet.
 
@@ -345,54 +390,12 @@ class CUser extends CMongoUnitObject
 		//
 		// Set inited flag.
 		//
-		$this->_IsInited( $this->offsetExists( kOFFSET_EMAIL ) &&
+		$this->_IsInited( $this->offsetExists( kTAG_CODE ) &&
 						  $this->offsetExists( kOFFSET_PASSWORD ) &&
-						  $this->offsetExists( kTAG_NAME ) );
-	
-	} // offsetUnset.
-
-		
-
-/*=======================================================================================
- *																						*
- *								PROTECTED PERSISTENCE INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	_CreateObject																	*
-	 *==================================================================================*/
-
-	/**
-	 * Create object.
-	 *
-	 * We overload this method to set the object's {@link _IsInited() inited}
-	 * {@link kFLAG_STATE_INITED status}.
-	 *
-	 * @param reference			   &$theContent			Object data content.
-	 *
-	 * @access protected
-	 * @return boolean
-	 */
-	protected function _CreateObject( &$theContent )
-	{
-		//
-		// Call parent method.
-		//
-		$ok = parent::_CreateObject( $theContent );
-		
-		//
-		// Check required offsets.
-		//
-		$this->_IsInited( $this->offsetExists( kOFFSET_PASSWORD ) &&
 						  $this->offsetExists( kTAG_NAME ) &&
 						  $this->offsetExists( kOFFSET_EMAIL ) );
-		
-		return $ok;																	// ==>
 	
-	} // _CreateObject.
+	} // offsetUnset.
 
 		
 

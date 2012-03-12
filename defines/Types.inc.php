@@ -71,7 +71,14 @@ define( "kDATA_TYPE_TIME",					':TIME' );				// Time.
 /**
  * Timestamp type.
  *
- * This data type should be used for native time-stamps.
+ * This data type should be used for native time-stamps, in general it can be shared as a
+ * structure formatted as follows:
+ *
+ * <ul>
+ *	<li><i>{@link kOBJ_TYPE_STAMP_SEC kOBJ_TYPE_STAMP_SEC}</i>: Number of seconds since
+ *		January 1st, 1970.
+ *	<li><i>{@link kOBJ_TYPE_STAMP_USEC kOBJ_TYPE_STAMP_USEC}</i>:Microseconds.
+ * </ul>
  */
 define( "kDATA_TYPE_STAMP",					':STAMP' );				// Timestamp.
 

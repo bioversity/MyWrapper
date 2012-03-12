@@ -615,6 +615,340 @@ class CMongoContainer extends CContainer
 		
 	} // _Delete.
 
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED CONVERSION INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	_Encode																			*
+	 *==================================================================================*/
+
+	/**
+	 * Encode provided data element.
+	 *
+	 * We {@link CContainer::_Encode() overload} this method to handle custom Mongo type
+	 * objects.
+	 *
+	 * This method expects an element in the form of an array or ArrayObject with two
+	 * offsets: {@link kTAG_TYPE kTAG_TYPE} holding the data type and
+	 * {@link kTAG_DATA kTAG_DATA} holding the normalised data.
+	 *
+	 * The duty of this method is to intercept custom {@link kTAG_TYPE types}, convert them
+	 * to the custom data type compatible with the current container and return the custom
+	 * object in the provided parameter.
+	 *
+	 * In this class we parse the following types:
+	 *
+	 * <ul>
+	 *	<li><i>{@link kDATA_TYPE_MongoId kDATA_TYPE_MongoId}</i>: We return a MongoId object
+	 *		using the value provided in the {@link kTAG_DATA kTAG_DATA} offset.
+	 *	<li><i>{@link kDATA_TYPE_MongoCode kDATA_TYPE_MongoCode}</i>: We return a MongoCode
+	 *		object by using the values provided in the {@link kTAG_DATA kTAG_DATA} offset
+	 *		which is expected to be an array structured as follows:
+	 *	 <ul>
+	 *		<li><i>{@link kOBJ_TYPE_CODE_SRC kOBJ_TYPE_CODE_SRC}</i>: The javascript code.
+	 *		<li><i>{@link kOBJ_TYPE_CODE_SCOPE kOBJ_TYPE_CODE_SCOPE}</i>: The key/value
+	 *			pairs.
+	 *	 </ul>
+	 *	<li><i>{@link kDATA_TYPE_MongoDate kDATA_TYPE_MongoDate} or
+	 *		{@link kDATA_TYPE_STAMP kDATA_TYPE_STAMP}</i>: We return a MongoDate object
+	 *		using the contents of the data in the {@link kTAG_DATA kTAG_DATA} offset which
+	 *		is expected to be an array structured as follows:
+	 *	 <ul>
+	 *		<li><i>{@link kOBJ_TYPE_STAMP_SEC kOBJ_TYPE_STAMP_SEC}</i>: Number of seconds
+	 *			since January 1st, 1970.
+	 *		<li><i>{@link kOBJ_TYPE_STAMP_USEC kOBJ_TYPE_STAMP_USEC}</i>: Microseconds.
+	 *	 </ul>
+	 *	<li><i>{@link kDATA_TYPE_MongoInt32 kDATA_TYPE_MongoInt32} or
+	 *		{@link kDATA_TYPE_INT32 kDATA_TYPE_INT32}</i>: We return a MongoInt32 using as
+	 *		value the contents of the {@link kTAG_DATA kTAG_DATA} offset, which may also be
+	 *		a string.
+	 *	<li><i>{@link kDATA_TYPE_MongoInt64 kDATA_TYPE_MongoInt64} or
+	 *		{@link kDATA_TYPE_INT64 kDATA_TYPE_INT64}</i>: We return a MongoInt64 using as
+	 *		value the contents of the {@link kTAG_DATA kTAG_DATA} offset, which may also be
+	 *		a string.
+	 *	<li><i>{@link kDATA_TYPE_MongoRegex kDATA_TYPE_MongoRegex}</i>: We return a
+	 *		MongoRegex object using the {@link kTAG_DATA kTAG_DATA} offset as the regular
+	 *		expression.
+	 *	<li><i>{@link kDATA_TYPE_MongoBinData kDATA_TYPE_MongoBinData} or
+	 *		{@link kDATA_TYPE_BINARY kDATA_TYPE_BINARY}</i>: We return a MongoBinData object
+	 *		using the {@link kTAG_DATA kTAG_DATA} offset as the hexadecimal representation
+	 *		of the binary string.
+	 * </ul>
+	 *
+	 * @param reference			   &$theElement			Element to encode.
+	 *
+	 * @access protected
+	 */
+	protected function _Encode( &$theElement )
+	{
+		//
+		// Handle type.
+		//
+		switch( $theElement[ kTAG_TYPE ] )
+		{
+			//
+			// MongoId.
+			//
+			case kDATA_TYPE_MongoId:
+				$theElement = new MongoId( (string) $theElement[ kTAG_DATA ] );
+				break;
+			
+			//
+			// MongoCode.
+			//
+			case kDATA_TYPE_MongoCode:
+				if( is_array( $theElement[ kTAG_DATA ] )
+				 || ($theElement[ kTAG_DATA ] instanceof ArrayObject) )
+				{
+					$tmp1 = $theElement[ kTAG_DATA ][ kOBJ_TYPE_CODE_SRC ];
+					$tmp2 = ( array_key_exists( kOBJ_TYPE_CODE_SCOPE,
+												(array) $theElement[ kTAG_DATA ] ) )
+						  ? $theElement[ kTAG_DATA ][ kOBJ_TYPE_CODE_SCOPE ]
+						  : Array();
+					$theElement = new MongoCode( $tmp1, $tmp2 );
+				}
+				break;
+			
+			//
+			// MongoDate.
+			//
+			case kDATA_TYPE_STAMP:
+			case kDATA_TYPE_MongoDate:
+				if( is_array( $theElement[ kTAG_DATA ] )
+				 || ($theElement[ kTAG_DATA ] instanceof ArrayObject) )
+				{
+					$tmp1 = $theElement[ kTAG_DATA ][ kOBJ_TYPE_STAMP_SEC ];
+					$tmp2 = ( array_key_exists( kOBJ_TYPE_STAMP_USEC,
+												(array) $theElement[ kTAG_DATA ] ) )
+						  ? $theElement[ kTAG_DATA ][ kOBJ_TYPE_STAMP_USEC ]
+						  : 0;
+					$theElement = new MongoDate( $tmp1, $tmp2 );
+				}
+				break;
+			
+			//
+			// MongoInt32.
+			//
+			case kDATA_TYPE_INT32:
+			case kDATA_TYPE_MongoInt32:
+				$theElement = new MongoInt32( $theElement[ kTAG_DATA ] );
+				break;
+			
+			//
+			// MongoInt64.
+			//
+			case kDATA_TYPE_INT64:
+			case kDATA_TYPE_MongoInt64:
+				$theElement = new MongoInt64( $theElement[ kTAG_DATA ] );
+				break;
+
+			//
+			// MongoRegex.
+			//
+			case kDATA_TYPE_MongoRegex:
+				$theElement = new MongoRegex( $theElement[ kTAG_DATA ] );
+				break;
+
+			//
+			// MongoBinData.
+			//
+			case kDATA_TYPE_BINARY:
+			case kDATA_TYPE_MongoBinData:
+				$theElement
+					= new MongoBinData
+						( ( function_exists( 'hex2bin' ) )
+						? hex2bin( $theElement[ kTAG_DATA ] )
+						: pack( 'H*', $theElement[ kTAG_DATA ] ) );
+				break;
+			
+			//
+			// Ignore.
+			//
+			default:
+				parent::_Encode( $theElement );
+				break;
+		
+		} // Parsing by type.
+	
+	} // _Encode.
+
+	 
+	/*===================================================================================
+	 *	_Decode																			*
+	 *==================================================================================*/
+
+	/**
+	 * Decode provided data element.
+	 *
+	 * This method should convert the provided scalar into a structure containing the
+	 * {@link kTAG_TYPE type} and the normalised {@link kTAG_DATA data}, and replace the
+	 * provided reference with this structure.
+	 *
+	 * This method is called by a public {@link Decode() interface} which traverses an
+	 * object and provides this method with all scalar elements.
+	 *
+	 * This method should select all data types that are considered custom and convert the
+	 * element into an array in which the data type is set in the {@link kTAG_TYPE type}
+	 * offset, and the normalised data in the {@link kTAG_DATA data} offset.
+	 *
+	 * In this class we perform the following conversions:
+	 *
+	 * <ul>
+	 *	<li><i>MongoId</i>: We convert into:
+	 *	 <ul>
+	 *		<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>:
+	 *			{@link kDATA_TYPE_MongoId kDATA_TYPE_MongoId}.
+	 *		<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The contents of the object cast to
+	 *			string.
+	 *	 </ul>
+	 *	<li><i>MongoCode</i>: We convert into:
+	 *	 <ul>
+	 *		<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>:
+	 *			{@link kDATA_TYPE_MongoCode kDATA_TYPE_MongoCode}.
+	 *		<li><i>{@link kTAG_DATA kTAG_DATA}</i>: A structure formatted as follows:
+	 *		 <ul>
+	 *			<li><i>{@link kOBJ_TYPE_CODE_SRC kOBJ_TYPE_CODE_SRC}</i>: The <i>code</i>
+	 *				element of the object.
+	 *			<li><i>{@link OBJ_TYPE_CODE_SCOPE OBJ_TYPE_CODE_SCOPE}</i>: The <i>scope</i>
+	 *				element of the object.
+	 *		 </ul>
+	 *	 </ul>
+	 *	<li><i>MongoDate</i>: We convert into:
+	 *	 <ul>
+	 *		<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>:
+	 *			{@link kDATA_TYPE_STAMP kDATA_TYPE_STAMP}.
+	 *		<li><i>{@link kTAG_DATA kTAG_DATA}</i>: A structure formatted as follows:
+	 *		 <ul>
+	 *			<li><i>{@link kOBJ_TYPE_STAMP_SEC kOBJ_TYPE_STAMP_SEC}</i>: The <i>sec</i>
+	 *				element of the object.
+	 *			<li><i>{@link kOBJ_TYPE_STAMP_USEC kOBJ_TYPE_STAMP_USEC}</i>: The
+	 *				<i>usec</i> element of the object.
+	 *		 </ul>
+	 *	 </ul>
+	 *	<li><i>MongoRegex</i>: We convert into:
+	 *	 <ul>
+	 *		<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>:
+	 *			{@link kDATA_TYPE_MongoRegex kDATA_TYPE_MongoRegex}.
+	 *		<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The contents of the object cast to
+	 *			string.
+	 *	 </ul>
+	 *	<li><i>MongoBinData</i>: We convert into:
+	 *	 <ul>
+	 *		<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>:
+	 *			{@link kDATA_TYPE_BINARY kDATA_TYPE_BINARY}.
+	 *		<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The <i>bin</i> element of the object.
+	 *	 </ul>
+	 *	<li><i>MongoInt32</i>: We convert into:
+	 *	 <ul>
+	 *		<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>:
+	 *			{@link kDATA_TYPE_INT32 kDATA_TYPE_INT32}.
+	 *		<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The contents of the object cast to
+	 *			string.
+	 *	 </ul>
+	 *	<li><i>MongoInt64</i>: We convert into:
+	 *	 <ul>
+	 *		<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>:
+	 *			{@link kDATA_TYPE_INT64 kDATA_TYPE_INT64}.
+	 *		<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The contents of the object cast to
+	 *			string.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * The conversion is performed on the provided element itself.
+	 *
+	 * @param reference			   &$theElement			Element to encode.
+	 *
+	 * @access protected
+	 */
+	protected function _Decode( &$theElement )
+	{
+		//
+		// Parse only objects.
+		//
+		if( is_object( $theElement ) )
+		{
+			//
+			// Parse by type.
+			//
+			switch( get_class( $theElement ) )
+			{
+				case 'MongoId':
+					$theElement = array
+					(
+						kTAG_TYPE => kDATA_TYPE_MongoId,
+						kTAG_DATA => (string) $theElement
+					);
+					break;
+			
+				case 'MongoCode':
+					$theElement = array
+					(
+						kTAG_TYPE => kDATA_TYPE_MongoCode,
+						kTAG_DATA => array
+									(
+										kOBJ_TYPE_CODE_SRC => $theElement->code,
+										OBJ_TYPE_CODE_SCOPE => $theElement->scope
+									)
+					);
+					break;
+			
+				case 'MongoDate':
+					$theElement = array
+					(
+						kTAG_TYPE => kDATA_TYPE_STAMP,
+						kTAG_DATA => array
+									(
+										kOBJ_TYPE_STAMP_SEC => $theElement->sec,
+										kOBJ_TYPE_STAMP_USEC => $theElement->usec
+									)
+					);
+					break;
+			
+				case 'MongoRegex':
+					$theElement = array
+					(
+						kTAG_TYPE => kDATA_TYPE_MongoRegex,
+						kTAG_DATA => (string) $theElement
+					);
+					break;
+			
+				case 'MongoBinData':
+					$theElement = array
+					(
+						kTAG_TYPE => kDATA_TYPE_BINARY,
+						kTAG_DATA => bin2hex( $theElement->bin )
+					);
+					break;
+			
+				case 'MongoInt32':
+					$theElement = array
+					(
+						kTAG_TYPE => kDATA_TYPE_INT32,
+						kTAG_DATA => (string) $theElement
+					);
+					break;
+			
+				case 'MongoInt64':
+					$theElement = array
+					(
+						kTAG_TYPE => kDATA_TYPE_INT64,
+						kTAG_DATA => (string) $theElement
+					);
+					break;
+			
+			} // Parsing by class.
+		
+		} // Provided object.
+	
+	} // _Decode.
+
 	 
 
 } // class CMongoContainer.

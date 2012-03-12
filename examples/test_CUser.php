@@ -65,12 +65,12 @@ try
 	echo( '<i>$test->Code( \'JOHN\' );</i><br>' );
 	echo( '<i>$test->Password( \'unknown\' );</i><br>' );
 	echo( '<i>$test->Name( \'John Smith\' );</i><br>' );
-	echo( '<i>$test->Mail( \'m.skofic@cgiar.org\' );</i><br>' );
+	echo( '<i>$test->Email( \'m.skofic@cgiar.org\' );</i><br>' );
 	$test = new CUser();
 	$test->Code( 'JOHN' );
 	$test->Password( 'unknown' );
 	$test->Name( 'John Smith' );
-	$test->Mail( 'm.skofic@cgiar.org' );
+	$test->Email( 'm.skofic@cgiar.org' );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	 
 	//

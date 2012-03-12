@@ -240,6 +240,59 @@ try
 	$found = $test->Delete( 9 );
 	echo( '<pre>' ); print_r( $found ); echo( '</pre>' );
 	echo( '<hr>' );
+
+	//
+	// Encode.
+	//
+	echo( '<h3>Encode</h3>' );
+	
+	$object = array
+	(
+		kTAG_ID_NATIVE => array
+		(
+			kTAG_TYPE => kDATA_TYPE_MongoId,
+			kTAG_DATA => '4f5e28d2961be56010000003'
+		),
+		'Stamp' => array
+		(
+			kTAG_TYPE => kDATA_TYPE_STAMP,
+			kTAG_DATA => array
+			(
+				kOBJ_TYPE_STAMP_SEC => 22,
+				kOBJ_TYPE_STAMP_USEC => 1246
+			)
+		),
+		'RegExpr' => array
+		(
+			kTAG_TYPE => kDATA_TYPE_MongoRegex,
+			kTAG_DATA => '/^pippo/i'
+		),
+		'Int32' => array
+		(
+			kTAG_TYPE => kDATA_TYPE_INT32,
+			kTAG_DATA => 32
+		),
+		'Int64' => array
+		(
+			kTAG_TYPE => kDATA_TYPE_INT64,
+			kTAG_DATA => '12345678901234'
+		),
+		'Binary' => array
+		(
+			kTAG_TYPE => kDATA_TYPE_BINARY,
+			kTAG_DATA => md5( 'PIPPO' )
+		)
+	);
+	echo( 'Decoded<pre>' ); print_r( $object ); echo( '</pre>' );
+	echo( '<i>$test->Encode( $object );</i><br>' );
+	$test->Encode( $object );
+	echo( 'Encoded<pre>' ); print_r( $object ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$test->Decode( $object );</i><br>' );
+	$test->Decode( $object );
+	echo( 'Decoded<pre>' ); print_r( $object ); echo( '</pre>' );
+	echo( '<hr>' );
 }
 
 //
