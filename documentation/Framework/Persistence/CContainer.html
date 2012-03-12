@@ -35,7 +35,7 @@
 				<li><span class="field">abstract:</span> </li>
 			</ul>
 		<p class="notes">
-			Located in <a class="field" href="_classes---CContainer.php.html">/classes/CContainer.php</a> (line <span class="field">54</span>)
+			Located in <a class="field" href="_classes---CContainer.php.html">/classes/CContainer.php</a> (line <span class="field">61</span>)
 		</p>
 		
 				
@@ -126,7 +126,7 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																																																																																								<div class="method-definition">
+																																																																																																																								<div class="method-definition">
 					<img src="../../media/images/Constructor.png" alt=" "/>
 											<span class="method-result">CContainer</span>
 										<a href="#__construct" title="details" class="method-name">__construct</a>
@@ -146,9 +146,21 @@
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#Decode" title="details" class="method-name">Decode</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theObject</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">mixed</span>
 										<a href="#Delete" title="details" class="method-name">Delete</a>
 											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>, [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_DEFAULT</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#Encode" title="details" class="method-name">Encode</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theObject</span>)
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -169,10 +181,22 @@
 										()
 									</div>
 																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_Decode" title="details" class="method-name">_Decode</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theElement</span>)
+									</div>
+																<div class="method-definition">
 					<img src="../../media/images/AbstractMethod.png" alt=" "/>
 											<span class="method-result">mixed</span>
 										<a href="#_Delete" title="details" class="method-name">_Delete</a>
 											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>, <span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_Encode" title="details" class="method-name">_Encode</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theElement</span>)
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/AbstractMethod.png" alt=" "/>
@@ -207,7 +231,7 @@
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$mContainer</span>
-			 = <span class="var-default"> NULL</span>			(line <span class="line-number">63</span>)
+			 = <span class="var-default"> NULL</span>			(line <span class="line-number">70</span>)
 		</span>
 	</div>
 
@@ -244,7 +268,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Constructor.png" />
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">96</span>)
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">103</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -283,7 +307,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Commit</span> (line <span class="line-number">233</span>)
+		<span class="method-title">Commit</span> (line <span class="line-number">240</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -363,7 +387,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Container</span> (line <span class="line-number">142</span>)
+		<span class="method-title">Container</span> (line <span class="line-number">149</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -404,17 +428,51 @@
 							</li>
 				</ul>
 	</div>
-<a name="methodDelete" id="Delete"><!-- --></a>
+<a name="methodDecode" id="Decode"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Delete</span> (line <span class="line-number">328</span>)
+		<span class="method-title">Decode</span> (line <span class="line-number">472</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Decode provided data.</p>
+<p class="description"><p>This method should be used on objects encoded with the <a href="../../Framework/Persistence/CContainer.html#methodEncode">Encode</a>  method, its duty is to restore the provided object to the state it was when provided  to the <a href="../../Framework/Persistence/CContainer.html#methodEncode">Encode</a> method.</p><p>The duty of this method is to scan the provided data for elements that need to be  decoded, these will be in general of a type known to the current container, when  decoded, these custom data types will be converted to an array structured as follows:</p><p><ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a></em>: This offset represents the data type in
+        which the data contained in the next offset is encoded.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: This offset represents the actual data, it
+        may be a scalar or an array containing the subcomponents of the data.</li></ul></p><p>The method accepts a single parameter which must be an array or ArrayObject instance,  it will perform the conversion on the object itself. If you need to restore later the  object to the state in which it was provided to this method, you should use the  counter method <a href="../../Framework/Persistence/CContainer.html#methodEncode">Encode</a>.</p><p>The method will traverse the provided object selecting only scalar elements which  will be passed by reference to the protected <a href="../../Framework/Persistence/CContainer.html#method_Decode">method</a> that will check  the element and perform the conversion if necessary; structured elements will be  recursed.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			Decode
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theObject</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theObject</span><span class="var-description">: Object to decode.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodDelete" id="Delete"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Delete</span> (line <span class="line-number">335</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Delete object.</p>
-<p class="description"><p>This method can be used to remove an object fron the container:</p><p></p></p>
+<p class="description"><p>This method can be used to remove an object fron the container:</p><p><ul><li><strong>$theIdentifier</strong>: The key to the object in the container.</li><li><strong>$theModifiers</strong>: Optional bitfield that can be used to provide options for
+		the operation. In this class we do not use this parameter.</li></ul></p><p>The method should return the deleted object, or <em>NULL</em> if not found.</p><p>In this class we simply call the protected <a href="../../Framework/Persistence/CContainer.html#method_Delete">method</a> which must be  implemented by derived classes. You should only overload this method if you need to  initialise or process the identifier before passing it to the protected interface.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 			</ul>
@@ -446,17 +504,51 @@
 							</li>
 				</ul>
 	</div>
+<a name="methodEncode" id="Encode"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Encode</span> (line <span class="line-number">392</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Encode provided data.</p>
+<p class="description"><p>This method can be used to encode the provided object into a format suitable for the  current container, the method expects the provided data to be an object or data that  will have to be stored in the current container.</p><p>The duty of this method is to scan the provided data for elements that need to be  encoded to be compatible with the current container, these elements are expected to  be either arrays or ArrayObjects and they should have have the following structure:</p><p><ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a></em>: This offset represents the data type in
+        which the data contained in the next offset is encoded.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: This offset represents the actual data, it
+        may be a scalar or an array containing the subcomponents of the data.</li></ul></p><p>The method accepts a single parameter which must be an array or ArrayObject instance,  it will perform the encoding on the object itself. If you need to restore later the  object to the state in which it was provided to this method, you should use the  counter method <a href="../../Framework/Persistence/CContainer.html#methodDecode">Decode</a>.</p><p>The method will traverse the provided object selecting only structures, if the  structure contains both the <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">type</a> and <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">data</a>  offsets, it will pass the corresponding object element by reference to the protected  <a href="../../Framework/Persistence/CContainer.html#method_Encode">method</a> that will take care of performing the conversion and  replacing the provided element; if the element does not have the required offsets,  the method will recurse on that element.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			Encode
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theObject</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theObject</span><span class="var-description">: Object to encode.</span>			</li>
+				</ul>
+		
+			
+	</div>
 <a name="methodLoad" id="Load"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Load</span> (line <span class="line-number">291</span>)
+		<span class="method-title">Load</span> (line <span class="line-number">298</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Load object.</p>
-<p class="description"><p>This method can be used to load an object fron the container:</p><p></p></p>
+<p class="description"><p>This method can be used to load an object fron the container:</p><p><ul><li><strong>$theIdentifier</strong>: The key to the object in the container.</li><li><strong>$theModifiers</strong>: Optional bitfield that can be used to provide options for
+		the operation. In this class we do not use this parameter.</li></ul></p><p>The method should return the found object, or <em>NULL</em> if not found.</p><p>In this class we simply call the protected <a href="../../Framework/Persistence/CContainer.html#method_Load">method</a> which must be  implemented by derived classes. You should only overload this method if you need to  initialise or process the identifier before passing it to the protected interface.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 			</ul>
@@ -493,7 +585,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/AbstractMethod.png" />
-		<span class="method-title">_Commit</span> (line <span class="line-number">425</span>)
+		<span class="method-title">_Commit</span> (line <span class="line-number">584</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -564,7 +656,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Container</span> (line <span class="line-number">361</span>)
+		<span class="method-title">_Container</span> (line <span class="line-number">520</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -585,17 +677,56 @@
 		
 			
 	</div>
-<a name="method_Delete" id="_Delete"><!-- --></a>
+<a name="method_Decode" id="_Decode"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_Decode</span> (line <span class="line-number">704</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Decode provided data element.</p>
+<p class="description"><p>This method should convert the provided scalar into a structure containing the  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">type</a> and the normalised <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">data</a>, and replace the  provided reference with this structure.</p><p>This method is called by a public <a href="../../Framework/Persistence/CContainer.html#methodDecode">interface</a> which traverses an  object and provides this method with all scalar elements.</p><p>This method should select all data types that are considered custom and convert the  element into an array in which the data type is set in the <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">type</a>  offset, and the normalised data in the <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">data</a> offset.</p><p>For instance, a binary data object would be converted into an array where the  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">type</a> offset would be set as <a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_BINARY">binary</a> and  the <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">data</a> offset would be set with the hexadecimal representstion  of that data.</p><p>The conversion is performed on the provided element itself.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_Decode
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theElement</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theElement</span><span class="var-description">: Element to encode.</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Framework/Persistence/CMongoContainer.html#method_Decode">CMongoContainer::_Decode()</a>
+								: Decode provided data element.
+							</li>
+				</ul>
+	</div>
+<a name="method_Delete" id="_Delete"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
 		<img src="../../media/images/AbstractMethod.png" />
-		<span class="method-title">_Delete</span> (line <span class="line-number">477</span>)
+		<span class="method-title">_Delete</span> (line <span class="line-number">636</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Load object.</p>
-<p class="description"><p>Derived classes must implement this method to perform the actual removal of objects  from the container.</p><p></p></p>
+<p class="description"><p>Derived classes must implement this method to perform the actual removal of objects  from the container.</p><p><ul><li><strong>$theIdentifier</strong>: The key to the object in the container.</li><li><strong>$theModifiers</strong>: Bitfield containing the operation options.</li></ul></p><p>The method should return the removed object or <em>NULL</em> if not found.</p></p>
 	<ul class="tags">
 				<li><span class="field">abstract:</span> </li>
 				<li><span class="field">access:</span> protected</li>
@@ -632,17 +763,56 @@
 							</li>
 				</ul>
 	</div>
+<a name="method_Encode" id="_Encode"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_Encode</span> (line <span class="line-number">672</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Encode provided data element.</p>
+<p class="description"><p>This method should convert the provided structure into a custom data type compatible  with the current container.</p><p>This method is called by a public <a href="../../Framework/Persistence/CContainer.html#methodEncode">interface</a> which traverses an  object and provides this method with all array or ArrayObject elements.</p><p>The method can be guaranteed to receive structures containing the  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">type</a> and <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">data</a> offsets, its duty is to intercept  custom data types in the <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">type</a> offset and convert the data provided  in the <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">data</a> directly into the provided element.</p><p>In this class we perform no data conversion.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_Encode
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theElement</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theElement</span><span class="var-description">: Element to encode.</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Framework/Persistence/CMongoContainer.html#method_Encode">CMongoContainer::_Encode()</a>
+								: Encode provided data element.
+							</li>
+				</ul>
+	</div>
 <a name="method_Load" id="_Load"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/AbstractMethod.png" />
-		<span class="method-title">_Load</span> (line <span class="line-number">451</span>)
+		<span class="method-title">_Load</span> (line <span class="line-number">610</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Load object.</p>
-<p class="description"><p>Derived classes must implement this method to perform the actual retrieval of objects  from the container.</p><p></p></p>
+<p class="description"><p>Derived classes must implement this method to perform the actual retrieval of objects  from the container.</p><p><ul><li><strong>$theIdentifier</strong>: The key to the object in the container.</li><li><strong>$theModifiers</strong>: Bitfield containing the operation options.</li></ul></p><p>The method should return the found object or <em>NULL</em> if not found.</p></p>
 	<ul class="tags">
 				<li><span class="field">abstract:</span> </li>
 				<li><span class="field">access:</span> protected</li>
@@ -701,7 +871,7 @@
 
 	
 	<p class="notes" id="credit">
-		Documentation generated on Sat, 10 Mar 2012 01:26:50 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Mon, 12 Mar 2012 19:30:19 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

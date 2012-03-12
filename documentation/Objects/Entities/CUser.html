@@ -38,7 +38,7 @@
         The class features a member accessor <a href="../../Objects/Entities/CUser.html#methodPassword">method</a> to manage this
         property.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">kTAG_NAME</a></em>: This offset represents the user full name.
         The class features a member accessor <a href="../../Objects/Entities/CUser.html#methodName">method</a> to manage this property.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_EMAIL">kOFFSET_EMAIL</a></em>: This offset represents the user e-mail.
-        The class features a member accessor <a href="../../Objects/Entities/CUser.html#methodMail">method</a> to manage this property.</li></ul></p><p>All the above attributes are required prior to <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">committing</a> an object: the  object's <a href="../../Framework/Core/CStatusObject.html#method_IsInited">inited</a> <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a> depends on having  all of the above offsets set.</p><p>By default, the object's unique <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a> will be provided by the  system, whenever a new user is created, we shall use the  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a> provided by MongoDB; this value should never be  changed.</p><p>This class also features a static <a href="../../Objects/Entities/CUser.html#methodDefaultCollection">method</a> that should return  the default collection in which to store such objects.</p></p>
+        The class features a member accessor <a href="../../Objects/Entities/CUser.html#methodEmail">method</a> to manage this property.</li></ul></p><p>All the above attributes are required prior to <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">committing</a> an object: the  object's <a href="../../Framework/Core/CStatusObject.html#method_IsInited">inited</a> <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a> depends on having  all of the above offsets set.</p><p>By default, the object's unique <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a> will be provided by the  system, whenever a new user is created, we shall use the  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a> provided by MongoDB; this value should never be  changed.</p><p>This class also features a static <a href="../../Objects/Entities/CUser.html#methodDefaultCollection">method</a> that should return  the default collection in which to store such objects.</p></p>
 		<p class="notes">
 			Located in <a class="field" href="_classes---CUser.php.html">/classes/CUser.php</a> (line <span class="field">70</span>)
 		</p>
@@ -52,11 +52,9 @@
          |
          --<a href="../../Framework/Persistence/CPersistentObject.html">CPersistentObject</a>
             |
-            --<a href="../../Framework/Persistence/CMongoObject.html">CMongoObject</a>
+            --<a href="../../Framework/Persistence/CPersistentUnitObject.html">CPersistentUnitObject</a>
                |
-               --<a href="../../Framework/Persistence/CMongoUnitObject.html">CMongoUnitObject</a>
-                  |
-                  --CUser</pre>
+               --CUser</pre>
 	
 			</div>
 </div>
@@ -78,13 +76,19 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																				<div class="method-definition">
+																												<div class="method-definition">
 					<img src="../../media/images/StaticMethod.png" alt=" "/>
 											static <span class="method-result">string</span>
 										<a href="#DefaultCollection" title="details" class="method-name">DefaultCollection</a>
 											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theDatabase</span>)
 									</div>
-																																																																												<div class="method-definition">
+																																																																				<div class="method-definition">
+					<img src="../../media/images/Constructor.png" alt=" "/>
+											<span class="method-result">CUser</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span> = <span class="var-default">NULL</span>])
+									</div>
+																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">string</span>
 										<a href="#Code" title="details" class="method-name">Code</a>
@@ -93,7 +97,7 @@
 																								<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">string</span>
-										<a href="#Mail" title="details" class="method-name">Mail</a>
+										<a href="#Email" title="details" class="method-name">Email</a>
 											([<span class="var-type">NULL|FALSE|string</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
 									</div>
 																<div class="method-definition">
@@ -119,12 +123,6 @@
 											<span class="method-result">string</span>
 										<a href="#Password" title="details" class="method-name">Password</a>
 											([<span class="var-type">NULL|FALSE|string</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
-									</div>
-																<div class="method-definition">
-					<img src="../../media/images/Method.png" alt=" "/>
-											<span class="method-result">boolean</span>
-										<a href="#_CreateObject" title="details" class="method-name">_CreateObject</a>
-											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContent</span>)
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -181,7 +179,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static DefaultCollection</span> (line <span class="line-number">257</span>)
+		<span class="method-title">static DefaultCollection</span> (line <span class="line-number">301</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -204,12 +202,52 @@
 		
 			
 	</div>
-<a name="methodCode" id="Code"><!-- --></a>
+<a name="method__construct" id="__construct"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
+		<img src="../../media/images/Constructor.png" />
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">99</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Instantiate class.</p>
+<p class="description"><p>We <a href="../../Framework/Persistence/CPersistentObject.html#method__construct">overload</a> the constructor to initialise  the <a href="../../Framework/Core/CStatusObject.html#method_IsInited">inited</a> <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">flag</a> if the  <a href="../../Objects/Entities/CUser.html#methodCode">code</a>, <a href="../../Objects/Entities/CUser.html#methodPassword">password</a>, <a href="../../Objects/Entities/CUser.html#methodName">name</a> and  <a href="../../Objects/Entities/CUser.html#methodEmail">e-mail</a> elements are set.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">CUser</span>
+		<span class="method-name">
+			__construct
+		</span>
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span> = <span class="var-default">NULL</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theContainer</span><span class="var-description">: Persistent container.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Framework/Persistence/CPersistentObject.html#method__construct">CPersistentObject::__construct()</a></dt>
+						<dd>Instantiate class.</dd>
+					</dl>
+			
+	</div>
+<a name="methodCode" id="Code"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Code</span> (line <span class="line-number">113</span>)
+		<span class="method-title">Code</span> (line <span class="line-number">157</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -240,12 +278,12 @@
 		
 			
 	</div>
-<a name="methodMail" id="Mail"><!-- --></a>
-<div class="evenrow">
+<a name="methodEmail" id="Email"><!-- --></a>
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Mail</span> (line <span class="line-number">227</span>)
+		<span class="method-title">Email</span> (line <span class="line-number">271</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -260,7 +298,7 @@
 	<div class="method-signature">
 		<span class="method-result">string</span>
 		<span class="method-name">
-			Mail
+			Email
 		</span>
 					([<span class="var-type">NULL|FALSE|string</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
 			</div>
@@ -277,11 +315,11 @@
 			
 	</div>
 <a name="methodName" id="Name"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Name</span> (line <span class="line-number">189</span>)
+		<span class="method-title">Name</span> (line <span class="line-number">233</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -313,11 +351,11 @@
 			
 	</div>
 <a name="methodoffsetSet" id="offsetSet"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetSet</span> (line <span class="line-number">302</span>)
+		<span class="method-title">offsetSet</span> (line <span class="line-number">346</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -355,11 +393,11 @@
 			
 	</div>
 <a name="methodoffsetUnset" id="offsetUnset"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetUnset</span> (line <span class="line-number">338</span>)
+		<span class="method-title">offsetUnset</span> (line <span class="line-number">383</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -394,11 +432,11 @@
 			
 	</div>
 <a name="methodPassword" id="Password"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Password</span> (line <span class="line-number">151</span>)
+		<span class="method-title">Password</span> (line <span class="line-number">195</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -429,49 +467,12 @@
 		
 			
 	</div>
-<a name="method_CreateObject" id="_CreateObject"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<img src="../../media/images/Method.png" />
-		<span class="method-title">_CreateObject</span> (line <span class="line-number">379</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Create object.</p>
-<p class="description"><p>We overload this method to set the object's <a href="../../Framework/Core/CStatusObject.html#method_IsInited">inited</a>  <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>.</p></p>
-	<ul class="tags">
-				<li><span class="field">access:</span> protected</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">boolean</span>
-		<span class="method-name">
-			_CreateObject
-		</span>
-					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContent</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">reference</span>
-				<span class="var-name">&$theContent</span><span class="var-description">: Object data content.</span>			</li>
-				</ul>
-		
-			<hr class="separator" />
-		<div class="notes">Redefinition of:</div>
-		<dl>
-			<dt><a href="../../Framework/Persistence/CPersistentObject.html#method_CreateObject">CPersistentObject::_CreateObject()</a></dt>
-						<dd>Create object.</dd>
-					</dl>
-			
-	</div>
 <a name="method_PrepareStore" id="_PrepareStore"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareStore</span> (line <span class="line-number">426</span>)
+		<span class="method-title">_PrepareStore</span> (line <span class="line-number">429</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -503,7 +504,7 @@
 			<hr class="separator" />
 		<div class="notes">Redefinition of:</div>
 		<dl>
-			<dt><a href="../../Framework/Persistence/CMongoUnitObject.html#method_PrepareStore">CMongoUnitObject::_PrepareStore()</a></dt>
+			<dt><a href="../../Framework/Persistence/CPersistentUnitObject.html#method_PrepareStore">CPersistentUnitObject::_PrepareStore()</a></dt>
 						<dd>Normalise parameters of a store.</dd>
 					</dl>
 			
@@ -511,30 +512,16 @@
 							<h4>Inherited Methods</h4>
 				<a name='inherited_methods'><!-- --></a>	
 									<!-- =========== Summary =========== -->
-					<p>Inherited From <span class="classname"><a href="../../Framework/Persistence/CMongoUnitObject.html">CMongoUnitObject</a></span></p>
+					<p>Inherited From <span class="classname"><a href="../../Framework/Persistence/CPersistentUnitObject.html">CPersistentUnitObject</a></span></p>
 					<blockquote>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Framework/Persistence/CMongoUnitObject.html#methodNewObject">CMongoUnitObject::NewObject()</a></span><br>
+							<span class="method-name"><a href="../../Framework/Persistence/CPersistentUnitObject.html#methodNewObject">CPersistentUnitObject::NewObject()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Framework/Persistence/CMongoUnitObject.html#method_id">CMongoUnitObject::_id()</a></span><br>
+							<span class="method-name"><a href="../../Framework/Persistence/CPersistentUnitObject.html#method_id">CPersistentUnitObject::_id()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Framework/Persistence/CMongoUnitObject.html#method_PrepareStore">CMongoUnitObject::_PrepareStore()</a></span><br>
-											</blockquote>
-									<!-- =========== Summary =========== -->
-					<p>Inherited From <span class="classname"><a href="../../Framework/Persistence/CMongoObject.html">CMongoObject</a></span></p>
-					<blockquote>
+							<span class="method-name"><a href="../../Framework/Persistence/CPersistentUnitObject.html#method_PrepareFind">CPersistentUnitObject::_PrepareFind()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Framework/Persistence/CMongoObject.html#methodSerialiseNativeObject">CMongoObject::SerialiseNativeObject()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Framework/Persistence/CMongoObject.html#methodSerialiseObject">CMongoObject::SerialiseObject()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Framework/Persistence/CMongoObject.html#method_FindObject">CMongoObject::_FindObject()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Framework/Persistence/CMongoObject.html#method_PrepareFind">CMongoObject::_PrepareFind()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Framework/Persistence/CMongoObject.html#method_PrepareStore">CMongoObject::_PrepareStore()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Framework/Persistence/CMongoObject.html#method_StoreObject">CMongoObject::_StoreObject()</a></span><br>
+							<span class="method-name"><a href="../../Framework/Persistence/CPersistentUnitObject.html#method_PrepareStore">CPersistentUnitObject::_PrepareStore()</a></span><br>
 											</blockquote>
 									<!-- =========== Summary =========== -->
 					<p>Inherited From <span class="classname"><a href="../../Framework/Persistence/CPersistentObject.html">CPersistentObject</a></span></p>
@@ -543,6 +530,8 @@
 							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method__construct">CPersistentObject::__construct()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">CPersistentObject::Commit()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#methodUncommit">CPersistentObject::Uncommit()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_CreateObject">CPersistentObject::_CreateObject()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
@@ -672,7 +661,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Sat, 10 Mar 2012 01:26:52 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Mon, 12 Mar 2012 19:30:22 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

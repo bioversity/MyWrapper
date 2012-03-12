@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class CPersistentUnitObject</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name"><img src="../../media/images/Class_logo.png"
+														alt=" Class"
+														title=" Class"
+														style="vertical-align: middle"> CPersistentUnitObject</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+							<a href="#sec-descendents">Descendents</a>
+			|											<a href="#sec-vars">Vars</a>
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+											<a href="#sec-consts">Constants</a>
+						
+			</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Unit objects ancestor.</p>
+<p class="description"><p>A unit object is one that has a unique identifier, that is, it can be uniquely identified  among a collection of other objects.</p><p>Instances derived from this class have a series of additional properties and methods that  govern how these can be stored and retrieved from collections.</p><p>The unique identifier or key value is returned by a protected <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_id">method</a>, it  may return <em>NULL</em> before the object has been <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">committed</a> to a  container, in which case it means that it is the <a href="../../Framework/Persistence/CContainer.html">container</a>'s duty to  determine that value; once the object has been <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">stored</a>, this value will  be found in the <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">kTAG_ID_NATIVE</a> offset.</p><p>Objects derived from this class also hold, by default, their class name in an  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CLASS">offset</a>, this is used to <a href="../../Framework/Persistence/CPersistentUnitObject.html#methodNewObject">instantiate</a> objects of the  correct class when retrieving data from a container.</p><p>This class also features a <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_VERSION">version</a> which is an integer, incremented  each time the object is <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">committed</a>: this is  useful to implement a  concurrency control mechanism.</p><p>Starting from this class we only handle <a href="../../Framework/Persistence/CContainer.html">CContainer</a> derived instances  as containers, other container types will not be supported. This is because  <a href="../../Framework/Persistence/CContainer.html">CContainer</a> derived instances have an  <a href="../../Framework/Persistence/CContainer.html#methodEncode">encode</a> and <a href="../../Framework/Persistence/CContainer.html#methodDecode">decode</a> interface for  handling special data types, objects derived from this class should store special data  types as an array where the <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a> offset indicates the data type  and the <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a> offset contains the normalised data; by normalised  we mean, for instance, that binary data is converted to hexadecimal.</p><p>The specifics of this are managed by the <a href="../../Framework/Persistence/CContainer.html">CContainer</a> derived classes,  so when planning your objects think in advance in what containers you plan to store them.</p></p>
+		<p class="notes">
+			Located in <a class="field" href="_classes---CPersistentUnitObject.php.html">/classes/CPersistentUnitObject.php</a> (line <span class="field">75</span>)
+		</p>
+		
+				
+		<pre>ArrayObject
+   |
+   --<a href="../../Framework/Core/CArrayObject.html">CArrayObject</a>
+      |
+      --<a href="../../Framework/Core/CStatusObject.html">CStatusObject</a>
+         |
+         --<a href="../../Framework/Persistence/CPersistentObject.html">CPersistentObject</a>
+            |
+            --CPersistentUnitObject</pre>
+	
+			</div>
+</div>
+
+	<a name="sec-descendents"></a>
+	<div class="info-box">
+		<div class="info-box-title">Direct descendents</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+			<span class="disabled">Descendents</span>
+			|												<a href="#sec-vars">Vars</a>
+								|															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+															<a href="#sec-consts">Constants</a>
+							
+					</div>
+		<div class="info-box-body">
+			<table cellpadding="2" cellspacing="0" class="class-table">
+				<tr>
+					<th class="class-table-header">Class</th>
+					<th class="class-table-header">Description</th>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; white-space: nowrap">
+						<img src="../../media/images/Class.png"
+								 alt=" class"
+								 title=" class"
+								 style="vertical-align: center"/>
+						<a href="../../Objects/Data/CDataset.html">CDataset</a>
+					</td>
+					<td>
+											Dataset ancestor.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; white-space: nowrap">
+						<img src="../../media/images/Class.png"
+								 alt=" class"
+								 title=" class"
+								 style="vertical-align: center"/>
+						<a href="../../Objects/Entities/CEntity.html">CEntity</a>
+					</td>
+					<td>
+											Entity ancestor.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; white-space: nowrap">
+						<img src="../../media/images/Class.png"
+								 alt=" class"
+								 title=" class"
+								 style="vertical-align: center"/>
+						<a href="../../Objects/Entities/CUser.html">CUser</a>
+					</td>
+					<td>
+											User ancestor.
+										</td>
+				</tr>
+							</table>
+		</div>
+	</div>
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendants</a> |
+															<a href="#sec-consts">Constants</a>
+							
+															<a href="#sec-vars">Vars</a>
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+												<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">void</span>
+										<a href="#NewObject" title="details" class="method-name">NewObject</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>)
+									</div>
+																																																				<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">string</span>
+										<a href="#_id" title="details" class="method-name">_id</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_PrepareFind" title="details" class="method-name">_PrepareFind</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_PrepareStore" title="details" class="method-name">_PrepareStore</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>)
+									</div>
+											</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+												<a href="#sec-consts">Constants</a>
+							
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			
+							<h4>Inherited Variables</h4>
+				<A NAME='inherited_vars'><!-- --></A>
+									<p>Inherited from <span class="classname"><a href="../../Framework/Core/CStatusObject.html">CStatusObject</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Variable.png" />
+							<span class="var-title">
+								<span class="var-name"><a href="../../Framework/Core/CStatusObject.html#var$mStatus">CStatusObject::$mStatus</a></span><br>
+							</span>
+											</blockquote> 
+										
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+															<a href="#sec-vars">Vars</a>
+														<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+<a name="methodNewObject" id="NewObject"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static NewObject</span> (line <span class="line-number">112</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Instantiate object.</p>
+<p class="description"><p>This method can be used to instantiate an object from a mixed class data store, it  expects the container to be a <a href="../../Framework/Persistence/CContainer.html">CContainer</a> derived instance and the  identifier to be the <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_id">unique</a> <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a> of the  object.</p><p>This method takes advantage of the <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">stored</a> <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CLASS">class</a>  name.</p><p>The method will return an object, if the identifier matches and the object has its  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CLASS">class</a> name; an array if the identifier matches, but the data  doesn't contain a @link kTAG_CLASS class} name reference; <em>NULL</em> if the  identifier didn't match.</p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			NewObject
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theContainer</span><span class="var-description">: Persistent container.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_id" id="_id"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_id</span> (line <span class="line-number">188</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return the object's unique identifier.</p>
+<p class="description"><p>This method can be used to return a string value that represents the object's unique  identifier. When <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">saving</a> the object for the first time, if this  method returns a value, this will be used as the object's <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">ID</a>.</p><p>If this method returns <em>NULL</em>, it is assumed that the  <a href="../../Framework/Persistence/CContainer.html">container</a> will provide a default unique value.</p><p>By default we let the system choose an identifier.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			_id
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method_PrepareFind" id="_PrepareFind"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_PrepareFind</span> (line <span class="line-number">222</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Normalise parameters of a find.</p>
+<p class="description"><p>The duty of this method is to ensure that the parameters provided to a  <a href="../../Framework/Persistence/CPersistentObject.html#method_FindObject">find</a> operation are valid.</p><p>In this class we ensure that the container is derived from  <a href="../../Framework/Persistence/CContainer.html">CContainer</a>.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> kERROR_OPTION_MISSING kERROR_UNSUPPORTED</li>
+				<li><span class="field">throws:</span> CException</li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_PrepareFind
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theContainer</span><span class="var-description">: Object container.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Framework/Persistence/CPersistentObject.html#method_PrepareFind">CPersistentObject::_PrepareFind()</a></dt>
+						<dd>Normalise parameters of a find.</dd>
+					</dl>
+			
+	</div>
+<a name="method_PrepareStore" id="_PrepareStore"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_PrepareStore</span> (line <span class="line-number">283</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Normalise parameters of a store.</p>
+<p class="description"><p>The duty of this method is to ensure that the parameters provided to the  <a href="../../Framework/Persistence/CPersistentObject.html#method_StoreObject">store</a> operation are correct.</p><p>In this class we ensure that the container is a ArrayObject or a  <a href="../../Framework/Persistence/CContainer.html">CContainer</a> derived instance and we ensure the identifier is filled  in the case it was not provided:</p><p><ul><li><em>Get <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">kTAG_ID_NATIVE</a></em>: If the object features the
+        <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">kTAG_ID_NATIVE</a> offset, it will be preferred. This is
+        necessary, because we don't want the object identifier to change in time.</li><li><em>Use the <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_id">:id</a> method</em>: We use the value returned by the
+        <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_id">_id</a> protected method, this will be the case when
+        <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">saving</a> new objects.</li></ul></p><p>We also handle here the other two default offsets:</p><p><ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CLASS">kTAG_CLASS</a></em>: We set this offset with the current
+        object's name. Note that we overwrite old values.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_VERSION">kTAG_VERSION</a></em>: If not set, we initialise this value
+        to zero, if already set, we increment it.</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> kERROR_OPTION_MISSING kERROR_UNSUPPORTED</li>
+				<li><span class="field">throws:</span> CException</li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_PrepareStore
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theContainer</span><span class="var-description">: Object container.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Framework/Persistence/CPersistentObject.html#method_PrepareStore">CPersistentObject::_PrepareStore()</a></dt>
+						<dd>Normalise parameters of a store.</dd>
+					</dl>
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Objects/Entities/CUser.html#method_PrepareStore">CUser::_PrepareStore()</a>
+								: Normalise parameters of a store.
+							</li>
+				</ul>
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../Framework/Persistence/CPersistentObject.html">CPersistentObject</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Constructor.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method__construct">CPersistentObject::__construct()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">CPersistentObject::Commit()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#methodUncommit">CPersistentObject::Uncommit()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_CreateObject">CPersistentObject::_CreateObject()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_FindObject">CPersistentObject::_FindObject()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_IsCommitted">CPersistentObject::_IsCommitted()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_PrepareFind">CPersistentObject::_PrepareFind()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_PrepareStore">CPersistentObject::_PrepareStore()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_StoreObject">CPersistentObject::_StoreObject()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../Framework/Core/CStatusObject.html">CStatusObject</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CStatusObject.html#methodoffsetSet">CStatusObject::offsetSet()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CStatusObject.html#methodoffsetUnset">CStatusObject::offsetUnset()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CStatusObject.html#method_IsDirty">CStatusObject::_IsDirty()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CStatusObject.html#method_ManageBitField">CStatusObject::_ManageBitField()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CStatusObject.html#method_Status">CStatusObject::_Status()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../Framework/Core/CArrayObject.html">CArrayObject</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CArrayObject.html#methodkeys">CArrayObject::keys()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CArrayObject.html#methodoffsetGet">CArrayObject::offsetGet()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CArrayObject.html#methodoffsetSet">CArrayObject::offsetSet()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CArrayObject.html#methodoffsetUnset">CArrayObject::offsetUnset()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CArrayObject.html#methodvalues">CArrayObject::values()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname">ArrayObject (Internal Class)</span></p>
+					<blockquote>
+													<img src="../../media/images/Constructor.png" alt=" "/>
+							<span class="method-name">constructor __construct ( $array )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">append ( $value )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">asort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">count (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">exchangeArray ( $array )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getArrayCopy (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getFlags (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getIterator (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getIteratorClass (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">ksort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">natcasesort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">natsort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetExists ( $index )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetGet ( $index )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetSet ( $index, $newval )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetUnset ( $index )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">serialize (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">setFlags ( $flags )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">setIteratorClass ( $iteratorClass )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">uasort ( $cmp_function )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">uksort ( $cmp_function )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">unserialize ( $serialized )</span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+	<a name="sec-consts"></a>
+	<div class="info-box">
+		<div class="info-box-title">Class Constants</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendants</a> |
+										<a href="#sec-var-summary">Constants</a> (<span class="disabled">details</span>)
+						
+			
+												<a href="#sec-vars">Vars</a>
+														| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+										<h4>Inherited Constants</h4>
+				<A NAME='inherited_consts'><!-- --></A>
+									<p>Inherited from <span class="classname">ArrayObject (Internal Class)</span></p>
+					<blockquote>
+													<img src="../../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name">ARRAY_AS_PROPS = 2</span><br>
+							</span>
+													<img src="../../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name">STD_PROP_LIST = 1</span><br>
+							</span>
+											</blockquote> 
+										
+		</div>
+	</div>
+	
+	<p class="notes" id="credit">
+		Documentation generated on Mon, 12 Mar 2012 19:30:21 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>
