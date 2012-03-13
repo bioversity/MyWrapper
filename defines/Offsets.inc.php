@@ -23,7 +23,7 @@
  */
 
 /*=======================================================================================
- *	IDENTIFICATION DEFAULT OFFSETS														*
+ *	DEFAULT IDENTIFICATION OFFSETS														*
  *======================================================================================*/
 
 /**
@@ -38,6 +38,31 @@
  * This value should be tightly integrated with the database.
  */
 define( "kTAG_ID_NATIVE",						'_id' );
+
+/*=======================================================================================
+ *	DEFAULT TREE OFFSETS																*
+ *======================================================================================*/
+
+/**
+ * Node level.
+ *
+ * This offset represents the node level.
+ */
+define( "kTAG_NODE_LEVEL",						'_level' );
+
+/**
+ * Left branch reference.
+ *
+ * This offset represents the node left branch reference.
+ */
+define( "kTAG_NODE_LEFT",						'_left' );
+
+/**
+ * Right branch reference.
+ *
+ * This offset represents the node right branch reference.
+ */
+define( "kTAG_NODE_RIGHT",						'_right' );
 
 /*=======================================================================================
  *	REFERENCE DEFAULT OFFSETS															*
@@ -70,11 +95,19 @@ define( "kTAG_DATABASE_REFERENCE",				'$db' );
  *======================================================================================*/
 
 /**
+ * Parent tag.
+ *
+ * This offset indicates which objects can be considered parents of the current object, or
+ * of which objects the current one can be considered a subclass of.
+ */
+define( "kTAG_PARENT",							':PARENT' );
+
+/**
  * Class tag.
  *
- * This is the tag is an offset that should be used to store the object's class name, it
- * will be used to {@link CMongoUnitObject::NewObject() instantiate} objects when loading
- * them from their containers.
+ * This is the offset that should be used to store the object's class name, it will be used
+ * to {@link CMongoUnitObject::NewObject() instantiate} objects when loading them from their
+ * containers.
  */
 define( "kTAG_CLASS",							':CLASS' );
 
@@ -182,6 +215,14 @@ define( "kOFFSET_MAIL",							':MAIL' );
  * This is the tag that represents an e-mail, the value may either be a string or an array.
  */
 define( "kOFFSET_EMAIL",						':EMAIL' );
+
+/**
+ * Telephone offset.
+ *
+ * This is the tag that represents a telephone number, the value may either be a string or
+ * an array.
+ */
+define( "kOFFSET_PHONE",						':PHONE' );
 
 
 ?>

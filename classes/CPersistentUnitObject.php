@@ -28,13 +28,6 @@
 require_once( kPATH_LIBRARY_SOURCE."CPersistentObject.php" );
 
 /**
- * Offsets.
- *
- * This include file contains all default offset definitions.
- */
-require_once( kPATH_LIBRARY_DEFINES."Offsets.inc.php" );
-
-/**
  * Unit objects ancestor.
  *
  * A unit object is one that has a unique identifier, that is, it can be uniquely identified
@@ -78,7 +71,7 @@ class CPersistentUnitObject extends CPersistentObject
 
 /*=======================================================================================
  *																						*
- *									STATIC INTERFACE									*
+ *								PUBLIC MANAGEMENT INTERFACE								*
  *																						*
  *======================================================================================*/
 
@@ -108,6 +101,7 @@ class CPersistentUnitObject extends CPersistentObject
 	 * @param mixed					$theIdentifier		Object identifier.
 	 *
 	 * @static
+	 * @return mixed
 	 */
 	static function NewObject( $theContainer, $theIdentifier )
 	{
@@ -146,7 +140,17 @@ class CPersistentUnitObject extends CPersistentObject
 				//
 				$class = $data[ kTAG_CLASS ];
 				
-				return new $class( $data );											// ==>
+				//
+				// Instantiate object.
+				//
+				$object = new $class( $data );
+				
+				//
+				// Mark as committed.
+				//
+				$object->_IsCommitted( TRUE );
+				
+				return $object;														// ==>
 			
 			} // Has class name.
 		

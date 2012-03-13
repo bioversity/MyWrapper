@@ -31,6 +31,32 @@ require_once( kPATH_LIBRARY_SOURCE."CArrayObject.php" );
 
 
 /*=======================================================================================
+ *	TEST CLASS																			*
+ *======================================================================================*/
+ 
+//
+// Declare test class.
+//
+class MyTest extends CArrayObject
+{
+	public function test_ManageArrayOffset( $theValue = NULL,
+											$theOperation = NULL,
+											$getOld = FALSE )
+	{
+		return $this->_ManageArrayOffset( 'TEST1', $theValue, $theOperation, $getOld );
+	}
+
+	public function test_ManageTypedArrayOffset( $theType, $theValue = NULL,
+														   $theOperation = NULL,
+														   $getOld = FALSE )
+	{
+		return $this->_ManageTypedArrayOffset
+					( 'TEST2', $theType, $theValue, $theOperation, $getOld );
+	}
+}
+
+
+/*=======================================================================================
  *	TEST DEFAULT EXCEPTIONS																*
  *======================================================================================*/
  
@@ -187,6 +213,113 @@ try
 	$norm = $test->values();
 	echo( '$test-><i>values()</i>;<br>' );
 	echo( '<pre>' ); print_r( $norm ); echo( '</pre>' );
+	
+	//
+	// Test array management function.
+	//
+	echo( '<h3>Array management function</h3>' );
+	
+	$test = new MyTest();
+	echo( '<i>$test = new MyTest();</i><br>' );
+	$found = $test->test_ManageArrayOffset( 1, TRUE );
+	echo( '<i>$found = $test->test_ManageArrayOffset( 1, TRUE );</i><br>' );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	$found = $test->test_ManageArrayOffset( 2, TRUE, TRUE );
+	echo( '<i>$found = $test->test_ManageArrayOffset( 2, TRUE, TRUE );</i><br>' );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	$found = $test->test_ManageArrayOffset( '1', TRUE, TRUE );
+	echo( '<i>$found = $test->test_ManageArrayOffset( \'1\', TRUE, TRUE );</i><br>' );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	$found = $test->test_ManageArrayOffset( '2', FALSE, TRUE );
+	echo( '<i>$found = $test->test_ManageArrayOffset( \'2\', FALSE, TRUE );</i><br>' );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	$found = $test->test_ManageArrayOffset();
+	echo( '<i>$found = $test->test_ManageArrayOffset();</i><br>' );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	$found = $test->test_ManageArrayOffset( 1 );
+	echo( '<i>$found = $test->test_ManageArrayOffset( 1 );</i><br>' );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	//
+	// Test typed array management function.
+	//
+	echo( '<h3>Typed array management function</h3>' );
+	
+	echo( '<i>$test = new MyTest();</i><br>' );
+	$test = new MyTest();
+	echo( '<i>$found = $test->test_ManageTypedArrayOffset( \'First\', 1 );</i><br>' );
+	$found = $test->test_ManageTypedArrayOffset( 'First', 1 );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$found = $test->test_ManageTypedArrayOffset( \'Second\', 2, TRUE );</i><br>' );
+	$found = $test->test_ManageTypedArrayOffset( 'Second', 2, TRUE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$found = $test->test_ManageTypedArrayOffset( \'First\', 10, TRUE );</i><br>' );
+	$found = $test->test_ManageTypedArrayOffset( 'First', 10, TRUE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$found = $test->test_ManageTypedArrayOffset( \'Second\', FALSE );</i><br>' );
+	$found = $test->test_ManageTypedArrayOffset( 'Second', FALSE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$found = $test->test_ManageTypedArrayOffset( \'First\', FALSE, TRUE );</i><br>' );
+	$found = $test->test_ManageTypedArrayOffset( 'First', FALSE, TRUE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$test = new MyTest();</i><br>' );
+	$test = new MyTest();
+	echo( '<i>$types = array( \'first\', \'second\', \'third\' );</i><br>' );
+	$types = array( 'first', 'second', 'third' );
+	echo( '<i>$data = array( 10, 20, 30 );</i><br>' );
+	$data = array( 10, 20, 30 );
+	echo( '<i>$found = $test->test_ManageTypedArrayOffset( $types, $data );</i><br>' );
+	$found = $test->test_ManageTypedArrayOffset( $types, $data );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$types = array( \'first\', \'second\', \'third\' );</i><br>' );
+	$types = array( 'first', 'second', 'third' );
+	echo( '<i>$found = $test->test_ManageTypedArrayOffset( $types );</i><br>' );
+	$found = $test->test_ManageTypedArrayOffset( $types );
+	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$types = array( \'first\', \'second\', \'third\' );</i><br>' );
+	$types = array( 'first', 'second', 'third' );
+	echo( '<i>$found = $test->test_ManageTypedArrayOffset( $types, FALSE, TRUE );</i><br>' );
+	$found = $test->test_ManageTypedArrayOffset( $types, FALSE, TRUE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
 }
 
 //

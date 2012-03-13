@@ -247,6 +247,17 @@ try
 	$test = new CPersistentUnitObject( $mcontainer, $ref );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
+	
+	//
+	// New object.
+	//
+	echo( '<h3>New object</h3>' );
+	
+	echo( '<i>New object</i><br>' );
+	echo( '<i>$test = CPersistentUnitObject::NewObject( $mcontainer, 1 );</i><br>' );
+	$test = CPersistentUnitObject::NewObject( $mcontainer, 1 );
+	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
 }
 
 //

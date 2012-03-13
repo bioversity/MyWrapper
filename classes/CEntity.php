@@ -3,8 +3,8 @@
 /**
  * <i>CEntity</i> class definition.
  *
- * This file contains the class definition of <b>CEntity</b> which represents a class
- * mapping a general purpose entity.
+ * This file contains the class definition of <b>CEntity</b> which represents the ancestor
+ * of entity objects.
  *
  *	@package	Objects
  *	@subpackage	Entities
@@ -27,16 +27,116 @@
 require_once( kPATH_LIBRARY_SOURCE."CPersistentUnitObject.php" );
 
 /**
- * Entity ancestor.
+ * Local definitions.
  *
- * This class is the ancestor of entity classes in this library, entities are either
- * institutions or individuals, this class implements the elements common to both:
+ * This include file contains all local definitions to this class.
+ */
+require_once( kPATH_LIBRARY_SOURCE."CEntity.inc.php" );
+
+/**
+ * Entity.
+ *
+ * An entity is a person, institution or legal entity that needs to have a specific identity
+ * in the global data schema.
+ *
+ * Examples of entities could be a gene bank, a germplasm curator, a farmer that donated an
+ * accession, etc. Since entities may take different forms, they can be individuals or
+ * organisations.
+ *
+ * This class  implements the features common to all entity derived classes:
+ *
+ * <ul>
+ *	<li><i>{@link kTAG_PARENT kTAG_PARENT}</i>: This offset represents the entity parents or
+ *		affiliations. This is an array of {@link kTAG_ID_NATIVE identifiers}.
+ *		The class features a member accessor {@link Parent() method} to manage this
+ *		property.
+ *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: This offset represents the entity type. The
+ *		{@link kTAG_CLASS class} offset indicates the class to which the object belongs,
+ *		this offset should indicate what functions the object has. The data is an array.
+ *		The class features a member accessor {@link Type() method} to manage this property.
+ *	<li><i>{@link kTAG_CODE kTAG_CODE}</i>: This offset represents the entity code, it
+ *		should also represent the entity unique identifier.
+ *		The class features a member accessor {@link Code() method} to manage this property.
+ *	<li><i>{@link kTAG_NAME kTAG_NAME}</i>: This offset represents the entity name.
+ *		The class features a member accessor {@link Name() method} to manage this property.
+ *	<li><i>{@link kOFFSET_MAIL kOFFSET_MAIL}</i>: This offset represents the entity mailing
+ *		address. The data is structured as an array in which the elements are structured as
+ *		follows:
+ *	 <ul>
+ *		<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: This offset represents the address type,
+ *			this could be "home", "office" or this element could be missing for a default
+ *			address.
+ *		<li><i>{@link kTAG_DATA kTAG_DATA}</i>: This offset represents the actual address,
+ *			it may be a string containing the whole address, or an {@link CAddress object}
+ *			in which each element of the address has its own property.
+ *	 </ul>
+ *		The class features a member accessor {@link Mail() method} to manage this property.
+ *	<li><i>{@link kOFFSET_EMAIL kOFFSET_EMAIL}</i>: This offset represents the entity
+ *		e-mail.
+ *		The class features a member accessor {@link Email() method} to manage this property.
+ *	<li><i>{@link kOFFSET_PHONE kOFFSET_PHONE}</i>: This offset represents the entity
+ *		telephone number. The data is structured as an array in which the elements contain
+ *		the telephone number.
+ *		The class features a member accessor {@link Phone() method} to manage this property.
+ * </ul>
+ *
+ * Among the above attributes the {@link kTAG_CODE code} and the {@link kTAG_NAME name} are
+ * required, this means that the object will not have its {@link _IsInited() inited}
+ * {@link kFLAG_STATE_INITED status} on, if any of these are not set; which also means that
+ * the object will not be allowed to be {@link Commit() committed}.
+ *
+ * By default, the object's unique {@link kTAG_ID_NATIVE identifier} will be set with the
+ * current {@link Code() code} contents.
+ *
+ * This class also features a static {@link DefaultContainer() method} that should return
+ * the default container name in which to store such objects.
  *
  *	@package	Objects
  *	@subpackage	Entities
  */
 class CEntity extends CPersistentUnitObject
 {
+		
+
+/*=======================================================================================
+ *																						*
+ *											MAGIC										*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	__construct																		*
+	 *==================================================================================*/
+
+	/**
+	 * Instantiate class.
+	 *
+	 * We {@link CPersistentObject::__construct() overload} the constructor to initialise
+	 * the {@link _IsInited() inited} {@link kFLAG_STATE_INITED flag} if the
+	 * {@link Code() code} and {@link Name() name} elements are set.
+	 *
+	 * @param mixed					$theContainer		Persistent container.
+	 * @param mixed					$theIdentifier		Object identifier.
+	 *
+	 * @access public
+	 */
+	public function __construct( $theContainer = NULL, $theIdentifier = NULL )
+	{
+		//
+		// Call parent method.
+		//
+		parent::__construct( $theContainer, $theIdentifier );
+		
+		//
+		// Set inited status.
+		//
+		$this->_IsInited( $this->offsetExists( kTAG_CODE ) &&
+						  $this->offsetExists( kTAG_NAME ) );
+		
+	} // Constructor.
+
 		
 
 /*=======================================================================================
@@ -48,31 +148,122 @@ class CEntity extends CPersistentUnitObject
 
 	 
 	/*===================================================================================
+	 *	Parent																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage entity parents.
+	 *
+	 * This method can be used to manage the entity {@link kTAG_PARENT parents}, it uses the
+	 * standard accessor {@link _ManageArrayOffset() method} to manage the list of parent
+	 * entities.
+	 *
+	 * In general, elements of this list should be a string that uniquely identifies the
+	 * parent entity.
+	 *
+	 * For a more in-depth reference of this method, please consult the
+	 * {@link _ManageArrayOffset() _ManageArrayOffset} method, in which the first parameter
+	 * will be the constant {@link kTAG_PARENT kTAG_PARENT}.
+	 *
+	 * If you provide an instance derived from this class, it means that you wish to set it
+	 * as the parent of the current instance, in that case, the method will use the provided
+	 * object's {@link kTAG_ID_NATIVE identifier} as the value; if the instance lacks the
+	 * identifier, the method will raise an exception.
+	 *
+	 * Note that this method will <i<NOT</i> work on an object that was
+	 * {@link CContainer::Decode() decoded} by a {@link CContainer container}.
+	 *
+	 * @param mixed					$theValue			Value or index.
+	 * @param mixed					$theOperation		Operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 */
+	public function Parent( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
+	{
+		//
+		// Intercept instances.
+		//
+		if( $theValue instanceof self )
+		{
+			//
+			// Use identifier.
+			//
+			if( $theValue->offsetExists( kTAG_ID_NATIVE ) )
+				$theValue = $theValue->offsetGet( kTAG_ID_NATIVE );
+			
+			//
+			// Raise exception on missing identifier.
+			//
+			else
+				throw new CException
+						( "Parent is midding identifier",
+						  kERROR_INVALID_PARAMETER,
+						  kMESSAGE_TYPE_ERROR,
+						  array( 'Parent' => $theValue ) );						// !@! ==>
+		
+		} // Provided parent instance.
+		
+		return $this->_ManageArrayOffset
+					( kTAG_PARENT, $theValue, $theOperation, $getOld );				// ==>
+
+	} // Parent.
+
+	 
+	/*===================================================================================
+	 *	Type																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage entity types.
+	 *
+	 * This method can be used to manage the entity {@link kTAG_TYPE types}, it uses the
+	 * standard accessor {@link _ManageArrayOffset() method} to manage the list of parent
+	 * entities.
+	 *
+	 * In general, elements of this list should be a token that indicates a specific
+	 * function of the entity, this could be, for instance', <i>user</i> to indicate an
+	 * entity that is also a user of the system.
+	 *
+	 * For a more in-depth reference of this method, please consult the
+	 * {@link _ManageArrayOffset() _ManageArrayOffset} method, in which the first parameter
+	 * will be the constant {@link kTAG_TYPE kTAG_TYPE}.
+	 *
+	 * Note that this method will <i<NOT</i> work on an object that was
+	 * {@link CContainer::Decode() decoded} by a {@link CContainer container}.
+	 *
+	 * @param mixed					$theValue			Value or index.
+	 * @param mixed					$theOperation		Operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 */
+	public function Type( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
+	{
+		return $this->_ManageArrayOffset
+					( kTAG_TYPE, $theValue, $theOperation, $getOld );				// ==>
+
+	} // Type.
+
+	 
+	/*===================================================================================
 	 *	Code																			*
 	 *==================================================================================*/
 
 	/**
-	 * Manage user code.
+	 * Manage entity code.
 	 *
-	 * This method can be used to manage the user {@link kTAG_CODE code}, it uses the
+	 * This method can be used to manage the entity {@link kTAG_CODE code}, it uses the
 	 * standard accessor {@link _ManageOffset() method} to manage the
 	 * {@link kTAG_CODE offset}:
 	 *
-	 * <ul>
-	 *	<li><b>$theValue</b>: The value or operation:
-	 *	 <ul>
-	 *		<li><i>NULL</i>: Return the current value.
-	 *		<li><i>FALSE</i>: Delete the value.
-	 *		<li><i>other</i>: Set value.
-	 *	 </ul>
-	 *	<li><b>$getOld</b>: Determines what the method will return:
-	 *	 <ul>
-	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
-	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
-	 *	 </ul>
-	 * </ul>
+	 * For a more in-depth reference of this method, please consult the
+	 * {@link _ManageOffset() _ManageOffset} method, in which the first parameter
+	 * will be the constant {@link kTAG_CODE kTAG_CODE}.
 	 *
-	 * @param NULL|FALSE|string		$theValue			User code or operation.
+	 * @param mixed					$theValue			Value.
 	 * @param boolean				$getOld				TRUE get old value.
 	 *
 	 * @access public
@@ -83,6 +274,318 @@ class CEntity extends CPersistentUnitObject
 		return $this->_ManageOffset( kTAG_CODE, $theValue, $getOld );				// ==>
 
 	} // Code.
+
+	 
+	/*===================================================================================
+	 *	Name																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage entity name.
+	 *
+	 * This method can be used to manage the entity {@link kTAG_NAME name}, it uses the
+	 * standard accessor {@link _ManageOffset() method} to manage the
+	 * {@link kTAG_NAME offset}:
+	 *
+	 * For a more in-depth reference of this method, please consult the
+	 * {@link _ManageOffset() _ManageOffset} method, in which the first parameter
+	 * will be the constant {@link kTAG_NAME kTAG_NAME}.
+	 *
+	 * @param mixed					$theValue			Value.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 */
+	public function Name( $theValue = NULL, $getOld = FALSE )
+	{
+		return $this->_ManageOffset( kTAG_NAME, $theValue, $getOld );				// ==>
+
+	} // Name.
+
+	 
+	/*===================================================================================
+	 *	Mail																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage entity mailing addresses.
+	 *
+	 * This method can be used to manage the entity mailing {@link kOFFSET_MAIL addresses},
+	 * it uses the standard accessor {@link _ManageTypedArrayOffset() method} to manage the
+	 * list of addresses.
+	 *
+	 * This list is an array of structures where the {@link kTAG_TYPE kTAG_TYPE} element
+	 * indicates the type of the address, for instance <i>home</i> or </i>office</i>, and
+	 * the {@link kTAG_DATA kTAG_DATA} element represents the actual address, be it a string
+	 * or itself a structure holding the address elements. If the
+	 * {@link kTAG_TYPE kTAG_TYPE} element is missing, we assume it to be the default
+	 * address.
+	 *
+	 * For a more in-depth reference of this method, please consult the
+	 * {@link _ManageArrayOffset() _ManageTypedArrayOffset} method, in which the first
+	 * parameter will be the constant {@link kOFFSET_MAIL kOFFSET_MAIL}.
+	 *
+	 * Note that this method will <i<NOT</i> work on an object that was
+	 * {@link CContainer::Decode() decoded} by a {@link CContainer container}.
+	 *
+	 * @param mixed					$theType			Item type.
+	 * @param mixed					$theValue			Item value.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 */
+	public function Mail( $theType = NULL, $theValue = NULL, $getOld = FALSE )
+	{
+		return $this->_ManageTypedArrayOffset
+				( kOFFSET_MAIL, $theType, $theValue, $getOld );						// ==>
+
+	} // Mail.
+
+	 
+	/*===================================================================================
+	 *	Email																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage entity e-mail.
+	 *
+	 * This method can be used to manage the entity {@link kOFFSET_EMAIL e-mail}, it uses
+	 * the standard accessor {@link _ManageOffset() method} to manage the
+	 * {@link kOFFSET_EMAIL offset}:
+	 *
+	 * For a more in-depth reference of this method, please consult the
+	 * {@link _ManageOffset() _ManageOffset} method, in which the first parameter
+	 * will be the constant {@link kOFFSET_EMAIL kOFFSET_EMAIL}.
+	 *
+	 * @param mixed					$theValue			Value.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 */
+	public function Email( $theValue = NULL, $getOld = FALSE )
+	{
+		return $this->_ManageOffset( kOFFSET_EMAIL, $theValue, $getOld );			// ==>
+
+	} // Email.
+
+	 
+	/*===================================================================================
+	 *	Phone																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage entity phone.
+	 *
+	 * This method can be used to manage the entity {@link kOFFSET_PHONE telephone} number,
+	 * it uses the standard accessor {@link _ManageOffset() method} to manage the
+	 * {@link kOFFSET_PHONE offset}:
+	 *
+	 * For a more in-depth reference of this method, please consult the
+	 * {@link _ManageOffset() _ManageOffset} method, in which the first parameter
+	 * will be the constant {@link kOFFSET_PHONE kOFFSET_PHONE}.
+	 *
+	 * @param mixed					$theValue			Value.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 */
+	public function Phone( $theValue = NULL, $getOld = FALSE )
+	{
+		return $this->_ManageOffset( kOFFSET_PHONE, $theValue, $getOld );			// ==>
+
+	} // Phone.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC ARRAY ACCESS INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	offsetSet																		*
+	 *==================================================================================*/
+
+	/**
+	 * Set a value for a given offset.
+	 *
+	 * We overload this method to manage the {@link _Is Inited() inited}
+	 * {@link kFLAG_STATE_INITED status}: this is set if {@link kTAG_CODE code} and
+	 * {@link kTAG_NAME name} properties are set.
+	 *
+	 * @param string				$theOffset			Offset.
+	 * @param string|NULL			$theValue			Value to set at offset.
+	 *
+	 * @access public
+	 */
+	public function offsetSet( $theOffset, $theValue )
+	{
+		//
+		// Call parent method.
+		//
+		parent::offsetSet( $theOffset, $theValue );
+		
+		//
+		// Set inited flag.
+		//
+		if( $theValue !== NULL )
+			$this->_IsInited( $this->offsetExists( kTAG_CODE ) &&
+							  $this->offsetExists( kTAG_NAME ) );
+	
+	} // offsetSet.
+
+	 
+	/*===================================================================================
+	 *	offsetUnset																		*
+	 *==================================================================================*/
+
+	/**
+	 * Reset a value for a given offset.
+	 *
+	 * We overload this method to manage the {@link _Is Inited() inited}
+	 * {@link kFLAG_STATE_INITED status}: this is set if {@link kTAG_CODE code} and
+	 * {@link kTAG_NAME name} properties are set.
+	 *
+	 * @param string				$theOffset			Offset.
+	 *
+	 * @access public
+	 */
+	public function offsetUnset( $theOffset )
+	{
+		//
+		// Call parent method.
+		//
+		parent::offsetUnset( $theOffset );
+		
+		//
+		// Set inited flag.
+		//
+		$this->_IsInited( $this->offsetExists( kTAG_CODE ) &&
+						  $this->offsetExists( kTAG_NAME ) );
+	
+	} // offsetUnset.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *									STATIC INTERFACE									*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	DefaultContainer																*
+	 *==================================================================================*/
+
+	/**
+	 * Return the default container.
+	 *
+	 * This method can be used to retrieve the default container name.
+	 *
+	 * @static
+	 * @return string
+	 */
+	static function DefaultContainer()						{	return kENTITY_CONTAINER;	}
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED PERSISTENCE UTILITIES							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	_PrepareStore																	*
+	 *==================================================================================*/
+
+	/**
+	 * Normalise parameters of a store.
+	 *
+	 * We overload this method to check if the object in {@link _IsInited() initialised}, if
+	 * this is not the case we raise an exception.
+	 *
+	 * @param reference			   &$theContainer		Object container.
+	 * @param reference			   &$theIdentifier		Object identifier.
+	 *
+	 * @access protected
+	 *
+	 * @throws CException
+	 *
+	 * @see kERROR_OPTION_MISSING
+	 */
+	protected function _PrepareStore( &$theContainer, &$theIdentifier )
+	{
+		//
+		// Check if inited.
+		//
+		if( ! $this->_IsInited() )
+			throw new CException
+					( "Unable to commit object: missing required offsets",
+					  kERROR_OPTION_MISSING,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Object' => $this ) );								// !@! ==>
+	
+		//
+		// Call parent method.
+		//
+		parent::_PrepareStore( $theContainer, $theIdentifier );
+		
+	} // _PrepareStore.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED IDENTIFICATION INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	_id																				*
+	 *==================================================================================*/
+
+	/**
+	 * Return the object's unique identifier.
+	 *
+	 * We overload this method to return the object's {@link kTAG_ID_NATIVE identifier}, if
+	 * it is set, or the object's {@link Code() code}.
+	 *
+	 * If none of the above are set, we call the parent method.
+	 *
+	 * @access protected
+	 * @return string
+	 */
+	protected function _id()
+	{
+		//
+		// Try identifier.
+		//
+		if( $this->offsetExists( kTAG_ID_NATIVE ) )
+			return $this->offsetGet( kTAG_ID_NATIVE );								// ==>
+		
+		//
+		// Try code.
+		//
+		if( $this->offsetExists( kTAG_CODE ) )
+			return $this->offsetGet( kTAG_CODE );									// ==>
+		
+		return parent::_id();														// ==>
+	
+	} // _id.
 
 	 
 
