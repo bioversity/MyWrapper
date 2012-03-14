@@ -47,7 +47,8 @@ require_once( kPATH_LIBRARY_SOURCE."CEntity.inc.php" );
  *
  * <ul>
  *	<li><i>{@link kTAG_PARENT kTAG_PARENT}</i>: This offset represents the entity parents or
- *		affiliations. This is an array of {@link kTAG_ID_NATIVE identifiers}.
+ *		affiliations. This is an array of object {@link kTAG_ID_NATIVE identifiers} or
+ *		{@link CEntity CEntity} derived instances.
  *		The class features a member accessor {@link Parent() method} to manage this
  *		property.
  *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: This offset represents the entity type. The
@@ -145,70 +146,6 @@ class CEntity extends CPersistentUnitObject
  *																						*
  *======================================================================================*/
 
-
-	 
-	/*===================================================================================
-	 *	Parent																			*
-	 *==================================================================================*/
-
-	/**
-	 * Manage entity parents.
-	 *
-	 * This method can be used to manage the entity {@link kTAG_PARENT parents}, it uses the
-	 * standard accessor {@link _ManageArrayOffset() method} to manage the list of parent
-	 * entities.
-	 *
-	 * In general, elements of this list should be a string that uniquely identifies the
-	 * parent entity.
-	 *
-	 * For a more in-depth reference of this method, please consult the
-	 * {@link _ManageArrayOffset() _ManageArrayOffset} method, in which the first parameter
-	 * will be the constant {@link kTAG_PARENT kTAG_PARENT}.
-	 *
-	 * If you provide an instance derived from this class, it means that you wish to set it
-	 * as the parent of the current instance, in that case, the method will use the provided
-	 * object's {@link kTAG_ID_NATIVE identifier} as the value; if the instance lacks the
-	 * identifier, the method will raise an exception.
-	 *
-	 * Note that this method will <i<NOT</i> work on an object that was
-	 * {@link CContainer::Decode() decoded} by a {@link CContainer container}.
-	 *
-	 * @param mixed					$theValue			Value or index.
-	 * @param mixed					$theOperation		Operation.
-	 * @param boolean				$getOld				TRUE get old value.
-	 *
-	 * @access public
-	 * @return string
-	 */
-	public function Parent( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
-	{
-		//
-		// Intercept instances.
-		//
-		if( $theValue instanceof self )
-		{
-			//
-			// Use identifier.
-			//
-			if( $theValue->offsetExists( kTAG_ID_NATIVE ) )
-				$theValue = $theValue->offsetGet( kTAG_ID_NATIVE );
-			
-			//
-			// Raise exception on missing identifier.
-			//
-			else
-				throw new CException
-						( "Parent is midding identifier",
-						  kERROR_INVALID_PARAMETER,
-						  kMESSAGE_TYPE_ERROR,
-						  array( 'Parent' => $theValue ) );						// !@! ==>
-		
-		} // Provided parent instance.
-		
-		return $this->_ManageArrayOffset
-					( kTAG_PARENT, $theValue, $theOperation, $getOld );				// ==>
-
-	} // Parent.
 
 	 
 	/*===================================================================================
@@ -403,6 +340,66 @@ class CEntity extends CPersistentUnitObject
 
 /*=======================================================================================
  *																						*
+ *							PUBLIC PARENT MEMBER INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	Parent																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage entity parents.
+	 *
+	 * This method can be used to manage the entity {@link kTAG_PARENT parents}, you can
+	 * add/replace, retrieve and delete parent elements depending on the value of the
+	 * parameters.
+	 *
+	 * The property is represented by an array of instances derived from this class, or
+	 * strings representing entity {@link kTAG_ID_NATIVE identifiers}.
+	 * In the first case, prior to {@link Commit() saving} the current object, array
+	 * elements in the form of CEntity instances will also be {@link Commit() saved} and
+	 * replaced by their {@link kTAG_ID_NATIVE identifiers}.
+	 *
+	 * This method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theIndex</b>: This parameter represents the element index.
+	 *	<li><b>$theOperation</b>: The operation to perform:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Retrieve the element, the methoid will return the matching
+	 *			element or <i>NULL</i> if not found.
+	 *		<li><i>FALSE</i>: Delete the element, depending on the value of the next
+	 *			parameter, the method will either return the deleted element or <i>NULL</i>.
+	 *		<li><i>other</i>: Any other value means that we want to add/replace the element,
+	 *			in this case the method will return the added element's index.
+	 *	 </ul>
+	 *	<li><b>$theData</b>: This parameter represents the element data.
+	 * </ul>
+	 *
+	 * Note that this method will <i<NOT</i> work on an object that was
+	 * {@link CContainer::Decode() decoded} by a {@link CContainer container}.
+	 *
+	 * @param mixed					$theValue			Index or value.
+	 * @param mixed					$theOperation		Operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 */
+	public function Parent( $theValue, $theOperation = NULL, $getOld = FALSE )
+	{
+		return $this->_ManageObjectList
+			( kTAG_PARENT, $theValue, $theOperation,$getOld );						// ==>
+
+	} // Parent.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PUBLIC ARRAY ACCESS INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -511,7 +508,7 @@ class CEntity extends CPersistentUnitObject
 	 *==================================================================================*/
 
 	/**
-	 * Normalise parameters of a store.
+	 * Normalise before a store.
 	 *
 	 * We overload this method to check if the object in {@link _IsInited() initialised}, if
 	 * this is not the case we raise an exception.
@@ -528,19 +525,46 @@ class CEntity extends CPersistentUnitObject
 	protected function _PrepareStore( &$theContainer, &$theIdentifier )
 	{
 		//
-		// Check if inited.
-		//
-		if( ! $this->_IsInited() )
-			throw new CException
-					( "Unable to commit object: missing required offsets",
-					  kERROR_OPTION_MISSING,
-					  kMESSAGE_TYPE_ERROR,
-					  array( 'Object' => $this ) );								// !@! ==>
-	
-		//
 		// Call parent method.
 		//
 		parent::_PrepareStore( $theContainer, $theIdentifier );
+		
+		//
+		// Handle parents.
+		//
+		if( $this->offsetExists( kTAG_PARENT ) )
+		{
+			//
+			// Iterate parents.
+			//
+			$parents = $this->offsetGet( kTAG_PARENT );
+			foreach( $parents as $key => $value )
+			{
+				//
+				// Handle instances.
+				//
+				if( $value instanceof self )
+				{
+					//
+					// Save parent.
+					//
+					$value->Commit( $theContainer );
+					
+					//
+					// Use parent index.
+					//
+					$parents[ $key ] = $value[ kTAG_ID_NATIVE ];
+				
+				} // Parent element is an entity instance.
+			
+			} // Iterating parents.
+			
+			//
+			// Save list.
+			//
+			$this->offsetSet( kTAG_PARENT, $parents );
+		
+		} // Has parents.
 		
 	} // _PrepareStore.
 
@@ -572,10 +596,15 @@ class CEntity extends CPersistentUnitObject
 	protected function _id()
 	{
 		//
-		// Try identifier.
+		// Call parent method.
 		//
-		if( $this->offsetExists( kTAG_ID_NATIVE ) )
-			return $this->offsetGet( kTAG_ID_NATIVE );								// ==>
+		$id = parent::_id();
+		
+		//
+		// Check default value.
+		//
+		if( $id !== NULL )
+			return $id;																// ==>
 		
 		//
 		// Try code.
@@ -583,7 +612,7 @@ class CEntity extends CPersistentUnitObject
 		if( $this->offsetExists( kTAG_CODE ) )
 			return $this->offsetGet( kTAG_CODE );									// ==>
 		
-		return parent::_id();														// ==>
+		return $id;																	// ==>
 	
 	} // _id.
 

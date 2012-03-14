@@ -184,12 +184,23 @@ class CPersistentUnitObject extends CPersistentObject
 	 * If this method returns <i>NULL</i>, it is assumed that the
 	 * {@link CContainer container} will provide a default unique value.
 	 *
-	 * By default we let the system choose an identifier.
+	 * In this class we first check the {@link kTAG_ID_NATIVE identifier}, if not found, we
+	 * let the system choose.
 	 *
 	 * @access protected
 	 * @return string
 	 */
-	protected function _id()											{	return NULL;	}
+	protected function _id()
+	{
+		//
+		// Try identifier.
+		//
+		if( $this->offsetExists( kTAG_ID_NATIVE ) )
+			return $this->offsetGet( kTAG_ID_NATIVE );								// ==>
+		
+		return NULL;																// ==>
+	
+	} // _id.
 
 		
 
@@ -248,7 +259,7 @@ class CPersistentUnitObject extends CPersistentObject
 	 *==================================================================================*/
 
 	/**
-	 * Normalise parameters of a store.
+	 * Normalise before a store.
 	 *
 	 * The duty of this method is to ensure that the parameters provided to the
 	 * {@link _StoreObject() store} operation are correct.
@@ -292,16 +303,6 @@ class CPersistentUnitObject extends CPersistentObject
 		parent::_PrepareStore( $theContainer, $theIdentifier );
 		
 		//
-		// Check container.
-		//
-		if( ! $theContainer instanceof CContainer )
-			throw new CException
-					( "Unsupported container type",
-					  kERROR_UNSUPPORTED,
-					  kMESSAGE_TYPE_ERROR,
-					  array( 'Container' => $theContainer ) );					// !@! ==>
-		
-		//
 		// Handle identifier.
 		//
 		if( $theIdentifier === NULL )
@@ -333,6 +334,351 @@ class CPersistentUnitObject extends CPersistentObject
 									  : 0 );
 	
 	} // _PrepareStore.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED MEMBER ACCESSOR INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	_ManageObjectList																*
+	 *==================================================================================*/
+
+	/**
+	 * Manage a list of objects.
+	 *
+	 * This method can be used to manage a list of objects derived from this class, in
+	 * particular, an array in which each element is either a string representing the
+	 * {@link kTAG_ID_NATIVE identifier} of the object, or the object itself.
+	 *
+	 * Each element of the array is identified either by the value itself, if it is a string
+	 * representing the object {@link kTAG_ID_NATIVE identifier}, or by the
+	 * {@link kTAG_ID_NATIVE identifier} if the element is an object itself.
+	 *
+	 * The array is numerically indexed and this method will ensure it remains an array.
+	 *
+	 * The parameters to this method are:
+	 *
+	 * <ul>
+	 *	<li><b>$theOffset</b>: This parameter represents the offset in the current object
+	 *		that holds the list of objects. This value may not be empty.
+	 *	<li><b>$theValue</b>: This parameter may represent either the
+	 *		{@link kTAG_ID_NATIVE identifier} of an element in the list, if the operation
+	 *		involves retrieving or deleting, or the actual contents if the operation
+	 *		involves adding or replacing into the list. Values provided as instances derived
+	 *		from this class will be converted to the {@link kTAG_ID_NATIVE identifier} they
+	 *		hold if the operation involves retrieving or deleting; if these objects do not
+	 *		have this {@link kTAG_ID_NATIVE identifier}, the method will attempt to use
+	 *		the result of the {@link _id() _id} method; if also this returns a <i>NULL</i>
+	 *		value we shall raise an exception.
+	 *		If you provide an array in this parameter, the method will assume you want to
+	 *		use the elements of the array as keys or values, in that case it will send each
+	 *		element to this method using the same other parameters.
+	 *	<li><b>$theOperation</b>: The operation to perform:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Return the element {@link kTAG_ID_NATIVE identified} by the
+	 *			second parameter.
+	 *		<li><i>FALSE</i>: Delete the element {@link kTAG_ID_NATIVE identified} by the
+	 *			second parameter, if the next parameter evaluates to <i>TRUE</i>, the method
+	 *			will return the deleted element if available.
+	 *		<li><i>other</i>: Any other value means that we want to add/replace the element
+	 *			provided in the second parameter. This means that the method will scan all
+	 *			the elements of the array and replace the element matching the
+	 *			{@link kTAG_ID_NATIVE identifier}, or append the element if there is no
+	 *			match.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return when deleting elements:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the value of the offset <i>before</i> it was eventually
+	 *			modified or deleted.
+	 *		<li><i>FALSE</i>: Return the value of the offset <i>after</i> it was eventually
+	 *			modified or deleted.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * Since the list managed by this method is a numeric keyed array, it is important that
+	 * elements of the array have the {@link kTAG_ID_NATIVE identifier}, or deleting
+	 * elements from the list may prove problematic.
+	 *
+	 * In general, objects holding such lists will have all their elements stored as
+	 * instances derived from this class {@link Commit() committed} and converted to a
+	 * string containing the object {@link kTAG_ID_NATIVE identifier}.
+	 *
+	 * @param string				$theOffset			Offset.
+	 * @param mixed					$theValue			Index or value.
+	 * @param mixed					$theOperation		Operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access protected
+	 * @return mixed
+	 */
+	protected function _ManageObjectList( $theOffset, $theValue, $theOperation = NULL,
+																 $getOld = FALSE )
+	{
+		//
+		// Check offset.
+		//
+		if( (string) $theOffset === NULL )
+			throw new CException
+					( "Invalid offset",
+					  kERROR_INVALID_PARAMETER,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Offset' => $theOffset ) );						// !@! ==>
+		
+		//
+		// Handle arrays.
+		//
+		if( is_array( $theValue ) )
+		{
+			//
+			// Recurse.
+			//
+			$result = Array();
+			foreach( $theValue as $value )
+				$result[]
+					= $this->_ManageObjectList
+						( $theOffset, $value, $theOperation, $getOld );
+			
+			return $result;															// ==>
+		
+		} // Provided list of objects.
+		
+		//
+		// Handle retrieve.
+		//
+		if( $theOperation === NULL )
+		{
+			//
+			// Check list.
+			//
+			if( ($save = $this->offsetGet( $theOffset )) !== NULL )
+			{
+				//
+				// Get index.
+				//
+				if( ($index = $this->_ObjectIndex( $theValue )) === NULL )
+					throw new CException
+							( "Missing value or index",
+							  kERROR_INVALID_PARAMETER,
+							  kMESSAGE_TYPE_ERROR,
+							  array( 'Value' => $theValue ) );					// !@! ==>
+				
+				//
+				// Iterate list.
+				//
+				foreach( $save as $value )
+				{
+					//
+					// Match instance.
+					//
+					if( $index == $this->_ObjectIndex( $value ) )
+						return $value;												// ==>
+				
+				} // Iterating list.
+			
+			} // Have list.
+			
+			return NULL;															// ==>
+		
+		} // Retrieve.
+		
+		//
+		// Handle delete.
+		//
+		if( $theOperation === FALSE )
+		{
+			//
+			// Check list.
+			//
+			if( ($save = $this->offsetGet( $theOffset )) !== NULL )
+			{
+				//
+				// Get index.
+				//
+				if( ($index = $this->_ObjectIndex( $theValue )) === NULL )
+					throw new CException
+							( "Missing value or index",
+							  kERROR_INVALID_PARAMETER,
+							  kMESSAGE_TYPE_ERROR,
+							  array( 'Value' => $theValue ) );					// !@! ==>
+				
+				//
+				// Iterate list.
+				//
+				$found = NULL;
+				$new = Array();
+				foreach( $save as $value )
+				{
+					//
+					// Match.
+					//
+					if( $index == $this->_ObjectIndex( $value ) )
+						$found = $value;
+					
+					//
+					// Keep element.
+					//
+					else
+						$new[] = $value;
+				
+				} // Iterating list.
+				
+				//
+				// Replace list.
+				//
+				$this->offsetSet( $theOffset, $new );
+				
+				if( $getOld )
+					return $found;													// ==>
+			
+			} // Have list.
+			
+			return NULL;															// ==>
+		
+		} // Delete.
+		
+		//
+		// Replace value.
+		//
+		if( $this->offsetExists( $theOffset ) )
+		{
+			//
+			// Init local storage.
+			//
+			$index = $this->_ObjectIndex( $theValue );
+			$save = $this->offsetGet( $theOffset );
+
+			//
+			// Iterate list.
+			//
+			foreach( $save as $key => $value )
+			{
+				//
+				// Match.
+				//
+				if( $index == $this->_ObjectIndex( $value ) )
+				{
+					//
+					// Save element.
+					//
+					$found = $value;
+					
+					//
+					// Replace element.
+					//
+					$save[ $key ] = $theValue;
+					
+					//
+					// Replace list.
+					//
+					$this->offsetSet( $theOffset, $save );
+					
+					if( $getOld )
+						return $found;												// ==>
+					
+					return $theValue;												// ==>
+				
+				} // Matched.
+			
+			} // Iterating list.
+			
+			//
+			// Append element.
+			//
+			$save[] = $theValue;
+			
+			//
+			// Replace list.
+			//
+			$this->offsetSet( $theOffset, $save );
+			
+			if( $getOld )
+				return NULL;														// ==>
+			
+			return $theValue;														// ==>
+		
+		} // List exists.
+		
+		//
+		// Create list.
+		//
+		$this->offsetSet( $theOffset, array( $theValue ) );
+		
+		if( $getOld )
+			return NULL;															// ==>
+		
+		return $theValue;															// ==>
+	
+	} // _ManageObjectList.
+
+	 
+	/*===================================================================================
+	 *	_ObjectIndex																	*
+	 *==================================================================================*/
+
+	/**
+	 * Return object index.
+	 *
+	 * This method is {@link _ManageObjectList() used} to determine an object index, the
+	 * method accepts a single parameter that may be:
+	 *
+	 * <ul>
+	 *	<li><i>CPersistentUnitObject</i>: In this case we interpret the parameter to be an
+	 *		instance of the object for which we want to retrieve the identifier:
+	 *	 <ul>
+	 *		<li><i>{@link kTAG_ID_NATIVE kTAG_ID_NATIVE}</i>: We first check whether the
+	 *			object has that offset and use it is so.
+	 *		<li><i>{@link _id() _id}</i>: We then check the result of this method and use it
+	 *			if not <i>NULL</i>.
+	 *	 </ul>
+	 *	<li><i>string</i>: In this case we interpret the parameter to be the
+	 *		{@link kTAG_ID_NATIVE identifier} of an object and cast it to a string.
+	 *	<li><i>other</i>: Any other value will be cast to a string.
+	 * </ul>
+	 *
+	 * @param string				$theOffset			Offset.
+	 * @param mixed					$theValue			Index or value.
+	 * @param mixed					$theOperation		Operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access protected
+	 * @return string
+	 */
+	protected function _ObjectIndex( $theValue )
+	{
+		//
+		// Check if there.
+		//
+		if( $theValue === NULL )
+			return NULL;															// ==>
+		
+		//
+		// Handle instance.
+		//
+		if( $theValue instanceof self )
+		{
+			//
+			// Try identifier.
+			//
+			if( $theValue->offsetExists( kTAG_ID_NATIVE ) )
+				return (string) $theValue->offsetGet( kTAG_ID_NATIVE );				// ==>
+			
+			//
+			// Try index method.
+			//
+			if( $theValue->_IsInited() )
+				return $theValue->_id();											// ==>
+		
+		} // Instance.
+		
+		return (string) $theValue;													// ==>
+	
+	} // _ObjectIndex.
 
 	 
 

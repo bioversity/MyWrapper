@@ -28,6 +28,13 @@ require_once( '/Library/WebServer/Library/wrapper/includes.inc.php' );
 // Class includes.
 //
 require_once( kPATH_LIBRARY_SOURCE."CEntity.php" );
+class MyClass extends CEntity
+{
+	public function Index( $object )
+	{
+		return $this->_ObjectIndex( $object );
+	}
+}
 
 
 /*=======================================================================================
@@ -73,7 +80,7 @@ try
 						kTAG_NAME => 'Milko A. Škofič' );
 	echo( 'Container:<pre>' ); print_r( $container ); echo( '</pre>' );
 	echo( '<i>$test = new CEntity( $container );</i><br>' );
-	$test = new CEntity( $container );
+	$parent1 = $test = new CEntity( $container );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
@@ -102,7 +109,7 @@ try
 	try
 	{
 		echo( '<i>$test->Name( FALSE );</i><br>' );
-		$test->Name( FALSE );
+		$old = $test->Name( FALSE, TRUE );
 		echo( '<i>$test->Commit( $collection );</i><br>' );
 		$test->Commit( $collection );
 		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
@@ -112,6 +119,7 @@ try
 		echo( CException::AsHTML( $error ) );
 		echo( '<br>' );
 	}
+	$test->Name( $old );
 	echo( '<hr>' );
 	
 	echo( '<i>$test = new CEntity( $collection, $identifier );</i><br>' );
@@ -147,6 +155,43 @@ try
 	echo( '<i>$found = $test->Mail();</i><br>' );
 	$found = $test->Mail();
 	echo( '<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	 
+	//
+	// Test parents.
+	//
+	echo( '<h3>Test parents</h3>' );
+	
+	//
+	// Create other parents.
+	//
+	$parent2 = new CEntity();
+	$parent2->Code( 'NONNO' );
+	$parent2->Name( 'Il Nonno' );
+	$parent2->Email( 'nonno@nonni.net' );
+	
+	echo( '<i>$test->Parent( $parent1, TRUE );</i><br>' );
+	echo( '<i>$test->Parent( $parent2, TRUE );</i><br>' );
+	$test->Parent( $parent1, TRUE );
+	$test->Parent( $parent2, TRUE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$test->Commit( $collection );</i><br>' );
+	$test->Commit( $collection );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Parent1<pre>' ); print_r( $parent1 ); echo( '</pre>' );
+	echo( 'Parent2<pre>' ); print_r( $parent2 ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$test->Parent( $parent1, TRUE );</i><br>' );
+	echo( '<i>$test->Parent( $parent2, TRUE );</i><br>' );
+	$test->Parent( $parent1, TRUE );
+	$test->Parent( $parent2, TRUE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$test->Commit( $collection );</i><br>' );
+	$test->Commit( $collection );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Parent1<pre>' ); print_r( $parent1 ); echo( '</pre>' );
+	echo( 'Parent2<pre>' ); print_r( $parent2 ); echo( '</pre>' );
 	echo( '<hr>' );
 }
 

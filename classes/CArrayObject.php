@@ -325,7 +325,7 @@ class CArrayObject extends ArrayObject
 		$save = $this->offsetGet( $theOffset );
 		
 		//
-		// Return current value.
+		// Return element or list.
 		//
 		if( $theOperation === NULL )
 		{
@@ -346,10 +346,10 @@ class CArrayObject extends ArrayObject
 			
 			return NULL;															// ==>
 		
-		} // Return current value.
+		} // Return element or list.
 
 		//
-		// Delete value.
+		// Delete element or list.
 		//
 		if( $theOperation === FALSE )
 		{
@@ -420,7 +420,7 @@ class CArrayObject extends ArrayObject
 			
 			return NULL;															// ==>
 		
-		} // Delete current value.
+		} // Delete element or list.
 		
 		//
 		// Delete full list.

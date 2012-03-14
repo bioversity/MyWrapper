@@ -31,6 +31,23 @@ require_once( kPATH_LIBRARY_SOURCE."CPersistentUnitObject.php" );
 
 
 /*=======================================================================================
+ *	TEST CLASS																			*
+ *======================================================================================*/
+ 
+//
+// Test class.
+//
+class MyClass extends CPersistentUnitObject
+{
+	protected function _PrepareStore( &$theContainer, &$theIdentifier )
+	{
+		$this->_isInited( TRUE );
+		parent::_PrepareStore( $theContainer, $theIdentifier );
+	}
+}
+
+
+/*=======================================================================================
  *	TEST DEFAULT EXCEPTIONS																*
  *======================================================================================*/
  
@@ -151,8 +168,8 @@ try
 	echo( '<h3>Commit to container</h3>' );
 	
 	echo( '<i>Store in CArrayContainer object</i><br>' );
-	echo( '<i>$test = new CPersistentUnitObject( array( \'NAME\' => \'Milko\', \'SURNAME\' => \'Skofic\' ) );</i><br>' );
-	$test = new CPersistentUnitObject( array( 'NAME' => 'Milko', 'SURNAME' => 'Skofic' ) );
+	echo( '<i>$test = new MyClass( array( \'NAME\' => \'Milko\', \'SURNAME\' => \'Skofic\' ) );</i><br>' );
+	$test = new MyClass( array( 'NAME' => 'Milko', 'SURNAME' => 'Skofic' ) );
 	echo( '<i>$found = $test->Commit( $acontainer );</i><br>' );
 	$found = $test->Commit( $acontainer );
 	echo( 'Container:<pre>' ); print_r( $acontainer ); echo( '</pre>' );
@@ -169,6 +186,7 @@ try
 	echo( '<hr>' );
 	
 	echo( '<i>Store with different index</i><br>' );
+	echo( '<i><b>Note the version changes on both objects since these are stored as references</b></i><br>' );
 	echo( '<i>$test->Uncommit();</i><br>' );
 	$test->Uncommit();
 	echo( '<i>$found = $test->Commit( $acontainer, 2 );</i><br>' );
@@ -211,8 +229,8 @@ try
 	$found = $test->Commit( $mcontainer, 1 );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
-	echo( '<i>$test = new CPersistentUnitObject( $mcontainer, 1 );</i><br>' );
-	$test = new CPersistentUnitObject( $mcontainer, 1 );
+	echo( '<i>$test = new MyClass( $mcontainer, 1 );</i><br>' );
+	$test = new MyClass( $mcontainer, 1 );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
@@ -223,8 +241,8 @@ try
 	$found = $test->Commit( $mcontainer );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
-	echo( '<i>$test = new CPersistentUnitObject( $mcontainer, 1 );</i><br>' );
-	$test = new CPersistentUnitObject( $mcontainer, 1 );
+	echo( '<i>$test = new MyClass( $mcontainer, 1 );</i><br>' );
+	$test = new MyClass( $mcontainer, 1 );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	echo( '<hr>' );
@@ -235,16 +253,16 @@ try
 	echo( '<h3>Load with object</h3>' );
 	
 	echo( '<i>Load with object</i><br>' );
-	echo( '<i>$test = new CPersistentUnitObject( $mcontainer, $test );</i><br>' );
-	$test = new CPersistentUnitObject( $mcontainer, $test );
+	echo( '<i>$test = new MyClass( $mcontainer, $test );</i><br>' );
+	$test = new MyClass( $mcontainer, $test );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
 	echo( '<i>Load with reference</i><br>' );
 	echo( '<i>$ref = array( kTAG_ID_REFERENCE => 1 );</i><br>' );
 	$ref = array( kTAG_ID_REFERENCE => 1 );
-	echo( '<i>$test = new CPersistentUnitObject( $mcontainer, $ref );</i><br>' );
-	$test = new CPersistentUnitObject( $mcontainer, $ref );
+	echo( '<i>$test = new MyClass( $mcontainer, $ref );</i><br>' );
+	$test = new MyClass( $mcontainer, $ref );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
@@ -254,8 +272,8 @@ try
 	echo( '<h3>New object</h3>' );
 	
 	echo( '<i>New object</i><br>' );
-	echo( '<i>$test = CPersistentUnitObject::NewObject( $mcontainer, 1 );</i><br>' );
-	$test = CPersistentUnitObject::NewObject( $mcontainer, 1 );
+	echo( '<i>$test = MyClass::NewObject( $mcontainer, 1 );</i><br>' );
+	$test = MyClass::NewObject( $mcontainer, 1 );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 }

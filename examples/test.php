@@ -54,7 +54,6 @@ echo( "v1: [$v1] v2: [$v2] v3: [$v3]<hr>" );
 $v3 = 3;
 echo( '<i>$v3 = 3;</i><br>' );
 echo( "v1: [$v1] v2: [$v2] v3: [$v3]<hr>" );
-*/
 
 //
 // Last array key.
@@ -74,5 +73,36 @@ end( $test );
 $key = key( $test );
 $value = $test[ $key ];
 echo( $value.' = $test[ '.$key.' ];<br>' );
-	
+*/
+
+//
+// Test iterator_to_array.
+//
+
+//
+// Instantiate ArrayObject.
+//
+$ao = new ArrayObject();
+$ao[ 'uno' ] = 1;
+$ao[ 'due' ] = 2;
+$ao[ 'tre' ] = 3;
+
+//
+// Get iterator.
+//
+$it = iterator_to_array( $ao );
+
+echo( 'Object<pre>' ); print_r( $ao ); echo( '</pre>' );
+echo( 'Iterator<pre>' ); print_r( $it ); echo( '</pre>' );
+echo( '<hr>' );
+
+//
+// Make changes to iterator.
+//
+$it[ 'due' ] = 20;
+echo( '<i>$it[ \'due\' ] = 20;</i>' );
+
+echo( 'Object<pre>' ); print_r( $ao ); echo( '</pre>' );
+echo( 'Iterator<pre>' ); print_r( $it ); echo( '</pre>' );
+
 ?>

@@ -640,7 +640,7 @@ class CMongoObject extends CPersistentObject
 	 *==================================================================================*/
 
 	/**
-	 * Normalise parameters of a store.
+	 * Normalise before a store.
 	 *
 	 * The duty of this method is to ensure that the parameters provided to a
 	 * {@link _StoreObject() store} operation are ready.

@@ -271,6 +271,11 @@ class CPersistentObject extends CStatusObject
 			$theIdentifier = $this->_StoreObject( $theContainer, $theIdentifier );
 			
 			//
+			// Finalise.
+			//
+			$this->_FinishStore( $theContainer, $theIdentifier );
+			
+			//
 			// Set status.
 			//
 			$this->_IsCommitted( TRUE );
@@ -615,10 +620,11 @@ class CPersistentObject extends CStatusObject
 	 *==================================================================================*/
 
 	/**
-	 * Normalise parameters of a store.
+	 * Normalise before a store.
 	 *
-	 * The duty of this method is to ensure that the parameters provided to the
-	 * {@link _StoreObject() store} operation are correct.
+	 * This method will be called before the {@link _StoreObject() store} operation, its
+	 * duty is to prepare the object and the parameters for the
+	 * {@link _StoreObject() commit}.
 	 *
 	 * In this class we ensure that the container is either an ArrayObject or a
 	 * {@link CContainer CContainer} derived instance, any other type will raise an
@@ -636,7 +642,9 @@ class CPersistentObject extends CStatusObject
 	 *
 	 * @throws CException
 	 *
-	 * @see kERROR_OPTION_MISSING kERROR_UNSUPPORTED
+	 * @uses _IsInited()
+	 *
+	 * @see kERROR_INVALID_PARAMETER kERROR_OPTION_MISSING kERROR_UNSUPPORTED
 	 */
 	protected function _PrepareStore( &$theContainer, &$theIdentifier )
 	{
@@ -646,7 +654,7 @@ class CPersistentObject extends CStatusObject
 		if( $theContainer === NULL )
 			throw new CException
 					( "Missing object container",
-					  kERROR_OPTION_MISSING,
+					  kERROR_INVALID_PARAMETER,
 					  kMESSAGE_TYPE_ERROR );									// !@! ==>
 		elseif( (! $theContainer instanceof CContainer)
 			 && (! $theContainer instanceof ArrayObject) )
@@ -656,7 +664,36 @@ class CPersistentObject extends CStatusObject
 					  kMESSAGE_TYPE_ERROR,
 					  array( 'Container' => $theContainer ) );					// !@! ==>
 	
+		//
+		// Check if inited.
+		//
+		if( ! $this->_IsInited() )
+			throw new CException
+					( "Unable to commit object: object not initialised",
+					  kERROR_OPTION_MISSING,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Object' => $this ) );								// !@! ==>
+	
 	} // _PrepareStore.
+
+	 
+	/*===================================================================================
+	 *	_FinishStore																	*
+	 *==================================================================================*/
+
+	/**
+	 * Normalise after a store.
+	 *
+	 * This method will be called after the {@link _StoreObject() store} operation, its
+	 * duty is to restore the object and the parameters to the state they were before the
+	 * {@link _StoreObject() commit} operation.
+	 *
+	 * @param reference			   &$theContainer		Object container.
+	 * @param reference			   &$theIdentifier		Object identifier.
+	 *
+	 * @access protected
+	 */
+	protected function _FinishStore( &$theContainer, &$theIdentifier )					   {}
 
 	 
 

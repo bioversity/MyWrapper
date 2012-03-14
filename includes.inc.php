@@ -60,6 +60,18 @@ define( "kPATH_LIBRARY_DEFINES",	"/Library/WebServer/Library/wrapper/defines/" )
 define( "kDEFAULT_LANGUAGE",			'en' );				// English.
 
 /*=======================================================================================
+ *	DEFAULT TEMPORARY MEMBER NAME														*
+ *======================================================================================*/
+
+/**
+ * Default temporary member name.
+ *
+ * This value is used whenever there is the necessity to create a temporary data member in
+ * an object, the value represents the member name.
+ */
+define( "kDEFAULT_MEMBER",				'___TMP___' );		// Temporary data member name.
+
+/*=======================================================================================
  *	CLASS AUTOLOADER																	*
  *======================================================================================*/
 

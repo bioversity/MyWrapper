@@ -31,6 +31,23 @@ require_once( kPATH_LIBRARY_SOURCE."CPersistentObject.php" );
 
 
 /*=======================================================================================
+ *	TEST CLASS																			*
+ *======================================================================================*/
+ 
+//
+// Test class.
+//
+class MyClass extends CPersistentObject
+{
+	protected function _PrepareStore( &$theContainer, &$theIdentifier )
+	{
+		$this->_isInited( TRUE );
+		parent::_PrepareStore( $theContainer, $theIdentifier );
+	}
+}
+
+
+/*=======================================================================================
  *	TEST DEFAULT EXCEPTIONS																*
  *======================================================================================*/
  
@@ -157,7 +174,7 @@ try
 	
 	echo( '<i>Store in array object</i><br>' );
 	echo( '<i>$test = new CPersistentObject( array( \'NAME\' => \'Milko\', \'SURNAME\' => \'Skofic\' ) );</i><br>' );
-	$test = new CPersistentObject( array( 'NAME' => 'Milko', 'SURNAME' => 'Skofic' ) );
+	$test = new MyClass( array( 'NAME' => 'Milko', 'SURNAME' => 'Skofic' ) );
 	echo( '<i>$container = new ArrayObject();</i><br>' );
 	$container = new ArrayObject();
 	echo( '<i>$found = $test->Commit( $container );</i><br>' );
@@ -231,7 +248,7 @@ try
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
 	echo( '<i>$test = new CPersistentObject( $mcontainer, 1 );</i><br>' );
-	$test = new CPersistentObject( $mcontainer, 1 );
+	$test = new MyClass( $mcontainer, 1 );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
@@ -243,7 +260,7 @@ try
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
 	echo( '<i>$test = new CPersistentObject( $mcontainer, 1 );</i><br>' );
-	$test = new CPersistentObject( $mcontainer, 1 );
+	$test = new MyClass( $mcontainer, 1 );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	echo( '<hr>' );
@@ -255,7 +272,7 @@ try
 	
 	echo( '<i>Load with object</i><br>' );
 	echo( '<i>$test = new CPersistentObject( $mcontainer, $test );</i><br>' );
-	$test = new CPersistentObject( $mcontainer, $test );
+	$test = new MyClass( $mcontainer, $test );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
@@ -263,7 +280,7 @@ try
 	echo( '<i>$ref = array( kTAG_ID_REFERENCE => 1 );</i><br>' );
 	$ref = array( kTAG_ID_REFERENCE => 1 );
 	echo( '<i>$test = new CPersistentObject( $mcontainer, $ref );</i><br>' );
-	$test = new CPersistentObject( $mcontainer, $ref );
+	$test = new MyClass( $mcontainer, $ref );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 }
