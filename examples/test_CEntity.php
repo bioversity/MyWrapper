@@ -170,6 +170,16 @@ try
 	$parent2->Name( 'Il Nonno' );
 	$parent2->Email( 'nonno@nonni.net' );
 	
+	$parent3 = new CEntity();
+	$parent3->Code( 'NONNA' );
+	$parent3->Name( 'La nonna' );
+	$parent3->Email( 'nonna@nonni.net' );
+	
+	echo( '<i>$parent2->Parent( $parent3, TRUE );</i><br>' );
+	$parent2->Parent( $parent3, TRUE );
+	echo( 'Parent1<pre>' ); print_r( $parent1 ); echo( '</pre>' );
+	echo( 'Parent2<pre>' ); print_r( $parent2 ); echo( '</pre>' );
+	echo( 'Parent3<pre>' ); print_r( $parent3 ); echo( '</pre>' );
 	echo( '<i>$test->Parent( $parent1, TRUE );</i><br>' );
 	echo( '<i>$test->Parent( $parent2, TRUE );</i><br>' );
 	$test->Parent( $parent1, TRUE );
@@ -180,6 +190,7 @@ try
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( 'Parent1<pre>' ); print_r( $parent1 ); echo( '</pre>' );
 	echo( 'Parent2<pre>' ); print_r( $parent2 ); echo( '</pre>' );
+	echo( 'Parent3<pre>' ); print_r( $parent3 ); echo( '</pre>' );
 	echo( '<hr>' );
 	
 	echo( '<i>$test->Parent( $parent1, TRUE );</i><br>' );

@@ -44,9 +44,9 @@ require_once( kPATH_LIBRARY_SOURCE."CDataWrapper.inc.php" );
 /**
  *	Data wrapper.
  *
- * This class overloads its {@link CWrapper ancestor} to implement a web service that
- * wraps a data store, it represents a framework for building concrete data store
- * web-service wrappers.
+ * This class overloads its {@link CWrapper ancestor} to implement a web service that wraps
+ * a data store, it represents a framework for building concrete data store web-service
+ * wrappers.
  *
  * The class introduces a series of new operations and filter options that must be
  * implemented in derived classes which implement a specific data store.

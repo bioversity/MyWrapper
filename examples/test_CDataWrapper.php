@@ -66,10 +66,15 @@ try
 	$collection = $db->selectCollection( 'VOCABULARY' );
 	
 	//
+	// Instantiate container.
+	//
+	$container = new CMongoContainer( $collection );
+	
+	//
 	// Get test object.
 	//
 	$object_serialised = $object = $collection->findOne( array( ':GID' => 'PATO:0001766' ) );
-	CMongoContainer::SerialiseObject( $object_serialised );
+	$container->SerialiseObject( $object_serialised );
 	
 	//
 	// Convert object.

@@ -183,6 +183,15 @@ require_once( kPATH_LIBRARY_SOURCE."CWrapper.inc.php" );
 class CWrapper extends CStatusObject
 {
 	/**
+	 * Container.
+	 *
+	 * This data member holds the data container.
+	 *
+	 * @var CContainer
+	 */
+	 protected $mContainer = NULL;
+
+	/**
 	 * Reception time-stamp.
 	 *
 	 * This data member holds the request reception time stamp.
@@ -228,9 +237,14 @@ class CWrapper extends CStatusObject
 	 * This protected interface should be overloaded by derived classes to implement custom
 	 * services.
 	 *
+	 * The method accepts an optional parameter, the {@link Container() container}, it
+	 * will be used by derived classes to implement services that interact with databases.
+	 *
+	 * @param mixed					$theContainer		Data container.
+	 *
 	 * @access public
 	 */
-	public function __construct()
+	public function __construct( $theContainer = NULL )
 	{
 		//
 		// Check dependencies.
@@ -276,6 +290,12 @@ class CWrapper extends CStatusObject
 			if( $this->offsetExists( kAPI_DATA_TIMING ) )
 				$this->_OffsetManage
 					( kAPI_DATA_TIMING, kAPI_PARSE_STAMP, gettimeofday( TRUE ) );
+			
+			//
+			// Set container.
+			//
+			if( $theContainer !== NULL )
+				$this->Container();
 		}
 		
 		//
@@ -297,6 +317,39 @@ class CWrapper extends CStatusObject
 		}
 
 	} // Constructor.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC MEMBER INTERFACE									*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	Container																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage data container.
+	 *
+	 * This method can be used to manage the {@link $mContainer container}, this member
+	 * accessor method uses the static {@link CObject::ManageMember() ManageMember}
+	 * method to manage the property, please refer to that method for more information.
+	 *
+	 * @param mixed					$theValue			Container or operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 */
+	public function Container( $theValue = NULL, $getOld = FALSE )
+	{
+		return CObject::ManageMember( $this->mContainer, $theValue, $getOld );		// ==>
+
+	} // Container.
 
 		
 

@@ -43,7 +43,7 @@ class MyTest extends CObject
 	 
 	function Member( $theValue, $getOld = FALSE )
 	{
-		return $this->_ManageMember( $this->mMember, $theValue, $getOld );			// ==>
+		return $this->ManageMember( $this->mMember, $theValue, $getOld );			// ==>
 	}
 }
 

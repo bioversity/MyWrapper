@@ -148,7 +148,7 @@ abstract class CContainer extends CObject
 	 */
 	public function Container( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageMember( $this->mContainer, $theValue, $getOld );		// ==>
+		return $this->ManageMember( $this->mContainer, $theValue, $getOld );		// ==>
 
 	} // Container.
 

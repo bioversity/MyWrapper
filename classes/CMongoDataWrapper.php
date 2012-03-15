@@ -78,11 +78,77 @@ require_once( kPATH_LIBRARY_SOURCE."CMongoDataWrapper.inc.php" );
  *		reference before providing it to the wrapper.
  * </ul>
  *
+ * This class requires its {@link Container() container} to be set in order to operate
+ * correctly, because {@link CQuery queries} and results will have to be
+ * {@link CContainer::SerialiseObject() serialised} and
+ * {@link CContainer::UnserialiseObject() unserialised}; the object will have its
+ * {@link _IsInited() inited} status {@link kFLAG_STATE_INITED flag} set when this property
+ * will be set.
+ *
+ * The {@link Container() container} must be an instance derived from
+ * {@link CMongoContainer CMongoContainer}.
+ *
  *	@package	Framework
  *	@subpackage	Wrappers
  */
 class CMongoDataWrapper extends CDataWrapper
 {
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC MEMBER INTERFACE									*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	Container																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage data container.
+	 *
+	 * We {@link CWrapper::Container() overload} this method to ensure that the provided
+	 * container is an instance derived from {@link CMongoContainer CMongoContainer} and to
+	 * set the {@link _IsInited() inited} {@link kFLAG_STATE_INITED flag} if the container
+	 * is set.
+	 *
+	 * @param mixed					$theValue			Container or operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 */
+	public function Container( $theValue = NULL, $getOld = FALSE )
+	{
+		//
+		// Check container type.
+		//
+		if( $theValue									// Set value
+		 && (! $theValue instanceof CMongoContainer) )	// and not correct type.
+			throw new CException
+				( "Missing object reference",
+				  kERROR_INVALID_PARAMETER,
+				  kMESSAGE_TYPE_ERROR,
+				  array( 'Container' => $theValue ) );							// !@! ==>
+		
+		//
+		// Handle member.
+		//
+		$save = parent::Container( $theValue, $getOld );
+		
+		//
+		// Set status.
+		//
+		if( $theValue !== NULL )
+			$this->_IsInited( $this->Container() !== NULL );
+		
+		return $save;																// ==>
+
+	} // Container.
+
 		
 
 /*=======================================================================================
@@ -246,9 +312,17 @@ class CMongoDataWrapper extends CDataWrapper
 			//
 			if( array_key_exists( kAPI_DATABASE, $_REQUEST ) )
 			{
+				//
+				// Save MongoContainer.
+				//
 				$_REQUEST[ kAPI_CONTAINER ]
 					= $_REQUEST[ kAPI_DATABASE ]
 						->selectCollection( $_REQUEST[ kAPI_CONTAINER ] );
+				
+				//
+				// Save CMongoContainer.
+				//
+				$this->Container( $_REQUEST[ kAPI_CONTAINER ] );
 			
 			} // Provided database.
 		
@@ -261,10 +335,21 @@ class CMongoDataWrapper extends CDataWrapper
 			 && array_key_exists( kAPI_DATA_OBJECT, $_REQUEST )
 			 && array_key_exists( kTAG_COLLECTION_REFERENCE, $_REQUEST[ kAPI_DATA_OBJECT ] )
 			 && array_key_exists( kAPI_DATABASE, $_REQUEST ) )
-				$_REQUEST[ kAPI_CONTAINER ]
-					= $_REQUEST[ kAPI_DATABASE ]
-						->selectCollection
-							( $_REQUEST[ kAPI_DATA_OBJECT ][ kTAG_COLLECTION_REFERENCE ] );
+		{
+			//
+			// Save MongoContainer.
+			//
+			$_REQUEST[ kAPI_CONTAINER ]
+				= $_REQUEST[ kAPI_DATABASE ]
+					->selectCollection
+						( $_REQUEST[ kAPI_DATA_OBJECT ][ kTAG_COLLECTION_REFERENCE ] );
+			
+			//
+			// Save CMongoContainer.
+			//
+			$this->Container( $_REQUEST[ kAPI_CONTAINER ] );
+		
+		} // Provided reference.
 	
 	} // _FormatContainer.
 
@@ -320,10 +405,19 @@ class CMongoDataWrapper extends CDataWrapper
 		parent::_FormatObject();
 		
 		//
+		// Check container.
+		//
+		if( ($container = $this->Container()) === NULL )
+			throw new CException
+				( "The data container is not set",
+				  kERROR_OPTION_MISSING,
+				  kMESSAGE_TYPE_ERROR );										// !@! ==>
+		
+		//
 		// Convert to native Mongo types.
 		//
 		if( array_key_exists( kAPI_DATA_OBJECT, $_REQUEST ) )
-			CMongoContainer::SerialiseObject( $_REQUEST[ kAPI_DATA_OBJECT ] );
+			$container->SerialiseObject( $_REQUEST[ kAPI_DATA_OBJECT ] );
 	
 	} // _FormatObject.
 
@@ -612,7 +706,7 @@ class CMongoDataWrapper extends CDataWrapper
 		//
 		// Return response.
 		//
-		CMongoContainer::SerialiseObject( $this[ kAPI_DATA_RESPONSE ] );
+		$this->Container()->SerialiseObject( $this[ kAPI_DATA_RESPONSE ] );
 	
 	} // _Handle_GetObjectByReference.
 
@@ -680,10 +774,14 @@ class CMongoDataWrapper extends CDataWrapper
 		if( $count )
 		{
 			//
-			// Return object in response.
+			// Copy object to response.
 			//
-			CMongoContainer::SerialiseObject( $object );
 			$this[ kAPI_DATA_RESPONSE ] = $object;
+			
+			//
+			// Serialise response.
+			//
+			$this->Container()->SerialiseObject( $this[ kAPI_DATA_RESPONSE ] );
 		}
 		
 		//
@@ -855,10 +953,14 @@ class CMongoDataWrapper extends CDataWrapper
 					$this->_HandleOptions( $result );
 	
 				//
-				// Return response.
+				// Copy to response.
 				//
-				CMongoContainer::SerialiseObject( $result );
 				$this[ kAPI_DATA_RESPONSE ] = $result;
+				
+				//
+				// Serialise response.
+				//
+				$this->Container()->SerialiseObject( $this[ kAPI_DATA_RESPONSE ] );
 				
 			} // Has results.
 			
@@ -947,7 +1049,8 @@ class CMongoDataWrapper extends CDataWrapper
 		// Return response.
 		//
 		$this[ kAPI_DATA_RESPONSE ]
-			= CMongoObject::SerialiseObject( $_REQUEST[ kAPI_DATA_OBJECT ], TRUE );
+			= $this->Container()
+				->SerialiseObject( $_REQUEST[ kAPI_DATA_OBJECT ], TRUE );
 	
 	} // _Handle_Set.
 
@@ -1001,14 +1104,15 @@ class CMongoDataWrapper extends CDataWrapper
 		// Insert object.
 		//
 		$ok
-			= $_REQUEST[ kAPI_CONTAINER ]
-				->insert( $_REQUEST[ kAPI_DATA_OBJECT ], $options );
+			= $_REQUEST[ kAPI_CONTAINER ]->insert
+				( $_REQUEST[ kAPI_DATA_OBJECT ], $options );
 		
 		//
 		// Return response.
 		//
 		$this[ kAPI_DATA_RESPONSE ]
-			= CMongoObject::SerialiseObject( $_REQUEST[ kAPI_DATA_OBJECT ], TRUE );
+			= $this->Container()
+				->SerialiseObject( $_REQUEST[ kAPI_DATA_OBJECT ], TRUE );
 	
 	} // _Handle_Insert.
 

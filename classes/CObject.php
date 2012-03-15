@@ -449,14 +449,14 @@ abstract class CObject
 
 /*=======================================================================================
  *																						*
- *							PROTECTED MEMBER ACCESSOR INTERFACE							*
+ *							STATIC MEMBER ACCESSOR INTERFACE							*
  *																						*
  *======================================================================================*/
 
 
 	 
 	/*===================================================================================
-	 *	_ManageMember																	*
+	 *	ManageMember																	*
 	 *==================================================================================*/
 
 	/**
@@ -487,11 +487,10 @@ abstract class CObject
 	 * @param mixed					$theValue			Value or operation.
 	 * @param boolean				$getOld				TRUE get old value.
 	 *
-	 * @access protected
+	 * @static
 	 * @return mixed
 	 */
-	protected static function _ManageMember( &$theMember, $theValue = NULL,
-														  $getOld = FALSE )
+	static function ManageMember( &$theMember, $theValue = NULL, $getOld = FALSE )
 	{
 		//
 		// Return current value.
@@ -519,7 +518,7 @@ abstract class CObject
 		return ( $getOld ) ? $save													// ==>
 						   : $theMember;											// ==>
 	
-	} // _ManageMember.
+	} // ManageMember.
 
 	 
 

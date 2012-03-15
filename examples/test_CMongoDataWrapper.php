@@ -64,12 +64,13 @@ try
 	// Select test collection.
 	//
 	$collection = $db->selectCollection( 'VOCABULARY' );
+	$container = new CMongoContainer( $collection );
 	
 	//
 	// Get test object.
 	//
-	$object = $collection->findOne( array( ':GID' => 'PATO:0001766' ) );
-	$object_serialised = CMongoObject::SerialiseObject( $object, TRUE );
+	$object_serialised = $object = $collection->findOne( array( ':GID' => 'PATO:0001766' ) );
+	$container->SerialiseObject( $object_serialised );
 	
 	//
 	// Convert object.

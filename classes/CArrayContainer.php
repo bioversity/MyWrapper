@@ -119,7 +119,7 @@ class CArrayContainer extends CContainer
 				  kMESSAGE_TYPE_ERROR,
 				  array( 'Container' => $theValue ) );							// !@! ==>
 		
-		return $this->_ManageMember( $this->mContainer, $theValue, $getOld );		// ==>
+		return $this->ManageMember( $this->mContainer, $theValue, $getOld );		// ==>
 
 	} // Container.
 
