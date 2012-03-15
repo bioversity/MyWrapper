@@ -40,7 +40,7 @@ define( "kAPI_OP_GET_ONE",			'get-one' );
  * {@link MongoDBRef reference} object in the {@link kAPI_DATA_OBJECT object} parameter.
  *
  * Note that as with other values in the {@link kAPI_DATA_OBJECT object} parameter, you must
- * {@link CMongoContainer::SerialiseObject() serialise} the value.
+ * {@link CMongoDataWrapper::SerialiseObject() serialise} the value.
  */
 define( "kAPI_OP_GET_OBJECT_REF",	'GetObjectByReference' );
 

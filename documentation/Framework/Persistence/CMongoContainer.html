@@ -56,7 +56,7 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																																																																																								<div class="method-definition">
+																																																																								<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">mixed</span>
 										<a href="#Commit" title="details" class="method-name">Commit</a>
@@ -79,18 +79,6 @@
 											<span class="method-result">mixed</span>
 										<a href="#Load" title="details" class="method-name">Load</a>
 											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>, [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_DEFAULT</span>])
-									</div>
-																<div class="method-definition">
-					<img src="../../media/images/Method.png" alt=" "/>
-											<span class="method-result">void</span>
-										<a href="#SerialiseData" title="details" class="method-name">SerialiseData</a>
-											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theElement</span>)
-									</div>
-																<div class="method-definition">
-					<img src="../../media/images/Method.png" alt=" "/>
-											<span class="method-result">void</span>
-										<a href="#UnserialiseData" title="details" class="method-name">UnserialiseData</a>
-											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theElement</span>)
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -321,131 +309,12 @@
 					</dl>
 			
 	</div>
-<a name="methodSerialiseData" id="SerialiseData"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<img src="../../media/images/Method.png" />
-		<span class="method-title">SerialiseData</span> (line <span class="line-number">338</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Serialise provided data element.</p>
-<p class="description"><p>In this class we <a href="../../Framework/Persistence/CContainer.html#methodSerialiseData">overload</a> this method to convert  the following data types:</p><p><ul><li><em>MongoId</em>: We convert into:
-     <ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a></em>:
-            <a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_MongoId">kDATA_TYPE_MongoId</a>.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: The contents of the object cast to
-            string.</li></ul></li><li><em>MongoCode</em>: We convert into:
-     <ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a></em>:
-            <a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_MongoCode">kDATA_TYPE_MongoCode</a>.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: A structure formatted as follows:
-         <ul><li><em>kOBJ_TYPE_CODE_SRC</em>: The <em>code</em>
-                element of the object.</li><li><em>OBJ_TYPE_CODE_SCOPE</em>: The <em>scope</em>
-                element of the object.</li></ul></li></ul></li><li><em>MongoDate</em>: We convert into:
-     <ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a></em>:
-            <a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_STAMP">kDATA_TYPE_STAMP</a>.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: A structure formatted as follows:
-         <ul><li><em><a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekOBJ_TYPE_STAMP_SEC">kOBJ_TYPE_STAMP_SEC</a></em>: The <em>sec</em>
-                element of the object.</li><li><em><a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekOBJ_TYPE_STAMP_USEC">kOBJ_TYPE_STAMP_USEC</a></em>: The
-                <em>usec</em> element of the object.</li></ul></li></ul></li><li><em>MongoRegex</em>: We convert into:
-     <ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a></em>:
-            <a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_MongoRegex">kDATA_TYPE_MongoRegex</a>.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: The contents of the object cast to
-            string.</li></ul></li><li><em>MongoBinData</em>: We convert into:
-     <ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a></em>:
-            <a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_BINARY">kDATA_TYPE_BINARY</a>.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: The <em>bin</em> element of the object.</li></ul></li><li><em>MongoInt32</em>: We convert into:
-     <ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a></em>:
-            <a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_INT32">kDATA_TYPE_INT32</a>.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: The contents of the object cast to
-            string.</li></ul></li><li><em>MongoInt64</em>: We convert into:
-     <ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a></em>:
-            <a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_INT64">kDATA_TYPE_INT64</a>.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: The contents of the object cast to
-            string.</li></ul></li></ul></p><p>The conversion is performed on the provided element itself.</p></p>
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			SerialiseData
-		</span>
-					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theElement</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">reference</span>
-				<span class="var-name">&$theElement</span><span class="var-description">: Element to encode.</span>			</li>
-				</ul>
-		
-			<hr class="separator" />
-		<div class="notes">Redefinition of:</div>
-		<dl>
-			<dt><a href="../../Framework/Persistence/CContainer.html#methodSerialiseData">CContainer::SerialiseData()</a></dt>
-						<dd>Serialise provided data element.</dd>
-					</dl>
-			
-	</div>
-<a name="methodUnserialiseData" id="UnserialiseData"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<img src="../../media/images/Method.png" />
-		<span class="method-title">UnserialiseData</span> (line <span class="line-number">477</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Unserialise provided data element.</p>
-<p class="description"><p>In this class we <a href="../../Framework/Persistence/CContainer.html#methodUnserialiseData">overload</a> this method to parse  the following <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a> offsets:</p><p><ul><li><em><a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_MongoId">kDATA_TYPE_MongoId</a></em>: We return a MongoId object
-        using the value provided in the <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a> offset.</li><li><em><a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_MongoCode">kDATA_TYPE_MongoCode</a></em>: We return a MongoCode
-        object by using the values provided in the <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a> offset
-        which is expected to be an array structured as follows:
-     <ul><li><em>kOBJ_TYPE_CODE_SRC</em>: The javascript code.</li><li><em>kOBJ_TYPE_CODE_SCOPE</em>: The key/value
-            pairs.</li></ul></li><li><em><a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_MongoDate">kDATA_TYPE_MongoDate</a> or
-        <a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_STAMP">kDATA_TYPE_STAMP</a></em>: We return a MongoDate object
-        using the contents of the data in the <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a> offset which
-        is expected to be an array structured as follows:
-     <ul><li><em><a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekOBJ_TYPE_STAMP_SEC">kOBJ_TYPE_STAMP_SEC</a></em>: Number of seconds
-            since January 1st, 1970.</li><li><em><a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekOBJ_TYPE_STAMP_USEC">kOBJ_TYPE_STAMP_USEC</a></em>: Microseconds.</li></ul></li><li><em><a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_MongoInt32">kDATA_TYPE_MongoInt32</a> or
-        <a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_INT32">kDATA_TYPE_INT32</a></em>: We return a MongoInt32 using as
-        value the contents of the <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a> offset, which may also be
-        a string.</li><li><em><a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_MongoInt64">kDATA_TYPE_MongoInt64</a> or
-        <a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_INT64">kDATA_TYPE_INT64</a></em>: We return a MongoInt64 using as
-        value the contents of the <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a> offset, which may also be
-        a string.</li><li><em><a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_MongoRegex">kDATA_TYPE_MongoRegex</a></em>: We return a
-        MongoRegex object using the <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a> offset as the regular
-        expression.</li><li><em><a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_MongoBinData">kDATA_TYPE_MongoBinData</a> or
-        <a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_BINARY">kDATA_TYPE_BINARY</a></em>: We return a MongoBinData object
-        using the <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a> offset as the hexadecimal representation
-        of the binary string.</li></ul></p></p>
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			UnserialiseData
-		</span>
-					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theElement</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">reference</span>
-				<span class="var-name">&$theElement</span><span class="var-description">: Element to encode.</span>			</li>
-				</ul>
-		
-			<hr class="separator" />
-		<div class="notes">Redefinition of:</div>
-		<dl>
-			<dt><a href="../../Framework/Persistence/CContainer.html#methodUnserialiseData">CContainer::UnserialiseData()</a></dt>
-						<dd>Unserialise provided data element.</dd>
-					</dl>
-			
-	</div>
 <a name="method_Commit" id="_Commit"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Commit</span> (line <span class="line-number">604</span>)
+		<span class="method-title">_Commit</span> (line <span class="line-number">285</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -488,7 +357,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Delete</span> (line <span class="line-number">900</span>)
+		<span class="method-title">_Delete</span> (line <span class="line-number">581</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -528,7 +397,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Load</span> (line <span class="line-number">858</span>)
+		<span class="method-title">_Load</span> (line <span class="line-number">539</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -578,14 +447,6 @@
 							<span class="method-name"><a href="../../Framework/Persistence/CContainer.html#methodDelete">CContainer::Delete()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Framework/Persistence/CContainer.html#methodLoad">CContainer::Load()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Framework/Persistence/CContainer.html#methodSerialiseData">CContainer::SerialiseData()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Framework/Persistence/CContainer.html#methodSerialiseObject">CContainer::SerialiseObject()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Framework/Persistence/CContainer.html#methodUnserialiseData">CContainer::UnserialiseData()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Framework/Persistence/CContainer.html#methodUnserialiseObject">CContainer::UnserialiseObject()</a></span><br>
 													<img src="../../media/images/AbstractMethod.png" alt=" "/>
 							<span class="method-name"><a href="../../Framework/Persistence/CContainer.html#method_Commit">CContainer::_Commit()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
@@ -605,9 +466,9 @@
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Framework/Core/CObject.html#methodJsonEncode">CObject::JsonEncode()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Framework/Core/CObject.html#methodStringNormalise">CObject::StringNormalise()</a></span><br>
+							<span class="method-name"><a href="../../Framework/Core/CObject.html#methodManageMember">CObject::ManageMember()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Framework/Core/CObject.html#method_ManageMember">CObject::_ManageMember()</a></span><br>
+							<span class="method-name"><a href="../../Framework/Core/CObject.html#methodStringNormalise">CObject::StringNormalise()</a></span><br>
 											</blockquote>
 										
 		</div>
@@ -615,7 +476,7 @@
 
 	
 	<p class="notes" id="credit">
-		Documentation generated on Thu, 15 Mar 2012 16:42:38 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 15 Mar 2012 19:25:55 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

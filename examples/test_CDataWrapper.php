@@ -74,7 +74,7 @@ try
 	// Get test object.
 	//
 	$object_serialised = $object = $collection->findOne( array( ':GID' => 'PATO:0001766' ) );
-	$container->SerialiseObject( $object_serialised );
+	CMongoDataWrapper::SerialiseObject( $object_serialised );
 	
 	//
 	// Convert object.

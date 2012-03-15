@@ -286,13 +286,13 @@ try
 //	$object = new ArrayObject( $array );
 	$object = $array;
 	echo( 'Serialised<pre>' ); print_r( $object ); echo( '</pre>' );
-	echo( '<i>$test->UnserialiseObject( $object );</i><br>' );
-	$test->UnserialiseObject( $object );
+	echo( '<i>CMongoDataWrapper::UnserialiseObject( $object );</i><br>' );
+	CMongoDataWrapper::UnserialiseObject( $object );
 	echo( 'Unserialised<pre>' ); print_r( $object ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	echo( '<i>$test->SerialiseObject( $object );</i><br>' );
-	$test->SerialiseObject( $object );
+	echo( '<i>CMongoDataWrapper::SerialiseObject( $object );</i><br>' );
+	CMongoDataWrapper::SerialiseObject( $object );
 	echo( 'Decoded<pre>' ); print_r( $object ); echo( '</pre>' );
 	echo( '<hr>' );
 }

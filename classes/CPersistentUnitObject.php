@@ -53,9 +53,9 @@ require_once( kPATH_LIBRARY_SOURCE."CPersistentObject.php" );
  * Starting from this class we only handle {@link CContainer CContainer} derived instances
  * as containers, other container types will not be supported. This is because
  * {@link CContainer CContainer} derived instances have an
- * {@link CContainer::SerialiseObject() serialise} and
- * {@link CContainer::UnserialiseObject() unserialise} interface for handling special data
- * types.
+ * {@link CMongoDataWrapper::SerialiseObject() serialise} and
+ * {@link CMongoDataWrapper::UnserialiseObject() unserialise} interface for handling special
+ * data types.
  *
  * The specifics of this are managed by the {@link CContainer CContainer} derived classes,
  * so when planning your objects think in advance in what containers you plan to store them.

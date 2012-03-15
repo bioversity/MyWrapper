@@ -168,7 +168,7 @@ class CEntity extends CPersistentUnitObject
 	 * will be the constant {@link kTAG_TYPE kTAG_TYPE}.
 	 *
 	 * Note that this method will <i<NOT</i> work on an object that was
-	 * {@link CContainer::SerialiseObject() decoded} by a {@link CContainer container}.
+	 * {@link CMongoDataWrapper::SerialiseObject() serialised}.
 	 *
 	 * @param mixed					$theValue			Value or index.
 	 * @param mixed					$theOperation		Operation.
@@ -264,7 +264,7 @@ class CEntity extends CPersistentUnitObject
 	 * parameter will be the constant {@link kOFFSET_MAIL kOFFSET_MAIL}.
 	 *
 	 * Note that this method will <i<NOT</i> work on an object that was
-	 * {@link CContainer::SerialiseObject() decoded} by a {@link CContainer container}.
+	 * {@link CMongoDataWrapper::SerialiseObject() serialised}.
 	 *
 	 * @param mixed					$theType			Item type.
 	 * @param mixed					$theValue			Item value.
@@ -380,7 +380,7 @@ class CEntity extends CPersistentUnitObject
 	 * </ul>
 	 *
 	 * Note that this method will <i<NOT</i> work on an object that was
-	 * {@link CContainer::SerialiseObject() decoded} by a {@link CContainer container}.
+	 * {@link CMongoDataWrapper::SerialiseObject() serialised}.
 	 *
 	 * @param mixed					$theValue			Index or value.
 	 * @param mixed					$theOperation		Operation.
