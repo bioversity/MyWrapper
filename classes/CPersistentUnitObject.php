@@ -53,11 +53,9 @@ require_once( kPATH_LIBRARY_SOURCE."CPersistentObject.php" );
  * Starting from this class we only handle {@link CContainer CContainer} derived instances
  * as containers, other container types will not be supported. This is because
  * {@link CContainer CContainer} derived instances have an
- * {@link CContainer::Encode() encode} and {@link CContainer::Decode() decode} interface for
- * handling special data types, objects derived from this class should store special data
- * types as an array where the {@link kTAG_TYPE kTAG_TYPE} offset indicates the data type
- * and the {@link kTAG_DATA kTAG_DATA} offset contains the normalised data; by normalised
- * we mean, for instance, that binary data is converted to hexadecimal.
+ * {@link CContainer::SerialiseObject() serialise} and
+ * {@link CContainer::UnserialiseObject() unserialise} interface for handling special data
+ * types.
  *
  * The specifics of this are managed by the {@link CContainer CContainer} derived classes,
  * so when planning your objects think in advance in what containers you plan to store them.
@@ -641,10 +639,7 @@ class CPersistentUnitObject extends CPersistentObject
 	 *	<li><i>other</i>: Any other value will be cast to a string.
 	 * </ul>
 	 *
-	 * @param string				$theOffset			Offset.
-	 * @param mixed					$theValue			Index or value.
-	 * @param mixed					$theOperation		Operation.
-	 * @param boolean				$getOld				TRUE get old value.
+	 * @param mixed					$theValue			Object or identifier.
 	 *
 	 * @access protected
 	 * @return string

@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <html xmlns="http://www.w3.org/1999/xhtml">
 		<head>
 			<!-- template designed by Marco Von Ballmoos -->
 			<title>Docs For Class CDataWrapper</title>
 			<link rel="stylesheet" href="../../media/stylesheet.css" />
-			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+			<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
 		</head>
 		<body>
 			<div class="page-body">			
@@ -29,36 +29,37 @@
 	<div class="info-box-body">
         		<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Data wrapper.</p>
-<p class="description"><p>This class implements a data store wrapper web-service.</p><p>The main goal of this class is to provide a framework for building concrete data store  web-service wrappers.</p><p>The class introduces a series of new operations and filter options that must be  developed in derived classes which implement a specific data store.</p><p>These new functionalities require a new set of parameters:</p><p><ul><li><em>Data store parameters</em>: In order to refer to a specific data store we need
-		two parameters:
-	 <ul><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATABASE">kAPI_DATABASE</a></em>: Database, this parameter should
-            indicate the database or equivalent concept where the data should be stored or
-            retrieved. This parameter can be compared to the database part of an SQL table
-            reference (<em>DATABASE</em>.TABLE).</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_CONTAINER">kAPI_CONTAINER</a></em>: Container, this parameter should
-            indicate which container within the <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATABASE">database</a> should be
-            used to store or retrieve the data. This parameter can be compared to the table
-            part of an SQL table reference (DATABASE.<em>TABLE</em>).</li></ul></li><li><em>Paging parameters</em>: Query results may possibly return large amounts of data,
+<p class="description"><p>This class overloads its <a href="../../Framework/Wrappers/CWrapper.html">ancestor</a> to implement a web service that  wraps a data store, it represents a framework for building concrete data store  web-service wrappers.</p><p>The class introduces a series of new operations and filter options that must be  implemented in derived classes which implement a specific data store.</p><p>These new functionalities require a new set of parameters:</p><p><ul><li><em>Data store parameters</em>: In order to refer to a specific data store we need
+        two parameters:
+     <ul><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATABASE">kAPI_DATABASE</a></em>: <em>Database</em>, this parameter
+            should indicate the database or equivalent concept where the data should be
+            stored or retrieved. This parameter can be compared to the database part of an
+            SQL table reference (<em>DATABASE</em>.TABLE).</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_CONTAINER">kAPI_CONTAINER</a></em>: <em>Container</em>, this parameter
+            should indicate which container within the <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATABASE">database</a> should
+            be used to store or retrieve the data. This parameter can be compared to the
+            table part of an SQL table reference (DATABASE.<em>TABLE</em>).</li></ul></li><li><em>Paging parameters</em>: Query results may possibly return large amounts of data,
         this means that a paging mechanism should be set in place:
-     <ul><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_PAGE_START">kAPI_PAGE_START</a></em>: Page start, this parameter
-            indicates the starting page or record.</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_PAGE_LIMIT">kAPI_PAGE_LIMIT</a></em>: Number of pages, this parameter
-            indicates the maximum number of pages or records that the operation should
-            return.</li></ul></li><li><em>Data parameters</em>: To express a query a series of parameters are required:
-     <ul><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_QUERY">kAPI_DATA_QUERY</a></em>: Query, this parameter is used
-            when retrieving data, it represents the filter or selection query; it must be
-            expressed as one of the query <a href="../../Framework/Persistence/CQuery.html">class</a> siblings. This parameter can
-            be compared to the <em>WHERE</em> part of an SQL query.</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_FIELD">kAPI_DATA_FIELD</a></em>: Fields, this parameter indicates
-            which elements of the selected objects we want returned. This parameter can be
-            compared to the <em>SELECT</em> part of an SQL query.</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_SORT">kAPI_DATA_SORT</a></em>: Sort fields, this parameter
+     <ul><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_PAGE_START">kAPI_PAGE_START</a></em>: <em>Page start</em>, this
+            parameter indicates the starting page or record.</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_PAGE_LIMIT">kAPI_PAGE_LIMIT</a></em>: <em>Page count</em>, this
+            parameter indicates the maximum number of pages or records that the operation
+            should return.</li></ul></li><li><em>Data parameters</em>: A query is formed by a series of sections, each of which is
+        provided with the following parameters:
+     <ul><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_QUERY">kAPI_DATA_QUERY</a></em>: <em>Query</em>, this parameter is
+            used when retrieving data, it represents the filter or selection query; it must
+            be expressed as one of the query <a href="../../Framework/Persistence/CQuery.html">class</a> siblings. This parameter
+            can be compared to the <em>WHERE</em> part of an SQL query.</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_FIELD">kAPI_DATA_FIELD</a></em>: <em>Fields</em>, this parameter
+            indicates which elements of the selected objects we want returned. This
+            parameter can be compared to the <em>SELECT</em> part of an SQL query.</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_SORT">kAPI_DATA_SORT</a></em>: <em>Sort fields</em>, this parameter
             indicates the sort order, the list of data elements by which the result is to
             be sorted. This parameter can be compared to the <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_FIELD">field</a>
-            parameter or to the <em>ORDER BY</em> part of an SQL query.</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_OBJECT">kAPI_DATA_OBJECT</a></em>: Object data, this parameter
-            represents the data to be stored in the database, the type should ideally be
-            abstracted from the data store engine. This parameter can be compared to the
-            <em>VALUES</em> or <em>SET</em> part of an SQL query.</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_OPTIONS">kAPI_DATA_OPTIONS</a></em>: Data store options, this
+            parameter or to the <em>ORDER BY</em> part of an SQL query.</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_OBJECT">kAPI_DATA_OBJECT</a></em>: <em>Object data</em>, this
+            parameter represents the data to be stored in the database, the type should
+            ideally be abstracted from the data store engine. This parameter can be compared
+            to the <em>VALUES</em> or <em>SET</em> part of an SQL query.</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_OPTIONS">kAPI_DATA_OPTIONS</a></em>: <em>Options</em>, this
             parameter represents the options governing data store and retrieve operations.
-            In general it will be the options when storing data and the actual
+            In general it will cover the options when storing data and the actual
             implementation is the responsibility of derived classes:
-         <ul><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OPT_SAFE">kAPI_OPT_SAFE</a></em>: Safe commit option, this tag is
+         <ul><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OPT_SAFE">kAPI_OPT_SAFE</a></em>: Safe commit option, this is
                 relevant only when committing data. If this option is <em>OFF</em>, it means
                 we want to perform an asynchronous operation: the store operation will occur
                 in the background and the program execution will not wait for it to finish;
@@ -78,8 +79,9 @@
                 is used by the <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OP_DEL">delete</a> operation: if <em>ON</em>, only the
                 first object satisfying the <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_QUERY">query</a> will be deleted;
                 if <em>OFF</em> all selected elements will be deleted.</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OPT_SINGLE">kAPI_OPT_SINGLE</a></em>: First element, this option</li></ul></li></ul></li></ul></p><p>The new operations declared in this class are:</p><p><ul><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OP_COUNT">kAPI_OP_COUNT</a></em>: This operation requests a count, which
-        is an integer indicating the total number of elements satisfying a
-        <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_QUERY">query</a>.</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OP_GET">kAPI_OP_GET</a></em>: This operation is equivalent to a read
+        is an integer indicating the total number of elements satisfying the provided
+        <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_QUERY">query</a>. This number is not to be confused with the page
+        element <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_PAGE_COUNT">count</a> described further.</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OP_GET">kAPI_OP_GET</a></em>: This operation is equivalent to a read
         query, it requests a list of objects satisfying the provided
         <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_QUERY">query</a>.</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OP_SET">kAPI_OP_SET</a></em>: This operation is equivalent to an insert
         for new objects or an update for existing objects, the operation will replace the
@@ -95,14 +97,15 @@
         delete the elements matching the provided <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_QUERY">query</a>: the
         first one only, if the provided <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OPT_SINGLE">kAPI_OPT_SINGLE</a> option is
         on, or all if off or omitted.</li></ul></p><p>The added functionality implies that a series of additional sections will be returned in  the response:</p><p><ul><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_PAGING">kAPI_DATA_PAGING</a></em>: Paging section, this section will
-        return the paging information of the current operation. It will return the provided
-        <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_PAGE_START">start</a> and <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_PAGE_LIMIT">limit</a> parameters and:
-     <ul><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_PAGE_COUNT">kAPI_PAGE_COUNT</a></em>: This element of the section will
-            hold the actual number of selected objects, this number will be either equal or
-            smaller than the provided <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_PAGE_LIMIT">limit</a> parameter.</li></ul></li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_RESPONSE">kAPI_DATA_RESPONSE</a></em>: Response, this section will
+        return the paging information of the current operation, besides the provided
+        <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_PAGE_START">start</a> and <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_PAGE_LIMIT">limit</a> parameters, it will
+        also feature:
+     <ul><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_PAGE_COUNT">kAPI_PAGE_COUNT</a></em>: This element will hold the
+            actual number of returned objects, this number will be either equal or smaller
+            than the provided <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_PAGE_LIMIT">limit</a> parameter.</li></ul></li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_RESPONSE">kAPI_DATA_RESPONSE</a></em>: Response, this section will
         hold the results of the operation.</li></ul></p></p>
 		<p class="notes">
-			Located in <a class="field" href="_classes---CDataWrapper.php.html">/classes/CDataWrapper.php</a> (line <span class="field">177</span>)
+			Located in <a class="field" href="_classes---CDataWrapper.php.html">/classes/CDataWrapper.php</a> (line <span class="field">179</span>)
 		</p>
 		
 				
@@ -356,11 +359,11 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="method_DecodeParameter" id="_DecodeParameter"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_DecodeParameter</span> (line <span class="line-number">1021</span>)
+		<span class="method-title">_DecodeParameter</span> (line <span class="line-number">1023</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -387,11 +390,11 @@
 			
 	</div>
 <a name="method_FormatFields" id="_FormatFields"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FormatFields</span> (line <span class="line-number">647</span>)
+		<span class="method-title">_FormatFields</span> (line <span class="line-number">649</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -413,11 +416,11 @@
 			
 	</div>
 <a name="method_FormatObject" id="_FormatObject"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FormatObject</span> (line <span class="line-number">675</span>)
+		<span class="method-title">_FormatObject</span> (line <span class="line-number">677</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -447,11 +450,11 @@
 				</ul>
 	</div>
 <a name="method_FormatOptions" id="_FormatOptions"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FormatOptions</span> (line <span class="line-number">689</span>)
+		<span class="method-title">_FormatOptions</span> (line <span class="line-number">691</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -473,11 +476,11 @@
 			
 	</div>
 <a name="method_FormatQuery" id="_FormatQuery"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FormatQuery</span> (line <span class="line-number">633</span>)
+		<span class="method-title">_FormatQuery</span> (line <span class="line-number">635</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -507,11 +510,11 @@
 				</ul>
 	</div>
 <a name="method_FormatRequest" id="_FormatRequest"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FormatRequest</span> (line <span class="line-number">306</span>)
+		<span class="method-title">_FormatRequest</span> (line <span class="line-number">308</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -547,11 +550,11 @@
 				</ul>
 	</div>
 <a name="method_FormatSort" id="_FormatSort"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FormatSort</span> (line <span class="line-number">661</span>)
+		<span class="method-title">_FormatSort</span> (line <span class="line-number">663</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -573,11 +576,11 @@
 			
 	</div>
 <a name="method_InitOptions" id="_InitOptions"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_InitOptions</span> (line <span class="line-number">200</span>)
+		<span class="method-title">_InitOptions</span> (line <span class="line-number">202</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -605,11 +608,11 @@
 			
 	</div>
 <a name="method_ParseContainer" id="_ParseContainer"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseContainer</span> (line <span class="line-number">468</span>)
+		<span class="method-title">_ParseContainer</span> (line <span class="line-number">470</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -631,11 +634,11 @@
 			
 	</div>
 <a name="method_ParseDatabase" id="_ParseDatabase"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseDatabase</span> (line <span class="line-number">442</span>)
+		<span class="method-title">_ParseDatabase</span> (line <span class="line-number">444</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -657,11 +660,11 @@
 			
 	</div>
 <a name="method_ParseFields" id="_ParseFields"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseFields</span> (line <span class="line-number">520</span>)
+		<span class="method-title">_ParseFields</span> (line <span class="line-number">522</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -683,11 +686,11 @@
 			
 	</div>
 <a name="method_ParseObject" id="_ParseObject"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseObject</span> (line <span class="line-number">572</span>)
+		<span class="method-title">_ParseObject</span> (line <span class="line-number">574</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -709,11 +712,11 @@
 			
 	</div>
 <a name="method_ParseOptions" id="_ParseOptions"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseOptions</span> (line <span class="line-number">598</span>)
+		<span class="method-title">_ParseOptions</span> (line <span class="line-number">600</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -735,11 +738,11 @@
 			
 	</div>
 <a name="method_ParsePaging" id="_ParsePaging"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParsePaging</span> (line <span class="line-number">378</span>)
+		<span class="method-title">_ParsePaging</span> (line <span class="line-number">380</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -761,11 +764,11 @@
 			
 	</div>
 <a name="method_ParseQuery" id="_ParseQuery"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseQuery</span> (line <span class="line-number">494</span>)
+		<span class="method-title">_ParseQuery</span> (line <span class="line-number">496</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -787,11 +790,11 @@
 			
 	</div>
 <a name="method_ParseRequest" id="_ParseRequest"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseRequest</span> (line <span class="line-number">271</span>)
+		<span class="method-title">_ParseRequest</span> (line <span class="line-number">273</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -819,11 +822,11 @@
 			
 	</div>
 <a name="method_ParseSort" id="_ParseSort"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseSort</span> (line <span class="line-number">546</span>)
+		<span class="method-title">_ParseSort</span> (line <span class="line-number">548</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -845,11 +848,11 @@
 			
 	</div>
 <a name="method_ValidateFields" id="_ValidateFields"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateFields</span> (line <span class="line-number">881</span>)
+		<span class="method-title">_ValidateFields</span> (line <span class="line-number">883</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -871,11 +874,11 @@
 			
 	</div>
 <a name="method_ValidateOperation" id="_ValidateOperation"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateOperation</span> (line <span class="line-number">713</span>)
+		<span class="method-title">_ValidateOperation</span> (line <span class="line-number">715</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -911,11 +914,11 @@
 				</ul>
 	</div>
 <a name="method_ValidateOptions" id="_ValidateOptions"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateOptions</span> (line <span class="line-number">967</span>)
+		<span class="method-title">_ValidateOptions</span> (line <span class="line-number">969</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -937,11 +940,11 @@
 			
 	</div>
 <a name="method_ValidateRequest" id="_ValidateRequest"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateRequest</span> (line <span class="line-number">341</span>)
+		<span class="method-title">_ValidateRequest</span> (line <span class="line-number">343</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -977,11 +980,11 @@
 				</ul>
 	</div>
 <a name="method_ValidateSort" id="_ValidateSort"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateSort</span> (line <span class="line-number">924</span>)
+		<span class="method-title">_ValidateSort</span> (line <span class="line-number">926</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1167,7 +1170,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Wed, 14 Mar 2012 19:44:42 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 15 Mar 2012 16:42:38 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

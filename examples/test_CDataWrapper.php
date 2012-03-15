@@ -68,8 +68,8 @@ try
 	//
 	// Get test object.
 	//
-	$object = $collection->findOne( array( ':GID' => 'PATO:0001766' ) );
-	$object_serialised = CMongoObject::SerialiseObject( $object, TRUE );
+	$object_serialised = $object = $collection->findOne( array( ':GID' => 'PATO:0001766' ) );
+	CMongoContainer::SerialiseObject( $object_serialised );
 	
 	//
 	// Convert object.

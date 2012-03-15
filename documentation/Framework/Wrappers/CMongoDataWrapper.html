@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <html xmlns="http://www.w3.org/1999/xhtml">
 		<head>
 			<!-- template designed by Marco Von Ballmoos -->
 			<title>Docs For Class CMongoDataWrapper</title>
 			<link rel="stylesheet" href="../../media/stylesheet.css" />
-			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+			<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
 		</head>
 		<body>
 			<div class="page-body">			
@@ -36,7 +36,7 @@
         reference (<em>MongoDBRef</em>). With this command you will not provide the
         <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_CONTAINER">container</a> and the <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_QUERY">query</a>, but you
         will provide an object reference in the <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_OBJECT">kAPI_DATA_OBJECT</a>
-        parameter. Remember to <a href="../../Framework/Persistence/CMongoObject.html#methodSerialiseObject">serialise</a> the
+        parameter. Remember to CMongoContainer::SerialiseObject() the
         reference before providing it to the wrapper.</li></ul></p></p>
 		<p class="notes">
 			Located in <a class="field" href="_classes---CMongoDataWrapper.php.html">/classes/CMongoDataWrapper.php</a> (line <span class="field">84</span>)
@@ -241,7 +241,7 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="method_FormatContainer" id="_FormatContainer"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -267,7 +267,7 @@
 			
 	</div>
 <a name="method_FormatDatabase" id="_FormatDatabase"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -293,7 +293,7 @@
 			
 	</div>
 <a name="method_FormatObject" id="_FormatObject"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -325,7 +325,7 @@
 			
 	</div>
 <a name="method_FormatQuery" id="_FormatQuery"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -357,7 +357,7 @@
 			
 	</div>
 <a name="method_FormatRequest" id="_FormatRequest"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -389,11 +389,11 @@
 			
 	</div>
 <a name="method_HandleOptions" id="_HandleOptions"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_HandleOptions</span> (line <span class="line-number">1115</span>)
+		<span class="method-title">_HandleOptions</span> (line <span class="line-number">1114</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -423,11 +423,11 @@
 			
 	</div>
 <a name="method_HandleRequest" id="_HandleRequest"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_HandleRequest</span> (line <span class="line-number">539</span>)
+		<span class="method-title">_HandleRequest</span> (line <span class="line-number">537</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -455,11 +455,11 @@
 			
 	</div>
 <a name="method_Handle_Count" id="_Handle_Count"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_Count</span> (line <span class="line-number">634</span>)
+		<span class="method-title">_Handle_Count</span> (line <span class="line-number">632</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -481,11 +481,11 @@
 			
 	</div>
 <a name="method_Handle_Delete" id="_Handle_Delete"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_Delete</span> (line <span class="line-number">1032</span>)
+		<span class="method-title">_Handle_Delete</span> (line <span class="line-number">1031</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -507,11 +507,11 @@
 			
 	</div>
 <a name="method_Handle_Get" id="_Handle_Get"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_Get</span> (line <span class="line-number">732</span>)
+		<span class="method-title">_Handle_Get</span> (line <span class="line-number">730</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -533,11 +533,11 @@
 			
 	</div>
 <a name="method_Handle_GetObjectByReference" id="_Handle_GetObjectByReference"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_GetObjectByReference</span> (line <span class="line-number">598</span>)
+		<span class="method-title">_Handle_GetObjectByReference</span> (line <span class="line-number">596</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -559,11 +559,11 @@
 			
 	</div>
 <a name="method_Handle_GetOne" id="_Handle_GetOne"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_GetOne</span> (line <span class="line-number">662</span>)
+		<span class="method-title">_Handle_GetOne</span> (line <span class="line-number">660</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -585,11 +585,11 @@
 			
 	</div>
 <a name="method_Handle_Insert" id="_Handle_Insert"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_Insert</span> (line <span class="line-number">968</span>)
+		<span class="method-title">_Handle_Insert</span> (line <span class="line-number">967</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -611,11 +611,11 @@
 			
 	</div>
 <a name="method_Handle_Set" id="_Handle_Set"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_Set</span> (line <span class="line-number">909</span>)
+		<span class="method-title">_Handle_Set</span> (line <span class="line-number">908</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -637,7 +637,7 @@
 			
 	</div>
 <a name="method_InitResources" id="_InitResources"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -669,11 +669,11 @@
 			
 	</div>
 <a name="method_ValidateObject" id="_ValidateObject"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateObject</span> (line <span class="line-number">458</span>)
+		<span class="method-title">_ValidateObject</span> (line <span class="line-number">456</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -695,11 +695,11 @@
 			
 	</div>
 <a name="method_ValidateOperation" id="_ValidateOperation"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateOperation</span> (line <span class="line-number">358</span>)
+		<span class="method-title">_ValidateOperation</span> (line <span class="line-number">356</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -727,11 +727,11 @@
 			
 	</div>
 <a name="method_ValidateQuery" id="_ValidateQuery"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateQuery</span> (line <span class="line-number">495</span>)
+		<span class="method-title">_ValidateQuery</span> (line <span class="line-number">493</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -753,7 +753,7 @@
 			
 	</div>
 <a name="method_ValidateRequest" id="_ValidateRequest"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -996,7 +996,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Wed, 14 Mar 2012 19:44:43 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 15 Mar 2012 16:42:38 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

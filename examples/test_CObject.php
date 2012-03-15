@@ -132,7 +132,7 @@ try
 	echo( 'CObject::StringNormalise( <code>['.$string.']</code>, kFLAG_MODIFIER_NOCASE );<br>' );
 	echo( "<code>[$norm]</code><br><br>" );
 	
-	$string = '<Encode> this & THùs';
+	$string = '<Encode> this & This';
 	$dstring = htmlspecialchars( $string );
 	$norm = CObject::StringNormalise( $string, kFLAG_MODIFIER_URL );
 	$dnorm = htmlspecialchars( $norm );

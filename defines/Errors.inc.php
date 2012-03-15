@@ -24,6 +24,13 @@
  *======================================================================================*/
 
 /**
+ * Idle.
+ *
+ * This code indicates successful operation or idle state.
+ */
+define( "kERROR_OK",						0 );			// Idle.
+
+/**
  * Invalid state.
  *
  * This error indicates that the current state is invalid or not fit in order to perform

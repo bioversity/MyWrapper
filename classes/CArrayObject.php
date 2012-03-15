@@ -22,6 +22,14 @@
  *======================================================================================*/
 
 /**
+ * Library.
+ *
+ * This include file contains the definitions of the {@link CObject CObject} class which
+ * contains a static library of methods.
+ */
+require_once( kPATH_LIBRARY_SOURCE."CObject.php" );
+
+/**
  * Offsets.
  *
  * This include file contains all default offset definitions.
@@ -42,9 +50,6 @@ require_once( kPATH_LIBRARY_DEFINES."Offsets.inc.php" );
  *		the offset itself should be {@link offsetUnset() deleted} in that case. Because of
  *		this we also override the inherited behaviour by suppressing notices and warnings
  *		when {@link offsetGet() getting} non-existant offsets.
- *	<li><i>JSON encoding</i>: Derived classes will use JSON for web-services, so we provide
- *		two static methods to {@link JsonEncode() encode} and {@link JsonDecode() decode}
- *		JSON strings allowing for exceptions on errors.
  *	<li><i>String formatting</i>: We provide a generalised static method to
  *		{@link StringNormalise() format} strings which accepts a bitfield parameter that
  *		indicates which operation to perform, such as {@link kFLAG_MODIFIER_UTF8 UTF8}

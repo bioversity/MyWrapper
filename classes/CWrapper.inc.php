@@ -85,6 +85,9 @@ define( "kAPI_OPT_LOG_TRACE",		':$log-trace' );
  *	<li><i>{@link kAPI_RES_STAMP kAPI_RES_STAMP}</i>: Response time stamp.
  * </ul>
  *
+ * These values are provided as floating point numbers such as the result of the
+ * <i>gettimeofday( true )</i> function.
+ *
  * Cardinality: one or zero.
  */
 define( "kAPI_REQ_STAMP",			':$time-request' );
@@ -93,6 +96,9 @@ define( "kAPI_REQ_STAMP",			':$time-request' );
  * Web-service received time stamp.
  *
  * This is the tag that represents the time stamp in which the request was received.
+ *
+ * These values are provided as floating point numbers such as the result of the
+ * <i>gettimeofday( true )</i> function.
  *
  * Cardinality: one or zero.
  */
@@ -103,6 +109,9 @@ define( "kAPI_REC_STAMP",			':$time-received' );
  *
  * This is the tag that represents the time stamp in which the request was parsed.
  *
+ * These values are provided as floating point numbers such as the result of the
+ * <i>gettimeofday( true )</i> function.
+ *
  * Cardinality: one or zero.
  */
 define( "kAPI_PARSE_STAMP",			':$time-parsed' );
@@ -111,6 +120,9 @@ define( "kAPI_PARSE_STAMP",			':$time-parsed' );
  * Web-service response time stamp.
  *
  * This is the tag that represents the time stamp in which the response was sent.
+ *
+ * These values are provided as floating point numbers such as the result of the
+ * <i>gettimeofday( true )</i> function.
  *
  * Cardinality: one or zero.
  */

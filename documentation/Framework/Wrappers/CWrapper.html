@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <html xmlns="http://www.w3.org/1999/xhtml">
 		<head>
 			<!-- template designed by Marco Von Ballmoos -->
 			<title>Docs For Class CWrapper</title>
 			<link rel="stylesheet" href="../../media/stylesheet.css" />
-			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+			<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
 		</head>
 		<body>
 			<div class="page-body">			
@@ -37,15 +37,17 @@
      <ul><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_PING">kAPI_OP_PING</a></em>: A <em>PING</em> command, this can be
             used to check if a service is alive.</li><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_DEBUG">kAPI_OP_DEBUG</a></em>: A <em>DEBUG</em> command, this can be
             considered equivalent to the <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_PING">PING</a> command, except that the
-            response is HTML-encoded and can be displayed directly by a web browser.</li></ul></li></ul></p><p>If any of the previous parameters is missing, the service will return an empty response.  If both parameters are present, the service will return a response consisting of an array  constituted of three sections:</p><p><ul><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_DATA_STATUS">kAPI_DATA_STATUS</a></em>: The status of the operation. This
-        section is returned by default and should inform on the status of the requested
+            response is HTML-encoded and can be displayed directly by a web browser. Derived
+            classes may expand on this capability.</li></ul></li></ul></p><p>If both the above parameters are present, the service will return an array constituted by  the following three sections:</p><p><ul><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_DATA_STATUS">kAPI_DATA_STATUS</a></em>: <em>Operation status</em>.
+        This section is returned by default and will inform on the status of the requested
         operation. It consists of an array containing the following elements:
-     <ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_STATUS">kTAG_STATUS</a></em>: The operation status, this element will
-            be returned by default regardless of the operation outcome. This corresponds
-            to the severity of the status and it can take the following values:
+     <ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_STATUS">kTAG_STATUS</a></em>: <em>Response status</em>.
+            This element will be returned by default regardless of the operation outcome.
+            This corresponds to the severity of the response and it can take the following
+            values:
          <ul><li><em><a href="../../Framework/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_IDLE">kMESSAGE_TYPE_IDLE</a></em>: This is the status of
                 the web-service before any operation has been executed, or when the
-                operation was successful; this is the response of a
+                operation was successful; this is the response of a successful
                 <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_PING">ping</a> request.</li><li><em><a href="../../Framework/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_NOTICE">kMESSAGE_TYPE_NOTICE</a></em>: The operation was
                 successful and a notice message was returned.</li><li><em><a href="../../Framework/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_MESSAGE">kMESSAGE_TYPE_MESSAGE</a></em>: The operation
                 was successful and a message was returned.</li><li><em><a href="../../Framework/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_WARNING">kMESSAGE_TYPE_WARNING</a></em>: The operation
@@ -53,38 +55,41 @@
                 because of an error.</li><li><em><a href="../../Framework/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_FATAL">kMESSAGE_TYPE_FATAL</a></em>: The operation failed
                 because of a fatal error, this will generally mean that the web-service is
                 not operational.</li><li><em><a href="../../Framework/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_BUG">kMESSAGE_TYPE_BUG</a></em>: The operation failed
-                because of a bug, the developers should be informed of this kind of errors.</li></ul></li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">kTAG_CODE</a></em>: The status code of the operation, this
-            element will be returned by default regardless of the operation outcome. It
-            corresponds to the error code; zero means no error.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DESCRIPTION">kTAG_DESCRIPTION</a></em>: The status message of
-            the operation, this element is used to return informative messages or to
-            return error messages when the service fails. It will generally be formatted as
-            an array structured as follows:
+                because of a bug, the developers should be informed of this kind of errors.</li></ul></li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">kTAG_CODE</a></em>: <em>Status code</em>.
+            This element will be returned by default regardless of the operation outcome.
+            It corresponds to the error code; <a href="../../Framework/Definitions/_defines---Errors.inc.php.html#definekERROR_OK">zero</a> means no error.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DESCRIPTION">kTAG_DESCRIPTION</a></em>: <em>Status message</em>.
+            The response message from the operation, this element is used to return
+            informative messages or to return error messages when the service fails. It will
+            generally be formatted as an array structured as follows:
          <ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a></em>: The data type of the message, it will be
                 a <a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_STRING">string</a> in general.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_LANGUAGE">kTAG_LANGUAGE</a></em>: The language ISO 639 2
-                character code in which the message is expressed in.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: The actual message data contents.</li></ul></li><li><em><a href="../../Framework/Wrappers/_classes---CMongoDataWrapper.inc.php.html#definekAPI_AFFECTED_COUNT">kAPI_AFFECTED_COUNT</a></em>: The total number of
-            documents affected by the operation. This tag will only be used by derived
-            classes.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ANNOTATION">kTAG_ANNOTATION</a></em>: A list of key/value pairs
-                containing references to elements relevant to the operation response. For
-                instance, if a series of parameters are required and were not provided, this
-                will list them.</li></ul></li><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_DATA_REQUEST">kAPI_DATA_REQUEST</a></em>: This section will return the
-        actual request, if the optional <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPT_LOG_REQUEST">kAPI_OPT_LOG_REQUEST</a>
-        has been set to 1.</li><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_DATA_TIMING">kAPI_DATA_TIMING</a></em>: This section holds timing
-        information, it will be returned only if you provide in the request the time of day
-        [<em>gettimeofday( TRUE )</em>] with the <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_REQ_STAMP">kAPI_REQ_STAMP</a> tag.
-        In this case the response will return in this section an array structured as
+                character code in which the message is expressed in.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: The actual message data contents.</li></ul></li><li><em><a href="../../Framework/Wrappers/_classes---CMongoDataWrapper.inc.php.html#definekAPI_AFFECTED_COUNT">kAPI_AFFECTED_COUNT</a></em>: <em>Record count</em>.
+            The total number of elements affected by the operation. This tag will only be
+            used by derived classes returning data elements.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ANNOTATION">kTAG_ANNOTATION</a></em>: <em>Attachments</em>.
+                A list of key/value pairs containing information relevant to the operation
+                response. For instance, if a series of parameters are required and were not
+                provided, this could list them.</li></ul></li><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_DATA_REQUEST">kAPI_DATA_REQUEST</a></em>: <em>Service request</em>.
+        This section will return the actual request provided to the service, this can be
+        used for debugging purposes and will only occur if the optional
+        <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPT_LOG_REQUEST">kAPI_OPT_LOG_REQUEST</a> parameter has been set to 1.</li><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_DATA_TIMING">kAPI_DATA_TIMING</a></em>: <em>Timers</em>.
+        This section holds timing information, it will be returned only if you provide the
+        time of day [<em>gettimeofday( TRUE )</em>] in the
+        <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_REQ_STAMP">kAPI_REQ_STAMP</a> parameter. This section is structured as
         follows:
      <ul><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_REQ_STAMP">kAPI_REQ_STAMP</a></em>: Request time stamp, the time in
-            which the request was sent; this is the same value sent by the client.</li><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_PARSE_STAMP">kAPI_PARSE_STAMP</a></em>: Parse time stamp, the time in
-            which the request was parsed.</li><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_RES_STAMP">kAPI_RES_STAMP</a></em>: Response time stamp, the time in
-            which the response was sent.</li></ul></li></ul></p><p>As indicated in the above section, besides the <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">format</a> and  <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">operation</a> parameters we have in this class three other optional  parameters that can be used to receive specific information sections in the response:</p><p><ul><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPT_LOG_REQUEST">kAPI_OPT_LOG_REQUEST</a></em>: Log the request, if the
-        value of this parameter is 1, the response will also hold the received request; this
-        parameter determines whether the <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_DATA_REQUEST">request</a> section is
-        returned.</li><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPT_LOG_TRACE">kAPI_OPT_LOG_TRACE</a></em>: Trace exceptions, if the
+            which the request was sent; this is the same value sent by the caller in the
+            <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_REQ_STAMP">kAPI_REQ_STAMP</a> parameter.</li><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_PARSE_STAMP">kAPI_PARSE_STAMP</a></em>: Parse time stamp, the time in
+            which the service finished parsing the request.</li><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_RES_STAMP">kAPI_RES_STAMP</a></em>: Response time stamp, the time in
+            which the response was sent.</li></ul></li></ul></p><p>Besides the <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">format</a> and <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">operation</a> parameters  described in the first section, we have three other optional parameters that can be used  to receive specific information sections in the response:</p><p><ul><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPT_LOG_REQUEST">kAPI_OPT_LOG_REQUEST</a></em>: Log the request, if the
+        value of this parameter is 1, the response will contain the received request in the
+        <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_DATA_REQUEST">request</a> section.</li><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPT_LOG_TRACE">kAPI_OPT_LOG_TRACE</a></em>: Trace exceptions, if the
         value of this parameter is 1, in the case of an error that triggered an exception,
         the error response will also include the call trace.</li><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_REQ_STAMP">kAPI_REQ_STAMP</a></em>: This parameter should hold the
         timestamp [<em>gettimeofday( TRUE )</em>] in which the client has sent the request,
-        for then wrapper this is the indication that the client expects the
-        <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_DATA_TIMING">timing</a> section for profiling purposes.</li></ul></p><p>The parameters are expected either in <em>GET</em> or <em>POST</em>.</p><p>If either the <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">format</a> or the <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">operation</a>  parameters are omitted from the request, the service will return an empty response; this  is to prevent unnecessary traffic.</p><p>This class is set up as a server object, it features a single public  <a href="../../Framework/Wrappers/CWrapper.html#methodHandleRequest">method</a> which handles the request.</p><p>An example of this class implementation can be found in the  <a href="../../Server/Wrappers/_wrappers---Wrapper.php.html">Wrapper.php</a> source file.</p></p>
+        if provided, the service will return the timing information in the
+        <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_DATA_TIMING">timing</a> section.</li></ul></p><p>The parameters are expected either in <em>GET</em> or <em>POST</em>.</p><p>If either the <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">format</a> or the <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">operation</a>  parameters are omitted from the request, the service will return an empty response; this  is to prevent unnecessary traffic.</p><p>Instances of this class can be considered server objects, and can be implemented with  this simple code snippet:</p><p><div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-var">$server&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id"><a href="../../Framework/Wrappers/CWrapper.html">CWrapper</a></span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$server</span><span class="src-sym">-&gt;</span><a href="../../Framework/Wrappers/CWrapper.html#methodHandleRequest">HandleRequest</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+</ol></div></p><p>An example of this class implementation can be found in the  <a href="../../Server/Wrappers/_wrappers---Wrapper.php.html">Wrapper.php</a> source file.</p></p>
 		<p class="notes">
 			Located in <a class="field" href="_classes---CWrapper.php.html">/classes/CWrapper.php</a> (line <span class="field">183</span>)
 		</p>
@@ -311,7 +316,7 @@
 		<div class="info-box-body">
 			
 <a name="var$mReceivedStamp" id="$mReceivedStamp"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<img src="../../media/images/Variable.png" />
@@ -360,16 +365,20 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Constructor.png" />
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">216</span>)
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">233</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Instantiate class.</p>
-<p class="description"><p>The constructor will parse the request and initialise the status to  <a href="../../Framework/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_IDLE">idle</a>.</p></p>
+<p class="description"><p>The constructor does not require any parameter, it will set-up the environment and  parse the request. The workflow is as follows:</p><p><ul><li><em>Check required elements</em>: The method will check if all required elements
+		of the request are there, if that is not the case it will just exit.</li><li><em>Init <a href="../../Framework/Wrappers/CWrapper.html#method_InitStatus">status</a></em>: The response status will be
+        initialised to the <a href="../../Framework/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_IDLE">idle</a> state.</li><li><em>Init <a href="../../Framework/Wrappers/CWrapper.html#method_InitOptions">options</a></em>: Service options will be initialised.</li><li><em>Init <a href="../../Framework/Wrappers/CWrapper.html#method_InitResources">resources</a></em>: Eventual resources are
+        initialised.</li><li><em><a href="../../Framework/Wrappers/CWrapper.html#method_ParseRequest">Parse</a> request</em>: The request is parsed.</li><li><em><a href="../../Framework/Wrappers/CWrapper.html#method_FormatRequest">Format</a> request</em>: The request is normalised if
+        necessary.</li><li><em><a href="../../Framework/Wrappers/CWrapper.html#method_ValidateRequest">Validate</a> request</em>: The request is validated.</li></ul></p><p>This protected interface should be overloaded by derived classes to implement custom  services.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 			</ul>
@@ -386,11 +395,11 @@
 			
 	</div>
 <a name="methodHandleRequest" id="HandleRequest"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">HandleRequest</span> (line <span class="line-number">307</span>)
+		<span class="method-title">HandleRequest</span> (line <span class="line-number">324</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -413,11 +422,11 @@
 			
 	</div>
 <a name="method_EncodeResponse" id="_EncodeResponse"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_EncodeResponse</span> (line <span class="line-number">1193</span>)
+		<span class="method-title">_EncodeResponse</span> (line <span class="line-number">1210</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -439,11 +448,11 @@
 			
 	</div>
 <a name="method_Exception2Status" id="_Exception2Status"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Exception2Status</span> (line <span class="line-number">1099</span>)
+		<span class="method-title">_Exception2Status</span> (line <span class="line-number">1116</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -477,11 +486,11 @@
 			
 	</div>
 <a name="method_FormatRequest" id="_FormatRequest"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FormatRequest</span> (line <span class="line-number">540</span>)
+		<span class="method-title">_FormatRequest</span> (line <span class="line-number">557</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -515,11 +524,11 @@
 				</ul>
 	</div>
 <a name="method_HandleRequest" id="_HandleRequest"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_HandleRequest</span> (line <span class="line-number">854</span>)
+		<span class="method-title">_HandleRequest</span> (line <span class="line-number">871</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -549,11 +558,11 @@
 				</ul>
 	</div>
 <a name="method_Handle_Debug" id="_Handle_Debug"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_Debug</span> (line <span class="line-number">909</span>)
+		<span class="method-title">_Handle_Debug</span> (line <span class="line-number">926</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -575,11 +584,11 @@
 			
 	</div>
 <a name="method_Handle_Ping" id="_Handle_Ping"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_Ping</span> (line <span class="line-number">894</span>)
+		<span class="method-title">_Handle_Ping</span> (line <span class="line-number">911</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -601,11 +610,11 @@
 			
 	</div>
 <a name="method_InitOptions" id="_InitOptions"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_InitOptions</span> (line <span class="line-number">424</span>)
+		<span class="method-title">_InitOptions</span> (line <span class="line-number">441</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -635,11 +644,11 @@
 				</ul>
 	</div>
 <a name="method_InitResources" id="_InitResources"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_InitResources</span> (line <span class="line-number">468</span>)
+		<span class="method-title">_InitResources</span> (line <span class="line-number">485</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -669,11 +678,11 @@
 				</ul>
 	</div>
 <a name="method_InitStatus" id="_InitStatus"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_InitStatus</span> (line <span class="line-number">370</span>)
+		<span class="method-title">_InitStatus</span> (line <span class="line-number">387</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -695,11 +704,11 @@
 			
 	</div>
 <a name="method_OffsetManage" id="_OffsetManage"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_OffsetManage</span> (line <span class="line-number">951</span>)
+		<span class="method-title">_OffsetManage</span> (line <span class="line-number">968</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -732,11 +741,11 @@
 			
 	</div>
 <a name="method_ParseFormat" id="_ParseFormat"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseFormat</span> (line <span class="line-number">620</span>)
+		<span class="method-title">_ParseFormat</span> (line <span class="line-number">637</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -758,11 +767,11 @@
 			
 	</div>
 <a name="method_ParseOperation" id="_ParseOperation"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseOperation</span> (line <span class="line-number">647</span>)
+		<span class="method-title">_ParseOperation</span> (line <span class="line-number">664</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -784,11 +793,11 @@
 			
 	</div>
 <a name="method_ParseRequest" id="_ParseRequest"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseRequest</span> (line <span class="line-number">501</span>)
+		<span class="method-title">_ParseRequest</span> (line <span class="line-number">518</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -818,11 +827,11 @@
 				</ul>
 	</div>
 <a name="method_ParseTiming" id="_ParseTiming"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseTiming</span> (line <span class="line-number">674</span>)
+		<span class="method-title">_ParseTiming</span> (line <span class="line-number">691</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -844,11 +853,11 @@
 			
 	</div>
 <a name="method_ValidateFormat" id="_ValidateFormat"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateFormat</span> (line <span class="line-number">726</span>)
+		<span class="method-title">_ValidateFormat</span> (line <span class="line-number">743</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -870,11 +879,11 @@
 			
 	</div>
 <a name="method_ValidateOperation" id="_ValidateOperation"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateOperation</span> (line <span class="line-number">786</span>)
+		<span class="method-title">_ValidateOperation</span> (line <span class="line-number">803</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -908,11 +917,11 @@
 				</ul>
 	</div>
 <a name="method_ValidateRequest" id="_ValidateRequest"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateRequest</span> (line <span class="line-number">575</span>)
+		<span class="method-title">_ValidateRequest</span> (line <span class="line-number">592</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1068,7 +1077,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Wed, 14 Mar 2012 19:44:45 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 15 Mar 2012 16:42:40 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

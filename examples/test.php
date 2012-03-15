@@ -90,7 +90,8 @@ $ao[ 'tre' ] = 3;
 //
 // Get iterator.
 //
-$it = iterator_to_array( $ao );
+//$it = iterator_to_array( $ao );
+$it = (array) $ao;
 
 echo( 'Object<pre>' ); print_r( $ao ); echo( '</pre>' );
 echo( 'Iterator<pre>' ); print_r( $it ); echo( '</pre>' );

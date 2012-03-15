@@ -264,6 +264,26 @@ $statements = array
 try
 {
 	//
+	// Instantiate Mongo database.
+	//
+	$mongo = New Mongo();
+	
+	//
+	// Select MCPD database.
+	//
+	$db = $mongo->selectDB( "TEST" );
+	
+	//
+	// Drop database.
+	//
+	$db->drop();
+	
+	//
+	// Select test collection.
+	//
+	$collection = new CMongoContainer( $db->selectCollection( 'CMongoQuery' ) );
+	 
+	//
 	// Instantiate empty object.
 	//
 	echo( '<b>$test = new CMongoQuery();</b>' );
@@ -293,7 +313,7 @@ try
 			//
 			// Convert.
 			//
-			$converted = $test->Export();
+			$converted = $test->Export( $collection );
 			echo( '<pre>' );
 			print_r( $converted );
 			echo( '</pre>' );
@@ -313,12 +333,18 @@ try
 	//
 	echo( 'Adding OR-based statements<br>' );
 	$test = new CMongoQuery();
+	echo( '<i>$test->AppendStatement( $statements[ 0 ], kOPERATOR_OR );</i><br>' );
 	$test->AppendStatement( $statements[ 0 ], kOPERATOR_OR );
-	echo( $test->Debug().'<br>' );
+	echo( 'Statements<pre>' ); print_r( $statements[ 0 ] ); echo( '</pre>' );
+	echo( 'Query<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$test->AppendStatement( $statements[ 1 ], kOPERATOR_OR );</i><br>' );
 	$test->AppendStatement( $statements[ 1 ], kOPERATOR_OR );
-	echo( $test->Debug().'<br>' );
+	echo( 'Statements<pre>' ); print_r( $statements[ 1 ] ); echo( '</pre>' );
+	echo( 'Query<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$test->AppendStatement( $statements[ 2 ], kOPERATOR_AND );</i><br>' );
 	$test->AppendStatement( $statements[ 2 ], kOPERATOR_AND );
-	echo( $test->Debug().'<br>' );
+	echo( 'Statements<pre>' ); print_r( $statements[ 2 ] ); echo( '</pre>' );
+	echo( 'Query<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
 	//
@@ -326,12 +352,18 @@ try
 	//
 	echo( 'Adding AND-based statements<br>' );
 	$test = new CMongoQuery();
+	echo( '<i>$test->AppendStatement( $statements[ 0 ], kOPERATOR_AND );</i><br>' );
 	$test->AppendStatement( $statements[ 0 ], kOPERATOR_AND );
-	echo( $test->Debug().'<br>' );
+	echo( 'Statements<pre>' ); print_r( $statements[ 0 ] ); echo( '</pre>' );
+	echo( 'Query<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$test->AppendStatement( $statements[ 1 ], kOPERATOR_OR );</i><br>' );
 	$test->AppendStatement( $statements[ 1 ], kOPERATOR_OR );
-	echo( $test->Debug().'<br>' );
+	echo( 'Statements<pre>' ); print_r( $statements[ 1 ] ); echo( '</pre>' );
+	echo( 'Query<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$test->AppendStatement( $statements[ 2 ], kOPERATOR_OR );</i><br>' );
 	$test->AppendStatement( $statements[ 2 ], kOPERATOR_OR );
-	echo( $test->Debug().'<br>' );
+	echo( 'Statements<pre>' ); print_r( $statements[ 2 ] ); echo( '</pre>' );
+	echo( 'Query<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
 	echo( '<h3>DONE</h3>' );

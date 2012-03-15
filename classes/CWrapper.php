@@ -3,8 +3,8 @@
 /**
  * <i>CWrapper</i> class definition.
  *
- * This file contains the class definition of <b>CWrapper</b> which represents a data
- * web-service wrapper.
+ * This file contains the class definition of <b>CWrapper</b> which represents a web-service
+ * wrapper.
  *
  *	@package	Framework
  *	@subpackage	Wrappers
@@ -33,13 +33,6 @@ require_once( kPATH_LIBRARY_SOURCE."CStatusObject.php" );
  * This include file contains all data type definitions.
  */
 require_once( kPATH_LIBRARY_DEFINES."Types.inc.php" );
-
-/**
- * Offsets.
- *
- * This include file contains all default offset definitions.
- */
-require_once( kPATH_LIBRARY_DEFINES."Offsets.inc.php" );
 
 /**
  * Local definitions.
@@ -72,26 +65,27 @@ require_once( kPATH_LIBRARY_SOURCE."CWrapper.inc.php" );
  *			used to check if a service is alive.
  *		<li><i>{@link kAPI_OP_DEBUG kAPI_OP_DEBUG}</i>: A <i>DEBUG</i> command, this can be
  *			considered equivalent to the {@link kAPI_OP_PING PING} command, except that the
- *			response is HTML-encoded and can be displayed directly by a web browser.
+ *			response is HTML-encoded and can be displayed directly by a web browser. Derived
+ *			classes may expand on this capability.
  *	 </ul>
  * </ul>
  *
- * If any of the previous parameters is missing, the service will return an empty response.
- * If both parameters are present, the service will return a response consisting of an array
- * constituted of three sections:
+ * If both the above parameters are present, the service will return an array constituted by
+ * the following three sections:
  *
  * <ul>
- *	<li><i>{@link kAPI_DATA_STATUS kAPI_DATA_STATUS}</i>: The status of the operation. This
- *		section is returned by default and should inform on the status of the requested
+ *	<li><i>{@link kAPI_DATA_STATUS kAPI_DATA_STATUS}</i>: <i>Operation status</i>.
+ *		This section is returned by default and will inform on the status of the requested
  *		operation. It consists of an array containing the following elements:
  *	 <ul>
- *		<li><i>{@link kTAG_STATUS kTAG_STATUS}</i>: The operation status, this element will
- *			be returned by default regardless of the operation outcome. This corresponds
- *			to the severity of the status and it can take the following values:
+ *		<li><i>{@link kTAG_STATUS kTAG_STATUS}</i>: <i>Response status</i>.
+ *			This element will be returned by default regardless of the operation outcome.
+ *			This corresponds to the severity of the response and it can take the following
+ *			values:
  *		 <ul>
  *			<li><i>{@link kMESSAGE_TYPE_IDLE kMESSAGE_TYPE_IDLE}</i>: This is the status of
  *				the web-service before any operation has been executed, or when the
- *				operation was successful; this is the response of a
+ *				operation was successful; this is the response of a successful
  *				{@link kAPI_OP_PING ping} request.
  *			<li><i>{@link kMESSAGE_TYPE_NOTICE kMESSAGE_TYPE_NOTICE}</i>: The operation was
  *				successful and a notice message was returned.
@@ -107,13 +101,13 @@ require_once( kPATH_LIBRARY_SOURCE."CWrapper.inc.php" );
  *			<li><i>{@link kMESSAGE_TYPE_BUG kMESSAGE_TYPE_BUG}</i>: The operation failed
  *				because of a bug, the developers should be informed of this kind of errors.
  *		 </ul>
- *		<li><i>{@link kTAG_CODE kTAG_CODE}</i>: The status code of the operation, this
- *			element will be returned by default regardless of the operation outcome. It
- *			corresponds to the error code; zero means no error.
- *		<li><i>{@link kTAG_DESCRIPTION kTAG_DESCRIPTION}</i>: The status message of
- *			the operation, this element is used to return informative messages or to
- *			return error messages when the service fails. It will generally be formatted as
- *			an array structured as follows:
+ *		<li><i>{@link kTAG_CODE kTAG_CODE}</i>: <i>Status code</i>.
+ *			This element will be returned by default regardless of the operation outcome.
+ *			It corresponds to the error code; {@link kERROR_OK zero} means no error.
+ *		<li><i>{@link kTAG_DESCRIPTION kTAG_DESCRIPTION}</i>: <i>Status message</i>.
+ *			The response message from the operation, this element is used to return
+ *			informative messages or to return error messages when the service fails. It will
+ *			generally be formatted as an array structured as follows:
  *		 <ul>
  *			<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: The data type of the message, it will be
  *				a {@link kDATA_TYPE_STRING string} in general.
@@ -121,48 +115,49 @@ require_once( kPATH_LIBRARY_SOURCE."CWrapper.inc.php" );
  *				character code in which the message is expressed in.
  *			<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The actual message data contents.
  *		 </ul>
- *		<li><i>{@link kAPI_AFFECTED_COUNT kAPI_AFFECTED_COUNT}</i>: The total number of
- *			documents affected by the operation. This tag will only be used by derived
- *			classes.
- *		<li><i>{@link kTAG_ANNOTATION kTAG_ANNOTATION}</i>: A list of key/value pairs
- *				containing references to elements relevant to the operation response. For
- *				instance, if a series of parameters are required and were not provided, this
- *				will list them.
+ *		<li><i>{@link kAPI_AFFECTED_COUNT kAPI_AFFECTED_COUNT}</i>: <i>Record count</i>.
+ *			The total number of elements affected by the operation. This tag will only be
+ *			used by derived classes returning data elements.
+ *		<li><i>{@link kTAG_ANNOTATION kTAG_ANNOTATION}</i>: <i>Attachments</i>.
+ *				A list of key/value pairs containing information relevant to the operation
+ *				response. For instance, if a series of parameters are required and were not
+ *				provided, this could list them.
  *	 </ul>
- *	<li><i>{@link kAPI_DATA_REQUEST kAPI_DATA_REQUEST}</i>: This section will return the
- *		actual request, if the optional {@link kAPI_OPT_LOG_REQUEST kAPI_OPT_LOG_REQUEST}
- *		has been set to 1.
- *	<li><i>{@link kAPI_DATA_TIMING kAPI_DATA_TIMING}</i>: This section holds timing
- *		information, it will be returned only if you provide in the request the time of day
- *		[<i>gettimeofday( TRUE )</i>] with the {@link kAPI_REQ_STAMP kAPI_REQ_STAMP} tag.
- *		In this case the response will return in this section an array structured as
+ *	<li><i>{@link kAPI_DATA_REQUEST kAPI_DATA_REQUEST}</i>: <i>Service request</i>.
+ *		This section will return the actual request provided to the service, this can be
+ *		used for debugging purposes and will only occur if the optional
+ *		{@link kAPI_OPT_LOG_REQUEST kAPI_OPT_LOG_REQUEST} parameter has been set to 1.
+ *	<li><i>{@link kAPI_DATA_TIMING kAPI_DATA_TIMING}</i>: <i>Timers</i>.
+ *		This section holds timing information, it will be returned only if you provide the
+ *		time of day [<i>gettimeofday( TRUE )</i>] in the
+ *		{@link kAPI_REQ_STAMP kAPI_REQ_STAMP} parameter. This section is structured as
  *		follows:
  *	 <ul>
  *		<li><i>{@link kAPI_REQ_STAMP kAPI_REQ_STAMP}</i>: Request time stamp, the time in
- *			which the request was sent; this is the same value sent by the client.
+ *			which the request was sent; this is the same value sent by the caller in the
+ *			{@link kAPI_REQ_STAMP kAPI_REQ_STAMP} parameter.
  *		<li><i>{@link kAPI_PARSE_STAMP kAPI_PARSE_STAMP}</i>: Parse time stamp, the time in
- *			which the request was parsed.
+ *			which the service finished parsing the request.
  *		<li><i>{@link kAPI_RES_STAMP kAPI_RES_STAMP}</i>: Response time stamp, the time in
  *			which the response was sent.
  *	 </ul>
  * </ul>
  *
- * As indicated in the above section, besides the {@link kAPI_FORMAT format} and
- * {@link kAPI_OPERATION operation} parameters we have in this class three other optional
- * parameters that can be used to receive specific information sections in the response:
+ * Besides the {@link kAPI_FORMAT format} and {@link kAPI_OPERATION operation} parameters
+ * described in the first section, we have three other optional parameters that can be used
+ * to receive specific information sections in the response:
  *
  * <ul>
  *	<li><i>{@link kAPI_OPT_LOG_REQUEST kAPI_OPT_LOG_REQUEST}</i>: Log the request, if the
- *		value of this parameter is 1, the response will also hold the received request; this
- *		parameter determines whether the {@link kAPI_DATA_REQUEST request} section is
- *		returned.
+ *		value of this parameter is 1, the response will contain the received request in the
+ *		{@link kAPI_DATA_REQUEST request} section.
  *	<li><i>{@link kAPI_OPT_LOG_TRACE kAPI_OPT_LOG_TRACE}</i>: Trace exceptions, if the
  *		value of this parameter is 1, in the case of an error that triggered an exception,
  *		the error response will also include the call trace.
  *	<li><i>{@link kAPI_REQ_STAMP kAPI_REQ_STAMP}</i>: This parameter should hold the
  *		timestamp [<i>gettimeofday( TRUE )</i>] in which the client has sent the request,
- *		for then wrapper this is the indication that the client expects the
- *		{@link kAPI_DATA_TIMING timing} section for profiling purposes.
+ *		if provided, the service will return the timing information in the
+ *		{@link kAPI_DATA_TIMING timing} section.
  * </ul>
  *
  * The parameters are expected either in <i>GET</i> or <i>POST</i>.
@@ -171,8 +166,13 @@ require_once( kPATH_LIBRARY_SOURCE."CWrapper.inc.php" );
  * parameters are omitted from the request, the service will return an empty response; this
  * is to prevent unnecessary traffic.
  *
- * This class is set up as a server object, it features a single public
- * {@link HandleRequest() method} which handles the request.
+ * Instances of this class can be considered server objects, and can be implemented with
+ * this simple code snippet:
+ *
+ * <code>
+ * $server = new CWrapper();
+ * $server->HandleRequest();
+ * </code>
  *
  * An example of this class implementation can be found in the
  * {@link Wrapper.php Wrapper.php} source file.
@@ -208,8 +208,25 @@ class CWrapper extends CStatusObject
 	/**
 	 * Instantiate class.
 	 *
-	 * The constructor will parse the request and initialise the status to
-	 * {@link kMESSAGE_TYPE_IDLE idle}.
+	 * The constructor does not require any parameter, it will set-up the environment and
+	 * parse the request. The workflow is as follows:
+	 *
+	 * <ul>
+	 *	<li><i>Check required elements</i>: The method will check if all required elements
+	 *		of the request are there, if that is not the case it will just exit.
+	 *	<li><i>Init {@link _InitStatus() status}</i>: The response status will be
+	 *		initialised to the {@link kMESSAGE_TYPE_IDLE idle} state.
+	 *	<li><i>Init {@link _InitOptions() options}</i>: Service options will be initialised.
+	 *	<li><i>Init {@link _InitResources() resources}</i>: Eventual resources are
+	 *		initialised.
+	 *	<li><i>{@link _ParseRequest() Parse} request</i>: The request is parsed.
+	 *	<li><i>{@link _FormatRequest() Format} request</i>: The request is normalised if
+	 *		necessary.
+	 *	<li><i>{@link _ValidateRequest() Validate} request</i>: The request is validated.
+	 * </ul>
+	 *
+	 * This protected interface should be overloaded by derived classes to implement custom
+	 * services.
 	 *
 	 * @access public
 	 */
@@ -1210,7 +1227,7 @@ class CWrapper extends CStatusObject
 			case kDATA_TYPE_JSON:
 				try
 				{
-					return self::JsonEncode( $this->getArrayCopy() );				// ==>
+					return CObject::JsonEncode( $this->getArrayCopy() );				// ==>
 				}
 				catch( Exception $error )
 				{

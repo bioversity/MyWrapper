@@ -28,11 +28,11 @@
 require_once( kPATH_LIBRARY_SOURCE."CDataWrapper.php" );
 
 /**
- * Mongo object.
+ * Mongo container.
  *
- * This include file contains the Mongo {@link CMongoObject object} class definitions.
+ * This include file contains the Mongo {@link CMongoContainer container} class definitions.
  */
-require_once( kPATH_LIBRARY_SOURCE."CMongoObject.php" );
+require_once( kPATH_LIBRARY_SOURCE."CMongoContainer.php" );
 
 /**
  * Mongo query.
@@ -42,18 +42,18 @@ require_once( kPATH_LIBRARY_SOURCE."CMongoObject.php" );
 require_once( kPATH_LIBRARY_SOURCE."CMongoQuery.php" );
 
 /**
- * Local definitions.
- *
- * This include file contains all local definitions to this class.
- */
-require_once( kPATH_LIBRARY_SOURCE."CMongoDataWrapper.inc.php" );
-
-/**
  * Session.
  *
  * This include file contains common session tag definitions.
  */
 require_once( kPATH_LIBRARY_DEFINES."Session.inc.php" );
+
+/**
+ * Local definitions.
+ *
+ * This include file contains all local definitions to this class.
+ */
+require_once( kPATH_LIBRARY_SOURCE."CMongoDataWrapper.inc.php" );
 
 /**
  *	Mongo data wrapper.
@@ -74,7 +74,7 @@ require_once( kPATH_LIBRARY_DEFINES."Session.inc.php" );
  *		reference (<i>MongoDBRef</i>). With this command you will not provide the
  *		{@link kAPI_CONTAINER container} and the {@link kAPI_DATA_QUERY query}, but you
  *		will provide an object reference in the {@link kAPI_DATA_OBJECT kAPI_DATA_OBJECT}
- *		parameter. Remember to {@link CMongoObject::SerialiseObject() serialise} the
+ *		parameter. Remember to {@link CMongoContainer::SerialiseObject() serialise} the
  *		reference before providing it to the wrapper.
  * </ul>
  *
@@ -323,9 +323,7 @@ class CMongoDataWrapper extends CDataWrapper
 		// Convert to native Mongo types.
 		//
 		if( array_key_exists( kAPI_DATA_OBJECT, $_REQUEST ) )
-			$_REQUEST[ kAPI_DATA_OBJECT ]
-				= CMongoObject::SerialiseObject
-					( $_REQUEST[ kAPI_DATA_OBJECT ], FALSE );
+			CMongoContainer::SerialiseObject( $_REQUEST[ kAPI_DATA_OBJECT ] );
 	
 	} // _FormatObject.
 
@@ -600,13 +598,13 @@ class CMongoDataWrapper extends CDataWrapper
 		//
 		// Resolve reference.
 		//
-		$object = MongoDBRef::get( $_REQUEST[ kAPI_DATABASE ],
-								   $_REQUEST[ kAPI_DATA_OBJECT ] );
+		$this[ kAPI_DATA_RESPONSE ] = MongoDBRef::get( $_REQUEST[ kAPI_DATABASE ],
+													   $_REQUEST[ kAPI_DATA_OBJECT ] );
 		
 		//
 		// Set total count.
 		//
-		$count = ( $object )
+		$count = ( $this[ kAPI_DATA_RESPONSE ] )
 			   ? 1
 			   : 0;
 		$this->_OffsetManage( kAPI_DATA_STATUS, kAPI_AFFECTED_COUNT, $count );
@@ -614,7 +612,7 @@ class CMongoDataWrapper extends CDataWrapper
 		//
 		// Return response.
 		//
-		$this[ kAPI_DATA_RESPONSE ] = CMongoObject::SerialiseObject( $object, TRUE );
+		CMongoContainer::SerialiseObject( $this[ kAPI_DATA_RESPONSE ] );
 	
 	} // _Handle_GetObjectByReference.
 
@@ -684,7 +682,7 @@ class CMongoDataWrapper extends CDataWrapper
 			//
 			// Return object in response.
 			//
-			$object = CMongoObject::SerialiseObject( $object, TRUE );
+			CMongoContainer::SerialiseObject( $object );
 			$this[ kAPI_DATA_RESPONSE ] = $object;
 		}
 		
@@ -859,7 +857,8 @@ class CMongoDataWrapper extends CDataWrapper
 				//
 				// Return response.
 				//
-				$this[ kAPI_DATA_RESPONSE ] = CMongoObject::SerialiseObject( $result, TRUE );
+				CMongoContainer::SerialiseObject( $result );
+				$this[ kAPI_DATA_RESPONSE ] = $result;
 				
 			} // Has results.
 			

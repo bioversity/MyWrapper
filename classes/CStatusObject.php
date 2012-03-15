@@ -27,13 +27,6 @@
 require_once( kPATH_LIBRARY_SOURCE."CArrayObject.php" );
 
 /**
- * Flags.
- *
- * This include file contains all flags definitions.
- */
-require_once( kPATH_LIBRARY_DEFINES."Flags.inc.php" );
-
-/**
  *	Status object.
  *
  * This class represents the ancestor of classes that must keep track of states or status.

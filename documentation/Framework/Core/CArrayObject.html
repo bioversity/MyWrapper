@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <html xmlns="http://www.w3.org/1999/xhtml">
 		<head>
 			<!-- template designed by Marco Von Ballmoos -->
 			<title>Docs For Class CArrayObject</title>
 			<link rel="stylesheet" href="../../media/stylesheet.css" />
-			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+			<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
 		</head>
 		<body>
 			<div class="page-body">			
@@ -31,9 +31,7 @@
 <p class="description"><p>This class represents the ancestor of most entity mapped classes, it maps objects to an  array by deriving from ArrayObject and it defines a couple of general  purpose utility static methods.</p><p>This class implements the following interfaces:</p><p><ul><li><em>Offsets</em>: In this class there cannot be an offset with a <em>NULL</em> value,
         the offset itself should be <a href="../../Framework/Core/CArrayObject.html#methodoffsetUnset">deleted</a> in that case. Because of
         this we also override the inherited behaviour by suppressing notices and warnings
-        when <a href="../../Framework/Core/CArrayObject.html#methodoffsetGet">getting</a> non-existant offsets.</li><li><em>JSON encoding</em>: Derived classes will use JSON for web-services, so we provide
-        two static methods to JsonEncode() and JsonDecode()
-        JSON strings allowing for exceptions on errors.</li><li><em>String formatting</em>: We provide a generalised static method to
+        when <a href="../../Framework/Core/CArrayObject.html#methodoffsetGet">getting</a> non-existant offsets.</li><li><em>String formatting</em>: We provide a generalised static method to
         StringNormalise() strings which accepts a bitfield parameter that
         indicates which operation to perform, such as <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_UTF8">UTF8</a>
         encode, <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_LTRIM">left</a> and <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_RTRIM">right</a>
@@ -43,7 +41,7 @@
         <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_HASH">hashing</a>.</li><li><em>Time formatting</em>: We provide a generalised static
         DurationString() to display duration strings.</li></ul></p></p>
 		<p class="notes">
-			Located in <a class="field" href="_classes---CArrayObject.php.html">/classes/CArrayObject.php</a> (line <span class="field">63</span>)
+			Located in <a class="field" href="_classes---CArrayObject.php.html">/classes/CArrayObject.php</a> (line <span class="field">68</span>)
 		</p>
 		
 				
@@ -182,7 +180,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">keys</span> (line <span class="line-number">172</span>)
+		<span class="method-title">keys</span> (line <span class="line-number">177</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -208,7 +206,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetGet</span> (line <span class="line-number">95</span>)
+		<span class="method-title">offsetGet</span> (line <span class="line-number">100</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -252,7 +250,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetSet</span> (line <span class="line-number">115</span>)
+		<span class="method-title">offsetSet</span> (line <span class="line-number">120</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -311,7 +309,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetUnset</span> (line <span class="line-number">147</span>)
+		<span class="method-title">offsetUnset</span> (line <span class="line-number">152</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -367,7 +365,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">values</span> (line <span class="line-number">188</span>)
+		<span class="method-title">values</span> (line <span class="line-number">193</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -393,7 +391,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ManageArrayOffset</span> (line <span class="line-number">318</span>)
+		<span class="method-title">_ManageArrayOffset</span> (line <span class="line-number">323</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -448,7 +446,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ManageOffset</span> (line <span class="line-number">234</span>)
+		<span class="method-title">_ManageOffset</span> (line <span class="line-number">239</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -489,7 +487,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ManageTypedArrayOffset</span> (line <span class="line-number">599</span>)
+		<span class="method-title">_ManageTypedArrayOffset</span> (line <span class="line-number">604</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -634,7 +632,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Wed, 14 Mar 2012 19:44:42 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 15 Mar 2012 16:42:37 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

@@ -27,7 +27,18 @@
 require_once( kPATH_LIBRARY_SOURCE."CQuery.php" );
 
 /**
+ * Mongo container.
+ *
+ * This include file contains the class definitions of the Mongo container.
+ */
+require_once( kPATH_LIBRARY_SOURCE."CMongoContainer.php" );
+
+/**
  *	Mongo query.
+ *
+ * This class extends its {@link CQuery ancestor} to implement a public method that will
+ * convert the current object's query into a query suitable to be submitted to a Mongo
+ * database.
  *
  * This class implements a query that {@link Export() exports} as a Mongo query.
  *
@@ -53,14 +64,20 @@ class CMongoQuery extends CQuery
 	/**
 	 * Export query.
 	 *
-	 * This method will return the query converted to the Mongo format.
+	 * This method will return the current query converted to the Mongo format, it requires
+	 * a Mongo {@link CMongoContainer container} as parameter in order to perform query data
+	 * {@link CMongoContainer::UnserialiseData() conversion}.
+	 *
+	 * The method will return an array suitable to be provided as a MongoDB query.
+	 *
+	 * @param CMongoContainer		$theContainer			Query container.
 	 *
 	 * @access public
 	 * @return array
 	 *
 	 * @throws Exception
 	 */
-	public function Export()
+	public function Export( CMongoContainer $theContainer )
 	{
 		//
 		// Init local storage.
@@ -71,7 +88,7 @@ class CMongoQuery extends CQuery
 		// Traverse object.
 		//
 		foreach( $this as $condition => $statements )
-			$this->_ConvertCondition( $query, $condition, $statements );
+			$this->_ConvertCondition( $query, $condition, $statements, $theContainer );
 		
 		return $query;																// ==>
 	
@@ -154,15 +171,20 @@ class CMongoQuery extends CQuery
 	 *		condition.
 	 *	<li><b>$theCondition</b>: Boolean condition code.
 	 *	<li><b>$theStatements</b>: List of condition statements.
+	 *	<li><b>$theContainer</b>: The container to which the query is directed, this
+	 *		parameter will take care of converting the container specific data types.
 	 * </ul>
 	 *
 	 * @param reference			   &$theQuery				Receives converted query.
 	 * @param string				$theCondition			Boolean condition.
 	 * @param array					$theStatements			Statements list.
+	 * @param CMongoContainer		$theContainer			Query container.
 	 *
 	 * @access private
 	 */
-	protected function _ConvertCondition( &$theQuery, $theCondition, $theStatements )
+	protected function _ConvertCondition( &$theQuery, $theCondition,
+													  $theStatements,
+													  $theContainer )
 	{
 		//
 		// Create condition container.
@@ -189,7 +211,7 @@ class CMongoQuery extends CQuery
 		// Iterate statements.
 		//
 		foreach( $theStatements as $statement )
-			$this->_ConvertStatement( $query, $theCondition, $statement );
+			$this->_ConvertStatement( $query, $theCondition, $statement, $theContainer );
 	
 	} // _ConvertCondition.
 
@@ -210,15 +232,20 @@ class CMongoQuery extends CQuery
 	 *		statement.
 	 *	<li><b>$theCondition</b>: Boolean condition code.
 	 *	<li><b>$theStatement</b>: Statement.
+	 *	<li><b>$theContainer</b>: The container to which the query is directed, this
+	 *		parameter will take care of converting the container specific data types.
 	 * </ul>
 	 *
 	 * @param reference			   &$theQuery				Receives converted statement.
 	 * @param string				$theCondition			Boolean condition.
 	 * @param array					$theStatement			Statement.
+	 * @param CMongoContainer		$theContainer			Query container.
 	 *
 	 * @access private
 	 */
-	protected function _ConvertStatement( &$theQuery, $theCondition, $theStatement )
+	protected function _ConvertStatement( &$theQuery, $theCondition,
+													  $theStatement,
+													  $theContainer )
 	{
 		//
 		// Parse statement.
@@ -246,7 +273,7 @@ class CMongoQuery extends CQuery
 				// Recurse.
 				//
 				$this->_ConvertCondition
-					( $theQuery, $condition, $theStatement[ $condition ] );
+					( $theQuery, $condition, $theStatement[ $condition ], $theContainer );
 				
 				break;
 			
@@ -282,9 +309,7 @@ class CMongoQuery extends CQuery
 				switch( $theStatement[ kAPI_QUERY_OPERATOR ] )
 				{
 					case kOPERATOR_EQUAL:
-						$theStatement[ kAPI_QUERY_DATA ]
-							= CMongoObject::SerialiseNativeObject
-								( $theStatement[ kAPI_QUERY_DATA ], FALSE );
+						$theContainer->UnserialiseData( $theStatement[ kAPI_QUERY_DATA ] );
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:
@@ -302,9 +327,7 @@ class CMongoQuery extends CQuery
 						break;
 						
 					case kOPERATOR_EQUAL_NOT:
-						$theStatement[ kAPI_QUERY_DATA ]
-							= CMongoObject::SerialiseNativeObject
-								( $theStatement[ kAPI_QUERY_DATA ], FALSE );
+						$theContainer->UnserialiseData( $theStatement[ kAPI_QUERY_DATA ] );
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:
@@ -410,9 +433,7 @@ class CMongoQuery extends CQuery
 						break;
 						
 					case kOPERATOR_LESS:
-						$theStatement[ kAPI_QUERY_DATA ]
-							= CMongoObject::SerialiseNativeObject
-								( $theStatement[ kAPI_QUERY_DATA ], FALSE );
+						$theContainer->UnserialiseData( $theStatement[ kAPI_QUERY_DATA ] );
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:
@@ -430,9 +451,7 @@ class CMongoQuery extends CQuery
 						break;
 						
 					case kOPERATOR_LESS_EQUAL:
-						$theStatement[ kAPI_QUERY_DATA ]
-							= CMongoObject::SerialiseNativeObject
-								( $theStatement[ kAPI_QUERY_DATA ], FALSE );
+						$theContainer->UnserialiseData( $theStatement[ kAPI_QUERY_DATA ] );
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:
@@ -450,9 +469,7 @@ class CMongoQuery extends CQuery
 						break;
 						
 					case kOPERATOR_GREAT:
-						$theStatement[ kAPI_QUERY_DATA ]
-							= CMongoObject::SerialiseNativeObject
-								( $theStatement[ kAPI_QUERY_DATA ], FALSE );
+						$theContainer->UnserialiseData( $theStatement[ kAPI_QUERY_DATA ] );
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:
@@ -470,9 +487,7 @@ class CMongoQuery extends CQuery
 						break;
 						
 					case kOPERATOR_GREAT_EQUAL:
-						$theStatement[ kAPI_QUERY_DATA ]
-							= CMongoObject::SerialiseNativeObject
-								( $theStatement[ kAPI_QUERY_DATA ], FALSE );
+						$theContainer->UnserialiseData( $theStatement[ kAPI_QUERY_DATA ] );
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:
@@ -493,7 +508,7 @@ class CMongoQuery extends CQuery
 						$list = Array();
 						foreach( $theStatement[ kAPI_QUERY_DATA ] as $value )
 						{
-							$value = CMongoObject::SerialiseNativeObject( $value, FALSE );
+							$theContainer->UnserialiseData( $value );
 							$list[ (double) (string) $value ] = $value;
 						}
 						ksort( $list );
@@ -522,7 +537,7 @@ class CMongoQuery extends CQuery
 						$list = Array();
 						foreach( $theStatement[ kAPI_QUERY_DATA ] as $value )
 						{
-							$value = CMongoObject::SerialiseNativeObject( $value, FALSE );
+							$theContainer->UnserialiseData( $value );
 							$list[ (double) (string) $value ] = $value;
 						}
 						ksort( $list );
@@ -584,9 +599,8 @@ class CMongoQuery extends CQuery
 					case kOPERATOR_IN:
 						$keys = array_keys( $theStatement[ kAPI_QUERY_DATA ] );
 						foreach( $keys as $key )
-							$theStatement[ kAPI_QUERY_DATA ][ $key ]
-								= CMongoObject::SerialiseNativeObject
-									( $theStatement[ kAPI_QUERY_DATA ][ $key ], FALSE );
+							$theContainer->UnserialiseData
+								( $theStatement[ kAPI_QUERY_DATA ][ $key ] );
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:
@@ -606,9 +620,8 @@ class CMongoQuery extends CQuery
 					case kOPERATOR_NI:
 						$keys = array_keys( $theStatement[ kAPI_QUERY_DATA ] );
 						foreach( $keys as $key )
-							$theStatement[ kAPI_QUERY_DATA ][ $key ]
-								= CMongoObject::SerialiseNativeObject
-									( $theStatement[ kAPI_QUERY_DATA ][ $key ], FALSE );
+							$theContainer->UnserialiseData
+								( $theStatement[ kAPI_QUERY_DATA ][ $key ] );
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:
@@ -628,9 +641,8 @@ class CMongoQuery extends CQuery
 					case kOPERATOR_ALL:
 						$keys = array_keys( $theStatement[ kAPI_QUERY_DATA ] );
 						foreach( $keys as $key )
-							$theStatement[ kAPI_QUERY_DATA ][ $key ]
-								= CMongoObject::SerialiseNativeObject
-									( $theStatement[ kAPI_QUERY_DATA ][ $key ], FALSE );
+							$theContainer->UnserialiseData
+								( $theStatement[ kAPI_QUERY_DATA ][ $key ] );
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:

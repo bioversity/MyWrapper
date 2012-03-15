@@ -41,13 +41,6 @@ require_once( kPATH_LIBRARY_DEFINES."Types.inc.php" );
 require_once( kPATH_LIBRARY_DEFINES."Operators.inc.php" );
 
 /**
- * Offsets.
- *
- * This include file contains all default offset definitions.
- */
-require_once( kPATH_LIBRARY_DEFINES."Offsets.inc.php" );
-
-/**
  * Local definitions.
  *
  * This include file contains all local definitions to this class.

@@ -44,13 +44,12 @@ require_once( kPATH_LIBRARY_SOURCE."CDataWrapper.inc.php" );
 /**
  *	Data wrapper.
  *
- * This class implements a data store wrapper web-service.
- *
- * The main goal of this class is to provide a framework for building concrete data store
+ * This class overloads its {@link CWrapper ancestor} to implement a web service that
+ * wraps a data store, it represents a framework for building concrete data store
  * web-service wrappers.
  *
  * The class introduces a series of new operations and filter options that must be
- * developed in derived classes which implement a specific data store.
+ * implemented in derived classes which implement a specific data store.
  *
  * These new functionalities require a new set of parameters:
  *
@@ -58,47 +57,48 @@ require_once( kPATH_LIBRARY_SOURCE."CDataWrapper.inc.php" );
  *	<li><i>Data store parameters</i>: In order to refer to a specific data store we need
  *		two parameters:
  *	 <ul>
- *		<li><i>{@link kAPI_DATABASE kAPI_DATABASE}</i>: Database, this parameter should
- *			indicate the database or equivalent concept where the data should be stored or
- *			retrieved. This parameter can be compared to the database part of an SQL table
- *			reference (<i>DATABASE</i>.TABLE).
- *		<li><i>{@link kAPI_CONTAINER kAPI_CONTAINER}</i>: Container, this parameter should
- *			indicate which container within the {@link kAPI_DATABASE database} should be
- *			used to store or retrieve the data. This parameter can be compared to the table
- *			part of an SQL table reference (DATABASE.<i>TABLE</i>).
+ *		<li><i>{@link kAPI_DATABASE kAPI_DATABASE}</i>: <i>Database</i>, this parameter
+ *			should indicate the database or equivalent concept where the data should be
+ *			stored or retrieved. This parameter can be compared to the database part of an
+ *			SQL table reference (<i>DATABASE</i>.TABLE).
+ *		<li><i>{@link kAPI_CONTAINER kAPI_CONTAINER}</i>: <i>Container</i>, this parameter
+ *			should indicate which container within the {@link kAPI_DATABASE database} should
+ *			be used to store or retrieve the data. This parameter can be compared to the
+ *			table part of an SQL table reference (DATABASE.<i>TABLE</i>).
  *	 </ul>
  *	<li><i>Paging parameters</i>: Query results may possibly return large amounts of data,
  *		this means that a paging mechanism should be set in place:
  *	 <ul>
- *		<li><i>{@link kAPI_PAGE_START kAPI_PAGE_START}</i>: Page start, this parameter
- *			indicates the starting page or record.
- *		<li><i>{@link kAPI_PAGE_LIMIT kAPI_PAGE_LIMIT}</i>: Number of pages, this parameter
- *			indicates the maximum number of pages or records that the operation should
- *			return.
+ *		<li><i>{@link kAPI_PAGE_START kAPI_PAGE_START}</i>: <i>Page start</i>, this
+ *			parameter indicates the starting page or record.
+ *		<li><i>{@link kAPI_PAGE_LIMIT kAPI_PAGE_LIMIT}</i>: <i>Page count</i>, this
+ *			parameter indicates the maximum number of pages or records that the operation
+ *			should return.
  *	 </ul>
- *	<li><i>Data parameters</i>: To express a query a series of parameters are required:
+ *	<li><i>Data parameters</i>: A query is formed by a series of sections, each of which is
+ *		provided with the following parameters:
  *	 <ul>
- *		<li><i>{@link kAPI_DATA_QUERY kAPI_DATA_QUERY}</i>: Query, this parameter is used
- *			when retrieving data, it represents the filter or selection query; it must be
- *			expressed as one of the query {@link CQuery class} siblings. This parameter can
- *			be compared to the <i>WHERE</i> part of an SQL query.
- *		<li><i>{@link kAPI_DATA_FIELD kAPI_DATA_FIELD}</i>: Fields, this parameter indicates
- *			which elements of the selected objects we want returned. This parameter can be
- *			compared to the <i>SELECT</i> part of an SQL query.
- *		<li><i>{@link kAPI_DATA_SORT kAPI_DATA_SORT}</i>: Sort fields, this parameter
+ *		<li><i>{@link kAPI_DATA_QUERY kAPI_DATA_QUERY}</i>: <i>Query</i>, this parameter is
+ *			used when retrieving data, it represents the filter or selection query; it must
+ *			be expressed as one of the query {@link CQuery class} siblings. This parameter
+ *			can be compared to the <i>WHERE</i> part of an SQL query.
+ *		<li><i>{@link kAPI_DATA_FIELD kAPI_DATA_FIELD}</i>: <i>Fields</i>, this parameter
+ *			indicates which elements of the selected objects we want returned. This
+ *			parameter can be compared to the <i>SELECT</i> part of an SQL query.
+ *		<li><i>{@link kAPI_DATA_SORT kAPI_DATA_SORT}</i>: <i>Sort fields</i>, this parameter
  *			indicates the sort order, the list of data elements by which the result is to
  *			be sorted. This parameter can be compared to the {@link kAPI_DATA_FIELD field}
  *			parameter or to the <i>ORDER BY</i> part of an SQL query.
- *		<li><i>{@link kAPI_DATA_OBJECT kAPI_DATA_OBJECT}</i>: Object data, this parameter
- *			represents the data to be stored in the database, the type should ideally be
- *			abstracted from the data store engine. This parameter can be compared to the
- *			<i>VALUES</i> or <i>SET</i> part of an SQL query.
- *		<li><i>{@link kAPI_DATA_OPTIONS kAPI_DATA_OPTIONS}</i>: Data store options, this
+ *		<li><i>{@link kAPI_DATA_OBJECT kAPI_DATA_OBJECT}</i>: <i>Object data</i>, this
+ *			parameter represents the data to be stored in the database, the type should
+ *			ideally be abstracted from the data store engine. This parameter can be compared
+ *			to the <i>VALUES</i> or <i>SET</i> part of an SQL query.
+ *		<li><i>{@link kAPI_DATA_OPTIONS kAPI_DATA_OPTIONS}</i>: <i>Options</i>, this
  *			parameter represents the options governing data store and retrieve operations.
- *			In general it will be the options when storing data and the actual
+ *			In general it will cover the options when storing data and the actual
  *			implementation is the responsibility of derived classes:
  *		 <ul>
- *			<li><i>{@link kAPI_OPT_SAFE kAPI_OPT_SAFE}</i>: Safe commit option, this tag is
+ *			<li><i>{@link kAPI_OPT_SAFE kAPI_OPT_SAFE}</i>: Safe commit option, this is
  *				relevant only when committing data. If this option is <i>OFF</i>, it means
  *				we want to perform an asynchronous operation: the store operation will occur
  *				in the background and the program execution will not wait for it to finish;
@@ -130,8 +130,9 @@ require_once( kPATH_LIBRARY_SOURCE."CDataWrapper.inc.php" );
  *
  * <ul>
  *	<li><i>{@link kAPI_OP_COUNT kAPI_OP_COUNT}</i>: This operation requests a count, which
- *		is an integer indicating the total number of elements satisfying a
- *		{@link kAPI_DATA_QUERY query}.
+ *		is an integer indicating the total number of elements satisfying the provided
+ *		{@link kAPI_DATA_QUERY query}. This number is not to be confused with the page
+ *		element {@link kAPI_PAGE_COUNT count} described further.
  *	<li><i>{@link kAPI_OP_GET kAPI_OP_GET}</i>: This operation is equivalent to a read
  *		query, it requests a list of objects satisfying the provided
  *		{@link kAPI_DATA_QUERY query}.
@@ -160,12 +161,13 @@ require_once( kPATH_LIBRARY_SOURCE."CDataWrapper.inc.php" );
  *
  * <ul>
  *	<li><i>{@link kAPI_DATA_PAGING kAPI_DATA_PAGING}</i>: Paging section, this section will
- *		return the paging information of the current operation. It will return the provided
- *		{@link kAPI_PAGE_START start} and {@link kAPI_PAGE_LIMIT limit} parameters and:
+ *		return the paging information of the current operation, besides the provided
+ *		{@link kAPI_PAGE_START start} and {@link kAPI_PAGE_LIMIT limit} parameters, it will
+ *		also feature:
  *	 <ul>
- *		<li><i>{@link kAPI_PAGE_COUNT kAPI_PAGE_COUNT}</i>: This element of the section will
- *			hold the actual number of selected objects, this number will be either equal or
- *			smaller than the provided {@link kAPI_PAGE_LIMIT limit} parameter.
+ *		<li><i>{@link kAPI_PAGE_COUNT kAPI_PAGE_COUNT}</i>: This element will hold the
+ *			actual number of returned objects, this number will be either equal or smaller
+ *			than the provided {@link kAPI_PAGE_LIMIT limit} parameter. 
  *	 </ul>
  *	<li><i>{@link kAPI_DATA_RESPONSE kAPI_DATA_RESPONSE}</i>: Response, this section will
  *		hold the results of the operation.
@@ -1039,7 +1041,7 @@ class CDataWrapper extends CWrapper
 				case kDATA_TYPE_JSON:
 					try
 					{
-						$_REQUEST[ $theParameter ] = self::JsonDecode( $encoded );
+						$_REQUEST[ $theParameter ] = CObject::JsonDecode( $encoded );
 					}
 					catch( Exception $error )
 					{

@@ -246,7 +246,7 @@ try
 	//
 	echo( '<h3>Encode</h3>' );
 	
-	$object = array
+	$array = array
 	(
 		kTAG_ID_NATIVE => array
 		(
@@ -283,14 +283,16 @@ try
 			kTAG_DATA => md5( 'PIPPO' )
 		)
 	);
-	echo( 'Decoded<pre>' ); print_r( $object ); echo( '</pre>' );
-	echo( '<i>$test->Encode( $object );</i><br>' );
-	$test->Encode( $object );
-	echo( 'Encoded<pre>' ); print_r( $object ); echo( '</pre>' );
+//	$object = new ArrayObject( $array );
+	$object = $array;
+	echo( 'Serialised<pre>' ); print_r( $object ); echo( '</pre>' );
+	echo( '<i>$test->UnserialiseObject( $object );</i><br>' );
+	$test->UnserialiseObject( $object );
+	echo( 'Unserialised<pre>' ); print_r( $object ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	echo( '<i>$test->Decode( $object );</i><br>' );
-	$test->Decode( $object );
+	echo( '<i>$test->SerialiseObject( $object );</i><br>' );
+	$test->SerialiseObject( $object );
 	echo( 'Decoded<pre>' ); print_r( $object ); echo( '</pre>' );
 	echo( '<hr>' );
 }
