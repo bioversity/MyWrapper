@@ -363,14 +363,21 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_DecodeParameter</span> (line <span class="line-number">1023</span>)
+		<span class="method-title">_DecodeParameter</span> (line <span class="line-number">1112</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Decode parameter.</p>
-<p class="description"><p>This method can be used to decode a parameter according to the provided format.</p><p>The method will return the decoded parameter.</p></p>
+<p class="description"><p>This method can be used to decode a parameter according to the provided format,  <a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_JSON">JSON</a> or <a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_PHP">PHP</a>.</p><p>The method will return the decoded parameter.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> kDATA_TYPE_JSON kDATA_TYPE_PHP</li>
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_FormatObject">CDataWrapper::_FormatObject()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_FormatOptions">CDataWrapper::_FormatOptions()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_FormatSort">CDataWrapper::_FormatSort()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_FormatQuery">CDataWrapper::_FormatQuery()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Core/CObject.html#methodJsonDecode">CObject::JsonDecode()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_FormatFields">CDataWrapper::_FormatFields()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -394,14 +401,17 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FormatFields</span> (line <span class="line-number">649</span>)
+		<span class="method-title">_FormatFields</span> (line <span class="line-number">712</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Format fields.</p>
 <p class="description"><p>This method will format the request fields.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_FIELD">kAPI_DATA_FIELD</a></li>
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_FormatRequest">CDataWrapper::_FormatRequest()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_DecodeParameter">CDataWrapper::_DecodeParameter()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -420,14 +430,17 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FormatObject</span> (line <span class="line-number">677</span>)
+		<span class="method-title">_FormatObject</span> (line <span class="line-number">748</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Format object.</p>
 <p class="description"><p>This method will format the request object.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_OBJECT">kAPI_DATA_OBJECT</a></li>
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_FormatRequest">CDataWrapper::_FormatRequest()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_DecodeParameter">CDataWrapper::_DecodeParameter()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -454,14 +467,17 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FormatOptions</span> (line <span class="line-number">691</span>)
+		<span class="method-title">_FormatOptions</span> (line <span class="line-number">766</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Format options.</p>
 <p class="description"><p>This method will format the request options.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_OPTIONS">kAPI_DATA_OPTIONS</a></li>
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_FormatRequest">CDataWrapper::_FormatRequest()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_DecodeParameter">CDataWrapper::_DecodeParameter()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -480,14 +496,17 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FormatQuery</span> (line <span class="line-number">635</span>)
+		<span class="method-title">_FormatQuery</span> (line <span class="line-number">694</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Format query.</p>
 <p class="description"><p>This method will format the request query.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_QUERY">kAPI_DATA_QUERY</a></li>
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_FormatRequest">CDataWrapper::_FormatRequest()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_DecodeParameter">CDataWrapper::_DecodeParameter()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -514,7 +533,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FormatRequest</span> (line <span class="line-number">308</span>)
+		<span class="method-title">_FormatRequest</span> (line <span class="line-number">327</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -522,6 +541,13 @@
 <p class="description"><p>This method should perform any needed formatting before the request will be handled.</p><p>In this class we handle the parameters to be decoded</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_FormatSort">CDataWrapper::_FormatSort()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_FormatRequest">CDataWrapper::_FormatRequest()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_FormatRequest">CDataWrapper::_FormatRequest()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_FormatQuery">CDataWrapper::_FormatQuery()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_FormatObject">CDataWrapper::_FormatObject()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_FormatOptions">CDataWrapper::_FormatOptions()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_FormatFields">CDataWrapper::_FormatFields()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -554,14 +580,17 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FormatSort</span> (line <span class="line-number">663</span>)
+		<span class="method-title">_FormatSort</span> (line <span class="line-number">730</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Format sort.</p>
 <p class="description"><p>This method will format the request sort.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_SORT">kAPI_DATA_SORT</a></li>
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_FormatRequest">CDataWrapper::_FormatRequest()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_DecodeParameter">CDataWrapper::_DecodeParameter()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -580,13 +609,14 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_InitOptions</span> (line <span class="line-number">202</span>)
+		<span class="method-title">_InitOptions</span> (line <span class="line-number">204</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Initialise options.</p>
 <p class="description"><p>We overload this method to normalise the <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_PAGING">paging</a> options.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> kAPI_PAGE_START kAPI_PAGE_LIMIT kAPI_DATA_PAGING</li>
 				<li><span class="field">access:</span> protected</li>
 			</ul>
 	
@@ -612,14 +642,17 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseContainer</span> (line <span class="line-number">470</span>)
+		<span class="method-title">_ParseContainer</span> (line <span class="line-number">505</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Parse container.</p>
 <p class="description"><p>This method will parse the request container.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> kAPI_CONTAINER kAPI_DATA_REQUEST</li>
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_ParseRequest">CDataWrapper::_ParseRequest()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CWrapper.html#method_OffsetManage">CWrapper::_OffsetManage()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -638,14 +671,17 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseDatabase</span> (line <span class="line-number">444</span>)
+		<span class="method-title">_ParseDatabase</span> (line <span class="line-number">475</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Parse database.</p>
 <p class="description"><p>This method will parse the request database.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> kAPI_DATABASE kAPI_DATA_REQUEST</li>
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_ParseRequest">CDataWrapper::_ParseRequest()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CWrapper.html#method_OffsetManage">CWrapper::_OffsetManage()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -664,14 +700,17 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseFields</span> (line <span class="line-number">522</span>)
+		<span class="method-title">_ParseFields</span> (line <span class="line-number">565</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Parse fields.</p>
 <p class="description"><p>This method will parse the request fields.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> kAPI_DATA_FIELD kAPI_DATA_REQUEST</li>
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_ParseRequest">CDataWrapper::_ParseRequest()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CWrapper.html#method_OffsetManage">CWrapper::_OffsetManage()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -690,14 +729,17 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseObject</span> (line <span class="line-number">574</span>)
+		<span class="method-title">_ParseObject</span> (line <span class="line-number">625</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Parse object.</p>
 <p class="description"><p>This method will parse the request object.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> kAPI_DATA_OBJECT kAPI_DATA_REQUEST</li>
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_ParseRequest">CDataWrapper::_ParseRequest()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CWrapper.html#method_OffsetManage">CWrapper::_OffsetManage()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -716,14 +758,17 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseOptions</span> (line <span class="line-number">600</span>)
+		<span class="method-title">_ParseOptions</span> (line <span class="line-number">655</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Parse options.</p>
 <p class="description"><p>This method will parse the request options.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> kAPI_DATA_OPTIONS kAPI_DATA_REQUEST</li>
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_ParseRequest">CDataWrapper::_ParseRequest()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CWrapper.html#method_OffsetManage">CWrapper::_OffsetManage()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -742,14 +787,17 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParsePaging</span> (line <span class="line-number">380</span>)
+		<span class="method-title">_ParsePaging</span> (line <span class="line-number">408</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Parse paging.</p>
 <p class="description"><p>This method will parse the request pager.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> kAPI_PAGE_START kAPI_PAGE_LIMIT kAPI_DATA_PAGING kAPI_DATA_REQUEST</li>
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_ParseRequest">CDataWrapper::_ParseRequest()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CWrapper.html#method_OffsetManage">CWrapper::_OffsetManage()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -768,14 +816,17 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseQuery</span> (line <span class="line-number">496</span>)
+		<span class="method-title">_ParseQuery</span> (line <span class="line-number">535</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Parse query.</p>
 <p class="description"><p>This method will parse the request query.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> kAPI_DATA_QUERY kAPI_DATA_REQUEST</li>
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_ParseRequest">CDataWrapper::_ParseRequest()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CWrapper.html#method_OffsetManage">CWrapper::_OffsetManage()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -794,7 +845,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseRequest</span> (line <span class="line-number">273</span>)
+		<span class="method-title">_ParseRequest</span> (line <span class="line-number">285</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -802,6 +853,16 @@
 <p class="description"><p>This method should be used to parse the request, check the request elements and make  any necessary adjustments before the request is <a href="../../Framework/Wrappers/CDataWrapper.html#method_ValidateRequest">validated</a>.</p><p>This is also where the relevant request elements will be logged to the relative  response sections.</p><p>The method is called by the <a href="../../Framework/Wrappers/CWrapper.html#method__construct">constructor</a> and should be  overloaded to handle derived classes custom elements.</p><p>In this class we handle the paging request.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_ParseRequest">CDataWrapper::_ParseRequest()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_ParseSort">CDataWrapper::_ParseSort()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_ParseQuery">CDataWrapper::_ParseQuery()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_ParseRequest">CDataWrapper::_ParseRequest()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_ParsePaging">CDataWrapper::_ParsePaging()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_ParseDatabase">CDataWrapper::_ParseDatabase()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_ParseFields">CDataWrapper::_ParseFields()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_ParseObject">CDataWrapper::_ParseObject()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_ParseOptions">CDataWrapper::_ParseOptions()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_ParseContainer">CDataWrapper::_ParseContainer()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -826,14 +887,17 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseSort</span> (line <span class="line-number">548</span>)
+		<span class="method-title">_ParseSort</span> (line <span class="line-number">595</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Parse sort.</p>
 <p class="description"><p>This method will parse the request sort.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> kAPI_DATA_SORT kAPI_DATA_REQUEST</li>
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_ParseRequest">CDataWrapper::_ParseRequest()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CWrapper.html#method_OffsetManage">CWrapper::_OffsetManage()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -852,14 +916,16 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateFields</span> (line <span class="line-number">883</span>)
+		<span class="method-title">_ValidateFields</span> (line <span class="line-number">963</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Validate field selection reference.</p>
 <p class="description"><p>This method can be used to check whether the provided  <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_FIELD">field</a> parameter is valid.</p><p>In this class we ensure that the fields list is an array.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_FIELD">kAPI_DATA_FIELD</a></li>
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_ValidateRequest">CDataWrapper::_ValidateRequest()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -878,13 +944,15 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateOperation</span> (line <span class="line-number">715</span>)
+		<span class="method-title">_ValidateOperation</span> (line <span class="line-number">793</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Validate request operation.</p>
 <p class="description"><p>This method can be used to check whether the provided  <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">operation</a> parameter is valid.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> kAPI_OPERATION kAPI_OP_SET kAPI_OP_INSERT</li>
+				<li><span class="field">see:</span> kAPI_DATABASE kAPI_CONTAINER kAPI_DATA_OBJECT kAPI_DATA_QUERY</li>
 				<li><span class="field">access:</span> protected</li>
 			</ul>
 	
@@ -918,14 +986,16 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateOptions</span> (line <span class="line-number">969</span>)
+		<span class="method-title">_ValidateOptions</span> (line <span class="line-number">1053</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Validate sort selection reference.</p>
 <p class="description"><p>This method can be used to check whether the provided  <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_SORT">sort</a> parameter is valid.</p><p>In this class we ensure that the sort list is an array.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_OPTIONS">kAPI_DATA_OPTIONS</a></li>
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_ValidateRequest">CDataWrapper::_ValidateRequest()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -944,7 +1014,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateRequest</span> (line <span class="line-number">343</span>)
+		<span class="method-title">_ValidateRequest</span> (line <span class="line-number">367</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -952,6 +1022,11 @@
 <p class="description"><p>This method should check that the request is valid and that all required parameters  have been sent.</p><p>In this class we check the <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">format</a> and  <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">operation</a> codes (their presence is checked by the  <a href="../../Framework/Wrappers/CWrapper.html#method__construct">constructor</a>.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_ValidateRequest">CDataWrapper::_ValidateRequest()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_ValidateSort">CDataWrapper::_ValidateSort()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_ValidateRequest">CDataWrapper::_ValidateRequest()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_ValidateOptions">CDataWrapper::_ValidateOptions()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_ValidateFields">CDataWrapper::_ValidateFields()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -984,14 +1059,16 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateSort</span> (line <span class="line-number">926</span>)
+		<span class="method-title">_ValidateSort</span> (line <span class="line-number">1008</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Validate sort selection reference.</p>
 <p class="description"><p>This method can be used to check whether the provided  <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_SORT">sort</a> parameter is valid.</p><p>In this class we ensure that the sort list is an array.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_SORT">kAPI_DATA_SORT</a></li>
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_ValidateRequest">CDataWrapper::_ValidateRequest()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -1170,7 +1247,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Thu, 15 Mar 2012 19:25:54 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 15 Mar 2012 20:13:18 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

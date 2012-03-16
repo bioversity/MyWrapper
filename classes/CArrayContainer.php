@@ -103,6 +103,8 @@ class CArrayContainer extends CContainer
 	 *
 	 * @access public
 	 * @return mixed
+	 *
+	* @uses ManageMember()
 	 */
 	public function Container( $theValue = NULL, $getOld = FALSE )
 	{

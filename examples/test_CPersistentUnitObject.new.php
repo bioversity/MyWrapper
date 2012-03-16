@@ -39,12 +39,6 @@ require_once( kPATH_LIBRARY_SOURCE."CPersistentUnitObject.php" );
 //
 class MyClass extends CPersistentUnitObject
 {
-	public function Reference( $theValue, $theOperation = NULL, $getOld = FALSE )
-	{
-		return $this->_ManageObjectList
-				( 'REFERENCE', $theValue, $theOperation, $getOld );
-	}
-	
 	protected function _PrepareStore( &$theContainer, &$theIdentifier )
 	{
 		$this->_isInited( TRUE );
@@ -280,124 +274,6 @@ try
 	echo( '<i>New object</i><br>' );
 	echo( '<i>$test = MyClass::NewObject( $mcontainer, 1 );</i><br>' );
 	$test = MyClass::NewObject( $mcontainer, 1 );
-	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	//
-	// Reference list.
-	//
-	echo( '<h3>Reference list</h3>' );
-	
-	//
-	// Create references.
-	//
-	$ref1 = new MyClass( array( 'Name' => 'Reference 1' ) );
-	$id1 = $ref1->Commit( $mcontainer );
-	$ref2 = new MyClass( array( 'Name' => 'Reference 2' ) );
-	$id2 = $ref2->Commit( $mcontainer );
-	$ref3 = new MyClass( array( 'Name' => 'Reference 3' ) );
-	$id3 = $ref3->Commit( $mcontainer );
-	
-	echo( '<i>References</i><br>' );
-	echo( '1:<pre>' ); print_r( $ref1 ); echo( '</pre>' );
-	echo( '2:<pre>' ); print_r( $ref2 ); echo( '</pre>' );
-	echo( '3:<pre>' ); print_r( $ref3 ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	echo( '<i>$res = $test->Reference( $ref1, TRUE );</i><br>' );
-	$res = $test->Reference( $ref1, TRUE );
-	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	echo( '<i>$res = $test->Reference( $ref2, TRUE );</i><br>' );
-	$res = $test->Reference( $ref2, TRUE );
-	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	echo( '<i>$res = $test->Reference( $id1 );</i><br>' );
-	$res = $test->Reference( $id1 );
-	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	echo( '<i>$res = $test->Reference( $ref2 );</i><br>' );
-	$res = $test->Reference( $ref2 );
-	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	echo( '<i>$res = $test->Reference( $id1, FALSE );</i><br>' );
-	$res = $test->Reference( $id1, FALSE );
-	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
-	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	echo( '<i>$res = $test->Reference( $ref2, FALSE, TRUE );</i><br>' );
-	$res = $test->Reference( $ref2, FALSE, TRUE );
-	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
-	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	//
-	// Typed reference list.
-	//
-	echo( '<h3>Typed reference list</h3>' );
-	
-	//
-	// Create typed references.
-	//
-	$ref1 = array( kTAG_TYPE => 'PARENT', kTAG_DATA => $id1 );
-	$ref2 = array( kTAG_TYPE => 'CHILD', kTAG_DATA => $ref2 );
-	$ref3 = array( kTAG_TYPE => 'CHILD', kTAG_DATA => $id3 );
-	$ref4 = array( kTAG_TYPE => 'CHILD', kTAG_DATA => $id1 );
-	
-	echo( '<i>References</i><br>' );
-	echo( '1:<pre>' ); print_r( $ref1 ); echo( '</pre>' );
-	echo( '2:<pre>' ); print_r( $ref2 ); echo( '</pre>' );
-	echo( '3:<pre>' ); print_r( $ref3 ); echo( '</pre>' );
-	echo( '4:<pre>' ); print_r( $ref4 ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	echo( '<i>$res = $test->Reference( $ref1, TRUE );</i><br>' );
-	$res = $test->Reference( $ref1, TRUE );
-	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	echo( '<i>$res = $test->Reference( $ref2, TRUE );</i><br>' );
-	$res = $test->Reference( $ref2, TRUE );
-	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	echo( '<i>$res = $test->Reference( $ref3, TRUE );</i><br>' );
-	$res = $test->Reference( $ref3, TRUE );
-	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	echo( '<i>$res = $test->Reference( $ref1 );</i><br>' );
-	$res = $test->Reference( $ref1 );
-	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
-	echo( '<i>$res = $test->Reference( $ref2 );</i><br>' );
-	$res = $test->Reference( $ref2 );
-	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
-	echo( '<i>$res = $test->Reference( $ref3 );</i><br>' );
-	$res = $test->Reference( $ref3 );
-	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
-	echo( '<i>$res = $test->Reference( $ref4 );</i><br>' );
-	$res = $test->Reference( $ref4 );
-	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	echo( '<i>$res = $test->Reference( $ref1, FALSE );</i><br>' );
-	$res = $test->Reference( $ref1, FALSE );
-	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( '<i>$res = $test->Reference( $ref2, FALSE );</i><br>' );
-	$res = $test->Reference( $ref2, FALSE );
-	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( '<i>$res = $test->Reference( $ref3, FALSE );</i><br>' );
-	$res = $test->Reference( $ref3, FALSE );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 }

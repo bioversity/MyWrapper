@@ -99,6 +99,8 @@ abstract class CContainer extends CObject
 	 * @param mixed					$theContainer		Native persistent container.
 	 *
 	 * @access public
+	 *
+	 * @uses Container()
 	 */
 	public function __construct( $theContainer = NULL )
 	{
@@ -145,6 +147,8 @@ abstract class CContainer extends CObject
 	 *
 	 * @access public
 	 * @return mixed
+	 *
+	 * @uses ManageMember()
 	 */
 	public function Container( $theValue = NULL, $getOld = FALSE )
 	{
@@ -236,6 +240,8 @@ abstract class CContainer extends CObject
 	 *
 	 * @access public
 	 * @return mixed
+	 *
+	 * @uses _Commit()
 	 */
 	public function Commit( &$theObject,
 							 $theIdentifier = NULL,
@@ -294,6 +300,8 @@ abstract class CContainer extends CObject
 	 *
 	 * @access public
 	 * @return mixed
+	 *
+	 * @uses _Load()
 	 */
 	public function Load( $theIdentifier, $theModifiers = kFLAG_DEFAULT )
 	{
@@ -331,6 +339,8 @@ abstract class CContainer extends CObject
 	 *
 	 * @access public
 	 * @return mixed
+	 *
+	 * @uses _Delete()
 	 */
 	public function Delete( $theIdentifier, $theModifiers = kFLAG_DEFAULT )
 	{

@@ -348,67 +348,72 @@ class CPersistentUnitObject extends CPersistentObject
 	 *==================================================================================*/
 
 	/**
-	 * Manage a list of objects.
+	 * Manage a list of object references.
 	 *
-	 * This method can be used to manage a list of objects derived from this class, in
-	 * particular, an array in which each element is either a string representing the
-	 * {@link kTAG_ID_NATIVE identifier} of the object, or the object itself.
-	 *
-	 * Each element of the array is identified either by the value itself, if it is a string
-	 * representing the object {@link kTAG_ID_NATIVE identifier}, or by the
-	 * {@link kTAG_ID_NATIVE identifier} if the element is an object itself.
-	 *
-	 * The array is numerically indexed and this method will ensure it remains an array.
-	 *
-	 * The parameters to this method are:
+	 * This method can be used to manage a list of object references, in which each element
+	 * is either:
 	 *
 	 * <ul>
-	 *	<li><b>$theOffset</b>: This parameter represents the offset in the current object
-	 *		that holds the list of objects. This value may not be empty.
-	 *	<li><b>$theValue</b>: This parameter may represent either the
-	 *		{@link kTAG_ID_NATIVE identifier} of an element in the list, if the operation
-	 *		involves retrieving or deleting, or the actual contents if the operation
-	 *		involves adding or replacing into the list. Values provided as instances derived
-	 *		from this class will be converted to the {@link kTAG_ID_NATIVE identifier} they
-	 *		hold if the operation involves retrieving or deleting; if these objects do not
-	 *		have this {@link kTAG_ID_NATIVE identifier}, the method will attempt to use
-	 *		the result of the {@link _id() _id} method; if also this returns a <i>NULL</i>
-	 *		value we shall raise an exception.
-	 *		If you provide an array in this parameter, the method will assume you want to
-	 *		use the elements of the array as keys or values, in that case it will send each
-	 *		element to this method using the same other parameters.
-	 *	<li><b>$theOperation</b>: The operation to perform:
+	 *	<li><i>Scalar</i>: A scalar or object representing:
 	 *	 <ul>
-	 *		<li><i>NULL</i>: Return the element {@link kTAG_ID_NATIVE identified} by the
-	 *			second parameter.
-	 *		<li><i>FALSE</i>: Delete the element {@link kTAG_ID_NATIVE identified} by the
-	 *			second parameter, if the next parameter evaluates to <i>TRUE</i>, the method
-	 *			will return the deleted element if available.
-	 *		<li><i>other</i>: Any other value means that we want to add/replace the element
-	 *			provided in the second parameter. This means that the method will scan all
-	 *			the elements of the array and replace the element matching the
-	 *			{@link kTAG_ID_NATIVE identifier}, or append the element if there is no
-	 *			match.
+	 *		<li><i>The object</i>: The actual referenced object.
+	 *		<li><i>The object reference</i>: An object reference structure or a scalar
+	 *			representing the object {@link kTAG_ID_NATIVE identifier}.
 	 *	 </ul>
-	 *	<li><b>$getOld</b>: Determines what the method will return when deleting elements:
+	 *		or:
+	 *	<li><i>Array</i>: A structure composed of two items:
 	 *	 <ul>
-	 *		<li><i>TRUE</i>: Return the value of the offset <i>before</i> it was eventually
-	 *			modified or deleted.
-	 *		<li><i>FALSE</i>: Return the value of the offset <i>after</i> it was eventually
-	 *			modified or deleted.
+	 *		<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: This offset represents the type or
+	 *			class of the reference.
+	 *		<li><i>{@link kTAG_DATA kTAG_DATA}</i>: This offset represents the actual object
+	 *			or object reference.
 	 *	 </ul>
 	 * </ul>
 	 *
-	 * Since the list managed by this method is a numeric keyed array, it is important that
-	 * elements of the array have the {@link kTAG_ID_NATIVE identifier}, or deleting
-	 * elements from the list may prove problematic.
+	 * The reference list is numerically indexed array and this method will ensure it
+	 * remains so.
 	 *
-	 * In general, objects holding such lists will have all their elements stored as
-	 * instances derived from this class {@link Commit() committed} and converted to a
-	 * string containing the object {@link kTAG_ID_NATIVE identifier}.
+	 * The method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theOffset</b>: This parameter represents the offset in the current object
+	 *		that holds the list of references. This value may not be empty.
+	 *	<li><b>$theValue</b>: This parameter represents either the search key in the list
+	 *		when retrieving or deleting, or the reference when replacing or adding. If you
+	 *		provide an array, it means that the elements may have a
+	 *		{@link kTAG_TYPE kTAG_TYPE} offset and that the reference or object must be
+	 *		found in the {@link kTAG_DATA kTAG_DATA} offset. When matching, if the
+	 *		{@link kTAG_TYPE kTAG_TYPE} offset is not provided, it means that only those
+	 *		elements that do not have a {@link kTAG_TYPE kTAG_TYPE} offset will be selected
+	 *		for matching. If the types match, the method will use the
+	 *		{@link _ObjectIndex() _ObjectIndex} method to match the references, please refer
+	 *		to its documentation for more information. If the provided value is not an
+	 *		array, it means that the reference list does not feature types, so matches will
+	 *		only be performed on the reference.
+	 *	<li><b>$theOperation</b>: The operation to perform:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Return the element matched by the previous parameter.
+	 *		<li><i>FALSE</i>: Delete the element matched by the previous parameter and
+	 *			return it.
+	 *		<li><i>other</i>: Any other value means that we want to add to the list the
+	 *			element provided in the previous parameter, either appending it if there
+	 *			was no matching element, or by replacing a matching element. The method will
+	 *			return either the replaced element or the new one.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return when deleting or
+	 *		replacing:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the deleted or replaced element.
+	 *		<li><i>FALSE</i>: Return the replacing element or <i>NULL</i> when deleting.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * The {@link _ObjectIndex() method} used to match the list elements expects
+	 * {@link kTAG_ID_NATIVE identifiers} in the references or objects, if these are not
+	 * there, there is no way to discern duplicates.
 	 *
 	 * @param string				$theOffset			Offset.
-	 * @param mixed					$theValue			Index or value.
+	 * @param mixed					$theValue			Reference or instance.
 	 * @param mixed					$theOperation		Operation.
 	 * @param boolean				$getOld				TRUE get old value.
 	 *
@@ -421,7 +426,7 @@ class CPersistentUnitObject extends CPersistentObject
 		//
 		// Check offset.
 		//
-		if( (string) $theOffset === NULL )
+		if( $theOffset === NULL )
 			throw new CException
 					( "Invalid offset",
 					  kERROR_INVALID_PARAMETER,
@@ -429,25 +434,74 @@ class CPersistentUnitObject extends CPersistentObject
 					  array( 'Offset' => $theOffset ) );						// !@! ==>
 		
 		//
-		// Handle arrays.
+		// Check reference or instance.
 		//
-		if( is_array( $theValue ) )
+		if( $theValue === NULL )
+			throw new CException
+					( "Invalid reference or instance",
+					  kERROR_INVALID_PARAMETER,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Reference' => $theValue ) );						// !@! ==>
+		
+		//
+		// Generate recursive calls.
+		//
+		if( is_array( $theValue )
+		 && (! array_key_exists( kTAG_DATA, $theValue )) )
 		{
 			//
-			// Recurse.
+			// Iterate arguments.
 			//
 			$result = Array();
 			foreach( $theValue as $value )
 				$result[]
 					= $this->_ManageObjectList
-						( $theOffset, $value, $theOperation, $getOld );
+						( $theOffset, $theValue, $theOperation, $getOld );
 			
 			return $result;															// ==>
 		
-		} // Provided list of objects.
+		} // Execute list.
 		
 		//
-		// Handle retrieve.
+		// Get typed reference matchers.
+		//
+		if( ( is_array( $theValue )
+		   || ($theValue instanceof ArrayObject) )
+		 && array_key_exists( kTAG_DATA, (array) $theValue ) )
+		{
+			//
+			// Set match type.
+			//
+			$type = ( array_key_exists( kTAG_TYPE, (array) $theValue ) )
+				  ? (string) $theValue[ kTAG_TYPE ]
+				  : NULL;
+			
+			//
+			// Set identifier.
+			//
+			$ident = $this->_ObjectIndex( $theValue[ kTAG_DATA ] );
+		
+		} // Typed reference.
+		
+		//
+		// Get untyped reference matchers.
+		//
+		else
+		{
+			//
+			// Reset type.
+			//
+			$type = FALSE;
+			
+			//
+			// Set reference identifier.
+			//
+			$ident = $this->_ObjectIndex( $theValue );
+		
+		} // Reference matcher.
+		
+		//
+		// RETRIEVE.
 		//
 		if( $theOperation === NULL )
 		{
@@ -457,25 +511,67 @@ class CPersistentUnitObject extends CPersistentObject
 			if( ($save = $this->offsetGet( $theOffset )) !== NULL )
 			{
 				//
-				// Get index.
-				//
-				if( ($index = $this->_ObjectIndex( $theValue )) === NULL )
-					throw new CException
-							( "Missing value or index",
-							  kERROR_INVALID_PARAMETER,
-							  kMESSAGE_TYPE_ERROR,
-							  array( 'Value' => $theValue ) );					// !@! ==>
-				
-				//
 				// Iterate list.
 				//
 				foreach( $save as $value )
 				{
 					//
-					// Match instance.
+					// Untyped match.
 					//
-					if( $index == $this->_ObjectIndex( $value ) )
-						return $value;												// ==>
+					if( $type === FALSE )
+					{
+						//
+						// Match identifier.
+						//
+						if( $ident == $this->_ObjectIndex( $value ) )
+							return $value;											// ==>
+					
+					} // Untyped match.
+					
+					//
+					// Typed match.
+					//
+					else
+					{
+						//
+						// Select matching structures.
+						//
+						if( ( is_array( $value )
+						   || ($value instanceof ArrayObject) )
+						 && array_key_exists( kTAG_DATA, (array) $value ) )
+						{
+							//
+							// Match type.
+							//
+							if( ($type !== NULL)
+							 && array_key_exists( kTAG_TYPE, (array) $value )
+							 && ($type == $value[ kTAG_TYPE ]) )
+							{
+								//
+								// Match identifier.
+								//
+								if( $ident == $this->_ObjectIndex( $value[ kTAG_DATA ] ) )
+									return $value;									// ==>
+							
+							} // Matched type.
+							
+							//
+							// Match missing type.
+							//
+							elseif( ($type === NULL)
+								 && (! array_key_exists( kTAG_TYPE, (array) $value )) )
+							{
+								//
+								// Match identifier.
+								//
+								if( $ident == $this->_ObjectIndex( $value[ kTAG_DATA ] ) )
+									return $value;									// ==>
+							
+							} // Matched missing type.
+						
+						} // Matched structure.
+					
+					} // Typed match.
 				
 				} // Iterating list.
 			
@@ -496,16 +592,6 @@ class CPersistentUnitObject extends CPersistentObject
 			if( ($save = $this->offsetGet( $theOffset )) !== NULL )
 			{
 				//
-				// Get index.
-				//
-				if( ($index = $this->_ObjectIndex( $theValue )) === NULL )
-					throw new CException
-							( "Missing value or index",
-							  kERROR_INVALID_PARAMETER,
-							  kMESSAGE_TYPE_ERROR,
-							  array( 'Value' => $theValue ) );					// !@! ==>
-				
-				//
 				// Iterate list.
 				//
 				$found = NULL;
@@ -513,23 +599,121 @@ class CPersistentUnitObject extends CPersistentObject
 				foreach( $save as $value )
 				{
 					//
-					// Match.
+					// Untyped match.
 					//
-					if( $index == $this->_ObjectIndex( $value ) )
-						$found = $value;
+					if( $type === FALSE )
+					{
+						//
+						// Match identifier.
+						//
+						if( $ident == $this->_ObjectIndex( $value ) )
+						{
+							//
+							// Save match.
+							//
+							$found = $value;
+							
+							//
+							// Iterate.
+							//
+							continue;										// =>
+						
+						} // matched identifier.
+					
+					} // Untyped match.
 					
 					//
-					// Keep element.
+					// Typed match.
 					//
 					else
-						$new[] = $value;
+					{
+						//
+						// Select matching structures.
+						//
+						if( ( is_array( $value )
+						   || ($value instanceof ArrayObject) )
+						 && array_key_exists( kTAG_DATA, (array) $value ) )
+						{
+							//
+							// Match type.
+							//
+							if( ($type !== NULL)
+							 && array_key_exists( kTAG_TYPE, (array) $value )
+							 && ($type == $value[ kTAG_TYPE ]) )
+							{
+								//
+								// Match identifier.
+								//
+								if( $ident == $this->_ObjectIndex( $value[ kTAG_DATA ] ) )
+								{
+									//
+									// Save match.
+									//
+									$found = $value;
+									
+									//
+									// Iterate.
+									//
+									continue;								// =>
+								
+								} // matched identifier.
+							
+							} // Matched type.
+							
+							//
+							// Match missing type.
+							//
+							elseif( ($type === NULL)
+								 && (! array_key_exists( kTAG_TYPE, (array) $value )) )
+							{
+								//
+								// Match identifier.
+								//
+								if( $ident == $this->_ObjectIndex( $value[ kTAG_DATA ] ) )
+								{
+									//
+									// Save match.
+									//
+									$found = $value;
+									
+									//
+									// Iterate.
+									//
+									continue;								// =>
+								
+								} // matched identifier.
+							
+							} // Matched missing type.
+						
+						} // Matched structure.
+					
+					} // Typed match.
+					
+					//
+					// Save noon-matching elements.
+					//
+					$new[] = $value;
 				
 				} // Iterating list.
 				
 				//
 				// Replace list.
 				//
-				$this->offsetSet( $theOffset, $new );
+				if( $found !== NULL )
+				{
+					//
+					// Remove offset.
+					//
+					if( ! count( $new ) )
+						$this->offsetUnset( $theOffset );
+					
+					//
+					// Replace offset.
+					//
+					else
+						$this->offsetSet( $theOffset, $new );
+				
+				} // Matched.
 				
 				if( $getOld )
 					return $found;													// ==>
@@ -543,72 +727,134 @@ class CPersistentUnitObject extends CPersistentObject
 		//
 		// Replace value.
 		//
-		if( $this->offsetExists( $theOffset ) )
+		$found = NULL;
+		if( ($save = $this->offsetGet( $theOffset )) !== NULL )
 		{
-			//
-			// Init local storage.
-			//
-			$index = $this->_ObjectIndex( $theValue );
-			$save = $this->offsetGet( $theOffset );
-
 			//
 			// Iterate list.
 			//
 			foreach( $save as $key => $value )
 			{
 				//
-				// Match.
+				// Untyped match.
 				//
-				if( $index == $this->_ObjectIndex( $value ) )
+				if( $type === FALSE )
 				{
 					//
-					// Save element.
+					// Match identifier.
 					//
-					$found = $value;
-					
-					//
-					// Replace element.
-					//
-					$save[ $key ] = $theValue;
-					
-					//
-					// Replace list.
-					//
-					$this->offsetSet( $theOffset, $save );
-					
-					if( $getOld )
-						return $found;												// ==>
-					
-					return $theValue;												// ==>
+					if( $ident == $this->_ObjectIndex( $value ) )
+					{
+						//
+						// Save replaced.
+						//
+						$found = $value;
+						
+						//
+						// Replace.
+						//
+						$save[ $key ] = $theValue;
+						
+						break;												// =>
+						
+					} // Matched.
 				
-				} // Matched.
+				} // Untyped match.
+				
+				//
+				// Typed match.
+				//
+				else
+				{
+					//
+					// Select matching structures.
+					//
+					if( ( is_array( $value )
+					   || ($value instanceof ArrayObject) )
+					 && array_key_exists( kTAG_DATA, (array) $value ) )
+					{
+						//
+						// Match type.
+						//
+						if( ($type !== NULL)
+						 && array_key_exists( kTAG_TYPE, (array) $value )
+						 && ($type == $value[ kTAG_TYPE ]) )
+						{
+							//
+							// Match identifier.
+							//
+							if( $ident == $this->_ObjectIndex( $value[ kTAG_DATA ] ) )
+							{
+								//
+								// Save replaced.
+								//
+								$found = $value;
+								
+								//
+								// Replace.
+								//
+								$save[ $key ] = $theValue;
+								
+								break;										// =>
+								
+							} // Matched.
+						
+						} // Matched type.
+						
+						//
+						// Match missing type.
+						//
+						elseif( ($type === NULL)
+							 && (! array_key_exists( kTAG_TYPE, (array) $value )) )
+						{
+							//
+							// Match identifier.
+							//
+							if( $ident == $this->_ObjectIndex( $value[ kTAG_DATA ] ) )
+							{
+								//
+								// Save replaced.
+								//
+								$found = $value;
+								
+								//
+								// Replace.
+								//
+								$save[ $key ] = $theValue;
+								
+								break;										// =>
+								
+							} // Matched.
+						
+						} // Matched missing type.
+					
+					} // Matched structure.
+				
+				} // Typed match.
 			
 			} // Iterating list.
 			
 			//
-			// Append element.
+			// Append new element.
 			//
-			$save[] = $theValue;
-			
-			//
-			// Replace list.
-			//
-			$this->offsetSet( $theOffset, $save );
-			
-			if( $getOld )
-				return NULL;														// ==>
-			
-			return $theValue;														// ==>
+			if( $found === NULL )
+				$save[] = $theValue;
 		
 		} // List exists.
 		
 		//
+		// Build list.
+		//
+		else
+			$save = array( $theValue );
+		
+		//
 		// Create list.
 		//
-		$this->offsetSet( $theOffset, array( $theValue ) );
+		$this->offsetSet( $theOffset, $save );
 		
 		if( $getOld )
-			return NULL;															// ==>
+			return $found;															// ==>
 		
 		return $theValue;															// ==>
 	
@@ -622,54 +868,67 @@ class CPersistentUnitObject extends CPersistentObject
 	/**
 	 * Return object index.
 	 *
-	 * This method is {@link _ManageObjectList() used} to determine an object index, the
-	 * method accepts a single parameter that may be:
+	 * This method is a utility that can be used to extract an identifier from a value, it
+	 * is used when adding objects or object references to a list that is not organised by
+	 * object {@link kTAG_ID_NATIVE ID}.
+	 *
+	 * This method will attempt ti infer the object identifier by performing the following
+	 * steps:
 	 *
 	 * <ul>
-	 *	<li><i>CPersistentUnitObject</i>: In this case we interpret the parameter to be an
-	 *		instance of the object for which we want to retrieve the identifier:
+	 *	<li><i>Array</i> or <i>ArrayObject</i>: In this case we interpret the parameter to
+	 *		be either an instance of the object itself, or a reference to the object, we
+	 *		check in order if any of the following can be found:
 	 *	 <ul>
 	 *		<li><i>{@link kTAG_ID_NATIVE kTAG_ID_NATIVE}</i>: We first check whether the
 	 *			object has that offset and use it is so.
-	 *		<li><i>{@link _id() _id}</i>: We then check the result of this method and use it
-	 *			if not <i>NULL</i>.
+	 *		<li><i>{@link kTAG_ID_REFERENCE kTAG_ID_REFERENCE}</i>: We then check whether
+	 *			the structure contains a reference identifier.
+	 *		<li><i>{@link _id() _id}</i>: If the parameter is an object derived from this
+	 *			class, we try to call this method and use its result.
 	 *	 </ul>
-	 *	<li><i>string</i>: In this case we interpret the parameter to be the
-	 *		{@link kTAG_ID_NATIVE identifier} of an object and cast it to a string.
-	 *	<li><i>other</i>: Any other value will be cast to a string.
+	 *	<li><i>other</i>: If all of the above fails we simply return the provided value.
 	 * </ul>
+	 *
+	 * Note that the method assumes that the returned value must be convertable to a string,
+	 * if that is not the case you may get into trouble.
 	 *
 	 * @param mixed					$theValue			Object or identifier.
 	 *
 	 * @access protected
-	 * @return string
+	 * @return string|NULL
 	 */
 	protected function _ObjectIndex( $theValue )
 	{
 		//
-		// Check if there.
+		// Return empty.
 		//
 		if( $theValue === NULL )
 			return NULL;															// ==>
 		
 		//
-		// Handle instance.
+		// Try identifier.
+		//
+		if( ( is_array( $theValue )
+		   && array_key_exists( kTAG_ID_NATIVE, $theValue ) )
+		 || ( ($theValue instanceof ArrayObject)
+		   && $theValue->offsetExists( kTAG_ID_NATIVE ) ) )
+			return (string) $theValue[ kTAG_ID_NATIVE ];							// ==>
+
+		//
+		// Try reference identifier.
+		//
+		if( ( is_array( $theValue )
+		   && array_key_exists( kTAG_ID_REFERENCE, $theValue ) )
+		 || ( ($theValue instanceof ArrayObject)
+		   && $theValue->offsetExists( kTAG_ID_REFERENCE ) ) )
+			return (string) $theValue[ kTAG_ID_REFERENCE ];							// ==>
+		
+		//
+		// Try identifier value.
 		//
 		if( $theValue instanceof self )
-		{
-			//
-			// Try identifier.
-			//
-			if( $theValue->offsetExists( kTAG_ID_NATIVE ) )
-				return (string) $theValue->offsetGet( kTAG_ID_NATIVE );				// ==>
-			
-			//
-			// Try index method.
-			//
-			if( $theValue->_IsInited() )
-				return $theValue->_id();											// ==>
-		
-		} // Instance.
+			return (string) $theValue->_id();										// ==>
 		
 		return (string) $theValue;													// ==>
 	

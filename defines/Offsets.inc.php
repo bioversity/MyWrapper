@@ -95,12 +95,15 @@ define( "kTAG_DATABASE_REFERENCE",				'$db' );
  *======================================================================================*/
 
 /**
- * Parent tag.
+ * Reference tag.
  *
- * This offset indicates which objects can be considered parents of the current object, or
- * of which objects the current one can be considered a subclass of.
+ * This offset indicates a list of references to other objects. If the context of these
+ * references is univoque, the list may be represented as a simple array; if each reference
+ * may have a different contect, this could be implemented as an array of
+ * {@link kTAG_TYPE type} and {@link kTAG_DATA data} elements in which the first one defines
+ * the context.
  */
-define( "kTAG_PARENT",							':PARENT' );
+define( "kTAG_REF",								':REF' );
 
 /**
  * Class tag.

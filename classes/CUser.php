@@ -30,6 +30,16 @@ require_once( kPATH_LIBRARY_SOURCE."CEntity.php" );
 /**
  * User ancestor.
  *
+ * This class overloads its {@link CEntity ancestor} to implement a user entity..
+ 
+ * Users are entities that are used for authentication purposes, they share the same
+ * attributes as their parent {@link CEntity class}, such as {@link Name() name},
+ * {@link Mail address}, etc., and they add one, {@link kOFFSET_PASSWORD kOFFSET_PASSWORD},
+ * which represents the user {@link Password() password}.
+ *
+ * User {@link CEntity entities} are not differentiated as individuals or organisations, the
+ * distinction
+ *
  * This class is the ancestor of user classes in this library, it implements an object that
  * represents a basic user. This object features a minimum set of properties that can be set
  * via {@link Offsets.inc.php offsets}.

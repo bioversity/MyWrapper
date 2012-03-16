@@ -93,7 +93,8 @@ try
 	//
 	echo( '<h3>Persistence</h3>' );
 
-	$container = array( kOFFSET_PASSWORD => 'Secret',
+	$container = array( kTAG_CODE => 'Milko',
+						kOFFSET_PASSWORD => 'Secret',
 						kTAG_NAME => 'Milko A. Škofič',
 						kOFFSET_EMAIL => 'm.skofic@cgiar.org' );
 	echo( '<i>$test = new CUser( $container );</i><br>' );

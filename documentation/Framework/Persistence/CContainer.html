@@ -244,7 +244,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Constructor.png" />
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">103</span>)
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">105</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -252,6 +252,7 @@
 <p class="description"><p>You instantiate the class with a native data store, the method expects a single  parameter that will be handled specifically by specialised derived classes.</p><p>This method should only be overloaded if you need to set a default value, or if you  need to make specific initialisation before this method sets the  <a href="../../Framework/Persistence/CContainer.html#methodContainer">container</a>.</p><p>You should check the type of the provided parameter in the  <a href="../../Framework/Persistence/CContainer.html#methodContainer">Container()</a> method rather than here.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Persistence/CContainer.html#methodContainer">CContainer::Container()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -283,7 +284,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Commit</span> (line <span class="line-number">240</span>)
+		<span class="method-title">Commit</span> (line <span class="line-number">246</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -322,6 +323,7 @@
         requested operation, this interface must be implemented by derived classes.</li></ul></p><p>By default we assume the provided object to be either an array or an ArrayObject.</p><p>The actual operation will be performed by a protected <a href="../../Framework/Persistence/CContainer.html#method_Commit">method</a>.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Persistence/CContainer.html#method_Commit">CContainer::_Commit()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -363,7 +365,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Container</span> (line <span class="line-number">149</span>)
+		<span class="method-title">Container</span> (line <span class="line-number">153</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -371,6 +373,8 @@
 <p class="description"><p>This method can be used to manage the persistent container, it accepts a single  parameter which represents either the container or the requested operation,  depending on its value:</p><p><ul><li><em>NULL</em>: Return the current value.</li><li><em>other</em>: Set the value with the provided parameter.</li></ul></p><p>The second parameter is a boolean which if <em>TRUE</em> will return the <em>old</em>  value when setting a new value; if <em>FALSE</em>, it will return the newly set value.</p><p>One is not allowed to delete the container.</p><p>In derived classes you should overload this method to check if the provided container  is of the correct type.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Persistence/CContainer.html#method__construct">CContainer::__construct()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Core/CObject.html#methodManageMember">CObject::ManageMember()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -409,7 +413,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Delete</span> (line <span class="line-number">335</span>)
+		<span class="method-title">Delete</span> (line <span class="line-number">345</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -418,6 +422,7 @@
 		the operation. In this class we do not use this parameter.</li></ul></p><p>The method should return the deleted object, or <em>NULL</em> if not found.</p><p>In this class we simply call the protected <a href="../../Framework/Persistence/CContainer.html#method_Delete">method</a> which must be  implemented by derived classes. You should only overload this method if you need to  initialise or process the identifier before passing it to the protected interface.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Persistence/CContainer.html#method_Delete">CContainer::_Delete()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -452,7 +457,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Load</span> (line <span class="line-number">298</span>)
+		<span class="method-title">Load</span> (line <span class="line-number">306</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -461,6 +466,7 @@
 		the operation. In this class we do not use this parameter.</li></ul></p><p>The method should return the found object, or <em>NULL</em> if not found.</p><p>In this class we simply call the protected <a href="../../Framework/Persistence/CContainer.html#method_Load">method</a> which must be  implemented by derived classes. You should only overload this method if you need to  initialise or process the identifier before passing it to the protected interface.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Persistence/CContainer.html#method_Load">CContainer::_Load()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -495,7 +501,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/AbstractMethod.png" />
-		<span class="method-title">_Commit</span> (line <span class="line-number">432</span>)
+		<span class="method-title">_Commit</span> (line <span class="line-number">442</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -525,6 +531,7 @@
 	<ul class="tags">
 				<li><span class="field">abstract:</span> </li>
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Persistence/CContainer.html#methodCommit">CContainer::Commit()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -566,7 +573,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Container</span> (line <span class="line-number">368</span>)
+		<span class="method-title">_Container</span> (line <span class="line-number">378</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -592,7 +599,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/AbstractMethod.png" />
-		<span class="method-title">_Delete</span> (line <span class="line-number">484</span>)
+		<span class="method-title">_Delete</span> (line <span class="line-number">494</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -601,6 +608,7 @@
 	<ul class="tags">
 				<li><span class="field">abstract:</span> </li>
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Persistence/CContainer.html#methodDelete">CContainer::Delete()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -639,7 +647,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/AbstractMethod.png" />
-		<span class="method-title">_Load</span> (line <span class="line-number">458</span>)
+		<span class="method-title">_Load</span> (line <span class="line-number">468</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -648,6 +656,7 @@
 	<ul class="tags">
 				<li><span class="field">abstract:</span> </li>
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Persistence/CContainer.html#methodLoad">CContainer::Load()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -703,7 +712,7 @@
 
 	
 	<p class="notes" id="credit">
-		Documentation generated on Thu, 15 Mar 2012 19:25:54 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 15 Mar 2012 20:13:18 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

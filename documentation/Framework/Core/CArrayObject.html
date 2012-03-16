@@ -168,7 +168,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">keys</span> (line <span class="line-number">177</span>)
+		<span class="method-title">keys</span> (line <span class="line-number">179</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -202,6 +202,9 @@
 <p class="description"><p>This method should return the value corresponding to the provided offset.</p><p>This method is overloaded to prevent notices from being triggered when seeking  non-existing offsets.</p><p>In this class no offset may have a <em>NULL</em> value, if this method returns a  <em>NULL</em> value, it means that the offset doesn't exist.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Core/CArrayObject.html#method_ManageTypedArrayOffset">CArrayObject::_ManageTypedArrayOffset()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Core/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -230,7 +233,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetSet</span> (line <span class="line-number">120</span>)
+		<span class="method-title">offsetSet</span> (line <span class="line-number">122</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -238,6 +241,10 @@
 <p class="description"><p>This method should set the provided value corresponding to the provided offset.</p><p>This method is overloaded to prevent setting <em>NULL</em> values: if this is the case,  the method will <a href="../../Framework/Core/CArrayObject.html#methodoffsetUnset">delete</a> the offset.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Core/CArrayObject.html#method_ManageTypedArrayOffset">CArrayObject::_ManageTypedArrayOffset()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Core/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Core/CArrayObject.html#methodoffsetUnset">CArrayObject::offsetUnset()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -285,7 +292,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetUnset</span> (line <span class="line-number">152</span>)
+		<span class="method-title">offsetUnset</span> (line <span class="line-number">154</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -293,6 +300,10 @@
 <p class="description"><p>This method should reset the value corresponding to the provided offset.</p><p>We overload this method to prevent notices on non-existing offsets.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Core/CArrayObject.html#method_ManageTypedArrayOffset">CArrayObject::_ManageTypedArrayOffset()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Core/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Core/CArrayObject.html#methodoffsetSet">CArrayObject::offsetSet()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -337,7 +348,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">values</span> (line <span class="line-number">193</span>)
+		<span class="method-title">values</span> (line <span class="line-number">195</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -363,7 +374,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ManageArrayOffset</span> (line <span class="line-number">323</span>)
+		<span class="method-title">_ManageArrayOffset</span> (line <span class="line-number">333</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -386,6 +397,9 @@
 			modified.</li></ul></li></ul></p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Core/CArrayObject.html#methodoffsetUnset">CArrayObject::offsetUnset()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Core/CArrayObject.html#methodoffsetSet">CArrayObject::offsetSet()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Core/CArrayObject.html#methodoffsetGet">CArrayObject::offsetGet()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -418,7 +432,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ManageOffset</span> (line <span class="line-number">239</span>)
+		<span class="method-title">_ManageOffset</span> (line <span class="line-number">245</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -430,6 +444,9 @@
 			modified.</li></ul></li></ul></p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Core/CArrayObject.html#methodoffsetUnset">CArrayObject::offsetUnset()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Core/CArrayObject.html#methodoffsetSet">CArrayObject::offsetSet()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Core/CArrayObject.html#methodoffsetGet">CArrayObject::offsetGet()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -459,7 +476,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ManageTypedArrayOffset</span> (line <span class="line-number">604</span>)
+		<span class="method-title">_ManageTypedArrayOffset</span> (line <span class="line-number">618</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -491,6 +508,9 @@
             modified.</li></ul></li></ul></p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Core/CArrayObject.html#methodoffsetUnset">CArrayObject::offsetUnset()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Core/CArrayObject.html#methodoffsetSet">CArrayObject::offsetSet()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Core/CArrayObject.html#methodoffsetGet">CArrayObject::offsetGet()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -604,7 +624,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Thu, 15 Mar 2012 19:25:53 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 15 Mar 2012 20:13:18 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

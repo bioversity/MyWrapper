@@ -116,6 +116,8 @@ class CArrayObject extends ArrayObject
 	 * @param string|NULL			$theValue			Value to set at offset.
 	 *
 	 * @access public
+	 *
+	 * @uses offsetUnset()
 	 */
 	public function offsetSet( $theOffset, $theValue )
 	{
@@ -235,6 +237,10 @@ class CArrayObject extends ArrayObject
 	 *
 	 * @access protected
 	 * @return mixed
+	 *
+	 * @uses offsetGet()
+	 * @uses offsetSet()
+	 * @uses offsetUnset()
 	 */
 	protected function _ManageOffset( $theOffset, $theValue = NULL, $getOld = FALSE )
 	{
@@ -319,6 +325,10 @@ class CArrayObject extends ArrayObject
 	 *
 	 * @access protected
 	 * @return mixed
+	 *
+	 * @uses offsetGet()
+	 * @uses offsetSet()
+	 * @uses offsetUnset()
 	 */
 	protected function _ManageArrayOffset( $theOffset, $theValue = NULL,
 													   $theOperation = NULL,
@@ -527,7 +537,7 @@ class CArrayObject extends ArrayObject
 
 	 
 	/*===================================================================================
-	 *	_ManageTypedArrayOffset																*
+	 *	_ManageTypedArrayOffset															*
 	 *==================================================================================*/
 
 	/**
@@ -600,6 +610,10 @@ class CArrayObject extends ArrayObject
 	 *
 	 * @access protected
 	 * @return mixed
+	 *
+	 * @uses offsetGet()
+	 * @uses offsetSet()
+	 * @uses offsetUnset()
 	 */
 	protected function _ManageTypedArrayOffset( $theOffset, $theType = NULL,
 															$theData = NULL,
