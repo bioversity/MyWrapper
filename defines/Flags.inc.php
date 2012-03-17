@@ -145,9 +145,64 @@ define( "kFLAG_PERSIST_WRITE_MASK",		0x00000070 );		// Write mask.
 /**
  * Persist mask.
  *
- * This value masks the access flags that imply modification of the collection.
+ * This value masks all the persistence action flags.
  */
 define( "kFLAG_PERSIST_MASK",			0x000000F0 );		// Persist mask.
+
+/*=======================================================================================
+ *	REFERENCE OPTION FLAGS																*
+ *======================================================================================*/
+
+/**
+ * Reference: Identifier.
+ *
+ * This bitfield value indicates that we intend to include
+ * {@link kTAG_ID_REFERENCE identifier} information to the reference, this is used when
+ * {@link CConttainer::Reference() converting} a {@link CPersistentObject persistent} object
+ * to a reference.
+ */
+define( "kFLAG_REFERENCE_IDENTIFIER",	0x00000100 );		// Identifier.
+
+/**
+ * Reference: Container.
+ *
+ * This bitfield value indicates that we intend to include
+ * {@link kTAG_CONTAINER_REFERENCE container} information to the reference, this is used
+ * when {@link CConttainer::Reference() converting} a {@link CPersistentObject persistent}
+ * object to a reference.
+ */
+define( "kFLAG_REFERENCE_CONTAINER",	0x00000200 );		// Container.
+
+/**
+ * Reference: Database.
+ *
+ * This bitfield value indicates that we intend to include
+ * {@link kTAG_DATABASE_REFERENCE database} information to the reference, this is used
+ * when {@link CConttainer::Reference() converting} a {@link CPersistentObject persistent}
+ * object to a reference.
+ */
+define( "kFLAG_REFERENCE_DATABASE",		0x00000400 );		// Database.
+
+/**
+ * Reference: Class.
+ *
+ * This bitfield value indicates that we intend to include {@link kTAG_CLASS class}
+ * information to the reference, this is used when
+ * {@link CConttainer::Reference() converting} a {@link CPersistentObject persistent}
+ * object to a reference.
+ */
+define( "kFLAG_REFERENCE_CLASS",		0x00000800 );		// Class.
+
+/*=======================================================================================
+ *	REFERENCE OPTION FLAGS - MASKS														*
+ *======================================================================================*/
+
+/**
+ * Reference mask.
+ *
+ * This value masks all the reference option flags.
+ */
+define( "kFLAG_REFERENCE_MASK",			0x00000F00 );		// Reference options mask.
 
 /*=======================================================================================
  *	STRING MODIFIER FLAGS																*

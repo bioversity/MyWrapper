@@ -1,0 +1,204 @@
+\hypertarget{class_c_array_container}{\section{C\-Array\-Container Class Reference}
+\label{class_c_array_container}\index{C\-Array\-Container@{C\-Array\-Container}}
+}
+Inheritance diagram for C\-Array\-Container\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_c_array_container}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_c_array_container_a10e83176c2a2ee0d9fe53ca9e51b0ca0}{\-\_\-\-\_\-construct} (\$the\-Container=N\-U\-L\-L)
+\item 
+\hyperlink{class_c_array_container_ac63eeb55a8c374668c5c443fb6e27df3}{Container} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_array_container_ac89f1c53cc6680107cfb4703bd5103ca}{Commit} (\&\$the\-Object, \$the\-Identifier=N\-U\-L\-L, \$the\-Modifiers=k\-F\-L\-A\-G\-\_\-\-P\-E\-R\-S\-I\-S\-T\-\_\-\-R\-E\-P\-L\-A\-C\-E)
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_c_array_container_aed066fb29aae224fe77ce3d6e4540cac}{\-\_\-\-Commit} (\&\$the\-Object, \$the\-Identifier, \$the\-Modifiers)
+\item 
+\hyperlink{class_c_array_container_ac970cd81e09a1b87c6cad960de74856d}{\-\_\-\-Load} (\$the\-Identifier, \$the\-Modifiers)
+\item 
+\hyperlink{class_c_array_container_a7a6026166105a3d9281c3556836844bc}{\-\_\-\-Delete} (\$the\-Identifier, \$the\-Modifiers)
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_c_array_container_a10e83176c2a2ee0d9fe53ca9e51b0ca0}{\index{C\-Array\-Container@{C\-Array\-Container}!\-\_\-\-\_\-construct@{\-\_\-\-\_\-construct}}
+\index{\-\_\-\-\_\-construct@{\-\_\-\-\_\-construct}!CArrayContainer@{C\-Array\-Container}}
+\subsubsection[{\-\_\-\-\_\-construct}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\-Array\-Container\-::\-\_\-\-\_\-construct} (
+\begin{DoxyParamCaption}
+\item[{\$}]{the\-Container = {\ttfamily NULL}}
+\end{DoxyParamCaption}
+)}}\label{class_c_array_container_a10e83176c2a2ee0d9fe53ca9e51b0ca0}
+Instantiate class.
+
+We \hyperlink{class_c_container_af2fc42b4d7b5f71e0f127c941440b1aa}{overload} this method to provide a default native container, which, in this case, will be an empty array.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Container} & Native persistent container.\\
+\hline
+\end{DoxyParams}
+public 
+
+Reimplemented from \hyperlink{class_c_container_af2fc42b4d7b5f71e0f127c941440b1aa}{C\-Container}.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_c_array_container_aed066fb29aae224fe77ce3d6e4540cac}{\index{C\-Array\-Container@{C\-Array\-Container}!\-\_\-\-Commit@{\-\_\-\-Commit}}
+\index{\-\_\-\-Commit@{\-\_\-\-Commit}!CArrayContainer@{C\-Array\-Container}}
+\subsubsection[{\-\_\-\-Commit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\-Array\-Container\-::\-\_\-\-Commit} (
+\begin{DoxyParamCaption}
+\item[{\&\$}]{the\-Object, }
+\item[{\$}]{the\-Identifier, }
+\item[{\$}]{the\-Modifiers}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{class_c_array_container_aed066fb29aae224fe77ce3d6e4540cac}
+Commit provided object.
+
+We implement this method to handle array or Array\-Object stores and we ensure provided options are followed.
+
+By default the object must be an array or Array\-Object, any other type will raise an \hyperlink{}{exception}.
+
+The provided identifier will be cast to a string. If it is {\itshape N\-U\-L\-L\/}, it means that the object is to be appended in the container and the method assumes the \hyperlink{class_c_array_container_ac89f1c53cc6680107cfb4703bd5103ca}{caller} has determined that it is an \hyperlink{}{insert} operation.
+
+Although the \hyperlink{class_c_array_container_ac89f1c53cc6680107cfb4703bd5103ca}{caller} accepts the \hyperlink{}{delete} option, in this class we do not, so we shall raise an \hyperlink{}{exception}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \&\$the\-Object} & Object to commit. \\
+\hline
+mixed & {\em \$the\-Identifier} & Object identifier. \\
+\hline
+bitfield & {\em \$the\-Modifiers} & Commit modifiers.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+mixed 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_c_container_a95c13ac30a01bd5ee684fe1baf0d8d43}{C\-Container}.
+
+\hypertarget{class_c_array_container_a7a6026166105a3d9281c3556836844bc}{\index{C\-Array\-Container@{C\-Array\-Container}!\-\_\-\-Delete@{\-\_\-\-Delete}}
+\index{\-\_\-\-Delete@{\-\_\-\-Delete}!CArrayContainer@{C\-Array\-Container}}
+\subsubsection[{\-\_\-\-Delete}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\-Array\-Container\-::\-\_\-\-Delete} (
+\begin{DoxyParamCaption}
+\item[{\$}]{the\-Identifier, }
+\item[{\$}]{the\-Modifiers}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{class_c_array_container_a7a6026166105a3d9281c3556836844bc}
+Delete object.
+
+We implement this method to handle array or Array\-Object stores.
+
+The method will cast the identifier to a string.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Identifier} & Object identifier. \\
+\hline
+bitfield & {\em \$the\-Modifiers} & Load modifiers.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+mixed 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_c_container_adb859efe2ce642d29d3bff48a806789d}{C\-Container}.
+
+\hypertarget{class_c_array_container_ac970cd81e09a1b87c6cad960de74856d}{\index{C\-Array\-Container@{C\-Array\-Container}!\-\_\-\-Load@{\-\_\-\-Load}}
+\index{\-\_\-\-Load@{\-\_\-\-Load}!CArrayContainer@{C\-Array\-Container}}
+\subsubsection[{\-\_\-\-Load}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\-Array\-Container\-::\-\_\-\-Load} (
+\begin{DoxyParamCaption}
+\item[{\$}]{the\-Identifier, }
+\item[{\$}]{the\-Modifiers}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{class_c_array_container_ac970cd81e09a1b87c6cad960de74856d}
+Load object.
+
+We implement this method to handle array or Array\-Object stores.
+
+The method will cast the identifier to a string.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Identifier} & Object identifier. \\
+\hline
+bitfield & {\em \$the\-Modifiers} & Load modifiers.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+mixed 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_c_container_a93d34640379c1debc9542609bf4b34e9}{C\-Container}.
+
+\hypertarget{class_c_array_container_ac89f1c53cc6680107cfb4703bd5103ca}{\index{C\-Array\-Container@{C\-Array\-Container}!Commit@{Commit}}
+\index{Commit@{Commit}!CArrayContainer@{C\-Array\-Container}}
+\subsubsection[{Commit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\-Array\-Container\-::\-Commit} (
+\begin{DoxyParamCaption}
+\item[{\&\$}]{the\-Object, }
+\item[{\$}]{the\-Identifier = {\ttfamily NULL}, }
+\item[{\$}]{the\-Modifiers = {\ttfamily kFLAG\-\_\-PERSIST\-\_\-REPLACE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_array_container_ac89f1c53cc6680107cfb4703bd5103ca}
+Commit provided object.
+
+We \hyperlink{class_c_container_a4847dc676d1f7704e75f8981e927508a}{overload} this method to check whether the provided object is either an array or an Array\-Object.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \&\$the\-Object} & Object to commit. \\
+\hline
+mixed & {\em \$the\-Identifier} & Object identifier. \\
+\hline
+bitfield & {\em \$the\-Modifiers} & Commit modifiers.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_c_container_a4847dc676d1f7704e75f8981e927508a}{C\-Container}.
+
+\hypertarget{class_c_array_container_ac63eeb55a8c374668c5c443fb6e27df3}{\index{C\-Array\-Container@{C\-Array\-Container}!Container@{Container}}
+\index{Container@{Container}!CArrayContainer@{C\-Array\-Container}}
+\subsubsection[{Container}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\-Array\-Container\-::\-Container} (
+\begin{DoxyParamCaption}
+\item[{\$}]{the\-Value = {\ttfamily NULL}, }
+\item[{\$}]{get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_array_container_ac63eeb55a8c374668c5c443fb6e27df3}
+Manage persistent container.
+
+We \hyperlink{class_c_container_a7d10fa70dfa381cb95e66c265e2ca113}{overload} this method to ensure that the provided container is either an array or an Array\-Object.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Value} & Persistent container or operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+\hyperlink{class_c_object_a9b8dccdadcf4fea58f915bd9b228e23e}{Manage\-Member()} 
+
+Reimplemented from \hyperlink{class_c_container_a7d10fa70dfa381cb95e66c265e2ca113}{C\-Container}.
+
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/\-Library/\-Web\-Server/\-Library/wrapper/classes/C\-Array\-Container.\-php\end{DoxyCompactItemize}

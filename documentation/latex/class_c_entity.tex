@@ -1,0 +1,405 @@
+\hypertarget{class_c_entity}{\section{C\-Entity Class Reference}
+\label{class_c_entity}\index{C\-Entity@{C\-Entity}}
+}
+Inheritance diagram for C\-Entity\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=6.000000cm]{class_c_entity}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_c_entity_ac087e5b3d14357f452ab531db5f6a7e9}{\-\_\-\-\_\-construct} (\$the\-Container=N\-U\-L\-L, \$the\-Identifier=N\-U\-L\-L)
+\item 
+\hyperlink{class_c_entity_a78127acb8de5ae1e7238566396dd1c17}{Type} (\$the\-Value=N\-U\-L\-L, \$the\-Operation=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_entity_a2b3cf77715881c3d8b3a6d4d80042e7c}{Code} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_entity_ace5878c009baf09d85c8ca115c48dbb0}{Name} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_entity_a44b389a90107f4c8aadcc4eb08e1ad9b}{Mail} (\$the\-Type=N\-U\-L\-L, \$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_entity_acf65b6fb2f4195f6c649b4ca506c7899}{Email} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_entity_ac69e40a0ee4489abfcc7241d98b07532}{Phone} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_entity_ac8fc97b7adfc8ce547db5f93a9b913a8}{Parent} (\$the\-Value, \$the\-Operation=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_entity_a193cf3d19057021bb6e779644730eac8}{offset\-Set} (\$the\-Offset, \$the\-Value)
+\item 
+\hyperlink{class_c_entity_a887a87fc716e36a0d4c1477dbaf5bb67}{offset\-Unset} (\$the\-Offset)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_c_entity_a260a4c309aff31a42d0e23b372f9b209}{Default\-Container} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_c_entity_a991f328223b1b00b37e9028b16f7a7c8}{\-\_\-\-Prepare\-Store} (\&\$the\-Container, \&\$the\-Identifier)
+\item 
+\hyperlink{class_c_entity_ac518d3885e2c6f30051b8c5ec59e50a3}{\-\_\-id} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_c_entity_ac087e5b3d14357f452ab531db5f6a7e9}{\index{C\-Entity@{C\-Entity}!\-\_\-\-\_\-construct@{\-\_\-\-\_\-construct}}
+\index{\-\_\-\-\_\-construct@{\-\_\-\-\_\-construct}!CEntity@{C\-Entity}}
+\subsubsection[{\-\_\-\-\_\-construct}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\-Entity\-::\-\_\-\-\_\-construct} (
+\begin{DoxyParamCaption}
+\item[{\$}]{the\-Container = {\ttfamily NULL}, }
+\item[{\$}]{the\-Identifier = {\ttfamily NULL}}
+\end{DoxyParamCaption}
+)}}\label{class_c_entity_ac087e5b3d14357f452ab531db5f6a7e9}
+Instantiate class.
+
+We \hyperlink{class_c_persistent_object_a10d0ce97598da33eaf305eb43e418255}{overload} the constructor to initialise the \hyperlink{class_c_status_object_a8429102e4f52f7558649b64f4e673a69}{inited} \hyperlink{}{flag} if the \hyperlink{class_c_entity_a2b3cf77715881c3d8b3a6d4d80042e7c}{code} and \hyperlink{class_c_entity_ace5878c009baf09d85c8ca115c48dbb0}{name} elements are set.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Container} & Persistent container. \\
+\hline
+mixed & {\em \$the\-Identifier} & Object identifier.\\
+\hline
+\end{DoxyParams}
+public 
+
+Reimplemented from \hyperlink{class_c_persistent_object_a10d0ce97598da33eaf305eb43e418255}{C\-Persistent\-Object}.
+
+
+
+Reimplemented in \hyperlink{class_c_user_a728ac6fd50a9f9e18dfe2fa547d5c798}{C\-User}.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_c_entity_ac518d3885e2c6f30051b8c5ec59e50a3}{\index{C\-Entity@{C\-Entity}!\-\_\-id@{\-\_\-id}}
+\index{\-\_\-id@{\-\_\-id}!CEntity@{C\-Entity}}
+\subsubsection[{\-\_\-id}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\-Entity\-::\-\_\-id} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{class_c_entity_ac518d3885e2c6f30051b8c5ec59e50a3}
+Return the object's unique identifier.
+
+We overload this method to return the object's \hyperlink{}{identifier}, if it is set, or the object's \hyperlink{class_c_entity_a2b3cf77715881c3d8b3a6d4d80042e7c}{code}.
+
+If none of the above are set, we call the parent method.
+
+protected \begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_c_persistent_unit_object_ad1ca0920cf0df3c24351402f9afbf34b}{C\-Persistent\-Unit\-Object}.
+
+\hypertarget{class_c_entity_a991f328223b1b00b37e9028b16f7a7c8}{\index{C\-Entity@{C\-Entity}!\-\_\-\-Prepare\-Store@{\-\_\-\-Prepare\-Store}}
+\index{\-\_\-\-Prepare\-Store@{\-\_\-\-Prepare\-Store}!CEntity@{C\-Entity}}
+\subsubsection[{\-\_\-\-Prepare\-Store}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\-Entity\-::\-\_\-\-Prepare\-Store} (
+\begin{DoxyParamCaption}
+\item[{\&\$}]{the\-Container, }
+\item[{\&\$}]{the\-Identifier}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{class_c_entity_a991f328223b1b00b37e9028b16f7a7c8}
+Normalise before a store.
+
+We overload this method to check if the object in \hyperlink{class_c_status_object_a8429102e4f52f7558649b64f4e673a69}{initialised}, if this is not the case we raise an exception.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \&\$the\-Container} & Object container. \\
+\hline
+reference & {\em \&\$the\-Identifier} & Object identifier.\\
+\hline
+\end{DoxyParams}
+protected
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{class_c_exception}{C\-Exception}} & \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxySeeAlso}{See also}
+k\-E\-R\-R\-O\-R\-\_\-\-O\-P\-T\-I\-O\-N\-\_\-\-M\-I\-S\-S\-I\-N\-G 
+\end{DoxySeeAlso}
+
+
+Reimplemented from \hyperlink{class_c_persistent_unit_object_a42b46ccb307aa8038e5ed78819a23aa6}{C\-Persistent\-Unit\-Object}.
+
+
+
+Reimplemented in \hyperlink{class_c_user_a031f5d13fe837cf445006ee21023bf3e}{C\-User}.
+
+\hypertarget{class_c_entity_a2b3cf77715881c3d8b3a6d4d80042e7c}{\index{C\-Entity@{C\-Entity}!Code@{Code}}
+\index{Code@{Code}!CEntity@{C\-Entity}}
+\subsubsection[{Code}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\-Entity\-::\-Code} (
+\begin{DoxyParamCaption}
+\item[{\$}]{the\-Value = {\ttfamily NULL}, }
+\item[{\$}]{get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_entity_a2b3cf77715881c3d8b3a6d4d80042e7c}
+Manage entity code.
+
+This method can be used to manage the entity \hyperlink{}{code}, it uses the standard accessor \hyperlink{class_c_array_object_a931cb8b30569b811a18adc0161eb3603}{method} to manage the \hyperlink{}{offset}\-:
+
+For a more in-\/depth reference of this method, please consult the \hyperlink{class_c_array_object_a931cb8b30569b811a18adc0161eb3603}{\-\_\-\-Manage\-Offset} method, in which the first parameter will be the constant \hyperlink{}{k\-T\-A\-G\-\_\-\-C\-O\-D\-E}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Value} & Value. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+\hypertarget{class_c_entity_a260a4c309aff31a42d0e23b372f9b209}{\index{C\-Entity@{C\-Entity}!Default\-Container@{Default\-Container}}
+\index{Default\-Container@{Default\-Container}!CEntity@{C\-Entity}}
+\subsubsection[{Default\-Container}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf C\-Entity\-::\-Default\-Container} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}\label{class_c_entity_a260a4c309aff31a42d0e23b372f9b209}
+Return the default container.
+
+This method can be used to retrieve the default container name.
+
+\begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+\hypertarget{class_c_entity_acf65b6fb2f4195f6c649b4ca506c7899}{\index{C\-Entity@{C\-Entity}!Email@{Email}}
+\index{Email@{Email}!CEntity@{C\-Entity}}
+\subsubsection[{Email}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\-Entity\-::\-Email} (
+\begin{DoxyParamCaption}
+\item[{\$}]{the\-Value = {\ttfamily NULL}, }
+\item[{\$}]{get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_entity_acf65b6fb2f4195f6c649b4ca506c7899}
+Manage entity e-\/mail.
+
+This method can be used to manage the entity \hyperlink{}{e-\/mail}, it uses the standard accessor \hyperlink{class_c_array_object_a931cb8b30569b811a18adc0161eb3603}{method} to manage the \hyperlink{}{offset}\-:
+
+For a more in-\/depth reference of this method, please consult the \hyperlink{class_c_array_object_a931cb8b30569b811a18adc0161eb3603}{\-\_\-\-Manage\-Offset} method, in which the first parameter will be the constant \hyperlink{}{k\-O\-F\-F\-S\-E\-T\-\_\-\-E\-M\-A\-I\-L}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Value} & Value. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+\hypertarget{class_c_entity_a44b389a90107f4c8aadcc4eb08e1ad9b}{\index{C\-Entity@{C\-Entity}!Mail@{Mail}}
+\index{Mail@{Mail}!CEntity@{C\-Entity}}
+\subsubsection[{Mail}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\-Entity\-::\-Mail} (
+\begin{DoxyParamCaption}
+\item[{\$}]{the\-Type = {\ttfamily NULL}, }
+\item[{\$}]{the\-Value = {\ttfamily NULL}, }
+\item[{\$}]{get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_entity_a44b389a90107f4c8aadcc4eb08e1ad9b}
+Manage entity mailing addresses.
+
+This method can be used to manage the entity mailing \hyperlink{}{addresses}, it uses the standard accessor \hyperlink{class_c_array_object_af714f81bb75f725c6868fb286c59b160}{method} to manage the list of addresses.
+
+This list is an array of structures where the \hyperlink{}{k\-T\-A\-G\-\_\-\-T\-Y\-P\-E} element indicates the type of the address, for instance {\itshape home\/} or office, and the \hyperlink{}{k\-T\-A\-G\-\_\-\-D\-A\-T\-A} element represents the actual address, be it a string or itself a structure holding the address elements. If the \hyperlink{}{k\-T\-A\-G\-\_\-\-T\-Y\-P\-E} element is missing, we assume it to be the default address.
+
+For a more in-\/depth reference of this method, please consult the \hyperlink{class_c_array_object_a056b7a3218ffb9a2eb992c029124a669}{\-\_\-\-Manage\-Typed\-Array\-Offset} method, in which the first parameter will be the constant \hyperlink{}{k\-O\-F\-F\-S\-E\-T\-\_\-\-M\-A\-I\-L}.
+
+Note that this method will $<$i$<$N\-O\-T work on an object that was \hyperlink{class_c_mongo_data_wrapper_a0d37f7b47e1a1ac48846f6d10d08d846}{serialised}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Type} & Item type. \\
+\hline
+mixed & {\em \$the\-Value} & Item value. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+\hypertarget{class_c_entity_ace5878c009baf09d85c8ca115c48dbb0}{\index{C\-Entity@{C\-Entity}!Name@{Name}}
+\index{Name@{Name}!CEntity@{C\-Entity}}
+\subsubsection[{Name}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\-Entity\-::\-Name} (
+\begin{DoxyParamCaption}
+\item[{\$}]{the\-Value = {\ttfamily NULL}, }
+\item[{\$}]{get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_entity_ace5878c009baf09d85c8ca115c48dbb0}
+Manage entity name.
+
+This method can be used to manage the entity \hyperlink{}{name}, it uses the standard accessor \hyperlink{class_c_array_object_a931cb8b30569b811a18adc0161eb3603}{method} to manage the \hyperlink{}{offset}\-:
+
+For a more in-\/depth reference of this method, please consult the \hyperlink{class_c_array_object_a931cb8b30569b811a18adc0161eb3603}{\-\_\-\-Manage\-Offset} method, in which the first parameter will be the constant \hyperlink{}{k\-T\-A\-G\-\_\-\-N\-A\-M\-E}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Value} & Value. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+\hypertarget{class_c_entity_a193cf3d19057021bb6e779644730eac8}{\index{C\-Entity@{C\-Entity}!offset\-Set@{offset\-Set}}
+\index{offset\-Set@{offset\-Set}!CEntity@{C\-Entity}}
+\subsubsection[{offset\-Set}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\-Entity\-::offset\-Set} (
+\begin{DoxyParamCaption}
+\item[{\$}]{the\-Offset, }
+\item[{\$}]{the\-Value}
+\end{DoxyParamCaption}
+)}}\label{class_c_entity_a193cf3d19057021bb6e779644730eac8}
+Set a value for a given offset.
+
+We overload this method to manage the \hyperlink{}{Inited() inited} \hyperlink{}{status}\-: this is set if \hyperlink{}{code} and \hyperlink{}{name} properties are set.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Offset} & Offset. \\
+\hline
+string | N\-U\-L\-L & {\em \$the\-Value} & Value to set at offset.\\
+\hline
+\end{DoxyParams}
+public 
+
+Reimplemented from \hyperlink{class_c_status_object_a140ef140d4fa1c4a6180e843bd5ec969}{C\-Status\-Object}.
+
+
+
+Reimplemented in \hyperlink{class_c_user_aace3446b9cacfe28cc1937c608fcc999}{C\-User}.
+
+\hypertarget{class_c_entity_a887a87fc716e36a0d4c1477dbaf5bb67}{\index{C\-Entity@{C\-Entity}!offset\-Unset@{offset\-Unset}}
+\index{offset\-Unset@{offset\-Unset}!CEntity@{C\-Entity}}
+\subsubsection[{offset\-Unset}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\-Entity\-::offset\-Unset} (
+\begin{DoxyParamCaption}
+\item[{\$}]{the\-Offset}
+\end{DoxyParamCaption}
+)}}\label{class_c_entity_a887a87fc716e36a0d4c1477dbaf5bb67}
+Reset a value for a given offset.
+
+We overload this method to manage the \hyperlink{}{Inited() inited} \hyperlink{}{status}\-: this is set if \hyperlink{}{code} and \hyperlink{}{name} properties are set.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Offset} & Offset.\\
+\hline
+\end{DoxyParams}
+public 
+
+Reimplemented from \hyperlink{class_c_status_object_ae733db1bbfffcbe894ea405765ab4150}{C\-Status\-Object}.
+
+
+
+Reimplemented in \hyperlink{class_c_user_aed8557e18a89d868cedf5a48328b33b2}{C\-User}.
+
+\hypertarget{class_c_entity_ac8fc97b7adfc8ce547db5f93a9b913a8}{\index{C\-Entity@{C\-Entity}!Parent@{Parent}}
+\index{Parent@{Parent}!CEntity@{C\-Entity}}
+\subsubsection[{Parent}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\-Entity\-::\-Parent} (
+\begin{DoxyParamCaption}
+\item[{\$}]{the\-Value, }
+\item[{\$}]{the\-Operation = {\ttfamily NULL}, }
+\item[{\$}]{get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_entity_ac8fc97b7adfc8ce547db5f93a9b913a8}
+Manage entity parents.
+
+This method can be used to manage the entity \hyperlink{}{parents}, you can add/replace, retrieve and delete parent elements depending on the value of the parameters.
+
+The property is represented by an array of instances derived from this class, or strings representing entity \hyperlink{}{identifiers}. In the first case, prior to \hyperlink{class_c_persistent_object_ad076a9a2baf73bba0784deb135a3b7b7}{saving} the current object, array elements in the form of \hyperlink{class_c_entity}{C\-Entity} instances will also be \hyperlink{class_c_persistent_object_ad076a9a2baf73bba0784deb135a3b7b7}{saved} and replaced by their \hyperlink{}{identifiers}.
+
+This method accepts the following parameters\-:
+
+
+\begin{DoxyItemize}
+\item {\bfseries \$the\-Index}\-: This parameter represents the element index. 
+\item {\bfseries \$the\-Operation}\-: The operation to perform\-: 
+\begin{DoxyItemize}
+\item {\itshape N\-U\-L\-L\/}\-: Retrieve the element, the methoid will return the matching element or {\itshape N\-U\-L\-L\/} if not found. 
+\item {\itshape F\-A\-L\-S\-E\/}\-: Delete the element, depending on the value of the next parameter, the method will either return the deleted element or {\itshape N\-U\-L\-L\/}. 
+\item {\itshape other\/}\-: Any other value means that we want to add/replace the element, in this case the method will return the added element's index. 
+\end{DoxyItemize}
+\item {\bfseries \$the\-Data}\-: This parameter represents the element data. 
+\end{DoxyItemize}
+
+Note that this method will $<$i$<$N\-O\-T work on an object that was \hyperlink{class_c_mongo_data_wrapper_a0d37f7b47e1a1ac48846f6d10d08d846}{serialised}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Value} & Index or value. \\
+\hline
+mixed & {\em \$the\-Operation} & Operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+\hypertarget{class_c_entity_ac69e40a0ee4489abfcc7241d98b07532}{\index{C\-Entity@{C\-Entity}!Phone@{Phone}}
+\index{Phone@{Phone}!CEntity@{C\-Entity}}
+\subsubsection[{Phone}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\-Entity\-::\-Phone} (
+\begin{DoxyParamCaption}
+\item[{\$}]{the\-Value = {\ttfamily NULL}, }
+\item[{\$}]{get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_entity_ac69e40a0ee4489abfcc7241d98b07532}
+Manage entity phone.
+
+This method can be used to manage the entity \hyperlink{}{telephone} number, it uses the standard accessor \hyperlink{class_c_array_object_a931cb8b30569b811a18adc0161eb3603}{method} to manage the \hyperlink{}{offset}\-:
+
+For a more in-\/depth reference of this method, please consult the \hyperlink{class_c_array_object_a931cb8b30569b811a18adc0161eb3603}{\-\_\-\-Manage\-Offset} method, in which the first parameter will be the constant \hyperlink{}{k\-O\-F\-F\-S\-E\-T\-\_\-\-P\-H\-O\-N\-E}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Value} & Value. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+\hypertarget{class_c_entity_a78127acb8de5ae1e7238566396dd1c17}{\index{C\-Entity@{C\-Entity}!Type@{Type}}
+\index{Type@{Type}!CEntity@{C\-Entity}}
+\subsubsection[{Type}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\-Entity\-::\-Type} (
+\begin{DoxyParamCaption}
+\item[{\$}]{the\-Value = {\ttfamily NULL}, }
+\item[{\$}]{the\-Operation = {\ttfamily NULL}, }
+\item[{\$}]{get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_entity_a78127acb8de5ae1e7238566396dd1c17}
+Manage entity types.
+
+This method can be used to manage the entity \hyperlink{}{types}, it uses the standard accessor \hyperlink{class_c_array_object_a056b7a3218ffb9a2eb992c029124a669}{method} to manage the list of parent entities.
+
+In general, elements of this list should be a token that indicates a specific function of the entity, this could be, for instance', {\itshape user\/} to indicate an entity that is also a user of the system.
+
+For a more in-\/depth reference of this method, please consult the \hyperlink{class_c_array_object_a056b7a3218ffb9a2eb992c029124a669}{\-\_\-\-Manage\-Array\-Offset} method, in which the first parameter will be the constant \hyperlink{}{k\-T\-A\-G\-\_\-\-T\-Y\-P\-E}.
+
+Note that this method will $<$i$<$N\-O\-T work on an object that was \hyperlink{class_c_mongo_data_wrapper_a0d37f7b47e1a1ac48846f6d10d08d846}{serialised}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Value} & Value or index. \\
+\hline
+mixed & {\em \$the\-Operation} & Operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/\-Library/\-Web\-Server/\-Library/wrapper/classes/C\-Entity.\-php\end{DoxyCompactItemize}

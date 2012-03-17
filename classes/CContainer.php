@@ -355,6 +355,126 @@ abstract class CContainer extends CObject
 
 /*=======================================================================================
  *																						*
+ *								PUBLIC REFERENCE INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	Reference																		*
+	 *==================================================================================*/
+
+	/**
+	 * Convert an object to a reference.
+	 *
+	 * This method accepts an object derived from
+	 * {@link CPersistentObject CPersistentObject} and returns an object reference that can
+	 * be used as a reference to that object and stored as a property.
+	 *
+	 * The method will return an array composed by the following offsets:
+	 *
+	 * <ul>
+	 *	<li><i>{@link kTAG_ID_REFERENCE kTAG_ID_REFERENCE}</i>: The object identifier, if
+	 *		the provided object does not have an {@link kTAG_ID_NATIVE identifier}, this
+	 *		method will raise an exception.
+	 *	<li><i>{@link kTAG_CONTAINER_REFERENCE kTAG_CONTAINER_REFERENCE}</i>: The container
+	 *		name.
+	 *	<li><i>{@link kTAG_DATABASE_REFERENCE kTAG_DATABASE_REFERENCE}</i>: The database
+	 *		name.
+	 *	<li><i>{@link kTAG_CLASS kTAG_CLASS}</i>: The object's class name.
+	 * </ul>
+	 *
+	 * The method accepts two parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theObject</b>: The object to be referenced, it must be derived from
+	 *		{@link CPersistentObject CPersistentObject} or the method will raise an
+	 *		exception.
+	 *	<li><b>$theModifiers</b>: This bitfield determines what elements should be included
+	 *		in the reference:
+	 *	 <ul>
+	 *		<li><i>{@link kFLAG_REFERENCE_IDENTIFIER kFLAG_REFERENCE_IDENTIFIER}</i>: The
+	 *			object {@link kTAG_ID_NATIVE identifier} will be stored under the
+	 *			{@link kTAG_ID_REFERENCE kTAG_ID_REFERENCE} offset. If the object does bot
+	 *			have this identifier, the method will raise an exception. This is the
+	 *			default option.
+	 *		<li><i>{@link kFLAG_REFERENCE_CONTAINER kFLAG_REFERENCE_CONTAINER}</i>: The
+	 *			current container name will be stored under the
+	 *			{@link kTAG_CONTAINER_REFERENCE kTAG_CONTAINER_REFERENCE} offset.
+	 *		<li><i>{@link kFLAG_REFERENCE_DATABASE kFLAG_REFERENCE_DATABASE}</i>: The
+	 *			current container's database name will be stored under the
+	 *			{@link kTAG_DATABASE_REFERENCE kTAG_DATABASE_REFERENCE} offset.
+	 *		<li><i>{@link kFLAG_REFERENCE_CLASS kFLAG_REFERENCE_CLASS}</i>: The provided
+	 *			object's class name will be stored under the {@link kTAG_CLASS kTAG_CLASS}
+	 *			offset.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * @param CPersistentObject		$theObject			Object to reference.
+	 * @param bitfield				$theModifiers		Referencing options.
+	 *
+	 * @access public
+	 * @return array
+	 *
+	 * @uses _Commit()
+	 */
+	public function Reference( $theObject, $theModifiers = kFLAG_REFERENCE_IDENTIFIER )
+	{
+		//
+		// Check provided object.
+		//
+		if( ! $theObject instanceof CPersistentObject )
+			throw new CException
+				( "Invalid object",
+				  kERROR_INVALID_PARAMETER,
+				  kMESSAGE_TYPE_ERROR,
+				  array( 'Object' => $theObject ) );							// !@! ==>
+		
+		//
+		// Init reference.
+		//
+		$reference = Array();
+
+		//
+		// Load identifier.
+		//
+		if( $theModifiers & kFLAG_REFERENCE_IDENTIFIER )
+		{
+			if( $theObject->offsetExists( kTAG_ID_NATIVE ) )
+				$reference[ kTAG_ID_REFERENCE ] = $theObject[ kTAG_ID_NATIVE ];
+			else
+				throw new CException
+					( "Object does not have an identifier",
+					  kERROR_OPTION_MISSING,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Object' => $theObject ) );						// !@! ==>
+		}
+		
+		//
+		// Load container information.
+		//
+		if( $theModifiers & kFLAG_REFERENCE_CONTAINER )
+			$reference[ kTAG_ID_REFERENCE ] = (string) $this;
+		
+		//
+		// Load database information.
+		//
+		if( $theModifiers & kFLAG_REFERENCE_DATABASE )
+			$reference[ kTAG_DATABASE_REFERENCE ] = (string) $this->Database();
+		
+		//
+		// Load object class information.
+		//
+		if( $theModifiers & kFLAG_REFERENCE_CLASS )
+			$reference[ kTAG_CLASS ] = get_class( $theObject );
+
+	} // Reference.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PROTECTED MEMBER INTERFACE								*
  *																						*
  *======================================================================================*/

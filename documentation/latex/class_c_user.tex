@@ -1,0 +1,176 @@
+\hypertarget{class_c_user}{\section{C\-User Class Reference}
+\label{class_c_user}\index{C\-User@{C\-User}}
+}
+Inheritance diagram for C\-User\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=6.000000cm]{class_c_user}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_c_user_a728ac6fd50a9f9e18dfe2fa547d5c798}{\-\_\-\-\_\-construct} (\$the\-Container=N\-U\-L\-L, \$the\-Identifier=N\-U\-L\-L)
+\item 
+\hyperlink{class_c_user_a0e6f1cf51ad23f971ed0999f8d248c8d}{Password} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_user_aace3446b9cacfe28cc1937c608fcc999}{offset\-Set} (\$the\-Offset, \$the\-Value)
+\item 
+\hyperlink{class_c_user_aed8557e18a89d868cedf5a48328b33b2}{offset\-Unset} (\$the\-Offset)
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_c_user_a031f5d13fe837cf445006ee21023bf3e}{\-\_\-\-Prepare\-Store} (\&\$the\-Container, \&\$the\-Identifier)
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_c_user_a728ac6fd50a9f9e18dfe2fa547d5c798}{\index{C\-User@{C\-User}!\-\_\-\-\_\-construct@{\-\_\-\-\_\-construct}}
+\index{\-\_\-\-\_\-construct@{\-\_\-\-\_\-construct}!CUser@{C\-User}}
+\subsubsection[{\-\_\-\-\_\-construct}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\-User\-::\-\_\-\-\_\-construct} (
+\begin{DoxyParamCaption}
+\item[{\$}]{the\-Container = {\ttfamily NULL}, }
+\item[{\$}]{the\-Identifier = {\ttfamily NULL}}
+\end{DoxyParamCaption}
+)}}\label{class_c_user_a728ac6fd50a9f9e18dfe2fa547d5c798}
+Instantiate class.
+
+We \hyperlink{class_c_entity_ac087e5b3d14357f452ab531db5f6a7e9}{overload} the constructor to initialise the \hyperlink{class_c_status_object_a8429102e4f52f7558649b64f4e673a69}{inited} \hyperlink{}{flag} if the \hyperlink{class_c_user_a0e6f1cf51ad23f971ed0999f8d248c8d}{password} element is set.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Container} & Persistent container. \\
+\hline
+mixed & {\em \$the\-Identifier} & Object identifier.\\
+\hline
+\end{DoxyParams}
+public 
+
+Reimplemented from \hyperlink{class_c_entity_ac087e5b3d14357f452ab531db5f6a7e9}{C\-Entity}.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_c_user_a031f5d13fe837cf445006ee21023bf3e}{\index{C\-User@{C\-User}!\-\_\-\-Prepare\-Store@{\-\_\-\-Prepare\-Store}}
+\index{\-\_\-\-Prepare\-Store@{\-\_\-\-Prepare\-Store}!CUser@{C\-User}}
+\subsubsection[{\-\_\-\-Prepare\-Store}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\-User\-::\-\_\-\-Prepare\-Store} (
+\begin{DoxyParamCaption}
+\item[{\&\$}]{the\-Container, }
+\item[{\&\$}]{the\-Identifier}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}\label{class_c_user_a031f5d13fe837cf445006ee21023bf3e}
+Normalise parameters of a store.
+
+We overload this method to add the \hyperlink{}{k\-E\-N\-T\-I\-T\-Y\-\_\-\-U\-S\-E\-R} \hyperlink{class_c_entity_a78127acb8de5ae1e7238566396dd1c17}{type} to the object prior \hyperlink{class_c_persistent_object_ad076a9a2baf73bba0784deb135a3b7b7}{saving} it.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \&\$the\-Container} & Object container. \\
+\hline
+reference & {\em \&\$the\-Identifier} & Object identifier.\\
+\hline
+\end{DoxyParams}
+protected
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{class_c_exception}{C\-Exception}} & \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxySeeAlso}{See also}
+k\-E\-R\-R\-O\-R\-\_\-\-O\-P\-T\-I\-O\-N\-\_\-\-M\-I\-S\-S\-I\-N\-G 
+\end{DoxySeeAlso}
+
+
+Reimplemented from \hyperlink{class_c_entity_a991f328223b1b00b37e9028b16f7a7c8}{C\-Entity}.
+
+\hypertarget{class_c_user_aace3446b9cacfe28cc1937c608fcc999}{\index{C\-User@{C\-User}!offset\-Set@{offset\-Set}}
+\index{offset\-Set@{offset\-Set}!CUser@{C\-User}}
+\subsubsection[{offset\-Set}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\-User\-::offset\-Set} (
+\begin{DoxyParamCaption}
+\item[{\$}]{the\-Offset, }
+\item[{\$}]{the\-Value}
+\end{DoxyParamCaption}
+)}}\label{class_c_user_aace3446b9cacfe28cc1937c608fcc999}
+Set a value for a given offset.
+
+We overload this method to manage the \hyperlink{}{Inited() inited} \hyperlink{}{status}\-: this is set if the \hyperlink{}{password} is set.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Offset} & Offset. \\
+\hline
+string | N\-U\-L\-L & {\em \$the\-Value} & Value to set at offset.\\
+\hline
+\end{DoxyParams}
+public
+
+\hyperlink{class_c_status_object_a8429102e4f52f7558649b64f4e673a69}{\-\_\-\-Is\-Inited()}  \hyperlink{class_c_persistent_object_a6520a7bcecf3f39fd61ec6d08f736e77}{\-\_\-\-Is\-Committed()} 
+
+Reimplemented from \hyperlink{class_c_entity_a193cf3d19057021bb6e779644730eac8}{C\-Entity}.
+
+\hypertarget{class_c_user_aed8557e18a89d868cedf5a48328b33b2}{\index{C\-User@{C\-User}!offset\-Unset@{offset\-Unset}}
+\index{offset\-Unset@{offset\-Unset}!CUser@{C\-User}}
+\subsubsection[{offset\-Unset}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\-User\-::offset\-Unset} (
+\begin{DoxyParamCaption}
+\item[{\$}]{the\-Offset}
+\end{DoxyParamCaption}
+)}}\label{class_c_user_aed8557e18a89d868cedf5a48328b33b2}
+Reset a value for a given offset.
+
+We overload this method to manage the \hyperlink{}{Inited() inited} \hyperlink{}{status}\-: this is set if the \hyperlink{}{password} is set.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Offset} & Offset.\\
+\hline
+\end{DoxyParams}
+public
+
+\hyperlink{class_c_status_object_a8429102e4f52f7558649b64f4e673a69}{\-\_\-\-Is\-Inited()}  \hyperlink{class_c_persistent_object_a6520a7bcecf3f39fd61ec6d08f736e77}{\-\_\-\-Is\-Committed()} 
+
+Reimplemented from \hyperlink{class_c_entity_a887a87fc716e36a0d4c1477dbaf5bb67}{C\-Entity}.
+
+\hypertarget{class_c_user_a0e6f1cf51ad23f971ed0999f8d248c8d}{\index{C\-User@{C\-User}!Password@{Password}}
+\index{Password@{Password}!CUser@{C\-User}}
+\subsubsection[{Password}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\-User\-::\-Password} (
+\begin{DoxyParamCaption}
+\item[{\$}]{the\-Value = {\ttfamily NULL}, }
+\item[{\$}]{get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_user_a0e6f1cf51ad23f971ed0999f8d248c8d}
+Manage user password.
+
+This method can be used to manage the user \hyperlink{}{password}, it uses the standard accessor \hyperlink{class_c_array_object_a931cb8b30569b811a18adc0161eb3603}{method} to manage the \hyperlink{}{offset}\-:
+
+
+\begin{DoxyItemize}
+\item {\bfseries \$the\-Value}\-: The value or operation\-: 
+\begin{DoxyItemize}
+\item {\itshape N\-U\-L\-L\/}\-: Return the current value. 
+\item {\itshape F\-A\-L\-S\-E\/}\-: Delete the value. 
+\item {\itshape other\/}\-: Set value. 
+\end{DoxyItemize}
+\item {\bfseries \$get\-Old}\-: Determines what the method will return\-: 
+\begin{DoxyItemize}
+\item {\itshape T\-R\-U\-E\/}\-: Return the value {\itshape before\/} it was eventually modified. 
+\item {\itshape F\-A\-L\-S\-E\/}\-: Return the value {\itshape after\/} it was eventually modified. 
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+N\-U\-L\-L | F\-A\-L\-S\-E | string & {\em \$the\-Value} & User password or operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/\-Library/\-Web\-Server/\-Library/wrapper/classes/C\-User.\-php\end{DoxyCompactItemize}

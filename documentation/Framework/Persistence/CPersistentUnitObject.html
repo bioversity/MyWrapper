@@ -80,9 +80,9 @@
 				</tr>
 								<tr>
 					<td style="padding-right: 2em; white-space: nowrap">
-						<img src="../../media/images/Class.png"
-								 alt=" class"
-								 title=" class"
+						<img src="../../media/images/AbstractClass.png"
+								 alt="Abstract class"
+								 title="Abstract class"
 								 style="vertical-align: center"/>
 						<a href="../../Objects/Entities/CEntity.html">CEntity</a>
 					</td>
@@ -131,7 +131,7 @@
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
-											<span class="method-result">string</span>
+											<span class="method-result">string|NULL</span>
 										<a href="#_ObjectIndex" title="details" class="method-name">_ObjectIndex</a>
 											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span>)
 									</div>
@@ -263,35 +263,37 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ManageObjectList</span> (line <span class="line-number">418</span>)
+		<span class="method-title">_ManageObjectList</span> (line <span class="line-number">423</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Manage a list of objects.</p>
-<p class="description"><p>This method can be used to manage a list of objects derived from this class, in  particular, an array in which each element is either a string representing the  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a> of the object, or the object itself.</p><p>Each element of the array is identified either by the value itself, if it is a string  representing the object <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a>, or by the  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a> if the element is an object itself.</p><p>The array is numerically indexed and this method will ensure it remains an array.</p><p>The parameters to this method are:</p><p><ul><li><strong>$theOffset</strong>: This parameter represents the offset in the current object
-        that holds the list of objects. This value may not be empty.</li><li><strong>$theValue</strong>: This parameter may represent either the
-        <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a> of an element in the list, if the operation
-        involves retrieving or deleting, or the actual contents if the operation
-        involves adding or replacing into the list. Values provided as instances derived
-        from this class will be converted to the <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a> they
-        hold if the operation involves retrieving or deleting; if these objects do not
-        have this <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a>, the method will attempt to use
-        the result of the <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_id">_id</a> method; if also this returns a <em>NULL</em>
-        value we shall raise an exception.
-        If you provide an array in this parameter, the method will assume you want to
-        use the elements of the array as keys or values, in that case it will send each
-        element to this method using the same other parameters.</li><li><strong>$theOperation</strong>: The operation to perform:
-     <ul><li><em>NULL</em>: Return the element <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identified</a> by the
-            second parameter.</li><li><em>FALSE</em>: Delete the element <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identified</a> by the
-            second parameter, if the next parameter evaluates to <em>TRUE</em>, the method
-            will return the deleted element if available.</li><li><em>other</em>: Any other value means that we want to add/replace the element
-            provided in the second parameter. This means that the method will scan all
-            the elements of the array and replace the element matching the
-            <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a>, or append the element if there is no
-            match.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return when deleting elements:
-     <ul><li><em>TRUE</em>: Return the value of the offset <em>before</em> it was eventually
-            modified or deleted.</li><li><em>FALSE</em>: Return the value of the offset <em>after</em> it was eventually
-            modified or deleted.</li></ul></li></ul></p><p>Since the list managed by this method is a numeric keyed array, it is important that  elements of the array have the <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a>, or deleting  elements from the list may prove problematic.</p><p>In general, objects holding such lists will have all their elements stored as  instances derived from this class <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">committed</a> and converted to a  string containing the object <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a>.</p></p>
+<p class="short-description">Manage a list of object references.</p>
+<p class="description"><p>This method can be used to manage a list of object references, in which each element  is either:</p><p><ul><li><em>Scalar</em>: A scalar or object representing:
+	 <ul><li><em>The object</em>: The actual referenced object.</li><li><em>The object reference</em>: An object reference structure or a scalar
+			representing the object <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a>.</li></ul>
+        or:</li><li><em>Array</em>: A structure composed of two items:
+     <ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a></em>: This offset represents the type or
+            class of the reference.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: This offset represents the actual object
+            or object reference.</li></ul></li></ul></p><p>The reference list is numerically indexed array and this method will ensure it  remains so.</p><p>The method accepts the following parameters:</p><p><ul><li><strong>$theOffset</strong>: This parameter represents the offset in the current object
+        that holds the list of references. This value may not be empty.</li><li><strong>$theValue</strong>: This parameter represents either the search key in the list
+        when retrieving or deleting, or the reference when replacing or adding. If you
+        provide an array, it means that the elements may have a
+        <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a> offset and that the reference or object must be
+        found in the <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a> offset. When matching, if the
+        <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a> offset is not provided, it means that only those
+        elements that do not have a <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a> offset will be selected
+        for matching. If the types match, the method will use the
+        <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_ObjectIndex">_ObjectIndex</a> method to match the references, please refer
+        to its documentation for more information. If the provided value is not an
+        array, it means that the reference list does not feature types, so matches will
+        only be performed on the reference.</li><li><strong>$theOperation</strong>: The operation to perform:
+     <ul><li><em>NULL</em>: Return the element matched by the previous parameter.</li><li><em>FALSE</em>: Delete the element matched by the previous parameter and
+            return it.</li><li><em>other</em>: Any other value means that we want to add to the list the
+            element provided in the previous parameter, either appending it if there
+            was no matching element, or by replacing a matching element. The method will
+            return either the replaced element or the new one.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return when deleting or
+        replacing:
+     <ul><li><em>TRUE</em>: Return the deleted or replaced element.</li><li><em>FALSE</em>: Return the replacing element or <em>NULL</em> when deleting.</li></ul></li></ul></p><p>The <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_ObjectIndex">method</a> used to match the list elements expects  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifiers</a> in the references or objects, if these are not  there, there is no way to discern duplicates.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
 			</ul>
@@ -310,7 +312,7 @@
 				<span class="var-name">$theOffset</span><span class="var-description">: Offset.</span>			</li>
 					<li>
 				<span class="var-type">mixed</span>
-				<span class="var-name">$theValue</span><span class="var-description">: Index or value.</span>			</li>
+				<span class="var-name">$theValue</span><span class="var-description">: Reference or instance.</span>			</li>
 					<li>
 				<span class="var-type">mixed</span>
 				<span class="var-name">$theOperation</span><span class="var-description">: Operation.</span>			</li>
@@ -326,23 +328,24 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ObjectIndex</span> (line <span class="line-number">647</span>)
+		<span class="method-title">_ObjectIndex</span> (line <span class="line-number">901</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Return object index.</p>
-<p class="description"><p>This method is <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_ManageObjectList">used</a> to determine an object index, the  method accepts a single parameter that may be:</p><p><ul><li><em>CPersistentUnitObject</em>: In this case we interpret the parameter to be an
-        instance of the object for which we want to retrieve the identifier:
+<p class="description"><p>This method is a utility that can be used to extract an identifier from a value, it  is used when adding objects or object references to a list that is not organised by  object <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">ID</a>.</p><p>This method will attempt ti infer the object identifier by performing the following  steps:</p><p><ul><li><em>Array</em> or <em>ArrayObject</em>: In this case we interpret the parameter to
+        be either an instance of the object itself, or a reference to the object, we
+        check in order if any of the following can be found:
      <ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">kTAG_ID_NATIVE</a></em>: We first check whether the
-            object has that offset and use it is so.</li><li><em><a href="../../Framework/Persistence/CPersistentUnitObject.html#method_id">_id</a></em>: We then check the result of this method and use it
-            if not <em>NULL</em>.</li></ul></li><li><em>string</em>: In this case we interpret the parameter to be the
-        <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a> of an object and cast it to a string.</li><li><em>other</em>: Any other value will be cast to a string.</li></ul></p></p>
+            object has that offset and use it is so.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_REFERENCE">kTAG_ID_REFERENCE</a></em>: We then check whether
+            the structure contains a reference identifier.</li><li><em><a href="../../Framework/Persistence/CPersistentUnitObject.html#method_id">_id</a></em>: If the parameter is an object derived from this
+            class, we try to call this method and use its result.</li></ul></li><li><em>other</em>: If all of the above fails we simply return the provided value.</li></ul></p><p>Note that the method assumes that the returned value must be convertable to a string,  if that is not the case you may get into trouble.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
 			</ul>
 	
 	<div class="method-signature">
-		<span class="method-result">string</span>
+		<span class="method-result">string|NULL</span>
 		<span class="method-name">
 			_ObjectIndex
 		</span>
@@ -606,7 +609,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Thu, 15 Mar 2012 20:13:20 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 16 Mar 2012 18:49:54 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

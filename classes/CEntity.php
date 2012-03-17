@@ -61,7 +61,8 @@ require_once( kPATH_LIBRARY_SOURCE."CPersistentUnitObject.php" );
  *		this. The class features a member accessor {@link Name() method} to manage this
  *		property.
  *	<li><i>{@link kTAG_REF kTAG_REF}</i>: This offset represents the list of references of
- *		the entity. It is implemented as an array whose elements may either be:
+ *		this entity to other entities. It is implemented as an array whose elements may
+ *		either be:
  *	 <ul>
  *		<li><i>A typed reference</i>: This element is an array structured as follows:
  *		 <ul>
@@ -269,7 +270,8 @@ abstract class CEntity extends CPersistentUnitObject
 	 * standard accessor {@link _ManageObjectList() method} to manage the
 	 * {@link kTAG_REF offset}.
 	 *
-	 * This property represents a list of elements that can take two forms:
+	 * This property represents a list of elements that reference other entity objects, the
+	 * elements of this list can take two forms:
 	 *
 	 * <ul>
 	 *	<li><i>A typed reference</i>: A typed reference is a reference that has a specific
@@ -431,7 +433,8 @@ abstract class CEntity extends CPersistentUnitObject
 	 * this is not the case we raise an exception.
 	 *
 	 * We also scan the {@link Reference() references} list to commit any elements that are
-	 * actual instances and convert them to references.
+	 * actual instances and convert them to references: we discriminate such elements by
+	 * selecting only objects derived from this class.
 	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
@@ -457,37 +460,60 @@ abstract class CEntity extends CPersistentUnitObject
 			//
 			// Iterate parents.
 			//
+			$done = FALSE;
 			$references = $this->offsetGet( kTAG_REF );
 			foreach( $references as $key => $value )
 			{
 				//
-				// 
-				
-				
-				
+				// Handle typed reference.
 				//
-				// Handle instances.
-				//
-				if( $value instanceof self )
+				if( ( is_array( $value )
+				   || ($value instanceof ArrayObject) )
+				 && array_key_exists( kTAG_DATA, (array) $value ) )
 				{
 					//
-					// Save parent.
+					// Check if is an instance.
+					//
+					if( ($object = $value[ kTAG_DATA ]) instanceof self )
+					{
+						//
+						// Commit.
+						//
+						$value[ kTAG_DATA ]->Commit( $theContainer );
+						
+						//
+						// Save identifier.
+						//
+						$done = $references[ $key ] = $value[ kTAG_DATA ][ kTAG_ID_NATIVE ];
+					
+					} // Is an instance.
+				
+				} // Has data element.
+				
+				//
+				// Handle simple reference.
+				//
+				elseif( $value instanceof self )
+				{
+					//
+					// Commit.
 					//
 					$value->Commit( $theContainer );
 					
 					//
-					// Use parent index.
+					// Save identifier.
 					//
-					$parents[ $key ] = $value[ kTAG_ID_NATIVE ];
+					$done = $references[ $key ] = $value[ kTAG_ID_NATIVE ];
 				
-				} // Parent element is an entity instance.
+				} // Is an instance.
 			
 			} // Iterating parents.
 			
 			//
-			// Save list.
+			// Update list.
 			//
-			$this->offsetSet( kTAG_REF, $parents );
+			if( $done )
+				$this->offsetSet( kTAG_REF, $references );
 		
 		} // Has parents.
 		

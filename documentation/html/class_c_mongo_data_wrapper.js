@@ -1,0 +1,26 @@
+var class_c_mongo_data_wrapper =
+[
+    [ "_FormatContainer", "class_c_mongo_data_wrapper.html#a117d32ff4a01a54a7ff6203ba0ca66b7", null ],
+    [ "_FormatDatabase", "class_c_mongo_data_wrapper.html#a15b44586fe5de968efb0edbe96f3da60", null ],
+    [ "_FormatObject", "class_c_mongo_data_wrapper.html#a2642638da121e471c7ea1fbb61f6f3ef", null ],
+    [ "_FormatQuery", "class_c_mongo_data_wrapper.html#a807db77c3c4f7708e86873a0447b83ff", null ],
+    [ "_FormatRequest", "class_c_mongo_data_wrapper.html#abbc0d41394dda4a27eefa8481065749a", null ],
+    [ "_Handle_Count", "class_c_mongo_data_wrapper.html#ae7cc52809c8b6cea94c84d5f64a4308b", null ],
+    [ "_Handle_Delete", "class_c_mongo_data_wrapper.html#aaed227073838fb79b344e3d07a3152e8", null ],
+    [ "_Handle_Get", "class_c_mongo_data_wrapper.html#a157a45bd4a2da43bd05d62b22faf3dc6", null ],
+    [ "_Handle_GetObjectByReference", "class_c_mongo_data_wrapper.html#a226970d3cfb96f8e85e46d3943c25089", null ],
+    [ "_Handle_GetOne", "class_c_mongo_data_wrapper.html#a3b9896d121c899aa3dd9f5e56e44c874", null ],
+    [ "_Handle_Insert", "class_c_mongo_data_wrapper.html#adc1ef56d8c5fe9dbab74a821f38fe62c", null ],
+    [ "_Handle_Set", "class_c_mongo_data_wrapper.html#a3b59e4f2efbe64568c500756a170af29", null ],
+    [ "_HandleOptions", "class_c_mongo_data_wrapper.html#ac154306e6919de8316ddf45fc8d619f3", null ],
+    [ "_HandleRequest", "class_c_mongo_data_wrapper.html#a811af7e7574a459bc56afa3afa99e1a8", null ],
+    [ "_InitResources", "class_c_mongo_data_wrapper.html#a33ff97c26b97d00a67f97d41f67ce47b", null ],
+    [ "_ValidateObject", "class_c_mongo_data_wrapper.html#a9bb974219920f005b1cdba39793b84d5", null ],
+    [ "_ValidateOperation", "class_c_mongo_data_wrapper.html#a406b81115b5f3957e6d40ee49ae85a13", null ],
+    [ "_ValidateQuery", "class_c_mongo_data_wrapper.html#aa2ae2292a247d94c9b1dfa13d9a4fb85", null ],
+    [ "_ValidateRequest", "class_c_mongo_data_wrapper.html#a3d06376cb588e5c26751bff3f0083ef5", null ],
+    [ "SerialiseData", "class_c_mongo_data_wrapper.html#a4a23d055b9735b8ba53102e619f94ffb", null ],
+    [ "SerialiseObject", "class_c_mongo_data_wrapper.html#a0d37f7b47e1a1ac48846f6d10d08d846", null ],
+    [ "UnserialiseData", "class_c_mongo_data_wrapper.html#a581d27ffad3ff0a68c5bd6123abece01", null ],
+    [ "UnserialiseObject", "class_c_mongo_data_wrapper.html#aff82f7c69fa3641daf93d1f375e33501", null ]
+];

@@ -1,0 +1,101 @@
+\hypertarget{namespace_objects}{\section{Objects Namespace Reference}
+\label{namespace_objects}\index{Objects@{Objects}}
+}
+
+
+\subsection{Detailed Description}
+{\itshape \hyperlink{class_c_dataset}{C\-Dataset}\/} class definition.
+
+This file contains the class definition of {\bfseries \hyperlink{class_c_dataset}{C\-Dataset}} which represents the base class mapping dataset objects.
+
+\begin{DoxyVerb}    @subpackage     Data
+
+    @author         Milko A. Škofič <m.skofic@cgiar.org>
+    @version        1.00 12/03/2012\end{DoxyVerb}
+
+
+Ancestor.
+
+This include file contains the parent class definitions. Dataset ancestor.
+
+This class is the ancestor of dataset classes in this library,
+
+\begin{DoxyVerb}    @subpackage     Data\end{DoxyVerb}
+
+
+{\itshape \hyperlink{class_c_entity}{C\-Entity}\/} class definition.
+
+This file contains the class definition of {\bfseries \hyperlink{class_c_entity}{C\-Entity}} which represents the ancestor of entity objects.
+
+\begin{DoxyVerb}    @subpackage     Entities
+
+    @author         Milko A. Škofič <m.skofic@cgiar.org>
+    @version        1.00 12/03/2012\end{DoxyVerb}
+
+
+Ancestor.
+
+This include file contains the parent class definitions. Local definitions.
+
+This include file contains all local definitions to this class. Entity.
+
+An entity is a person, institution or legal entity that needs to have a specific identity in the global data schema.
+
+Examples of entities could be a gene bank, a germplasm curator, a farmer that donated an accession, etc. Since entities may take different forms, they can be individuals or organisations.
+
+This class implements the features common to all entity derived classes\-:
+
+
+\begin{DoxyItemize}
+\item {\itshape \hyperlink{}{k\-T\-A\-G\-\_\-\-P\-A\-R\-E\-N\-T}\/}\-: This offset represents the entity parents or affiliations. This is an array of object \hyperlink{}{identifiers} or \hyperlink{class_c_entity}{C\-Entity} derived instances. The class features a member accessor \hyperlink{}{method} to manage this property. 
+\item {\itshape \hyperlink{}{k\-T\-A\-G\-\_\-\-T\-Y\-P\-E}\/}\-: This offset represents the entity type. The \hyperlink{}{class} offset indicates the class to which the object belongs, this offset should indicate what functions the object has. The data is an array. The class features a member accessor \hyperlink{}{method} to manage this property. 
+\item {\itshape \hyperlink{}{k\-T\-A\-G\-\_\-\-C\-O\-D\-E}\/}\-: This offset represents the entity code, it should also represent the entity unique identifier. The class features a member accessor \hyperlink{}{method} to manage this property. 
+\item {\itshape \hyperlink{}{k\-T\-A\-G\-\_\-\-N\-A\-M\-E}\/}\-: This offset represents the entity name. The class features a member accessor \hyperlink{}{method} to manage this property. 
+\item {\itshape \hyperlink{}{k\-O\-F\-F\-S\-E\-T\-\_\-\-M\-A\-I\-L}\/}\-: This offset represents the entity mailing address. The data is structured as an array in which the elements are structured as follows\-: 
+\begin{DoxyItemize}
+\item {\itshape \hyperlink{}{k\-T\-A\-G\-\_\-\-T\-Y\-P\-E}\/}\-: This offset represents the address type, this could be \char`\"{}home\char`\"{}, \char`\"{}office\char`\"{} or this element could be missing for a default address. 
+\item {\itshape \hyperlink{}{k\-T\-A\-G\-\_\-\-D\-A\-T\-A}\/}\-: This offset represents the actual address, it may be a string containing the whole address, or an \hyperlink{}{object} in which each element of the address has its own property. 
+\end{DoxyItemize}The class features a member accessor \hyperlink{}{method} to manage this property. 
+\item {\itshape \hyperlink{}{k\-O\-F\-F\-S\-E\-T\-\_\-\-E\-M\-A\-I\-L}\/}\-: This offset represents the entity e-\/mail. The class features a member accessor \hyperlink{}{method} to manage this property. 
+\item {\itshape \hyperlink{}{k\-O\-F\-F\-S\-E\-T\-\_\-\-P\-H\-O\-N\-E}\/}\-: This offset represents the entity telephone number. The data is structured as an array in which the elements contain the telephone number. The class features a member accessor \hyperlink{}{method} to manage this property. 
+\end{DoxyItemize}
+
+Among the above attributes the \hyperlink{}{code} and the \hyperlink{}{name} are required, this means that the object will not have its \hyperlink{}{inited} \hyperlink{}{status} on, if any of these are not set; which also means that the object will not be allowed to be \hyperlink{}{committed}.
+
+By default, the object's unique \hyperlink{}{identifier} will be set with the current \hyperlink{}{code} contents.
+
+This class also features a static \hyperlink{}{method} that should return the default container name in which to store such objects.
+
+\begin{DoxyVerb}    @subpackage     Entities\end{DoxyVerb}
+
+
+{\itshape \hyperlink{class_c_user}{C\-User}\/} class definition.
+
+This file contains the class definition of {\bfseries \hyperlink{class_c_user}{C\-User}} which represents a class mapping a general purpose user.
+
+\begin{DoxyVerb}    @subpackage     Entities
+
+    @author         Milko A. Škofič <m.skofic@cgiar.org>
+    @version        1.00 21/02/2012
+                            2.00 13/03/2012\end{DoxyVerb}
+
+
+Ancestor.
+
+This include file contains the parent class definitions. User ancestor.
+
+This class is the ancestor of user classes in this library, it implements an object that represents a basic user. This object features a minimum set of properties that can be set via \hyperlink{}{offsets}.
+
+Besides the properties handled by its \hyperlink{class_c_entity}{parent}, this class implements the following attributes\-:
+
+
+\begin{DoxyItemize}
+\item {\itshape \hyperlink{}{k\-O\-F\-F\-S\-E\-T\-\_\-\-P\-A\-S\-S\-W\-O\-R\-D}\/}\-: This offset represents the user access password, it will be used in the authentication process. The class features a member accessor \hyperlink{}{method} to manage this property. 
+\end{DoxyItemize}
+
+By default we add as \hyperlink{}{type} the \hyperlink{}{user} entity type.
+
+\hyperlink{namespace_objects}{Objects} of this class can only be \hyperlink{}{saved} if they have both the \hyperlink{}{password} and \hyperlink{}{e-\/mail} set.
+
+\begin{DoxyVerb}    @subpackage     Entities\end{DoxyVerb}
+ 

@@ -724,12 +724,12 @@ class CMongoDataWrapper extends CDataWrapper
 		//
 		elseif( ($_REQUEST[ kAPI_OPERATION ] == kAPI_OP_GET_OBJECT_REF)
 			 && array_key_exists( kAPI_DATA_OBJECT, $_REQUEST )
-			 && array_key_exists( kTAG_COLLECTION_REFERENCE, $_REQUEST[ kAPI_DATA_OBJECT ] )
+			 && array_key_exists( kTAG_CONTAINER_REFERENCE, $_REQUEST[ kAPI_DATA_OBJECT ] )
 			 && array_key_exists( kAPI_DATABASE, $_REQUEST ) )
 			$_REQUEST[ kAPI_CONTAINER ]
 				= $_REQUEST[ kAPI_DATABASE ]
 					->selectCollection
-						( $_REQUEST[ kAPI_DATA_OBJECT ][ kTAG_COLLECTION_REFERENCE ] );
+						( $_REQUEST[ kAPI_DATA_OBJECT ][ kTAG_CONTAINER_REFERENCE ] );
 	
 	} // _FormatContainer.
 

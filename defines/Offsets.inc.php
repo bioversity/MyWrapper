@@ -79,9 +79,9 @@ define( "kTAG_ID_REFERENCE",					'$id' );
 /**
  * Collection name reference tag.
  *
- * This tag is the offset used to indicate a collection within an object reference.
+ * This tag is the offset used to indicate a container within an object reference.
  */
-define( "kTAG_COLLECTION_REFERENCE",			'$ref' );
+define( "kTAG_CONTAINER_REFERENCE",				'$ref' );
 
 /**
  * Database name reference tag.

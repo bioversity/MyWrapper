@@ -9,9 +9,9 @@
 		</head>
 		<body>
 			<div class="page-body">			
-<h2 class="class-name"><img src="../../media/images/Class_logo.png"
-														alt=" Class"
-														title=" Class"
+<h2 class="class-name"><img src="../../media/images/AbstractClass_logo.png"
+														alt="Abstract Class"
+														title="Abstract Class"
 														style="vertical-align: middle"> CEntity</h2>
 
 <a name="sec-description"></a>
@@ -29,32 +29,36 @@
 	<div class="info-box-body">
         		<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Entity.</p>
-<p class="description"><p>An entity is a person, institution or legal entity that needs to have a specific identity  in the global data schema.</p><p>Examples of entities could be a gene bank, a germplasm curator, a farmer that donated an  accession, etc. Since entities may take different forms, they can be individuals or  organisations.</p><p>This class  implements the features common to all entity derived classes:</p><p><ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_PARENT">kTAG_PARENT</a></em>: This offset represents the entity parents or
-        affiliations. This is an array of object <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifiers</a> or
-        <a href="../../Objects/Entities/CEntity.html">CEntity</a> derived instances.
-        The class features a member accessor <a href="../../Objects/Entities/CEntity.html#methodParent">method</a> to manage this
-        property.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a></em>: This offset represents the entity type. The
-        <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CLASS">class</a> offset indicates the class to which the object belongs,
-        this offset should indicate what functions the object has. The data is an array.
-        The class features a member accessor <a href="../../Objects/Entities/CEntity.html#methodType">method</a> to manage this property.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">kTAG_CODE</a></em>: This offset represents the entity code, it
-        should also represent the entity unique identifier.
-        The class features a member accessor <a href="../../Objects/Entities/CEntity.html#methodCode">method</a> to manage this property.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">kTAG_NAME</a></em>: This offset represents the entity name.
-        The class features a member accessor <a href="../../Objects/Entities/CEntity.html#methodName">method</a> to manage this property.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL">kOFFSET_MAIL</a></em>: This offset represents the entity mailing
-        address. The data is structured as an array in which the elements are structured as
-        follows:
-     <ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a></em>: This offset represents the address type,
-            this could be &quot;home&quot;, &quot;office&quot; or this element could be missing for a default
-            address.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: This offset represents the actual address,
-            it may be a string containing the whole address, or an CAddress
-            in which each element of the address has its own property.</li></ul>
-        The class features a member accessor <a href="../../Objects/Entities/CEntity.html#methodMail">method</a> to manage this property.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_EMAIL">kOFFSET_EMAIL</a></em>: This offset represents the entity
-        e-mail.
-        The class features a member accessor <a href="../../Objects/Entities/CEntity.html#methodEmail">method</a> to manage this property.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_PHONE">kOFFSET_PHONE</a></em>: This offset represents the entity
-        telephone number. The data is structured as an array in which the elements contain
-        the telephone number.
-        The class features a member accessor <a href="../../Objects/Entities/CEntity.html#methodPhone">method</a> to manage this property.</li></ul></p><p>Among the above attributes the <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a> and the <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">name</a> are  required, this means that the object will not have its <a href="../../Framework/Core/CStatusObject.html#method_IsInited">inited</a>  <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a> on, if any of these are not set; which also means that  the object will not be allowed to be <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">committed</a>.</p><p>By default, the object's unique <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a> will be set with the  current <a href="../../Objects/Entities/CEntity.html#methodCode">code</a> contents.</p><p>This class also features a static <a href="../../Objects/Entities/CEntity.html#methodDefaultContainer">method</a> that should return  the default container name in which to store such objects.</p></p>
+<p class="description"><p>An entity can be an individual, and organisation or a legal entity that must be  referenced.</p><p>The main difference between objects derived from this class and other instances of  people or organisations is that in the latter case these entities may be embedded in  in other objects, whereas in the case of this class, these entities must exist on their  own since they are to be referenced by different sources.</p><p>In this class we declare only the bare minimum attributes that any entity needs, derived  classes will use this one as a base to implement concrete instances:</p><p>The shared attributes are:</p><p><ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">kTAG_CODE</a></em>: This attribute is a short string that can be
+        used to discriminate the entity, the string should be readable and printable. In
+        general, this string should be unique among all entities of the same
+        <a href="../../Objects/Entities/CEntity.html#methodType">type</a>, although this may not be required as long as duplicates are not
+        mixed. The class features a member accessor <a href="../../Objects/Entities/CEntity.html#methodCode">method</a> to manage this
+        property.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a></em>: This offset represents the entity type. This
+        attribute should not be confused with the object's <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CLASS">class</a>: the
+        latter provides an indication on the functionality and structure of the entity,
+        whereas this attribute provides an indication on the nature of the entity. This
+        attribute is implemented as an array. The class features a member accessor
+        <a href="../../Objects/Entities/CEntity.html#methodType">method</a> to manage this property.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">kTAG_NAME</a></em>: This offset represents the entity name. It may
+        be considered an expanded version of the code or a label that can be applied to the
+        entity. By default it should be a string, concrete derived instances may expand on
+        this. The class features a member accessor <a href="../../Objects/Entities/CEntity.html#methodName">method</a> to manage this
+        property.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_REF">kTAG_REF</a></em>: This offset represents the list of references of
+        the entity. It is implemented as an array whose elements may either be:
+     <ul><li><em>A typed reference</em>: This element is an array structured as follows:
+         <ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a></em>: This offset represents the reference
+                type or context.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: This offset represents the reference
+                itself, it may simply be an object identifier, an object reference or the
+                referenced object itself.</li></ul></li><li><em>A simple reference</em>: This element is a scalar representing an object
+            identifier, an object reference or the referenced object itself. In this case
+            the nature of the reference must be implicit.</li></ul>
+        The class features a member accessor <a href="../../Objects/Entities/CEntity.html#methodReference">method</a> to manage this
+        property.</li></ul></p><p>Objects of this class require at least the <a href="../../Objects/Entities/CEntity.html#methodCode">code</a> <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">offset</a>  to be set if they expect to have an <a href="../../Framework/Core/CStatusObject.html#method_IsInited">initialised</a>  <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>.</p><p>When <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">committing</a>, eventual <a href="../../Objects/Entities/CEntity.html#methodReference">reference</a> elements set as  the actual instances will be first <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">saved</a> to the same  <a href="../../Framework/Persistence/CContainer.html">container</a>, then replaced by references.</p><p>The class also features a static <a href="../../Objects/Entities/CEntity.html#methodDefaultContainer">method</a> that returns the  default container name for objects of this type.</p></p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+			</ul>
 		<p class="notes">
-			Located in <a class="field" href="_classes---CEntity.php.html">/classes/CEntity.php</a> (line <span class="field">98</span>)
+			Located in <a class="field" href="_classes---CEntity.php.html">/classes/CEntity.php</a> (line <span class="field">96</span>)
 		</p>
 		
 				
@@ -130,7 +134,7 @@
 										<a href="#DefaultContainer" title="details" class="method-name">DefaultContainer</a>
 										()
 									</div>
-																																																																																																				<div class="method-definition">
+																																																																												<div class="method-definition">
 					<img src="../../media/images/Constructor.png" alt=" "/>
 											<span class="method-result">CEntity</span>
 										<a href="#__construct" title="details" class="method-name">__construct</a>
@@ -143,18 +147,6 @@
 											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
 									</div>
 																								<div class="method-definition">
-					<img src="../../media/images/Method.png" alt=" "/>
-											<span class="method-result">string</span>
-										<a href="#Email" title="details" class="method-name">Email</a>
-											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
-									</div>
-																<div class="method-definition">
-					<img src="../../media/images/Method.png" alt=" "/>
-											<span class="method-result">string</span>
-										<a href="#Mail" title="details" class="method-name">Mail</a>
-											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
-									</div>
-																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">string</span>
 										<a href="#Name" title="details" class="method-name">Name</a>
@@ -175,18 +167,12 @@
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">string</span>
-										<a href="#Parent" title="details" class="method-name">Parent</a>
+										<a href="#Reference" title="details" class="method-name">Reference</a>
 											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theOperation</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
-											<span class="method-result">string</span>
-										<a href="#Phone" title="details" class="method-name">Phone</a>
-											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
-									</div>
-																<div class="method-definition">
-					<img src="../../media/images/Method.png" alt=" "/>
-											<span class="method-result">string</span>
+											<span class="method-result">mixed</span>
 										<a href="#Type" title="details" class="method-name">Type</a>
 											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theOperation</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
 									</div>
@@ -253,7 +239,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static DefaultContainer</span> (line <span class="line-number">494</span>)
+		<span class="method-title">static DefaultContainer</span> (line <span class="line-number">411</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -276,14 +262,16 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Constructor.png" />
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">126</span>)
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">128</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Instantiate class.</p>
-<p class="description"><p>We <a href="../../Framework/Persistence/CPersistentObject.html#method__construct">overload</a> the constructor to initialise  the <a href="../../Framework/Core/CStatusObject.html#method_IsInited">inited</a> <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">flag</a> if the  <a href="../../Objects/Entities/CEntity.html#methodCode">code</a> and <a href="../../Objects/Entities/CEntity.html#methodName">name</a> elements are set.</p></p>
+<p class="description"><p>We <a href="../../Framework/Persistence/CPersistentObject.html#method__construct">overload</a> the constructor to initialise  the <a href="../../Framework/Core/CStatusObject.html#method_IsInited">inited</a> <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">flag</a> if the  <a href="../../Objects/Entities/CEntity.html#methodCode">code</a> attribute is set.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">kTAG_CODE</a></li>
 				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Core/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -324,14 +312,16 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Code</span> (line <span class="line-number">209</span>)
+		<span class="method-title">Code</span> (line <span class="line-number">181</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage entity code.</p>
-<p class="description"><p>This method can be used to manage the entity <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a>, it uses the  standard accessor <a href="../../Framework/Core/CArrayObject.html#method_ManageOffset">method</a> to manage the  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">offset</a>:</p><p>For a more in-depth reference of this method, please consult the  <a href="../../Framework/Core/CArrayObject.html#method_ManageOffset">_ManageOffset</a> method, in which the first parameter  will be the constant <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">kTAG_CODE</a>.</p></p>
+<p class="description"><p>This method can be used to handle the entity <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a>, it uses the  standard accessor <a href="../../Framework/Core/CArrayObject.html#method_ManageOffset">method</a> to manage the  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">offset</a>.</p><p>This code is the entity identifier or acronym, in general it will be the key to the  entity in a collection of entities of the same kind. The value should be a short  string, possibly printable, that could be used as the entity unique identifier.</p><p>For a more in-depth reference of this method, please consult the  <a href="../../Framework/Core/CArrayObject.html#method_ManageOffset">_ManageOffset</a> method, in which the first parameter will be  the constant <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">kTAG_CODE</a>.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">kTAG_CODE</a></li>
 				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -353,90 +343,21 @@
 		
 			
 	</div>
-<a name="methodEmail" id="Email"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<img src="../../media/images/Method.png" />
-		<span class="method-title">Email</span> (line <span class="line-number">305</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Manage entity e-mail.</p>
-<p class="description"><p>This method can be used to manage the entity <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_EMAIL">e-mail</a>, it uses  the standard accessor <a href="../../Framework/Core/CArrayObject.html#method_ManageOffset">method</a> to manage the  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_EMAIL">offset</a>:</p><p>For a more in-depth reference of this method, please consult the  <a href="../../Framework/Core/CArrayObject.html#method_ManageOffset">_ManageOffset</a> method, in which the first parameter  will be the constant <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_EMAIL">kOFFSET_EMAIL</a>.</p></p>
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">string</span>
-		<span class="method-name">
-			Email
-		</span>
-					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">mixed</span>
-				<span class="var-name">$theValue</span><span class="var-description">: Value.</span>			</li>
-					<li>
-				<span class="var-type">boolean</span>
-				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodMail" id="Mail"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<img src="../../media/images/Method.png" />
-		<span class="method-title">Mail</span> (line <span class="line-number">276</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Manage entity mailing addresses.</p>
-<p class="description"><p>This method can be used to manage the entity mailing <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL">addresses</a>,  it uses the standard accessor <a href="../../Framework/Core/CArrayObject.html#method_ManageTypedArrayOffset">method</a> to manage the  list of addresses.</p><p>This list is an array of structures where the <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a> element  indicates the type of the address, for instance <em>home</em> or &lt;/i&gt;office&lt;/i&gt;, and  the <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a> element represents the actual address, be it a string  or itself a structure holding the address elements. If the  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a> element is missing, we assume it to be the default  address.</p><p>For a more in-depth reference of this method, please consult the  <a href="../../Framework/Core/CArrayObject.html#method_ManageArrayOffset">_ManageTypedArrayOffset</a> method, in which the first  parameter will be the constant <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL">kOFFSET_MAIL</a>.</p><p>Note that this method will &lt;i&lt;NOT&lt;/i&gt; work on an object that was  <a href="../../Framework/Wrappers/CMongoDataWrapper.html#methodSerialiseObject">serialised</a>.</p></p>
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">string</span>
-		<span class="method-name">
-			Mail
-		</span>
-					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">mixed</span>
-				<span class="var-name">$theType</span><span class="var-description">: Item type.</span>			</li>
-					<li>
-				<span class="var-type">mixed</span>
-				<span class="var-name">$theValue</span><span class="var-description">: Item value.</span>			</li>
-					<li>
-				<span class="var-type">boolean</span>
-				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
-				</ul>
-		
-			
-	</div>
 <a name="methodName" id="Name"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Name</span> (line <span class="line-number">237</span>)
+		<span class="method-title">Name</span> (line <span class="line-number">254</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage entity name.</p>
-<p class="description"><p>This method can be used to manage the entity <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">name</a>, it uses the  standard accessor <a href="../../Framework/Core/CArrayObject.html#method_ManageOffset">method</a> to manage the  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">offset</a>:</p><p>For a more in-depth reference of this method, please consult the  <a href="../../Framework/Core/CArrayObject.html#method_ManageOffset">_ManageOffset</a> method, in which the first parameter  will be the constant <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">kTAG_NAME</a>.</p></p>
+<p class="description"><p>This method can be used to handle the entity <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">name</a>, it uses the  standard accessor <a href="../../Framework/Core/CArrayObject.html#method_ManageOffset">method</a> to manage the  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">offset</a>.</p><p>This value should be a string that can be used as a label or as a short definition  of the entity. The name may be language dependent, so the type of data stored in this  offset is the responsibility of concrete classes.</p><p>For a more in-depth reference of this method, please consult the  <a href="../../Framework/Core/CArrayObject.html#method_ManageOffset">_ManageOffset</a> method, in which the first parameter  will be the constant <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">kTAG_NAME</a>.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">kTAG_NAME</a></li>
 				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -463,12 +384,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetSet</span> (line <span class="line-number">425</span>)
+		<span class="method-title">offsetSet</span> (line <span class="line-number">344</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Set a value for a given offset.</p>
-<p class="description"><p>We overload this method to manage the _Is  <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>: this is set if <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a> and  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">name</a> properties are set.</p></p>
+<p class="description"><p>We overload this method to manage the _Is  <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>: this is set if <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a> property is  set.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 			</ul>
@@ -511,12 +432,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetUnset</span> (line <span class="line-number">457</span>)
+		<span class="method-title">offsetUnset</span> (line <span class="line-number">375</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Reset a value for a given offset.</p>
-<p class="description"><p>We overload this method to manage the _Is  <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>: this is set if <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a> and  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">name</a> properties are set.</p></p>
+<p class="description"><p>We overload this method to manage the _Is  <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>: this is set if <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a> property is  set.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 			</ul>
@@ -551,29 +472,37 @@
 							</li>
 				</ul>
 	</div>
-<a name="methodParent" id="Parent"><!-- --></a>
+<a name="methodReference" id="Reference"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Parent</span> (line <span class="line-number">392</span>)
+		<span class="method-title">Reference</span> (line <span class="line-number">311</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Manage entity parents.</p>
-<p class="description"><p>This method can be used to manage the entity <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_PARENT">parents</a>, you can  add/replace, retrieve and delete parent elements depending on the value of the  parameters.</p><p>The property is represented by an array of instances derived from this class, or  strings representing entity <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifiers</a>.  In the first case, prior to <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">saving</a> the current object, array  elements in the form of CEntity instances will also be <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">saved</a> and  replaced by their <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifiers</a>.</p><p>This method accepts the following parameters:</p><p><ul><li><strong>$theIndex</strong>: This parameter represents the element index.</li><li><strong>$theOperation</strong>: The operation to perform:
-     <ul><li><em>NULL</em>: Retrieve the element, the methoid will return the matching
-            element or <em>NULL</em> if not found.</li><li><em>FALSE</em>: Delete the element, depending on the value of the next
-            parameter, the method will either return the deleted element or <em>NULL</em>.</li><li><em>other</em>: Any other value means that we want to add/replace the element,
-            in this case the method will return the added element's index.</li></ul></li><li><strong>$theData</strong>: This parameter represents the element data.</li></ul></p><p>Note that this method will &lt;i&lt;NOT&lt;/i&gt; work on an object that was  <a href="../../Framework/Wrappers/CMongoDataWrapper.html#methodSerialiseObject">serialised</a>.</p></p>
+<p class="short-description">Manage entity references.</p>
+<p class="description"><p>This method can be used to manage the entity <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_REF">references</a>, it uses the  standard accessor <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_ManageObjectList">method</a> to manage the  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_REF">offset</a>.</p><p>This property represents a list of elements that can take two forms:</p><p><ul><li><em>A typed reference</em>: A typed reference is a reference that has a specific
+        type or class, for instance an exact synonym, which is different from a generic
+        synonym. Such elements are expressed as an array:
+     <ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a></em>: This offset represents the reference
+            type or class, it may be omitted if the reference has no type or when we
+            want to define a default reference.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: This offset represents the reference
+            itself, it may simply be an object identifier, an object reference or the
+            referenced object itself. This offset is required, to indicate that this is
+            a typed reference collection.</li></ul></li><li><em>A simple reference</em>: Each element is a scalar representing an object
+        identifier, an object reference or the referenced object itself. In this case
+        the nature of the reference should be implicit.</li></ul></p><p>You should not generally mix these two types of elements in the same offset because  this method expects both the <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">type</a> and <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">reference</a>  to match.</p><p>For a more in-depth reference of this method, please consult the  <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_ManageObjectList">_ManageObjectList</a> method, in which the first parameter  will be the constant <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_REF">kTAG_REF</a>.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_REF">kTAG_REF</a></li>
 				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 			</ul>
 	
 	<div class="method-signature">
 		<span class="method-result">string</span>
 		<span class="method-name">
-			Parent
+			Reference
 		</span>
 					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theOperation</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
 			</div>
@@ -581,7 +510,7 @@
 			<ul class="parameters">
 					<li>
 				<span class="var-type">mixed</span>
-				<span class="var-name">$theValue</span><span class="var-description">: Index or value.</span>			</li>
+				<span class="var-name">$theValue</span><span class="var-description">: Reference element.</span>			</li>
 					<li>
 				<span class="var-type">mixed</span>
 				<span class="var-name">$theOperation</span><span class="var-description">: Operation.</span>			</li>
@@ -592,57 +521,25 @@
 		
 			
 	</div>
-<a name="methodPhone" id="Phone"><!-- --></a>
+<a name="methodType" id="Type"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Phone</span> (line <span class="line-number">333</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Manage entity phone.</p>
-<p class="description"><p>This method can be used to manage the entity <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_PHONE">telephone</a> number,  it uses the standard accessor <a href="../../Framework/Core/CArrayObject.html#method_ManageOffset">method</a> to manage the  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_PHONE">offset</a>:</p><p>For a more in-depth reference of this method, please consult the  <a href="../../Framework/Core/CArrayObject.html#method_ManageOffset">_ManageOffset</a> method, in which the first parameter  will be the constant <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_PHONE">kOFFSET_PHONE</a>.</p></p>
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">string</span>
-		<span class="method-name">
-			Phone
-		</span>
-					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">mixed</span>
-				<span class="var-name">$theValue</span><span class="var-description">: Value.</span>			</li>
-					<li>
-				<span class="var-type">boolean</span>
-				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodType" id="Type"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<img src="../../media/images/Method.png" />
-		<span class="method-title">Type</span> (line <span class="line-number">180</span>)
+		<span class="method-title">Type</span> (line <span class="line-number">217</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage entity types.</p>
-<p class="description"><p>This method can be used to manage the entity <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">types</a>, it uses the  standard accessor <a href="../../Framework/Core/CArrayObject.html#method_ManageArrayOffset">method</a> to manage the list of parent  entities.</p><p>In general, elements of this list should be a token that indicates a specific  function of the entity, this could be, for instance', <em>user</em> to indicate an  entity that is also a user of the system.</p><p>For a more in-depth reference of this method, please consult the  <a href="../../Framework/Core/CArrayObject.html#method_ManageArrayOffset">_ManageArrayOffset</a> method, in which the first parameter  will be the constant <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a>.</p><p>Note that this method will &lt;i&lt;NOT&lt;/i&gt; work on an object that was  <a href="../../Framework/Wrappers/CMongoDataWrapper.html#methodSerialiseObject">serialised</a>.</p></p>
+<p class="description"><p>This method can be used to handle the entity <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">types</a>, it uses the  standard accessor <a href="../../Framework/Core/CArrayObject.html#method_ManageArrayOffset">method</a> to manage the list of types.</p><p>Each element of this list should indicate a function or quality of the current  entity, the nature and specifics of these elements is the responsibility of concrete  classes.</p><p>For a more thorough reference of how this method works, please consult the  <a href="../../Framework/Core/CArrayObject.html#method_ManageArrayOffset">_ManageArrayOffset</a> method, in which the first parameter  will be the constant <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a>.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a></li>
 				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Core/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></li>
 			</ul>
 	
 	<div class="method-signature">
-		<span class="method-result">string</span>
+		<span class="method-result">mixed</span>
 		<span class="method-name">
 			Type
 		</span>
@@ -664,11 +561,11 @@
 			
 	</div>
 <a name="method_id" id="_id"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_id</span> (line <span class="line-number">596</span>)
+		<span class="method-title">_id</span> (line <span class="line-number">521</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -696,16 +593,16 @@
 			
 	</div>
 <a name="method_PrepareStore" id="_PrepareStore"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareStore</span> (line <span class="line-number">525</span>)
+		<span class="method-title">_PrepareStore</span> (line <span class="line-number">445</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Normalise before a store.</p>
-<p class="description"><p>We overload this method to check if the object in <a href="../../Framework/Core/CStatusObject.html#method_IsInited">initialised</a>, if  this is not the case we raise an exception.</p></p>
+<p class="description"><p>We overload this method to check if the object in <a href="../../Framework/Core/CStatusObject.html#method_IsInited">initialised</a>, if  this is not the case we raise an exception.</p><p>We also scan the <a href="../../Objects/Entities/CEntity.html#methodReference">references</a> list to commit any elements that are  actual instances and convert them to references.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../Framework/Definitions/_defines---Errors.inc.php.html#definekERROR_OPTION_MISSING">kERROR_OPTION_MISSING</a></li>
 				<li><span class="field">throws:</span> CException</li>
@@ -908,7 +805,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Thu, 15 Mar 2012 20:13:19 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 16 Mar 2012 18:49:53 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

@@ -28,12 +28,12 @@
 	<div class="info-box-body">
         		<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">User ancestor.</p>
-<p class="description"><p>This class is the ancestor of user classes in this library, it implements an object that  represents a basic user. This object features a minimum set of properties that can be set  via <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html">offsets</a>.</p><p>Besides the properties handled by its <a href="../../Objects/Entities/CEntity.html">parent</a>, this class implements the  following attributes:</p><p><ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_PASSWORD">kOFFSET_PASSWORD</a></em>: This offset represents the user
+<p class="description"><p>This class overloads its <a href="../../Objects/Entities/CEntity.html">ancestor</a> to implement a user entity..  Users are entities that are used for authentication purposes, they share the same  attributes as their parent <a href="../../Objects/Entities/CEntity.html">class</a>, such as <a href="../../Objects/Entities/CEntity.html#methodName">name</a>,  Mail, etc., and they add one, <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_PASSWORD">kOFFSET_PASSWORD</a>,  which represents the user <a href="../../Objects/Entities/CUser.html#methodPassword">password</a>.</p><p>User <a href="../../Objects/Entities/CEntity.html">entities</a> are not differentiated as individuals or organisations, the  distinction</p><p>This class is the ancestor of user classes in this library, it implements an object that  represents a basic user. This object features a minimum set of properties that can be set  via <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html">offsets</a>.</p><p>Besides the properties handled by its <a href="../../Objects/Entities/CEntity.html">parent</a>, this class implements the  following attributes:</p><p><ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_PASSWORD">kOFFSET_PASSWORD</a></em>: This offset represents the user
         access password, it will be used in the authentication process.
         The class features a member accessor <a href="../../Objects/Entities/CUser.html#methodPassword">method</a> to manage this
-        property.</li></ul></p><p>By default we add as <a href="../../Objects/Entities/CEntity.html#methodType">type</a> the <a href="../../Framework/Wrappers/_classes---CEntity.inc.php.html#definekENTITY_USER">user</a> entity type.</p><p>Objects of this class can only be <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">saved</a> if they have both the  <a href="../../Objects/Entities/CUser.html#methodPassword">password</a> and <a href="../../Objects/Entities/CEntity.html#methodEmail">e-mail</a> set.</p></p>
+        property.</li></ul></p><p>By default we add as <a href="../../Objects/Entities/CEntity.html#methodType">type</a> the <a href="../../Framework/Wrappers/_classes---CEntity.inc.php.html#definekENTITY_USER">user</a> entity type.</p><p>Objects of this class can only be <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">saved</a> if they have both the  <a href="../../Objects/Entities/CUser.html#methodPassword">password</a> and Email() set.</p></p>
 		<p class="notes">
-			Located in <a class="field" href="_classes---CUser.php.html">/classes/CUser.php</a> (line <span class="field">55</span>)
+			Located in <a class="field" href="_classes---CUser.php.html">/classes/CUser.php</a> (line <span class="field">65</span>)
 		</p>
 		
 				
@@ -150,7 +150,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Constructor.png" />
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">83</span>)
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">93</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -190,7 +190,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetSet</span> (line <span class="line-number">175</span>)
+		<span class="method-title">offsetSet</span> (line <span class="line-number">185</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -232,7 +232,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetUnset</span> (line <span class="line-number">211</span>)
+		<span class="method-title">offsetUnset</span> (line <span class="line-number">221</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -271,7 +271,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Password</span> (line <span class="line-number">140</span>)
+		<span class="method-title">Password</span> (line <span class="line-number">150</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -307,7 +307,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareStore</span> (line <span class="line-number">256</span>)
+		<span class="method-title">_PrepareStore</span> (line <span class="line-number">266</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -356,19 +356,13 @@
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Objects/Entities/CEntity.html#methodDefaultContainer">CEntity::DefaultContainer()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Objects/Entities/CEntity.html#methodEmail">CEntity::Email()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Objects/Entities/CEntity.html#methodMail">CEntity::Mail()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Objects/Entities/CEntity.html#methodName">CEntity::Name()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Objects/Entities/CEntity.html#methodoffsetSet">CEntity::offsetSet()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Objects/Entities/CEntity.html#methodoffsetUnset">CEntity::offsetUnset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Objects/Entities/CEntity.html#methodParent">CEntity::Parent()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Objects/Entities/CEntity.html#methodPhone">CEntity::Phone()</a></span><br>
+							<span class="method-name"><a href="../../Objects/Entities/CEntity.html#methodReference">CEntity::Reference()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Objects/Entities/CEntity.html#methodType">CEntity::Type()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
@@ -536,7 +530,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Thu, 15 Mar 2012 20:13:20 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 16 Mar 2012 18:49:55 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

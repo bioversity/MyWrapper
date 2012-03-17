@@ -37,7 +37,7 @@ require_once( kPATH_LIBRARY_SOURCE."CPersistentObject.php" );
  *
  * <ul>
  *	<li><i>{@link kTAG_DATABASE_REFERENCE kTAG_DATABASE_REFERENCE}</i>: Database reference.
- *	<li><i>{@link kTAG_COLLECTION_REFERENCE kTAG_COLLECTION_REFERENCE}</i>: Collection
+ *	<li><i>{@link kTAG_CONTAINER_REFERENCE kTAG_CONTAINER_REFERENCE}</i>: Collection
  *		reference.
  *	<li><i>{@link kTAG_ID_REFERENCE kTAG_ID_REFERENCE}</i>: Object identifier.
  * </ul>
@@ -137,7 +137,7 @@ class CMongoDBRef extends CPersistentObject
 							//
 							// Set collection reference.
 							//
-							$reference[ kTAG_COLLECTION_REFERENCE ]
+							$reference[ kTAG_CONTAINER_REFERENCE ]
 								= $theContainer->getName();
 							
 							//
@@ -192,7 +192,7 @@ class CMongoDBRef extends CPersistentObject
 						// Check container type.
 						//
 						if( $theContainer instanceof MongoCollection )
-							$reference[ kTAG_COLLECTION_REFERENCE ]
+							$reference[ kTAG_CONTAINER_REFERENCE ]
 								= $theContainer->getName();
 						
 						else
@@ -420,9 +420,9 @@ class CMongoDBRef extends CPersistentObject
 	 * Manage collection.
 	 *
 	 * This method can be used to manage the database
-	 * {@link kTAG_COLLECTION_REFERENCE collection}, it uses the standard accessor
+	 * {@link kTAG_CONTAINER_REFERENCE collection}, it uses the standard accessor
 	 * {@link _ManageOffset() method} to manage the
-	 * {@link kTAG_COLLECTION_REFERENCE offset}:
+	 * {@link kTAG_CONTAINER_REFERENCE offset}:
 	 *
 	 * <ul>
 	 *	<li><b>$theValue</b>: The value or operation:
@@ -449,7 +449,7 @@ class CMongoDBRef extends CPersistentObject
 		//
 		// Handle offset.
 		//
-		$result = $this->_ManageOffset( kTAG_COLLECTION_REFERENCE, $theValue, $getOld );
+		$result = $this->_ManageOffset( kTAG_CONTAINER_REFERENCE, $theValue, $getOld );
 		
 		//
 		// Set inited status.
