@@ -28,7 +28,7 @@
 	<div class="info-box-body">
         		<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Mongo object reference.</p>
-<p class="description"><p>This class implements the MongoDBRef class as an instance: that is, a  <a href="../../Framework/Persistence/CPersistentObject.html">CPersistentObject</a> derived object which contains as properties  the elements comprising a Mongo object reference.</p><p>The object properties are the same as the MongoDBRef properties:</p><p><ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATABASE_REFERENCE">kTAG_DATABASE_REFERENCE</a></em>: Database reference.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_COLLECTION_REFERENCE">kTAG_CONTAINER_REFERENCE</a></em>: Collection
+<p class="description"><p>This class implements the MongoDBRef class as an instance: that is, a  <a href="../../Framework/Persistence/CPersistentObject.html">CPersistentObject</a> derived object which contains as properties  the elements comprising a Mongo object reference.</p><p>The object properties are the same as the MongoDBRef properties:</p><p><ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATABASE_REFERENCE">kTAG_DATABASE_REFERENCE</a></em>: Database reference.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CONTAINER_REFERENCE">kTAG_CONTAINER_REFERENCE</a></em>: Collection
         reference.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_REFERENCE">kTAG_ID_REFERENCE</a></em>: Object identifier.</li></ul></p><p>This class adds a new reference offset, <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CLASS">kTAG_CLASS</a>, which is used to  instantiate the correct class when dereferencing; this property is either set  <a href="../../Framework/Persistence/CMongoDBRef.html#methodClassName">explicitly</a> or it is taken from the provided reference  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CLASS">offset</a> when <a href="../../Framework/Persistence/CMongoDBRef.html#method__construct">constructing</a> the object.</p></p>
 		<p class="notes">
 			Located in <a class="field" href="_classes---CMongoDBRef.php.html">/classes/CMongoDBRef.php</a> (line <span class="field">53</span>)
@@ -146,7 +146,7 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Constructor.png" />
@@ -191,7 +191,7 @@
 			
 	</div>
 <a name="methodClassName" id="ClassName"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -227,7 +227,7 @@
 			
 	</div>
 <a name="methodCollection" id="Collection"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -236,7 +236,7 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage collection.</p>
-<p class="description"><p>This method can be used to manage the database  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_COLLECTION_REFERENCE">collection</a>, it uses the standard accessor  <a href="../../Framework/Core/CArrayObject.html#method_ManageOffset">method</a> to manage the  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_COLLECTION_REFERENCE">offset</a>:</p><p><ul><li><strong>$theValue</strong>: The value or operation:
+<p class="description"><p>This method can be used to manage the database  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CONTAINER_REFERENCE">collection</a>, it uses the standard accessor  <a href="../../Framework/Core/CArrayObject.html#method_ManageOffset">method</a> to manage the  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CONTAINER_REFERENCE">offset</a>:</p><p><ul><li><strong>$theValue</strong>: The value or operation:
      <ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the value.</li><li><em>other</em>: Set value.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
      <ul><li><em>TRUE</em>: Return the value <em>before</em> it was eventually modified.</li><li><em>FALSE</em>: Return the value <em>after</em> it was eventually modified.</li></ul></li></ul></p></p>
 	<ul class="tags">
@@ -263,7 +263,7 @@
 			
 	</div>
 <a name="methodDatabase" id="Database"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -299,7 +299,7 @@
 			
 	</div>
 <a name="methodIdentifier" id="Identifier"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -335,7 +335,7 @@
 			
 	</div>
 <a name="methodResolve" id="Resolve"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -511,7 +511,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 16 Mar 2012 18:49:54 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Mon, 19 Mar 2012 19:37:29 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

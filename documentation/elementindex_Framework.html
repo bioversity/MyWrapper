@@ -171,7 +171,7 @@
 			<span class="method-title">_Commit</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="Framework/Persistence/CArrayContainer.html#method_Commit">CArrayContainer::_Commit()</a> in CArrayContainer.php</div>
+			<div class="index-item-details"><a href="Framework/Persistence/CMongoContainer.html#method_Commit">CMongoContainer::_Commit()</a> in CMongoContainer.php</div>
 							<div class="index-item-description">Commit provided object.</div>
 					</dd>
 			<dt class="field">
@@ -187,7 +187,7 @@
 			<span class="method-title">_Commit</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="Framework/Persistence/CMongoContainer.html#method_Commit">CMongoContainer::_Commit()</a> in CMongoContainer.php</div>
+			<div class="index-item-details"><a href="Framework/Persistence/CArrayContainer.html#method_Commit">CArrayContainer::_Commit()</a> in CArrayContainer.php</div>
 							<div class="index-item-description">Commit provided object.</div>
 					</dd>
 			<dt class="field">
@@ -272,11 +272,27 @@
 					</dd>
 			<dt class="field">
 						<img src="media/images/Method.png" alt="Method" title="Method" />
+			<span class="method-title">_index</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="Framework/Persistence/CPersistentUnitObject.html#method_index">CPersistentUnitObject::_index()</a> in CPersistentUnitObject.php</div>
+							<div class="index-item-description">Return the object's unique index.</div>
+					</dd>
+			<dt class="field">
+						<img src="media/images/Method.png" alt="Method" title="Method" />
 			<span class="method-title">_IsCommitted</span>
 					</dt>
 		<dd class="index-item-body">
 			<div class="index-item-details"><a href="Framework/Persistence/CPersistentObject.html#method_IsCommitted">CPersistentObject::_IsCommitted()</a> in CPersistentObject.php</div>
 							<div class="index-item-description">Manage committed status.</div>
+					</dd>
+			<dt class="field">
+						<img src="media/images/Method.png" alt="Method" title="Method" />
+			<span class="method-title">_Load</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="Framework/Persistence/CMongoContainer.html#method_Load">CMongoContainer::_Load()</a> in CMongoContainer.php</div>
+							<div class="index-item-description">Load object.</div>
 					</dd>
 			<dt class="field">
 						<img src="media/images/AbstractMethod.png" alt="Method" title="Method" />
@@ -292,14 +308,6 @@
 					</dt>
 		<dd class="index-item-body">
 			<div class="index-item-details"><a href="Framework/Persistence/CArrayContainer.html#method_Load">CArrayContainer::_Load()</a> in CArrayContainer.php</div>
-							<div class="index-item-description">Load object.</div>
-					</dd>
-			<dt class="field">
-						<img src="media/images/Method.png" alt="Method" title="Method" />
-			<span class="method-title">_Load</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="Framework/Persistence/CMongoContainer.html#method_Load">CMongoContainer::_Load()</a> in CMongoContainer.php</div>
 							<div class="index-item-description">Load object.</div>
 					</dd>
 			<dt class="field">
@@ -323,7 +331,7 @@
 			<span class="method-title">_PrepareFind</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="Framework/Persistence/CPersistentUnitObject.html#method_PrepareFind">CPersistentUnitObject::_PrepareFind()</a> in CPersistentUnitObject.php</div>
+			<div class="index-item-details"><a href="Framework/Persistence/CPersistentObject.html#method_PrepareFind">CPersistentObject::_PrepareFind()</a> in CPersistentObject.php</div>
 							<div class="index-item-description">Normalise parameters of a find.</div>
 					</dd>
 			<dt class="field">
@@ -331,16 +339,16 @@
 			<span class="method-title">_PrepareFind</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="Framework/Persistence/CPersistentObject.html#method_PrepareFind">CPersistentObject::_PrepareFind()</a> in CPersistentObject.php</div>
+			<div class="index-item-details"><a href="Framework/Persistence/CPersistentUnitObject.html#method_PrepareFind">CPersistentUnitObject::_PrepareFind()</a> in CPersistentUnitObject.php</div>
 							<div class="index-item-description">Normalise parameters of a find.</div>
 					</dd>
 			<dt class="field">
 						<img src="media/images/Method.png" alt="Method" title="Method" />
-			<span class="method-title">_PrepareStore</span>
+			<span class="method-title">_PrepareReferenceList</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="Framework/Persistence/CPersistentObject.html#method_PrepareStore">CPersistentObject::_PrepareStore()</a> in CPersistentObject.php</div>
-							<div class="index-item-description">Normalise before a store.</div>
+			<div class="index-item-details"><a href="Framework/Persistence/CPersistentUnitObject.html#method_PrepareReferenceList">CPersistentUnitObject::_PrepareReferenceList()</a> in CPersistentUnitObject.php</div>
+							<div class="index-item-description">Prepare references lists.</div>
 					</dd>
 			<dt class="field">
 						<img src="media/images/Method.png" alt="Method" title="Method" />
@@ -348,6 +356,14 @@
 					</dt>
 		<dd class="index-item-body">
 			<div class="index-item-details"><a href="Framework/Persistence/CPersistentUnitObject.html#method_PrepareStore">CPersistentUnitObject::_PrepareStore()</a> in CPersistentUnitObject.php</div>
+							<div class="index-item-description">Normalise before a store.</div>
+					</dd>
+			<dt class="field">
+						<img src="media/images/Method.png" alt="Method" title="Method" />
+			<span class="method-title">_PrepareStore</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="Framework/Persistence/CPersistentObject.html#method_PrepareStore">CPersistentObject::_PrepareStore()</a> in CPersistentObject.php</div>
 							<div class="index-item-description">Normalise before a store.</div>
 					</dd>
 			<dt class="field">
@@ -363,7 +379,7 @@
 			<span class="method-title">_ValidateCondition</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="Framework/Persistence/CQuery.html#method_ValidateCondition">CQuery::_ValidateCondition()</a> in CQuery.php</div>
+			<div class="index-item-details"><a href="Framework/Persistence/CMongoQuery.html#method_ValidateCondition">CMongoQuery::_ValidateCondition()</a> in CMongoQuery.php</div>
 							<div class="index-item-description">Validate condition.</div>
 					</dd>
 			<dt class="field">
@@ -371,7 +387,7 @@
 			<span class="method-title">_ValidateCondition</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="Framework/Persistence/CMongoQuery.html#method_ValidateCondition">CMongoQuery::_ValidateCondition()</a> in CMongoQuery.php</div>
+			<div class="index-item-details"><a href="Framework/Persistence/CQuery.html#method_ValidateCondition">CQuery::_ValidateCondition()</a> in CQuery.php</div>
 							<div class="index-item-description">Validate condition.</div>
 					</dd>
 			<dt class="field">
@@ -403,7 +419,7 @@
 			<span class="method-title">__construct</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="Framework/Persistence/CContainer.html#method__construct">CContainer::__construct()</a> in CContainer.php</div>
+			<div class="index-item-details"><a href="Framework/Persistence/CArrayContainer.html#method__construct">CArrayContainer::__construct()</a> in CArrayContainer.php</div>
 							<div class="index-item-description">Instantiate class.</div>
 					</dd>
 			<dt class="field">
@@ -419,8 +435,24 @@
 			<span class="method-title">__construct</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="Framework/Persistence/CArrayContainer.html#method__construct">CArrayContainer::__construct()</a> in CArrayContainer.php</div>
+			<div class="index-item-details"><a href="Framework/Persistence/CContainer.html#method__construct">CContainer::__construct()</a> in CContainer.php</div>
 							<div class="index-item-description">Instantiate class.</div>
+					</dd>
+			<dt class="field">
+						<img src="media/images/Method.png" alt="Method" title="Method" />
+			<span class="method-title">__toString</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="Framework/Persistence/CMongoContainer.html#method__toString">CMongoContainer::__toString()</a> in CMongoContainer.php</div>
+							<div class="index-item-description">Return container name.</div>
+					</dd>
+			<dt class="field">
+						<img src="media/images/Method.png" alt="Method" title="Method" />
+			<span class="method-title">__toString</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="Framework/Persistence/CContainer.html#method__toString">CContainer::__toString()</a> in CContainer.php</div>
+							<div class="index-item-description">Return container name.</div>
 					</dd>
 			<dt class="field">
 						<img src="media/images/Method.png" alt="Method" title="Method" />
@@ -1284,11 +1316,19 @@
 					</dd>
 			<dt class="field">
 						<img src="media/images/Method.png" alt="Method" title="Method" />
-			<span class="method-title">Delete</span>
+			<span class="method-title">Database</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="Framework/Persistence/CMongoContainer.html#methodDelete">CMongoContainer::Delete()</a> in CMongoContainer.php</div>
-							<div class="index-item-description">Delete object.</div>
+			<div class="index-item-details"><a href="Framework/Persistence/CContainer.html#methodDatabase">CContainer::Database()</a> in CContainer.php</div>
+							<div class="index-item-description">Return database.</div>
+					</dd>
+			<dt class="field">
+						<img src="media/images/Method.png" alt="Method" title="Method" />
+			<span class="method-title">Database</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="Framework/Persistence/CMongoContainer.html#methodDatabase">CMongoContainer::Database()</a> in CMongoContainer.php</div>
+							<div class="index-item-description">Return database.</div>
 					</dd>
 			<dt class="field">
 						<img src="media/images/Method.png" alt="Method" title="Method" />
@@ -1296,6 +1336,14 @@
 					</dt>
 		<dd class="index-item-body">
 			<div class="index-item-details"><a href="Framework/Persistence/CContainer.html#methodDelete">CContainer::Delete()</a> in CContainer.php</div>
+							<div class="index-item-description">Delete object.</div>
+					</dd>
+			<dt class="field">
+						<img src="media/images/Method.png" alt="Method" title="Method" />
+			<span class="method-title">Delete</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="Framework/Persistence/CMongoContainer.html#methodDelete">CMongoContainer::Delete()</a> in CMongoContainer.php</div>
 							<div class="index-item-description">Delete object.</div>
 					</dd>
 		</dl>
@@ -1913,6 +1961,46 @@
 					</dd>
 			<dt class="field">
 						<img src="media/images/Constant.png" alt="Constant" title="Constant" />
+			<span class="const-title">kFLAG_REFERENCE_CLASS</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_REFERENCE_CLASS">kFLAG_REFERENCE_CLASS</a> in Flags.inc.php</div>
+							<div class="index-item-description">Reference: Class.</div>
+					</dd>
+			<dt class="field">
+						<img src="media/images/Constant.png" alt="Constant" title="Constant" />
+			<span class="const-title">kFLAG_REFERENCE_CONTAINER</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_REFERENCE_CONTAINER">kFLAG_REFERENCE_CONTAINER</a> in Flags.inc.php</div>
+							<div class="index-item-description">Reference: Container.</div>
+					</dd>
+			<dt class="field">
+						<img src="media/images/Constant.png" alt="Constant" title="Constant" />
+			<span class="const-title">kFLAG_REFERENCE_DATABASE</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_REFERENCE_DATABASE">kFLAG_REFERENCE_DATABASE</a> in Flags.inc.php</div>
+							<div class="index-item-description">Reference: Database.</div>
+					</dd>
+			<dt class="field">
+						<img src="media/images/Constant.png" alt="Constant" title="Constant" />
+			<span class="const-title">kFLAG_REFERENCE_IDENTIFIER</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_REFERENCE_IDENTIFIER">kFLAG_REFERENCE_IDENTIFIER</a> in Flags.inc.php</div>
+							<div class="index-item-description">Reference: Identifier.</div>
+					</dd>
+			<dt class="field">
+						<img src="media/images/Constant.png" alt="Constant" title="Constant" />
+			<span class="const-title">kFLAG_REFERENCE_MASK</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_REFERENCE_MASK">kFLAG_REFERENCE_MASK</a> in Flags.inc.php</div>
+							<div class="index-item-description">Reference mask.</div>
+					</dd>
+			<dt class="field">
+						<img src="media/images/Constant.png" alt="Constant" title="Constant" />
 			<span class="const-title">kFLAG_STATE_COMMITTED</span>
 					</dt>
 		<dd class="index-item-body">
@@ -2324,7 +2412,7 @@
 			<span class="const-title">kTAG_CONTAINER_REFERENCE</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_COLLECTION_REFERENCE">kTAG_CONTAINER_REFERENCE</a> in Offsets.inc.php</div>
+			<div class="index-item-details"><a href="Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CONTAINER_REFERENCE">kTAG_CONTAINER_REFERENCE</a> in Offsets.inc.php</div>
 							<div class="index-item-description">Collection name reference tag.</div>
 					</dd>
 			<dt class="field">
@@ -3043,6 +3131,14 @@
 		<dd class="index-item-body">
 			<div class="index-item-details"><a href="Framework/Core/CException.html#methodReference">CException::Reference()</a> in CException.php</div>
 							<div class="index-item-description">Set or return an exception reference.</div>
+					</dd>
+			<dt class="field">
+						<img src="media/images/Method.png" alt="Method" title="Method" />
+			<span class="method-title">Reference</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="Framework/Persistence/CContainer.html#methodReference">CContainer::Reference()</a> in CContainer.php</div>
+							<div class="index-item-description">Convert an object to a reference.</div>
 					</dd>
 			<dt class="field">
 						<img src="media/images/Method.png" alt="Method" title="Method" />

@@ -108,6 +108,24 @@ abstract class CContainer extends CObject
 		
 	} // Constructor.
 
+	 
+	/*===================================================================================
+	 *	__toString																		*
+	 *==================================================================================*/
+
+	/**
+	 * Return container name.
+	 *
+	 * This method should return the current container's name.
+	 *
+	 * In this class we return an empty string by default, in derived classes you should
+	 * implement this method if you need to {@link Reference() reference} the container.
+	 *
+	 * @access public
+	 * @return string
+	 */
+	public function __toString()											{	return '';	}
+
 		
 
 /*=======================================================================================
@@ -155,6 +173,31 @@ abstract class CContainer extends CObject
 		return $this->ManageMember( $this->mContainer, $theValue, $getOld );		// ==>
 
 	} // Container.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC ELEMENT INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	Database																		*
+	 *==================================================================================*/
+
+	/**
+	 * Return database.
+	 *
+	 * This method should return the current container's database, if this is not relevant,
+	 * it should return <i>NULL</i>.
+	 *
+	 * @access public
+	 * @return mixed
+	 */
+	public function Database()											{	return NULL;	}
 
 		
 
@@ -281,7 +324,7 @@ abstract class CContainer extends CObject
 	/**
 	 * Load object.
 	 *
-	 * This method can be used to load an object fron the container:
+	 * This method can be used to load an object from the container:
 	 *
 	 * <ul>
 	 *	<li><b>$theIdentifier</b>: The key to the object in the container.
@@ -369,7 +412,7 @@ abstract class CContainer extends CObject
 	 * Convert an object to a reference.
 	 *
 	 * This method accepts an object derived from
-	 * {@link CPersistentObject CPersistentObject} and returns an object reference that can
+	 * {@link CPersistentUnitObject CPersistentUnitObject} and returns a structure that can
 	 * be used as a reference to that object and stored as a property.
 	 *
 	 * The method will return an array composed by the following offsets:
@@ -389,7 +432,7 @@ abstract class CContainer extends CObject
 	 *
 	 * <ul>
 	 *	<li><b>$theObject</b>: The object to be referenced, it must be derived from
-	 *		{@link CPersistentObject CPersistentObject} or the method will raise an
+	 *		{@link CPersistentUnitObject CPersistentUnitObject} or the method will raise an
 	 *		exception.
 	 *	<li><b>$theModifiers</b>: This bitfield determines what elements should be included
 	 *		in the reference:
@@ -401,30 +444,31 @@ abstract class CContainer extends CObject
 	 *			default option.
 	 *		<li><i>{@link kFLAG_REFERENCE_CONTAINER kFLAG_REFERENCE_CONTAINER}</i>: The
 	 *			current container name will be stored under the
-	 *			{@link kTAG_CONTAINER_REFERENCE kTAG_CONTAINER_REFERENCE} offset.
+	 *			{@link kTAG_CONTAINER_REFERENCE kTAG_CONTAINER_REFERENCE} offset. If the
+	 *			provided value is empty, the offset will not be set.
 	 *		<li><i>{@link kFLAG_REFERENCE_DATABASE kFLAG_REFERENCE_DATABASE}</i>: The
 	 *			current container's database name will be stored under the
-	 *			{@link kTAG_DATABASE_REFERENCE kTAG_DATABASE_REFERENCE} offset.
+	 *			{@link kTAG_DATABASE_REFERENCE kTAG_DATABASE_REFERENCE} offset. If the
+	 *			current object's {@link Database() database} name is <i>NULL</i>, the
+	 *			offset will not be set.
 	 *		<li><i>{@link kFLAG_REFERENCE_CLASS kFLAG_REFERENCE_CLASS}</i>: The provided
 	 *			object's class name will be stored under the {@link kTAG_CLASS kTAG_CLASS}
 	 *			offset.
 	 *	 </ul>
 	 * </ul>
 	 *
-	 * @param CPersistentObject		$theObject			Object to reference.
+	 * @param CPersistentUnitObject	$theObject			Object to reference.
 	 * @param bitfield				$theModifiers		Referencing options.
 	 *
 	 * @access public
 	 * @return array
-	 *
-	 * @uses _Commit()
 	 */
 	public function Reference( $theObject, $theModifiers = kFLAG_REFERENCE_IDENTIFIER )
 	{
 		//
 		// Check provided object.
 		//
-		if( ! $theObject instanceof CPersistentObject )
+		if( ! $theObject instanceof CPersistentUnitObject )
 			throw new CException
 				( "Invalid object",
 				  kERROR_INVALID_PARAMETER,
@@ -454,20 +498,24 @@ abstract class CContainer extends CObject
 		//
 		// Load container information.
 		//
-		if( $theModifiers & kFLAG_REFERENCE_CONTAINER )
-			$reference[ kTAG_ID_REFERENCE ] = (string) $this;
+		if( ($theModifiers & kFLAG_REFERENCE_CONTAINER)
+		 && strlen( $tmp = (string) $this ) )
+			$reference[ kTAG_CONTAINER_REFERENCE ] = (string) $tmp;
 		
 		//
 		// Load database information.
 		//
-		if( $theModifiers & kFLAG_REFERENCE_DATABASE )
-			$reference[ kTAG_DATABASE_REFERENCE ] = (string) $this->Database();
+		if( ($theModifiers & kFLAG_REFERENCE_DATABASE)
+		 && (($tmp = $this->Database()) !== NULL) )
+			$reference[ kTAG_DATABASE_REFERENCE ] = (string) $tmp;
 		
 		//
 		// Load object class information.
 		//
 		if( $theModifiers & kFLAG_REFERENCE_CLASS )
 			$reference[ kTAG_CLASS ] = get_class( $theObject );
+		
+		return $reference;															// ==>
 
 	} // Reference.
 

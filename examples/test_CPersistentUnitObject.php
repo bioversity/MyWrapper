@@ -49,6 +49,7 @@ class MyClass extends CPersistentUnitObject
 	{
 		$this->_isInited( TRUE );
 		parent::_PrepareStore( $theContainer, $theIdentifier );
+		$this->_PrepareReferenceList($theContainer, 'REFERENCE', kFLAG_REFERENCE_MASK );
 	}
 }
 
@@ -291,10 +292,9 @@ try
 	//
 	// Create references.
 	//
-	$ref1 = new MyClass( array( 'Name' => 'Reference 1' ) );
-	$id1 = $ref1->Commit( $mcontainer );
+	$id1 = 1;
+	$ref1 = new MyClass( array( 'Name' => 'Reference 1', kTAG_ID_NATIVE => $id1 ) );
 	$ref2 = new MyClass( array( 'Name' => 'Reference 2' ) );
-	$id2 = $ref2->Commit( $mcontainer );
 	$ref3 = new MyClass( array( 'Name' => 'Reference 3' ) );
 	$id3 = $ref3->Commit( $mcontainer );
 	
@@ -326,6 +326,12 @@ try
 	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
 	echo( '<hr>' );
 	
+	echo( 'Before:<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$id = $test->Commit( $mcontainer );</i><br>' );
+	$id = $test->Commit( $mcontainer );
+	echo( 'After:<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
+	
 	echo( '<i>$res = $test->Reference( $id1, FALSE );</i><br>' );
 	$res = $test->Reference( $id1, FALSE );
 	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
@@ -349,7 +355,7 @@ try
 	$ref1 = array( kTAG_TYPE => 'PARENT', kTAG_DATA => $id1 );
 	$ref2 = array( kTAG_TYPE => 'CHILD', kTAG_DATA => $ref2 );
 	$ref3 = array( kTAG_TYPE => 'CHILD', kTAG_DATA => $id3 );
-	$ref4 = array( kTAG_TYPE => 'CHILD', kTAG_DATA => $id1 );
+	$ref4 = array( kTAG_TYPE => 'OTHER', kTAG_DATA => new MyClass( array( 'Name' => 'Reference 4' ) ) );
 	
 	echo( '<i>References</i><br>' );
 	echo( '1:<pre>' ); print_r( $ref1 ); echo( '</pre>' );
@@ -371,7 +377,9 @@ try
 	echo( '<hr>' );
 	
 	echo( '<i>$res = $test->Reference( $ref3, TRUE );</i><br>' );
+	echo( '<i>$res = $test->Reference( $ref4, TRUE );</i><br>' );
 	$res = $test->Reference( $ref3, TRUE );
+	$res = $test->Reference( $ref4, TRUE );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
 	echo( '<hr>' );
@@ -399,6 +407,19 @@ try
 	echo( '<i>$res = $test->Reference( $ref3, FALSE );</i><br>' );
 	$res = $test->Reference( $ref3, FALSE );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( 'Before:<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$id = $test->Commit( $mcontainer );</i><br>' );
+	$id = $test->Commit( $mcontainer );
+	echo( 'After:<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$ref = $test[ \'REFERENCE\' ][ 0 ][ kTAG_DATA ];</i><br>' );
+	$ref = $test[ 'REFERENCE' ][ 0 ][ kTAG_DATA ];
+	echo( '<i>$object = $mcontainer->Load( $ref );</i><br>' );
+	$object = $mcontainer->Load( $ref );
+	echo( '<pre>' ); print_r( $object ); echo( '</pre>' );
 	echo( '<hr>' );
 }
 

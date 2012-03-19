@@ -453,69 +453,9 @@ abstract class CEntity extends CPersistentUnitObject
 		parent::_PrepareStore( $theContainer, $theIdentifier );
 		
 		//
-		// Handle parents.
+		// Handle references.
 		//
-		if( $this->offsetExists( kTAG_REF ) )
-		{
-			//
-			// Iterate parents.
-			//
-			$done = FALSE;
-			$references = $this->offsetGet( kTAG_REF );
-			foreach( $references as $key => $value )
-			{
-				//
-				// Handle typed reference.
-				//
-				if( ( is_array( $value )
-				   || ($value instanceof ArrayObject) )
-				 && array_key_exists( kTAG_DATA, (array) $value ) )
-				{
-					//
-					// Check if is an instance.
-					//
-					if( ($object = $value[ kTAG_DATA ]) instanceof self )
-					{
-						//
-						// Commit.
-						//
-						$value[ kTAG_DATA ]->Commit( $theContainer );
-						
-						//
-						// Save identifier.
-						//
-						$done = $references[ $key ] = $value[ kTAG_DATA ][ kTAG_ID_NATIVE ];
-					
-					} // Is an instance.
-				
-				} // Has data element.
-				
-				//
-				// Handle simple reference.
-				//
-				elseif( $value instanceof self )
-				{
-					//
-					// Commit.
-					//
-					$value->Commit( $theContainer );
-					
-					//
-					// Save identifier.
-					//
-					$done = $references[ $key ] = $value[ kTAG_ID_NATIVE ];
-				
-				} // Is an instance.
-			
-			} // Iterating parents.
-			
-			//
-			// Update list.
-			//
-			if( $done )
-				$this->offsetSet( kTAG_REF, $references );
-		
-		} // Has parents.
+		$this->_PrepareReferenceList( $theContainer, kTAG_REF );
 		
 	} // _PrepareStore.
 

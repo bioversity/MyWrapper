@@ -34,13 +34,29 @@ require_once( kPATH_LIBRARY_SOURCE."CPersistentObject.php" );
  * among a collection of other objects.
  *
  * Instances derived from this class have a series of additional properties and methods that
- * govern how these can be stored and retrieved from collections.
+ * govern how these can be stored and retrieved from containers.
  *
- * The unique identifier or key value is returned by a protected {@link _id() method}, it
- * may return <i>NULL</i> before the object has been {@link Commit() committed} to a
- * container, in which case it means that it is the {@link CContainer container}'s duty to
- * determine that value; once the object has been {@link Commit() stored}, this value will
- * be found in the {@link kTAG_ID_NATIVE kTAG_ID_NATIVE} offset.
+ *
+ * The class features two read-only public methods that return:
+ *
+ * <ul>
+ *	<li><i>{@link _id() _id()}</i>: The object unique identifier as used by the native
+ *		persistent container to uniquely identify the object.
+ *	<li><i>{@link _index() _index()}</i>: The full index that uniquely identifies the
+ *		object.
+ * </ul>
+ *
+ * Although both methods seem to return the same information, they are different, in the
+ * sense that the {@link _index() _index} method should return the property or properties
+ * that constitute the object's unique identifier concatenated in a single string, this may
+ * be too long to use as an index, whereas {@link _id() _id()} returns the actual value used
+ * as the key, which may be the hashed {@link _index() _index} value. In other words
+ * {@link _index() _index} is the human readable version of {@link _id() _id}.
+ *
+ * When the object is {@link Commit committed} for the first time, the value of the
+ * {@link _id() _id} method will be set in the {@link kTAG_ID_NATIVE kTAG_ID_NATIVE} offset
+ * which represents the object ID. This offset should never be changed and represents the
+ * persistent identifier of the object.
  *
  * Objects derived from this class also hold, by default, their class name in an
  * {@link kTAG_CLASS offset}, this is used to {@link NewObject() instantiate} objects of the
@@ -175,18 +191,22 @@ class CPersistentUnitObject extends CPersistentObject
 	/**
 	 * Return the object's unique identifier.
 	 *
-	 * This method can be used to return a string value that represents the object's unique
-	 * identifier. When {@link Commit() saving} the object for the first time, if this
-	 * method returns a value, this will be used as the object's {@link kTAG_ID_NATIVE ID}.
+	 * This method can be used to return a value that represents the object's unique
+	 * native identifier. The method will first check if the object has the
+	 * {@link kTAG_ID_NATIVE kTAG_ID_NATIVE} offset, in that case it will return that value;
+	 * if the object was not yet {@link Commit() committed}, it is up to concrete derived
+	 * classes to decide what value should uniquely identify the object within the
+	 * container in which it is stored.
 	 *
-	 * If this method returns <i>NULL</i>, it is assumed that the
-	 * {@link CContainer container} will provide a default unique value.
+	 * If this method returns <i>NULL</i>, it is assumed that it will be the
+	 * {@link CContainer container} that will provide a default unique value.
 	 *
 	 * In this class we first check the {@link kTAG_ID_NATIVE identifier}, if not found, we
-	 * let the system choose.
+	 * let the system choose, in derived classes you can first call the parent method, then
+	 * do your custom thing.
 	 *
 	 * @access protected
-	 * @return string
+	 * @return mixed
 	 */
 	protected function _id()
 	{
@@ -199,6 +219,29 @@ class CPersistentUnitObject extends CPersistentObject
 		return NULL;																// ==>
 	
 	} // _id.
+
+	 
+	/*===================================================================================
+	 *	_index																			*
+	 *==================================================================================*/
+
+	/**
+	 * Return the object's unique index.
+	 *
+	 * This method can be used to return a string value that represents the object's unique
+	 * identifier. This value should generally be extracted from the object's properties.
+	 *
+	 * In general this value will be used by the {@link _id() _id} method to form the
+	 * object's unique {@link kTAG_ID_NATIVE identifier}, maybe hashed to make the index
+	 * smaller.
+	 *
+	 * In this class we return <i>NULL</i>, which means that this class has no unique
+	 * identifier.
+	 *
+	 * @access protected
+	 * @return string
+	 */
+	protected function _index()											{	return NULL;	}
 
 		
 
@@ -332,6 +375,135 @@ class CPersistentUnitObject extends CPersistentObject
 									  : 0 );
 	
 	} // _PrepareStore.
+
+	 
+	/*===================================================================================
+	 *	_PrepareReferenceList															*
+	 *==================================================================================*/
+
+	/**
+	 * Prepare references lists.
+	 *
+	 * This method will usually be called {@link _PrepareStore() before}
+	 * {@link Commit() storing} the object: its duty is to {@link Commit() commit} and
+	 * {@link CContainer::Reference() convert} to reference all referenced objects that are
+	 * in the form of instances.
+	 *
+	 * The method will iterate all elements of the provided reference list, intercept all
+	 * instances derived from this class and convert these to object references.
+	 *
+	 * The parameters to this method are:
+	 *
+	 * <ul>
+	 *	<li><b>$theContainer</b>: The container that is about to receive the current object,
+	 *		it must also be the container in which to find the references and must be
+	 *		derived from {@link CContainer CContainer}.
+	 *	<li><b>$theOffset</b>: The current object's offset in which the reference list is
+	 *		stored.
+	 *	<li><b>$theModifiers</b>: A bitfield indicating which elements of the
+	 *		{@link CContainer::Reference() reference} should be included.
+	 * </ul>
+	 *
+	 * @param CContainer			$theContainer		Object container.
+	 * @param string				$theOffset			Reference list offset.
+	 * @param bitfield				$theModifiers		Referencing options.
+	 *
+	 * @access protected
+	 */
+	protected function _PrepareReferenceList( $theContainer,
+											  $theOffset,
+											  $theModifiers = kFLAG_REFERENCE_IDENTIFIER )
+	{
+		//
+		// Check container.
+		//
+		if( ! $theContainer instanceof CContainer )
+			throw new CException
+					( "Unsupported container type",
+					  kERROR_UNSUPPORTED,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Container' => $theContainer ) );					// !@! ==>
+		
+		//
+		// Init local storage.
+		//
+		$done = FALSE;
+		$references = $this->offsetGet( $theOffset );
+		
+		//
+		// Handle list.
+		//
+		if( is_array( $references )
+		 || ($references instanceof ArrayObject) )
+		{
+			//
+			// Iterate list.
+			//
+			foreach( $references as $key => $value )
+			{
+				//
+				// Handle simple reference.
+				//
+				if( $value instanceof self )
+				{
+					//
+					// Commit object.
+					//
+					$value->Commit( $theContainer );
+					
+					//
+					// Convert to reference.
+					//
+					$done = TRUE;
+					$references[ $key ] = $theContainer->Reference( $value, $theModifiers );
+				
+				} // Simple reference.
+				
+				//
+				// Handle typed reference.
+				//
+				elseif( ( is_array( $value )
+					   || ($value instanceof ArrayObject) )
+					 && array_key_exists( kTAG_DATA, (array) $value ) )
+				{
+					//
+					// Check data element.
+					//
+					if( ($object = $value[ kTAG_DATA ]) instanceof self )
+					{
+						//
+						// Commit.
+						//
+						$value[ kTAG_DATA ]->Commit( $theContainer );
+						
+						//
+						// Convert to reference.
+						//
+						$done = TRUE;
+						$value[ kTAG_DATA ]
+							= $theContainer->Reference
+								( $value[ kTAG_DATA ], $theModifiers );
+						
+						//
+						// Update list element.
+						//
+						$references[ $key ] = $value;
+					
+					} // Is an instance.
+				
+				} // Possible typed list.
+			
+			} // Iterating list.
+			
+			//
+			// Update list.
+			//
+			if( $done )
+				$this->offsetSet( $theOffset, $references );
+		
+		} // Has a list.
+		
+	} // _PrepareReferenceList.
 
 		
 
@@ -928,7 +1100,17 @@ class CPersistentUnitObject extends CPersistentObject
 		// Try identifier value.
 		//
 		if( $theValue instanceof self )
-			return (string) $theValue->_id();										// ==>
+		{
+			//
+			// Get identifier value.
+			//
+			$id = $theValue->_id();
+			if( $id !== NULL )
+				return (string) $id;												// ==>
+			
+			return NULL;															// ==>
+		
+		} // Try identifier value.
 		
 		return (string) $theValue;													// ==>
 	

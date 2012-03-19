@@ -126,7 +126,7 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																																																																																								<div class="method-definition">
+																																																																																																																<div class="method-definition">
 					<img src="../../media/images/Constructor.png" alt=" "/>
 											<span class="method-result">CContainer</span>
 										<a href="#__construct" title="details" class="method-name">__construct</a>
@@ -147,6 +147,12 @@
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">mixed</span>
+										<a href="#Database" title="details" class="method-name">Database</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
 										<a href="#Delete" title="details" class="method-name">Delete</a>
 											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>, [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_DEFAULT</span>])
 									</div>
@@ -155,6 +161,12 @@
 											<span class="method-result">mixed</span>
 										<a href="#Load" title="details" class="method-name">Load</a>
 											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>, [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_DEFAULT</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">array</span>
+										<a href="#Reference" title="details" class="method-name">Reference</a>
+											(<span class="var-type"><a href="../../Framework/Persistence/CPersistentUnitObject.html">CPersistentUnitObject</a></span>&nbsp;<span class="var-name">$theObject</span>, [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_REFERENCE_IDENTIFIER</span>])
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/AbstractMethod.png" alt=" "/>
@@ -179,6 +191,12 @@
 											<span class="method-result">mixed</span>
 										<a href="#_Load" title="details" class="method-name">_Load</a>
 											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>, <span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">string</span>
+										<a href="#__toString" title="details" class="method-name">__toString</a>
+										()
 									</div>
 											</div>
 		</div>
@@ -284,7 +302,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Commit</span> (line <span class="line-number">246</span>)
+		<span class="method-title">Commit</span> (line <span class="line-number">289</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -365,7 +383,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Container</span> (line <span class="line-number">153</span>)
+		<span class="method-title">Container</span> (line <span class="line-number">171</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -408,12 +426,46 @@
 							</li>
 				</ul>
 	</div>
-<a name="methodDelete" id="Delete"><!-- --></a>
+<a name="methodDatabase" id="Database"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Delete</span> (line <span class="line-number">345</span>)
+		<span class="method-title">Database</span> (line <span class="line-number">200</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return database.</p>
+<p class="description"><p>This method should return the current container's database, if this is not relevant,  it should return <em>NULL</em>.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			Database
+		</span>
+				()
+			</div>
+	
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Framework/Persistence/CMongoContainer.html#methodDatabase">CMongoContainer::Database()</a>
+								: Return database.
+							</li>
+				</ul>
+	</div>
+<a name="methodDelete" id="Delete"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Delete</span> (line <span class="line-number">388</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -453,16 +505,16 @@
 				</ul>
 	</div>
 <a name="methodLoad" id="Load"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Load</span> (line <span class="line-number">306</span>)
+		<span class="method-title">Load</span> (line <span class="line-number">349</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Load object.</p>
-<p class="description"><p>This method can be used to load an object fron the container:</p><p><ul><li><strong>$theIdentifier</strong>: The key to the object in the container.</li><li><strong>$theModifiers</strong>: Optional bitfield that can be used to provide options for
+<p class="description"><p>This method can be used to load an object from the container:</p><p><ul><li><strong>$theIdentifier</strong>: The key to the object in the container.</li><li><strong>$theModifiers</strong>: Optional bitfield that can be used to provide options for
 		the operation. In this class we do not use this parameter.</li></ul></p><p>The method should return the found object, or <em>NULL</em> if not found.</p><p>In this class we simply call the protected <a href="../../Framework/Persistence/CContainer.html#method_Load">method</a> which must be  implemented by derived classes. You should only overload this method if you need to  initialise or process the identifier before passing it to the protected interface.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
@@ -496,12 +548,67 @@
 							</li>
 				</ul>
 	</div>
+<a name="methodReference" id="Reference"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Reference</span> (line <span class="line-number">466</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Convert an object to a reference.</p>
+<p class="description"><p>This method accepts an object derived from  <a href="../../Framework/Persistence/CPersistentUnitObject.html">CPersistentUnitObject</a> and returns a structure that can  be used as a reference to that object and stored as a property.</p><p>The method will return an array composed by the following offsets:</p><p><ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_REFERENCE">kTAG_ID_REFERENCE</a></em>: The object identifier, if
+        the provided object does not have an <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a>, this
+        method will raise an exception.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CONTAINER_REFERENCE">kTAG_CONTAINER_REFERENCE</a></em>: The container
+        name.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATABASE_REFERENCE">kTAG_DATABASE_REFERENCE</a></em>: The database
+        name.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CLASS">kTAG_CLASS</a></em>: The object's class name.</li></ul></p><p>The method accepts two parameters:</p><p><ul><li><strong>$theObject</strong>: The object to be referenced, it must be derived from
+        <a href="../../Framework/Persistence/CPersistentUnitObject.html">CPersistentUnitObject</a> or the method will raise an
+        exception.</li><li><strong>$theModifiers</strong>: This bitfield determines what elements should be included
+        in the reference:
+     <ul><li><em><a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_REFERENCE_IDENTIFIER">kFLAG_REFERENCE_IDENTIFIER</a></em>: The
+            object <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a> will be stored under the
+            <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_REFERENCE">kTAG_ID_REFERENCE</a> offset. If the object does bot
+            have this identifier, the method will raise an exception. This is the
+            default option.</li><li><em><a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_REFERENCE_CONTAINER">kFLAG_REFERENCE_CONTAINER</a></em>: The
+            current container name will be stored under the
+            <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CONTAINER_REFERENCE">kTAG_CONTAINER_REFERENCE</a> offset. If the
+            provided value is empty, the offset will not be set.</li><li><em><a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_REFERENCE_DATABASE">kFLAG_REFERENCE_DATABASE</a></em>: The
+            current container's database name will be stored under the
+            <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATABASE_REFERENCE">kTAG_DATABASE_REFERENCE</a> offset. If the
+            current object's <a href="../../Framework/Persistence/CContainer.html#methodDatabase">database</a> name is <em>NULL</em>, the
+            offset will not be set.</li><li><em><a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_REFERENCE_CLASS">kFLAG_REFERENCE_CLASS</a></em>: The provided
+            object's class name will be stored under the <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CLASS">kTAG_CLASS</a>
+            offset.</li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			Reference
+		</span>
+					(<span class="var-type"><a href="../../Framework/Persistence/CPersistentUnitObject.html">CPersistentUnitObject</a></span>&nbsp;<span class="var-name">$theObject</span>, [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_REFERENCE_IDENTIFIER</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../../Framework/Persistence/CPersistentUnitObject.html">CPersistentUnitObject</a></span>
+				<span class="var-name">$theObject</span><span class="var-description">: Object to reference.</span>			</li>
+					<li>
+				<span class="var-type">bitfield</span>
+				<span class="var-name">$theModifiers</span><span class="var-description">: Referencing options.</span>			</li>
+				</ul>
+		
+			
+	</div>
 <a name="method_Commit" id="_Commit"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/AbstractMethod.png" />
-		<span class="method-title">_Commit</span> (line <span class="line-number">442</span>)
+		<span class="method-title">_Commit</span> (line <span class="line-number">610</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -573,7 +680,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Container</span> (line <span class="line-number">378</span>)
+		<span class="method-title">_Container</span> (line <span class="line-number">546</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -599,7 +706,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/AbstractMethod.png" />
-		<span class="method-title">_Delete</span> (line <span class="line-number">494</span>)
+		<span class="method-title">_Delete</span> (line <span class="line-number">662</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -647,7 +754,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/AbstractMethod.png" />
-		<span class="method-title">_Load</span> (line <span class="line-number">468</span>)
+		<span class="method-title">_Load</span> (line <span class="line-number">636</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -690,6 +797,40 @@
 							</li>
 				</ul>
 	</div>
+<a name="method__toString" id="__toString"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">__toString</span> (line <span class="line-number">127</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return container name.</p>
+<p class="description"><p>This method should return the current container's name.</p><p>In this class we return an empty string by default, in derived classes you should  implement this method if you need to <a href="../../Framework/Persistence/CContainer.html#methodReference">reference</a> the container.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			__toString
+		</span>
+				()
+			</div>
+	
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Framework/Persistence/CMongoContainer.html#method__toString">CMongoContainer::__toString()</a>
+								: Return container name.
+							</li>
+				</ul>
+	</div>
 							<h4>Inherited Methods</h4>
 				<a name='inherited_methods'><!-- --></a>	
 									<!-- =========== Summary =========== -->
@@ -712,7 +853,7 @@
 
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 16 Mar 2012 18:49:52 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Mon, 19 Mar 2012 19:37:28 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

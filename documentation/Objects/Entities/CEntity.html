@@ -44,7 +44,8 @@
         entity. By default it should be a string, concrete derived instances may expand on
         this. The class features a member accessor <a href="../../Objects/Entities/CEntity.html#methodName">method</a> to manage this
         property.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_REF">kTAG_REF</a></em>: This offset represents the list of references of
-        the entity. It is implemented as an array whose elements may either be:
+        this entity to other entities. It is implemented as an array whose elements may
+        either be:
      <ul><li><em>A typed reference</em>: This element is an array structured as follows:
          <ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a></em>: This offset represents the reference
                 type or context.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: This offset represents the reference
@@ -58,7 +59,7 @@
 				<li><span class="field">abstract:</span> </li>
 			</ul>
 		<p class="notes">
-			Located in <a class="field" href="_classes---CEntity.php.html">/classes/CEntity.php</a> (line <span class="field">96</span>)
+			Located in <a class="field" href="_classes---CEntity.php.html">/classes/CEntity.php</a> (line <span class="field">97</span>)
 		</p>
 		
 				
@@ -235,11 +236,11 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="methodDefaultContainer" id="DefaultContainer"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static DefaultContainer</span> (line <span class="line-number">411</span>)
+		<span class="method-title">static DefaultContainer</span> (line <span class="line-number">413</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -258,11 +259,11 @@
 			
 	</div>
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Constructor.png" />
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">128</span>)
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">129</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -308,11 +309,11 @@
 				</ul>
 	</div>
 <a name="methodCode" id="Code"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Code</span> (line <span class="line-number">181</span>)
+		<span class="method-title">Code</span> (line <span class="line-number">182</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -344,11 +345,11 @@
 			
 	</div>
 <a name="methodName" id="Name"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Name</span> (line <span class="line-number">254</span>)
+		<span class="method-title">Name</span> (line <span class="line-number">255</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -380,11 +381,11 @@
 			
 	</div>
 <a name="methodoffsetSet" id="offsetSet"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetSet</span> (line <span class="line-number">344</span>)
+		<span class="method-title">offsetSet</span> (line <span class="line-number">346</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -428,11 +429,11 @@
 				</ul>
 	</div>
 <a name="methodoffsetUnset" id="offsetUnset"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetUnset</span> (line <span class="line-number">375</span>)
+		<span class="method-title">offsetUnset</span> (line <span class="line-number">377</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -473,16 +474,16 @@
 				</ul>
 	</div>
 <a name="methodReference" id="Reference"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Reference</span> (line <span class="line-number">311</span>)
+		<span class="method-title">Reference</span> (line <span class="line-number">313</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage entity references.</p>
-<p class="description"><p>This method can be used to manage the entity <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_REF">references</a>, it uses the  standard accessor <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_ManageObjectList">method</a> to manage the  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_REF">offset</a>.</p><p>This property represents a list of elements that can take two forms:</p><p><ul><li><em>A typed reference</em>: A typed reference is a reference that has a specific
+<p class="description"><p>This method can be used to manage the entity <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_REF">references</a>, it uses the  standard accessor <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_ManageObjectList">method</a> to manage the  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_REF">offset</a>.</p><p>This property represents a list of elements that reference other entity objects, the  elements of this list can take two forms:</p><p><ul><li><em>A typed reference</em>: A typed reference is a reference that has a specific
         type or class, for instance an exact synonym, which is different from a generic
         synonym. Such elements are expressed as an array:
      <ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a></em>: This offset represents the reference
@@ -522,11 +523,11 @@
 			
 	</div>
 <a name="methodType" id="Type"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Type</span> (line <span class="line-number">217</span>)
+		<span class="method-title">Type</span> (line <span class="line-number">218</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -561,11 +562,11 @@
 			
 	</div>
 <a name="method_id" id="_id"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_id</span> (line <span class="line-number">521</span>)
+		<span class="method-title">_id</span> (line <span class="line-number">487</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -593,16 +594,16 @@
 			
 	</div>
 <a name="method_PrepareStore" id="_PrepareStore"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareStore</span> (line <span class="line-number">445</span>)
+		<span class="method-title">_PrepareStore</span> (line <span class="line-number">448</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Normalise before a store.</p>
-<p class="description"><p>We overload this method to check if the object in <a href="../../Framework/Core/CStatusObject.html#method_IsInited">initialised</a>, if  this is not the case we raise an exception.</p><p>We also scan the <a href="../../Objects/Entities/CEntity.html#methodReference">references</a> list to commit any elements that are  actual instances and convert them to references.</p></p>
+<p class="description"><p>We overload this method to check if the object in <a href="../../Framework/Core/CStatusObject.html#method_IsInited">initialised</a>, if  this is not the case we raise an exception.</p><p>We also scan the <a href="../../Objects/Entities/CEntity.html#methodReference">references</a> list to commit any elements that are  actual instances and convert them to references: we discriminate such elements by  selecting only objects derived from this class.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../Framework/Definitions/_defines---Errors.inc.php.html#definekERROR_OPTION_MISSING">kERROR_OPTION_MISSING</a></li>
 				<li><span class="field">throws:</span> CException</li>
@@ -652,11 +653,15 @@
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Framework/Persistence/CPersistentUnitObject.html#method_id">CPersistentUnitObject::_id()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Persistence/CPersistentUnitObject.html#method_index">CPersistentUnitObject::_index()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Framework/Persistence/CPersistentUnitObject.html#method_ManageObjectList">CPersistentUnitObject::_ManageObjectList()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Framework/Persistence/CPersistentUnitObject.html#method_ObjectIndex">CPersistentUnitObject::_ObjectIndex()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Framework/Persistence/CPersistentUnitObject.html#method_PrepareFind">CPersistentUnitObject::_PrepareFind()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Persistence/CPersistentUnitObject.html#method_PrepareReferenceList">CPersistentUnitObject::_PrepareReferenceList()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Framework/Persistence/CPersistentUnitObject.html#method_PrepareStore">CPersistentUnitObject::_PrepareStore()</a></span><br>
 											</blockquote>
@@ -805,7 +810,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 16 Mar 2012 18:49:53 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Mon, 19 Mar 2012 19:37:29 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

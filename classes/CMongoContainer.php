@@ -48,6 +48,43 @@ class CMongoContainer extends CContainer
 
 /*=======================================================================================
  *																						*
+ *											MAGIC										*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	__toString																		*
+	 *==================================================================================*/
+
+	/**
+	 * Return container name.
+	 *
+	 * This method should return the current container's name.
+	 *
+	 * In this class we return the collection name.
+	 *
+	 * @access public
+	 * @return string
+	 */
+	public function __toString()
+	{
+		//
+		// Get container.
+		//
+		$container = $this->Container();
+		if( $container !== NULL )
+			return $container->getName();											// ==>
+		
+		return parent::__toString();												// ==>
+	
+	} // __toString.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PUBLIC MEMBER INTERFACE									*
  *																						*
  *======================================================================================*/
@@ -87,6 +124,41 @@ class CMongoContainer extends CContainer
 		return parent::Container( $theValue, $getOld );								// ==>
 
 	} // Container.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC ELEMENT INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	Database																		*
+	 *==================================================================================*/
+
+	/**
+	 * Return database.
+	 *
+	 * In this class we return the collection's database.
+	 *
+	 * @access public
+	 * @return mixed
+	 */
+	public function Database()
+	{
+		//
+		// Get container.
+		//
+		$container = $this->Container();
+		if( $container !== NULL )
+			return $container->db;													// ==>
+		
+		return parent::Database();													// ==>
+	
+	} // Database.
 
 		
 
