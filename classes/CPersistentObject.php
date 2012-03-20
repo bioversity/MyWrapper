@@ -1,3 +1,20 @@
+@@@
+
+This class must accept as container only objects derived from CContainer.
+
+The object will treat as structures (TYPE & DATA) the following data types:
+
+kDATA_TYPE_INT32
+kDATA_TYPE_INT64
+kDATA_TYPE_STAMP
+kDATA_TYPE_BINARY
+
+and the following special types:
+
+kDATA_TYPE_MongoId
+kDATA_TYPE_MongoCode
+kDATA_TYPE_MongoRegex
+
 <?php
 
 /**

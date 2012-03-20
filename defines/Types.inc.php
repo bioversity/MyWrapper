@@ -34,6 +34,14 @@ define( "kDATA_TYPE_STRING",				':STR' );				// String.
  * 32 bit signed integer type.
  *
  * This value represents the primitive 32 bit signed integer data type.
+ *
+ * This data type is serialised as foillows:
+ *
+ * <ul>
+ *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: Will contain this constant.
+ *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: Will contain the string representation of the
+ *		integer.
+ * </ul>
  */
 define( "kDATA_TYPE_INT32",					':INT32' );				// 32 bit integer.
 
@@ -41,6 +49,14 @@ define( "kDATA_TYPE_INT32",					':INT32' );				// 32 bit integer.
  * 64 bit signed integer type.
  *
  * This value represents the primitive 64 bit signed integer data type.
+ *
+ * This data type is serialised as foillows:
+ *
+ * <ul>
+ *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: Will contain this constant.
+ *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: Will contain the string representation of the
+ *		integer.
+ * </ul>
  */
 define( "kDATA_TYPE_INT64",					':INT64' );				// 64 bit integer.
 
@@ -61,7 +77,7 @@ define( "kDATA_TYPE_FLOAT",					':FLOAT' );				// Float.
 define( "kDATA_TYPE_DATE",					':DATE' );				// Date.
 
 /**
- * time type.
+ * Time type.
  *
  * This value represents a time represented as a <i>YYYY-MM-DD HH:MM:SS</i> string in which
  * you may not have missing elements.
@@ -75,9 +91,13 @@ define( "kDATA_TYPE_TIME",					':TIME' );				// Time.
  * structure formatted as follows:
  *
  * <ul>
- *	<li><i>{@link kOBJ_TYPE_STAMP_SEC kOBJ_TYPE_STAMP_SEC}</i>: Number of seconds since
- *		January 1st, 1970.
- *	<li><i>{@link kOBJ_TYPE_STAMP_USEC kOBJ_TYPE_STAMP_USEC}</i>:Microseconds.
+ *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: Will contain this constant.
+ *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: Will contain the following structure:
+ *	 <ul>
+ *		<li><i>{@link kOBJ_TYPE_STAMP_SEC kOBJ_TYPE_STAMP_SEC}</i>: Number of seconds since
+ *			January 1st, 1970.
+ *		<li><i>{@link kOBJ_TYPE_STAMP_USEC kOBJ_TYPE_STAMP_USEC}</i>: Milliseconds.
+ *	 </ul>
  * </ul>
  */
 define( "kDATA_TYPE_STAMP",					':STAMP' );				// Timestamp.
@@ -95,6 +115,18 @@ define( "kDATA_TYPE_BOOLEAN",				':BOOL' );				// Boolean.
  *
  * This value represents the primitive binary data type, it is assumed that it is provided
  * as a hexadecimal string.
+ *
+ * This data type is serialised as follows:
+ *
+ * <ul>
+ *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: Will contain this constant.
+ *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: Will contain the following structure:
+ *	 <ul>
+ *		<li><i>{@link kOBJ_TYPE_BINARY_BIN kOBJ_TYPE_BINARY_BIN}</i>: The binary string.
+ *		<li><i>{@link kOBJ_TYPE_BINARY_TYPE kOBJ_TYPE_BINARY_TYPE}</i>: String type
+ *			(integer).
+ *	 </ul>
+ * </ul>
  */
 define( "kDATA_TYPE_BINARY",				':BIN' );				// Binary.
 
@@ -139,6 +171,28 @@ define( "kOBJ_TYPE_STAMP_SEC",				'sec' );
  * This tag defines microseconds.
  */
 define( "kOBJ_TYPE_STAMP_USEC",				'usec' );
+
+/**
+ * Binary string.
+ *
+ * This tag defines a binary string.
+ */
+define( "kOBJ_TYPE_BINARY_BIN",				'bin' );
+
+/**
+ * Binary string type.
+ *
+ * This tag defines a binary string type (integer):
+ *
+ * <ul>
+ *	<li><i>1</i>: Function.
+ *	<li><i>2</i>: Byte array (use as default).
+ *	<li><i>3</i>: UUID.
+ *	<li><i>5</i>: MD5.
+ *	<li><i>128</i>: Custom.
+ * </ul>
+ */
+define( "kOBJ_TYPE_BINARY_TYPE",			'type' );
 
 /*=======================================================================================
  *	STRING FORMAT ENUMERATIONS															*
@@ -215,51 +269,6 @@ define( "kDATA_TYPE_MongoId",				'MONGO:MongoId' );			// MongoId.
 define( "kDATA_TYPE_MongoCode",				'MONGO:MongoCode' );		// MongoCode.
 
 /**
- * MongoDate.
- *
- * This value represents the MongoDate object data type, when serialised it will have the
- * following structure:
- *
- * <ul>
- *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: Will contain this constant.
- *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: Will contain the following structure:
- *	 <ul>
- *		<li><i>sec</i>: Number of seconds since January 1st, 1970 (integer).
- *		<li><i>usec</i>: Milliseconds (integer).
- *	 </ul>
- * </ul>
- */
-define( "kDATA_TYPE_MongoDate",				'MONGO:MongoDate' );		// MongoDate.
-
-/**
- * MongoInt32.
- *
- * This value represents the MongoInt32 object data type, when serialised it will have the
- * following structure:
- *
- * <ul>
- *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: Will contain this constant.
- *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: Will contain the string representation of the
- *		integer.
- * </ul>
- */
-define( "kDATA_TYPE_MongoInt32",			'MONGO:MongoInt32' );		// MongoInt32.
-
-/**
- * MongoInt64.
- *
- * This value represents the MongoInt64 object data type, when serialised it will have the
- * following structure:
- *
- * <ul>
- *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: Will contain this constant.
- *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: Will contain the string representation of the
- *		integer.
- * </ul>
- */
-define( "kDATA_TYPE_MongoInt64",			'MONGO:MongoInt64' );		// MongoInt64.
-
-/**
  * MongoRegex.
  *
  * This value represents the MongoRegex object data type, when serialised it will have the
@@ -271,23 +280,6 @@ define( "kDATA_TYPE_MongoInt64",			'MONGO:MongoInt64' );		// MongoInt64.
  * </ul>
  */
 define( "kDATA_TYPE_MongoRegex",			'MONGO:MongoRegex' );		// MongoRegex.
-
-/**
- * MongoBinData.
- *
- * This value represents the MongoBinData object data type, when serialised it will have the
- * following structure:
- *
- * <ul>
- *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: Will contain this constant.
- *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: Will contain the following structure:
- *	 <ul>
- *		<li><i>bin</i>: The binary string.
- *		<li><i>type</i>: String type (integer).
- *	 </ul>
- * </ul>
- */
-define( "kDATA_TYPE_MongoBinData",			'MONGO:MongoBinData' );		// MongoBinData.
 
 
 ?>

@@ -435,8 +435,7 @@ class CMongoDataWrapper extends CDataWrapper
 	 *		<li><i>{@link kOBJ_TYPE_CODE_SCOPE kOBJ_TYPE_CODE_SCOPE}</i>: The key/value
 	 *			pairs.
 	 *	 </ul>
-	 *	<li><i>{@link kDATA_TYPE_MongoDate kDATA_TYPE_MongoDate} or
-	 *		{@link kDATA_TYPE_STAMP kDATA_TYPE_STAMP}</i>: We return a MongoDate object
+	 *	<li><i>{@link kDATA_TYPE_STAMP kDATA_TYPE_STAMP}</i>: We return a MongoDate object
 	 *		using the contents of the data in the {@link kTAG_DATA kTAG_DATA} offset which
 	 *		is expected to be an array structured as follows:
 	 *	 <ul>
@@ -444,21 +443,18 @@ class CMongoDataWrapper extends CDataWrapper
 	 *			since January 1st, 1970.
 	 *		<li><i>{@link kOBJ_TYPE_STAMP_USEC kOBJ_TYPE_STAMP_USEC}</i>: Microseconds.
 	 *	 </ul>
-	 *	<li><i>{@link kDATA_TYPE_MongoInt32 kDATA_TYPE_MongoInt32} or
-	 *		{@link kDATA_TYPE_INT32 kDATA_TYPE_INT32}</i>: We return a MongoInt32 using as
-	 *		value the contents of the {@link kTAG_DATA kTAG_DATA} offset, which may also be
-	 *		a string.
-	 *	<li><i>{@link kDATA_TYPE_MongoInt64 kDATA_TYPE_MongoInt64} or
-	 *		{@link kDATA_TYPE_INT64 kDATA_TYPE_INT64}</i>: We return a MongoInt64 using as
-	 *		value the contents of the {@link kTAG_DATA kTAG_DATA} offset, which may also be
-	 *		a string.
+	 *	<li><i>{@link kDATA_TYPE_INT32 kDATA_TYPE_INT32}</i>: We return a MongoInt32 using
+	 *		as value the contents of the {@link kTAG_DATA kTAG_DATA} offset, which may also
+	 *		be a string.
+	 *	<li><i>{@link kDATA_TYPE_INT64 kDATA_TYPE_INT64}</i>: We return a MongoInt64 using
+	 *		as value the contents of the {@link kTAG_DATA kTAG_DATA} offset, which may also
+	 *		be a string.
 	 *	<li><i>{@link kDATA_TYPE_MongoRegex kDATA_TYPE_MongoRegex}</i>: We return a
 	 *		MongoRegex object using the {@link kTAG_DATA kTAG_DATA} offset as the regular
 	 *		expression.
-	 *	<li><i>{@link kDATA_TYPE_MongoBinData kDATA_TYPE_MongoBinData} or
-	 *		{@link kDATA_TYPE_BINARY kDATA_TYPE_BINARY}</i>: We return a MongoBinData object
-	 *		using the {@link kTAG_DATA kTAG_DATA} offset as the hexadecimal representation
-	 *		of the binary string.
+	 *	<li><i>{@link kDATA_TYPE_BINARY kDATA_TYPE_BINARY}</i>: We return a MongoBinData
+	 *		object using the {@link kTAG_DATA kTAG_DATA} offset as the hexadecimal
+	 *		representation of the binary string.
 	 * </ul>
 	 *
 	 * @param reference			   &$theElement			Element to encode.
@@ -499,7 +495,6 @@ class CMongoDataWrapper extends CDataWrapper
 			// MongoDate.
 			//
 			case kDATA_TYPE_STAMP:
-			case kDATA_TYPE_MongoDate:
 				if( is_array( $theElement[ kTAG_DATA ] )
 				 || ($theElement[ kTAG_DATA ] instanceof ArrayObject) )
 				{
@@ -516,7 +511,6 @@ class CMongoDataWrapper extends CDataWrapper
 			// MongoInt32.
 			//
 			case kDATA_TYPE_INT32:
-			case kDATA_TYPE_MongoInt32:
 				$theElement = new MongoInt32( $theElement[ kTAG_DATA ] );
 				break;
 			
@@ -524,7 +518,6 @@ class CMongoDataWrapper extends CDataWrapper
 			// MongoInt64.
 			//
 			case kDATA_TYPE_INT64:
-			case kDATA_TYPE_MongoInt64:
 				$theElement = new MongoInt64( $theElement[ kTAG_DATA ] );
 				break;
 
@@ -539,7 +532,6 @@ class CMongoDataWrapper extends CDataWrapper
 			// MongoBinData.
 			//
 			case kDATA_TYPE_BINARY:
-			case kDATA_TYPE_MongoBinData:
 				$theElement
 					= new MongoBinData
 						( ( function_exists( 'hex2bin' ) )
