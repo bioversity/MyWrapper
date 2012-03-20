@@ -192,33 +192,21 @@ class CPersistentUnitObject extends CPersistentObject
 	 * Return the object's unique identifier.
 	 *
 	 * This method can be used to return a value that represents the object's unique
-	 * native identifier. The method will first check if the object has the
-	 * {@link kTAG_ID_NATIVE kTAG_ID_NATIVE} offset, in that case it will return that value;
-	 * if the object was not yet {@link Commit() committed}, it is up to concrete derived
-	 * classes to decide what value should uniquely identify the object within the
-	 * container in which it is stored.
+	 * native identifier. The method should use the value returned by the
+	 * {@link _index() _index} method and hash it if necessary.
+	 *
+	 * This method will be called {@link _PrepareStore() before} {@link Commit() committing}
+	 * the object to fill its unique identifier {@link kTAG_ID_NATIVE offset}. 
 	 *
 	 * If this method returns <i>NULL</i>, it is assumed that it will be the
 	 * {@link CContainer container} that will provide a default unique value.
 	 *
-	 * In this class we first check the {@link kTAG_ID_NATIVE identifier}, if not found, we
-	 * let the system choose, in derived classes you can first call the parent method, then
-	 * do your custom thing.
+	 * In this class we return the value of {@link _index() _index} by default.
 	 *
 	 * @access protected
 	 * @return mixed
 	 */
-	protected function _id()
-	{
-		//
-		// Try identifier.
-		//
-		if( $this->offsetExists( kTAG_ID_NATIVE ) )
-			return $this->offsetGet( kTAG_ID_NATIVE );								// ==>
-		
-		return NULL;																// ==>
-	
-	} // _id.
+	protected function _id()									{	return $this->_index();	}
 
 	 
 	/*===================================================================================
@@ -235,8 +223,7 @@ class CPersistentUnitObject extends CPersistentObject
 	 * object's unique {@link kTAG_ID_NATIVE identifier}, maybe hashed to make the index
 	 * smaller.
 	 *
-	 * In this class we return <i>NULL</i>, which means that this class has no unique
-	 * identifier.
+	 * In this class we return by default <i>NULL</i>.
 	 *
 	 * @access protected
 	 * @return string

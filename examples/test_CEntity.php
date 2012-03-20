@@ -52,7 +52,7 @@ try
 	$mongo = New Mongo();
 	
 	//
-	// Select MCPD database.
+	// Select database.
 	//
 	$db = $mongo->selectDB( "TEST" );
 	
@@ -79,21 +79,35 @@ try
 	$container = array( kTAG_CODE => 'Milko',
 						kTAG_NAME => 'Milko A. Škofič' );
 	echo( 'Container:<pre>' ); print_r( $container ); echo( '</pre>' );
-	echo( '<i>$test = new CEntity( $container );</i><br>' );
-	$parent1 = $test = new CEntity( $container );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$entity1 = new CEntity( $container );</i><br>' );
+	$entity1 = new CEntity( $container );
+	echo( '<pre>' ); print_r( $entity1 ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	echo( '<i>$test = new CEntity();</i><br>' );
-	echo( '<i>$test->Code( \'JOHN\' );</i><br>' );
-	echo( '<i>$test->Password( \'unknown\' );</i><br>' );
-	echo( '<i>$test->Name( \'John Smith\' );</i><br>' );
-	echo( '<i>$test->Email( \'m.skofic@cgiar.org\' );</i><br>' );
-	$test = new CEntity();
-	$test->Code( 'JOHN' );
-	$test->Name( 'John Smith' );
-	$test->Email( 'm.skofic@cgiar.org' );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$entity2 = new CEntity();</i><br>' );
+	$entity2 = new CEntity();
+	echo( '<i>$entity2->Code( \'JOHN\' );</i><br>' );
+	$entity2->Code( 'JOHN' );
+	echo( '<i>$entity2->Name( \'John Smith\' );</i><br>' );
+	$entity2->Name( 'John Smith' );
+	echo( '<i>$entity2->Type( \'PERSON\', TRUE );</i><br>' );
+	$entity2->Type( 'PERSON', TRUE );
+	echo( '<i>$entity2->Type( \'USER\', TRUE );</i><br>' );
+	$entity2->Type( 'USER', TRUE );
+	echo( '<i>$entity2->Reference( \'COLL\', $entity1, TRUE );</i><br>' );
+	$entity2->Reference( 'COLL', $entity1, TRUE );
+	echo( '<pre>' ); print_r( $entity2 ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$entity3 = new CEntity();</i><br>' );
+	$entity3 = new CEntity();
+	echo( '<i>$entity3->Code( \'LUCA\' );</i><br>' );
+	$entity3->Code( 'LUCA' );
+	echo( '<i>$entity3->Name( \'Luca Matteis\' );</i><br>' );
+	$entity3->Name( 'Luca Matteis' );
+	echo( '<i>$entity3->Reference( NULL, $entity2, TRUE );</i><br>' );
+	$entity3->Reference( NULL, $entity2, TRUE );
+	echo( '<pre>' ); print_r( $entity3 ); echo( '</pre>' );
 	echo( '<hr>' );
 	 
 	//
@@ -101,108 +115,11 @@ try
 	//
 	echo( '<h3>Persistence</h3>' );
 
-	echo( '<i>$identifier = $test->Commit( $collection );</i><br>' );
-	$identifier = $test->Commit( $collection );
-	echo( "$identifier<pre>" ); print_r( $test ); echo( '</pre>' );
-	echo( '<hr>' );
-	 
-	try
-	{
-		echo( '<i>$test->Name( FALSE );</i><br>' );
-		$old = $test->Name( FALSE, TRUE );
-		echo( '<i>$test->Commit( $collection );</i><br>' );
-		$test->Commit( $collection );
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	}
-	catch( Exception $error )
-	{
-		echo( CException::AsHTML( $error ) );
-		echo( '<br>' );
-	}
-	$test->Name( $old );
-	echo( '<hr>' );
-	
-	echo( '<i>$test = new CEntity( $collection, $identifier );</i><br>' );
-	$test = new CEntity( $collection, $identifier );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	echo( '<i>$test = CPersistentUnitObject::NewObject( $collection, $identifier );</i><br>' );
-	$test = CPersistentUnitObject::NewObject( $collection, $identifier );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( '<hr>' );
-	 
-	//
-	// Test elements.
-	//
-	echo( '<h3>Test elements</h3>' );
-	
-	echo( '<i>$test->Mail( NULL, \'Default address\' );</i><br>' );
-	$test->Mail( NULL, 'Default address' );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	echo( '<i>$test->Mail( \'Home\', \'Home address\' );</i><br>' );
-	$test->Mail( 'Home', 'Home address' );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	echo( '<i>$found = $test->Mail( \'Home\' );</i><br>' );
-	$found = $test->Mail( 'Home' );
-	echo( '<pre>' ); print_r( $found ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	echo( '<i>$found = $test->Mail();</i><br>' );
-	$found = $test->Mail();
-	echo( '<pre>' ); print_r( $found ); echo( '</pre>' );
-	echo( '<hr>' );
-	 
-	//
-	// Test parents.
-	//
-	echo( '<h3>Test parents</h3>' );
-	
-	//
-	// Create other parents.
-	//
-	$parent2 = new CEntity();
-	$parent2->Code( 'NONNO' );
-	$parent2->Name( 'Il Nonno' );
-	$parent2->Email( 'nonno@nonni.net' );
-	
-	$parent3 = new CEntity();
-	$parent3->Code( 'NONNA' );
-	$parent3->Name( 'La nonna' );
-	$parent3->Email( 'nonna@nonni.net' );
-	
-	echo( '<i>$parent2->Parent( $parent3, TRUE );</i><br>' );
-	$parent2->Parent( $parent3, TRUE );
-	echo( 'Parent1<pre>' ); print_r( $parent1 ); echo( '</pre>' );
-	echo( 'Parent2<pre>' ); print_r( $parent2 ); echo( '</pre>' );
-	echo( 'Parent3<pre>' ); print_r( $parent3 ); echo( '</pre>' );
-	echo( '<i>$test->Parent( $parent1, TRUE );</i><br>' );
-	echo( '<i>$test->Parent( $parent2, TRUE );</i><br>' );
-	$test->Parent( $parent1, TRUE );
-	$test->Parent( $parent2, TRUE );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( '<i>$test->Commit( $collection );</i><br>' );
-	$test->Commit( $collection );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( 'Parent1<pre>' ); print_r( $parent1 ); echo( '</pre>' );
-	echo( 'Parent2<pre>' ); print_r( $parent2 ); echo( '</pre>' );
-	echo( 'Parent3<pre>' ); print_r( $parent3 ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	echo( '<i>$test->Parent( $parent1, TRUE );</i><br>' );
-	echo( '<i>$test->Parent( $parent2, TRUE );</i><br>' );
-	$test->Parent( $parent1, TRUE );
-	$test->Parent( $parent2, TRUE );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( '<i>$test->Commit( $collection );</i><br>' );
-	$test->Commit( $collection );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( 'Parent1<pre>' ); print_r( $parent1 ); echo( '</pre>' );
-	echo( 'Parent2<pre>' ); print_r( $parent2 ); echo( '</pre>' );
+	echo( '<i>$identifier = $entity3->Commit( $collection );</i><br>' );
+	$identifier = $entity3->Commit( $collection );
+	echo( "$identifier<pre>" ); print_r( $entity3 ); echo( '</pre>' );
+	echo( "entity1<pre>" ); print_r( $entity1 ); echo( '</pre>' );
+	echo( "entity2<pre>" ); print_r( $entity2 ); echo( '</pre>' );
 	echo( '<hr>' );
 }
 

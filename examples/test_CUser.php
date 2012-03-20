@@ -97,11 +97,24 @@ try
 						kOFFSET_PASSWORD => 'Secret',
 						kTAG_NAME => 'Milko A. Škofič',
 						kOFFSET_EMAIL => 'm.skofic@cgiar.org' );
+	echo( "Container<pre>" ); print_r( $container ); echo( '</pre>' );
 	echo( '<i>$test = new CUser( $container );</i><br>' );
 	echo( '<i>$identifier = $test->Commit( $collection );</i><br>' );
 	$test = new CUser( $container );
 	$identifier = $test->Commit( $collection );
 	echo( "$identifier<pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
+
+	$container = array( kOFFSET_PASSWORD => 'Secret',
+						kTAG_NAME => 'Luca Matteis',
+						kOFFSET_EMAIL => 'l.matteis@cgiar.org' );
+	echo( "Container<pre>" ); print_r( $container ); echo( '</pre>' );
+	echo( '<i>$test = new CUser( $container );</i><br>' );
+	echo( '<i>$identifier = $test->Commit( $collection );</i><br>' );
+	$test = new CUser( $container );
+	$identifier = $test->Commit( $collection );
+	echo( "$identifier<pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
 	 
 	try
 	{
@@ -116,6 +129,7 @@ try
 		echo( CException::AsHTML( $error ) );
 		echo( '<br>' );
 	}
+	echo( '<hr>' );
 	
 	$test = CUser::NewObject( $collection, 'Milko' );
 	try
@@ -129,22 +143,27 @@ try
 		echo( CException::AsHTML( $error ) );
 		echo( '<br>' );
 	}
+	echo( '<hr>' );
 
 	echo( '<i>$test = new CUser( $collection, \'Milko\' );</i><br>' );
 	$test = new CUser( $collection, 'Milko' );
 	echo( "$identifier<pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
 
 	echo( '<i>$test = new CUser( $collection, new MongoBinData( md5( \'Milko\', TRUE ) ) );</i><br>' );
 	$test = new CUser( $collection, new MongoBinData( md5( 'Milko', TRUE ) ) );
 	echo( "$identifier<pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
 
 	echo( '<i>$test = CUser::NewObject( $collection, new MongoBinData( md5( \'Milko\', TRUE ) ) );</i><br>' );
 	$test = CUser::NewObject( $collection, new MongoBinData( md5( 'Milko', TRUE ) ) );
 	echo( "$identifier<pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
 
 	echo( '<i>$test = CUser::NewObject( $collection, \'Milko\' );</i><br>' );
 	$test = CUser::NewObject( $collection, 'Milko' );
 	echo( "$identifier<pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
 }
 
 //

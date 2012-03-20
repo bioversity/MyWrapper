@@ -95,17 +95,6 @@ define( "kTAG_DATABASE_REFERENCE",				'$db' );
  *======================================================================================*/
 
 /**
- * Reference tag.
- *
- * This offset indicates a list of references to other objects. If the context of these
- * references is univoque, the list may be represented as a simple array; if each reference
- * may have a different contect, this could be implemented as an array of
- * {@link kTAG_TYPE type} and {@link kTAG_DATA data} elements in which the first one defines
- * the context.
- */
-define( "kTAG_REF",								':REF' );
-
-/**
  * Class tag.
  *
  * This is the offset that should be used to store the object's class name, it will be used
@@ -226,6 +215,29 @@ define( "kOFFSET_EMAIL",						':EMAIL' );
  * an array.
  */
 define( "kOFFSET_PHONE",						':PHONE' );
+
+/**
+ * References tag.
+ *
+ * This is the tag that represents the list of references of an object. It is an array of
+ * elements structured as follows:
+ *
+ * <ul>
+ *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: Relation type, it will usually be a string or
+ *		code indicating the type of the relationship.
+ *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: Relation data, it will be a reference to an
+ *		object in which the following elements may appear:
+ *	 <ul>
+ *		<li><i>{@link kTAG_ID_REFERENCE kTAG_ID_REFERENCE}</i>: The unique identifier of
+ *			the referenced object.
+ *		<li><i>{@link kTAG_CONTAINER_REFERENCE kTAG_CONTAINER_REFERENCE}</i>: The
+ *			{@link CContainer container} name.
+ *		<li><i>{@link kTAG_DATABASE_REFERENCE kTAG_DATABASE_REFERENCE}</i>: The database
+ *			name.
+ *	 </ul>
+ * </ul>
+ */
+define( "kTAG_REFS",							':REFS' );
 
 
 ?>

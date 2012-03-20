@@ -439,7 +439,7 @@ abstract class CContainer extends CObject
 	 *	 <ul>
 	 *		<li><i>{@link kFLAG_REFERENCE_IDENTIFIER kFLAG_REFERENCE_IDENTIFIER}</i>: The
 	 *			object {@link kTAG_ID_NATIVE identifier} will be stored under the
-	 *			{@link kTAG_ID_REFERENCE kTAG_ID_REFERENCE} offset. If the object does bot
+	 *			{@link kTAG_ID_REFERENCE kTAG_ID_REFERENCE} offset. If the object does not
 	 *			have this identifier, the method will raise an exception. This is the
 	 *			default option.
 	 *		<li><i>{@link kFLAG_REFERENCE_CONTAINER kFLAG_REFERENCE_CONTAINER}</i>: The

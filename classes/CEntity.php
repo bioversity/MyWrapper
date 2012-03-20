@@ -27,6 +27,13 @@
 require_once( kPATH_LIBRARY_SOURCE."CPersistentUnitObject.php" );
 
 /**
+ * Local defines.
+ *
+ * This include file contains the parent class definitions.
+ */
+require_once( kPATH_LIBRARY_SOURCE."CEntity.inc.php" );
+
+/**
  * Entity.
  *
  * An entity can be an individual, and organisation or a legal entity that must be
@@ -60,21 +67,22 @@ require_once( kPATH_LIBRARY_SOURCE."CPersistentUnitObject.php" );
  *		entity. By default it should be a string, concrete derived instances may expand on
  *		this. The class features a member accessor {@link Name() method} to manage this
  *		property.
- *	<li><i>{@link kTAG_REF kTAG_REF}</i>: This offset represents the list of references of
- *		this entity to other entities. It is implemented as an array whose elements may
- *		either be:
+ *	<li><i>{@link kTAG_REFS kTAG_REFS}</i>: This offset represents the list of references
+ *		of the current object, it is implemented as an array whose elements are structured
+ *		as follows:
  *	 <ul>
- *		<li><i>A typed reference</i>: This element is an array structured as follows:
+ *		<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: This offset represents the reference type or
+ *			context.
+ *		<li><i>{@link kTAG_DATA kTAG_DATA}</i>: This offset represents the reference itself,
+ *			it is the following structure:
  *		 <ul>
- *			<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: This offset represents the reference
- *				type or context.
- *			<li><i>{@link kTAG_DATA kTAG_DATA}</i>: This offset represents the reference
- *				itself, it may simply be an object identifier, an object reference or the
- *				referenced object itself.
+ *			<li><i>{@link kTAG_ID_REFERENCE kTAG_ID_REFERENCE}</i>: The unique identifier of
+ *				the referenced object.
+ *			<li><i>{@link kTAG_CONTAINER_REFERENCE kTAG_CONTAINER_REFERENCE}</i>: The
+ *				{@link CContainer container} name.
+ *			<li><i>{@link kTAG_DATABASE_REFERENCE kTAG_DATABASE_REFERENCE}</i>: The database
+ *				name.
  *		 </ul>
- *		<li><i>A simple reference</i>: This element is a scalar representing an object
- *			identifier, an object reference or the referenced object itself. In this case
- *			the nature of the reference must be implicit.
  *	 </ul>
  *		The class features a member accessor {@link Reference() method} to manage this
  *		property.
@@ -94,7 +102,7 @@ require_once( kPATH_LIBRARY_SOURCE."CPersistentUnitObject.php" );
  *	@package	Objects
  *	@subpackage	Entities
  */
-abstract class CEntity extends CPersistentUnitObject
+class CEntity extends CPersistentUnitObject
 {
 		
 
@@ -266,54 +274,85 @@ abstract class CEntity extends CPersistentUnitObject
 	/**
 	 * Manage entity references.
 	 *
-	 * This method can be used to manage the entity {@link kTAG_REF references}, it uses the
-	 * standard accessor {@link _ManageObjectList() method} to manage the
-	 * {@link kTAG_REF offset}.
+	 * An entity may reference a series of other entities and each reference may have a
+	 * different type. This method can be used to manage the entity {@link kTAG_REFS offset}
+	 * used to store these relations.
 	 *
-	 * This property represents a list of elements that reference other entity objects, the
-	 * elements of this list can take two forms:
+	 * The method accepts the following parameters:
 	 *
 	 * <ul>
-	 *	<li><i>A typed reference</i>: A typed reference is a reference that has a specific
-	 *		type or class, for instance an exact synonym, which is different from a generic
-	 *		synonym. Such elements are expressed as an array:
+	 *	<li><b>$theType</b>: Type of reference, this is a scalar, possibly a string, that
+	 *		indicates the type of reference we are adding, retrieving or deleting. This
+	 *		value may be <i>NULL</i> for references that do not imply a type.
+	 *	<li><b>$theValue</b>: Reference or object. This parameter represents the reference,
+	 *		it may be a scalar, representing either the referenced object
+	 *		{@link kTAG_ID_NATIVE identifier}, a structure representing an object reference,
+	 *		or the referenced object itself.
+	 *	<li><b>$theOperation</b>: The operation to perform:
 	 *	 <ul>
-	 *		<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: This offset represents the reference
-	 *			type or class, it may be omitted if the reference has no type or when we
-	 *			want to define a default reference.
-	 *		<li><i>{@link kTAG_DATA kTAG_DATA}</i>: This offset represents the reference
-	 *			itself, it may simply be an object identifier, an object reference or the
-	 *			referenced object itself. This offset is required, to indicate that this is
-	 *			a typed reference collection.
+	 *		<li><i>NULL</i>: Return the element matched by the previous parameters.
+	 *		<li><i>FALSE</i>: Delete the element matched by the previous parameters and
+	 *			return it.
+	 *		<li><i>other</i>: Any other value means that we want to add to the list the
+	 *			element provided in the previous parameters, either appending it if there
+	 *			was no matching element, or by replacing a matching element. The method will
+	 *			return either the replaced element or the new one.
 	 *	 </ul>
-	 *	<li><i>A simple reference</i>: Each element is a scalar representing an object
-	 *		identifier, an object reference or the referenced object itself. In this case
-	 *		the nature of the reference should be implicit.
+	 *	<li><b>$getOld</b>: Determines what the method will return when deleting or
+	 *		replacing:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the deleted or replaced element.
+	 *		<li><i>FALSE</i>: Return the replacing element or <i>NULL</i> when deleting.
+	 *	 </ul>
 	 * </ul>
 	 *
-	 * You should not generally mix these two types of elements in the same offset because
-	 * this method expects both the {@link kTAG_TYPE type} and {@link kTAG_DATA reference}
-	 * to match.
+	 * Each element of this list is structured as follows:
 	 *
-	 * For a more in-depth reference of this method, please consult the
-	 * {@link _ManageObjectList() _ManageObjectList} method, in which the first parameter
-	 * will be the constant {@link kTAG_REF kTAG_REF}.
+	 * <ul>
+	 *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: This offset represents the reference type or
+	 *		class, it may be omitted if the reference has no type or when we want to define
+	 *		a default reference. The first parameter will be stored here.
+	 *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: This offset represents the reference itself,
+	 *		it may be in two forms:
+	 *	 <ul>
+	 *		<li><i>Scalar</i>: A scalar is interpreted as the object's
+	 *			{@link kTAG_ID_NATIVE identifier}.
+	 *		<li><i>Reference</i>: An object reference structured as follows:
+	 *		 <ul>
+	 *			<li><i>{@link kTAG_ID_REFERENCE kTAG_ID_REFERENCE}</i>: The unique
+	 *				{@link kTAG_ID_NATIVE identifier} of the referenced object. This element
+	 *				is required by default.
+	 *			<li><i>{@link kTAG_CONTAINER_REFERENCE kTAG_CONTAINER_REFERENCE}</i>: The
+	 *				{@link CContainer container} name. This element is optional.
+	 *			<li><i>{@link kTAG_DATABASE_REFERENCE kTAG_DATABASE_REFERENCE}</i>: The
+	 *				database name. This element is optional.
+	 *		 </ul>
+	 *		<li><i>Object</i>: An object derived from this class will be interpreted as the
+	 *			referenced object itself. When {@link Commit() committing} the current
+	 *			object, these objects will also be {@link Commit() committed} and
+	 *			{@link CContainer::Reference() converted} to references.
+	 *	 </ul>
+	 * </ul>
 	 *
-	 * @param mixed					$theValue			Reference element.
+	 * @param mixed					$theType			Reference type.
+	 * @param mixed					$theValue			Reference value.
 	 * @param mixed					$theOperation		Operation.
 	 * @param boolean				$getOld				TRUE get old value.
 	 *
 	 * @access public
 	 * @return string
-	 *
-	 * @uses _ManageOffset
-	 *
-	 * @see kTAG_REF
 	 */
-	public function Reference( $theValue, $theOperation = NULL, $getOld = FALSE )
+	public function Reference( $theType, $theValue, $theOperation = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageObjectList
-			( kTAG_REF, $theValue, $theOperation, $getOld );						// ==>
+		//
+		// Build reference element.
+		//
+		$ref = Array();
+		if( $theType !== NULL )
+			$ref[ kTAG_TYPE ] = $theType;
+		$ref[ kTAG_DATA ] = $theValue;
+		
+		return $this->_ManageObjectList( kTAG_REFS, $ref, $theOperation, $getOld );	// ==>
 
 	} // Reference.
 
@@ -455,7 +494,7 @@ abstract class CEntity extends CPersistentUnitObject
 		//
 		// Handle references.
 		//
-		$this->_PrepareReferenceList( $theContainer, kTAG_REF );
+		$this->_PrepareReferenceList( $theContainer, kTAG_REFS );
 		
 	} // _PrepareStore.
 
@@ -470,42 +509,19 @@ abstract class CEntity extends CPersistentUnitObject
 
 	 
 	/*===================================================================================
-	 *	_id																				*
+	 *	_index																			*
 	 *==================================================================================*/
 
 	/**
-	 * Return the object's unique identifier.
+	 * Return the object's unique index.
 	 *
-	 * We overload this method to return the object's {@link kTAG_ID_NATIVE identifier}, if
-	 * it is set, or the object's {@link Code() code}.
-	 *
-	 * If none of the above are set, we call the parent method.
+	 * In this class we consider the {@link kTAG_CODE code} to be the object's unique
+	 * {@link kTAG_ID_NATIVE identifier}.
 	 *
 	 * @access protected
 	 * @return string
 	 */
-	protected function _id()
-	{
-		//
-		// Call parent method.
-		//
-		$id = parent::_id();
-		
-		//
-		// Check default value.
-		//
-		if( $id !== NULL )
-			return $id;																// ==>
-		
-		//
-		// Try code.
-		//
-		if( $this->offsetExists( kTAG_CODE ) )
-			return $this->offsetGet( kTAG_CODE );									// ==>
-		
-		return $id;																	// ==>
-	
-	} // _id.
+	protected function _index()									{	return $this->Code();	}
 
 	 
 

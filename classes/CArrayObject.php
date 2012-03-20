@@ -345,9 +345,10 @@ class CArrayObject extends ArrayObject
 		if( $theOperation === NULL )
 		{
 			//
-			// Return full list.
+			// Return full list or no list.
 			//
-			if( $theValue === NULL )
+			if( ($save === NULL)		// Empty list,
+			 || ($theValue === NULL) )	// return full list.
 				return $save;														// ==>
 			
 			//
