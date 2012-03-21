@@ -123,8 +123,15 @@ define( "kDATA_TYPE_BOOLEAN",				':BOOL' );				// Boolean.
  *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: Will contain the following structure:
  *	 <ul>
  *		<li><i>{@link kOBJ_TYPE_BINARY_BIN kOBJ_TYPE_BINARY_BIN}</i>: The binary string.
- *		<li><i>{@link kOBJ_TYPE_BINARY_TYPE kOBJ_TYPE_BINARY_TYPE}</i>: String type
- *			(integer).
+ *		<li><i>{@link kOBJ_TYPE_BINARY_TYPE kOBJ_TYPE_BINARY_TYPE}</i>: Binary string type
+ *			(integer):
+ *		 <ul>
+ *			<li><i>1</i>: Function.
+ *			<li><i>2</i>: Byte array (use as default).
+ *			<li><i>3</i>: UUID.
+ *			<li><i>5</i>: MD5.
+ *			<li><i>128</i>: Custom.
+ *		 </ul>
  *	 </ul>
  * </ul>
  */

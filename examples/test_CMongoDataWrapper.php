@@ -70,7 +70,7 @@ try
 	// Get test object.
 	//
 	$object_serialised = $object = $collection->findOne( array( ':GID' => 'PATO:0001766' ) );
-	CMongoDataWrapper::SerialiseObject( $object_serialised );
+	CDataType::SerialiseObject( $object_serialised );
 	
 	//
 	// Convert object.
@@ -1108,7 +1108,7 @@ try
 	//
 	$user_id = new MongoBinData( md5( 'Milko', TRUE ) );
 	$object = MongoDBRef::create( 'USERS', $user_id );
-	CMongoDataWrapper::SerialiseObject( $object );
+	CDataType::SerialiseObject( $object );
 	$object_json = json_encode( $object );
 	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_JSON),
 					 (kAPI_OPERATION.'='.kAPI_OP_GET_OBJECT_REF),

@@ -523,6 +523,141 @@ abstract class CContainer extends CObject
 
 /*=======================================================================================
  *																						*
+ *								PUBLIC CONVERSION INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	UnserialiseObject																*
+	 *==================================================================================*/
+
+	/**
+	 * Unserialise provided object.
+	 *
+	 * This method will convert concrete derived instances of {@link CDataType CDataType}
+	 * into native data types suitable to be stored in containers.
+	 *
+	 * This method will scan the provided object or structure and pass all instances derived
+	 * from {@link CDataType CDataType} to another public {@link UnserialiseData() method}
+	 * that will convert these objects into native data types that are compatible with the
+	 * specific container type.
+	 *
+	 * The method will scan the provided structure and select all elements which are arrays,
+	 * ArrayObjects or objects derived from {@link CDataType CDataType}, these elements will
+	 * be sent to the {@link UnserialiseData() UnserialiseData} method that will take care
+	 * of converting these structures into native data types that are compatible with the
+	 * specific container type.
+	 *
+	 * The method will perform the conversion directly into the provided reference and will
+	 * use recursion to traverse the provided structures.
+	 *
+	 * Elements sent to the {@link UnserialiseData() conversion} method are selected as
+	 * follows:
+	 *
+	 * <ul>
+	 *	<li><i>{@link CDataType CDataType}</i>: All instances derived from this class are
+	 *		sent to the {@link UnserialiseData() UnserialiseData} method.
+	 *	<li><i>Array</i> or <i>ArrayObject</i>: If the structure is composed of exactly 2
+	 *		offsets and these elements are {@link kTAG_TYPE kTAG_TYPE} and
+	 *		{@link kTAG_DATA kTAG_DATA}, it will be sent to the
+	 *		{@link UnserialiseData() UnserialiseData} method. If the above condition is not
+	 *		satisfied, the structure will be sent recursively to this method.
+	 * </ul>
+	 *
+	 * @param reference			   &$theObject			Object to encode.
+	 *
+	 * @access public
+	 */
+	public function UnserialiseObject( &$theObject )
+	{
+		//
+		// Intercept structures.
+		//
+		if( is_array( $theObject )
+		 || ($theObject instanceof ArrayObject) )
+		{
+			//
+			// Traverse object.
+			//
+			foreach( $theObject as $key => $value )
+			{
+				//
+				// Intercept standard data types.
+				//
+				if( $value instanceof CDataType )
+					$this->UnserialiseData( $theObject[ $key ] );
+					
+				//
+				// Intercept structs.
+				//
+				elseif( is_array( $value )
+					 || ($value instanceof ArrayObject) )
+				{
+					//
+					// Check required elements.
+					//
+					if( array_key_exists( kTAG_TYPE, (array) $value )
+					 && array_key_exists( kTAG_DATA, (array) $value )
+					 && (count( $value ) == 2) )
+						$this->UnserialiseData( $theObject[ $key ] );
+					
+					//
+					// Recurse.
+					//
+					else
+						$this->UnserialiseObject( $theObject[ $key ] );
+				
+				} // Is a struct.
+			
+			} // Traversing object.
+		
+		} // Is a struct.
+	
+	} // UnserialiseObject.
+
+	 
+	/*===================================================================================
+	 *	UnserialiseData																	*
+	 *==================================================================================*/
+
+	/**
+	 * Unserialise provided data element.
+	 *
+	 * This method should convert the provided structure into a custom data type compatible
+	 * with the current container.
+	 *
+	 * This method is called by a public {@link UnserialiseObject() interface} which
+	 * traverses an object and provides this method with all elements that satisfy the
+	 * following conditions:
+	 *
+	 * <ul>
+	 *	<li><i>{@link CDataType CDataType}</i>: All instances derived from this class are
+	 *		sent to this method.
+	 *	<li><i>Array</i> or <i>ArrayObject</i>: If the structure is composed of exactly 2
+	 *		offsets and these elements are {@link kTAG_TYPE kTAG_TYPE} and
+	 *		{@link kTAG_DATA kTAG_DATA}, it will be sent to this method.
+	 * </ul>
+	 *
+	 * Derived concrete classes will implement this method to intercept all structures that
+	 * can be converted to a native data type compatible with the current container.
+	 *
+	 * The elements to be converted are provided by reference, which means that they have to
+	 * be converted in place.
+	 *
+	 * This class is abstract, so we force derived classes to implement this method.
+	 *
+	 * @param reference			   &$theElement			Element to encode.
+	 *
+	 * @static
+	 */
+	abstract static function UnserialiseData( &$theElement );
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PROTECTED MEMBER INTERFACE								*
  *																						*
  *======================================================================================*/

@@ -78,9 +78,10 @@ define( "kDEFAULT_MEMBER",				'___TMP___' );		// Temporary data member name.
 /**
  * This section allows automatic inclusion of the library classes.
  */
-function __autoload( $theClassName )
+function MyAutoload( $theClassName )
 {
 	require_once( kPATH_LIBRARY_SOURCE.$theClassName.'.php' );
 }
+spl_autoload_register( 'MyAutoload' );
 
 ?>

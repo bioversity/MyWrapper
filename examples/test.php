@@ -73,7 +73,6 @@ end( $test );
 $key = key( $test );
 $value = $test[ $key ];
 echo( $value.' = $test[ '.$key.' ];<br>' );
-*/
 
 //
 // Test iterator_to_array.
@@ -105,5 +104,52 @@ echo( '<i>$it[ \'due\' ] = 20;</i>' );
 
 echo( 'Object<pre>' ); print_r( $ao ); echo( '</pre>' );
 echo( 'Iterator<pre>' ); print_r( $it ); echo( '</pre>' );
+*/
+
+//
+// Mongo dates?
+//
+require_once( "/Library/WebServer/Library/wrapper/includes.inc.php" );
+require_once( "/Library/WebServer/Library/wrapper/classes/CDataTypeInt64.php" );
+
+$d = new MongoDate();
+echo( '<pre>' ); print_r( $d ); echo( '</pre>' );
+echo( (string) $d );
+echo( '<br>'.date('Y-M-d h:i:s', $d->sec ) );
+echo( '<hr>' );
+
+$x = microtime( true );
+echo( "$x<br>" );
+$d = new MongoDate( microtime( true ) );
+echo( '<pre>' ); print_r( $d ); echo( '</pre>' );
+echo( (string) $d );
+echo( '<br>'.date('Y-M-d h:i:s', $d->sec ) );
+echo( '<hr>' );
+
+$d = new MongoDate( 1332329671, 966000 );
+echo( '<pre>' ); print_r( $d ); echo( '</pre>' );
+echo( (string) $d );
+echo( '<br>'.date('Y-M-d h:i:s', $d->sec ) );
+echo( '<hr>' );
+
+$x = new DateTime( '2000-12-23 11:02:47' );
+echo( '<pre>' ); print_r( $x ); echo( '</pre>' );
+echo( '['.gettype( $x ).']' );
+echo( '<hr>' );
+
+$x = strtotime( '2000-12-23 11:02:47' );
+echo( '<pre>' ); print_r( $x ); echo( '</pre>' );
+echo( '['.gettype( $x ).']' );
+echo( '<hr>' );
+
+$x = strtotime( 'Pippo' );
+echo( '<pre>' ); print_r( $x ); echo( '</pre>' );
+echo( '['.gettype( $x ).']' );
+echo( '<hr>' );
+
+$x = new DateTime( 'Pippo' );
+echo( '<pre>' ); print_r( $x ); echo( '</pre>' );
+echo( '['.gettype( $x ).']' );
+echo( '<hr>' );
 
 ?>

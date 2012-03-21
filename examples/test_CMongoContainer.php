@@ -291,8 +291,8 @@ try
 	echo( 'Unserialised<pre>' ); print_r( $object ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	echo( '<i>CMongoDataWrapper::SerialiseObject( $object );</i><br>' );
-	CMongoDataWrapper::SerialiseObject( $object );
+	echo( '<i>CDataType::SerialiseObject( $object );</i><br>' );
+	CDataType::SerialiseObject( $object );
 	echo( 'Decoded<pre>' ); print_r( $object ); echo( '</pre>' );
 	echo( '<hr>' );
 }

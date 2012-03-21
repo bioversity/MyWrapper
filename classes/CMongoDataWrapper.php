@@ -67,12 +67,12 @@ require_once( kPATH_LIBRARY_SOURCE."CMongoDataWrapper.inc.php" );
  *		reference (<i>MongoDBRef</i>). With this command you will not provide the
  *		{@link kAPI_CONTAINER container} and the {@link kAPI_DATA_QUERY query}, but you
  *		will provide an object reference in the {@link kAPI_DATA_OBJECT kAPI_DATA_OBJECT}
- *		parameter. Remember to {@link SerialiseObject() serialise} the reference before
- *		providing it to the wrapper.
+ *		parameter. Remember to {@link CDataType::SerialiseObject() serialise} the reference
+ *		before providing it to the wrapper.
  * </ul>
  *
  * This class also implements a static interface that can be used to
- * {@link SerialiseObject() serialise} or {@link UnserialiseObject() unserialise} data
+ * {@link UnserialiseObject() unserialise} data
  * flowing to and from the service parameters and the Mongo container.
  *
  *	@package	Framework
@@ -91,370 +91,39 @@ class CMongoDataWrapper extends CDataWrapper
 
 	 
 	/*===================================================================================
-	 *	SerialiseObject																	*
-	 *==================================================================================*/
-
-	/**
-	 * Serialise provided object.
-	 *
-	 * This method should be used on objects containing custom data types that cannot be
-	 * converted to {@link CObject::JsonEncode() JSON}, its duty is to convert special types
-	 * into a format that can then be restored using the counter-method
-	 * {@link UnserialiseObject() UnserialiseObject}.
-	 *
-	 * The method will scan the provided data elements, array or ArrayObject elements will
-	 * be recursed, scalar elements will be sent to another public
-	 * {@link SerialiseData() method} that will take care of converting the data if
-	 * necessary, the converted data will be an array structured as follows:
-	 *
-	 * <ul>
-	 *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: This offset represents the data type in
-	 *		which the data contained in the next offset is encoded.
-	 *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: This offset represents the actual data, it
-	 *		may be a scalar or an array containing the subcomponents of the data.
-	 * </ul>
-	 *
-	 * The method accepts a single parameter which must be an array or ArrayObject instance,
-	 * it will perform the conversion on the object itself. If you need to restore later the
-	 * object to the state in which it was provided to this method, you should use the
-	 * counter method {@link UnserialiseObject() UnserialiseObject}.
-	 *
-	 * @param reference			   &$theObject			Object to decode.
-	 *
-	 * @static
-	 */
-	static function SerialiseObject( &$theObject )
-	{
-		//
-		// Intercept structures.
-		//
-		if( is_array( $theObject )
-		 || ($theObject instanceof ArrayObject) )
-		{
-			//
-			// Recurse.
-			//
-			foreach( $theObject as $key => $value )
-				self::SerialiseObject( $theObject[ $key ] );
-		
-		} // Is a struct.
-		
-		//
-		// Convert scalars.
-		//
-		else
-			self::SerialiseData( $theObject );
-	
-	} // SerialiseObject.
-
-	 
-	/*===================================================================================
-	 *	SerialiseData																	*
-	 *==================================================================================*/
-
-	/**
-	 * Serialise provided data element.
-	 *
-	 * This method should convert the provided scalar into a structure containing the
-	 * {@link kTAG_TYPE type} and the normalised {@link kTAG_DATA data}, and replace the
-	 * provided reference with this structure.
-	 *
-	 * This method is called by a static {@link SerialiseObject() interface} which traverses
-	 * an object and provides this method with all scalar elements.
-	 *
-	 * This method should process all data types that cannot be fully represented in JSON
-	 * or those that need to be converted from a scalar to a structure, the method will
-	 * replace the referenced element with an array in which the data type is set in the
-	 * {@link kTAG_TYPE type} offset, and the normalised data in the {@link kTAG_DATA data}
-	 * offset.
-	 *
-	 * For instance, a binary data object would be converted into an array where the
-	 * {@link kTAG_TYPE type} offset would be set as {@link kDATA_TYPE_BINARY binary} and
-	 * the {@link kTAG_DATA data} offset would be set with the hexadecimal representstion
-	 * of that data.
-	 *
-	 * To convert the data back to the format it was provided, you should use the
-	 * {@link UnserialiseData() UnserialiseData} method.
-	 *
-	 * The conversion is performed on the provided element itself.
-	 *
-	 * In this class we convert the following data types:
-	 *
-	 * <ul>
-	 *	<li><i>MongoId</i>: We convert into:
-	 *	 <ul>
-	 *		<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>:
-	 *			{@link kDATA_TYPE_MongoId kDATA_TYPE_MongoId}.
-	 *		<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The contents of the object cast to
-	 *			string.
-	 *	 </ul>
-	 *	<li><i>MongoCode</i>: We convert into:
-	 *	 <ul>
-	 *		<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>:
-	 *			{@link kDATA_TYPE_MongoCode kDATA_TYPE_MongoCode}.
-	 *		<li><i>{@link kTAG_DATA kTAG_DATA}</i>: A structure formatted as follows:
-	 *		 <ul>
-	 *			<li><i>{@link kOBJ_TYPE_CODE_SRC kOBJ_TYPE_CODE_SRC}</i>: The <i>code</i>
-	 *				element of the object.
-	 *			<li><i>{@link OBJ_TYPE_CODE_SCOPE OBJ_TYPE_CODE_SCOPE}</i>: The <i>scope</i>
-	 *				element of the object.
-	 *		 </ul>
-	 *	 </ul>
-	 *	<li><i>MongoDate</i>: We convert into:
-	 *	 <ul>
-	 *		<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>:
-	 *			{@link kDATA_TYPE_STAMP kDATA_TYPE_STAMP}.
-	 *		<li><i>{@link kTAG_DATA kTAG_DATA}</i>: A structure formatted as follows:
-	 *		 <ul>
-	 *			<li><i>{@link kOBJ_TYPE_STAMP_SEC kOBJ_TYPE_STAMP_SEC}</i>: The <i>sec</i>
-	 *				element of the object.
-	 *			<li><i>{@link kOBJ_TYPE_STAMP_USEC kOBJ_TYPE_STAMP_USEC}</i>: The
-	 *				<i>usec</i> element of the object.
-	 *		 </ul>
-	 *	 </ul>
-	 *	<li><i>MongoRegex</i>: We convert into:
-	 *	 <ul>
-	 *		<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>:
-	 *			{@link kDATA_TYPE_MongoRegex kDATA_TYPE_MongoRegex}.
-	 *		<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The contents of the object cast to
-	 *			string.
-	 *	 </ul>
-	 *	<li><i>MongoBinData</i>: We convert into:
-	 *	 <ul>
-	 *		<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>:
-	 *			{@link kDATA_TYPE_BINARY kDATA_TYPE_BINARY}.
-	 *		<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The <i>bin</i> element of the object.
-	 *	 </ul>
-	 *	<li><i>MongoInt32</i>: We convert into:
-	 *	 <ul>
-	 *		<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>:
-	 *			{@link kDATA_TYPE_INT32 kDATA_TYPE_INT32}.
-	 *		<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The contents of the object cast to
-	 *			string.
-	 *	 </ul>
-	 *	<li><i>MongoInt64</i>: We convert into:
-	 *	 <ul>
-	 *		<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>:
-	 *			{@link kDATA_TYPE_INT64 kDATA_TYPE_INT64}.
-	 *		<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The contents of the object cast to
-	 *			string.
-	 *	 </ul>
-	 * </ul>
-	 *
-	 * @param reference			   &$theElement			Element to encode.
-	 *
-	 * @static
-	 */
-	static function SerialiseData( &$theElement )
-	{
-		//
-		// Parse structures.
-		//
-		if( is_object( $theElement ) )
-		{
-			//
-			// Parse by type.
-			//
-			switch( get_class( $theElement ) )
-			{
-				case 'MongoId':
-					$theElement = array
-					(
-						kTAG_TYPE => kDATA_TYPE_MongoId,
-						kTAG_DATA => (string) $theElement
-					);
-					break;
-			
-				case 'MongoCode':
-					$theElement = array
-					(
-						kTAG_TYPE => kDATA_TYPE_MongoCode,
-						kTAG_DATA => array
-									(
-										kOBJ_TYPE_CODE_SRC => $theElement->code,
-										OBJ_TYPE_CODE_SCOPE => $theElement->scope
-									)
-					);
-					break;
-			
-				case 'MongoDate':
-					$theElement = array
-					(
-						kTAG_TYPE => kDATA_TYPE_STAMP,
-						kTAG_DATA => array
-									(
-										kOBJ_TYPE_STAMP_SEC => $theElement->sec,
-										kOBJ_TYPE_STAMP_USEC => $theElement->usec
-									)
-					);
-					break;
-			
-				case 'MongoRegex':
-					$theElement = array
-					(
-						kTAG_TYPE => kDATA_TYPE_MongoRegex,
-						kTAG_DATA => (string) $theElement
-					);
-					break;
-			
-				case 'MongoBinData':
-					$theElement = array
-					(
-						kTAG_TYPE => kDATA_TYPE_BINARY,
-						kTAG_DATA => bin2hex( $theElement->bin )
-					);
-					break;
-			
-				case 'MongoInt32':
-					$theElement = array
-					(
-						kTAG_TYPE => kDATA_TYPE_INT32,
-						kTAG_DATA => (string) $theElement
-					);
-					break;
-			
-				case 'MongoInt64':
-					$theElement = array
-					(
-						kTAG_TYPE => kDATA_TYPE_INT64,
-						kTAG_DATA => (string) $theElement
-					);
-					break;
-			
-			} // Parsing by class.
-		
-		} // Provided object.
-	
-	} // SerialiseData.
-
-	 
-	/*===================================================================================
-	 *	UnserialiseObject																*
-	 *==================================================================================*/
-
-	/**
-	 * Unserialise provided object.
-	 *
-	 * This method should be used on objects converted using the
-	 * {@link SerialiseObject() SerialiseObject} method, its duty is to convert the elements
-	 * of the object that were converted to arrays back to the data type indicated in the
-	 * {@link kTAG_TYPE kTAG_TYPE} offset.
-	 *
-	 * The method will scan the provided structure and select all elements which are either
-	 * arrays or ArrayObjects having both the {@link kTAG_TYPE kTAG_TYPE} and
-	 * {@link kTAG_DATA kTAG_DATA} offsets, these elements will be sent to the
-	 * {@link UnserialiseData() UnserialiseData} method that will take care of converting
-	 * the array back into the data type indicated in the {@link kTAG_TYPE kTAG_TYPE}
-	 * offset using the data in the {@link kTAG_DATA kTAG_DATA} offset.
-	 *
-	 * The method accepts a single parameter which must be an array or ArrayObject instance,
-	 * it will perform the encoding on the object itself. If you need to restore later the
-	 * object to the state in which it was provided to this method, you should use the
-	 * counter method {@link SerialiseObject() SerialiseObject}.
-	 *
-	 * The {@link UnserialiseData() UnserialiseData} method is not implemented in this
-	 * class, if in derived classes you want to take advantage of this feature you must
-	 * implement it.
-	 *
-	 * @param reference			   &$theObject			Object to encode.
-	 *
-	 * @static
-	 */
-	static function UnserialiseObject( &$theObject )
-	{
-		//
-		// Intercept structures.
-		//
-		if( is_array( $theObject )
-		 || ($theObject instanceof ArrayObject) )
-		{
-			//
-			// Traverse object.
-			//
-			foreach( $theObject as $key => $value )
-			{
-				//
-				// Intercept structs.
-				//
-				if( is_array( $value )
-				 || ($value instanceof ArrayObject) )
-				{
-					//
-					// Try conversion.
-					//
-					if( array_key_exists( kTAG_TYPE, (array) $value )
-					 && array_key_exists( kTAG_DATA, (array) $value ) )
-						self::UnserialiseData( $theObject[ $key ] );
-					
-					//
-					// Recurse.
-					//
-					else
-						self::UnserialiseObject( $theObject[ $key ] );
-				
-				} // Is a struct.
-			
-			} // Traversing object.
-		
-		} // Is a struct.
-	
-	} // UnserialiseObject.
-
-	 
-	/*===================================================================================
 	 *	UnserialiseData																	*
 	 *==================================================================================*/
 
 	/**
 	 * Unserialise provided data element.
 	 *
-	 * This method should convert the provided structure into a custom data type compatible
-	 * with the current container.
+	 * We {@link CContainer::UnserialiseData() implement} this method to convert all
+	 * standard {@link CDataType types} into custom Mongo data types.
 	 *
-	 * This method is called by a static {@link UnserialiseObject() interface} which
-	 * traverses an object and provides this method with all array or ArrayObject elements.
-	 *
-	 * The method expects to receive structures containing both the
-	 * {@link kTAG_TYPE type} and {@link kTAG_DATA data} offsets, its duty is to parse
-	 * custom data types in the {@link kTAG_TYPE kTAG_TYPE} offset and convert the data
-	 * provided in the {@link kTAG_DATA kTAG_DATA} back into the original data type and
-	 * replace the provided element with that value.
-	 *
-	 * The conversion is performed on the provided element itself.
-	 *
-	 * In this class we parse the following {@link kTAG_TYPE kTAG_TYPE} offsets:
+	 * In this class we parse the following types and {@link kTAG_TYPE offsets}:
 	 *
 	 * <ul>
-	 *	<li><i>{@link kDATA_TYPE_MongoId kDATA_TYPE_MongoId}</i>: We return a MongoId object
-	 *		using the value provided in the {@link kTAG_DATA kTAG_DATA} offset.
-	 *	<li><i>{@link kDATA_TYPE_MongoCode kDATA_TYPE_MongoCode}</i>: We return a MongoCode
-	 *		object by using the values provided in the {@link kTAG_DATA kTAG_DATA} offset
-	 *		which is expected to be an array structured as follows:
-	 *	 <ul>
-	 *		<li><i>{@link kOBJ_TYPE_CODE_SRC kOBJ_TYPE_CODE_SRC}</i>: The javascript code.
-	 *		<li><i>{@link kOBJ_TYPE_CODE_SCOPE kOBJ_TYPE_CODE_SCOPE}</i>: The key/value
-	 *			pairs.
-	 *	 </ul>
-	 *	<li><i>{@link kDATA_TYPE_STAMP kDATA_TYPE_STAMP}</i>: We return a MongoDate object
-	 *		using the contents of the data in the {@link kTAG_DATA kTAG_DATA} offset which
-	 *		is expected to be an array structured as follows:
-	 *	 <ul>
-	 *		<li><i>{@link kOBJ_TYPE_STAMP_SEC kOBJ_TYPE_STAMP_SEC}</i>: Number of seconds
-	 *			since January 1st, 1970.
-	 *		<li><i>{@link kOBJ_TYPE_STAMP_USEC kOBJ_TYPE_STAMP_USEC}</i>: Microseconds.
-	 *	 </ul>
-	 *	<li><i>{@link kDATA_TYPE_INT32 kDATA_TYPE_INT32}</i>: We return a MongoInt32 using
-	 *		as value the contents of the {@link kTAG_DATA kTAG_DATA} offset, which may also
-	 *		be a string.
-	 *	<li><i>{@link kDATA_TYPE_INT64 kDATA_TYPE_INT64}</i>: We return a MongoInt64 using
-	 *		as value the contents of the {@link kTAG_DATA kTAG_DATA} offset, which may also
-	 *		be a string.
-	 *	<li><i>{@link kDATA_TYPE_MongoRegex kDATA_TYPE_MongoRegex}</i>: We return a
-	 *		MongoRegex object using the {@link kTAG_DATA kTAG_DATA} offset as the regular
-	 *		expression.
-	 *	<li><i>{@link kDATA_TYPE_BINARY kDATA_TYPE_BINARY}</i>: We return a MongoBinData
-	 *		object using the {@link kTAG_DATA kTAG_DATA} offset as the hexadecimal
-	 *		representation of the binary string.
+	 *	<li><i>{@link CDataTypeMongoId CDataTypeMongoId} object or
+	 *		{@link kDATA_TYPE_MongoId kDATA_TYPE_MongoId} offset</i>: We return a MongoId
+	 *		object.
+	 *	<li><i>{@link CDataTypeMongoCode CDataTypeMongoCode} object or
+	 *		{@link kDATA_TYPE_MongoCode kDATA_TYPE_MongoCode} offset</i>: We return a
+	 *		MongoCode object.
+	 *	<li><i>{@link CDataTypeStamp CDataTypeStamp} object or
+	 *		{@link kDATA_TYPE_STAMP kDATA_TYPE_STAMP} offset</i>: We return a MongoDate
+	 *		object.
+	 *	<li><i>{@link CDataTypeMongoRegex CDataTypeMongoRegex} object or
+	 *		{@link kDATA_TYPE_MongoRegex kDATA_TYPE_MongoRegex} offset</i>: We return a
+	 *		MongoRegex object.
+	 *	<li><i>{@link CDataTypeInt32 CDataTypeInt32} object or
+	 *		{@link kDATA_TYPE_INT32 kDATA_TYPE_INT32} offset</i>: We return a MongoInt32
+	 *		object.
+	 *	<li><i>{@link CDataTypeInt64 CDataTypeInt64} object or
+	 *		{@link kDATA_TYPE_INT64 kDATA_TYPE_INT64} offset</i>: We return a MongoInt64
+	 *		object.
+	 *	<li><i>{@link CDataTypeBinary CDataTypeBinary} object or
+	 *		{@link kDATA_TYPE_BINARY kDATA_TYPE_BINARY} offset</i>: We return a MongoBinData
+	 *		object.
 	 * </ul>
 	 *
 	 * @param reference			   &$theElement			Element to encode.
@@ -466,26 +135,26 @@ class CMongoDataWrapper extends CDataWrapper
 		//
 		// Handle type.
 		//
+		$data = $theElement[ kTAG_DATA ];
 		switch( $theElement[ kTAG_TYPE ] )
 		{
 			//
 			// MongoId.
 			//
 			case kDATA_TYPE_MongoId:
-				$theElement = new MongoId( (string) $theElement[ kTAG_DATA ] );
+				$theElement = new MongoId( (string) $data );
 				break;
 			
 			//
 			// MongoCode.
 			//
 			case kDATA_TYPE_MongoCode:
-				if( is_array( $theElement[ kTAG_DATA ] )
-				 || ($theElement[ kTAG_DATA ] instanceof ArrayObject) )
+				if( is_array( $data )
+				 || ($data instanceof ArrayObject) )
 				{
-					$tmp1 = $theElement[ kTAG_DATA ][ kOBJ_TYPE_CODE_SRC ];
-					$tmp2 = ( array_key_exists( kOBJ_TYPE_CODE_SCOPE,
-												(array) $theElement[ kTAG_DATA ] ) )
-						  ? $theElement[ kTAG_DATA ][ kOBJ_TYPE_CODE_SCOPE ]
+					$tmp1 = $data[ kOBJ_TYPE_CODE_SRC ];
+					$tmp2 = ( array_key_exists( kOBJ_TYPE_CODE_SCOPE, (array) $data ) )
+						  ? $data[ kOBJ_TYPE_CODE_SCOPE ]
 						  : Array();
 					$theElement = new MongoCode( $tmp1, $tmp2 );
 				}
@@ -495,13 +164,12 @@ class CMongoDataWrapper extends CDataWrapper
 			// MongoDate.
 			//
 			case kDATA_TYPE_STAMP:
-				if( is_array( $theElement[ kTAG_DATA ] )
-				 || ($theElement[ kTAG_DATA ] instanceof ArrayObject) )
+				if( is_array( $data )
+				 || ($data instanceof ArrayObject) )
 				{
-					$tmp1 = $theElement[ kTAG_DATA ][ kOBJ_TYPE_STAMP_SEC ];
-					$tmp2 = ( array_key_exists( kOBJ_TYPE_STAMP_USEC,
-												(array) $theElement[ kTAG_DATA ] ) )
-						  ? $theElement[ kTAG_DATA ][ kOBJ_TYPE_STAMP_USEC ]
+					$tmp1 = $data[ kOBJ_TYPE_STAMP_SEC ];
+					$tmp2 = ( array_key_exists( kOBJ_TYPE_STAMP_USEC, (array) $data ) )
+						  ? $data[ kOBJ_TYPE_STAMP_USEC ]
 						  : 0;
 					$theElement = new MongoDate( $tmp1, $tmp2 );
 				}
@@ -511,32 +179,31 @@ class CMongoDataWrapper extends CDataWrapper
 			// MongoInt32.
 			//
 			case kDATA_TYPE_INT32:
-				$theElement = new MongoInt32( $theElement[ kTAG_DATA ] );
+				$theElement = new MongoInt32( $data );
 				break;
 			
 			//
 			// MongoInt64.
 			//
 			case kDATA_TYPE_INT64:
-				$theElement = new MongoInt64( $theElement[ kTAG_DATA ] );
+				$theElement = new MongoInt64( $data );
 				break;
 
 			//
 			// MongoRegex.
 			//
 			case kDATA_TYPE_MongoRegex:
-				$theElement = new MongoRegex( $theElement[ kTAG_DATA ] );
+				$theElement = new MongoRegex( $data );
 				break;
 
 			//
 			// MongoBinData.
 			//
 			case kDATA_TYPE_BINARY:
-				$theElement
-					= new MongoBinData
-						( ( function_exists( 'hex2bin' ) )
-						? hex2bin( $theElement[ kTAG_DATA ] )
-						: pack( 'H*', $theElement[ kTAG_DATA ] ) );
+				$data = ( function_exists( 'hex2bin' ) )
+					  ? hex2bin( $data )
+					  : pack( 'H*', $data );
+				$theElement = new MongoBinData( $data );
 				break;
 		
 		} // Parsing by type.
@@ -780,7 +447,7 @@ class CMongoDataWrapper extends CDataWrapper
 		// Convert to native Mongo types.
 		//
 		if( array_key_exists( kAPI_DATA_OBJECT, $_REQUEST ) )
-			self::SerialiseObject( $_REQUEST[ kAPI_DATA_OBJECT ] );
+			CDataType::SerialiseObject( $_REQUEST[ kAPI_DATA_OBJECT ] );
 	
 	} // _FormatObject.
 
@@ -1069,7 +736,7 @@ class CMongoDataWrapper extends CDataWrapper
 		//
 		// Serialise response.
 		//
-		self::SerialiseObject( $response );
+		CDataType::SerialiseObject( $response );
 	
 		//
 		// Return response.
@@ -1144,7 +811,7 @@ class CMongoDataWrapper extends CDataWrapper
 			//
 			// Serialise response.
 			//
-			self::SerialiseObject( $object );
+			CDataType::SerialiseObject( $object );
 
 			//
 			// Copy response.
@@ -1323,7 +990,7 @@ class CMongoDataWrapper extends CDataWrapper
 				//
 				// Serialise response.
 				//
-				self::SerialiseObject( $result );
+				CDataType::SerialiseObject( $result );
 				
 				//
 				// Copy to response.
@@ -1421,7 +1088,7 @@ class CMongoDataWrapper extends CDataWrapper
 		//
 		// Serialise response.
 		//
-		self::SerialiseObject( $_REQUEST[ kAPI_DATA_RESPONSE ] );
+		CDataType::SerialiseObject( $_REQUEST[ kAPI_DATA_RESPONSE ] );
 	
 	} // _Handle_Set.
 
@@ -1486,7 +1153,7 @@ class CMongoDataWrapper extends CDataWrapper
 		//
 		// Serialise response.
 		//
-		self::SerialiseObject( $_REQUEST[ kAPI_DATA_RESPONSE ] );
+		CDataType::SerialiseObject( $_REQUEST[ kAPI_DATA_RESPONSE ] );
 	
 	} // _Handle_Insert.
 
