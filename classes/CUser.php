@@ -360,7 +360,7 @@ class CUser extends CEntity
 	 *
 	 * @access protected
 	 *
-	 * @throws CException
+	 * @throws {@link CException CException}
 	 *
 	 * @see kERROR_OPTION_MISSING
 	 */

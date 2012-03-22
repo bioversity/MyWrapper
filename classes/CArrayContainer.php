@@ -78,6 +78,42 @@ class CArrayContainer extends CContainer
 		
 	} // Constructor.
 
+	 
+	/*===================================================================================
+	 *	__toString																		*
+	 *==================================================================================*/
+
+	/**
+	 * Return container name.
+	 *
+	 * In this class we check if the native container has the same method, or return the
+	 * 'array' constant if the native container is an array.
+	 *
+	 * @access public
+	 * @return string
+	 */
+	public function __toString()
+	{
+		//
+		// Get native container.
+		//
+		$container = $this->Container();
+		
+		//
+		// Check array objects.
+		//
+		if( is_object( $container ) )
+		{
+			if( method_exists( $container, '__toString' ) )
+				return (string) $container;											// ==>
+			
+			return get_class( $container );											// ==>
+		}
+		
+		return gettype( $container );												// ==>
+	
+	} // __toString.
+
 		
 
 /*=======================================================================================
@@ -121,7 +157,7 @@ class CArrayContainer extends CContainer
 				  kMESSAGE_TYPE_ERROR,
 				  array( 'Container' => $theValue ) );							// !@! ==>
 		
-		return $this->ManageMember( $this->mContainer, $theValue, $getOld );		// ==>
+		return parent::Container( $theValue, $getOld );								// ==>
 
 	} // Container.
 
@@ -129,47 +165,50 @@ class CArrayContainer extends CContainer
 
 /*=======================================================================================
  *																						*
- *								PUBLIC MANAGEMENT INTERFACE								*
+ *								PUBLIC ELEMENT INTERFACE								*
  *																						*
  *======================================================================================*/
 
 
 	 
 	/*===================================================================================
-	 *	Commit																			*
+	 *	Database																		*
 	 *==================================================================================*/
 
 	/**
-	 * Commit provided object.
+	 * Return database.
 	 *
-	 * We {@link CContainer::Commit() overload} this method to check whether the provided
-	 * object is either an array or an ArrayObject.
-	 *
-	 * @param reference			   &$theObject			Object to commit.
-	 * @param mixed					$theIdentifier		Object identifier.
-	 * @param bitfield				$theModifiers		Commit modifiers.
+	 * In this class we return <i>NULL</i>.
 	 *
 	 * @access public
 	 * @return mixed
 	 */
-	public function Commit( &$theObject,
-							 $theIdentifier = NULL,
-							 $theModifiers = kFLAG_PERSIST_REPLACE )
-	{
-		//
-		// Check object.
-		//
-		if( is_array( $theObject )
-		 || ($theObject instanceof ArrayObject) )
-			return parent::Commit( $theObject, $theIdentifier, $theModifiers );		// ==>
+	public function Database()											{	return NULL;	}
 
-		throw new CException
-			( "Invalid object",
-			  kERROR_INVALID_PARAMETER,
-			  kMESSAGE_TYPE_ERROR,
-			  array( 'Object' => $theObject ) );								// !@! ==>
+		
 
-	} // Commit.
+/*=======================================================================================
+ *																						*
+ *								PUBLIC CONVERSION INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	UnserialiseData																	*
+	 *==================================================================================*/
+
+	/**
+	 * Unserialise provided data element.
+	 *
+	 * This class does not handle custom data types, so this method will do nothing.
+	 *
+	 * @param reference			   &$theElement			Element to encode.
+	 *
+	 * @access public
+	 */
+	public function UnserialiseData( &$theElement )										   {}
 
 		
 
@@ -204,34 +243,203 @@ class CArrayContainer extends CContainer
 	 * {@link kERROR_INVALID_PARAMETER exception}.
 	 *
 	 * @param reference			   &$theObject			Object to commit.
-	 * @param mixed					$theIdentifier		Object identifier.
-	 * @param bitfield				$theModifiers		Commit modifiers.
+	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Commit modifiers.
 	 *
 	 * @access protected
 	 * @return mixed
 	 */
-	protected function _Commit( &$theObject, $theIdentifier, $theModifiers )
+	protected function _Commit( &$theObject, &$theIdentifier, &$theModifiers )
 	{
 		//
 		// Get container reference.
 		//
 		$container = & $this->_Container();
-		if( $container === NULL )
-			throw new CException
-				( "Missing native container",
-				  kERROR_INVALID_STATE,
-				  kMESSAGE_TYPE_ERROR );										// !@! ==>
 		
 		//
-		// Check options.
+		// Replace object.
 		//
-		if( ! $theModifiers & kFLAG_PERSIST_WRITE_MASK )
-			throw new CException
-				( "Invalid operation options",
-				  kERROR_INVALID_PARAMETER,
-				  kMESSAGE_TYPE_ERROR,
-				  array( 'Modifiers' => $theModifiers,
-						 'Mask' => kFLAG_PERSIST_WRITE_MASK ) );				// !@! ==>
+		if( ! (($theModifiers & kFLAG_PERSIST_MODIFY) == kFLAG_PERSIST_MODIFY) )
+			$container[ (string) $theIdentifier ] = $theObject;
+		
+		//
+		// Modify object.
+		//
+		else
+		{
+			//
+			// Get existing object.
+			//
+			$object = $container[ (string) $theIdentifier ];
+			
+			//
+			// Modify.
+			//
+			foreach( $theObject as $key => $value )
+			{
+				if( $value !== NULL )
+					$object[ $key ] = $theObject[ $key ];
+				else
+				{
+					if( array_key_exists( $key, (array) $object ) )
+						unset( $object[ $key ] );
+				}
+			}
+			
+			//
+			// Update.
+			//
+			$container[ (string) $theIdentifier ] = $object;
+		
+		} // Modify.
+		
+		return $theIdentifier;														// ==>
+	
+	} // _Commit.
+
+	 
+	/*===================================================================================
+	 *	_Load																			*
+	 *==================================================================================*/
+
+	/**
+	 * Load object.
+	 *
+	 * We implement this method to handle array or ArrayObject stores.
+	 *
+	 * The method will cast the identifier to a string.
+	 *
+	 * @param reference			   &$theIdentifier		Object identifier.
+	 *
+	 * @access protected
+	 * @return mixed
+	 */
+	protected function _Load( &$theIdentifier )
+	{
+		//
+		// Get container reference.
+		//
+		$container = & $this->_Container();
+
+		//
+		// Return match.
+		//
+		if( array_key_exists( (string) $theIdentifier, (array) $container ) )
+			return $container[ (string) $theIdentifier ];							// ==>
+		
+		return NULL;																// ==>
+	
+	} // _Load.
+
+	 
+	/*===================================================================================
+	 *	_Delete																			*
+	 *==================================================================================*/
+
+	/**
+	 * Delete object.
+	 *
+	 * We implement this method to handle array or ArrayObject stores.
+	 *
+	 * The method will cast the identifier to a string.
+	 *
+	 * @param reference			   &$theIdentifier		Object identifier.
+	 *
+	 * @access protected
+	 * @return mixed
+	 */
+	protected function _Delete( &$theIdentifier )
+	{
+		//
+		// Get container reference.
+		//
+		$container = & $this->_Container();
+
+		//
+		// Delete match.
+		//
+		if( array_key_exists( (string) $theIdentifier, (array) $container ) )
+		{
+			//
+			// Save object.
+			//
+			$save = $container[ (string) $theIdentifier ];
+			
+			//
+			// Delete object.
+			//
+			if( is_array( $container ) )
+				unset( $container[ (string) $theIdentifier ] );
+			else
+				$container->offsetUnset( (string) $theIdentifier );
+			
+			return $save;															// ==>
+		}
+		
+		return NULL;																// ==>
+	
+	} // _Delete.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED PERSISTENCE UTILITIES							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	_PrepareStore																	*
+	 *==================================================================================*/
+
+	/**
+	 * Normalise before a store.
+	 *
+	 * We {@link CContainer::_PrepareStore() overload} this method to perform the following
+	 * operations:
+	 *
+	 * <ul>
+	 *	<li>Call the parent {@link CContainer::_PrepareStore() method} which will:
+	 *	 <ul>
+	 *		<li>Ensure the identifier is provided if the operation is not an
+	 *			{@link kFLAG_PERSIST_INSERT insert}.
+	 *		<li>Ensure the method has the correct options.
+	 *		<li>Ensure the current object has a container.
+	 *	 </ul>
+	 *	<li>Check for object in container if required.
+	 *	<li>Initialise identifier if required.
+	 * </ul>
+	 *
+	 * In derived classes you should handle your custom containers or delegate to the parent
+	 * method.
+	 *
+	 * In this class we do not check the identifier.
+	 *
+	 * Any errors should raise an exception.
+	 *
+	 * @param reference			   &$theObject			Object or data.
+	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Commit modifiers.
+	 *
+	 * @access protected
+	 *
+	 * @throws {@link CException CException}
+	 *
+	 * @see kERROR_OPTION_MISSING kERROR_INVALID_PARAMETER
+	 */
+	protected function _PrepareStore( &$theObject, &$theIdentifier, &$theModifiers )
+	{
+		//
+		// Call parent method.
+		//
+		parent::_PrepareStore( $theIdentifier, $theModifiers );
+
+		//
+		// Get container reference.
+		//
+		$container = & $this->_Container();
 		
 		//
 		// Check container.
@@ -288,142 +496,8 @@ class CArrayContainer extends CContainer
 			$theIdentifier = key( $copy );
 		
 		} // Missing identifier.
-		
-		//
-		// Replace object.
-		//
-		if( ! (($theModifiers & kFLAG_PERSIST_MODIFY) == kFLAG_PERSIST_MODIFY) )
-			$container[ (string) $theIdentifier ] = $theObject;
-		
-		//
-		// Modify object.
-		//
-		else
-		{
-			//
-			// Get existing object.
-			//
-			$object = $container[ (string) $theIdentifier ];
-			
-			//
-			// Modify.
-			//
-			foreach( $theObject as $key => $value )
-			{
-				if( $value !== NULL )
-					$object[ $key ] = $theObject[ $key ];
-				else
-				{
-					if( array_key_exists( $key, (array) $object ) )
-						unset( $object[ $key ] );
-				}
-			}
-			
-			//
-			// Update.
-			//
-			$container[ (string) $theIdentifier ] = $object;
-		
-		} // Modify.
-		
-		return $theIdentifier;														// ==>
 	
-	} // _Commit.
-
-	 
-	/*===================================================================================
-	 *	_Load																			*
-	 *==================================================================================*/
-
-	/**
-	 * Load object.
-	 *
-	 * We implement this method to handle array or ArrayObject stores.
-	 *
-	 * The method will cast the identifier to a string.
-	 *
-	 * @param mixed					$theIdentifier		Object identifier.
-	 * @param bitfield				$theModifiers		Load modifiers.
-	 *
-	 * @access protected
-	 * @return mixed
-	 */
-	protected function _Load( $theIdentifier, $theModifiers )
-	{
-		//
-		// Get container reference.
-		//
-		$container = & $this->_Container();
-		if( $container === NULL )
-			throw new CException
-				( "Missing native container",
-				  kERROR_INVALID_STATE,
-				  kMESSAGE_TYPE_ERROR );										// !@! ==>
-		
-		//
-		// Return match.
-		//
-		if( array_key_exists( (string) $theIdentifier, (array) $container ) )
-			return $container[ (string) $theIdentifier ];							// ==>
-		
-		return NULL;																// ==>
-	
-	} // _Load.
-
-	 
-	/*===================================================================================
-	 *	_Delete																			*
-	 *==================================================================================*/
-
-	/**
-	 * Delete object.
-	 *
-	 * We implement this method to handle array or ArrayObject stores.
-	 *
-	 * The method will cast the identifier to a string.
-	 *
-	 * @param mixed					$theIdentifier		Object identifier.
-	 * @param bitfield				$theModifiers		Load modifiers.
-	 *
-	 * @access protected
-	 * @return mixed
-	 */
-	protected function _Delete( $theIdentifier, $theModifiers )
-	{
-		//
-		// Get container reference.
-		//
-		$container = & $this->_Container();
-		if( $container === NULL )
-			throw new CException
-				( "Missing native container",
-				  kERROR_INVALID_STATE,
-				  kMESSAGE_TYPE_ERROR );										// !@! ==>
-		
-		//
-		// Delete match.
-		//
-		if( array_key_exists( (string) $theIdentifier, (array) $container ) )
-		{
-			//
-			// Save object.
-			//
-			$save = $container[ (string) $theIdentifier ];
-			
-			//
-			// Delete object.
-			//
-			if( is_array( $container ) )
-				unset( $container[ (string) $theIdentifier ] );
-			else
-				$container->offsetUnset( (string) $theIdentifier );
-			
-			return $save;															// ==>
-		}
-		
-		return NULL;																// ==>
-	
-	} // _Delete.
+	} // _PrepareStore.
 
 	 
 

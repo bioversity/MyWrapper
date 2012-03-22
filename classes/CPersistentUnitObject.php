@@ -248,7 +248,7 @@ class CPersistentUnitObject extends CPersistentObject
 	 * Normalise parameters of a find.
 	 *
 	 * The duty of this method is to ensure that the parameters provided to a
-	 * {@link _FindObject() find} operation are valid.
+	 * {@link _Load() find} operation are valid.
 	 *
 	 * In this class we ensure that the container is derived from
 	 * {@link CContainer CContainer}.
@@ -258,7 +258,7 @@ class CPersistentUnitObject extends CPersistentObject
 	 *
 	 * @access protected
 	 *
-	 * @throws CException
+	 * @throws {@link CException CException}
 	 *
 	 * @see kERROR_OPTION_MISSING kERROR_UNSUPPORTED
 	 */
@@ -290,7 +290,7 @@ class CPersistentUnitObject extends CPersistentObject
 	 * Normalise before a store.
 	 *
 	 * The duty of this method is to ensure that the parameters provided to the
-	 * {@link _StoreObject() store} operation are correct.
+	 * {@link _Commit() store} operation are correct.
 	 *
 	 * In this class we ensure that the container is a ArrayObject or a
 	 * {@link CContainer CContainer} derived instance and we ensure the identifier is filled
@@ -319,7 +319,7 @@ class CPersistentUnitObject extends CPersistentObject
 	 *
 	 * @access protected
 	 *
-	 * @throws CException
+	 * @throws {@link CException CException}
 	 *
 	 * @see kERROR_OPTION_MISSING kERROR_UNSUPPORTED
 	 */

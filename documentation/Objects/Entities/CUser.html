@@ -27,11 +27,14 @@
 			</div>
 	<div class="info-box-body">
         		<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">User ancestor.</p>
-<p class="description"><p>This class overloads its <a href="../../Objects/Entities/CEntity.html">ancestor</a> to implement a user entity..  Users are entities that are used for authentication purposes, they share the same  attributes as their parent <a href="../../Objects/Entities/CEntity.html">class</a>, such as <a href="../../Objects/Entities/CEntity.html#methodName">name</a>,  Mail, etc., and they add one, <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_PASSWORD">kOFFSET_PASSWORD</a>,  which represents the user <a href="../../Objects/Entities/CUser.html#methodPassword">password</a>.</p><p>User <a href="../../Objects/Entities/CEntity.html">entities</a> are not differentiated as individuals or organisations, the  distinction</p><p>This class is the ancestor of user classes in this library, it implements an object that  represents a basic user. This object features a minimum set of properties that can be set  via <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html">offsets</a>.</p><p>Besides the properties handled by its <a href="../../Objects/Entities/CEntity.html">parent</a>, this class implements the  following attributes:</p><p><ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_PASSWORD">kOFFSET_PASSWORD</a></em>: This offset represents the user
+<p class="short-description">User.</p>
+<p class="description"><p>This class overloads its <a href="../../Objects/Entities/CEntity.html">ancestor</a> to implement a user entity.</p><p>Users are entities that are used for authentication purposes, they share the same  attributes as their parent <a href="../../Objects/Entities/CEntity.html">class</a> and add two required elements:</p><p><ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_PASSWORD">kOFFSET_PASSWORD</a></em>: This offset represents the user
         access password, it will be used in the authentication process.
         The class features a member accessor <a href="../../Objects/Entities/CUser.html#methodPassword">method</a> to manage this
-        property.</li></ul></p><p>By default we add as <a href="../../Objects/Entities/CEntity.html#methodType">type</a> the <a href="../../Framework/Wrappers/_classes---CEntity.inc.php.html#definekENTITY_USER">user</a> entity type.</p><p>Objects of this class can only be <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">saved</a> if they have both the  <a href="../../Objects/Entities/CUser.html#methodPassword">password</a> and Email() set.</p></p>
+        property.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_EMAIL">kOFFSET_EMAIL</a></em>: This offset represents the user e-mail,
+        it is required to communicate with the user and represents the default user
+        <a href="../../Objects/Entities/CEntity.html#methodCode">identifier</a>.
+        The class features a member accessor <a href="../../Objects/Entities/CUser.html#methodEmail">method</a> to manage this property.</li></ul></p><p>The object is considered <a href="../../Framework/Core/CStatusObject.html#method_IsInited">initialised</a> only if it has its  <a href="../../Objects/Entities/CEntity.html#methodCode">code</a>, as its <a href="../../Objects/Entities/CEntity.html">ancestor</a>, its <a href="../../Objects/Entities/CEntity.html#methodName">name</a>,  <a href="../../Objects/Entities/CUser.html#methodPassword">password</a> and <a href="../../Objects/Entities/CUser.html#methodEmail">e-mail</a> address.</p><p>If the <a href="../../Objects/Entities/CEntity.html#methodCode">code</a> has not been explicitly set, <a href="../../Objects/Entities/CUser.html#method_PrepareStore">before</a>  <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">committing</a> the object it will be set to the value of the  <a href="../../Objects/Entities/CUser.html#methodEmail">e-mail</a>. Also in that phase, the <a href="../../Framework/Wrappers/_classes---CEntity.inc.php.html#definekENTITY_USER">kENTITY_USER</a> constant  will be set in the user <a href="../../Objects/Entities/CEntity.html#methodType">type</a>.</p><p>The <a href="../../Objects/Entities/CUser.html#methodEmail">e-mail</a> in this class is a scalar property, in other classes it will  probably be a list of different e-mail types. In this class we want to link a single  user with a single e-mail, possibly not shared by any other user, that is why we link by  default the user <a href="../../Objects/Entities/CEntity.html#methodCode">code</a> and <a href="../../Objects/Entities/CUser.html#methodEmail">e-mail</a>.</p></p>
 		<p class="notes">
 			Located in <a class="field" href="_classes---CUser.php.html">/classes/CUser.php</a> (line <span class="field">65</span>)
 		</p>
@@ -71,11 +74,17 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																																																								<div class="method-definition">
+																																																																																<div class="method-definition">
 					<img src="../../media/images/Constructor.png" alt=" "/>
 											<span class="method-result">CUser</span>
 										<a href="#__construct" title="details" class="method-name">__construct</a>
 											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span> = <span class="var-default">NULL</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">string</span>
+										<a href="#Email" title="details" class="method-name">Email</a>
+											([<span class="var-type">NULL|FALSE|string</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -94,6 +103,18 @@
 											<span class="method-result">string</span>
 										<a href="#Password" title="details" class="method-name">Password</a>
 											([<span class="var-type">NULL|FALSE|string</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#_id" title="details" class="method-name">_id</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">string</span>
+										<a href="#_index" title="details" class="method-name">_index</a>
+										()
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -185,17 +206,53 @@
 					</dl>
 			
 	</div>
-<a name="methodoffsetSet" id="offsetSet"><!-- --></a>
+<a name="methodEmail" id="Email"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetSet</span> (line <span class="line-number">185</span>)
+		<span class="method-title">Email</span> (line <span class="line-number">189</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage user e-mail.</p>
+<p class="description"><p>This method can be used to manage the user <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_EMAIL">e-mail</a>, it uses the  standard accessor <a href="../../Framework/Core/CArrayObject.html#method_ManageOffset">method</a> to manage the  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_EMAIL">offset</a>:</p><p><ul><li><strong>$theValue</strong>: The value or operation:
+     <ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the value.</li><li><em>other</em>: Set value.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
+     <ul><li><em>TRUE</em>: Return the value <em>before</em> it was eventually modified.</li><li><em>FALSE</em>: Return the value <em>after</em> it was eventually modified.</li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			Email
+		</span>
+					([<span class="var-type">NULL|FALSE|string</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">NULL|FALSE|string</span>
+				<span class="var-name">$theValue</span><span class="var-description">: User password or operation.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodoffsetSet" id="offsetSet"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">offsetSet</span> (line <span class="line-number">225</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Set a value for a given offset.</p>
-<p class="description"><p>We overload this method to manage the _Is  <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>: this is set if the  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_PASSWORD">password</a> is set.</p></p>
+<p class="description"><p>We overload this method to manage the _Is  <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>: this is set if the  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">name</a>, <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_EMAIL">e-mail</a>,  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_PASSWORD">password</a> and the parent <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a> are set.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">uses:</span> <a href="../../Framework/Core/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></li>
@@ -228,16 +285,16 @@
 			
 	</div>
 <a name="methodoffsetUnset" id="offsetUnset"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetUnset</span> (line <span class="line-number">221</span>)
+		<span class="method-title">offsetUnset</span> (line <span class="line-number">263</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Reset a value for a given offset.</p>
-<p class="description"><p>We overload this method to manage the _Is  <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>: this is set if the  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_PASSWORD">password</a> is set.</p></p>
+<p class="description"><p>We overload this method to manage the _Is  <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>: this is set if the  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">name</a>, <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_EMAIL">e-mail</a>,  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_PASSWORD">password</a> and the parent <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a> are set.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">uses:</span> <a href="../../Framework/Core/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></li>
@@ -267,16 +324,16 @@
 			
 	</div>
 <a name="methodPassword" id="Password"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Password</span> (line <span class="line-number">150</span>)
+		<span class="method-title">Password</span> (line <span class="line-number">151</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage user password.</p>
-<p class="description"><p>This method can be used to manage the user <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_PASSWORD">password</a>, it uses the  standard accessor <a href="../../Framework/Core/CArrayObject.html#method_ManageOffset">method</a> to manage the  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_PASSWORD">offset</a>:</p><p><ul><li><strong>$theValue</strong>: The value or operation:
+<p class="description"><p>This method can be used to manage the user <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_PASSWORD">password</a>, it uses  the standard accessor <a href="../../Framework/Core/CArrayObject.html#method_ManageOffset">method</a> to manage the  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_PASSWORD">offset</a>:</p><p><ul><li><strong>$theValue</strong>: The value or operation:
      <ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the value.</li><li><em>other</em>: Set value.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
      <ul><li><em>TRUE</em>: Return the value <em>before</em> it was eventually modified.</li><li><em>FALSE</em>: Return the value <em>after</em> it was eventually modified.</li></ul></li></ul></p></p>
 	<ul class="tags">
@@ -302,20 +359,86 @@
 		
 			
 	</div>
-<a name="method_PrepareStore" id="_PrepareStore"><!-- --></a>
+<a name="method_id" id="_id"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_id</span> (line <span class="line-number">303</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return the object's unique identifier.</p>
+<p class="description"><p>In this class we hash the result of the <a href="../../Objects/Entities/CUser.html#method_index">_index</a> method, this means  that we need to</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			_id
+		</span>
+				()
+			</div>
+	
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Framework/Persistence/CPersistentUnitObject.html#method_id">CPersistentUnitObject::_id()</a></dt>
+						<dd>Return the object's unique identifier.</dd>
+					</dl>
+			
+	</div>
+<a name="method_index" id="_index"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareStore</span> (line <span class="line-number">266</span>)
+		<span class="method-title">_index</span> (line <span class="line-number">329</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return the object's unique index.</p>
+<p class="description"><p>In this class we return a string composed of the following elements:</p><p><ul><li><em><a href="../../Framework/Wrappers/_classes---CEntity.inc.php.html#definekENTITY_USER">kENTITY_USER</a></em>: This token defines the object domain
+        which is the users domain.</li><li><em><a href="../../Framework/Definitions/_defines---Tokens.inc.php.html#definekTOKEN_CLASS_SEPARATOR">kTOKEN_CLASS_SEPARATOR</a></em>: This token is used
+        to separate a class from the rest of the code.</li><li><em><a href="../../Objects/Entities/CEntity.html#methodCode">Code</a></em>: The user code.</li></ul></p><p>The concatenation of these three elements represents the unique identifier of the  user.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			_index
+		</span>
+				()
+			</div>
+	
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Objects/Entities/CEntity.html#method_index">CEntity::_index()</a></dt>
+						<dd>Return the object's unique index.</dd>
+					</dl>
+			
+	</div>
+<a name="method_PrepareStore" id="_PrepareStore"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_PrepareStore</span> (line <span class="line-number">367</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Normalise parameters of a store.</p>
-<p class="description"><p>We overload this method to add the <a href="../../Framework/Wrappers/_classes---CEntity.inc.php.html#definekENTITY_USER">kENTITY_USER</a>  <a href="../../Objects/Entities/CEntity.html#methodType">type</a> to the object prior <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">saving</a> it.</p></p>
+<p class="description"><p>We overload this method to add the <a href="../../Framework/Wrappers/_classes---CEntity.inc.php.html#definekENTITY_USER">kENTITY_USER</a>  <a href="../../Objects/Entities/CEntity.html#methodType">type</a> to the object prior <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">saving</a> it.</p><p>We also initialise the user <a href="../../Objects/Entities/CEntity.html#methodCode">code</a>, if empty, with the  <a href="../../Objects/Entities/CUser.html#methodEmail">e-mail</a>.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../Framework/Definitions/_defines---Errors.inc.php.html#definekERROR_OPTION_MISSING">kERROR_OPTION_MISSING</a></li>
-				<li><span class="field">throws:</span> CException</li>
+				<li><span class="field">throws:</span> <a href="../../Framework/Core/CException.html">CException</a></li>
 				<li><span class="field">access:</span> protected</li>
 			</ul>
 	
@@ -366,7 +489,7 @@
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Objects/Entities/CEntity.html#methodType">CEntity::Type()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Objects/Entities/CEntity.html#method_id">CEntity::_id()</a></span><br>
+							<span class="method-name"><a href="../../Objects/Entities/CEntity.html#method_index">CEntity::_index()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Objects/Entities/CEntity.html#method_PrepareStore">CEntity::_PrepareStore()</a></span><br>
 											</blockquote>
@@ -400,19 +523,21 @@
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#methodUncommit">CPersistentObject::Uncommit()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_CreateObject">CPersistentObject::_CreateObject()</a></span><br>
+							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_Commit">CPersistentObject::_Commit()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_FindObject">CPersistentObject::_FindObject()</a></span><br>
+							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_Create">CPersistentObject::_Create()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_FinishFind">CPersistentObject::_FinishFind()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_FinishStore">CPersistentObject::_FinishStore()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_IsCommitted">CPersistentObject::_IsCommitted()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_Load">CPersistentObject::_Load()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_PrepareFind">CPersistentObject::_PrepareFind()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_PrepareStore">CPersistentObject::_PrepareStore()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_StoreObject">CPersistentObject::_StoreObject()</a></span><br>
 											</blockquote>
 									<!-- =========== Summary =========== -->
 					<p>Inherited From <span class="classname"><a href="../../Framework/Core/CStatusObject.html">CStatusObject</a></span></p>
@@ -534,7 +659,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Mon, 19 Mar 2012 19:37:30 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 22 Mar 2012 19:26:20 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

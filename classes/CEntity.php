@@ -480,7 +480,7 @@ class CEntity extends CPersistentUnitObject
 	 *
 	 * @access protected
 	 *
-	 * @throws CException
+	 * @throws {@link CException CException}
 	 *
 	 * @see kERROR_OPTION_MISSING
 	 */

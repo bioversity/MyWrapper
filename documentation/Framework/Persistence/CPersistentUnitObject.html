@@ -31,7 +31,7 @@
 <p class="short-description">Unit objects ancestor.</p>
 <p class="description"><p>A unit object is one that has a unique identifier, that is, it can be uniquely identified  among a collection of other objects.</p><p>Instances derived from this class have a series of additional properties and methods that  govern how these can be stored and retrieved from containers.</p><p>The class features two read-only public methods that return:</p><p><ul><li><em><a href="../../Framework/Persistence/CPersistentUnitObject.html#method_id">_id()</a></em>: The object unique identifier as used by the native
         persistent container to uniquely identify the object.</li><li><em><a href="../../Framework/Persistence/CPersistentUnitObject.html#method_index">_index()</a></em>: The full index that uniquely identifies the
-        object.</li></ul></p><p>Although both methods seem to return the same information, they are different, in the  sense that the <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_index">_index</a> method should return the property or properties  that constitute the object's unique identifier concatenated in a single string, this may  be too long to use as an index, whereas <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_id">_id()</a> returns the actual value used  as the key, which may be the hashed <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_index">_index</a> value. In other words  <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_index">_index</a> is the human readable version of <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_id">_id</a>.</p><p>When the object is <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">committed</a> for the first time, the value of the  <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_id">_id</a> method will be set in the <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">kTAG_ID_NATIVE</a> offset  which represents the object ID. This offset should never be changed and represents the  persistent identifier of the object.</p><p>Objects derived from this class also hold, by default, their class name in an  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CLASS">offset</a>, this is used to <a href="../../Framework/Persistence/CPersistentUnitObject.html#methodNewObject">instantiate</a> objects of the  correct class when retrieving data from a container.</p><p>This class also features a <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_VERSION">version</a> which is an integer, incremented  each time the object is <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">committed</a>: this is  useful to implement a  concurrency control mechanism.</p><p>Starting from this class we only handle <a href="../../Framework/Persistence/CContainer.html">CContainer</a> derived instances  as containers, other container types will not be supported. This is because  <a href="../../Framework/Persistence/CContainer.html">CContainer</a> derived instances have an  <a href="../../Framework/Wrappers/CMongoDataWrapper.html#methodSerialiseObject">serialise</a> and  <a href="../../Framework/Wrappers/CMongoDataWrapper.html#methodUnserialiseObject">unserialise</a> interface for handling special  data types.</p><p>The specifics of this are managed by the <a href="../../Framework/Persistence/CContainer.html">CContainer</a> derived classes,  so when planning your objects think in advance in what containers you plan to store them.</p></p>
+        object.</li></ul></p><p>Although both methods seem to return the same information, they are different, in the  sense that the <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_index">_index</a> method should return the property or properties  that constitute the object's unique identifier concatenated in a single string, this may  be too long to use as an index, whereas <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_id">_id()</a> returns the actual value used  as the key, which may be the hashed <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_index">_index</a> value. In other words  <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_index">_index</a> is the human readable version of <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_id">_id</a>.</p><p>When the object is <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">committed</a> for the first time, the value of the  <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_id">_id</a> method will be set in the <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">kTAG_ID_NATIVE</a> offset  which represents the object ID. This offset should never be changed and represents the  persistent identifier of the object.</p><p>Objects derived from this class also hold, by default, their class name in an  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CLASS">offset</a>, this is used to <a href="../../Framework/Persistence/CPersistentUnitObject.html#methodNewObject">instantiate</a> objects of the  correct class when retrieving data from a container.</p><p>This class also features a <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_VERSION">version</a> which is an integer, incremented  each time the object is <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">committed</a>: this is  useful to implement a  concurrency control mechanism.</p><p>Starting from this class we only handle <a href="../../Framework/Persistence/CContainer.html">CContainer</a> derived instances  as containers, other container types will not be supported. This is because  <a href="../../Framework/Persistence/CContainer.html">CContainer</a> derived instances have an  <a href="../../Framework/Core/CDataType.html#methodSerialiseObject">serialise</a> and  CMongoDataWrapper::UnserialiseObject() interface for handling special  data types.</p><p>The specifics of this are managed by the <a href="../../Framework/Persistence/CContainer.html">CContainer</a> derived classes,  so when planning your objects think in advance in what containers you plan to store them.</p></p>
 		<p class="notes">
 			Located in <a class="field" href="_classes---CPersistentUnitObject.php.html">/classes/CPersistentUnitObject.php</a> (line <span class="field">82</span>)
 		</p>
@@ -82,9 +82,9 @@
 				</tr>
 								<tr>
 					<td style="padding-right: 2em; white-space: nowrap">
-						<img src="../../media/images/AbstractClass.png"
-								 alt="Abstract class"
-								 title="Abstract class"
+						<img src="../../media/images/Class.png"
+								 alt=" class"
+								 title=" class"
 								 style="vertical-align: center"/>
 						<a href="../../Objects/Entities/CEntity.html">CEntity</a>
 					</td>
@@ -243,12 +243,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_id</span> (line <span class="line-number">211</span>)
+		<span class="method-title">_id</span> (line <span class="line-number">209</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Return the object's unique identifier.</p>
-<p class="description"><p>This method can be used to return a value that represents the object's unique  native identifier. The method will first check if the object has the  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">kTAG_ID_NATIVE</a> offset, in that case it will return that value;  if the object was not yet <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">committed</a>, it is up to concrete derived  classes to decide what value should uniquely identify the object within the  container in which it is stored.</p><p>If this method returns <em>NULL</em>, it is assumed that it will be the  <a href="../../Framework/Persistence/CContainer.html">container</a> that will provide a default unique value.</p><p>In this class we first check the <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a>, if not found, we  let the system choose, in derived classes you can first call the parent method, then  do your custom thing.</p></p>
+<p class="description"><p>This method can be used to return a value that represents the object's unique  native identifier. The method should use the value returned by the  <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_index">_index</a> method and hash it if necessary.</p><p>This method will be called <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_PrepareStore">before</a> <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">committing</a>  the object to fill its unique identifier <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">offset</a>.</p><p>If this method returns <em>NULL</em>, it is assumed that it will be the  <a href="../../Framework/Persistence/CContainer.html">container</a> that will provide a default unique value.</p><p>In this class we return the value of <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_index">_index</a> by default.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
 			</ul>
@@ -267,7 +267,7 @@
 		<div class="notes">Redefined in descendants as:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../Objects/Entities/CEntity.html#method_id">CEntity::_id()</a>
+				<a href="../../Objects/Entities/CUser.html#method_id">CUser::_id()</a>
 								: Return the object's unique identifier.
 							</li>
 				</ul>
@@ -277,12 +277,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_index</span> (line <span class="line-number">244</span>)
+		<span class="method-title">_index</span> (line <span class="line-number">231</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Return the object's unique index.</p>
-<p class="description"><p>This method can be used to return a string value that represents the object's unique  identifier. This value should generally be extracted from the object's properties.</p><p>In general this value will be used by the <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_id">_id</a> method to form the  object's unique <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a>, maybe hashed to make the index  smaller.</p><p>In this class we return <em>NULL</em>, which means that this class has no unique  identifier.</p></p>
+<p class="description"><p>This method can be used to return a string value that represents the object's unique  identifier. This value should generally be extracted from the object's properties.</p><p>In general this value will be used by the <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_id">_id</a> method to form the  object's unique <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a>, maybe hashed to make the index  smaller.</p><p>In this class we return by default <em>NULL</em>.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
 			</ul>
@@ -297,13 +297,25 @@
 	
 		
 			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Objects/Entities/CEntity.html#method_index">CEntity::_index()</a>
+								: Return the object's unique index.
+							</li>
+					<li>
+				<a href="../../Objects/Entities/CUser.html#method_index">CUser::_index()</a>
+								: Return the object's unique index.
+							</li>
+				</ul>
 	</div>
 <a name="method_ManageObjectList" id="_ManageObjectList"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ManageObjectList</span> (line <span class="line-number">595</span>)
+		<span class="method-title">_ManageObjectList</span> (line <span class="line-number">582</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -368,7 +380,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ObjectIndex</span> (line <span class="line-number">1073</span>)
+		<span class="method-title">_ObjectIndex</span> (line <span class="line-number">1060</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -405,15 +417,15 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareFind</span> (line <span class="line-number">278</span>)
+		<span class="method-title">_PrepareFind</span> (line <span class="line-number">265</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Normalise parameters of a find.</p>
-<p class="description"><p>The duty of this method is to ensure that the parameters provided to a  <a href="../../Framework/Persistence/CPersistentObject.html#method_FindObject">find</a> operation are valid.</p><p>In this class we ensure that the container is derived from  <a href="../../Framework/Persistence/CContainer.html">CContainer</a>.</p></p>
+<p class="description"><p>The duty of this method is to ensure that the parameters provided to a  <a href="../../Framework/Persistence/CPersistentObject.html#method_Load">find</a> operation are valid.</p><p>In this class we ensure that the container is derived from  <a href="../../Framework/Persistence/CContainer.html">CContainer</a>.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> kERROR_OPTION_MISSING kERROR_UNSUPPORTED</li>
-				<li><span class="field">throws:</span> CException</li>
+				<li><span class="field">throws:</span> <a href="../../Framework/Core/CException.html">CException</a></li>
 				<li><span class="field">access:</span> protected</li>
 			</ul>
 	
@@ -447,7 +459,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareReferenceList</span> (line <span class="line-number">413</span>)
+		<span class="method-title">_PrepareReferenceList</span> (line <span class="line-number">400</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -488,12 +500,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareStore</span> (line <span class="line-number">339</span>)
+		<span class="method-title">_PrepareStore</span> (line <span class="line-number">326</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Normalise before a store.</p>
-<p class="description"><p>The duty of this method is to ensure that the parameters provided to the  <a href="../../Framework/Persistence/CPersistentObject.html#method_StoreObject">store</a> operation are correct.</p><p>In this class we ensure that the container is a ArrayObject or a  <a href="../../Framework/Persistence/CContainer.html">CContainer</a> derived instance and we ensure the identifier is filled  in the case it was not provided:</p><p><ul><li><em>Get <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">kTAG_ID_NATIVE</a></em>: If the object features the
+<p class="description"><p>The duty of this method is to ensure that the parameters provided to the  <a href="../../Framework/Persistence/CPersistentObject.html#method_Commit">store</a> operation are correct.</p><p>In this class we ensure that the container is a ArrayObject or a  <a href="../../Framework/Persistence/CContainer.html">CContainer</a> derived instance and we ensure the identifier is filled  in the case it was not provided:</p><p><ul><li><em>Get <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">kTAG_ID_NATIVE</a></em>: If the object features the
         <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">kTAG_ID_NATIVE</a> offset, it will be preferred. This is
         necessary, because we don't want the object identifier to change in time.</li><li><em>Use the <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_id">:id</a> method</em>: We use the value returned by the
         <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_id">_id</a> protected method, this will be the case when
@@ -502,7 +514,7 @@
         to zero, if already set, we increment it.</li></ul></p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> kERROR_OPTION_MISSING kERROR_UNSUPPORTED</li>
-				<li><span class="field">throws:</span> CException</li>
+				<li><span class="field">throws:</span> <a href="../../Framework/Core/CException.html">CException</a></li>
 				<li><span class="field">access:</span> protected</li>
 			</ul>
 	
@@ -555,19 +567,21 @@
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#methodUncommit">CPersistentObject::Uncommit()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_CreateObject">CPersistentObject::_CreateObject()</a></span><br>
+							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_Commit">CPersistentObject::_Commit()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_FindObject">CPersistentObject::_FindObject()</a></span><br>
+							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_Create">CPersistentObject::_Create()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_FinishFind">CPersistentObject::_FinishFind()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_FinishStore">CPersistentObject::_FinishStore()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_IsCommitted">CPersistentObject::_IsCommitted()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_Load">CPersistentObject::_Load()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_PrepareFind">CPersistentObject::_PrepareFind()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_PrepareStore">CPersistentObject::_PrepareStore()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_StoreObject">CPersistentObject::_StoreObject()</a></span><br>
 											</blockquote>
 									<!-- =========== Summary =========== -->
 					<p>Inherited From <span class="classname"><a href="../../Framework/Core/CStatusObject.html">CStatusObject</a></span></p>
@@ -690,7 +704,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Mon, 19 Mar 2012 19:37:30 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 22 Mar 2012 19:26:19 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>
