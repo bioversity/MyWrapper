@@ -15,7 +15,7 @@
 
 /*=======================================================================================
  *																						*
- *										CContainer.php									*
+ *									CContainer.php										*
  *																						*
  *======================================================================================*/
 
@@ -186,8 +186,8 @@ abstract class CContainer extends CObject
 	/**
 	 * Return database.
 	 *
-	 * This method should return the current container's database name, if this is not
-	 * relevant, it should return <i>NULL</i>.
+	 * This method should return the current container's database, if this is not relevant,
+	 * it should return <i>NULL</i>.
 	 *
 	 * @access public
 	 * @return mixed
@@ -215,7 +215,7 @@ abstract class CContainer extends CObject
 	 * expects three parameters:
 	 *
 	 * <ul>
-	 *	<li><b>$theObject</b>: The object to be committed.
+	 *	<li><b>$theObject</b>: The object or data to be committed.
 	 *	<li><b>$theIdentifier</b>: This parameter is expected to be the object's unique
 	 *		identifier within the container, it will be the {@link Load() access} key to the
 	 *		object once committed. If the value is <i>NULL</i>, it means that it is the duty
@@ -251,6 +251,14 @@ abstract class CContainer extends CObject
 	 *			operation has its own public {@link Delete() method}, derived classes can
 	 *			use this option to implement a <i>deleted state</i>, rather than actually
 	 *			removing the object from the container.
+	 *		<li><i>{@link kFLAG_STATE_ENCODED kFLAG_STATE_ENCODED}</i>: This option will
+	 *			generally be taken from the first parameter if it is a
+	 *			{@link CPersistentObject persistent} object: if set, it means that the
+	 *			object may have elements derived from concrete instances of
+	 *			{@link CDataType CDataType}, which means that these will have to be
+	 *			{@link UnserialiseObject() encoded} into the native database types before
+	 *			committing the data. This option will be set {@link _PrepareCommit() before}
+	 *			{@link _Commit() committing}.
 	 *	 </ul>
 	 * </ul>
 	 *
@@ -260,11 +268,16 @@ abstract class CContainer extends CObject
 	 * The operation is performed by a protected interface whose workflow is as follows:
 	 *
 	 * <ul>
-	 *	<li><i>{@link _PrepareStore() _PrepareStore}()</i>: This method can be used to
-	 *		initialise or check the parameters and resources.
+	 *	<li><i>{@link _PrepareCommit() _PrepareCommit}()</i>: This method can be used to
+	 *		check the parameters and initialise the resources. It is here where we
+	 *		{@link kFLAG_STATE_ENCODED eventually} {@link UnserialiseObject() unserialise}
+	 *		the object.
 	 *	<li><i>{@link _Commit() _Commit}()</i>: This method will perform the actual commit.
-	 *	<li><i>{@link _FinishStore() _FinishStore}()</i>: This method can be used to perform
-	 *		eventual post-flight adjustments.
+	 *	<li><i>{@link _FinishCommit() _FinishCommit}()</i>: This method can be used to perform
+	 *		eventual post-flight adjustments. It is here where we
+	 *		{@link kFLAG_STATE_ENCODED eventually}
+	 *		{@link CDataType::SerialiseObject() serialise} the object.
+	 *		the object.
 	 * </ul>
 	 *
 	 * @param reference			   &$theObject			Object to commit.
@@ -274,7 +287,9 @@ abstract class CContainer extends CObject
 	 * @access public
 	 * @return mixed
 	 *
+	 * @uses _PrepareCommit()
 	 * @uses _Commit()
+	 * @uses _FinishCommit()
 	 */
 	public function Commit( &$theObject,
 							 $theIdentifier = NULL,
@@ -283,7 +298,7 @@ abstract class CContainer extends CObject
 		//
 		// Prepare.
 		//
-		$this->_PrepareStore( $theObject, $theIdentifier, $theModifiers );
+		$this->_PrepareCommit( $theObject, $theIdentifier, $theModifiers );
 		
 		//
 		// Store object.
@@ -295,7 +310,7 @@ abstract class CContainer extends CObject
 		//
 		// Finish.
 		//
-		$this->_FinishStore( $theObject, $theIdentifier, $theModifiers );
+		$this->_FinishCommit( $theObject, $theIdentifier, $theModifiers );
 		
 		return $theIdentifier;														// ==>
 
@@ -309,44 +324,55 @@ abstract class CContainer extends CObject
 	/**
 	 * Load object.
 	 *
-	 * This method can be used to load an object from the container, it accepts a single
-	 * parameter that represents the key of the searched object within the current
-	 * container.
+	 * This method can be used to load an object from the current data store, it expects two
+	 * parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theIdentifier</b>: This parameter is expected to be the object's unique
+	 *		identifier within the container, it will be the access key to the object.
+	 *	<li><b>$theModifiers</b>: This parameter represents the load operation options, in
+	 *		this class we only consider the {@link kFLAG_STATE_ENCODED kFLAG_STATE_ENCODED}
+	 *		option: if set, the identifier will be {@link UnserialiseData() unserialised}
+	 *		{@link _PrepareLoad() before} {@link _Load() searching} for the object.
+	 * </ul>
 	 *
 	 * The method should return the found object, or <i>NULL</i> if not found.
 	 *
 	 * The actual operation is performed by a protected interface:
 	 *
 	 * <ul>
-	 *	<li><i>{@link _PrepareFind() _PrepareFind}</i>: Normalise parameters and initialise
+	 *	<li><i>{@link _PrepareLoad() _PrepareLoad}</i>: Normalise parameters and initialise
 	 *		resources.
 	 *	<li><i>{@link _Load() _Load}</i>: Find and load object.
-	 *	<li><i>{@link _FinishFind() _FinishFind}</i>: Cleanup after the operation.
+	 *	<li><i>{@link _FinishLoad() _FinishLoad}</i>: Cleanup after the operation.
 	 * </ul>
 	 *
 	 * @param mixed					$theIdentifier		Object identifier.
+	 * @param bitfield				$theModifiers		Load modifiers.
 	 *
 	 * @access public
 	 * @return mixed
 	 *
+	 * @uses _PrepareLoad()
 	 * @uses _Load()
+	 * @uses _FinishLoad()
 	 */
-	public function Load( $theIdentifier )
+	public function Load( $theIdentifier, $theModifiers = kFLAG_DEFAULT )
 	{
 		//
 		// Prepare.
 		//
-		$this->_PrepareFind( $theIdentifier );
+		$this->_PrepareLoad( $theIdentifier, $theModifiers  );
 		
 		//
 		// Perform load.
 		//
-		$object = $this->_Load( $theIdentifier );
+		$object = $this->_Load( $theIdentifier, $theModifiers  );
 		
 		//
 		// Finish.
 		//
-		$this->_FinishFind( $object, $theIdentifier );
+		$this->_FinishLoad( $object, $theIdentifier, $theModifiers  );
 		
 		return $object;																// ==>
 
@@ -360,9 +386,17 @@ abstract class CContainer extends CObject
 	/**
 	 * Delete object.
 	 *
-	 * This method can be used to remove an object from the container, it accepts a single
-	 * parameter that represents the key of the object to be removed within the current
-	 * container.
+	 * This method can be used to remove an object from the current data store, it expects
+	 * two parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theIdentifier</b>: This parameter is expected to be the object's unique
+	 *		identifier within the container, it will be the access key to the object.
+	 *	<li><b>$theModifiers</b>: This parameter represents the operation options, in this
+	 *		class we only consider the {@link kFLAG_STATE_ENCODED kFLAG_STATE_ENCODED}
+	 *		option: if set, the identifier will be {@link UnserialiseData() unserialised}
+	 *		{@link _PrepareDelete() before} {@link _Delete() removing} the object.
+	 * </ul>
 	 *
 	 * The method should return the deleted object, or <i>NULL</i> if not found.
 	 *
@@ -376,26 +410,31 @@ abstract class CContainer extends CObject
 	 * </ul>
 	 *
 	 * @param mixed					$theIdentifier		Object identifier.
+	 * @param bitfield				$theModifiers		Delete modifiers.
 	 *
 	 * @access public
 	 * @return mixed
+	 *
+	 * @uses _PrepareDelete()
+	 * @uses _Delete()
+	 * @uses _FinishDelete()
 	 */
-	public function Delete( $theIdentifier )
+	public function Delete( $theIdentifier, $theModifiers = kFLAG_DEFAULT )
 	{
 		//
 		// Prepare.
 		//
-		$this->_PrepareDelete( $theContainer, $theIdentifier );
+		$this->_PrepareDelete( $theIdentifier, $theModifiers );
 		
 		//
 		// Perform load.
 		//
-		$object = $this->_Delete( $theIdentifier );
+		$object = $this->_Delete( $theIdentifier, $theModifiers );
 		
 		//
 		// Finish.
 		//
-		$this->_FinishDelete( $object, $theIdentifier );
+		$this->_FinishDelete( $object, $theIdentifier, $theModifiers );
 		
 		return $object;																// ==>
 
@@ -469,6 +508,14 @@ abstract class CContainer extends CObject
 	 *
 	 * @access public
 	 * @return array
+	 *
+	 * @throws {@link CException CException}
+	 *
+	 * @uses __toString()
+	 * @uses Database()
+	 *
+	 * @see kFLAG_REFERENCE_IDENTIFIER kFLAG_REFERENCE_CONTAINER
+	 * @see kFLAG_REFERENCE_DATABASE kFLAG_REFERENCE_CLASS
 	 */
 	public function Reference( $theObject, $theModifiers = kFLAG_REFERENCE_IDENTIFIER )
 	{
@@ -506,8 +553,8 @@ abstract class CContainer extends CObject
 		// Load container information.
 		//
 		if( ($theModifiers & kFLAG_REFERENCE_CONTAINER)
-		 && strlen( $tmp = (string) $this ) )
-			$reference[ kTAG_CONTAINER_REFERENCE ] = (string) $tmp;
+		 && strlen( $tmp = $this->__toString() ) )
+			$reference[ kTAG_CONTAINER_REFERENCE ] = $tmp;
 		
 		//
 		// Load database information.
@@ -576,6 +623,8 @@ abstract class CContainer extends CObject
 	 * @param reference			   &$theObject			Object to encode.
 	 *
 	 * @access public
+	 *
+	 * @uses UnserialiseData()
 	 */
 	public function UnserialiseObject( &$theObject )
 	{
@@ -705,39 +754,8 @@ abstract class CContainer extends CObject
 	 * Commit provided object.
 	 *
 	 * Derived classes must implement this method to actually store the provided object in
-	 * the container, it expects three parameters:
-	 *
-	 * <ul>
-	 *	<li><b>&$theObject</b>: The object to be committed.
-	 *	<li><b>&$theIdentifier</b>: This parameter is expected to be the object's unique
-	 *		identifier within the container.
-	 *	<li><b>&$theModifiers</b>: This parameter represents the commit operation options,
-	 *		by default we assume it is a bitfield where the following values apply:
-	 *	 <ul>
-	 *		<li><i>{@link kFLAG_PERSIST_INSERT kFLAG_PERSIST_INSERT}</i>: The provided
-	 *			object will be inserted in the container, it is assumed that no other
-	 *			element in the container shares the same identifier, in that case the method
-	 *			must raise an {@link kERROR_DUPLICATE exception}.
-	 *		<li><i>{@link kFLAG_PERSIST_UPDATE kFLAG_PERSIST_UPDATE}</i>: The provided
-	 *			object will replace the existing object. In this case the method expects
-	 *			the container to have an entry with the same key as the provided identifier,
-	 *			if this is not the case the method must raise an
-	 *			{@link kERROR_NOT_FOUND exception}. With this option it is assumed that the
-	 *			provided object's attributes will replace all the existing object's ones.
-	 *		<li><i>{@link kFLAG_PERSIST_MODIFY kFLAG_PERSIST_MODIFY}</i>: The provided
-	 *			object is assumed to contain a subset of an existing object's attributes,
-	 *			these provided attributes will be appended or replace the existing ones.
-	 *			In this case the method expects the container to have an entry with the
-	 *			same key as the provided identifier, if this is not the case the method must
-	 *			raise an {@link kERROR_NOT_FOUND exception}.
-	 *		<li><i>{@link kFLAG_PERSIST_REPLACE kFLAG_PERSIST_REPLACE}</i>: The provided
-	 *			object will be {@link kFLAG_PERSIST_INSERT inserted}, if the identifier
-	 *			doesn't match any container elements, or it will
-	 *			{@link kFLAG_PERSIST_UPDATE replace} the existing object. As with
-	 *			{@link kFLAG_PERSIST_UPDATE update}, it is assumed that the provided
-	 *			object's attributes will replace all the existing object's ones.
-	 *	 </ul>
-	 * </ul>
+	 * the container, the method expects the same parameters as the public
+	 * {@link Commit() interface}, except that in this method these are passed by reference.
 	 *
 	 * The method should return the object's key within the container or raise an exception
 	 * if the operation was not successful.
@@ -759,22 +777,19 @@ abstract class CContainer extends CObject
 	/**
 	 * Load object.
 	 *
-	 * Derived classes must implement this method to perform the actual retrieval of objects
-	 * from the container.
-	 *
-	 * <ul>
-	 *	<li><b>$theIdentifier</b>: The key to the object in the container.
-	 *	<li><b>$theModifiers</b>: Bitfield containing the operation options.
-	 * </ul>
+	 * Derived classes must implement this method to actually retrieve the provided object
+	 * from the container, the method expects the same parameters as the public
+	 * {@link Load() interface}, except that in this method these are passed by reference.
 	 *
 	 * The method should return the found object or <i>NULL</i> if not found.
 	 *
 	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Load modifiers.
 	 *
 	 * @access protected
 	 * @return mixed
 	 */
-	abstract protected function _Load( &$theIdentifier );
+	abstract protected function _Load( &$theIdentifier, &$theModifiers );
 
 	 
 	/*===================================================================================
@@ -784,22 +799,19 @@ abstract class CContainer extends CObject
 	/**
 	 * Load object.
 	 *
-	 * Derived classes must implement this method to perform the actual removal of objects
-	 * from the container.
-	 *
-	 * <ul>
-	 *	<li><b>$theIdentifier</b>: The key to the object in the container.
-	 *	<li><b>$theModifiers</b>: Bitfield containing the operation options.
-	 * </ul>
+	 * Derived classes must implement this method to actually remove the object from the
+	 * container, the method expects the same parameters as the public
+	 * {@link Delete() interface}, except that in this method these are passed by reference.
 	 *
 	 * The method should return the removed object or <i>NULL</i> if not found.
 	 *
-	 * @param mixed				   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Delete modifiers.
 	 *
 	 * @access protected
 	 * @return mixed
 	 */
-	abstract protected function _Delete( &$theIdentifier );
+	abstract protected function _Delete( &$theIdentifier, &$theModifiers );
 
 		
 
@@ -812,7 +824,7 @@ abstract class CContainer extends CObject
 
 	 
 	/*===================================================================================
-	 *	_PrepareFind																	*
+	 *	_PrepareLoad																	*
 	 *==================================================================================*/
 
 	/**
@@ -821,18 +833,25 @@ abstract class CContainer extends CObject
 	 * The duty of this method is to ensure that the parameters provided to the
 	 * {@link _Load() find} operation are valid.
 	 *
-	 * In this class we ensure that the identifier has been provided and that the current
-	 * object has a native {@link Container() container}.
+	 * In this class we ensure that the identifier has been provided, that the current
+	 * object has a native {@link Container() container} and we
+	 * {@link UnserialiseData() unserialise} the provided identifier if
+	 * {@link kFLAG_STATE_ENCODED needed}.
 	 *
 	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Load modifiers.
 	 *
 	 * @access protected
 	 *
 	 * @throws {@link CException CException}
 	 *
+	 * @uses Container()
+	 * @uses UnserialiseData()
+	 *
+	 * @see kFLAG_STATE_ENCODED
 	 * @see kERROR_OPTION_MISSING kERROR_INVALID_STATE
 	 */
-	protected function _PrepareFind( &$theIdentifier )
+	protected function _PrepareLoad( &$theIdentifier, &$theModifiers )
 	{
 		//
 		// Check if identifier is there.
@@ -851,12 +870,18 @@ abstract class CContainer extends CObject
 				( "Missing native container",
 				  kERROR_INVALID_STATE,
 				  kMESSAGE_TYPE_ERROR );										// !@! ==>
+		
+		//
+		// Unserialise identifier.
+		//
+		if( $theModifiers & kFLAG_STATE_ENCODED )
+			$this->UnserialiseData( $theIdentifier );
 	
-	} // _PrepareFind.
+	} // _PrepareLoad.
 
 	 
 	/*===================================================================================
-	 *	_PrepareStore																	*
+	 *	_PrepareCommit																	*
 	 *==================================================================================*/
 
 	/**
@@ -874,14 +899,15 @@ abstract class CContainer extends CObject
 	 *		{@link kFLAG_PERSIST_INSERT insert}.
 	 *	<li>Ensure the method has the correct options.
 	 *	<li>Ensure the current object has a container.
+	 *	<li>Get the {@link CPersistentObject::_IsEncoded() encoded} status
+	 *		{@link kFLAG_STATE_ENCODED flag} from the object.
+	 *	<li>{@link UnserialiseObject() Unserialise} object and
+	 *		{@link UnserialiseData() identifier} if necessary.
 	 * </ul>
 	 *
-	 * In derived classes you should handle your custom containers or delegate to the parent
-	 * method.
-	 *
-	 * In this class we do not check the identifier.
-	 *
-	 * Any errors should raise an exception.
+	 * In derived classes you should always call the parent method, remember to check this
+	 * method to determine whether to implement your custom changes before or after calling
+	 * this method.
 	 *
 	 * @param reference			   &$theObject			Object or data.
 	 * @param reference			   &$theIdentifier		Object identifier.
@@ -891,9 +917,14 @@ abstract class CContainer extends CObject
 	 *
 	 * @throws {@link CException CException}
 	 *
+	 * @uses Container()
+	 * @uses UnserialiseObject()
+	 * @uses UnserialiseData()
+	 *
+	 * @see kFLAG_STATE_ENCODED
 	 * @see kERROR_OPTION_MISSING kERROR_INVALID_PARAMETER kERROR_INVALID_STATE
 	 */
-	protected function _PrepareStore( &$theObject, &$theIdentifier, &$theModifiers )
+	protected function _PrepareCommit( &$theObject, &$theIdentifier, &$theModifiers )
 	{
 		//
 		// Identifier is required
@@ -924,8 +955,33 @@ abstract class CContainer extends CObject
 				( "Missing native container",
 				  kERROR_INVALID_STATE,
 				  kMESSAGE_TYPE_ERROR );										// !@! ==>
+		
+		//
+		// Set encode option.
+		//
+		if( $theObject instanceof CStatusObject )
+		{
+			if( ($opt = $theObject->Status()) & kFLAG_STATE_ENCODED )
+				$theModifiers |= kFLAG_STATE_ENCODED;
+		}
+		
+		//
+		// Unserialise object and identifier.
+		//
+		if( $theModifiers & kFLAG_STATE_ENCODED )
+		{
+			//
+			// Process object.
+			//
+			$this->UnserialiseObject( $theObject );
+			
+			//
+			// Process identifier.
+			//
+			$this->UnserialiseData( $theIdentifier );
+		}
 	
-	} // _PrepareStore.
+	} // _PrepareCommit.
 
 	 
 	/*===================================================================================
@@ -938,19 +994,33 @@ abstract class CContainer extends CObject
 	 * The duty of this method is to ensure that the parameters provided to the
 	 * {@link _Delete() delete} operation are valid.
 	 *
-	 * In this class we ensure that the current object has a native
-	 * {@link Container() container}.
+	 * In this class we ensure that the identifier has been provided, that the current
+	 * object has a native {@link Container() container} and we
+	 * {@link UnserialiseData() unserialise} the provided identifier if
+	 * {@link kFLAG_STATE_ENCODED needed}.
 	 *
 	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Commit modifiers.
 	 *
 	 * @access protected
 	 *
 	 * @throws {@link CException CException}
 	 *
+	 * @uses Container()
+	 *
 	 * @see kERROR_INVALID_STATE
 	 */
-	protected function _PrepareDelete( &$theIdentifier )
+	protected function _PrepareDelete( &$theIdentifier, &$theModifiers )
 	{
+		//
+		// Check if identifier is there.
+		//
+		if( $theIdentifier === NULL )
+			throw new CException
+					( "Missing object identifier",
+					  kERROR_OPTION_MISSING,
+					  kMESSAGE_TYPE_ERROR );									// !@! ==>
+		
 		//
 		// Check container.
 		//
@@ -959,46 +1029,134 @@ abstract class CContainer extends CObject
 				( "Missing native container",
 				  kERROR_INVALID_STATE,
 				  kMESSAGE_TYPE_ERROR );										// !@! ==>
+		
+		//
+		// Unserialise identifier.
+		//
+		if( $theModifiers & kFLAG_STATE_ENCODED )
+			$this->UnserialiseData( $theIdentifier );
 	
 	} // _PrepareDelete.
 
 	 
 	/*===================================================================================
-	 *	_FinishFind																		*
+	 *	_FinishLoad																		*
 	 *==================================================================================*/
 
 	/**
 	 * Normalise after a {@link _Load() load}.
 	 *
 	 * This method will be called after the {@link _Load() load} operation, its duty is to
-	 * clean up or normalise after the operation. The parameter is passed by reference.
+	 * clean up or normalise after the operation. The parameters are passed by reference.
 	 *
 	 * The method expects the found object or data in the first parameter and the original
 	 * identifier in the second.
 	 *
-	 * In this class we do nothing.
+	 * In this class we {@link kFLAG_STATE_ENCODED eventually}
+	 * {@link CDataType::SerialiseObject() serialise} the object and the
+	 * {@link CDataType::SerialiseData() identifier}.
 	 *
 	 * @param reference			   &$theObject			Object reference.
 	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Commit modifiers.
 	 *
 	 * @access protected
+	 *
+	 * @uses CDataType::SerialiseObject()
+	 * @uses CDataType::SerialiseData()
+	 *
+	 * @see kFLAG_STATE_ENCODED
 	 */
-	protected function _FinishFind( &$theObject, &$theIdentifier )						   {}
+	protected function _FinishLoad( &$theObject, &$theIdentifier, &$theModifiers )
+	{
+		//
+		// Serialise object.
+		//
+		if( $theModifiers & kFLAG_STATE_ENCODED )
+		{
+			//
+			// Serialise object.
+			//
+			CDataType::SerialiseObject( $theObject );
+			
+			//
+			// Serialise identifier.
+			//
+			CDataType::SerialiseData( $theIdentifier );
+			
+			//
+			// Copy status.
+			//
+			if( $theObject instanceof CPersistentObject )
+				$theObject->Status( $theObject->Status() | kFLAG_STATE_ENCODED );
+		
+		} // Serialise option.
+	
+	} // _FinishCommit.
 
 	 
 	/*===================================================================================
-	 *	_FinishStore																	*
+	 *	_FinishCommit																	*
+	 *==================================================================================*/
+
+	/**
+	 * Normalise after a {@link _Commit() store}.
+	 *
+	 * This method will be called after the {@link _Commit() store} operation, its duty is
+	 * to clean up or restore the object after the operation please refer to
+	 * {@link Commit() this} documentation for a reference of these parameters. Note that in
+	 * this method all three parameters are passed by reference.
+	 *
+	 * In this class we {@link kFLAG_STATE_ENCODED eventually}
+	 * {@link CDataType::SerialiseObject() serialise} the object.
+	 *
+	 * @param reference			   &$theObject			Object or data.
+	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Commit modifiers.
+	 *
+	 * @access protected
+	 *
+	 * @uses CDataType::SerialiseObject()
+	 * @uses CDataType::SerialiseData()
+	 *
+	 * @see kFLAG_STATE_ENCODED
+	 */
+	protected function _FinishCommit( &$theObject, &$theIdentifier, &$theModifiers )
+	{
+		//
+		// Serialise object.
+		//
+		if( $theModifiers & kFLAG_STATE_ENCODED )
+		{
+			//
+			// Serialise object.
+			//
+			CDataType::SerialiseObject( $theObject );
+	
+			//
+			// Serialise identifier.
+			//
+			CDataType::SerialiseData( $theIdentifier );
+		}
+	
+	} // _FinishCommit.
+
+	 
+	/*===================================================================================
+	 *	_FinishDelete																	*
 	 *==================================================================================*/
 
 	/**
 	 * Normalise after a store.
 	 *
-	 * This method will be called after the {@link _Commit() store} operation, its
-	 * duty is to clean up or restore the object after the operation please refer to
-	 * {@link Commit() this} documentation for a reference of these parameters. Note that in
-	 * this method all three parameters are passed by reference.
+	 * This method will be called after the {@link _Delete() delete} operation, its duty is
+	 * to clean up or restore the object after the operation please refer to
+	 * {@link Delete() this} documentation for a reference of these parameters. Note that in
+	 * this method all two parameters are passed by reference.
 	 *
-	 * In this class we do nothing.
+	 * In this class we {@link kFLAG_STATE_ENCODED eventually}
+	 * {@link CDataType::SerialiseObject() serialise} the object and the
+	 * {@link CDataType::SerialiseData() identifier}.
 	 *
 	 * @param reference			   &$theObject			Object or data.
 	 * @param reference			   &$theIdentifier		Object identifier.
@@ -1006,7 +1164,25 @@ abstract class CContainer extends CObject
 	 *
 	 * @access protected
 	 */
-	protected function _FinishStore( &$theObject, &$theIdentifier, &$theModifiers )		   {}
+	protected function _FinishDelete( &$theObject, &$theIdentifier, &$theModifiers )
+	{
+		//
+		// Serialise identifier.
+		//
+		if( $theModifiers & kFLAG_STATE_ENCODED )
+		{
+			//
+			// Serialise object.
+			//
+			CDataType::SerialiseObject( $theObject );
+	
+			//
+			// Serialise identifier.
+			//
+			CDataType::SerialiseData( $theIdentifier );
+		}
+	
+	} // _FinishDelete.
 
 	 
 

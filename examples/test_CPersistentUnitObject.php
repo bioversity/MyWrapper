@@ -45,10 +45,10 @@ class MyClass extends CPersistentUnitObject
 				( 'REFERENCE', $theValue, $theOperation, $getOld );
 	}
 	
-	protected function _PrepareStore( &$theContainer, &$theIdentifier )
+	protected function _PrepareCommit( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		$this->_isInited( TRUE );
-		parent::_PrepareStore( $theContainer, $theIdentifier );
+		parent::_PrepareCommit( $theContainer, $theIdentifier, $theModifiers );
 		$this->_PrepareReferenceList($theContainer, 'REFERENCE', kFLAG_REFERENCE_MASK );
 	}
 }

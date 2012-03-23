@@ -70,9 +70,9 @@
 				</tr>
 								<tr>
 					<td style="padding-right: 2em; white-space: nowrap">
-						<img src="../../media/images/AbstractClass.png"
-								 alt="Abstract class"
-								 title="Abstract class"
+						<img src="../../media/images/Class.png"
+								 alt=" class"
+								 title=" class"
 								 style="vertical-align: center"/>
 						<a href="../../Framework/Persistence/CPersistentObject.html">CPersistentObject</a>
 					</td>
@@ -158,6 +158,12 @@
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">bitfield</span>
+										<a href="#Status" title="details" class="method-name">Status</a>
+											([<span class="var-type">NULL|FALSE|bitfield</span>&nbsp;<span class="var-name">$theState</span> = <span class="var-default">NULL</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">boolean</span>
 										<a href="#_IsDirty" title="details" class="method-name">_IsDirty</a>
 											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theState</span> = <span class="var-default">NULL</span>])
@@ -173,12 +179,6 @@
 											<span class="method-result">bitfield</span>
 										<a href="#_ManageBitField" title="details" class="method-name">_ManageBitField</a>
 											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theField</span>, <span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theMask</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theState</span> = <span class="var-default">NULL</span>])
-									</div>
-																<div class="method-definition">
-					<img src="../../media/images/Method.png" alt=" "/>
-											<span class="method-result">bitfield</span>
-										<a href="#_Status" title="details" class="method-name">_Status</a>
-											([<span class="var-type">NULL|FALSE|bitfield</span>&nbsp;<span class="var-name">$theState</span> = <span class="var-default">NULL</span>])
 									</div>
 											</div>
 		</div>
@@ -200,7 +200,7 @@
 		<div class="info-box-body">
 			
 <a name="var$mStatus" id="$mStatus"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<img src="../../media/images/Variable.png" />
@@ -240,7 +240,7 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="methodoffsetSet" id="offsetSet"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -294,7 +294,7 @@
 				</ul>
 	</div>
 <a name="methodoffsetUnset" id="offsetUnset"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -344,12 +344,47 @@
 							</li>
 				</ul>
 	</div>
+<a name="methodStatus" id="Status"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Status</span> (line <span class="line-number">191</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set or retrieve the object status.</p>
+<p class="description"><p>This method can be used to manage the status bitfield as a whole, allowing to set and  retrieve the whole set of states.</p><p>The parameter can take the following values:</p><p><ul><li><em>NULL</em>: The method will return the current object's states bitfield.</li><li><em>FALSE</em>: If this value is passed, the method will reset the object's status
+		by settig it to the <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_DEFAULT">default</a> value.</li><li><em>other</em>: In this case the parameter will be interpreted as a 31 bits
+        bit-field value and the data member will be replaced with it.</li></ul></p><p>In all cases the method will return the status <em>after</em> it was eventually  modified.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_DEFAULT_MASK">kFLAG_DEFAULT_MASK</a></li>
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Core/CStatusObject.html#method_ManageBitField">CStatusObject::_ManageBitField()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">bitfield</span>
+		<span class="method-name">
+			Status
+		</span>
+					([<span class="var-type">NULL|FALSE|bitfield</span>&nbsp;<span class="var-name">$theState</span> = <span class="var-default">NULL</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">NULL|FALSE|bitfield</span>
+				<span class="var-name">$theState</span><span class="var-description">: NULL, FALSE or new status.</span>			</li>
+				</ul>
+		
+			
+	</div>
 <a name="method_IsDirty" id="_IsDirty"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_IsDirty</span> (line <span class="line-number">286</span>)
+		<span class="method-title">_IsDirty</span> (line <span class="line-number">295</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -386,12 +421,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_IsInited</span> (line <span class="line-number">240</span>)
+		<span class="method-title">_IsInited</span> (line <span class="line-number">249</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage inited status.</p>
-<p class="description"><p>This method can be used to get or set the object's inited state.</p><p>An object becomes inited when it has all the required elements necessary for it to be  correctly used or persistently stored. Such a state indicates that at least the  minimum required information was initialised in the object.</p><p>The counterpart state indicates that the object still lacks the necessary elements to  successfully operate the object.</p><p>This method operates by setting or clearing the <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">inited</a>  <a href="../../Framework/Core/CStatusObject.html#method_Status">status</a> flag.</p><p>The method features a single parameter:</p><p><ul><li><em>NULL</em>: The method will return <em>TRUE</em> if the object is this state, or
+<p class="description"><p>This method can be used to get or set the object's inited state.</p><p>An object becomes inited when it has all the required elements necessary for it to be  correctly used or persistently stored. Such a state indicates that at least the  minimum required information was initialised in the object.</p><p>The counterpart state indicates that the object still lacks the necessary elements to  successfully operate the object.</p><p>This method operates by setting or clearing the <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">inited</a>  <a href="../../Framework/Core/CStatusObject.html#methodStatus">status</a> flag.</p><p>The method features a single parameter:</p><p><ul><li><em>NULL</em>: The method will return <em>TRUE</em> if the object is this state, or
         <em>FALSE</em> if the object is not in this state.</li><li><em>TRUE</em>: The method will set the object to this state.</li><li><em>FALSE</em>: The method will reset this state.</li></ul></p><p>In all cases the method will return the state <em>after</em> it was eventually  modified.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">kFLAG_STATE_INITED</a></li>
@@ -400,7 +435,7 @@
 				<li><span class="field">usedby:</span> <a href="../../Objects/Entities/CUser.html#methodoffsetSet">CUser::offsetSet()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../Objects/Entities/CEntity.html#method__construct">CEntity::__construct()</a></li>
 				<li><span class="field">uses:</span> <a href="../../Framework/Core/CStatusObject.html#method_ManageBitField">CStatusObject::_ManageBitField()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../Framework/Persistence/CPersistentObject.html#method_PrepareStore">CPersistentObject::_PrepareStore()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Persistence/CPersistentObject.html#method_PrepareCommit">CPersistentObject::_PrepareCommit()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -424,7 +459,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ManageBitField</span> (line <span class="line-number">337</span>)
+		<span class="method-title">_ManageBitField</span> (line <span class="line-number">346</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -435,9 +470,10 @@
 				<li><span class="field">see:</span> <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_DEFAULT_MASK">kFLAG_DEFAULT_MASK</a></li>
 				<li><span class="field">access:</span> protected</li>
 				<li><span class="field">usedby:</span> <a href="../../Framework/Persistence/CPersistentObject.html#method_IsCommitted">CPersistentObject::_IsCommitted()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../Framework/Core/CStatusObject.html#method_IsDirty">CStatusObject::_IsDirty()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../Framework/Core/CStatusObject.html#method_Status">CStatusObject::_Status()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Persistence/CPersistentObject.html#method_IsEncoded">CPersistentObject::_IsEncoded()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../Framework/Core/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Core/CStatusObject.html#methodStatus">CStatusObject::Status()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Core/CStatusObject.html#method_IsDirty">CStatusObject::_IsDirty()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -458,41 +494,6 @@
 					<li>
 				<span class="var-type">mixed</span>
 				<span class="var-name">$theState</span><span class="var-description">: Value or operator.</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="method_Status" id="_Status"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Status</span> (line <span class="line-number">191</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Set or retrieve the object status.</p>
-<p class="description"><p>This method can be used to manage the status bitfield as a whole, allowing to set and  retrieve the whole set of states.</p><p>The parameter can take the following values:</p><p><ul><li><em>NULL</em>: The method will return the current object's states bitfield.</li><li><em>FALSE</em>: If this value is passed, the method will reset the object's status
-		by settig it to the <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_DEFAULT">default</a> value.</li><li><em>other</em>: In this case the parameter will be interpreted as a 31 bits
-        bit-field value and the data member will be replaced with it.</li></ul></p><p>In all cases the method will return the status <em>after</em> it was eventually  modified.</p></p>
-	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_DEFAULT_MASK">kFLAG_DEFAULT_MASK</a></li>
-				<li><span class="field">access:</span> protected</li>
-				<li><span class="field">uses:</span> <a href="../../Framework/Core/CStatusObject.html#method_ManageBitField">CStatusObject::_ManageBitField()</a></li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">bitfield</span>
-		<span class="method-name">
-			_Status
-		</span>
-					([<span class="var-type">NULL|FALSE|bitfield</span>&nbsp;<span class="var-name">$theState</span> = <span class="var-default">NULL</span>])
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">NULL|FALSE|bitfield</span>
-				<span class="var-name">$theState</span><span class="var-description">: NULL, FALSE or new status.</span>			</li>
 				</ul>
 		
 			
@@ -525,7 +526,7 @@
 
 	
 	<p class="notes" id="credit">
-		Documentation generated on Thu, 22 Mar 2012 19:26:20 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 23 Mar 2012 19:16:33 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

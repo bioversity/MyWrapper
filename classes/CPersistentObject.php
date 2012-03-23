@@ -31,8 +31,8 @@ require_once( kPATH_LIBRARY_SOURCE."CStatusObject.php" );
 /**
  * Persistent objects ancestor.
  *
- * This <i>abstract</i> class is the ancestor of all persistent objects in this library, it
- * implements the common interfaces and workflow that persistent objects will use to be
+ * This class is the ancestor of all persistent objects in this library, it implements the
+ * common interfaces and workflow that persistent objects will use to be
  * {@link __construct() instantiated}, {@link __construct() retrieved} or
  * {@link Commit() stored} in object {@link CContainer containers}.
  *
@@ -52,7 +52,7 @@ require_once( kPATH_LIBRARY_SOURCE."CStatusObject.php" );
  *		also used to retrieve objects stored in a {@link CContainer container}, this
  *		operation follows these steps:
  *	 <ul>
- *		<li><i>{@link _PrepareFind() Prepare}</i>: This step is used to check parameters and
+ *		<li><i>{@link _PrepareLoad() Prepare}</i>: This step is used to check parameters and
  *			prepare the resources needed to locate and retrieve the object.
  *		<li><i>{@link _Load() Find}</i>: In this step the object will be searched for
  *			and retrieved from the {@link CContainer container}.
@@ -60,7 +60,7 @@ require_once( kPATH_LIBRARY_SOURCE."CStatusObject.php" );
  *	<li><i>{@link Commit() Store}</i>: This operation will store the object in a
  *		{@link CContainer container}, the followed steps are:
  *	 <ul>
- *		<li><i>{@link _PrepareStore() Prepare}</i>: This step is used to check parameters
+ *		<li><i>{@link _PrepareCommit() Prepare}</i>: This step is used to check parameters
  *			and prepare the resources needed to save the object.
  *		<li><i>{@link _Commit() Store}</i>: This operation will perform the actual
  *			storage, this step should be delegated to the {@link CContainer container}.
@@ -77,7 +77,7 @@ require_once( kPATH_LIBRARY_SOURCE."CStatusObject.php" );
  * @package		Framework
  * @subpackage	Persistence
  */
-abstract class CPersistentObject extends CStatusObject
+class CPersistentObject extends CStatusObject
 {
 		
 
@@ -126,6 +126,25 @@ abstract class CPersistentObject extends CStatusObject
 	 *		<li><i>other</i>: Any other type is considered as a key or query used to locate
 	 *			the object in the container provided in the first parameter.
 	 *	 </ul>
+	 *	<li><b>$theModifiers</b>: This bitfield parameter can be used to provide a series of
+	 *		options to the object. The available options can be consulted in
+	 *		{@link Flags.inc.php this} file. Most of these options are managed automatically
+	 *		and should not be provided explicitly. This class handles one option that has
+	 *		the following meaning:
+	 *	 <ul>
+	 *		<li><i>{@link kFLAG_STATE_ENCODED kFLAG_STATE_ENCODED}</i>: If the option is on,
+	 *			the object will be passed through a
+	 *			{@link CContainer::UnserialiseObject() conversion} process that will convert
+	 *			all {@link CDataType standard} data types into native container custom data
+	 *			types {@link CContainer::_PrepareCommit() before}
+	 *			{@link Commit() committing} the object; the opposite
+	 *			{@link CDataType::SerialiseObject() conversion} process will take place
+	 *			{@link CContainer::_FinishLoad() after} {@link __construct() loading} the
+	 *			object from a container. It is a good idea to keep this flag ON, because the
+	 *			converted object will be compatible with any {@link CContainer container}
+	 *			and it will make data transfers from one database to the other easy.
+	 *			This process is automatic and transparent.
+	 *	 </ul>
 	 * </ul>
 	 *
 	 * Depending on the results of this method we set the {@link _IsCommitted() committed}
@@ -161,7 +180,7 @@ abstract class CPersistentObject extends CStatusObject
 	 *		the object is to be retrieved from the first parameter which represents the
 	 *		{@link CContainer container} in which the object contents are stored.
 	 *	 <ul>
-	 *		<li><i>{@link _PrepareFind() _PrepareFind}()</i>: This method should check and
+	 *		<li><i>{@link _PrepareLoad() _PrepareLoad}()</i>: This method should check and
 	 *			normalise the container and identifier. In this class we ensure that the
 	 *			container is derived from {@link CContainer CContainer}.
 	 *		<li><i>{@link _Load() _Load}()</i>: This method will delegate the
@@ -180,15 +199,19 @@ abstract class CPersistentObject extends CStatusObject
 	 *
 	 * @param mixed					$theContainer		Persistent container.
 	 * @param mixed					$theIdentifier		Object identifier.
+	 * @param bitfield				$theModifiers		Create modifiers.
 	 *
 	 * @access public
 	 *
-	 * @uses _PrepareFind()
+	 * @uses _PrepareLoad()
 	 * @uses _Load()
 	 * @uses _Create()
 	 * @uses _IsCommitted()
+	 * @uses _FinishLoad()
 	 */
-	public function __construct( $theContainer = NULL, $theIdentifier = NULL )
+	public function __construct( $theContainer = NULL,
+								 $theIdentifier = NULL,
+								 $theModifiers = kFLAG_DEFAULT )
 	{
 		//
 		// Provided container.
@@ -198,19 +221,19 @@ abstract class CPersistentObject extends CStatusObject
 			//
 			// Prepare.
 			//
-			$this->_PrepareFind( $theContainer, $theIdentifier );
+			$this->_PrepareLoad( $theContainer, $theIdentifier, $theModifiers );
 			
 			//
 			// Find object in container, create it and set status.
 			//
 			$this->_IsCommitted(
 				$this->_Create(
-					$this->_Load( $theContainer, $theIdentifier ) ) );
+					$this->_Load( $theContainer, $theIdentifier, $theModifiers ) ) );
 			
 			//
 			// Finish.
 			//
-			$this->_FinishFind( $theContainer, $theIdentifier );
+			$this->_FinishLoad( $theContainer, $theIdentifier, $theModifiers );
 		}
 		
 		//
@@ -283,6 +306,15 @@ abstract class CPersistentObject extends CStatusObject
 	 *			container features a specific {@link CContainer::Delete() method} for this
 	 *			purpose, this option may be used to implement a <i>deleted state</i>, rather
 	 *			than actually removing the object from the container.
+	 *		<li><i>{@link kFLAG_STATE_ENCODED kFLAG_STATE_ENCODED}</i>: If the option is on,
+	 *			the object will be passed through a
+	 *			{@link CContainer::UnserialiseObject() conversion} process that will convert
+	 *			all {@link CDataType standard} data types into native container custom data
+	 *			types {@link CContainer::_PrepareCommit() before} committing the object. It
+	 *			is a good idea to keep this flag ON, because the converted object will be
+	 *			compatible with any {@link CContainer container} and it will make data
+	 *			transfers from one database to the other easy. This process is automatic and
+	 *			transparent.
 	 *	 </ul>
 	 * </ul>
 	 *
@@ -304,11 +336,11 @@ abstract class CPersistentObject extends CStatusObject
 	 * the protected interface:
 	 *
 	 * <ul>
-	 *	<li><i>{@link _PrepareStore() _PrepareStore}()</i>: This method can be used to
+	 *	<li><i>{@link _PrepareCommit() _PrepareCommit}()</i>: This method can be used to
 	 *		initialise or check the parameters and resources.
 	 *	<li><i>{@link _Commit() _Commit}()</i>: This method will perform the
 	 *		actual commit.
-	 *	<li><i>{@link _FinishStore() _FinishStore}()</i>: This method can be used to perform
+	 *	<li><i>{@link _FinishCommit() _FinishCommit}()</i>: This method can be used to perform
 	 *		eventual post-flight adjustments.
 	 * </ul>
 	 *
@@ -321,8 +353,9 @@ abstract class CPersistentObject extends CStatusObject
 	 *
 	 * @uses _IsDirty()
 	 * @uses _IsCommitted()
-	 * @uses _PrepareStore()
+	 * @uses _PrepareCommit()
 	 * @uses _Commit()
+	 * @uses _FinishCommit()
 	 */
 	public function Commit( $theContainer = NULL,
 							$theIdentifier = NULL,
@@ -337,7 +370,7 @@ abstract class CPersistentObject extends CStatusObject
 			//
 			// Prepare.
 			//
-			$this->_PrepareStore( $theContainer, $theIdentifier, $theModifiers );
+			$this->_PrepareCommit( $theContainer, $theIdentifier, $theModifiers );
 			
 			//
 			// Store object.
@@ -349,7 +382,7 @@ abstract class CPersistentObject extends CStatusObject
 			//
 			// Finish.
 			//
-			$this->_FinishStore( $theContainer, $theIdentifier, $theModifiers );
+			$this->_FinishCommit( $theContainer, $theIdentifier, $theModifiers );
 			
 			//
 			// Set status.
@@ -445,6 +478,60 @@ abstract class CPersistentObject extends CStatusObject
 									   $theState );									// ==>
 	
 	} // _IsCommitted.
+
+	 
+	/*===================================================================================
+	 *	_IsEncoded																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage encoded status.
+	 *
+	 * This method can be used to get or set the object's encoded state.
+	 *
+	 * This flag determines whether custom data types are to be converted to
+	 * {@link CDataType standard} types when working with the object. This is especially
+	 * useful when transmitting the object through the network or when managing custom
+	 * database types.
+	 *
+	 * The conversion to {@link CDataType standard} types is
+	 * {@link CDataType::SerialiseObject() done} when {@link __construct() loading} the
+	 * object from a {@link CContainer container} and the opposite is
+	 * {@link CContainer::UnserialiseObject() dome} before {@link Commit() storing} the
+	 * object into a {@link CContainer container}.
+	 *
+	 * You only need to include the {@link kFLAG_STATE_ENCODED kFLAG_STATE_ENCODED} flag
+	 * when {@link __construct() loading} or {@link Commit() storing} the object in order
+	 * to have this conversion happen transparently.
+	 *
+	 * The method features a single parameter:
+	 *
+	 * <ul>
+	 *	<li><i>NULL</i>: The method will return <i>TRUE</i> if the object is encoded, or
+	 *		<i>FALSE</i> if the object is not encoded.
+	 *	<li><i>TRUE</i>: The method will set the object to encoded.
+	 *	<li><i>FALSE</i>: The method will reset the object's encoded state.
+	 * </ul>
+	 *
+	 * In all cases the method will return the state <i>after</i> it was eventually
+	 * modified.
+	 *
+	 * @param mixed					$theState			TRUE, FALSE or NULL.
+	 *
+	 * @access protected
+	 * @return boolean
+	 *
+	 * @uses _ManageBitField()
+	 *
+	 * @see kFLAG_STATE_ENCODED
+	 */
+	protected function _IsEncoded( $theState = NULL )
+	{
+		return $this->_ManageBitField( $this->mStatus,
+									   kFLAG_STATE_ENCODED,
+									   $theState );									// ==>
+	
+	} // _IsEncoded.
 
 		
 
@@ -552,7 +639,7 @@ abstract class CPersistentObject extends CStatusObject
 	 * {@link kFLAG_PERSIST_UPDATE replace} the eventual existing object.
 	 *
 	 * The method expects all parameters to have been previously
-	 * {@link _PrepareStore() checked}, its main duty is to perform the actual storage.
+	 * {@link _PrepareCommit() checked}, its main duty is to perform the actual storage.
 	 * In derived classes you should intercept custom containers, or call the parent method.
 	 *
 	 * <i>Note: the duty of this method is to store only the array part of the object,
@@ -590,11 +677,12 @@ abstract class CPersistentObject extends CStatusObject
 	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Create options.
 	 *
 	 * @access protected
 	 * @return mixed
 	 */
-	protected function _Load( &$theContainer, &$theIdentifier )
+	protected function _Load( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		return $theContainer->Load( $theIdentifier );								// ==>
 	
@@ -611,7 +699,7 @@ abstract class CPersistentObject extends CStatusObject
 
 	 
 	/*===================================================================================
-	 *	_PrepareFind																	*
+	 *	_PrepareLoad																	*
 	 *==================================================================================*/
 
 	/**
@@ -630,19 +718,23 @@ abstract class CPersistentObject extends CStatusObject
 	 *
 	 * Any errors should raise an exception.
 	 *
-	 * In this class we only support <i>ArrayObject</i> containers and the identifier is not
-	 * expected to be <i>NULL</i>.
+	 * In this class we only support {@link CContainer CContainer} containers, the
+	 * identifier is not expected to be <i>NULL</i> and we set the eventual
+	 * {@link _IsEncoded() encoded} status {@link kFLAG_STATE_ENCODED flag}.
 	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Create modifiers.
 	 *
 	 * @access protected
 	 *
 	 * @throws {@link CException CException}
 	 *
+	 * @uses _IsEncoded()
+	 *
 	 * @see kERROR_OPTION_MISSING kERROR_UNSUPPORTED
 	 */
-	protected function _PrepareFind( &$theContainer, &$theIdentifier )
+	protected function _PrepareLoad( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
 		// Check if container is there.
@@ -671,12 +763,18 @@ abstract class CPersistentObject extends CStatusObject
 					( "Missing object identifier",
 					  kERROR_OPTION_MISSING,
 					  kMESSAGE_TYPE_ERROR );									// !@! ==>
+		
+		//
+		// Set encoded flag.
+		//
+		if( $theModifiers & kFLAG_STATE_ENCODED )
+			$this->_IsEncoded( TRUE );
 	
-	} // _PrepareFind.
+	} // _PrepareLoad.
 
 	 
 	/*===================================================================================
-	 *	_PrepareStore																	*
+	 *	_PrepareCommit																	*
 	 *==================================================================================*/
 
 	/**
@@ -714,7 +812,7 @@ abstract class CPersistentObject extends CStatusObject
 	 *
 	 * @see kERROR_INVALID_STATE kERROR_OPTION_MISSING kERROR_UNSUPPORTED
 	 */
-	protected function _PrepareStore( &$theContainer, &$theIdentifier, &$theModifiers )
+	protected function _PrepareCommit( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
 		// Check if container is there.
@@ -745,11 +843,11 @@ abstract class CPersistentObject extends CStatusObject
 					  kMESSAGE_TYPE_ERROR,
 					  array( 'Object' => $this ) );								// !@! ==>
 	
-	} // _PrepareStore.
+	} // _PrepareCommit.
 
 	 
 	/*===================================================================================
-	 *	_FinishFind																		*
+	 *	_FinishLoad																		*
 	 *==================================================================================*/
 
 	/**
@@ -763,14 +861,15 @@ abstract class CPersistentObject extends CStatusObject
 	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Create modifiers.
 	 *
 	 * @access protected
 	 */
-	protected function _FinishFind( &$theContainer, &$theIdentifier )					   {}
+	protected function _FinishLoad( &$theContainer, &$theIdentifier, &$theModifiers )	   {}
 
 	 
 	/*===================================================================================
-	 *	_FinishStore																	*
+	 *	_FinishCommit																	*
 	 *==================================================================================*/
 
 	/**
@@ -789,7 +888,7 @@ abstract class CPersistentObject extends CStatusObject
 	 *
 	 * @access protected
 	 */
-	protected function _FinishStore( &$theContainer, &$theIdentifier, &$theModifiers )	   {}
+	protected function _FinishCommit( &$theContainer, &$theIdentifier, &$theModifiers )	   {}
 
 	 
 

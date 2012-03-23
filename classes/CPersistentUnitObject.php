@@ -195,7 +195,7 @@ class CPersistentUnitObject extends CPersistentObject
 	 * native identifier. The method should use the value returned by the
 	 * {@link _index() _index} method and hash it if necessary.
 	 *
-	 * This method will be called {@link _PrepareStore() before} {@link Commit() committing}
+	 * This method will be called {@link _PrepareCommit() before} {@link Commit() committing}
 	 * the object to fill its unique identifier {@link kTAG_ID_NATIVE offset}. 
 	 *
 	 * If this method returns <i>NULL</i>, it is assumed that it will be the
@@ -241,7 +241,7 @@ class CPersistentUnitObject extends CPersistentObject
 
 	 
 	/*===================================================================================
-	 *	_PrepareFind																	*
+	 *	_PrepareLoad																	*
 	 *==================================================================================*/
 
 	/**
@@ -262,12 +262,12 @@ class CPersistentUnitObject extends CPersistentObject
 	 *
 	 * @see kERROR_OPTION_MISSING kERROR_UNSUPPORTED
 	 */
-	protected function _PrepareFind( &$theContainer, &$theIdentifier )
+	protected function _PrepareLoad( &$theContainer, &$theIdentifier )
 	{
 		//
 		// Call parent method.
 		//
-		parent::_PrepareFind( $theContainer, $theIdentifier );
+		parent::_PrepareLoad( $theContainer, $theIdentifier );
 		
 		//
 		// Check container.
@@ -279,11 +279,11 @@ class CPersistentUnitObject extends CPersistentObject
 					  kMESSAGE_TYPE_ERROR,
 					  array( 'Container' => $theContainer ) );					// !@! ==>
 	
-	} // _PrepareFind.
+	} // _PrepareLoad.
 
 	 
 	/*===================================================================================
-	 *	_PrepareStore																	*
+	 *	_PrepareCommit																	*
 	 *==================================================================================*/
 
 	/**
@@ -316,6 +316,7 @@ class CPersistentUnitObject extends CPersistentObject
 	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Commit modifiers.
 	 *
 	 * @access protected
 	 *
@@ -323,12 +324,12 @@ class CPersistentUnitObject extends CPersistentObject
 	 *
 	 * @see kERROR_OPTION_MISSING kERROR_UNSUPPORTED
 	 */
-	protected function _PrepareStore( &$theContainer, &$theIdentifier )
+	protected function _PrepareCommit( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
 		// Call parent method.
 		//
-		parent::_PrepareStore( $theContainer, $theIdentifier );
+		parent::_PrepareCommit( $theContainer, $theIdentifier, $theModifiers );
 		
 		//
 		// Handle identifier.
@@ -361,7 +362,7 @@ class CPersistentUnitObject extends CPersistentObject
 									  ? ($this->offsetGet( kTAG_VERSION ) + 1)
 									  : 0 );
 	
-	} // _PrepareStore.
+	} // _PrepareCommit.
 
 	 
 	/*===================================================================================
@@ -371,7 +372,7 @@ class CPersistentUnitObject extends CPersistentObject
 	/**
 	 * Prepare references lists.
 	 *
-	 * This method will usually be called {@link _PrepareStore() before}
+	 * This method will usually be called {@link _PrepareCommit() before}
 	 * {@link Commit() storing} the object: its duty is to {@link Commit() commit} and
 	 * {@link CContainer::Reference() convert} to reference all referenced objects that are
 	 * in the form of instances.

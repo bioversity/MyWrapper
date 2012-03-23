@@ -146,7 +146,13 @@
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">void</span>
-										<a href="#_PrepareFind" title="details" class="method-name">_PrepareFind</a>
+										<a href="#_PrepareCommit" title="details" class="method-name">_PrepareCommit</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_PrepareLoad" title="details" class="method-name">_PrepareLoad</a>
 											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>)
 									</div>
 																<div class="method-definition">
@@ -154,12 +160,6 @@
 											<span class="method-result">void</span>
 										<a href="#_PrepareReferenceList" title="details" class="method-name">_PrepareReferenceList</a>
 											(<span class="var-type"><a href="../../Framework/Persistence/CContainer.html">CContainer</a></span>&nbsp;<span class="var-name">$theContainer</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>, [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_REFERENCE_IDENTIFIER</span>])
-									</div>
-																<div class="method-definition">
-					<img src="../../media/images/Method.png" alt=" "/>
-											<span class="method-result">void</span>
-										<a href="#_PrepareStore" title="details" class="method-name">_PrepareStore</a>
-											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>)
 									</div>
 											</div>
 		</div>
@@ -208,7 +208,7 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="methodNewObject" id="NewObject"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
@@ -239,7 +239,7 @@
 			
 	</div>
 <a name="method_id" id="_id"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -248,7 +248,7 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Return the object's unique identifier.</p>
-<p class="description"><p>This method can be used to return a value that represents the object's unique  native identifier. The method should use the value returned by the  <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_index">_index</a> method and hash it if necessary.</p><p>This method will be called <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_PrepareStore">before</a> <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">committing</a>  the object to fill its unique identifier <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">offset</a>.</p><p>If this method returns <em>NULL</em>, it is assumed that it will be the  <a href="../../Framework/Persistence/CContainer.html">container</a> that will provide a default unique value.</p><p>In this class we return the value of <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_index">_index</a> by default.</p></p>
+<p class="description"><p>This method can be used to return a value that represents the object's unique  native identifier. The method should use the value returned by the  <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_index">_index</a> method and hash it if necessary.</p><p>This method will be called <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_PrepareCommit">before</a> <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">committing</a>  the object to fill its unique identifier <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">offset</a>.</p><p>If this method returns <em>NULL</em>, it is assumed that it will be the  <a href="../../Framework/Persistence/CContainer.html">container</a> that will provide a default unique value.</p><p>In this class we return the value of <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_index">_index</a> by default.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
 			</ul>
@@ -273,7 +273,7 @@
 				</ul>
 	</div>
 <a name="method_index" id="_index"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -311,11 +311,11 @@
 				</ul>
 	</div>
 <a name="method_ManageObjectList" id="_ManageObjectList"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ManageObjectList</span> (line <span class="line-number">582</span>)
+		<span class="method-title">_ManageObjectList</span> (line <span class="line-number">583</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -376,11 +376,11 @@
 			
 	</div>
 <a name="method_ObjectIndex" id="_ObjectIndex"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ObjectIndex</span> (line <span class="line-number">1060</span>)
+		<span class="method-title">_ObjectIndex</span> (line <span class="line-number">1061</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -412,12 +412,75 @@
 		
 			
 	</div>
-<a name="method_PrepareFind" id="_PrepareFind"><!-- --></a>
+<a name="method_PrepareCommit" id="_PrepareCommit"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">327</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Normalise before a store.</p>
+<p class="description"><p>The duty of this method is to ensure that the parameters provided to the  <a href="../../Framework/Persistence/CPersistentObject.html#method_Commit">store</a> operation are correct.</p><p>In this class we ensure that the container is a ArrayObject or a  <a href="../../Framework/Persistence/CContainer.html">CContainer</a> derived instance and we ensure the identifier is filled  in the case it was not provided:</p><p><ul><li><em>Get <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">kTAG_ID_NATIVE</a></em>: If the object features the
+        <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">kTAG_ID_NATIVE</a> offset, it will be preferred. This is
+        necessary, because we don't want the object identifier to change in time.</li><li><em>Use the <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_id">:id</a> method</em>: We use the value returned by the
+        <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_id">_id</a> protected method, this will be the case when
+        <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">saving</a> new objects.</li></ul></p><p>We also handle here the other two default offsets:</p><p><ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CLASS">kTAG_CLASS</a></em>: We set this offset with the current
+        object's name. Note that we overwrite old values.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_VERSION">kTAG_VERSION</a></em>: If not set, we initialise this value
+        to zero, if already set, we increment it.</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> kERROR_OPTION_MISSING kERROR_UNSUPPORTED</li>
+				<li><span class="field">throws:</span> <a href="../../Framework/Core/CException.html">CException</a></li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_PrepareCommit
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theContainer</span><span class="var-description">: Object container.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theModifiers</span><span class="var-description">: Commit modifiers.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Framework/Persistence/CPersistentObject.html#method_PrepareCommit">CPersistentObject::_PrepareCommit()</a></dt>
+						<dd>Normalise before a store.</dd>
+					</dl>
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Objects/Entities/CEntity.html#method_PrepareCommit">CEntity::_PrepareCommit()</a>
+								: Normalise before a store.
+							</li>
+					<li>
+				<a href="../../Objects/Entities/CUser.html#method_PrepareCommit">CUser::_PrepareCommit()</a>
+								: Normalise parameters of a store.
+							</li>
+				</ul>
+	</div>
+<a name="method_PrepareLoad" id="_PrepareLoad"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareFind</span> (line <span class="line-number">265</span>)
+		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">265</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -432,7 +495,7 @@
 	<div class="method-signature">
 		<span class="method-result">void</span>
 		<span class="method-name">
-			_PrepareFind
+			_PrepareLoad
 		</span>
 					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>)
 			</div>
@@ -449,7 +512,7 @@
 			<hr class="separator" />
 		<div class="notes">Redefinition of:</div>
 		<dl>
-			<dt><a href="../../Framework/Persistence/CPersistentObject.html#method_PrepareFind">CPersistentObject::_PrepareFind()</a></dt>
+			<dt><a href="../../Framework/Persistence/CPersistentObject.html#method_PrepareLoad">CPersistentObject::_PrepareLoad()</a></dt>
 						<dd>Normalise parameters of a find.</dd>
 					</dl>
 			
@@ -459,12 +522,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareReferenceList</span> (line <span class="line-number">400</span>)
+		<span class="method-title">_PrepareReferenceList</span> (line <span class="line-number">401</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Prepare references lists.</p>
-<p class="description"><p>This method will usually be called <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_PrepareStore">before</a>  <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">storing</a> the object: its duty is to <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">commit</a> and  <a href="../../Framework/Persistence/CContainer.html#methodReference">convert</a> to reference all referenced objects that are  in the form of instances.</p><p>The method will iterate all elements of the provided reference list, intercept all  instances derived from this class and convert these to object references.</p><p>The parameters to this method are:</p><p><ul><li><strong>$theContainer</strong>: The container that is about to receive the current object,
+<p class="description"><p>This method will usually be called <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_PrepareCommit">before</a>  <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">storing</a> the object: its duty is to <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">commit</a> and  <a href="../../Framework/Persistence/CContainer.html#methodReference">convert</a> to reference all referenced objects that are  in the form of instances.</p><p>The method will iterate all elements of the provided reference list, intercept all  instances derived from this class and convert these to object references.</p><p>The parameters to this method are:</p><p><ul><li><strong>$theContainer</strong>: The container that is about to receive the current object,
         it must also be the container in which to find the references and must be
         derived from <a href="../../Framework/Persistence/CContainer.html">CContainer</a>.</li><li><strong>$theOffset</strong>: The current object's offset in which the reference list is
         stored.</li><li><strong>$theModifiers</strong>: A bitfield indicating which elements of the
@@ -495,66 +558,6 @@
 		
 			
 	</div>
-<a name="method_PrepareStore" id="_PrepareStore"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareStore</span> (line <span class="line-number">326</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Normalise before a store.</p>
-<p class="description"><p>The duty of this method is to ensure that the parameters provided to the  <a href="../../Framework/Persistence/CPersistentObject.html#method_Commit">store</a> operation are correct.</p><p>In this class we ensure that the container is a ArrayObject or a  <a href="../../Framework/Persistence/CContainer.html">CContainer</a> derived instance and we ensure the identifier is filled  in the case it was not provided:</p><p><ul><li><em>Get <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">kTAG_ID_NATIVE</a></em>: If the object features the
-        <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">kTAG_ID_NATIVE</a> offset, it will be preferred. This is
-        necessary, because we don't want the object identifier to change in time.</li><li><em>Use the <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_id">:id</a> method</em>: We use the value returned by the
-        <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_id">_id</a> protected method, this will be the case when
-        <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">saving</a> new objects.</li></ul></p><p>We also handle here the other two default offsets:</p><p><ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CLASS">kTAG_CLASS</a></em>: We set this offset with the current
-        object's name. Note that we overwrite old values.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_VERSION">kTAG_VERSION</a></em>: If not set, we initialise this value
-        to zero, if already set, we increment it.</li></ul></p></p>
-	<ul class="tags">
-				<li><span class="field">see:</span> kERROR_OPTION_MISSING kERROR_UNSUPPORTED</li>
-				<li><span class="field">throws:</span> <a href="../../Framework/Core/CException.html">CException</a></li>
-				<li><span class="field">access:</span> protected</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			_PrepareStore
-		</span>
-					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">reference</span>
-				<span class="var-name">&$theContainer</span><span class="var-description">: Object container.</span>			</li>
-					<li>
-				<span class="var-type">reference</span>
-				<span class="var-name">&$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
-				</ul>
-		
-			<hr class="separator" />
-		<div class="notes">Redefinition of:</div>
-		<dl>
-			<dt><a href="../../Framework/Persistence/CPersistentObject.html#method_PrepareStore">CPersistentObject::_PrepareStore()</a></dt>
-						<dd>Normalise before a store.</dd>
-					</dl>
-			
-			<hr class="separator" />
-		<div class="notes">Redefined in descendants as:</div>
-		<ul class="redefinitions">
-					<li>
-				<a href="../../Objects/Entities/CEntity.html#method_PrepareStore">CEntity::_PrepareStore()</a>
-								: Normalise before a store.
-							</li>
-					<li>
-				<a href="../../Objects/Entities/CUser.html#method_PrepareStore">CUser::_PrepareStore()</a>
-								: Normalise parameters of a store.
-							</li>
-				</ul>
-	</div>
 							<h4>Inherited Methods</h4>
 				<a name='inherited_methods'><!-- --></a>	
 									<!-- =========== Summary =========== -->
@@ -571,17 +574,19 @@
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_Create">CPersistentObject::_Create()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_FinishFind">CPersistentObject::_FinishFind()</a></span><br>
+							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_FinishCommit">CPersistentObject::_FinishCommit()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_FinishStore">CPersistentObject::_FinishStore()</a></span><br>
+							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_FinishLoad">CPersistentObject::_FinishLoad()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_IsCommitted">CPersistentObject::_IsCommitted()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_IsEncoded">CPersistentObject::_IsEncoded()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_Load">CPersistentObject::_Load()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_PrepareFind">CPersistentObject::_PrepareFind()</a></span><br>
+							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_PrepareCommit">CPersistentObject::_PrepareCommit()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_PrepareStore">CPersistentObject::_PrepareStore()</a></span><br>
+							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_PrepareLoad">CPersistentObject::_PrepareLoad()</a></span><br>
 											</blockquote>
 									<!-- =========== Summary =========== -->
 					<p>Inherited From <span class="classname"><a href="../../Framework/Core/CStatusObject.html">CStatusObject</a></span></p>
@@ -591,13 +596,13 @@
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Framework/Core/CStatusObject.html#methodoffsetUnset">CStatusObject::offsetUnset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Core/CStatusObject.html#methodStatus">CStatusObject::Status()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Framework/Core/CStatusObject.html#method_IsDirty">CStatusObject::_IsDirty()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Framework/Core/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Framework/Core/CStatusObject.html#method_ManageBitField">CStatusObject::_ManageBitField()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../Framework/Core/CStatusObject.html#method_Status">CStatusObject::_Status()</a></span><br>
 											</blockquote>
 									<!-- =========== Summary =========== -->
 					<p>Inherited From <span class="classname"><a href="../../Framework/Core/CArrayObject.html">CArrayObject</a></span></p>
@@ -704,7 +709,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Thu, 22 Mar 2012 19:26:19 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 23 Mar 2012 19:16:33 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

@@ -219,9 +219,9 @@ abstract class CDataType extends CArrayObject
 	 * engines.
 	 *
 	 * The method will scan the provided data elements: array or ArrayObject elements will
-	 * be recursed, scalar elements will be sent to another public
-	 * {@link SerialiseElement() method} that will take care of performing the actual data
-	 * conversion.
+	 * be recursed, scalar elements will be sent to the public
+	 * {@link SerialiseData() SerialiseData} method that will take care of performing the
+	 * actual data conversion.
 	 *
 	 * If an element of the provided structure is converted, it will <i>always</i> be an
 	 * object derived from this class, and all conversions will be performed on the object
@@ -251,13 +251,13 @@ abstract class CDataType extends CArrayObject
 		// Convert scalars.
 		//
 		else
-			self::SerialiseElement( $theObject );
+			self::SerialiseData( $theObject );
 	
 	} // SerialiseObject.
 
 	 
 	/*===================================================================================
-	 *	SerialiseElement																*
+	 *	SerialiseData																	*
 	 *==================================================================================*/
 
 	/**
@@ -296,7 +296,7 @@ abstract class CDataType extends CArrayObject
 	 *
 	 * @static
 	 */
-	static function SerialiseElement( &$theElement )
+	static function SerialiseData( &$theElement )
 	{
 		//
 		// Parse structures.
@@ -340,7 +340,7 @@ abstract class CDataType extends CArrayObject
 		
 		} // Provided object.
 	
-	} // SerialiseElement.
+	} // SerialiseData.
 
 	 
 

@@ -62,11 +62,16 @@ define( "kFLAG_STATE_DIRTY",			0x00000002 );		// Dirty.
 define( "kFLAG_STATE_COMMITTED",		0x00000004 );		// Committed.
 
 /**
- * State: Custom.
+ * State: Encoded.
  *
- * This bitfield value indicates a custom state.
+ * This bitfield value indicates an encoded state. This status is usually associated to
+ * {@link CPersistentObject persistent} objects: if the state is ON it means that all
+ * elements having custom data types, or data formats unsuitable for being transmitted over
+ * the network, will be converted to standard data {@link CDataType types}. This flag will
+ * be used by {@link CContainer containers} to determine whether to perform conversions
+ * before and after persisting the objects.
  */
-define( "kFLAG_STATE_CUSTOM",			0x00000008 );		// Custom.
+define( "kFLAG_STATE_ENCODED",			0x00000008 );		// Encoded.
 
 /*=======================================================================================
  *	OBJECT STATUS FLAGS - MASKS															*

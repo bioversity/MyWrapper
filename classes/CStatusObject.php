@@ -150,14 +150,14 @@ class CStatusObject extends CArrayObject
 
 /*=======================================================================================
  *																						*
- *							PROTECTED STATE MANAGEMENT INTERFACE						*
+ *								PUBLIC DATA MEMBER INTERFACE							*
  *																						*
  *======================================================================================*/
 
 
 	 
 	/*===================================================================================
-	 *	_Status																			*
+	 *	Status																			*
 	 *==================================================================================*/
 
 	/**
@@ -181,22 +181,31 @@ class CStatusObject extends CArrayObject
 	 *
 	 * @param NULL|FALSE|bitfield	$theState			NULL, FALSE or new status.
 	 *
-	 * @access private
+	 * @access public
 	 * @return bitfield
 	 *
 	 * @uses _ManageBitField()
 	 *
 	 * @see kFLAG_DEFAULT_MASK
 	 */
-	protected function _Status( $theState = NULL )
+	public function Status( $theState = NULL )
 	{
 		return $this->_ManageBitField( $this->mStatus,
 									   kFLAG_DEFAULT_MASK,
 									   $theState );									// ==>
 	
-	} // _Status
+	} // Status
 
 		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED STATUS MANAGEMENT INTERFACE						*
+ *																						*
+ *======================================================================================*/
+
+
+	 
 	/*===================================================================================
 	 *	_IsInited																		*
 	 *==================================================================================*/
@@ -214,7 +223,7 @@ class CStatusObject extends CArrayObject
 	 * successfully operate the object.
 	 *
 	 * This method operates by setting or clearing the {@link kFLAG_STATE_INITED inited}
-	 * {@link _Status() status} flag.
+	 * {@link Status() status} flag.
 	 *
 	 * The method features a single parameter:
 	 *

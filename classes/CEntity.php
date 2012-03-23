@@ -462,7 +462,7 @@ class CEntity extends CPersistentUnitObject
 
 	 
 	/*===================================================================================
-	 *	_PrepareStore																	*
+	 *	_PrepareCommit																	*
 	 *==================================================================================*/
 
 	/**
@@ -477,6 +477,7 @@ class CEntity extends CPersistentUnitObject
 	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Commit modifiers.
 	 *
 	 * @access protected
 	 *
@@ -484,19 +485,19 @@ class CEntity extends CPersistentUnitObject
 	 *
 	 * @see kERROR_OPTION_MISSING
 	 */
-	protected function _PrepareStore( &$theContainer, &$theIdentifier )
+	protected function _PrepareCommit( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
 		// Call parent method.
 		//
-		parent::_PrepareStore( $theContainer, $theIdentifier );
+		parent::_PrepareCommit( $theContainer, $theIdentifier, $theModifiers );
 		
 		//
 		// Handle references.
 		//
 		$this->_PrepareReferenceList( $theContainer, kTAG_REFS );
 		
-	} // _PrepareStore.
+	} // _PrepareCommit.
 
 		
 

@@ -30,12 +30,10 @@ require_once( kPATH_LIBRARY_SOURCE."CContainer.php" );
  * Array persistent data store.
  *
  * This class extends its {@link CContainer ancestor} to implement a concrete object store
- * instance consisting of an array or ArrayObject. All other concrete instances of
- * persistent object stores derive from this class, so that they might fall back onto a
- * default working implementation.
+ * instance that uses arrays or ArrayObject objects to store data.
  *
- * @package		Framework
- * @subpackage	Persistence
+ *	@package	Framework
+ *	@subpackage	Persistence
  */
 class CArrayContainer extends CContainer
 {
@@ -86,11 +84,14 @@ class CArrayContainer extends CContainer
 	/**
 	 * Return container name.
 	 *
-	 * In this class we check if the native container has the same method, or return the
-	 * 'array' constant if the native container is an array.
+	 * In this class we first check if the {@link Container() container} features this
+	 * method and use it, if this is not the case, we return the data type of the
+	 * {@link Container() container}.
 	 *
 	 * @access public
 	 * @return string
+	 *
+	 * @uses Container()
 	 */
 	public function __toString()
 	{
@@ -140,24 +141,30 @@ class CArrayContainer extends CContainer
 	 * @access public
 	 * @return mixed
 	 *
-	* @uses ManageMember()
+	 * @throws {@link CException CException}
+	 *
+	 * @see kERROR_INVALID_PARAMETER
 	 */
 	public function Container( $theValue = NULL, $getOld = FALSE )
 	{
 		//
-		// Check type.
+		// Handle retrieve or delete.
 		//
-		if( ($theValue !== NULL)						// No retrieve,
-		 && ($theValue !== FALSE)						// no delete,
-		 && (! is_array( $theValue ))					// not an array,
-		 && (! $theValue instanceof ArrayObject) )		// not an ArrayObject:
-			throw new CException
-				( "Invalid container type",
-				  kERROR_INVALID_PARAMETER,
-				  kMESSAGE_TYPE_ERROR,
-				  array( 'Container' => $theValue ) );							// !@! ==>
+		if( ($theValue === NULL)
+		 || ($theValue === FALSE) )
+			return parent::Container( $theValue, $getOld );							// ==>
 		
-		return parent::Container( $theValue, $getOld );								// ==>
+		//
+		// Check value.
+		//
+		if( is_array( $theValue )
+		 || ($theValue instanceof ArrayObject) )
+			return parent::Container( $theValue, $getOld );							// ==>
+		
+		throw new CException( "Invalid container type",
+							  kERROR_INVALID_PARAMETER,
+							  kMESSAGE_TYPE_ERROR,
+							  array( 'Container' => $theValue ) );				// !@! ==>
 
 	} // Container.
 
@@ -227,8 +234,27 @@ class CArrayContainer extends CContainer
 	/**
 	 * Commit provided object.
 	 *
-	 * We implement this method to handle array or ArrayObject stores and we ensure provided
-	 * options are followed.
+	 * We implement this method to handle array or ArrayObject data stores and we ensure
+	 * provided options are followed.
+	 *
+	 * When {@link kFLAG_PERSIST_MODIFY modifying} the contents of the object, we perform
+	 * the following checks:
+	 *
+	 * <ul>
+	 *	<li><i>Both matched object and provided object are arrays</i>: this is the default
+	 *		scenario. If the provided object element is <i>NULL</i>, the corresponding
+	 *		element in the matched object will be deleted; if not <i>NULL</i>, the provided
+	 *		object element will replace the eventual existing one or be set in the matched
+	 *		object.
+	 *	<li><i>Matched object is array and provided object is scalar</i>: the provided
+	 *		object will be appended to the matched object.
+	 *	<li><i>Matched object is scalar and provided object is array</i>: we transform the
+	 *		matched object by appending the existing element to an empty array, and we set
+	 *		all the elements of the provided element into the newly created array.
+	 *	<li><i>Matched object and provided object are scalar</i>: we transform the matched
+	 *		object by appending the existing element to an empty array, and we append the
+	 *		provided object to it.
+	 * </ul>
 	 *
 	 * By default the object must be an array or ArrayObject, any other type will raise an
 	 * {@link kERROR_INVALID_PARAMETER exception}.
@@ -248,19 +274,22 @@ class CArrayContainer extends CContainer
 	 *
 	 * @access protected
 	 * @return mixed
+	 *
+	 * @uses _Container()
 	 */
 	protected function _Commit( &$theObject, &$theIdentifier, &$theModifiers )
 	{
 		//
-		// Get container reference.
+		// Init local storage.
 		//
+		$id = (string) $theIdentifier;
 		$container = & $this->_Container();
 		
 		//
 		// Replace object.
 		//
 		if( ! (($theModifiers & kFLAG_PERSIST_MODIFY) == kFLAG_PERSIST_MODIFY) )
-			$container[ (string) $theIdentifier ] = $theObject;
+			$container[ $id ] = $theObject;
 		
 		//
 		// Modify object.
@@ -270,27 +299,94 @@ class CArrayContainer extends CContainer
 			//
 			// Get existing object.
 			//
-			$object = $container[ (string) $theIdentifier ];
+			$object = $container[ $id ];
 			
 			//
-			// Modify.
+			// Handle matched object is an array.
 			//
-			foreach( $theObject as $key => $value )
+			if( is_array( $object )
+			 || ($object instanceof ArrayObject) )
 			{
-				if( $value !== NULL )
-					$object[ $key ] = $theObject[ $key ];
-				else
+				//
+				// Provided object is array.
+				//
+				if( is_array( $theObject )
+				 || ($theObject instanceof ArrayObject) )
 				{
-					if( array_key_exists( $key, (array) $object ) )
-						unset( $object[ $key ] );
-				}
-			}
+					//
+					// Modify.
+					//
+					foreach( $theObject as $key => $value )
+					{
+						if( $value !== NULL )
+							$object[ $key ] = $theObject[ $key ];
+						else
+						{
+							if( array_key_exists( $key, (array) $object ) )
+								unset( $object[ $key ] );
+						}
+					}
+				
+				} // Provided object is array.
+				
+				//
+				// Provided scalar.
+				//
+				else
+					$object[] = $theObject;
+				
+				//
+				// Update.
+				//
+				$container[ $id ] = $object;
+			
+			} // Matched object is array.
 			
 			//
-			// Update.
+			// Matched object is scalar.
 			//
-			$container[ (string) $theIdentifier ] = $object;
-		
+			else
+			{
+				//
+				// Transform into array.
+				//
+				$object = array( $object );
+				
+				//
+				// Provided object is array.
+				//
+				if( is_array( $theObject )
+				 || ($theObject instanceof ArrayObject) )
+				{
+					//
+					// Modify.
+					//
+					foreach( $theObject as $key => $value )
+					{
+						if( $value !== NULL )
+							$object[ $key ] = $theObject[ $key ];
+						else
+						{
+							if( array_key_exists( $key, (array) $object ) )
+								unset( $object[ $key ] );
+						}
+					}
+				
+				} // Provided object is array.
+				
+				//
+				// Provided scalar.
+				//
+				else
+					$object[] = $theObject;
+				
+				//
+				// Update.
+				//
+				$container[ $id ] = $object;
+			
+			} // Matched object is scalar.
+			
 		} // Modify.
 		
 		return $theIdentifier;														// ==>
@@ -310,22 +406,26 @@ class CArrayContainer extends CContainer
 	 * The method will cast the identifier to a string.
 	 *
 	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Load modifiers.
 	 *
 	 * @access protected
 	 * @return mixed
+	 *
+	 * @uses _Container()
 	 */
-	protected function _Load( &$theIdentifier )
+	protected function _Load( &$theIdentifier, &$theModifiers )
 	{
 		//
-		// Get container reference.
+		// Init local storage.
 		//
+		$id = (string) $theIdentifier;
 		$container = & $this->_Container();
 
 		//
 		// Return match.
 		//
-		if( array_key_exists( (string) $theIdentifier, (array) $container ) )
-			return $container[ (string) $theIdentifier ];							// ==>
+		if( array_key_exists( $id, (array) $container ) )
+			return $container[ $id ];												// ==>
 		
 		return NULL;																// ==>
 	
@@ -343,35 +443,39 @@ class CArrayContainer extends CContainer
 	 *
 	 * The method will cast the identifier to a string.
 	 *
-	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param mixed					$theIdentifier		Object identifier.
+	 * @param bitfield				$theModifiers		Delete modifiers.
 	 *
 	 * @access protected
 	 * @return mixed
+	 *
+	 * @uses _Container()
 	 */
-	protected function _Delete( &$theIdentifier )
+	protected function _Delete( &$theIdentifier, &$theModifiers )
 	{
 		//
-		// Get container reference.
+		// Init local storage.
 		//
+		$id = (string) $theIdentifier;
 		$container = & $this->_Container();
 
 		//
 		// Delete match.
 		//
-		if( array_key_exists( (string) $theIdentifier, (array) $container ) )
+		if( array_key_exists( $id, (array) $container ) )
 		{
 			//
 			// Save object.
 			//
-			$save = $container[ (string) $theIdentifier ];
+			$save = $container[ $id ];
 			
 			//
 			// Delete object.
 			//
 			if( is_array( $container ) )
-				unset( $container[ (string) $theIdentifier ] );
+				unset( $container[ $id ] );
 			else
-				$container->offsetUnset( (string) $theIdentifier );
+				$container->offsetUnset( $id );
 			
 			return $save;															// ==>
 		}
@@ -391,33 +495,30 @@ class CArrayContainer extends CContainer
 
 	 
 	/*===================================================================================
-	 *	_PrepareStore																	*
+	 *	_PrepareCommit																	*
 	 *==================================================================================*/
 
 	/**
 	 * Normalise before a store.
 	 *
-	 * We {@link CContainer::_PrepareStore() overload} this method to perform the following
+	 * We {@link CContainer::_PrepareCommit() overload} this method to perform the following
 	 * operations:
 	 *
 	 * <ul>
-	 *	<li>Call the parent {@link CContainer::_PrepareStore() method} which will:
+	 *	<li>Call the parent {@link CContainer::_PrepareCommit() method} which will:
 	 *	 <ul>
 	 *		<li>Ensure the identifier is provided if the operation is not an
 	 *			{@link kFLAG_PERSIST_INSERT insert}.
 	 *		<li>Ensure the method has the correct options.
 	 *		<li>Ensure the current object has a container.
+	 *		<li>Get the {@link CPersistentObject::_IsEncoded() encoded} status
+	 *			{@link kFLAG_STATE_ENCODED flag} from the object.
+	 *		<li>{@link UnserialiseObject() Unserialise} object and
+	 *			{@link UnserialiseData() identifier} if necessary.
 	 *	 </ul>
 	 *	<li>Check for object in container if required.
 	 *	<li>Initialise identifier if required.
 	 * </ul>
-	 *
-	 * In derived classes you should handle your custom containers or delegate to the parent
-	 * method.
-	 *
-	 * In this class we do not check the identifier.
-	 *
-	 * Any errors should raise an exception.
 	 *
 	 * @param reference			   &$theObject			Object or data.
 	 * @param reference			   &$theIdentifier		Object identifier.
@@ -427,14 +528,16 @@ class CArrayContainer extends CContainer
 	 *
 	 * @throws {@link CException CException}
 	 *
-	 * @see kERROR_OPTION_MISSING kERROR_INVALID_PARAMETER
+	 * @uses _Container()
+	 *
+	 * @see kERROR_DUPLICATE kERROR_NOT_FOUND
 	 */
-	protected function _PrepareStore( &$theObject, &$theIdentifier, &$theModifiers )
+	protected function _PrepareCommit( &$theObject, &$theIdentifier, &$theModifiers )
 	{
 		//
 		// Call parent method.
 		//
-		parent::_PrepareStore( $theIdentifier, $theModifiers );
+		parent::_PrepareCommit( $theObject, $theIdentifier, $theModifiers );
 
 		//
 		// Get container reference.
@@ -497,7 +600,7 @@ class CArrayContainer extends CContainer
 		
 		} // Missing identifier.
 	
-	} // _PrepareStore.
+	} // _PrepareCommit.
 
 	 
 

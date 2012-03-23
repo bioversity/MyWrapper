@@ -39,10 +39,10 @@ require_once( kPATH_LIBRARY_SOURCE."CPersistentObject.php" );
 //
 class MyClass extends CPersistentObject
 {
-	protected function _PrepareStore( &$theContainer, &$theIdentifier )
+	protected function _PrepareCommit( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		$this->_isInited( TRUE );
-		parent::_PrepareStore( $theContainer, $theIdentifier );
+		parent::_PrepareCommit( $theContainer, $theIdentifier, $theModifiers );
 	}
 }
 
@@ -54,7 +54,7 @@ class MyClass extends CPersistentObject
 //
 // Instantiate test class.
 //
-$test = new CPersistentObject();
+$test = new MyClass();
 
 //
 // Test class.
@@ -87,24 +87,24 @@ try
 	echo( '<h3>Object content</h3>' );
 	
 	echo( '<i>Empty object</i><br>' );
-	echo( '<i>$test = new CPersistentObject();</i><br>' );
-	$test = new CPersistentObject();
+	echo( '<i>$test = new MyClass();</i><br>' );
+	$test = new MyClass();
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
 	echo( '<i>From array</i><br>' );
 	echo( '<i>$content = array( \'Name\' => \'Milko\' );</i><br>' );
 	$content = array( 'Name' => 'Milko' );
-	echo( '<i>$test = new CPersistentObject( $content ) );</i><br>' );
-	$test = new CPersistentObject( $content );
+	echo( '<i>$test = new MyClass( $content ) );</i><br>' );
+	$test = new MyClass( $content );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
 	echo( '<i>From ArrayObject</i><br>' );
 	echo( '<i>$content = new ArrayObject( array( \'Name\' => \'Milko\' ) );</i><br>' );
 	$content = new ArrayObject( array( 'Name' => 'Milko' ) );
-	echo( '<i>$test = new CPersistentObject( $content ) );</i><br>' );
-	$test = new CPersistentObject( $content );
+	echo( '<i>$test = new MyClass( $content ) );</i><br>' );
+	$test = new MyClass( $content );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
@@ -113,8 +113,8 @@ try
 		echo( '<i>From any other type</i><br>' );
 		echo( '<i>$content = 10;</i><br>' );
 		$content = 10;
-		echo( '<i>$test = new CPersistentObject( $content ) );</i><br>' );
-		$test = new CPersistentObject( $content );
+		echo( '<i>$test = new MyClass( $content ) );</i><br>' );
+		$test = new MyClass( $content );
 		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	}
 	catch( Exception $error )
@@ -133,30 +133,30 @@ try
 	echo( '<i>Load from ArrayObject container</i><br>' );
 	$container = new ArrayObject( array( array( 'NAME' => 'Milko', 'SURNAME' => 'Skofic' ) ) );
 	echo( 'Container:<pre>' ); print_r( $container ); echo( '</pre>' );
-	echo( '<i>$test = new CPersistentObject( $container, 0 );</i><br>' );
-	$test = new CPersistentObject( $container, 0 );
+	echo( '<i>$test = new MyClass( $container, 0 );</i><br>' );
+	$test = new MyClass( $container, 0 );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
 	echo( '<i>Load from CArrayContainer</i><br>' );
 	echo( '<i>$acontainer = new CArrayContainer( $container );</i><br>' );
 	$acontainer = new CArrayContainer( $container );
-	echo( '<i>$test = new CPersistentObject( $acontainer, 0 );</i><br>' );
-	$test = new CPersistentObject( $acontainer, 0 );
+	echo( '<i>$test = new MyClass( $acontainer, 0 );</i><br>' );
+	$test = new MyClass( $acontainer, 0 );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
 	echo( '<i>Not found</i><br>' );
-	echo( '<i>$test = new CPersistentObject( $acontainer, 1 );</i><br>' );
-	$test = new CPersistentObject( $acontainer, 1 );
+	echo( '<i>$test = new MyClass( $acontainer, 1 );</i><br>' );
+	$test = new MyClass( $acontainer, 1 );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
 	try
 	{
 		echo( '<i>Invalid container</i><br>' );
-		echo( '<i>$test = new CPersistentObject( Array(), 0 );</i><br>' );
-		$test = new CPersistentObject( Array(), 0 );
+		echo( '<i>$test = new MyClass( Array(), 0 );</i><br>' );
+		$test = new MyClass( Array(), 0 );
 		echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	}
 	catch( Exception $error )
@@ -173,7 +173,7 @@ try
 	echo( '<h3>Commit to container</h3>' );
 	
 	echo( '<i>Store in array object</i><br>' );
-	echo( '<i>$test = new CPersistentObject( array( \'NAME\' => \'Milko\', \'SURNAME\' => \'Skofic\' ) );</i><br>' );
+	echo( '<i>$test = new MyClass( array( \'NAME\' => \'Milko\', \'SURNAME\' => \'Skofic\' ) );</i><br>' );
 	$test = new MyClass( array( 'NAME' => 'Milko', 'SURNAME' => 'Skofic' ) );
 	echo( '<i>$container = new ArrayObject();</i><br>' );
 	$container = new ArrayObject();
@@ -247,7 +247,7 @@ try
 	$found = $test->Commit( $mcontainer, 1 );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
-	echo( '<i>$test = new CPersistentObject( $mcontainer, 1 );</i><br>' );
+	echo( '<i>$test = new MyClass( $mcontainer, 1 );</i><br>' );
 	$test = new MyClass( $mcontainer, 1 );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
@@ -259,7 +259,7 @@ try
 	$found = $test->Commit( $mcontainer );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
-	echo( '<i>$test = new CPersistentObject( $mcontainer, 1 );</i><br>' );
+	echo( '<i>$test = new MyClass( $mcontainer, 1 );</i><br>' );
 	$test = new MyClass( $mcontainer, 1 );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
@@ -271,7 +271,7 @@ try
 	echo( '<h3>Load with object</h3>' );
 	
 	echo( '<i>Load with object</i><br>' );
-	echo( '<i>$test = new CPersistentObject( $mcontainer, $test );</i><br>' );
+	echo( '<i>$test = new MyClass( $mcontainer, $test );</i><br>' );
 	$test = new MyClass( $mcontainer, $test );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
@@ -279,7 +279,7 @@ try
 	echo( '<i>Load with reference</i><br>' );
 	echo( '<i>$ref = array( kTAG_ID_REFERENCE => 1 );</i><br>' );
 	$ref = array( kTAG_ID_REFERENCE => 1 );
-	echo( '<i>$test = new CPersistentObject( $mcontainer, $ref );</i><br>' );
+	echo( '<i>$test = new MyClass( $mcontainer, $ref );</i><br>' );
 	$test = new MyClass( $mcontainer, $ref );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );

@@ -49,7 +49,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEntity.php" );
  * {@link Code() code}, as its {@link CEntity ancestor}, its {@link Name() name},
  * {@link Password() password} and {@link Email() e-mail} address.
  *
- * If the {@link Code() code} has not been explicitly set, {@link _PrepareStore() before}
+ * If the {@link Code() code} has not been explicitly set, {@link _PrepareCommit() before}
  * {@link Commit() committing} the object it will be set to the value of the
  * {@link Email e-mail}. Also in that phase, the {@link kENTITY_USER kENTITY_USER} constant
  * will be set in the user {@link Type() type}.
@@ -343,7 +343,7 @@ class CUser extends CEntity
 
 	 
 	/*===================================================================================
-	 *	_PrepareStore																	*
+	 *	_PrepareCommit																	*
 	 *==================================================================================*/
 
 	/**
@@ -357,6 +357,7 @@ class CUser extends CEntity
 	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Commit modifiers.
 	 *
 	 * @access protected
 	 *
@@ -364,7 +365,7 @@ class CUser extends CEntity
 	 *
 	 * @see kERROR_OPTION_MISSING
 	 */
-	protected function _PrepareStore( &$theContainer, &$theIdentifier )
+	protected function _PrepareCommit( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
 		// Initialise code.
@@ -375,14 +376,14 @@ class CUser extends CEntity
 		//
 		// Call parent method.
 		//
-		parent::_PrepareStore( $theContainer, $theIdentifier );
+		parent::_PrepareCommit( $theContainer, $theIdentifier, $theModifiers );
 		
 		//
 		// Add user type.
 		//
 		$this->Type( kENTITY_USER, TRUE );
 		
-	} // _PrepareStore.
+	} // _PrepareCommit.
 
 	 
 
