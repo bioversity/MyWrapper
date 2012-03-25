@@ -166,6 +166,136 @@ class CMongoContainer extends CContainer
 
 /*=======================================================================================
  *																						*
+ *								PUBLIC CONVERSION INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	UnserialiseData																	*
+	 *==================================================================================*/
+
+	/**
+	 * Unserialise provided data element.
+	 *
+	 * We {@link CContainer::UnserialiseData() implement} this method to convert all
+	 * standard {@link CDataType types} into custom Mongo data types.
+	 *
+	 * In this class we parse the following types and {@link kTAG_TYPE offsets}:
+	 *
+	 * <ul>
+	 *	<li><i>{@link CDataTypeMongoId CDataTypeMongoId} object or
+	 *		{@link kDATA_TYPE_MongoId kDATA_TYPE_MongoId} offset</i>: We return a MongoId
+	 *		object.
+	 *	<li><i>{@link CDataTypeMongoCode CDataTypeMongoCode} object or
+	 *		{@link kDATA_TYPE_MongoCode kDATA_TYPE_MongoCode} offset</i>: We return a
+	 *		MongoCode object.
+	 *	<li><i>{@link CDataTypeStamp CDataTypeStamp} object or
+	 *		{@link kDATA_TYPE_STAMP kDATA_TYPE_STAMP} offset</i>: We return a MongoDate
+	 *		object.
+	 *	<li><i>{@link CDataTypeMongoRegex CDataTypeMongoRegex} object or
+	 *		{@link kDATA_TYPE_MongoRegex kDATA_TYPE_MongoRegex} offset</i>: We return a
+	 *		MongoRegex object.
+	 *	<li><i>{@link CDataTypeInt32 CDataTypeInt32} object or
+	 *		{@link kDATA_TYPE_INT32 kDATA_TYPE_INT32} offset</i>: We return a MongoInt32
+	 *		object.
+	 *	<li><i>{@link CDataTypeInt64 CDataTypeInt64} object or
+	 *		{@link kDATA_TYPE_INT64 kDATA_TYPE_INT64} offset</i>: We return a MongoInt64
+	 *		object.
+	 *	<li><i>{@link CDataTypeBinary CDataTypeBinary} object or
+	 *		{@link kDATA_TYPE_BINARY kDATA_TYPE_BINARY} offset</i>: We return a MongoBinData
+	 *		object.
+	 * </ul>
+	 *
+	 * @param reference			   &$theElement			Element to encode.
+	 *
+	 * @access public
+	 */
+	public function UnserialiseData( &$theElement )
+	{
+		//
+		// Handle type.
+		//
+		$data = $theElement[ kTAG_DATA ];
+		switch( $theElement[ kTAG_TYPE ] )
+		{
+			//
+			// MongoId.
+			//
+			case kDATA_TYPE_MongoId:
+				$theElement = new MongoId( (string) $data );
+				break;
+			
+			//
+			// MongoCode.
+			//
+			case kDATA_TYPE_MongoCode:
+				if( is_array( $data )
+				 || ($data instanceof ArrayObject) )
+				{
+					$tmp1 = $data[ kOBJ_TYPE_CODE_SRC ];
+					$tmp2 = ( array_key_exists( kOBJ_TYPE_CODE_SCOPE, (array) $data ) )
+						  ? $data[ kOBJ_TYPE_CODE_SCOPE ]
+						  : Array();
+					$theElement = new MongoCode( $tmp1, $tmp2 );
+				}
+				break;
+			
+			//
+			// MongoDate.
+			//
+			case kDATA_TYPE_STAMP:
+				if( is_array( $data )
+				 || ($data instanceof ArrayObject) )
+				{
+					$tmp1 = $data[ kOBJ_TYPE_STAMP_SEC ];
+					$tmp2 = ( array_key_exists( kOBJ_TYPE_STAMP_USEC, (array) $data ) )
+						  ? $data[ kOBJ_TYPE_STAMP_USEC ]
+						  : 0;
+					$theElement = new MongoDate( $tmp1, $tmp2 );
+				}
+				break;
+			
+			//
+			// MongoInt32.
+			//
+			case kDATA_TYPE_INT32:
+				$theElement = new MongoInt32( $data );
+				break;
+			
+			//
+			// MongoInt64.
+			//
+			case kDATA_TYPE_INT64:
+				$theElement = new MongoInt64( $data );
+				break;
+
+			//
+			// MongoRegex.
+			//
+			case kDATA_TYPE_MongoRegex:
+				$theElement = new MongoRegex( $data );
+				break;
+
+			//
+			// MongoBinData.
+			//
+			case kDATA_TYPE_BINARY:
+				$data = ( function_exists( 'hex2bin' ) )
+					  ? hex2bin( $data )
+					  : pack( 'H*', $data );
+				$theElement = new MongoBinData( $data );
+				break;
+		
+		} // Parsing by type.
+	
+	} // UnserialiseData.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PROTECTED MANAGEMENT INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -190,13 +320,13 @@ class CMongoContainer extends CContainer
 	 * the object identifier.
 	 *
 	 * @param reference			   &$theObject			Object to commit.
-	 * @param mixed					$theIdentifier		Object identifier.
-	 * @param bitfield				$theModifiers		Commit modifiers.
+	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Commit modifiers.
 	 *
 	 * @access protected
 	 * @return mixed
 	 */
-	protected function _Commit( &$theObject, $theIdentifier, $theModifiers )
+	protected function _Commit( &$theObject, &$theIdentifier, &$theModifiers )
 	{
 		//
 		// Init local storage.
@@ -411,8 +541,7 @@ class CMongoContainer extends CContainer
 			( "Invalid operation options",
 			  kERROR_INVALID_PARAMETER,
 			  kMESSAGE_TYPE_ERROR,
-			  array( 'Modifiers' => $theModifiers,
-					 'Mask' => kFLAG_PERSIST_WRITE_MASK ) );					// !@! ==>
+			  array( 'Modifiers' => $theModifiers ) );							// !@! ==>
 	
 	} // _Commit.
 
@@ -435,25 +564,14 @@ class CMongoContainer extends CContainer
 	 *
 	 * The method will use the <i>findOne</i> method to retrieve the object.
 	 *
-	 * @param mixed					$theIdentifier		Object identifier.
-	 * @param bitfield				$theModifiers		Load modifiers.
+	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Load modifiers.
 	 *
 	 * @access protected
 	 * @return mixed
 	 */
-	protected function _Load( $theIdentifier, $theModifiers )
+	protected function _Load( &$theIdentifier, &$theModifiers )
 	{
-		//
-		// Check container.
-		//
-		$container = $this->Container();
-		if( ! $container instanceof MongoCollection )
-			throw new CException
-				( "Missing native container",
-				  kERROR_INVALID_STATE,
-				  kMESSAGE_TYPE_ERROR,
-				  array( 'Container' => $container ) );							// !@! ==>
-		
 		//
 		// Set criteria.
 		//
@@ -477,25 +595,14 @@ class CMongoContainer extends CContainer
 	 * The method will check if the current container is a MongoCollection, if this is not
 	 * the case, it will raise an {@link kERROR_INVALID_STATE exception}.
 	 *
-	 * @param mixed					$theIdentifier		Object identifier.
-	 * @param bitfield				$theModifiers		Delete modifiers.
+	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Load modifiers.
 	 *
 	 * @access protected
 	 * @return mixed
 	 */
-	protected function _Delete( $theIdentifier, $theModifiers )
+	protected function _Delete( &$theIdentifier, &$theModifiers )
 	{
-		//
-		// Check container.
-		//
-		$container = $this->Container();
-		if( ! $container instanceof MongoCollection )
-			throw new CException
-				( "Missing native container",
-				  kERROR_INVALID_STATE,
-				  kMESSAGE_TYPE_ERROR,
-				  array( 'Container' => $container ) );							// !@! ==>
-		
 		//
 		// Set criteria.
 		//
@@ -531,150 +638,21 @@ class CMongoContainer extends CContainer
 
 	 
 	/*===================================================================================
-	 *	_PrepareLoad																	*
-	 *==================================================================================*/
-
-	/**
-	 * Prepare before a {@link _Load() load}.
-	 *
-	 * The duty of this method is to ensure that the parameters provided to the
-	 * {@link _Load() find} operation are valid.
-	 *
-	 * In this class we ensure that the identifier has been provided, that the current
-	 * object has a native {@link Container() container} and we
-	 * {@link UnserialiseData() unserialise} the provided identifier if
-	 * {@link kFLAG_STATE_ENCODED needed}.
-	 *
-	 * @param reference			   &$theIdentifier		Object identifier.
-	 * @param reference			   &$theModifiers		Load modifiers.
-	 *
-	 * @access protected
-	 *
-	 * @throws {@link CException CException}
-	 *
-	 * @uses Container()
-	 * @uses UnserialiseData()
-	 *
-	 * @see kFLAG_STATE_ENCODED
-	 * @see kERROR_OPTION_MISSING kERROR_INVALID_STATE
-	 */
-	protected function _PrepareLoad( &$theIdentifier, &$theModifiers )
-	{
-		//
-		// Check if identifier is there.
-		//
-		if( $theIdentifier === NULL )
-			throw new CException
-					( "Missing object identifier",
-					  kERROR_OPTION_MISSING,
-					  kMESSAGE_TYPE_ERROR );									// !@! ==>
-		
-		//
-		// Check container.
-		//
-		if( $this->Container() === NULL )
-			throw new CException
-				( "Missing native container",
-				  kERROR_INVALID_STATE,
-				  kMESSAGE_TYPE_ERROR );										// !@! ==>
-		
-		//
-		// Unserialise identifier.
-		//
-		if( $theModifiers & kFLAG_STATE_ENCODED )
-			$this->UnserialiseData( $theIdentifier );
-	
-	} // _PrepareLoad.
-
-	 
-	/*===================================================================================
 	 *	_PrepareCommit																	*
 	 *==================================================================================*/
 
 	/**
-	 * Normalise before a store.
+	 * Prepare before a {@link _Commit() commit}.
 	 *
-	 * We {@link CContainer::_PrepareCommit() overload} this method to perform the following
-	 * operations:
+	 * We {@link CContaoiner::_PrepareCommit() overload} this method to handle the
+	 * identifier: if provided, it means that that is to become the object's unique
+	 * {@link kTAG_ID_NATIVE identifier}; if not provided and the object has an
+	 * {@link kTAG_ID_NATIVE identifier}, we use that one.
 	 *
-	 * <ul>
-	 *	<li>Check object type (array or ArrayObject).
-	 *	<li>Initialise identifier if required.
-	 *	<li>Call the parent {@link CContainer::_PrepareCommit() method} which will:
-	 *	 <ul>
-	 *		<li>Ensure the identifier is provided if the operation is not an
-	 *			{@link kFLAG_PERSIST_INSERT insert}.
-	 *		<li>Ensure the method has the correct options.
-	 *		<li>Ensure the current object has a container.
-	 *		<li>Get the {@link CPersistentObject::_IsEncoded() encoded} status
-	 *			{@link kFLAG_STATE_ENCODED flag} from the object.
-	 *		<li>{@link UnserialiseObject() Unserialise} object and
-	 *			{@link UnserialiseData() identifier} if necessary.
-	 *	 </ul>
-	 * </ul>
+	 * We also raise an exception if the provided object is not either an array or an
+	 * ArrayObject.
 	 *
 	 * @param reference			   &$theObject			Object or data.
-	 * @param reference			   &$theIdentifier		Object identifier.
-	 * @param reference			   &$theModifiers		Commit modifiers.
-	 *
-	 * @access protected
-	 *
-	 * @throws {@link CException CException}
-	 *
-	 * @uses _Container()
-	 *
-	 * @see kERROR_DUPLICATE kERROR_NOT_FOUND
-	 */
-	protected function _PrepareCommit( &$theObject, &$theIdentifier, &$theModifiers )
-	{
-		//
-		// Check object type.
-		//
-		if( (! is_array( $theObject ))
-		 && (! $theObject instanceof ArrayObject) )
-			throw new CException
-				( "Invalid data or object",
-				  kERROR_INVALID_PARAMETER,
-				  kMESSAGE_TYPE_ERROR,
-				  array( 'Object' => $theObject ) );							// !@! ==>
-		
-		//
-		// Get identifier from object.
-		//
-		if( (! ($theModifiers & kFLAG_PERSIST_INSERT))	// Not an insert
-		 && ($theIdentifier === NULL) )					// and missing identifier.
-		{
-			//
-			// Get it from object.
-			//
-			if( array_key_exists( kTAG_ID_NATIVE, (array) $theObject ) )
-				$theIdentifier = $theObject[ kTAG_ID_NATIVE
-		
-		} // Missing identifier.
-		
-		//
-		// Call parent method.
-		//
-		parent::_PrepareCommit( $theObject, $theIdentifier, $theModifiers );
-	
-	} // _PrepareCommit.
-
-	 
-	/*===================================================================================
-	 *	_PrepareDelete																	*
-	 *==================================================================================*/
-
-	/**
-	 * Prepare before a {@link _Delete() delete}.
-	 *
-	 * The duty of this method is to ensure that the parameters provided to the
-	 * {@link _Delete() delete} operation are valid.
-	 *
-	 * In this class we ensure that the identifier has been provided, that the current
-	 * object has a native {@link Container() container} and we
-	 * {@link UnserialiseData() unserialise} the provided identifier if
-	 * {@link kFLAG_STATE_ENCODED needed}.
-	 *
 	 * @param reference			   &$theIdentifier		Object identifier.
 	 * @param reference			   &$theModifiers		Commit modifiers.
 	 *
@@ -683,182 +661,49 @@ class CMongoContainer extends CContainer
 	 * @throws {@link CException CException}
 	 *
 	 * @uses Container()
-	 *
-	 * @see kERROR_INVALID_STATE
-	 */
-	protected function _PrepareDelete( &$theIdentifier, &$theModifiers )
-	{
-		//
-		// Check if identifier is there.
-		//
-		if( $theIdentifier === NULL )
-			throw new CException
-					( "Missing object identifier",
-					  kERROR_OPTION_MISSING,
-					  kMESSAGE_TYPE_ERROR );									// !@! ==>
-		
-		//
-		// Check container.
-		//
-		if( $this->Container() === NULL )
-			throw new CException
-				( "Missing native container",
-				  kERROR_INVALID_STATE,
-				  kMESSAGE_TYPE_ERROR );										// !@! ==>
-		
-		//
-		// Unserialise identifier.
-		//
-		if( $theModifiers & kFLAG_STATE_ENCODED )
-			$this->UnserialiseData( $theIdentifier );
-	
-	} // _PrepareDelete.
-
-	 
-	/*===================================================================================
-	 *	_FinishLoad																		*
-	 *==================================================================================*/
-
-	/**
-	 * Normalise after a {@link _Load() load}.
-	 *
-	 * This method will be called after the {@link _Load() load} operation, its duty is to
-	 * clean up or normalise after the operation. The parameters are passed by reference.
-	 *
-	 * The method expects the found object or data in the first parameter and the original
-	 * identifier in the second.
-	 *
-	 * In this class we {@link kFLAG_STATE_ENCODED eventually}
-	 * {@link CDataType::SerialiseObject() serialise} the object and the
-	 * {@link CDataType::SerialiseData() identifier}.
-	 *
-	 * @param reference			   &$theObject			Object reference.
-	 * @param reference			   &$theIdentifier		Object identifier.
-	 * @param reference			   &$theModifiers		Commit modifiers.
-	 *
-	 * @access protected
-	 *
-	 * @uses CDataType::SerialiseObject()
-	 * @uses CDataType::SerialiseData()
+	 * @uses UnserialiseObject()
+	 * @uses UnserialiseData()
 	 *
 	 * @see kFLAG_STATE_ENCODED
+	 * @see kERROR_OPTION_MISSING kERROR_INVALID_PARAMETER kERROR_INVALID_STATE
 	 */
-	protected function _FinishLoad( &$theObject, &$theIdentifier, &$theModifiers )
+	protected function _PrepareCommit( &$theObject, &$theIdentifier, &$theModifiers )
 	{
 		//
-		// Serialise object.
+		// Set identifier.
 		//
-		if( $theModifiers & kFLAG_STATE_ENCODED )
+		if( is_array( $theObject )
+		 || ($theObject instanceof ArrayObject) )
 		{
 			//
-			// Serialise object.
+			// Set identifier.
 			//
-			CDataType::SerialiseObject( $theObject );
+			if( $theIdentifier !== NULL )
+				$theObject[ kTAG_ID_NATIVE ] = $theIdentifier;
+				
+			//
+			// Get identifier.
+			//
+			elseif( array_key_exists( kTAG_ID_NATIVE, (array) $theObject ) )
+				$theIdentifier = $theObject[ kTAG_ID_NATIVE ];
 			
 			//
-			// Serialise identifier.
+			// Call parent method.
 			//
-			CDataType::SerialiseData( $theIdentifier );
-			
-			//
-			// Copy status.
-			//
-			if( $theObject instanceof CPersistentObject )
-				$theObject->Status( $theObject->Status() | kFLAG_STATE_ENCODED );
+			parent::_PrepareCommit( $theObject, $theIdentifier, $theModifiers );
+		}
 		
-		} // Serialise option.
-	
-	} // _FinishCommit.
-
-	 
-	/*===================================================================================
-	 *	_FinishCommit																	*
-	 *==================================================================================*/
-
-	/**
-	 * Normalise after a {@link _Commit() store}.
-	 *
-	 * This method will be called after the {@link _Commit() store} operation, its duty is
-	 * to clean up or restore the object after the operation please refer to
-	 * {@link Commit() this} documentation for a reference of these parameters. Note that in
-	 * this method all three parameters are passed by reference.
-	 *
-	 * In this class we {@link kFLAG_STATE_ENCODED eventually}
-	 * {@link CDataType::SerialiseObject() serialise} the object.
-	 *
-	 * @param reference			   &$theObject			Object or data.
-	 * @param reference			   &$theIdentifier		Object identifier.
-	 * @param reference			   &$theModifiers		Commit modifiers.
-	 *
-	 * @access protected
-	 *
-	 * @uses CDataType::SerialiseObject()
-	 * @uses CDataType::SerialiseData()
-	 *
-	 * @see kFLAG_STATE_ENCODED
-	 */
-	protected function _FinishCommit( &$theObject, &$theIdentifier, &$theModifiers )
-	{
 		//
-		// Serialise object.
+		// Unsupported object or data.
 		//
-		if( $theModifiers & kFLAG_STATE_ENCODED )
-		{
-			//
-			// Serialise object.
-			//
-			CDataType::SerialiseObject( $theObject );
+		else
+			throw new CException
+				( "Unsupported or invalid data or object",
+				  kERROR_UNSUPPORTED,
+				  kMESSAGE_TYPE_ERROR,
+				  array( 'Object' => $theObject ) );							// !@! ==>
 	
-			//
-			// Serialise identifier.
-			//
-			CDataType::SerialiseData( $theIdentifier );
-		}
-	
-	} // _FinishCommit.
-
-	 
-	/*===================================================================================
-	 *	_FinishDelete																	*
-	 *==================================================================================*/
-
-	/**
-	 * Normalise after a store.
-	 *
-	 * This method will be called after the {@link _Delete() delete} operation, its duty is
-	 * to clean up or restore the object after the operation please refer to
-	 * {@link Delete() this} documentation for a reference of these parameters. Note that in
-	 * this method all two parameters are passed by reference.
-	 *
-	 * In this class we {@link kFLAG_STATE_ENCODED eventually}
-	 * {@link CDataType::SerialiseObject() serialise} the object and the
-	 * {@link CDataType::SerialiseData() identifier}.
-	 *
-	 * @param reference			   &$theObject			Object or data.
-	 * @param reference			   &$theIdentifier		Object identifier.
-	 * @param reference			   &$theModifiers		Commit modifiers.
-	 *
-	 * @access protected
-	 */
-	protected function _FinishDelete( &$theObject, &$theIdentifier, &$theModifiers )
-	{
-		//
-		// Serialise identifier.
-		//
-		if( $theModifiers & kFLAG_STATE_ENCODED )
-		{
-			//
-			// Serialise object.
-			//
-			CDataType::SerialiseObject( $theObject );
-	
-			//
-			// Serialise identifier.
-			//
-			CDataType::SerialiseData( $theIdentifier );
-		}
-	
-	} // _FinishDelete.
+	} // _PrepareCommit.
 
 	 
 

@@ -64,9 +64,29 @@ try
 	//
 	echo( '<h3>Create</h3>' );
 	
-	echo( '<i>$test = new CMongoContainer( $collection );</i><br>' );
-	$test = new CMongoContainer( $collection );
+	echo( '<i>$test = new CMongoContainer();</i><br>' );
+	$test = new CMongoContainer();
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
+
+	//
+	// Data members.
+	//
+	echo( '<h3>Data members</h3>' );
+	
+	echo( '<i>$test->Container( $collection );</i><br>' );
+	$test->Container( $collection );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$x = (string) $test;</i><br>' );
+	$x = (string) $test;
+	echo( '<pre>' ); print_r( $x ); echo( '</pre>' );
+	echo( '<i>$x = $test->Database();</i><br>' );
+	$x = $test->Database();
+	echo( '<pre>' ); print_r( $x ); echo( '</pre>' );
+	echo( '<pre>' ); print_r( (string) $x ); echo( '</pre>' );
+	echo( '<i>$x = $test->Container();</i><br>' );
+	$x = $test->Container();
+	echo( '<pre>' ); print_r( $x ); echo( '</pre>' );
 	echo( '<hr>' );
 
 	//
@@ -74,8 +94,17 @@ try
 	//
 	echo( '<h3>Replace</h3>' );
 	
-	echo( '<i>$object = array( 123 );</i><br>' );
-	$object = array( 123 );
+	echo( '<i>$object = array( \'Name\' => \'Milko\', \'Surname\' => \'Skofic\' );</i><br>' );
+	$object = array( 'Name' => 'Milko', 'Surname' => 'Skofic' );
+	echo( '<pre>' ); print_r( $object ); echo( '</pre>' );
+	echo( '<i>$found = $test->Commit( $object );</i><br>' );
+	$found = $test->Commit( $object );
+	echo( '<pre>' ); print_r( $object ); echo( '</pre>' );
+	echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$object = array( \'Name\' => \'Luca\', \'Surname\' => \'Sampieri\' );</i><br>' );
+	$object = array( 'Name' => 'Luca', 'Surname' => 'Sampieri' );
 	echo( '<pre>' ); print_r( $object ); echo( '</pre>' );
 	echo( '<i>$found = $test->Commit( $object, 10 );</i><br>' );
 	$found = $test->Commit( $object, 10 );
@@ -83,23 +112,15 @@ try
 	echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	echo( '<i>$object = array( 234 );</i><br>' );
-	$object = array( 234 );
+	echo( '<i>$object = array( \'Name\' => \'Pippo\', \'_id\' => 20 );</i><br>' );
+	$object = array( 'Name' => 'Pippo', '_id' => 20 );
 	echo( '<pre>' ); print_r( $object ); echo( '</pre>' );
 	echo( '<i>$found = $test->Commit( $object );</i><br>' );
 	$found = $test->Commit( $object );
 	echo( '<pre>' ); print_r( $object ); echo( '</pre>' );
 	echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
 	echo( '<hr>' );
-	
-	echo( '<i>$object[ 0 ] = 345;</i><br>' );
-	$object[ 0 ] = 345;
-	echo( '<pre>' ); print_r( $object ); echo( '</pre>' );
-	echo( '<i>$found = $test->Commit( $object );</i><br>' );
-	$found = $test->Commit( $object );
-	echo( '<pre>' ); print_r( $object ); echo( '</pre>' );
-	echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
-	echo( '<hr>' );
+exit;
 
 	//
 	// Insert.
