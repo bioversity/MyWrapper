@@ -120,7 +120,6 @@ try
 	echo( '<pre>' ); print_r( $object ); echo( '</pre>' );
 	echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
 	echo( '<hr>' );
-exit;
 
 	//
 	// Insert.
@@ -144,6 +143,7 @@ exit;
 	
 	try
 	{
+		echo( '<i>Inserting an existing record <b>should</b> raise an exception.</i><br>' );
 		echo( '<i>$found = $test->Commit( $object, 9, kFLAG_PERSIST_INSERT );</i><br>' );
 		$found = $test->Commit( $object, 9, kFLAG_PERSIST_INSERT );
 		echo( '<pre>' ); print_r( $object ); echo( '</pre>' );
@@ -171,20 +171,7 @@ exit;
 	
 	try
 	{
-		echo( '<i>$found = $test->Commit( $object, NULL, kFLAG_PERSIST_UPDATE );</i><br>' );
-		$found = $test->Commit( $object, NULL, kFLAG_PERSIST_UPDATE );
-		echo( '<pre>' ); print_r( $object ); echo( '</pre>' );
-		echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
-		echo( '<hr>' );
-	}
-	catch( Exception $error )
-	{
-		echo( CException::AsHTML( $error ) );
-
-	} echo( '<hr>' );
-	
-	try
-	{
+		echo( '<i>Updating a non-existing record <b>should</b> raise an exception.</i><br>' );
 		echo( '<i>$found = $test->Commit( $object, 22, kFLAG_PERSIST_UPDATE );</i><br>' );
 		$found = $test->Commit( $object, 22, kFLAG_PERSIST_UPDATE );
 		echo( '<pre>' ); print_r( $object ); echo( '</pre>' );
@@ -208,8 +195,8 @@ exit;
 	echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	echo( '<i>$mod = array( 1 => NULL, 2 => 20, 3 => NULL );</i><br>' );
-	$mod = array( 1 => NULL, 2 => 20, 3 => NULL );
+	echo( '<i>$mod = array( 1 => NULL, 2 => 200, 3 => NULL );</i><br>' );
+	$mod = array( 1 => NULL, 2 => 200, 3 => NULL );
 	echo( '<i>$found = $test->Commit( $mod, 9, kFLAG_PERSIST_MODIFY );</i><br>' );
 	$found = $test->Commit( $mod, 9, kFLAG_PERSIST_MODIFY );
 	echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
@@ -217,6 +204,7 @@ exit;
 	
 	try
 	{
+		echo( '<i>Modifying a non-existing record <b>should not</b> raise an exception.</i><br>' );
 		echo( '<i>$found = $test->Commit( $mod, 22, kFLAG_PERSIST_MODIFY );</i><br>' );
 		$found = $test->Commit( $mod, 22, kFLAG_PERSIST_MODIFY );
 		echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
@@ -301,20 +289,30 @@ exit;
 		'Binary' => array
 		(
 			kTAG_TYPE => kDATA_TYPE_BINARY,
-			kTAG_DATA => md5( 'PIPPO' )
+			kTAG_DATA => bin2hex( 'PIPPO' )
 		)
 	);
-//	$object = new ArrayObject( $array );
-	$object = $array;
-	echo( 'Serialised<pre>' ); print_r( $object ); echo( '</pre>' );
-	echo( '<i>CMongoDataWrapper::UnserialiseObject( $object );</i><br>' );
-	CMongoDataWrapper::UnserialiseObject( $object );
-	echo( 'Unserialised<pre>' ); print_r( $object ); echo( '</pre>' );
+	echo( 'Serialised<pre>' ); print_r( $array ); echo( '</pre>' );
+	echo( '<i>$test->UnserialiseObject( $array );</i><br>' );
+	$test->UnserialiseObject( $array );
+	echo( 'Unserialised<pre>' ); print_r( $array ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	echo( '<i>CDataType::SerialiseObject( $object );</i><br>' );
-	CDataType::SerialiseObject( $object );
-	echo( 'Decoded<pre>' ); print_r( $object ); echo( '</pre>' );
+	echo( '<i>CDataType::SerialiseObject( $array );</i><br>' );
+	CDataType::SerialiseObject( $array );
+	echo( 'Decoded<pre>' ); print_r( $array ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$found = $test->Commit( $array, 123, kFLAG_PERSIST_REPLACE + kFLAG_STATE_ENCODED );</i><br>' );
+	$found = $test->Commit( $array, 123, kFLAG_PERSIST_REPLACE + kFLAG_STATE_ENCODED );
+	echo( '<pre>' ); print_r( $array ); echo( '</pre>' );
+	echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<i>$object = $test->Load( $found, kFLAG_STATE_ENCODED );</i><br>' );
+	$object = $test->Load( $found, kFLAG_STATE_ENCODED );
+	echo( '<pre>' ); print_r( $object ); echo( '</pre>' );
+	echo( '<i>$object = $test->Load( $found );</i><br>' );
+	$object = $test->Load( $found );
+	echo( '<pre>' ); print_r( $object ); echo( '</pre>' );
 	echo( '<hr>' );
 }
 

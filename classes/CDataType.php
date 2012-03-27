@@ -325,7 +325,7 @@ abstract class CDataType extends CArrayObject
 					break;
 			
 				case 'MongoBinData':
-					$theElement = new CDataTypeBinary( $theElement );
+					$theElement = new CDataTypeBinary( $theElement->bin );
 					break;
 			
 				case 'MongoInt32':

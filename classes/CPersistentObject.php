@@ -356,6 +356,9 @@ class CPersistentObject extends CStatusObject
 	 * @uses _PrepareCommit()
 	 * @uses _Commit()
 	 * @uses _FinishCommit()
+	 *
+	 * @see kFLAG_PERSIST_INSERT kFLAG_PERSIST_UPDATE kFLAG_PERSIST_MODIFY
+	 * @see kFLAG_PERSIST_REPLACE kFLAG_STATE_ENCODED
 	 */
 	public function Commit( $theContainer = NULL,
 							$theIdentifier = NULL,
@@ -832,7 +835,7 @@ class CPersistentObject extends CStatusObject
 					  kERROR_UNSUPPORTED,
 					  kMESSAGE_TYPE_ERROR,
 					  array( 'Container' => $theContainer ) );					// !@! ==>
-	
+
 		//
 		// Check if inited.
 		//

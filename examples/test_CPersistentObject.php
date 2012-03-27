@@ -131,32 +131,28 @@ try
 	echo( '<h3>Container content</h3>' );
 	
 	echo( '<i>Load from ArrayObject container</i><br>' );
-	$container = new ArrayObject( array( array( 'NAME' => 'Milko', 'SURNAME' => 'Skofic' ) ) );
+	echo( '<i>$container = new CArrayContainer( array( array( \'NAME\' => \'Milko\', \'SURNAME\' => \'Skofic\' ) ) );</i><br>' );
+	$container = new CArrayContainer( array( array( 'NAME' => 'Milko', 'SURNAME' => 'Skofic' ) ) );
 	echo( 'Container:<pre>' ); print_r( $container ); echo( '</pre>' );
 	echo( '<i>$test = new MyClass( $container, 0 );</i><br>' );
 	$test = new MyClass( $container, 0 );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	echo( '<i>Load from CArrayContainer</i><br>' );
-	echo( '<i>$acontainer = new CArrayContainer( $container );</i><br>' );
-	$acontainer = new CArrayContainer( $container );
-	echo( '<i>$test = new MyClass( $acontainer, 0 );</i><br>' );
-	$test = new MyClass( $acontainer, 0 );
-	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( '<hr>' );
-	
 	echo( '<i>Not found</i><br>' );
 	echo( '<i>$test = new MyClass( $acontainer, 1 );</i><br>' );
-	$test = new MyClass( $acontainer, 1 );
+	$test = new MyClass( $container, 1 );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
 	try
 	{
 		echo( '<i>Invalid container</i><br>' );
-		echo( '<i>$test = new MyClass( Array(), 0 );</i><br>' );
-		$test = new MyClass( Array(), 0 );
+		echo( '<i>$acontainer = $container->Container();</i><br>' );
+		$acontainer = $container->Container();
+		echo( 'Container:<pre>' ); print_r( $acontainer ); echo( '</pre>' );
+		echo( '<i>$test = new MyClass( $acontainer, 0 );</i><br>' );
+		$test = new MyClass( $acontainer, 0 );
 		echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	}
 	catch( Exception $error )
@@ -173,10 +169,10 @@ try
 	echo( '<h3>Commit to container</h3>' );
 	
 	echo( '<i>Store in array object</i><br>' );
-	echo( '<i>$test = new MyClass( array( \'NAME\' => \'Milko\', \'SURNAME\' => \'Skofic\' ) );</i><br>' );
-	$test = new MyClass( array( 'NAME' => 'Milko', 'SURNAME' => 'Skofic' ) );
-	echo( '<i>$container = new ArrayObject();</i><br>' );
-	$container = new ArrayObject();
+	echo( '<i>$test = new MyClass( array( \'NAME\' => \'Pippo\', \'SURNAME\' => \'Franco\' ) );</i><br>' );
+	$test = new MyClass( array( 'NAME' => 'Pippo', 'SURNAME' => 'Franco' ) );
+	echo( '<i>$container = new CArrayContainer();</i><br>' );
+	$container = new CArrayContainer();
 	echo( '<i>$found = $test->Commit( $container );</i><br>' );
 	$found = $test->Commit( $container );
 	echo( 'Container:<pre>' ); print_r( $container ); echo( '</pre>' );
@@ -187,18 +183,6 @@ try
 	echo( '<i>Should not store</i><br>' );
 	echo( '<i>$found = $test->Commit( $container, 1 );</i><br>' );
 	$found = $test->Commit( $container, 1 );
-	echo( 'Container:<pre>' ); print_r( $container ); echo( '</pre>' );
-	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	echo( '<i>Store in CArrayContainer</i><br>' );
-	echo( '<i>$test->Uncommit();</i><br>' );
-	$test->Uncommit();
-	echo( '<i>$container = new CArrayContainer();</i><br>' );
-	$container = new CArrayContainer();
-	echo( '<i>$found = $test->Commit( $container );</i><br>' );
-	$found = $test->Commit( $container );
 	echo( 'Container:<pre>' ); print_r( $container ); echo( '</pre>' );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
@@ -266,22 +250,25 @@ try
 	echo( '<hr>' );
 	
 	//
-	// Load with object.
+	// Test array container.
 	//
-	echo( '<h3>Load with object</h3>' );
+	echo( '<h3>Test array container</h3>' );
 	
-	echo( '<i>Load with object</i><br>' );
-	echo( '<i>$test = new MyClass( $mcontainer, $test );</i><br>' );
-	$test = new MyClass( $mcontainer, $test );
-	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>Append to CArrayContainer</i><br>' );
+	echo( '<i>$test = new MyClass( array( \'NAME\' => \'Baba\', \'SURNAME\' => \'Bubu\' ) );</i><br>' );
+	$test = new MyClass( array( 'NAME' => 'Baba', 'SURNAME' => 'Bubu' ) );
+	echo( '<i>$found = $test->Commit( $container );</i><br>' );
+	$found = $test->Commit( $container );
+	echo( 'Container:<pre>' ); print_r( $container ); echo( '</pre>' );
+	echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
 	echo( '<hr>' );
-	
-	echo( '<i>Load with reference</i><br>' );
-	echo( '<i>$ref = array( kTAG_ID_REFERENCE => 1 );</i><br>' );
-	$ref = array( kTAG_ID_REFERENCE => 1 );
-	echo( '<i>$test = new MyClass( $mcontainer, $ref );</i><br>' );
-	$test = new MyClass( $mcontainer, $ref );
-	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
+
+	echo( '<i>$test->Uncommit();</i><br>' );
+	$test->Uncommit();
+	echo( '<i>$found = $test->Commit( $container );</i><br>' );
+	$found = $test->Commit( $container );
+	echo( 'Container:<pre>' ); print_r( $container ); echo( '</pre>' );
+	echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
 	echo( '<hr>' );
 }
 

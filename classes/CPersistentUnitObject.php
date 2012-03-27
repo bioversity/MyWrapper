@@ -247,14 +247,13 @@ class CPersistentUnitObject extends CPersistentObject
 	/**
 	 * Normalise parameters of a find.
 	 *
-	 * The duty of this method is to ensure that the parameters provided to a
-	 * {@link _Load() find} operation are valid.
-	 *
-	 * In this class we ensure that the container is derived from
-	 * {@link CContainer CContainer}.
+	 * We {@link CPersistentObject::_PrepareLoad() overload} this method to handle identifiers
+	 * provided as structures containing either the {@link kTAG_ID_NATIVE native} identifier
+	 * or an object {@link kTAG_ID_REFERENCE reference}.
 	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Create modifiers.
 	 *
 	 * @access protected
 	 *
@@ -262,22 +261,31 @@ class CPersistentUnitObject extends CPersistentObject
 	 *
 	 * @see kERROR_OPTION_MISSING kERROR_UNSUPPORTED
 	 */
-	protected function _PrepareLoad( &$theContainer, &$theIdentifier )
+	protected function _PrepareLoad( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
+		//
+		// Handle identifier structures.
+		//
+		if( is_array( $theIdentifier )
+		 || ($theIdentifier instanceof ArrayObject) )
+		{
+			//
+			// Try object identifier.
+			//
+			if( array_key_exists( kTAG_ID_NATIVE, (array) $theIdentifier ) )
+				$theIdentifier = $theIdentifier[ kTAG_ID_NATIVE ];
+			
+			//
+			// Try object reference.
+			//
+			elseif( array_key_exists( kTAG_ID_REFERENCE, (array) $theIdentifier ) )
+				$theIdentifier = $theIdentifier[ kTAG_ID_REFERENCE ];
+		}
+
 		//
 		// Call parent method.
 		//
-		parent::_PrepareLoad( $theContainer, $theIdentifier );
-		
-		//
-		// Check container.
-		//
-		if( ! $theContainer instanceof CContainer )
-			throw new CException
-					( "Unsupported container type",
-					  kERROR_UNSUPPORTED,
-					  kMESSAGE_TYPE_ERROR,
-					  array( 'Container' => $theContainer ) );					// !@! ==>
+		parent::_PrepareLoad( $theContainer, $theIdentifier, $theModifiers );
 	
 	} // _PrepareLoad.
 
@@ -288,6 +296,28 @@ class CPersistentUnitObject extends CPersistentObject
 
 	/**
 	 * Normalise before a store.
+	 *
+	 * We {@link CPersistentObject::_PrepareCommit() overload} this method to perform the
+	 * following steps:
+	 *
+	 * <ul>
+	 *	<li><i>Identifier as structure</i>: We handle identifiers provided as object
+	 *		structures or references by checking the {@link kTAG_ID_NATIVE native} identifier
+	 *		or the object {@link kTAG_ID_REFERENCE reference}.
+	 *	<li><i>Set identifier</i>: If the current object has already an
+	 *		{@link kTAG_ID_NATIVE identifier} and an identifier was not provided we set it, if
+	 *		this is not the case we set it via the {@link _id() _id} method.
+	 *	<li><i>Call parent method</i>: We then call the parent method, this is to ensure all
+	 *		required data is provided.
+	 *	<li><i>{@link kTAG_CLASS kTAG_CLASS}</i>: We set this offset with the current
+	 *		object's class name. Note that we overwrite old values.
+	 *	<li><i>{@link kTAG_VERSION kTAG_VERSION}</i>: If not set, we initialise this value
+	 *		to zero, if already set, we increment it.
+	 * </ul>
+	 *
+	 * identifiers
+	 * provided as structures containing either the {@link kTAG_ID_NATIVE native} identifier
+	 * or an object {@link kTAG_ID_REFERENCE reference}.
 	 *
 	 * The duty of this method is to ensure that the parameters provided to the
 	 * {@link _Commit() store} operation are correct.
@@ -327,28 +357,46 @@ class CPersistentUnitObject extends CPersistentObject
 	protected function _PrepareCommit( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
-		// Call parent method.
+		// Handle identifier structures.
 		//
-		parent::_PrepareCommit( $theContainer, $theIdentifier, $theModifiers );
+		if( is_array( $theIdentifier )
+		 || ($theIdentifier instanceof ArrayObject) )
+		{
+			//
+			// Try object identifier.
+			//
+			if( array_key_exists( kTAG_ID_NATIVE, (array) $theIdentifier ) )
+				$theIdentifier = $theIdentifier[ kTAG_ID_NATIVE ];
+			
+			//
+			// Try object reference.
+			//
+			elseif( array_key_exists( kTAG_ID_REFERENCE, (array) $theIdentifier ) )
+				$theIdentifier = $theIdentifier[ kTAG_ID_REFERENCE ];
+		}
 		
 		//
-		// Handle identifier.
+		// Ensure identifier.
 		//
 		if( $theIdentifier === NULL )
 		{
 			//
-			// Use existing.
+			// Check native identifier.
 			//
 			if( $this->offsetExists( kTAG_ID_NATIVE ) )
 				$theIdentifier = $this->offsetGet( kTAG_ID_NATIVE );
 			
 			//
-			// Set with default value.
+			// Check identifier value.
 			//
 			else
 				$theIdentifier = $this->_id();
-		
-		} // Omitted identifier.
+		}
+
+		//
+		// Call parent method.
+		//
+		parent::_PrepareCommit( $theContainer, $theIdentifier, $theModifiers );
 		
 		//
 		// Set class.
@@ -372,13 +420,10 @@ class CPersistentUnitObject extends CPersistentObject
 	/**
 	 * Prepare references lists.
 	 *
-	 * This method will usually be called {@link _PrepareCommit() before}
-	 * {@link Commit() storing} the object: its duty is to {@link Commit() commit} and
-	 * {@link CContainer::Reference() convert} to reference all referenced objects that are
-	 * in the form of instances.
-	 *
-	 * The method will iterate all elements of the provided reference list, intercept all
-	 * instances derived from this class and convert these to object references.
+	 * This method should be called {@link _PrepareCommit() before} {@link Commit() storing}
+	 * objects that contain references to other objects, its duty is to traverse these lists
+	 * and {@link Commit() commit} any element that is actually an instance derived from this
+	 * class, and convert it back to a reference.
 	 *
 	 * The parameters to this method are:
 	 *
@@ -389,7 +434,26 @@ class CPersistentUnitObject extends CPersistentObject
 	 *	<li><b>$theOffset</b>: The current object's offset in which the reference list is
 	 *		stored.
 	 *	<li><b>$theModifiers</b>: A bitfield indicating which elements of the
-	 *		{@link CContainer::Reference() reference} should be included.
+	 *		{@link CContainer::Reference() reference} should be included, this parameter will
+	 *		be passed to the {@link CContainer::Reference() method} that will convert the
+	 *		object into a reference:
+	 *	 <ul>
+	 *		<li><i>{@link kFLAG_REFERENCE_IDENTIFIER kFLAG_REFERENCE_IDENTIFIER}</i>: The
+	 *			object {@link kTAG_ID_NATIVE identifier} will be stored under the
+	 *			{@link kTAG_ID_REFERENCE kTAG_ID_REFERENCE} offset. This option is enforced.
+	 *		<li><i>{@link kFLAG_REFERENCE_CONTAINER kFLAG_REFERENCE_CONTAINER}</i>: The
+	 *			provided container name will be stored under the
+	 *			{@link kTAG_CONTAINER_REFERENCE kTAG_CONTAINER_REFERENCE} offset. If the
+	 *			provided value is empty, the offset will not be set.
+	 *		<li><i>{@link kFLAG_REFERENCE_DATABASE kFLAG_REFERENCE_DATABASE}</i>: The
+	 *			provided container's database name will be stored under the
+	 *			{@link kTAG_DATABASE_REFERENCE kTAG_DATABASE_REFERENCE} offset. If the
+	 *			current object's {@link Database() database} name is <i>NULL</i>, the
+	 *			offset will not be set.
+	 *		<li><i>{@link kFLAG_REFERENCE_CLASS kFLAG_REFERENCE_CLASS}</i>: The element
+	 *			object's class name will be stored under the {@link kTAG_CLASS kTAG_CLASS}
+	 *			offset.
+	 *	 </ul>
 	 * </ul>
 	 *
 	 * @param CContainer			$theContainer		Object container.
@@ -417,6 +481,7 @@ class CPersistentUnitObject extends CPersistentObject
 		//
 		$done = FALSE;
 		$references = $this->offsetGet( $theOffset );
+		$theModifiers |= kFLAG_REFERENCE_IDENTIFIER;
 		
 		//
 		// Handle list.
@@ -1032,7 +1097,7 @@ class CPersistentUnitObject extends CPersistentObject
 	 * is used when adding objects or object references to a list that is not organised by
 	 * object {@link kTAG_ID_NATIVE ID}.
 	 *
-	 * This method will attempt ti infer the object identifier by performing the following
+	 * This method will attempt to infer the object identifier by performing the following
 	 * steps:
 	 *
 	 * <ul>

@@ -577,7 +577,7 @@ class CMongoContainer extends CContainer
 		//
 		$criteria = array( kTAG_ID_NATIVE => $theIdentifier );
 		
-		return $container->findOne( $criteria );									// ==>
+		return $this->Container()->findOne( $criteria );							// ==>
 	
 	} // _Load.
 
@@ -619,7 +619,7 @@ class CMongoContainer extends CContainer
 			//
 			$options = array( 'safe' => TRUE, 'justOne' => TRUE );
 			
-			$status = $container->remove( $criteria, $options );								// ==>
+			$status = $this->Container()->remove( $criteria, $options );
 		
 		} // Object exists.
 		

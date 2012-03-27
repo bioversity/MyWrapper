@@ -185,8 +185,18 @@ try
 	echo( '<hr>' );
 	
 	echo( '<i>Should not store</i><br>' );
-	echo( '<i>$found = $test->Commit( $container, 1 );</i><br>' );
-	$found = $test->Commit( $container, 1 );
+	echo( '<i>$found = $test->Commit( $acontainer, 1 );</i><br>' );
+	$found = $test->Commit( $acontainer, 1 );
+	echo( 'Container:<pre>' ); print_r( $acontainer ); echo( '</pre>' );
+	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>Should increment version</i><br>' );
+	echo( '<i>$test->Uncommit();</i><br>' );
+	$test->Uncommit();
+	echo( '<i>$found = $test->Commit( $acontainer, 1 );</i><br>' );
+	$found = $test->Commit( $acontainer, 1 );
 	echo( 'Container:<pre>' ); print_r( $acontainer ); echo( '</pre>' );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
@@ -280,7 +290,7 @@ try
 	
 	echo( '<i>New object</i><br>' );
 	echo( '<i>$test = MyClass::NewObject( $mcontainer, 1 );</i><br>' );
-	$test = MyClass::NewObject( $mcontainer, 1 );
+	$test = MyClass::NewObject( $mcontainer );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
@@ -343,6 +353,7 @@ try
 	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
+	echo( '<hr>' );
 	
 	//
 	// Typed reference list.
@@ -381,7 +392,6 @@ try
 	$res = $test->Reference( $ref3, TRUE );
 	$res = $test->Reference( $ref4, TRUE );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
 	echo( '<hr>' );
 	
 	echo( '<i>$res = $test->Reference( $ref1 );</i><br>' );
@@ -413,13 +423,6 @@ try
 	echo( '<i>$id = $test->Commit( $mcontainer );</i><br>' );
 	$id = $test->Commit( $mcontainer );
 	echo( 'After:<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	echo( '<i>$ref = $test[ \'REFERENCE\' ][ 0 ][ kTAG_DATA ];</i><br>' );
-	$ref = $test[ 'REFERENCE' ][ 0 ][ kTAG_DATA ];
-	echo( '<i>$object = $mcontainer->Load( $ref );</i><br>' );
-	$object = $mcontainer->Load( $ref );
-	echo( '<pre>' ); print_r( $object ); echo( '</pre>' );
 	echo( '<hr>' );
 }
 
