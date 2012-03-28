@@ -59,7 +59,7 @@ require_once( kPATH_LIBRARY_SOURCE."CQuery.inc.php" );
  *
  * <ul>
  *	<li><i>index</i>: The index of the root element expresses a boolean condition which
- *		qualkifies its content:
+ *		qualifies its content:
  *	 <ul>
  *		<li><i>{@link kOPERATOR_AND kOPERATOR_AND}</i>: AND.
  *		<li><i>{@link kOPERATOR_NAND kOPERATOR_NAND}</i>: Not AND.

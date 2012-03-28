@@ -290,7 +290,7 @@ try
 	
 	echo( '<i>New object</i><br>' );
 	echo( '<i>$test = MyClass::NewObject( $mcontainer, 1 );</i><br>' );
-	$test = MyClass::NewObject( $mcontainer );
+	$test = MyClass::NewObject( $mcontainer, 1 );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
@@ -423,6 +423,64 @@ try
 	echo( '<i>$id = $test->Commit( $mcontainer );</i><br>' );
 	$id = $test->Commit( $mcontainer );
 	echo( 'After:<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	//
+	// Serialisation.
+	//
+	echo( '<h3>Serialisation</h3>' );
+	
+	$array = array
+	(
+		kTAG_ID_NATIVE => array
+		(
+			kTAG_TYPE => kDATA_TYPE_MongoId,
+			kTAG_DATA => '4f5e28d2961be56010000003'
+		),
+		'Stamp' => array
+		(
+			kTAG_TYPE => kDATA_TYPE_STAMP,
+			kTAG_DATA => array
+			(
+				kOBJ_TYPE_STAMP_SEC => 22,
+				kOBJ_TYPE_STAMP_USEC => 1246
+			)
+		),
+		'RegExpr' => array
+		(
+			kTAG_TYPE => kDATA_TYPE_MongoRegex,
+			kTAG_DATA => '/^pippo/i'
+		),
+		'Int32' => array
+		(
+			kTAG_TYPE => kDATA_TYPE_INT32,
+			kTAG_DATA => 32
+		),
+		'Int64' => array
+		(
+			kTAG_TYPE => kDATA_TYPE_INT64,
+			kTAG_DATA => '12345678901234'
+		),
+		'Binary' => array
+		(
+			kTAG_TYPE => kDATA_TYPE_BINARY,
+			kTAG_DATA => bin2hex( 'PIPPO' )
+		)
+	);
+	echo( '<i>Serialise object</i><br>' );
+	echo( '<i>$test = new MyClass( $array, NULL, kFLAG_STATE_ENCODED );</i><br>' );
+	$test = new MyClass( $array, NULL, kFLAG_STATE_ENCODED );
+	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$found = $test->Commit( $mcontainer );</i><br>' );
+	$found = $test->Commit( $mcontainer );
+	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<i>$found = $mcontainer->UnserialiseData( $found );</i><br>' );
+	$mcontainer->UnserialiseData( $found );
+	echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<i>$test = $mcontainer->Load( $found );</i><br>' );
+	$test = $mcontainer->Load( $found );
+	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 }
 

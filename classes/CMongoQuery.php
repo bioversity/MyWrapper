@@ -64,7 +64,10 @@ class CMongoQuery extends CQuery
 	/**
 	 * Export query.
 	 *
-	 * The method will return an array suitable to be provided as a MongoDB query.
+	 * The method will return an array suitable to be provided as a MongoDB query, the method
+	 * requires a container that will take care of converting query arguments to native data
+	 * types, this container must be an instance of {@link CMongoContainer CMongoContainer,
+	 * or the method will raise an exception.
 	 *
 	 * @param CMongoContainer		$theContainer			Query container.
 	 *
@@ -73,8 +76,18 @@ class CMongoQuery extends CQuery
 	 *
 	 * @throws Exception
 	 */
-	public function Export()
+	public function Export( $theContainer )
 	{
+		//
+		// Check container.
+		//
+		if( ! $theContainer instanceof CMongoContainer )
+			throw new CException
+				( "Unsupported container type",
+				  kERROR_INVALID_PARAMETER,
+				  kMESSAGE_TYPE_ERROR,
+				  array( 'Container' => $theContainer ) );						// !@! ==>
+
 		//
 		// Init local storage.
 		//
@@ -84,7 +97,7 @@ class CMongoQuery extends CQuery
 		// Traverse object.
 		//
 		foreach( $this as $condition => $statements )
-			$this->_ConvertCondition( $query, $condition, $statements );
+			$this->_ConvertCondition( $query, $theContainer, $condition, $statements );
 		
 		return $query;																// ==>
 	
@@ -165,18 +178,33 @@ class CMongoQuery extends CQuery
 	 * <ul>
 	 *	<li><b>&$theQuery</b>: Reference to an array that will receive the converted
 	 *		condition.
+	 *	<li><b>$theContainer</b>: Data container, must be derived from
+	 *		{@link CMongoContainer CMongoContainer}.
 	 *	<li><b>$theCondition</b>: Boolean condition code.
 	 *	<li><b>$theStatements</b>: List of condition statements.
 	 * </ul>
 	 *
 	 * @param reference			   &$theQuery				Receives converted query.
+	 * @param CMongoContainer		$theContainer			Query container.
 	 * @param string				$theCondition			Boolean condition.
 	 * @param array					$theStatements			Statements list.
 	 *
 	 * @access private
 	 */
-	protected function _ConvertCondition( &$theQuery, $theCondition, $theStatements )
+	protected function _ConvertCondition( &$theQuery, $theContainer,
+													  $theCondition,
+													  $theStatements )
 	{
+		//
+		// Check container.
+		//
+		if( ! $theContainer instanceof CMongoContainer )
+			throw new CException
+					( "Unsupported container type",
+					  kERROR_UNSUPPORTED,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Container' => $theContainer ) );					// !@! ==>
+
 		//
 		// Create condition container.
 		//
@@ -202,7 +230,7 @@ class CMongoQuery extends CQuery
 		// Iterate statements.
 		//
 		foreach( $theStatements as $statement )
-			$this->_ConvertStatement( $query, $theCondition, $statement );
+			$this->_ConvertStatement( $query, $theContainer, $theCondition, $statement );
 	
 	} // _ConvertCondition.
 
@@ -221,17 +249,23 @@ class CMongoQuery extends CQuery
 	 * <ul>
 	 *	<li><b>&$theQuery</b>: Reference to an array that will receive the converted
 	 *		statement.
+	 *	<li><b>$theContainer</b>: Data container, must be derived from
+	 *		{@link CMongoContainer CMongoContainer} and we assume this check has been done by
+	 *		the {@link _ConvertCondition() caller}.
 	 *	<li><b>$theCondition</b>: Boolean condition code.
 	 *	<li><b>$theStatement</b>: Statement.
 	 * </ul>
 	 *
 	 * @param reference			   &$theQuery				Receives converted statement.
+	 * @param CMongoContainer		$theContainer			Query container.
 	 * @param string				$theCondition			Boolean condition.
 	 * @param array					$theStatement			Statement.
 	 *
 	 * @access private
 	 */
-	protected function _ConvertStatement( &$theQuery, $theCondition, $theStatement )
+	protected function _ConvertStatement( &$theQuery, $theContainer,
+													  $theCondition,
+													  $theStatement )
 	{
 		//
 		// Parse statement.
@@ -259,7 +293,7 @@ class CMongoQuery extends CQuery
 				// Recurse.
 				//
 				$this->_ConvertCondition
-					( $theQuery, $condition, $theStatement[ $condition ] );
+					( $theQuery, $theContainer, $condition, $theStatement[ $condition ] );
 				
 				break;
 			
@@ -295,8 +329,18 @@ class CMongoQuery extends CQuery
 				switch( $theStatement[ kAPI_QUERY_OPERATOR ] )
 				{
 					case kOPERATOR_EQUAL:
-						CMongoDataWrapper::UnserialiseData
-							( $theStatement[ kAPI_QUERY_DATA ] );
+						//
+						// Note this ugly workflow:
+						// I need to do this or else I get this
+						// Notice: Indirect modification of overloaded element of MyClass
+						// has no effect in /MySource.php
+						// Which means that I cannot pass
+						// $theStatement[ kAPI_QUERY_DATA ][ $key ] to UnserialiseData()
+						// or I get the notice and the thing doesn't work.
+						//
+						$save = $theStatement[ kAPI_QUERY_DATA ];
+						$theContainer->UnserialiseData( $save );
+						$theStatement[ kAPI_QUERY_DATA ] = $save;
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:
@@ -314,8 +358,18 @@ class CMongoQuery extends CQuery
 						break;
 						
 					case kOPERATOR_EQUAL_NOT:
-						CMongoDataWrapper::UnserialiseData
-							( $theStatement[ kAPI_QUERY_DATA ] );
+						//
+						// Note this ugly workflow:
+						// I need to do this or else I get this
+						// Notice: Indirect modification of overloaded element of MyClass
+						// has no effect in /MySource.php
+						// Which means that I cannot pass
+						// $theStatement[ kAPI_QUERY_DATA ][ $key ] to UnserialiseData()
+						// or I get the notice and the thing doesn't work.
+						//
+						$save = $theStatement[ kAPI_QUERY_DATA ];
+						$theContainer->UnserialiseData( $save );
+						$theStatement[ kAPI_QUERY_DATA ] = $save;
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:
@@ -421,8 +475,18 @@ class CMongoQuery extends CQuery
 						break;
 						
 					case kOPERATOR_LESS:
-						CMongoDataWrapper::UnserialiseData
-							( $theStatement[ kAPI_QUERY_DATA ] );
+						//
+						// Note this ugly workflow:
+						// I need to do this or else I get this
+						// Notice: Indirect modification of overloaded element of MyClass
+						// has no effect in /MySource.php
+						// Which means that I cannot pass
+						// $theStatement[ kAPI_QUERY_DATA ][ $key ] to UnserialiseData()
+						// or I get the notice and the thing doesn't work.
+						//
+						$save = $theStatement[ kAPI_QUERY_DATA ];
+						$theContainer->UnserialiseData( $save );
+						$theStatement[ kAPI_QUERY_DATA ] = $save;
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:
@@ -440,8 +504,18 @@ class CMongoQuery extends CQuery
 						break;
 						
 					case kOPERATOR_LESS_EQUAL:
-						CMongoDataWrapper::UnserialiseData
-							( $theStatement[ kAPI_QUERY_DATA ] );
+						//
+						// Note this ugly workflow:
+						// I need to do this or else I get this
+						// Notice: Indirect modification of overloaded element of MyClass
+						// has no effect in /MySource.php
+						// Which means that I cannot pass
+						// $theStatement[ kAPI_QUERY_DATA ][ $key ] to UnserialiseData()
+						// or I get the notice and the thing doesn't work.
+						//
+						$save = $theStatement[ kAPI_QUERY_DATA ];
+						$theContainer->UnserialiseData( $save );
+						$theStatement[ kAPI_QUERY_DATA ] = $save;
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:
@@ -459,8 +533,18 @@ class CMongoQuery extends CQuery
 						break;
 						
 					case kOPERATOR_GREAT:
-						CMongoDataWrapper::UnserialiseData
-							( $theStatement[ kAPI_QUERY_DATA ] );
+						//
+						// Note this ugly workflow:
+						// I need to do this or else I get this
+						// Notice: Indirect modification of overloaded element of MyClass
+						// has no effect in /MySource.php
+						// Which means that I cannot pass
+						// $theStatement[ kAPI_QUERY_DATA ][ $key ] to UnserialiseData()
+						// or I get the notice and the thing doesn't work.
+						//
+						$save = $theStatement[ kAPI_QUERY_DATA ];
+						$theContainer->UnserialiseData( $save );
+						$theStatement[ kAPI_QUERY_DATA ] = $save;
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:
@@ -478,8 +562,18 @@ class CMongoQuery extends CQuery
 						break;
 						
 					case kOPERATOR_GREAT_EQUAL:
-						CMongoDataWrapper::UnserialiseData
-							( $theStatement[ kAPI_QUERY_DATA ] );
+						//
+						// Note this ugly workflow:
+						// I need to do this or else I get this
+						// Notice: Indirect modification of overloaded element of MyClass
+						// has no effect in /MySource.php
+						// Which means that I cannot pass
+						// $theStatement[ kAPI_QUERY_DATA ][ $key ] to UnserialiseData()
+						// or I get the notice and the thing doesn't work.
+						//
+						$save = $theStatement[ kAPI_QUERY_DATA ];
+						$theContainer->UnserialiseData( $save );
+						$theStatement[ kAPI_QUERY_DATA ] = $save;
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:
@@ -500,7 +594,7 @@ class CMongoQuery extends CQuery
 						$list = Array();
 						foreach( $theStatement[ kAPI_QUERY_DATA ] as $value )
 						{
-							CMongoDataWrapper::UnserialiseData( $value );
+							$theContainer->UnserialiseData( $value );
 							$list[ (double) (string) $value ] = $value;
 						}
 						ksort( $list );
@@ -591,8 +685,20 @@ class CMongoQuery extends CQuery
 					case kOPERATOR_IN:
 						$keys = array_keys( $theStatement[ kAPI_QUERY_DATA ] );
 						foreach( $keys as $key )
-							CMongoDataWrapper::UnserialiseData
-								( $theStatement[ kAPI_QUERY_DATA ][ $key ] );
+						//
+						// Note this ugly workflow:
+						// I need to do this or else I get this
+						// Notice: Indirect modification of overloaded element of MyClass
+						// has no effect in /MySource.php
+						// Which means that I cannot pass
+						// $theStatement[ kAPI_QUERY_DATA ][ $key ] to UnserialiseData()
+						// or I get the notice and the thing doesn't work.
+						//
+						{
+							$save = $theStatement[ kAPI_QUERY_DATA ][ $key ];
+							$theContainer->UnserialiseData( $save );
+							$theStatement[ kAPI_QUERY_DATA ][ $key ] = $save;
+						}
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:
@@ -612,8 +718,20 @@ class CMongoQuery extends CQuery
 					case kOPERATOR_NI:
 						$keys = array_keys( $theStatement[ kAPI_QUERY_DATA ] );
 						foreach( $keys as $key )
-							CMongoDataWrapper::UnserialiseData
-								( $theStatement[ kAPI_QUERY_DATA ][ $key ] );
+						//
+						// Note this ugly workflow:
+						// I need to do this or else I get this
+						// Notice: Indirect modification of overloaded element of MyClass
+						// has no effect in /MySource.php
+						// Which means that I cannot pass
+						// $theStatement[ kAPI_QUERY_DATA ][ $key ] to UnserialiseData()
+						// or I get the notice and the thing doesn't work.
+						//
+						{
+							$save = $theStatement[ kAPI_QUERY_DATA ][ $key ];
+							$theContainer->UnserialiseData( $save );
+							$theStatement[ kAPI_QUERY_DATA ][ $key ] = $save;
+						}
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:
@@ -633,8 +751,20 @@ class CMongoQuery extends CQuery
 					case kOPERATOR_ALL:
 						$keys = array_keys( $theStatement[ kAPI_QUERY_DATA ] );
 						foreach( $keys as $key )
-							CMongoDataWrapper::UnserialiseData
-								( $theStatement[ kAPI_QUERY_DATA ][ $key ] );
+						//
+						// Note this ugly workflow:
+						// I need to do this or else I get this
+						// Notice: Indirect modification of overloaded element of MyClass
+						// has no effect in /MySource.php
+						// Which means that I cannot pass
+						// $theStatement[ kAPI_QUERY_DATA ][ $key ] to UnserialiseData()
+						// or I get the notice and the thing doesn't work.
+						//
+						{
+							$save = $theStatement[ kAPI_QUERY_DATA ][ $key ];
+							$theContainer->UnserialiseData( $save );
+							$theStatement[ kAPI_QUERY_DATA ][ $key ] = $save;
+						}
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:

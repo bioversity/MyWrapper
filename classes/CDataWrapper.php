@@ -182,6 +182,54 @@ class CDataWrapper extends CWrapper
 
 /*=======================================================================================
  *																						*
+ *								PUBLIC MEMBER INTERFACE									*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	Container																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage container.
+	 *
+	 * We {@link CWrapper::Container() overload} this method to ensure the provided
+	 * container is an instance of {@link CContainer CContainer}.
+	 *
+	 * @param mixed					$theValue			Persistent container or operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return mixed
+	 */
+	public function Container( $theValue = NULL, $getOld = FALSE )
+	{
+		//
+		// Handle retrieve or delete.
+		//
+		if( ($theValue === NULL)
+		 || ($theValue === FALSE) )
+			return parent::Container( $theValue, $getOld );							// ==>
+		
+		//
+		// Check value.
+		//
+		if( $theValue instanceof CContainer )
+			return parent::Container( $theValue, $getOld );							// ==>
+		
+		throw new CException( "Invalid container type",
+							  kERROR_INVALID_PARAMETER,
+							  kMESSAGE_TYPE_ERROR,
+							  array( 'Container' => $theValue ) );				// !@! ==>
+
+	} // Container.
+
+		
+
+/*=======================================================================================
+ *																						*
  *							PROTECTED INITIALISATION INTERFACE							*
  *																						*
  *======================================================================================*/

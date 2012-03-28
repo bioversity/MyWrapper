@@ -214,12 +214,17 @@ class CPersistentObject extends CStatusObject
 								 $theModifiers = kFLAG_DEFAULT )
 	{
 		//
+		// Prepare create.
+		//
+		$this->_PrepareCreate( $theContainer, $theIdentifier, $theModifiers );
+		
+		//
 		// Provided container.
 		//
 		if( $theIdentifier !== NULL )
 		{
 			//
-			// Prepare.
+			// Prepare load.
 			//
 			$this->_PrepareLoad( $theContainer, $theIdentifier, $theModifiers );
 			
@@ -702,6 +707,42 @@ class CPersistentObject extends CStatusObject
 
 	 
 	/*===================================================================================
+	 *	_PrepareCreate																	*
+	 *==================================================================================*/
+
+	/**
+	 * Normalise parameters of a create.
+	 *
+	 * The duty of this method is to ensure that the parameters provided to a
+	 * {@link _Create() create} operation are valid.
+	 *
+	 * The method has a chance to manage the data before it is set in the object.
+	 *
+	 * In this class we set the {@link _IsEncoded() encoded} status
+	 * {@link kFLAG_STATE_ENCODED flag} if provided among the modifiers.
+	 *
+	 * @param reference			   &$theContainer		Object container.
+	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Create modifiers.
+	 *
+	 * @access protected
+	 *
+	 * @uses _IsEncoded()
+	 *
+	 * @see kFLAG_STATE_ENCODED
+	 */
+	protected function _PrepareCreate( &$theContainer, &$theIdentifier, &$theModifiers )
+	{
+		//
+		// Set encoded flag.
+		//
+		if( $theModifiers & kFLAG_STATE_ENCODED )
+			$this->_IsEncoded( TRUE );
+	
+	} // _PrepareCreate.
+
+	 
+	/*===================================================================================
 	 *	_PrepareLoad																	*
 	 *==================================================================================*/
 
@@ -721,9 +762,8 @@ class CPersistentObject extends CStatusObject
 	 *
 	 * Any errors should raise an exception.
 	 *
-	 * In this class we only support {@link CContainer CContainer} containers, the
-	 * identifier is not expected to be <i>NULL</i> and we set the eventual
-	 * {@link _IsEncoded() encoded} status {@link kFLAG_STATE_ENCODED flag}.
+	 * In this class we only support {@link CContainer CContainer} containers and the
+	 * identifier is not expected to be <i>NULL</i>.
 	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
@@ -766,12 +806,6 @@ class CPersistentObject extends CStatusObject
 					( "Missing object identifier",
 					  kERROR_OPTION_MISSING,
 					  kMESSAGE_TYPE_ERROR );									// !@! ==>
-		
-		//
-		// Set encoded flag.
-		//
-		if( $theModifiers & kFLAG_STATE_ENCODED )
-			$this->_IsEncoded( TRUE );
 	
 	} // _PrepareLoad.
 

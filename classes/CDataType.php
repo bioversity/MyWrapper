@@ -243,7 +243,30 @@ abstract class CDataType extends CArrayObject
 			// Recurse.
 			//
 			foreach( $theObject as $key => $value )
-				self::SerialiseObject( $theObject[ $key ] );
+			//
+			// Note this ugly workflow:
+			// I need to do this or else I get this
+			// Notice: Indirect modification of overloaded element of MyClass
+			// has no effect in /MySource.php
+			// Which means that I cannot pass $theObject[ $key ] to UnserialiseData()
+			// or I get the notice and the thing doesn't work.
+			//
+			{
+				//
+				// Copy data.
+				//
+				$save = $theObject[ $key ];
+				
+				//
+				// Convert data.
+				//
+				self::SerialiseObject( $save );
+				
+				//
+				// Restore data.
+				//
+				$theObject[ $key ] = $save;
+			}
 		
 		} // Is a struct.
 		

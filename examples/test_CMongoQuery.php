@@ -304,7 +304,7 @@ try
 			// Instantiate.
 			//
 			$test = new CMongoQuery( $query );
-			echo( '<pre>' );
+			echo( 'Query:<pre>' );
 			print_r( $test );
 			echo( '</pre>' );
 			$test->Validate();
@@ -314,7 +314,7 @@ try
 			// Convert.
 			//
 			$converted = $test->Export( $collection );
-			echo( '<pre>' );
+			echo( 'Converted:<pre>' );
 			print_r( $converted );
 			echo( '</pre>' );
 		}

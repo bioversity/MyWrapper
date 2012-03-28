@@ -84,131 +84,49 @@ class CMongoDataWrapper extends CDataWrapper
 
 /*=======================================================================================
  *																						*
- *								PUBLIC CONVERSION INTERFACE								*
+ *								PUBLIC MEMBER INTERFACE									*
  *																						*
  *======================================================================================*/
 
 
 	 
 	/*===================================================================================
-	 *	UnserialiseData																	*
+	 *	Container																		*
 	 *==================================================================================*/
 
 	/**
-	 * Unserialise provided data element.
+	 * Manage container.
 	 *
-	 * We {@link CContainer::UnserialiseData() implement} this method to convert all
-	 * standard {@link CDataType types} into custom Mongo data types.
+	 * We {@link CDataWrapper::Container() overload} this method to ensure the provided
+	 * container is an instance of {@link CMongoContainer CMongoContainer}.
 	 *
-	 * In this class we parse the following types and {@link kTAG_TYPE offsets}:
+	 * @param mixed					$theValue			Persistent container or operation.
+	 * @param boolean				$getOld				TRUE get old value.
 	 *
-	 * <ul>
-	 *	<li><i>{@link CDataTypeMongoId CDataTypeMongoId} object or
-	 *		{@link kDATA_TYPE_MongoId kDATA_TYPE_MongoId} offset</i>: We return a MongoId
-	 *		object.
-	 *	<li><i>{@link CDataTypeMongoCode CDataTypeMongoCode} object or
-	 *		{@link kDATA_TYPE_MongoCode kDATA_TYPE_MongoCode} offset</i>: We return a
-	 *		MongoCode object.
-	 *	<li><i>{@link CDataTypeStamp CDataTypeStamp} object or
-	 *		{@link kDATA_TYPE_STAMP kDATA_TYPE_STAMP} offset</i>: We return a MongoDate
-	 *		object.
-	 *	<li><i>{@link CDataTypeMongoRegex CDataTypeMongoRegex} object or
-	 *		{@link kDATA_TYPE_MongoRegex kDATA_TYPE_MongoRegex} offset</i>: We return a
-	 *		MongoRegex object.
-	 *	<li><i>{@link CDataTypeInt32 CDataTypeInt32} object or
-	 *		{@link kDATA_TYPE_INT32 kDATA_TYPE_INT32} offset</i>: We return a MongoInt32
-	 *		object.
-	 *	<li><i>{@link CDataTypeInt64 CDataTypeInt64} object or
-	 *		{@link kDATA_TYPE_INT64 kDATA_TYPE_INT64} offset</i>: We return a MongoInt64
-	 *		object.
-	 *	<li><i>{@link CDataTypeBinary CDataTypeBinary} object or
-	 *		{@link kDATA_TYPE_BINARY kDATA_TYPE_BINARY} offset</i>: We return a MongoBinData
-	 *		object.
-	 * </ul>
-	 *
-	 * @param reference			   &$theElement			Element to encode.
-	 *
-	 * @static
+	 * @access public
+	 * @return mixed
 	 */
-	static function UnserialiseData( &$theElement )
+	public function Container( $theValue = NULL, $getOld = FALSE )
 	{
 		//
-		// Handle type.
+		// Handle retrieve or delete.
 		//
-		$data = $theElement[ kTAG_DATA ];
-		switch( $theElement[ kTAG_TYPE ] )
-		{
-			//
-			// MongoId.
-			//
-			case kDATA_TYPE_MongoId:
-				$theElement = new MongoId( (string) $data );
-				break;
-			
-			//
-			// MongoCode.
-			//
-			case kDATA_TYPE_MongoCode:
-				if( is_array( $data )
-				 || ($data instanceof ArrayObject) )
-				{
-					$tmp1 = $data[ kOBJ_TYPE_CODE_SRC ];
-					$tmp2 = ( array_key_exists( kOBJ_TYPE_CODE_SCOPE, (array) $data ) )
-						  ? $data[ kOBJ_TYPE_CODE_SCOPE ]
-						  : Array();
-					$theElement = new MongoCode( $tmp1, $tmp2 );
-				}
-				break;
-			
-			//
-			// MongoDate.
-			//
-			case kDATA_TYPE_STAMP:
-				if( is_array( $data )
-				 || ($data instanceof ArrayObject) )
-				{
-					$tmp1 = $data[ kOBJ_TYPE_STAMP_SEC ];
-					$tmp2 = ( array_key_exists( kOBJ_TYPE_STAMP_USEC, (array) $data ) )
-						  ? $data[ kOBJ_TYPE_STAMP_USEC ]
-						  : 0;
-					$theElement = new MongoDate( $tmp1, $tmp2 );
-				}
-				break;
-			
-			//
-			// MongoInt32.
-			//
-			case kDATA_TYPE_INT32:
-				$theElement = new MongoInt32( $data );
-				break;
-			
-			//
-			// MongoInt64.
-			//
-			case kDATA_TYPE_INT64:
-				$theElement = new MongoInt64( $data );
-				break;
-
-			//
-			// MongoRegex.
-			//
-			case kDATA_TYPE_MongoRegex:
-				$theElement = new MongoRegex( $data );
-				break;
-
-			//
-			// MongoBinData.
-			//
-			case kDATA_TYPE_BINARY:
-				$data = ( function_exists( 'hex2bin' ) )
-					  ? hex2bin( $data )
-					  : pack( 'H*', $data );
-				$theElement = new MongoBinData( $data );
-				break;
+		if( ($theValue === NULL)
+		 || ($theValue === FALSE) )
+			return parent::Container( $theValue, $getOld );							// ==>
 		
-		} // Parsing by type.
-	
-	} // UnserialiseData.
+		//
+		// Check value.
+		//
+		if( $theValue instanceof CMongoContainer )
+			return parent::Container( $theValue, $getOld );							// ==>
+		
+		throw new CException( "Invalid container type",
+							  kERROR_INVALID_PARAMETER,
+							  kMESSAGE_TYPE_ERROR,
+							  array( 'Container' => $theValue ) );				// !@! ==>
+
+	} // Container.
 
 		
 
@@ -357,38 +275,61 @@ class CMongoDataWrapper extends CDataWrapper
 	 *
 	 * This method will format the request container.
 	 *
-	 * In this class we set the container to a MongoCollection object.
+	 * In this class we set the request container to a MongoCollection object and the
+	 * current object {@link Container() container} to a
+	 * {@link CMongoContainer CMongoContainer}.
 	 *
 	 * @access private
 	 */
 	protected function _FormatContainer()
 	{
 		//
-		// Get collection connection.
+		// Prefer set container.
 		//
-		if( array_key_exists( kAPI_CONTAINER, $_REQUEST ) )
+		if( ($container = $this->Container()) instanceof CMongoContainer )
+			$_REQUEST[ kAPI_CONTAINER ] = $container->Container();
+		
+		//
+		// Use provided database and collection.
+		//
+		else
 		{
 			//
-			// Check if database was provided.
+			// Get collection connection.
 			//
-			if( array_key_exists( kAPI_DATABASE, $_REQUEST ) )
+			if( array_key_exists( kAPI_CONTAINER, $_REQUEST ) )
+			{
+				//
+				// Check if database was provided.
+				//
+				if( array_key_exists( kAPI_DATABASE, $_REQUEST ) )
+					$_REQUEST[ kAPI_CONTAINER ]
+						= $_REQUEST[ kAPI_DATABASE ]
+							->selectCollection( $_REQUEST[ kAPI_CONTAINER ] );
+			
+			} // Provided container.
+			
+			//
+			// Get container from reference.
+			//
+			elseif( ($_REQUEST[ kAPI_OPERATION ] == kAPI_OP_GET_OBJECT_REF)
+				 && array_key_exists( kAPI_DATA_OBJECT, $_REQUEST )
+				 && array_key_exists( kTAG_CONTAINER_REFERENCE,
+				 					  $_REQUEST[ kAPI_DATA_OBJECT ] )
+				 && array_key_exists( kAPI_DATABASE, $_REQUEST ) )
 				$_REQUEST[ kAPI_CONTAINER ]
 					= $_REQUEST[ kAPI_DATABASE ]
-						->selectCollection( $_REQUEST[ kAPI_CONTAINER ] );
+						->selectCollection
+							( $_REQUEST[ kAPI_DATA_OBJECT ][ kTAG_CONTAINER_REFERENCE ] );
+			
+			//
+			// Set current object container.
+			//
+			if( array_key_exists( kAPI_CONTAINER, $_REQUEST )
+			 && ($_REQUEST[ kAPI_CONTAINER ] instanceof MongoCollection) )
+				$this->Container( new CMongoContainer( $_REQUEST[ kAPI_CONTAINER ] ) );
 		
-		} // Provided container.
-		
-		//
-		// Get container from reference.
-		//
-		elseif( ($_REQUEST[ kAPI_OPERATION ] == kAPI_OP_GET_OBJECT_REF)
-			 && array_key_exists( kAPI_DATA_OBJECT, $_REQUEST )
-			 && array_key_exists( kTAG_CONTAINER_REFERENCE, $_REQUEST[ kAPI_DATA_OBJECT ] )
-			 && array_key_exists( kAPI_DATABASE, $_REQUEST ) )
-			$_REQUEST[ kAPI_CONTAINER ]
-				= $_REQUEST[ kAPI_DATABASE ]
-					->selectCollection
-						( $_REQUEST[ kAPI_DATA_OBJECT ][ kTAG_CONTAINER_REFERENCE ] );
+		} // Provided database and collection.
 	
 	} // _FormatContainer.
 
@@ -631,7 +572,9 @@ class CMongoDataWrapper extends CDataWrapper
 			// Format query.
 			//
 			if( array_key_exists( kAPI_DATA_QUERY, $_REQUEST ) )
-				$_REQUEST[ kAPI_DATA_QUERY ] = $_REQUEST[ kAPI_DATA_QUERY ]->Export();
+				$_REQUEST[ kAPI_DATA_QUERY ]
+					= $_REQUEST[ kAPI_DATA_QUERY ]
+						->Export( $this->Container() );
 		
 		} // Provided query.
 	
@@ -699,6 +642,9 @@ class CMongoDataWrapper extends CDataWrapper
 				parent::_HandleRequest();
 				break;
 		}
+$save = $this[ kAPI_DATA_RESPONSE ];
+CDataType::SerialiseData( $save );
+$this[ kAPI_DATA_RESPONSE ] = $save;
 	
 	} // _HandleRequest.
 

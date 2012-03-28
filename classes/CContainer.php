@@ -643,7 +643,30 @@ abstract class CContainer extends CObject
 				// Intercept standard data types.
 				//
 				if( $value instanceof CDataType )
-					$this->UnserialiseData( $theObject[ $key ] );
+				//
+				// Note this ugly workflow:
+				// I need to do this or else I get this
+				// Notice: Indirect modification of overloaded element of MyClass
+				// has no effect in /MySource.php
+				// Which means that I cannot pass $theObject[ $key ] to UnserialiseData()
+				// or I get the notice and the thing doesn't work.
+				//
+				{
+					//
+					// Copy data.
+					//
+					$save = $theObject[ $key ];
+					
+					//
+					// Convert data.
+					//
+					$this->UnserialiseData( $save );
+					
+					//
+					// Restore data.
+					//
+					$theObject[ $key ] = $save;
+				}
 					
 				//
 				// Intercept structs.
@@ -657,13 +680,59 @@ abstract class CContainer extends CObject
 					if( array_key_exists( kTAG_TYPE, (array) $value )
 					 && array_key_exists( kTAG_DATA, (array) $value )
 					 && (count( $value ) == 2) )
-						$this->UnserialiseData( $theObject[ $key ] );
+					//
+					// Note this ugly workflow:
+					// I need to do this or else I get this
+					// Notice: Indirect modification of overloaded element of MyClass
+					// has no effect in /MySource.php
+					// Which means that I cannot pass $theObject[ $key ] to UnserialiseData()
+					// or I get the notice and the thing doesn't work.
+					//
+					{
+						//
+						// Copy data.
+						//
+						$save = $theObject[ $key ];
+						
+						//
+						// Convert data.
+						//
+						$this->UnserialiseData( $save );
+						
+						//
+						// Restore data.
+						//
+						$theObject[ $key ] = $save;
+					}
 					
 					//
 					// Recurse.
 					//
 					else
-						$this->UnserialiseObject( $theObject[ $key ] );
+					//
+					// Note this ugly workflow:
+					// I need to do this or else I get this
+					// Notice: Indirect modification of overloaded element of MyClass
+					// has no effect in /MySource.php
+					// Which means that I cannot pass $theObject[ $key ] to UnserialiseData()
+					// or I get the notice and the thing doesn't work.
+					//
+					{
+						//
+						// Copy data.
+						//
+						$save = $theObject[ $key ];
+						
+						//
+						// Convert data.
+						//
+						$this->UnserialiseObject( $save );
+						
+						//
+						// Restore data.
+						//
+						$theObject[ $key ] = $save;
+					}
 				
 				} // Is a struct.
 			
