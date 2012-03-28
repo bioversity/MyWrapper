@@ -84,54 +84,6 @@ class CMongoDataWrapper extends CDataWrapper
 
 /*=======================================================================================
  *																						*
- *								PUBLIC MEMBER INTERFACE									*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	Container																		*
-	 *==================================================================================*/
-
-	/**
-	 * Manage container.
-	 *
-	 * We {@link CDataWrapper::Container() overload} this method to ensure the provided
-	 * container is an instance of {@link CMongoContainer CMongoContainer}.
-	 *
-	 * @param mixed					$theValue			Persistent container or operation.
-	 * @param boolean				$getOld				TRUE get old value.
-	 *
-	 * @access public
-	 * @return mixed
-	 */
-	public function Container( $theValue = NULL, $getOld = FALSE )
-	{
-		//
-		// Handle retrieve or delete.
-		//
-		if( ($theValue === NULL)
-		 || ($theValue === FALSE) )
-			return parent::Container( $theValue, $getOld );							// ==>
-		
-		//
-		// Check value.
-		//
-		if( $theValue instanceof CMongoContainer )
-			return parent::Container( $theValue, $getOld );							// ==>
-		
-		throw new CException( "Invalid container type",
-							  kERROR_INVALID_PARAMETER,
-							  kMESSAGE_TYPE_ERROR,
-							  array( 'Container' => $theValue ) );				// !@! ==>
-
-	} // Container.
-
-		
-
-/*=======================================================================================
- *																						*
  *							PROTECTED INITIALISATION INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -178,16 +130,16 @@ class CMongoDataWrapper extends CDataWrapper
 	protected function _FormatRequest()	
 	{
 		//
-		// Call parent method.
-		//
-		parent::_FormatRequest();
-		
-		//
-		// Handle parameters.
+		// Handle data storage.
 		//
 		$this->_FormatDatabase();
 		$this->_FormatContainer();
 	
+		//
+		// Call parent method.
+		//
+		parent::_FormatRequest();
+		
 	} // _FormatRequest.
 
 	 
@@ -275,61 +227,39 @@ class CMongoDataWrapper extends CDataWrapper
 	 *
 	 * This method will format the request container.
 	 *
-	 * In this class we set the request container to a MongoCollection object and the
-	 * current object {@link Container() container} to a
-	 * {@link CMongoContainer CMongoContainer}.
+	 * In this class we set the request container to a MongoCollection object.
 	 *
 	 * @access private
 	 */
 	protected function _FormatContainer()
 	{
 		//
-		// Prefer set container.
+		// Get collection connection.
 		//
-		if( ($container = $this->Container()) instanceof CMongoContainer )
-			$_REQUEST[ kAPI_CONTAINER ] = $container->Container();
-		
-		//
-		// Use provided database and collection.
-		//
-		else
+		if( array_key_exists( kAPI_CONTAINER, $_REQUEST ) )
 		{
 			//
-			// Get collection connection.
+			// Check if database was provided.
 			//
-			if( array_key_exists( kAPI_CONTAINER, $_REQUEST ) )
-			{
-				//
-				// Check if database was provided.
-				//
-				if( array_key_exists( kAPI_DATABASE, $_REQUEST ) )
-					$_REQUEST[ kAPI_CONTAINER ]
-						= $_REQUEST[ kAPI_DATABASE ]
-							->selectCollection( $_REQUEST[ kAPI_CONTAINER ] );
-			
-			} // Provided container.
-			
-			//
-			// Get container from reference.
-			//
-			elseif( ($_REQUEST[ kAPI_OPERATION ] == kAPI_OP_GET_OBJECT_REF)
-				 && array_key_exists( kAPI_DATA_OBJECT, $_REQUEST )
-				 && array_key_exists( kTAG_CONTAINER_REFERENCE,
-				 					  $_REQUEST[ kAPI_DATA_OBJECT ] )
-				 && array_key_exists( kAPI_DATABASE, $_REQUEST ) )
+			if( array_key_exists( kAPI_DATABASE, $_REQUEST ) )
 				$_REQUEST[ kAPI_CONTAINER ]
 					= $_REQUEST[ kAPI_DATABASE ]
-						->selectCollection
-							( $_REQUEST[ kAPI_DATA_OBJECT ][ kTAG_CONTAINER_REFERENCE ] );
-			
-			//
-			// Set current object container.
-			//
-			if( array_key_exists( kAPI_CONTAINER, $_REQUEST )
-			 && ($_REQUEST[ kAPI_CONTAINER ] instanceof MongoCollection) )
-				$this->Container( new CMongoContainer( $_REQUEST[ kAPI_CONTAINER ] ) );
+						->selectCollection( $_REQUEST[ kAPI_CONTAINER ] );
 		
-		} // Provided database and collection.
+		} // Provided container.
+		
+		//
+		// Get container from reference.
+		//
+		elseif( ($_REQUEST[ kAPI_OPERATION ] == kAPI_OP_GET_OBJECT_REF)
+			 && array_key_exists( kAPI_DATA_OBJECT, $_REQUEST )
+			 && array_key_exists( kTAG_CONTAINER_REFERENCE,
+								  $_REQUEST[ kAPI_DATA_OBJECT ] )
+			 && array_key_exists( kAPI_DATABASE, $_REQUEST ) )
+			$_REQUEST[ kAPI_CONTAINER ]
+				= $_REQUEST[ kAPI_DATABASE ]
+					->selectCollection
+						( $_REQUEST[ kAPI_DATA_OBJECT ][ kTAG_CONTAINER_REFERENCE ] );
 	
 	} // _FormatContainer.
 
@@ -385,10 +315,50 @@ class CMongoDataWrapper extends CDataWrapper
 		parent::_FormatObject();
 		
 		//
-		// Convert to native Mongo types.
+		// Check if object is there.
 		//
 		if( array_key_exists( kAPI_DATA_OBJECT, $_REQUEST ) )
-			CDataType::SerialiseObject( $_REQUEST[ kAPI_DATA_OBJECT ] );
+		{
+			//
+			// Check if container is there.
+			//
+			if( array_key_exists( kAPI_CONTAINER, $_REQUEST ) )
+			{
+				//
+				// Correct container type.
+				//
+				if( $_REQUEST[ kAPI_CONTAINER ] instanceof MongoCollection )
+				{
+					//
+					// Instantiate container.
+					//
+					$container = new CMongoContainer( $_REQUEST[ kAPI_CONTAINER ] );
+					
+					//
+					// Convert object.
+					//
+					$container->UnserialiseObject( $_REQUEST[ kAPI_DATA_OBJECT ] );
+				
+				} // Supported container.
+				
+				else
+					throw new CException
+						( "Unsupported container type",
+						  kERROR_UNSUPPORTED,
+						  kMESSAGE_TYPE_ERROR,
+						  array( 'Container'
+							=> $_REQUEST[ kAPI_CONTAINER ] ) );				// !@! ==>
+			
+			} // Provided container.
+			
+			else
+				throw new CException
+					( "Missing container reference",
+					  kERROR_OPTION_MISSING,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Parameter' => kAPI_CONTAINER ) );				// !@! ==>
+		
+		} // Provided object.
 	
 	} // _FormatObject.
 
@@ -572,9 +542,45 @@ class CMongoDataWrapper extends CDataWrapper
 			// Format query.
 			//
 			if( array_key_exists( kAPI_DATA_QUERY, $_REQUEST ) )
-				$_REQUEST[ kAPI_DATA_QUERY ]
-					= $_REQUEST[ kAPI_DATA_QUERY ]
-						->Export( $this->Container() );
+			{
+				//
+				// Check container.
+				//
+				if( array_key_exists( kAPI_CONTAINER, $_REQUEST ) )
+				{
+					//
+					// Correct container type.
+					//
+					if( $_REQUEST[ kAPI_CONTAINER ] instanceof MongoCollection )
+					{
+						//
+						// Convert query.
+						//
+						$_REQUEST[ kAPI_DATA_QUERY ]
+							= $_REQUEST[ kAPI_DATA_QUERY ]
+								->Export( new CMongoContainer
+									( $_REQUEST[ kAPI_CONTAINER ] ) );
+					
+					} // Supported container.
+					
+					else
+						throw new CException
+							( "Unsupported container type",
+							  kERROR_UNSUPPORTED,
+							  kMESSAGE_TYPE_ERROR,
+							  array( 'Container'
+							  	=> $_REQUEST[ kAPI_CONTAINER ] ) );				// !@! ==>
+				
+				} // Provided container.
+				
+				else
+					throw new CException
+						( "Missing container reference",
+						  kERROR_OPTION_MISSING,
+						  kMESSAGE_TYPE_ERROR,
+						  array( 'Parameter' => kAPI_CONTAINER ) );				// !@! ==>
+				
+			} // Still there.
 		
 		} // Provided query.
 	
@@ -642,9 +648,6 @@ class CMongoDataWrapper extends CDataWrapper
 				parent::_HandleRequest();
 				break;
 		}
-$save = $this[ kAPI_DATA_RESPONSE ];
-CDataType::SerialiseData( $save );
-$this[ kAPI_DATA_RESPONSE ] = $save;
 	
 	} // _HandleRequest.
 
@@ -1034,7 +1037,16 @@ $this[ kAPI_DATA_RESPONSE ] = $save;
 		//
 		// Serialise response.
 		//
-		CDataType::SerialiseObject( $_REQUEST[ kAPI_DATA_RESPONSE ] );
+		// Note this ugly workflow:
+		// I need to do this or else I get this
+		// Notice: Indirect modification of overloaded element of MyClass
+		// has no effect in /MySource.php
+		// Which means that I cannot pass $this[ kAPI_DATA_RESPONSE ] to SerialiseData()
+		// or I get the notice and the thing doesn't work.
+		//
+		$save = $this[ kAPI_DATA_RESPONSE ];
+		CDataType::SerialiseObject( $save );
+		$this[ kAPI_DATA_RESPONSE ] = $save;
 	
 	} // _Handle_Set.
 
@@ -1099,7 +1111,16 @@ $this[ kAPI_DATA_RESPONSE ] = $save;
 		//
 		// Serialise response.
 		//
-		CDataType::SerialiseObject( $_REQUEST[ kAPI_DATA_RESPONSE ] );
+		// Note this ugly workflow:
+		// I need to do this or else I get this
+		// Notice: Indirect modification of overloaded element of MyClass
+		// has no effect in /MySource.php
+		// Which means that I cannot pass $this[ kAPI_DATA_RESPONSE ] to SerialiseData()
+		// or I get the notice and the thing doesn't work.
+		//
+		$save = $this[ kAPI_DATA_RESPONSE ];
+		CDataType::SerialiseObject( $save );
+		$this[ kAPI_DATA_RESPONSE ] = $save;
 	
 	} // _Handle_Insert.
 

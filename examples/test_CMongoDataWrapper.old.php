@@ -50,48 +50,21 @@ $url = 'http://localhost/newwrapper/MongoDataWrapper.php';
 //
 try
 {
-	$array = array
-	(
-		kTAG_ID_NATIVE => array
-		(
-			kTAG_TYPE => kDATA_TYPE_MongoId,
-			kTAG_DATA => '4f5e28d2961be56010000003'
-		),
-		'Stamp' => array
-		(
-			kTAG_TYPE => kDATA_TYPE_STAMP,
-			kTAG_DATA => array
-			(
-				kOBJ_TYPE_STAMP_SEC => 22,
-				kOBJ_TYPE_STAMP_USEC => 1246
-			)
-		),
-		'RegExpr' => array
-		(
-			kTAG_TYPE => kDATA_TYPE_MongoRegex,
-			kTAG_DATA => '/^pippo/i'
-		),
-		'Int32' => array
-		(
-			kTAG_TYPE => kDATA_TYPE_INT32,
-			kTAG_DATA => 32
-		),
-		'Int64' => array
-		(
-			kTAG_TYPE => kDATA_TYPE_INT64,
-			kTAG_DATA => '12345678901234'
-		),
-		'Binary' => array
-		(
-			kTAG_TYPE => kDATA_TYPE_BINARY,
-			kTAG_DATA => bin2hex( 'PIPPO' )
-		)
 	//
-	// Create object 1.
+	// Open mongo connection.
 	//
-	$object1 = Array();
-	$object[ 'Name' ] = 'Milko';
-	$object[ 'Surname' ] = 'Škofič';
+	$mongo = New Mongo();
+	
+	//
+	// Select MCPD database.
+	//
+	$db = $mongo->selectDB( 'ONTOLOGY' );
+	
+	//
+	// Select test collection.
+	//
+	$collection = $db->selectCollection( 'VOCABULARY' );
+	$container = new CMongoContainer( $collection );
 	
 	//
 	// Get test object.

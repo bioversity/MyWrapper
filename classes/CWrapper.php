@@ -183,15 +183,6 @@ require_once( kPATH_LIBRARY_SOURCE."CWrapper.inc.php" );
 class CWrapper extends CStatusObject
 {
 	/**
-	 * Container.
-	 *
-	 * This data member holds the native container object.
-	 *
-	 * @var mixed
-	 */
-	 protected $mContainer = NULL;
-
-	/**
 	 * Reception time-stamp.
 	 *
 	 * This data member holds the request reception time stamp.
@@ -237,15 +228,9 @@ class CWrapper extends CStatusObject
 	 * This protected interface should be overloaded by derived classes to implement custom
 	 * services.
 	 *
-	 * The method accepts an optional parameter which represents a
-	 * {@link CContainer container}, this element is simply stored by this method, in derived
-	 * classes it will be implemented.
-	 *
-	 * @param mixed					$theContainer		Data container.
-	 *
 	 * @access public
 	 */
-	public function __construct( $theContainer = NULL )
+	public function __construct()
 	{
 		//
 		// Check dependencies.
@@ -255,12 +240,6 @@ class CWrapper extends CStatusObject
 		 || (! array_key_exists( kAPI_FORMAT, $_REQUEST ))		// or missing format,
 		 || (! array_key_exists( kAPI_OPERATION, $_REQUEST )) )	// or operation.
 			exit;																	// ==>
-		
-		//
-		// Set container.
-		//
-		if( $theContainer !== NULL )
-			$this->Container( $theContainer );
 		
 		//
 		// Set reception time.
@@ -318,54 +297,6 @@ class CWrapper extends CStatusObject
 		}
 
 	} // Constructor.
-
-		
-
-/*=======================================================================================
- *																						*
- *								PUBLIC MEMBER INTERFACE									*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	Container																		*
-	 *==================================================================================*/
-
-	/**
-	 * Manage container.
-	 *
-	 * This method can be used to manage the {@link CContainer container}, it accepts a
-	 * single parameter which represents either the container or the requested operation,
-	 * depending on its value:
-	 *
-	 * <ul>
-	 *	<li><i>NULL</i>: Return the current value.
-	 *	<li><i>FALSE</i>: Delete the current value.
-	 *	<li><i>other</i>: Set the value with the provided parameter.
-	 * </ul>
-	 *
-	 * The second parameter is a boolean which if <i>TRUE</i> will return the <i>old</i>
-	 * value when replacing containers; if <i>FALSE</i>, it will return the currently set
-	 * value.
-	 *
-	 * In derived classes you should overload this method to check if the provided container
-	 * is of the correct type, in this class we accept anything.
-	 *
-	 * @param mixed					$theValue			Persistent container or operation.
-	 * @param boolean				$getOld				TRUE get old value.
-	 *
-	 * @access public
-	 * @return mixed
-	 *
-	 * @uses ManageMember()
-	 */
-	public function Container( $theValue = NULL, $getOld = FALSE )
-	{
-		return CObject::ManageMember( $this->mContainer, $theValue, $getOld );		// ==>
-
-	} // Container.
 
 		
 
