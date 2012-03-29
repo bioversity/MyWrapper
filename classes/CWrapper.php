@@ -61,6 +61,13 @@ require_once( kPATH_LIBRARY_SOURCE."CWrapper.inc.php" );
  *		each class will implement specialised handlers, this class only implements the
  *		following two operations:
  *	 <ul>
+ *		<li><i>{@link kAPI_OP_LIST_OP kAPI_OP_LIST_OP}</i>: A <i>LIST-OP</i> command, this
+ *			command will return in the {@link kAPI_DATA_RESPONSE response} section the list
+ *			of supported operations as an array structured as follows:
+ *		 <ul>
+ *			<li><i>index</i>: The index will be the operation code.
+ *			<li><i>value</i>: The value will be the operation description.
+ *		 </ul>
  *		<li><i>{@link kAPI_OP_PING kAPI_OP_PING}</i>: A <i>PING</i> command, this can be
  *			used to check if a service is alive.
  *		<li><i>{@link kAPI_OP_DEBUG kAPI_OP_DEBUG}</i>: A <i>DEBUG</i> command, this can be
@@ -141,6 +148,9 @@ require_once( kPATH_LIBRARY_SOURCE."CWrapper.inc.php" );
  *		<li><i>{@link kAPI_RES_STAMP kAPI_RES_STAMP}</i>: Response time stamp, the time in
  *			which the response was sent.
  *	 </ul>
+ *	<li><i>{@link kAPI_DATA_RESPONSE kAPI_DATA_RESPONSE}</i>: Response, this section will
+ *		hold the operation response, in this class we only respond to
+ *		{@link kAPI_OP_LIST_OP operations} list requests.
  * </ul>
  *
  * Besides the {@link kAPI_FORMAT format} and {@link kAPI_OPERATION operation} parameters
@@ -810,6 +820,7 @@ class CWrapper extends CStatusObject
 			//
 			// Valid formats.
 			//
+			case kAPI_OP_LIST_OP:
 			case kAPI_OP_PING:
 			case kAPI_OP_DEBUG:
 				break;
@@ -875,6 +886,13 @@ class CWrapper extends CStatusObject
 		//
 		switch( $op = $_REQUEST[ kAPI_OPERATION ] )
 		{
+			case kAPI_OP_LIST_OP:
+				$list = Array();
+				$this->_Handle_ListOp( $list );
+				if( count( $list ) )
+					$this->offsetSet( kAPI_DATA_RESPONSE, $list );
+				break;
+
 			case kAPI_OP_PING:
 				$this->_Handle_Ping();
 				break;
@@ -894,6 +912,45 @@ class CWrapper extends CStatusObject
 	} // _HandleRequest.
 
 	 
+	/*===================================================================================
+	 *	_Handle_ListOp																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle {@link kAPI_OP_LIST_OP list} operations request.
+	 *
+	 * This method will handle the {@link kAPI_OP_LIST_OP kAPI_OP_LIST_OP} request, which
+	 * should return the list of supported operations.
+	 *
+	 * @param reference				$theList			Receives operations list.
+	 *
+	 * @access protected
+	 */
+	protected function _Handle_ListOp( &$theList )
+	{
+		//
+		// Add kAPI_OP_LIST_OP.
+		//
+		$theList[ kAPI_OP_LIST_OP ]
+			= 'List operations: returns the list of supported operations.';
+	
+		//
+		// Add kAPI_OP_PING.
+		//
+		$theList[ kAPI_OP_PING ]
+			= 'A PING command, this can be used to check if a service is alive.';
+	
+		//
+		// Add kAPI_OP_DEBUG.
+		//
+		$theList[ kAPI_OP_DEBUG ]
+			= 'A DEBUG command, this can be considered equivalent to the PING command, '
+			 .'except that the response is HTML-encoded and can be displayed directly '
+			 .'by a web browser.';
+	
+	} // _Handle_ListOp.
+
+		
 	/*===================================================================================
 	 *	_Handle_Ping																	*
 	 *==================================================================================*/

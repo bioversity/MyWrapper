@@ -39,7 +39,7 @@ require_once( kPATH_LIBRARY_SOURCE."CPersistentUnitObject.php" );
 //
 class MyClass extends CPersistentUnitObject
 {
-	public function Reference( $theValue, $theOperation = NULL, $getOld = FALSE )
+	public function Relation( $theValue, $theOperation = NULL, $getOld = FALSE )
 	{
 		return $this->_ManageObjectList
 				( 'REFERENCE', $theValue, $theOperation, $getOld );
@@ -295,17 +295,17 @@ try
 	echo( '<hr>' );
 	
 	//
-	// Reference list.
+	// Relation list.
 	//
-	echo( '<h3>Reference list</h3>' );
+	echo( '<h3>Relation list</h3>' );
 	
 	//
 	// Create references.
 	//
 	$id1 = 1;
-	$ref1 = new MyClass( array( 'Name' => 'Reference 1', kTAG_ID_NATIVE => $id1 ) );
-	$ref2 = new MyClass( array( 'Name' => 'Reference 2' ) );
-	$ref3 = new MyClass( array( 'Name' => 'Reference 3' ) );
+	$ref1 = new MyClass( array( 'Name' => 'Relation 1', kTAG_ID_NATIVE => $id1 ) );
+	$ref2 = new MyClass( array( 'Name' => 'Relation 2' ) );
+	$ref3 = new MyClass( array( 'Name' => 'Relation 3' ) );
 	$id3 = $ref3->Commit( $mcontainer );
 	
 	echo( '<i>References</i><br>' );
@@ -314,25 +314,25 @@ try
 	echo( '3:<pre>' ); print_r( $ref3 ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	echo( '<i>$res = $test->Reference( $ref1, TRUE );</i><br>' );
-	$res = $test->Reference( $ref1, TRUE );
+	echo( '<i>$res = $test->Relation( $ref1, TRUE );</i><br>' );
+	$res = $test->Relation( $ref1, TRUE );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	echo( '<i>$res = $test->Reference( $ref2, TRUE );</i><br>' );
-	$res = $test->Reference( $ref2, TRUE );
+	echo( '<i>$res = $test->Relation( $ref2, TRUE );</i><br>' );
+	$res = $test->Relation( $ref2, TRUE );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	echo( '<i>$res = $test->Reference( $id1 );</i><br>' );
-	$res = $test->Reference( $id1 );
+	echo( '<i>$res = $test->Relation( $id1 );</i><br>' );
+	$res = $test->Relation( $id1 );
 	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	echo( '<i>$res = $test->Reference( $ref2 );</i><br>' );
-	$res = $test->Reference( $ref2 );
+	echo( '<i>$res = $test->Relation( $ref2 );</i><br>' );
+	$res = $test->Relation( $ref2 );
 	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
 	echo( '<hr>' );
 	
@@ -342,14 +342,14 @@ try
 	echo( 'After:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	echo( '<i>$res = $test->Reference( $id1, FALSE );</i><br>' );
-	$res = $test->Reference( $id1, FALSE );
+	echo( '<i>$res = $test->Relation( $id1, FALSE );</i><br>' );
+	$res = $test->Relation( $id1, FALSE );
 	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	echo( '<i>$res = $test->Reference( $ref2, FALSE, TRUE );</i><br>' );
-	$res = $test->Reference( $ref2, FALSE, TRUE );
+	echo( '<i>$res = $test->Relation( $ref2, FALSE, TRUE );</i><br>' );
+	$res = $test->Relation( $ref2, FALSE, TRUE );
 	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
@@ -366,7 +366,7 @@ try
 	$ref1 = array( kTAG_TYPE => 'PARENT', kTAG_DATA => $id1 );
 	$ref2 = array( kTAG_TYPE => 'CHILD', kTAG_DATA => $ref2 );
 	$ref3 = array( kTAG_TYPE => 'CHILD', kTAG_DATA => $id3 );
-	$ref4 = array( kTAG_TYPE => 'OTHER', kTAG_DATA => new MyClass( array( 'Name' => 'Reference 4' ) ) );
+	$ref4 = array( kTAG_TYPE => 'OTHER', kTAG_DATA => new MyClass( array( 'Name' => 'Relation 4' ) ) );
 	
 	echo( '<i>References</i><br>' );
 	echo( '1:<pre>' ); print_r( $ref1 ); echo( '</pre>' );
@@ -375,47 +375,47 @@ try
 	echo( '4:<pre>' ); print_r( $ref4 ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	echo( '<i>$res = $test->Reference( $ref1, TRUE );</i><br>' );
-	$res = $test->Reference( $ref1, TRUE );
+	echo( '<i>$res = $test->Relation( $ref1, TRUE );</i><br>' );
+	$res = $test->Relation( $ref1, TRUE );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	echo( '<i>$res = $test->Reference( $ref2, TRUE );</i><br>' );
-	$res = $test->Reference( $ref2, TRUE );
+	echo( '<i>$res = $test->Relation( $ref2, TRUE );</i><br>' );
+	$res = $test->Relation( $ref2, TRUE );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	echo( '<i>$res = $test->Reference( $ref3, TRUE );</i><br>' );
-	echo( '<i>$res = $test->Reference( $ref4, TRUE );</i><br>' );
-	$res = $test->Reference( $ref3, TRUE );
-	$res = $test->Reference( $ref4, TRUE );
+	echo( '<i>$res = $test->Relation( $ref3, TRUE );</i><br>' );
+	echo( '<i>$res = $test->Relation( $ref4, TRUE );</i><br>' );
+	$res = $test->Relation( $ref3, TRUE );
+	$res = $test->Relation( $ref4, TRUE );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	echo( '<i>$res = $test->Reference( $ref1 );</i><br>' );
-	$res = $test->Reference( $ref1 );
+	echo( '<i>$res = $test->Relation( $ref1 );</i><br>' );
+	$res = $test->Relation( $ref1 );
 	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
-	echo( '<i>$res = $test->Reference( $ref2 );</i><br>' );
-	$res = $test->Reference( $ref2 );
+	echo( '<i>$res = $test->Relation( $ref2 );</i><br>' );
+	$res = $test->Relation( $ref2 );
 	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
-	echo( '<i>$res = $test->Reference( $ref3 );</i><br>' );
-	$res = $test->Reference( $ref3 );
+	echo( '<i>$res = $test->Relation( $ref3 );</i><br>' );
+	$res = $test->Relation( $ref3 );
 	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
-	echo( '<i>$res = $test->Reference( $ref4 );</i><br>' );
-	$res = $test->Reference( $ref4 );
+	echo( '<i>$res = $test->Relation( $ref4 );</i><br>' );
+	$res = $test->Relation( $ref4 );
 	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	echo( '<i>$res = $test->Reference( $ref1, FALSE );</i><br>' );
-	$res = $test->Reference( $ref1, FALSE );
+	echo( '<i>$res = $test->Relation( $ref1, FALSE );</i><br>' );
+	$res = $test->Relation( $ref1, FALSE );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( '<i>$res = $test->Reference( $ref2, FALSE );</i><br>' );
-	$res = $test->Reference( $ref2, FALSE );
+	echo( '<i>$res = $test->Relation( $ref2, FALSE );</i><br>' );
+	$res = $test->Relation( $ref2, FALSE );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( '<i>$res = $test->Reference( $ref3, FALSE );</i><br>' );
-	$res = $test->Reference( $ref3, FALSE );
+	echo( '<i>$res = $test->Relation( $ref3, FALSE );</i><br>' );
+	$res = $test->Relation( $ref3, FALSE );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
@@ -481,6 +481,25 @@ try
 	echo( '<i>$test = $mcontainer->Load( $found );</i><br>' );
 	$test = $mcontainer->Load( $found );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	//
+	// Test Reference.
+	//
+	echo( '<h3>Test Reference</h3>' );
+	
+	echo( '<i>Reference object</i><br>' );
+	echo( '<i>$ref = CPersistentUnitObject::Reference( $test, kFLAG_REFERENCE_MASK );</i><br>' );
+	$ref = CPersistentUnitObject::Reference( $test, kFLAG_REFERENCE_MASK );
+	echo( 'Reference:<pre>' ); print_r( $ref ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>Full reference object</i><br>' );
+	echo( '<i>$ref = MongoDBRef::create( \'CPersistentUnitObject\', $ref[ kTAG_ID_REFERENCE ], \'TEST\' );</i><br>' );
+	$ref = MongoDBRef::create( 'CPersistentUnitObject', $ref[ kTAG_ID_REFERENCE ], 'TEST' );
+	echo( '<i>$ref = CPersistentUnitObject::Reference( $ref, kFLAG_REFERENCE_MASK );</i><br>' );
+	$ref = CPersistentUnitObject::Reference( $ref, kFLAG_REFERENCE_MASK );
+	echo( 'Reference:<pre>' ); print_r( $ref ); echo( '</pre>' );
 	echo( '<hr>' );
 }
 

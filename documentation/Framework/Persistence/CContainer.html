@@ -667,7 +667,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/AbstractMethod.png" />
-		<span class="method-title">UnserialiseData</span> (line <span class="line-number">711</span>)
+		<span class="method-title">UnserialiseData</span> (line <span class="line-number">780</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -679,7 +679,6 @@
 	<ul class="tags">
 				<li><span class="field">abstract:</span> </li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">usedby:</span> <a href="../../Framework/Persistence/CMongoContainer.html#method_PrepareLoad">CMongoContainer::_PrepareLoad()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../Framework/Persistence/CContainer.html#method_PrepareCommit">CContainer::_PrepareCommit()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../Framework/Persistence/CContainer.html#methodUnserialiseObject">CContainer::UnserialiseObject()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../Framework/Persistence/CContainer.html#method_PrepareLoad">CContainer::_PrepareLoad()</a></li>
@@ -707,6 +706,10 @@
 				<a href="../../Framework/Persistence/CArrayContainer.html#methodUnserialiseData">CArrayContainer::UnserialiseData()</a>
 								: Unserialise provided data element.
 							</li>
+					<li>
+				<a href="../../Framework/Persistence/CMongoContainer.html#methodUnserialiseData">CMongoContainer::UnserialiseData()</a>
+								: Unserialise provided data element.
+							</li>
 				</ul>
 	</div>
 <a name="methodUnserialiseObject" id="UnserialiseObject"><!-- --></a>
@@ -727,6 +730,7 @@
         satisfied, the structure will be sent recursively to this method.</li></ul></p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Persistence/CMongoContainer.html#method_PrepareCommit">CMongoContainer::_PrepareCommit()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../Framework/Persistence/CContainer.html#method_PrepareCommit">CContainer::_PrepareCommit()</a></li>
 				<li><span class="field">uses:</span> <a href="../../Framework/Persistence/CContainer.html#methodUnserialiseData">CContainer::UnserialiseData()</a></li>
 			</ul>
@@ -752,7 +756,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/AbstractMethod.png" />
-		<span class="method-title">_Commit</span> (line <span class="line-number">770</span>)
+		<span class="method-title">_Commit</span> (line <span class="line-number">839</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -803,7 +807,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Container</span> (line <span class="line-number">737</span>)
+		<span class="method-title">_Container</span> (line <span class="line-number">806</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -811,11 +815,10 @@
 <p class="description"><p>This method can be used to retrieve a reference to the native container member, this  can be useful when the native <a href="../../Framework/Persistence/CContainer.html#methodContainer">container</a> is not an object passed  by reference.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
-				<li><span class="field">usedby:</span> <a href="../../Framework/Persistence/CMongoContainer.html#method_PrepareCommit">CMongoContainer::_PrepareCommit()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../Framework/Persistence/CArrayContainer.html#method_PrepareCommit">CArrayContainer::_PrepareCommit()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Persistence/CArrayContainer.html#method_Delete">CArrayContainer::_Delete()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../Framework/Persistence/CArrayContainer.html#method_Load">CArrayContainer::_Load()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../Framework/Persistence/CArrayContainer.html#method_Commit">CArrayContainer::_Commit()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../Framework/Persistence/CArrayContainer.html#method_Delete">CArrayContainer::_Delete()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -834,7 +837,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/AbstractMethod.png" />
-		<span class="method-title">_Delete</span> (line <span class="line-number">814</span>)
+		<span class="method-title">_Delete</span> (line <span class="line-number">883</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -882,7 +885,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishCommit</span> (line <span class="line-number">1124</span>)
+		<span class="method-title">_FinishCommit</span> (line <span class="line-number">1193</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -917,21 +920,13 @@
 				</ul>
 		
 			
-			<hr class="separator" />
-		<div class="notes">Redefined in descendants as:</div>
-		<ul class="redefinitions">
-					<li>
-				<a href="../../Framework/Persistence/CMongoContainer.html#method_FinishCommit">CMongoContainer::_FinishCommit()</a>
-								: Normalise after a _Commit().
-							</li>
-				</ul>
 	</div>
 <a name="method_FinishDelete" id="_FinishDelete"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishDelete</span> (line <span class="line-number">1167</span>)
+		<span class="method-title">_FinishDelete</span> (line <span class="line-number">1236</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -963,21 +958,13 @@
 				</ul>
 		
 			
-			<hr class="separator" />
-		<div class="notes">Redefined in descendants as:</div>
-		<ul class="redefinitions">
-					<li>
-				<a href="../../Framework/Persistence/CMongoContainer.html#method_FinishDelete">CMongoContainer::_FinishDelete()</a>
-								: Normalise after a store.
-							</li>
-				</ul>
 	</div>
 <a name="method_FinishLoad" id="_FinishLoad"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishLoad</span> (line <span class="line-number">1070</span>)
+		<span class="method-title">_FinishLoad</span> (line <span class="line-number">1139</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1012,21 +999,13 @@
 				</ul>
 		
 			
-			<hr class="separator" />
-		<div class="notes">Redefined in descendants as:</div>
-		<ul class="redefinitions">
-					<li>
-				<a href="../../Framework/Persistence/CMongoContainer.html#method_FinishLoad">CMongoContainer::_FinishLoad()</a>
-								: Normalise after a _Load().
-							</li>
-				</ul>
 	</div>
 <a name="method_Load" id="_Load"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/AbstractMethod.png" />
-		<span class="method-title">_Load</span> (line <span class="line-number">792</span>)
+		<span class="method-title">_Load</span> (line <span class="line-number">861</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1074,7 +1053,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">927</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">996</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1124,7 +1103,7 @@
 							</li>
 					<li>
 				<a href="../../Framework/Persistence/CMongoContainer.html#method_PrepareCommit">CMongoContainer::_PrepareCommit()</a>
-								: Normalise before a store.
+								: Prepare before a _Commit().
 							</li>
 				</ul>
 	</div>
@@ -1133,7 +1112,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareDelete</span> (line <span class="line-number">1013</span>)
+		<span class="method-title">_PrepareDelete</span> (line <span class="line-number">1082</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1165,21 +1144,13 @@
 				</ul>
 		
 			
-			<hr class="separator" />
-		<div class="notes">Redefined in descendants as:</div>
-		<ul class="redefinitions">
-					<li>
-				<a href="../../Framework/Persistence/CMongoContainer.html#method_PrepareDelete">CMongoContainer::_PrepareDelete()</a>
-								: Prepare before a _Delete().
-							</li>
-				</ul>
 	</div>
 <a name="method_PrepareLoad" id="_PrepareLoad"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">854</span>)
+		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">923</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1213,14 +1184,6 @@
 				</ul>
 		
 			
-			<hr class="separator" />
-		<div class="notes">Redefined in descendants as:</div>
-		<ul class="redefinitions">
-					<li>
-				<a href="../../Framework/Persistence/CMongoContainer.html#method_PrepareLoad">CMongoContainer::_PrepareLoad()</a>
-								: Prepare before a _Load().
-							</li>
-				</ul>
 	</div>
 <a name="method__toString" id="__toString"><!-- --></a>
 <div class="evenrow">
@@ -1284,7 +1247,7 @@
 
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 23 Mar 2012 19:16:30 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 29 Mar 2012 19:39:08 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

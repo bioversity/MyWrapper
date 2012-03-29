@@ -34,7 +34,10 @@
      <ul><li><em><a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_PHP">kDATA_TYPE_PHP</a></em>: A PHP-serialised string.</li><li><em><a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_JSON">kDATA_TYPE_JSON</a></em>: A JSON-serialised string.</li></ul></li><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">kAPI_OPERATION</a></em> (required): The requested operation,
         each class will implement specialised handlers, this class only implements the
         following two operations:
-     <ul><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_PING">kAPI_OP_PING</a></em>: A <em>PING</em> command, this can be
+     <ul><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_LIST_OP">kAPI_OP_LIST_OP</a></em>: A <em>LIST-OP</em> command, this
+            command will return in the <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_RESPONSE">response</a> section the list
+            of supported operations as an array structured as follows:
+         <ul><li><em>index</em>: The index will be the operation code.</li><li><em>value</em>: The value will be the operation description.</li></ul></li><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_PING">kAPI_OP_PING</a></em>: A <em>PING</em> command, this can be
             used to check if a service is alive.</li><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_DEBUG">kAPI_OP_DEBUG</a></em>: A <em>DEBUG</em> command, this can be
             considered equivalent to the <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_PING">PING</a> command, except that the
             response is HTML-encoded and can be displayed directly by a web browser. Derived
@@ -80,7 +83,9 @@
             which the request was sent; this is the same value sent by the caller in the
             <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_REQ_STAMP">kAPI_REQ_STAMP</a> parameter.</li><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_PARSE_STAMP">kAPI_PARSE_STAMP</a></em>: Parse time stamp, the time in
             which the service finished parsing the request.</li><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_RES_STAMP">kAPI_RES_STAMP</a></em>: Response time stamp, the time in
-            which the response was sent.</li></ul></li></ul></p><p>Besides the <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">format</a> and <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">operation</a> parameters  described in the first section, we have three other optional parameters that can be used  to receive specific information sections in the response:</p><p><ul><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPT_LOG_REQUEST">kAPI_OPT_LOG_REQUEST</a></em>: Log the request, if the
+            which the response was sent.</li></ul></li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_RESPONSE">kAPI_DATA_RESPONSE</a></em>: Response, this section will
+        hold the operation response, in this class we only respond to
+        <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_LIST_OP">operations</a> list requests.</li></ul></p><p>Besides the <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">format</a> and <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">operation</a> parameters  described in the first section, we have three other optional parameters that can be used  to receive specific information sections in the response:</p><p><ul><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPT_LOG_REQUEST">kAPI_OPT_LOG_REQUEST</a></em>: Log the request, if the
         value of this parameter is 1, the response will contain the received request in the
         <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_DATA_REQUEST">request</a> section.</li><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPT_LOG_TRACE">kAPI_OPT_LOG_TRACE</a></em>: Trace exceptions, if the
         value of this parameter is 1, in the case of an error that triggered an exception,
@@ -91,7 +96,7 @@
 <li><div class="src-line">&nbsp;<span class="src-var">$server</span><span class="src-sym">-&gt;</span><a href="../../Framework/Wrappers/CWrapper.html#methodHandleRequest">HandleRequest</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
 </ol></div></p><p>An example of this class implementation can be found in the  <a href="../../Server/Wrappers/_wrappers---Wrapper.php.html">Wrapper.php</a> source file.</p></p>
 		<p class="notes">
-			Located in <a class="field" href="_classes---CWrapper.php.html">/classes/CWrapper.php</a> (line <span class="field">183</span>)
+			Located in <a class="field" href="_classes---CWrapper.php.html">/classes/CWrapper.php</a> (line <span class="field">193</span>)
 		</p>
 		
 				
@@ -180,11 +185,11 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																																																																																																																																																																								<div class="method-definition">
+																																																																																																																																																																																<div class="method-definition">
 					<img src="../../media/images/Constructor.png" alt=" "/>
 											<span class="method-result">CWrapper</span>
 										<a href="#__construct" title="details" class="method-name">__construct</a>
-											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span>)
+										()
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -221,6 +226,12 @@
 											<span class="method-result">void</span>
 										<a href="#_Handle_Debug" title="details" class="method-name">_Handle_Debug</a>
 										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_Handle_ListOp" title="details" class="method-name">_Handle_ListOp</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">&$theList</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">$theList</span>)
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -323,7 +334,7 @@
 		<span class="var-title">
 			<span class="var-type">integer</span>
 			<span class="var-name">$mReceivedStamp</span>
-			 = <span class="var-default"> NULL</span>			(line <span class="line-number">192</span>)
+			 = <span class="var-default"> NULL</span>			(line <span class="line-number">202</span>)
 		</span>
 	</div>
 
@@ -369,12 +380,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Constructor.png" />
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">235</span>)
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">243</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Instantiate class.</p>
-<p class="description"><p>The constructor does not require any parameter, it will set-up the environment and  parse the request. The workflow is as follows:</p><p><ul><li><em>Check required elements</em>: The method will check if all required elements
+<p class="description"><p>The constructor will set-up the environment and parse the request.  The workflow is as follows:</p><p><ul><li><em>Check required elements</em>: The method will check if all required elements
 		of the request are there, if that is not the case it will just exit.</li><li><em>Init <a href="../../Framework/Wrappers/CWrapper.html#method_InitStatus">status</a></em>: The response status will be
         initialised to the <a href="../../Framework/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_IDLE">idle</a> state.</li><li><em>Init <a href="../../Framework/Wrappers/CWrapper.html#method_InitOptions">options</a></em>: Service options will be initialised.</li><li><em>Init <a href="../../Framework/Wrappers/CWrapper.html#method_InitResources">resources</a></em>: Eventual resources are
         initialised.</li><li><em><a href="../../Framework/Wrappers/CWrapper.html#method_ParseRequest">Parse</a> request</em>: The request is parsed.</li><li><em><a href="../../Framework/Wrappers/CWrapper.html#method_FormatRequest">Format</a> request</em>: The request is normalised if
@@ -388,14 +399,9 @@
 		<span class="method-name">
 			__construct
 		</span>
-					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span>)
+				()
 			</div>
 	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">mixed</span>
-				<span class="var-name">$theContainer</span><span class="var-description">: Data container.</span>			</li>
-				</ul>
 		
 			
 	</div>
@@ -404,7 +410,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">HandleRequest</span> (line <span class="line-number">326</span>)
+		<span class="method-title">HandleRequest</span> (line <span class="line-number">334</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -431,7 +437,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_EncodeResponse</span> (line <span class="line-number">1212</span>)
+		<span class="method-title">_EncodeResponse</span> (line <span class="line-number">1267</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -457,7 +463,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Exception2Status</span> (line <span class="line-number">1118</span>)
+		<span class="method-title">_Exception2Status</span> (line <span class="line-number">1173</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -495,7 +501,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FormatRequest</span> (line <span class="line-number">559</span>)
+		<span class="method-title">_FormatRequest</span> (line <span class="line-number">567</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -533,7 +539,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_HandleRequest</span> (line <span class="line-number">873</span>)
+		<span class="method-title">_HandleRequest</span> (line <span class="line-number">882</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -567,7 +573,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_Debug</span> (line <span class="line-number">928</span>)
+		<span class="method-title">_Handle_Debug</span> (line <span class="line-number">983</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -588,12 +594,58 @@
 		
 			
 	</div>
-<a name="method_Handle_Ping" id="_Handle_Ping"><!-- --></a>
+<a name="method_Handle_ListOp" id="_Handle_ListOp"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_Ping</span> (line <span class="line-number">913</span>)
+		<span class="method-title">_Handle_ListOp</span> (line <span class="line-number">929</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Handle <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_LIST_OP">list</a> operations request.</p>
+<p class="description"><p>This method will handle the <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_LIST_OP">kAPI_OP_LIST_OP</a> request, which  should return the list of supported operations.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_Handle_ListOp
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">&$theList</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">$theList</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">$theList</span><span class="var-description">: Receives operations list.</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">&$theList</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Framework/Wrappers/CDataWrapper.html#method_Handle_ListOp">CDataWrapper::_Handle_ListOp()</a>
+								: Handle <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_LIST_OP">list</a> operations request.
+							</li>
+					<li>
+				<a href="../../Framework/Wrappers/CMongoDataWrapper.html#method_Handle_ListOp">CMongoDataWrapper::_Handle_ListOp()</a>
+								: Handle <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_LIST_OP">list</a> operations request.
+							</li>
+				</ul>
+	</div>
+<a name="method_Handle_Ping" id="_Handle_Ping"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_Handle_Ping</span> (line <span class="line-number">968</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -615,11 +667,11 @@
 			
 	</div>
 <a name="method_InitOptions" id="_InitOptions"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_InitOptions</span> (line <span class="line-number">443</span>)
+		<span class="method-title">_InitOptions</span> (line <span class="line-number">451</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -649,11 +701,11 @@
 				</ul>
 	</div>
 <a name="method_InitResources" id="_InitResources"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_InitResources</span> (line <span class="line-number">487</span>)
+		<span class="method-title">_InitResources</span> (line <span class="line-number">495</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -683,11 +735,11 @@
 				</ul>
 	</div>
 <a name="method_InitStatus" id="_InitStatus"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_InitStatus</span> (line <span class="line-number">389</span>)
+		<span class="method-title">_InitStatus</span> (line <span class="line-number">397</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -709,11 +761,11 @@
 			
 	</div>
 <a name="method_OffsetManage" id="_OffsetManage"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_OffsetManage</span> (line <span class="line-number">970</span>)
+		<span class="method-title">_OffsetManage</span> (line <span class="line-number">1025</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -754,11 +806,11 @@
 			
 	</div>
 <a name="method_ParseFormat" id="_ParseFormat"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseFormat</span> (line <span class="line-number">639</span>)
+		<span class="method-title">_ParseFormat</span> (line <span class="line-number">647</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -780,11 +832,11 @@
 			
 	</div>
 <a name="method_ParseOperation" id="_ParseOperation"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseOperation</span> (line <span class="line-number">666</span>)
+		<span class="method-title">_ParseOperation</span> (line <span class="line-number">674</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -806,11 +858,11 @@
 			
 	</div>
 <a name="method_ParseRequest" id="_ParseRequest"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseRequest</span> (line <span class="line-number">520</span>)
+		<span class="method-title">_ParseRequest</span> (line <span class="line-number">528</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -840,11 +892,11 @@
 				</ul>
 	</div>
 <a name="method_ParseTiming" id="_ParseTiming"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseTiming</span> (line <span class="line-number">693</span>)
+		<span class="method-title">_ParseTiming</span> (line <span class="line-number">701</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -866,11 +918,11 @@
 			
 	</div>
 <a name="method_ValidateFormat" id="_ValidateFormat"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateFormat</span> (line <span class="line-number">745</span>)
+		<span class="method-title">_ValidateFormat</span> (line <span class="line-number">753</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -892,11 +944,11 @@
 			
 	</div>
 <a name="method_ValidateOperation" id="_ValidateOperation"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateOperation</span> (line <span class="line-number">805</span>)
+		<span class="method-title">_ValidateOperation</span> (line <span class="line-number">813</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -930,11 +982,11 @@
 				</ul>
 	</div>
 <a name="method_ValidateRequest" id="_ValidateRequest"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateRequest</span> (line <span class="line-number">594</span>)
+		<span class="method-title">_ValidateRequest</span> (line <span class="line-number">602</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1090,7 +1142,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 23 Mar 2012 19:16:34 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 29 Mar 2012 19:39:12 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

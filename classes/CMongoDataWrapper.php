@@ -63,12 +63,14 @@ require_once( kPATH_LIBRARY_SOURCE."CMongoDataWrapper.inc.php" );
  *		{@link kAPI_OP_GET kAPI_OP_GET} operation, except that it will only return the first
  *		found element. It is equivalent to the Mongo findOne() method.
  *	<li><i>{@link kAPI_OP_GET_OBJECT_REF kAPI_OP_GET_OBJECT_REF}</i>: This
- *		{@link kAPI_OPERATION operation} will return an object referenced by an object
- *		reference (<i>MongoDBRef</i>). With this command you will not provide the
- *		{@link kAPI_CONTAINER container} and the {@link kAPI_DATA_QUERY query}, but you
- *		will provide an object reference in the {@link kAPI_DATA_OBJECT kAPI_DATA_OBJECT}
- *		parameter. Remember to {@link CDataType::SerialiseObject() serialise} the reference
- *		before providing it to the wrapper.
+ *		{@link kAPI_OPERATION operation} will return an object referenced by an identifier
+ *		provided in the {@link kAPI_DATA_OBJECT kAPI_DATA_OBJECT} parameter. It is
+ *		equivalent to the {@link kAPI_OP_GET_ONE kAPI_OP_GET_ONE} operation, except that
+ *		instead of using the query provided in the {@link kAPI_DATA_QUERY kAPI_DATA_QUERY}
+ *		parameter, it will try to extract an identifier from the object provided in the
+ *		{@link kAPI_DATA_OBJECT kAPI_DATA_OBJECT} parameter. Remember to
+ *		{@link CDataType::SerialiseObject() serialise} the reference before providing it to
+ *		the wrapper.
  * </ul>
  *
  * This class also implements a static interface that can be used to
@@ -100,7 +102,7 @@ class CMongoDataWrapper extends CDataWrapper
 	 * In this class we initialise the Mongo object into the
 	 * {@link kSESSION_MONGO kSESSION_MONGO} offset of the $_SESSION variable.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	protected function _InitResources()		{	$_SESSION[ kSESSION_MONGO ] = new Mongo();	}
 
@@ -125,7 +127,7 @@ class CMongoDataWrapper extends CDataWrapper
 	 *
 	 * In this class we handle the parameters to be decoded
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	protected function _FormatRequest()	
 	{
@@ -156,7 +158,7 @@ class CMongoDataWrapper extends CDataWrapper
 	 * In this class we check if the provided {@link kAPI_DATA_OBJECT object} contains the
 	 * {@link kTAG_ID_REFERENCE identifier} when executing tree functions.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	protected function _ValidateRequest()
 	{
@@ -194,7 +196,7 @@ class CMongoDataWrapper extends CDataWrapper
 	 *
 	 * In this class we set the database to a MongoDB object.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	protected function _FormatDatabase()
 	{
@@ -204,16 +206,6 @@ class CMongoDataWrapper extends CDataWrapper
 		if( array_key_exists( kAPI_DATABASE, $_REQUEST ) )
 			$_REQUEST[ kAPI_DATABASE ]
 				= $_SESSION[ kSESSION_MONGO ]->selectDB( $_REQUEST[ kAPI_DATABASE ] );
-		
-		//
-		// Get database from reference.
-		//
-		elseif( ($_REQUEST[ kAPI_OPERATION ] == kAPI_OP_GET_OBJECT_REF)
-			 && array_key_exists( kAPI_DATA_OBJECT, $_REQUEST )
-			 && array_key_exists( kTAG_DATABASE_REFERENCE, $_REQUEST[ kAPI_DATA_OBJECT ] ) )
-			$_REQUEST[ kAPI_DATABASE ]
-				= $_SESSION[ kSESSION_MONGO ]
-					->selectDB( $_REQUEST[ kAPI_DATA_OBJECT ][ kTAG_DATABASE_REFERENCE ] );
 	
 	} // _FormatDatabase.
 
@@ -229,7 +221,7 @@ class CMongoDataWrapper extends CDataWrapper
 	 *
 	 * In this class we set the request container to a MongoCollection object.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	protected function _FormatContainer()
 	{
@@ -247,19 +239,6 @@ class CMongoDataWrapper extends CDataWrapper
 						->selectCollection( $_REQUEST[ kAPI_CONTAINER ] );
 		
 		} // Provided container.
-		
-		//
-		// Get container from reference.
-		//
-		elseif( ($_REQUEST[ kAPI_OPERATION ] == kAPI_OP_GET_OBJECT_REF)
-			 && array_key_exists( kAPI_DATA_OBJECT, $_REQUEST )
-			 && array_key_exists( kTAG_CONTAINER_REFERENCE,
-								  $_REQUEST[ kAPI_DATA_OBJECT ] )
-			 && array_key_exists( kAPI_DATABASE, $_REQUEST ) )
-			$_REQUEST[ kAPI_CONTAINER ]
-				= $_REQUEST[ kAPI_DATABASE ]
-					->selectCollection
-						( $_REQUEST[ kAPI_DATA_OBJECT ][ kTAG_CONTAINER_REFERENCE ] );
 	
 	} // _FormatContainer.
 
@@ -275,7 +254,7 @@ class CMongoDataWrapper extends CDataWrapper
 	 *
 	 * In this class we set the query to a CMongoQuery object.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	protected function _FormatQuery()
 	{
@@ -305,7 +284,7 @@ class CMongoDataWrapper extends CDataWrapper
 	 *
 	 * In this class we resolve the Mongo native types.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	protected function _FormatObject()
 	{
@@ -319,6 +298,83 @@ class CMongoDataWrapper extends CDataWrapper
 		//
 		if( array_key_exists( kAPI_DATA_OBJECT, $_REQUEST ) )
 		{
+			//
+			// Handle references.
+			//
+			switch( $parameter = $_REQUEST[ kAPI_OPERATION ] )
+			{
+				case kAPI_OP_GET_OBJECT_REF:
+					//
+					// Extract reference.
+					//
+					$reference
+						= CPersistentUnitObject::Reference
+							( $_REQUEST[ kAPI_DATA_OBJECT ], kFLAG_REFERENCE_IDENTIFIER +
+															 kFLAG_REFERENCE_CONTAINER +
+															 kFLAG_REFERENCE_DATABASE );
+					
+					//
+					// Handle reference.
+					//
+					if( $reference !== NULL )
+					{
+						//
+						// Add database reference.
+						//
+						if( array_key_exists( kAPI_DATABASE, $_REQUEST ) )
+							$reference[ kTAG_DATABASE_REFERENCE ]
+								= (string) $_REQUEST[ kAPI_DATABASE ];
+						
+						//
+						// Add container reference.
+						//
+						if( array_key_exists( kAPI_CONTAINER, $_REQUEST ) )
+							$reference[ kTAG_CONTAINER_REFERENCE ]
+								= $_REQUEST[ kAPI_CONTAINER ]->getName();
+						
+						//
+						// Copy reference.
+						//
+						$_REQUEST[ kAPI_DATA_OBJECT ] = $reference;
+						
+						//
+						// Handle database.
+						//
+						if( array_key_exists( kTAG_DATABASE_REFERENCE, $reference )
+						 && (! array_key_exists( kAPI_DATABASE, $_REQUEST )) )
+						{
+							$_REQUEST[ kAPI_DATABASE ]
+								= $reference[ kTAG_DATABASE_REFERENCE ];
+							$this->_FormatDatabase();
+						}
+						
+						//
+						// Handle container.
+						//
+						if( array_key_exists( kTAG_CONTAINER_REFERENCE, $reference )
+						 && (! array_key_exists( kAPI_CONTAINER, $_REQUEST )) )
+						{
+							$_REQUEST[ kAPI_CONTAINER ]
+								= $reference[ kTAG_CONTAINER_REFERENCE ];
+							$this->_FormatContainer();
+						}
+					
+					} // Resolved.
+					
+					//
+					// Invalid reference.
+					//
+					else
+						throw new CException
+							( "Invalid object reference",
+							  kERROR_UNSUPPORTED,
+							  kMESSAGE_TYPE_ERROR,
+							  array( 'Reference'
+								=> $_REQUEST[ kAPI_DATA_OBJECT ] ) );			// !@! ==>
+					
+					break;
+			}
+			
 			//
 			// Check if container is there.
 			//
@@ -386,7 +442,7 @@ class CMongoDataWrapper extends CDataWrapper
 	 * check if the object {@link kTAG_ID_NATIVE native} identifier is there: in that case
 	 * we compile the query with that value.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	protected function _ValidateOperation()
 	{
@@ -486,7 +542,7 @@ class CMongoDataWrapper extends CDataWrapper
 	 * {@link kAPI_DATA_OBJECT object} contains the {@link kTAG_ID_REFERENCE identifier}
 	 * when executing tree functions.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	protected function _ValidateObject()
 	{
@@ -496,14 +552,13 @@ class CMongoDataWrapper extends CDataWrapper
 		switch( $parameter = $_REQUEST[ kAPI_OPERATION ] )
 		{
 			case kAPI_OP_GET_OBJECT_REF:
-				if( ! array_key_exists( kTAG_ID_REFERENCE,
-										$_REQUEST[ kAPI_DATA_OBJECT ] ) )
+				if( ! array_key_exists( kAPI_DATA_OBJECT, $_REQUEST ) )
 					throw new CException
-						( "Missing object reference identifier",
+						( "Missing object reference parameter",
 						  kERROR_OPTION_MISSING,
 						  kMESSAGE_TYPE_ERROR,
 						  array( 'Operation' => $parameter,
-						  		 'Parameter' => kTAG_ID_REFERENCE ) );		// !@! ==>
+						  		 'Parameter' => kAPI_DATA_OBJECT ) );			// !@! ==>
 				break;
 			
 		} // Parsing parameter.
@@ -523,7 +578,7 @@ class CMongoDataWrapper extends CDataWrapper
 	 *
 	 * In this class we convert the query to the native Mongo format.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	protected function _ValidateQuery()
 	{
@@ -605,7 +660,7 @@ class CMongoDataWrapper extends CDataWrapper
 	 *
 	 * This method will handle the request.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	protected function _HandleRequest()
 	{
@@ -638,6 +693,10 @@ class CMongoDataWrapper extends CDataWrapper
 				$this->_Handle_Insert();
 				break;
 
+			case kAPI_OP_BATCH_INSERT:
+				$this->_Handle_BatchInsert();
+				break;
+
 			case kAPI_OP_DEL:
 				$this->_Handle_Delete();
 				break;
@@ -653,6 +712,55 @@ class CMongoDataWrapper extends CDataWrapper
 
 	 
 	/*===================================================================================
+	 *	_Handle_ListOp																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle {@link kAPI_OP_LIST_OP list} operations request.
+	 *
+	 * This method will handle the {@link kAPI_OP_LIST_OP kAPI_OP_LIST_OP} request, which
+	 * should return the list of supported operations.
+	 *
+	 * @param reference				$theList			Receives operations list.
+	 *
+	 * @access protected
+	 */
+	protected function _Handle_ListOp( &$theList )
+	{
+		//
+		// Call parent method.
+		//
+		parent::_Handle_ListOp( $theList );
+		
+		//
+		// Add kAPI_OP_GET_ONE.
+		//
+		$theList[ kAPI_OP_GET_ONE ]
+			= 'This operation is equivalent to the ['
+			 .kAPI_OP_GET
+			 .'] operation, except that it will only return the first found element. '
+			 .'It is equivalent to the Mongo findOne() method.';
+		
+		//
+		// Add kAPI_OP_GET_OBJECT_REF.
+		//
+		$theList[ kAPI_OP_GET_OBJECT_REF ]
+			= 'This operation will return an object referenced by an identifier '
+			 .'provided in the ['
+			 .kAPI_DATA_OBJECT
+			 .'] parameter. It is equivalent to the ['
+			 .kAPI_OP_GET_ONE
+			 .'] operation, except that instead of using the query provided in the ['
+			 .kAPI_DATA_QUERY
+			 .'] parameter, it will try to extract an identifier from the object '
+			 .'provided in the ['
+			 .kAPI_DATA_OBJECT
+			 .'] parameter.';
+	
+	} // _Handle_ListOp.
+
+		
+	/*===================================================================================
 	 *	_Handle_GetObjectByReference													*
 	 *==================================================================================*/
 
@@ -664,7 +772,7 @@ class CMongoDataWrapper extends CDataWrapper
 	 * object corresponding to the object {@link CMongoObjectReference reference} provided
 	 * in the {@link kAPI_DATA_OBJECT object} parameter.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	protected function _Handle_GetObjectByReference()
 	{
@@ -690,7 +798,7 @@ class CMongoDataWrapper extends CDataWrapper
 		//
 		// Return response.
 		//
-		$this[ kAPI_DATA_RESPONSE ] = $response;
+		$this->offsetSet( kAPI_DATA_RESPONSE, $response );
 	
 	} // _Handle_GetObjectByReference.
 
@@ -705,7 +813,7 @@ class CMongoDataWrapper extends CDataWrapper
 	 * This method will handle the {@link kAPI_OP_COUNT kAPI_OP_COUNT} request, which
 	 * returns the total count of a Mongo query.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	protected function _Handle_Count()
 	{
@@ -733,7 +841,7 @@ class CMongoDataWrapper extends CDataWrapper
 	 * This method will handle the {@link kAPI_OP_GET_ONE kAPI_OP_GET_ONE} request, which
 	 * corresponds to the findOne Mongo query.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	protected function _Handle_GetOne()
 	{
@@ -765,7 +873,7 @@ class CMongoDataWrapper extends CDataWrapper
 			//
 			// Copy response.
 			//
-			$this[ kAPI_DATA_RESPONSE ] = $object;
+			$this->offsetSet( kAPI_DATA_RESPONSE, $object );
 		}
 		
 		//
@@ -807,7 +915,7 @@ class CMongoDataWrapper extends CDataWrapper
 	 * This method will handle the {@link kAPI_OP_GET kAPI_OP_GET} request, which
 	 * corresponds to the find Mongo query.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	protected function _Handle_Get()
 	{
@@ -944,7 +1052,7 @@ class CMongoDataWrapper extends CDataWrapper
 				//
 				// Copy to response.
 				//
-				$this[ kAPI_DATA_RESPONSE ] = $result;
+				$this->offsetSet( kAPI_DATA_RESPONSE, $result );
 				
 			} // Has results.
 			
@@ -989,7 +1097,7 @@ class CMongoDataWrapper extends CDataWrapper
 	 * This method will handle the {@link kAPI_OP_SET kAPI_OP_SET} request, which
 	 * will insert/update the provided object.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	protected function _Handle_Set()
 	{
@@ -1032,7 +1140,7 @@ class CMongoDataWrapper extends CDataWrapper
 		//
 		// Copy response.
 		//
-		$this[ kAPI_DATA_RESPONSE ] = $_REQUEST[ kAPI_DATA_OBJECT ];
+		$this->offsetSet( kAPI_DATA_RESPONSE, $_REQUEST[ kAPI_DATA_OBJECT ] );
 		
 		//
 		// Serialise response.
@@ -1044,9 +1152,9 @@ class CMongoDataWrapper extends CDataWrapper
 		// Which means that I cannot pass $this[ kAPI_DATA_RESPONSE ] to SerialiseData()
 		// or I get the notice and the thing doesn't work.
 		//
-		$save = $this[ kAPI_DATA_RESPONSE ];
+		$save = $this->offsetGet( kAPI_DATA_RESPONSE );
 		CDataType::SerialiseObject( $save );
-		$this[ kAPI_DATA_RESPONSE ] = $save;
+		$this->offsetSet( kAPI_DATA_RESPONSE, $save );
 	
 	} // _Handle_Set.
 
@@ -1061,7 +1169,7 @@ class CMongoDataWrapper extends CDataWrapper
 	 * This method will handle the {@link kAPI_OP_INSERT kAPI_OP_INSERT} request, which
 	 * will insert the provided object.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	protected function _Handle_Insert()
 	{
@@ -1099,14 +1207,13 @@ class CMongoDataWrapper extends CDataWrapper
 		//
 		// Insert object.
 		//
-		$ok
-			= $_REQUEST[ kAPI_CONTAINER ]->insert
+		$ok = $_REQUEST[ kAPI_CONTAINER ]->insert
 				( $_REQUEST[ kAPI_DATA_OBJECT ], $options );
 		
 		//
 		// Copy response.
 		//
-		$this[ kAPI_DATA_RESPONSE ] = $_REQUEST[ kAPI_DATA_OBJECT ];
+		$this->offsetSet( kAPI_DATA_RESPONSE, $_REQUEST[ kAPI_DATA_OBJECT ] );
 		
 		//
 		// Serialise response.
@@ -1118,11 +1225,84 @@ class CMongoDataWrapper extends CDataWrapper
 		// Which means that I cannot pass $this[ kAPI_DATA_RESPONSE ] to SerialiseData()
 		// or I get the notice and the thing doesn't work.
 		//
-		$save = $this[ kAPI_DATA_RESPONSE ];
+		$save = $this->offsetGet( kAPI_DATA_RESPONSE );
 		CDataType::SerialiseObject( $save );
-		$this[ kAPI_DATA_RESPONSE ] = $save;
+		$this->offsetSet( kAPI_DATA_RESPONSE, $save );
 	
 	} // _Handle_Insert.
+
+	 
+	/*===================================================================================
+	 *	_Handle_BatchInsert																*
+	 *==================================================================================*/
+
+	/**
+	 * Handle {@link kAPI_OP_BATCH_INSERT batch} Insert request.
+	 *
+	 * This method will handle the {@link kAPI_OP_BATCH_INSERT kAPI_OP_BATCH_INSERT}
+	 * request, which will insert the provided list of objects.
+	 *
+	 * @access protected
+	 */
+	protected function _Handle_BatchInsert()
+	{
+		//
+		// Create options.
+		//
+		$options = Array();
+		if( array_key_exists( kAPI_DATA_OPTIONS, $_REQUEST ) )
+		{
+			//
+			// Iterate options.
+			//
+			foreach( $_REQUEST[ kAPI_DATA_OPTIONS ] as $key => $value )
+			{
+				//
+				// Parse options.
+				//
+				switch( $key )
+				{
+					case kAPI_OPT_SAFE:
+					case kAPI_OPT_FSYNC:
+						$options[ $key ] = (boolean) $value;
+						break;
+					
+					case kAPI_OPT_TIMEOUT:
+						$options[ $key ] = (integer) $value;
+						break;
+				
+				} // Parsed option.
+			
+			} // Iterating options.
+		
+		} // Iterated options.
+		
+		//
+		// Insert objects.
+		//
+		$ok = $_REQUEST[ kAPI_CONTAINER ]->batchInsert
+				( $_REQUEST[ kAPI_DATA_OBJECT ], $options );
+		
+		//
+		// Copy response.
+		//
+		$this->offsetSet( kAPI_DATA_RESPONSE, $_REQUEST[ kAPI_DATA_OBJECT ] );
+		
+		//
+		// Serialise response.
+		//
+		// Note this ugly workflow:
+		// I need to do this or else I get this
+		// Notice: Indirect modification of overloaded element of MyClass
+		// has no effect in /MySource.php
+		// Which means that I cannot pass $this[ kAPI_DATA_RESPONSE ] to SerialiseData()
+		// or I get the notice and the thing doesn't work.
+		//
+		$save = $this->offsetGet( kAPI_DATA_RESPONSE );
+		CDataType::SerialiseObject( $save );
+		$this->offsetSet( kAPI_DATA_RESPONSE, $save );
+	
+	} // _Handle_BatchInsert.
 
 	 
 	/*===================================================================================
@@ -1138,7 +1318,7 @@ class CMongoDataWrapper extends CDataWrapper
 	 * The method expects the <i>justOne</i> parameter in the provided
 	 * {@link kAPI_DATA_OPTIONS options}, if not provided, it will default to <i>FALSE</i>.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	protected function _Handle_Delete()
 	{
@@ -1221,7 +1401,7 @@ class CMongoDataWrapper extends CDataWrapper
 	 * @param reference			   &$theResult			Results list.
 	 * @param array					$theOptions			Key/value options list.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	protected function _HandleOptions( &$theResult, $theOptions )							{}
 

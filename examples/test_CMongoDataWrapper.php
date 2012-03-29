@@ -37,6 +37,73 @@ require_once( kPATH_LIBRARY_SOURCE."CMongoDataWrapper.php" );
 
 
 /*=======================================================================================
+ *	DECLARE TEST OBJECTS																*
+ *======================================================================================*/
+ 
+//
+// Create object 1.
+//
+$object1 = Array();
+$object1[ 'Name' ] = 'Milko';
+$object1[ 'Surname' ] = 'Škofič';
+$object1[ 'Date' ] = new CDataTypeStamp( new MongoDate( strtotime( "2011-12-31 23:59:59" ), 999999 ) );
+$object1[ 'Number' ] = new CDataTypeInt64( '123456789123456' );
+$object1[ 'Inst' ] = 'International Plant Genetic Resources Institute';
+$object1[ 'Cat' ] = array( 'Colours' => array( 'Orange', 'Yellow' ),
+						   'Teams' => array( 'Roma' ) );
+$object1[ kTAG_ID_NATIVE ] = 'Škofič';
+ 
+//
+// Create object 2.
+//
+$object2 = Array();
+$object2[ 'Name' ] = 'Luca';
+$object2[ 'Surname' ] = 'Matteis';
+$object2[ 'Date' ] = new CDataTypeStamp( new MongoDate( strtotime( "2012-01-01 00:00:00" ) ) );
+$object2[ 'Number' ] = new CDataTypeInt64( '123456789123457' );
+$object2[ 'Cat' ] = array( 'Colours' => array( 'Red', 'Green', 'Yellow', 'Orange' ),
+						   'Teams' => array( 'Roma' ) );
+$object2[ 'Inst' ] = 'Bioversity International';
+ 
+//
+// Create object 3.
+//
+$object3 = Array();
+$object3[ 'Name' ] = 'Elisabeth';
+$object3[ 'Surname' ] = 'Arnaud';
+$object3[ 'Date' ] = new CDataTypeStamp( new MongoDate( strtotime( "2010-07-28 12:04:27" ) ) );
+$object3[ 'Number' ] = new CDataTypeInt64( '123456789123458' );
+$object3[ 'Cat' ] = array( 'Colours' => array( 'Blue', 'Green' ),
+						   'Teams' => array( 'Paris St. Germain' ) );
+$object3[ 'Inst' ] = 'Banana a gogo';
+ 
+//
+// Create object 4.
+//
+$object4 = Array();
+$object4[ 'Name' ] = 'Luca';
+$object4[ 'Surname' ] = 'Sampieri';
+$object4[ 'Date' ] = new CDataTypeStamp( new MongoDate( strtotime( "1931-03-05 10:00:15" ) ) );
+$object4[ 'Number' ] = new CDataTypeInt64( '123456789123459' );
+$object4[ 'Inst' ] = 'Stretto di Messina';
+$object4[ 'Cat' ] = array( 'Colours' => array( 'Blue' ),
+						   'Teams' => array( 'Milan' ) );
+$object4[ kTAG_ID_NATIVE ] = new CDataTypeBinary( 'Sampieri' );
+ 
+//
+// Create object 5.
+//
+$object5 = Array();
+$object5[ 'Name' ] = 'Hannes';
+$object5[ 'Surname' ] = 'Gaisberger';
+$object5[ 'Date' ] = new CDataTypeStamp( new MongoDate( strtotime( "1971-105-18" ) ) );
+$object5[ 'Number' ] = new CDataTypeInt64( '123' );
+$object5[ 'Cat' ] = array( 'Colours' => array( 'Brown' ),
+						   'Teams' => array( 'Wien' ) );
+$object5[ 'Inst' ] = 'Wien';
+
+
+/*=======================================================================================
  *	TEST WRAPPER OBJECT																	*
  *======================================================================================*/
  
@@ -50,62 +117,68 @@ $url = 'http://localhost/newwrapper/MongoDataWrapper.php';
 //
 try
 {
-	$array = array
+	//
+	// Instantiate Mongo database.
+	//
+	$mongo = New Mongo();
+	
+	//
+	// Select MCPD database.
+	//
+	$db = $mongo->selectDB( "TEST" );
+	
+	//
+	// Drop database.
+	//
+	$db->drop();
+	
+	//
+	// Select test collection.
+	//
+	$collection = $db->selectCollection( 'CMongoDataWrapper' );
+	
+	//
+	// Create utility container.
+	//
+	$container = new CMongoContainer( $collection );
+	 
+	echo( '<h4>List operations</h4>' );
+	//
+	// List operations.
+	//
+	$params = array
 	(
-		kTAG_ID_NATIVE => array
-		(
-			kTAG_TYPE => kDATA_TYPE_MongoId,
-			kTAG_DATA => '4f5e28d2961be56010000003'
-		),
-		'Stamp' => array
-		(
-			kTAG_TYPE => kDATA_TYPE_STAMP,
-			kTAG_DATA => array
-			(
-				kOBJ_TYPE_STAMP_SEC => 22,
-				kOBJ_TYPE_STAMP_USEC => 1246
-			)
-		),
-		'RegExpr' => array
-		(
-			kTAG_TYPE => kDATA_TYPE_MongoRegex,
-			kTAG_DATA => '/^pippo/i'
-		),
-		'Int32' => array
-		(
-			kTAG_TYPE => kDATA_TYPE_INT32,
-			kTAG_DATA => 32
-		),
-		'Int64' => array
-		(
-			kTAG_TYPE => kDATA_TYPE_INT64,
-			kTAG_DATA => '12345678901234'
-		),
-		'Binary' => array
-		(
-			kTAG_TYPE => kDATA_TYPE_BINARY,
-			kTAG_DATA => bin2hex( 'PIPPO' )
-		)
+		(kAPI_FORMAT.'='.kDATA_TYPE_JSON),			// Format.
+		(kAPI_OPERATION.'='.kAPI_OP_LIST_OP)		// Command.
+	);
+	$request = $url.'?'.implode( '&', $params );
+	$response = file_get_contents( $request );
+	$decoded = json_decode( $response, TRUE );
 	//
-	// Create object 1.
+	// Display.
 	//
-	$object1 = Array();
-	$object[ 'Name' ] = 'Milko';
-	$object[ 'Surname' ] = 'Škofič';
-	
-	//
-	// Get test object.
-	//
-	$object_serialised = $object = $collection->findOne( array( ':GID' => 'PATO:0001766' ) );
-	CDataType::SerialiseObject( $object_serialised );
-	
-	//
-	// Convert object.
-	//
-	$object_json = json_encode( $object_serialised );
-	$object_php = serialize( $object_serialised );
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.$response.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
 	
 	echo( '<h4>Empty request</h4>' );
+	echo( '<i>Note that an empty request will return nothing.</i><br>' );
 	//
 	// Empty request.
 	//
@@ -131,12 +204,16 @@ try
 	echo( '<hr>' );
 	
 	echo( '<h4>Missing operation</h4>' );
+	echo( '<i>Note that we return nothing if no operation is provided.</i><br>' );
 	//
 	// Missing operation.
 	//
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_PHP),
-					 (kAPI_REQ_STAMP.'='.gettimeofday( true )),
-					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
+	$params = array
+	(
+		(kAPI_FORMAT.'='.kDATA_TYPE_PHP),			// Format.
+		(kAPI_REQ_STAMP.'='.gettimeofday( true )),	// Time-stamp.
+		(kAPI_OPT_LOG_REQUEST.'='.'1')				// Log request.
+	);
 	$request = $url.'?'.implode( '&', $params );
 	$response = file_get_contents( $request );
 	$decoded = unserialize( $response );
@@ -144,6 +221,48 @@ try
 	// Display.
 	//
 	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.htmlspecialchars( $response ).kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	echo( '<h4>Invalid operation</h4>' );
+	echo( '<i>Note the status.</i><br>' );
+	//
+	// Invalid operation.
+	//
+	$params = array
+	(
+		(kAPI_FORMAT.'='.kDATA_TYPE_PHP),			// Format.
+		(kAPI_OPERATION.'='.'XXX'),					// Command.
+		(kAPI_REQ_STAMP.'='.gettimeofday( true )),	// Time-stamp.
+		(kAPI_OPT_LOG_REQUEST.'='.'1')				// Log request.
+	);
+	$request = $url.'?'.implode( '&', $params );
+	$response = file_get_contents( $request );
+	$decoded = unserialize( $response );
+	//
+	// Display.
+	//
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
 	echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
@@ -160,13 +279,17 @@ try
 	echo( '<hr>' );
 	
 	echo( '<h4>Ping wrapper in PHP</h4>' );
+	echo( '<i>Check out the response encoding.</i><br>' );
 	//
 	// Ping wrapper in PHP.
 	//
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_PHP),
-					 (kAPI_OPERATION.'='.kAPI_OP_PING),
-					 (kAPI_REQ_STAMP.'='.gettimeofday( true )),
-					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
+	$params = array
+	(
+		(kAPI_FORMAT.'='.kDATA_TYPE_PHP),			// Format.
+		(kAPI_OPERATION.'='.kAPI_OP_PING),			// Command.
+		(kAPI_REQ_STAMP.'='.gettimeofday( true )),	// Time-stamp.
+		(kAPI_OPT_LOG_REQUEST.'='.'1')				// Log request.
+	);
 	$request = $url.'?'.implode( '&', $params );
 	$response = file_get_contents( $request );
 	$decoded = unserialize( $response );
@@ -174,6 +297,10 @@ try
 	// Display.
 	//
 	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
 	echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
@@ -190,13 +317,17 @@ try
 	echo( '<hr>' );
 	
 	echo( '<h4>Ping wrapper in JSON</h4>' );
+	echo( '<i>Check out the response encoding.</i><br>' );
 	//
 	// Ping wrapper in JSON.
 	//
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_JSON),
-					 (kAPI_OPERATION.'='.kAPI_OP_PING),
-					 (kAPI_REQ_STAMP.'='.gettimeofday( true )),
-					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
+	$params = array
+	(
+		(kAPI_FORMAT.'='.kDATA_TYPE_JSON),			// Format.
+		(kAPI_OPERATION.'='.kAPI_OP_PING),			// Command.
+		(kAPI_REQ_STAMP.'='.gettimeofday( true )),	// Time-stamp.
+		(kAPI_OPT_LOG_REQUEST.'='.'1')				// Log request.
+	);
 	$request = $url.'?'.implode( '&', $params );
 	$response = file_get_contents( $request );
 	$decoded = json_decode( $response, TRUE );
@@ -204,6 +335,10 @@ try
 	// Display.
 	//
 	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
 	echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
@@ -220,865 +355,224 @@ try
 	echo( '<hr>' );
 	
 	echo( '<h4>Debug wrapper</h4>' );
+	echo( '<i>Not really sure for what purpose we can use this...</i><br>' );
 	//
 	// Debug wrapper.
 	//
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_JSON),
-					 (kAPI_OPERATION.'='.kAPI_OP_DEBUG),
-					 (kAPI_REQ_STAMP.'='.gettimeofday( true )),
-					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
-	$request = $url.'?'.implode( '&', $params );
-	$response = file_get_contents( $request );
-	//
-	// Display.
-	//
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.$response.kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-	
-	echo( '<h4>Decode object in PHP</h4>' );
-	//
-	// Decode object in PHP.
-	//
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_PHP),
-					 (kAPI_OPERATION.'='.kAPI_OP_PING),
-					 (kAPI_DATA_OBJECT.'='.urlencode( $object_php )),
-					 (kAPI_REQ_STAMP.'='.gettimeofday( true )),
-					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
-	$request = $url.'?'.implode( '&', $params );
-	$response = file_get_contents( $request );
-	$decoded = unserialize( $response );
-	//
-	// Display.
-	//
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.htmlspecialchars( $response ).kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-	
-	echo( '<h4>Decode object in JSON</h4>' );
-	//
-	// Decode object in JSON.
-	//
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_JSON),
-					 (kAPI_OPERATION.'='.kAPI_OP_PING),
-					 (kAPI_DATA_OBJECT.'='.urlencode( $object_json )),
-					 (kAPI_REQ_STAMP.'='.gettimeofday( true )),
-					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
-	$request = $url.'?'.implode( '&', $params );
-	$response = file_get_contents( $request );
-	$decoded = json_decode( $response, TRUE );
-	//
-	// Display.
-	//
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.htmlspecialchars( $response ).kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-	
-	echo( '<h4>Decode query in PHP</h4>' );
-	//
-	// Decode query in PHP.
-	//
-	$query_php = serialize( array
+	$params = array
 	(
-		kOPERATOR_AND => array
-		(
-			0 => array
-			(
-				kAPI_QUERY_SUBJECT => ':XREF.:SCOPE',
-				kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-				kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
-				kAPI_QUERY_DATA => '2'
-			),
-			
-			1 => array
-			(
-				kOPERATOR_OR => array
-				(
-					0 => array
-					(
-						kAPI_QUERY_SUBJECT => ':XREF.:DATA._code',
-						kAPI_QUERY_OPERATOR => kOPERATOR_PREFIX,
-						kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
-						kAPI_QUERY_DATA => 'NCBI_taxid:'
-					),
-					
-					1 => array
-					(
-						kAPI_QUERY_SUBJECT => ':XREF.:DATA._code',
-						kAPI_QUERY_OPERATOR => kOPERATOR_PREFIX,
-						kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
-						kAPI_QUERY_DATA =>  'GR:'
-					)
-				)
-			)
-		)
-	) );
-	$fields_php = serialize( array( ':GID', ':XREF' ) );
-	$sort_php = serialize( array( ':LID', ':TYPE' ) );
-	$object_php = serialize( $object_serialised );
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_PHP),
-					 (kAPI_OPERATION.'='.kAPI_OP_DEBUG),
-					 (kAPI_PAGE_START.'='.'0'),
-					 (kAPI_PAGE_LIMIT.'='.'10'),
-					 (kAPI_DATA_QUERY.'='.urlencode( $query_php )),
-					 (kAPI_DATA_FIELD.'='.urlencode( $fields_php )),
-					 (kAPI_DATA_SORT.'='.urlencode( $sort_php )),
-					 (kAPI_DATA_OBJECT.'='.urlencode( $object_php )),
-					 (kAPI_REQ_STAMP.'='.gettimeofday( true )),
-					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
-	$request = $url.'?'.implode( '&', $params );
-	$response = file_get_contents( $request );
-	//
-	// Display.
-	//
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.$response.kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-	
-	echo( '<h4>Decode query in JSON</h4>' );
-	//
-	// Decode query in JSON.
-	//
-	$query_json = json_encode( array
-	(
-		kOPERATOR_AND => array
-		(
-			0 => array
-			(
-				kAPI_QUERY_SUBJECT => ':XREF.:SCOPE',
-				kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-				kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
-				kAPI_QUERY_DATA => '2'
-			),
-			
-			1 => array
-			(
-				kOPERATOR_OR => array
-				(
-					0 => array
-					(
-						kAPI_QUERY_SUBJECT => ':XREF.:DATA._code',
-						kAPI_QUERY_OPERATOR => kOPERATOR_PREFIX,
-						kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
-						kAPI_QUERY_DATA => 'NCBI_taxid:'
-					),
-					
-					1 => array
-					(
-						kAPI_QUERY_SUBJECT => ':XREF.:DATA._code',
-						kAPI_QUERY_OPERATOR => kOPERATOR_PREFIX,
-						kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
-						kAPI_QUERY_DATA =>  'GR:'
-					)
-				)
-			)
-		)
-	) );
-	$fields_json = json_encode( array( ':GID', ':XREF' ) );
-	$sort_json = json_encode( array( ':LID', ':TYPE' ) );
-	$object_json = json_encode( $object_serialised );
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_JSON),
-					 (kAPI_OPERATION.'='.kAPI_OP_DEBUG),
-					 (kAPI_PAGE_START.'='.'0'),
-					 (kAPI_PAGE_LIMIT.'='.'10'),
-					 (kAPI_DATA_QUERY.'='.urlencode( $query_json )),
-					 (kAPI_DATA_FIELD.'='.urlencode( $fields_json )),
-					 (kAPI_DATA_SORT.'='.urlencode( $sort_json )),
-					 (kAPI_DATA_OBJECT.'='.urlencode( $object_json )),
-					 (kAPI_REQ_STAMP.'='.gettimeofday( true )),
-					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
-	$request = $url.'?'.implode( '&', $params );
-	$response = file_get_contents( $request );
-	//
-	// Display.
-	//
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.$response.kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-	
-	echo( '<h4>Invalid operator</h4>' );
-	//
-	// Invalid operator.
-	//
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_JSON),
-					 (kAPI_OPERATION.'='.'XXX'),
-					 (kAPI_REQ_STAMP.'='.gettimeofday( true )),
-					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
-	$request = $url.'?'.implode( '&', $params );
-	$response = file_get_contents( $request );
-	$decoded = json_decode( $response, TRUE );
-	//
-	// Display.
-	//
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.htmlspecialchars( $response ).kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-	
-	echo( '<h4>Missing operator</h4>' );
-	//
-	// Missing operator.
-	//
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_JSON),
-					 (kAPI_REQ_STAMP.'='.gettimeofday( true )),
-					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
-	$request = $url.'?'.implode( '&', $params );
-	$response = file_get_contents( $request );
-	$decoded = json_decode( $response, TRUE );
-	//
-	// Display.
-	//
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.htmlspecialchars( $response ).kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-	
-	echo( '<h4>Missing data store references</h4>' );
-	//
-	// Missing data store references.
-	//
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_JSON),
-					 (kAPI_OPERATION.'='.kAPI_OP_GET_ONE),
-					 (kAPI_REQ_STAMP.'='.gettimeofday( true )),
-					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
-	$request = $url.'?'.implode( '&', $params );
-	$response = file_get_contents( $request );
-	$decoded = CObject::JsonDecode( $response );
-	//
-	// Display.
-	//
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.htmlspecialchars( $response ).kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-	
-	echo( '<h4>Missing database references</h4>' );
-	//
-	// Missing database references.
-	//
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_JSON),
-					 (kAPI_OPERATION.'='.kAPI_OP_GET_ONE),
-					 (kAPI_CONTAINER.'='.'VOCABULARY'),
-					 (kAPI_REQ_STAMP.'='.gettimeofday( true )),
-					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
-	$request = $url.'?'.implode( '&', $params );
-	$response = file_get_contents( $request );
-	$decoded = CObject::JsonDecode( $response );
-	//
-	// Display.
-	//
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.htmlspecialchars( $response ).kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-	
-	echo( '<h4>Missing container references</h4>' );
-	//
-	// Missing container references.
-	//
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_JSON),
-					 (kAPI_OPERATION.'='.kAPI_OP_GET_ONE),
-					 (kAPI_DATABASE.'='.'ONTOLOGY'),
-					 (kAPI_REQ_STAMP.'='.gettimeofday( true )),
-					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
-	$request = $url.'?'.implode( '&', $params );
-	$response = file_get_contents( $request );
-	$decoded = CObject::JsonDecode( $response );
-	//
-	// Display.
-	//
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.htmlspecialchars( $response ).kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-	echo( '<hr>' );
-	
-	//
-	// Test queries.
-	//
-	$queries = array
-	(
-
-		array
-		(
-			kOPERATOR_AND => array
-			(
-				0 => array
-				(
-					kAPI_QUERY_SUBJECT => ':TYPE',
-					kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-					kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
-					kAPI_QUERY_DATA => ':TERM'
-				),
-				
-				1 => array
-				(
-					kAPI_QUERY_SUBJECT => ':XREF.:SCOPE',
-					kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-					kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
-					kAPI_QUERY_DATA => '2'
-				)
-			)
-		),
-		array
-		(
-			kOPERATOR_OR => array
-			(
-				0 => array
-				(
-					kAPI_QUERY_SUBJECT => ':XREF.:DATA._code',
-					kAPI_QUERY_OPERATOR => kOPERATOR_PREFIX,
-					kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
-					kAPI_QUERY_DATA => 'NCBI_taxid:'
-				),
-				
-				1 => array
-				(
-					kAPI_QUERY_SUBJECT => ':XREF.:DATA._code',
-					kAPI_QUERY_OPERATOR => kOPERATOR_PREFIX,
-					kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
-					kAPI_QUERY_DATA =>  'GR:'
-				)
-			)
-		),
-		array
-		(
-			kOPERATOR_AND => array
-			(
-				0 => array
-				(
-					kAPI_QUERY_SUBJECT => ':TYPE',
-					kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-					kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
-					kAPI_QUERY_DATA => ':TERM'
-				),
-				
-				1 => array
-				(
-					kAPI_QUERY_SUBJECT => ':XREF.:SCOPE',
-					kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-					kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
-					kAPI_QUERY_DATA => '2'
-				),
-				
-				2 => array
-				(
-					kOPERATOR_OR => array
-					(
-						0 => array
-						(
-							kAPI_QUERY_SUBJECT => ':XREF.:DATA._code',
-							kAPI_QUERY_OPERATOR => kOPERATOR_PREFIX,
-							kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
-							kAPI_QUERY_DATA => 'NCBI_taxid:'
-						),
-						
-						1 => array
-						(
-							kAPI_QUERY_SUBJECT => ':XREF.:DATA._code',
-							kAPI_QUERY_OPERATOR => kOPERATOR_PREFIX,
-							kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
-							kAPI_QUERY_DATA =>  'GR:'
-						)
-					)
-				)
-			)
-		),
-		array
-		(
-			kOPERATOR_AND => array
-			(
-				array
-				(
-					kAPI_QUERY_SUBJECT => '_id',
-					kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-					kAPI_QUERY_TYPE => kDATA_TYPE_MongoId,
-					kAPI_QUERY_DATA => array
-					(
-						kTAG_TYPE => kDATA_TYPE_MongoId,
-						kTAG_DATA => '4de8e3e7961be57b0900329a'
-					)
-				)
-			)
-		),
-		array
-		(
-			kOPERATOR_AND => array
-			(
-				0 => array
-				(
-					kAPI_QUERY_SUBJECT => ':REF-COUNT',
-					kAPI_QUERY_OPERATOR => kOPERATOR_IRANGE,
-					kAPI_QUERY_TYPE => kDATA_TYPE_INT32,
-					kAPI_QUERY_DATA => array
-					(
-						array
-						(
-							kTAG_TYPE => kDATA_TYPE_INT32,
-							kTAG_DATA => 186
-						),
-						array
-						(
-							kTAG_TYPE => kDATA_TYPE_INT32,
-							kTAG_DATA => 103
-						)
-					)
-				)
-			)
-		),
-		array
-		(
-			kOPERATOR_AND => array
-			(
-				0 => array
-				(
-					kAPI_QUERY_SUBJECT => ':XREF',
-					kAPI_QUERY_OPERATOR => kOPERATOR_NOT_NULL
-				)
-			)
-		),
-		array
-		(
-			kOPERATOR_AND => array
-			(
-				0 => array
-				(
-					kAPI_QUERY_SUBJECT => ':REF-COUNT',
-					kAPI_QUERY_OPERATOR => kOPERATOR_NI,
-					kAPI_QUERY_TYPE => kDATA_TYPE_INT32,
-					kAPI_QUERY_DATA => array
-					(
-						array
-						(
-							kTAG_TYPE => kDATA_TYPE_INT32,
-							kTAG_DATA => 186
-						),
-						array
-						(
-							kTAG_TYPE => kDATA_TYPE_INT32,
-							kTAG_DATA => 103
-						)
-					)
-				)
-			)
-		)
+		(kAPI_FORMAT.'='.kDATA_TYPE_JSON),			// Format.
+		(kAPI_OPERATION.'='.kAPI_OP_DEBUG),			// Command.
+		(kAPI_REQ_STAMP.'='.gettimeofday( true )),	// Time-stamp.
+		(kAPI_OPT_LOG_REQUEST.'='.'1')				// Log request.
 	);
-	
-	echo( '<h4>Test queries</h4>' );
-	//
-	// Test queries.
-	//
-	$fields = array( ':GID', ':REF-COUNT' );
-	$fields_php = serialize( $fields );
-	$fields_json = json_encode( $fields );
-	$sort = array( ':GID' );
-	$sort_php = serialize( $sort );
-	$sort_json = json_encode( $sort );
-	foreach( $queries as $index => $query )
-	{
-		echo( "<b>Query [$index]</b><br>" );
-		$query_php = serialize( $query );
-		$query_json = json_encode( $query );
-		
-		echo( '<h4>kAPI_OP_COUNT in PHP</h4>' );
-		//
-		// Do kAPI_OP_COUNT.
-		//
-		$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_PHP),
-						 (kAPI_OPERATION.'='.kAPI_OP_COUNT),
-						 (kAPI_DATABASE.'='.'ONTOLOGY'),
-						 (kAPI_CONTAINER.'='.'VOCABULARY'),
-						 (kAPI_DATA_QUERY.'='.urlencode( $query_php )),
-						 (kAPI_DATA_FIELD.'='.urlencode( $fields_php )),
-						 (kAPI_DATA_SORT.'='.urlencode( $sort_php )),
-						 (kAPI_PAGE_START.'='.'0'),
-						 (kAPI_PAGE_LIMIT.'='.'3'),
-						 (kAPI_REQ_STAMP.'='.gettimeofday( true )),
-						 (kAPI_OPT_LOG_REQUEST.'='.'1') );
-		$request = $url.'?'.implode( '&', $params );
-		$response = file_get_contents( $request );
-		$decoded = unserialize( $response );
-		//
-		// Display.
-		//
-		echo( kSTYLE_TABLE_PRE );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
-		echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
-		echo( kSTYLE_DATA_PRE.htmlspecialchars( $response ).kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
-		echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_TABLE_POS );
-		echo( '<hr>' );
-		
-		echo( '<h4>kAPI_OP_GET_ONE in PHP</h4>' );
-		//
-		// Do kAPI_OP_GET_ONE.
-		//
-		$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_PHP),
-						 (kAPI_OPERATION.'='.kAPI_OP_GET_ONE),
-						 (kAPI_DATABASE.'='.'ONTOLOGY'),
-						 (kAPI_CONTAINER.'='.'VOCABULARY'),
-						 (kAPI_DATA_QUERY.'='.urlencode( $query_php )),
-						 (kAPI_DATA_FIELD.'='.urlencode( $fields_php )),
-						 (kAPI_DATA_SORT.'='.urlencode( $sort_php )),
-						 (kAPI_PAGE_START.'='.'0'),
-						 (kAPI_PAGE_LIMIT.'='.'3'),
-						 (kAPI_REQ_STAMP.'='.gettimeofday( true )),
-						 (kAPI_OPT_LOG_REQUEST.'='.'1') );
-		$request = $url.'?'.implode( '&', $params );
-		$response = file_get_contents( $request );
-		$decoded = unserialize( $response );
-		//
-		// Display.
-		//
-		echo( kSTYLE_TABLE_PRE );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
-		echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
-		echo( kSTYLE_DATA_PRE.htmlspecialchars( $response ).kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
-		echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_TABLE_POS );
-		echo( '<hr>' );
-		
-		echo( '<h4>kAPI_OP_GET in PHP</h4>' );
-		//
-		// Do kAPI_OP_GET.
-		//
-		$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_PHP),
-						 (kAPI_OPERATION.'='.kAPI_OP_GET),
-						 (kAPI_DATABASE.'='.'ONTOLOGY'),
-						 (kAPI_CONTAINER.'='.'VOCABULARY'),
-						 (kAPI_DATA_QUERY.'='.urlencode( $query_php )),
-						 (kAPI_DATA_FIELD.'='.urlencode( $fields_php )),
-						 (kAPI_DATA_SORT.'='.urlencode( $sort_php )),
-						 (kAPI_PAGE_START.'='.'0'),
-						 (kAPI_PAGE_LIMIT.'='.'3'),
-						 (kAPI_REQ_STAMP.'='.gettimeofday( true )),
-						 (kAPI_OPT_LOG_REQUEST.'='.'1') );
-		$request = $url.'?'.implode( '&', $params );
-		$response = file_get_contents( $request );
-		$decoded = unserialize( $response );
-		//
-		// Display.
-		//
-		echo( kSTYLE_TABLE_PRE );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
-		echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
-		echo( kSTYLE_DATA_PRE.htmlspecialchars( $response ).kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
-		echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_TABLE_POS );
-		echo( '<hr>' );
-	
-	} // Iterating queries.
-	
-	echo( '<h4>kAPI_OP_SET in PHP</h4>' );
-	//
-	// Test SET in PHP.
-	//
-	$options = array( kAPI_OPT_SAFE => TRUE );
-	$object = array( 'Pippo' => array( 'Uno', 'Due', 'Tre' ), 'Data' => new CDataTypeStamp() );
-	$object_php = serialize( $object );
-	$options_php = serialize( $options );
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_PHP),
-					 (kAPI_OPERATION.'='.kAPI_OP_SET),
-					 (kAPI_DATABASE.'='."TEST"),
-					 (kAPI_CONTAINER.'='."CMongoDataWrapper"),
-					 (kAPI_DATA_OBJECT.'='.urlencode( $object_php )),
-					 (kAPI_DATA_OPTIONS.'='.urlencode( $options_php )),
-					 (kAPI_REQ_STAMP.'='.gettimeofday( true )),
-					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
 	$request = $url.'?'.implode( '&', $params );
 	$response = file_get_contents( $request );
-	$decoded = unserialize( $response );
 	//
 	// Display.
 	//
 	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
 	echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.htmlspecialchars( $response ).kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_DATA_PRE.$response.kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
-	
-	echo( '<h4>kAPI_OP_SET in JSON</h4>' );
-	//
-	// Test SET in JSON.
-	//
-	$options = array( kAPI_OPT_SAFE => TRUE );
-	$object = array( 'Pippo' => array( 'Uno', 'Due', 'Tre' ), 'Data' => new CDataTypeStamp() );
-	$object_json = json_encode( $object );
-	$options_json = json_encode( $options );
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_JSON),
-					 (kAPI_OPERATION.'='.kAPI_OP_SET),
-					 (kAPI_DATABASE.'='."TEST"),
-					 (kAPI_CONTAINER.'='."CMongoDataWrapper"),
-					 (kAPI_DATA_OBJECT.'='.urlencode( $object_json )),
-					 (kAPI_DATA_OPTIONS.'='.urlencode( $options_json )),
-					 (kAPI_REQ_STAMP.'='.gettimeofday( true )),
-					 (kAPI_OPT_LOG_TRACE.'='.'1'),
-					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
-	$request = $url.'?'.implode( '&', $params );
-	$response = file_get_contents( $request );
-	$decoded = json_decode( $response, TRUE );
-	//
-	// Display.
-	//
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.htmlspecialchars( $response ).kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	
-	echo( '<h4>kAPI_OP_INSERT in PHP</h4>' );
+	echo( '<h4>Insert object</h4>' );
+	echo( '<i>The last <b>Found</b> section shows what we inserted '
+		 .'in the database.</i><br>' );
 	//
-	// Test INSERT in PHP.
+	// Insert.
 	//
-	$object = array( 'Pippo' => array( 'Uno', 'Due', 'Tre' ), 'Pappa' => 123 );
-	$object_php = serialize( $object );
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_PHP),
-					 (kAPI_OPERATION.'='.kAPI_OP_INSERT),
-					 (kAPI_DATABASE.'='."TEST"),
-					 (kAPI_CONTAINER.'='."CMongoDataWrapper"),
-					 (kAPI_DATA_OBJECT.'='.urlencode( $object_php )),
-					 (kAPI_DATA_OPTIONS.'='.urlencode( $options_php )),
-					 (kAPI_REQ_STAMP.'='.gettimeofday( true )),
-					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
-	$request = $url.'?'.implode( '&', $params );
-	$response = file_get_contents( $request );
-	$decoded = unserialize( $response );
-	//
-	// Display.
-	//
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.htmlspecialchars( $response ).kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-	
-	echo( '<h4>kAPI_OP_INSERT in JSON</h4>' );
-	//
-	// Test INSERT in JSON.
-	//
-	$object = array( 'Pippo' => array( 'Uno', 'Due', 'Tre' ), 'Pappa' => 123 );
-	$object_json = json_encode( $object );
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_JSON),
-					 (kAPI_OPERATION.'='.kAPI_OP_INSERT),
-					 (kAPI_DATABASE.'='."TEST"),
-					 (kAPI_CONTAINER.'='."CMongoDataWrapper"),
-					 (kAPI_DATA_OBJECT.'='.urlencode( $object_json )),
-					 (kAPI_DATA_OPTIONS.'='.urlencode( $options_json )),
-					 (kAPI_REQ_STAMP.'='.gettimeofday( true )),
-					 (kAPI_OPT_LOG_TRACE.'='.'1'),
-					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
-	$request = $url.'?'.implode( '&', $params );
-	$response = file_get_contents( $request );
-	$decoded = json_decode( $response, TRUE );
-	//
-	// Display.
-	//
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.htmlspecialchars( $response ).kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-	
-	echo( '<h4>kAPI_OP_DEL in PHP</h4>' );
-	//
-	// Test DELETE in PHP.
-	//
-	$query = array
+	$object = json_encode( $object1 );
+	$params = array
 	(
-		kOPERATOR_AND => array
-		(
-			0 => array
-			(
-				kAPI_QUERY_SUBJECT => 'Pappa',
-				kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-				kAPI_QUERY_TYPE => kDATA_TYPE_INT32,
-				kAPI_QUERY_DATA => 123
-			)
-		)
+		(kAPI_FORMAT.'='.kDATA_TYPE_JSON),					// Format.
+		(kAPI_OPERATION.'='.kAPI_OP_INSERT),				// Command.
+		(kAPI_DATABASE.'='.'TEST'),							// Database.
+		(kAPI_CONTAINER.'='.'CMongoDataWrapper'),			// Container.
+		(kAPI_DATA_OBJECT.'='.urlencode( $object )),		// Object.
+		(kAPI_OPT_LOG_REQUEST.'='.'1')						// Log request.
 	);
-	$query_php = serialize( $query );
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_PHP),
-					 (kAPI_OPERATION.'='.kAPI_OP_DEL),
-					 (kAPI_DATABASE.'='."TEST"),
-					 (kAPI_CONTAINER.'='."CMongoDataWrapper"),
-					 (kAPI_DATA_QUERY.'='.urlencode( $query_php )),
-					 (kAPI_DATA_OPTIONS.'='.urlencode( $options_php )),
-					 (kAPI_REQ_STAMP.'='.gettimeofday( true )),
-					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
 	$request = $url.'?'.implode( '&', $params );
 	$response = file_get_contents( $request );
-	$decoded = unserialize( $response );
+	$decoded = json_decode( $response, TRUE );
+	$object = $decoded[ kAPI_DATA_RESPONSE ];
+	//
+	// Saving reference for testing.
+	//
+	$reference = Array();
+	$container->UnserialiseObject( $object );				// To feed to MongoDBRef.
+	$reference[ kTAG_ID_REFERENCE ] = $object[ kTAG_ID_NATIVE ];
+	$reference[ kTAG_CONTAINER_REFERENCE ] = 'CMongoDataWrapper';
+	$reference[ kTAG_DATABASE_REFERENCE ] = 'TEST';
+	$found = MongoDBRef::get( $db, $reference );
 	//
 	// Display.
 	//
 	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.htmlspecialchars( $response ).kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Found:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $found ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	echo( '<h4>Set object</h4>' );
+	echo( '<i>The last <b>Found</b> section shows what we set '
+		 .'in the database.</i><br>' );
+	//
+	// Set.
+	//
+	$object = json_encode( $object2 );
+	$params = array
+	(
+		(kAPI_FORMAT.'='.kDATA_TYPE_JSON),					// Format.
+		(kAPI_OPERATION.'='.kAPI_OP_SET),					// Command.
+		(kAPI_DATABASE.'='.'TEST'),							// Database.
+		(kAPI_CONTAINER.'='.'CMongoDataWrapper'),			// Container.
+		(kAPI_DATA_OBJECT.'='.urlencode( $object )),		// Object.
+		(kAPI_OPT_LOG_REQUEST.'='.'1')						// Log request.
+	);
+	$request = $url.'?'.implode( '&', $params );
+	$response = file_get_contents( $request );
+	$decoded = json_decode( $response, TRUE );
+	$object = $decoded[ kAPI_DATA_RESPONSE ];
+	//
+	// Saving reference for testing.
+	//
+	$reference = Array();
+	$container->UnserialiseObject( $object );				// To feed to MongoDBRef.
+	$reference[ kTAG_ID_REFERENCE ] = $object[ kTAG_ID_NATIVE ];
+	$reference[ kTAG_CONTAINER_REFERENCE ] = 'CMongoDataWrapper';
+	$reference[ kTAG_DATABASE_REFERENCE ] = 'TEST';
+	$found = MongoDBRef::get( $db, $reference );
+	//
+	// Display.
+	//
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.htmlspecialchars( $response ).kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Found:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $found ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	echo( '<h4>Batch insert</h4>' );
+	echo( '<i>The last <b>Found</b> section shows what we set '
+		 .'in the database.</i><br>' );
+	//
+	// Batch insert.
+	//
+	$object = array( $object3, $object4, $object5 );
+	$object = json_encode( $object );
+	$params = array
+	(
+		(kAPI_FORMAT.'='.kDATA_TYPE_JSON),					// Format.
+		(kAPI_OPERATION.'='.kAPI_OP_BATCH_INSERT),			// Command.
+		(kAPI_DATABASE.'='.'TEST'),							// Database.
+		(kAPI_CONTAINER.'='.'CMongoDataWrapper'),			// Container.
+		(kAPI_DATA_OBJECT.'='.urlencode( $object )),		// Object.
+		(kAPI_OPT_LOG_REQUEST.'='.'1')						// Log request.
+	);
+	$request = $url.'?'.implode( '&', $params );
+	$response = file_get_contents( $request );
+	$decoded = json_decode( $response, TRUE );
+	//
+	// Display.
+	//
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.htmlspecialchars( $response ).kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+exit;
+	
+	echo( '<h4>Reference object with storage</h4>' );
+	echo( '<i>Note that we include the database and container references '
+		 .'in the object reference.</i><br>' );
+	//
+	// Reference.
+	//
+	$object = json_encode( $reference );
+	$params = array
+	(
+		(kAPI_FORMAT.'='.kDATA_TYPE_JSON),					// Format.
+		(kAPI_OPERATION.'='.kAPI_OP_GET_OBJECT_REF),		// Command.
+		(kAPI_DATA_OBJECT.'='.urlencode( $object )),		// Object.
+		(kAPI_OPT_LOG_REQUEST.'='.'1')						// Log request.
+	);
+	$request = $url.'?'.implode( '&', $params );
+	$response = file_get_contents( $request );
+	$decoded = json_decode( $response, TRUE );
+	//
+	// Display.
+	//
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Reference:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $reference ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
 	echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
@@ -1094,19 +588,23 @@ try
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	
-	echo( '<h4>kAPI_OP_DEL in JSON</h4>' );
+	echo( '<h4>Reference object without storage</h4>' );
+	echo( '<i>Note that we use the object as reference and provide both the database '
+		 .'and container references among the parameters.</i><br>' );
 	//
-	// Test DELETE in JSON.
+	// Reference.
 	//
-	$query_json = json_encode( $query );
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_JSON),
-					 (kAPI_OPERATION.'='.kAPI_OP_DEL),
-					 (kAPI_DATABASE.'='."TEST"),
-					 (kAPI_CONTAINER.'='."CMongoDataWrapper"),
-					 (kAPI_DATA_QUERY.'='.urlencode( $query_json )),
-					 (kAPI_DATA_OPTIONS.'='.urlencode( $options_json )),
-					 (kAPI_REQ_STAMP.'='.gettimeofday( true )),
-					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
+	$reference = $decoded[ kAPI_DATA_RESPONSE ];
+	$object = json_encode( $reference );
+	$params = array
+	(
+		(kAPI_FORMAT.'='.kDATA_TYPE_JSON),					// Format.
+		(kAPI_OPERATION.'='.kAPI_OP_GET_OBJECT_REF),		// Command.
+		(kAPI_DATABASE.'='.'TEST'),							// Database.
+		(kAPI_CONTAINER.'='.'CMongoDataWrapper'),			// Container.
+		(kAPI_DATA_OBJECT.'='.urlencode( $object )),		// Object.
+		(kAPI_OPT_LOG_REQUEST.'='.'1')						// Log request.
+	);
 	$request = $url.'?'.implode( '&', $params );
 	$response = file_get_contents( $request );
 	$decoded = json_decode( $response, TRUE );
@@ -1115,40 +613,13 @@ try
 	//
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
+	echo( kSTYLE_HEAD_PRE.'Reference:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $reference ); echo( '</pre>'.kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.htmlspecialchars( $response ).kSTYLE_DATA_POS );
+	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-	
-	echo( '<h4>kAPI_OP_GET_OBJECT_REF in JSON</h4>' );
-	//
-	// Test GET REFERENCE in JSON.
-	//
-	$user_id = new MongoBinData( md5( 'Milko', TRUE ) );
-	$object = MongoDBRef::create( 'USERS', $user_id );
-	CDataType::SerialiseObject( $object );
-	$object_json = json_encode( $object );
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_JSON),
-					 (kAPI_OPERATION.'='.kAPI_OP_GET_OBJECT_REF),
-					 (kAPI_DATABASE.'='."TEST"),
-					 (kAPI_DATA_OBJECT.'='.urlencode( $object_json )),
-					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
-	$request = $url.'?'.implode( '&', $params );
-	$response = file_get_contents( $request );
-	$decoded = json_decode( $response, TRUE );
-	//
-	// Display.
-	//
-	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
 	echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );

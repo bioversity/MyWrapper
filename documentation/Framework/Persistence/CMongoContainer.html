@@ -56,7 +56,7 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																																																																																																																<div class="method-definition">
+																																																																																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">mixed</span>
 										<a href="#Container" title="details" class="method-name">Container</a>
@@ -70,57 +70,33 @@
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#UnserialiseData" title="details" class="method-name">UnserialiseData</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theElement</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">mixed</span>
 										<a href="#_Commit" title="details" class="method-name">_Commit</a>
-											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theObject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>, <span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span>)
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theObject</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">mixed</span>
 										<a href="#_Delete" title="details" class="method-name">_Delete</a>
-											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>, <span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span>)
-									</div>
-																<div class="method-definition">
-					<img src="../../media/images/Method.png" alt=" "/>
-											<span class="method-result">void</span>
-										<a href="#_FinishCommit" title="details" class="method-name">_FinishCommit</a>
-											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theObject</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
-									</div>
-																<div class="method-definition">
-					<img src="../../media/images/Method.png" alt=" "/>
-											<span class="method-result">void</span>
-										<a href="#_FinishDelete" title="details" class="method-name">_FinishDelete</a>
-											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theObject</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
-									</div>
-																<div class="method-definition">
-					<img src="../../media/images/Method.png" alt=" "/>
-											<span class="method-result">void</span>
-										<a href="#_FinishLoad" title="details" class="method-name">_FinishLoad</a>
-											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theObject</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">mixed</span>
 										<a href="#_Load" title="details" class="method-name">_Load</a>
-											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>, <span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span>)
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">void</span>
 										<a href="#_PrepareCommit" title="details" class="method-name">_PrepareCommit</a>
 											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theObject</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
-									</div>
-																<div class="method-definition">
-					<img src="../../media/images/Method.png" alt=" "/>
-											<span class="method-result">void</span>
-										<a href="#_PrepareDelete" title="details" class="method-name">_PrepareDelete</a>
-											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
-									</div>
-																<div class="method-definition">
-					<img src="../../media/images/Method.png" alt=" "/>
-											<span class="method-result">void</span>
-										<a href="#_PrepareLoad" title="details" class="method-name">_PrepareLoad</a>
-											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -183,8 +159,7 @@
 <p class="description"><p>We <a href="../../Framework/Persistence/CContainer.html#methodContainer">overload</a> this method to ensure that the  provided container is a MongoCollection object.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">usedby:</span> <a href="../../Framework/Persistence/CMongoContainer.html#method_PrepareDelete">CMongoContainer::_PrepareDelete()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../Framework/Persistence/CMongoContainer.html#method_PrepareLoad">CMongoContainer::_PrepareLoad()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Persistence/CMongoContainer.html#method_PrepareCommit">CMongoContainer::_PrepareCommit()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -244,12 +219,64 @@
 					</dl>
 			
 	</div>
-<a name="method_Commit" id="_Commit"><!-- --></a>
+<a name="methodUnserialiseData" id="UnserialiseData"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Commit</span> (line <span class="line-number">199</span>)
+		<span class="method-title">UnserialiseData</span> (line <span class="line-number">215</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Unserialise provided data element.</p>
+<p class="description"><p>We <a href="../../Framework/Persistence/CContainer.html#methodUnserialiseData">implement</a> this method to convert all  standard <a href="../../Framework/Core/CDataType.html">types</a> into custom Mongo data types.</p><p>In this class we parse the following types and <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">offsets</a>:</p><p><ul><li><em><a href="../../Framework/Core/CDataTypeMongoId.html">CDataTypeMongoId</a> object or
+        <a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_MongoId">kDATA_TYPE_MongoId</a> offset</em>: We return a MongoId
+        object.</li><li><em><a href="../../Framework/Core/CDataTypeMongoCode.html">CDataTypeMongoCode</a> object or
+        <a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_MongoCode">kDATA_TYPE_MongoCode</a> offset</em>: We return a
+        MongoCode object.</li><li><em><a href="../../Framework/Core/CDataTypeStamp.html">CDataTypeStamp</a> object or
+        <a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_STAMP">kDATA_TYPE_STAMP</a> offset</em>: We return a MongoDate
+        object.</li><li><em><a href="../../Framework/Core/CDataTypeMongoRegex.html">CDataTypeMongoRegex</a> object or
+        <a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_MongoRegex">kDATA_TYPE_MongoRegex</a> offset</em>: We return a
+        MongoRegex object.</li><li><em><a href="../../Framework/Core/CDataTypeInt32.html">CDataTypeInt32</a> object or
+        <a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_INT32">kDATA_TYPE_INT32</a> offset</em>: We return a MongoInt32
+        object.</li><li><em><a href="../../Framework/Core/CDataTypeInt64.html">CDataTypeInt64</a> object or
+        <a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_INT64">kDATA_TYPE_INT64</a> offset</em>: We return a MongoInt64
+        object.</li><li><em><a href="../../Framework/Core/CDataTypeBinary.html">CDataTypeBinary</a> object or
+        <a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_BINARY">kDATA_TYPE_BINARY</a> offset</em>: We return a MongoBinData
+        object.</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">usedby:</span> <a href="../../Framework/Persistence/CMongoContainer.html#method_PrepareCommit">CMongoContainer::_PrepareCommit()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			UnserialiseData
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theElement</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theElement</span><span class="var-description">: Element to encode.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Framework/Persistence/CContainer.html#methodUnserialiseData">CContainer::UnserialiseData()</a></dt>
+						<dd>Unserialise provided data element.</dd>
+					</dl>
+			
+	</div>
+<a name="method_Commit" id="_Commit"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_Commit</span> (line <span class="line-number">329</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -264,7 +291,7 @@
 		<span class="method-name">
 			_Commit
 		</span>
-					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theObject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>, <span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span>)
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theObject</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
 			</div>
 	
 			<ul class="parameters">
@@ -272,11 +299,11 @@
 				<span class="var-type">reference</span>
 				<span class="var-name">&$theObject</span><span class="var-description">: Object to commit.</span>			</li>
 					<li>
-				<span class="var-type">mixed</span>
-				<span class="var-name">$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
 					<li>
-				<span class="var-type">bitfield</span>
-				<span class="var-name">$theModifiers</span><span class="var-description">: Commit modifiers.</span>			</li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theModifiers</span><span class="var-description">: Commit modifiers.</span>			</li>
 				</ul>
 		
 			<hr class="separator" />
@@ -288,11 +315,11 @@
 			
 	</div>
 <a name="method_Delete" id="_Delete"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Delete</span> (line <span class="line-number">486</span>)
+		<span class="method-title">_Delete</span> (line <span class="line-number">604</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -307,16 +334,16 @@
 		<span class="method-name">
 			_Delete
 		</span>
-					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>, <span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span>)
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
 			</div>
 	
 			<ul class="parameters">
 					<li>
-				<span class="var-type">mixed</span>
-				<span class="var-name">$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
 					<li>
-				<span class="var-type">bitfield</span>
-				<span class="var-name">$theModifiers</span><span class="var-description">: Delete modifiers.</span>			</li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theModifiers</span><span class="var-description">: Load modifiers.</span>			</li>
 				</ul>
 		
 			<hr class="separator" />
@@ -327,147 +354,12 @@
 					</dl>
 			
 	</div>
-<a name="method_FinishCommit" id="_FinishCommit"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishCommit</span> (line <span class="line-number">800</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Normalise after a _Commit().</p>
-<p class="description"><p>This method will be called after the <a href="../../Framework/Persistence/CMongoContainer.html#method_Commit">store</a> operation, its duty is  to clean up or restore the object after the operation please refer to  <a href="../../Framework/Persistence/CContainer.html#methodCommit">this</a> documentation for a reference of these parameters. Note that in  this method all three parameters are passed by reference.</p><p>In this class we <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">eventually</a>  <a href="../../Framework/Core/CDataType.html#methodSerialiseObject">serialise</a> the object.</p></p>
-	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a></li>
-				<li><span class="field">access:</span> protected</li>
-				<li><span class="field">uses:</span> <a href="../../Framework/Core/CDataType.html#methodSerialiseObject">CDataType::SerialiseObject()</a></li>
-				<li><span class="field">uses:</span> <a href="../../Framework/Core/CDataType.html#methodSerialiseData">CDataType::SerialiseData()</a></li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			_FinishCommit
-		</span>
-					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theObject</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">reference</span>
-				<span class="var-name">&$theObject</span><span class="var-description">: Object or data.</span>			</li>
-					<li>
-				<span class="var-type">reference</span>
-				<span class="var-name">&$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
-					<li>
-				<span class="var-type">reference</span>
-				<span class="var-name">&$theModifiers</span><span class="var-description">: Commit modifiers.</span>			</li>
-				</ul>
-		
-			<hr class="separator" />
-		<div class="notes">Redefinition of:</div>
-		<dl>
-			<dt><a href="../../Framework/Persistence/CContainer.html#method_FinishCommit">CContainer::_FinishCommit()</a></dt>
-						<dd>Normalise after a _Commit().</dd>
-					</dl>
-			
-	</div>
-<a name="method_FinishDelete" id="_FinishDelete"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishDelete</span> (line <span class="line-number">843</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Normalise after a store.</p>
-<p class="description"><p>This method will be called after the <a href="../../Framework/Persistence/CMongoContainer.html#method_Delete">delete</a> operation, its duty is  to clean up or restore the object after the operation please refer to  <a href="../../Framework/Persistence/CContainer.html#methodDelete">this</a> documentation for a reference of these parameters. Note that in  this method all two parameters are passed by reference.</p><p>In this class we <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">eventually</a>  <a href="../../Framework/Core/CDataType.html#methodSerialiseObject">serialise</a> the object and the  <a href="../../Framework/Core/CDataType.html#methodSerialiseData">identifier</a>.</p></p>
-	<ul class="tags">
-				<li><span class="field">access:</span> protected</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			_FinishDelete
-		</span>
-					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theObject</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">reference</span>
-				<span class="var-name">&$theObject</span><span class="var-description">: Object or data.</span>			</li>
-					<li>
-				<span class="var-type">reference</span>
-				<span class="var-name">&$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
-					<li>
-				<span class="var-type">reference</span>
-				<span class="var-name">&$theModifiers</span><span class="var-description">: Commit modifiers.</span>			</li>
-				</ul>
-		
-			<hr class="separator" />
-		<div class="notes">Redefinition of:</div>
-		<dl>
-			<dt><a href="../../Framework/Persistence/CContainer.html#method_FinishDelete">CContainer::_FinishDelete()</a></dt>
-						<dd>Normalise after a store.</dd>
-					</dl>
-			
-	</div>
-<a name="method_FinishLoad" id="_FinishLoad"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishLoad</span> (line <span class="line-number">746</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Normalise after a _Load().</p>
-<p class="description"><p>This method will be called after the <a href="../../Framework/Persistence/CMongoContainer.html#method_Load">load</a> operation, its duty is to  clean up or normalise after the operation. The parameters are passed by reference.</p><p>The method expects the found object or data in the first parameter and the original  identifier in the second.</p><p>In this class we <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">eventually</a>  <a href="../../Framework/Core/CDataType.html#methodSerialiseObject">serialise</a> the object and the  <a href="../../Framework/Core/CDataType.html#methodSerialiseData">identifier</a>.</p></p>
-	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a></li>
-				<li><span class="field">access:</span> protected</li>
-				<li><span class="field">uses:</span> <a href="../../Framework/Core/CDataType.html#methodSerialiseObject">CDataType::SerialiseObject()</a></li>
-				<li><span class="field">uses:</span> <a href="../../Framework/Core/CDataType.html#methodSerialiseData">CDataType::SerialiseData()</a></li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			_FinishLoad
-		</span>
-					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theObject</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">reference</span>
-				<span class="var-name">&$theObject</span><span class="var-description">: Object reference.</span>			</li>
-					<li>
-				<span class="var-type">reference</span>
-				<span class="var-name">&$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
-					<li>
-				<span class="var-type">reference</span>
-				<span class="var-name">&$theModifiers</span><span class="var-description">: Commit modifiers.</span>			</li>
-				</ul>
-		
-			<hr class="separator" />
-		<div class="notes">Redefinition of:</div>
-		<dl>
-			<dt><a href="../../Framework/Persistence/CContainer.html#method_FinishLoad">CContainer::_FinishLoad()</a></dt>
-						<dd>Normalise after a _Load().</dd>
-					</dl>
-			
-	</div>
 <a name="method_Load" id="_Load"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Load</span> (line <span class="line-number">444</span>)
+		<span class="method-title">_Load</span> (line <span class="line-number">573</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -482,16 +374,16 @@
 		<span class="method-name">
 			_Load
 		</span>
-					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>, <span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span>)
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
 			</div>
 	
 			<ul class="parameters">
 					<li>
-				<span class="var-type">mixed</span>
-				<span class="var-name">$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
 					<li>
-				<span class="var-type">bitfield</span>
-				<span class="var-name">$theModifiers</span><span class="var-description">: Load modifiers.</span>			</li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theModifiers</span><span class="var-description">: Load modifiers.</span>			</li>
 				</ul>
 		
 			<hr class="separator" />
@@ -507,21 +399,20 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">628</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">670</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Normalise before a store.</p>
-<p class="description"><p>We <a href="../../Framework/Persistence/CContainer.html#method_PrepareCommit">overload</a> this method to perform the following  operations:</p><p><ul><li>Check object type (array or ArrayObject).</li><li>Initialise identifier if required.</li><li>Call the parent <a href="../../Framework/Persistence/CContainer.html#method_PrepareCommit">method</a> which will:
-     <ul><li>Ensure the identifier is provided if the operation is not an
-            <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_INSERT">insert</a>.</li><li>Ensure the method has the correct options.</li><li>Ensure the current object has a container.</li><li>Get the <a href="../../Framework/Persistence/CPersistentObject.html#method_IsEncoded">encoded</a> status
-            <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">flag</a> from the object.</li><li><a href="../../Framework/Persistence/CContainer.html#methodUnserialiseObject">Unserialise</a> object and
-            <a href="../../Framework/Persistence/CContainer.html#methodUnserialiseData">identifier</a> if necessary.</li></ul></li></ul></p></p>
+<p class="short-description">Prepare before a _Commit().</p>
+<p class="description"><p>We CContaoiner::_PrepareCommit() this method to handle the  identifier: if provided, it means that that is to become the object's unique  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a>; if not provided and the object has an  <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a>, we use that one.</p><p>We also raise an exception if the provided object is not either an array or an  ArrayObject.</p></p>
 	<ul class="tags">
-				<li><span class="field">see:</span> kERROR_DUPLICATE kERROR_NOT_FOUND</li>
+				<li><span class="field">see:</span> kERROR_OPTION_MISSING kERROR_INVALID_PARAMETER kERROR_INVALID_STATE</li>
+				<li><span class="field">see:</span> <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a></li>
 				<li><span class="field">throws:</span> <a href="../../Framework/Core/CException.html">CException</a></li>
 				<li><span class="field">access:</span> protected</li>
-				<li><span class="field">uses:</span> <a href="../../Framework/Persistence/CContainer.html#method_Container">CContainer::_Container()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Persistence/CContainer.html#methodUnserialiseObject">CContainer::UnserialiseObject()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Persistence/CMongoContainer.html#methodContainer">CMongoContainer::Container()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Persistence/CMongoContainer.html#methodUnserialiseData">CMongoContainer::UnserialiseData()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -549,94 +440,6 @@
 		<dl>
 			<dt><a href="../../Framework/Persistence/CContainer.html#method_PrepareCommit">CContainer::_PrepareCommit()</a></dt>
 						<dd>Prepare before a _Commit().</dd>
-					</dl>
-			
-	</div>
-<a name="method_PrepareDelete" id="_PrepareDelete"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareDelete</span> (line <span class="line-number">689</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Prepare before a _Delete().</p>
-<p class="description"><p>The duty of this method is to ensure that the parameters provided to the  <a href="../../Framework/Persistence/CMongoContainer.html#method_Delete">delete</a> operation are valid.</p><p>In this class we ensure that the identifier has been provided, that the current  object has a native <a href="../../Framework/Persistence/CMongoContainer.html#methodContainer">container</a> and we  <a href="../../Framework/Persistence/CContainer.html#methodUnserialiseData">unserialise</a> the provided identifier if  <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">needed</a>.</p></p>
-	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../Framework/Definitions/_defines---Errors.inc.php.html#definekERROR_INVALID_STATE">kERROR_INVALID_STATE</a></li>
-				<li><span class="field">throws:</span> <a href="../../Framework/Core/CException.html">CException</a></li>
-				<li><span class="field">access:</span> protected</li>
-				<li><span class="field">uses:</span> <a href="../../Framework/Persistence/CMongoContainer.html#methodContainer">CMongoContainer::Container()</a></li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			_PrepareDelete
-		</span>
-					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">reference</span>
-				<span class="var-name">&$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
-					<li>
-				<span class="var-type">reference</span>
-				<span class="var-name">&$theModifiers</span><span class="var-description">: Commit modifiers.</span>			</li>
-				</ul>
-		
-			<hr class="separator" />
-		<div class="notes">Redefinition of:</div>
-		<dl>
-			<dt><a href="../../Framework/Persistence/CContainer.html#method_PrepareDelete">CContainer::_PrepareDelete()</a></dt>
-						<dd>Prepare before a _Delete().</dd>
-					</dl>
-			
-	</div>
-<a name="method_PrepareLoad" id="_PrepareLoad"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">561</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Prepare before a _Load().</p>
-<p class="description"><p>The duty of this method is to ensure that the parameters provided to the  <a href="../../Framework/Persistence/CMongoContainer.html#method_Load">find</a> operation are valid.</p><p>In this class we ensure that the identifier has been provided, that the current  object has a native <a href="../../Framework/Persistence/CMongoContainer.html#methodContainer">container</a> and we  <a href="../../Framework/Persistence/CContainer.html#methodUnserialiseData">unserialise</a> the provided identifier if  <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">needed</a>.</p></p>
-	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a></li>
-				<li><span class="field">see:</span> kERROR_OPTION_MISSING kERROR_INVALID_STATE</li>
-				<li><span class="field">throws:</span> <a href="../../Framework/Core/CException.html">CException</a></li>
-				<li><span class="field">access:</span> protected</li>
-				<li><span class="field">uses:</span> <a href="../../Framework/Persistence/CContainer.html#methodUnserialiseData">CContainer::UnserialiseData()</a></li>
-				<li><span class="field">uses:</span> <a href="../../Framework/Persistence/CMongoContainer.html#methodContainer">CMongoContainer::Container()</a></li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			_PrepareLoad
-		</span>
-					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">reference</span>
-				<span class="var-name">&$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
-					<li>
-				<span class="var-type">reference</span>
-				<span class="var-name">&$theModifiers</span><span class="var-description">: Load modifiers.</span>			</li>
-				</ul>
-		
-			<hr class="separator" />
-		<div class="notes">Redefinition of:</div>
-		<dl>
-			<dt><a href="../../Framework/Persistence/CContainer.html#method_PrepareLoad">CContainer::_PrepareLoad()</a></dt>
-						<dd>Prepare before a _Load().</dd>
 					</dl>
 			
 	</div>
@@ -738,7 +541,7 @@
 
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 23 Mar 2012 19:16:32 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 29 Mar 2012 19:39:10 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

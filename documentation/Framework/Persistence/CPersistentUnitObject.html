@@ -119,7 +119,13 @@
 										<a href="#NewObject" title="details" class="method-name">NewObject</a>
 											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>)
 									</div>
-																																																																																				<div class="method-definition">
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">mixed</span>
+										<a href="#Reference" title="details" class="method-name">Reference</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>, [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_REFERENCE_IDENTIFIER</span>])
+									</div>
+																																																																																												<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">mixed</span>
 										<a href="#_id" title="details" class="method-name">_id</a>
@@ -153,7 +159,7 @@
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">void</span>
 										<a href="#_PrepareLoad" title="details" class="method-name">_PrepareLoad</a>
-											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>)
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -238,12 +244,72 @@
 		
 			
 	</div>
-<a name="method_id" id="_id"><!-- --></a>
+<a name="methodReference" id="Reference"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static Reference</span> (line <span class="line-number">237</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Convert an object to a reference.</p>
+<p class="description"><p>This method accepts an object derived from this class and returns a structure that  can be used as a reference to that object.</p><p>The method will return an array composed by the following offsets:</p><p><ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_REFERENCE">kTAG_ID_REFERENCE</a></em>: The object identifier, if
+        the provided object does not have an <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a>, this
+        method will search for a <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_REFERENCE">reference</a>.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CONTAINER_REFERENCE">kTAG_CONTAINER_REFERENCE</a></em>: The container
+        name, if the provided object is a reference.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATABASE_REFERENCE">kTAG_DATABASE_REFERENCE</a></em>: The database
+        name, if the provided object is a reference.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CLASS">kTAG_CLASS</a></em>: If the provided object is derived from
+        this class, the object's class.</li></ul></p><p>The method accepts two parameters:</p><p><ul><li><strong>$theObject</strong>: The object to be referenced, or a structure containing a
+        reference.</li><li><strong>$theModifiers</strong>: This bitfield determines what elements should be included
+        in the reference:
+     <ul><li><em><a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_REFERENCE_IDENTIFIER">kFLAG_REFERENCE_IDENTIFIER</a></em>: The
+            object <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a> will be stored under the
+            <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_REFERENCE">kTAG_ID_REFERENCE</a> offset. If the object does not
+            have this identifier, the method will raise an exception. This is the
+            default option.</li><li><em><a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_REFERENCE_CONTAINER">kFLAG_REFERENCE_CONTAINER</a></em>: The
+            container name if available.</li><li><em><a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_REFERENCE_DATABASE">kFLAG_REFERENCE_DATABASE</a></em>: The
+            container's database name if available.</li><li><em><a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_REFERENCE_CLASS">kFLAG_REFERENCE_CLASS</a></em>: The provided
+            object's class name if derived from this class.</li></ul></li></ul></p><p>If the provided object cannot be resolved, the method will return <em>NULL</em>.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> kTAG_CLASS kTAG_ID_NATIVE</li>
+				<li><span class="field">see:</span> kFLAG_REFERENCE_IDENTIFIER kFLAG_REFERENCE_CONTAINER</li>
+				<li><span class="field">see:</span> kTAG_ID_REFERENCE kTAG_CONTAINER_REFERENCE kTAG_DATABASE_REFERENCE</li>
+				<li><span class="field">see:</span> kFLAG_REFERENCE_DATABASE kFLAG_REFERENCE_CLASS</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			Reference
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>, [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_REFERENCE_IDENTIFIER</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theObject</span><span class="var-description">: Object to reference.</span>			</li>
+					<li>
+				<span class="var-type">bitfield</span>
+				<span class="var-name">$theModifiers</span><span class="var-description">: Referencing options.</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Objects/Entities/CEntity.html#methodReference">CEntity::Reference()</a>
+								: Manage entity references.
+							</li>
+				</ul>
+	</div>
+<a name="method_id" id="_id"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_id</span> (line <span class="line-number">209</span>)
+		<span class="method-title">_id</span> (line <span class="line-number">371</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -273,11 +339,11 @@
 				</ul>
 	</div>
 <a name="method_index" id="_index"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_index</span> (line <span class="line-number">231</span>)
+		<span class="method-title">_index</span> (line <span class="line-number">393</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -311,11 +377,11 @@
 				</ul>
 	</div>
 <a name="method_ManageObjectList" id="_ManageObjectList"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ManageObjectList</span> (line <span class="line-number">583</span>)
+		<span class="method-title">_ManageObjectList</span> (line <span class="line-number">810</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -376,16 +442,16 @@
 			
 	</div>
 <a name="method_ObjectIndex" id="_ObjectIndex"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ObjectIndex</span> (line <span class="line-number">1061</span>)
+		<span class="method-title">_ObjectIndex</span> (line <span class="line-number">1288</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Return object index.</p>
-<p class="description"><p>This method is a utility that can be used to extract an identifier from a value, it  is used when adding objects or object references to a list that is not organised by  object <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">ID</a>.</p><p>This method will attempt ti infer the object identifier by performing the following  steps:</p><p><ul><li><em>Array</em> or <em>ArrayObject</em>: In this case we interpret the parameter to
+<p class="description"><p>This method is a utility that can be used to extract an identifier from a value, it  is used when adding objects or object references to a list that is not organised by  object <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">ID</a>.</p><p>This method will attempt to infer the object identifier by performing the following  steps:</p><p><ul><li><em>Array</em> or <em>ArrayObject</em>: In this case we interpret the parameter to
         be either an instance of the object itself, or a reference to the object, we
         check in order if any of the following can be found:
      <ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">kTAG_ID_NATIVE</a></em>: We first check whether the
@@ -413,16 +479,23 @@
 			
 	</div>
 <a name="method_PrepareCommit" id="_PrepareCommit"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">327</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">519</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Normalise before a store.</p>
-<p class="description"><p>The duty of this method is to ensure that the parameters provided to the  <a href="../../Framework/Persistence/CPersistentObject.html#method_Commit">store</a> operation are correct.</p><p>In this class we ensure that the container is a ArrayObject or a  <a href="../../Framework/Persistence/CContainer.html">CContainer</a> derived instance and we ensure the identifier is filled  in the case it was not provided:</p><p><ul><li><em>Get <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">kTAG_ID_NATIVE</a></em>: If the object features the
+<p class="description"><p>We <a href="../../Framework/Persistence/CPersistentObject.html#method_PrepareCommit">overload</a> this method to perform the  following steps:</p><p><ul><li><em>Identifier as structure</em>: We handle identifiers provided as object
+        structures or references by checking the <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">native</a> identifier
+        or the object <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_REFERENCE">reference</a>.</li><li><em>Set identifier</em>: If the current object has already an
+        <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a> and an identifier was not provided we set it, if
+        this is not the case we set it via the <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_id">_id</a> method.</li><li><em>Call parent method</em>: We then call the parent method, this is to ensure all
+        required data is provided.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CLASS">kTAG_CLASS</a></em>: We set this offset with the current
+        object's class name. Note that we overwrite old values.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_VERSION">kTAG_VERSION</a></em>: If not set, we initialise this value
+        to zero, if already set, we increment it.</li></ul></p><p>identifiers  provided as structures containing either the <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">native</a> identifier  or an object <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_REFERENCE">reference</a>.</p><p>The duty of this method is to ensure that the parameters provided to the  <a href="../../Framework/Persistence/CPersistentObject.html#method_Commit">store</a> operation are correct.</p><p>In this class we ensure that the container is a ArrayObject or a  <a href="../../Framework/Persistence/CContainer.html">CContainer</a> derived instance and we ensure the identifier is filled  in the case it was not provided:</p><p><ul><li><em>Get <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">kTAG_ID_NATIVE</a></em>: If the object features the
         <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">kTAG_ID_NATIVE</a> offset, it will be preferred. This is
         necessary, because we don't want the object identifier to change in time.</li><li><em>Use the <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_id">:id</a> method</em>: We use the value returned by the
         <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_id">_id</a> protected method, this will be the case when
@@ -476,16 +549,16 @@
 				</ul>
 	</div>
 <a name="method_PrepareLoad" id="_PrepareLoad"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">265</span>)
+		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">426</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Normalise parameters of a find.</p>
-<p class="description"><p>The duty of this method is to ensure that the parameters provided to a  <a href="../../Framework/Persistence/CPersistentObject.html#method_Load">find</a> operation are valid.</p><p>In this class we ensure that the container is derived from  <a href="../../Framework/Persistence/CContainer.html">CContainer</a>.</p></p>
+<p class="description"><p>We <a href="../../Framework/Persistence/CPersistentObject.html#method_PrepareLoad">overload</a> this method to handle identifiers  provided as structures containing either the <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">native</a> identifier  or an object <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_REFERENCE">reference</a>.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> kERROR_OPTION_MISSING kERROR_UNSUPPORTED</li>
 				<li><span class="field">throws:</span> <a href="../../Framework/Core/CException.html">CException</a></li>
@@ -497,7 +570,7 @@
 		<span class="method-name">
 			_PrepareLoad
 		</span>
-					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>)
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
 			</div>
 	
 			<ul class="parameters">
@@ -507,6 +580,9 @@
 					<li>
 				<span class="var-type">reference</span>
 				<span class="var-name">&$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theModifiers</span><span class="var-description">: Create modifiers.</span>			</li>
 				</ul>
 		
 			<hr class="separator" />
@@ -518,20 +594,34 @@
 			
 	</div>
 <a name="method_PrepareReferenceList" id="_PrepareReferenceList"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareReferenceList</span> (line <span class="line-number">401</span>)
+		<span class="method-title">_PrepareReferenceList</span> (line <span class="line-number">627</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Prepare references lists.</p>
-<p class="description"><p>This method will usually be called <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_PrepareCommit">before</a>  <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">storing</a> the object: its duty is to <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">commit</a> and  <a href="../../Framework/Persistence/CContainer.html#methodReference">convert</a> to reference all referenced objects that are  in the form of instances.</p><p>The method will iterate all elements of the provided reference list, intercept all  instances derived from this class and convert these to object references.</p><p>The parameters to this method are:</p><p><ul><li><strong>$theContainer</strong>: The container that is about to receive the current object,
+<p class="description"><p>This method should be called <a href="../../Framework/Persistence/CPersistentUnitObject.html#method_PrepareCommit">before</a> <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">storing</a>  objects that contain references to other objects, its duty is to traverse these lists  and <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">commit</a> any element that is actually an instance derived from this  class, and convert it back to a reference.</p><p>The parameters to this method are:</p><p><ul><li><strong>$theContainer</strong>: The container that is about to receive the current object,
         it must also be the container in which to find the references and must be
         derived from <a href="../../Framework/Persistence/CContainer.html">CContainer</a>.</li><li><strong>$theOffset</strong>: The current object's offset in which the reference list is
         stored.</li><li><strong>$theModifiers</strong>: A bitfield indicating which elements of the
-        <a href="../../Framework/Persistence/CContainer.html#methodReference">reference</a> should be included.</li></ul></p></p>
+        <a href="../../Framework/Persistence/CContainer.html#methodReference">reference</a> should be included, this parameter will
+        be passed to the <a href="../../Framework/Persistence/CContainer.html#methodReference">method</a> that will convert the
+        object into a reference:
+     <ul><li><em><a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_REFERENCE_IDENTIFIER">kFLAG_REFERENCE_IDENTIFIER</a></em>: The
+            object <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a> will be stored under the
+            <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_REFERENCE">kTAG_ID_REFERENCE</a> offset. This option is enforced.</li><li><em><a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_REFERENCE_CONTAINER">kFLAG_REFERENCE_CONTAINER</a></em>: The
+            provided container name will be stored under the
+            <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CONTAINER_REFERENCE">kTAG_CONTAINER_REFERENCE</a> offset. If the
+            provided value is empty, the offset will not be set.</li><li><em><a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_REFERENCE_DATABASE">kFLAG_REFERENCE_DATABASE</a></em>: The
+            provided container's database name will be stored under the
+            <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATABASE_REFERENCE">kTAG_DATABASE_REFERENCE</a> offset. If the
+            current object's Database() name is <em>NULL</em>, the
+            offset will not be set.</li><li><em><a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_REFERENCE_CLASS">kFLAG_REFERENCE_CLASS</a></em>: The element
+            object's class name will be stored under the <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CLASS">kTAG_CLASS</a>
+            offset.</li></ul></li></ul></p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
 			</ul>
@@ -585,6 +675,8 @@
 							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_Load">CPersistentObject::_Load()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_PrepareCommit">CPersistentObject::_PrepareCommit()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_PrepareCreate">CPersistentObject::_PrepareCreate()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Framework/Persistence/CPersistentObject.html#method_PrepareLoad">CPersistentObject::_PrepareLoad()</a></span><br>
 											</blockquote>
@@ -709,7 +801,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 23 Mar 2012 19:16:33 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 29 Mar 2012 19:39:11 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

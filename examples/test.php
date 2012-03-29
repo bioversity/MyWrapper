@@ -104,7 +104,6 @@ echo( '<i>$it[ \'due\' ] = 20;</i>' );
 
 echo( 'Object<pre>' ); print_r( $ao ); echo( '</pre>' );
 echo( 'Iterator<pre>' ); print_r( $it ); echo( '</pre>' );
-*/
 
 //
 // Mongo dates?
@@ -142,14 +141,41 @@ echo( '<pre>' ); print_r( $x ); echo( '</pre>' );
 echo( '['.gettype( $x ).']' );
 echo( '<hr>' );
 
-$x = strtotime( 'Pippo' );
-echo( '<pre>' ); print_r( $x ); echo( '</pre>' );
-echo( '['.gettype( $x ).']' );
+$sec = strtotime( "2011-12-31 23:59:59" );
+$usec = 999999;
+$d = new MongoDate( $sec, $usec );
+echo( '<pre>' ); print_r( $d ); echo( '</pre>' );
+echo( (string) $d );
+echo( '<br>'.date('Y-M-d h:i:s', $d->sec ) );
+echo( '<hr>' );
+*/
+
+//
+// Instantiate Mongo database.
+//
+$mongo = New Mongo();
+$db = $mongo->selectDB( "TEST" );
+$db->drop();
+$collection = $db->selectCollection( 'test' );
+
+//
+// Insert.
+//
+$a = array( 'x' => 1 );
+$collection->insert( $a );
+echo( '<pre>' ); print_r( $a ); echo( '</pre>' );
+
+$a = array( 'x' => 2 );
+$collection->save( $a );
+echo( '<pre>' ); print_r( $a ); echo( '</pre>' );
 echo( '<hr>' );
 
-$x = new DateTime( 'Pippo' );
-echo( '<pre>' ); print_r( $x ); echo( '</pre>' );
-echo( '['.gettype( $x ).']' );
+//
+// Batch insert.
+//
+$l = array( array( 'x' => 1 ), array( 'x' => 2 ) );
+$collection->batchInsert( $l );
+echo( '<pre>' ); print_r( $l ); echo( '</pre>' );
 echo( '<hr>' );
 
 ?>

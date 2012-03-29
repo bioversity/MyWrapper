@@ -160,6 +160,14 @@ define( "kAPI_DATA_TIMING",			'_timing' );
  *======================================================================================*/
 
 /**
+ * LIST-OP web-service.
+ *
+ * This is the tag that represents the LIST-OP web-service operation, which returns the list
+ * of supported operations.
+ */
+define( "kAPI_OP_LIST_OP",			'LIST-OP' );
+
+/**
  * PING web-service.
  *
  * This is the tag that represents the PING web-service operation, which returns a status

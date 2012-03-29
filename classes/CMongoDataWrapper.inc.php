@@ -35,9 +35,11 @@ define( "kAPI_OP_GET_ONE",			'get-one' );
 /**
  * GET-OBJECT-REF web-service.
  *
- * This tag defines a web service that returns an object when provided an object reference:
- * with this option you do not provide a {@link kAPI_DATA_QUERY query} but you provide a
- * {@link MongoDBRef reference} object in the {@link kAPI_DATA_OBJECT object} parameter.
+ * This tag defines a web service that returns an object by reference. It is equivalent to
+ * the {@link kAPI_OP_GET_ONE kAPI_OP_GET_ONE} operation, except that instead of using the
+ * query provided in the {@link kAPI_DATA_QUERY kAPI_DATA_QUERY} parameter, it will try to
+ * extract an identifier from the object provided in the
+ * {@link kAPI_DATA_OBJECT kAPI_DATA_OBJECT} parameter.
  *
  * Note that as with other values in the {@link kAPI_DATA_OBJECT object} parameter, you must
  * {@link CDataType::SerialiseObject() serialise} the value.

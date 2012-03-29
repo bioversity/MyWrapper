@@ -85,7 +85,7 @@ class CPersistentUnitObject extends CPersistentObject
 
 /*=======================================================================================
  *																						*
- *								PUBLIC MANAGEMENT INTERFACE								*
+ *								STATIC REFERENCE INTERFACE								*
  *																						*
  *======================================================================================*/
 
@@ -173,6 +173,168 @@ class CPersistentUnitObject extends CPersistentObject
 		return $data;																// =>
 		
 	} // NewObject.
+
+	 
+	/*===================================================================================
+	 *	Reference																		*
+	 *==================================================================================*/
+
+	/**
+	 * Convert an object to a reference.
+	 *
+	 * This method accepts an object derived from this class and returns a structure that
+	 * can be used as a reference to that object.
+	 *
+	 * The method will return an array composed by the following offsets:
+	 *
+	 * <ul>
+	 *	<li><i>{@link kTAG_ID_REFERENCE kTAG_ID_REFERENCE}</i>: The object identifier, if
+	 *		the provided object does not have an {@link kTAG_ID_NATIVE identifier}, this
+	 *		method will search for a {@link kTAG_ID_REFERENCE reference}.
+	 *	<li><i>{@link kTAG_CONTAINER_REFERENCE kTAG_CONTAINER_REFERENCE}</i>: The container
+	 *		name, if the provided object is a reference.
+	 *	<li><i>{@link kTAG_DATABASE_REFERENCE kTAG_DATABASE_REFERENCE}</i>: The database
+	 *		name, if the provided object is a reference.
+	 *	<li><i>{@link kTAG_CLASS kTAG_CLASS}</i>: If the provided object is derived from
+	 *		this class, the object's class.
+	 * </ul>
+	 *
+	 * The method accepts two parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theObject</b>: The object to be referenced, or a structure containing a
+	 *		reference.
+	 *	<li><b>$theModifiers</b>: This bitfield determines what elements should be included
+	 *		in the reference:
+	 *	 <ul>
+	 *		<li><i>{@link kFLAG_REFERENCE_IDENTIFIER kFLAG_REFERENCE_IDENTIFIER}</i>: The
+	 *			object {@link kTAG_ID_NATIVE identifier} will be stored under the
+	 *			{@link kTAG_ID_REFERENCE kTAG_ID_REFERENCE} offset. If the object does not
+	 *			have this identifier, the method will raise an exception. This is the
+	 *			default option.
+	 *		<li><i>{@link kFLAG_REFERENCE_CONTAINER kFLAG_REFERENCE_CONTAINER}</i>: The
+	 *			container name if available.
+	 *		<li><i>{@link kFLAG_REFERENCE_DATABASE kFLAG_REFERENCE_DATABASE}</i>: The
+	 *			container's database name if available.
+	 *		<li><i>{@link kFLAG_REFERENCE_CLASS kFLAG_REFERENCE_CLASS}</i>: The provided
+	 *			object's class name if derived from this class.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * If the provided object cannot be resolved, the method will return <i>NULL</i>.
+	 *
+	 * @param mixed					$theObject			Object to reference.
+	 * @param bitfield				$theModifiers		Referencing options.
+	 *
+	 * @static
+	 * @return mixed
+	 *
+	 * @see kFLAG_REFERENCE_IDENTIFIER kFLAG_REFERENCE_CONTAINER
+	 * @see kFLAG_REFERENCE_DATABASE kFLAG_REFERENCE_CLASS
+	 * @see kTAG_ID_REFERENCE kTAG_CONTAINER_REFERENCE kTAG_DATABASE_REFERENCE
+	 * @see kTAG_CLASS kTAG_ID_NATIVE
+	 */
+	static function Reference( $theObject, $theModifiers = kFLAG_REFERENCE_IDENTIFIER )
+	{
+		//
+		// Check object.
+		//
+		if( is_array( $theObject )
+		 || ($theObject instanceof ArrayObject) )
+		{
+			//
+			// Init local storage.
+			//
+			$reference = Array();
+
+			//
+			// Handle identifier.
+			//
+			if( $theModifiers & kFLAG_REFERENCE_IDENTIFIER )
+			{
+				//
+				// Try identifier.
+				//
+				if( ( is_array( $theObject )
+				   && array_key_exists( kTAG_ID_NATIVE, $theObject ) )
+				 || ( ($theObject instanceof ArrayObject)
+				   && $theObject->offsetExists( kTAG_ID_NATIVE ) ) )
+					$reference[ kTAG_ID_REFERENCE ]
+						= $theObject[ kTAG_ID_NATIVE ];
+	
+				//
+				// Try reference.
+				//
+				elseif( ( is_array( $theObject )
+					   && array_key_exists( kTAG_ID_REFERENCE, $theObject ) )
+					 || ( ($theObject instanceof ArrayObject)
+					   && $theObject->offsetExists( kTAG_ID_REFERENCE ) ) )
+					$reference[ kTAG_ID_REFERENCE ]
+						= $theObject[ kTAG_ID_REFERENCE ];
+			
+			} // Handle identifier.
+
+			//
+			// Handle container.
+			//
+			if( $theModifiers & kFLAG_REFERENCE_CONTAINER )
+			{
+				if( ( is_array( $theObject )
+				   && array_key_exists( kTAG_CONTAINER_REFERENCE, $theObject ) )
+				 || ( ($theObject instanceof ArrayObject)
+				   && $theObject->offsetExists( kTAG_CONTAINER_REFERENCE ) ) )
+					$reference[ kTAG_CONTAINER_REFERENCE ]
+						= $theObject[ kTAG_CONTAINER_REFERENCE ];
+			
+			} // Handle container.
+
+			//
+			// Handle database.
+			//
+			if( $theModifiers & kFLAG_REFERENCE_DATABASE )
+			{
+				if( ( is_array( $theObject )
+				   && array_key_exists( kTAG_DATABASE_REFERENCE, $theObject ) )
+				 || ( ($theObject instanceof ArrayObject)
+				   && $theObject->offsetExists( kTAG_DATABASE_REFERENCE ) ) )
+					$reference[ kTAG_DATABASE_REFERENCE ]
+						= $theObject[ kTAG_DATABASE_REFERENCE ];
+			
+			} // Handle database.
+
+			//
+			// Handle class.
+			//
+			if( $theModifiers & kFLAG_REFERENCE_CLASS )
+			{
+				//
+				// Try object.
+				//
+				if( ( is_array( $theObject )
+				   && array_key_exists( kTAG_CLASS, $theObject ) )
+				 || ( ($theObject instanceof ArrayObject)
+				   && $theObject->offsetExists( kTAG_CLASS ) ) )
+					$reference[ kTAG_CLASS ]
+						= $theObject[ kTAG_CLASS ];
+	
+				//
+				// Try reference.
+				//
+				elseif( $theObject instanceof self )
+					$reference[ kTAG_CLASS ]
+						= get_class( $theObject );
+			
+			} // Handle class.
+			
+			return ( count( $reference ) )
+				 ? $reference														// ==>
+				 : NULL;															// ==>
+
+		} // Is a structure.
+		
+		return NULL;																// ==>
+		
+	} // Reference.
 
 		
 

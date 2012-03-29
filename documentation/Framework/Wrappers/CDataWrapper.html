@@ -91,7 +91,9 @@
         and that the operation will replace the object in the data store with the one
         provided in the <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_OBJECT">kAPI_DATA_OBJECT</a> parameter.</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OP_INSERT">kAPI_OP_INSERT</a></em>: This operation is equivalent to an
         insert operation, this implies that the object must not already exist in the data
-        store.</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OP_MODIFY">kAPI_OP_MODIFY</a></em>: This operation indicates that we want
+        store.</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OP_BATCH_INSERT">kAPI_OP_BATCH_INSERT</a></em>: This operation is
+        equivalent to the <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OP_INSERT">kAPI_OP_INSERT</a> operation, except that we
+        provide here a list of objects to be inserted.</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OP_MODIFY">kAPI_OP_MODIFY</a></em>: This operation indicates that we want
         to modify the contents of an existing object and that the
         <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_OBJECT">provided</a> data represents only the changed elements.</li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OP_DEL">kAPI_OP_DEL</a></em>: This operation indicates that we want to
         delete the elements matching the provided <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_QUERY">query</a>: the
@@ -102,10 +104,9 @@
         also feature:
      <ul><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_PAGE_COUNT">kAPI_PAGE_COUNT</a></em>: This element will hold the
             actual number of returned objects, this number will be either equal or smaller
-            than the provided <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_PAGE_LIMIT">limit</a> parameter.</li></ul></li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_RESPONSE">kAPI_DATA_RESPONSE</a></em>: Response, this section will
-        hold the results of the operation.</li></ul></p></p>
+            than the provided <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_PAGE_LIMIT">limit</a> parameter.</li></ul></li></ul></p></p>
 		<p class="notes">
-			Located in <a class="field" href="_classes---CDataWrapper.php.html">/classes/CDataWrapper.php</a> (line <span class="field">179</span>)
+			Located in <a class="field" href="_classes---CDataWrapper.php.html">/classes/CDataWrapper.php</a> (line <span class="field">180</span>)
 		</p>
 		
 				
@@ -173,7 +174,7 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																																																																																																																																																																																																<div class="method-definition">
+																																																																																																																																																																																																								<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">array</span>
 										<a href="#_DecodeParameter" title="details" class="method-name">_DecodeParameter</a>
@@ -214,6 +215,12 @@
 											<span class="method-result">void</span>
 										<a href="#_FormatSort" title="details" class="method-name">_FormatSort</a>
 										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_Handle_ListOp" title="details" class="method-name">_Handle_ListOp</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">&$theList</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">$theList</span>)
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -359,11 +366,11 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="method_DecodeParameter" id="_DecodeParameter"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_DecodeParameter</span> (line <span class="line-number">1112</span>)
+		<span class="method-title">_DecodeParameter</span> (line <span class="line-number">1216</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -397,7 +404,7 @@
 			
 	</div>
 <a name="method_FormatFields" id="_FormatFields"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -426,7 +433,7 @@
 			
 	</div>
 <a name="method_FormatObject" id="_FormatObject"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -463,7 +470,7 @@
 				</ul>
 	</div>
 <a name="method_FormatOptions" id="_FormatOptions"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -492,7 +499,7 @@
 			
 	</div>
 <a name="method_FormatQuery" id="_FormatQuery"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -529,7 +536,7 @@
 				</ul>
 	</div>
 <a name="method_FormatRequest" id="_FormatRequest"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -542,11 +549,9 @@
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
 				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_FormatSort">CDataWrapper::_FormatSort()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_FormatRequest">CDataWrapper::_FormatRequest()</a></li>
-				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_FormatRequest">CDataWrapper::_FormatRequest()</a></li>
 				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_FormatQuery">CDataWrapper::_FormatQuery()</a></li>
-				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_FormatObject">CDataWrapper::_FormatObject()</a></li>
 				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_FormatOptions">CDataWrapper::_FormatOptions()</a></li>
+				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_FormatObject">CDataWrapper::_FormatObject()</a></li>
 				<li><span class="field">uses:</span> <a href="../../Framework/Wrappers/CDataWrapper.html#method_FormatFields">CDataWrapper::_FormatFields()</a></li>
 			</ul>
 	
@@ -576,7 +581,7 @@
 				</ul>
 	</div>
 <a name="method_FormatSort" id="_FormatSort"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -604,12 +609,60 @@
 		
 			
 	</div>
+<a name="method_Handle_ListOp" id="_Handle_ListOp"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_Handle_ListOp</span> (line <span class="line-number">1106</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Handle <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_LIST_OP">list</a> operations request.</p>
+<p class="description"><p>This method will handle the <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_LIST_OP">kAPI_OP_LIST_OP</a> request, which  should return the list of supported operations.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_Handle_ListOp
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">&$theList</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">$theList</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">$theList</span><span class="var-description">: Receives operations list.</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">&$theList</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../Framework/Wrappers/CWrapper.html#method_Handle_ListOp">CWrapper::_Handle_ListOp()</a></dt>
+						<dd>Handle <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_LIST_OP">list</a> operations request.</dd>
+					</dl>
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../Framework/Wrappers/CMongoDataWrapper.html#method_Handle_ListOp">CMongoDataWrapper::_Handle_ListOp()</a>
+								: Handle <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_LIST_OP">list</a> operations request.
+							</li>
+				</ul>
+	</div>
 <a name="method_InitOptions" id="_InitOptions"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_InitOptions</span> (line <span class="line-number">204</span>)
+		<span class="method-title">_InitOptions</span> (line <span class="line-number">205</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -845,7 +898,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseRequest</span> (line <span class="line-number">285</span>)
+		<span class="method-title">_ParseRequest</span> (line <span class="line-number">286</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -916,7 +969,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateFields</span> (line <span class="line-number">963</span>)
+		<span class="method-title">_ValidateFields</span> (line <span class="line-number">964</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -986,7 +1039,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateOptions</span> (line <span class="line-number">1053</span>)
+		<span class="method-title">_ValidateOptions</span> (line <span class="line-number">1054</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1059,7 +1112,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateSort</span> (line <span class="line-number">1008</span>)
+		<span class="method-title">_ValidateSort</span> (line <span class="line-number">1009</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1101,6 +1154,8 @@
 							<span class="method-name"><a href="../../Framework/Wrappers/CWrapper.html#method_HandleRequest">CWrapper::_HandleRequest()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Framework/Wrappers/CWrapper.html#method_Handle_Debug">CWrapper::_Handle_Debug()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../Framework/Wrappers/CWrapper.html#method_Handle_ListOp">CWrapper::_Handle_ListOp()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../Framework/Wrappers/CWrapper.html#method_Handle_Ping">CWrapper::_Handle_Ping()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
@@ -1247,7 +1302,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 23 Mar 2012 19:16:31 +0100 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 29 Mar 2012 19:39:09 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

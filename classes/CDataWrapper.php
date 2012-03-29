@@ -147,6 +147,9 @@ require_once( kPATH_LIBRARY_SOURCE."CDataWrapper.inc.php" );
  *	<li><i>{@link kAPI_OP_INSERT kAPI_OP_INSERT}</i>: This operation is equivalent to an
  *		insert operation, this implies that the object must not already exist in the data
  *		store.
+ *	<li><i>{@link kAPI_OP_BATCH_INSERT kAPI_OP_BATCH_INSERT}</i>: This operation is
+ *		equivalent to the {@link kAPI_OP_INSERT kAPI_OP_INSERT} operation, except that we
+ *		provide here a list of objects to be inserted.
  *	<li><i>{@link kAPI_OP_MODIFY kAPI_OP_MODIFY}</i>: This operation indicates that we want
  *		to modify the contents of an existing object and that the
  *		{@link kAPI_DATA_OBJECT provided} data represents only the changed elements.
@@ -169,8 +172,6 @@ require_once( kPATH_LIBRARY_SOURCE."CDataWrapper.inc.php" );
  *			actual number of returned objects, this number will be either equal or smaller
  *			than the provided {@link kAPI_PAGE_LIMIT limit} parameter. 
  *	 </ul>
- *	<li><i>{@link kAPI_DATA_RESPONSE kAPI_DATA_RESPONSE}</i>: Response, this section will
- *		hold the results of the operation.
  * </ul>
  *
  *	@package	Framework
@@ -317,7 +318,6 @@ class CDataWrapper extends CWrapper
 	 *
 	 * @access private
 	 *
-	 * @uses _FormatRequest()
 	 * @uses _FormatQuery()
 	 * @uses _FormatFields()
 	 * @uses _FormatSort()
@@ -799,6 +799,7 @@ class CDataWrapper extends CWrapper
 		{
 			case kAPI_OP_SET:
 			case kAPI_OP_INSERT:
+			case kAPI_OP_BATCH_INSERT:
 				
 				//
 				// Check for database.
@@ -1077,6 +1078,109 @@ class CDataWrapper extends CWrapper
 		} // Provided options.
 	
 	} // _ValidateOptions.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED HANDLER INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	_Handle_ListOp																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle {@link kAPI_OP_LIST_OP list} operations request.
+	 *
+	 * This method will handle the {@link kAPI_OP_LIST_OP kAPI_OP_LIST_OP} request, which
+	 * should return the list of supported operations.
+	 *
+	 * @param reference				$theList			Receives operations list.
+	 *
+	 * @access protected
+	 */
+	protected function _Handle_ListOp( &$theList )
+	{
+		//
+		// Call parent method.
+		//
+		parent::_Handle_ListOp( $theList );
+		
+		//
+		// Add kAPI_OP_COUNT.
+		//
+		$theList[ kAPI_OP_COUNT ]
+			= 'This operation requests a count, which is an integer indicating the total '
+			 .'number of elements satisfying the provided query ['
+			.kAPI_DATA_QUERY
+			.'].';
+		
+		//
+		// Add kAPI_OP_GET.
+		//
+		$theList[ kAPI_OP_GET ]
+			= 'This operation is equivalent to a read query, it requests a list of objects '
+			.'satisfying the provided query ['
+			.kAPI_DATA_QUERY
+			.'].';
+		
+		//
+		// Add kAPI_OP_SET.
+		//
+		$theList[ kAPI_OP_SET ]
+			= 'This operation is equivalent to an insert for new objects '
+			 .'or an update for existing objects, the operation will replace the object '
+			 .'in the data store with the one provided in the ['
+			 .kAPI_DATA_OBJECT
+			 .'] parameter.';
+		
+		//
+		// Add kAPI_OP_UPDATE.
+		//
+		$theList[ kAPI_OP_UPDATE ]
+			= 'This operation is equivalent to an update operation, this implies that '
+			 .'the object must already exist in the data store and that the operation '
+			 .'will replace the object in the data store with the one provided in the ['
+			 .kAPI_DATA_OBJECT
+			 .'] parameter.';
+		
+		//
+		// Add kAPI_OP_INSERT.
+		//
+		$theList[ kAPI_OP_INSERT ]
+			= 'This operation is equivalent to an insert operation, this implies '
+			 .'that the object must not already exist in the data store.';
+		
+		//
+		// Add kAPI_OP_BATCH_INSERT.
+		//
+		$theList[ kAPI_OP_BATCH_INSERT ]
+			= 'This operation is equivalent to the ['
+			 .kAPI_OP_INSERT
+			 .'] operation, except that we provide here a list of objects to be inserted.';
+		
+		//
+		// Add kAPI_OP_MODIFY.
+		//
+		$theList[ kAPI_OP_MODIFY ]
+			= 'This operation indicates that we want to modify the contents of an '
+			 .'existing object and that the provided data represents '
+			 .'only the changed elements.';
+		
+		//
+		// Add kAPI_OP_DEL.
+		//
+		$theList[ kAPI_OP_DEL ]
+			= 'This operation indicates that we want to delete the elements matching '
+			 .'the provided query: the first one only, if the provided ['
+			 .kAPI_OPT_SINGLE
+			 .'] option is on, or all if off or omitted.';
+	
+	} // _Handle_ListOp.
 
 		
 

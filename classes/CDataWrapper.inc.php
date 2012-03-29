@@ -201,6 +201,16 @@ define( "kAPI_OP_UPDATE",			'update' );
 define( "kAPI_OP_INSERT",			'insert' );
 
 /**
+ * BATCH-INSERT web-service.
+ *
+ * This service is equivalent to the {@link kAPI_OP_INSERT kAPI_OP_INSERT} command, except
+ * that in this case you provide a list ov objects to insert.
+ *
+ * This option implies that the objects do not exists, or the operation should fail.
+ */
+define( "kAPI_OP_BATCH_INSERT",		'batch-insert' );
+
+/**
  * MODIFY web-service.
  *
  * This is the tag that represents the MODIFY web-service operation, used to modify partial
