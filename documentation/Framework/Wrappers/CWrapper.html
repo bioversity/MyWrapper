@@ -182,7 +182,13 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																																																																																																																																																																								<div class="method-definition">
+																												<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">void</span>
+										<a href="#Request" title="details" class="method-name">Request</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$theUrl</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$theParams</span> = <span class="var-default">array()</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$theMode</span> = <span class="var-default">'GET'</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$theFormat</span> = <span class="var-default">kDATA_TYPE_JSON</span>])
+									</div>
+																																																																																																																																																												<div class="method-definition">
 					<img src="../../media/images/Constructor.png" alt=" "/>
 											<span class="method-result">CWrapper</span>
 										<a href="#__construct" title="details" class="method-name">__construct</a>
@@ -194,7 +200,7 @@
 										<a href="#HandleRequest" title="details" class="method-name">HandleRequest</a>
 										()
 									</div>
-																<div class="method-definition">
+																								<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">string|NULL</span>
 										<a href="#_EncodeResponse" title="details" class="method-name">_EncodeResponse</a>
@@ -366,8 +372,51 @@
 		</div>
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
-<a name="method__construct" id="__construct"><!-- --></a>
+<a name="methodRequest" id="Request"><!-- --></a>
 <div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static Request</span> (line <span class="line-number">408</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Request a page.</p>
+<p class="description"><p>This method can be used to sent an <em>HTTP</em> request via <em>GET</em> or <em>POST</em>.</p><p>The method accepts the following parameters:</p><p><ul><li><strong>$theUrl</strong>: The URL to which we are sending the request.</li><li><strong>$theParams</strong>: An array of key/value parameters for the request.</li><li><strong>$theMode</strong>: The request mode:
+	 <ul><li><em>GET</em>: GET, default.</li><li><em>POST</em>: POST.</li></ul></li><li><strong>$theFormat</strong>: The request format:
+	 <ul><li><em><a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_XML">kDATA_TYPE_XML</a></em>: XML.</li><li><em><a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_PHP">kDATA_TYPE_PHP</a></em>: PHP.</li><li><em><a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_JSON">kDATA_TYPE_JSON</a></em>: JSON.</li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> Exception</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			Request
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$theUrl</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$theParams</span> = <span class="var-default">array()</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$theMode</span> = <span class="var-default">'GET'</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$theFormat</span> = <span class="var-default">kDATA_TYPE_JSON</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$theUrl</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$theParams</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$theMode</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$theFormat</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Constructor.png" />
@@ -397,7 +446,7 @@
 			
 	</div>
 <a name="methodHandleRequest" id="HandleRequest"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -424,11 +473,11 @@
 			
 	</div>
 <a name="method_EncodeResponse" id="_EncodeResponse"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_EncodeResponse</span> (line <span class="line-number">1220</span>)
+		<span class="method-title">_EncodeResponse</span> (line <span class="line-number">1347</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -450,11 +499,11 @@
 			
 	</div>
 <a name="method_Exception2Status" id="_Exception2Status"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Exception2Status</span> (line <span class="line-number">1126</span>)
+		<span class="method-title">_Exception2Status</span> (line <span class="line-number">1253</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -488,11 +537,11 @@
 			
 	</div>
 <a name="method_FormatRequest" id="_FormatRequest"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FormatRequest</span> (line <span class="line-number">563</span>)
+		<span class="method-title">_FormatRequest</span> (line <span class="line-number">690</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -526,11 +575,11 @@
 				</ul>
 	</div>
 <a name="method_HandleRequest" id="_HandleRequest"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_HandleRequest</span> (line <span class="line-number">877</span>)
+		<span class="method-title">_HandleRequest</span> (line <span class="line-number">1004</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -560,11 +609,11 @@
 				</ul>
 	</div>
 <a name="method_Handle_ListOp" id="_Handle_ListOp"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_ListOp</span> (line <span class="line-number">920</span>)
+		<span class="method-title">_Handle_ListOp</span> (line <span class="line-number">1047</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -606,11 +655,11 @@
 				</ul>
 	</div>
 <a name="method_Handle_Ping" id="_Handle_Ping"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_Ping</span> (line <span class="line-number">951</span>)
+		<span class="method-title">_Handle_Ping</span> (line <span class="line-number">1078</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -632,11 +681,11 @@
 			
 	</div>
 <a name="method_InitOptions" id="_InitOptions"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_InitOptions</span> (line <span class="line-number">447</span>)
+		<span class="method-title">_InitOptions</span> (line <span class="line-number">574</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -666,11 +715,11 @@
 				</ul>
 	</div>
 <a name="method_InitResources" id="_InitResources"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_InitResources</span> (line <span class="line-number">491</span>)
+		<span class="method-title">_InitResources</span> (line <span class="line-number">618</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -700,11 +749,11 @@
 				</ul>
 	</div>
 <a name="method_InitStatus" id="_InitStatus"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_InitStatus</span> (line <span class="line-number">393</span>)
+		<span class="method-title">_InitStatus</span> (line <span class="line-number">520</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -726,11 +775,11 @@
 			
 	</div>
 <a name="method_OffsetManage" id="_OffsetManage"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_OffsetManage</span> (line <span class="line-number">978</span>)
+		<span class="method-title">_OffsetManage</span> (line <span class="line-number">1105</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -771,11 +820,11 @@
 			
 	</div>
 <a name="method_ParseFormat" id="_ParseFormat"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseFormat</span> (line <span class="line-number">643</span>)
+		<span class="method-title">_ParseFormat</span> (line <span class="line-number">770</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -797,11 +846,11 @@
 			
 	</div>
 <a name="method_ParseOperation" id="_ParseOperation"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseOperation</span> (line <span class="line-number">670</span>)
+		<span class="method-title">_ParseOperation</span> (line <span class="line-number">797</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -823,11 +872,11 @@
 			
 	</div>
 <a name="method_ParseRequest" id="_ParseRequest"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseRequest</span> (line <span class="line-number">524</span>)
+		<span class="method-title">_ParseRequest</span> (line <span class="line-number">651</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -857,11 +906,11 @@
 				</ul>
 	</div>
 <a name="method_ParseTiming" id="_ParseTiming"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseTiming</span> (line <span class="line-number">697</span>)
+		<span class="method-title">_ParseTiming</span> (line <span class="line-number">824</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -883,11 +932,11 @@
 			
 	</div>
 <a name="method_ValidateFormat" id="_ValidateFormat"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateFormat</span> (line <span class="line-number">749</span>)
+		<span class="method-title">_ValidateFormat</span> (line <span class="line-number">876</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -909,11 +958,11 @@
 			
 	</div>
 <a name="method_ValidateOperation" id="_ValidateOperation"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateOperation</span> (line <span class="line-number">809</span>)
+		<span class="method-title">_ValidateOperation</span> (line <span class="line-number">936</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -947,11 +996,11 @@
 				</ul>
 	</div>
 <a name="method_ValidateRequest" id="_ValidateRequest"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateRequest</span> (line <span class="line-number">598</span>)
+		<span class="method-title">_ValidateRequest</span> (line <span class="line-number">725</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1107,7 +1156,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 30 Mar 2012 18:36:59 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 30 Mar 2012 19:03:56 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>
