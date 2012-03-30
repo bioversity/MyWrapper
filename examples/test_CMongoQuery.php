@@ -39,70 +39,74 @@ require_once( kPATH_LIBRARY_SOURCE."CMongoQuery.php" );
 //
 $queries = array
 (
-
+/*	// 0
 	array
 	(
 		kOPERATOR_AND => array
 		(
 			array
 			(
-				kAPI_QUERY_SUBJECT => ':TYPE',
+				kAPI_QUERY_SUBJECT => 'SUBJECT1',
 				kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
 				kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
-				kAPI_QUERY_DATA => ':TERM'
+				kAPI_QUERY_DATA => 'One'
 			),
 			
 			array
 			(
-				kAPI_QUERY_SUBJECT => ':XREF.:SCOPE',
+				kAPI_QUERY_SUBJECT => 'SUBJECT2',
 				kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
 				kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
 				kAPI_QUERY_DATA => '2'
 			)
 		)
 	),
+
+	// 1
 	array
 	(
 		kOPERATOR_OR => array
 		(
 			array
 			(
-				kAPI_QUERY_SUBJECT => ':XREF.:DATA._code',
+				kAPI_QUERY_SUBJECT => 'SUBJECT1',
 				kAPI_QUERY_OPERATOR => kOPERATOR_PREFIX,
 				kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
-				kAPI_QUERY_DATA => 'NCBI_taxid:'
+				kAPI_QUERY_DATA => 'One'
 			),
 			
 			array
 			(
-				kAPI_QUERY_SUBJECT => ':XREF.:DATA._code',
+				kAPI_QUERY_SUBJECT => 'SUBJECT2',
 				kAPI_QUERY_OPERATOR => kOPERATOR_PREFIX,
 				kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
-				kAPI_QUERY_DATA =>  'GR:'
+				kAPI_QUERY_DATA =>  '2'
 			)
 		)
 	),
+
+	// 2
 	array
 	(
 		kOPERATOR_AND => array
 		(
 			array
 			(
-				kAPI_QUERY_SUBJECT => ':TYPE',
+				kAPI_QUERY_SUBJECT => 'Type',
 				kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
 				kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
-				kAPI_QUERY_DATA => ':TERM'
+				kAPI_QUERY_DATA => 'term'
 			),
 			
 			array
 			(
-				kAPI_QUERY_SUBJECT => ':XREF.:SCOPE',
+				kAPI_QUERY_SUBJECT => 'Scope',
 				kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
 				kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
 				kAPI_QUERY_DATA => '2'
 			),
 			
-			2 => array
+			array
 			(
 				kOPERATOR_OR => array
 				(
@@ -125,6 +129,8 @@ $queries = array
 			)
 		)
 	),
+
+	// 3
 	array
 	(
 		kOPERATOR_AND => array
@@ -142,6 +148,8 @@ $queries = array
 			)
 		)
 	),
+*/
+	// 4
 	array
 	(
 		kOPERATOR_AND => array
@@ -164,9 +172,22 @@ $queries = array
 						kTAG_DATA => 103
 					)
 				)
+			),
+			array
+			(
+				kAPI_QUERY_SUBJECT => 'Date',
+				kAPI_QUERY_OPERATOR => kOPERATOR_IRANGE,
+				kAPI_QUERY_TYPE => kDATA_TYPE_STAMP,
+				kAPI_QUERY_DATA => array
+				(
+					new CDataTypeStamp( '2012-09-01' ),
+					new CDataTypeStamp( '2011-05-13' )
+				)
 			)
 		)
 	),
+
+	// 5
 	array
 	(
 		kOPERATOR_AND => array
@@ -178,6 +199,8 @@ $queries = array
 			)
 		)
 	),
+
+	// 6
 	array
 	(
 		kOPERATOR_AND => array

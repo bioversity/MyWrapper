@@ -66,7 +66,7 @@ class CMongoQuery extends CQuery
 	 *
 	 * The method will return an array suitable to be provided as a MongoDB query, the method
 	 * requires a container that will take care of converting query arguments to native data
-	 * types, this container must be an instance of {@link CMongoContainer CMongoContainer,
+	 * types, this container must be an instance of {@link CMongoContainer CMongoContainer},
 	 * or the method will raise an exception.
 	 *
 	 * @param CMongoContainer		$theContainer			Query container.
@@ -440,7 +440,7 @@ class CMongoQuery extends CQuery
 						break;
 						
 					case kOPERATOR_CONTAINS:
-						$tmp = new MongoRegex( '/.'.$theStatement[ kAPI_QUERY_DATA ].'./' );
+						$tmp = new MongoRegex( '/'.$theStatement[ kAPI_QUERY_DATA ].'/' );
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:
@@ -591,13 +591,9 @@ class CMongoQuery extends CQuery
 						break;
 						
 					case kOPERATOR_IRANGE:
-						$list = Array();
-						foreach( $theStatement[ kAPI_QUERY_DATA ] as $value )
-						{
-							$theContainer->UnserialiseData( $value );
-							$list[ (double) (string) $value ] = $value;
-						}
-						ksort( $list );
+						$list = $this->_OrderRange( $theStatement[ kAPI_QUERY_DATA ],
+													$theContainer,
+													$theStatement[ kAPI_QUERY_TYPE ] );
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:
@@ -620,13 +616,9 @@ class CMongoQuery extends CQuery
 						break;
 						
 					case kOPERATOR_ERANGE:
-						$list = Array();
-						foreach( $theStatement[ kAPI_QUERY_DATA ] as $value )
-						{
-							CMongoDataWrapper::UnserialiseData( $value );
-							$list[ (double) (string) $value ] = $value;
-						}
-						ksort( $list );
+						$list = $this->_OrderRange( $theStatement[ kAPI_QUERY_DATA ],
+													$theContainer,
+													$theStatement[ kAPI_QUERY_TYPE ] );
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:
@@ -802,6 +794,115 @@ class CMongoQuery extends CQuery
 		} // Parsed statement key.
 	
 	} // _ConvertStatement.
+
+	 
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED QUERY UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	_OrderRange																		*
+	 *==================================================================================*/
+
+	/**
+	 * Order range elements.
+	 *
+	 * This method will order the provided range elements, the method accepts an array of
+	 * two elements which represent the range bounds and will return an array with the two
+	 * provided elements sorted.
+	 *
+	 * The method accepts three parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theRange</b>: An array containing two elements representing the range
+	 *		bounds.
+	 *	<li><b>$theContainer</b>: The {@link CMongoContainer container} on which the query
+	 *		will be executed.
+	 *	<li><b>$theType</b>: The data type of the range elements.
+	 * </ul>
+	 *
+	 * The method expects the range elements to be in
+	 * {@link CDataType::SerialiseData() serialised} format, these elements will be
+	 * {@link CContainer::UnserialiseData() converted} by this method which will return
+	 * them in sorted order.
+	 *
+	 * @param mixed					$theRange				Range elements.
+	 * @param CMongoComtainer		$theContainer			Query container.
+	 * @param string				$theType				Elements data type.
+	 *
+	 * @access private
+	 * @return array
+	 */
+	protected function _OrderRange( $theRange, CMongoContainer $theContainer, $theType )
+	{
+		//
+		// Normalise range.
+		//
+		if( is_array( $theRange )
+		 || ($theRange instanceof ArrayObject) )
+		{
+			$list = array_values( (array) $theRange );
+			if( count( $list ) == 1 )
+				$list[] = $list[ 0 ];
+		}
+		else
+			$list = array( $theRange, $theRange );
+		
+		//
+		// Convert range elements.
+		//
+		foreach( $list as $key => $value )
+			$theContainer->UnserialiseData( $list[ $key ] );
+	
+		//
+		// Parse by data type.
+		//
+		$switch = FALSE;
+		switch( $theType )
+		{
+			case kDATA_TYPE_INT32:
+			case kDATA_TYPE_INT64:
+				if( (double) (string) $list[ 0 ]
+					> (double) (string) $list[ 1 ] )
+					$switch = TRUE;
+				break;
+			
+			case kDATA_TYPE_STAMP:
+				$d1 = new CDataTypeStamp( $list[ 0 ] );
+				$d2 = new CDataTypeStamp( $list[ 1 ] );
+				if( $d1->value() > $d2->value() )
+					$switch = TRUE;
+				break;
+			
+			case kDATA_TYPE_MongoId:
+				if( (string) $list[ 0 ] > (string) $list[ 1 ] )
+					$switch = TRUE;
+				break;
+			
+			default:
+				if( $list[ 0 ] > $list[ 1 ] )
+					$switch = TRUE;
+				break;
+		}
+		
+		//
+		// Switch elements.
+		//
+		if( $switch )
+		{
+			$tmp = $list[ 0 ];
+			$list[ 0 ] = $list[ 1 ];
+			$list[ 1 ] = $tmp;
+		}
+		
+		return $list;																// ==>
+	
+	} // _OrderRange.
 
 	 
 

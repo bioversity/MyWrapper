@@ -21,6 +21,28 @@
  */
 
 /*=======================================================================================
+ *	DEFAULT STATUS TAGS																	*
+ *======================================================================================*/
+
+/**
+ * Native status.
+ *
+ * This tag will hold the native status of the operation.
+ */
+define( "kAPI_STATUS_NATIVE",		'native' );
+
+/*=======================================================================================
+ *	DEFAULT COUNTER TAGS																*
+ *======================================================================================*/
+
+/**
+ * Count tag.
+ *
+ * This tag will hold the total number of elements affected by the operation.
+ */
+define( "kAPI_AFFECTED_COUNT",		'affected' );
+
+/*=======================================================================================
  *	DEFAULT OPERATION ENUMERATIONS														*
  *======================================================================================*/
 
@@ -47,14 +69,17 @@ define( "kAPI_OP_GET_ONE",			'get-one' );
 define( "kAPI_OP_GET_OBJECT_REF",	'GetObjectByReference' );
 
 /*=======================================================================================
- *	DEFAULT COUNTER TAGS																*
+ *	DEFAULT OPTION ENUMERATIONS															*
  *======================================================================================*/
 
 /**
- * Count tag.
+ * No response option.
  *
- * This tag will hold the total number of elements affected by the operation.
+ * Can be a boolean or integer, defaults to FALSE. If TRUE, the
+ * {@link kAPI_DATA_RESPONSE response} section will not be included in the result. This can
+ * be useful when you are only interested in the status of the operation and not in the
+ * response.
  */
-define( "kAPI_AFFECTED_COUNT",		'_count' );
+define( "kAPI_OPT_NO_RESP",			':$no-response' );
 
 ?>

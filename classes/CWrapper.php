@@ -70,10 +70,6 @@ require_once( kPATH_LIBRARY_SOURCE."CWrapper.inc.php" );
  *		 </ul>
  *		<li><i>{@link kAPI_OP_PING kAPI_OP_PING}</i>: A <i>PING</i> command, this can be
  *			used to check if a service is alive.
- *		<li><i>{@link kAPI_OP_DEBUG kAPI_OP_DEBUG}</i>: A <i>DEBUG</i> command, this can be
- *			considered equivalent to the {@link kAPI_OP_PING PING} command, except that the
- *			response is HTML-encoded and can be displayed directly by a web browser. Derived
- *			classes may expand on this capability.
  *	 </ul>
  * </ul>
  *
@@ -822,7 +818,6 @@ class CWrapper extends CStatusObject
 			//
 			case kAPI_OP_LIST_OP:
 			case kAPI_OP_PING:
-			case kAPI_OP_DEBUG:
 				break;
 			
 			//
@@ -897,15 +892,11 @@ class CWrapper extends CStatusObject
 				$this->_Handle_Ping();
 				break;
 
-			case kAPI_OP_DEBUG:
-				$this->_Handle_Debug();
-				exit;																// ==>
-
 			default:
 				throw new CException
 					( "Unable to handle request: operation not implemented",
 					  kERROR_NOT_IMPLEMENTED,
-					  kMESSAGE_TYPE_ERROR,
+					  kMESSAGE_TYPE_WARNING,
 					  array( 'Operation' => $op ) );							// !@! ==>
 		}
 	
@@ -940,14 +931,6 @@ class CWrapper extends CStatusObject
 		$theList[ kAPI_OP_PING ]
 			= 'A PING command, this can be used to check if a service is alive.';
 	
-		//
-		// Add kAPI_OP_DEBUG.
-		//
-		$theList[ kAPI_OP_DEBUG ]
-			= 'A DEBUG command, this can be considered equivalent to the PING command, '
-			 .'except that the response is HTML-encoded and can be displayed directly '
-			 .'by a web browser.';
-	
 	} // _Handle_ListOp.
 
 		
@@ -966,36 +949,6 @@ class CWrapper extends CStatusObject
 	 * @access protected
 	 */
 	protected function _Handle_Ping()	{}
-
-	 
-	/*===================================================================================
-	 *	_Handle_Debug																	*
-	 *==================================================================================*/
-
-	/**
-	 * Handle {@link kAPI_OP_DEBUG debug} request.
-	 *
-	 * This method will handle the {@link kAPI_OP_DEBUG kAPI_OP_DEBUG} request, which can be
-	 * used to view the response data as an HTML-encoded string.
-	 *
-	 * @access protected
-	 */
-	protected function _Handle_Debug()
-	{
-		//
-		// Handle timer.
-		//
-		if( $this->offsetExists( kAPI_DATA_TIMING ) )
-			$this->_OffsetManage( kAPI_DATA_TIMING, kAPI_RES_STAMP, gettimeofday( TRUE ) );
-		
-		//
-		// Display object dump.
-		//
-		echo( '<pre>' );
-		print_r( $this );
-		echo( '</pre>' );
-	
-	} // _Handle_Debug.
 
 		
 

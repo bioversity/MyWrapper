@@ -102,5 +102,17 @@ define( "kERROR_NOT_FOUND",					-8 );			// Not found.
  */
 define( "kERROR_DUPLICATE",					-9 );			// Duplicate.
 
+/**
+ * Unimplemented.
+ *
+ * This error is raised when the requested operation is not yet implemented. This is an
+ * indication that there is the intention of implementing the requested feature, but that
+ * this was not yet done.
+ *
+ * This error is raised by operations rather than by data; in the latter case you would
+ * most likely get an {@link kERROR_UNSUPPORTED unsupported} error.
+ */
+define( "kERROR_NOT_IMPLEMENTED",			-10 );			// Unimplemented.
+
 
 ?>

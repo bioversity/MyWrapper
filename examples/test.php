@@ -148,7 +148,6 @@ echo( '<pre>' ); print_r( $d ); echo( '</pre>' );
 echo( (string) $d );
 echo( '<br>'.date('Y-M-d h:i:s', $d->sec ) );
 echo( '<hr>' );
-*/
 
 //
 // Instantiate Mongo database.
@@ -177,5 +176,16 @@ $l = array( array( 'x' => 1 ), array( 'x' => 2 ) );
 $collection->batchInsert( $l );
 echo( '<pre>' ); print_r( $l ); echo( '</pre>' );
 echo( '<hr>' );
+*/
+
+//
+// Test array indicies.
+//
+$arr = Array();
+$arr[ 12.27 ] = 1;
+$arr[ 123456.27 ] = 2;
+echo( '<pre>' ); print_r( $arr ); echo( '</pre>' );
+asort( $arr );
+echo( '<pre>' ); print_r( $arr ); echo( '</pre>' );
 
 ?>

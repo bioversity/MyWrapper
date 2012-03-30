@@ -175,11 +175,4 @@ define( "kAPI_OP_LIST_OP",			'LIST-OP' );
  */
 define( "kAPI_OP_PING",				'ping' );
 
-/**
- * Debug web-service.
- *
- * This tag defines a debug request.
- */
-define( "kAPI_OP_DEBUG",			'debug' );
-
 ?>

@@ -495,31 +495,6 @@ class CMongoDataWrapper extends CDataWrapper
 				break;
 			
 			//
-			// Compile query for commits.
-			//
-			case kAPI_OP_DEL:
-			case kAPI_OP_UPDATE:
-			case kAPI_OP_MODIFY:
-				if( array_key_exists( kAPI_DATA_OBJECT, $_REQUEST )
-				 && array_key_exists( kTAG_ID_NATIVE, $_REQUEST[ kAPI_DATA_OBJECT ] )
-				 && (! array_key_exists( kAPI_DATA_QUERY, $_REQUEST )) )
-					$_REQUEST[ kAPI_DATA_QUERY ]
-						= array(
-						kOPERATOR_AND => array(
-							kAPI_QUERY_SUBJECT => kTAG_ID_NATIVE,
-							kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-							kAPI_QUERY_TYPE => $_REQUEST[ kAPI_DATA_OBJECT ]
-															 [ kTAG_ID_NATIVE ]
-															 [ kTAG_TYPE ],
-							kAPI_QUERY_DATA => array(
-								kTAG_TYPE => $_REQUEST[ kAPI_DATA_OBJECT ]
-													   [ kTAG_ID_NATIVE ]
-													   [ kTAG_TYPE ],
-								kAPI_QUERY_DATA => $_REQUEST[ kAPI_DATA_OBJECT ]
-															[ kTAG_ID_NATIVE ]
-															[ kAPI_QUERY_DATA ] ) ) );
-			
-			//
 			// Handle unknown operation.
 			//
 			default:
@@ -697,12 +672,18 @@ class CMongoDataWrapper extends CDataWrapper
 				$this->_Handle_BatchInsert();
 				break;
 
+			case kAPI_OP_UPDATE:
+				$this->_Handle_Update();
+				break;
+
+			case kAPI_OP_MODIFY:
+				$this->_Handle_Modify();
+				break;
+
 			case kAPI_OP_DEL:
 				$this->_Handle_Delete();
 				break;
 
-			case kAPI_OP_UPDATE:
-			case kAPI_OP_MODIFY:
 			default:
 				parent::_HandleRequest();
 				break;
@@ -798,7 +779,9 @@ class CMongoDataWrapper extends CDataWrapper
 		//
 		// Return response.
 		//
-		$this->offsetSet( kAPI_DATA_RESPONSE, $response );
+		if( (! array_key_exists( kAPI_OPT_NO_RESP, $_REQUEST ))
+		 || (! $_REQUEST[ kAPI_OPT_NO_RESP ]) )
+			$this->offsetSet( kAPI_DATA_RESPONSE, $response );
 	
 	} // _Handle_GetObjectByReference.
 
@@ -1012,47 +995,55 @@ class CMongoDataWrapper extends CDataWrapper
 				} // Provided paging options.
 				
 				//
-				// Handle excluded identifier.
-				// By default the returned array is indexed by ID...
+				// Handle response.
 				//
-				if( array_key_exists( kTAG_ID_NATIVE, $fields )
-				 && (! $fields[ kTAG_ID_NATIVE ]) )
+				if( (! array_key_exists( kAPI_OPT_NO_RESP, $_REQUEST ))
+				 || (! $_REQUEST[ kAPI_OPT_NO_RESP ]) )
 				{
 					//
-					// Collect results.
+					// Handle excluded identifier.
+					// By default the returned array is indexed by ID...
 					//
-					$result = Array();
-					foreach( $cursor as $data )
-						$result[] = $data;
+					if( array_key_exists( kTAG_ID_NATIVE, $fields )
+					 && (! $fields[ kTAG_ID_NATIVE ]) )
+					{
+						//
+						// Collect results.
+						//
+						$result = Array();
+						foreach( $cursor as $data )
+							$result[] = $data;
+					
+					} // Excluded identifier.
+					
+					//
+					// Result has identifier.
+					//
+					else
+//						$result = iterator_to_array( $cursor );
+					{
+						$result = Array();
+						foreach( $cursor as $element )
+							$result[] = $element;
+					}
+					
+					//
+					// Handle options.
+					//
+					if( array_key_exists( kAPI_DATA_OPTIONS, $_REQUEST ) )
+						$this->_HandleOptions( $result );
+		
+					//
+					// Serialise response.
+					//
+					CDataType::SerialiseObject( $result );
+					
+					//
+					// Copy to response.
+					//
+					$this->offsetSet( kAPI_DATA_RESPONSE, $result );
 				
-				} // Excluded identifier.
-				
-				//
-				// Result has identifier.
-				//
-				else
-//					$result = iterator_to_array( $cursor );
-				{
-					$result = Array();
-					foreach( $cursor as $element )
-						$result[] = $element;
-				}
-				
-				//
-				// Handle options.
-				//
-				if( array_key_exists( kAPI_DATA_OPTIONS, $_REQUEST ) )
-					$this->_HandleOptions( $result );
-	
-				//
-				// Serialise response.
-				//
-				CDataType::SerialiseObject( $result );
-				
-				//
-				// Copy to response.
-				//
-				$this->offsetSet( kAPI_DATA_RESPONSE, $result );
+				} // No response option not set.
 				
 			} // Has results.
 			
@@ -1136,25 +1127,34 @@ class CMongoDataWrapper extends CDataWrapper
 		// Save object.
 		//
 		$ok = $_REQUEST[ kAPI_CONTAINER ]->save( $_REQUEST[ kAPI_DATA_OBJECT ], $options );
+		$this->_OffsetManage( kAPI_DATA_STATUS, kAPI_STATUS_NATIVE, $ok );
 		
 		//
-		// Copy response.
+		// Handle response.
 		//
-		$this->offsetSet( kAPI_DATA_RESPONSE, $_REQUEST[ kAPI_DATA_OBJECT ] );
-		
-		//
-		// Serialise response.
-		//
-		// Note this ugly workflow:
-		// I need to do this or else I get this
-		// Notice: Indirect modification of overloaded element of MyClass
-		// has no effect in /MySource.php
-		// Which means that I cannot pass $this[ kAPI_DATA_RESPONSE ] to SerialiseData()
-		// or I get the notice and the thing doesn't work.
-		//
-		$save = $this->offsetGet( kAPI_DATA_RESPONSE );
-		CDataType::SerialiseObject( $save );
-		$this->offsetSet( kAPI_DATA_RESPONSE, $save );
+		if( (! array_key_exists( kAPI_OPT_NO_RESP, $_REQUEST ))
+		 || (! $_REQUEST[ kAPI_OPT_NO_RESP ]) )
+		{
+			//
+			// Copy response.
+			//
+			$this->offsetSet( kAPI_DATA_RESPONSE, $_REQUEST[ kAPI_DATA_OBJECT ] );
+			
+			//
+			// Serialise response.
+			//
+			// Note this ugly workflow:
+			// I need to do this or else I get this
+			// Notice: Indirect modification of overloaded element of MyClass
+			// has no effect in /MySource.php
+			// Which means that I cannot pass $this[ kAPI_DATA_RESPONSE ] to SerialiseData()
+			// or I get the notice and the thing doesn't work.
+			//
+			$save = $this->offsetGet( kAPI_DATA_RESPONSE );
+			CDataType::SerialiseObject( $save );
+			$this->offsetSet( kAPI_DATA_RESPONSE, $save );
+				
+		} // No response option not set.
 	
 	} // _Handle_Set.
 
@@ -1209,25 +1209,34 @@ class CMongoDataWrapper extends CDataWrapper
 		//
 		$ok = $_REQUEST[ kAPI_CONTAINER ]->insert
 				( $_REQUEST[ kAPI_DATA_OBJECT ], $options );
+		$this->_OffsetManage( kAPI_DATA_STATUS, kAPI_STATUS_NATIVE, $ok );
 		
 		//
-		// Copy response.
+		// Handle response.
 		//
-		$this->offsetSet( kAPI_DATA_RESPONSE, $_REQUEST[ kAPI_DATA_OBJECT ] );
-		
-		//
-		// Serialise response.
-		//
-		// Note this ugly workflow:
-		// I need to do this or else I get this
-		// Notice: Indirect modification of overloaded element of MyClass
-		// has no effect in /MySource.php
-		// Which means that I cannot pass $this[ kAPI_DATA_RESPONSE ] to SerialiseData()
-		// or I get the notice and the thing doesn't work.
-		//
-		$save = $this->offsetGet( kAPI_DATA_RESPONSE );
-		CDataType::SerialiseObject( $save );
-		$this->offsetSet( kAPI_DATA_RESPONSE, $save );
+		if( (! array_key_exists( kAPI_OPT_NO_RESP, $_REQUEST ))
+		 || (! $_REQUEST[ kAPI_OPT_NO_RESP ]) )
+		{
+			//
+			// Copy response.
+			//
+			$this->offsetSet( kAPI_DATA_RESPONSE, $_REQUEST[ kAPI_DATA_OBJECT ] );
+			
+			//
+			// Serialise response.
+			//
+			// Note this ugly workflow:
+			// I need to do this or else I get this
+			// Notice: Indirect modification of overloaded element of MyClass
+			// has no effect in /MySource.php
+			// Which means that I cannot pass $this[ kAPI_DATA_RESPONSE ] to SerialiseData()
+			// or I get the notice and the thing doesn't work.
+			//
+			$save = $this->offsetGet( kAPI_DATA_RESPONSE );
+			CDataType::SerialiseObject( $save );
+			$this->offsetSet( kAPI_DATA_RESPONSE, $save );
+				
+		} // No response option not set.
 	
 	} // _Handle_Insert.
 
@@ -1282,27 +1291,319 @@ class CMongoDataWrapper extends CDataWrapper
 		//
 		$ok = $_REQUEST[ kAPI_CONTAINER ]->batchInsert
 				( $_REQUEST[ kAPI_DATA_OBJECT ], $options );
+		$this->_OffsetManage( kAPI_DATA_STATUS, kAPI_STATUS_NATIVE, $ok );
 		
 		//
-		// Copy response.
+		// Handle response.
 		//
-		$this->offsetSet( kAPI_DATA_RESPONSE, $_REQUEST[ kAPI_DATA_OBJECT ] );
-		
-		//
-		// Serialise response.
-		//
-		// Note this ugly workflow:
-		// I need to do this or else I get this
-		// Notice: Indirect modification of overloaded element of MyClass
-		// has no effect in /MySource.php
-		// Which means that I cannot pass $this[ kAPI_DATA_RESPONSE ] to SerialiseData()
-		// or I get the notice and the thing doesn't work.
-		//
-		$save = $this->offsetGet( kAPI_DATA_RESPONSE );
-		CDataType::SerialiseObject( $save );
-		$this->offsetSet( kAPI_DATA_RESPONSE, $save );
+		if( (! array_key_exists( kAPI_OPT_NO_RESP, $_REQUEST ))
+		 || (! $_REQUEST[ kAPI_OPT_NO_RESP ]) )
+		{
+			//
+			// Copy response.
+			//
+			$this->offsetSet( kAPI_DATA_RESPONSE, $_REQUEST[ kAPI_DATA_OBJECT ] );
+			
+			//
+			// Serialise response.
+			//
+			// Note this ugly workflow:
+			// I need to do this or else I get this
+			// Notice: Indirect modification of overloaded element of MyClass
+			// has no effect in /MySource.php
+			// Which means that I cannot pass $this[ kAPI_DATA_RESPONSE ] to SerialiseData()
+			// or I get the notice and the thing doesn't work.
+			//
+			$save = $this->offsetGet( kAPI_DATA_RESPONSE );
+			CDataType::SerialiseObject( $save );
+			$this->offsetSet( kAPI_DATA_RESPONSE, $save );
+				
+		} // No response option not set.
 	
 	} // _Handle_BatchInsert.
+
+	 
+	/*===================================================================================
+	 *	_Handle_Update																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle {@link kAPI_OP_UPDATE Update} request.
+	 *
+	 * This method will handle the {@link kAPI_OP_UPDATE kAPI_OP_UPDATE} request, which
+	 * will update the provided object.
+	 *
+	 * @access protected
+	 */
+	protected function _Handle_Update()
+	{
+		//
+		// Handle query.
+		//
+		$query = ( array_key_exists( kAPI_DATA_QUERY, $_REQUEST ) )
+				? $_REQUEST[ kAPI_DATA_QUERY ]
+				: Array();
+		
+		//
+		// Create options.
+		//
+		$options = Array();
+		if( array_key_exists( kAPI_DATA_OPTIONS, $_REQUEST ) )
+		{
+			//
+			// Iterate options.
+			//
+			foreach( $_REQUEST[ kAPI_DATA_OPTIONS ] as $key => $value )
+			{
+				//
+				// Parse options.
+				//
+				switch( $key )
+				{
+					case kAPI_OPT_SAFE:
+					case kAPI_OPT_FSYNC:
+						$options[ $key ] = (boolean) $value;
+						break;
+					
+					case kAPI_OPT_TIMEOUT:
+						$options[ $key ] = (integer) $value;
+						break;
+					
+					case kAPI_OPT_SINGLE:
+						$options[ 'multiple' ] = ( (integer) $value )
+											   ? 0
+											   : 1;
+						break;
+				
+				} // Parsed option.
+			
+			} // Iterating options.
+			
+			//
+			// Enforce the 'upsert' option.
+			// This operation requires the object to exist, so no.
+			//
+			$options[ 'upsert' ] = 0;
+			
+			//
+			// Enforce the 'multiple' option.
+			// Since the provided option is opposite,
+			// we set it to true if missing (dangerous).
+			//
+			if( ! array_key_exists( 'multiple', $options ) )
+				$options[ 'multiple' ] = 1;
+		
+		} // Iterated options.
+		
+		//
+		// Update object.
+		//
+		$ok = $_REQUEST[ kAPI_CONTAINER ]->update
+				( $query, $_REQUEST[ kAPI_DATA_OBJECT ], $options );
+		$this->_OffsetManage( kAPI_DATA_STATUS, kAPI_STATUS_NATIVE, $ok );
+		
+		//
+		// Set operation status.
+		//
+		if( array_key_exists( kAPI_OPT_SAFE, $options )
+		 || array_key_exists( kAPI_OPT_FSYNC, $options ) )
+		{
+			//
+			// Handle errors.
+			//
+			if( ! $ok[ 'ok' ] )
+			{
+				//
+				// Set severity.
+				//
+				$this->_OffsetManage( kAPI_DATA_STATUS, kTAG_STATUS, kMESSAGE_TYPE_ERROR );
+				
+				//
+				// Set code.
+				//
+				$this->_OffsetManage( kAPI_DATA_STATUS, kTAG_CODE, $ok[ 'code' ] );
+				
+				//
+				// Set message.
+				//
+				$this->_OffsetManage( kAPI_DATA_STATUS, kTAG_DESCRIPTION,
+									  array( kTAG_TYPE => kDATA_TYPE_STRING,
+											 kTAG_LANGUAGE => 'en',
+											 kTAG_DATA => $ok[ 'errmsg' ] ) );
+			}
+			else
+				$this->_OffsetManage( kAPI_DATA_STATUS, kAPI_AFFECTED_COUNT, $ok[ 'n' ] );
+		
+		} // Safe option provided.
+		
+		//
+		// Handle response.
+		//
+		if( (! array_key_exists( kAPI_OPT_NO_RESP, $_REQUEST ))
+		 || (! $_REQUEST[ kAPI_OPT_NO_RESP ]) )
+		{
+			//
+			// Copy response.
+			//
+			$this->offsetSet( kAPI_DATA_RESPONSE, $_REQUEST[ kAPI_DATA_OBJECT ] );
+			
+			//
+			// Serialise response.
+			//
+			// Note this ugly workflow:
+			// I need to do this or else I get this
+			// Notice: Indirect modification of overloaded element of MyClass
+			// has no effect in /MySource.php
+			// Which means that I cannot pass $this[ kAPI_DATA_RESPONSE ] to SerialiseData()
+			// or I get the notice and the thing doesn't work.
+			//
+			$save = $this->offsetGet( kAPI_DATA_RESPONSE );
+			CDataType::SerialiseObject( $save );
+			$this->offsetSet( kAPI_DATA_RESPONSE, $save );
+				
+		} // No response option not set.
+	
+	} // _Handle_Update.
+
+	 
+	/*===================================================================================
+	 *	_Handle_Modify																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle {@link kAPI_OP_MODIFY Modify} request.
+	 *
+	 * This method will handle the {@link kAPI_OP_MODIFY kAPI_OP_MODIFY} request, which
+	 * will update the provided object.
+	 *
+	 * The data provided in the {@link kAPI_DATA_OBJECT object} parameter will be scanned
+	 * and all <i>NULL</i> values will be set in the <i>$unset</i> array and the non
+	 * <i>NULL</i> values in the <i>$set</i> array.
+	 *
+	 * @access protected
+	 */
+	protected function _Handle_Modify()
+	{
+		//
+		// Handle query.
+		//
+		$query = ( array_key_exists( kAPI_DATA_QUERY, $_REQUEST ) )
+				? $_REQUEST[ kAPI_DATA_QUERY ]
+				: Array();
+		
+		//
+		// Create options.
+		//
+		$options = Array();
+		if( array_key_exists( kAPI_DATA_OPTIONS, $_REQUEST ) )
+		{
+			//
+			// Iterate options.
+			//
+			foreach( $_REQUEST[ kAPI_DATA_OPTIONS ] as $key => $value )
+			{
+				//
+				// Parse options.
+				//
+				switch( $key )
+				{
+					case kAPI_OPT_SAFE:
+					case kAPI_OPT_FSYNC:
+						$options[ $key ] = (boolean) $value;
+						break;
+					
+					case kAPI_OPT_TIMEOUT:
+						$options[ $key ] = (integer) $value;
+						break;
+					
+					case kAPI_OPT_SINGLE:
+						$options[ 'multiple' ] = ( (integer) $value )
+											   ? 0
+											   : 1;
+						break;
+				
+				} // Parsed option.
+			
+			} // Iterating options.
+			
+			//
+			// Enforce the 'upsert' option.
+			// This operation requires the object to exist, so no.
+			//
+			$options[ 'upsert' ] = 0;
+			
+			//
+			// Enforce the 'multiple' option.
+			// Since the provided option is opposite,
+			// we set it to true if missing (dangerous).
+			//
+			if( ! array_key_exists( 'multiple', $options ) )
+				$options[ 'multiple' ] = 1;
+		
+		} // Iterated options.
+		
+		//
+		// Create modifications.
+		//
+		$mod = Array();
+		$set = Array();
+		$unset = Array();
+		foreach( $_REQUEST[ kAPI_DATA_OBJECT ] as $key => $value )
+		{
+			if( $value !== NULL )
+				$set[ $key ] = $value;
+			else
+				$unset[ $key ] = TRUE;
+		}
+		
+		//
+		// Set modifications.
+		//
+		if( count( $set ) )
+			$mod[ '$set' ] = $set;
+		if( count( $unset ) )
+			$mod[ '$unset' ] = $unset;
+		
+		//
+		// Modify object.
+		//
+		$ok = $_REQUEST[ kAPI_CONTAINER ]->update( $query, $mod, $options );
+		
+		//
+		// Set operation status.
+		//
+		if( array_key_exists( kAPI_OPT_SAFE, $options )
+		 || array_key_exists( kAPI_OPT_FSYNC, $options ) )
+		{
+			//
+			// Handle errors.
+			//
+			if( ! $ok[ 'ok' ] )
+			{
+				//
+				// Set severity.
+				//
+				$this->_OffsetManage( kAPI_DATA_STATUS, kTAG_STATUS, kMESSAGE_TYPE_ERROR );
+				
+				//
+				// Set code.
+				//
+				$this->_OffsetManage( kAPI_DATA_STATUS, kTAG_CODE, $ok[ 'code' ] );
+				
+				//
+				// Set message.
+				//
+				$this->_OffsetManage( kAPI_DATA_STATUS, kTAG_DESCRIPTION,
+									  array( kTAG_TYPE => kDATA_TYPE_STRING,
+											 kTAG_LANGUAGE => 'en',
+											 kTAG_DATA => $ok[ 'errmsg' ] ) );
+			}
+			else
+				$this->_OffsetManage( kAPI_DATA_STATUS, kAPI_AFFECTED_COUNT, $ok[ 'n' ] );
+		
+		} // Safe option provided.
+	
+	} // _Handle_Modify.
 
 	 
 	/*===================================================================================
@@ -1363,16 +1664,42 @@ class CMongoDataWrapper extends CDataWrapper
 		//
 		// Delete object.
 		//
-		$ok
-			= $_REQUEST[ kAPI_CONTAINER ]
+		$ok = $_REQUEST[ kAPI_CONTAINER ]
 				->remove( $_REQUEST[ kAPI_DATA_QUERY ], $options );
 		
 		//
-		// Set deleted count.
+		// Set operation status.
 		//
 		if( array_key_exists( kAPI_OPT_SAFE, $options )
 		 || array_key_exists( kAPI_OPT_FSYNC, $options ) )
-			$this->_OffsetManage( kAPI_DATA_STATUS, kAPI_AFFECTED_COUNT, $ok[ 'n' ] );
+		{
+			//
+			// Handle errors.
+			//
+			if( ! $ok[ 'ok' ] )
+			{
+				//
+				// Set severity.
+				//
+				$this->_OffsetManage( kAPI_DATA_STATUS, kTAG_STATUS, kMESSAGE_TYPE_ERROR );
+				
+				//
+				// Set code.
+				//
+				$this->_OffsetManage( kAPI_DATA_STATUS, kTAG_CODE, $ok[ 'code' ] );
+				
+				//
+				// Set message.
+				//
+				$this->_OffsetManage( kAPI_DATA_STATUS, kTAG_DESCRIPTION,
+									  array( kTAG_TYPE => kDATA_TYPE_STRING,
+											 kTAG_LANGUAGE => 'en',
+											 kTAG_DATA => $ok[ 'errmsg' ] ) );
+			}
+			else
+				$this->_OffsetManage( kAPI_DATA_STATUS, kAPI_AFFECTED_COUNT, $ok[ 'n' ] );
+		
+		} // Safe option provided.
 	
 	} // _Handle_Delete.
 
