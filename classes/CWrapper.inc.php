@@ -21,7 +21,27 @@
  */
 
 /*=======================================================================================
- *	DEFAULT OPERATION TAGS																*
+ *	DEFAULT OPERATION ENUMERATIONS														*
+ *======================================================================================*/
+
+/**
+ * HELP web-service.
+ *
+ * This is the tag that represents the HEKP web-service operation, which returns the list
+ * of supported operations AND OPTIONS.
+ */
+define( "kAPI_OP_HELP",				'@HELP' );
+
+/**
+ * PING web-service.
+ *
+ * This is the tag that represents the PING web-service operation, which returns a status
+ * response.
+ */
+define( "kAPI_OP_PING",				'@PING' );
+
+/*=======================================================================================
+ *	DEFAULT PROPERTY TAGS																*
  *======================================================================================*/
 
 /**
@@ -34,7 +54,7 @@
  *
  * Cardinality: one.
  */
-define( "kAPI_FORMAT",				':$format' );
+define( "kAPI_FORMAT",				':@format' );
 
 /**
  * Web-service operation.
@@ -43,7 +63,7 @@ define( "kAPI_FORMAT",				':$format' );
  *
  * Cardinality: one.
  */
-define( "kAPI_OPERATION",			':$operation' );
+define( "kAPI_OPERATION",			':@operation' );
 
 /*=======================================================================================
  *	DEFAULT OPTION TAGS																	*
@@ -57,7 +77,7 @@ define( "kAPI_OPERATION",			':$operation' );
  *
  * Cardinality: one or zero.
  */
-define( "kAPI_OPT_LOG_REQUEST",		':$log-request' );
+define( "kAPI_OPT_LOG_REQUEST",		':@log-request' );
 
 /**
  * Trace errors.
@@ -66,7 +86,7 @@ define( "kAPI_OPT_LOG_REQUEST",		':$log-request' );
  *
  * Cardinality: one or zero.
  */
-define( "kAPI_OPT_LOG_TRACE",		':$log-trace' );
+define( "kAPI_OPT_LOG_TRACE",		':@log-trace' );
 
 /*=======================================================================================
  *	DEFAULT TIMING TAGS																	*
@@ -90,7 +110,7 @@ define( "kAPI_OPT_LOG_TRACE",		':$log-trace' );
  *
  * Cardinality: one or zero.
  */
-define( "kAPI_REQ_STAMP",			':$time-request' );
+define( "kAPI_REQ_STAMP",			':@time-request' );
 
 /**
  * Web-service received time stamp.
@@ -102,7 +122,7 @@ define( "kAPI_REQ_STAMP",			':$time-request' );
  *
  * Cardinality: one or zero.
  */
-define( "kAPI_REC_STAMP",			':$time-received' );
+define( "kAPI_REC_STAMP",			':@time-received' );
 
 /**
  * Web-service parsed time stamp.
@@ -114,7 +134,7 @@ define( "kAPI_REC_STAMP",			':$time-received' );
  *
  * Cardinality: one or zero.
  */
-define( "kAPI_PARSE_STAMP",			':$time-parsed' );
+define( "kAPI_PARSE_STAMP",			':@time-parsed' );
 
 /**
  * Web-service response time stamp.
@@ -126,7 +146,7 @@ define( "kAPI_PARSE_STAMP",			':$time-parsed' );
  *
  * Cardinality: one or zero.
  */
-define( "kAPI_RES_STAMP",			':$time-sent' );
+define( "kAPI_RES_STAMP",			':@time-sent' );
 
 /*=======================================================================================
  *	DEFAULT RESPONSE TAGS																*
@@ -154,25 +174,5 @@ define( "kAPI_DATA_REQUEST",		'_request' );
  * <i>Note: this is a <b>reserved offset tag</b>.</i>
  */
 define( "kAPI_DATA_TIMING",			'_timing' );
-
-/*=======================================================================================
- *	DEFAULT OPERATION ENUMERATIONS														*
- *======================================================================================*/
-
-/**
- * LIST-OP web-service.
- *
- * This is the tag that represents the LIST-OP web-service operation, which returns the list
- * of supported operations.
- */
-define( "kAPI_OP_LIST_OP",			'LIST-OP' );
-
-/**
- * PING web-service.
- *
- * This is the tag that represents the PING web-service operation, which returns a status
- * response.
- */
-define( "kAPI_OP_PING",				'ping' );
 
 ?>

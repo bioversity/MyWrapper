@@ -234,6 +234,7 @@ define( "kOFFSET_PHONE",						':PHONE' );
  *			{@link CContainer container} name.
  *		<li><i>{@link kTAG_DATABASE_REFERENCE kTAG_DATABASE_REFERENCE}</i>: The database
  *			name.
+ *		<li><i>{@link kTAG_CLASS kTAG_CLASS}</i>: The object class name.
  *	 </ul>
  * </ul>
  */

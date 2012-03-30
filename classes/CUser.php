@@ -27,6 +27,13 @@
 require_once( kPATH_LIBRARY_SOURCE."CEntity.php" );
 
 /**
+ * Local defines.
+ *
+ * This include file contains the parent class definitions.
+ */
+require_once( kPATH_LIBRARY_SOURCE."CUser.inc.php" );
+
+/**
  * User.
  *
  * This class overloads its {@link CEntity ancestor} to implement a user entity.
@@ -300,7 +307,7 @@ class CUser extends CEntity
 	 * @access protected
 	 * @return mixed
 	 */
-	protected function _id()									{	return $this->_index();	}
+	protected function _id()			{	return new CDataTypeBinary( $this->_index() );	}
 
 	 
 	/*===================================================================================

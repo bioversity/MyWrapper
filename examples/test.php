@@ -176,7 +176,6 @@ $l = array( array( 'x' => 1 ), array( 'x' => 2 ) );
 $collection->batchInsert( $l );
 echo( '<pre>' ); print_r( $l ); echo( '</pre>' );
 echo( '<hr>' );
-*/
 
 //
 // Test array indicies.
@@ -187,5 +186,11 @@ $arr[ 123456.27 ] = 2;
 echo( '<pre>' ); print_r( $arr ); echo( '</pre>' );
 asort( $arr );
 echo( '<pre>' ); print_r( $arr ); echo( '</pre>' );
+*/
+
+//
+// Test HTTP.
+//
+$x = new HttpRequest( 'http://www.apple.com/' );
 
 ?>

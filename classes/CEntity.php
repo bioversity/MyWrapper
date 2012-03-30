@@ -27,6 +27,13 @@
 require_once( kPATH_LIBRARY_SOURCE."CPersistentUnitObject.php" );
 
 /**
+ * Tokens.
+ *
+ * This include file contains all default token definitions.
+ */
+require_once( kPATH_LIBRARY_DEFINES."Tokens.inc.php" );
+
+/**
  * Local defines.
  *
  * This include file contains the parent class definitions.
@@ -82,9 +89,10 @@ require_once( kPATH_LIBRARY_SOURCE."CEntity.inc.php" );
  *				{@link CContainer container} name.
  *			<li><i>{@link kTAG_DATABASE_REFERENCE kTAG_DATABASE_REFERENCE}</i>: The database
  *				name.
+ *			<li><i>{@link kTAG_CLASS kTAG_CLASS}</i>: The object class name.
  *		 </ul>
  *	 </ul>
- *		The class features a member accessor {@link Reference() method} to manage this
+ *		The class features a member accessor {@link Affiliate() method} to manage this
  *		property.
  * </ul>
  *
@@ -92,7 +100,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEntity.inc.php" );
  * to be set if they expect to have an {@link _IsInited() initialised}
  * {@link kFLAG_STATE_INITED status}.
  *
- * When {@link Commit() committing}, eventual {@link Reference() reference} elements set as
+ * When {@link Commit() committing}, eventual {@link Affiliate() reference} elements set as
  * the actual instances will be first {@link Commit() saved} to the same
  * {@link CContainer container}, then replaced by references.
  *
@@ -268,7 +276,7 @@ class CEntity extends CPersistentUnitObject
 
 	 
 	/*===================================================================================
-	 *	Reference																		*
+	 *	Affiliate																		*
 	 *==================================================================================*/
 
 	/**
@@ -342,7 +350,7 @@ class CEntity extends CPersistentUnitObject
 	 * @access public
 	 * @return string
 	 */
-	public function Reference( $theType, $theValue, $theOperation = NULL, $getOld = FALSE )
+	public function Affiliate( $theType, $theValue, $theOperation = NULL, $getOld = FALSE )
 	{
 		//
 		// Build reference element.
@@ -354,7 +362,7 @@ class CEntity extends CPersistentUnitObject
 		
 		return $this->_ManageObjectList( kTAG_REFS, $ref, $theOperation, $getOld );	// ==>
 
-	} // Reference.
+	} // Affiliate.
 
 		
 
@@ -471,7 +479,7 @@ class CEntity extends CPersistentUnitObject
 	 * We overload this method to check if the object in {@link _IsInited() initialised}, if
 	 * this is not the case we raise an exception.
 	 *
-	 * We also scan the {@link Reference() references} list to commit any elements that are
+	 * We also scan the {@link Affiliate() references} list to commit any elements that are
 	 * actual instances and convert them to references: we discriminate such elements by
 	 * selecting only objects derived from this class.
 	 *

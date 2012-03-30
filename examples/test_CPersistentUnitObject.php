@@ -240,7 +240,7 @@ try
 	echo( '<h3>Update object</h3>' );
 		
 	echo( '<i>Update object</i><br>' );
-	$test[ 'Version' ] = 0;
+	$test[ 'Other' ] = 0;
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<i>$found = $test->Commit( $mcontainer, 1 );</i><br>' );
 	$found = $test->Commit( $mcontainer, 1 );
@@ -252,7 +252,7 @@ try
 	echo( '<hr>' );
 	
 	echo( '<i>Update object</i><br>' );
-	$test[ 'Version' ] = 1;
+	$test[ 'Other' ] = 1;
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<i>$found = $test->Commit( $mcontainer );</i><br>' );
 	$found = $test->Commit( $mcontainer );
@@ -282,6 +282,7 @@ try
 	$test = new MyClass( $mcontainer, $ref );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
+	echo( '<hr>' );
 	
 	//
 	// New object.
@@ -289,9 +290,10 @@ try
 	echo( '<h3>New object</h3>' );
 	
 	echo( '<i>New object</i><br>' );
-	echo( '<i>$test = MyClass::NewObject( $mcontainer, 1 );</i><br>' );
-	$test = MyClass::NewObject( $mcontainer, 1 );
+	echo( '<i>$test = CPersistentUnitObject::NewObject( $mcontainer, 1 );</i><br>' );
+	$test = CPersistentUnitObject::NewObject( $mcontainer, 1 );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
 	echo( '<hr>' );
 	
 	//
@@ -424,6 +426,7 @@ try
 	$id = $test->Commit( $mcontainer );
 	echo( 'After:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
+	echo( '<hr>' );
 	
 	//
 	// Serialisation.
@@ -481,6 +484,7 @@ try
 	echo( '<i>$test = $mcontainer->Load( $found );</i><br>' );
 	$test = $mcontainer->Load( $found );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
 	echo( '<hr>' );
 	
 	//

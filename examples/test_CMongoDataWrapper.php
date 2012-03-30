@@ -144,15 +144,15 @@ try
 	$container = new CMongoContainer( $collection );
 
 	/*===================================================================================
-	 *	LIST OPERATIONS																	*
+	 *	LIST OPERATIONS - GET															*
 	 *==================================================================================*/
-	echo( '<h4>List operations</h4>' );
+	echo( '<h4>List operations (GET)</h4>' );
 	//
 	// Build parameters.
 	//
 	$params = Array();
 	$params[] = kAPI_FORMAT.'='.kDATA_TYPE_JSON;				// Format.
-	$params[] = kAPI_OPERATION.'='.kAPI_OP_LIST_OP;				// Command.
+	$params[] = kAPI_OPERATION.'='.kAPI_OP_HELP;				// Command.
 	//
 	// Build request.
 	//
@@ -176,6 +176,61 @@ try
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
 	echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.$response.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+
+	/*===================================================================================
+	 *	LIST OPERATIONS - POST															*
+	 *==================================================================================*/
+	echo( '<h4>List operations (POST)</h4>' );
+	//
+	// Build parameters.
+	//
+	$params = Array();
+	$params[ kAPI_FORMAT ] = kDATA_TYPE_JSON;				// Format.
+	$params[ kAPI_OPERATION ] = kAPI_OP_HELP;				// Command.
+	//
+	// Build request.
+	//
+	$request = array( 'http' => array( 'method' => 'POST',
+	//								   'header' => "Content-Type: multipart/form-data\r\n",
+									   'content' => $params ) );
+	//
+	// Create context.
+	//
+	$ctx = stream_context_create( $request );
+	//
+	// Open connection.
+	//
+	$fp = @fopen( $url, 'rb', FALSE, $ctx );
+	if( ! $fp )
+		throw new Exception( "Unable to open context." );
+	//
+	// Read stream.
+	//
+	$response = @stream_get_contents( $fp );
+	if( $response === FALSE )
+		throw new Exception( "Unable to read from [$url]." );
+	//
+	// Decode response.
+	//
+	$decoded = json_decode( $response, TRUE );
+	//
+	// Display.
+	//
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );

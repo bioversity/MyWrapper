@@ -52,11 +52,11 @@
          <ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_REFERENCE">kTAG_ID_REFERENCE</a></em>: The unique identifier of
                 the referenced object.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CONTAINER_REFERENCE">kTAG_CONTAINER_REFERENCE</a></em>: The
                 <a href="../../Framework/Persistence/CContainer.html">container</a> name.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATABASE_REFERENCE">kTAG_DATABASE_REFERENCE</a></em>: The database
-                name.</li></ul></li></ul>
-        The class features a member accessor <a href="../../Objects/Entities/CEntity.html#methodReference">method</a> to manage this
-        property.</li></ul></p><p>Objects of this class require at least the <a href="../../Objects/Entities/CEntity.html#methodCode">code</a> <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">offset</a>  to be set if they expect to have an <a href="../../Framework/Core/CStatusObject.html#method_IsInited">initialised</a>  <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>.</p><p>When <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">committing</a>, eventual <a href="../../Objects/Entities/CEntity.html#methodReference">reference</a> elements set as  the actual instances will be first <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">saved</a> to the same  <a href="../../Framework/Persistence/CContainer.html">container</a>, then replaced by references.</p><p>The class also features a static <a href="../../Objects/Entities/CEntity.html#methodDefaultContainer">method</a> that returns the  default container name for objects of this type.</p></p>
+                name.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CLASS">kTAG_CLASS</a></em>: The object class name.</li></ul></li></ul>
+        The class features a member accessor <a href="../../Objects/Entities/CEntity.html#methodAffiliate">method</a> to manage this
+        property.</li></ul></p><p>Objects of this class require at least the <a href="../../Objects/Entities/CEntity.html#methodCode">code</a> <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">offset</a>  to be set if they expect to have an <a href="../../Framework/Core/CStatusObject.html#method_IsInited">initialised</a>  <a href="../../Framework/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>.</p><p>When <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">committing</a>, eventual <a href="../../Objects/Entities/CEntity.html#methodAffiliate">reference</a> elements set as  the actual instances will be first <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">saved</a> to the same  <a href="../../Framework/Persistence/CContainer.html">container</a>, then replaced by references.</p><p>The class also features a static <a href="../../Objects/Entities/CEntity.html#methodDefaultContainer">method</a> that returns the  default container name for objects of this type.</p></p>
 		<p class="notes">
-			Located in <a class="field" href="_classes---CEntity.php.html">/classes/CEntity.php</a> (line <span class="field">105</span>)
+			Located in <a class="field" href="_classes---CEntity.php.html">/classes/CEntity.php</a> (line <span class="field">113</span>)
 		</p>
 		
 				
@@ -126,17 +126,23 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																												<div class="method-definition">
+																																				<div class="method-definition">
 					<img src="../../media/images/StaticMethod.png" alt=" "/>
 											static <span class="method-result">string</span>
 										<a href="#DefaultContainer" title="details" class="method-name">DefaultContainer</a>
 										()
 									</div>
-																																																																												<div class="method-definition">
+																																																																				<div class="method-definition">
 					<img src="../../media/images/Constructor.png" alt=" "/>
 											<span class="method-result">CEntity</span>
 										<a href="#__construct" title="details" class="method-name">__construct</a>
 											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span> = <span class="var-default">NULL</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">string</span>
+										<a href="#Affiliate" title="details" class="method-name">Affiliate</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theType</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theOperation</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -161,12 +167,6 @@
 											<span class="method-result">void</span>
 										<a href="#offsetUnset" title="details" class="method-name">offsetUnset</a>
 											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>)
-									</div>
-																<div class="method-definition">
-					<img src="../../media/images/Method.png" alt=" "/>
-											<span class="method-result">string</span>
-										<a href="#Reference" title="details" class="method-name">Reference</a>
-											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theType</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theOperation</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -233,11 +233,11 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="methodDefaultContainer" id="DefaultContainer"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static DefaultContainer</span> (line <span class="line-number">452</span>)
+		<span class="method-title">static DefaultContainer</span> (line <span class="line-number">460</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -256,11 +256,11 @@
 			
 	</div>
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Constructor.png" />
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">137</span>)
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">145</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -305,12 +305,77 @@
 							</li>
 				</ul>
 	</div>
+<a name="methodAffiliate" id="Affiliate"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Affiliate</span> (line <span class="line-number">353</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage entity references.</p>
+<p class="description"><p>An entity may reference a series of other entities and each reference may have a  different type. This method can be used to manage the entity <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_REFS">offset</a>  used to store these relations.</p><p>The method accepts the following parameters:</p><p><ul><li><strong>$theType</strong>: Type of reference, this is a scalar, possibly a string, that
+        indicates the type of reference we are adding, retrieving or deleting. This
+        value may be <em>NULL</em> for references that do not imply a type.</li><li><strong>$theValue</strong>: Reference or object. This parameter represents the reference,
+        it may be a scalar, representing either the referenced object
+        <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a>, a structure representing an object reference,
+        or the referenced object itself.</li><li><strong>$theOperation</strong>: The operation to perform:
+     <ul><li><em>NULL</em>: Return the element matched by the previous parameters.</li><li><em>FALSE</em>: Delete the element matched by the previous parameters and
+            return it.</li><li><em>other</em>: Any other value means that we want to add to the list the
+            element provided in the previous parameters, either appending it if there
+            was no matching element, or by replacing a matching element. The method will
+            return either the replaced element or the new one.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return when deleting or
+        replacing:
+     <ul><li><em>TRUE</em>: Return the deleted or replaced element.</li><li><em>FALSE</em>: Return the replacing element or <em>NULL</em> when deleting.</li></ul></li></ul></p><p>Each element of this list is structured as follows:</p><p><ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a></em>: This offset represents the reference type or
+        class, it may be omitted if the reference has no type or when we want to define
+        a default reference. The first parameter will be stored here.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: This offset represents the reference itself,
+        it may be in two forms:
+     <ul><li><em>Scalar</em>: A scalar is interpreted as the object's
+            <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a>.</li><li><em>Reference</em>: An object reference structured as follows:
+         <ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_REFERENCE">kTAG_ID_REFERENCE</a></em>: The unique
+                <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a> of the referenced object. This element
+                is required by default.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CONTAINER_REFERENCE">kTAG_CONTAINER_REFERENCE</a></em>: The
+                <a href="../../Framework/Persistence/CContainer.html">container</a> name. This element is optional.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATABASE_REFERENCE">kTAG_DATABASE_REFERENCE</a></em>: The
+                database name. This element is optional.</li></ul></li><li><em>Object</em>: An object derived from this class will be interpreted as the
+            referenced object itself. When <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">committing</a> the current
+            object, these objects will also be <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">committed</a> and
+            <a href="../../Framework/Persistence/CContainer.html#methodReference">converted</a> to references.</li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			Affiliate
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theType</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theOperation</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theType</span><span class="var-description">: Reference type.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Reference value.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theOperation</span><span class="var-description">: Operation.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
 <a name="methodCode" id="Code"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Code</span> (line <span class="line-number">190</span>)
+		<span class="method-title">Code</span> (line <span class="line-number">198</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -346,7 +411,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Name</span> (line <span class="line-number">263</span>)
+		<span class="method-title">Name</span> (line <span class="line-number">271</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -382,7 +447,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetSet</span> (line <span class="line-number">385</span>)
+		<span class="method-title">offsetSet</span> (line <span class="line-number">393</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -430,7 +495,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetUnset</span> (line <span class="line-number">416</span>)
+		<span class="method-title">offsetUnset</span> (line <span class="line-number">424</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -470,83 +535,12 @@
 							</li>
 				</ul>
 	</div>
-<a name="methodReference" id="Reference"><!-- --></a>
+<a name="methodType" id="Type"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Reference</span> (line <span class="line-number">345</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Manage entity references.</p>
-<p class="description"><p>An entity may reference a series of other entities and each reference may have a  different type. This method can be used to manage the entity <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_REFS">offset</a>  used to store these relations.</p><p>The method accepts the following parameters:</p><p><ul><li><strong>$theType</strong>: Type of reference, this is a scalar, possibly a string, that
-        indicates the type of reference we are adding, retrieving or deleting. This
-        value may be <em>NULL</em> for references that do not imply a type.</li><li><strong>$theValue</strong>: Reference or object. This parameter represents the reference,
-        it may be a scalar, representing either the referenced object
-        <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a>, a structure representing an object reference,
-        or the referenced object itself.</li><li><strong>$theOperation</strong>: The operation to perform:
-     <ul><li><em>NULL</em>: Return the element matched by the previous parameters.</li><li><em>FALSE</em>: Delete the element matched by the previous parameters and
-            return it.</li><li><em>other</em>: Any other value means that we want to add to the list the
-            element provided in the previous parameters, either appending it if there
-            was no matching element, or by replacing a matching element. The method will
-            return either the replaced element or the new one.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return when deleting or
-        replacing:
-     <ul><li><em>TRUE</em>: Return the deleted or replaced element.</li><li><em>FALSE</em>: Return the replacing element or <em>NULL</em> when deleting.</li></ul></li></ul></p><p>Each element of this list is structured as follows:</p><p><ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a></em>: This offset represents the reference type or
-        class, it may be omitted if the reference has no type or when we want to define
-        a default reference. The first parameter will be stored here.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: This offset represents the reference itself,
-        it may be in two forms:
-     <ul><li><em>Scalar</em>: A scalar is interpreted as the object's
-            <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a>.</li><li><em>Reference</em>: An object reference structured as follows:
-         <ul><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_REFERENCE">kTAG_ID_REFERENCE</a></em>: The unique
-                <a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a> of the referenced object. This element
-                is required by default.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_CONTAINER_REFERENCE">kTAG_CONTAINER_REFERENCE</a></em>: The
-                <a href="../../Framework/Persistence/CContainer.html">container</a> name. This element is optional.</li><li><em><a href="../../Framework/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATABASE_REFERENCE">kTAG_DATABASE_REFERENCE</a></em>: The
-                database name. This element is optional.</li></ul></li><li><em>Object</em>: An object derived from this class will be interpreted as the
-            referenced object itself. When <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">committing</a> the current
-            object, these objects will also be <a href="../../Framework/Persistence/CPersistentObject.html#methodCommit">committed</a> and
-            <a href="../../Framework/Persistence/CContainer.html#methodReference">converted</a> to references.</li></ul></li></ul></p></p>
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">string</span>
-		<span class="method-name">
-			Reference
-		</span>
-					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theType</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theOperation</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">mixed</span>
-				<span class="var-name">$theType</span><span class="var-description">: Reference type.</span>			</li>
-					<li>
-				<span class="var-type">mixed</span>
-				<span class="var-name">$theValue</span><span class="var-description">: Reference value.</span>			</li>
-					<li>
-				<span class="var-type">mixed</span>
-				<span class="var-name">$theOperation</span><span class="var-description">: Operation.</span>			</li>
-					<li>
-				<span class="var-type">boolean</span>
-				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
-				</ul>
-		
-			<hr class="separator" />
-		<div class="notes">Redefinition of:</div>
-		<dl>
-			<dt><a href="../../Framework/Persistence/CPersistentUnitObject.html#methodReference">CPersistentUnitObject::Reference()</a></dt>
-						<dd>Convert an object to a reference.</dd>
-					</dl>
-			
-	</div>
-<a name="methodType" id="Type"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<img src="../../media/images/Method.png" />
-		<span class="method-title">Type</span> (line <span class="line-number">226</span>)
+		<span class="method-title">Type</span> (line <span class="line-number">234</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -581,11 +575,11 @@
 			
 	</div>
 <a name="method_index" id="_index"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_index</span> (line <span class="line-number">525</span>)
+		<span class="method-title">_index</span> (line <span class="line-number">533</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -621,16 +615,16 @@
 				</ul>
 	</div>
 <a name="method_PrepareCommit" id="_PrepareCommit"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">488</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">496</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Normalise before a store.</p>
-<p class="description"><p>We overload this method to check if the object in <a href="../../Framework/Core/CStatusObject.html#method_IsInited">initialised</a>, if  this is not the case we raise an exception.</p><p>We also scan the <a href="../../Objects/Entities/CEntity.html#methodReference">references</a> list to commit any elements that are  actual instances and convert them to references: we discriminate such elements by  selecting only objects derived from this class.</p></p>
+<p class="description"><p>We overload this method to check if the object in <a href="../../Framework/Core/CStatusObject.html#method_IsInited">initialised</a>, if  this is not the case we raise an exception.</p><p>We also scan the <a href="../../Objects/Entities/CEntity.html#methodAffiliate">references</a> list to commit any elements that are  actual instances and convert them to references: we discriminate such elements by  selecting only objects derived from this class.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../Framework/Definitions/_defines---Errors.inc.php.html#definekERROR_OPTION_MISSING">kERROR_OPTION_MISSING</a></li>
 				<li><span class="field">throws:</span> <a href="../../Framework/Core/CException.html">CException</a></li>
@@ -848,7 +842,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 30 Mar 2012 16:09:40 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 30 Mar 2012 18:36:57 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

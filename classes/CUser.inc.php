@@ -2,31 +2,31 @@
 
 /*=======================================================================================
  *																						*
- *									CEntity.inc.php										*
+ *									CUser.inc.php										*
  *																						*
  *======================================================================================*/
  
 /**
- * {@link CEntity CEntity} definitions.
+ * {@link CUser CUser} definitions.
  *
- * This file contains common definitions used by the {@link CEntity CEntity} class.
+ * This file contains common definitions used by the {@link CUser CUser} class.
  *
  *	@package	Objects
  *	@subpackage	Entities
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
- *	@version	1.00 13/03/2012
+ *	@version	1.00 30/03/2012
  */
 
 /*=======================================================================================
- *	DEFAULT CONTAINER NAME																*
+ *	DEFAULT OBJECT TAGS																	*
  *======================================================================================*/
 
 /**
- * Container name.
+ * Entity type.
  *
- * This tag will hold the default container name.
+ * This value defines the user entity type.
  */
-define( "kENTITY_CONTAINER",					'ENTITIES' );
+define( "kENTITY_USER",							':ENTITY:USER' );
 
 ?>

@@ -21,6 +21,82 @@
  */
 
 /*=======================================================================================
+ *	DEFAULT OPERATION ENUMERATIONS														*
+ *======================================================================================*/
+
+/**
+ * COUNT web-service.
+ *
+ * This is the tag that represents the COUNT web-service operation, used to return the
+ * total number of elements satisfying a query.
+ */
+define( "kAPI_OP_COUNT",			'@COUNT' );
+
+/**
+ * GET web-service.
+ *
+ * This is the tag that represents the GET web-service operation, used to retrieve objects
+ * from the data store.
+ */
+define( "kAPI_OP_GET",				'@GET' );
+
+/**
+ * SET web-service.
+ *
+ * This is the tag that represents the SET web-service operation, used to insert or update
+ * objects in the data store.
+ */
+define( "kAPI_OP_SET",				'@SET' );
+
+/**
+ * UPDATE web-service.
+ *
+ * This is the tag that represents the UPDATE web-service operation, used to update existing
+ * objects in the data store.
+ *
+ * This option implies that the object already exists, or the operation should fail.
+ */
+define( "kAPI_OP_UPDATE",			'@UPDATE' );
+
+/**
+ * INSERT web-service.
+ *
+ * This is the tag that represents the INSERT web-service operation, used to insert new
+ * objects in the data store.
+ *
+ * This option implies that the object does not exists, or the operation should fail.
+ */
+define( "kAPI_OP_INSERT",			'@INSERT' );
+
+/**
+ * BATCH-INSERT web-service.
+ *
+ * This service is equivalent to the {@link kAPI_OP_INSERT kAPI_OP_INSERT} command, except
+ * that in this case you provide a list ov objects to insert.
+ *
+ * This option implies that the objects do not exists, or the operation should fail.
+ */
+define( "kAPI_OP_BATCH_INSERT",		'@BINSERT' );
+
+/**
+ * MODIFY web-service.
+ *
+ * This is the tag that represents the MODIFY web-service operation, used to modify partial
+ * contents of objects in the data store
+ *
+ * This option implies that the object already exists, or the operation should fail.
+ */
+define( "kAPI_OP_MODIFY",			'@MODIFY' );
+
+/**
+ * DELETE web-service.
+ *
+ * This is the tag that represents the DELETE web-service operation, used to delete objects
+ * from the data store.
+ */
+define( "kAPI_OP_DEL",				'@DELETE' );
+
+/*=======================================================================================
  *	DEFAULT SERVICE TAGS																*
  *======================================================================================*/
 
@@ -31,7 +107,7 @@
  *
  * Cardinality: one.
  */
-define( "kAPI_DATABASE",			':$database' );
+define( "kAPI_DATABASE",			':@database' );
 
 /**
  * Web-service database container.
@@ -40,7 +116,7 @@ define( "kAPI_DATABASE",			':$database' );
  *
  * Cardinality: one.
  */
-define( "kAPI_CONTAINER",			':$container' );
+define( "kAPI_CONTAINER",			':@container' );
 
 /*=======================================================================================
  *	DEFAULT PAGING TAGS																	*
@@ -51,7 +127,7 @@ define( "kAPI_CONTAINER",			':$container' );
  *
  * This tag is used to define the starting page or record number.
  */
-define( "kAPI_PAGE_START",			':$page-start' );
+define( "kAPI_PAGE_START",			':@page-start' );
 
 /**
  * Page limit tag.
@@ -60,7 +136,7 @@ define( "kAPI_PAGE_START",			':$page-start' );
  * this should not be confused with the {@link kAPI_PAGE_COUNT count} tag which defines
  * the total number of elements affected by a request.
  */
-define( "kAPI_PAGE_LIMIT",			':$page-limit' );
+define( "kAPI_PAGE_LIMIT",			':@page-limit' );
 
 /**
  * Page count tag.
@@ -69,7 +145,7 @@ define( "kAPI_PAGE_LIMIT",			':$page-limit' );
  * this value will be smaller or equal {@link kAPI_PAGE_LIMIT limit} tag which defines
  * the maximum number of elements to be returned by a request.
  */
-define( "kAPI_PAGE_COUNT",			'_page-count' );
+define( "kAPI_PAGE_COUNT",			':@page-count' );
 
 /*=======================================================================================
  *	DEFAULT DATA MANAGEMENT TAGS														*
@@ -82,7 +158,7 @@ define( "kAPI_PAGE_COUNT",			'_page-count' );
  *
  * Cardinality: one or zero.
  */
-define( "kAPI_DATA_QUERY",			':$query' );
+define( "kAPI_DATA_QUERY",			':@query' );
 
 /**
  * Data store object fields.
@@ -92,7 +168,7 @@ define( "kAPI_DATA_QUERY",			':$query' );
  *
  * Cardinality: one or zero.
  */
-define( "kAPI_DATA_FIELD",			':$field' );
+define( "kAPI_DATA_FIELD",			':@field' );
 
 /**
  * Data store sort order.
@@ -102,7 +178,7 @@ define( "kAPI_DATA_FIELD",			':$field' );
  *
  * Cardinality: one or zero.
  */
-define( "kAPI_DATA_SORT",			':$sort' );
+define( "kAPI_DATA_SORT",			':@sort' );
 
 /**
  * Data store object.
@@ -112,7 +188,7 @@ define( "kAPI_DATA_SORT",			':$sort' );
  *
  * Cardinality: one or zero.
  */
-define( "kAPI_DATA_OBJECT",			':$object' );
+define( "kAPI_DATA_OBJECT",			':@object' );
 
 /**
  * Data store options.
@@ -130,7 +206,7 @@ define( "kAPI_DATA_OBJECT",			':$object' );
  *
  * Cardinality: one or zero.
  */
-define( "kAPI_DATA_OPTIONS",		':$options' );
+define( "kAPI_DATA_OPTIONS",		':@options' );
 
 /*=======================================================================================
  *	DEFAULT RESPONSE TAGS																*
@@ -151,82 +227,6 @@ define( "kAPI_DATA_PAGING",			'_paging' );
  * This tag holds the response block.
  */
 define( "kAPI_DATA_RESPONSE",		'_response' );
-
-/*=======================================================================================
- *	DEFAULT OPERATION ENUMERATIONS														*
- *======================================================================================*/
-
-/**
- * COUNT web-service.
- *
- * This is the tag that represents the COUNT web-service operation, used to return the
- * total number of elements satisfying a query.
- */
-define( "kAPI_OP_COUNT",			'count' );
-
-/**
- * GET web-service.
- *
- * This is the tag that represents the GET web-service operation, used to retrieve objects
- * from the data store.
- */
-define( "kAPI_OP_GET",				'get' );
-
-/**
- * SET web-service.
- *
- * This is the tag that represents the SET web-service operation, used to insert or update
- * objects in the data store.
- */
-define( "kAPI_OP_SET",				'set' );
-
-/**
- * UPDATE web-service.
- *
- * This is the tag that represents the UPDATE web-service operation, used to update existing
- * objects in the data store.
- *
- * This option implies that the object already exists, or the operation should fail.
- */
-define( "kAPI_OP_UPDATE",			'update' );
-
-/**
- * INSERT web-service.
- *
- * This is the tag that represents the INSERT web-service operation, used to insert new
- * objects in the data store.
- *
- * This option implies that the object does not exists, or the operation should fail.
- */
-define( "kAPI_OP_INSERT",			'insert' );
-
-/**
- * BATCH-INSERT web-service.
- *
- * This service is equivalent to the {@link kAPI_OP_INSERT kAPI_OP_INSERT} command, except
- * that in this case you provide a list ov objects to insert.
- *
- * This option implies that the objects do not exists, or the operation should fail.
- */
-define( "kAPI_OP_BATCH_INSERT",		'batch-insert' );
-
-/**
- * MODIFY web-service.
- *
- * This is the tag that represents the MODIFY web-service operation, used to modify partial
- * contents of objects in the data store
- *
- * This option implies that the object already exists, or the operation should fail.
- */
-define( "kAPI_OP_MODIFY",			'modify' );
-
-/**
- * DELETE web-service.
- *
- * This is the tag that represents the DELETE web-service operation, used to delete objects
- * from the data store.
- */
-define( "kAPI_OP_DEL",				'del' );
 
 /*=======================================================================================
  *	DEFAULT OPTION ENUMERATIONS															*

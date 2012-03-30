@@ -584,8 +584,8 @@ class CPersistentUnitObject extends CPersistentObject
 	 *
 	 * This method should be called {@link _PrepareCommit() before} {@link Commit() storing}
 	 * objects that contain references to other objects, its duty is to traverse these lists
-	 * and {@link Commit() commit} any element that is actually an instance derived from this
-	 * class, and convert it back to a reference.
+	 * and {@link Commit() commit} any element that is actually an instance derived from
+	 * this class, and convert it back to a reference.
 	 *
 	 * The parameters to this method are:
 	 *
@@ -596,9 +596,9 @@ class CPersistentUnitObject extends CPersistentObject
 	 *	<li><b>$theOffset</b>: The current object's offset in which the reference list is
 	 *		stored.
 	 *	<li><b>$theModifiers</b>: A bitfield indicating which elements of the
-	 *		{@link CContainer::Reference() reference} should be included, this parameter will
-	 *		be passed to the {@link CContainer::Reference() method} that will convert the
-	 *		object into a reference:
+	 *		{@link CContainer::Reference() reference} should be included, this parameter
+	 *		will be passed to the {@link CContainer::Reference() method} that will convert
+	 *		the object into a reference:
 	 *	 <ul>
 	 *		<li><i>{@link kFLAG_REFERENCE_IDENTIFIER kFLAG_REFERENCE_IDENTIFIER}</i>: The
 	 *			object {@link kTAG_ID_NATIVE identifier} will be stored under the

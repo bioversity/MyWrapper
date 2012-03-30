@@ -61,7 +61,7 @@ require_once( kPATH_LIBRARY_SOURCE."CWrapper.inc.php" );
  *		each class will implement specialised handlers, this class only implements the
  *		following two operations:
  *	 <ul>
- *		<li><i>{@link kAPI_OP_LIST_OP kAPI_OP_LIST_OP}</i>: A <i>LIST-OP</i> command, this
+ *		<li><i>{@link kAPI_OP_HELP kAPI_OP_HELP}</i>: A <i>LIST-OP</i> command, this
  *			command will return in the {@link kAPI_DATA_RESPONSE response} section the list
  *			of supported operations as an array structured as follows:
  *		 <ul>
@@ -146,7 +146,7 @@ require_once( kPATH_LIBRARY_SOURCE."CWrapper.inc.php" );
  *	 </ul>
  *	<li><i>{@link kAPI_DATA_RESPONSE kAPI_DATA_RESPONSE}</i>: Response, this section will
  *		hold the operation response, in this class we only respond to
- *		{@link kAPI_OP_LIST_OP operations} list requests.
+ *		{@link kAPI_OP_HELP operations} list requests.
  * </ul>
  *
  * Besides the {@link kAPI_FORMAT format} and {@link kAPI_OPERATION operation} parameters
@@ -816,7 +816,7 @@ class CWrapper extends CStatusObject
 			//
 			// Valid formats.
 			//
-			case kAPI_OP_LIST_OP:
+			case kAPI_OP_HELP:
 			case kAPI_OP_PING:
 				break;
 			
@@ -881,7 +881,7 @@ class CWrapper extends CStatusObject
 		//
 		switch( $op = $_REQUEST[ kAPI_OPERATION ] )
 		{
-			case kAPI_OP_LIST_OP:
+			case kAPI_OP_HELP:
 				$list = Array();
 				$this->_Handle_ListOp( $list );
 				if( count( $list ) )
@@ -908,9 +908,9 @@ class CWrapper extends CStatusObject
 	 *==================================================================================*/
 
 	/**
-	 * Handle {@link kAPI_OP_LIST_OP list} operations request.
+	 * Handle {@link kAPI_OP_HELP list} operations request.
 	 *
-	 * This method will handle the {@link kAPI_OP_LIST_OP kAPI_OP_LIST_OP} request, which
+	 * This method will handle the {@link kAPI_OP_HELP kAPI_OP_HELP} request, which
 	 * should return the list of supported operations.
 	 *
 	 * @param reference				$theList			Receives operations list.
@@ -920,9 +920,9 @@ class CWrapper extends CStatusObject
 	protected function _Handle_ListOp( &$theList )
 	{
 		//
-		// Add kAPI_OP_LIST_OP.
+		// Add kAPI_OP_HELP.
 		//
-		$theList[ kAPI_OP_LIST_OP ]
+		$theList[ kAPI_OP_HELP ]
 			= 'List operations: returns the list of supported operations.';
 	
 		//

@@ -1094,9 +1094,9 @@ class CDataWrapper extends CWrapper
 	 *==================================================================================*/
 
 	/**
-	 * Handle {@link kAPI_OP_LIST_OP list} operations request.
+	 * Handle {@link kAPI_OP_HELP list} operations request.
 	 *
-	 * This method will handle the {@link kAPI_OP_LIST_OP kAPI_OP_LIST_OP} request, which
+	 * This method will handle the {@link kAPI_OP_HELP kAPI_OP_HELP} request, which
 	 * should return the list of supported operations.
 	 *
 	 * @param reference				$theList			Receives operations list.

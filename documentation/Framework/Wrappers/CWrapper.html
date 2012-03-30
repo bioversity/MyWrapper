@@ -34,7 +34,7 @@
      <ul><li><em><a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_PHP">kDATA_TYPE_PHP</a></em>: A PHP-serialised string.</li><li><em><a href="../../Framework/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_JSON">kDATA_TYPE_JSON</a></em>: A JSON-serialised string.</li></ul></li><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">kAPI_OPERATION</a></em> (required): The requested operation,
         each class will implement specialised handlers, this class only implements the
         following two operations:
-     <ul><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_LIST_OP">kAPI_OP_LIST_OP</a></em>: A <em>LIST-OP</em> command, this
+     <ul><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_HELP">kAPI_OP_HELP</a></em>: A <em>LIST-OP</em> command, this
             command will return in the <a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_RESPONSE">response</a> section the list
             of supported operations as an array structured as follows:
          <ul><li><em>index</em>: The index will be the operation code.</li><li><em>value</em>: The value will be the operation description.</li></ul></li><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_PING">kAPI_OP_PING</a></em>: A <em>PING</em> command, this can be
@@ -82,7 +82,7 @@
             which the service finished parsing the request.</li><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_RES_STAMP">kAPI_RES_STAMP</a></em>: Response time stamp, the time in
             which the response was sent.</li></ul></li><li><em><a href="../../Framework/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_RESPONSE">kAPI_DATA_RESPONSE</a></em>: Response, this section will
         hold the operation response, in this class we only respond to
-        <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_LIST_OP">operations</a> list requests.</li></ul></p><p>Besides the <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">format</a> and <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">operation</a> parameters  described in the first section, we have three other optional parameters that can be used  to receive specific information sections in the response:</p><p><ul><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPT_LOG_REQUEST">kAPI_OPT_LOG_REQUEST</a></em>: Log the request, if the
+        <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_HELP">operations</a> list requests.</li></ul></p><p>Besides the <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">format</a> and <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">operation</a> parameters  described in the first section, we have three other optional parameters that can be used  to receive specific information sections in the response:</p><p><ul><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPT_LOG_REQUEST">kAPI_OPT_LOG_REQUEST</a></em>: Log the request, if the
         value of this parameter is 1, the response will contain the received request in the
         <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_DATA_REQUEST">request</a> section.</li><li><em><a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPT_LOG_TRACE">kAPI_OPT_LOG_TRACE</a></em>: Trace exceptions, if the
         value of this parameter is 1, in the case of an error that triggered an exception,
@@ -568,8 +568,8 @@
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Handle <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_LIST_OP">list</a> operations request.</p>
-<p class="description"><p>This method will handle the <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_LIST_OP">kAPI_OP_LIST_OP</a> request, which  should return the list of supported operations.</p></p>
+<p class="short-description">Handle <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_HELP">list</a> operations request.</p>
+<p class="description"><p>This method will handle the <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_HELP">kAPI_OP_HELP</a> request, which  should return the list of supported operations.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
 			</ul>
@@ -597,11 +597,11 @@
 		<ul class="redefinitions">
 					<li>
 				<a href="../../Framework/Wrappers/CDataWrapper.html#method_Handle_ListOp">CDataWrapper::_Handle_ListOp()</a>
-								: Handle <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_LIST_OP">list</a> operations request.
+								: Handle <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_HELP">list</a> operations request.
 							</li>
 					<li>
 				<a href="../../Framework/Wrappers/CMongoDataWrapper.html#method_Handle_ListOp">CMongoDataWrapper::_Handle_ListOp()</a>
-								: Handle <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_LIST_OP">list</a> operations request.
+								: Handle <a href="../../Framework/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_HELP">list</a> operations request.
 							</li>
 				</ul>
 	</div>
@@ -1107,7 +1107,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 30 Mar 2012 16:09:43 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 30 Mar 2012 18:36:59 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

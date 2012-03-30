@@ -94,8 +94,8 @@ try
 	$entity2->Type( 'PERSON', TRUE );
 	echo( '<i>$entity2->Type( \'USER\', TRUE );</i><br>' );
 	$entity2->Type( 'USER', TRUE );
-	echo( '<i>$entity2->Reference( \'COLL\', $entity1, TRUE );</i><br>' );
-	$entity2->Reference( 'COLL', $entity1, TRUE );
+	echo( '<i>$entity2->Affiliate( \'COLL\', $entity1, TRUE );</i><br>' );
+	$entity2->Affiliate( 'COLL', $entity1, TRUE );
 	echo( '<pre>' ); print_r( $entity2 ); echo( '</pre>' );
 	echo( '<hr>' );
 	
@@ -105,8 +105,8 @@ try
 	$entity3->Code( 'LUCA' );
 	echo( '<i>$entity3->Name( \'Luca Matteis\' );</i><br>' );
 	$entity3->Name( 'Luca Matteis' );
-	echo( '<i>$entity3->Reference( NULL, $entity2, TRUE );</i><br>' );
-	$entity3->Reference( NULL, $entity2, TRUE );
+	echo( '<i>$entity3->Affiliate( NULL, $entity2, TRUE );</i><br>' );
+	$entity3->Affiliate( NULL, $entity2, TRUE );
 	echo( '<pre>' ); print_r( $entity3 ); echo( '</pre>' );
 	echo( '<hr>' );
 	 
