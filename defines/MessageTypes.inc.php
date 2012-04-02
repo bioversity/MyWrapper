@@ -11,7 +11,7 @@
  *
  *	This file contains common enumerations used by all classes.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Definitions
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>

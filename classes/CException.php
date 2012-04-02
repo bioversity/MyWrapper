@@ -11,7 +11,7 @@
  * High level exceptions add specific functionality and would be triggered by queing low
  * level exceptions.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Core
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
@@ -65,7 +65,7 @@ require_once( kPATH_LIBRARY_DEFINES."MessageTypes.inc.php" );
  * Note that this class does not throw exceptions (hahaha), operations that fail are simply
  * aborted.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Core
  */
 class CException extends Exception

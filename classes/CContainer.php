@@ -6,7 +6,7 @@
  * This file contains the class definition of <b>CContainer</b> which represents the
  * ancestor of all object stores in this library.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Persistence
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
@@ -53,8 +53,8 @@ require_once( kPATH_LIBRARY_DEFINES."Types.inc.php" );
  *
  * The class features a {@link Container() member} that holds the native data store.
  *
- * @package		Framework
- * @subpackage	Persistence
+ *	@package	MyWrapper
+ *	@subpackage	Persistence
  */
 abstract class CContainer extends CObject
 {

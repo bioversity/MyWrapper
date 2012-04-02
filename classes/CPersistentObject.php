@@ -6,7 +6,7 @@
  * This file contains the class definition of <b>CPersistentObject</b> which represents the
  * ancestor of all persistent classes in this library.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Persistence
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
@@ -74,8 +74,8 @@ require_once( kPATH_LIBRARY_SOURCE."CStatusObject.php" );
  * status and accepts only instances derived from {@link CContainer CContainer} as
  * containers.
  *
- * @package		Framework
- * @subpackage	Persistence
+ *	@package	MyWrapper
+ *	@subpackage	Persistence
  */
 class CPersistentObject extends CStatusObject
 {

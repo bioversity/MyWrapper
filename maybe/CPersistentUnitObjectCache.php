@@ -6,7 +6,7 @@
  * This file contains the class definition of <b>CPersistentUnitObjectCache</b> which
  * represents a data cache of {@link CPersistentUnitObject CPersistentUnitObject} objects.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Persistence
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>

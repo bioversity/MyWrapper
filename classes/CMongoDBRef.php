@@ -6,7 +6,7 @@
  * This file contains the class definition of <b>CMongoDBRef</b> which implements the
  * MongoDBRef class as an instance.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Persistence
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
@@ -47,7 +47,7 @@ require_once( kPATH_LIBRARY_SOURCE."CPersistentObject.php" );
  * {@link ClassName() explicitly} or it is taken from the provided reference
  * {@link kTAG_CLASS offset} when {@link __construct() constructing} the object.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Persistence
  */
 class CMongoDBRef extends CPersistentObject

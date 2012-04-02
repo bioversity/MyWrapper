@@ -7,7 +7,7 @@
  * {@link CPersistentObject ancestor} to implement an object that has a unique key, a field
  * storing its {@link kTAG_CLASS class} and a {@link kTAG_VERSION version}.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Persistence
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
@@ -76,8 +76,8 @@ require_once( kPATH_LIBRARY_SOURCE."CPersistentObject.php" );
  * The specifics of this are managed by the {@link CContainer CContainer} derived classes,
  * so when planning your objects think in advance in what containers you plan to store them.
  *
- * @package		Framework
- * @subpackage	Persistence
+ *	@package	MyWrapper
+ *	@subpackage	Persistence
  */
 class CPersistentUnitObject extends CPersistentObject
 {

@@ -397,9 +397,11 @@ try
 	$sort_json = json_encode( array( ':LID', ':TYPE' ) );
 	$object_json = json_encode( $object );
 	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_JSON),
-					 (kAPI_OPERATION.'='.kAPI_OP_DEBUG),
+					 (kAPI_OPERATION.'='.kAPI_OP_COUNT),
 					 (kAPI_PAGE_START.'='.'0'),
 					 (kAPI_PAGE_LIMIT.'='.'10'),
+					 (kAPI_DATABASE.'='.'Database'),
+					 (kAPI_CONTAINER.'='.'Container'),
 					 (kAPI_DATA_QUERY.'='.urlencode( $query_json )),
 					 (kAPI_DATA_FIELD.'='.urlencode( $fields_json )),
 					 (kAPI_DATA_SORT.'='.urlencode( $sort_json )),

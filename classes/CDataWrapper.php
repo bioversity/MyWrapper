@@ -6,7 +6,7 @@
  * This file contains the class definition of <b>CDataWrapper</b> which overloads its
  * {@link CWrapper ancestor} to implement a data store wrapper.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Wrappers
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
@@ -174,7 +174,7 @@ require_once( kPATH_LIBRARY_SOURCE."CDataWrapper.inc.php" );
  *	 </ul>
  * </ul>
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Wrappers
  */
 class CDataWrapper extends CWrapper
@@ -963,7 +963,6 @@ class CDataWrapper extends CWrapper
 	 */
 	protected function _ValidateFields()
 	{
-		//
 		// Check fields.
 		//
 		if( array_key_exists( kAPI_DATA_FIELD, $_REQUEST ) )

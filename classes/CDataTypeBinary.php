@@ -6,7 +6,7 @@
  * This file contains the class definition of <b>CDataTypeBinary</b> which wraps this class
  * around a binary string.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Core
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
@@ -51,7 +51,7 @@ require_once( kPATH_LIBRARY_SOURCE."CDataType.php" );
  *	 </ul>
  * </ul>
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Core
  */
 class CDataTypeBinary extends CDataType

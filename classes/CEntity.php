@@ -6,7 +6,7 @@
  * This file contains the class definition of <b>CEntity</b> which represents the ancestor
  * of entity objects.
  *
- *	@package	Objects
+ *	@package	MyWrapper
  *	@subpackage	Entities
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
@@ -107,7 +107,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEntity.inc.php" );
  * The class also features a static {@link DefaultContainer() method} that returns the
  * default container name for objects of this type.
  *
- *	@package	Objects
+ *	@package	MyWrapper
  *	@subpackage	Entities
  */
 class CEntity extends CPersistentUnitObject
@@ -381,7 +381,7 @@ class CEntity extends CPersistentUnitObject
 	/**
 	 * Set a value for a given offset.
 	 *
-	 * We overload this method to manage the {@link _Is Inited() inited}
+	 * We overload this method to manage the {@link _IsInited() inited}
 	 * {@link kFLAG_STATE_INITED status}: this is set if {@link kTAG_CODE code} property is
 	 * set.
 	 *
@@ -413,7 +413,7 @@ class CEntity extends CPersistentUnitObject
 	/**
 	 * Reset a value for a given offset.
 	 *
-	 * We overload this method to manage the {@link _Is Inited() inited}
+	 * We overload this method to manage the {@link _IsInited() inited}
 	 * {@link kFLAG_STATE_INITED status}: this is set if {@link kTAG_CODE code} property is
 	 * set.
 	 *

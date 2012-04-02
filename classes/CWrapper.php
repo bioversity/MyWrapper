@@ -4,9 +4,9 @@
  * <i>CWrapper</i> class definition.
  *
  * This file contains the class definition of <b>CWrapper</b> which represents a web-service
- * wrapper.
+ * wrapper server.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Wrappers
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
@@ -44,8 +44,8 @@ require_once( kPATH_LIBRARY_SOURCE."CWrapper.inc.php" );
 /**
  *	Wrapper.
  *
- * This class represents a web-services wrapper, it is the ancestor of web-service classes
- * in this library.
+ * This class represents a web-services wrapper server, it is the ancestor of web-service
+ * classes in this library.
  *
  * Wrappers are objects that respond to standard web calls and receive parameters in both
  * <i>GET</i> and <i>POST</i> parameters, the main two parameters handled by this class are:
@@ -183,7 +183,7 @@ require_once( kPATH_LIBRARY_SOURCE."CWrapper.inc.php" );
  * An example of this class implementation can be found in the
  * {@link Wrapper.php Wrapper.php} source file.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Wrappers
  */
 class CWrapper extends CStatusObject
@@ -365,133 +365,6 @@ class CWrapper extends CStatusObject
 	} // HandleRequest.
 
 		
-
-/*=======================================================================================
- *																						*
- *								STATIC REQUEST INTERFACE								*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	Request																			*
-	 *==================================================================================*/
-
-	/**
-	 * Request a page.
-	 *
-	 * This method can be used to sent an <i>HTTP</i> request via <i>GET</i> or <i>POST</i>.
-	 *
-	 * The method accepts the following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theUrl</b>: The URL to which we are sending the request.
-	 *	<li><b>$theParams</b>: An array of key/value parameters for the request.
-	 *	<li><b>$theMode</b>: The request mode:
-	 *	 <ul>
-	 *		<li><i>GET</i>: GET, default.
-	 *		<li><i>POST</i>: POST.
-	 *	 </ul>
-	 *	<li><b>$theFormat</b>: The request format:
-	 *	 <ul>
-	 *		<li><i>{@link kDATA_TYPE_XML kDATA_TYPE_XML}</i>: XML.
-	 *		<li><i>{@link kDATA_TYPE_PHP kDATA_TYPE_PHP}</i>: PHP.
-	 *		<li><i>{@link kDATA_TYPE_JSON kDATA_TYPE_JSON}</i>: JSON.
-	 *	 </ul>
-	 * </ul>
-	 *
-	 * @access public
-	 *
-	 * @throws Exception
-	 */
-	static function Request( $theUrl, $theParams = Array(),
-									  $theMode = 'GET',
-									  $theFormat = kDATA_TYPE_JSON )
-	{
-		//
-		// Build context parameters.
-		//
-		$cxp = array( 'http' => array( 'method' => $theMode,
-									   'ignore_errors' => TRUE ) );
-		
-		//
-		// Set parameters.
-		//
-		if( $theParams !== NULL )
-		{
-			//
-			// Format parameters.
-			//
-			$theParams = http_build_query( $theParams );
-			
-			//
-			// handle mode.
-			//
-			if( $theMode == 'POST' )
-				$cxp[ 'http' ][ 'content' ] = $theParams;
-			else
-				$theUrl .= ('?'.$theParams);
-		}
-		
-		//
-		// Create context.
-		//
-		$context = stream_context_create( $cxp );
-		
-		//
-		// Open stream.
-		//
-		$fp = fopen( $theUrl, 'rb', FALSE, $context );
-		if( ! $fp )
-			throw new Exception
-					( "[$theMode] [$theUrl] failed: [php_errormsg]" );			// !@! ==>
-		
-		//
-		// Debug stream.
-		//
-		else
-		{
-			// If you're trying to troubleshoot problems, try uncommenting the
-			// next two lines; it will show you the HTTP response headers across
-			// all the redirects:
-			// $meta = stream_get_meta_data( $fp );
-			// var_dump( $meta[ 'wrapper_data' ]);
-			
-			//
-			// Read stream.
-			//
-			$result = stream_get_contents( $fp );
-		}
-		
-		//
-		// Close stream.
-		//
-		fclose( $fp );
-		
-		//
-		// Format response.
-		//
-		switch( $theFormat )
-		{
-			case kDATA_TYPE_JSON:
-				$response = json_decode( $result );
-				if( $response !== NULL )
-					return $response;												// ==>
-				throw new Exception( "Failed to decode [$result] as json" );	// !@! ==>
-	
-			case kDATA_TYPE_XML:
-				$response = simplexml_load_string( $result );
-				if( $response !== NULL )
-					return $response;												// ==>
-				throw new Exception( "Failed to decode [$result] as xml" );		// !@! ==>
-		}
-		
-		return $result;																// ==>
-	
-	} // Request.
-
-	 
 
 /*=======================================================================================
  *																						*

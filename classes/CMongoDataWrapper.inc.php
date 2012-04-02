@@ -12,7 +12,7 @@
  * This file contains common definitions used by the
  * {@link CMongoDataWrapper CMongoDataWrapper} class.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Wrappers
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>

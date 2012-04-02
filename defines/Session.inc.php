@@ -11,7 +11,7 @@
  *
  *	This file contains the list default session tags used by the classes in this library.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Definitions
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>

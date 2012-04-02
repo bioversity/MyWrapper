@@ -1,0 +1,681 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs for page Flags.inc.php</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="file-name"><img src="../../media/images/Page_logo.png" alt="File" style="vertical-align: middle">/defines/Flags.inc.php</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+											<a href="#sec-constants">Constants</a>
+										</div>
+	<div class="info-box-body">	
+		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Status flags.</p>
+<p class="description"><p>This file contains the common status flags used by all classes in this library.</p></p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Milko A. Škofič &lt;<a href="mailto:m.skofic@cgiar.org">m.skofic@cgiar.org</a>&gt;</li>
+				<li><span class="field">version:</span> 1.00 29/05/2009                 2.00 23/11/2010                 3.00 13/02/2012</li>
+			</ul>
+		
+			</div>
+</div>
+		
+
+	
+	<a name="sec-constants"></a>	
+	<div class="info-box">
+		<div class="info-box-title">Constants</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+									<span class="disabled">Constants</span>
+											</div>
+		<div class="info-box-body">	
+			<a name="definekFLAG_DEFAULT"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_DEFAULT</span> = 0x00000000
+			(line <span class="line-number">422</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Default state.</p>
+<p class="description"><p>This bitfield value represents the default flags state.</p></p>
+	
+		
+</div>
+<a name="definekFLAG_DEFAULT_MASK"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_DEFAULT_MASK</span> = 0x7FFFFFFF
+			(line <span class="line-number">429</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Status mask.</p>
+<p class="description"><p>This bitfield value represents the default flags mask.</p></p>
+	
+		
+</div>
+<a name="definekFLAG_MODIFIER_HASH"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_MODIFIER_HASH</span> = 0x20000000
+			(line <span class="line-number">356</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Modifier: hash.</p>
+<p class="description"><p>If the flag is set, the string will be hashed into a 32 character hex string; this option  is mutually exclusive with the <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_HEX">kFLAG_MODIFIER_HEX</a> and  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_HEXEXP">kFLAG_MODIFIER_HEXEXP</a> flags.</p><p>This modification will be applied after the eventual <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_UTF8">UTF-8</a>,  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_TRIM">trim</a>, <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_NULL">NULL</a>,  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_NOCASE">lowercase</a> and <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_URL">url</a> or  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_HTML">HTML</a> conversions.</p></p>
+	
+		
+</div>
+<a name="definekFLAG_MODIFIER_HASH_BIN"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_MODIFIER_HASH_BIN</span> = 0x60000000
+			(line <span class="line-number">372</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Modifier: binary hash.</p>
+<p class="description"><p>If the flag is set, the string will be hashed and the resulting string will be  a 16 character binary string. Note that if this flag is set it is assumed that  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_HASH">kFLAG_MODIFIER_HASH</a> is also set and this option is mutually  exclusive with the <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_HEX">kFLAG_MODIFIER_HEX</a> and  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_HEXEXP">kFLAG_MODIFIER_HEXEXP</a> flags.</p><p>This modification will be applied after the eventual <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_UTF8">UTF-8</a>,  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_TRIM">trim</a>, <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_NULL">NULL</a>,  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_NOCASE">lowercase</a> and <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_URL">url</a> or  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_HTML">HTML</a> conversions.</p></p>
+	
+		
+</div>
+<a name="definekFLAG_MODIFIER_HEX"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_MODIFIER_HEX</span> = 0x08000000
+			(line <span class="line-number">326</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Modifier: HEX.</p>
+<p class="description"><p>If the flag is set the string will be converted to a hexadecimal string; this option is  mutually exclusive with the <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_HASH">kFLAG_MODIFIER_HASH</a> and  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_HASH_BIN">kFLAG_MODIFIER_HASH_BIN</a> flags.</p><p>This modification will be applied after the eventual <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_UTF8">UTF-8</a>,  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_TRIM">trim</a>, <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_NULL">NULL</a>,  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_NOCASE">lowercase</a> and <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_URL">url</a> or  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_HTML">HTML</a> conversions.</p></p>
+	
+		
+</div>
+<a name="definekFLAG_MODIFIER_HEXEXP"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_MODIFIER_HEXEXP</span> = 0x18000000
+			(line <span class="line-number">342</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Modifier: HEX expression.</p>
+<p class="description"><p>If the flag is set the string will be converted to a hexadecimal string suitable to be  used in an expression (<em>0x00...</em>). Note that if this flag is set it is assumed that  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_HEX">kFLAG_MODIFIER_HEX</a> is also set and this flag is mutually  exclusive with the <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_HASH">kFLAG_MODIFIER_HASH</a> and  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_HASH_BIN">kFLAG_MODIFIER_HASH_BIN</a> flags.</p><p>This modification will be applied after the eventual <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_UTF8">UTF-8</a>,  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_TRIM">trim</a>, <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_NULL">NULL</a>,  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_NOCASE">lowercase</a> and <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_URL">url</a> or  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_HTML">HTML</a> conversions.</p></p>
+	
+		
+</div>
+<a name="definekFLAG_MODIFIER_HTML"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_MODIFIER_HTML</span> = 0x04000000
+			(line <span class="line-number">312</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Modifier: Encode for HTML.</p>
+<p class="description"><p>If the flag is set, the string will be URL-encoded; this option and  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_URL">kFLAG_MODIFIER_URL</a> are mutually exclusive.</p><p>This modification will be applied after the eventual <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_UTF8">UTF-8</a>,  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_TRIM">trim</a>, <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_NULL">NULL</a> and  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_NOCASE">lowercase</a> conversions.</p></p>
+	
+		
+</div>
+<a name="definekFLAG_MODIFIER_LTRIM"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_MODIFIER_LTRIM</span> = 0x00100000
+			(line <span class="line-number">231</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Modifier: Left trim.</p>
+<p class="description"><p>If the flag is set the string will be left trimmed.</p><p>This modification will be applied after the eventual <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_UTF8">UTF-8</a>  conversion.</p></p>
+	
+		
+</div>
+<a name="definekFLAG_MODIFIER_MASK"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_MODIFIER_MASK</span> = 0x7FF80000
+			(line <span class="line-number">411</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Modifiers mask.</p>
+<p class="description"><p>This value masks the string modifier flags.</p></p>
+	
+		
+</div>
+<a name="definekFLAG_MODIFIER_MASK_HASH"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_MODIFIER_MASK_HASH</span> = 0x60000000
+			(line <span class="line-number">404</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Hash mask.</p>
+<p class="description"><p>This value masks the both hash flags.</p></p>
+	
+		
+</div>
+<a name="definekFLAG_MODIFIER_MASK_HEX"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_MODIFIER_MASK_HEX</span> = 0x18000000
+			(line <span class="line-number">397</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">HEX mask.</p>
+<p class="description"><p>This value masks both the HEX flags.</p></p>
+	
+		
+</div>
+<a name="definekFLAG_MODIFIER_MASK_NULL"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_MODIFIER_MASK_NULL</span> = 0x00C00000
+			(line <span class="line-number">390</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">NULL mask.</p>
+<p class="description"><p>This value masks both the NULL flags.</p></p>
+	
+		
+</div>
+<a name="definekFLAG_MODIFIER_MASK_TRIM"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_MODIFIER_MASK_TRIM</span> = 0x00300000
+			(line <span class="line-number">383</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">TRIM mask.</p>
+<p class="description"><p>This value masks both trim flags.</p></p>
+	
+		
+</div>
+<a name="definekFLAG_MODIFIER_NOCASE"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_MODIFIER_NOCASE</span> = 0x01000000
+			(line <span class="line-number">288</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Modifier: Case insensitive.</p>
+<p class="description"><p>If the flag is set, the string will be set to lowercase, the default case insensitive  modifier. Note that depending on the <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_UTF8">UTF-8</a> flag, either the  <a href="http://www.php.net/strtolower">standard</a> or <a href="http://www.php.net/mb_convert_case">multibyte</a> function will be  used.</p><p>This modification will be applied after the eventual <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_UTF8">UTF-8</a>,  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_TRIM">trim</a> and <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_NULL">NULL</a> conversions.</p></p>
+	
+		
+</div>
+<a name="definekFLAG_MODIFIER_NULL"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_MODIFIER_NULL</span> = 0x00400000
+			(line <span class="line-number">263</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Modifier: NULL.</p>
+<p class="description"><p>If the flag is set and the string is empty, it will be converted to a <em>NULL</em> value.</p><p>This modification will be applied after the eventual <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_UTF8">UTF-8</a>  and <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_TRIM">trim</a> conversions.</p></p>
+	
+		
+</div>
+<a name="definekFLAG_MODIFIER_NULLSTR"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_MODIFIER_NULLSTR</span> = 0x00C00000
+			(line <span class="line-number">275</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Modifier: NULL string.</p>
+<p class="description"><p>If the flag is set and the string is empty, it will be converted to a '<em>NULL</em>'  string; this option implies that <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_NULL">kFLAG_MODIFIER_NULL</a> option  is also set.</p><p>This modification will be applied after the eventual <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_UTF8">UTF-8</a>  and <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_TRIM">trim</a> conversions.</p></p>
+	
+		
+</div>
+<a name="definekFLAG_MODIFIER_RTRIM"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_MODIFIER_RTRIM</span> = 0x00200000
+			(line <span class="line-number">241</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Modifier: Right trim.</p>
+<p class="description"><p>If the flag is set the string will be right trimmed.</p><p>This modification will be applied after the eventual <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_UTF8">UTF-8</a>  conversion.</p></p>
+	
+		
+</div>
+<a name="definekFLAG_MODIFIER_TRIM"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_MODIFIER_TRIM</span> = 0x00300000
+			(line <span class="line-number">253</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Modifier: Trim.</p>
+<p class="description"><p>If the flag is set the string will be trimmed, both left and right; this option implies  that <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_LTRIM">kFLAG_MODIFIER_LTRIM</a> and  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_RTRIM">kFLAG_MODIFIER_RTRIM</a> is also set.</p><p>This modification will be applied after the eventual <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_UTF8">UTF-8</a>  conversion.</p></p>
+	
+		
+</div>
+<a name="definekFLAG_MODIFIER_URL"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_MODIFIER_URL</span> = 0x02000000
+			(line <span class="line-number">300</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Modifier: Encode for URL.</p>
+<p class="description"><p>If the flag is set, the string will be URL-encoded; this option and  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_HTML">kFLAG_MODIFIER_HTML</a> are mutually exclusive.</p><p>This modification will be applied after the eventual <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_UTF8">UTF-8</a>,  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_TRIM">trim</a>, <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_NULL">NULL</a> and  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_NOCASE">lowercase</a> conversions.</p></p>
+	
+		
+</div>
+<a name="definekFLAG_MODIFIER_UTF8"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_MODIFIER_UTF8</span> = 0x00080000
+			(line <span class="line-number">221</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Modifier: UTF8 convert.</p>
+<p class="description"><p>If the flag is set, the string will be converted to the UTF8 character set.</p></p>
+	
+		
+</div>
+<a name="definekFLAG_PERSIST_DELETE"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_PERSIST_DELETE</span> = 0x00000080
+			(line <span class="line-number">136</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Persist: Delete.</p>
+<p class="description"><p>This bitfield value indicates that we intend to delete an object from a container, if  the object doesn't exist, the operation should still succeed.</p></p>
+	
+		
+</div>
+<a name="definekFLAG_PERSIST_INSERT"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_PERSIST_INSERT</span> = 0x00000010
+			(line <span class="line-number">97</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Persist: Insert.</p>
+<p class="description"><p>This bitfield value indicates that we intend to insert an object in a container, this  means that if a duplicate object already exists, the operation should fail.</p></p>
+	
+		
+</div>
+<a name="definekFLAG_PERSIST_MASK"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_PERSIST_MASK</span> = 0x000000F0
+			(line <span class="line-number">155</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Persist mask.</p>
+<p class="description"><p>This value masks all the persistence action flags.</p></p>
+	
+		
+</div>
+<a name="definekFLAG_PERSIST_MODIFY"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_PERSIST_MODIFY</span> = 0x00000060
+			(line <span class="line-number">117</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Persist: Modify.</p>
+<p class="description"><p>This bitfield value indicates that we intend to modify an existing object, the difference  with the <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_UPDATE">update</a> operation is that while the latter will  replace the whole object, in this case only the matching object attributes will be  updated and the unmatched ones will be left untouched. This option applies when adding  or modifying a subset of an object.</p></p>
+	
+		
+</div>
+<a name="definekFLAG_PERSIST_REPLACE"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_PERSIST_REPLACE</span> = 0x00000030
+			(line <span class="line-number">128</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Persist: Replace.</p>
+<p class="description"><p>This bitfield value indicates that we intend to either  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_INSERT">insert</a> an object, if it doesn't already exist, or  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_UPDATE">update</a> an existing object. In the latter case, this  operation assumes that the provided object will replace the entire contents of the  existing one.</p></p>
+	
+		
+</div>
+<a name="definekFLAG_PERSIST_UPDATE"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_PERSIST_UPDATE</span> = 0x00000020
+			(line <span class="line-number">106</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Persist: Update.</p>
+<p class="description"><p>This bitfield value indicates that we intend to update an object in a container, this  means that the object must exist, or the operation must fail. This operation assumes that  the provided object will replace the entire contents of the existing one.</p></p>
+	
+		
+</div>
+<a name="definekFLAG_PERSIST_WRITE_MASK"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_PERSIST_WRITE_MASK</span> = 0x00000070
+			(line <span class="line-number">148</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Write mask.</p>
+<p class="description"><p>This value masks the access flags that imply writing to the collection, with the  exception of <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_DELETE">deleting</a>.</p></p>
+	
+		
+</div>
+<a name="definekFLAG_REFERENCE_CLASS"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_REFERENCE_CLASS</span> = 0x00000800
+			(line <span class="line-number">199</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Reference: Class.</p>
+<p class="description"><p>This bitfield value indicates that we intend to include <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CLASS">class</a>  information to the reference, this is used when  CConttainer::Reference() a <a href="../../MyWrapper/Persistence/CPersistentObject.html">persistent</a>  object to a reference.</p></p>
+	
+		
+</div>
+<a name="definekFLAG_REFERENCE_CONTAINER"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_REFERENCE_CONTAINER</span> = 0x00000200
+			(line <span class="line-number">179</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Reference: Container.</p>
+<p class="description"><p>This bitfield value indicates that we intend to include  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CONTAINER_REFERENCE">container</a> information to the reference, this is used  when CConttainer::Reference() a <a href="../../MyWrapper/Persistence/CPersistentObject.html">persistent</a>  object to a reference.</p></p>
+	
+		
+</div>
+<a name="definekFLAG_REFERENCE_DATABASE"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_REFERENCE_DATABASE</span> = 0x00000400
+			(line <span class="line-number">189</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Reference: Database.</p>
+<p class="description"><p>This bitfield value indicates that we intend to include  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATABASE_REFERENCE">database</a> information to the reference, this is used  when CConttainer::Reference() a <a href="../../MyWrapper/Persistence/CPersistentObject.html">persistent</a>  object to a reference.</p></p>
+	
+		
+</div>
+<a name="definekFLAG_REFERENCE_IDENTIFIER"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_REFERENCE_IDENTIFIER</span> = 0x00000100
+			(line <span class="line-number">169</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Reference: Identifier.</p>
+<p class="description"><p>This bitfield value indicates that we intend to include  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_REFERENCE">identifier</a> information to the reference, this is used when  CConttainer::Reference() a <a href="../../MyWrapper/Persistence/CPersistentObject.html">persistent</a> object  to a reference.</p></p>
+	
+		
+</div>
+<a name="definekFLAG_REFERENCE_MASK"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_REFERENCE_MASK</span> = 0x00000F00
+			(line <span class="line-number">210</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Reference mask.</p>
+<p class="description"><p>This value masks all the reference option flags.</p></p>
+	
+		
+</div>
+<a name="definekFLAG_STATE_COMMITTED"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_STATE_COMMITTED</span> = 0x00000004
+			(line <span class="line-number">62</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">State: Committed.</p>
+<p class="description"><p>This bitfield value indicates that the object has been either loaded from a persistent  container, or that it has been saved to a persistent container. If used in combination  with the <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_DIRTY">dirty</a> flag, it allows committing the object only if it  was modified.</p><p>If the flag is off, this means that the object was not instantiated from a persistent  container, or that it was not committed to it.</p></p>
+	
+		
+</div>
+<a name="definekFLAG_STATE_DIRTY"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_STATE_DIRTY</span> = 0x00000002
+			(line <span class="line-number">49</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">State: Dirty.</p>
+<p class="description"><p>This bitfield value indicates that the object has been modified. In general this state is  only triggered by modifications to persistent data members; run time members should not  be included. Methods that serialise or modify the contents of the object should  respectively reset and set this flag.</p><p>If the flag is not set, this means that the object has not been modified;</p></p>
+	
+		
+</div>
+<a name="definekFLAG_STATE_ENCODED"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_STATE_ENCODED</span> = 0x00000008
+			(line <span class="line-number">74</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">State: Encoded.</p>
+<p class="description"><p>This bitfield value indicates an encoded state. This status is usually associated to  <a href="../../MyWrapper/Persistence/CPersistentObject.html">persistent</a> objects: if the state is ON it means that all  elements having custom data types, or data formats unsuitable for being transmitted over  the network, will be converted to standard data <a href="../../MyWrapper/Core/CDataType.html">types</a>. This flag will  be used by <a href="../../MyWrapper/Persistence/CContainer.html">containers</a> to determine whether to perform conversions  before and after persisting the objects.</p></p>
+	
+		
+</div>
+<a name="definekFLAG_STATE_INITED"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_STATE_INITED</span> = 0x00000001
+			(line <span class="line-number">37</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">State: Initialised.</p>
+<p class="description"><p>This bitfield value indicates that the object has been initialised, this means that all  required data members are present. In general, this means that elements comprising the  object's CObject::_Index() are not missing.</p><p>If this flag is not set, it means that the object lacks required elements, thus it will  not work correctly, or it cannot be stored persistently.</p></p>
+	
+		
+</div>
+<a name="definekFLAG_STATE_MASK"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kFLAG_STATE_MASK</span> = 0x0000000F
+			(line <span class="line-number">85</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">State mask.</p>
+<p class="description"><p>This value masks all the state flags.</p></p>
+	
+		
+</div>
+		</div>
+	</div>
+	
+	
+	
+	<p class="notes" id="credit">
+		Documentation generated on Mon, 02 Apr 2012 01:03:42 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

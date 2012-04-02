@@ -6,8 +6,8 @@
  * This file contains the class definition of <b>CDataset</b> which represents the base
  * class mapping dataset objects.
  *
- *	@package	Objects
- *	@subpackage	Data
+ *	@package	MyWrapper
+ *	@subpackage	Datasets
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 12/03/2012
@@ -31,8 +31,8 @@ require_once( kPATH_LIBRARY_SOURCE."CPersistentUnitObject.php" );
  *
  * This class is the ancestor of dataset classes in this library,
  *
- *	@package	Objects
- *	@subpackage	Data
+ *	@package	MyWrapper
+ *	@subpackage	Datasets
  */
 class CDataset extends CPersistentUnitObject
 {

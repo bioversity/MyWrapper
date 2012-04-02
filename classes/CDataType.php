@@ -6,7 +6,7 @@
  * This file contains the class definition of <b>CDataType</b> which is the ancestor of
  * data type mapping classes.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Core
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
@@ -78,7 +78,7 @@ require_once( kPATH_LIBRARY_DEFINES."Types.inc.php" );
  *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: This element holds the serialised data.
  * </ul>
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Core
  */
 abstract class CDataType extends CArrayObject

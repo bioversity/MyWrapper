@@ -12,7 +12,7 @@
  *	This file contains common definitions used by the {@link CWrapper CWrapper}
  *	class.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Wrappers
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
@@ -27,8 +27,8 @@
 /**
  * HELP web-service.
  *
- * This is the tag that represents the HEKP web-service operation, which returns the list
- * of supported operations AND OPTIONS.
+ * This is the tag that represents the HELP web-service operation, which returns the list
+ * of supported operations and options.
  */
 define( "kAPI_OP_HELP",				'@HELP' );
 
@@ -153,18 +153,18 @@ define( "kAPI_RES_STAMP",			':@time-sent' );
  *======================================================================================*/
 
 /**
- * Status.
- *
- * This tag holds the operation status block.
- */
-define( "kAPI_DATA_STATUS",			'_status' );
-
-/**
  * Request.
  *
  * This tag holds the request block.
  */
 define( "kAPI_DATA_REQUEST",		'_request' );
+
+/**
+ * Status.
+ *
+ * This tag holds the operation status block.
+ */
+define( "kAPI_DATA_STATUS",			'_status' );
 
 /**
  * Timing.
@@ -174,5 +174,12 @@ define( "kAPI_DATA_REQUEST",		'_request' );
  * <i>Note: this is a <b>reserved offset tag</b>.</i>
  */
 define( "kAPI_DATA_TIMING",			'_timing' );
+
+/**
+ * Response.
+ *
+ * This tag holds the response block.
+ */
+define( "kAPI_DATA_RESPONSE",		'_response' );
 
 ?>

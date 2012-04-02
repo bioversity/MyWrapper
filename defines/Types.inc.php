@@ -11,7 +11,7 @@
  *
  *	This file contains common data types used by all classes.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Definitions
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
@@ -240,6 +240,13 @@ define( "kDATA_TYPE_HTML",					':HTML' );				// HTML.
  * string.
  */
 define( "kDATA_TYPE_CSV",					':CSV' );				// CSV.
+
+/**
+ * META type.
+ *
+ * This value represents the primitive meta data type, it is a generalised metadata type.
+ */
+define( "kDATA_TYPE_META",					':META' );				// META.
 
 /*=======================================================================================
  *	MONGODB DATA TYPES																	*

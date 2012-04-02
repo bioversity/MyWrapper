@@ -1,0 +1,1113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class CWrapper</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name"><img src="../../media/images/Class_logo.png"
+														alt=" Class"
+														title=" Class"
+														style="vertical-align: middle"> CWrapper</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+							<a href="#sec-descendents">Descendents</a>
+			|											<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+											<a href="#sec-consts">Constants</a>
+						
+			</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Wrapper.</p>
+<p class="description"><p>This class represents a web-services wrapper server, it is the ancestor of web-service  classes in this library.</p><p>Wrappers are objects that respond to standard web calls and receive parameters in both  <em>GET</em> and <em>POST</em> parameters, the main two parameters handled by this class are:</p><p><ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">kAPI_FORMAT</a></em> (required): The data format of the response,
+         it will be returned as:
+     <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_PHP">kDATA_TYPE_PHP</a></em>: A PHP-serialised string.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_JSON">kDATA_TYPE_JSON</a></em>: A JSON-serialised string.</li></ul></li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">kAPI_OPERATION</a></em> (required): The requested operation,
+        each class will implement specialised handlers, this class only implements the
+        following two operations:
+     <ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_HELP">kAPI_OP_HELP</a></em>: A <em>LIST-OP</em> command, this
+            command will return in the <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_DATA_RESPONSE">response</a> section the list
+            of supported operations as an array structured as follows:
+         <ul><li><em>index</em>: The index will be the operation code.</li><li><em>value</em>: The value will be the operation description.</li></ul></li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_PING">kAPI_OP_PING</a></em>: A <em>PING</em> command, this can be
+            used to check if a service is alive.</li></ul></li></ul></p><p>If both the above parameters are present, the service will return an array constituted by  the following three sections:</p><p><ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_DATA_STATUS">kAPI_DATA_STATUS</a></em>: <em>Operation status</em>.
+        This section is returned by default and will inform on the status of the requested
+        operation. It consists of an array containing the following elements:
+     <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_STATUS">kTAG_STATUS</a></em>: <em>Response status</em>.
+            This element will be returned by default regardless of the operation outcome.
+            This corresponds to the severity of the response and it can take the following
+            values:
+         <ul><li><em><a href="../../MyWrapper/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_IDLE">kMESSAGE_TYPE_IDLE</a></em>: This is the status of
+                the web-service before any operation has been executed, or when the
+                operation was successful; this is the response of a successful
+                <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_PING">ping</a> request.</li><li><em><a href="../../MyWrapper/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_NOTICE">kMESSAGE_TYPE_NOTICE</a></em>: The operation was
+                successful and a notice message was returned.</li><li><em><a href="../../MyWrapper/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_MESSAGE">kMESSAGE_TYPE_MESSAGE</a></em>: The operation
+                was successful and a message was returned.</li><li><em><a href="../../MyWrapper/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_WARNING">kMESSAGE_TYPE_WARNING</a></em>: The operation
+                was successful but a warning was raised.</li><li><em><a href="../../MyWrapper/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_ERROR">kMESSAGE_TYPE_ERROR</a></em>: The operation failed
+                because of an error.</li><li><em><a href="../../MyWrapper/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_FATAL">kMESSAGE_TYPE_FATAL</a></em>: The operation failed
+                because of a fatal error, this will generally mean that the web-service is
+                not operational.</li><li><em><a href="../../MyWrapper/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_BUG">kMESSAGE_TYPE_BUG</a></em>: The operation failed
+                because of a bug, the developers should be informed of this kind of errors.</li></ul></li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">kTAG_CODE</a></em>: <em>Status code</em>.
+            This element will be returned by default regardless of the operation outcome.
+            It corresponds to the error code; <a href="../../MyWrapper/Definitions/_defines---Errors.inc.php.html#definekERROR_OK">zero</a> means no error.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DESCRIPTION">kTAG_DESCRIPTION</a></em>: <em>Status message</em>.
+            The response message from the operation, this element is used to return
+            informative messages or to return error messages when the service fails. It will
+            generally be formatted as an array structured as follows:
+         <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a></em>: The data type of the message, it will be
+                a <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_STRING">string</a> in general.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LANGUAGE">kTAG_LANGUAGE</a></em>: The language ISO 639 2
+                character code in which the message is expressed in.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: The actual message data contents.</li></ul></li><li><em><a href="../../MyWrapper/Wrappers/_classes---CMongoDataWrapper.inc.php.html#definekAPI_AFFECTED_COUNT">kAPI_AFFECTED_COUNT</a></em>: <em>Record count</em>.
+            The total number of elements affected by the operation. This tag will only be
+            used by derived classes returning data elements.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ANNOTATION">kTAG_ANNOTATION</a></em>: <em>Attachments</em>.
+                A list of key/value pairs containing information relevant to the operation
+                response. For instance, if a series of parameters are required and were not
+                provided, this could list them.</li></ul></li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_DATA_REQUEST">kAPI_DATA_REQUEST</a></em>: <em>Service request</em>.
+        This section will return the actual request provided to the service, this can be
+        used for debugging purposes and will only occur if the optional
+        <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPT_LOG_REQUEST">kAPI_OPT_LOG_REQUEST</a> parameter has been set to 1.</li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_DATA_TIMING">kAPI_DATA_TIMING</a></em>: <em>Timers</em>.
+        This section holds timing information, it will be returned only if you provide the
+        time of day [<em>gettimeofday( TRUE )</em>] in the
+        <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_REQ_STAMP">kAPI_REQ_STAMP</a> parameter. This section is structured as
+        follows:
+     <ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_REQ_STAMP">kAPI_REQ_STAMP</a></em>: Request time stamp, the time in
+            which the request was sent; this is the same value sent by the caller in the
+            <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_REQ_STAMP">kAPI_REQ_STAMP</a> parameter.</li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_PARSE_STAMP">kAPI_PARSE_STAMP</a></em>: Parse time stamp, the time in
+            which the service finished parsing the request.</li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_RES_STAMP">kAPI_RES_STAMP</a></em>: Response time stamp, the time in
+            which the response was sent.</li></ul></li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_DATA_RESPONSE">kAPI_DATA_RESPONSE</a></em>: Response, this section will
+        hold the operation response, in this class we only respond to
+        <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_HELP">operations</a> list requests.</li></ul></p><p>Besides the <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">format</a> and <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">operation</a> parameters  described in the first section, we have three other optional parameters that can be used  to receive specific information sections in the response:</p><p><ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPT_LOG_REQUEST">kAPI_OPT_LOG_REQUEST</a></em>: Log the request, if the
+        value of this parameter is 1, the response will contain the received request in the
+        <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_DATA_REQUEST">request</a> section.</li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPT_LOG_TRACE">kAPI_OPT_LOG_TRACE</a></em>: Trace exceptions, if the
+        value of this parameter is 1, in the case of an error that triggered an exception,
+        the error response will also include the call trace.</li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_REQ_STAMP">kAPI_REQ_STAMP</a></em>: This parameter should hold the
+        timestamp [<em>gettimeofday( TRUE )</em>] in which the client has sent the request,
+        if provided, the service will return the timing information in the
+        <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_DATA_TIMING">timing</a> section.</li></ul></p><p>The parameters are expected either in <em>GET</em> or <em>POST</em>.</p><p>If either the <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">format</a> or the <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">operation</a>  parameters are omitted from the request, the service will return an empty response; this  is to prevent unnecessary traffic.</p><p>Instances of this class can be considered server objects, and can be implemented with  this simple code snippet:</p><p><div class="src-code"><ol><li><div class="src-line">&nbsp;<span class="src-var">$server&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id"><a href="../../MyWrapper/Wrappers/CWrapper.html">CWrapper</a></span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;<span class="src-var">$server</span><span class="src-sym">-&gt;</span><a href="../../MyWrapper/Wrappers/CWrapper.html#methodHandleRequest">HandleRequest</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+</ol></div></p><p>An example of this class implementation can be found in the  <a href="../../Server/Wrappers/_wrappers---Wrapper.php.html">Wrapper.php</a> source file.</p></p>
+		<p class="notes">
+			Located in <a class="field" href="_classes---CWrapper.php.html">/classes/CWrapper.php</a> (line <span class="field">189</span>)
+		</p>
+		
+				
+		<pre>ArrayObject
+   |
+   --<a href="../../MyWrapper/Core/CArrayObject.html">CArrayObject</a>
+      |
+      --<a href="../../MyWrapper/Core/CStatusObject.html">CStatusObject</a>
+         |
+         --CWrapper</pre>
+	
+			</div>
+</div>
+
+	<a name="sec-descendents"></a>
+	<div class="info-box">
+		<div class="info-box-title">Direct descendents</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+			<span class="disabled">Descendents</span>
+			|												<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+								|															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+															<a href="#sec-consts">Constants</a>
+							
+					</div>
+		<div class="info-box-body">
+			<table cellpadding="2" cellspacing="0" class="class-table">
+				<tr>
+					<th class="class-table-header">Class</th>
+					<th class="class-table-header">Description</th>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; white-space: nowrap">
+						<img src="../../media/images/Class.png"
+								 alt=" class"
+								 title=" class"
+								 style="vertical-align: center"/>
+						<a href="../../MyWrapper/Wrappers/CDataWrapper.html">CDataWrapper</a>
+					</td>
+					<td>
+											Data wrapper.
+										</td>
+				</tr>
+							</table>
+		</div>
+	</div>
+
+
+	<a name="sec-var-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variable Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendants</a> |
+						<span class="disabled">Vars</span> (<a href="#sec-vars">details</a>)
+							| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+															<a href="#sec-consts">Constants</a>
+							
+					</div>
+		<div class="info-box-body">
+			<div class="var-summary">
+																								<div class="var-title">
+					<img src="../../media/images/Variable.png" alt=" " />
+					<span class="var-type">integer</span>
+					<a href="#$mReceivedStamp" title="details" class="var-name">$mReceivedStamp</a>
+				</div>
+											</div>
+		</div>
+	</div>
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendants</a> |
+															<a href="#sec-consts">Constants</a>
+							
+															<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																																																																																																																																								<div class="method-definition">
+					<img src="../../media/images/Constructor.png" alt=" "/>
+											<span class="method-result">CWrapper</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#HandleRequest" title="details" class="method-name">HandleRequest</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">string|NULL</span>
+										<a href="#_EncodeResponse" title="details" class="method-name">_EncodeResponse</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_Exception2Status" title="details" class="method-name">_Exception2Status</a>
+											(<span class="var-type">Exception</span>&nbsp;<span class="var-name">$theException</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_FormatRequest" title="details" class="method-name">_FormatRequest</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_HandleRequest" title="details" class="method-name">_HandleRequest</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_Handle_ListOp" title="details" class="method-name">_Handle_ListOp</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">&$theList</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">$theList</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_Handle_Ping" title="details" class="method-name">_Handle_Ping</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_InitOptions" title="details" class="method-name">_InitOptions</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_InitResources" title="details" class="method-name">_InitResources</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_InitStatus" title="details" class="method-name">_InitStatus</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_OffsetManage" title="details" class="method-name">_OffsetManage</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theBlock</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theElement</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_ParseFormat" title="details" class="method-name">_ParseFormat</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_ParseOperation" title="details" class="method-name">_ParseOperation</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_ParseRequest" title="details" class="method-name">_ParseRequest</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_ParseTiming" title="details" class="method-name">_ParseTiming</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_ValidateFormat" title="details" class="method-name">_ValidateFormat</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_ValidateOperation" title="details" class="method-name">_ValidateOperation</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_ValidateRequest" title="details" class="method-name">_ValidateRequest</a>
+										()
+									</div>
+											</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+												<a href="#sec-consts">Constants</a>
+							
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			
+<a name="var$mReceivedStamp" id="$mReceivedStamp"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<img src="../../media/images/Variable.png" />
+		<span class="var-title">
+			<span class="var-type">integer</span>
+			<span class="var-name">$mReceivedStamp</span>
+			 = <span class="var-default"> NULL</span>			(line <span class="line-number">198</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Reception time-stamp.</p>
+<p class="description"><p>This data member holds the request reception time stamp.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+							<h4>Inherited Variables</h4>
+				<A NAME='inherited_vars'><!-- --></A>
+									<p>Inherited from <span class="classname"><a href="../../MyWrapper/Core/CStatusObject.html">CStatusObject</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Variable.png" />
+							<span class="var-title">
+								<span class="var-name"><a href="../../MyWrapper/Core/CStatusObject.html#var$mStatus">CStatusObject::$mStatus</a></span><br>
+							</span>
+											</blockquote> 
+										
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+															<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+														<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Constructor.png" />
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">239</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Instantiate class.</p>
+<p class="description"><p>The constructor will set-up the environment and parse the request.  The workflow is as follows:</p><p><ul><li><em>Check required elements</em>: The method will check if all required elements
+		of the request are there, if that is not the case it will just exit.</li><li><em>Init <a href="../../MyWrapper/Wrappers/CWrapper.html#method_InitStatus">status</a></em>: The response status will be
+        initialised to the <a href="../../MyWrapper/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_IDLE">idle</a> state.</li><li><em>Init <a href="../../MyWrapper/Wrappers/CWrapper.html#method_InitOptions">options</a></em>: Service options will be initialised.</li><li><em>Init <a href="../../MyWrapper/Wrappers/CWrapper.html#method_InitResources">resources</a></em>: Eventual resources are
+        initialised.</li><li><em><a href="../../MyWrapper/Wrappers/CWrapper.html#method_ParseRequest">Parse</a> request</em>: The request is parsed.</li><li><em><a href="../../MyWrapper/Wrappers/CWrapper.html#method_FormatRequest">Format</a> request</em>: The request is normalised if
+        necessary.</li><li><em><a href="../../MyWrapper/Wrappers/CWrapper.html#method_ValidateRequest">Validate</a> request</em>: The request is validated.</li></ul></p><p>This protected interface should be overloaded by derived classes to implement custom  services.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">CWrapper</span>
+		<span class="method-name">
+			__construct
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodHandleRequest" id="HandleRequest"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">HandleRequest</span> (line <span class="line-number">330</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Handle the request.</p>
+<p class="description"><p>This method will handle the request.</p></p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> Exception</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			HandleRequest
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method_EncodeResponse" id="_EncodeResponse"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_EncodeResponse</span> (line <span class="line-number">1220</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Encode response.</p>
+<p class="description"><p>This method will return the encoded response string.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string|NULL</span>
+		<span class="method-name">
+			_EncodeResponse
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method_Exception2Status" id="_Exception2Status"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_Exception2Status</span> (line <span class="line-number">1126</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set status from exception.</p>
+<p class="description"><p>This method can be used to set the service status according to an exception:</p><p><ul><li><em><a href="../../MyWrapper/Core/CException.html#methodSeverity">Severity</a></em>: This value will be set as the
+        status <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_STATUS">status</a>.</li><li><em>Exception::getCode()</em>: This value will be set as the
+        status <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a>.</li><li><em>Exception::getMessage()</em>: This value will be set in the
+        status <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DESCRIPTION">description</a> field as a language block.</li><li><em>Exception::getFile()</em>: This value will be set in the status
+        <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ANNOTATION">annotations</a>.</li><li><em>Exception::getLine()</em>: This value will be set in the status
+        <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ANNOTATION">annotations</a>.</li><li><em>Exception::getTrace()</em>: This value will be set in the status
+        <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ANNOTATION">annotations</a>.</li><li><em><a href="../../MyWrapper/Core/CException.html#methodReference">References</a></em>: These valuew will be set in
+        the status <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ANNOTATION">annotations</a>.</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_Exception2Status
+		</span>
+					(<span class="var-type">Exception</span>&nbsp;<span class="var-name">$theException</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">Exception</span>
+				<span class="var-name">$theException</span><span class="var-description">: Exception.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_FormatRequest" id="_FormatRequest"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_FormatRequest</span> (line <span class="line-number">563</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Format request.</p>
+<p class="description"><p>This method should perform any needed formatting before the request will be handled.</p><p>In this class we do nothing.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_FormatRequest
+		</span>
+				()
+			</div>
+	
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Wrappers/CDataWrapper.html#method_FormatRequest">CDataWrapper::_FormatRequest()</a>
+								: Format request.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Wrappers/CMongoDataWrapper.html#method_FormatRequest">CMongoDataWrapper::_FormatRequest()</a>
+								: Format request.
+							</li>
+				</ul>
+	</div>
+<a name="method_HandleRequest" id="_HandleRequest"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_HandleRequest</span> (line <span class="line-number">877</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Handle request.</p>
+<p class="description"><p>This method will handle the request.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_HandleRequest
+		</span>
+				()
+			</div>
+	
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Wrappers/CMongoDataWrapper.html#method_HandleRequest">CMongoDataWrapper::_HandleRequest()</a>
+								: Handle request.
+							</li>
+				</ul>
+	</div>
+<a name="method_Handle_ListOp" id="_Handle_ListOp"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_Handle_ListOp</span> (line <span class="line-number">920</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Handle <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_HELP">list</a> operations request.</p>
+<p class="description"><p>This method will handle the <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_HELP">kAPI_OP_HELP</a> request, which  should return the list of supported operations.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_Handle_ListOp
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">&$theList</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">$theList</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">$theList</span><span class="var-description">: Receives operations list.</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">&$theList</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Wrappers/CDataWrapper.html#method_Handle_ListOp">CDataWrapper::_Handle_ListOp()</a>
+								: Handle <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_HELP">list</a> operations request.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Wrappers/CMongoDataWrapper.html#method_Handle_ListOp">CMongoDataWrapper::_Handle_ListOp()</a>
+								: Handle <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_HELP">list</a> operations request.
+							</li>
+				</ul>
+	</div>
+<a name="method_Handle_Ping" id="_Handle_Ping"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_Handle_Ping</span> (line <span class="line-number">951</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Handle <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_PING">ping</a> request.</p>
+<p class="description"><p>This method will handle the <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_PING">kAPI_OP_PING</a> request, which can be  used to check if a service is alive.</p><p>The ping request will return by default the <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_DATA_STATUS">status</a> block.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_Handle_Ping
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method_InitOptions" id="_InitOptions"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_InitOptions</span> (line <span class="line-number">447</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Initialise options.</p>
+<p class="description"><p>This method is responsible for parsing and setting all default and provided options,  derived classes should overload this method to handle custom options.</p><p>In this class we initialise the <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_DATA_REQUEST">request</a> and  <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_DATA_TIMING">timer</a> sections if required.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_InitOptions
+		</span>
+				()
+			</div>
+	
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Wrappers/CDataWrapper.html#method_InitOptions">CDataWrapper::_InitOptions()</a>
+								: Initialise options.
+							</li>
+				</ul>
+	</div>
+<a name="method_InitResources" id="_InitResources"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_InitResources</span> (line <span class="line-number">491</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Initialise resources.</p>
+<p class="description"><p>In derived classes this should be the method that initialises the data store  resources, in this class we have no resources.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_InitResources
+		</span>
+				()
+			</div>
+	
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Wrappers/CMongoDataWrapper.html#method_InitResources">CMongoDataWrapper::_InitResources()</a>
+								: Initialise resources.
+							</li>
+				</ul>
+	</div>
+<a name="method_InitStatus" id="_InitStatus"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_InitStatus</span> (line <span class="line-number">393</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Initialise status.</p>
+<p class="description"><p>This method is responsible for initialising the <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_DATA_STATUS">status</a>  section, derived classes may overload this method if they need to handle other  states.</p><p>In this class we set the status to <a href="../../MyWrapper/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_IDLE">idle</a> and reset the  status <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a>.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_InitStatus
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method_OffsetManage" id="_OffsetManage"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_OffsetManage</span> (line <span class="line-number">978</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage offset.</p>
+<p class="description"><p>This method can be used to manage the object offset blocks.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CDataWrapper.html#method_ParseSort">CDataWrapper::_ParseSort()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CDataWrapper.html#method_ParseObject">CDataWrapper::_ParseObject()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CDataWrapper.html#method_ParseOptions">CDataWrapper::_ParseOptions()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CDataWrapper.html#method_ParseFields">CDataWrapper::_ParseFields()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CDataWrapper.html#method_ParseQuery">CDataWrapper::_ParseQuery()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CDataWrapper.html#method_ParsePaging">CDataWrapper::_ParsePaging()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CDataWrapper.html#method_ParseDatabase">CDataWrapper::_ParseDatabase()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CDataWrapper.html#method_ParseContainer">CDataWrapper::_ParseContainer()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_OffsetManage
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$theBlock</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theElement</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theBlock</span><span class="var-description">: Object block.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theElement</span><span class="var-description">: Object block element.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Element value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_ParseFormat" id="_ParseFormat"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_ParseFormat</span> (line <span class="line-number">643</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Parse format.</p>
+<p class="description"><p>This method will parse the request format.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_ParseFormat
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method_ParseOperation" id="_ParseOperation"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_ParseOperation</span> (line <span class="line-number">670</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Parse operation.</p>
+<p class="description"><p>This method will parse the request operation.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_ParseOperation
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method_ParseRequest" id="_ParseRequest"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_ParseRequest</span> (line <span class="line-number">524</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Parse request.</p>
+<p class="description"><p>This method should be used to parse the request, check the request elements and make  any necessary adjustments before the request is <a href="../../MyWrapper/Wrappers/CWrapper.html#method_ValidateRequest">validated</a>.</p><p>This is also where the relevant request elements will be logged to the relative  response sections.</p><p>The method is called by the <a href="../../MyWrapper/Wrappers/CWrapper.html#method__construct">constructor</a> and should be  overloaded to handle derived classes custom elements.</p><p>In this class we handle the <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">format</a>,  <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">operation</a> and <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_DATA_TIMING">timing</a> elements.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_ParseRequest
+		</span>
+				()
+			</div>
+	
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Wrappers/CDataWrapper.html#method_ParseRequest">CDataWrapper::_ParseRequest()</a>
+								: Parse request.
+							</li>
+				</ul>
+	</div>
+<a name="method_ParseTiming" id="_ParseTiming"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_ParseTiming</span> (line <span class="line-number">697</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Parse timing.</p>
+<p class="description"><p>This method will parse the request timers.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_ParseTiming
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method_ValidateFormat" id="_ValidateFormat"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_ValidateFormat</span> (line <span class="line-number">749</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Validate request format.</p>
+<p class="description"><p>This method can be used to check whether the provided <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">format</a>  parameter is valid.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_ValidateFormat
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method_ValidateOperation" id="_ValidateOperation"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_ValidateOperation</span> (line <span class="line-number">809</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Validate request operation.</p>
+<p class="description"><p>This method can be used to check whether the provided  <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">operation</a> parameter is valid.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_ValidateOperation
+		</span>
+				()
+			</div>
+	
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Wrappers/CDataWrapper.html#method_ValidateOperation">CDataWrapper::_ValidateOperation()</a>
+								: Validate request operation.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Wrappers/CMongoDataWrapper.html#method_ValidateOperation">CMongoDataWrapper::_ValidateOperation()</a>
+								: Validate request operation.
+							</li>
+				</ul>
+	</div>
+<a name="method_ValidateRequest" id="_ValidateRequest"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_ValidateRequest</span> (line <span class="line-number">598</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Validate request.</p>
+<p class="description"><p>This method should check that the request is valid and that all required parameters  have been sent.</p><p>In this class we check the <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">format</a> and  <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">operation</a> codes (their presence is checked by the  <a href="../../MyWrapper/Wrappers/CWrapper.html#method__construct">constructor</a>.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_ValidateRequest
+		</span>
+				()
+			</div>
+	
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Wrappers/CDataWrapper.html#method_ValidateRequest">CDataWrapper::_ValidateRequest()</a>
+								: Validate request.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Wrappers/CMongoDataWrapper.html#method_ValidateRequest">CMongoDataWrapper::_ValidateRequest()</a>
+								: Validate request.
+							</li>
+				</ul>
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Core/CStatusObject.html">CStatusObject</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#methodoffsetSet">CStatusObject::offsetSet()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#methodoffsetUnset">CStatusObject::offsetUnset()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#methodStatus">CStatusObject::Status()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#method_IsDirty">CStatusObject::_IsDirty()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#method_ManageBitField">CStatusObject::_ManageBitField()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Core/CArrayObject.html">CArrayObject</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodkeys">CArrayObject::keys()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodoffsetGet">CArrayObject::offsetGet()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodoffsetSet">CArrayObject::offsetSet()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodoffsetUnset">CArrayObject::offsetUnset()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodvalues">CArrayObject::values()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#method_ManageTypedArrayOffset">CArrayObject::_ManageTypedArrayOffset()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname">ArrayObject (Internal Class)</span></p>
+					<blockquote>
+													<img src="../../media/images/Constructor.png" alt=" "/>
+							<span class="method-name">constructor __construct ( $array )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">append ( $value )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">asort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">count (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">exchangeArray ( $array )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getArrayCopy (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getFlags (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getIterator (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getIteratorClass (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">ksort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">natcasesort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">natsort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetExists ( $index )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetGet ( $index )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetSet ( $index, $newval )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetUnset ( $index )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">serialize (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">setFlags ( $flags )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">setIteratorClass ( $iteratorClass )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">uasort ( $cmp_function )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">uksort ( $cmp_function )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">unserialize ( $serialized )</span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+	<a name="sec-consts"></a>
+	<div class="info-box">
+		<div class="info-box-title">Class Constants</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendants</a> |
+										<a href="#sec-var-summary">Constants</a> (<span class="disabled">details</span>)
+						
+			
+												<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+														| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+										<h4>Inherited Constants</h4>
+				<A NAME='inherited_consts'><!-- --></A>
+									<p>Inherited from <span class="classname">ArrayObject (Internal Class)</span></p>
+					<blockquote>
+													<img src="../../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name">ARRAY_AS_PROPS = 2</span><br>
+							</span>
+													<img src="../../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name">STD_PROP_LIST = 1</span><br>
+							</span>
+											</blockquote> 
+										
+		</div>
+	</div>
+	
+	<p class="notes" id="credit">
+		Documentation generated on Mon, 02 Apr 2012 01:03:42 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

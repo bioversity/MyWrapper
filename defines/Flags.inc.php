@@ -11,7 +11,7 @@
  *
  *	This file contains the common status flags used by all classes in this library.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Definitions
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>

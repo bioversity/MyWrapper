@@ -11,7 +11,7 @@
  *
  * This file contains common definitions used by the {@link CEntity CEntity} class.
  *
- *	@package	Objects
+ *	@package	MyWrapper
  *	@subpackage	Entities
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>

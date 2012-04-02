@@ -6,7 +6,7 @@
  * This file contains the class definition of <b>CUser</b> which represents an
  * {@link CEntity entity} mapping a general purpose user.
  *
- *	@package	Objects
+ *	@package	MyWrapper
  *	@subpackage	Entities
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
@@ -66,7 +66,7 @@ require_once( kPATH_LIBRARY_SOURCE."CUser.inc.php" );
  * user with a single e-mail, possibly not shared by any other user, that is why we link by
  * default the user {@link Code() code} and {@link Email() e-mail}.
  *
- *	@package	Objects
+ *	@package	MyWrapper
  *	@subpackage	Entities
  */
 class CUser extends CEntity
@@ -216,7 +216,7 @@ class CUser extends CEntity
 	/**
 	 * Set a value for a given offset.
 	 *
-	 * We overload this method to manage the {@link _Is Inited() inited}
+	 * We overload this method to manage the {@link _IsInited() inited}
 	 * {@link kFLAG_STATE_INITED status}: this is set if the
 	 * {@link kTAG_NAME name}, {@link kOFFSET_EMAIL e-mail},
 	 * {@link kOFFSET_PASSWORD password} and the parent {@link kTAG_CODE code} are set.
@@ -255,7 +255,7 @@ class CUser extends CEntity
 	/**
 	 * Reset a value for a given offset.
 	 *
-	 * We overload this method to manage the {@link _Is Inited() inited}
+	 * We overload this method to manage the {@link _IsInited() inited}
 	 * {@link kFLAG_STATE_INITED status}: this is set if the
 	 * {@link kTAG_NAME name}, {@link kOFFSET_EMAIL e-mail},
 	 * {@link kOFFSET_PASSWORD password} and the parent {@link kTAG_CODE code} are set.

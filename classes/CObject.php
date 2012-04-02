@@ -6,7 +6,7 @@
  * This file contains the class definition of <b>CObject</b> which contains common static
  * methods and definitions.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Core
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
@@ -93,8 +93,8 @@ require_once( kPATH_LIBRARY_DEFINES."Flags.inc.php" );
  *		{@link DurationString() method} to display duration strings.
  * </ul>
  *
- * @package		Framework
- * @subpackage	Core
+ *	@package	MyWrapper
+ *	@subpackage	Core
  */
 abstract class CObject
 {

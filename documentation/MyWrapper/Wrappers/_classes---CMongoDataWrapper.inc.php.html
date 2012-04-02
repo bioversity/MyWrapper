@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs for page CMongoDataWrapper.inc.php</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="file-name"><img src="../../media/images/Page_logo.png" alt="File" style="vertical-align: middle">/classes/CMongoDataWrapper.inc.php</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+											<a href="#sec-constants">Constants</a>
+										</div>
+	<div class="info-box-body">	
+		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description"><a href="../../MyWrapper/Wrappers/CMongoDataWrapper.html">CMongoDataWrapper</a> definitions.</p>
+<p class="description"><p>This file contains common definitions used by the  <a href="../../MyWrapper/Wrappers/CMongoDataWrapper.html">CMongoDataWrapper</a> class.</p></p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Milko A. Škofič &lt;<a href="mailto:m.skofic@cgiar.org">m.skofic@cgiar.org</a>&gt;</li>
+				<li><span class="field">version:</span> 1.00 07/06/2011                 2.00 23/02/2012</li>
+			</ul>
+		
+			</div>
+</div>
+		
+
+	
+	<a name="sec-constants"></a>	
+	<div class="info-box">
+		<div class="info-box-title">Constants</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+									<span class="disabled">Constants</span>
+											</div>
+		<div class="info-box-body">	
+			<a name="definekAPI_AFFECTED_COUNT"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_AFFECTED_COUNT</span> = 'affected'
+			(line <span class="line-number">69</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Count tag.</p>
+<p class="description"><p>This tag will hold the total number of elements affected by the operation.</p></p>
+	
+		
+</div>
+<a name="definekAPI_OPT_NO_RESP"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_OPT_NO_RESP</span> = ':@no-response'
+			(line <span class="line-number">83</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">No response option.</p>
+<p class="description"><p>Can be a boolean or integer, defaults to FALSE. If TRUE, the  <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_DATA_RESPONSE">response</a> section will not be included in the result. This can  be useful when you are only interested in the status of the operation and not in the  response.</p></p>
+	
+		
+</div>
+<a name="definekAPI_OP_GET_OBJECT_REF"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_OP_GET_OBJECT_REF</span> = '@GET-REF'
+			(line <span class="line-number">47</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">GET-OBJECT-REF web-service.</p>
+<p class="description"><p>This tag defines a web service that returns an object by reference. It is equivalent to  the <a href="../../MyWrapper/Wrappers/_classes---CMongoDataWrapper.inc.php.html#definekAPI_OP_GET_ONE">kAPI_OP_GET_ONE</a> operation, except that instead of using the  query provided in the <a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_QUERY">kAPI_DATA_QUERY</a> parameter, it will try to  extract an identifier from the object provided in the  <a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_OBJECT">kAPI_DATA_OBJECT</a> parameter.</p><p>Note that as with other values in the <a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_OBJECT">object</a> parameter, you must  <a href="../../MyWrapper/Core/CDataType.html#methodSerialiseObject">serialise</a> the value.</p></p>
+	
+		
+</div>
+<a name="definekAPI_OP_GET_ONE"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_OP_GET_ONE</span> = '@GET-ONE'
+			(line <span class="line-number">33</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">GET-ONE web-service.</p>
+<p class="description"><p>This is the tag that represents the findOne Mongo operation, it will return the first  matched object.</p></p>
+	
+		
+</div>
+<a name="definekAPI_STATUS_NATIVE"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_STATUS_NATIVE</span> = 'native'
+			(line <span class="line-number">58</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Native status.</p>
+<p class="description"><p>This tag will hold the native status of the operation.</p></p>
+	
+		
+</div>
+		</div>
+	</div>
+	
+	
+	
+	<p class="notes" id="credit">
+		Documentation generated on Mon, 02 Apr 2012 01:03:40 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

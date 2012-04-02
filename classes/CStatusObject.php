@@ -6,7 +6,7 @@
  * This file contains the class definition of <b>CStatusObject</b> which extends its
  * {@link CArrayObject ancestor} to handle states.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Core
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
@@ -54,8 +54,8 @@ require_once( kPATH_LIBRARY_SOURCE."CArrayObject.php" );
  *		{@link offsetUnset() deleting} array store elements.
  * </ul>
  *
- * @package		Framework
- * @subpackage	Core
+ *	@package	MyWrapper
+ *	@subpackage	Core
  */
 class CStatusObject extends CArrayObject
 {

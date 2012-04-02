@@ -6,7 +6,7 @@
  * This file contains the class definition of <b>CMongoContainer</b> which implements a
  * MongoDB object store.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Persistence
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
@@ -39,8 +39,8 @@ require_once( kPATH_LIBRARY_DEFINES."Offsets.inc.php" );
  * This class extends its {@link CContainer ancestor} to implement an object store based on
  * MongoCollection containers.
  *
- * @package		Framework
- * @subpackage	Persistence
+ *	@package	MyWrapper
+ *	@subpackage	Persistence
  */
 class CMongoContainer extends CContainer
 {

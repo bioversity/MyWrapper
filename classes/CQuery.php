@@ -5,7 +5,7 @@
  *
  * This file contains the class definition of <b>CQuery</b> which represents a query object.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Persistence
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
@@ -139,7 +139,7 @@ require_once( kPATH_LIBRARY_SOURCE."CQuery.inc.php" );
  *	 </ul>
  * </ul>
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Persistence
  */
 class CQuery extends CStatusObject

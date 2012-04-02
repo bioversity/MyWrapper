@@ -13,7 +13,7 @@
  * library, whenever choosing offsets for {@link CPersistentObject persistent} objects, you
  * should first make sure that they are not among those defined in this file.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Definitions
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
@@ -239,6 +239,13 @@ define( "kOFFSET_PHONE",						':PHONE' );
  * </ul>
  */
 define( "kTAG_REFS",							':REFS' );
+
+/**
+ * URL.
+ *
+ * This is the tag that represents an URL, link or web address.
+ */
+define( "kOFFSET_URL",							':URL' );
 
 
 ?>

@@ -6,7 +6,7 @@
  * This file contains the class definition of <b>CDataTypeInt32</b> which wraps this class
  * around a signed 32 bit integer.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Core
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
@@ -37,7 +37,7 @@ require_once( kPATH_LIBRARY_SOURCE."CDataType.php" );
  *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: An integer representing the integer :-)
  * </ul>
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Core
  */
 class CDataTypeInt32 extends CDataType

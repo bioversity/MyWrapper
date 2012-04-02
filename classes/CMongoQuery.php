@@ -6,7 +6,7 @@
  * This file contains the class definition of <b>CMongoQuery</b> which overloads its
  * {@link CQuery ancestor} to implement a Mongo query object.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Persistence
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
@@ -42,7 +42,7 @@ require_once( kPATH_LIBRARY_SOURCE."CMongoContainer.php" );
  *
  * This class implements a query that {@link Export() exports} as a Mongo query.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Persistence
  */
 class CMongoQuery extends CQuery

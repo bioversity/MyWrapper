@@ -479,38 +479,22 @@ try
 	//
 	// Prepare object.
 	//
-	$object = json_encode( $object1 );
-	//
-	// Set options.
-	//
-	$options = array( kAPI_OPT_SAFE => 1 );
-	$options = json_encode( $options );
+	$object = $object1;
 	//
 	// Build parameters.
 	//
-	$params = Array();
-	$params[] = kAPI_FORMAT.'='.kDATA_TYPE_JSON;				// Format.
-	$params[] = kAPI_OPERATION.'='.kAPI_OP_INSERT;				// Command.
-	$params[] = kAPI_REQ_STAMP.'='.gettimeofday( true );		// Time-stamp.
-	$params[] = kAPI_DATABASE.'='.'TEST';						// Database.
-	$params[] = kAPI_CONTAINER.'='.'CMongoDataWrapper';			// Container.
-	$params[] = kAPI_DATA_OPTIONS.'='.urlencode( $options );	// Options.
-	$params[] = kAPI_DATA_OBJECT.'='.urlencode( $object );		// Object.
-//	$params[] = kAPI_OPT_NO_RESP.'='.'1';						// Hide response.
-	$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
-	$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
-	//
-	// Build request.
-	//
-	$request = $url.'?'.implode( '&', $params );
-	//
-	// Get response.
-	//
-	$response = file_get_contents( $request );
-	//
-	// Decode response.
-	//
-	$decoded = json_decode( $response, TRUE );
+	$client = new CMongoDataWrapperClient( $url );
+	$client->Format( kDATA_TYPE_JSON );
+	$client->Operation( kAPI_OP_INSERT );
+	$client->Stamp( TRUE );
+	$client->Database( 'TEST' );
+	$client->Container( 'CMongoDataWrapper' );
+	$client->Options( kAPI_OPT_SAFE, TRUE );
+	$client->Object( $object );
+//	$client->NoResponse( TRUE );
+	$client->LogTrace( TRUE );
+	$client->LogRequest( TRUE );
+	$decoded = $client->Execute( 'POST' );
 	//
 	// Parse response.
 	//
@@ -532,16 +516,8 @@ try
 	//
 	echo( kSTYLE_TABLE_PRE );
 	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.htmlspecialchars( $response ).kSTYLE_DATA_POS );
+	echo( kSTYLE_HEAD_PRE.'Client:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $client ); echo( '</pre>'.kSTYLE_DATA_POS );
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_ROW_PRE );
 	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );

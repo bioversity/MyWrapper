@@ -6,7 +6,7 @@
  * This file contains the class definition of <b>CMongoDataWrapper</b> which overloads its
  * {@link CDataWrapper ancestor} to implement a Mongo data store wrapper.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Wrappers
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
@@ -77,7 +77,7 @@ require_once( kPATH_LIBRARY_SOURCE."CMongoDataWrapper.inc.php" );
  * {@link UnserialiseObject() unserialise} data
  * flowing to and from the service parameters and the Mongo container.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Wrappers
  */
 class CMongoDataWrapper extends CDataWrapper

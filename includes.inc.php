@@ -13,7 +13,7 @@
  *	first entry, it includes the file paths to the relevant directories and the autoload
  *	function for this library classes.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Definitions
  *
  *	@author		Milko A. Skofic <m.skofic@cgiar.org>

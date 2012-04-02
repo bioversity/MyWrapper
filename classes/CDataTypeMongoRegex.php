@@ -6,7 +6,7 @@
  * This file contains the class definition of <b>CDataTypeMongoRegex</b> which wraps this
  * class around a MongoRegex object.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Core
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
@@ -37,7 +37,7 @@ require_once( kPATH_LIBRARY_SOURCE."CDataType.php" );
  *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The regular expression.
  * </ul>
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Core
  */
 class CDataTypeMongoRegex extends CDataType

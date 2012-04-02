@@ -6,7 +6,7 @@
  * This file contains the class definition of <b>CArrayContainer</b> which implements an
  * array or ArrayObject store.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Persistence
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
@@ -32,7 +32,7 @@ require_once( kPATH_LIBRARY_SOURCE."CContainer.php" );
  * This class extends its {@link CContainer ancestor} to implement a concrete object store
  * instance that uses arrays or ArrayObject objects to store data.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Persistence
  */
 class CArrayContainer extends CContainer

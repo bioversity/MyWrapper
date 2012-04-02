@@ -11,7 +11,7 @@
  *
  *	This file contains common definitions used by the {@link CQuery CQuery} class.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Persistence
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>

@@ -12,7 +12,7 @@
  *	This file contains common definitions used by the {@link CDataWrapper CDataWrapper}
  *	class.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Wrappers
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
@@ -82,7 +82,7 @@ define( "kAPI_OP_BATCH_INSERT",		'@BINSERT' );
  * MODIFY web-service.
  *
  * This is the tag that represents the MODIFY web-service operation, used to modify partial
- * contents of objects in the data store
+ * contents of objects in the data store.
  *
  * This option implies that the object already exists, or the operation should fail.
  */
@@ -220,13 +220,6 @@ define( "kAPI_DATA_OPTIONS",		':@options' );
  * <i>Note: this is a <b>reserved offset tag</b>.</i>
  */
 define( "kAPI_DATA_PAGING",			'_paging' );
-
-/**
- * Response.
- *
- * This tag holds the response block.
- */
-define( "kAPI_DATA_RESPONSE",		'_response' );
 
 /*=======================================================================================
  *	DEFAULT OPTION ENUMERATIONS															*

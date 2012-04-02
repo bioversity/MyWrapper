@@ -1,0 +1,772 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class CWrapperClient</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name"><img src="../../media/images/Class_logo.png"
+														alt=" Class"
+														title=" Class"
+														style="vertical-align: middle"> CWrapperClient</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+							<a href="#sec-descendents">Descendents</a>
+			|											<a href="#sec-vars">Vars</a>
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+											<a href="#sec-consts">Constants</a>
+						
+			</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Wrapper client.</p>
+<p class="description"><p>This class represents a web-services wrapper client, it facilitates the job of requesting  information from servers derived from the <a href="../../MyWrapper/Wrappers/CWrapper.html">CWrapper</a> class.</p><p>This class supports the following properties:</p><p><ul><li><em><a href="../../MyWrapper/Wrappers/CWrapperClient.html#methodUrl">URL</a></em>: This element represents the web-service URL, and it is
+        stored in the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_URL">kOFFSET_URL</a> offset.</li><li><em><a href="../../MyWrapper/Wrappers/CWrapperClient.html#methodOperation">Operation</a></em>: This element represents the web-service
+        requested operation, it is stored in the <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">kAPI_OPERATION</a>
+        offset.</li><li><em><a href="../../MyWrapper/Wrappers/CWrapperClient.html#methodFormat">Format</a></em>: This element represents the web-service parameters
+        and response format, it is stored in the <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">kAPI_FORMAT</a> offset.</li><li><em><a href="../../MyWrapper/Wrappers/CWrapperClient.html#methodStamp">Stamp</a></em>: This element represents a switch to turn on and off
+        timing information from the web service, it is stored in the
+        <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_REQ_STAMP">kAPI_REQ_STAMP</a> offset.</li><li><em>Log <a href="../../MyWrapper/Wrappers/CWrapperClient.html#methodLogRequest">request</a></em>: This element represents a switch to turn on
+        and off logging the request: if on, the request will be returned by the web-service,
+        it is stored in the <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPT_LOG_REQUEST">kAPI_OPT_LOG_REQUEST</a> offset.</li><li><em>Log <a href="../../MyWrapper/Wrappers/CWrapperClient.html#methodLogTrace">trace</a></em>: This element represents a switch to turn on
+        and off tracing exceptions: if on, any exception will also hold a trace, it is
+        stored in the <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPT_LOG_TRACE">kAPI_OPT_LOG_TRACE</a> offset.</li></ul></p><p>Objects of this class require at least the <a href="../../MyWrapper/Wrappers/CWrapperClient.html#methodUrl">URL</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_URL">offset</a>,  <a href="../../MyWrapper/Wrappers/CWrapperClient.html#methodOperation">operation</a> <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">offset</a> and the  <a href="../../MyWrapper/Wrappers/CWrapperClient.html#methodFormat">format</a> <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">offset</a> to be set if they expect to have an  <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">initialised</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>, which is necessary  to send <a href="../../MyWrapper/Wrappers/CWrapperClient.html#methodRequest">requests</a> to web-services.</p></p>
+		<p class="notes">
+			Located in <a class="field" href="_classes---CWrapperClient.php.html">/classes/CWrapperClient.php</a> (line <span class="field">65</span>)
+		</p>
+		
+				
+		<pre>ArrayObject
+   |
+   --<a href="../../MyWrapper/Core/CArrayObject.html">CArrayObject</a>
+      |
+      --<a href="../../MyWrapper/Core/CStatusObject.html">CStatusObject</a>
+         |
+         --CWrapperClient</pre>
+	
+			</div>
+</div>
+
+	<a name="sec-descendents"></a>
+	<div class="info-box">
+		<div class="info-box-title">Direct descendents</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+			<span class="disabled">Descendents</span>
+			|												<a href="#sec-vars">Vars</a>
+								|															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+															<a href="#sec-consts">Constants</a>
+							
+					</div>
+		<div class="info-box-body">
+			<table cellpadding="2" cellspacing="0" class="class-table">
+				<tr>
+					<th class="class-table-header">Class</th>
+					<th class="class-table-header">Description</th>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; white-space: nowrap">
+						<img src="../../media/images/Class.png"
+								 alt=" class"
+								 title=" class"
+								 style="vertical-align: center"/>
+						<a href="../../MyWrapper/Wrappers/CDataWrapperClient.html">CDataWrapperClient</a>
+					</td>
+					<td>
+											Data wrapper client.
+										</td>
+				</tr>
+							</table>
+		</div>
+	</div>
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendants</a> |
+															<a href="#sec-consts">Constants</a>
+							
+															<a href="#sec-vars">Vars</a>
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																																												<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">mixed</span>
+										<a href="#Request" title="details" class="method-name">Request</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theUrl</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theParams</span> = <span class="var-default">NULL</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$theMode</span> = <span class="var-default">'POST'</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$theFormat</span> = <span class="var-default">kDATA_TYPE_JSON</span>])
+									</div>
+																																				<div class="method-definition">
+					<img src="../../media/images/Constructor.png" alt=" "/>
+											<span class="method-result">CWrapperClient</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+											([<span class="var-type">string</span>&nbsp;<span class="var-name">$theData</span> = <span class="var-default">NULL</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#Execute" title="details" class="method-name">Execute</a>
+											([<span class="var-type">string</span>&nbsp;<span class="var-name">$theMode</span> = <span class="var-default">'POST'</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#Format" title="details" class="method-name">Format</a>
+											([<span class="var-type">string</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#LogRequest" title="details" class="method-name">LogRequest</a>
+											([<span class="var-type">boolean</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#LogTrace" title="details" class="method-name">LogTrace</a>
+											([<span class="var-type">boolean</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#offsetSet" title="details" class="method-name">offsetSet</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>, <span class="var-type">string|NULL</span>&nbsp;<span class="var-name">$theValue</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#offsetUnset" title="details" class="method-name">offsetUnset</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#Operation" title="details" class="method-name">Operation</a>
+											([<span class="var-type">string</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																								<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#Stamp" title="details" class="method-name">Stamp</a>
+											([<span class="var-type">boolean</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#Url" title="details" class="method-name">Url</a>
+											([<span class="var-type">string</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+											</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+												<a href="#sec-consts">Constants</a>
+							
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			
+							<h4>Inherited Variables</h4>
+				<A NAME='inherited_vars'><!-- --></A>
+									<p>Inherited from <span class="classname"><a href="../../MyWrapper/Core/CStatusObject.html">CStatusObject</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Variable.png" />
+							<span class="var-title">
+								<span class="var-name"><a href="../../MyWrapper/Core/CStatusObject.html#var$mStatus">CStatusObject::$mStatus</a></span><br>
+							</span>
+											</blockquote> 
+										
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+															<a href="#sec-vars">Vars</a>
+														<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+<a name="methodRequest" id="Request"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static Request</span> (line <span class="line-number">645</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Send a HTTP request.</p>
+<p class="description"><p>This method can be used to sent an <em>HTTP</em> request via <em>GET</em> or <em>POST</em>.</p><p>The method accepts the following parameters:</p><p><ul><li><strong>$theUrl</strong>: The request URL.</li><li><strong>$theParams</strong>: An array of key/value parameters for the request.</li><li><strong>$theMode</strong>: The request mode:
+	 <ul><li><em>GET</em>: GET, default.</li><li><em>POST</em>: POST.</li></ul></li><li><strong>$theFormat</strong>: The request format:
+	 <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_XML">kDATA_TYPE_XML</a></em>: XML.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_PHP">kDATA_TYPE_PHP</a></em>: PHP.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_JSON">kDATA_TYPE_JSON</a></em>: JSON.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_META">kDATA_TYPE_META</a></em>: Metadata: if you provide
+            this format, the method will return the metadata of the operation for
+            troubleshooting purposes.</li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> <a href="../../MyWrapper/Core/CException.html">CException</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			Request
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$theUrl</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theParams</span> = <span class="var-default">NULL</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$theMode</span> = <span class="var-default">'POST'</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$theFormat</span> = <span class="var-default">kDATA_TYPE_JSON</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theUrl</span><span class="var-description">: Request URL.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theParams</span><span class="var-description">: Request parameters.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theMode</span><span class="var-description">: Request mode.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theFormat</span><span class="var-description">: Response format.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Constructor.png" />
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">97</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Instantiate class.</p>
+<p class="description"><p>The constructor will initialise the object depending on the provided parameter:</p><p><ul><li><em>NULL</em>: An empty object.</li><li><em>array</em>: The array elements will become the object properties.</li><li><em>string</em>: Any other value will be converted to string and will represent
+		the web-service URL.</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">CWrapperClient</span>
+		<span class="method-name">
+			__construct
+		</span>
+					([<span class="var-type">string</span>&nbsp;<span class="var-name">$theData</span> = <span class="var-default">NULL</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theData</span><span class="var-description">: Web-service URL or object data.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodExecute" id="Execute"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Execute</span> (line <span class="line-number">532</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Send an HTTP request.</p>
+<p class="description"><p>This method can be used to sent an <em>HTTP</em> request using the current contents of  the object and return a response.</p></p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> <a href="../../MyWrapper/Core/CException.html">CException</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			Execute
+		</span>
+					([<span class="var-type">string</span>&nbsp;<span class="var-name">$theMode</span> = <span class="var-default">'POST'</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theMode</span><span class="var-description">: Request mode, POST or GET</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodFormat" id="Format"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Format</span> (line <span class="line-number">294</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage format.</p>
+<p class="description"><p>This method can be used to manage the <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">format</a> in which both the  parameters are sent and the response is returned from the web-service. It accepts a  parameter which represents either the web-service format code or this method  operation, depending on its value:</p><p><ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the current value.</li><li><em>other</em>: Set the value with the provided parameter.</li></ul></p><p>The second parameter is a boolean which if <em>TRUE</em> will return the <em>old</em>  value when replacing values; if <em>FALSE</em>, it will return the currently set value.</p><p>This method will check whether the provided format is supported, if this is not  the case, it will raise an exception. Derived classes should first check their  specific operations, if not matched, they should pass the parameter to the parent  method. In this class we support the following operations:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_PHP">kDATA_TYPE_PHP</a></em>: Parameters and response will be
+        serialized.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_XML">kDATA_TYPE_XML</a></em>: Parameters and response will be
+        encoded in XML.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_JSON">kDATA_TYPE_JSON</a></em>: Parameters and response will be
+        encoded in JSON.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_META">kDATA_TYPE_META</a></em>: This data type can be used to
+        return service metadata, the <a href="../../MyWrapper/Wrappers/CWrapperClient.html#methodExecute">request</a> will return headers
+        metadata for troubleshooting, rather than the response from the web-service.</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> kAPI_OP_HELP kAPI_OP_PING</li>
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">kAPI_FORMAT</a></li>
+				<li><span class="field">throws:</span> <a href="../../MyWrapper/Core/CException.html">CException</a></li>
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			Format
+		</span>
+					([<span class="var-type">string</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Value or operation.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodLogRequest" id="LogRequest"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">LogRequest</span> (line <span class="line-number">383</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Log request switch.</p>
+<p class="description"><p>This method can be used to turn on or off the request section in the web-service  response, the method accepts a single parameter that if resolves to <em>TRUE</em> it  will turn on this option, if not it will turn it off.</p><p>The second parameter is a boolean which if <em>TRUE</em> will return the <em>old</em>  value when replacing values; if <em>FALSE</em>, it will return the currently set value.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPT_LOG_REQUEST">kAPI_OPT_LOG_REQUEST</a></li>
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			LogRequest
+		</span>
+					([<span class="var-type">boolean</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$theValue</span><span class="var-description">: TRUE or FALSE.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodLogTrace" id="LogTrace"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">LogTrace</span> (line <span class="line-number">419</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Log trace switch.</p>
+<p class="description"><p>This method can be used to turn on or off the trace in the event an exception is  raised, the method accepts a single parameter that if resolves to <em>TRUE</em> it will  turn on this option, if not it will turn it off.</p><p>The second parameter is a boolean which if <em>TRUE</em> will return the <em>old</em>  value when replacing values; if <em>FALSE</em>, it will return the currently set value.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPT_LOG_TRACE">kAPI_OPT_LOG_TRACE</a></li>
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			LogTrace
+		</span>
+					([<span class="var-type">boolean</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$theValue</span><span class="var-description">: TRUE or FALSE.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodoffsetSet" id="offsetSet"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">offsetSet</span> (line <span class="line-number">456</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set a value for a given offset.</p>
+<p class="description"><p>We overload this method to manage the <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">inited</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>: this is set if <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_URL">URL</a>,  <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">operation</a> and <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">format</a> are all set.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			offsetSet
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>, <span class="var-type">string|NULL</span>&nbsp;<span class="var-name">$theValue</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theOffset</span><span class="var-description">: Offset.</span>			</li>
+					<li>
+				<span class="var-type">string|NULL</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Value to set at offset.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Core/CStatusObject.html#methodoffsetSet">CStatusObject::offsetSet()</a></dt>
+						<dd>Set a value for a given offset.</dd>
+					</dl>
+			
+	</div>
+<a name="methodoffsetUnset" id="offsetUnset"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">offsetUnset</span> (line <span class="line-number">489</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Reset a value for a given offset.</p>
+<p class="description"><p>We overload this method to manage the <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">inited</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>: this is set if <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_URL">URL</a>,  <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">operation</a> and <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">format</a> are all set.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			offsetUnset
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theOffset</span><span class="var-description">: Offset.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Core/CStatusObject.html#methodoffsetUnset">CStatusObject::offsetUnset()</a></dt>
+						<dd>Reset a value for a given offset.</dd>
+					</dl>
+			
+	</div>
+<a name="methodOperation" id="Operation"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Operation</span> (line <span class="line-number">216</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage operation.</p>
+<p class="description"><p>This method can be used to manage the <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">operation</a>, it accepts a  parameter which represents either the web-service operation code or this method  operation, depending on its value:</p><p><ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the current value.</li><li><em>other</em>: Set the value with the provided parameter.</li></ul></p><p>The second parameter is a boolean which if <em>TRUE</em> will return the <em>old</em>  value when replacing values; if <em>FALSE</em>, it will return the currently set value.</p><p>This method will check whether the provided operation is supported, if this is not  the case, it will raise an exception. Derived classes should first check their  specific operations, if not matched, they should pass the parameter to the parent  method. In this class we support the following operations:</p><p><ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_HELP">kAPI_OP_HELP</a></em>: HELP web-service operation, which
+        returns the list of supported operations and options.</li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_PING">kAPI_OP_PING</a></em>: PING web-service operation, which
+        returns a status response.</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> kAPI_OP_HELP kAPI_OP_PING</li>
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">kAPI_OPERATION</a></li>
+				<li><span class="field">throws:</span> <a href="../../MyWrapper/Core/CException.html">CException</a></li>
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			Operation
+		</span>
+					([<span class="var-type">string</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Value or operation.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Wrappers/CDataWrapperClient.html#methodOperation">CDataWrapperClient::Operation()</a>
+								: Manage operation.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Wrappers/CMongoDataWrapperClient.html#methodOperation">CMongoDataWrapperClient::Operation()</a>
+								: Manage operation.
+							</li>
+				</ul>
+	</div>
+<a name="methodStamp" id="Stamp"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Stamp</span> (line <span class="line-number">347</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Time-stamp switch.</p>
+<p class="description"><p>This method can be used to turn on or off the time-stamp section in the web-service  response, the method accepts a single parameter that if resolves to <em>TRUE</em> it  will turn on this option, if not it will turn it off.</p><p>The second parameter is a boolean which if <em>TRUE</em> will return the <em>old</em>  value when replacing values; if <em>FALSE</em>, it will return the currently set value.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_REQ_STAMP">kAPI_REQ_STAMP</a></li>
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			Stamp
+		</span>
+					([<span class="var-type">boolean</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$theValue</span><span class="var-description">: TRUE or FALSE.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodUrl" id="Url"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Url</span> (line <span class="line-number">164</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage URL.</p>
+<p class="description"><p>This method can be used to manage the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_URL">URL</a>, it accepts a parameter  which represents either the URL or the requested operation, depending on its value:</p><p><ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the current value.</li><li><em>other</em>: Set the value with the provided parameter.</li></ul></p><p>The second parameter is a boolean which if <em>TRUE</em> will return the <em>old</em>  value when replacing values; if <em>FALSE</em>, it will return the currently set value.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_URL">kOFFSET_URL</a></li>
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			Url
+		</span>
+					([<span class="var-type">string</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Value or operation.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Core/CStatusObject.html">CStatusObject</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#methodoffsetSet">CStatusObject::offsetSet()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#methodoffsetUnset">CStatusObject::offsetUnset()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#methodStatus">CStatusObject::Status()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#method_IsDirty">CStatusObject::_IsDirty()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#method_ManageBitField">CStatusObject::_ManageBitField()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Core/CArrayObject.html">CArrayObject</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodkeys">CArrayObject::keys()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodoffsetGet">CArrayObject::offsetGet()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodoffsetSet">CArrayObject::offsetSet()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodoffsetUnset">CArrayObject::offsetUnset()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodvalues">CArrayObject::values()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#method_ManageTypedArrayOffset">CArrayObject::_ManageTypedArrayOffset()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname">ArrayObject (Internal Class)</span></p>
+					<blockquote>
+													<img src="../../media/images/Constructor.png" alt=" "/>
+							<span class="method-name">constructor __construct ( $array )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">append ( $value )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">asort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">count (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">exchangeArray ( $array )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getArrayCopy (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getFlags (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getIterator (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getIteratorClass (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">ksort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">natcasesort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">natsort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetExists ( $index )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetGet ( $index )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetSet ( $index, $newval )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetUnset ( $index )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">serialize (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">setFlags ( $flags )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">setIteratorClass ( $iteratorClass )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">uasort ( $cmp_function )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">uksort ( $cmp_function )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">unserialize ( $serialized )</span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+	<a name="sec-consts"></a>
+	<div class="info-box">
+		<div class="info-box-title">Class Constants</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendants</a> |
+										<a href="#sec-var-summary">Constants</a> (<span class="disabled">details</span>)
+						
+			
+												<a href="#sec-vars">Vars</a>
+														| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+										<h4>Inherited Constants</h4>
+				<A NAME='inherited_consts'><!-- --></A>
+									<p>Inherited from <span class="classname">ArrayObject (Internal Class)</span></p>
+					<blockquote>
+													<img src="../../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name">ARRAY_AS_PROPS = 2</span><br>
+							</span>
+													<img src="../../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name">STD_PROP_LIST = 1</span><br>
+							</span>
+											</blockquote> 
+										
+		</div>
+	</div>
+	
+	<p class="notes" id="credit">
+		Documentation generated on Mon, 02 Apr 2012 01:03:42 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

@@ -6,7 +6,7 @@
  * This file contains the class definition of <b>CDataTypeInt64</b> which wraps this class
  * around a signed 64 bit integer.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Core
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
@@ -39,7 +39,7 @@ require_once( kPATH_LIBRARY_SOURCE."CDataType.php" );
  *
  * This class is necessary, because to date PHP doesn't handle 64 bit integers.
  *
- *	@package	Framework
+ *	@package	MyWrapper
  *	@subpackage	Core
  */
 class CDataTypeInt64 extends CDataType
