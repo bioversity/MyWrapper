@@ -57,6 +57,7 @@ require_once( kPATH_LIBRARY_DEFINES."Types.inc.php" );
  *	<li><i>{@link kDATA_TYPE_BINARY kDATA_TYPE_BINARY}</i>: Binary string, binary strings
  *		are supported by PHPO, but they must be encoded for transport over the network or
  *		for storing in databases.
+ *	<li><i>{@link kDATA_TYPE_REGEX kDATA_TYPE_REGEX}</i>: Regular expression query.
  * </ul>
  *
  * Other specialised data types are:
@@ -65,8 +66,6 @@ require_once( kPATH_LIBRARY_DEFINES."Types.inc.php" );
  *	<li><i>{@link kDATA_TYPE_MongoId kDATA_TYPE_MongoId}</i>: MongoDB _id.
  *	<li><i>{@link kDATA_TYPE_MongoCode kDATA_TYPE_MongoCode}</i>: MongoDB map/reduce
  *		javascript code.
- *	<li><i>{@link kDATA_TYPE_MongoRegex kDATA_TYPE_MongoRegex}</i>: MongoDB regular
- *		expression query.
  * </ul>
  *
  * The object derives from {@link CArrayObject CArrayObject} and holds the following default
@@ -280,6 +279,220 @@ abstract class CDataType extends CArrayObject
 
 	 
 	/*===================================================================================
+	 *	SerialiseElement																*
+	 *==================================================================================*/
+
+	/**
+	 * Serialise provided element.
+	 *
+	 * This method can be used to enforce converting custom data types to a standard format
+	 * that can be serialised and transmitted through the network. This method accepts two
+	 * parameters: the data type and the value: depending on their combination, the method
+	 * will convert in place the data and the type.
+	 *
+	 * @param reference			   &$theElement			Element to encode.
+	 * @param string			   &$theType			Element data type.
+	 *
+	 * @static
+	 */
+	static function SerialiseElement( &$theElement, &$theType )
+	{
+		//
+		// Skip serialised elements.
+		//
+		if( ! $theElement instanceof self )
+		{
+			//
+			// Set data type.
+			//
+			if( $theType === NULL )
+			{
+				//
+				// Handle objects.
+				//
+				if( is_object( $theElement ) )
+				{
+					//
+					// Parse by type.
+					//
+					switch( get_class( $theElement ) )
+					{
+						case 'MongoId':
+							$theType = kDATA_TYPE_MongoId;
+							$theElement = new CDataTypeMongoId( $theElement );
+							break;
+					
+						case 'MongoCode':
+							$theType = kDATA_TYPE_MongoCode;
+							$theElement = new CDataTypeMongoCode( $theElement );
+							break;
+					
+						case 'MongoDate':
+							$theType = kDATA_TYPE_STAMP;
+							$theElement = new CDataTypeStamp( $theElement );
+							break;
+					
+						case 'MongoRegex':
+							$theType = kDATA_TYPE_REGEX;
+							$theElement = new CDataTypeRegex( $theElement );
+							break;
+					
+						case 'MongoBinData':
+							$theType = kDATA_TYPE_BINARY;
+							$theElement = new CDataTypeBinary( $theElement->bin );
+							break;
+					
+						case 'MongoInt32':
+							$theType = kDATA_TYPE_INT32;
+							$theElement = new CDataTypeInt32( $theElement );
+							break;
+					
+						case 'MongoInt64':
+							$theType = kDATA_TYPE_INT64;
+							$theElement = new CDataTypeInt64( $theElement );
+							break;
+						
+						case 'CDataTypeInt32':
+							$theType = kDATA_TYPE_INT32;
+							break;
+						
+						case 'CDataTypeInt64':
+							$theType = kDATA_TYPE_INT64;
+							break;
+						
+						case 'CDataTypeBinary':
+							$theType = kDATA_TYPE_BINARY;
+							break;
+						
+						case 'CDataTypeMongoCode':
+							$theType = kDATA_TYPE_MongoCode;
+							break;
+						
+						case 'CDataTypeStamp':
+							$theType = kDATA_TYPE_STAMP;
+							break;
+						
+						case 'CDataTypeRegex':
+							$theType = kDATA_TYPE_REGEX;
+							break;
+						
+						case 'CDataTypeBinary':
+							$theType = kDATA_TYPE_BINARY;
+							break;
+						
+						default:
+							break;
+					
+					} // Parsing by class.
+				
+				} // Provided object.
+				
+				//
+				// Handle floats.
+				//
+				elseif( is_float( $theElement )
+					 || is_double( $theElement ) )
+					$theType = kDATA_TYPE_FLOAT;
+				
+				//
+				// Handle boolean.
+				//
+				elseif( is_bool( $theElement ) )
+					$theType = kDATA_TYPE_BOOLEAN;
+				
+				//
+				// Handle integers.
+				// Note we cast to INT64 to be on the safe side.
+				//
+				elseif( is_int( $theElement ) )
+				{
+					$theType = kDATA_TYPE_INT64;
+					$theElement = new CDataTypeInt64( (string) $theElement );
+				}
+				
+				//
+				// Handle strings.
+				//
+				elseif( is_string( $theElement ) )
+					$theType = kDATA_TYPE_STRING;
+			
+			} // Data type not provided.
+			
+			//
+			// Handle provided data type.
+			//
+			else
+			{
+				//
+				// Parse type.
+				//
+				switch( $theType )
+				{
+					case kDATA_TYPE_STRING:
+						$theElement = (string) $theElement;
+						break;
+	
+					case kDATA_TYPE_INT32:
+						$theElement = new CDataTypeInt32( (string) $theElement );
+						break;
+	
+					case kDATA_TYPE_INT64:
+						$theElement = new CDataTypeInt64( (string) $theElement );
+						break;
+					
+					case kDATA_TYPE_FLOAT:
+						$theElement = (double) $theElement;
+						break;
+					
+					case kDATA_TYPE_DATE:
+						$theElement = (string) $theElement;
+						break;
+					
+					case kDATA_TYPE_TIME:
+						$theType = kDATA_TYPE_STAMP;
+						$theElement = new CDataTypeStamp( $theElement );
+						break;
+					
+					case kDATA_TYPE_STAMP:
+						$theElement = new CDataTypeStamp( $theElement );
+						break;
+					
+					case kDATA_TYPE_BOOLEAN:
+						$theElement = ( $theElement ) ? 1 : 0;
+						break;
+					
+					case kDATA_TYPE_BINARY:
+						$theElement = new CDataTypeBinary( $theElement );
+						break;
+					
+					case kDATA_TYPE_REGEX:
+						$theElement = new CDataTypeRegex( $theElement );
+						break;
+					
+					case kDATA_TYPE_MongoId:
+						$theElement = new CDataTypeMongoId( $theElement );
+						break;
+					
+					case kDATA_TYPE_MongoCode:
+						$theElement = new CDataTypeMongoCode( $theElement );
+						break;
+					
+					default:
+						throw new CException( "Unsupported data type",
+											  kERROR_UNSUPPORTED,
+											  kMESSAGE_TYPE_ERROR,
+											  array( 'Type' => $theType ) );		// !@! ==>
+
+				} // Parsing data type.
+			
+			} // Data type provided.
+			
+		} // Not converted already.
+	
+	} // SerialiseElement.
+
+	 
+	/*===================================================================================
 	 *	SerialiseData																	*
 	 *==================================================================================*/
 
@@ -306,7 +519,7 @@ abstract class CDataType extends CArrayObject
 	 *	<li><i>MongoDate</i>: We convert into a {@link CDataTypeStamp CDataTypeStamp}
 	 *		object.
 	 *	<li><i>MongoRegex</i>: We convert into a
-	 *		{@link CDataTypeMongoRegex CDataTypeMongoRegex} object.
+	 *		{@link CDataTypeRegex CDataTypeRegex} object.
 	 *	<li><i>MongoBinData</i>: We convert into a {@link CDataTypeBinary CDataTypeBinary}
 	 *		object.
 	 *	<li><i>MongoInt32</i>: We convert into a {@link CDataTypeInt32 CDataTypeInt32}
@@ -344,7 +557,7 @@ abstract class CDataType extends CArrayObject
 					break;
 			
 				case 'MongoRegex':
-					$theElement = new CDataTypeMongoRegex( $theElement );
+					$theElement = new CDataTypeRegex( $theElement );
 					break;
 			
 				case 'MongoBinData':

@@ -645,7 +645,8 @@ class CQuery extends CStatusObject
 		//
 		// Check statement data type.
 		//
-		if( ! is_array( $theStatement ) )
+		if( (! is_array( $theStatement ))
+		 && (! $theStatement instanceof CQueryStatement) )
 			throw new CException
 				( "Invalid query statement",
 				  kERROR_INVALID_STATE,
@@ -697,7 +698,6 @@ class CQuery extends CStatusObject
 						case kOPERATOR_NI:
 						case kOPERATOR_ALL:
 						case kOPERATOR_NALL:
-						case kOPERATOR_EX:
 							if( ! array_key_exists( kAPI_QUERY_TYPE, $theStatement ) )
 								throw new CException
 									( "Invalid query: missing filter match data type",
@@ -705,6 +705,7 @@ class CQuery extends CStatusObject
 									  kMESSAGE_TYPE_ERROR,
 									  array( 'Element' => kAPI_QUERY_TYPE,
 											 'Statement' => $theStatement ) );	// !@! ==>
+						case kOPERATOR_EX:
 							if( ! array_key_exists( kAPI_QUERY_DATA, $theStatement ) )
 								throw new CException
 									( "Invalid query: missing filter data",

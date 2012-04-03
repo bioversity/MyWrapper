@@ -247,5 +247,65 @@ define( "kTAG_REFS",							':REFS' );
  */
 define( "kOFFSET_URL",							':URL' );
 
+/*=======================================================================================
+ *	DEFAULT MAIL PROPERTY OFFSETS														*
+ *======================================================================================*/
+
+/**
+ * Place offset.
+ *
+ * This is the tag that represents a place or named location.
+ */
+define( "kOFFSET_MAIL_PLACE",					':MAIL:PLACE' );
+
+/**
+ * Care of offset.
+ *
+ * This is the tag that represents a care of address reference.
+ */
+define( "kOFFSET_MAIL_CARE",					':MAIL:CARE' );
+
+/**
+ * Street offset.
+ *
+ * This is the tag that represents a place or named location.
+ */
+define( "kOFFSET_MAIL_STREET",					':MAIL:STREET' );
+
+/**
+ * ZIP offset.
+ *
+ * This is the tag that represents a ZIP code.
+ */
+define( "kOFFSET_MAIL_ZIP",						':MAIL:ZIP' );
+
+/**
+ * City offset.
+ *
+ * This is the tag that represents a city name.
+ */
+define( "kOFFSET_MAIL_CITY",					':MAIL:CITY' );
+
+/**
+ * Province offset.
+ *
+ * This is the tag that represents a province name or code.
+ */
+define( "kOFFSET_MAIL_PROVINCE",				':MAIL:PROV' );
+
+/**
+ * Country offset.
+ *
+ * This is the tag that represents an ISO3166 3 character country code.
+ */
+define( "kOFFSET_MAIL_COUNTRY",					'ISO3166:3' );
+
+/**
+ * Full address offset.
+ *
+ * This is the tag that represents the full address as a string.
+ */
+define( "kOFFSET_MAIL_FULL",					'MAIL:FULL' );
+
 
 ?>

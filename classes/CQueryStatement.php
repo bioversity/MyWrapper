@@ -317,112 +317,36 @@ class CQueryStatement extends CArrayObject
 			//
 			if( $theSubject !== NULL )
 				$this->Subject( $theSubject );
-			else
-				throw new CException( "Missing statement subject",
-									  kERROR_OPTION_MISSING,
-									  kMESSAGE_TYPE_ERROR ) );					// !@! ==>
 			
 			//
 			// Set predicate.
 			//
 			if( $thePredicate !== NULL )
 				$this->Predicate( $thePredicate );
-			else
-				throw new CException( "Missing statement predicate",
-									  kERROR_OPTION_MISSING,
-									  kMESSAGE_TYPE_ERROR ) );					// !@! ==>
 			
 			//
-			// Parse by predicate.
+			// Set type.
 			//
-			switch( $this->Predicate() )
+			if( $theType !== NULL )
+				$this->Type( $theType );
+			elseif( $theObject !== NULL )
 			{
-				case kOPERATOR_DISABLED:
-					if( $theType !== NULL )
-						$this->Type( $theType );
-					if( $theRange !== NULL )
-						$this->Range( $theObject, $theRange );
-					elseif( $theObject !== NULL )
-						$this->Object( $theObject );
-					break;
-					
-				case kOPERATOR_EQUAL:
-				case kOPERATOR_EQUAL_NOT:
-				case kOPERATOR_LIKE:
-				case kOPERATOR_LIKE_NOT:
-				case kOPERATOR_PREFIX:
-				case kOPERATOR_CONTAINS:
-				case kOPERATOR_SUFFIX:
-				case kOPERATOR_REGEX:
-				case kOPERATOR_LESS:
-				case kOPERATOR_LESS_EQUAL:
-				case kOPERATOR_GREAT:
-				case kOPERATOR_GREAT_EQUAL:
-				case kOPERATOR_EX:
-					if( $theType !== NULL )
-						$this->Type( $theType );
-					else
-						throw new CException( "Missing statement data type",
-											  kERROR_OPTION_MISSING,
-											  kMESSAGE_TYPE_ERROR ) );			// !@! ==>
-					if( $theObject !== NULL )
-						$this->Object( $theObject );
-					else
-						throw new CException( "Missing statement object",
-											  kERROR_OPTION_MISSING,
-											  kMESSAGE_TYPE_ERROR ) );			// !@! ==>
-					break;
-
-				case kOPERATOR_IN:
-				case kOPERATOR_NI:
-				case kOPERATOR_ALL:
-				case kOPERATOR_NALL:
-					if( $theType !== NULL )
-						$this->Type( $theType );
-					else
-						throw new CException( "Missing statement data type",
-											  kERROR_OPTION_MISSING,
-											  kMESSAGE_TYPE_ERROR ) );			// !@! ==>
-					if( $theObject !== NULL )
-					{
-						if( (! is_array( $theObject ))
-						 && (! $theObject instanceof ArrayObject) )
-							$theObject = array( $theObject );
-						$this->Object( $theObject );
-					}
-					else
-						throw new CException( "Missing statement object",
-											  kERROR_OPTION_MISSING,
-											  kMESSAGE_TYPE_ERROR ) );			// !@! ==>
-					break;
-
-				case kOPERATOR_IRANGE:
-				case kOPERATOR_ERANGE:
-					if( $theType !== NULL )
-						$this->Type( $theType );
-					else
-						throw new CException( "Missing statement data type",
-											  kERROR_OPTION_MISSING,
-											  kMESSAGE_TYPE_ERROR ) );			// !@! ==>
-					if( $theObject !== NULL )
-					{
-						if( $theRange === NULL )
-							$theRange = $theObject;
-						$this->Range( $theObject, $theRange );
-					}
-					else
-						throw new CException( "Missing statement object",
-											  kERROR_OPTION_MISSING,
-											  kMESSAGE_TYPE_ERROR ) );			// !@! ==>
-					break;
-				
-				default:
-					throw new CException
-						( "Unsupported operator",
-						  kERROR_INVALID_PARAMETER,
-						  kMESSAGE_TYPE_ERROR,
-						  array( 'Operator' => $thePredicate ) );				// !@! ==>
+				CDataType::SerialiseElement( $theObject, $theType );
+				if( $theType !== NULL )
+					$this->Type( $theType );
 			}
+			
+			//
+			// Set range.
+			//
+			if( $theRange !== NULL )
+				$this->Range( $theObject, $theRange );
+			
+			//
+			// Set object.
+			//
+			elseif( $theObject !== NULL )
+				$this->Object( $theObject );
 		
 		} // Provided statement elements.
 
@@ -507,6 +431,13 @@ class CQueryStatement extends CArrayObject
 	 */
 	public function Object( $theValue = NULL, $getOld = FALSE )
 	{
+		//
+		// Serialise values.
+		//
+		if( ($theValue !== NULL)
+		 && ($theValue !== FALSE) )
+			CDataType::SerialiseObject( $theValue );
+		
 		return $this->_ManageOffset( kAPI_QUERY_DATA, $theValue, $getOld );			// ==>
 
 	} // Object.
@@ -608,13 +539,15 @@ class CQueryStatement extends CArrayObject
 				case kOPERATOR_LESS_EQUAL:
 				case kOPERATOR_GREAT:
 				case kOPERATOR_GREAT_EQUAL:
-				case kOPERATOR_EX:
+				case kOPERATOR_IRANGE:
+				case kOPERATOR_ERANGE:
+				case kOPERATOR_NULL:
+				case kOPERATOR_NOT_NULL:
 				case kOPERATOR_IN:
 				case kOPERATOR_NI:
 				case kOPERATOR_ALL:
 				case kOPERATOR_NALL:
-				case kOPERATOR_IRANGE:
-				case kOPERATOR_ERANGE:
+				case kOPERATOR_EX:
 					break;
 				
 				default:
@@ -756,13 +689,957 @@ class CQueryStatement extends CArrayObject
 		//
 		// Build range.
 		//
-		$range = Array();
-		$range[] = CDataType::SerialiseData( $theBound1 );
-		$range[] = CDataType::SerialiseData( $theBound2 );
+		$type = NULL;
+		CDataType::SerialiseElement( $theBound1, $type );
+		$type = NULL;
+		CDataType::SerialiseElement( $theBound2, $type );
+		$range = array( $theBound1, $theBound2 );
 		
 		return $this->Object( $range, $getOld );									// ==>
 
 	} // Range.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *									STATIC INTERFACE									*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	Disabled																		*
+	 *==================================================================================*/
+
+	/**
+	 * Create a disabled statement.
+	 *
+	 * This method can be used to instantiate a disabled query statement. A disabled
+	 * statement is one that should not execute, it can be used as a placeholder, or
+	 * external methods may disable statements.
+	 *
+	 * The statement uses the {@link kOPERATOR_DISABLED kOPERATOR_DISABLED} operator and
+	 * this method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theSubject</b>: Statement {@link Subject() subject}.
+	 *	<li><b>$theObject</b>: Statement {@link Object() object} or first
+	 *		{@link Range() range} bound.
+	 *	<li><b>$theType</b>: Statement object data {@link Type() type}.
+	 *	<li><b>$theRange</b>: Statement second {@link Range() range} bound.
+	 * </ul>
+	 *
+	 * The method will return an instance of this class or raise an exception on errors.
+	 *
+	 * @param mixed					$theSubject			Statement subject.
+	 * @param mixed					$theObject			Statement object or range bound.
+	 * @param string				$theType			Statement object data type.
+	 * @param mixed					$theRange			Statement range bound.
+	 *
+	 * @static
+	 *
+	 * @see kOPERATOR_DISABLED
+	 */
+	static function Disabled( $theSubject, $theObject = NULL,
+										   $theType = NULL,
+										   $theRange = NULL )
+	{
+		return new self( (string) $theSubject, kOPERATOR_DISABLED,
+						 $theType, $theObject, $theRange );							// ==>
+
+	} // Disabled.
+
+	 
+	/*===================================================================================
+	 *	Equals																			*
+	 *==================================================================================*/
+
+	/**
+	 * Create an {@link kOPERATOR_EQUAL equals} statement.
+	 *
+	 * This method can be used to instantiate an {@link kOPERATOR_EQUAL equality} query
+	 * statement.
+	 *
+	 * The statement uses the {@link kOPERATOR_EQUAL kOPERATOR_EQUAL} operator and this
+	 * method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theSubject</b>: Statement {@link Subject() subject}.
+	 *	<li><b>$theObject</b>: Statement {@link Object() object}.
+	 *	<li><b>$theType</b>: Statement object data {@link Type() type}.
+	 * </ul>
+	 *
+	 * The method will return an instance of this class or raise an exception on errors.
+	 *
+	 * @param mixed					$theSubject			Statement subject.
+	 * @param mixed					$theObject			Statement object.
+	 * @param string				$theType			Statement object data type.
+	 *
+	 * @static
+	 *
+	 * @see kOPERATOR_EQUAL
+	 */
+	static function Equals( $theSubject, $theObject, $theType = NULL )
+	{
+		return new self
+			( (string) $theSubject, kOPERATOR_EQUAL, $theType, $theObject );		// ==>
+
+	} // Equals.
+
+	 
+	/*===================================================================================
+	 *	NotEquals																		*
+	 *==================================================================================*/
+
+	/**
+	 * Create a not {@link kOPERATOR_EQUAL_NOT equals} statement.
+	 *
+	 * This method can be used to instantiate a not {@link kOPERATOR_EQUAL_NOT equals} query
+	 * statement, which is the negation of the {@link Equals() equals} statement.
+	 *
+	 * The statement uses the {@link kOPERATOR_EQUAL_NOT kOPERATOR_EQUAL_NOT} operator and
+	 * this method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theSubject</b>: Statement {@link Subject() subject}.
+	 *	<li><b>$theObject</b>: Statement {@link Object() object}.
+	 *	<li><b>$theType</b>: Statement object data {@link Type() type}.
+	 * </ul>
+	 *
+	 * The method will return an instance of this class or raise an exception on errors.
+	 *
+	 * @param mixed					$theSubject			Statement subject.
+	 * @param mixed					$theObject			Statement object.
+	 * @param string				$theType			Statement object data type.
+	 *
+	 * @static
+	 *
+	 * @see kOPERATOR_EQUAL_NOT
+	 */
+	static function NotEquals( $theSubject, $theObject, $theType = NULL )
+	{
+		return new self
+			( (string) $theSubject, kOPERATOR_EQUAL_NOT, $theType, $theObject );	// ==>
+
+	} // NotEquals.
+
+	 
+	/*===================================================================================
+	 *	Like																			*
+	 *==================================================================================*/
+
+	/**
+	 * Create a case and accent {@link kOPERATOR_LIKE insensitive} equality statement.
+	 *
+	 * This method can be used to instantiate a {@link kOPERATOR_LIKE LIKE} query statement,
+	 * which is equivalent to the SQL <i>LIKE</i> clause, an accent and case insensitive
+	 * comparaison.
+	 *
+	 * The statement uses the {@link kOPERATOR_LIKE kOPERATOR_LIKE} operator and this method
+	 * accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theSubject</b>: Statement {@link Subject() subject}.
+	 *	<li><b>$theObject</b>: Statement {@link Object() object} match string.
+	 * </ul>
+	 *
+	 * Note that the data type is implicitly a {@link kDATA_TYPE_STRING string}
+	 *
+	 * The method will return an instance of this class or raise an exception on errors.
+	 *
+	 * @param mixed					$theSubject			Statement subject.
+	 * @param mixed					$theObject			Statement object.
+	 *
+	 * @static
+	 *
+	 * @see kOPERATOR_LIKE kDATA_TYPE_STRING
+	 */
+	static function Like( $theSubject, $theObject )
+	{
+		return new self( (string) $theSubject,
+						  kOPERATOR_LIKE,
+						  kDATA_TYPE_STRING,
+						  (string) $theObject );									// ==>
+
+	} // Like.
+
+	 
+	/*===================================================================================
+	 *	NotLike																			*
+	 *==================================================================================*/
+
+	/**
+	 * Create a not {@link kOPERATOR_LIKE_NOT like} statement.
+	 *
+	 * This method can be used to instantiate a not {@link kOPERATOR_LIKE_NOT like} query
+	 * statement, which is the negation of the {@link Like() equals} statement.
+	 *
+	 * The statement uses the {@link kOPERATOR_LIKE_NOT kOPERATOR_LIKE_NOT} operator and
+	 * this method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theSubject</b>: Statement {@link Subject() subject}.
+	 *	<li><b>$theObject</b>: Statement {@link Object() object} match string.
+	 * </ul>
+	 *
+	 * The method will return an instance of this class or raise an exception on errors.
+	 *
+	 * @param mixed					$theSubject			Statement subject.
+	 * @param mixed					$theObject			Statement object.
+	 *
+	 * @static
+	 *
+	 * @see kOPERATOR_LIKE_NOT kDATA_TYPE_STRING
+	 */
+	static function NotLike( $theSubject, $theObject )
+	{
+		return new self( (string) $theSubject,
+						  kOPERATOR_LIKE_NOT,
+						  kDATA_TYPE_STRING,
+						  (string) $theObject );									// ==>
+
+	} // NotLike.
+
+	 
+	/*===================================================================================
+	 *	Prefix																			*
+	 *==================================================================================*/
+
+	/**
+	 * Create a {@link kOPERATOR_PREFIX prefix} statement.
+	 *
+	 * This method can be used to instantiate a query statement that will select all
+	 * elements whose contents beginning matches the test data.
+	 *
+	 * The statement uses the {@link kOPERATOR_PREFIX kOPERATOR_PREFIX} operator and this
+	 * method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theSubject</b>: Statement {@link Subject() subject}.
+	 *	<li><b>$theObject</b>: Statement {@link Object() object} prefix string.
+	 * </ul>
+	 *
+	 * Note that the data type is implicitly a {@link kDATA_TYPE_STRING string}
+	 *
+	 * The method will return an instance of this class or raise an exception on errors.
+	 *
+	 * @param mixed					$theSubject			Statement subject.
+	 * @param mixed					$theObject			Statement object.
+	 *
+	 * @static
+	 *
+	 * @see kOPERATOR_PREFIX kDATA_TYPE_STRING
+	 */
+	static function Prefix( $theSubject, $theObject )
+	{
+		return new self( (string) $theSubject,
+						  kOPERATOR_PREFIX,
+						  kDATA_TYPE_STRING,
+						  (string) $theObject );									// ==>
+
+	} // Prefix.
+
+	 
+	/*===================================================================================
+	 *	Contains																		*
+	 *==================================================================================*/
+
+	/**
+	 * Create a {@link kOPERATOR_CONTAINS contains} statement.
+	 *
+	 * This method can be used to instantiate a query statement that will select all
+	 * elements whose contents matches the test data in any position.
+	 *
+	 * The statement uses the {@link kOPERATOR_CONTAINS kOPERATOR_CONTAINS} operator and this
+	 * method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theSubject</b>: Statement {@link Subject() subject}.
+	 *	<li><b>$theObject</b>: Statement {@link Object() object} match sub-string.
+	 * </ul>
+	 *
+	 * Note that the data type is implicitly a {@link kDATA_TYPE_STRING string}
+	 *
+	 * The method will return an instance of this class or raise an exception on errors.
+	 *
+	 * @param mixed					$theSubject			Statement subject.
+	 * @param mixed					$theObject			Statement object.
+	 *
+	 * @static
+	 *
+	 * @see kOPERATOR_CONTAINS kDATA_TYPE_STRING
+	 */
+	static function Contains( $theSubject, $theObject )
+	{
+		return new self( (string) $theSubject,
+						  kOPERATOR_CONTAINS,
+						  kDATA_TYPE_STRING,
+						  (string) $theObject );									// ==>
+
+	} // Contains.
+
+	 
+	/*===================================================================================
+	 *	Suffix																			*
+	 *==================================================================================*/
+
+	/**
+	 * Create a {@link kOPERATOR_SUFFIX prefix} statement.
+	 *
+	 * This method can be used to instantiate a query statement that will select all
+	 * elements whose contents end matches the test data.
+	 *
+	 * The statement uses the {@link kOPERATOR_SUFFIX kOPERATOR_SUFFIX} operator and this
+	 * method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theSubject</b>: Statement {@link Subject() subject}.
+	 *	<li><b>$theObject</b>: Statement {@link Object() object} suffix string.
+	 * </ul>
+	 *
+	 * Note that the data type is implicitly a {@link kDATA_TYPE_STRING string}
+	 *
+	 * The method will return an instance of this class or raise an exception on errors.
+	 *
+	 * @param mixed					$theSubject			Statement subject.
+	 * @param mixed					$theObject			Statement object.
+	 *
+	 * @static
+	 *
+	 * @see kOPERATOR_SUFFIX kDATA_TYPE_STRING
+	 */
+	static function Suffix( $theSubject, $theObject )
+	{
+		return new self( (string) $theSubject,
+						  kOPERATOR_SUFFIX,
+						  kDATA_TYPE_STRING,
+						  (string) $theObject );									// ==>
+
+	} // Suffix.
+
+	 
+	/*===================================================================================
+	 *	Regex																			*
+	 *==================================================================================*/
+
+	/**
+	 * Create a {@link kOPERATOR_REGEX regular} expression statement.
+	 *
+	 * This method can be used to instantiate a query statement that will select all
+	 * elements that match the provided regular expression pattern.
+	 *
+	 * The statement uses the {@link kOPERATOR_REGEX kOPERATOR_REGEX} operator and this
+	 * method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theSubject</b>: Statement {@link Subject() subject}.
+	 *	<li><b>$theObject</b>: Statement {@link Object() object} regular expression pattern.
+	 * </ul>
+	 *
+	 * Note that the data type is implicitly a {@link kDATA_TYPE_STRING string}
+	 *
+	 * The method will return an instance of this class or raise an exception on errors.
+	 *
+	 * @param mixed					$theSubject			Statement subject.
+	 * @param mixed					$theObject			Statement object.
+	 *
+	 * @static
+	 *
+	 * @see kOPERATOR_REGEX kDATA_TYPE_STRING
+	 */
+	static function Regex( $theSubject, $theObject )
+	{
+		return new self( (string) $theSubject,
+						  kOPERATOR_REGEX,
+						  kDATA_TYPE_STRING,
+						  (string) $theObject );									// ==>
+
+	} // Regex.
+
+	 
+	/*===================================================================================
+	 *	Less																			*
+	 *==================================================================================*/
+
+	/**
+	 * Create a {@link kOPERATOR_LESS less} than statement.
+	 *
+	 * This method can be used to instantiate a {@link kOPERATOR_LESS less} than query
+	 * statement.
+	 *
+	 * The statement uses the {@link kOPERATOR_LESS kOPERATOR_LESS} operator and this
+	 * method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theSubject</b>: Statement {@link Subject() subject}.
+	 *	<li><b>$theObject</b>: Statement {@link Object() object}, or comparaison value.
+	 *	<li><b>$theType</b>: Statement object data {@link Type() type}.
+	 * </ul>
+	 *
+	 * The method will return an instance of this class or raise an exception on errors.
+	 *
+	 * @param mixed					$theSubject			Statement subject.
+	 * @param mixed					$theObject			Statement object.
+	 * @param string				$theType			Statement object data type.
+	 *
+	 * @static
+	 *
+	 * @see kOPERATOR_LESS
+	 */
+	static function Less( $theSubject, $theObject, $theType = NULL )
+	{
+		return new self
+			( (string) $theSubject, kOPERATOR_LESS, $theType, $theObject );			// ==>
+
+	} // Less.
+
+	 
+	/*===================================================================================
+	 *	LessEqual																		*
+	 *==================================================================================*/
+
+	/**
+	 * Create a {@link kOPERATOR_LESS_EQUAL less} than or equal statement.
+	 *
+	 * This method can be used to instantiate a {@link kOPERATOR_LESS_EQUAL less} than or
+	 * equal query statement.
+	 *
+	 * The statement uses the {@link kOPERATOR_LESS_EQUAL kOPERATOR_LESS_EQUAL} operator and
+	 * this method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theSubject</b>: Statement {@link Subject() subject}.
+	 *	<li><b>$theObject</b>: Statement {@link Object() object}, or comparaison value.
+	 *	<li><b>$theType</b>: Statement object data {@link Type() type}.
+	 * </ul>
+	 *
+	 * The method will return an instance of this class or raise an exception on errors.
+	 *
+	 * @param mixed					$theSubject			Statement subject.
+	 * @param mixed					$theObject			Statement object.
+	 * @param string				$theType			Statement object data type.
+	 *
+	 * @static
+	 *
+	 * @see kOPERATOR_LESS_EQUAL
+	 */
+	static function LessEqual( $theSubject, $theObject, $theType = NULL )
+	{
+		return new self
+			( (string) $theSubject, kOPERATOR_LESS_EQUAL, $theType, $theObject );	// ==>
+
+	} // LessEqual.
+
+	 
+	/*===================================================================================
+	 *	Great																			*
+	 *==================================================================================*/
+
+	/**
+	 * Create a {@link kOPERATOR_GREAT greater} than statement.
+	 *
+	 * This method can be used to instantiate a {@link kOPERATOR_GREAT greater} than query
+	 * statement.
+	 *
+	 * The statement uses the {@link kOPERATOR_GREAT kOPERATOR_GREAT} operator and this
+	 * method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theSubject</b>: Statement {@link Subject() subject}.
+	 *	<li><b>$theObject</b>: Statement {@link Object() object}, or comparaison value.
+	 *	<li><b>$theType</b>: Statement object data {@link Type() type}.
+	 * </ul>
+	 *
+	 * The method will return an instance of this class or raise an exception on errors.
+	 *
+	 * @param mixed					$theSubject			Statement subject.
+	 * @param mixed					$theObject			Statement object.
+	 * @param string				$theType			Statement object data type.
+	 *
+	 * @static
+	 *
+	 * @see kOPERATOR_GREAT
+	 */
+	static function Great( $theSubject, $theObject, $theType = NULL )
+	{
+		return new self
+			( (string) $theSubject, kOPERATOR_GREAT, $theType, $theObject );		// ==>
+
+	} // Great.
+
+	 
+	/*===================================================================================
+	 *	GreatEqual																		*
+	 *==================================================================================*/
+
+	/**
+	 * Create a {@link kOPERATOR_GREAT_EQUAL greater} than or equal statement.
+	 *
+	 * This method can be used to instantiate a {@link kOPERATOR_GREAT_EQUAL greater} than
+	 * or equal query statement.
+	 *
+	 * The statement uses the {@link kOPERATOR_GREAT_EQUAL kOPERATOR_GREAT_EQUAL} operator
+	 * and this method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theSubject</b>: Statement {@link Subject() subject}.
+	 *	<li><b>$theObject</b>: Statement {@link Object() object}, or comparaison value.
+	 *	<li><b>$theType</b>: Statement object data {@link Type() type}.
+	 * </ul>
+	 *
+	 * The method will return an instance of this class or raise an exception on errors.
+	 *
+	 * @param mixed					$theSubject			Statement subject.
+	 * @param mixed					$theObject			Statement object.
+	 * @param string				$theType			Statement object data type.
+	 *
+	 * @static
+	 *
+	 * @see kOPERATOR_GREAT_EQUAL
+	 */
+	static function GreatEqual( $theSubject, $theObject, $theType = NULL )
+	{
+		return new self
+			( (string) $theSubject, kOPERATOR_GREAT_EQUAL, $theType, $theObject );	// ==>
+
+	} // GreatEqual.
+
+	 
+	/*===================================================================================
+	 *	RangeInclusive																	*
+	 *==================================================================================*/
+
+	/**
+	 * Create a {@link kOPERATOR_IRANGE range} inclusive statement.
+	 *
+	 * This method can be used to instantiate a {@link kOPERATOR_IRANGE range} inclusive
+	 * query statement, the statement will check if the {@link Subject() subject} value lies
+	 * between the two range bounds including the bound values.
+	 *
+	 * The statement uses the {@link kOPERATOR_IRANGE kOPERATOR_IRANGE} operator and this
+	 * method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theSubject</b>: Statement {@link Subject() subject}.
+	 *	<li><b>$theBound1</b>: Statement range lower {@link Object() bound}.
+	 *	<li><b>$theBound2</b>: Statement range upper {@link Object() bound}.
+	 *	<li><b>$theType</b>: Statement range data {@link Type() type}.
+	 * </ul>
+	 *
+	 * The method will return an instance of this class or raise an exception on errors.
+	 *
+	 * @param mixed					$theSubject			Statement subject.
+	 * @param mixed					$theBound1			Range lower bound.
+	 * @param mixed					$theBound2			Range upper bound.
+	 * @param string				$theType			Statement object data type.
+	 *
+	 * @static
+	 *
+	 * @see kOPERATOR_IRANGE
+	 */
+	static function RangeInclusive( $theSubject, $theBound1, $theBound2, $theType = NULL )
+	{
+		//
+		// Serialise bounds.
+		//
+		CDataType::SerialiseElement( $theBound1, $theType );
+		CDataType::SerialiseElement( $theBound2, $theType );
+		
+		return new self
+			( (string) $theSubject, kOPERATOR_IRANGE, $theType, $theBound1,
+																$theBound2 );		// ==>
+
+	} // RangeInclusive.
+
+	 
+	/*===================================================================================
+	 *	RangeExclusive																	*
+	 *==================================================================================*/
+
+	/**
+	 * Create a {@link kOPERATOR_ERANGE range} inclusive statement.
+	 *
+	 * This method can be used to instantiate a {@link kOPERATOR_ERANGE range} exclusive
+	 * query statement, the statement will check if the {@link Subject() subject} value lies
+	 * between the two range bounds excluding the bound values.
+	 *
+	 * The statement uses the {@link kOPERATOR_ERANGE kOPERATOR_ERANGE} operator and this
+	 * method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theSubject</b>: Statement {@link Subject() subject}.
+	 *	<li><b>$theBound1</b>: Statement range lower {@link Object() bound}.
+	 *	<li><b>$theBound2</b>: Statement range upper {@link Object() bound}.
+	 *	<li><b>$theType</b>: Statement range data {@link Type() type}.
+	 * </ul>
+	 *
+	 * The method will return an instance of this class or raise an exception on errors.
+	 *
+	 * @param mixed					$theSubject			Statement subject.
+	 * @param mixed					$theBound1			Range lower bound.
+	 * @param mixed					$theBound2			Range upper bound.
+	 * @param string				$theType			Statement object data type.
+	 *
+	 * @static
+	 *
+	 * @see kOPERATOR_ERANGE
+	 */
+	static function RangeExclusive( $theSubject, $theBound1, $theBound2, $theType = NULL )
+	{
+		//
+		// Serialise bounds.
+		//
+		if( ! $theBound1 instanceof CDataType )
+			CDataType::SerialiseElement( $theBound1, $theType );
+		else
+			$theType = $theBound[ kTAG_TYPE ];
+		CDataType::SerialiseElement( $theBound2, $theType );
+		
+		return new self
+			( (string) $theSubject, kOPERATOR_ERANGE, $theType, $theBound1,
+																$theBound2 );		// ==>
+
+	} // RangeExclusive.
+
+	 
+	/*===================================================================================
+	 *	Missing																			*
+	 *==================================================================================*/
+
+	/**
+	 * Create an {@link kOPERATOR_NULL missing} statement.
+	 *
+	 * This method can be used to instantiate a {@link kOPERATOR_NULL missing} query
+	 * statement, the statement will check if the {@link Subject() subject} is missing or is <i>NULL</i>.
+	 *
+	 * The statement uses the {@link kOPERATOR_NULL kOPERATOR_NULL} operator and this
+	 * method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theSubject</b>: Statement {@link Subject() subject}.
+	 * </ul>
+	 *
+	 * The method will return an instance of this class or raise an exception on errors.
+	 *
+	 * @param mixed					$theSubject			Statement subject.
+	 *
+	 * @static
+	 *
+	 * @see kOPERATOR_NULL
+	 */
+	static function Missing( $theSubject)
+	{
+		return new self( (string) $theSubject, kOPERATOR_NULL );					// ==>
+
+	} // Missing.
+
+	 
+	/*===================================================================================
+	 *	Exists																			*
+	 *==================================================================================*/
+
+	/**
+	 * Create an {@link kOPERATOR_NOT_NULL exists} statement.
+	 *
+	 * This method can be used to instantiate a {@link kOPERATOR_NOT_NULL missing} or null
+	 * query statement, the statement will check if the {@link Subject() subject} exists or
+	 * is not <i>NULL</i>.
+	 *
+	 * The statement uses the {@link kOPERATOR_NOT_NULL kOPERATOR_NOT_NULL} operator and this
+	 * method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theSubject</b>: Statement {@link Subject() subject}.
+	 * </ul>
+	 *
+	 * The method will return an instance of this class or raise an exception on errors.
+	 *
+	 * @param mixed					$theSubject			Statement subject.
+	 *
+	 * @static
+	 *
+	 * @see kOPERATOR_NOT_NULL
+	 */
+	static function Exists( $theSubject)
+	{
+		return new self( (string) $theSubject, kOPERATOR_NOT_NULL );				// ==>
+
+	} // Exists.
+
+	 
+	/*===================================================================================
+	 *	Member																			*
+	 *==================================================================================*/
+
+	/**
+	 * Create a {@link kOPERATOR_IN membership} statement.
+	 *
+	 * This method can be used to instantiate a {@link kOPERATOR_IN membership} query
+	 * statement which will test whether the {@link Subject() subject} value can be found in
+	 * the provided {@link Object() object}, which will be interpreted as a list of values.
+	 *
+	 * If the provided {@link Object() object} is not an array or an ArrayObject, the method
+	 * will add it to a newly created array.
+	 *
+	 * The statement uses the {@link kOPERATOR_IN kOPERATOR_IN} operator and this
+	 * method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theSubject</b>: Statement {@link Subject() subject}.
+	 *	<li><b>$theObject</b>: Statement {@link Object() object}, or members list.
+	 *	<li><b>$theType</b>: Statement object data {@link Type() type}.
+	 * </ul>
+	 *
+	 * The method will return an instance of this class or raise an exception on errors.
+	 *
+	 * @param mixed					$theSubject			Statement subject.
+	 * @param mixed					$theObject			Statement object.
+	 * @param string				$theType			Statement object data type.
+	 *
+	 * @static
+	 *
+	 * @see kOPERATOR_IN
+	 */
+	static function Member( $theSubject, $theObject, $theType = NULL )
+	{
+		//
+		// Handle scalars.
+		//
+		if( (! is_array( $theObject ))
+		 && (! $theObject instanceof ArrayObject) )
+			$theObject = array( $theObject );
+		
+		//
+		// Serialise objects.
+		//
+		$list = Array();
+		foreach( $theObject as $object )
+		{
+			CDataType::SerialiseElement( $object, $theType );
+			$list[] = $object;
+		}
+		
+		return new self
+			( (string) $theSubject, kOPERATOR_IN, $theType, $list );				// ==>
+
+	} // Member.
+
+	 
+	/*===================================================================================
+	 *	NotMember																		*
+	 *==================================================================================*/
+
+	/**
+	 * Create a non {@link kOPERATOR_NI membership} statement.
+	 *
+	 * This method can be used to instantiate a non {@link kOPERATOR_NI membership} query
+	 * statement which will test whether the {@link Subject() subject} value cannot be found
+	 * in the provided {@link Object() object}, which will be interpreted as a list of
+	 * values.
+	 *
+	 * If the provided {@link Object() object} is not an array or an ArrayObject, the method
+	 * will add it to a newly created array.
+	 *
+	 * The statement uses the {@link kOPERATOR_NI kOPERATOR_NI} operator and this
+	 * method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theSubject</b>: Statement {@link Subject() subject}.
+	 *	<li><b>$theObject</b>: Statement {@link Object() object}, or members list.
+	 *	<li><b>$theType</b>: Statement object data {@link Type() type}.
+	 * </ul>
+	 *
+	 * The method will return an instance of this class or raise an exception on errors.
+	 *
+	 * @param mixed					$theSubject			Statement subject.
+	 * @param mixed					$theObject			Statement object.
+	 * @param string				$theType			Statement object data type.
+	 *
+	 * @static
+	 *
+	 * @see kOPERATOR_NI
+	 */
+	static function NotMember( $theSubject, $theObject, $theType = NULL )
+	{
+		//
+		// Handle scalars.
+		//
+		if( (! is_array( $theObject ))
+		 && (! $theObject instanceof ArrayObject) )
+			$theObject = array( $theObject );
+		
+		//
+		// Serialise objects.
+		//
+		$list = Array();
+		foreach( $theObject as $object )
+		{
+			CDataType::SerialiseElement( $object, $theType );
+			$list[] = $object;
+		}
+		
+		return new self
+			( (string) $theSubject, kOPERATOR_NI, $theType, $list );				// ==>
+
+	} // NotMember.
+
+	 
+	/*===================================================================================
+	 *	All																				*
+	 *==================================================================================*/
+
+	/**
+	 * Create an {@link kOPERATOR_ALL all} statement.
+	 *
+	 * This method can be used to instantiate an {@link kOPERATOR_ALL all} query statement
+	 * which will test whether all the {@link Subject() subject} values can be found in
+	 * the provided {@link Object() object}, which will be interpreted as a list of values.
+	 *
+	 * If the provided {@link Object() object} is not an array or an ArrayObject, the method
+	 * will add it to a newly created array.
+	 *
+	 * The statement uses the {@link kOPERATOR_ALL kOPERATOR_ALL} operator and this
+	 * method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theSubject</b>: Statement {@link Subject() subject}.
+	 *	<li><b>$theObject</b>: Statement {@link Object() object}, or members list.
+	 *	<li><b>$theType</b>: Statement object data {@link Type() type}.
+	 * </ul>
+	 *
+	 * The method will return an instance of this class or raise an exception on errors.
+	 *
+	 * @param mixed					$theSubject			Statement subject.
+	 * @param mixed					$theObject			Statement object.
+	 * @param string				$theType			Statement object data type.
+	 *
+	 * @static
+	 *
+	 * @see kOPERATOR_ALL
+	 */
+	static function All( $theSubject, $theObject, $theType = NULL )
+	{
+		//
+		// Handle scalars.
+		//
+		if( (! is_array( $theObject ))
+		 && (! $theObject instanceof ArrayObject) )
+			$theObject = array( $theObject );
+		
+		//
+		// Serialise objects.
+		//
+		$list = Array();
+		foreach( $theObject as $object )
+		{
+			CDataType::SerialiseElement( $object, $theType );
+			$list[] = $object;
+		}
+		
+		return new self
+			( (string) $theSubject, kOPERATOR_ALL, $theType, $list );				// ==>
+
+	} // All.
+
+	 
+	/*===================================================================================
+	 *	NotAll																			*
+	 *==================================================================================*/
+
+	/**
+	 * Create a not {@link kOPERATOR_NALL all} statement.
+	 *
+	 * This method can be used to instantiate a not {@link kOPERATOR_NALL all} query
+	 * statement which will test whether any of the {@link Subject() subject} values cannot
+	 * be found in the provided {@link Object() object}, which will be interpreted as a list
+	 * of values. This statement is the negation of the {@link All() All} statement.
+	 *
+	 * If the provided {@link Object() object} is not an array or an ArrayObject, the method
+	 * will add it to a newly created array.
+	 *
+	 * The statement uses the {@link kOPERATOR_NALL kOPERATOR_NALL} operator and this
+	 * method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theSubject</b>: Statement {@link Subject() subject}.
+	 *	<li><b>$theObject</b>: Statement {@link Object() object}, or members list.
+	 *	<li><b>$theType</b>: Statement object data {@link Type() type}.
+	 * </ul>
+	 *
+	 * The method will return an instance of this class or raise an exception on errors.
+	 *
+	 * @param mixed					$theSubject			Statement subject.
+	 * @param mixed					$theObject			Statement object.
+	 * @param string				$theType			Statement object data type.
+	 *
+	 * @static
+	 *
+	 * @see kOPERATOR_NALL
+	 */
+	static function NotAll( $theSubject, $theObject, $theType = NULL )
+	{
+		//
+		// Handle scalars.
+		//
+		if( (! is_array( $theObject ))
+		 && (! $theObject instanceof ArrayObject) )
+			$theObject = array( $theObject );
+		
+		//
+		// Serialise objects.
+		//
+		$list = Array();
+		foreach( $theObject as $object )
+		{
+			CDataType::SerialiseElement( $object, $theType );
+			$list[] = $object;
+		}
+		
+		return new self
+			( (string) $theSubject, kOPERATOR_NALL, $theType, $list );				// ==>
+
+	} // NotAll.
+
+	 
+	/*===================================================================================
+	 *	Expression																		*
+	 *==================================================================================*/
+
+	/**
+	 * Create an {@link kOPERATOR_EX expression} statement.
+	 *
+	 * This method can be used to instantiate an {@link kOPERATOR_EX expression} query
+	 * statement in which the object of the statement represents an expression.
+	 *
+	 * Note that in this case the {@link Type() type} is not relevant and it is set by
+	 * default as a {@link kDATA_TYPE_STRING string}.
+	 *
+	 * The statement uses the {@link kOPERATOR_EX kOPERATOR_EX} operator and this
+	 * method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theSubject</b>: Statement {@link Subject() subject}.
+	 *	<li><b>$theObject</b>: Statement {@link Object() object}, or comparaison value.
+	 *	<li><b>$theType</b>: Statement object data {@link Type() type}.
+	 * </ul>
+	 *
+	 * The method will return an instance of this class or raise an exception on errors.
+	 *
+	 * @param mixed					$theSubject			Statement subject.
+	 * @param mixed					$theObject			Statement object or expression.
+	 *
+	 * @static
+	 *
+	 * @see kOPERATOR_EX kDATA_TYPE_STRING
+	 */
+	static function Expression( $theSubject, $theObject )
+	{
+		return new self
+			( (string) $theSubject, kOPERATOR_EX, kDATA_TYPE_STRING, $theObject );	// ==>
+
+	} // Expression.
 
 	 
 

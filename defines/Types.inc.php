@@ -137,6 +137,19 @@ define( "kDATA_TYPE_BOOLEAN",				':BOOL' );				// Boolean.
  */
 define( "kDATA_TYPE_BINARY",				':BIN' );				// Binary.
 
+/**
+ * Regular expression type.
+ *
+ * This tag defines a regular expression string type, this data type is serialised as
+ * follows:
+ *
+ * <ul>
+ *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: Will contain this constant.
+ *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: Will contain the regular expression string.
+ * </ul>
+ */
+define( "kDATA_TYPE_REGEX",					':RGEX' );
+
 /*=======================================================================================
  *	STRUCTURED STRING DATA TYPE ENUMERATIONS											*
  *======================================================================================*/
@@ -281,19 +294,6 @@ define( "kDATA_TYPE_MongoId",				'MONGO:MongoId' );			// MongoId.
  * </ul>
  */
 define( "kDATA_TYPE_MongoCode",				'MONGO:MongoCode' );		// MongoCode.
-
-/**
- * MongoRegex.
- *
- * This value represents the MongoRegex object data type, when serialised it will have the
- * following structure:
- *
- * <ul>
- *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: Will contain this constant.
- *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The regular expression string.
- * </ul>
- */
-define( "kDATA_TYPE_MongoRegex",			'MONGO:MongoRegex' );		// MongoRegex.
 
 
 ?>

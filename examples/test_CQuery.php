@@ -379,6 +379,42 @@ try
 			echo( '<hr>' );
 		}
 	}
+
+	echo( '<hr>' );
+	echo( '<hr>' );
+
+	//
+	// Test .
+	//
+	echo( '<b>Play with query statements</b><br>' );
+	echo( '<i>$query = new CQuery();</i><br>' );
+	$query = new CQuery();
+	echo( '<i>$query1 = new CQuery();</i><br>' );
+	$query1 = new CQuery();
+	echo( '<i>$statement = CQueryStatement::Equals( \'Field1\', \'String1\' );</i><br>' );
+	$statement = CQueryStatement::Equals( 'Field1', 'String1' );
+	echo( '<i>$query1->AppendStatement( $statement, kOPERATOR_OR );</i><br>' );
+	$query1->AppendStatement( $statement, kOPERATOR_OR );
+	echo( '<i>$statement = CQueryStatement::Contains( \'Field2\', \'pippo\' );</i><br>' );
+	$statement = CQueryStatement::Equals( 'Field2', 'pippo' );
+	echo( '<i>$query1->AppendStatement( $statement, kOPERATOR_OR );</i><br>' );
+	$query1->AppendStatement( $statement, kOPERATOR_OR );
+	echo( '<i>$query2 = new CQuery();</i><br>' );
+	$query2 = new CQuery();
+	echo( '<i>$statement = CQueryStatement::Member( \'Field3\', array( 1, 2, 3 ) );</i><br>' );
+	$statement = CQueryStatement::Member( 'Field3', array( 1, 2, 3 ) );
+	echo( '<i>$query2->AppendStatement( $statement, kOPERATOR_AND );</i><br>' );
+	$query2->AppendStatement( $statement, kOPERATOR_AND );
+	echo( '<i>$statement = CQueryStatement::RangeInclusive( \'Field4\', 10, 20 );</i><br>' );
+	$statement = CQueryStatement::RangeInclusive( 'Field4', 10, 20 );
+	echo( '<i>$query2->AppendStatement( $statement, kOPERATOR_AND );</i><br>' );
+	$query2->AppendStatement( $statement, kOPERATOR_AND );
+	echo( '<i>$query->AppendStatement( $query1, kOPERATOR_AND );</i><br>' );
+	$query->AppendStatement( $query1, kOPERATOR_AND );
+	echo( '<i>$query->AppendStatement( $query2, kOPERATOR_AND );</i><br>' );
+	$query->AppendStatement( $query2, kOPERATOR_AND );
+	echo( '<pre>' ); print_r( $query ); echo( '</pre>' );
+	echo( '<hr>' );
 	
 	echo( '<h3>DONE</h3>' );
 }

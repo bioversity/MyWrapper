@@ -33,7 +33,7 @@ require_once( kPATH_LIBRARY_SOURCE."CDataTypeStamp.php" );
 require_once( kPATH_LIBRARY_SOURCE."CDataTypeBinary.php" );
 require_once( kPATH_LIBRARY_SOURCE."CDataTypeMongoId.php" );
 require_once( kPATH_LIBRARY_SOURCE."CDataTypeMongoCode.php" );
-require_once( kPATH_LIBRARY_SOURCE."CDataTypeMongoRegex.php" );
+require_once( kPATH_LIBRARY_SOURCE."CDataTypeRegex.php" );
 
 
 /*=======================================================================================
@@ -222,22 +222,58 @@ try
 	echo( '<hr>' );
 	
 	//
-	// Test CDataTypeMongoRegex.
+	// Test CDataTypeRegex.
 	//
-	echo( '<h3>CDataTypeMongoRegex</h3>' );
+	echo( '<h3>CDataTypeRegex</h3>' );
 	
-	echo( '<i>$test = new CDataTypeMongoRegex( \'/^pippo/i\' );</i>' );
-	$test = new CDataTypeMongoRegex( '/^pippo/i' );
+	echo( '<i>$test = new CDataTypeRegex( \'/^pippo/i\' );</i>' );
+	$test = new CDataTypeRegex( '/^pippo/i' );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( 'String: ['.(string) $test.']<br>' );
 	echo( 'Value:<pre>' ); print_r( $test->value() ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	echo( '<i>$test = new CDataTypeMongoRegex( \'pippo\' );</i>' );
-	$test = new CDataTypeMongoRegex( 'pippo' );
+	echo( '<i>$test = new CDataTypeRegex( \'/pippo/\' );</i>' );
+	$test = new CDataTypeRegex( '/pippo/' );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( 'String: ['.(string) $test.']<br>' );
 	echo( 'Value:<pre>' ); print_r( $test->value() ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	//
+	// Test SerialiseObject.
+	//
+	echo( '<h3>Tesat SerialiseObject</h3>' );
+	
+	$array = array
+	(
+		kTAG_ID_NATIVE => new MongoId( '4d95830b2e4398070722f414' ),
+		'Stamp' => new MongoDate(),
+		'RegExpr' => new MongoRegEx( '/^pippo/i' ),
+		'Int32' => new MongoInt32( 123456789 ),
+		'Int64' => new MongoInt64( 123456789123456 ),
+		'Binary' => new MongoBinData( 'pippo' ),
+		'Integer' => 123456789123456,
+		'Float' => 12.35,
+		'String' => 'This is a string'
+	);
+	$test = $array;
+	echo( 'Before:<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>CDataType::SerialiseObject( $test );</i>' );
+	CDataType::SerialiseObject( $test );
+	echo( 'After:<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>Test CDataType::SerialiseElement()</i><br>' );
+	$test = $array;
+	foreach( $test as $key => $value )
+	{
+		echo( 'Value:<pre>' ); print_r( $value ); echo( '</pre>' );
+		$type = NULL;
+		CDataType::SerialiseElement( $value, $type );
+		$temp = array( $type, $value );
+		echo( 'Converted:<pre>' ); print_r( $temp ); echo( '</pre>' );
+	}
 	echo( '<hr>' );
 }
 

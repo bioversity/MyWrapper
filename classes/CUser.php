@@ -29,7 +29,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEntity.php" );
 /**
  * Local defines.
  *
- * This include file contains the parent class definitions.
+ * This include file contains the local class definitions.
  */
 require_once( kPATH_LIBRARY_SOURCE."CUser.inc.php" );
 
@@ -307,7 +307,14 @@ class CUser extends CEntity
 	 * @access protected
 	 * @return mixed
 	 */
-	protected function _id()			{	return new CDataTypeBinary( $this->_index() );	}
+	protected function _id()
+	{
+		//
+		// In this class we hash the index value.
+		//
+		return new CDataTypeBinary( md5( $this->_index(), TRUE ) );
+	
+	} // _id.
 
 	 
 	/*===================================================================================

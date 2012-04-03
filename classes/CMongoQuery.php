@@ -210,16 +210,25 @@ class CMongoQuery extends CQuery
 		//
 		switch( $theCondition )
 		{
+			//
+			// OR: We add this clause.
+			//
 			case kOPERATOR_OR:
 				$theQuery[ '$or' ] = Array();
 				$query = & $theQuery[ '$or' ];
 				break;
 				
+			//
+			// NOR: We add this clause.
+			//
 			case kOPERATOR_NOR:
 				$theQuery[ '$nor' ] = Array();
 				$query = & $theQuery[ '$nor' ];
 				break;
 			
+			//
+			// We use the current list.
+			//
 			default:
 				$query = & $theQuery;
 				break;
@@ -311,11 +320,17 @@ class CMongoQuery extends CQuery
 				//
 				switch( $theCondition )
 				{
+					//
+					// Use the list.
+					//
 					case kOPERATOR_AND:
 					case kOPERATOR_NAND:
 						$statement = & $theQuery;
 						break;
 				
+					//
+					// Use last element.
+					//
 					case kOPERATOR_OR:
 					case kOPERATOR_NOR:
 						$theQuery[] = Array();
@@ -324,70 +339,51 @@ class CMongoQuery extends CQuery
 				}
 				
 				//
+				// Save query data.
+				//
+				$data = $theStatement[ kAPI_QUERY_DATA ];
+				
+				//
 				// Parse by operator.
 				//
 				switch( $theStatement[ kAPI_QUERY_OPERATOR ] )
 				{
 					case kOPERATOR_EQUAL:
-						//
-						// Note this ugly workflow:
-						// I need to do this or else I get this
-						// Notice: Indirect modification of overloaded element of MyClass
-						// has no effect in /MySource.php
-						// Which means that I cannot pass
-						// $theStatement[ kAPI_QUERY_DATA ][ $key ] to UnserialiseData()
-						// or I get the notice and the thing doesn't work.
-						//
-						$save = $theStatement[ kAPI_QUERY_DATA ];
-						$theContainer->UnserialiseData( $save );
-						$theStatement[ kAPI_QUERY_DATA ] = $save;
+						$theContainer->UnserialiseData( $data );
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:
 							case kOPERATOR_OR:
-								$statement[ $theStatement[ kAPI_QUERY_SUBJECT ] ]
-									= $theStatement[ kAPI_QUERY_DATA ];
+								$statement[ $theStatement[ kAPI_QUERY_SUBJECT ] ] = $data;
 								break;
 							
 							case kOPERATOR_NAND:
 							case kOPERATOR_NOR:
 								$statement[ $theStatement[ kAPI_QUERY_SUBJECT ] ]
-									= array( '$ne' => $theStatement[ kAPI_QUERY_DATA ] );
+									= array( '$ne' => $data );
 								break;
 						}
 						break;
 						
 					case kOPERATOR_EQUAL_NOT:
-						//
-						// Note this ugly workflow:
-						// I need to do this or else I get this
-						// Notice: Indirect modification of overloaded element of MyClass
-						// has no effect in /MySource.php
-						// Which means that I cannot pass
-						// $theStatement[ kAPI_QUERY_DATA ][ $key ] to UnserialiseData()
-						// or I get the notice and the thing doesn't work.
-						//
-						$save = $theStatement[ kAPI_QUERY_DATA ];
-						$theContainer->UnserialiseData( $save );
-						$theStatement[ kAPI_QUERY_DATA ] = $save;
+						$theContainer->UnserialiseData( $data );
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:
 							case kOPERATOR_OR:
 								$statement[ $theStatement[ kAPI_QUERY_SUBJECT ] ]
-									= array( '$ne' => $theStatement[ kAPI_QUERY_DATA ] );
+									= array( '$ne' => $data );
 								break;
 							
 							case kOPERATOR_NAND:
 							case kOPERATOR_NOR:
-								$statement[ $theStatement[ kAPI_QUERY_SUBJECT ] ]
-									= $theStatement[ kAPI_QUERY_DATA ];
+								$statement[ $theStatement[ kAPI_QUERY_SUBJECT ] ] = $data;
 								break;
 						}
 						break;
 						
 					case kOPERATOR_LIKE:
-						$tmp = '/^'.$theStatement[ kAPI_QUERY_DATA ].'$/i';
+						$tmp = '/^'.$data.'$/i';
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:
@@ -405,7 +401,42 @@ class CMongoQuery extends CQuery
 						break;
 						
 					case kOPERATOR_PREFIX:
-						$tmp = '/^'.$theStatement[ kAPI_QUERY_DATA ].'/';
+						$tmp = '/^'.$data.'/';
+						switch( $theCondition )
+						{
+							case kOPERATOR_AND:
+							case kOPERATOR_OR:
+								$statement[ $theStatement[ kAPI_QUERY_SUBJECT ] ]
+									= new MongoRegex( $tmp );
+								break;
+							
+							case kOPERATOR_NAND:
+							case kOPERATOR_NOR:
+								$statement[ $theStatement[ kAPI_QUERY_SUBJECT ] ]
+									= array( '$not' => new MongoRegex( $tmp ) );
+								break;
+						}
+						break;
+						
+					case kOPERATOR_CONTAINS:
+						$tmp = new MongoRegex( '/'.$data.'/' );
+						switch( $theCondition )
+						{
+							case kOPERATOR_AND:
+							case kOPERATOR_OR:
+								$statement[ $theStatement[ kAPI_QUERY_SUBJECT ] ] = $tmp;
+								break;
+							
+							case kOPERATOR_NAND:
+							case kOPERATOR_NOR:
+								$statement[ $theStatement[ kAPI_QUERY_SUBJECT ] ]
+									= array( '$not' => $tmp );
+								break;
+						}
+						break;
+						
+					case kOPERATOR_SUFFIX:
+						$tmp = '/'.$data.'$/';
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:
@@ -423,7 +454,7 @@ class CMongoQuery extends CQuery
 						break;
 						
 					case kOPERATOR_REGEX:
-						$tmp = new MongoRegex( $theStatement[ kAPI_QUERY_DATA ] );
+						$tmp = new MongoRegex( $data );
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:
@@ -435,163 +466,84 @@ class CMongoQuery extends CQuery
 							case kOPERATOR_NOR:
 								$statement[ $theStatement[ kAPI_QUERY_SUBJECT ] ]
 									= array( '$not' => $tmp );
-								break;
-						}
-						break;
-						
-					case kOPERATOR_CONTAINS:
-						$tmp = new MongoRegex( '/'.$theStatement[ kAPI_QUERY_DATA ].'/' );
-						switch( $theCondition )
-						{
-							case kOPERATOR_AND:
-							case kOPERATOR_OR:
-								$statement[ $theStatement[ kAPI_QUERY_SUBJECT ] ] = $tmp;
-								break;
-							
-							case kOPERATOR_NAND:
-							case kOPERATOR_NOR:
-								$statement[ $theStatement[ kAPI_QUERY_SUBJECT ] ]
-									= array( '$not' => $tmp );
-								break;
-						}
-						break;
-						
-					case kOPERATOR_SUFFIX:
-						$tmp = '/'.$theStatement[ kAPI_QUERY_DATA ].'$/';
-						switch( $theCondition )
-						{
-							case kOPERATOR_AND:
-							case kOPERATOR_OR:
-								$statement[ $theStatement[ kAPI_QUERY_SUBJECT ] ]
-									= new MongoRegex( $tmp );
-								break;
-							
-							case kOPERATOR_NAND:
-							case kOPERATOR_NOR:
-								$statement[ $theStatement[ kAPI_QUERY_SUBJECT ] ]
-									= array( '$not' => new MongoRegex( $tmp ) );
 								break;
 						}
 						break;
 						
 					case kOPERATOR_LESS:
-						//
-						// Note this ugly workflow:
-						// I need to do this or else I get this
-						// Notice: Indirect modification of overloaded element of MyClass
-						// has no effect in /MySource.php
-						// Which means that I cannot pass
-						// $theStatement[ kAPI_QUERY_DATA ][ $key ] to UnserialiseData()
-						// or I get the notice and the thing doesn't work.
-						//
-						$save = $theStatement[ kAPI_QUERY_DATA ];
-						$theContainer->UnserialiseData( $save );
-						$theStatement[ kAPI_QUERY_DATA ] = $save;
+						$theContainer->UnserialiseData( $data );
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:
 							case kOPERATOR_OR:
 								$statement[ $theStatement[ kAPI_QUERY_SUBJECT ] ]
-									= array( '$lt' => $theStatement[ kAPI_QUERY_DATA ] );
+									= array( '$lt' => $data );
 								break;
 							
 							case kOPERATOR_NAND:
 							case kOPERATOR_NOR:
 								$statement[ $theStatement[ kAPI_QUERY_SUBJECT ] ]
-									= array( '$gte' => $theStatement[ kAPI_QUERY_DATA ] );
+									= array( '$gte' => $data );
 								break;
 						}
 						break;
 						
 					case kOPERATOR_LESS_EQUAL:
-						//
-						// Note this ugly workflow:
-						// I need to do this or else I get this
-						// Notice: Indirect modification of overloaded element of MyClass
-						// has no effect in /MySource.php
-						// Which means that I cannot pass
-						// $theStatement[ kAPI_QUERY_DATA ][ $key ] to UnserialiseData()
-						// or I get the notice and the thing doesn't work.
-						//
-						$save = $theStatement[ kAPI_QUERY_DATA ];
-						$theContainer->UnserialiseData( $save );
-						$theStatement[ kAPI_QUERY_DATA ] = $save;
+						$theContainer->UnserialiseData( $data );
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:
 							case kOPERATOR_OR:
 								$statement[ $theStatement[ kAPI_QUERY_SUBJECT ] ]
-									= array( '$lte' => $theStatement[ kAPI_QUERY_DATA ] );
+									= array( '$lte' => $data );
 								break;
 							
 							case kOPERATOR_NAND:
 							case kOPERATOR_NOR:
 								$statement[ $theStatement[ kAPI_QUERY_SUBJECT ] ]
-									= array( '$gt' => $theStatement[ kAPI_QUERY_DATA ] );
+									= array( '$gt' => $data );
 								break;
 						}
 						break;
 						
 					case kOPERATOR_GREAT:
-						//
-						// Note this ugly workflow:
-						// I need to do this or else I get this
-						// Notice: Indirect modification of overloaded element of MyClass
-						// has no effect in /MySource.php
-						// Which means that I cannot pass
-						// $theStatement[ kAPI_QUERY_DATA ][ $key ] to UnserialiseData()
-						// or I get the notice and the thing doesn't work.
-						//
-						$save = $theStatement[ kAPI_QUERY_DATA ];
-						$theContainer->UnserialiseData( $save );
-						$theStatement[ kAPI_QUERY_DATA ] = $save;
+						$theContainer->UnserialiseData( $data );
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:
 							case kOPERATOR_OR:
 								$statement[ $theStatement[ kAPI_QUERY_SUBJECT ] ]
-									= array( '$gt' => $theStatement[ kAPI_QUERY_DATA ] );
+									= array( '$gt' => $data );
 								break;
 							
 							case kOPERATOR_NAND:
 							case kOPERATOR_NOR:
 								$statement[ $theStatement[ kAPI_QUERY_SUBJECT ] ]
-									= array( '$lte' => $theStatement[ kAPI_QUERY_DATA ] );
+									= array( '$lte' => $data );
 								break;
 						}
 						break;
 						
 					case kOPERATOR_GREAT_EQUAL:
-						//
-						// Note this ugly workflow:
-						// I need to do this or else I get this
-						// Notice: Indirect modification of overloaded element of MyClass
-						// has no effect in /MySource.php
-						// Which means that I cannot pass
-						// $theStatement[ kAPI_QUERY_DATA ][ $key ] to UnserialiseData()
-						// or I get the notice and the thing doesn't work.
-						//
-						$save = $theStatement[ kAPI_QUERY_DATA ];
-						$theContainer->UnserialiseData( $save );
-						$theStatement[ kAPI_QUERY_DATA ] = $save;
+						$theContainer->UnserialiseData( $data );
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:
 							case kOPERATOR_OR:
 								$statement[ $theStatement[ kAPI_QUERY_SUBJECT ] ]
-									= array( '$gte' => $theStatement[ kAPI_QUERY_DATA ] );
+									= array( '$gte' => $data );
 								break;
 							
 							case kOPERATOR_NAND:
 							case kOPERATOR_NOR:
 								$statement[ $theStatement[ kAPI_QUERY_SUBJECT ] ]
-									= array( '$lt' => $theStatement[ kAPI_QUERY_DATA ] );
+									= array( '$lt' => $data );
 								break;
 						}
 						break;
 						
 					case kOPERATOR_IRANGE:
-						$list = $this->_OrderRange( $theStatement[ kAPI_QUERY_DATA ],
+						$list = $this->_OrderRange( $data,
 													$theContainer,
 													$theStatement[ kAPI_QUERY_TYPE ] );
 						switch( $theCondition )
@@ -616,7 +568,7 @@ class CMongoQuery extends CQuery
 						break;
 						
 					case kOPERATOR_ERANGE:
-						$list = $this->_OrderRange( $theStatement[ kAPI_QUERY_DATA ],
+						$list = $this->_OrderRange( $data,
 													$theContainer,
 													$theStatement[ kAPI_QUERY_TYPE ] );
 						switch( $theCondition )
@@ -675,102 +627,76 @@ class CMongoQuery extends CQuery
 						break;
 						
 					case kOPERATOR_IN:
-						$keys = array_keys( $theStatement[ kAPI_QUERY_DATA ] );
-						foreach( $keys as $key )
-						//
-						// Note this ugly workflow:
-						// I need to do this or else I get this
-						// Notice: Indirect modification of overloaded element of MyClass
-						// has no effect in /MySource.php
-						// Which means that I cannot pass
-						// $theStatement[ kAPI_QUERY_DATA ][ $key ] to UnserialiseData()
-						// or I get the notice and the thing doesn't work.
-						//
+						$list = Array();
+						foreach( $data as $element )
 						{
-							$save = $theStatement[ kAPI_QUERY_DATA ][ $key ];
-							$theContainer->UnserialiseData( $save );
-							$theStatement[ kAPI_QUERY_DATA ][ $key ] = $save;
+							$theContainer->UnserialiseData( $element );
+							$list[] = $element;
 						}
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:
 							case kOPERATOR_OR:
 								$statement[ $theStatement[ kAPI_QUERY_SUBJECT ] ]
-									= array( '$in' => $theStatement[ kAPI_QUERY_DATA ] );
+									= array( '$in' => $list );
 								break;
 							
 							case kOPERATOR_NAND:
 							case kOPERATOR_NOR:
 								$statement[ $theStatement[ kAPI_QUERY_SUBJECT ] ]
-									= array( '$nin' => $theStatement[ kAPI_QUERY_DATA ] );
+									= array( '$nin' => $list );
 								break;
 						}
 						break;
 						
 					case kOPERATOR_NI:
-						$keys = array_keys( $theStatement[ kAPI_QUERY_DATA ] );
-						foreach( $keys as $key )
-						//
-						// Note this ugly workflow:
-						// I need to do this or else I get this
-						// Notice: Indirect modification of overloaded element of MyClass
-						// has no effect in /MySource.php
-						// Which means that I cannot pass
-						// $theStatement[ kAPI_QUERY_DATA ][ $key ] to UnserialiseData()
-						// or I get the notice and the thing doesn't work.
-						//
+						$list = Array();
+						foreach( $data as $element )
 						{
-							$save = $theStatement[ kAPI_QUERY_DATA ][ $key ];
-							$theContainer->UnserialiseData( $save );
-							$theStatement[ kAPI_QUERY_DATA ][ $key ] = $save;
+							$theContainer->UnserialiseData( $element );
+							$list[] = $element;
 						}
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:
 							case kOPERATOR_OR:
 								$statement[ $theStatement[ kAPI_QUERY_SUBJECT ] ]
-									= array( '$nin' => $theStatement[ kAPI_QUERY_DATA ] );
+									= array( '$nin' => $list );
 								break;
 							
 							case kOPERATOR_NAND:
 							case kOPERATOR_NOR:
 								$statement[ $theStatement[ kAPI_QUERY_SUBJECT ] ]
-									= array( '$in' => $theStatement[ kAPI_QUERY_DATA ] );
+									= array( '$in' => $list );
 								break;
 						}
 						break;
 						
 					case kOPERATOR_ALL:
-						$keys = array_keys( $theStatement[ kAPI_QUERY_DATA ] );
-						foreach( $keys as $key )
-						//
-						// Note this ugly workflow:
-						// I need to do this or else I get this
-						// Notice: Indirect modification of overloaded element of MyClass
-						// has no effect in /MySource.php
-						// Which means that I cannot pass
-						// $theStatement[ kAPI_QUERY_DATA ][ $key ] to UnserialiseData()
-						// or I get the notice and the thing doesn't work.
-						//
+						$list = Array();
+						foreach( $data as $element )
 						{
-							$save = $theStatement[ kAPI_QUERY_DATA ][ $key ];
-							$theContainer->UnserialiseData( $save );
-							$theStatement[ kAPI_QUERY_DATA ][ $key ] = $save;
+							$theContainer->UnserialiseData( $element );
+							$list[] = $element;
 						}
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:
 							case kOPERATOR_OR:
 								$statement[ $theStatement[ kAPI_QUERY_SUBJECT ] ]
-									= array( '$all' => $theStatement[ kAPI_QUERY_DATA ] );
+									= array( '$all' => $list );
 								break;
 							
 							case kOPERATOR_NAND:
 							case kOPERATOR_NOR:
 								$statement[ $theStatement[ kAPI_QUERY_SUBJECT ] ]
-									= array( '$not'
-										=> array( '$all'
-													=> $theStatement[ kAPI_QUERY_DATA ] ) );
+									= array
+										(
+											'$not' => array
+											(
+												'$all' => $list
+											)
+										);
 								break;
 						}
 						break;

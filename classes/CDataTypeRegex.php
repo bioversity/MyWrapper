@@ -1,10 +1,10 @@
 <?php
 
 /**
- * <i>CDataTypeMongoRegex</i> class definition.
+ * <i>CDataTypeRegex</i> class definition.
  *
- * This file contains the class definition of <b>CDataTypeMongoRegex</b> which wraps this
- * class around a MongoRegex object.
+ * This file contains the class definition of <b>CDataTypeRegex</b> which implements a
+ * regular expression object.
  *
  *	@package	MyWrapper
  *	@subpackage	Core
@@ -15,7 +15,7 @@
 
 /*=======================================================================================
  *																						*
- *								CDataTypeMongoRegex.php									*
+ *									CDataTypeRegex.php									*
  *																						*
  *======================================================================================*/
 
@@ -27,20 +27,22 @@
 require_once( kPATH_LIBRARY_SOURCE."CDataType.php" );
 
 /**
- * Time-stamp.
+ * Regular expression.
  *
- * This class represents a MongoRegex object, it is structured as follows:
+ * This class is a wrapper around a regular expression string, its function is only to
+ * indicate that the string is to be considered a regular expression pattern; its structure
+ * is as follows:
  *
  * <ul>
  *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: The constant
- *		{@link kDATA_TYPE_MongoRegex kDATA_TYPE_MongoRegex}.
- *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The regular expression.
+ *		{@link kDATA_TYPE_REGEX kDATA_TYPE_REGEX}.
+ *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The regular expression string.
  * </ul>
  *
  *	@package	MyWrapper
  *	@subpackage	Core
  */
-class CDataTypeMongoRegex extends CDataType
+class CDataTypeRegex extends CDataType
 {
 		
 
@@ -78,8 +80,8 @@ class CDataTypeMongoRegex extends CDataType
 		//
 		// Load object.
 		//
-		$this->offsetSet( kTAG_TYPE, kDATA_TYPE_MongoRegex );
-		$this->offsetSet( kTAG_DATA, (string) new MongoRegex( (string) $theData ) );
+		$this->offsetSet( kTAG_TYPE, kDATA_TYPE_REGEX );
+		$this->offsetSet( kTAG_DATA, (string) $theData );
 	
 	} // Constructor.
 
@@ -107,11 +109,11 @@ class CDataTypeMongoRegex extends CDataType
 	 *
 	 * @throws Exception
 	 */
-	public function value()		{	return new MongoRegEx( $this->offsetGet( kTAG_DATA ) );	}
+	public function value()						{	return $this->offsetGet( kTAG_DATA );	}
 
 	 
 
-} // class CDataTypeMongoRegex.
+} // class CDataTypeRegex.
 
 
 ?>

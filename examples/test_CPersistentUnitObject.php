@@ -451,7 +451,7 @@ try
 		),
 		'RegExpr' => array
 		(
-			kTAG_TYPE => kDATA_TYPE_MongoRegex,
+			kTAG_TYPE => kDATA_TYPE_REGEX,
 			kTAG_DATA => '/^pippo/i'
 		),
 		'Int32' => array

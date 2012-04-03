@@ -194,8 +194,8 @@ class CMongoContainer extends CContainer
 	 *	<li><i>{@link CDataTypeStamp CDataTypeStamp} object or
 	 *		{@link kDATA_TYPE_STAMP kDATA_TYPE_STAMP} offset</i>: We return a MongoDate
 	 *		object.
-	 *	<li><i>{@link CDataTypeMongoRegex CDataTypeMongoRegex} object or
-	 *		{@link kDATA_TYPE_MongoRegex kDATA_TYPE_MongoRegex} offset</i>: We return a
+	 *	<li><i>{@link CDataTypeRegex CDataTypeRegex} object or
+	 *		{@link kDATA_TYPE_REGEX kDATA_TYPE_REGEX} offset</i>: We return a
 	 *		MongoRegex object.
 	 *	<li><i>{@link CDataTypeInt32 CDataTypeInt32} object or
 	 *		{@link kDATA_TYPE_INT32 kDATA_TYPE_INT32} offset</i>: We return a MongoInt32
@@ -274,7 +274,7 @@ class CMongoContainer extends CContainer
 			//
 			// MongoRegex.
 			//
-			case kDATA_TYPE_MongoRegex:
+			case kDATA_TYPE_REGEX:
 				$theElement = new MongoRegex( $data );
 				break;
 

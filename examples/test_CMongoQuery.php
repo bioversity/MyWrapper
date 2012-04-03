@@ -388,6 +388,42 @@ try
 	echo( 'Statements<pre>' ); print_r( $statements[ 2 ] ); echo( '</pre>' );
 	echo( 'Query<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
+
+	//
+	// Test QueryStatements.
+	//
+	echo( '<i>$query1 = new CMongoQuery();</i><br>' );
+	$query1 = new CMongoQuery();
+	echo( '<i>$query1->AppendStatement( CQueryStatement::Equals( \'Field1\', \'String1\' ), kOPERATOR_OR );</i><br>' );
+	$query1->AppendStatement( CQueryStatement::Equals( 'Field1', 'String1' ), kOPERATOR_OR );
+	echo( '<i>$query1->AppendStatement( CQueryStatement::Contains( \'Field2\', \'pippo\' ), kOPERATOR_OR );</i><br>' );
+	$query1->AppendStatement( CQueryStatement::Equals( 'Field2', 'pippo' ), kOPERATOR_OR );
+	
+	echo( '<i>$query2 = new CMongoQuery();</i><br>' );
+	$query2 = new CMongoQuery();
+	echo( '<i>$query2->AppendStatement( CQueryStatement::Member( \'Field3\', array( 1, 2, 3 ) ), kOPERATOR_AND );</i><br>' );
+	$query2->AppendStatement( CQueryStatement::Member( 'Field3', array( 1, 2, 3 ) ), kOPERATOR_AND );
+	echo( '<i>$query2->AppendStatement( CQueryStatement::RangeInclusive( \'Field4\', 10, 20 ), kOPERATOR_AND );</i><br>' );
+	$query2->AppendStatement( CQueryStatement::RangeInclusive( 'Field4', 10, 20 ), kOPERATOR_AND );
+
+	echo( '<i>$query = new CMongoQuery();</i><br>' );
+	$query = new CMongoQuery();
+	echo( '<i>$query->AppendStatement( $query1, kOPERATOR_AND );</i><br>' );
+	$query->AppendStatement( $query1, kOPERATOR_AND );
+	echo( '<i>$query->AppendStatement( $query2, kOPERATOR_OR );</i><br>' );
+	$query->AppendStatement( $query2, kOPERATOR_OR );
+	echo( 'Original:<pre>' ); print_r( $query ); echo( '</pre>' );
+	
+	echo( '<i>$converted = $query->Export( $collection );</i><br>' );
+	$converted = $query->Export( $collection );
+	echo( 'Converted:<pre>' ); print_r( $converted ); echo( '</pre>' );
+	
+	echo( '<i>$cursor = $collection->Container()->find( $converted );</i><br>' );
+	$cursor = $collection->Container()->find( $converted );
+	echo( '<i>$count = $cursor->count();</i><br>' );
+	$count = $cursor->count();
+	echo( 'Count:<pre>' ); print_r( $count ); echo( '</pre>' );
+	echo( '<hr>' );
 	
 	echo( '<h3>DONE</h3>' );
 }

@@ -3,7 +3,7 @@
   <html xmlns="http://www.w3.org/1999/xhtml">
 		<head>
 			<!-- template designed by Marco Von Ballmoos -->
-			<title>Docs For Class CDataTypeMongoRegex</title>
+			<title>Docs For Class CDataTypeRegex</title>
 			<link rel="stylesheet" href="../../media/stylesheet.css" />
 			<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
 		</head>
@@ -12,7 +12,7 @@
 <h2 class="class-name"><img src="../../media/images/Class_logo.png"
 														alt=" Class"
 														title=" Class"
-														style="vertical-align: middle"> CDataTypeMongoRegex</h2>
+														style="vertical-align: middle"> CDataTypeRegex</h2>
 
 <a name="sec-description"></a>
 <div class="info-box">
@@ -26,11 +26,11 @@
 			</div>
 	<div class="info-box-body">
         		<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Time-stamp.</p>
-<p class="description"><p>This class represents a MongoRegex object, it is structured as follows:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a></em>: The constant
-        <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_MongoRegex">kDATA_TYPE_MongoRegex</a>.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: The regular expression.</li></ul></p></p>
+<p class="short-description">Regular expression.</p>
+<p class="description"><p>This class is a wrapper around a regular expression string, its function is only to  indicate that the string is to be considered a regular expression pattern; its structure  is as follows:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a></em>: The constant
+        <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_REGEX">kDATA_TYPE_REGEX</a>.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: The regular expression string.</li></ul></p></p>
 		<p class="notes">
-			Located in <a class="field" href="_classes---CDataTypeMongoRegex.php.html">/classes/CDataTypeMongoRegex.php</a> (line <span class="field">43</span>)
+			Located in <a class="field" href="_classes---CDataTypeRegex.php.html">/classes/CDataTypeRegex.php</a> (line <span class="field">45</span>)
 		</p>
 		
 				
@@ -40,7 +40,7 @@
       |
       --<a href="../../MyWrapper/Core/CDataType.html">CDataType</a>
          |
-         --CDataTypeMongoRegex</pre>
+         --CDataTypeRegex</pre>
 	
 			</div>
 </div>
@@ -61,7 +61,7 @@
 			<div class="method-summary">
 																																<div class="method-definition">
 					<img src="../../media/images/Constructor.png" alt=" "/>
-											<span class="method-result">CDataTypeMongoRegex</span>
+											<span class="method-result">CDataTypeRegex</span>
 										<a href="#__construct" title="details" class="method-name">__construct</a>
 											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theData</span> = <span class="var-default">NULL</span>])
 									</div>
@@ -87,11 +87,11 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Constructor.png" />
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">71</span>)
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">73</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -103,7 +103,7 @@
 			</ul>
 	
 	<div class="method-signature">
-		<span class="method-result">CDataTypeMongoRegex</span>
+		<span class="method-result">CDataTypeRegex</span>
 		<span class="method-name">
 			__construct
 		</span>
@@ -125,11 +125,11 @@
 			
 	</div>
 <a name="methodvalue" id="value"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">value</span> (line <span class="line-number">110</span>)
+		<span class="method-title">value</span> (line <span class="line-number">112</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -166,6 +166,8 @@
 							<span class="method-name"><a href="../../MyWrapper/Core/CDataType.html#method__construct">CDataType::__construct()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Core/CDataType.html#methodSerialiseData">CDataType::SerialiseData()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Core/CDataType.html#methodSerialiseElement">CDataType::SerialiseElement()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Core/CDataType.html#methodSerialiseObject">CDataType::SerialiseObject()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
@@ -276,7 +278,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Mon, 02 Apr 2012 19:55:41 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Tue, 03 Apr 2012 19:45:43 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>
