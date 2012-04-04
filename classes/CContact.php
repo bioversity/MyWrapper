@@ -41,9 +41,6 @@ require_once( kPATH_LIBRARY_SOURCE."CMailAddress.php" );
  * Contacts are entities that need to be tracked by {@link Mail() mail},
  * {@link Phone() telephone} or {@link Email() e-mail}.
  *
- * The class is declared <i>abstract</i> because the class does not feature a default
- * {@link Type() type}, thus should be derived to be instantiated.
- *
  * The class features the following properties:
  *
  * <ul>
@@ -63,7 +60,7 @@ require_once( kPATH_LIBRARY_SOURCE."CMailAddress.php" );
  *	@package	MyWrapper
  *	@subpackage	Entities
  */
-abstract class CContact extends CEntity
+class CContact extends CEntity
 {
 		
 

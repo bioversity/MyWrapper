@@ -60,15 +60,15 @@ require_once( kPATH_LIBRARY_SOURCE."CEntity.inc.php" );
  *	<li><i>{@link kTAG_CODE kTAG_CODE}</i>: This attribute is a short string that can be
  *		used to discriminate the entity, the string should be readable and printable. In
  *		general, this string should be unique among all entities of the same
- *		{@link Type() type}, although this may not be required as long as duplicates are not
+ *		{@link Kind() kind}, although this may not be required as long as duplicates are not
  *		mixed. The class features a member accessor {@link Code() method} to manage this
  *		property.
- *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: This offset represents the entity type. This
+ *	<li><i>{@link kTAG_KIND kTAG_KIND}</i>: This offset represents the entity kind. This
  *		attribute should not be confused with the object's {@link kTAG_CLASS class}: the
  *		latter provides an indication on the functionality and structure of the entity,
  *		whereas this attribute provides an indication on the nature of the entity. This
  *		attribute is implemented as an array. The class features a member accessor
- *		{@link Type() method} to manage this property.
+ *		{@link Kind() method} to manage this property.
  *	<li><i>{@link kTAG_NAME kTAG_NAME}</i>: This offset represents the entity name. It may
  *		be considered an expanded version of the code or a label that can be applied to the
  *		entity. By default it should be a string, concrete derived instances may expand on
@@ -80,7 +80,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEntity.inc.php" );
  *		of the current object, it is implemented as an array whose elements are structured
  *		as follows:
  *	 <ul>
- *		<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: This offset represents the reference type or
+ *		<li><i>{@link kTAG_KIND kTAG_KIND}</i>: This offset represents the reference type or
  *			context.
  *		<li><i>{@link kTAG_DATA kTAG_DATA}</i>: This offset represents the reference itself,
  *			it is the following structure:
@@ -96,6 +96,11 @@ require_once( kPATH_LIBRARY_SOURCE."CEntity.inc.php" );
  *	 </ul>
  *		The class features a member accessor {@link Affiliate() method} to manage this
  *		property.
+ *	<li><i>{@link kTAG_VALID kTAG_VALID}</i>: This offset holds the
+ *		{@link kTAG_ID_NATIVE native} identifier of the valid entity. This should be used
+ *		when the current entity becomes obsolete or changes identity: instead of deleting it
+ *		we create a new one and store in this {@link kTAG_VALID offset} the identifier of
+ *		the new entity that will replace the current one.
  * </ul>
  *
  * Objects of this class require at least the {@link Code() code} {@link kTAG_CODE offset}
@@ -205,13 +210,13 @@ class CEntity extends CPersistentUnitObject
 
 	 
 	/*===================================================================================
-	 *	Type																			*
+	 *	Kind																			*
 	 *==================================================================================*/
 
 	/**
 	 * Manage entity types.
 	 *
-	 * This method can be used to handle the entity {@link kTAG_TYPE types}, it uses the
+	 * This method can be used to handle the entity {@link kTAG_KIND kinds}, it uses the
 	 * standard accessor {@link _ManageArrayOffset() method} to manage the list of types.
 	 *
 	 * Each element of this list should indicate a function or quality of the current
@@ -220,7 +225,7 @@ class CEntity extends CPersistentUnitObject
 	 *
 	 * For a more thorough reference of how this method works, please consult the
 	 * {@link _ManageArrayOffset() _ManageArrayOffset} method, in which the first parameter
-	 * will be the constant {@link kTAG_TYPE kTAG_TYPE}.
+	 * will be the constant {@link kTAG_KIND kTAG_KIND}.
 	 *
 	 * @param mixed					$theValue			Value or index.
 	 * @param mixed					$theOperation		Operation.
@@ -233,12 +238,12 @@ class CEntity extends CPersistentUnitObject
 	 *
 	 * @see kTAG_TYPE
 	 */
-	public function Type( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
+	public function Kind( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
 	{
 		return $this->_ManageArrayOffset
-					( kTAG_TYPE, $theValue, $theOperation, $getOld );				// ==>
+					( kTAG_KIND, $theValue, $theOperation, $getOld );				// ==>
 
-	} // Type.
+	} // Kind.
 
 	 
 	/*===================================================================================
@@ -357,7 +362,7 @@ class CEntity extends CPersistentUnitObject
 	 * Each element of this list is structured as follows:
 	 *
 	 * <ul>
-	 *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: This offset represents the reference type or
+	 *	<li><i>{@link kTAG_KIND kTAG_KIND}</i>: This offset represents the reference type or
 	 *		class, it may be omitted if the reference has no type or when we want to define
 	 *		a default reference. The first parameter will be stored here.
 	 *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: This offset represents the reference itself,
@@ -397,12 +402,77 @@ class CEntity extends CPersistentUnitObject
 		//
 		$ref = Array();
 		if( $theType !== NULL )
-			$ref[ kTAG_TYPE ] = $theType;
+			$ref[ kTAG_KIND ] = $theType;
 		$ref[ kTAG_DATA ] = $theValue;
 		
 		return $this->_ManageObjectList( kTAG_REFS, $ref, $theOperation, $getOld );	// ==>
 
 	} // Affiliate.
+
+	 
+	/*===================================================================================
+	 *	Valid																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage valid entity.
+	 *
+	 * This method can be used to handle the valid entity {@link kTAG_ID_NATIVE identifier},
+	 * it uses the standard accessor {@link _ManageOffset() method} to manage the
+	 * {@link kTAG_VALID offset}.
+	 *
+	 * Entity references should be persistent, so it is not an option to delete an entity:
+	 * by creating a new entity and referencing it from the old one, we maintain the
+	 * original reference and point to the current object.
+	 *
+	 * For a more in-depth reference of this method, please consult the
+	 * {@link _ManageOffset() _ManageOffset} method, in which the first parameter will be
+	 * the constant {@link kTAG_CODE kTAG_CODE}.
+	 *
+	 * @param mixed					$theValue			Value.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 *
+	 * @uses _ManageOffset
+	 *
+	 * @see kTAG_VALID
+	 */
+	public function Valid( $theValue = NULL, $getOld = FALSE )
+	{
+		//
+		// Check identifier.
+		//
+		if( ($theValue !== NULL)
+		 && ($theValue !== FALSE) )
+		{
+			//
+			// Handle arrays or array objects, excluding data types
+			//
+			if( (! $theValue instanceof CDataType)
+			 && ( is_array( $theValue )
+			   || ($theValue instanceof ArrayObject) ) )
+			{
+				//
+				// Check native identifier.
+				//
+				if( array_key_exists( kTAG_ID_NATIVE, (array) $theValue ) )
+					$theValue = $theValue[ kTAG_ID_NATIVE ];
+			
+				//
+				// Check reference identifier.
+				//
+				if( array_key_exists( kTAG_ID_REFERENCE, (array) $theValue ) )
+					$theValue = $theValue[ kTAG_ID_REFERENCE ];
+			
+			} // Not an identifier.
+		
+		} // Provided new value.
+		
+		return $this->_ManageOffset( kTAG_VALID, $theValue, $getOld );				// ==>
+
+	} // Valid.
 
 		
 
@@ -498,6 +568,97 @@ class CEntity extends CPersistentUnitObject
 	 * @return string
 	 */
 	static function DefaultContainer()						{	return kENTITY_CONTAINER;	}
+
+	 
+	/*===================================================================================
+	 *	ValidEntity																		*
+	 *==================================================================================*/
+
+	/**
+	 * Return a valid entity.
+	 *
+	 * This method can be used to instantiate a valid entity, this means that if we provide
+	 * the identifier of an expired or obsolete entity that has a reference to a
+	 * {@link Valid() valid} object, this method will return the valid one.
+	 *
+	 * The method expects the same parameters as the {@link NewObject() NewObject} static
+	 * method. If the {@link Valid() valid} chain is recursive, the method will raise an
+	 * exception.
+	 *
+	 * The method will return the entity that does not have a {@link Valid() valid}
+	 * {@link kTAG_VALID reference}, or <i>NULL</i> if the entity was not found.
+	 *
+	 * @param mixed					$theContainer		Persistent container.
+	 * @param mixed					$theIdentifier		Object identifier.
+	 *
+	 * @static
+	 * @return CEntity
+	 */
+	static function ValidEntity( $theContainer, $theIdentifier )
+	{
+		//
+		// Init local storage.
+		//
+		$chain = Array();
+		
+		//
+		// Iterate.
+		//
+		do
+		{
+			//
+			// Instantiate entity.
+			//
+			$entity = self::NewObject( $theContainer, $theIdentifier );
+echo( '<pre>' ); print_r( $entity ); echo( '</pre>' );
+			
+			//
+			// Handle entity.
+			//
+			if( $entity !== NULL )
+			{
+				//
+				// Get identifier.
+				//
+				$id = (string) $theIdentifier;
+				
+				//
+				// Check recursion.
+				//
+				if( in_array( $id, $chain ) )
+					throw new CException
+						( "Recursive valid entity chain",
+						  kERROR_INVALID_STATE,
+						  kMESSAGE_TYPE_ERROR,
+						  array( 'Chain' => $chain ) );							// !@! ==>
+				
+				//
+				// Add to chain.
+				//
+				$chain[] = $id;
+				
+				//
+				// Copy valid.
+				//
+				$theIdentifier = $entity[ kTAG_VALID ];
+				
+			} // Found entity.
+			
+			//
+			// Catch missing chain link.
+			//
+			elseif( count( $chain ) )
+				throw new CException
+					( "Entity not found in valid chain",
+					  kERROR_INVALID_STATE,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Identifier' => $theIdentifier ) );				// !@! ==>
+		
+		} while( $theIdentifier !== NULL );
+		
+		return $entity;																// ==>
+		
+	} // ValidEntity.
 
 		
 

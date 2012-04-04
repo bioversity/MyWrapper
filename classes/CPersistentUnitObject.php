@@ -750,7 +750,7 @@ class CPersistentUnitObject extends CPersistentObject
 	 *		or:
 	 *	<li><i>Array</i>: A structure composed of two items:
 	 *	 <ul>
-	 *		<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: This offset represents the type or
+	 *		<li><i>{@link kTAG_KIND kTAG_KIND}</i>: This offset represents the type or
 	 *			class of the reference.
 	 *		<li><i>{@link kTAG_DATA kTAG_DATA}</i>: This offset represents the actual object
 	 *			or object reference.
@@ -768,10 +768,10 @@ class CPersistentUnitObject extends CPersistentObject
 	 *	<li><b>$theValue</b>: This parameter represents either the search key in the list
 	 *		when retrieving or deleting, or the reference when replacing or adding. If you
 	 *		provide an array, it means that the elements may have a
-	 *		{@link kTAG_TYPE kTAG_TYPE} offset and that the reference or object must be
+	 *		{@link kTAG_KIND kTAG_KIND} offset and that the reference or object must be
 	 *		found in the {@link kTAG_DATA kTAG_DATA} offset. When matching, if the
-	 *		{@link kTAG_TYPE kTAG_TYPE} offset is not provided, it means that only those
-	 *		elements that do not have a {@link kTAG_TYPE kTAG_TYPE} offset will be selected
+	 *		{@link kTAG_KIND kTAG_KIND} offset is not provided, it means that only those
+	 *		elements that do not have a {@link kTAG_KIND kTAG_KIND} offset will be selected
 	 *		for matching. If the types match, the method will use the
 	 *		{@link _ObjectIndex() _ObjectIndex} method to match the references, please refer
 	 *		to its documentation for more information. If the provided value is not an
@@ -859,8 +859,8 @@ class CPersistentUnitObject extends CPersistentObject
 			//
 			// Set match type.
 			//
-			$type = ( array_key_exists( kTAG_TYPE, (array) $theValue ) )
-				  ? (string) $theValue[ kTAG_TYPE ]
+			$type = ( array_key_exists( kTAG_KIND, (array) $theValue ) )
+				  ? (string) $theValue[ kTAG_KIND ]
 				  : NULL;
 			
 			//
@@ -931,8 +931,8 @@ class CPersistentUnitObject extends CPersistentObject
 							// Match type.
 							//
 							if( ($type !== NULL)
-							 && array_key_exists( kTAG_TYPE, (array) $value )
-							 && ($type == $value[ kTAG_TYPE ]) )
+							 && array_key_exists( kTAG_KIND, (array) $value )
+							 && ($type == $value[ kTAG_KIND ]) )
 							{
 								//
 								// Match identifier.
@@ -946,7 +946,7 @@ class CPersistentUnitObject extends CPersistentObject
 							// Match missing type.
 							//
 							elseif( ($type === NULL)
-								 && (! array_key_exists( kTAG_TYPE, (array) $value )) )
+								 && (! array_key_exists( kTAG_KIND, (array) $value )) )
 							{
 								//
 								// Match identifier.
@@ -1025,8 +1025,8 @@ class CPersistentUnitObject extends CPersistentObject
 							// Match type.
 							//
 							if( ($type !== NULL)
-							 && array_key_exists( kTAG_TYPE, (array) $value )
-							 && ($type == $value[ kTAG_TYPE ]) )
+							 && array_key_exists( kTAG_KIND, (array) $value )
+							 && ($type == $value[ kTAG_KIND ]) )
 							{
 								//
 								// Match identifier.
@@ -1051,7 +1051,7 @@ class CPersistentUnitObject extends CPersistentObject
 							// Match missing type.
 							//
 							elseif( ($type === NULL)
-								 && (! array_key_exists( kTAG_TYPE, (array) $value )) )
+								 && (! array_key_exists( kTAG_KIND, (array) $value )) )
 							{
 								//
 								// Match identifier.
@@ -1164,8 +1164,8 @@ class CPersistentUnitObject extends CPersistentObject
 						// Match type.
 						//
 						if( ($type !== NULL)
-						 && array_key_exists( kTAG_TYPE, (array) $value )
-						 && ($type == $value[ kTAG_TYPE ]) )
+						 && array_key_exists( kTAG_KIND, (array) $value )
+						 && ($type == $value[ kTAG_KIND ]) )
 						{
 							//
 							// Match identifier.
@@ -1192,7 +1192,7 @@ class CPersistentUnitObject extends CPersistentObject
 						// Match missing type.
 						//
 						elseif( ($type === NULL)
-							 && (! array_key_exists( kTAG_TYPE, (array) $value )) )
+							 && (! array_key_exists( kTAG_KIND, (array) $value )) )
 						{
 							//
 							// Match identifier.

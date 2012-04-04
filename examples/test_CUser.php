@@ -96,7 +96,8 @@ try
 	$container = array( kTAG_CODE => 'Milko',
 						kOFFSET_PASSWORD => 'Secret',
 						kTAG_NAME => 'Milko A. Škofič',
-						kOFFSET_EMAIL => 'm.skofic@cgiar.org' );
+						kOFFSET_EMAIL => 'm.skofic@cgiar.org',
+						kTAG_ID_NATIVE => new CDataTypeBinary( md5( 'Milko', TRUE ) ) );
 	echo( "Container<pre>" ); print_r( $container ); echo( '</pre>' );
 	echo( '<i>$test = new CUser( $container );</i><br>' );
 	echo( '<i>$identifier = $test->Commit( $collection );</i><br>' );
@@ -112,8 +113,8 @@ try
 	echo( '<i>$test = new CUser( $container );</i><br>' );
 	echo( '<i>$identifier = $test->Commit( $collection );</i><br>' );
 	$test = new CUser( $container );
-	$identifier = $test->Commit( $collection );
-	echo( "$identifier<pre>" ); print_r( $test ); echo( '</pre>' );
+	$luca = $test->Commit( $collection );
+	echo( "$luca<pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	 
 	try
@@ -145,13 +146,13 @@ try
 	}
 	echo( '<hr>' );
 
-	echo( '<i>$test = new CUser( $collection, \'Milko\' );</i><br>' );
-	$test = new CUser( $collection, 'Milko' );
+	echo( '<i>$test = new CUser( $collection, $luca );</i><br>' );
+	$test = new CUser( $collection, $luca );
 	echo( "$identifier<pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 
-	echo( '<i>$test = new CUser( $collection, new MongoBinData( md5( \'Milko\', TRUE ) ) );</i><br>' );
-	$test = new CUser( $collection, new MongoBinData( md5( 'Milko', TRUE ) ) );
+	echo( '<i>$test = new CUser( $collection, new CDataTypeBinary( md5( \'Milko\', TRUE ) ) );</i><br>' );
+	$test = new CUser( $collection, new CDataTypeBinary( md5( 'Milko', TRUE ) ) );
 	echo( "$identifier<pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 

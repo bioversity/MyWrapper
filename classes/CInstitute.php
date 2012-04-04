@@ -1,21 +1,21 @@
 <?php
 
 /**
- * <i>CUser</i> class definition.
+ * <i>CInstitute</i> class definition.
  *
- * This file contains the class definition of <b>CUser</b> which represents an
- * {@link CEntity entity} mapping a general purpose user.
+ * This file contains the class definition of <b>CInstitute</b> which represents an
+ * {@link CEntity entity} mapping a general purpose institute.
  *
  *	@package	MyWrapper
  *	@subpackage	Entities
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
- *	@version	1.00 20/03/2012
+ *	@version	1.00 04/04/2012
  */
 
 /*=======================================================================================
  *																						*
- *										CUser.php										*
+ *									CInstitute.php										*
  *																						*
  *======================================================================================*/
 
@@ -24,28 +24,28 @@
  *
  * This include file contains the parent class definitions.
  */
-require_once( kPATH_LIBRARY_SOURCE."CEntity.php" );
+require_once( kPATH_LIBRARY_SOURCE."CContact.php" );
 
 /**
  * Local defines.
  *
  * This include file contains the local class definitions.
  */
-require_once( kPATH_LIBRARY_SOURCE."CUser.inc.php" );
+require_once( kPATH_LIBRARY_SOURCE."CInstitute.inc.php" );
 
 /**
  * User.
  *
- * This class overloads its {@link CEntity ancestor} to implement a user entity.
+ * This class overloads its {@link CContact ancestor} to implement an institute contact
+ * entity.
  *
- * Users are entities that are used for authentication purposes, they share the same
- * attributes as their parent {@link CEntity class} and add one required element:
+ * Institutes feature specific properties that are added to the inherited ones:
  *
  * <ul>
- *	<li><i>{@link kOFFSET_PASSWORD kOFFSET_PASSWORD}</i>: This offset represents the user
- *		access password, it will be used in the authentication process.
- *		The class features a member accessor {@link Password() method} to manage this
- *		property.
+ *	<li><i>{@link kOFFSET_ACRONYM kOFFSET_ACRONYM}</i>: This offset represents the institute
+ *		list of {@link Acronym() acronyms}.
+ *	<li><i>{@link kOFFSET_URL kOFFSET_URL}</i>: This offset represents the institute list of
+ *		URLs or web pages.
  * </ul>
  *
  * The object is considered {@link _IsInited() initialised} only if it has its
@@ -65,7 +65,7 @@ require_once( kPATH_LIBRARY_SOURCE."CUser.inc.php" );
  *	@package	MyWrapper
  *	@subpackage	Entities
  */
-class CUser extends CEntity
+class CInstitute extends CEntity
 {
 		
 
@@ -353,13 +353,13 @@ class CUser extends CEntity
 		//
 		// Add user type.
 		//
-		$this->Kind( kENTITY_USER, TRUE );
+		$this->Type( kENTITY_USER, TRUE );
 		
 	} // _PrepareCommit.
 
 	 
 
-} // class CUser.
+} // class CInstitute.
 
 
 ?>

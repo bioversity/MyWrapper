@@ -31,15 +31,6 @@ require_once( kPATH_LIBRARY_SOURCE."CContact.php" );
 
 
 /*=======================================================================================
- *	TEST CLASS DEFINITION																*
- *======================================================================================*/
- 
-//
-// Test class.
-//
-class MyClass extends CContact{}
-
-/*=======================================================================================
  *	TEST MAIL ADDRESS OBJECT															*
  *======================================================================================*/
  
@@ -93,8 +84,8 @@ try
 	//
 	// Instantiate empty contact.
 	//
-	echo( '<i>$test = new MyClass();</i><br>' );
-	$test = new MyClass();
+	echo( '<i>$test = new CContact();</i><br>' );
+	$test = new CContact();
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	

@@ -251,11 +251,28 @@ define( "kOFFSET_PHONE",						':PHONE' );
 define( "kTAG_REFS",							':REFS' );
 
 /**
+ * Valid tag.
+ *
+ * This is the tag that represents the valid entry related to the current one. There may be
+ * cases in which it is not an option to delete objects, so we create a new one and the old
+ * one will point to the new one. This tag represents that property and it expects the value
+ * of the {@link kTAG_ID_NATIVE native} identifier of the new object here.
+ */
+define( "kTAG_VALID",							':VALID' );
+
+/**
  * URL.
  *
  * This is the tag that represents an URL, link or web address.
  */
 define( "kOFFSET_URL",							':URL' );
+
+/**
+ * Acronym.
+ *
+ * This is the tag that represents a list of acronyms.
+ */
+define( "kOFFSET_ACRONYM",						':ACRONYM' );
 
 /*=======================================================================================
  *	DEFAULT MAIL PROPERTY OFFSETS														*
