@@ -74,6 +74,8 @@ require_once( kPATH_LIBRARY_SOURCE."CEntity.inc.php" );
  *		entity. By default it should be a string, concrete derived instances may expand on
  *		this. The class features a member accessor {@link Name() method} to manage this
  *		property.
+ *	<li><i>{@link kOFFSET_EMAIL kOFFSET_EMAIL}</i>: This offset represents the entity e-mail
+ *		address. It is a single element and should be always up to date.
  *	<li><i>{@link kTAG_REFS kTAG_REFS}</i>: This offset represents the list of references
  *		of the current object, it is implemented as an array whose elements are structured
  *		as follows:
@@ -273,6 +275,44 @@ class CEntity extends CPersistentUnitObject
 		return $this->_ManageOffset( kTAG_NAME, $theValue, $getOld );				// ==>
 
 	} // Name.
+
+	 
+	/*===================================================================================
+	 *	Email																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage entity e-mail.
+	 *
+	 * This method can be used to manage the entity {@link kOFFSET_EMAIL e-mail}, it uses
+	 * the standard accessor {@link _ManageOffset() method} to manage the
+	 * {@link kOFFSET_EMAIL offset}:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: The value or operation:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Return the current value.
+	 *		<li><i>FALSE</i>: Delete the value.
+	 *		<li><i>other</i>: Set value.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
+	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * @param NULL|FALSE|string		$theValue			Entity e-mail or operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 */
+	public function Email( $theValue = NULL, $getOld = FALSE )
+	{
+		return $this->_ManageOffset( kOFFSET_EMAIL, $theValue, $getOld );			// ==>
+
+	} // Email.
 
 	 
 	/*===================================================================================

@@ -43,7 +43,8 @@
         be considered an expanded version of the code or a label that can be applied to the
         entity. By default it should be a string, concrete derived instances may expand on
         this. The class features a member accessor <a href="../../MyWrapper/Entities/CEntity.html#methodName">method</a> to manage this
-        property.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_REFS">kTAG_REFS</a></em>: This offset represents the list of references
+        property.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_EMAIL">kOFFSET_EMAIL</a></em>: This offset represents the entity e-mail
+        address. It is a single element and should be always up to date.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_REFS">kTAG_REFS</a></em>: This offset represents the list of references
         of the current object, it is implemented as an array whose elements are structured
         as follows:
      <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a></em>: This offset represents the reference type or
@@ -56,7 +57,7 @@
         The class features a member accessor <a href="../../MyWrapper/Entities/CEntity.html#methodAffiliate">method</a> to manage this
         property.</li></ul></p><p>Objects of this class require at least the <a href="../../MyWrapper/Entities/CEntity.html#methodCode">code</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">offset</a>  to be set if they expect to have an <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">initialised</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>.</p><p>When <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">committing</a>, eventual <a href="../../MyWrapper/Entities/CEntity.html#methodAffiliate">reference</a> elements set as  the actual instances will be first <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">saved</a> to the same  <a href="../../MyWrapper/Persistence/CContainer.html">container</a>, then replaced by references.</p><p>The class also features a static <a href="../../MyWrapper/Entities/CEntity.html#methodDefaultContainer">method</a> that returns the  default container name for objects of this type.</p></p>
 		<p class="notes">
-			Located in <a class="field" href="_classes---CEntity.php.html">/classes/CEntity.php</a> (line <span class="field">113</span>)
+			Located in <a class="field" href="_classes---CEntity.php.html">/classes/CEntity.php</a> (line <span class="field">115</span>)
 		</p>
 		
 				
@@ -92,6 +93,18 @@
 				<tr>
 					<th class="class-table-header">Class</th>
 					<th class="class-table-header">Description</th>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; white-space: nowrap">
+						<img src="../../media/images/AbstractClass.png"
+								 alt="Abstract class"
+								 title="Abstract class"
+								 style="vertical-align: center"/>
+						<a href="../../MyWrapper/Entities/CContact.html">CContact</a>
+					</td>
+					<td>
+											Contact.
+										</td>
 				</tr>
 								<tr>
 					<td style="padding-right: 2em; white-space: nowrap">
@@ -132,7 +145,7 @@
 										<a href="#DefaultContainer" title="details" class="method-name">DefaultContainer</a>
 										()
 									</div>
-																																																																				<div class="method-definition">
+																																																																												<div class="method-definition">
 					<img src="../../media/images/Constructor.png" alt=" "/>
 											<span class="method-result">CEntity</span>
 										<a href="#__construct" title="details" class="method-name">__construct</a>
@@ -151,6 +164,12 @@
 											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
 									</div>
 																								<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">string</span>
+										<a href="#Email" title="details" class="method-name">Email</a>
+											([<span class="var-type">NULL|FALSE|string</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">string</span>
 										<a href="#Name" title="details" class="method-name">Name</a>
@@ -237,7 +256,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static DefaultContainer</span> (line <span class="line-number">460</span>)
+		<span class="method-title">static DefaultContainer</span> (line <span class="line-number">500</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -260,7 +279,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Constructor.png" />
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">145</span>)
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">147</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -310,7 +329,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Affiliate</span> (line <span class="line-number">353</span>)
+		<span class="method-title">Affiliate</span> (line <span class="line-number">393</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -375,7 +394,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Code</span> (line <span class="line-number">198</span>)
+		<span class="method-title">Code</span> (line <span class="line-number">200</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -406,12 +425,48 @@
 		
 			
 	</div>
-<a name="methodName" id="Name"><!-- --></a>
+<a name="methodEmail" id="Email"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Name</span> (line <span class="line-number">271</span>)
+		<span class="method-title">Email</span> (line <span class="line-number">311</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage entity e-mail.</p>
+<p class="description"><p>This method can be used to manage the entity <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_EMAIL">e-mail</a>, it uses  the standard accessor <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">method</a> to manage the  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_EMAIL">offset</a>:</p><p><ul><li><strong>$theValue</strong>: The value or operation:
+     <ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the value.</li><li><em>other</em>: Set value.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
+     <ul><li><em>TRUE</em>: Return the value <em>before</em> it was eventually modified.</li><li><em>FALSE</em>: Return the value <em>after</em> it was eventually modified.</li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			Email
+		</span>
+					([<span class="var-type">NULL|FALSE|string</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">NULL|FALSE|string</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Entity e-mail or operation.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodName" id="Name"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Name</span> (line <span class="line-number">273</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -443,11 +498,11 @@
 			
 	</div>
 <a name="methodoffsetSet" id="offsetSet"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetSet</span> (line <span class="line-number">393</span>)
+		<span class="method-title">offsetSet</span> (line <span class="line-number">433</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -491,11 +546,11 @@
 				</ul>
 	</div>
 <a name="methodoffsetUnset" id="offsetUnset"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetUnset</span> (line <span class="line-number">424</span>)
+		<span class="method-title">offsetUnset</span> (line <span class="line-number">464</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -536,11 +591,11 @@
 				</ul>
 	</div>
 <a name="methodType" id="Type"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Type</span> (line <span class="line-number">234</span>)
+		<span class="method-title">Type</span> (line <span class="line-number">236</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -575,11 +630,11 @@
 			
 	</div>
 <a name="method_index" id="_index"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_index</span> (line <span class="line-number">533</span>)
+		<span class="method-title">_index</span> (line <span class="line-number">573</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -615,11 +670,11 @@
 				</ul>
 	</div>
 <a name="method_PrepareCommit" id="_PrepareCommit"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">496</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">536</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -842,7 +897,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Tue, 03 Apr 2012 19:45:44 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Wed, 04 Apr 2012 02:35:31 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

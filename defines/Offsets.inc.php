@@ -121,9 +121,9 @@ define( "kTAG_VERSION",							':VERSION' );
 /**
  * Type.
  *
- * This tag is used as the default offset for indicating an attribute's type, in general it
- * is used in an array in conjunction with the {@link kTAG_DATA data} offset to indicate the
- * data type of the item.
+ * This tag is used as the default offset for indicating an attribute's data type, in
+ * general it is used in a structure in conjunction with the {@link kTAG_DATA data} offset
+ + to indicate the data type of the item.
  */
 define( "kTAG_TYPE",							':TYPE' );
 
@@ -181,6 +181,16 @@ define( "kTAG_STATUS",							':STATUS' );
  * it will contain a list of key/value pairs.
  */
 define( "kTAG_ANNOTATION",						':ANNOTATION' );
+
+/**
+ * Kind.
+ *
+ * This tag is used as the default offset for indicating a kind attribute. A kind is
+ * similar to the {@link kTAG_TYPE kTAG_TYPE} attribute, except that in the latter case it
+ * qualifies specifically the {@link kTAG_DATA kTAG_DATA} elements, in this case it
+ * discriminates the elements of a list.
+ */
+define( "kTAG_KIND",							':KIND' );
 
 /*=======================================================================================
  *	DEFAULT PROPERTY OFFSETS															*
@@ -298,7 +308,7 @@ define( "kOFFSET_MAIL_PROVINCE",				':MAIL:PROV' );
  *
  * This is the tag that represents an ISO3166 3 character country code.
  */
-define( "kOFFSET_MAIL_COUNTRY",					'ISO3166:3' );
+define( "kOFFSET_MAIL_COUNTRY",					':MAIL:COUNTRY' );
 
 /**
  * Full address offset.

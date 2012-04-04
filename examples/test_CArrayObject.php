@@ -51,7 +51,7 @@ class MyTest extends CArrayObject
 														   $getOld = FALSE )
 	{
 		return $this->_ManageTypedArrayOffset
-					( 'TEST2', $theType, $theValue, $theOperation, $getOld );
+					( 'TEST2', kTAG_KIND, $theType, $theValue, $theOperation, $getOld );
 	}
 }
 
@@ -317,6 +317,12 @@ try
 	$types = array( 'first', 'second', 'third' );
 	echo( '<i>$found = $test->test_ManageTypedArrayOffset( $types, FALSE, TRUE );</i><br>' );
 	$found = $test->test_ManageTypedArrayOffset( $types, FALSE, TRUE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$found = $test->test_ManageTypedArrayOffset( NULL, \'data\', TRUE );</i><br>' );
+	$found = $test->test_ManageTypedArrayOffset( NULL, 'data', TRUE );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
 	echo( '<hr>' );

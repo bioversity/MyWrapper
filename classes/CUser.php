@@ -39,17 +39,13 @@ require_once( kPATH_LIBRARY_SOURCE."CUser.inc.php" );
  * This class overloads its {@link CEntity ancestor} to implement a user entity.
  *
  * Users are entities that are used for authentication purposes, they share the same
- * attributes as their parent {@link CEntity class} and add two required elements:
+ * attributes as their parent {@link CEntity class} and add one required element:
  *
  * <ul>
  *	<li><i>{@link kOFFSET_PASSWORD kOFFSET_PASSWORD}</i>: This offset represents the user
  *		access password, it will be used in the authentication process.
  *		The class features a member accessor {@link Password() method} to manage this
  *		property.
- *	<li><i>{@link kOFFSET_EMAIL kOFFSET_EMAIL}</i>: This offset represents the user e-mail,
- *		it is required to communicate with the user and represents the default user
- *		{@link Code() identifier}.
- *		The class features a member accessor {@link Email() method} to manage this property.
  * </ul>
  *
  * The object is considered {@link _IsInited() initialised} only if it has its
@@ -160,44 +156,6 @@ class CUser extends CEntity
 		return $this->_ManageOffset( kOFFSET_PASSWORD, $theValue, $getOld );		// ==>
 
 	} // Password.
-
-	 
-	/*===================================================================================
-	 *	Email																			*
-	 *==================================================================================*/
-
-	/**
-	 * Manage user e-mail.
-	 *
-	 * This method can be used to manage the user {@link kOFFSET_EMAIL e-mail}, it uses the
-	 * standard accessor {@link _ManageOffset() method} to manage the
-	 * {@link kOFFSET_EMAIL offset}:
-	 *
-	 * <ul>
-	 *	<li><b>$theValue</b>: The value or operation:
-	 *	 <ul>
-	 *		<li><i>NULL</i>: Return the current value.
-	 *		<li><i>FALSE</i>: Delete the value.
-	 *		<li><i>other</i>: Set value.
-	 *	 </ul>
-	 *	<li><b>$getOld</b>: Determines what the method will return:
-	 *	 <ul>
-	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
-	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
-	 *	 </ul>
-	 * </ul>
-	 *
-	 * @param NULL|FALSE|string		$theValue			User password or operation.
-	 * @param boolean				$getOld				TRUE get old value.
-	 *
-	 * @access public
-	 * @return string
-	 */
-	public function Email( $theValue = NULL, $getOld = FALSE )
-	{
-		return $this->_ManageOffset( kOFFSET_EMAIL, $theValue, $getOld );			// ==>
-
-	} // Email.
 
 		
 

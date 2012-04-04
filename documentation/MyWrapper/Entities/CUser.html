@@ -28,15 +28,12 @@
 	<div class="info-box-body">
         		<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">User.</p>
-<p class="description"><p>This class overloads its <a href="../../MyWrapper/Entities/CEntity.html">ancestor</a> to implement a user entity.</p><p>Users are entities that are used for authentication purposes, they share the same  attributes as their parent <a href="../../MyWrapper/Entities/CEntity.html">class</a> and add two required elements:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_PASSWORD">kOFFSET_PASSWORD</a></em>: This offset represents the user
+<p class="description"><p>This class overloads its <a href="../../MyWrapper/Entities/CEntity.html">ancestor</a> to implement a user entity.</p><p>Users are entities that are used for authentication purposes, they share the same  attributes as their parent <a href="../../MyWrapper/Entities/CEntity.html">class</a> and add one required element:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_PASSWORD">kOFFSET_PASSWORD</a></em>: This offset represents the user
         access password, it will be used in the authentication process.
         The class features a member accessor <a href="../../MyWrapper/Entities/CUser.html#methodPassword">method</a> to manage this
-        property.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_EMAIL">kOFFSET_EMAIL</a></em>: This offset represents the user e-mail,
-        it is required to communicate with the user and represents the default user
-        <a href="../../MyWrapper/Entities/CEntity.html#methodCode">identifier</a>.
-        The class features a member accessor <a href="../../MyWrapper/Entities/CUser.html#methodEmail">method</a> to manage this property.</li></ul></p><p>The object is considered <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">initialised</a> only if it has its  <a href="../../MyWrapper/Entities/CEntity.html#methodCode">code</a>, as its <a href="../../MyWrapper/Entities/CEntity.html">ancestor</a>, its <a href="../../MyWrapper/Entities/CEntity.html#methodName">name</a>,  <a href="../../MyWrapper/Entities/CUser.html#methodPassword">password</a> and <a href="../../MyWrapper/Entities/CUser.html#methodEmail">e-mail</a> address.</p><p>If the <a href="../../MyWrapper/Entities/CEntity.html#methodCode">code</a> has not been explicitly set, <a href="../../MyWrapper/Entities/CUser.html#method_PrepareCommit">before</a>  <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">committing</a> the object it will be set to the value of the  <a href="../../MyWrapper/Entities/CUser.html#methodEmail">e-mail</a>. Also in that phase, the <a href="../../MyWrapper/Entities/_classes---CUser.inc.php.html#definekENTITY_USER">kENTITY_USER</a> constant  will be set in the user <a href="../../MyWrapper/Entities/CEntity.html#methodType">type</a>.</p><p>The <a href="../../MyWrapper/Entities/CUser.html#methodEmail">e-mail</a> in this class is a scalar property, in other classes it will  probably be a list of different e-mail types. In this class we want to link a single  user with a single e-mail, possibly not shared by any other user, that is why we link by  default the user <a href="../../MyWrapper/Entities/CEntity.html#methodCode">code</a> and <a href="../../MyWrapper/Entities/CUser.html#methodEmail">e-mail</a>.</p></p>
+        property.</li></ul></p><p>The object is considered <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">initialised</a> only if it has its  <a href="../../MyWrapper/Entities/CEntity.html#methodCode">code</a>, as its <a href="../../MyWrapper/Entities/CEntity.html">ancestor</a>, its <a href="../../MyWrapper/Entities/CEntity.html#methodName">name</a>,  <a href="../../MyWrapper/Entities/CUser.html#methodPassword">password</a> and <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a> address.</p><p>If the <a href="../../MyWrapper/Entities/CEntity.html#methodCode">code</a> has not been explicitly set, <a href="../../MyWrapper/Entities/CUser.html#method_PrepareCommit">before</a>  <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">committing</a> the object it will be set to the value of the  <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a>. Also in that phase, the <a href="../../MyWrapper/Entities/_classes---CUser.inc.php.html#definekENTITY_USER">kENTITY_USER</a> constant  will be set in the user <a href="../../MyWrapper/Entities/CEntity.html#methodType">type</a>.</p><p>The <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a> in this class is a scalar property, in other classes it will  probably be a list of different e-mail types. In this class we want to link a single  user with a single e-mail, possibly not shared by any other user, that is why we link by  default the user <a href="../../MyWrapper/Entities/CEntity.html#methodCode">code</a> and <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a>.</p></p>
 		<p class="notes">
-			Located in <a class="field" href="_classes---CUser.php.html">/classes/CUser.php</a> (line <span class="field">72</span>)
+			Located in <a class="field" href="_classes---CUser.php.html">/classes/CUser.php</a> (line <span class="field">68</span>)
 		</p>
 		
 				
@@ -74,17 +71,11 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																																																																																<div class="method-definition">
+																																																																								<div class="method-definition">
 					<img src="../../media/images/Constructor.png" alt=" "/>
 											<span class="method-result">CUser</span>
 										<a href="#__construct" title="details" class="method-name">__construct</a>
 											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span> = <span class="var-default">NULL</span>])
-									</div>
-																<div class="method-definition">
-					<img src="../../media/images/Method.png" alt=" "/>
-											<span class="method-result">string</span>
-										<a href="#Email" title="details" class="method-name">Email</a>
-											([<span class="var-type">NULL|FALSE|string</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -171,7 +162,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Constructor.png" />
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">100</span>)
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">96</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -206,48 +197,12 @@
 					</dl>
 			
 	</div>
-<a name="methodEmail" id="Email"><!-- --></a>
+<a name="methodoffsetSet" id="offsetSet"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Email</span> (line <span class="line-number">196</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Manage user e-mail.</p>
-<p class="description"><p>This method can be used to manage the user <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_EMAIL">e-mail</a>, it uses the  standard accessor <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">method</a> to manage the  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_EMAIL">offset</a>:</p><p><ul><li><strong>$theValue</strong>: The value or operation:
-     <ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the value.</li><li><em>other</em>: Set value.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
-     <ul><li><em>TRUE</em>: Return the value <em>before</em> it was eventually modified.</li><li><em>FALSE</em>: Return the value <em>after</em> it was eventually modified.</li></ul></li></ul></p></p>
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">string</span>
-		<span class="method-name">
-			Email
-		</span>
-					([<span class="var-type">NULL|FALSE|string</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">NULL|FALSE|string</span>
-				<span class="var-name">$theValue</span><span class="var-description">: User password or operation.</span>			</li>
-					<li>
-				<span class="var-type">boolean</span>
-				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodoffsetSet" id="offsetSet"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetSet</span> (line <span class="line-number">232</span>)
+		<span class="method-title">offsetSet</span> (line <span class="line-number">190</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -285,11 +240,11 @@
 			
 	</div>
 <a name="methodoffsetUnset" id="offsetUnset"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetUnset</span> (line <span class="line-number">270</span>)
+		<span class="method-title">offsetUnset</span> (line <span class="line-number">228</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -324,11 +279,11 @@
 			
 	</div>
 <a name="methodPassword" id="Password"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Password</span> (line <span class="line-number">158</span>)
+		<span class="method-title">Password</span> (line <span class="line-number">154</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -360,11 +315,11 @@
 			
 	</div>
 <a name="method_id" id="_id"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_id</span> (line <span class="line-number">310</span>)
+		<span class="method-title">_id</span> (line <span class="line-number">268</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -392,11 +347,11 @@
 			
 	</div>
 <a name="method_index" id="_index"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_index</span> (line <span class="line-number">343</span>)
+		<span class="method-title">_index</span> (line <span class="line-number">301</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -426,16 +381,16 @@
 			
 	</div>
 <a name="method_PrepareCommit" id="_PrepareCommit"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">382</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">340</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Normalise parameters of a store.</p>
-<p class="description"><p>We overload this method to add the <a href="../../MyWrapper/Entities/_classes---CUser.inc.php.html#definekENTITY_USER">kENTITY_USER</a>  <a href="../../MyWrapper/Entities/CEntity.html#methodType">type</a> to the object prior <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">saving</a> it.</p><p>We also initialise the user <a href="../../MyWrapper/Entities/CEntity.html#methodCode">code</a>, if empty, with the  <a href="../../MyWrapper/Entities/CUser.html#methodEmail">e-mail</a>.</p></p>
+<p class="description"><p>We overload this method to add the <a href="../../MyWrapper/Entities/_classes---CUser.inc.php.html#definekENTITY_USER">kENTITY_USER</a>  <a href="../../MyWrapper/Entities/CEntity.html#methodType">type</a> to the object prior <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">saving</a> it.</p><p>We also initialise the user <a href="../../MyWrapper/Entities/CEntity.html#methodCode">code</a>, if empty, with the  <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a>.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Errors.inc.php.html#definekERROR_OPTION_MISSING">kERROR_OPTION_MISSING</a></li>
 				<li><span class="field">throws:</span> <a href="../../MyWrapper/Core/CException.html">CException</a></li>
@@ -483,6 +438,8 @@
 							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodCode">CEntity::Code()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodDefaultContainer">CEntity::DefaultContainer()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodEmail">CEntity::Email()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodName">CEntity::Name()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
@@ -668,7 +625,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Tue, 03 Apr 2012 19:45:47 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Wed, 04 Apr 2012 02:35:34 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

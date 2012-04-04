@@ -532,15 +532,14 @@ class CArrayObject extends ArrayObject
 	 * arrays, in which each element is itself an array of two items:
 	 *
 	 * <ul>
-	 *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: This element represents the qualifier of
-	 *		the item, it provides a type or qualification for the next element. It must be
-	 *		possible to cast this value to a string.
+	 *	<li><i>Index</i>: This element represents the qualifier of the item, it provides a
+	 *		type or qualification for the next element. It must be possible to cast this
+	 *		value to a string. This element is defined by the second method parameter.
 	 *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: This element represents the element data.
 	 * </ul>
 	 *
-	 * No two elements of the list can share the same {@link kTAG_TYPE type}. You may have
-	 * one element without {@link kTAG_TYPE type}, this one may be considered the default
-	 * element.
+	 * No two elements of the list can share the same index. You may have one element
+	 * without index, this one may be considered the default element.
 	 *
 	 * This method is intended for managing list elements rather than the list itself, for
 	 * the latter purpose use the offset management methods.
@@ -549,20 +548,21 @@ class CArrayObject extends ArrayObject
 	 *
 	 * <ul>
 	 *	<li><b>$theOffset</b>: The offset to manage.
-	 *	<li><b>$theType</b>: This parameter represents the value of the
-	 *		{@link kTAG_TYPE type} element of the item, depending on the next parameter this
-	 *		value will be used for matching items in the list:
+	 *	<li><b>$theIndex</b>: The list index offset, this value will be the offset holding
+	 *		the list elements index.
+	 *	<li><b>$theType</b>: This parameter represents the value of the index element of the
+	 *		item, depending on the next parameter this value will be used for matching
+	 *		items in the list:
 	 *	 <ul>
 	 *		<li><i>NULL</i>: An empty type means that we are looking for the item lacking
-	 *			the {@link kTAG_TYPE kTAG_TYPE} tag.
+	 *			the index element.
 	 *		<li><i>array</i>: If you provide an array, it means that you are operating on a
 	 *			list of items: depending on the next parameter this will mean either
 	 *			retrieving the {@link kTAG_DATA data} elements of the items matching the
 	 *			array, deleting these items, or adding/replacing the items; in this last
 	 *			case, this means that the next parameter must also be an array and that each
-	 *			of its elements will be associated to the corresponding
-	 *			{@link kTAG_TYPE type} element.
-	 *		<li><i>other</i>: Any other value will be considered as the type to retrieve,
+	 *			of its elements will be associated to the corresponding index element.
+	 *		<li><i>other</i>: Any other value will be considered as the index to retrieve,
 	 *			remove or add/replace. You <i>MUST</i> be able to cast this value to a
 	 *			string.
 	 *	 </ul>
@@ -570,9 +570,9 @@ class CArrayObject extends ArrayObject
 	 *		element, or the operation to be performed:
 	 *	 <ul>
 	 *		<li><i>NULL</i>: This indicates that we want to retrieve the data of the item
-	 *			with {@link kTAG_TYPE type} matching the previous parameter.
+	 *			with index matching the previous parameter.
 	 *		<li><i>FALSE</i>: This indicates that we want to remove the item matching the
-	 *			{@link kTAG_TYPE type} provided in the previous parameter.
+	 *			index provided in the previous parameter.
 	 *		<li><i>other</i>: Any other value indicates that we want to add or replace the
 	 *			{@link kTAG_DATA data} element of the item matching the previous parameter.
 	 *			Note that if the previous parameter is an array, this one must also be an
@@ -588,6 +588,7 @@ class CArrayObject extends ArrayObject
 	 * </ul>
 	 *
 	 * @param string				$theOffset			Offset.
+	 * @param mixed					$theIndex			Index offset.
 	 * @param mixed					$theType			Element type.
 	 * @param mixed					$theData			Element value.
 	 * @param boolean				$getOld				TRUE get old value.
@@ -599,9 +600,9 @@ class CArrayObject extends ArrayObject
 	 * @uses offsetSet()
 	 * @uses offsetUnset()
 	 */
-	protected function _ManageTypedArrayOffset( $theOffset, $theType = NULL,
-															$theData = NULL,
-															$getOld = FALSE )
+	protected function _ManageTypedArrayOffset( $theOffset, $theIndex, $theType = NULL,
+																	   $theData = NULL,
+																	   $getOld = FALSE )
 	{
 		//
 		// Recursing workflow.
@@ -658,7 +659,7 @@ class CArrayObject extends ArrayObject
 				//
 				$result[]
 					= $this->_ManageTypedArrayOffset
-						( $theOffset, $type, $data, $getOld );
+						( $theOffset, $theIndex, $type, $data, $getOld );
 				
 				//
 				// Advance.
@@ -696,9 +697,9 @@ class CArrayObject extends ArrayObject
 					// Match type.
 					//
 					if( ( ($theType === NULL)
-					   && (! array_key_exists( kTAG_TYPE, $item )) )
-					 || ( array_key_exists( kTAG_TYPE, $item )
-					   && (((string) $theType) == $item[ kTAG_TYPE ]) ) )
+					   && (! array_key_exists( $theIndex, $item )) )
+					 || ( array_key_exists( $theIndex, $item )
+					   && (((string) $theType) == $item[ $theIndex ]) ) )
 						return $item[ kTAG_DATA ];									// ==>
 				
 				} // Iterating list items.
@@ -730,9 +731,9 @@ class CArrayObject extends ArrayObject
 					// Match type.
 					//
 					if( ( ($theType === NULL)
-					   && (! array_key_exists( kTAG_TYPE, $item )) )
-					 || ( array_key_exists( kTAG_TYPE, $item )
-					   && (((string) $theType) == $item[ kTAG_TYPE ]) ) )
+					   && (! array_key_exists( $theIndex, $item )) )
+					 || ( array_key_exists( $theIndex, $item )
+					   && (((string) $theType) == $item[ $theIndex ]) ) )
 						$match = $item[ kTAG_DATA ];
 					
 					//
@@ -776,7 +777,7 @@ class CArrayObject extends ArrayObject
 		//
 		$new = Array();
 		if( $theType !== NULL )
-			$new[ kTAG_TYPE ] = $theType;
+			$new[ $theIndex ] = $theType;
 		$new[ kTAG_DATA ] = $theData;
 		
 		//
@@ -807,9 +808,9 @@ class CArrayObject extends ArrayObject
 			// Match type.
 			//
 			if( ( ($theType === NULL)
-			   && (! array_key_exists( kTAG_TYPE, $item )) )
-			 || ( array_key_exists( kTAG_TYPE, $item )
-			   && (((string) $theType) == $item[ kTAG_TYPE ]) ) )
+			   && (! array_key_exists( $theIndex, $item )) )
+			 || ( array_key_exists( $theIndex, $item )
+			   && (((string) $theType) == $item[ $theIndex ]) ) )
 			{
 				//
 				// Save old element.
