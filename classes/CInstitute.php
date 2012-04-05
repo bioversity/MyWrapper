@@ -104,9 +104,7 @@ class CInstitute extends CEntity
 		// Set inited status.
 		//
 		$this->_IsInited( $this->_IsInited() &&
-						  $this->offsetExists( kTAG_NAME ) &&
-						  $this->offsetExists( kOFFSET_EMAIL ) &&
-						  $this->offsetExists( kOFFSET_PASSWORD ) );
+						  $this->offsetExists( kTAG_NAME ) );
 		
 	} // Constructor.
 
@@ -121,22 +119,76 @@ class CInstitute extends CEntity
 
 	 
 	/*===================================================================================
-	 *	Password																		*
+	 *	Acronym																			*
 	 *==================================================================================*/
 
 	/**
-	 * Manage user password.
+	 * Manage entity types.
 	 *
-	 * This method can be used to manage the user {@link kOFFSET_PASSWORD password}, it uses
-	 * the standard accessor {@link _ManageOffset() method} to manage the
-	 * {@link kOFFSET_PASSWORD offset}:
+	 * This method can be used to handle the institute {@link kOFFSET_ACRONYM acronyms}
+	 * list, it uses the standard accessor {@link _ManageArrayOffset() method} to manage the
+	 * list of acronyms.
+	 *
+	 * Each element of this list should indicate an acronym by which one refers to the
+	 * current institute, the nature and specifics of these elements is the responsibility
+	 * of concrete classes.
+	 *
+	 * For a more thorough reference of how this method works, please consult the
+	 * {@link _ManageArrayOffset() _ManageArrayOffset} method, in which the first parameter
+	 * will be the constant {@link kOFFSET_ACRONYM kOFFSET_ACRONYM}.
+	 *
+	 * @param mixed					$theValue			Value or index.
+	 * @param mixed					$theOperation		Operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return mixed
+	 *
+	 * @uses _ManageArrayOffset
+	 *
+	 * @see kOFFSET_ACRONYM
+	 */
+	public function Acronym( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
+	{
+		return $this->_ManageArrayOffset
+					( kOFFSET_ACRONYM, $theValue, $theOperation, $getOld );			// ==>
+
+	} // Acronym.
+
+	 
+	/*===================================================================================
+	 *	URL																				*
+	 *==================================================================================*/
+
+	/**
+	 * Manage institute urls.
+	 *
+	 * This method can be used to manage the institute {@link kOFFSET_URL URL} or web pages
+	 * list, the method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><i>{@link kTAG_KIND kTAG_KIND}</i>: The institute URL kind, this could be
+	 *		<i>main</i>, <i>sales</i> or <i>international</i>. This element represents the
+	 *		array key, although technically it is implemented as an element to allow
+	 *		searching on all values.
+	 *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The URL or web page address.
+	 * </ul>
+	 *
+	 * The parameters to this method are:
 	 *
 	 * <ul>
 	 *	<li><b>$theValue</b>: The value or operation:
 	 *	 <ul>
-	 *		<li><i>NULL</i>: Return the current value.
-	 *		<li><i>FALSE</i>: Delete the value.
-	 *		<li><i>other</i>: Set value.
+	 *		<li><i>NULL</i>: Return the current value selected by the second parameter.
+	 *		<li><i>FALSE</i>: Delete the value selected by the second parameter.
+	 *		<li><i>other</i>: Set value selected by the second parameter.
+	 *	 </ul>
+	 *	<li><b>$theType</b>: The element type, kind or index:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: This value indicates that the URL has no type or kind, in
+	 *			general, when adding elements, this case applies to default elements.
+	 *		<li><i>other</i>: All other types will be interpreted as the kind or type of
+	 *			the URL.
 	 *	 </ul>
 	 *	<li><b>$getOld</b>: Determines what the method will return:
 	 *	 <ul>
@@ -145,17 +197,19 @@ class CInstitute extends CEntity
 	 *	 </ul>
 	 * </ul>
 	 *
-	 * @param NULL|FALSE|string		$theValue			User password or operation.
+	 * @param string				$theValue			URL or operation.
+	 * @param mixed					$theType			Mailing address kind or index.
 	 * @param boolean				$getOld				TRUE get old value.
 	 *
 	 * @access public
 	 * @return string
 	 */
-	public function Password( $theValue = NULL, $getOld = FALSE )
+	public function URL( $theValue = NULL, $theType = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kOFFSET_PASSWORD, $theValue, $getOld );		// ==>
+		return $this->_ManageTypedArrayOffset
+			( kOFFSET_URL, kTAG_KIND, $theType, $theValue, $getOld );				// ==>
 
-	} // Password.
+	} // URL.
 
 		
 
@@ -199,9 +253,7 @@ class CInstitute extends CEntity
 		//
 		if( $theValue !== NULL )
 			$this->_IsInited( $this->_IsInited() &&
-							  $this->offsetExists( kTAG_NAME ) &&
-							  $this->offsetExists( kOFFSET_EMAIL ) &&
-							  $this->offsetExists( kOFFSET_PASSWORD ) );
+							  $this->offsetExists( kTAG_NAME ) );
 	
 	} // offsetSet.
 
@@ -235,10 +287,8 @@ class CInstitute extends CEntity
 		//
 		// Set inited flag.
 		//
-			$this->_IsInited( $this->_IsInited() &&
-							  $this->offsetExists( kTAG_NAME ) &&
-							  $this->offsetExists( kOFFSET_EMAIL ) &&
-							  $this->offsetExists( kOFFSET_PASSWORD ) );
+		$this->_IsInited( $this->_IsInited() &&
+						  $this->offsetExists( kTAG_NAME ) );
 	
 	} // offsetUnset.
 
@@ -270,7 +320,7 @@ class CInstitute extends CEntity
 		//
 		// In this class we hash the index value.
 		//
-		return new CDataTypeBinary( md5( $this->_index(), TRUE ) );
+		return new CDataTypeBinary( md5( $this->_index(), TRUE ) );					// ==>
 	
 	} // _id.
 

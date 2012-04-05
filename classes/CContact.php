@@ -159,10 +159,10 @@ class CContact extends CEntity
 	 *	 </ul>
 	 *	<li><b>$theType</b>: The element type, kind or index:
 	 *	 <ul>
-	 *		<li><i>NULL</i>: This value indicates that the adress has no type or kind, in
+	 *		<li><i>NULL</i>: This value indicates that the phone has no type or kind, in
 	 *			general, when adding elements, this case applies to default elements.
 	 *		<li><i>other</i>: All other types will be interpreted as the kind or type of
-	 *			the address.
+	 *			the phone number.
 	 *	 </ul>
 	 *	<li><b>$getOld</b>: Determines what the method will return:
 	 *	 <ul>

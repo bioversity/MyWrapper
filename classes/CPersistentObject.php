@@ -718,10 +718,11 @@ class CPersistentObject extends CStatusObject
 	 * The duty of this method is to ensure that the parameters provided to a
 	 * {@link _Create() create} operation are valid.
 	 *
-	 * The method has a chance to manage the data before it is set in the object.
+	 * The method has a chance to work with the container and the identifier before it is
+	 * set in the object.
 	 *
 	 * In this class we set the {@link _IsEncoded() encoded} status
-	 * {@link kFLAG_STATE_ENCODED flag} if provided among the modifiers.
+	 * {@link kFLAG_STATE_ENCODED flag} if provided among the modifiers of the operation.
 	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.

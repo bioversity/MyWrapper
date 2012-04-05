@@ -161,7 +161,9 @@ class CQuery extends CStatusObject
 	/**
 	 * Instantiate class.
 	 *
-	 * The object can be constructed from an existing query structure.
+	 * If you omit the parameter the method will instantiate an empty query, if you provide
+	 * an array or ArrayObject it will assume the structure to be a query and will
+	 * instantiate the object with it; any other data type will raise an exception.
 	 *
 	 * @param mixed					$theQuery			Query data.
 	 *

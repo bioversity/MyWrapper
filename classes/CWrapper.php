@@ -235,6 +235,15 @@ class CWrapper extends CStatusObject
 	 * services.
 	 *
 	 * @access public
+	 *
+	 * @uses _InitStatus()
+	 * @uses _InitOptions()
+	 * @uses _InitResources()
+	 * @uses _ParseRequest()
+	 * @uses _FormatRequest()
+	 * @uses _ValidateRequest()
+	 * @uses _Exception2Status()
+	 * @uses _EncodeResponse()
 	 */
 	public function __construct()
 	{
@@ -325,7 +334,9 @@ class CWrapper extends CStatusObject
 	 *
 	 * @access public
 	 *
-	 * @throws Exception
+	 * @uses _HandleRequest()
+	 * @uses _Exception2Status()
+	 * @uses _EncodeResponse()
 	 */
 	public function HandleRequest()
 	{
@@ -389,6 +400,8 @@ class CWrapper extends CStatusObject
 	 * status {@link kTAG_CODE code}.
 	 *
 	 * @access private
+	 *
+	 * @see kAPI_DATA_STATUS
 	 */
 	protected function _InitStatus()
 	{
@@ -443,6 +456,8 @@ class CWrapper extends CStatusObject
 	 * {@link kAPI_DATA_TIMING timer} sections if required.
 	 *
 	 * @access private
+	 *
+	 * @see kAPI_DATA_REQUEST kAPI_DATA_TIMING
 	 */
 	protected function _InitOptions()
 	{
@@ -520,6 +535,10 @@ class CWrapper extends CStatusObject
 	 * {@link kAPI_OPERATION operation} and {@link kAPI_DATA_TIMING timing} elements.
 	 *
 	 * @access private
+	 *
+	 * @uses _ParseFormat()
+	 * @uses _ParseOperation()
+	 * @uses _ParseTiming()
 	 */
 	protected function _ParseRequest()
 	{
@@ -594,6 +613,9 @@ class CWrapper extends CStatusObject
 	 * {@link __construct() constructor}.
 	 *
 	 * @access private
+	 *
+	 * @uses _ValidateFormat()
+	 * @uses _ValidateOperation()
 	 */
 	protected function _ValidateRequest()
 	{
@@ -639,6 +661,8 @@ class CWrapper extends CStatusObject
 	 * This method will parse the request format.
 	 *
 	 * @access private
+	 *
+	 * @see kAPI_DATA_REQUEST kAPI_FORMAT
 	 */
 	protected function _ParseFormat()
 	{
@@ -666,6 +690,8 @@ class CWrapper extends CStatusObject
 	 * This method will parse the request operation.
 	 *
 	 * @access private
+	 *
+	 * @see kAPI_DATA_REQUEST kAPI_OPERATION
 	 */
 	protected function _ParseOperation()
 	{
@@ -693,6 +719,8 @@ class CWrapper extends CStatusObject
 	 * This method will parse the request timers.
 	 *
 	 * @access private
+	 *
+	 * @see kAPI_DATA_REQUEST kAPI_REQ_STAMP
 	 */
 	protected function _ParseTiming()
 	{
@@ -745,6 +773,8 @@ class CWrapper extends CStatusObject
 	 * parameter is valid.
 	 *
 	 * @access private
+	 *
+	 * @see kDATA_TYPE_PHP kDATA_TYPE_JSON
 	 */
 	protected function _ValidateFormat()
 	{
@@ -805,6 +835,8 @@ class CWrapper extends CStatusObject
 	 * {@link kAPI_OPERATION operation} parameter is valid.
 	 *
 	 * @access private
+	 *
+	 * @see kAPI_OP_HELP kAPI_OP_PING
 	 */
 	protected function _ValidateOperation()
 	{
@@ -873,6 +905,10 @@ class CWrapper extends CStatusObject
 	 * This method will handle the request.
 	 *
 	 * @access private
+	 *
+	 * @uses _Handle_ListOp()
+	 *
+	 * @see kAPI_OP_HELP kAPI_OP_PING
 	 */
 	protected function _HandleRequest()
 	{
@@ -967,7 +1003,19 @@ class CWrapper extends CStatusObject
 	/**
 	 * Manage offset.
 	 *
-	 * This method can be used to manage the object offset blocks.
+	 * This method can be used to manage elements within offsets, in other words, it can be
+	 * used to manage elements within an offset:
+	 *
+	 * <ul>
+	 *	<li><b>$theBlock</b>: The main offset.
+	 *	<li><b>$theElement</b>: The offset within the main offset.
+	 *	<li><b>$theValue</b>: The new value or the operation:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Retrieve the element in the block.
+	 *		<li><i>FALSE</i>: Delete the element from the block.
+	 *		<li><i>other</i>: All other data types are interpreted as a new element.
+	 *	 </ul>
+	 * </ul>
 	 *
 	 * @param string				$theBlock			Object block.
 	 * @param string				$theElement			Object block element.
