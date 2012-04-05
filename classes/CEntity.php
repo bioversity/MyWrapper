@@ -610,7 +610,6 @@ class CEntity extends CPersistentUnitObject
 			// Instantiate entity.
 			//
 			$entity = self::NewObject( $theContainer, $theIdentifier );
-echo( '<pre>' ); print_r( $entity ); echo( '</pre>' );
 			
 			//
 			// Handle entity.
