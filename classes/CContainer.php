@@ -251,14 +251,14 @@ abstract class CContainer extends CObject
 	 *			operation has its own public {@link Delete() method}, derived classes can
 	 *			use this option to implement a <i>deleted state</i>, rather than actually
 	 *			removing the object from the container.
-	 *		<li><i>{@link kFLAG_STATE_ENCODED kFLAG_STATE_ENCODED}</i>: This option will
-	 *			generally be taken from the first parameter if it is a
-	 *			{@link CPersistentObject persistent} object: if set, it means that the
-	 *			object may have elements derived from concrete instances of
-	 *			{@link CDataType CDataType}, which means that these will have to be
-	 *			{@link UnserialiseObject() encoded} into the native database types before
-	 *			committing the data. This option will be set {@link _PrepareCommit() before}
-	 *			{@link _Commit() committing}.
+	 *		<li><i>{@link kFLAG_STATE_ENCODED kFLAG_STATE_ENCODED}</i>: This option can be
+	 *			used to work with objects in which complex or custom data types are
+	 *			represented by derived concrete instances of {@link CDataType CDataType}.
+	 *			If the option is ON, the contents of the object will be
+	 *			{@link CContainer::UnserialiseObject() unserialised}
+	 *			{@link _PrepareCommit() prior} to {@link Commit() committing} it, and
+	 *			{@link CDataType::SerialiseData() serialised} {@link FinishCommit() after}.
+	 *			In general, this flag will be passed to method by the provided object.
 	 *	 </ul>
 	 * </ul>
 	 *
@@ -269,15 +269,10 @@ abstract class CContainer extends CObject
 	 *
 	 * <ul>
 	 *	<li><i>{@link _PrepareCommit() _PrepareCommit}()</i>: This method can be used to
-	 *		check the parameters and initialise the resources. It is here where we
-	 *		{@link kFLAG_STATE_ENCODED eventually} {@link UnserialiseObject() unserialise}
-	 *		the object.
+	 *		check the parameters and initialise the resources.
 	 *	<li><i>{@link _Commit() _Commit}()</i>: This method will perform the actual commit.
 	 *	<li><i>{@link _FinishCommit() _FinishCommit}()</i>: This method can be used to perform
-	 *		eventual post-flight adjustments. It is here where we
-	 *		{@link kFLAG_STATE_ENCODED eventually}
-	 *		{@link CDataType::SerialiseObject() serialise} the object.
-	 *		the object.
+	 *		eventual post-flight adjustments.
 	 * </ul>
 	 *
 	 * @param reference			   &$theObject			Object to commit.
@@ -290,6 +285,9 @@ abstract class CContainer extends CObject
 	 * @uses _PrepareCommit()
 	 * @uses _Commit()
 	 * @uses _FinishCommit()
+	 *
+	 * @see kFLAG_PERSIST_INSERT kFLAG_PERSIST_UPDATE kFLAG_PERSIST_MODIFY
+	 * @see kFLAG_PERSIST_REPLACE kFLAG_PERSIST_DELETE kFLAG_STATE_ENCODED
 	 */
 	public function Commit( &$theObject,
 							 $theIdentifier = NULL,
@@ -303,9 +301,7 @@ abstract class CContainer extends CObject
 		//
 		// Store object.
 		//
-		$theIdentifier
-			= $this->_Commit
-				( $theObject, $theIdentifier, $theModifiers );
+		$theIdentifier = $this->_Commit( $theObject, $theIdentifier, $theModifiers );
 		
 		//
 		// Finish.
@@ -330,10 +326,9 @@ abstract class CContainer extends CObject
 	 * <ul>
 	 *	<li><b>$theIdentifier</b>: This parameter is expected to be the object's unique
 	 *		identifier within the container, it will be the access key to the object.
-	 *	<li><b>$theModifiers</b>: This parameter represents the load operation options, in
-	 *		this class we only consider the {@link kFLAG_STATE_ENCODED kFLAG_STATE_ENCODED}
-	 *		option: if set, the identifier will be {@link UnserialiseData() unserialised}
-	 *		{@link _PrepareLoad() before} {@link _Load() searching} for the object.
+	 *	<li><b>$theModifiers</b>: This parameter represents the load operation options,
+	 *		please see the {@link __construct() constructor} documentation for more
+	 *		information on this parameter.
 	 * </ul>
 	 *
 	 * The method should return the found object, or <i>NULL</i> if not found.
@@ -356,6 +351,8 @@ abstract class CContainer extends CObject
 	 * @uses _PrepareLoad()
 	 * @uses _Load()
 	 * @uses _FinishLoad()
+	 *
+	 * @see kFLAG_STATE_ENCODED
 	 */
 	public function Load( $theIdentifier, $theModifiers = kFLAG_DEFAULT )
 	{
@@ -392,10 +389,9 @@ abstract class CContainer extends CObject
 	 * <ul>
 	 *	<li><b>$theIdentifier</b>: This parameter is expected to be the object's unique
 	 *		identifier within the container, it will be the access key to the object.
-	 *	<li><b>$theModifiers</b>: This parameter represents the operation options, in this
-	 *		class we only consider the {@link kFLAG_STATE_ENCODED kFLAG_STATE_ENCODED}
-	 *		option: if set, the identifier will be {@link UnserialiseData() unserialised}
-	 *		{@link _PrepareDelete() before} {@link _Delete() removing} the object.
+	 *	<li><b>$theModifiers</b>: This parameter represents the delete operation options,
+	 *		please see the {@link __construct() constructor} documentation for more
+	 *		information on this parameter.
 	 * </ul>
 	 *
 	 * The method should return the deleted object, or <i>NULL</i> if not found.
@@ -418,6 +414,8 @@ abstract class CContainer extends CObject
 	 * @uses _PrepareDelete()
 	 * @uses _Delete()
 	 * @uses _FinishDelete()
+	 *
+	 * @see kFLAG_STATE_ENCODED
 	 */
 	public function Delete( $theIdentifier, $theModifiers = kFLAG_DEFAULT )
 	{
@@ -590,8 +588,8 @@ abstract class CContainer extends CObject
 	/**
 	 * Unserialise provided object.
 	 *
-	 * This method will convert concrete derived instances of {@link CDataType CDataType}
-	 * into native data types suitable to be stored in containers.
+	 * This method will convert concrete derived instances of {@link CDataType CDataType} or
+	 * equivalent structures into native data types suitable to be stored in containers.
 	 *
 	 * This method will scan the provided object or structure and pass all instances derived
 	 * from {@link CDataType CDataType} to another public {@link UnserialiseData() method}
@@ -625,6 +623,8 @@ abstract class CContainer extends CObject
 	 * @access public
 	 *
 	 * @uses UnserialiseData()
+	 *
+	 * @see kTAG_TYPE kTAG_DATA
 	 */
 	public function UnserialiseObject( &$theObject )
 	{
@@ -776,6 +776,8 @@ abstract class CContainer extends CObject
 	 * @param reference			   &$theElement			Element to encode.
 	 *
 	 * @access public
+	 *
+	 * @see kTAG_TYPE kTAG_DATA
 	 */
 	abstract public function UnserialiseData( &$theElement );
 
@@ -893,63 +895,6 @@ abstract class CContainer extends CObject
 
 	 
 	/*===================================================================================
-	 *	_PrepareLoad																	*
-	 *==================================================================================*/
-
-	/**
-	 * Prepare before a {@link _Load() load}.
-	 *
-	 * The duty of this method is to ensure that the parameters provided to the
-	 * {@link _Load() find} operation are valid.
-	 *
-	 * In this class we ensure that the identifier has been provided, that the current
-	 * object has a native {@link Container() container} and we
-	 * {@link UnserialiseData() unserialise} the provided identifier if
-	 * {@link kFLAG_STATE_ENCODED needed}.
-	 *
-	 * @param reference			   &$theIdentifier		Object identifier.
-	 * @param reference			   &$theModifiers		Load modifiers.
-	 *
-	 * @access protected
-	 *
-	 * @throws {@link CException CException}
-	 *
-	 * @uses Container()
-	 * @uses UnserialiseData()
-	 *
-	 * @see kFLAG_STATE_ENCODED
-	 * @see kERROR_OPTION_MISSING kERROR_INVALID_STATE
-	 */
-	protected function _PrepareLoad( &$theIdentifier, &$theModifiers )
-	{
-		//
-		// Check if identifier is there.
-		//
-		if( $theIdentifier === NULL )
-			throw new CException
-					( "Missing object identifier",
-					  kERROR_OPTION_MISSING,
-					  kMESSAGE_TYPE_ERROR );									// !@! ==>
-		
-		//
-		// Check container.
-		//
-		if( $this->Container() === NULL )
-			throw new CException
-				( "Missing native container",
-				  kERROR_INVALID_STATE,
-				  kMESSAGE_TYPE_ERROR );										// !@! ==>
-		
-		//
-		// Unserialise identifier.
-		//
-		if( $theModifiers & kFLAG_STATE_ENCODED )
-			$this->UnserialiseData( $theIdentifier );
-	
-	} // _PrepareLoad.
-
-	 
-	/*===================================================================================
 	 *	_PrepareCommit																	*
 	 *==================================================================================*/
 
@@ -964,14 +909,17 @@ abstract class CContainer extends CObject
 	 * By default we perform the following checks:
 	 *
 	 * <ul>
+	 *	<li>Ensure the current object has a container.
 	 *	<li>Ensure the identifier is provided if the operation is not an
 	 *		{@link kFLAG_PERSIST_INSERT insert}.
 	 *	<li>Ensure the method has the correct options.
-	 *	<li>Ensure the current object has a container.
 	 *	<li>Get the {@link CPersistentObject::_IsEncoded() encoded} status
-	 *		{@link kFLAG_STATE_ENCODED flag} from the object.
-	 *	<li>{@link UnserialiseObject() Unserialise} object and
-	 *		{@link UnserialiseData() identifier} if necessary.
+	 *		{@link kFLAG_STATE_ENCODED flag} from the object and pass it to the current
+	 *		container.
+	 *	<li>{@link UnserialiseObject() Unserialise} the object if
+	 *		{@link kFLAG_STATE_ENCODED necessary}.
+	 *	<li>{@link UnserialiseData() Unserialise} the identifier if
+	 *		{@link kFLAG_STATE_ENCODED necessary}.
 	 * </ul>
 	 *
 	 * In derived classes you should always call the parent method, remember to check this
@@ -991,10 +939,18 @@ abstract class CContainer extends CObject
 	 * @uses UnserialiseData()
 	 *
 	 * @see kFLAG_STATE_ENCODED
-	 * @see kERROR_OPTION_MISSING kERROR_INVALID_PARAMETER kERROR_INVALID_STATE
 	 */
 	protected function _PrepareCommit( &$theObject, &$theIdentifier, &$theModifiers )
 	{
+		//
+		// Check container.
+		//
+		if( $this->Container() === NULL )
+			throw new CException
+				( "Missing native container",
+				  kERROR_INVALID_STATE,
+				  kMESSAGE_TYPE_ERROR );										// !@! ==>
+		
 		//
 		// Identifier is required
 		//
@@ -1017,6 +973,71 @@ abstract class CContainer extends CObject
 				  array( 'Modifiers' => $theModifiers ) );						// !@! ==>
 		
 		//
+		// Copy encode option.
+		//
+		if( $theObject instanceof CStatusObject )
+		{
+			if( $theObject->Status() & kFLAG_STATE_ENCODED )
+				$theModifiers |= kFLAG_STATE_ENCODED;
+		}
+		
+		//
+		// Unserialise.
+		//
+		if( $theModifiers & kFLAG_STATE_ENCODED )
+		{
+			//
+			// Unserialise object.
+			//
+			$this->UnserialiseObject( $theObject );
+			
+			//
+			// Unserialise identifier.
+			//
+			$this->UnserialiseData( $theIdentifier );
+		}
+	
+	} // _PrepareCommit.
+
+	 
+	/*===================================================================================
+	 *	_PrepareLoad																	*
+	 *==================================================================================*/
+
+	/**
+	 * Prepare before a {@link _Load() load}.
+	 *
+	 * The duty of this method is to ensure that the parameters provided to the
+	 * {@link _Load() find} operation are valid.
+	 *
+	 * By default we perform the following checks:
+	 *
+	 * <ul>
+	 *	<li>Ensure the current object has a container.
+	 *	<li>Ensure the identifier is provided.
+	 *	<li>{@link CDataType::SerialiseData() Serialise} the identifier if
+	 *		{@link kFLAG_STATE_ENCODED necessary}.
+	 * </ul>
+	 *
+	 * In derived classes you should always call the parent method, remember to check this
+	 * method to determine whether to implement your custom changes before or after calling
+	 * this method.
+	 *
+	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Load modifiers.
+	 *
+	 * @access protected
+	 *
+	 * @throws {@link CException CException}
+	 *
+	 * @uses Container()
+	 * @uses UnserialiseData()
+	 *
+	 * @see kFLAG_STATE_ENCODED
+	 */
+	protected function _PrepareLoad( &$theIdentifier, &$theModifiers )
+	{
+		//
 		// Check container.
 		//
 		if( $this->Container() === NULL )
@@ -1024,33 +1045,23 @@ abstract class CContainer extends CObject
 				( "Missing native container",
 				  kERROR_INVALID_STATE,
 				  kMESSAGE_TYPE_ERROR );										// !@! ==>
+	
+		//
+		// Check if identifier is there.
+		//
+		if( $theIdentifier === NULL )
+			throw new CException
+					( "Missing object identifier",
+					  kERROR_OPTION_MISSING,
+					  kMESSAGE_TYPE_ERROR );									// !@! ==>
 		
 		//
-		// Set encode option.
-		//
-		if( $theObject instanceof CStatusObject )
-		{
-			if( ($opt = $theObject->Status()) & kFLAG_STATE_ENCODED )
-				$theModifiers |= kFLAG_STATE_ENCODED;
-		}
-		
-		//
-		// Unserialise object and identifier.
+		// Unserialise.
 		//
 		if( $theModifiers & kFLAG_STATE_ENCODED )
-		{
-			//
-			// Process object.
-			//
-			$this->UnserialiseObject( $theObject );
-			
-			//
-			// Process identifier.
-			//
 			$this->UnserialiseData( $theIdentifier );
-		}
-	
-	} // _PrepareCommit.
+		
+	} // _PrepareLoad.
 
 	 
 	/*===================================================================================
@@ -1063,10 +1074,18 @@ abstract class CContainer extends CObject
 	 * The duty of this method is to ensure that the parameters provided to the
 	 * {@link _Delete() delete} operation are valid.
 	 *
-	 * In this class we ensure that the identifier has been provided, that the current
-	 * object has a native {@link Container() container} and we
-	 * {@link UnserialiseData() unserialise} the provided identifier if
-	 * {@link kFLAG_STATE_ENCODED needed}.
+	 * By default we perform the following checks:
+	 *
+	 * <ul>
+	 *	<li>Ensure the current object has a container.
+	 *	<li>Ensure the identifier is provided.
+	 *	<li>{@link CDataType::SerialiseData() Serialise} the identifier if
+	 *		{@link kFLAG_STATE_ENCODED necessary}.
+	 * </ul>
+	 *
+	 * In derived classes you should always call the parent method, remember to check this
+	 * method to determine whether to implement your custom changes before or after calling
+	 * this method.
 	 *
 	 * @param reference			   &$theIdentifier		Object identifier.
 	 * @param reference			   &$theModifiers		Commit modifiers.
@@ -1076,11 +1095,21 @@ abstract class CContainer extends CObject
 	 * @throws {@link CException CException}
 	 *
 	 * @uses Container()
+	 * @uses UnserialiseData()
 	 *
-	 * @see kERROR_INVALID_STATE
+	 * @see kFLAG_STATE_ENCODED
 	 */
 	protected function _PrepareDelete( &$theIdentifier, &$theModifiers )
 	{
+		//
+		// Check container.
+		//
+		if( $this->Container() === NULL )
+			throw new CException
+				( "Missing native container",
+				  kERROR_INVALID_STATE,
+				  kMESSAGE_TYPE_ERROR );										// !@! ==>
+	
 		//
 		// Check if identifier is there.
 		//
@@ -1091,77 +1120,12 @@ abstract class CContainer extends CObject
 					  kMESSAGE_TYPE_ERROR );									// !@! ==>
 		
 		//
-		// Check container.
-		//
-		if( $this->Container() === NULL )
-			throw new CException
-				( "Missing native container",
-				  kERROR_INVALID_STATE,
-				  kMESSAGE_TYPE_ERROR );										// !@! ==>
-		
-		//
-		// Unserialise identifier.
+		// Unserialise.
 		//
 		if( $theModifiers & kFLAG_STATE_ENCODED )
 			$this->UnserialiseData( $theIdentifier );
-	
-	} // _PrepareDelete.
-
-	 
-	/*===================================================================================
-	 *	_FinishLoad																		*
-	 *==================================================================================*/
-
-	/**
-	 * Normalise after a {@link _Load() load}.
-	 *
-	 * This method will be called after the {@link _Load() load} operation, its duty is to
-	 * clean up or normalise after the operation. The parameters are passed by reference.
-	 *
-	 * The method expects the found object or data in the first parameter and the original
-	 * identifier in the second.
-	 *
-	 * In this class we {@link kFLAG_STATE_ENCODED eventually}
-	 * {@link CDataType::SerialiseObject() serialise} the object and the
-	 * {@link CDataType::SerialiseData() identifier}.
-	 *
-	 * @param reference			   &$theObject			Object reference.
-	 * @param reference			   &$theIdentifier		Object identifier.
-	 * @param reference			   &$theModifiers		Commit modifiers.
-	 *
-	 * @access protected
-	 *
-	 * @uses CDataType::SerialiseObject()
-	 * @uses CDataType::SerialiseData()
-	 *
-	 * @see kFLAG_STATE_ENCODED
-	 */
-	protected function _FinishLoad( &$theObject, &$theIdentifier, &$theModifiers )
-	{
-		//
-		// Serialise object.
-		//
-		if( $theModifiers & kFLAG_STATE_ENCODED )
-		{
-			//
-			// Serialise object.
-			//
-			CDataType::SerialiseObject( $theObject );
-			
-			//
-			// Serialise identifier.
-			//
-			CDataType::SerialiseData( $theIdentifier );
-			
-			//
-			// Copy status.
-			//
-			if( $theObject instanceof CPersistentObject )
-				$theObject->Status( $theObject->Status() | kFLAG_STATE_ENCODED );
 		
-		} // Serialise option.
-	
-	} // _FinishCommit.
+	} // _PrepareDelete.
 
 	 
 	/*===================================================================================
@@ -1171,13 +1135,21 @@ abstract class CContainer extends CObject
 	/**
 	 * Normalise after a {@link _Commit() store}.
 	 *
-	 * This method will be called after the {@link _Commit() store} operation, its duty is
-	 * to clean up or restore the object after the operation please refer to
-	 * {@link Commit() this} documentation for a reference of these parameters. Note that in
-	 * this method all three parameters are passed by reference.
+	 * The duty of this method is to clean up or restore the object after the
+	 * {@link _Commit() store} operation.
 	 *
-	 * In this class we {@link kFLAG_STATE_ENCODED eventually}
-	 * {@link CDataType::SerialiseObject() serialise} the object.
+	 * By default we perform the following checks:
+	 *
+	 * <ul>
+	 *	<li>{@link CDataType::SerialiseObject() Serialise} the object if
+	 *		{@link kFLAG_STATE_ENCODED necessary}.
+	 *	<li>{@link CDataType::SerialiseData() Serialise} the identifier if
+	 *		{@link kFLAG_STATE_ENCODED necessary}.
+	 * </ul>
+	 *
+	 * In derived classes you should always call the parent method, remember to check this
+	 * method to determine whether to implement your custom changes before or after calling
+	 * this method.
 	 *
 	 * @param reference			   &$theObject			Object or data.
 	 * @param reference			   &$theIdentifier		Object identifier.
@@ -1193,7 +1165,7 @@ abstract class CContainer extends CObject
 	protected function _FinishCommit( &$theObject, &$theIdentifier, &$theModifiers )
 	{
 		//
-		// Serialise object.
+		// Serialise.
 		//
 		if( $theModifiers & kFLAG_STATE_ENCODED )
 		{
@@ -1212,31 +1184,43 @@ abstract class CContainer extends CObject
 
 	 
 	/*===================================================================================
-	 *	_FinishDelete																	*
+	 *	_FinishLoad																		*
 	 *==================================================================================*/
 
 	/**
-	 * Normalise after a store.
+	 * Normalise after a {@link _Load() load}.
 	 *
-	 * This method will be called after the {@link _Delete() delete} operation, its duty is
-	 * to clean up or restore the object after the operation please refer to
-	 * {@link Delete() this} documentation for a reference of these parameters. Note that in
-	 * this method all two parameters are passed by reference.
+	 * The duty of this method is to clean up or restore the object after the
+	 * {@link _Load() load} operation.
 	 *
-	 * In this class we {@link kFLAG_STATE_ENCODED eventually}
-	 * {@link CDataType::SerialiseObject() serialise} the object and the
-	 * {@link CDataType::SerialiseData() identifier}.
+	 * By default we perform the following checks:
 	 *
-	 * @param reference			   &$theObject			Object or data.
+	 * <ul>
+	 *	<li>{@link CDataType::SerialiseObject() Serialise} the object if
+	 *		{@link kFLAG_STATE_ENCODED necessary}.
+	 *	<li>{@link CDataType::SerialiseData() Serialise} the identifier if
+	 *		{@link kFLAG_STATE_ENCODED necessary}.
+	 * </ul>
+	 *
+	 * In derived classes you should always call the parent method, remember to check this
+	 * method to determine whether to implement your custom changes before or after calling
+	 * this method.
+	 *
+	 * @param reference			   &$theObject			Object reference.
 	 * @param reference			   &$theIdentifier		Object identifier.
 	 * @param reference			   &$theModifiers		Commit modifiers.
 	 *
 	 * @access protected
+	 *
+	 * @uses CDataType::SerialiseObject()
+	 * @uses CDataType::SerialiseData()
+	 *
+	 * @see kFLAG_STATE_ENCODED
 	 */
-	protected function _FinishDelete( &$theObject, &$theIdentifier, &$theModifiers )
+	protected function _FinishLoad( &$theObject, &$theIdentifier, &$theModifiers )
 	{
 		//
-		// Serialise identifier.
+		// Serialise.
 		//
 		if( $theModifiers & kFLAG_STATE_ENCODED )
 		{
@@ -1250,6 +1234,48 @@ abstract class CContainer extends CObject
 			//
 			CDataType::SerialiseData( $theIdentifier );
 		}
+	
+	} // _FinishLoad.
+
+	 
+	/*===================================================================================
+	 *	_FinishDelete																	*
+	 *==================================================================================*/
+
+	/**
+	 * Normalise after a store.
+	 *
+	 * The duty of this method is to clean up or restore the object after the
+	 * {@link _Delete() delete} operation.
+	 *
+	 * By default we perform the following checks:
+	 *
+	 * <ul>
+	 *	<li>{@link CDataType::SerialiseData() Serialise} the identifier if
+	 *		{@link kFLAG_STATE_ENCODED necessary}.
+	 * </ul>
+	 *
+	 * In derived classes you should always call the parent method, remember to check this
+	 * method to determine whether to implement your custom changes before or after calling
+	 * this method.
+	 *
+	 * @param reference			   &$theObject			Object or data.
+	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Commit modifiers.
+	 *
+	 * @access protected
+	 *
+	 * @uses CDataType::SerialiseData()
+	 *
+	 * @see kFLAG_STATE_ENCODED
+	 */
+	protected function _FinishDelete( &$theObject, &$theIdentifier, &$theModifiers )
+	{
+		//
+		// Serialise.
+		//
+		if( $theModifiers & kFLAG_STATE_ENCODED )
+			CDataType::SerialiseData( $theIdentifier );
 	
 	} // _FinishDelete.
 

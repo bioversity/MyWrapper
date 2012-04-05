@@ -67,6 +67,8 @@ class CMongoContainer extends CContainer
 	 *
 	 * @access public
 	 * @return string
+	 *
+	 * @uses Container()
 	 */
 	public function __toString()
 	{
@@ -149,6 +151,8 @@ class CMongoContainer extends CContainer
 	 *
 	 * @access public
 	 * @return mixed
+	 *
+	 * @uses Container()
 	 */
 	public function Database()
 	{
@@ -325,6 +329,11 @@ class CMongoContainer extends CContainer
 	 *
 	 * @access protected
 	 * @return mixed
+	 *
+	 * @uses Container()
+	 *
+	 * @see kFLAG_PERSIST_INSERT kFLAG_PERSIST_MODIFY
+	 * @see kFLAG_PERSIST_REPLACE kFLAG_PERSIST_UPDATE
 	 */
 	protected function _Commit( &$theObject, &$theIdentifier, &$theModifiers )
 	{
@@ -476,7 +485,8 @@ class CMongoContainer extends CContainer
 			//
 			// Save array.
 			// Note: we need to do this ugly stuff because the
-			// save method parameter is not declared as a reference.
+			// method expects an object, an array will not be updated,
+			// at least as of 5/4/2012.
 			//
 			if( is_array( $theObject ) )
 			{
@@ -592,9 +602,6 @@ class CMongoContainer extends CContainer
 	 * We implement this method to handle MongoCollection object stores, this method will
 	 * remove the object from the current container.
 	 *
-	 * The method will check if the current container is a MongoCollection, if this is not
-	 * the case, it will raise an {@link kERROR_INVALID_STATE exception}.
-	 *
 	 * @param reference			   &$theIdentifier		Object identifier.
 	 * @param reference			   &$theModifiers		Load modifiers.
 	 *
@@ -604,21 +611,28 @@ class CMongoContainer extends CContainer
 	protected function _Delete( &$theIdentifier, &$theModifiers )
 	{
 		//
-		// Set criteria.
+		// Load object.
 		//
-		$criteria = array( kTAG_ID_NATIVE => $theIdentifier );
+		$save = $this->Load( $theIdentifier, $theModifiers );
 		
 		//
-		// Save object.
+		// Delete object.
 		//
-		$save = $this->Load( $theIdentifier );
 		if( $save !== NULL )
 		{
+			//
+			// Set criteria.
+			//
+			$criteria = array( kTAG_ID_NATIVE => $theIdentifier );
+			
 			//
 			// Set options.
 			//
 			$options = array( 'safe' => TRUE, 'justOne' => TRUE );
 			
+			//
+			// Remove object.
+			//
 			$status = $this->Container()->remove( $criteria, $options );
 		
 		} // Object exists.
@@ -661,8 +675,6 @@ class CMongoContainer extends CContainer
 	 * @throws {@link CException CException}
 	 *
 	 * @uses Container()
-	 * @uses UnserialiseObject()
-	 * @uses UnserialiseData()
 	 *
 	 * @see kFLAG_STATE_ENCODED
 	 * @see kERROR_OPTION_MISSING kERROR_INVALID_PARAMETER kERROR_INVALID_STATE
@@ -670,38 +682,32 @@ class CMongoContainer extends CContainer
 	protected function _PrepareCommit( &$theObject, &$theIdentifier, &$theModifiers )
 	{
 		//
-		// Set identifier.
+		// Check object.
 		//
-		if( is_array( $theObject )
-		 || ($theObject instanceof ArrayObject) )
-		{
-			//
-			// Set identifier.
-			//
-			if( $theIdentifier !== NULL )
-				$theObject[ kTAG_ID_NATIVE ] = $theIdentifier;
-				
-			//
-			// Get identifier.
-			//
-			elseif( array_key_exists( kTAG_ID_NATIVE, (array) $theObject ) )
-				$theIdentifier = $theObject[ kTAG_ID_NATIVE ];
-			
-			//
-			// Call parent method.
-			//
-			parent::_PrepareCommit( $theObject, $theIdentifier, $theModifiers );
-		}
-		
-		//
-		// Unsupported object or data.
-		//
-		else
+		if( (! is_array( $theObject ))
+		 && (!$theObject instanceof ArrayObject) )
 			throw new CException
 				( "Unsupported or invalid data or object",
 				  kERROR_UNSUPPORTED,
 				  kMESSAGE_TYPE_ERROR,
 				  array( 'Object' => $theObject ) );							// !@! ==>
+		
+		//
+		// Call parent method.
+		//
+		parent::_PrepareCommit( $theObject, $theIdentifier, $theModifiers );
+
+		//
+		// Set identifier.
+		//
+		if( $theIdentifier !== NULL )
+			$theObject[ kTAG_ID_NATIVE ] = $theIdentifier;
+			
+		//
+		// Get identifier.
+		//
+		elseif( array_key_exists( kTAG_ID_NATIVE, (array) $theObject ) )
+			$theIdentifier = $theObject[ kTAG_ID_NATIVE ];
 	
 	} // _PrepareCommit.
 

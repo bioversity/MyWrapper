@@ -505,17 +505,7 @@ class CArrayContainer extends CContainer
 	 * operations:
 	 *
 	 * <ul>
-	 *	<li>Call the parent {@link CContainer::_PrepareCommit() method} which will:
-	 *	 <ul>
-	 *		<li>Ensure the identifier is provided if the operation is not an
-	 *			{@link kFLAG_PERSIST_INSERT insert}.
-	 *		<li>Ensure the method has the correct options.
-	 *		<li>Ensure the current object has a container.
-	 *		<li>Get the {@link CPersistentObject::_IsEncoded() encoded} status
-	 *			{@link kFLAG_STATE_ENCODED flag} from the object.
-	 *		<li>{@link UnserialiseObject() Unserialise} object and
-	 *			{@link UnserialiseData() identifier} if necessary.
-	 *	 </ul>
+	 *	<li>Call the parent {@link CContainer::_PrepareCommit() method}.
 	 *	<li>Check for object in container if required.
 	 *	<li>Initialise identifier if required.
 	 * </ul>
@@ -530,7 +520,7 @@ class CArrayContainer extends CContainer
 	 *
 	 * @uses _Container()
 	 *
-	 * @see kERROR_DUPLICATE kERROR_NOT_FOUND
+	 * @see kFLAG_PERSIST_REPLACE kFLAG_PERSIST_INSERT kFLAG_PERSIST_UPDATE
 	 */
 	protected function _PrepareCommit( &$theObject, &$theIdentifier, &$theModifiers )
 	{

@@ -186,11 +186,41 @@ $arr[ 123456.27 ] = 2;
 echo( '<pre>' ); print_r( $arr ); echo( '</pre>' );
 asort( $arr );
 echo( '<pre>' ); print_r( $arr ); echo( '</pre>' );
-*/
 
 //
 // Test HTTP.
 //
 $x = new HttpRequest( 'http://www.apple.com/' );
+*/
+
+//
+// Instantiate Mongo database.
+//
+$mongo = New Mongo();
+$db = $mongo->selectDB( "TEST" );
+$db->drop();
+$collection = $db->selectCollection( 'test' );
+
+//
+// Insert.
+//
+$a = array( 'x' => 1 );
+$b = array( 'x' => 1 );
+$c = array( 'x' => 1 );
+$collection->insert( $a );
+$collection->insert( $b );
+$collection->insert( $c );
+$curs = $collection->find();
+$list = Array();
+foreach( $curs as $elm )
+	$list[] = $elm;
+echo( '<pre>' ); print_r( $list ); echo( '</pre>' );
+
+$crit = array( '_id' => $list[ 0 ][ '_id' ] );
+$opt = array( 'safe' => TRUE );
+$stat = $collection->remove( $crit, $opt );
+echo( '<pre>' ); print_r( $stat ); echo( '</pre>' );
+$stat = $collection->remove( $crit, $opt );
+echo( '<pre>' ); print_r( $stat ); echo( '</pre>' );
 
 ?>

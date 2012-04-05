@@ -135,6 +135,11 @@ try
 	echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
 	echo( '<hr>' );
 	
+	echo( '<i>$object = new ArrayObject();</i><br>' );
+	echo( '<i>$object[] = 111;</i><br>' );
+	$object = new ArrayObject();
+	$object[] = 111;
+	echo( '<pre>' ); print_r( $object ); echo( '</pre>' );
 	echo( '<i>$found = $test->Commit( $object, 9, kFLAG_PERSIST_INSERT );</i><br>' );
 	$found = $test->Commit( $object, 9, kFLAG_PERSIST_INSERT );
 	echo( '<pre>' ); print_r( $object ); echo( '</pre>' );
@@ -249,19 +254,12 @@ try
 	$found = $test->Delete( 9 );
 	echo( '<pre>' ); print_r( $found ); echo( '</pre>' );
 	echo( '<hr>' );
-
-	//
-	// Encode.
-	//
-	echo( '<h3>Encode</h3>' );
 	
+	//
+	// Save test data.
+	//
 	$array = array
 	(
-		kTAG_ID_NATIVE => array
-		(
-			kTAG_TYPE => kDATA_TYPE_MongoId,
-			kTAG_DATA => '4f5e28d2961be56010000003'
-		),
 		'Stamp' => array
 		(
 			kTAG_TYPE => kDATA_TYPE_STAMP,
@@ -290,29 +288,62 @@ try
 		(
 			kTAG_TYPE => kDATA_TYPE_BINARY,
 			kTAG_DATA => bin2hex( 'PIPPO' )
-		)
+		),
+		'Integer' => 123456789,
+		'Longint' => 123456789123456,
+		'String' => 'a string'
 	);
-	echo( 'Serialised<pre>' ); print_r( $array ); echo( '</pre>' );
-	echo( '<i>$test->UnserialiseObject( $array );</i><br>' );
-	$test->UnserialiseObject( $array );
-	echo( 'Unserialised<pre>' ); print_r( $array ); echo( '</pre>' );
+
+	//
+	// Encoding.
+	//
+	echo( '<h3>Encoding</h3>' );
+	echo( 'Original<pre>' ); print_r( $array ); echo( '</pre>' );
+	
+	$clone = $array;
+	echo( '<i>$test->UnserialiseObject( $clone );</i><br>' );
+	$test->UnserialiseObject( $clone );
+	echo( 'Unserialised<pre>' ); print_r( $clone ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	echo( '<i>CDataType::SerialiseObject( $array );</i><br>' );
-	CDataType::SerialiseObject( $array );
-	echo( 'Decoded<pre>' ); print_r( $array ); echo( '</pre>' );
+	echo( '<i>CDataType::SerialiseObject( $clone );</i><br>' );
+	CDataType::SerialiseObject( $clone );
+	echo( 'Decoded<pre>' ); print_r( $clone ); echo( '</pre>' );
+	echo( '<hr>' );
+
+	//
+	// Encoding with flag.
+	//
+	echo( '<h3>Encoding with flag</h3>' );
+	
+	$clone = $array;
+	echo( '<i><b>Without flag</b></i><br>' );
+	echo( '<i>$id = $test->Commit( $clone );</i><br>' );
+	$id = $test->Commit( $clone );
+	echo( 'Identifier<pre>' ); print_r( $id ); echo( '</pre>' );
+	echo( 'Object<pre>' ); print_r( $clone ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	echo( '<i>$found = $test->Commit( $array, 123, kFLAG_PERSIST_REPLACE + kFLAG_STATE_ENCODED );</i><br>' );
-	$found = $test->Commit( $array, 123, kFLAG_PERSIST_REPLACE + kFLAG_STATE_ENCODED );
-	echo( '<pre>' ); print_r( $array ); echo( '</pre>' );
-	echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
-	echo( '<i>$object = $test->Load( $found, kFLAG_STATE_ENCODED );</i><br>' );
-	$object = $test->Load( $found, kFLAG_STATE_ENCODED );
-	echo( '<pre>' ); print_r( $object ); echo( '</pre>' );
-	echo( '<i>$object = $test->Load( $found );</i><br>' );
-	$object = $test->Load( $found );
-	echo( '<pre>' ); print_r( $object ); echo( '</pre>' );
+	$clone = $array;
+	echo( '<i><b>With flag</b></i><br>' );
+	echo( '<i>$id = $test->Commit( $clone, NULL, kFLAG_PERSIST_INSERT + kFLAG_STATE_ENCODED );</i><br>' );
+	$id = $test->Commit( $clone, NULL, kFLAG_PERSIST_INSERT + kFLAG_STATE_ENCODED );
+	echo( 'Identifier<pre>' ); print_r( $id ); echo( '</pre>' );
+	echo( 'Object<pre>' ); print_r( $clone ); echo( '</pre>' );
+	$id_native = $id;
+	$test->UnserialiseData( $id_native );
+	echo( '<i>$found = $test->Load( $id_native );</i><br>' );
+	$found = $test->Load( $id_native );
+	echo( 'In db<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<i>$id = $test->Commit( $found, NULL, kFLAG_PERSIST_REPLACE + kFLAG_STATE_ENCODED );</i><br>' );
+	$id = $test->Commit( $found, NULL, kFLAG_PERSIST_REPLACE + kFLAG_STATE_ENCODED );
+	echo( 'Identifier<pre>' ); print_r( $id ); echo( '</pre>' );
+	echo( 'Object<pre>' ); print_r( $found ); echo( '</pre>' );
+	$id_native = $id;
+	$test->UnserialiseData( $id_native );
+	echo( '<i>$found = $test->Load( $id_native );</i><br>' );
+	$found = $test->Load( $id_native );
+	echo( 'In db<pre>' ); print_r( $found ); echo( '</pre>' );
 	echo( '<hr>' );
 }
 

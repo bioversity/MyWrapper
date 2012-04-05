@@ -505,12 +505,14 @@ class CPersistentObject extends CStatusObject
 	 * The conversion to {@link CDataType standard} types is
 	 * {@link CDataType::SerialiseObject() done} when {@link __construct() loading} the
 	 * object from a {@link CContainer container} and the opposite is
-	 * {@link CContainer::UnserialiseObject() dome} before {@link Commit() storing} the
-	 * object into a {@link CContainer container}.
+	 * {@link CContainer::UnserialiseObject() done} before {@link Commit() storing} the
+	 * object into a {@link CContainer container}, these operations are performed by the
+	 * {@link CContainer container} object that takes care of object persistence.
 	 *
-	 * You only need to include the {@link kFLAG_STATE_ENCODED kFLAG_STATE_ENCODED} flag
-	 * when {@link __construct() loading} or {@link Commit() storing} the object in order
-	 * to have this conversion happen transparently.
+	 * This {@link kFLAG_STATE_ENCODED kFLAG_STATE_ENCODED} flag can be provided at
+	 * {@link __construct() instantiation} or directly to the persistence methods, although
+	 * it is a better idea to provide it in the {@link __construct() constructor} to have
+	 * this conversion happen transparently.
 	 *
 	 * The method features a single parameter:
 	 *

@@ -447,18 +447,14 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">535</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">525</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Normalise before a store.</p>
-<p class="description"><p>We <a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareCommit">overload</a> this method to perform the following  operations:</p><p><ul><li>Call the parent <a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareCommit">method</a> which will:
-     <ul><li>Ensure the identifier is provided if the operation is not an
-            <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_INSERT">insert</a>.</li><li>Ensure the method has the correct options.</li><li>Ensure the current object has a container.</li><li>Get the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsEncoded">encoded</a> status
-            <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">flag</a> from the object.</li><li><a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseObject">Unserialise</a> object and
-            <a href="../../MyWrapper/Persistence/CArrayContainer.html#methodUnserialiseData">identifier</a> if necessary.</li></ul></li><li>Check for object in container if required.</li><li>Initialise identifier if required.</li></ul></p></p>
+<p class="description"><p>We <a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareCommit">overload</a> this method to perform the following  operations:</p><p><ul><li>Call the parent <a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareCommit">method</a>.</li><li>Check for object in container if required.</li><li>Initialise identifier if required.</li></ul></p></p>
 	<ul class="tags">
-				<li><span class="field">see:</span> kERROR_DUPLICATE kERROR_NOT_FOUND</li>
+				<li><span class="field">see:</span> kFLAG_PERSIST_REPLACE kFLAG_PERSIST_INSERT kFLAG_PERSIST_UPDATE</li>
 				<li><span class="field">throws:</span> <a href="../../MyWrapper/Core/CException.html">CException</a></li>
 				<li><span class="field">access:</span> protected</li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CContainer.html#method_Container">CContainer::_Container()</a></li>
@@ -591,7 +587,7 @@
 
 	
 	<p class="notes" id="credit">
-		Documentation generated on Wed, 04 Apr 2012 02:35:29 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 05 Apr 2012 15:32:37 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

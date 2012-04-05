@@ -3,7 +3,7 @@
   <html xmlns="http://www.w3.org/1999/xhtml">
 		<head>
 			<!-- template designed by Marco Von Ballmoos -->
-			<title>Docs For Class CUser</title>
+			<title>Docs For Class CInstitute</title>
 			<link rel="stylesheet" href="../../media/stylesheet.css" />
 			<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
 		</head>
@@ -12,7 +12,7 @@
 <h2 class="class-name"><img src="../../media/images/Class_logo.png"
 														alt=" Class"
 														title=" Class"
-														style="vertical-align: middle"> CUser</h2>
+														style="vertical-align: middle"> CInstitute</h2>
 
 <a name="sec-description"></a>
 <div class="info-box">
@@ -28,12 +28,11 @@
 	<div class="info-box-body">
         		<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">User.</p>
-<p class="description"><p>This class overloads its <a href="../../MyWrapper/Entities/CEntity.html">ancestor</a> to implement a user entity.</p><p>Users are entities that are used for authentication purposes, they share the same  attributes as their parent <a href="../../MyWrapper/Entities/CEntity.html">class</a> and add one required element:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_PASSWORD">kOFFSET_PASSWORD</a></em>: This offset represents the user
-        access password, it will be used in the authentication process.
-        The class features a member accessor <a href="../../MyWrapper/Entities/CUser.html#methodPassword">method</a> to manage this
-        property.</li></ul></p><p>The object is considered <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">initialised</a> only if it has its  <a href="../../MyWrapper/Entities/CEntity.html#methodCode">code</a>, as its <a href="../../MyWrapper/Entities/CEntity.html">ancestor</a>, its <a href="../../MyWrapper/Entities/CEntity.html#methodName">name</a>,  <a href="../../MyWrapper/Entities/CUser.html#methodPassword">password</a> and <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a> address.</p><p>If the <a href="../../MyWrapper/Entities/CEntity.html#methodCode">code</a> has not been explicitly set, <a href="../../MyWrapper/Entities/CUser.html#method_PrepareCommit">before</a>  <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">committing</a> the object it will be set to the value of the  <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a>. Also in that phase, the <a href="../../MyWrapper/Entities/_classes---CUser.inc.php.html#definekENTITY_USER">kENTITY_USER</a> constant  will be set in the user Type().</p><p>The <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a> in this class is a scalar property, in other classes it will  probably be a list of different e-mail types. In this class we want to link a single  user with a single e-mail, possibly not shared by any other user, that is why we link by  default the user <a href="../../MyWrapper/Entities/CEntity.html#methodCode">code</a> and <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a>.</p></p>
+<p class="description"><p>This class overloads its <a href="../../MyWrapper/Entities/CContact.html">ancestor</a> to implement an institute contact  entity.</p><p>Institutes feature specific properties that are added to the inherited ones:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_ACRONYM">kOFFSET_ACRONYM</a></em>: This offset represents the institute
+        list of Acronym().</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_URL">kOFFSET_URL</a></em>: This offset represents the institute list of
+        URLs or web pages.</li></ul></p><p>The object is considered <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">initialised</a> only if it has its  <a href="../../MyWrapper/Entities/CEntity.html#methodCode">code</a>, as its <a href="../../MyWrapper/Entities/CEntity.html">ancestor</a>, its <a href="../../MyWrapper/Entities/CEntity.html#methodName">name</a>,  <a href="../../MyWrapper/Entities/CInstitute.html#methodPassword">password</a> and <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a> address.</p><p>If the <a href="../../MyWrapper/Entities/CEntity.html#methodCode">code</a> has not been explicitly set, <a href="../../MyWrapper/Entities/CInstitute.html#method_PrepareCommit">before</a>  <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">committing</a> the object it will be set to the value of the  <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a>. Also in that phase, the <a href="../../MyWrapper/Entities/_classes---CUser.inc.php.html#definekENTITY_USER">kENTITY_USER</a> constant  will be set in the user Type().</p><p>The <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a> in this class is a scalar property, in other classes it will  probably be a list of different e-mail types. In this class we want to link a single  user with a single e-mail, possibly not shared by any other user, that is why we link by  default the user <a href="../../MyWrapper/Entities/CEntity.html#methodCode">code</a> and <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a>.</p></p>
 		<p class="notes">
-			Located in <a class="field" href="_classes---CUser.php.html">/classes/CUser.php</a> (line <span class="field">68</span>)
+			Located in <a class="field" href="_classes---CInstitute.php.html">/classes/CInstitute.php</a> (line <span class="field">68</span>)
 		</p>
 		
 				
@@ -49,7 +48,7 @@
                |
                --<a href="../../MyWrapper/Entities/CEntity.html">CEntity</a>
                   |
-                  --CUser</pre>
+                  --CInstitute</pre>
 	
 			</div>
 </div>
@@ -73,7 +72,7 @@
 			<div class="method-summary">
 																																																																								<div class="method-definition">
 					<img src="../../media/images/Constructor.png" alt=" "/>
-											<span class="method-result">CUser</span>
+											<span class="method-result">CInstitute</span>
 										<a href="#__construct" title="details" class="method-name">__construct</a>
 											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span> = <span class="var-default">NULL</span>])
 									</div>
@@ -158,7 +157,7 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Constructor.png" />
@@ -167,13 +166,13 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Instantiate class.</p>
-<p class="description"><p>We <a href="../../MyWrapper/Entities/CEntity.html#method__construct">overload</a> the constructor to initialise the  <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">inited</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">flag</a> if the  <a href="../../MyWrapper/Entities/CUser.html#methodPassword">password</a> element is set.</p></p>
+<p class="description"><p>We <a href="../../MyWrapper/Entities/CEntity.html#method__construct">overload</a> the constructor to initialise the  <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">inited</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">flag</a> if the  <a href="../../MyWrapper/Entities/CInstitute.html#methodPassword">password</a> element is set.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 			</ul>
 	
 	<div class="method-signature">
-		<span class="method-result">CUser</span>
+		<span class="method-result">CInstitute</span>
 		<span class="method-name">
 			__construct
 		</span>
@@ -198,7 +197,7 @@
 			
 	</div>
 <a name="methodoffsetSet" id="offsetSet"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -240,7 +239,7 @@
 			
 	</div>
 <a name="methodoffsetUnset" id="offsetUnset"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -279,7 +278,7 @@
 			
 	</div>
 <a name="methodPassword" id="Password"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -315,7 +314,7 @@
 			
 	</div>
 <a name="method_id" id="_id"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -324,7 +323,7 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Return the object's unique identifier.</p>
-<p class="description"><p>In this class we hash the result of the <a href="../../MyWrapper/Entities/CUser.html#method_index">_index</a> method, this means  that we need to</p></p>
+<p class="description"><p>In this class we hash the result of the <a href="../../MyWrapper/Entities/CInstitute.html#method_index">_index</a> method, this means  that we need to</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
 			</ul>
@@ -347,7 +346,7 @@
 			
 	</div>
 <a name="method_index" id="_index"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -381,7 +380,7 @@
 			
 	</div>
 <a name="method_PrepareCommit" id="_PrepareCommit"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -629,7 +628,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Thu, 05 Apr 2012 15:32:43 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 05 Apr 2012 15:32:40 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

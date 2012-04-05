@@ -9,9 +9,9 @@
 		</head>
 		<body>
 			<div class="page-body">			
-<h2 class="class-name"><img src="../../media/images/AbstractClass_logo.png"
-														alt="Abstract Class"
-														title="Abstract Class"
+<h2 class="class-name"><img src="../../media/images/Class_logo.png"
+														alt=" Class"
+														title=" Class"
 														style="vertical-align: middle"> CContact</h2>
 
 <a name="sec-description"></a>
@@ -28,14 +28,11 @@
 	<div class="info-box-body">
         		<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Contact.</p>
-<p class="description"><p>This class overloads its <a href="../../MyWrapper/Entities/CEntity.html">ancestor</a> to implement a contact entity.</p><p>Contacts are entities that need to be tracked by <a href="../../MyWrapper/Entities/CContact.html#methodMail">mail</a>,  <a href="../../MyWrapper/Entities/CContact.html#methodPhone">telephone</a> or <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a>.</p><p>The class is declared <em>abstract</em> because the class does not feature a default  <a href="../../MyWrapper/Entities/CEntity.html#methodType">type</a>, thus should be derived to be instantiated.</p><p>The class features the following properties:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL">kOFFSET_MAIL</a></em>: The contact <a href="../../MyWrapper/Entities/CContact.html#methodMail">mailing</a> address
+<p class="description"><p>This class overloads its <a href="../../MyWrapper/Entities/CEntity.html">ancestor</a> to implement a contact entity.</p><p>Contacts are entities that need to be tracked by <a href="../../MyWrapper/Entities/CContact.html#methodMail">mail</a>,  <a href="../../MyWrapper/Entities/CContact.html#methodPhone">telephone</a> or <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a>.</p><p>The class features the following properties:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL">kOFFSET_MAIL</a></em>: The contact <a href="../../MyWrapper/Entities/CContact.html#methodMail">mailing</a> address
         list.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_PHONE">kOFFSET_PHONE</a></em>: The contact <a href="../../MyWrapper/Entities/CContact.html#methodPhone">telephone</a>
         list.</li></ul></p><p>These three properties are managed as an array of elements discriminated by the  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kTAG_KIND</a> offset, no two elements may share the same  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kind</a>.</p><p>The object inherits the <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">inited</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>, it  is the responsibility of concrete classes to implement this feature.</p></p>
-	<ul class="tags">
-				<li><span class="field">abstract:</span> </li>
-			</ul>
 		<p class="notes">
-			Located in <a class="field" href="_classes---CContact.php.html">/classes/CContact.php</a> (line <span class="field">66</span>)
+			Located in <a class="field" href="_classes---CContact.php.html">/classes/CContact.php</a> (line <span class="field">63</span>)
 		</p>
 		
 				
@@ -134,7 +131,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Mail</span> (line <span class="line-number">127</span>)
+		<span class="method-title">Mail</span> (line <span class="line-number">124</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -180,7 +177,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Phone</span> (line <span class="line-number">184</span>)
+		<span class="method-title">Phone</span> (line <span class="line-number">181</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -237,13 +234,17 @@
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodEmail">CEntity::Email()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodKind">CEntity::Kind()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodName">CEntity::Name()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodoffsetSet">CEntity::offsetSet()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodoffsetUnset">CEntity::offsetUnset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodType">CEntity::Type()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodValid">CEntity::Valid()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodValidEntity">CEntity::ValidEntity()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#method_index">CEntity::_index()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
@@ -421,7 +422,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Wed, 04 Apr 2012 02:35:29 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 05 Apr 2012 15:32:37 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

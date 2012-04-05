@@ -325,6 +325,10 @@
 		<div class="notes">Redefined in descendants as:</div>
 		<ul class="redefinitions">
 					<li>
+				<a href="../../MyWrapper/Entities/CInstitute.html#method_id">CInstitute::_id()</a>
+								: Return the object's unique identifier.
+							</li>
+					<li>
 				<a href="../../MyWrapper/Entities/CUser.html#method_id">CUser::_id()</a>
 								: Return the object's unique identifier.
 							</li>
@@ -363,6 +367,10 @@
 								: Return the object's unique index.
 							</li>
 					<li>
+				<a href="../../MyWrapper/Entities/CInstitute.html#method_index">CInstitute::_index()</a>
+								: Return the object's unique index.
+							</li>
+					<li>
 				<a href="../../MyWrapper/Entities/CUser.html#method_index">CUser::_index()</a>
 								: Return the object's unique index.
 							</li>
@@ -382,16 +390,16 @@
 	 <ul><li><em>The object</em>: The actual referenced object.</li><li><em>The object reference</em>: An object reference structure or a scalar
 			representing the object <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a>.</li></ul>
         or:</li><li><em>Array</em>: A structure composed of two items:
-     <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a></em>: This offset represents the type or
+     <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kTAG_KIND</a></em>: This offset represents the type or
             class of the reference.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: This offset represents the actual object
             or object reference.</li></ul></li></ul></p><p>The reference list is numerically indexed array and this method will ensure it  remains so.</p><p>The method accepts the following parameters:</p><p><ul><li><strong>$theOffset</strong>: This parameter represents the offset in the current object
         that holds the list of references. This value may not be empty.</li><li><strong>$theValue</strong>: This parameter represents either the search key in the list
         when retrieving or deleting, or the reference when replacing or adding. If you
         provide an array, it means that the elements may have a
-        <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a> offset and that the reference or object must be
+        <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kTAG_KIND</a> offset and that the reference or object must be
         found in the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a> offset. When matching, if the
-        <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a> offset is not provided, it means that only those
-        elements that do not have a <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a> offset will be selected
+        <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kTAG_KIND</a> offset is not provided, it means that only those
+        elements that do not have a <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kTAG_KIND</a> offset will be selected
         for matching. If the types match, the method will use the
         <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_ObjectIndex">_ObjectIndex</a> method to match the references, please refer
         to its documentation for more information. If the provided value is not an
@@ -533,6 +541,10 @@
 					<li>
 				<a href="../../MyWrapper/Entities/CEntity.html#method_PrepareCommit">CEntity::_PrepareCommit()</a>
 								: Normalise before a store.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Entities/CInstitute.html#method_PrepareCommit">CInstitute::_PrepareCommit()</a>
+								: Normalise parameters of a store.
 							</li>
 					<li>
 				<a href="../../MyWrapper/Entities/CUser.html#method_PrepareCommit">CUser::_PrepareCommit()</a>
@@ -793,7 +805,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Wed, 04 Apr 2012 02:35:33 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 05 Apr 2012 15:32:42 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

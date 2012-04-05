@@ -402,12 +402,11 @@ abstract class CDataType extends CArrayObject
 				
 				//
 				// Handle integers.
-				// Note we cast to INT64 to be on the safe side.
 				//
 				elseif( is_int( $theElement ) )
 				{
 					$theType = kDATA_TYPE_INT64;
-					$theElement = new CDataTypeInt64( (string) $theElement );
+					$theElement = new CDataTypeInt32( (string) $theElement );
 				}
 				
 				//

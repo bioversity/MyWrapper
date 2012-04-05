@@ -151,7 +151,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Container</span> (line <span class="line-number">109</span>)
+		<span class="method-title">Container</span> (line <span class="line-number">111</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -160,6 +160,9 @@
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CMongoContainer.html#method_PrepareCommit">CMongoContainer::_PrepareCommit()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CMongoContainer.html#method_Commit">CMongoContainer::_Commit()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CMongoContainer.html#methodDatabase">CMongoContainer::Database()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CMongoContainer.html#method__toString">CMongoContainer::__toString()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -192,7 +195,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Database</span> (line <span class="line-number">153</span>)
+		<span class="method-title">Database</span> (line <span class="line-number">157</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -200,6 +203,7 @@
 <p class="description"><p>In this class we return the collection's database.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CMongoContainer.html#methodContainer">CMongoContainer::Container()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -224,7 +228,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">UnserialiseData</span> (line <span class="line-number">215</span>)
+		<span class="method-title">UnserialiseData</span> (line <span class="line-number">219</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -246,7 +250,6 @@
         object.</li></ul></p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CMongoContainer.html#method_PrepareCommit">CMongoContainer::_PrepareCommit()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -276,14 +279,17 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Commit</span> (line <span class="line-number">329</span>)
+		<span class="method-title">_Commit</span> (line <span class="line-number">338</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Commit provided object.</p>
 <p class="description"><p>We implement this method to handle MongoCollection object stores, this method will  store the object in the current container.</p><p>The method will check if the current container is a MongoCollection, if this is not  the case, it will raise an <a href="../../MyWrapper/Definitions/_defines---Errors.inc.php.html#definekERROR_INVALID_STATE">exception</a>.</p><p>If the provided modifiers indicate a <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_MODIFY">modify</a> operation,  the method will return the modified object, in all other cases the method will return  the object identifier.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> kFLAG_PERSIST_REPLACE kFLAG_PERSIST_UPDATE</li>
+				<li><span class="field">see:</span> kFLAG_PERSIST_INSERT kFLAG_PERSIST_MODIFY</li>
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CMongoContainer.html#methodContainer">CMongoContainer::Container()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -319,12 +325,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Delete</span> (line <span class="line-number">604</span>)
+		<span class="method-title">_Delete</span> (line <span class="line-number">611</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Delete object.</p>
-<p class="description"><p>We implement this method to handle MongoCollection object stores, this method will  remove the object from the current container.</p><p>The method will check if the current container is a MongoCollection, if this is not  the case, it will raise an <a href="../../MyWrapper/Definitions/_defines---Errors.inc.php.html#definekERROR_INVALID_STATE">exception</a>.</p></p>
+<p class="description"><p>We implement this method to handle MongoCollection object stores, this method will  remove the object from the current container.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
 			</ul>
@@ -359,7 +365,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Load</span> (line <span class="line-number">573</span>)
+		<span class="method-title">_Load</span> (line <span class="line-number">583</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -399,7 +405,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">670</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">682</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -410,9 +416,7 @@
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a></li>
 				<li><span class="field">throws:</span> <a href="../../MyWrapper/Core/CException.html">CException</a></li>
 				<li><span class="field">access:</span> protected</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseObject">CContainer::UnserialiseObject()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CMongoContainer.html#methodContainer">CMongoContainer::Container()</a></li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CMongoContainer.html#methodUnserialiseData">CMongoContainer::UnserialiseData()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -448,7 +452,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">__toString</span> (line <span class="line-number">71</span>)
+		<span class="method-title">__toString</span> (line <span class="line-number">73</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -456,6 +460,7 @@
 <p class="description"><p>This method should return the current container's name.</p><p>In this class we return the collection name.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CMongoContainer.html#methodContainer">CMongoContainer::Container()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -541,7 +546,7 @@
 
 	
 	<p class="notes" id="credit">
-		Documentation generated on Wed, 04 Apr 2012 02:35:32 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 05 Apr 2012 15:32:41 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

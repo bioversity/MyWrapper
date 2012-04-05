@@ -224,7 +224,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static SerialiseData</span> (line <span class="line-number">535</span>)
+		<span class="method-title">static SerialiseData</span> (line <span class="line-number">534</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -238,6 +238,7 @@
         object.</li><li><em>MongoInt64</em>: We convert into a <a href="../../MyWrapper/Core/CDataTypeInt64.html">CDataTypeInt64</a>
         object.</li></ul></p></p>
 	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CContainer.html#method_FinishDelete">CContainer::_FinishDelete()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CContainer.html#method_FinishCommit">CContainer::_FinishCommit()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CContainer.html#method_FinishLoad">CContainer::_FinishLoad()</a></li>
 			</ul>
@@ -301,8 +302,8 @@
 <p class="short-description">Serialise provided object.</p>
 <p class="description"><p>This method will take an object and convert all data elements that are compatible  with one of the concrete classes derived from this one into a derived concrete  instance.</p><p>This method is useful when encoding objects in a format suitable for being  transmitted, or just after <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">committing</a> them to  a persistent <a href="../../MyWrapper/Persistence/CContainer.html">container</a>.</p><p>This method will ensure that the object contains data types compatible with PHP and  this library; it will be the duty of persistent <a href="../../MyWrapper/Persistence/CContainer.html">containers</a> to  convert these structures into custom data types compatible with their storage  engines.</p><p>The method will scan the provided data elements: array or ArrayObject elements will  be recursed, scalar elements will be sent to the public  <a href="../../MyWrapper/Core/CDataType.html#methodSerialiseData">SerialiseData</a> method that will take care of performing the  actual data conversion.</p><p>If an element of the provided structure is converted, it will <em>always</em> be an  object derived from this class, and all conversions will be performed on the object  itself, which means that you should expect the provided object to be modified.</p></p>
 	<ul class="tags">
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CContainer.html#method_FinishCommit">CContainer::_FinishCommit()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CContainer.html#method_FinishLoad">CContainer::_FinishLoad()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CContainer.html#method_FinishCommit">CContainer::_FinishCommit()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -506,7 +507,7 @@
 
 	
 	<p class="notes" id="credit">
-		Documentation generated on Wed, 04 Apr 2012 02:35:30 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 05 Apr 2012 15:32:38 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

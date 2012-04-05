@@ -348,6 +348,10 @@
 								: Instantiate class.
 							</li>
 					<li>
+				<a href="../../MyWrapper/Entities/CInstitute.html#method__construct">CInstitute::__construct()</a>
+								: Instantiate class.
+							</li>
+					<li>
 				<a href="../../MyWrapper/Entities/CUser.html#method__construct">CUser::__construct()</a>
 								: Instantiate class.
 							</li>
@@ -473,7 +477,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Commit</span> (line <span class="line-number">663</span>)
+		<span class="method-title">_Commit</span> (line <span class="line-number">665</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -512,7 +516,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Create</span> (line <span class="line-number">592</span>)
+		<span class="method-title">_Create</span> (line <span class="line-number">594</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -549,7 +553,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishCommit</span> (line <span class="line-number">928</span>)
+		<span class="method-title">_FinishCommit</span> (line <span class="line-number">930</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -587,7 +591,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishLoad</span> (line <span class="line-number">905</span>)
+		<span class="method-title">_FinishLoad</span> (line <span class="line-number">907</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -635,12 +639,14 @@
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_COMMITTED">kFLAG_STATE_COMMITTED</a></li>
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Entities/CInstitute.html#methodoffsetUnset">CInstitute::offsetUnset()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Entities/CUser.html#methodoffsetSet">CUser::offsetSet()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Entities/CUser.html#methodoffsetUnset">CUser::offsetUnset()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodUncommit">CPersistentObject::Uncommit()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Entities/CInstitute.html#methodoffsetSet">CInstitute::offsetSet()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">CPersistentObject::Commit()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">CPersistentObject::__construct()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CStatusObject.html#method_ManageBitField">CStatusObject::_ManageBitField()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">CPersistentObject::Commit()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodUncommit">CPersistentObject::Uncommit()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -664,12 +670,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_IsEncoded</span> (line <span class="line-number">536</span>)
+		<span class="method-title">_IsEncoded</span> (line <span class="line-number">538</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage encoded status.</p>
-<p class="description"><p>This method can be used to get or set the object's encoded state.</p><p>This flag determines whether custom data types are to be converted to  <a href="../../MyWrapper/Core/CDataType.html">standard</a> types when working with the object. This is especially  useful when transmitting the object through the network or when managing custom  database types.</p><p>The conversion to <a href="../../MyWrapper/Core/CDataType.html">standard</a> types is  <a href="../../MyWrapper/Core/CDataType.html#methodSerialiseObject">done</a> when <a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">loading</a> the  object from a <a href="../../MyWrapper/Persistence/CContainer.html">container</a> and the opposite is  <a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseObject">dome</a> before <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">storing</a> the  object into a <a href="../../MyWrapper/Persistence/CContainer.html">container</a>.</p><p>You only need to include the <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a> flag  when <a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">loading</a> or <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">storing</a> the object in order  to have this conversion happen transparently.</p><p>The method features a single parameter:</p><p><ul><li><em>NULL</em>: The method will return <em>TRUE</em> if the object is encoded, or
+<p class="description"><p>This method can be used to get or set the object's encoded state.</p><p>This flag determines whether custom data types are to be converted to  <a href="../../MyWrapper/Core/CDataType.html">standard</a> types when working with the object. This is especially  useful when transmitting the object through the network or when managing custom  database types.</p><p>The conversion to <a href="../../MyWrapper/Core/CDataType.html">standard</a> types is  <a href="../../MyWrapper/Core/CDataType.html#methodSerialiseObject">done</a> when <a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">loading</a> the  object from a <a href="../../MyWrapper/Persistence/CContainer.html">container</a> and the opposite is  <a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseObject">done</a> before <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">storing</a> the  object into a <a href="../../MyWrapper/Persistence/CContainer.html">container</a>, these operations are performed by the  <a href="../../MyWrapper/Persistence/CContainer.html">container</a> object that takes care of object persistence.</p><p>This <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a> flag can be provided at  <a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">instantiation</a> or directly to the persistence methods, although  it is a better idea to provide it in the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">constructor</a> to have  this conversion happen transparently.</p><p>The method features a single parameter:</p><p><ul><li><em>NULL</em>: The method will return <em>TRUE</em> if the object is encoded, or
         <em>FALSE</em> if the object is not encoded.</li><li><em>TRUE</em>: The method will set the object to encoded.</li><li><em>FALSE</em>: The method will reset the object's encoded state.</li></ul></p><p>In all cases the method will return the state <em>after</em> it was eventually  modified.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a></li>
@@ -700,7 +706,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Load</span> (line <span class="line-number">693</span>)
+		<span class="method-title">_Load</span> (line <span class="line-number">695</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -738,7 +744,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">852</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">854</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -785,6 +791,10 @@
 								: Normalise before a store.
 							</li>
 					<li>
+				<a href="../../MyWrapper/Entities/CInstitute.html#method_PrepareCommit">CInstitute::_PrepareCommit()</a>
+								: Normalise parameters of a store.
+							</li>
+					<li>
 				<a href="../../MyWrapper/Entities/CUser.html#method_PrepareCommit">CUser::_PrepareCommit()</a>
 								: Normalise parameters of a store.
 							</li>
@@ -795,7 +805,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCreate</span> (line <span class="line-number">734</span>)
+		<span class="method-title">_PrepareCreate</span> (line <span class="line-number">736</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -834,7 +844,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">780</span>)
+		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">782</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1001,7 +1011,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Wed, 04 Apr 2012 02:35:33 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 05 Apr 2012 15:32:42 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

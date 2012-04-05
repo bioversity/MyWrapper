@@ -350,7 +350,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Commit</span> (line <span class="line-number">294</span>)
+		<span class="method-title">Commit</span> (line <span class="line-number">292</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -383,22 +383,19 @@
             assumes you want to remove the object from the container, although this
             operation has its own public <a href="../../MyWrapper/Persistence/CContainer.html#methodDelete">method</a>, derived classes can
             use this option to implement a <em>deleted state</em>, rather than actually
-            removing the object from the container.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a></em>: This option will
-            generally be taken from the first parameter if it is a
-            <a href="../../MyWrapper/Persistence/CPersistentObject.html">persistent</a> object: if set, it means that the
-            object may have elements derived from concrete instances of
-            <a href="../../MyWrapper/Core/CDataType.html">CDataType</a>, which means that these will have to be
-            <a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseObject">encoded</a> into the native database types before
-            committing the data. This option will be set <a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareCommit">before</a>
-            <a href="../../MyWrapper/Persistence/CContainer.html#method_Commit">committing</a>.</li></ul></li></ul></p><p>The method will return the object's key within the container or raise an exception if  the operation was not successful.</p><p>The operation is performed by a protected interface whose workflow is as follows:</p><p><ul><li><em><a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareCommit">_PrepareCommit</a>()</em>: This method can be used to
-        check the parameters and initialise the resources. It is here where we
-        <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">eventually</a> <a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseObject">unserialise</a>
-        the object.</li><li><em><a href="../../MyWrapper/Persistence/CContainer.html#method_Commit">_Commit</a>()</em>: This method will perform the actual commit.</li><li><em><a href="../../MyWrapper/Persistence/CContainer.html#method_FinishCommit">_FinishCommit</a>()</em>: This method can be used to perform
-        eventual post-flight adjustments. It is here where we
-        <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">eventually</a>
-        <a href="../../MyWrapper/Core/CDataType.html#methodSerialiseObject">serialise</a> the object.
-        the object.</li></ul></p></p>
+            removing the object from the container.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a></em>: This option can be
+            used to work with objects in which complex or custom data types are
+            represented by derived concrete instances of <a href="../../MyWrapper/Core/CDataType.html">CDataType</a>.
+            If the option is ON, the contents of the object will be
+            <a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseObject">unserialised</a>
+            <a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareCommit">prior</a> to <a href="../../MyWrapper/Persistence/CContainer.html#methodCommit">committing</a> it, and
+            <a href="../../MyWrapper/Core/CDataType.html#methodSerialiseData">serialised</a> FinishCommit().
+            In general, this flag will be passed to method by the provided object.</li></ul></li></ul></p><p>The method will return the object's key within the container or raise an exception if  the operation was not successful.</p><p>The operation is performed by a protected interface whose workflow is as follows:</p><p><ul><li><em><a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareCommit">_PrepareCommit</a>()</em>: This method can be used to
+        check the parameters and initialise the resources.</li><li><em><a href="../../MyWrapper/Persistence/CContainer.html#method_Commit">_Commit</a>()</em>: This method will perform the actual commit.</li><li><em><a href="../../MyWrapper/Persistence/CContainer.html#method_FinishCommit">_FinishCommit</a>()</em>: This method can be used to perform
+        eventual post-flight adjustments.</li></ul></p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> kFLAG_PERSIST_INSERT kFLAG_PERSIST_UPDATE kFLAG_PERSIST_MODIFY</li>
+				<li><span class="field">see:</span> kFLAG_PERSIST_REPLACE kFLAG_PERSIST_DELETE kFLAG_STATE_ENCODED</li>
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareCommit">CContainer::_PrepareCommit()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CContainer.html#method_FinishCommit">CContainer::_FinishCommit()</a></li>
@@ -441,10 +438,10 @@
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareDelete">CContainer::_PrepareDelete()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareCommit">CContainer::_PrepareCommit()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareLoad">CContainer::_PrepareLoad()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CContainer.html#method__construct">CContainer::__construct()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CObject.html#methodManageMember">CObject::ManageMember()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareLoad">CContainer::_PrepareLoad()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareCommit">CContainer::_PrepareCommit()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -523,18 +520,18 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Delete</span> (line <span class="line-number">422</span>)
+		<span class="method-title">Delete</span> (line <span class="line-number">420</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Delete object.</p>
 <p class="description"><p>This method can be used to remove an object from the current data store, it expects  two parameters:</p><p><ul><li><strong>$theIdentifier</strong>: This parameter is expected to be the object's unique
-		identifier within the container, it will be the access key to the object.</li><li><strong>$theModifiers</strong>: This parameter represents the operation options, in this
-		class we only consider the <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a>
-        option: if set, the identifier will be <a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseData">unserialised</a>
-        <a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareDelete">before</a> <a href="../../MyWrapper/Persistence/CContainer.html#method_Delete">removing</a> the object.</li></ul></p><p>The method should return the deleted object, or <em>NULL</em> if not found.</p><p>The actual operation is performed by a protected interface:</p><p><ul><li><em><a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareDelete">_PrepareDelete</a></em>: Normalise parameters and
+		identifier within the container, it will be the access key to the object.</li><li><strong>$theModifiers</strong>: This parameter represents the delete operation options,
+		please see the <a href="../../MyWrapper/Persistence/CContainer.html#method__construct">constructor</a> documentation for more
+        information on this parameter.</li></ul></p><p>The method should return the deleted object, or <em>NULL</em> if not found.</p><p>The actual operation is performed by a protected interface:</p><p><ul><li><em><a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareDelete">_PrepareDelete</a></em>: Normalise parameters and
         initialise resources.</li><li><em><a href="../../MyWrapper/Persistence/CContainer.html#method_Delete">_Delete</a></em>: Remove object from container.</li><li><em><a href="../../MyWrapper/Persistence/CContainer.html#method_FinishDelete">_FinishDelete</a></em>: Cleanup after the operation.</li></ul></p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a></li>
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareDelete">CContainer::_PrepareDelete()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CContainer.html#method_FinishDelete">CContainer::_FinishDelete()</a></li>
@@ -565,18 +562,18 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Load</span> (line <span class="line-number">360</span>)
+		<span class="method-title">Load</span> (line <span class="line-number">357</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Load object.</p>
 <p class="description"><p>This method can be used to load an object from the current data store, it expects two  parameters:</p><p><ul><li><strong>$theIdentifier</strong>: This parameter is expected to be the object's unique
-		identifier within the container, it will be the access key to the object.</li><li><strong>$theModifiers</strong>: This parameter represents the load operation options, in
-		this class we only consider the <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a>
-        option: if set, the identifier will be <a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseData">unserialised</a>
-        <a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareLoad">before</a> <a href="../../MyWrapper/Persistence/CContainer.html#method_Load">searching</a> for the object.</li></ul></p><p>The method should return the found object, or <em>NULL</em> if not found.</p><p>The actual operation is performed by a protected interface:</p><p><ul><li><em><a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareLoad">_PrepareLoad</a></em>: Normalise parameters and initialise
+		identifier within the container, it will be the access key to the object.</li><li><strong>$theModifiers</strong>: This parameter represents the load operation options,
+		please see the <a href="../../MyWrapper/Persistence/CContainer.html#method__construct">constructor</a> documentation for more
+        information on this parameter.</li></ul></p><p>The method should return the found object, or <em>NULL</em> if not found.</p><p>The actual operation is performed by a protected interface:</p><p><ul><li><em><a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareLoad">_PrepareLoad</a></em>: Normalise parameters and initialise
         resources.</li><li><em><a href="../../MyWrapper/Persistence/CContainer.html#method_Load">_Load</a></em>: Find and load object.</li><li><em><a href="../../MyWrapper/Persistence/CContainer.html#method_FinishLoad">_FinishLoad</a></em>: Cleanup after the operation.</li></ul></p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a></li>
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareLoad">CContainer::_PrepareLoad()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CContainer.html#method_Load">CContainer::_Load()</a></li>
@@ -607,7 +604,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Reference</span> (line <span class="line-number">520</span>)
+		<span class="method-title">Reference</span> (line <span class="line-number">518</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -667,7 +664,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/AbstractMethod.png" />
-		<span class="method-title">UnserialiseData</span> (line <span class="line-number">780</span>)
+		<span class="method-title">UnserialiseData</span> (line <span class="line-number">782</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -677,11 +674,13 @@
         offsets and these elements are <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a> and
         <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a>, it will be sent to this method.</li></ul></p><p>Derived concrete classes will implement this method to intercept all structures that  can be converted to a native data type compatible with the current container.</p><p>The elements to be converted are provided by reference, which means that they have to  be converted in place.</p><p>This class is abstract, so we force derived classes to implement this method.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> kTAG_TYPE kTAG_DATA</li>
 				<li><span class="field">abstract:</span> </li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareCommit">CContainer::_PrepareCommit()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseObject">CContainer::UnserialiseObject()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareDelete">CContainer::_PrepareDelete()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareLoad">CContainer::_PrepareLoad()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseObject">CContainer::UnserialiseObject()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareCommit">CContainer::_PrepareCommit()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -722,15 +721,15 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Unserialise provided object.</p>
-<p class="description"><p>This method will convert concrete derived instances of <a href="../../MyWrapper/Core/CDataType.html">CDataType</a>  into native data types suitable to be stored in containers.</p><p>This method will scan the provided object or structure and pass all instances derived  from <a href="../../MyWrapper/Core/CDataType.html">CDataType</a> to another public <a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseData">method</a>  that will convert these objects into native data types that are compatible with the  specific container type.</p><p>The method will scan the provided structure and select all elements which are arrays,  ArrayObjects or objects derived from <a href="../../MyWrapper/Core/CDataType.html">CDataType</a>, these elements will  be sent to the <a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseData">UnserialiseData</a> method that will take care  of converting these structures into native data types that are compatible with the  specific container type.</p><p>The method will perform the conversion directly into the provided reference and will  use recursion to traverse the provided structures.</p><p>Elements sent to the <a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseData">conversion</a> method are selected as  follows:</p><p><ul><li><em><a href="../../MyWrapper/Core/CDataType.html">CDataType</a></em>: All instances derived from this class are
+<p class="description"><p>This method will convert concrete derived instances of <a href="../../MyWrapper/Core/CDataType.html">CDataType</a> or  equivalent structures into native data types suitable to be stored in containers.</p><p>This method will scan the provided object or structure and pass all instances derived  from <a href="../../MyWrapper/Core/CDataType.html">CDataType</a> to another public <a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseData">method</a>  that will convert these objects into native data types that are compatible with the  specific container type.</p><p>The method will scan the provided structure and select all elements which are arrays,  ArrayObjects or objects derived from <a href="../../MyWrapper/Core/CDataType.html">CDataType</a>, these elements will  be sent to the <a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseData">UnserialiseData</a> method that will take care  of converting these structures into native data types that are compatible with the  specific container type.</p><p>The method will perform the conversion directly into the provided reference and will  use recursion to traverse the provided structures.</p><p>Elements sent to the <a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseData">conversion</a> method are selected as  follows:</p><p><ul><li><em><a href="../../MyWrapper/Core/CDataType.html">CDataType</a></em>: All instances derived from this class are
         sent to the <a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseData">UnserialiseData</a> method.</li><li><em>Array</em> or <em>ArrayObject</em>: If the structure is composed of exactly 2
         offsets and these elements are <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a> and
         <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a>, it will be sent to the
         <a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseData">UnserialiseData</a> method. If the above condition is not
         satisfied, the structure will be sent recursively to this method.</li></ul></p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> kTAG_TYPE kTAG_DATA</li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CMongoContainer.html#method_PrepareCommit">CMongoContainer::_PrepareCommit()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareCommit">CContainer::_PrepareCommit()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseData">CContainer::UnserialiseData()</a></li>
 			</ul>
@@ -756,7 +755,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/AbstractMethod.png" />
-		<span class="method-title">_Commit</span> (line <span class="line-number">839</span>)
+		<span class="method-title">_Commit</span> (line <span class="line-number">841</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -807,7 +806,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Container</span> (line <span class="line-number">806</span>)
+		<span class="method-title">_Container</span> (line <span class="line-number">808</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -837,7 +836,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/AbstractMethod.png" />
-		<span class="method-title">_Delete</span> (line <span class="line-number">883</span>)
+		<span class="method-title">_Delete</span> (line <span class="line-number">885</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -885,12 +884,14 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishCommit</span> (line <span class="line-number">1193</span>)
+		<span class="method-title">_FinishCommit</span> (line <span class="line-number">1165</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Normalise after a _Commit().</p>
-<p class="description"><p>This method will be called after the <a href="../../MyWrapper/Persistence/CContainer.html#method_Commit">store</a> operation, its duty is  to clean up or restore the object after the operation please refer to  <a href="../../MyWrapper/Persistence/CContainer.html#methodCommit">this</a> documentation for a reference of these parameters. Note that in  this method all three parameters are passed by reference.</p><p>In this class we <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">eventually</a>  <a href="../../MyWrapper/Core/CDataType.html#methodSerialiseObject">serialise</a> the object.</p></p>
+<p class="description"><p>The duty of this method is to clean up or restore the object after the  <a href="../../MyWrapper/Persistence/CContainer.html#method_Commit">store</a> operation.</p><p>By default we perform the following checks:</p><p><ul><li><a href="../../MyWrapper/Core/CDataType.html#methodSerialiseObject">Serialise</a> the object if
+        <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">necessary</a>.</li><li><a href="../../MyWrapper/Core/CDataType.html#methodSerialiseData">Serialise</a> the identifier if
+        <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">necessary</a>.</li></ul></p><p>In derived classes you should always call the parent method, remember to check this  method to determine whether to implement your custom changes before or after calling  this method.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a></li>
 				<li><span class="field">access:</span> protected</li>
@@ -926,15 +927,18 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishDelete</span> (line <span class="line-number">1236</span>)
+		<span class="method-title">_FinishDelete</span> (line <span class="line-number">1272</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Normalise after a store.</p>
-<p class="description"><p>This method will be called after the <a href="../../MyWrapper/Persistence/CContainer.html#method_Delete">delete</a> operation, its duty is  to clean up or restore the object after the operation please refer to  <a href="../../MyWrapper/Persistence/CContainer.html#methodDelete">this</a> documentation for a reference of these parameters. Note that in  this method all two parameters are passed by reference.</p><p>In this class we <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">eventually</a>  <a href="../../MyWrapper/Core/CDataType.html#methodSerialiseObject">serialise</a> the object and the  <a href="../../MyWrapper/Core/CDataType.html#methodSerialiseData">identifier</a>.</p></p>
+<p class="description"><p>The duty of this method is to clean up or restore the object after the  <a href="../../MyWrapper/Persistence/CContainer.html#method_Delete">delete</a> operation.</p><p>By default we perform the following checks:</p><p><ul><li><a href="../../MyWrapper/Core/CDataType.html#methodSerialiseData">Serialise</a> the identifier if
+        <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">necessary</a>.</li></ul></p><p>In derived classes you should always call the parent method, remember to check this  method to determine whether to implement your custom changes before or after calling  this method.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a></li>
 				<li><span class="field">access:</span> protected</li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CContainer.html#methodDelete">CContainer::Delete()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CDataType.html#methodSerialiseData">CDataType::SerialiseData()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -964,12 +968,14 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishLoad</span> (line <span class="line-number">1139</span>)
+		<span class="method-title">_FinishLoad</span> (line <span class="line-number">1220</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Normalise after a _Load().</p>
-<p class="description"><p>This method will be called after the <a href="../../MyWrapper/Persistence/CContainer.html#method_Load">load</a> operation, its duty is to  clean up or normalise after the operation. The parameters are passed by reference.</p><p>The method expects the found object or data in the first parameter and the original  identifier in the second.</p><p>In this class we <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">eventually</a>  <a href="../../MyWrapper/Core/CDataType.html#methodSerialiseObject">serialise</a> the object and the  <a href="../../MyWrapper/Core/CDataType.html#methodSerialiseData">identifier</a>.</p></p>
+<p class="description"><p>The duty of this method is to clean up or restore the object after the  <a href="../../MyWrapper/Persistence/CContainer.html#method_Load">load</a> operation.</p><p>By default we perform the following checks:</p><p><ul><li><a href="../../MyWrapper/Core/CDataType.html#methodSerialiseObject">Serialise</a> the object if
+        <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">necessary</a>.</li><li><a href="../../MyWrapper/Core/CDataType.html#methodSerialiseData">Serialise</a> the identifier if
+        <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">necessary</a>.</li></ul></p><p>In derived classes you should always call the parent method, remember to check this  method to determine whether to implement your custom changes before or after calling  this method.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a></li>
 				<li><span class="field">access:</span> protected</li>
@@ -1005,7 +1011,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/AbstractMethod.png" />
-		<span class="method-title">_Load</span> (line <span class="line-number">861</span>)
+		<span class="method-title">_Load</span> (line <span class="line-number">863</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1053,17 +1059,18 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">996</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">943</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Prepare before a _Commit().</p>
-<p class="description"><p>This method will be called before the <a href="../../MyWrapper/Persistence/CContainer.html#method_Commit">store</a> operation, its duty is  to prepare the object and check the parameters, please refer to <a href="../../MyWrapper/Persistence/CContainer.html#methodCommit">this</a>  documentation for a reference of the method's parameters. Note that in this method  all three parameters are passed by reference.</p><p>By default we perform the following checks:</p><p><ul><li>Ensure the identifier is provided if the operation is not an
-        <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_INSERT">insert</a>.</li><li>Ensure the method has the correct options.</li><li>Ensure the current object has a container.</li><li>Get the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsEncoded">encoded</a> status
-        <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">flag</a> from the object.</li><li><a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseObject">Unserialise</a> object and
-        <a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseData">identifier</a> if necessary.</li></ul></p><p>In derived classes you should always call the parent method, remember to check this  method to determine whether to implement your custom changes before or after calling  this method.</p></p>
+<p class="description"><p>This method will be called before the <a href="../../MyWrapper/Persistence/CContainer.html#method_Commit">store</a> operation, its duty is  to prepare the object and check the parameters, please refer to <a href="../../MyWrapper/Persistence/CContainer.html#methodCommit">this</a>  documentation for a reference of the method's parameters. Note that in this method  all three parameters are passed by reference.</p><p>By default we perform the following checks:</p><p><ul><li>Ensure the current object has a container.</li><li>Ensure the identifier is provided if the operation is not an
+        <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_INSERT">insert</a>.</li><li>Ensure the method has the correct options.</li><li>Get the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsEncoded">encoded</a> status
+        <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">flag</a> from the object and pass it to the current
+        container.</li><li><a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseObject">Unserialise</a> the object if
+        <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">necessary</a>.</li><li><a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseData">Unserialise</a> the identifier if
+        <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">necessary</a>.</li></ul></p><p>In derived classes you should always call the parent method, remember to check this  method to determine whether to implement your custom changes before or after calling  this method.</p></p>
 	<ul class="tags">
-				<li><span class="field">see:</span> kERROR_OPTION_MISSING kERROR_INVALID_PARAMETER kERROR_INVALID_STATE</li>
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a></li>
 				<li><span class="field">throws:</span> <a href="../../MyWrapper/Core/CException.html">CException</a></li>
 				<li><span class="field">access:</span> protected</li>
@@ -1112,17 +1119,19 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareDelete</span> (line <span class="line-number">1082</span>)
+		<span class="method-title">_PrepareDelete</span> (line <span class="line-number">1102</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Prepare before a _Delete().</p>
-<p class="description"><p>The duty of this method is to ensure that the parameters provided to the  <a href="../../MyWrapper/Persistence/CContainer.html#method_Delete">delete</a> operation are valid.</p><p>In this class we ensure that the identifier has been provided, that the current  object has a native <a href="../../MyWrapper/Persistence/CContainer.html#methodContainer">container</a> and we  <a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseData">unserialise</a> the provided identifier if  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">needed</a>.</p></p>
+<p class="description"><p>The duty of this method is to ensure that the parameters provided to the  <a href="../../MyWrapper/Persistence/CContainer.html#method_Delete">delete</a> operation are valid.</p><p>By default we perform the following checks:</p><p><ul><li>Ensure the current object has a container.</li><li>Ensure the identifier is provided.</li><li><a href="../../MyWrapper/Core/CDataType.html#methodSerialiseData">Serialise</a> the identifier if
+        <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">necessary</a>.</li></ul></p><p>In derived classes you should always call the parent method, remember to check this  method to determine whether to implement your custom changes before or after calling  this method.</p></p>
 	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Errors.inc.php.html#definekERROR_INVALID_STATE">kERROR_INVALID_STATE</a></li>
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a></li>
 				<li><span class="field">throws:</span> <a href="../../MyWrapper/Core/CException.html">CException</a></li>
 				<li><span class="field">access:</span> protected</li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CContainer.html#methodDelete">CContainer::Delete()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseData">CContainer::UnserialiseData()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CContainer.html#methodContainer">CContainer::Container()</a></li>
 			</ul>
 	
@@ -1150,20 +1159,20 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">923</span>)
+		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">1038</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Prepare before a _Load().</p>
-<p class="description"><p>The duty of this method is to ensure that the parameters provided to the  <a href="../../MyWrapper/Persistence/CContainer.html#method_Load">find</a> operation are valid.</p><p>In this class we ensure that the identifier has been provided, that the current  object has a native <a href="../../MyWrapper/Persistence/CContainer.html#methodContainer">container</a> and we  <a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseData">unserialise</a> the provided identifier if  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">needed</a>.</p></p>
+<p class="description"><p>The duty of this method is to ensure that the parameters provided to the  <a href="../../MyWrapper/Persistence/CContainer.html#method_Load">find</a> operation are valid.</p><p>By default we perform the following checks:</p><p><ul><li>Ensure the current object has a container.</li><li>Ensure the identifier is provided.</li><li><a href="../../MyWrapper/Core/CDataType.html#methodSerialiseData">Serialise</a> the identifier if
+        <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">necessary</a>.</li></ul></p><p>In derived classes you should always call the parent method, remember to check this  method to determine whether to implement your custom changes before or after calling  this method.</p></p>
 	<ul class="tags">
-				<li><span class="field">see:</span> kERROR_OPTION_MISSING kERROR_INVALID_STATE</li>
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a></li>
 				<li><span class="field">throws:</span> <a href="../../MyWrapper/Core/CException.html">CException</a></li>
 				<li><span class="field">access:</span> protected</li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CContainer.html#methodLoad">CContainer::Load()</a></li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CContainer.html#methodContainer">CContainer::Container()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseData">CContainer::UnserialiseData()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CContainer.html#methodContainer">CContainer::Container()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -1247,7 +1256,7 @@
 
 	
 	<p class="notes" id="credit">
-		Documentation generated on Wed, 04 Apr 2012 02:35:30 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 05 Apr 2012 15:32:38 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>
