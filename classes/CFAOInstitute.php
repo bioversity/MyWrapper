@@ -1,21 +1,21 @@
 <?php
 
 /**
- * <i>CInstitute</i> class definition.
+ * <i>CFAOInstitute</i> class definition.
  *
- * This file contains the class definition of <b>CInstitute</b> which represents an
- * {@link CEntity entity} mapping a general purpose institute.
+ * This file contains the class definition of <b>CFAOInstitute</b> which represents an
+ * {@link CEntity entity} mapping a FAO/WIEWS institute.
  *
  *	@package	MyWrapper
  *	@subpackage	Entities
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
- *	@version	1.00 04/04/2012
+ *	@version	1.00 06/04/2012
  */
 
 /*=======================================================================================
  *																						*
- *									CInstitute.php										*
+ *									CFAOInstitute.php									*
  *																						*
  *======================================================================================*/
 
@@ -24,90 +24,40 @@
  *
  * This include file contains the parent class definitions.
  */
-require_once( kPATH_LIBRARY_SOURCE."CContact.php" );
+require_once( kPATH_LIBRARY_SOURCE."CInstitute.php" );
 
 /**
  * Local defines.
  *
  * This include file contains the local class definitions.
  */
-require_once( kPATH_LIBRARY_SOURCE."CInstitute.inc.php" );
+require_once( kPATH_LIBRARY_SOURCE."CFAOInstitute.inc.php" );
 
 /**
- * Institute.
+ * FAO/WIEWS institute.
  *
- * This class overloads its {@link CContact ancestor} to implement an institute contact
- * entity.
+ * This class overloads its {@link CInstitute ancestor} to implement an institute entity
+ * taken from the FAO WIEWS institutes database.
  *
- * Institutes feature specific properties that are added to the inherited ones:
+ * This kind of institutes adds the following properties:
  *
  * <ul>
- *	<li><i>{@link kOFFSET_ACRONYM kOFFSET_ACRONYM}</i>: This offset represents the institute
- *		list of {@link Acronym() acronyms}.
- *	<li><i>{@link kOFFSET_URL kOFFSET_URL}</i>: This offset represents the institute list of
- *		URLs or web pages.
+ *	<li><i>{@link kENTITY_INST_FAO_EPACRONYM kENTITY_INST_FAO_EPACRONYM}</i>: This offset
+ *		represents the institute ECPGR {@link EAcronym() acronym}.
+ *	<li><i>{@link kENTITY_INST_FAO_TYPE kENTITY_INST_FAO_TYPE}</i>: This offset represents
+ *		the institute set of {@link FAOType() FAO} institute types.
+ *	<li><i>{@link kTAG_MOD_STAMP kTAG_MOD_STAMP}</i>: This offset represents the institute
+ *		last modification {@link ModStamp() time-stamp}.
  * </ul>
  *
- * The object is considered {@link _IsInited() initialised} only if it has its
- * {@link Code() code}, as its {@link CEntity ancestor}, its {@link Name() name},
- * {@link Password() password} and {@link Email() e-mail} address.
- *
- * If the {@link Code() code} has not been explicitly set, {@link _PrepareCommit() before}
- * {@link Commit() committing} the object it will be set to the value of the
- * {@link Email e-mail}. Also in that phase, the {@link kENTITY_USER kENTITY_USER} constant
- * will be set in the user {@link Type() type}.
- *
- * The {@link Email() e-mail} in this class is a scalar property, in other classes it will
- * probably be a list of different e-mail types. In this class we want to link a single
- * user with a single e-mail, possibly not shared by any other user, that is why we link by
- * default the user {@link Code() code} and {@link Email() e-mail}.
+ * The object unique {@link kTAG_ID_NATIVE identifier} is {@link _id() formed} by
+ * {@link _index() using} the {@link Code() code} without any formatting.
  *
  *	@package	MyWrapper
  *	@subpackage	Entities
  */
-class CInstitute extends CEntity
+class CFAOInstitute extends CInstitute
 {
-		
-
-/*=======================================================================================
- *																						*
- *											MAGIC										*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	__construct																		*
-	 *==================================================================================*/
-
-	/**
-	 * Instantiate class.
-	 *
-	 * We {@link CEntity::__construct() overload} the constructor to initialise the
-	 * {@link _IsInited() inited} {@link kFLAG_STATE_INITED flag} if the
-	 * {@link Password() password} element is set.
-	 *
-	 * @param mixed					$theContainer		Persistent container.
-	 * @param mixed					$theIdentifier		Object identifier.
-	 *
-	 * @access public
-	 */
-	public function __construct( $theContainer = NULL, $theIdentifier = NULL )
-	{
-		//
-		// Call parent method.
-		//
-		parent::__construct( $theContainer, $theIdentifier );
-		
-		//
-		// Set inited status.
-		//
-		$this->_IsInited( $this->_IsInited() &&
-						  $this->offsetExists( kTAG_NAME ) );
-		
-	} // Constructor.
-
 		
 
 /*=======================================================================================
@@ -119,14 +69,51 @@ class CInstitute extends CEntity
 
 	 
 	/*===================================================================================
-	 *	Acronym																			*
+	 *	EAcronym																			*
 	 *==================================================================================*/
 
 	/**
-	 * Manage entity acronyms.
+	 * Manage institute ECPGR acronym.
 	 *
-	 * This method can be used to handle the institute {@link kOFFSET_ACRONYM acronyms}
-	 * list, it uses the standard accessor {@link _ManageArrayOffset() method} to manage the
+	 * This method can be used to handle the institute ECPGR
+	 * {@link kENTITY_INST_FAO_EPACRONYM acronym}, it uses the standard accessor
+	 * {@link _ManageOffset() method} to manage the
+	 * {@link kENTITY_INST_FAO_EPACRONYM offset}.
+	 *
+	 * This value should be a string.
+	 *
+	 * For a more in-depth reference of this method, please consult the
+	 * {@link _ManageOffset() _ManageOffset} method, in which the first parameter
+	 * will be the constant {@link kTAG_NAME kTAG_NAME}.
+	 *
+	 * @param mixed					$theValue			Value.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 *
+	 * @uses _ManageOffset
+	 *
+	 * @see kTAG_NAME
+	 */
+	public function EAcronym( $theValue = NULL, $getOld = FALSE )
+	{
+		return $this->_ManageOffset
+			( kENTITY_INST_FAO_EPACRONYM, $theValue, $getOld );						// ==>
+
+	} // EAcronym.
+
+
+	/*===================================================================================
+	 *	FAOType																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage FAO/WIEWS types.
+	 *
+	 * This method can be used to handle the institute FAO/WIEWS
+	 * {@link kENTITY_INST_FAO_TYPE types} list, it uses the standard accessor
+	 * {@link _ManageArrayOffset() method} to manage the
 	 * list of acronyms.
 	 *
 	 * Each element of this list should indicate an acronym by which one refers to the
@@ -409,7 +396,7 @@ class CInstitute extends CEntity
 
 	 
 
-} // class CInstitute.
+} // class CFAOInstitute.
 
 
 ?>

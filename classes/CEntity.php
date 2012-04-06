@@ -590,11 +590,14 @@ class CEntity extends CPersistentUnitObject
 	 *
 	 * @param mixed					$theContainer		Persistent container.
 	 * @param mixed					$theIdentifier		Object identifier.
+	 * @param bitfield				$theModifiers		Load modifiers.
 	 *
 	 * @static
 	 * @return CEntity
 	 */
-	static function ValidEntity( $theContainer, $theIdentifier )
+	static function ValidEntity( $theContainer,
+								 $theIdentifier,
+								 $theModifiers = kFLAG_DEFAULT )
 	{
 		//
 		// Init local storage.
@@ -609,7 +612,7 @@ class CEntity extends CPersistentUnitObject
 			//
 			// Instantiate entity.
 			//
-			$entity = self::NewObject( $theContainer, $theIdentifier );
+			$entity = self::NewObject( $theContainer, $theIdentifier, $theModifiers );
 			
 			//
 			// Handle entity.
@@ -653,7 +656,7 @@ class CEntity extends CPersistentUnitObject
 					  kMESSAGE_TYPE_ERROR,
 					  array( 'Identifier' => $theIdentifier ) );				// !@! ==>
 		
-		} while( $theIdentifier !== NULL );
+		} while( ($entity !== NULL) && ($theIdentifier !== NULL) );
 		
 		return $entity;																// ==>
 		

@@ -188,15 +188,13 @@ try
 	$valid = CEntity::ValidEntity( $collection, $entity3[ kTAG_ID_NATIVE ] );
 	echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
 	echo( '<hr>' );
-exit;
-
-	echo( '<i>$entity2[ kTAG_ID_NATIVE ];</i><br>' );
-	echo( '<pre>' ); print_r( $entity2[ kTAG_ID_NATIVE ] ); echo( '</pre>' );
-	echo( '<i>$valid = CEntity::ValidEntity( $collection, $entity2[ kTAG_ID_NATIVE ] );</i><br>' );
-	$valid = CEntity::ValidEntity( $collection, $entity2[ kTAG_ID_NATIVE ] );
-	echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
 	echo( '<hr>' );
-	
+	 
+	//
+	// Test valid validation.
+	//
+	echo( '<h3>Test valid validation</h3>' );
+
 	try
 	{
 		echo( '<i>$entity3->Valid( $entity1[ kTAG_ID_NATIVE ] );</i><br>' );

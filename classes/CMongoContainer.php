@@ -612,8 +612,10 @@ class CMongoContainer extends CContainer
 	{
 		//
 		// Load object.
+		// Note that we intentionally do not provide the modifiers,
+		// because the identifier has just been unserialised.
 		//
-		$save = $this->Load( $theIdentifier, $theModifiers );
+		$save = $this->Load( $theIdentifier );
 		
 		//
 		// Delete object.

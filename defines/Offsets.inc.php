@@ -192,6 +192,13 @@ define( "kTAG_ANNOTATION",						':ANNOTATION' );
  */
 define( "kTAG_KIND",							':KIND' );
 
+/**
+ * Last modification time-stammp.
+ *
+ * This tag is used as the default offset for indicating a last modification time-stamp.
+ */
+define( "kTAG_MOD_STAMP",						':STAMP:MOD' );
+
 /*=======================================================================================
  *	DEFAULT PROPERTY OFFSETS															*
  *======================================================================================*/

@@ -113,11 +113,14 @@ class CPersistentUnitObject extends CPersistentObject
 	 *
 	 * @param mixed					$theContainer		Persistent container.
 	 * @param mixed					$theIdentifier		Object identifier.
+	 * @param bitfield				$theModifiers		Create modifiers.
 	 *
 	 * @static
 	 * @return mixed
 	 */
-	static function NewObject( $theContainer, $theIdentifier )
+	static function NewObject( $theContainer,
+							   $theIdentifier,
+							   $theModifiers = kFLAG_DEFAULT )
 	{
 		//
 		// Check container.
@@ -141,7 +144,7 @@ class CPersistentUnitObject extends CPersistentObject
 		//
 		// Load object.
 		//
-		$data = $theContainer->Load( $theIdentifier );
+		$data = $theContainer->Load( $theIdentifier, $theModifiers );
 		if( $data !== NULL )
 		{
 			//
@@ -157,7 +160,7 @@ class CPersistentUnitObject extends CPersistentObject
 				//
 				// Instantiate object.
 				//
-				$object = new $class( $data );
+				$object = new $class( $data, NULL, $theModifiers );
 				
 				//
 				// Mark as committed.
