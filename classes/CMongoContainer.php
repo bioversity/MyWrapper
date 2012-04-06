@@ -219,80 +219,88 @@ class CMongoContainer extends CContainer
 	public function UnserialiseData( &$theElement )
 	{
 		//
-		// Handle type.
+		// Check type.
 		//
-		$data = $theElement[ kTAG_DATA ];
-		switch( $theElement[ kTAG_TYPE ] )
+		if( is_array( $theElement )
+		 || ($theElement instanceof ArrayObject) )
 		{
 			//
-			// MongoId.
+			// Parse by type.
 			//
-			case kDATA_TYPE_MongoId:
-				$theElement = new MongoId( (string) $data );
-				break;
+			$data = $theElement[ kTAG_DATA ];
+			switch( $theElement[ kTAG_TYPE ] )
+			{
+				//
+				// MongoId.
+				//
+				case kDATA_TYPE_MongoId:
+					$theElement = new MongoId( (string) $data );
+					break;
+				
+				//
+				// MongoCode.
+				//
+				case kDATA_TYPE_MongoCode:
+					if( is_array( $data )
+					 || ($data instanceof ArrayObject) )
+					{
+						$tmp1 = $data[ kOBJ_TYPE_CODE_SRC ];
+						$tmp2 = ( array_key_exists( kOBJ_TYPE_CODE_SCOPE, (array) $data ) )
+							  ? $data[ kOBJ_TYPE_CODE_SCOPE ]
+							  : Array();
+						$theElement = new MongoCode( $tmp1, $tmp2 );
+					}
+					break;
+				
+				//
+				// MongoDate.
+				//
+				case kDATA_TYPE_STAMP:
+					if( is_array( $data )
+					 || ($data instanceof ArrayObject) )
+					{
+						$tmp1 = $data[ kOBJ_TYPE_STAMP_SEC ];
+						$tmp2 = ( array_key_exists( kOBJ_TYPE_STAMP_USEC, (array) $data ) )
+							  ? $data[ kOBJ_TYPE_STAMP_USEC ]
+							  : 0;
+						$theElement = new MongoDate( $tmp1, $tmp2 );
+					}
+					break;
+				
+				//
+				// MongoInt32.
+				//
+				case kDATA_TYPE_INT32:
+					$theElement = new MongoInt32( $data );
+					break;
+				
+				//
+				// MongoInt64.
+				//
+				case kDATA_TYPE_INT64:
+					$theElement = new MongoInt64( $data );
+					break;
+	
+				//
+				// MongoRegex.
+				//
+				case kDATA_TYPE_REGEX:
+					$theElement = new MongoRegex( $data );
+					break;
+	
+				//
+				// MongoBinData.
+				//
+				case kDATA_TYPE_BINARY:
+					$data = ( function_exists( 'hex2bin' ) )
+						  ? hex2bin( $data )
+						  : pack( 'H*', $data );
+					$theElement = new MongoBinData( $data );
+					break;
 			
-			//
-			// MongoCode.
-			//
-			case kDATA_TYPE_MongoCode:
-				if( is_array( $data )
-				 || ($data instanceof ArrayObject) )
-				{
-					$tmp1 = $data[ kOBJ_TYPE_CODE_SRC ];
-					$tmp2 = ( array_key_exists( kOBJ_TYPE_CODE_SCOPE, (array) $data ) )
-						  ? $data[ kOBJ_TYPE_CODE_SCOPE ]
-						  : Array();
-					$theElement = new MongoCode( $tmp1, $tmp2 );
-				}
-				break;
-			
-			//
-			// MongoDate.
-			//
-			case kDATA_TYPE_STAMP:
-				if( is_array( $data )
-				 || ($data instanceof ArrayObject) )
-				{
-					$tmp1 = $data[ kOBJ_TYPE_STAMP_SEC ];
-					$tmp2 = ( array_key_exists( kOBJ_TYPE_STAMP_USEC, (array) $data ) )
-						  ? $data[ kOBJ_TYPE_STAMP_USEC ]
-						  : 0;
-					$theElement = new MongoDate( $tmp1, $tmp2 );
-				}
-				break;
-			
-			//
-			// MongoInt32.
-			//
-			case kDATA_TYPE_INT32:
-				$theElement = new MongoInt32( $data );
-				break;
-			
-			//
-			// MongoInt64.
-			//
-			case kDATA_TYPE_INT64:
-				$theElement = new MongoInt64( $data );
-				break;
-
-			//
-			// MongoRegex.
-			//
-			case kDATA_TYPE_REGEX:
-				$theElement = new MongoRegex( $data );
-				break;
-
-			//
-			// MongoBinData.
-			//
-			case kDATA_TYPE_BINARY:
-				$data = ( function_exists( 'hex2bin' ) )
-					  ? hex2bin( $data )
-					  : pack( 'H*', $data );
-				$theElement = new MongoBinData( $data );
-				break;
+			} // Parsing by type.
 		
-		} // Parsing by type.
+		} // Element is a structure.
 	
 	} // UnserialiseData.
 
