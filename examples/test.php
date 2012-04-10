@@ -191,7 +191,6 @@ echo( '<pre>' ); print_r( $arr ); echo( '</pre>' );
 // Test HTTP.
 //
 $x = new HttpRequest( 'http://www.apple.com/' );
-*/
 
 //
 // Instantiate Mongo database.
@@ -222,5 +221,22 @@ $stat = $collection->remove( $crit, $opt );
 echo( '<pre>' ); print_r( $stat ); echo( '</pre>' );
 $stat = $collection->remove( $crit, $opt );
 echo( '<pre>' ); print_r( $stat ); echo( '</pre>' );
+*/
+//
+// Test TAB-delimited.
+//
+$save = ini_set( 'auto_detect_line_endings', 1 );
+$fp = fopen( 'export.txt', 'r' );
+if( $fp !== FALSE )
+{
+	$test = fgetcsv( $fp, 4096, ',', '"' );
+	echo( '<pre>' );
+	print_r( $test );
+	echo( '</pre>' );
+	
+	fclose( $fp );
+}
+ini_set( 'auto_detect_line_endings', $save );
+
 
 ?>

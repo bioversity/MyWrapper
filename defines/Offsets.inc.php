@@ -234,6 +234,14 @@ define( "kOFFSET_EMAIL",						':EMAIL' );
 define( "kOFFSET_PHONE",						':PHONE' );
 
 /**
+ * Telefax offset.
+ *
+ * This is the tag that represents a telefax number, the value may either be a string or
+ * an array.
+ */
+define( "kOFFSET_FAX",							':FAX' );
+
+/**
  * References tag.
  *
  * This is the tag that represents the list of references of an object. It is an array of

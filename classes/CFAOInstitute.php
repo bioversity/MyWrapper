@@ -75,7 +75,7 @@ class CFAOInstitute extends CInstitute
 
 	 
 	/*===================================================================================
-	 *	EAcronym																			*
+	 *	EAcronym																		*
 	 *==================================================================================*/
 
 	/**
@@ -90,7 +90,7 @@ class CFAOInstitute extends CInstitute
 	 *
 	 * For a more in-depth reference of this method, please consult the
 	 * {@link _ManageOffset() _ManageOffset} method, in which the first parameter
-	 * will be the constant {@link kTAG_NAME kTAG_NAME}.
+	 * will be the constant {@link kENTITY_INST_FAO_EPACRONYM kENTITY_INST_FAO_EPACRONYM}.
 	 *
 	 * @param mixed					$theValue			Value.
 	 * @param boolean				$getOld				TRUE get old value.
@@ -100,7 +100,7 @@ class CFAOInstitute extends CInstitute
 	 *
 	 * @uses _ManageOffset
 	 *
-	 * @see kTAG_NAME
+	 * @see kENTITY_INST_FAO_EPACRONYM
 	 */
 	public function EAcronym( $theValue = NULL, $getOld = FALSE )
 	{
@@ -128,7 +128,7 @@ class CFAOInstitute extends CInstitute
 	 *
 	 * For a more thorough reference of how this method works, please consult the
 	 * {@link _ManageArrayOffset() _ManageArrayOffset} method, in which the first parameter
-	 * will be the constant {@link kOFFSET_ACRONYM kOFFSET_ACRONYM}.
+	 * will be the constant {@link kENTITY_INST_FAO_TYPE kENTITY_INST_FAO_TYPE}.
 	 *
 	 * @param mixed					$theValue			Value or index.
 	 * @param mixed					$theOperation		Operation.
@@ -139,70 +139,14 @@ class CFAOInstitute extends CInstitute
 	 *
 	 * @uses _ManageArrayOffset
 	 *
-	 * @see kOFFSET_ACRONYM
+	 * @see kENTITY_INST_FAO_TYPE
 	 */
-	public function Acronym( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
+	public function FAOType( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
 	{
 		return $this->_ManageArrayOffset
-					( kOFFSET_ACRONYM, $theValue, $theOperation, $getOld );			// ==>
+					( kENTITY_INST_FAO_TYPE, $theValue, $theOperation, $getOld );	// ==>
 
-	} // Acronym.
-
-	 
-	/*===================================================================================
-	 *	URL																				*
-	 *==================================================================================*/
-
-	/**
-	 * Manage institute urls.
-	 *
-	 * This method can be used to manage the institute {@link kOFFSET_URL URL} or web pages
-	 * list, the method expects the following parameters:
-	 *
-	 * <ul>
-	 *	<li><i>{@link kTAG_KIND kTAG_KIND}</i>: The institute URL kind, this could be
-	 *		<i>main</i>, <i>sales</i> or <i>international</i>. This element represents the
-	 *		array key, although technically it is implemented as an element to allow
-	 *		searching on all values.
-	 *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The URL or web page address.
-	 * </ul>
-	 *
-	 * The parameters to this method are:
-	 *
-	 * <ul>
-	 *	<li><b>$theValue</b>: The value or operation:
-	 *	 <ul>
-	 *		<li><i>NULL</i>: Return the current value selected by the second parameter.
-	 *		<li><i>FALSE</i>: Delete the value selected by the second parameter.
-	 *		<li><i>other</i>: Set value selected by the second parameter.
-	 *	 </ul>
-	 *	<li><b>$theType</b>: The element type, kind or index:
-	 *	 <ul>
-	 *		<li><i>NULL</i>: This value indicates that the URL has no type or kind, in
-	 *			general, when adding elements, this case applies to default elements.
-	 *		<li><i>other</i>: All other types will be interpreted as the kind or type of
-	 *			the URL.
-	 *	 </ul>
-	 *	<li><b>$getOld</b>: Determines what the method will return:
-	 *	 <ul>
-	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
-	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
-	 *	 </ul>
-	 * </ul>
-	 *
-	 * @param string				$theValue			URL or operation.
-	 * @param mixed					$theType			Mailing address kind or index.
-	 * @param boolean				$getOld				TRUE get old value.
-	 *
-	 * @access public
-	 * @return string
-	 */
-	public function URL( $theValue = NULL, $theType = NULL, $getOld = FALSE )
-	{
-		return $this->_ManageTypedArrayOffset
-			( kOFFSET_URL, kTAG_KIND, $theType, $theValue, $getOld );				// ==>
-
-	} // URL.
+	} // FAOType.
 
 	 
 	/*===================================================================================
@@ -212,15 +156,15 @@ class CFAOInstitute extends CInstitute
 	/**
 	 * Manage institute latitude.
 	 *
-	 * This method can be used to handle the institute {@link kOFFSET_LATITUDE latitude}, it
-	 * uses the standard accessor {@link _ManageOffset() method} to manage the
-	 * {@link kOFFSET_LATITUDE offset}.
+	 * This method can be used to handle the institute
+	 * {@link kENTITY_INST_FAO_LAT latitude}, it uses the standard accessor
+	 * {@link _ManageOffset() method} to manage the {@link kENTITY_INST_FAO_LAT offset}.
 	 *
 	 * This value is provided as an integer, specialised classes may convert it.
 	 *
 	 * For a more in-depth reference of this method, please consult the
 	 * {@link _ManageOffset() _ManageOffset} method, in which the first parameter
-	 * will be the constant {@link kTAG_NAME kTAG_NAME}.
+	 * will be the constant {@link kENTITY_INST_FAO_LAT kENTITY_INST_FAO_LAT}.
 	 *
 	 * @param mixed					$theValue			Value.
 	 * @param boolean				$getOld				TRUE get old value.
@@ -230,11 +174,11 @@ class CFAOInstitute extends CInstitute
 	 *
 	 * @uses _ManageOffset
 	 *
-	 * @see kOFFSET_LATITUDE
+	 * @see kENTITY_INST_FAO_LAT
 	 */
 	public function Latitude( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kOFFSET_LATITUDE, $theValue, $getOld );		// ==>
+		return $this->_ManageOffset( kENTITY_INST_FAO_LAT, $theValue, $getOld );	// ==>
 
 	} // Latitude.
 
@@ -246,15 +190,15 @@ class CFAOInstitute extends CInstitute
 	/**
 	 * Manage institute longitude.
 	 *
-	 * This method can be used to handle the institute {@link kOFFSET_LONGITUDE longitude},
-	 * it uses the standard accessor {@link _ManageOffset() method} to manage the
-	 * {@link kOFFSET_LONGITUDE offset}.
+	 * This method can be used to handle the institute
+	 * {@link kENTITY_INST_FAO_LON longitude}, it uses the standard accessor
+	 * {@link _ManageOffset() method} to manage the {@link kENTITY_INST_FAO_LON offset}.
 	 *
 	 * This value is provided as an integer, specialised classes may convert it.
 	 *
 	 * For a more in-depth reference of this method, please consult the
 	 * {@link _ManageOffset() _ManageOffset} method, in which the first parameter
-	 * will be the constant {@link kTAG_NAME kTAG_NAME}.
+	 * will be the constant {@link kENTITY_INST_FAO_LON kENTITY_INST_FAO_LON}.
 	 *
 	 * @param mixed					$theValue			Value.
 	 * @param boolean				$getOld				TRUE get old value.
@@ -264,11 +208,11 @@ class CFAOInstitute extends CInstitute
 	 *
 	 * @uses _ManageOffset
 	 *
-	 * @see kOFFSET_LONGITUDE
+	 * @see kENTITY_INST_FAO_LON
 	 */
 	public function Longitude( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kOFFSET_LONGITUDE, $theValue, $getOld );		// ==>
+		return $this->_ManageOffset( kENTITY_INST_FAO_LON, $theValue, $getOld );	// ==>
 
 	} // Longitude.
 
@@ -280,15 +224,15 @@ class CFAOInstitute extends CInstitute
 	/**
 	 * Manage institute altitude.
 	 *
-	 * This method can be used to handle the institute {@link kOFFSET_ALTITUDE altitude},
-	 * it uses the standard accessor {@link _ManageOffset() method} to manage the
-	 * {@link kOFFSET_ALTITUDE offset}.
+	 * This method can be used to handle the institute
+	 * {@link kENTITY_INST_FAO_ALT altitude}, it uses the standard accessor
+	 * {@link _ManageOffset() method} to manage the {@link kENTITY_INST_FAO_ALT offset}.
 	 *
 	 * This value is provided as an integer, specialised classes may convert it.
 	 *
 	 * For a more in-depth reference of this method, please consult the
 	 * {@link _ManageOffset() _ManageOffset} method, in which the first parameter
-	 * will be the constant {@link kTAG_NAME kTAG_NAME}.
+	 * will be the constant {@link kENTITY_INST_FAO_ALT kENTITY_INST_FAO_ALT}.
 	 *
 	 * @param mixed					$theValue			Value.
 	 * @param boolean				$getOld				TRUE get old value.
@@ -298,11 +242,11 @@ class CFAOInstitute extends CInstitute
 	 *
 	 * @uses _ManageOffset
 	 *
-	 * @see kOFFSET_ALTITUDE
+	 * @see kENTITY_INST_FAO_ALT
 	 */
 	public function Altitude( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kOFFSET_ALTITUDE, $theValue, $getOld );		// ==>
+		return $this->_ManageOffset( kENTITY_INST_FAO_ALT, $theValue, $getOld );	// ==>
 
 	} // Altitude.
 
@@ -317,34 +261,303 @@ class CFAOInstitute extends CInstitute
 
 	 
 	/*===================================================================================
-	 *	Import																			*
+	 *	Update																			*
 	 *==================================================================================*/
 
 	/**
-	 * Import institutes.
+	 * Update institutes.
 	 *
-	 * This method will take the provided data and load it into the provided
-	 * {@link CContainer container}. The data is expected to have the same format as the
-	 * FAO/WIEWS export file.
+	 * This method will download the current FAO/WIEWS export file and load its contents
+	 * into the provided container.
 	 *
-	 * The method will first check if the 
+	 * If you provide the second parameter, it will be used to filter only institutes
+	 * modified after the provided date; the format of that parameter is a date as
+	 * <i>YYYY-MM-DD</i>.
+	 *
+	 * The method will return the number of updated institutes.
+	 *
+	 * <i>Note that the method will commit the records using the
+	 * {@link kFLAG_PERSIST_REPLACE kFLAG_PERSIST_REPLACE} and
+	 * {@link kFLAG_STATE_ENCODED kFLAG_STATE_ENCODED} flags.
 	 *
 	 * @param CContainer			$theContainer		Data container.
-	 * @param array					$theData			Import data.
+	 * @param string				$theDate			Update date.
 	 *
-	 * @access public
-	 * @return string
-	 *
-	 * @uses _ManageOffset
-	 *
-	 * @see kTAG_NAME
+	 * @static
+	 * @return integer
 	 */
-	public function EAcronym( $theValue = NULL, $getOld = FALSE )
+	static function Update( $theContainer, $theDate = NULL )
 	{
-		return $this->_ManageOffset
-			( kENTITY_INST_FAO_EPACRONYM, $theValue, $getOld );						// ==>
+		//
+		// Init field names.
+		//
+		$fields = array
+		(
+			'INSTCODE',
+			'ACRONYM',
+			'ECPACRONYM',
+			'FULL_NAME',
+			'TYPE',
+			'PGR_ACTIVITY',
+			'MAINTCOLL',
+			'STREET_POB',
+			'CITY_STATE',
+			'ZIP_CODE',
+			'PHONE',
+			'FAX',
+			'EMAIL',
+			'URL',
+			'LATITUDE',
+			'LONGITUDE',
+			'ALTITUDE',
+			'UPDATED_ON',
+			'V_INSTCODE'
+		);
+		
+		//
+		// Create temp files.
+		//
+		$zip = tempnam( '', '' );
+		$txt = tempnam( '', '' );
 
-	} // EAcronym.
+		//
+		// Copy file locally.
+		//
+		if( file_put_contents( $zip, file_get_contents( kENTITY_INST_FAO_DOWNLOAD ) )
+			!== FALSE )
+		{
+			//
+			// Open zip file.
+			//
+			$zp = zip_open( $zip );
+			
+			//
+			// Read file.
+			//
+			if( $zp )
+			{
+				//
+				// Cycle entries.
+				//
+				if( $entry = zip_read( $zp ) )
+					$ok =
+						file_put_contents
+							( $txt, zip_entry_read
+										( $entry, zip_entry_filesize( $entry ) ) );
+				
+				//
+				// Close and delete zip file.
+				//
+				zip_entry_close( $entry );
+				zip_close( $zp );
+				unlink( $zip );
+				
+				//
+				// Handle Mac EOL.
+				//
+				$save = ini_set( 'auto_detect_line_endings', 1 );
+				
+				//
+				// Open file.
+				//
+				$fp = fopen( $txt, 'r' );
+				if( $fp !== FALSE )
+				(
+					//
+					// Cycle file.
+					//
+					while( ($data = fgetcsv( $fp, 4096, ',', '"' )) !== FALSE )
+					{
+					
+					} // Iterating file.
+				
+				) // Opened text file.
+				
+				//
+				// Unable to read zip file.
+				//
+				else
+					throw new CException
+						( "Unable to read text file",
+						  kERROR_INVALID_PARAMETER,
+						  kMESSAGE_TYPE_ERROR,
+						  array( 'URL' => kENTITY_INST_FAO_DOWNLOAD ) );		// !@! ==>
+				
+				//
+				// Reset EOL.
+				//
+				ini_set( 'auto_detect_line_endings', $save );
+			
+			} // Read zip file.
+			
+			//
+			// Unable to read zip file.
+			//
+			else
+				throw new CException
+					( "Unable to read zip file",
+					  kERROR_INVALID_PARAMETER,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'URL' => kENTITY_INST_FAO_DOWNLOAD ) );			// !@! ==>
+			
+		} // Loaded file.
+		
+		//
+		// Unable to download file.
+		//
+		else
+			throw new CException
+				( "Unable to download file",
+				  kERROR_INVALID_PARAMETER,
+				  kMESSAGE_TYPE_ERROR,
+				  array( 'URL' => kENTITY_INST_FAO_DOWNLOAD ) );				// !@! ==>
+		
+		
+		
+		
+		//
+		// Check data.
+		//
+		if( is_array( $theData )
+		 || ($theData instanceof ArrayObject) )
+		{
+			//
+			// Valid institute record.
+			//
+			if( array_key_exists( 'INSTCODE', (array) $theData ) )
+			{
+				//
+				// Init local storage.
+				//
+				$inst = new CFAOInstitute();
+				$addr = new CMailAddress();
+			
+				//
+				// Get institute code.
+				//
+				$inst->Code( $theData[ 'INSTCODE' ] );
+				
+				//
+				// Load other elements.
+				//
+				if( array_key_exists( 'ACRONYM', (array) $theData )
+				 && strlen( $tmp = trim( $theData[ 'ACRONYM' ] ) ) )
+					$inst->Acronym( $tmp );
+
+				if( array_key_exists( 'ECPACRONYM', (array) $theData )
+				 && strlen( $tmp = trim( $theData[ 'ECPACRONYM' ] ) ) )
+					$inst->EAcronym( $tmp );
+
+				if( array_key_exists( 'FULL_NAME', (array) $theData )
+				 && strlen( $tmp = trim( $theData[ 'FULL_NAME' ] ) ) )
+					$inst->Name( $tmp );
+
+				if( array_key_exists( 'TYPE', (array) $theData )
+				 && strlen( $theData[ 'TYPE' ] ) )
+				{
+					$list = explode( '/', $theData[ 'TYPE' ] );
+					foreach( $list as $element )
+					{
+						if( strlen( $tmp = trim( $element ) ) )
+							$inst->FAOType( $tmp, TRUE );
+					}
+				}
+
+				if( array_key_exists( 'PGR_ACTIVITY', (array) $theData )
+				 && ($theData[ 'PGR_ACTIVITY' ] == 'Y') )
+					$inst->Kind( kENTITY_INST_FAO_ACT_PGR, TRUE );
+
+				if( array_key_exists( 'MAINTCOLL', (array) $theData )
+				 && ($theData[ 'MAINTCOLL' ] == 'Y') )
+					$inst->Kind( kENTITY_INST_FAO_ACT_COLL, TRUE );
+
+				if( array_key_exists( 'STREET_POB', (array) $theData )
+				 && strlen( $tmp = trim( $theData[ 'STREET_POB' ] ) ) )
+					$addr->Street( $tmp );
+
+				if( array_key_exists( 'CITY_STATE', (array) $theData )
+				 && strlen( $tmp = trim( $theData[ 'CITY_STATE' ] ) ) )
+					$addr->City( $tmp );
+
+				if( array_key_exists( 'ZIP_CODE', (array) $theData )
+				 && strlen( $tmp = trim( $theData[ 'ZIP_CODE' ] ) ) )
+					$addr->Zip( $tmp );
+				
+				if( count( $addr ) )
+				{
+					$addr->Country( substr( $theData[ 'INSTCODE' ], 0, 3 ) );
+					$inst->Mail( $addr );
+				}
+
+				if( array_key_exists( 'PHONE', (array) $theData )
+				 && strlen( $tmp = trim( $theData[ 'PHONE' ] ) ) )
+					$inst->Phone( $tmp );
+
+				if( array_key_exists( 'FAX', (array) $theData )
+				 && strlen( $tmp = trim( $theData[ 'FAX' ] ) ) )
+					$inst->Fax( $tmp );
+
+				if( array_key_exists( 'EMAIL', (array) $theData )
+				 && strlen( $tmp = trim( $theData[ 'EMAIL' ] ) ) )
+					$inst->Email( $tmp );
+
+				if( array_key_exists( 'URL', (array) $theData )
+				 && strlen( $tmp = trim( $theData[ 'URL' ] ) ) )
+					$inst->URL( $tmp );
+
+				if( array_key_exists( 'LATITUDE', (array) $theData )
+				 && strlen( $tmp = trim( $theData[ 'LATITUDE' ] ) ) )
+					$inst->Latitude( $tmp );
+
+				if( array_key_exists( 'LONGITUDE', (array) $theData )
+				 && strlen( $tmp = trim( $theData[ 'LONGITUDE' ] ) ) )
+					$inst->Longitude( $tmp );
+
+				if( array_key_exists( 'ALTITUDE', (array) $theData )
+				 && strlen( $tmp = trim( $theData[ 'ALTITUDE' ] ) ) )
+					$inst->Altitude( $tmp );
+
+				if( array_key_exists( 'UPDATED_ON', (array) $theData )
+				 && strlen( $tmp = trim( $theData[ 'UPDATED_ON' ] ) ) )
+					$inst->Stamp( new CDataTypeStamp( $tmp ) );
+
+				if( array_key_exists( 'V_INSTCODE', (array) $theData )
+				 && strlen( $tmp = trim( $theData[ 'V_INSTCODE' ] ) ) )
+					$inst->Valid( $tmp );
+				
+				//
+				// Commit institute.
+				//
+				$inst->Commit( $theContainer, NULL, kFLAG_PERSIST_REPLACE +
+													kFLAG_STATE_ENCODED );
+				
+				return 1;															// ==>
+			
+			} // Valid institute.
+		
+		} // Valid data.
+		
+		else
+			throw new CException
+				( "Invalid import data format",
+				  kERROR_INVALID_PARAMETER,
+				  kMESSAGE_TYPE_ERROR,
+				  array( 'Data' => $theData ) );								// !@! ==>
+			
+		//
+		// Init local storage.
+		//
+		$count = 0;
+			
+		//
+		// Assume it is a list.
+		//
+		foreach( $theData as $element )
+			$count += self::Import( $theContainer, $element );
+		
+		return $count;																// ==>
+
+	} // Update.
 
 		
 

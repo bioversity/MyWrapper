@@ -65,7 +65,7 @@ require_once( kPATH_LIBRARY_SOURCE."CInstitute.inc.php" );
  *	@package	MyWrapper
  *	@subpackage	Entities
  */
-class CInstitute extends CEntity
+class CInstitute extends CContact
 {
 		
 

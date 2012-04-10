@@ -101,4 +101,16 @@ define( "kENTITY_INST_FAO_ACT_PGR",				':ACTIVITY:PGR' );
  */
 define( "kENTITY_INST_FAO_ACT_COLL",			':ACTIVITY:COLL' );
 
+
+/*=======================================================================================
+ *	DEFAULT FAO/WIEWS INSTITUTE DOWNLOAD URL											*
+ *======================================================================================*/
+
+/**
+ * FAO/WIEWS institute download URL.
+ *
+ * This enumeration indicates the URL used to download the FAO/WIEWS database export file.
+ */
+define( "kENTITY_INST_FAO_DOWNLOAD",			'http://apps3.fao.org/wiews/export.zip' );
+
 ?>

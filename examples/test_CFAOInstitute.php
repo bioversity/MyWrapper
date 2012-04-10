@@ -67,145 +67,92 @@ try
 	echo( '<i><b>INSTITUTE1</b></i><br>' );
 	echo( '<i>$institute1 = new CFAOInstitute();</i><br>' );
 	$institute1 = new CFAOInstitute();
-	echo( '<i>$institute1->Code( \'FAO\' );</i><br>' );
-	$institute1->Code( 'FAO' );
-	echo( '<i>$institute1->Name( \'Food and Agriculture Organization of the United Nations\' );</i><br>' );
-	$institute1->Name( 'Food and Agriculture Organization of the United Nations' );
-	echo( '<i>$institute1->Email( \'mail@fao.org\' );</i><br>' );
-	$institute1->Email( 'mail@fao.org' );
-	echo( '<i>$institute1->Acronym( \'FAO\', TRUE );</i><br>' );
-	$institute1->Acronym( 'FAO', TRUE );
-	echo( '<i>$institute1->URL( \'http://fao.org\', \'Main\' );</i><br>' );
-	$institute1->URL( 'http://fao.org', 'Main' );
-	echo( '<i>$id1 = $institute1->Commit( $collection, NULL, kFLAG_PERSIST_INSERT + kFLAG_STATE_ENCODED );</i><br>' );
-	$id1 = $institute1->Commit( $collection, NULL, kFLAG_PERSIST_INSERT + kFLAG_STATE_ENCODED );
-	echo( '$id1<pre>' ); print_r( $institute1 ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	echo( '<i><b>INSTITUTE2</b></i><br>' );
-	echo( '<i>$institute2 = new CFAOInstitute();</i><br>' );
-	$institute2 = new CFAOInstitute();
-	echo( '<i>$institute2->Code( \'ITA412\' );</i><br>' );
-	$institute2->Code( 'ITA412' );
-	echo( '<i>$institute2->Name( \'Bioversity International\' );</i><br>' );
-	$institute2->Name( 'Bioversity International' );
-	echo( '<i>$institute2->Kind( \'FAO/WIEWS\', TRUE );</i><br>' );
-	$institute2->Kind( 'FAO/WIEWS', TRUE );
-	echo( '<i>$institute2->URL( \'http://bioversityinternational.cgiar.org\', \'Main\' );</i><br>' );
-	$institute2->URL( 'http://bioversityinternational.cgiar.org', 'Main' );
-	echo( '<i>$institute2->Acronym( \'Bioversity\', TRUE );</i><br>' );
-	$institute2->Acronym( 'Bioversity' );
-	echo( '<i>$id2 = $institute2->Commit( $collection, NULL, kFLAG_PERSIST_INSERT + kFLAG_STATE_ENCODED );</i><br>' );
-	$id2 = $institute2->Commit( $collection, NULL, kFLAG_PERSIST_INSERT + kFLAG_STATE_ENCODED );
-	echo( '$id1<pre>' ); print_r( $institute2 ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	echo( '<i><b>INSTITUTE3</b></i><br>' );
-	echo( '<i>$institute3 = new CFAOInstitute();</i><br>' );
-	$institute3 = new CFAOInstitute();
-	echo( '<i>$institute3->Code( \'ITA303\' );</i><br>' );
-	$institute3->Code( 'ITA303' );
-	echo( '<i>$institute3->Name( \'International Plant Genetic Resources Information\' );</i><br>' );
-	$institute3->Name( 'International Plant Genetic Resources Information' );
-	echo( '<i>$institute3->Kind( \'FAO/WIEWS\', TRUE );</i><br>' );
-	$institute3->Kind( 'FAO/WIEWS', TRUE );
-	echo( '<i>$institute3->URL( \'http://ipgri.cgiar.org\', \'Main\' );</i><br>' );
-	$institute3->URL( 'http://ipgri.cgiar.org', 'Main' );
-	echo( '<i>$institute3->Acronym( \'IPGRI\', TRUE );</i><br>' );
-	$institute3->Acronym( 'IPGRI' );
-	echo( '<i>$institute3->Valid( $id2 );</i><br>' );
-	$institute3->Valid( $id2 );
-	echo( '<i>$id3 = $institute3->Commit( $collection, NULL, kFLAG_PERSIST_INSERT + kFLAG_STATE_ENCODED );</i><br>' );
-	$id3 = $institute3->Commit( $collection, NULL, kFLAG_PERSIST_INSERT + kFLAG_STATE_ENCODED );
-	echo( '$id1<pre>' ); print_r( $institute3 ); echo( '</pre>' );
-	echo( '<hr>' );
+	echo( '<i>$institute1->Code( \'MDG009\' );</i><br>' );
+	$institute1->Code( 'MDG009' );
+	echo( '<i>$institute1->Acronym( \'IRAT\', TRUE );</i><br>' );
+	$institute1->Acronym( 'IRAT', TRUE );
+	echo( '<i>$institute1->EAcronym( \'MDGIRAT\' );</i><br>' );
+	$institute1->EAcronym( 'MDGIRAT' );
+	echo( '<i>$institute1->Name( \'Mission IRAT à Madagascar\' );</i><br>' );
+	$institute1->Name( 'Mission IRAT à Madagascar' );
+	echo( '<i>$institute1->FAOType( \'GOV\', TRUE );</i><br>' );
+	$institute1->FAOType( 'GOV', TRUE );
+	echo( '<i>$institute1->FAOType( \'FRA\', TRUE );</i><br>' );
+	$institute1->FAOType( 'FRA', TRUE );
+	echo( '<i>$institute1->FAOType( \'MDG\', TRUE );</i><br>' );
+	$institute1->FAOType( 'MDG', TRUE );
+	echo( '<i>$institute1->Kind( kENTITY_INST_FAO_ACT_PGR, TRUE );</i><br>' );
+	$institute1->Kind( kENTITY_INST_FAO_ACT_PGR, TRUE );
+	echo( '<i>$institute1->Kind( kENTITY_INST_FAO_ACT_COLL, TRUE );</i><br>' );
+	$institute1->Kind( kENTITY_INST_FAO_ACT_COLL, TRUE );
+	echo( '<i>$addr = new CMailAddress();</i><br>' );
+	$addr = new CMailAddress();
+	echo( '<i>$addr->Street( \'BP 853\' );</i><br>' );
+	$addr->Street( 'BP 853' );
+	echo( '<i>$addr->City( \'Antananarivo\' );</i><br>' );
+	$addr->City( 'Antananarivo' );
+	echo( '<i>$addr->Zip( \'A-F07\' );</i><br>' );
+	$addr->Zip( 'A-F07' );
+	echo( '<i>$institute1->Mail( $addr );</i><br>' );
+	$institute1->Mail( $addr );
+	echo( '<i>$institute1->Phone( \'27182\' );</i><br>' );
+	$institute1->Phone( '27182' );
+	echo( '<i>$institute1->Fax( \'27181\' );</i><br>' );
+	$institute1->Fax( '27181' );
+	echo( '<i>$institute1->Email( \'mail@nowhere.bot\' );</i><br>' );
+	$institute1->Email( 'mail@nowhere.bot' );
+	echo( '<i>$institute1->URL( \'http://nowhere.org\' );</i><br>' );
+	$institute1->URL( 'http://nowhere.org' );
+	echo( '<i>$institute1->Latitude( 4159 );</i><br>' );
+	$institute1->Latitude( 4159 );
+	echo( '<i>$institute1->Longitude( 250 );</i><br>' );
+	$institute1->Longitude( 250 );
+	echo( '<i>$institute1->Altitude( 70 );</i><br>' );
+	$institute1->Altitude( 70 );
+	echo( '<i>$institute1->Stamp( new CDataTypeStamp( \'2004-08-06\' ) );</i><br>' );
+	$institute1->Stamp( new CDataTypeStamp( '2004-08-06 00:00:00' ) );
+	echo( '<i>$institute1->Valid( \'MDG010\' );</i><br>' );
+	$institute1->Valid( 'MDG010' );
+	$id1 = $institute1->Commit( $collection );
+	echo( "$id1<pre>" ); print_r( $institute1 ); echo( '</pre>' );
 	echo( '<hr>' );
 	 
 	//
-	// Test relations.
+	// Load institutes list.
 	//
-	echo( '<h3>Relations</h3>' );
+	echo( '<h3>Load institutes list</h3>' );
 	
-	echo( '<i>$institute3->Affiliate( \'Division\', $institute1, TRUE );</i><br>' );
-	$institute3->Affiliate( 'Division', $institute1, TRUE );
-	echo( '<pre>' ); print_r( $institute3 ); echo( '</pre>' );
-	echo( '<i>$institute3->Commit( $collection, NULL, kFLAG_PERSIST_UPDATE + kFLAG_STATE_ENCODED );</i><br>' );
-	$institute3->Commit( $collection, NULL, kFLAG_PERSIST_UPDATE + kFLAG_STATE_ENCODED );
-	echo( '<pre>' ); print_r( $institute3 ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	echo( '<i>$institute2->Affiliate( \'Partner\', $id1, TRUE );</i><br>' );
-	$institute2->Affiliate( 'Partner', $id1, TRUE );
-	echo( '<pre>' ); print_r( $institute2 ); echo( '</pre>' );
-	echo( '<i>$institute2->Commit( $collection, NULL, kFLAG_PERSIST_UPDATE + kFLAG_STATE_ENCODED );</i><br>' );
-	$institute2->Commit( $collection, NULL, kFLAG_PERSIST_UPDATE + kFLAG_STATE_ENCODED );
-	echo( '<pre>' ); print_r( $institute3 ); echo( '</pre>' );
-	echo( '<hr>' );
-	echo( '<hr>' );
-	 
-	//
-	// Test valid entity.
-	//
-	echo( '<h3>Test valid entity</h3>' );
-
-	echo( '<i>$id1;</i><br>' );
-	echo( '<pre>' ); print_r( $id1 ); echo( '</pre>' );
-	echo( '<i>$valid = CFAOInstitute::ValidEntity( $collection, $id1, kFLAG_STATE_ENCODED );</i><br>' );
-	$valid = CFAOInstitute::ValidEntity( $collection, $id1, kFLAG_STATE_ENCODED );
-	echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
-	echo( '<hr>' );
-
-	echo( '<i>$id2;</i><br>' );
-	echo( '<pre>' ); print_r( $id2 ); echo( '</pre>' );
-	echo( '<i>$valid = CFAOInstitute::ValidEntity( $collection, $id2, kFLAG_STATE_ENCODED );</i><br>' );
-	$valid = CFAOInstitute::ValidEntity( $collection, $id2, kFLAG_STATE_ENCODED );
-	echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
-	echo( '<hr>' );
-
-	echo( '<i>$id2;</i><br>' );
-	echo( '<pre>' ); print_r( $id3 ); echo( '</pre>' );
-	echo( '<i>$valid = CFAOInstitute::ValidEntity( $collection, $id3, kFLAG_STATE_ENCODED );</i><br>' );
-	$valid = CFAOInstitute::ValidEntity( $collection, $id3, kFLAG_STATE_ENCODED );
-	echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
-	echo( '<hr>' );
-	echo( '<hr>' );
-	 
-	//
-	// Test valid validation.
-	//
-	echo( '<h3>Test valid validation</h3>' );
-
-	try
+	echo( '<i><b>List of institutes</b></i><br>' );
+	$matrix = Array();
+	$fp = fopen( 'Code_FAO_Institutes.csv', 'r' );
+	if( $fp !== FALSE )
 	{
-		echo( '<i>$institute2->Valid( $id3 );</i><br>' );
-		$institute2->Valid( $id3 );
-		echo( '<i>$institute2->Commit( $collection, NULL, kFLAG_PERSIST_UPDATE + kFLAG_STATE_ENCODED );</i><br>' );
-		$institute2->Commit( $collection, NULL, kFLAG_PERSIST_UPDATE + kFLAG_STATE_ENCODED );
-		echo( '<i>$valid = CFAOInstitute::ValidEntity( $collection, $id2, kFLAG_STATE_ENCODED );</i><br>' );
-		$valid = CFAOInstitute::ValidEntity( $collection, $id2, kFLAG_STATE_ENCODED );
-		echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
+		if( $header = fgetcsv( $fp, 4096 ) )
+		{
+			$values = fgetcsv( $fp, 4096 );
+			while( $values )
+			{
+				$tmp = Array();
+				$hrd = $header;
+				if( count( $values ) < count( $hrd ) )
+					array_splice( $hrd, count( $values ) );
+				for( $i = 0; $i < count( $hrd ); $i++ )
+					$tmp[ $hrd[ $i ] ] = $values[ $i ];
+				$matrix[] = $tmp;
+				$values = fgetcsv( $fp, 4096 );
+			}
+		}
+		
+		fclose( $fp );
 	}
-	catch( Exception $error )
-	{
-		echo( CException::AsHTML( $error ) );
-		echo( '<br>' );
-	}
+	else
+		echo( '<i>Unable to open file!</i><br>' );
+	echo( '<i>$count = CFAOInstitute::Import( $collection, $matrix );</i><br>' );
+	$count = CFAOInstitute::Import( $collection, $matrix );
+	echo( $count );
 	echo( '<hr>' );
 	
-	try
-	{
-		echo( '<i>$collection->Delete( $id2, kFLAG_STATE_ENCODED );</i><br>' );
-		$collection->Delete( $id2, kFLAG_STATE_ENCODED );
-		echo( '<i>$valid = CFAOInstitute::ValidEntity( $collection, $id3, kFLAG_STATE_ENCODED );</i><br>' );
-		$valid = CFAOInstitute::ValidEntity( $collection, $id3, kFLAG_STATE_ENCODED );
-		echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
-	}
-	catch( Exception $error )
-	{
-		echo( CException::AsHTML( $error ) );
-		echo( '<br>' );
-	}
-	echo( '<hr>' );
+	echo( '<h3>DONE</h3>' );
 }
 
 //

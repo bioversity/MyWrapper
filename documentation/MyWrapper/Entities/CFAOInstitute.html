@@ -30,8 +30,8 @@
 <p class="short-description">FAO/WIEWS institute.</p>
 <p class="description"><p>This class overloads its <a href="../../MyWrapper/Entities/CInstitute.html">ancestor</a> to implement an institute entity  taken from the FAO WIEWS institutes database.</p><p>This kind of institutes adds the following properties:</p><p><ul><li><em><a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_EPACRONYM">kENTITY_INST_FAO_EPACRONYM</a></em>: This offset
         represents the institute ECPGR <a href="../../MyWrapper/Entities/CFAOInstitute.html#methodEAcronym">acronym</a>.</li><li><em><a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_TYPE">kENTITY_INST_FAO_TYPE</a></em>: This offset represents
-        the institute set of FAOType() institute types.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_URL">kOFFSET_URL</a></em>: This offset represents the institute
-        <a href="../../MyWrapper/Entities/CFAOInstitute.html#methodURL">URL</a>.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_LATITUDE">kOFFSET_LATITUDE</a></em>: This offset represents the
+        the institute set of <a href="../../MyWrapper/Entities/CFAOInstitute.html#methodFAOType">FAO</a> institute types.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_URL">kOFFSET_URL</a></em>: This offset represents the institute
+        <a href="../../MyWrapper/Entities/CInstitute.html#methodURL">URL</a>.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_LATITUDE">kOFFSET_LATITUDE</a></em>: This offset represents the
         institute <a href="../../MyWrapper/Entities/CFAOInstitute.html#methodLatitude">latitude</a>, note this is an integer value.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_LONGITUDE">kOFFSET_LONGITUDE</a></em>: This offset represents the
         institute <a href="../../MyWrapper/Entities/CFAOInstitute.html#methodLongitude">longitude</a>, note this is an integer value.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_ALTITUDE">kOFFSET_ALTITUDE</a></em>: This offset represents the
         institute <a href="../../MyWrapper/Entities/CFAOInstitute.html#methodAltitude">altitude</a>, note this is an integer value.</li></ul></p><p>The object unique <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a> is <a href="../../MyWrapper/Entities/CFAOInstitute.html#method_id">formed</a> by  <a href="../../MyWrapper/Entities/CFAOInstitute.html#method_index">using</a> the <a href="../../MyWrapper/Entities/CEntity.html#methodCode">code</a> without any formatting.</p></p>
@@ -52,9 +52,11 @@
                |
                --<a href="../../MyWrapper/Entities/CEntity.html">CEntity</a>
                   |
-                  --<a href="../../MyWrapper/Entities/CInstitute.html">CInstitute</a>
+                  --<a href="../../MyWrapper/Entities/CContact.html">CContact</a>
                      |
-                     --CFAOInstitute</pre>
+                     --<a href="../../MyWrapper/Entities/CInstitute.html">CInstitute</a>
+                        |
+                        --CFAOInstitute</pre>
 	
 			</div>
 </div>
@@ -76,13 +78,13 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																																																																																																<div class="method-definition">
-					<img src="../../media/images/Method.png" alt=" "/>
-											<span class="method-result">mixed</span>
-										<a href="#Acronym" title="details" class="method-name">Acronym</a>
-											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theOperation</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+																																																				<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">integer</span>
+										<a href="#Update" title="details" class="method-name">Update</a>
+											(<span class="var-type"><a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a></span>&nbsp;<span class="var-name">$theContainer</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$theDate</span> = <span class="var-default">NULL</span>])
 									</div>
-																<div class="method-definition">
+																																												<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">string</span>
 										<a href="#Altitude" title="details" class="method-name">Altitude</a>
@@ -96,9 +98,9 @@
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
-											<span class="method-result">string</span>
-										<a href="#EAcronym" title="details" class="method-name">EAcronym</a>
-											([<span class="var-type"></span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>], <span class="var-type"><a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a></span>&nbsp;<span class="var-name">$theContainer</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$theData</span>)
+											<span class="method-result">mixed</span>
+										<a href="#FAOType" title="details" class="method-name">FAOType</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theOperation</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -112,13 +114,7 @@
 										<a href="#Longitude" title="details" class="method-name">Longitude</a>
 											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
 									</div>
-																<div class="method-definition">
-					<img src="../../media/images/Method.png" alt=" "/>
-											<span class="method-result">string</span>
-										<a href="#URL" title="details" class="method-name">URL</a>
-											([<span class="var-type">string</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
-									</div>
-																<div class="method-definition">
+																								<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">mixed</span>
 										<a href="#_id" title="details" class="method-name">_id</a>
@@ -180,49 +176,35 @@
 		</div>
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
-<a name="methodAcronym" id="Acronym"><!-- --></a>
+<a name="methodUpdate" id="Update"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
-		<img src="../../media/images/Method.png" />
-		<span class="method-title">Acronym</span> (line <span class="line-number">144</span>)
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static Update</span> (line <span class="line-number">289</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Manage FAO/WIEWS types.</p>
-<p class="description"><p>This method can be used to handle the institute FAO/WIEWS  <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_TYPE">types</a> list, it uses the standard accessor  <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageArrayOffset">method</a> to manage the  list of acronyms.</p><p>Each element of this list should indicate an acronym by which one refers to the  current institute, the nature and specifics of these elements is the responsibility  of concrete classes.</p><p>For a more thorough reference of how this method works, please consult the  <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageArrayOffset">_ManageArrayOffset</a> method, in which the first parameter  will be the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_ACRONYM">kOFFSET_ACRONYM</a>.</p></p>
-	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_ACRONYM">kOFFSET_ACRONYM</a></li>
-				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></li>
-			</ul>
+<p class="short-description">Update institutes.</p>
+<p class="description"><p>This method will download the current FAO/WIEWS export file and load its contents  into the provided container.</p><p>If you provide the second parameter, it will be used to filter only institutes  modified after the provided date; the format of that parameter is a date as  <em>YYYY-MM-DD</em>.</p><p>The method will return the number of updated institutes.</p><p></p></p>
 	
 	<div class="method-signature">
-		<span class="method-result">mixed</span>
+		<span class="method-result">integer</span>
 		<span class="method-name">
-			Acronym
+			Update
 		</span>
-					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theOperation</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+					(<span class="var-type"><a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a></span>&nbsp;<span class="var-name">$theContainer</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$theDate</span> = <span class="var-default">NULL</span>])
 			</div>
 	
 			<ul class="parameters">
 					<li>
-				<span class="var-type">mixed</span>
-				<span class="var-name">$theValue</span><span class="var-description">: Value or index.</span>			</li>
+				<span class="var-type"><a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a></span>
+				<span class="var-name">$theContainer</span><span class="var-description">: Data container.</span>			</li>
 					<li>
-				<span class="var-type">mixed</span>
-				<span class="var-name">$theOperation</span><span class="var-description">: Operation.</span>			</li>
-					<li>
-				<span class="var-type">boolean</span>
-				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theDate</span><span class="var-description">: Update date.</span>			</li>
 				</ul>
 		
-			<hr class="separator" />
-		<div class="notes">Redefinition of:</div>
-		<dl>
-			<dt><a href="../../MyWrapper/Entities/CInstitute.html#methodAcronym">CInstitute::Acronym()</a></dt>
-						<dd>Manage entity acronyms.</dd>
-					</dl>
 			
 	</div>
 <a name="methodAltitude" id="Altitude"><!-- --></a>
@@ -230,14 +212,14 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Altitude</span> (line <span class="line-number">303</span>)
+		<span class="method-title">Altitude</span> (line <span class="line-number">247</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage institute altitude.</p>
-<p class="description"><p>This method can be used to handle the institute <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_ALTITUDE">altitude</a>,  it uses the standard accessor <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">method</a> to manage the  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_ALTITUDE">offset</a>.</p><p>This value is provided as an integer, specialised classes may convert it.</p><p>For a more in-depth reference of this method, please consult the  <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">_ManageOffset</a> method, in which the first parameter  will be the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">kTAG_NAME</a>.</p></p>
+<p class="description"><p>This method can be used to handle the institute  <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_ALT">altitude</a>, it uses the standard accessor  <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">method</a> to manage the <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_ALT">offset</a>.</p><p>This value is provided as an integer, specialised classes may convert it.</p><p>For a more in-depth reference of this method, please consult the  <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">_ManageOffset</a> method, in which the first parameter  will be the constant <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_ALT">kENTITY_INST_FAO_ALT</a>.</p></p>
 	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_ALTITUDE">kOFFSET_ALTITUDE</a></li>
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_ALT">kENTITY_INST_FAO_ALT</a></li>
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 			</ul>
@@ -271,9 +253,9 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage institute ECPGR acronym.</p>
-<p class="description"><p>This method can be used to handle the institute ECPGR  <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_EPACRONYM">acronym</a>, it uses the standard accessor  <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">method</a> to manage the  <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_EPACRONYM">offset</a>.</p><p>This value should be a string.</p><p>For a more in-depth reference of this method, please consult the  <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">_ManageOffset</a> method, in which the first parameter  will be the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">kTAG_NAME</a>.</p></p>
+<p class="description"><p>This method can be used to handle the institute ECPGR  <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_EPACRONYM">acronym</a>, it uses the standard accessor  <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">method</a> to manage the  <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_EPACRONYM">offset</a>.</p><p>This value should be a string.</p><p>For a more in-depth reference of this method, please consult the  <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">_ManageOffset</a> method, in which the first parameter  will be the constant <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_EPACRONYM">kENTITY_INST_FAO_EPACRONYM</a>.</p></p>
 	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">kTAG_NAME</a></li>
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_EPACRONYM">kENTITY_INST_FAO_EPACRONYM</a></li>
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 			</ul>
@@ -297,44 +279,41 @@
 		
 			
 	</div>
-<a name="methodEAcronym" id="EAcronym"><!-- --></a>
+<a name="methodFAOType" id="FAOType"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">EAcronym</span> (line <span class="line-number">342</span>)
+		<span class="method-title">FAOType</span> (line <span class="line-number">144</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Import institutes.</p>
-<p class="description"><p>This method will take the provided data and load it into the provided  <a href="../../MyWrapper/Persistence/CContainer.html">container</a>. The data is expected to have the same format as the  FAO/WIEWS export file.</p><p>The method will first check if the</p></p>
+<p class="short-description">Manage FAO/WIEWS types.</p>
+<p class="description"><p>This method can be used to handle the institute FAO/WIEWS  <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_TYPE">types</a> list, it uses the standard accessor  <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageArrayOffset">method</a> to manage the  list of acronyms.</p><p>Each element of this list should indicate an acronym by which one refers to the  current institute, the nature and specifics of these elements is the responsibility  of concrete classes.</p><p>For a more thorough reference of how this method works, please consult the  <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageArrayOffset">_ManageArrayOffset</a> method, in which the first parameter  will be the constant <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_TYPE">kENTITY_INST_FAO_TYPE</a>.</p></p>
 	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">kTAG_NAME</a></li>
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_TYPE">kENTITY_INST_FAO_TYPE</a></li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></li>
 			</ul>
 	
 	<div class="method-signature">
-		<span class="method-result">string</span>
+		<span class="method-result">mixed</span>
 		<span class="method-name">
-			EAcronym
+			FAOType
 		</span>
-					([<span class="var-type"></span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>], <span class="var-type"><a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a></span>&nbsp;<span class="var-name">$theContainer</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$theData</span>)
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theOperation</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
 			</div>
 	
 			<ul class="parameters">
 					<li>
-				<span class="var-type"><a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a></span>
-				<span class="var-name">$theContainer</span><span class="var-description">: Data container.</span>			</li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Value or index.</span>			</li>
 					<li>
-				<span class="var-type">array</span>
-				<span class="var-name">$theData</span><span class="var-description">: Import data.</span>			</li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theOperation</span><span class="var-description">: Operation.</span>			</li>
 					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$theValue</span>			</li>
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$getOld</span>			</li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
 				</ul>
 		
 			
@@ -344,14 +323,14 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Latitude</span> (line <span class="line-number">235</span>)
+		<span class="method-title">Latitude</span> (line <span class="line-number">179</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage institute latitude.</p>
-<p class="description"><p>This method can be used to handle the institute <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_LATITUDE">latitude</a>, it  uses the standard accessor <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">method</a> to manage the  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_LATITUDE">offset</a>.</p><p>This value is provided as an integer, specialised classes may convert it.</p><p>For a more in-depth reference of this method, please consult the  <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">_ManageOffset</a> method, in which the first parameter  will be the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">kTAG_NAME</a>.</p></p>
+<p class="description"><p>This method can be used to handle the institute  <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_LAT">latitude</a>, it uses the standard accessor  <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">method</a> to manage the <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_LAT">offset</a>.</p><p>This value is provided as an integer, specialised classes may convert it.</p><p>For a more in-depth reference of this method, please consult the  <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">_ManageOffset</a> method, in which the first parameter  will be the constant <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_LAT">kENTITY_INST_FAO_LAT</a>.</p></p>
 	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_LATITUDE">kOFFSET_LATITUDE</a></li>
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_LAT">kENTITY_INST_FAO_LAT</a></li>
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 			</ul>
@@ -380,14 +359,14 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Longitude</span> (line <span class="line-number">269</span>)
+		<span class="method-title">Longitude</span> (line <span class="line-number">213</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage institute longitude.</p>
-<p class="description"><p>This method can be used to handle the institute <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_LONGITUDE">longitude</a>,  it uses the standard accessor <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">method</a> to manage the  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_LONGITUDE">offset</a>.</p><p>This value is provided as an integer, specialised classes may convert it.</p><p>For a more in-depth reference of this method, please consult the  <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">_ManageOffset</a> method, in which the first parameter  will be the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">kTAG_NAME</a>.</p></p>
+<p class="description"><p>This method can be used to handle the institute  <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_LON">longitude</a>, it uses the standard accessor  <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">method</a> to manage the <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_LON">offset</a>.</p><p>This value is provided as an integer, specialised classes may convert it.</p><p>For a more in-depth reference of this method, please consult the  <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">_ManageOffset</a> method, in which the first parameter  will be the constant <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_LON">kENTITY_INST_FAO_LON</a>.</p></p>
 	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_LONGITUDE">kOFFSET_LONGITUDE</a></li>
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_LON">kENTITY_INST_FAO_LON</a></li>
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 			</ul>
@@ -411,63 +390,12 @@
 		
 			
 	</div>
-<a name="methodURL" id="URL"><!-- --></a>
+<a name="method_id" id="_id"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">URL</span> (line <span class="line-number">200</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Manage institute urls.</p>
-<p class="description"><p>This method can be used to manage the institute <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_URL">URL</a> or web pages  list, the method expects the following parameters:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kTAG_KIND</a></em>: The institute URL kind, this could be
-        <em>main</em>, <em>sales</em> or <em>international</em>. This element represents the
-        array key, although technically it is implemented as an element to allow
-        searching on all values.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: The URL or web page address.</li></ul></p><p>The parameters to this method are:</p><p><ul><li><strong>$theValue</strong>: The value or operation:
-     <ul><li><em>NULL</em>: Return the current value selected by the second parameter.</li><li><em>FALSE</em>: Delete the value selected by the second parameter.</li><li><em>other</em>: Set value selected by the second parameter.</li></ul></li><li><strong>$theType</strong>: The element type, kind or index:
-     <ul><li><em>NULL</em>: This value indicates that the URL has no type or kind, in
-            general, when adding elements, this case applies to default elements.</li><li><em>other</em>: All other types will be interpreted as the kind or type of
-            the URL.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
-     <ul><li><em>TRUE</em>: Return the value <em>before</em> it was eventually modified.</li><li><em>FALSE</em>: Return the value <em>after</em> it was eventually modified.</li></ul></li></ul></p></p>
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">string</span>
-		<span class="method-name">
-			URL
-		</span>
-					([<span class="var-type">string</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$theValue</span><span class="var-description">: URL or operation.</span>			</li>
-					<li>
-				<span class="var-type">mixed</span>
-				<span class="var-name">$theType</span><span class="var-description">: Mailing address kind or index.</span>			</li>
-					<li>
-				<span class="var-type">boolean</span>
-				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
-				</ul>
-		
-			<hr class="separator" />
-		<div class="notes">Redefinition of:</div>
-		<dl>
-			<dt><a href="../../MyWrapper/Entities/CInstitute.html#methodURL">CInstitute::URL()</a></dt>
-						<dd>Manage institute urls.</dd>
-					</dl>
-			
-	</div>
-<a name="method_id" id="_id"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<img src="../../media/images/Method.png" />
-		<span class="method-title">_id</span> (line <span class="line-number">372</span>)
+		<span class="method-title">_id</span> (line <span class="line-number">585</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -495,11 +423,11 @@
 			
 	</div>
 <a name="method_index" id="_index"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_index</span> (line <span class="line-number">396</span>)
+		<span class="method-title">_index</span> (line <span class="line-number">609</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -527,11 +455,11 @@
 			
 	</div>
 <a name="method_PrepareCommit" id="_PrepareCommit"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">428</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">641</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -592,6 +520,16 @@
 							<span class="method-name"><a href="../../MyWrapper/Entities/CInstitute.html#method_index">CInstitute::_index()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Entities/CInstitute.html#method_PrepareCommit">CInstitute::_PrepareCommit()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Entities/CContact.html">CContact</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Entities/CContact.html#methodFax">CContact::Fax()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Entities/CContact.html#methodMail">CContact::Mail()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Entities/CContact.html#methodPhone">CContact::Phone()</a></span><br>
 											</blockquote>
 									<!-- =========== Summary =========== -->
 					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Entities/CEntity.html">CEntity</a></span></p>
@@ -797,7 +735,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Tue, 10 Apr 2012 16:44:04 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Tue, 10 Apr 2012 19:35:00 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

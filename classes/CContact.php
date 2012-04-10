@@ -186,6 +186,63 @@ class CContact extends CEntity
 	} // Phone.
 
 	 
+	/*===================================================================================
+	 *	Fax																				*
+	 *==================================================================================*/
+
+	/**
+	 * Manage telefax numbers.
+	 *
+	 * This method can be used to manage the contact {@link kOFFSET_FAX telephone}
+	 * numbers, it manages an array of strings with the following offsets:
+	 *
+	 * <ul>
+	 *	<li><i>{@link kTAG_KIND kTAG_KIND}</i>: The telephone number kind, this could be
+	 *		<i>home</i>, <i>work</i> or <i>other</i>. This element represents the array
+	 *		key, although technically it is implemented as an element to allow searching on
+	 *		all values.
+	 *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The telephone number string, this element
+	 *		should hold the actual phone number.
+	 * </ul>
+	 *
+	 * The parameters to this method are:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: The value or operation:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Return the current value selected by the second parameter.
+	 *		<li><i>FALSE</i>: Delete the value selected by the second parameter.
+	 *		<li><i>other</i>: Set value selected by the second parameter.
+	 *	 </ul>
+	 *	<li><b>$theType</b>: The element type, kind or index:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: This value indicates that the phone has no type or kind, in
+	 *			general, when adding elements, this case applies to default elements.
+	 *		<li><i>other</i>: All other types will be interpreted as the kind or type of
+	 *			the phone number.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
+	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * @param string				$theValue			Telephone number or operation.
+	 * @param mixed					$theType			Mailing address kind or index.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 */
+	public function Fax( $theValue = NULL, $theType = NULL, $getOld = FALSE )
+	{
+		return $this->_ManageTypedArrayOffset
+			( kOFFSET_FAX, kTAG_KIND, $theType, $theValue, $getOld );				// ==>
+
+	} // Fax.
+
+	 
 
 } // class CContact.
 
