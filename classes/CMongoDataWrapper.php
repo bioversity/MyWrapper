@@ -115,6 +115,34 @@ class CMongoDataWrapper extends CDataWrapper
  *======================================================================================*/
 
 
+	
+	/*===================================================================================
+	 *	_ParseRequest																	*
+	 *==================================================================================*/
+
+	/**
+	 * Parse request.
+	 *
+	 * We overload this method to parse the no {@link kAPI_OPT_NO_RESP response} tag.
+	 *
+	 * @access private
+	 *
+	 * @uses _ParseNoResponse()
+	 */
+	protected function _ParseRequest()
+	{
+		//
+		// Call parent method.
+		//
+		parent::_ParseRequest();
+		
+		//
+		// Handle parameters.
+		//
+		$this->_ParseNoResponse();
+	
+	} // _ParseRequest.
+
 	 
 	/*===================================================================================
 	 *	_FormatRequest																	*
@@ -174,6 +202,43 @@ class CMongoDataWrapper extends CDataWrapper
 		$this->_ValidateObject();
 	
 	} // _ValidateRequest.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED PARSING UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	_ParseNoResponse																*
+	 *==================================================================================*/
+
+	/**
+	 * Parse no response.
+	 *
+	 * This method will parse the no response operation.
+	 *
+	 * @access private
+	 *
+	 * @see kAPI_DATA_REQUEST kAPI_OPT_NO_RESP
+	 */
+	protected function _ParseNoResponse()
+	{
+		//
+		// Handle no response flag.
+		//
+		if( array_key_exists( kAPI_OPT_NO_RESP, $_REQUEST ) )
+		{
+			if( $this->offsetExists( kAPI_DATA_REQUEST ) )
+				$this->_OffsetManage
+					( kAPI_DATA_REQUEST, kAPI_OPT_NO_RESP, $_REQUEST[ kAPI_OPT_NO_RESP ] );
+		}
+	
+	} // _ParseNoResponse.
 
 		
 

@@ -73,6 +73,113 @@ class CWarehouseWrapper extends CMongoDataWrapper
 
 /*=======================================================================================
  *																						*
+ *								PROTECTED PARSING INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	
+	/*===================================================================================
+	 *	_ParseRequest																	*
+	 *==================================================================================*/
+
+	/**
+	 * Parse request.
+	 *
+	 * We overload this method to parse the user {@link kAPI_OPT_USER_CODE code} and
+	 * {@link kAPI_OPT_USER_PASS password} tags.
+	 *
+	 * @access private
+	 *
+	 * @uses _ParseUserCode()
+	 * @uses _ParseUserPass()
+	 */
+	protected function _ParseRequest()
+	{
+		//
+		// Call parent method.
+		//
+		parent::_ParseRequest();
+		
+		//
+		// Handle parameters.
+		//
+		$this->_ParseUserCode();
+		$this->_ParseUserPass();
+	
+	} // _ParseRequest.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED PARSING UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	_ParseUserCode																	*
+	 *==================================================================================*/
+
+	/**
+	 * Parse user code.
+	 *
+	 * This method will parse the user {@link kAPI_OPT_USER_CODE code} parameter.
+	 *
+	 * @access private
+	 *
+	 * @see kAPI_DATA_REQUEST kAPI_OPT_USER_CODE
+	 */
+	protected function _ParseUserCode()
+	{
+		//
+		// Handle no response flag.
+		//
+		if( array_key_exists( kAPI_OPT_USER_CODE, $_REQUEST ) )
+		{
+			if( $this->offsetExists( kAPI_DATA_REQUEST ) )
+				$this->_OffsetManage
+					( kAPI_DATA_REQUEST, kAPI_OPT_USER_CODE,
+					  $_REQUEST[ kAPI_OPT_USER_CODE ] );
+		}
+	
+	} // _ParseUserCode.
+
+	 
+	/*===================================================================================
+	 *	_ParseUserPass																	*
+	 *==================================================================================*/
+
+	/**
+	 * Parse user password.
+	 *
+	 * This method will parse the user {@link kAPI_OPT_USER_PASS password} parameter.
+	 *
+	 * @access private
+	 *
+	 * @see kAPI_DATA_REQUEST kAPI_OPT_USER_PASS
+	 */
+	protected function _ParseUserPass()
+	{
+		//
+		// Handle no response flag.
+		//
+		if( array_key_exists( kAPI_OPT_USER_PASS, $_REQUEST ) )
+		{
+			if( $this->offsetExists( kAPI_DATA_REQUEST ) )
+				$this->_OffsetManage
+					( kAPI_DATA_REQUEST, kAPI_OPT_USER_PASS,
+					  $_REQUEST[ kAPI_OPT_USER_PASS ] );
+		}
+	
+	} // _ParseUserPass.
+
+		
+
+/*=======================================================================================
+ *																						*
  *							PROTECTED VALIDATION UTILITIES								*
  *																						*
  *======================================================================================*/
@@ -237,7 +344,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 			//
 			// Check password.
 			//
-			if( $user->Password() == $_REQUEST[ kAPI_OPT_USER_CODE ] )
+			if( $user->Password() == $_REQUEST[ kAPI_OPT_USER_PASS ] )
 			{
 				//
 				// Set count.

@@ -72,7 +72,7 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																																								<div class="method-definition">
+																																																																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">void</span>
 										<a href="#_HandleRequest" title="details" class="method-name">_HandleRequest</a>
@@ -82,6 +82,24 @@
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">void</span>
 										<a href="#_Handle_Login" title="details" class="method-name">_Handle_Login</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_ParseRequest" title="details" class="method-name">_ParseRequest</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_ParseUserCode" title="details" class="method-name">_ParseUserCode</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_ParseUserPass" title="details" class="method-name">_ParseUserPass</a>
 										()
 									</div>
 																<div class="method-definition">
@@ -146,7 +164,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_HandleRequest</span> (line <span class="line-number">182</span>)
+		<span class="method-title">_HandleRequest</span> (line <span class="line-number">289</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -178,7 +196,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_Login</span> (line <span class="line-number">214</span>)
+		<span class="method-title">_Handle_Login</span> (line <span class="line-number">321</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -199,12 +217,102 @@
 		
 			
 	</div>
-<a name="method_ValidateOperation" id="_ValidateOperation"><!-- --></a>
+<a name="method_ParseRequest" id="_ParseRequest"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateOperation</span> (line <span class="line-number">99</span>)
+		<span class="method-title">_ParseRequest</span> (line <span class="line-number">97</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Parse request.</p>
+<p class="description"><p>We overload this method to parse the user <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_USER_CODE">code</a> and  <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_USER_PASS">password</a> tags.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Wrappers/CWarehouseWrapper.html#method_ParseUserPass">CWarehouseWrapper::_ParseUserPass()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Wrappers/CWarehouseWrapper.html#method_ParseUserCode">CWarehouseWrapper::_ParseUserCode()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_ParseRequest
+		</span>
+				()
+			</div>
+	
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Wrappers/CMongoDataWrapper.html#method_ParseRequest">CMongoDataWrapper::_ParseRequest()</a></dt>
+						<dd>Parse request.</dd>
+					</dl>
+			
+	</div>
+<a name="method_ParseUserCode" id="_ParseUserCode"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_ParseUserCode</span> (line <span class="line-number">135</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Parse user code.</p>
+<p class="description"><p>This method will parse the user <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_USER_CODE">code</a> parameter.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> kAPI_DATA_REQUEST kAPI_OPT_USER_CODE</li>
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWarehouseWrapper.html#method_ParseRequest">CWarehouseWrapper::_ParseRequest()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_ParseUserCode
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method_ParseUserPass" id="_ParseUserPass"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_ParseUserPass</span> (line <span class="line-number">164</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Parse user password.</p>
+<p class="description"><p>This method will parse the user <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_USER_PASS">password</a> parameter.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> kAPI_DATA_REQUEST kAPI_OPT_USER_PASS</li>
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWarehouseWrapper.html#method_ParseRequest">CWarehouseWrapper::_ParseRequest()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_ParseUserPass
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method_ValidateOperation" id="_ValidateOperation"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_ValidateOperation</span> (line <span class="line-number">206</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -274,6 +382,10 @@
 							<span class="method-name"><a href="../../MyWrapper/Wrappers/CMongoDataWrapper.html#method_Handle_Update">CMongoDataWrapper::_Handle_Update()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Wrappers/CMongoDataWrapper.html#method_InitResources">CMongoDataWrapper::_InitResources()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Wrappers/CMongoDataWrapper.html#method_ParseNoResponse">CMongoDataWrapper::_ParseNoResponse()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Wrappers/CMongoDataWrapper.html#method_ParseRequest">CMongoDataWrapper::_ParseRequest()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Wrappers/CMongoDataWrapper.html#method_ValidateObject">CMongoDataWrapper::_ValidateObject()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
@@ -495,7 +607,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Tue, 10 Apr 2012 15:48:52 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Tue, 10 Apr 2012 16:44:07 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>
