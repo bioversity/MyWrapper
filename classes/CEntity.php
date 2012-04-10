@@ -96,6 +96,8 @@ require_once( kPATH_LIBRARY_SOURCE."CEntity.inc.php" );
  *	 </ul>
  *		The class features a member accessor {@link Affiliate() method} to manage this
  *		property.
+ *	<li><i>{@link kTAG_MOD_STAMP kTAG_MOD_STAMP}</i>: This offset holds the record's last
+ *		modification time stamp, this property should be used to mark all objects.
  *	<li><i>{@link kTAG_VALID kTAG_VALID}</i>: This offset holds the
  *		{@link kTAG_ID_NATIVE native} identifier of the valid entity. This should be used
  *		when the current entity becomes obsolete or changes identity: instead of deleting it
@@ -473,6 +475,44 @@ class CEntity extends CPersistentUnitObject
 		return $this->_ManageOffset( kTAG_VALID, $theValue, $getOld );				// ==>
 
 	} // Valid.
+
+	 
+	/*===================================================================================
+	 *	Stamp																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage entity time stamp.
+	 *
+	 * This method can be used to manage the entity {@link kTAG_MOD_STAMP time-stamp}, or
+	 * the date in which the last modification was made on the object, it uses the standard
+	 * accessor {@link _ManageOffset() method} to manage the {@link kOFFSET_EMAIL offset}:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: The value or operation:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Return the current value.
+	 *		<li><i>FALSE</i>: Delete the value.
+	 *		<li><i>other</i>: Set value.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
+	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * @param NULL|FALSE|string		$theValue			Entity last modification date.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 */
+	public function Stamp( $theValue = NULL, $getOld = FALSE )
+	{
+		return $this->_ManageOffset( kTAG_MOD_STAMP, $theValue, $getOld );			// ==>
+
+	} // Stamp.
 
 		
 

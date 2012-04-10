@@ -341,5 +341,30 @@ define( "kOFFSET_MAIL_COUNTRY",					':MAIL:COUNTRY' );
  */
 define( "kOFFSET_MAIL_FULL",					'MAIL:FULL' );
 
+/*=======================================================================================
+ *	DEFAULT GEOGRAPHIC COORDINATE PROPERTY OFFSETS										*
+ *======================================================================================*/
+
+/**
+ * Latitude.
+ *
+ * This is the tag that represents a latitude, no specific data type is assumed.
+ */
+define( "kOFFSET_LATITUDE",						':LAT' );
+
+/**
+ * Longitude.
+ *
+ * This is the tag that represents a longitude, no specific data type is assumed.
+ */
+define( "kOFFSET_LONGITUDE",					':LON' );
+
+/**
+ * Altitude.
+ *
+ * This is the tag that represents an altitude, no specific data type is assumed.
+ */
+define( "kOFFSET_ALTITUDE",						':ALT' );
+
 
 ?>

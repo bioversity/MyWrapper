@@ -198,6 +198,108 @@ class CFAOInstitute extends CInstitute
 
 	} // URL.
 
+	 
+	/*===================================================================================
+	 *	Latitude																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage institute latitude.
+	 *
+	 * This method can be used to handle the institute {@link kOFFSET_LATITUDE latitude}, it
+	 * uses the standard accessor {@link _ManageOffset() method} to manage the
+	 * {@link kOFFSET_LATITUDE offset}.
+	 *
+	 * This value is provided as an integer, specialised classes may convert it.
+	 *
+	 * For a more in-depth reference of this method, please consult the
+	 * {@link _ManageOffset() _ManageOffset} method, in which the first parameter
+	 * will be the constant {@link kTAG_NAME kTAG_NAME}.
+	 *
+	 * @param mixed					$theValue			Value.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 *
+	 * @uses _ManageOffset
+	 *
+	 * @see kOFFSET_LATITUDE
+	 */
+	public function Latitude( $theValue = NULL, $getOld = FALSE )
+	{
+		return $this->_ManageOffset( kOFFSET_LATITUDE, $theValue, $getOld );		// ==>
+
+	} // Latitude.
+
+	 
+	/*===================================================================================
+	 *	Longitude																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage institute longitude.
+	 *
+	 * This method can be used to handle the institute {@link kOFFSET_LONGITUDE longitude},
+	 * it uses the standard accessor {@link _ManageOffset() method} to manage the
+	 * {@link kOFFSET_LONGITUDE offset}.
+	 *
+	 * This value is provided as an integer, specialised classes may convert it.
+	 *
+	 * For a more in-depth reference of this method, please consult the
+	 * {@link _ManageOffset() _ManageOffset} method, in which the first parameter
+	 * will be the constant {@link kTAG_NAME kTAG_NAME}.
+	 *
+	 * @param mixed					$theValue			Value.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 *
+	 * @uses _ManageOffset
+	 *
+	 * @see kOFFSET_LONGITUDE
+	 */
+	public function Longitude( $theValue = NULL, $getOld = FALSE )
+	{
+		return $this->_ManageOffset( kOFFSET_LONGITUDE, $theValue, $getOld );		// ==>
+
+	} // Longitude.
+
+	 
+	/*===================================================================================
+	 *	Altitude																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage institute altitude.
+	 *
+	 * This method can be used to handle the institute {@link kOFFSET_ALTITUDE altitude},
+	 * it uses the standard accessor {@link _ManageOffset() method} to manage the
+	 * {@link kOFFSET_ALTITUDE offset}.
+	 *
+	 * This value is provided as an integer, specialised classes may convert it.
+	 *
+	 * For a more in-depth reference of this method, please consult the
+	 * {@link _ManageOffset() _ManageOffset} method, in which the first parameter
+	 * will be the constant {@link kTAG_NAME kTAG_NAME}.
+	 *
+	 * @param mixed					$theValue			Value.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 *
+	 * @uses _ManageOffset
+	 *
+	 * @see kOFFSET_ALTITUDE
+	 */
+	public function Altitude( $theValue = NULL, $getOld = FALSE )
+	{
+		return $this->_ManageOffset( kOFFSET_ALTITUDE, $theValue, $getOld );		// ==>
+
+	} // Altitude.
+
 		
 
 /*=======================================================================================
