@@ -55,13 +55,14 @@
                 <a href="../../MyWrapper/Persistence/CContainer.html">container</a> name.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATABASE_REFERENCE">kTAG_DATABASE_REFERENCE</a></em>: The database
                 name.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CLASS">kTAG_CLASS</a></em>: The object class name.</li></ul></li></ul>
         The class features a member accessor <a href="../../MyWrapper/Entities/CEntity.html#methodAffiliate">method</a> to manage this
-        property.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_VALID">kTAG_VALID</a></em>: This offset holds the
+        property.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_MOD_STAMP">kTAG_MOD_STAMP</a></em>: This offset holds the record's last
+        modification time stamp, this property should be used to mark all objects.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_VALID">kTAG_VALID</a></em>: This offset holds the
         <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">native</a> identifier of the valid entity. This should be used
         when the current entity becomes obsolete or changes identity: instead of deleting it
         we create a new one and store in this <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_VALID">offset</a> the identifier of
         the new entity that will replace the current one.</li></ul></p><p>Objects of this class require at least the <a href="../../MyWrapper/Entities/CEntity.html#methodCode">code</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">offset</a>  to be set if they expect to have an <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">initialised</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>.</p><p>When <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">committing</a>, eventual <a href="../../MyWrapper/Entities/CEntity.html#methodAffiliate">reference</a> elements set as  the actual instances will be first <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">saved</a> to the same  <a href="../../MyWrapper/Persistence/CContainer.html">container</a>, then replaced by references.</p><p>The class also features a static <a href="../../MyWrapper/Entities/CEntity.html#methodDefaultContainer">method</a> that returns the  default container name for objects of this type.</p></p>
 		<p class="notes">
-			Located in <a class="field" href="_classes---CEntity.php.html">/classes/CEntity.php</a> (line <span class="field">120</span>)
+			Located in <a class="field" href="_classes---CEntity.php.html">/classes/CEntity.php</a> (line <span class="field">122</span>)
 		</p>
 		
 				
@@ -119,7 +120,7 @@
 						<a href="../../MyWrapper/Entities/CInstitute.html">CInstitute</a>
 					</td>
 					<td>
-											User.
+											Institute.
 										</td>
 				</tr>
 								<tr>
@@ -161,17 +162,17 @@
 										<a href="#DefaultContainer" title="details" class="method-name">DefaultContainer</a>
 										()
 									</div>
-																																																																<div class="method-definition">
+																																																																								<div class="method-definition">
 					<img src="../../media/images/StaticMethod.png" alt=" "/>
 											static <span class="method-result"><a href="../../MyWrapper/Entities/CEntity.html">CEntity</a></span>
 										<a href="#ValidEntity" title="details" class="method-name">ValidEntity</a>
-											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>)
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>, [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_DEFAULT</span>])
 									</div>
 																																				<div class="method-definition">
 					<img src="../../media/images/Constructor.png" alt=" "/>
 											<span class="method-result">CEntity</span>
 										<a href="#__construct" title="details" class="method-name">__construct</a>
-											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span> = <span class="var-default">NULL</span>])
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span> = <span class="var-default">NULL</span>], [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_DEFAULT</span>])
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -214,6 +215,12 @@
 											<span class="method-result">void</span>
 										<a href="#offsetUnset" title="details" class="method-name">offsetUnset</a>
 											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">string</span>
+										<a href="#Stamp" title="details" class="method-name">Stamp</a>
+											([<span class="var-type">NULL|FALSE|string</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -284,7 +291,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static DefaultContainer</span> (line <span class="line-number">570</span>)
+		<span class="method-title">static DefaultContainer</span> (line <span class="line-number">613</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -307,7 +314,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static ValidEntity</span> (line <span class="line-number">597</span>)
+		<span class="method-title">static ValidEntity</span> (line <span class="line-number">641</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -319,7 +326,7 @@
 		<span class="method-name">
 			ValidEntity
 		</span>
-					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>)
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>, [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_DEFAULT</span>])
 			</div>
 	
 			<ul class="parameters">
@@ -329,6 +336,9 @@
 					<li>
 				<span class="var-type">mixed</span>
 				<span class="var-name">$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+					<li>
+				<span class="var-type">bitfield</span>
+				<span class="var-name">$theModifiers</span><span class="var-description">: Load modifiers.</span>			</li>
 				</ul>
 		
 			
@@ -338,7 +348,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Constructor.png" />
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">152</span>)
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">155</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -355,7 +365,7 @@
 		<span class="method-name">
 			__construct
 		</span>
-					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span> = <span class="var-default">NULL</span>])
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span> = <span class="var-default">NULL</span>], [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_DEFAULT</span>])
 			</div>
 	
 			<ul class="parameters">
@@ -365,6 +375,9 @@
 					<li>
 				<span class="var-type">mixed</span>
 				<span class="var-name">$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+					<li>
+				<span class="var-type">bitfield</span>
+				<span class="var-name">$theModifiers</span><span class="var-description">: Create modifiers.</span>			</li>
 				</ul>
 		
 			<hr class="separator" />
@@ -392,7 +405,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Affiliate</span> (line <span class="line-number">398</span>)
+		<span class="method-title">Affiliate</span> (line <span class="line-number">403</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -457,7 +470,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Code</span> (line <span class="line-number">205</span>)
+		<span class="method-title">Code</span> (line <span class="line-number">210</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -493,7 +506,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Email</span> (line <span class="line-number">316</span>)
+		<span class="method-title">Email</span> (line <span class="line-number">321</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -529,7 +542,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Kind</span> (line <span class="line-number">241</span>)
+		<span class="method-title">Kind</span> (line <span class="line-number">246</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -568,7 +581,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Name</span> (line <span class="line-number">278</span>)
+		<span class="method-title">Name</span> (line <span class="line-number">283</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -604,7 +617,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetSet</span> (line <span class="line-number">503</span>)
+		<span class="method-title">offsetSet</span> (line <span class="line-number">546</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -656,7 +669,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetUnset</span> (line <span class="line-number">534</span>)
+		<span class="method-title">offsetUnset</span> (line <span class="line-number">577</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -700,12 +713,48 @@
 							</li>
 				</ul>
 	</div>
-<a name="methodValid" id="Valid"><!-- --></a>
+<a name="methodStamp" id="Stamp"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Valid</span> (line <span class="line-number">442</span>)
+		<span class="method-title">Stamp</span> (line <span class="line-number">514</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage entity time stamp.</p>
+<p class="description"><p>This method can be used to manage the entity <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_MOD_STAMP">time-stamp</a>, or  the date in which the last modification was made on the object, it uses the standard  accessor <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">method</a> to manage the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_EMAIL">offset</a>:</p><p><ul><li><strong>$theValue</strong>: The value or operation:
+     <ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the value.</li><li><em>other</em>: Set value.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
+     <ul><li><em>TRUE</em>: Return the value <em>before</em> it was eventually modified.</li><li><em>FALSE</em>: Return the value <em>after</em> it was eventually modified.</li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			Stamp
+		</span>
+					([<span class="var-type">NULL|FALSE|string</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">NULL|FALSE|string</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Entity last modification date.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodValid" id="Valid"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Valid</span> (line <span class="line-number">447</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -737,11 +786,11 @@
 			
 	</div>
 <a name="method_index" id="_index"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_index</span> (line <span class="line-number">734</span>)
+		<span class="method-title">_index</span> (line <span class="line-number">779</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -775,17 +824,21 @@
 								: Return the object's unique index.
 							</li>
 					<li>
+				<a href="../../MyWrapper/Entities/CFAOInstitute.html#method_index">CFAOInstitute::_index()</a>
+								: Return the object's unique index.
+							</li>
+					<li>
 				<a href="../../MyWrapper/Entities/CUser.html#method_index">CUser::_index()</a>
 								: Return the object's unique index.
 							</li>
 				</ul>
 	</div>
 <a name="method_PrepareCommit" id="_PrepareCommit"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">697</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">742</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -829,6 +882,10 @@
 		<ul class="redefinitions">
 					<li>
 				<a href="../../MyWrapper/Entities/CInstitute.html#method_PrepareCommit">CInstitute::_PrepareCommit()</a>
+								: Normalise parameters of a store.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Entities/CFAOInstitute.html#method_PrepareCommit">CFAOInstitute::_PrepareCommit()</a>
 								: Normalise parameters of a store.
 							</li>
 					<li>
@@ -1012,7 +1069,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Thu, 05 Apr 2012 15:32:40 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Tue, 10 Apr 2012 15:48:48 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

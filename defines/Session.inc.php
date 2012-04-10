@@ -32,5 +32,14 @@
  */
 define( "kSESSION_MONGO",					':MONGO' );
 
+/**
+ * User instance.
+ *
+ * This tag defines the current user instance.
+ *
+ * Cardinality: one.
+ */
+define( "kSESSION_USER",					':USER' );
+
 
 ?>

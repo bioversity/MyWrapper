@@ -371,7 +371,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Constructor.png" />
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">239</span>)
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">248</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -383,6 +383,14 @@
         necessary.</li><li><em><a href="../../MyWrapper/Wrappers/CWrapper.html#method_ValidateRequest">Validate</a> request</em>: The request is validated.</li></ul></p><p>This protected interface should be overloaded by derived classes to implement custom  services.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#method_ParseRequest">CWrapper::_ParseRequest()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#method_ValidateRequest">CWrapper::_ValidateRequest()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#method_InitStatus">CWrapper::_InitStatus()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#method_InitResources">CWrapper::_InitResources()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#method_Exception2Status">CWrapper::_Exception2Status()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#method_FormatRequest">CWrapper::_FormatRequest()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#method_InitOptions">CWrapper::_InitOptions()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#method_EncodeResponse">CWrapper::_EncodeResponse()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -401,15 +409,17 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">HandleRequest</span> (line <span class="line-number">330</span>)
+		<span class="method-title">HandleRequest</span> (line <span class="line-number">341</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Handle the request.</p>
 <p class="description"><p>This method will handle the request.</p></p>
 	<ul class="tags">
-				<li><span class="field">throws:</span> Exception</li>
 				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#method_HandleRequest">CWrapper::_HandleRequest()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#method_Exception2Status">CWrapper::_Exception2Status()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#method_EncodeResponse">CWrapper::_EncodeResponse()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -428,7 +438,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_EncodeResponse</span> (line <span class="line-number">1220</span>)
+		<span class="method-title">_EncodeResponse</span> (line <span class="line-number">1268</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -436,6 +446,8 @@
 <p class="description"><p>This method will return the encoded response string.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#methodHandleRequest">CWrapper::HandleRequest()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#method__construct">CWrapper::__construct()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -454,7 +466,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Exception2Status</span> (line <span class="line-number">1126</span>)
+		<span class="method-title">_Exception2Status</span> (line <span class="line-number">1174</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -469,6 +481,8 @@
         the status <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ANNOTATION">annotations</a>.</li></ul></p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#methodHandleRequest">CWrapper::HandleRequest()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#method__construct">CWrapper::__construct()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -492,7 +506,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FormatRequest</span> (line <span class="line-number">563</span>)
+		<span class="method-title">_FormatRequest</span> (line <span class="line-number">582</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -500,6 +514,7 @@
 <p class="description"><p>This method should perform any needed formatting before the request will be handled.</p><p>In this class we do nothing.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#method__construct">CWrapper::__construct()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -530,14 +545,17 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_HandleRequest</span> (line <span class="line-number">877</span>)
+		<span class="method-title">_HandleRequest</span> (line <span class="line-number">913</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Handle request.</p>
 <p class="description"><p>This method will handle the request.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> kAPI_OP_HELP kAPI_OP_PING</li>
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#methodHandleRequest">CWrapper::HandleRequest()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#method_Handle_ListOp">CWrapper::_Handle_ListOp()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -557,6 +575,10 @@
 				<a href="../../MyWrapper/Wrappers/CMongoDataWrapper.html#method_HandleRequest">CMongoDataWrapper::_HandleRequest()</a>
 								: Handle request.
 							</li>
+					<li>
+				<a href="../../MyWrapper/Wrappers/CWarehouseWrapper.html#method_HandleRequest">CWarehouseWrapper::_HandleRequest()</a>
+								: Handle request.
+							</li>
 				</ul>
 	</div>
 <a name="method_Handle_ListOp" id="_Handle_ListOp"><!-- --></a>
@@ -564,7 +586,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_ListOp</span> (line <span class="line-number">920</span>)
+		<span class="method-title">_Handle_ListOp</span> (line <span class="line-number">956</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -572,6 +594,7 @@
 <p class="description"><p>This method will handle the <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_HELP">kAPI_OP_HELP</a> request, which  should return the list of supported operations.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#method_HandleRequest">CWrapper::_HandleRequest()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -610,7 +633,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_Ping</span> (line <span class="line-number">951</span>)
+		<span class="method-title">_Handle_Ping</span> (line <span class="line-number">987</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -636,14 +659,16 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_InitOptions</span> (line <span class="line-number">447</span>)
+		<span class="method-title">_InitOptions</span> (line <span class="line-number">462</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Initialise options.</p>
 <p class="description"><p>This method is responsible for parsing and setting all default and provided options,  derived classes should overload this method to handle custom options.</p><p>In this class we initialise the <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_DATA_REQUEST">request</a> and  <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_DATA_TIMING">timer</a> sections if required.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> kAPI_DATA_REQUEST kAPI_DATA_TIMING</li>
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#method__construct">CWrapper::__construct()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -670,7 +695,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_InitResources</span> (line <span class="line-number">491</span>)
+		<span class="method-title">_InitResources</span> (line <span class="line-number">506</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -678,6 +703,7 @@
 <p class="description"><p>In derived classes this should be the method that initialises the data store  resources, in this class we have no resources.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#method__construct">CWrapper::__construct()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -704,14 +730,16 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_InitStatus</span> (line <span class="line-number">393</span>)
+		<span class="method-title">_InitStatus</span> (line <span class="line-number">406</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Initialise status.</p>
 <p class="description"><p>This method is responsible for initialising the <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_DATA_STATUS">status</a>  section, derived classes may overload this method if they need to handle other  states.</p><p>In this class we set the status to <a href="../../MyWrapper/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_IDLE">idle</a> and reset the  status <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a>.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_DATA_STATUS">kAPI_DATA_STATUS</a></li>
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#method__construct">CWrapper::__construct()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -730,12 +758,13 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_OffsetManage</span> (line <span class="line-number">978</span>)
+		<span class="method-title">_OffsetManage</span> (line <span class="line-number">1026</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage offset.</p>
-<p class="description"><p>This method can be used to manage the object offset blocks.</p></p>
+<p class="description"><p>This method can be used to manage elements within offsets, in other words, it can be  used to manage elements within an offset:</p><p><ul><li><strong>$theBlock</strong>: The main offset.</li><li><strong>$theElement</strong>: The offset within the main offset.</li><li><strong>$theValue</strong>: The new value or the operation:
+	 <ul><li><em>NULL</em>: Retrieve the element in the block.</li><li><em>FALSE</em>: Delete the element from the block.</li><li><em>other</em>: All other data types are interpreted as a new element.</li></ul></li></ul></p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CDataWrapper.html#method_ParseSort">CDataWrapper::_ParseSort()</a></li>
@@ -775,14 +804,16 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseFormat</span> (line <span class="line-number">643</span>)
+		<span class="method-title">_ParseFormat</span> (line <span class="line-number">667</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Parse format.</p>
 <p class="description"><p>This method will parse the request format.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> kAPI_DATA_REQUEST kAPI_FORMAT</li>
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#method_ParseRequest">CWrapper::_ParseRequest()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -801,14 +832,16 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseOperation</span> (line <span class="line-number">670</span>)
+		<span class="method-title">_ParseOperation</span> (line <span class="line-number">696</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Parse operation.</p>
 <p class="description"><p>This method will parse the request operation.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> kAPI_DATA_REQUEST kAPI_OPERATION</li>
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#method_ParseRequest">CWrapper::_ParseRequest()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -827,7 +860,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseRequest</span> (line <span class="line-number">524</span>)
+		<span class="method-title">_ParseRequest</span> (line <span class="line-number">543</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -835,6 +868,10 @@
 <p class="description"><p>This method should be used to parse the request, check the request elements and make  any necessary adjustments before the request is <a href="../../MyWrapper/Wrappers/CWrapper.html#method_ValidateRequest">validated</a>.</p><p>This is also where the relevant request elements will be logged to the relative  response sections.</p><p>The method is called by the <a href="../../MyWrapper/Wrappers/CWrapper.html#method__construct">constructor</a> and should be  overloaded to handle derived classes custom elements.</p><p>In this class we handle the <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">format</a>,  <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">operation</a> and <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_DATA_TIMING">timing</a> elements.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#method__construct">CWrapper::__construct()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#method_ParseTiming">CWrapper::_ParseTiming()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#method_ParseOperation">CWrapper::_ParseOperation()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#method_ParseFormat">CWrapper::_ParseFormat()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -861,14 +898,16 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseTiming</span> (line <span class="line-number">697</span>)
+		<span class="method-title">_ParseTiming</span> (line <span class="line-number">725</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Parse timing.</p>
 <p class="description"><p>This method will parse the request timers.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> kAPI_DATA_REQUEST kAPI_REQ_STAMP</li>
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#method_ParseRequest">CWrapper::_ParseRequest()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -887,14 +926,16 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateFormat</span> (line <span class="line-number">749</span>)
+		<span class="method-title">_ValidateFormat</span> (line <span class="line-number">779</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Validate request format.</p>
 <p class="description"><p>This method can be used to check whether the provided <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">format</a>  parameter is valid.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> kDATA_TYPE_PHP kDATA_TYPE_JSON</li>
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#method_ValidateRequest">CWrapper::_ValidateRequest()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -913,14 +954,16 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateOperation</span> (line <span class="line-number">809</span>)
+		<span class="method-title">_ValidateOperation</span> (line <span class="line-number">841</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Validate request operation.</p>
 <p class="description"><p>This method can be used to check whether the provided  <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">operation</a> parameter is valid.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> kAPI_OP_HELP kAPI_OP_PING</li>
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#method_ValidateRequest">CWrapper::_ValidateRequest()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -944,6 +987,10 @@
 				<a href="../../MyWrapper/Wrappers/CMongoDataWrapper.html#method_ValidateOperation">CMongoDataWrapper::_ValidateOperation()</a>
 								: Validate request operation.
 							</li>
+					<li>
+				<a href="../../MyWrapper/Wrappers/CWarehouseWrapper.html#method_ValidateOperation">CWarehouseWrapper::_ValidateOperation()</a>
+								: Validate request operation.
+							</li>
 				</ul>
 	</div>
 <a name="method_ValidateRequest" id="_ValidateRequest"><!-- --></a>
@@ -951,7 +998,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateRequest</span> (line <span class="line-number">598</span>)
+		<span class="method-title">_ValidateRequest</span> (line <span class="line-number">620</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -959,6 +1006,9 @@
 <p class="description"><p>This method should check that the request is valid and that all required parameters  have been sent.</p><p>In this class we check the <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">format</a> and  <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">operation</a> codes (their presence is checked by the  <a href="../../MyWrapper/Wrappers/CWrapper.html#method__construct">constructor</a>.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#method__construct">CWrapper::__construct()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#method_ValidateOperation">CWrapper::_ValidateOperation()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#method_ValidateFormat">CWrapper::_ValidateFormat()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -1107,7 +1157,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Thu, 05 Apr 2012 15:32:43 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Tue, 10 Apr 2012 15:48:53 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

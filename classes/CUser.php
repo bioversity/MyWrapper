@@ -64,7 +64,8 @@ require_once( kPATH_LIBRARY_SOURCE."CUser.inc.php" );
  *
  * <i><b>Note: this class enforces the {@link _IsEncoded() encoded} {@link Status() status}
  * {@link kFLAG_STATE_ENCODED flag}, because the object identifier is a binary string, so
- * always use complex data type instances derived from the {@link CDataType standard} types.
+ * always use complex data type instances derived from the {@link CDataType standard}
+ * types</b></i>.
  *
  *	@package	MyWrapper
  *	@subpackage	Entities
