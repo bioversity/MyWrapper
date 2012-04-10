@@ -46,8 +46,14 @@ require_once( kPATH_LIBRARY_SOURCE."CFAOInstitute.inc.php" );
  *		represents the institute ECPGR {@link EAcronym() acronym}.
  *	<li><i>{@link kENTITY_INST_FAO_TYPE kENTITY_INST_FAO_TYPE}</i>: This offset represents
  *		the institute set of {@link FAOType() FAO} institute types.
- *	<li><i>{@link kTAG_MOD_STAMP kTAG_MOD_STAMP}</i>: This offset represents the institute
- *		last modification {@link ModStamp() time-stamp}.
+ *	<li><i>{@link kOFFSET_URL kOFFSET_URL}</i>: This offset represents the institute
+ *		{@link URL() URL}.
+ *	<li><i>{@link kOFFSET_LATITUDE kOFFSET_LATITUDE}</i>: This offset represents the
+ *		institute {@link Latitude() latitude}, note this is an integer value.
+ *	<li><i>{@link kOFFSET_LONGITUDE kOFFSET_LONGITUDE}</i>: This offset represents the
+ *		institute {@link Longitude() longitude}, note this is an integer value.
+ *	<li><i>{@link kOFFSET_ALTITUDE kOFFSET_ALTITUDE}</i>: This offset represents the
+ *		institute {@link Altitude() altitude}, note this is an integer value.
  * </ul>
  *
  * The object unique {@link kTAG_ID_NATIVE identifier} is {@link _id() formed} by
@@ -304,82 +310,41 @@ class CFAOInstitute extends CInstitute
 
 /*=======================================================================================
  *																						*
- *								PUBLIC ARRAY ACCESS INTERFACE							*
+ *									STATIC INTERFACE									*
  *																						*
  *======================================================================================*/
 
 
 	 
 	/*===================================================================================
-	 *	offsetSet																		*
+	 *	Import																			*
 	 *==================================================================================*/
 
 	/**
-	 * Set a value for a given offset.
+	 * Import institutes.
 	 *
-	 * We overload this method to manage the {@link _IsInited() inited}
-	 * {@link kFLAG_STATE_INITED status}: this is set if the
-	 * {@link kTAG_NAME name}, {@link kOFFSET_EMAIL e-mail},
-	 * {@link kOFFSET_PASSWORD password} and the parent {@link kTAG_CODE code} are set.
+	 * This method will take the provided data and load it into the provided
+	 * {@link CContainer container}. The data is expected to have the same format as the
+	 * FAO/WIEWS export file.
 	 *
-	 * @param string				$theOffset			Offset.
-	 * @param string|NULL			$theValue			Value to set at offset.
+	 * The method will first check if the 
 	 *
-	 * @access public
-	 *
-	 * @uses _IsInited()
-	 * @uses _IsCommitted()
-	 */
-	public function offsetSet( $theOffset, $theValue )
-	{
-		//
-		// Call parent method.
-		//
-		parent::offsetSet( $theOffset, $theValue );
-		
-		//
-		// Set inited flag.
-		//
-		if( $theValue !== NULL )
-			$this->_IsInited( $this->_IsInited() &&
-							  $this->offsetExists( kTAG_NAME ) );
-	
-	} // offsetSet.
-
-	 
-	/*===================================================================================
-	 *	offsetUnset																		*
-	 *==================================================================================*/
-
-	/**
-	 * Reset a value for a given offset.
-	 *
-	 * We overload this method to manage the {@link _IsInited() inited}
-	 * {@link kFLAG_STATE_INITED status}: this is set if the
-	 * {@link kTAG_NAME name}, {@link kOFFSET_EMAIL e-mail},
-	 * {@link kOFFSET_PASSWORD password} and the parent {@link kTAG_CODE code} are set.
-	 *
-	 * @param string				$theOffset			Offset.
+	 * @param CContainer			$theContainer		Data container.
+	 * @param array					$theData			Import data.
 	 *
 	 * @access public
+	 * @return string
 	 *
-	 * @uses _IsInited()
-	 * @uses _IsCommitted()
+	 * @uses _ManageOffset
+	 *
+	 * @see kTAG_NAME
 	 */
-	public function offsetUnset( $theOffset )
+	public function EAcronym( $theValue = NULL, $getOld = FALSE )
 	{
-		//
-		// Call parent method.
-		//
-		parent::offsetUnset( $theOffset );
-		
-		//
-		// Set inited flag.
-		//
-		$this->_IsInited( $this->_IsInited() &&
-						  $this->offsetExists( kTAG_NAME ) );
-	
-	} // offsetUnset.
+		return $this->_ManageOffset
+			( kENTITY_INST_FAO_EPACRONYM, $theValue, $getOld );						// ==>
+
+	} // EAcronym.
 
 		
 
@@ -398,8 +363,8 @@ class CFAOInstitute extends CInstitute
 	/**
 	 * Return the object's unique identifier.
 	 *
-	 * In this class we hash the result of the {@link _index() _index} method, this means
-	 * that we need to 
+	 * In this class we use directly the value of the {@link _index() index} method: it is
+	 * a 7 character string, so it is not necessary to hash the result.
 	 *
 	 * @access protected
 	 * @return mixed
@@ -409,7 +374,7 @@ class CFAOInstitute extends CInstitute
 		//
 		// In this class we hash the index value.
 		//
-		return new CDataTypeBinary( md5( $this->_index(), TRUE ) );					// ==>
+		return $this->_index();														// ==>
 	
 	} // _id.
 
@@ -421,27 +386,14 @@ class CFAOInstitute extends CInstitute
 	/**
 	 * Return the object's unique index.
 	 *
-	 * In this class we return a string composed of the following elements:
-	 *
-	 * <ul>
-	 *	<li><i>{@link kENTITY_USER kENTITY_USER}</i>: This token defines the object domain
-	 *		which is the users domain.
-	 *	<li><i>{@link kTOKEN_CLASS_SEPARATOR kTOKEN_CLASS_SEPARATOR}</i>: This token is used
-	 *		to separate a class from the rest of the code.
-	 *	<li><i>{@link Code() Code}</i>: The user code.
-	 * </ul>
-	 *
-	 * The concatenation of these three elements represents the unique identifier of the
-	 * user.
+	 * In this class we return directly the institute {@link Code() code}, we do not prefix
+	 * the code with the domain, since the {@link Code() code} it has a specific and
+	 * univoque format.
 	 *
 	 * @access protected
 	 * @return string
 	 */
-	protected function _index()
-	{
-		return kENTITY_INST.kTOKEN_CLASS_SEPARATOR.$this->Code();					// ==>
-	
-	} // _index.
+	protected function _index()									{	return $this->Code();	}
 
 		
 
@@ -460,11 +412,8 @@ class CFAOInstitute extends CInstitute
 	/**
 	 * Normalise parameters of a store.
 	 *
-	 * We overload this method to add the {@link kENTITY_USER kENTITY_USER}
+	 * We overload this method to add the {@link kENTITY_INST_FAO kENTITY_INST_FAO}
 	 * {@link Type() type} to the object prior {@link Commit() saving} it.
-	 *
-	 * We also initialise the user {@link Code() code}, if empty, with the
-	 * {@link Email() e-mail}.
 	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
@@ -479,12 +428,6 @@ class CFAOInstitute extends CInstitute
 	protected function _PrepareCommit( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
-		// Initialise code.
-		//
-		if( $this->Code() === NULL )
-			$this->Code( $this->Email() );
-		
-		//
 		// Call parent method.
 		//
 		parent::_PrepareCommit( $theContainer, $theIdentifier, $theModifiers );
@@ -492,7 +435,7 @@ class CFAOInstitute extends CInstitute
 		//
 		// Add institute kind.
 		//
-		$this->Kind( kENTITY_INST, TRUE );
+		$this->Kind( kENTITY_INST_FAO, TRUE );
 		
 	} // _PrepareCommit.
 

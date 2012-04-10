@@ -62,6 +62,10 @@ require_once( kPATH_LIBRARY_SOURCE."CUser.inc.php" );
  * user with a single e-mail, possibly not shared by any other user, that is why we link by
  * default the user {@link Code() code} and {@link Email() e-mail}.
  *
+ * <i><b>Note: this class enforces the {@link _IsEncoded() encoded} {@link Status() status}
+ * {@link kFLAG_STATE_ENCODED flag}, because the object identifier is a binary string, so
+ * always use complex data type instances derived from the {@link CDataType standard} types.
+ *
  *	@package	MyWrapper
  *	@subpackage	Entities
  */
@@ -88,17 +92,28 @@ class CUser extends CEntity
 	 * {@link _IsInited() inited} {@link kFLAG_STATE_INITED flag} if the
 	 * {@link Password() password} element is set.
 	 *
+	 * We also pass the {@link _IsEncoded() encoded} {@link kFLAG_STATE_ENCODED flag} to the
+	 * parent constructor.
+	 *
 	 * @param mixed					$theContainer		Persistent container.
 	 * @param mixed					$theIdentifier		Object identifier.
+	 * @param bitfield				$theModifiers		Create modifiers.
 	 *
 	 * @access public
 	 */
-	public function __construct( $theContainer = NULL, $theIdentifier = NULL )
+	public function __construct( $theContainer = NULL,
+								 $theIdentifier = NULL,
+								 $theModifiers = kFLAG_DEFAULT )
 	{
+		//
+		// Enforce encoded flag.
+		//
+		$theModifiers |= kFLAG_STATE_ENCODED;
+		
 		//
 		// Call parent method.
 		//
-		parent::__construct( $theContainer, $theIdentifier );
+		parent::__construct( $theContainer, $theIdentifier, $theModifiers );
 		
 		//
 		// Set inited status.
@@ -322,10 +337,10 @@ class CUser extends CEntity
 	 * Normalise parameters of a store.
 	 *
 	 * We overload this method to add the {@link kENTITY_USER kENTITY_USER}
-	 * {@link Type() type} to the object prior {@link Commit() saving} it.
+	 * {@link Type() type} to the object prior {@link Commit() saving} it and we initialise
+	 * the user {@link Code() code}, if empty, with the {@link Email() e-mail}.
 	 *
-	 * We also initialise the user {@link Code() code}, if empty, with the
-	 * {@link Email() e-mail}.
+	 * We also force the {@link _IsEncoded() encoded} {@link kFLAG_STATE_ENCODED flag}.
 	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
@@ -339,6 +354,11 @@ class CUser extends CEntity
 	 */
 	protected function _PrepareCommit( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
+		//
+		// Enforce encoding flag.
+		//
+		$theModifiers |= kFLAG_STATE_ENCODED;
+		
 		//
 		// Initialise code.
 		//

@@ -647,6 +647,7 @@ class CPersistentUnitObject extends CPersistentObject
 		$done = FALSE;
 		$references = $this->offsetGet( $theOffset );
 		$theModifiers |= kFLAG_REFERENCE_IDENTIFIER;
+		$modifiers = $theModifiers & (~kFLAG_REFERENCE_MASK);
 		
 		//
 		// Handle list.
@@ -667,7 +668,7 @@ class CPersistentUnitObject extends CPersistentObject
 					//
 					// Commit object.
 					//
-					$value->Commit( $theContainer );
+					$value->Commit( $theContainer, NULL, $modifiers );
 					
 					//
 					// Convert to reference.
@@ -692,7 +693,7 @@ class CPersistentUnitObject extends CPersistentObject
 						//
 						// Commit.
 						//
-						$value[ kTAG_DATA ]->Commit( $theContainer );
+						$value[ kTAG_DATA ]->Commit( $theContainer, NULL, $modifiers );
 						
 						//
 						// Convert to reference.

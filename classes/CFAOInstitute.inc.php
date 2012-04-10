@@ -101,4 +101,15 @@ define( "kENTITY_INST_FAO_ACT_PGR",				':ACTIVITY:PGR' );
  */
 define( "kENTITY_INST_FAO_ACT_COLL",			':ACTIVITY:COLL' );
 
+/*=======================================================================================
+ *	DEFAULT OBJECT TAGS																	*
+ *======================================================================================*/
+
+/**
+ * Institute type.
+ *
+ * This value defines the institute entity type.
+ */
+define( "kENTITY_INST_FAO",						':ENTITY:INST:FAO' );
+
 ?>

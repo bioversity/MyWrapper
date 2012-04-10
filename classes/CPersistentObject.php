@@ -694,7 +694,7 @@ class CPersistentObject extends CStatusObject
 	 */
 	protected function _Load( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
-		return $theContainer->Load( $theIdentifier );								// ==>
+		return $theContainer->Load( $theIdentifier, $theModifiers );								// ==>
 	
 	} // _Load.
 

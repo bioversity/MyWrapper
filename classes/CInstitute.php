@@ -86,19 +86,30 @@ class CInstitute extends CEntity
 	 *
 	 * We {@link CEntity::__construct() overload} the constructor to initialise the
 	 * {@link _IsInited() inited} {@link kFLAG_STATE_INITED flag} if the
-	 * {@link Password() password} element is set.
+	 * {@link Name() name} element is set.
+	 *
+	 * We also pass the {@link _IsEncoded() encoded} {@link kFLAG_STATE_ENCODED flag} to the
+	 * parent constructor.
 	 *
 	 * @param mixed					$theContainer		Persistent container.
 	 * @param mixed					$theIdentifier		Object identifier.
+	 * @param bitfield				$theModifiers		Create modifiers.
 	 *
 	 * @access public
 	 */
-	public function __construct( $theContainer = NULL, $theIdentifier = NULL )
+	public function __construct( $theContainer = NULL,
+								 $theIdentifier = NULL,
+								 $theModifiers = kFLAG_DEFAULT )
 	{
+		//
+		// Enforce encoded flag.
+		//
+		$theModifiers |= kFLAG_STATE_ENCODED;
+		
 		//
 		// Call parent method.
 		//
-		parent::__construct( $theContainer, $theIdentifier );
+		parent::__construct( $theContainer, $theIdentifier, $theModifiers );
 		
 		//
 		// Set inited status.
@@ -309,8 +320,7 @@ class CInstitute extends CEntity
 	/**
 	 * Return the object's unique identifier.
 	 *
-	 * In this class we hash the result of the {@link _index() _index} method, this means
-	 * that we need to 
+	 * In this class we hash the result of the {@link _index() _index} method.
 	 *
 	 * @access protected
 	 * @return mixed
@@ -335,15 +345,15 @@ class CInstitute extends CEntity
 	 * In this class we return a string composed of the following elements:
 	 *
 	 * <ul>
-	 *	<li><i>{@link kENTITY_USER kENTITY_USER}</i>: This token defines the object domain
-	 *		which is the users domain.
+	 *	<li><i>{@link kENTITY_INST kENTITY_INST}</i>: This token defines the object domain
+	 *		which is the institutes domain.
 	 *	<li><i>{@link kTOKEN_CLASS_SEPARATOR kTOKEN_CLASS_SEPARATOR}</i>: This token is used
 	 *		to separate a class from the rest of the code.
-	 *	<li><i>{@link Code() Code}</i>: The user code.
+	 *	<li><i>{@link Code() Code}</i>: The institute code.
 	 * </ul>
 	 *
 	 * The concatenation of these three elements represents the unique identifier of the
-	 * user.
+	 * institute.
 	 *
 	 * @access protected
 	 * @return string
@@ -371,11 +381,10 @@ class CInstitute extends CEntity
 	/**
 	 * Normalise parameters of a store.
 	 *
-	 * We overload this method to add the {@link kENTITY_USER kENTITY_USER}
+	 * We overload this method to initialise the {@link kENTITY_INST kENTITY_INST}
 	 * {@link Type() type} to the object prior {@link Commit() saving} it.
 	 *
-	 * We also initialise the user {@link Code() code}, if empty, with the
-	 * {@link Email() e-mail}.
+	 * We also force the {@link _IsEncoded() encoded} {@link kFLAG_STATE_ENCODED flag}.
 	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
@@ -390,10 +399,9 @@ class CInstitute extends CEntity
 	protected function _PrepareCommit( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
-		// Initialise code.
+		// Enforce encoding flag.
 		//
-		if( $this->Code() === NULL )
-			$this->Code( $this->Email() );
+		$theModifiers |= kFLAG_STATE_ENCODED;
 		
 		//
 		// Call parent method.

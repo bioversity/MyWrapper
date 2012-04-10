@@ -144,6 +144,7 @@ class CEntity extends CPersistentUnitObject
 	 *
 	 * @param mixed					$theContainer		Persistent container.
 	 * @param mixed					$theIdentifier		Object identifier.
+	 * @param bitfield				$theModifiers		Create modifiers.
 	 *
 	 * @access public
 	 *
@@ -151,12 +152,14 @@ class CEntity extends CPersistentUnitObject
 	 *
 	 * @see kTAG_CODE
 	 */
-	public function __construct( $theContainer = NULL, $theIdentifier = NULL )
+	public function __construct( $theContainer = NULL,
+								 $theIdentifier = NULL,
+								 $theModifiers = kFLAG_DEFAULT )
 	{
 		//
 		// Call parent method.
 		//
-		parent::__construct( $theContainer, $theIdentifier );
+		parent::__construct( $theContainer, $theIdentifier, $theModifiers );
 		
 		//
 		// Set inited status.
@@ -746,7 +749,7 @@ class CEntity extends CPersistentUnitObject
 		//
 		// Handle references.
 		//
-		$this->_PrepareReferenceList( $theContainer, kTAG_REFS );
+		$this->_PrepareReferenceList( $theContainer, kTAG_REFS, $theModifiers );
 		
 	} // _PrepareCommit.
 

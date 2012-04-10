@@ -102,8 +102,8 @@ try
 	echo( '<i>$test = new CUser( $container );</i><br>' );
 	echo( '<i>$identifier = $test->Commit( $collection );</i><br>' );
 	$test = new CUser( $container );
-	$identifier = $test->Commit( $collection );
-	echo( "$identifier<pre>" ); print_r( $test ); echo( '</pre>' );
+	$milko = $test->Commit( $collection );
+	echo( "$milko<pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 
 	$container = array( kOFFSET_PASSWORD => 'Secret',
@@ -131,25 +131,12 @@ try
 		echo( '<br>' );
 	}
 	echo( '<hr>' );
-	
-	$test = CUser::NewObject( $collection, 'Milko' );
-	try
-	{
-		echo( '<i>$test[ kTAG_CODE ] = \'PIPPO\';</i><br>' );
-		$test[ kTAG_CODE ] = 'PIPPO';
-		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	}
-	catch( Exception $error )
-	{
-		echo( CException::AsHTML( $error ) );
-		echo( '<br>' );
-	}
-	echo( '<hr>' );
 
 	echo( '<i>$test = new CUser( $collection, $luca );</i><br>' );
-	$test = new CUser( $collection, $luca );
-	echo( "$identifier<pre>" ); print_r( $test ); echo( '</pre>' );
+	$test = new CUser( $collection, $luca, kFLAG_STATE_ENCODED );
+	echo( "$luca<pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
+exit;
 
 	echo( '<i>$test = new CUser( $collection, new CDataTypeBinary( md5( \'Milko\', TRUE ) ) );</i><br>' );
 	$test = new CUser( $collection, new CDataTypeBinary( md5( 'Milko', TRUE ) ) );

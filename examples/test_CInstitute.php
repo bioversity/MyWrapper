@@ -67,6 +67,8 @@ try
 	echo( '<i><b>INSTITUTE1</b></i><br>' );
 	echo( '<i>$institute1 = new CInstitute();</i><br>' );
 	$institute1 = new CInstitute();
+	echo( '<i>$institute1->Code( \'FAO\' );</i><br>' );
+	$institute1->Code( 'FAO' );
 	echo( '<i>$institute1->Name( \'Food and Agriculture Organization of the United Nations\' );</i><br>' );
 	$institute1->Name( 'Food and Agriculture Organization of the United Nations' );
 	echo( '<i>$institute1->Email( \'mail@fao.org\' );</i><br>' );
