@@ -342,7 +342,7 @@ class CFAOInstitute extends CInstitute
 	 *
 	 * <i>Note that the method will commit the records using the
 	 * {@link kFLAG_PERSIST_REPLACE kFLAG_PERSIST_REPLACE} and
-	 * {@link kFLAG_STATE_ENCODED kFLAG_STATE_ENCODED} flags.
+	 * {@link kFLAG_STATE_ENCODED kFLAG_STATE_ENCODED} flags</i>.
 	 *
 	 * @param CContainer			$theContainer		Data container.
 	 * @param string				$theURL				Import file path.

@@ -78,13 +78,13 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																																																				<div class="method-definition">
+																																				<div class="method-definition">
 					<img src="../../media/images/StaticMethod.png" alt=" "/>
 											static <span class="method-result">integer</span>
-										<a href="#Update" title="details" class="method-name">Update</a>
-											(<span class="var-type"><a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a></span>&nbsp;<span class="var-name">$theContainer</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$theDate</span> = <span class="var-default">NULL</span>])
+										<a href="#Import" title="details" class="method-name">Import</a>
+											(<span class="var-type"><a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a></span>&nbsp;<span class="var-name">$theContainer</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$theURL</span> = <span class="var-default">kENTITY_INST_FAO_DOWNLOAD</span>])
 									</div>
-																																												<div class="method-definition">
+																																																																												<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">string</span>
 										<a href="#Altitude" title="details" class="method-name">Altitude</a>
@@ -102,7 +102,7 @@
 										<a href="#FAOType" title="details" class="method-name">FAOType</a>
 											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theOperation</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
 									</div>
-																<div class="method-definition">
+																								<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">string</span>
 										<a href="#Latitude" title="details" class="method-name">Latitude</a>
@@ -114,7 +114,19 @@
 										<a href="#Longitude" title="details" class="method-name">Longitude</a>
 											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
 									</div>
-																								<div class="method-definition">
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#offsetSet" title="details" class="method-name">offsetSet</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>, <span class="var-type">string|NULL</span>&nbsp;<span class="var-name">$theValue</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#offsetUnset" title="details" class="method-name">offsetUnset</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>)
+									</div>
+																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">mixed</span>
 										<a href="#_id" title="details" class="method-name">_id</a>
@@ -176,24 +188,27 @@
 		</div>
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
-<a name="methodUpdate" id="Update"><!-- --></a>
+<a name="methodImport" id="Import"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static Update</span> (line <span class="line-number">289</span>)
+		<span class="method-title">static Import</span> (line <span class="line-number">353</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Update institutes.</p>
-<p class="description"><p>This method will download the current FAO/WIEWS export file and load its contents  into the provided container.</p><p>If you provide the second parameter, it will be used to filter only institutes  modified after the provided date; the format of that parameter is a date as  <em>YYYY-MM-DD</em>.</p><p>The method will return the number of updated institutes.</p><p></p></p>
+<p class="short-description">Import institutes.</p>
+<p class="description"><p>This method can be used to import the institutes list from the current FAO/WIEWS  export file, the method expects two parameters:</p><p><ul><li><strong>$theContainer</strong>: The <a href="../../MyWrapper/Persistence/CContainer.html">container</a> in which the institutes
+        are stored.</li><li><strong>$theURL</strong>: The download URL of the FAO/WIEWS export file.</li></ul></p><p>The method will return the number of records added and replaced.</p><p><em>Note that the method will commit the records using the
+ <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_REPLACE">kFLAG_PERSIST_REPLACE</a> and
+ <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a> flags</em>.</p></p>
 	
 	<div class="method-signature">
 		<span class="method-result">integer</span>
 		<span class="method-name">
-			Update
+			Import
 		</span>
-					(<span class="var-type"><a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a></span>&nbsp;<span class="var-name">$theContainer</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$theDate</span> = <span class="var-default">NULL</span>])
+					(<span class="var-type"><a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a></span>&nbsp;<span class="var-name">$theContainer</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$theURL</span> = <span class="var-default">kENTITY_INST_FAO_DOWNLOAD</span>])
 			</div>
 	
 			<ul class="parameters">
@@ -202,7 +217,7 @@
 				<span class="var-name">$theContainer</span><span class="var-description">: Data container.</span>			</li>
 					<li>
 				<span class="var-type">string</span>
-				<span class="var-name">$theDate</span><span class="var-description">: Update date.</span>			</li>
+				<span class="var-name">$theURL</span><span class="var-description">: Import file path.</span>			</li>
 				</ul>
 		
 			
@@ -390,12 +405,89 @@
 		
 			
 	</div>
+<a name="methodoffsetSet" id="offsetSet"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">offsetSet</span> (line <span class="line-number">280</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set a value for a given offset.</p>
+<p class="description"><p>We overload this method to override the <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">inited</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a> of the <a href="../../MyWrapper/Entities/CInstitute.html">parent</a> class: FAO  institutes may not have a <a href="../../MyWrapper/Entities/CEntity.html#methodName">name</a> set, so we call the  <a href="../../MyWrapper/Entities/CEntity.html">entity</a> version of this method.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			offsetSet
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>, <span class="var-type">string|NULL</span>&nbsp;<span class="var-name">$theValue</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theOffset</span><span class="var-description">: Offset.</span>			</li>
+					<li>
+				<span class="var-type">string|NULL</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Value to set at offset.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Entities/CInstitute.html#methodoffsetSet">CInstitute::offsetSet()</a></dt>
+						<dd>Set a value for a given offset.</dd>
+					</dl>
+			
+	</div>
+<a name="methodoffsetUnset" id="offsetUnset"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">offsetUnset</span> (line <span class="line-number">306</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Reset a value for a given offset.</p>
+<p class="description"><p>We overload this method to override the <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">inited</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a> of the <a href="../../MyWrapper/Entities/CInstitute.html">parent</a> class: FAO  institutes may not have a <a href="../../MyWrapper/Entities/CEntity.html#methodName">name</a> set, so we call the  <a href="../../MyWrapper/Entities/CEntity.html">entity</a> version of this method.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			offsetUnset
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theOffset</span><span class="var-description">: Offset.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Entities/CInstitute.html#methodoffsetUnset">CInstitute::offsetUnset()</a></dt>
+						<dd>Reset a value for a given offset.</dd>
+					</dl>
+			
+	</div>
 <a name="method_id" id="_id"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_id</span> (line <span class="line-number">585</span>)
+		<span class="method-title">_id</span> (line <span class="line-number">694</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -427,7 +519,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_index</span> (line <span class="line-number">609</span>)
+		<span class="method-title">_index</span> (line <span class="line-number">718</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -459,7 +551,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">641</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">750</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -735,7 +827,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Tue, 10 Apr 2012 19:35:00 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Wed, 11 Apr 2012 17:12:11 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>
