@@ -254,6 +254,68 @@ class CFAOInstitute extends CInstitute
 
 /*=======================================================================================
  *																						*
+ *								PUBLIC ARRAY ACCESS INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	offsetSet																		*
+	 *==================================================================================*/
+
+	/**
+	 * Set a value for a given offset.
+	 *
+	 * We overload this method to override the {@link _IsInited() inited}
+	 * {@link kFLAG_STATE_INITED status} of the {@link CInstitute parent} class: FAO
+	 * institutes may not have a {@link Name() name} set, so we call the
+	 * {@link CEntity entity} version of this method.
+	 *
+	 * @param string				$theOffset			Offset.
+	 * @param string|NULL			$theValue			Value to set at offset.
+	 *
+	 * @access public
+	 */
+	public function offsetSet( $theOffset, $theValue )
+	{
+		//
+		// Call entity method.
+		//
+		CEntity::offsetSet( $theOffset, $theValue );
+	
+	} // offsetSet.
+
+	 
+	/*===================================================================================
+	 *	offsetUnset																		*
+	 *==================================================================================*/
+
+	/**
+	 * Reset a value for a given offset.
+	 *
+	 * We overload this method to override the {@link _IsInited() inited}
+	 * {@link kFLAG_STATE_INITED status} of the {@link CInstitute parent} class: FAO
+	 * institutes may not have a {@link Name() name} set, so we call the
+	 * {@link CEntity entity} version of this method.
+	 *
+	 * @param string				$theOffset			Offset.
+	 *
+	 * @access public
+	 */
+	public function offsetUnset( $theOffset )
+	{
+		//
+		// Call parent method.
+		//
+		CEntity::offsetUnset( $theOffset );
+	
+	} // offsetUnset.
+
+		
+
+/*=======================================================================================
+ *																						*
  *									STATIC INTERFACE									*
  *																						*
  *======================================================================================*/
@@ -261,32 +323,34 @@ class CFAOInstitute extends CInstitute
 
 	 
 	/*===================================================================================
-	 *	Update																			*
+	 *	Import																			*
 	 *==================================================================================*/
 
 	/**
-	 * Update institutes.
+	 * Import institutes.
 	 *
-	 * This method will download the current FAO/WIEWS export file and load its contents
-	 * into the provided container.
+	 * This method can be used to import the institutes list from the current FAO/WIEWS
+	 * export file, the method expects two parameters:
 	 *
-	 * If you provide the second parameter, it will be used to filter only institutes
-	 * modified after the provided date; the format of that parameter is a date as
-	 * <i>YYYY-MM-DD</i>.
+	 * <ul>
+	 *	<li><b>$theContainer</b>: The {@link CContainer container} in which the institutes
+	 *		are stored. 
+	 *	<li><b>$theURL</b>: The download URL of the FAO/WIEWS export file.
+	 * </ul>
 	 *
-	 * The method will return the number of updated institutes.
+	 * The method will return the number of records added and replaced.
 	 *
 	 * <i>Note that the method will commit the records using the
 	 * {@link kFLAG_PERSIST_REPLACE kFLAG_PERSIST_REPLACE} and
 	 * {@link kFLAG_STATE_ENCODED kFLAG_STATE_ENCODED} flags.
 	 *
 	 * @param CContainer			$theContainer		Data container.
-	 * @param string				$theDate			Update date.
+	 * @param string				$theURL				Import file path.
 	 *
 	 * @static
 	 * @return integer
 	 */
-	static function Update( $theContainer, $theDate = NULL )
+	static function Import( $theContainer, $theURL = kENTITY_INST_FAO_DOWNLOAD )
 	{
 		//
 		// Init field names.
@@ -362,27 +426,215 @@ class CFAOInstitute extends CInstitute
 				//
 				$fp = fopen( $txt, 'r' );
 				if( $fp !== FALSE )
-				(
+				{
 					//
 					// Cycle file.
 					//
-					while( ($data = fgetcsv( $fp, 4096, ',', '"' )) !== FALSE )
+					$count = 0;
+					while( ($row = fgetcsv( $fp, 4096, ',', '"' )) !== FALSE )
 					{
+						//
+						// Init local storage.
+						//
+						$inst = new CFAOInstitute();
+						$addr = new CMailAddress();
+						$country = NULL;
+						
+						//
+						// Iterate header.
+						//
+						foreach( $fields as $index => $field )
+						{
+							//
+							// Check if data field exists.
+							//
+							if( $index < count( $row ) )
+							{
+								//
+								// Parse by field.
+								//
+								switch( $field )
+								{
+									case 'INSTCODE':
+										$inst->Code( $row[ $index ] );
+										$country = substr( $row[ $index ], 0, 3 );
+										break;
+								
+									case 'ACRONYM':
+										if( strlen( $tmp = trim( $row[ $index ] ) ) )
+											$inst->Acronym( $tmp );
+										break;
+								
+									case 'ECPACRONYM':
+										if( strlen( $tmp = trim( $row[ $index ] ) ) )
+											$inst->EAcronym( $tmp );
+										break;
+								
+									case 'FULL_NAME':
+										if( strlen( $tmp = trim( $row[ $index ] ) ) )
+											$inst->Name( $tmp );
+										break;
+								
+									case 'TYPE':
+										if( strlen( $row[ $index ] ) )
+										{
+											$list = explode( '/', $row[ $index ] );
+											foreach( $list as $element )
+											{
+												if( strlen( $tmp = trim( $element ) ) )
+													$inst->FAOType( $tmp, TRUE );
+											}
+										}
+										break;
+								
+									case 'PGR_ACTIVITY':
+										 if( $row[ $index ] == 'Y' )
+											$inst->Kind( kENTITY_INST_FAO_ACT_PGR, TRUE );
+										break;
+								
+									case 'MAINTCOLL':
+										 if( $row[ $index ] == 'Y' )
+											$inst->Kind( kENTITY_INST_FAO_ACT_COLL, TRUE );
+										break;
+								
+									case 'STREET_POB':
+										if( strlen( $tmp = trim( $row[ $index ] ) ) )
+											$addr->Street( $tmp );
+										break;
+								
+									case 'CITY_STATE':
+										if( strlen( $tmp = trim( $row[ $index ] ) ) )
+											$addr->City( $tmp );
+										break;
+								
+									case 'ZIP_CODE':
+										if( strlen( $tmp = trim( $row[ $index ] ) ) )
+											$addr->Zip( $tmp );
+										break;
+								
+									case 'PHONE':
+										if( strlen( $tmp = trim( $row[ $index ] ) ) )
+											$inst->Phone( $tmp );
+										break;
+								
+									case 'FAX':
+										if( strlen( $tmp = trim( $row[ $index ] ) ) )
+											$inst->Fax( $tmp );
+										break;
+								
+									case 'EMAIL':
+										if( strlen( $tmp = trim( $row[ $index ] ) ) )
+											$inst->Email( $tmp );
+										break;
+								
+									case 'URL':
+										if( strlen( $tmp = trim( $row[ $index ] ) ) )
+											$inst->URL( $tmp );
+										break;
+								
+									case 'LATITUDE':
+										if( strlen( $tmp = trim( $row[ $index ] ) ) )
+											$inst->Latitude( $tmp );
+										break;
+								
+									case 'LONGITUDE':
+										if( strlen( $tmp = trim( $row[ $index ] ) ) )
+											$inst->Longitude( $tmp );
+										break;
+								
+									case 'ALTITUDE':
+										if( strlen( $tmp = trim( $row[ $index ] ) ) )
+											$inst->Altitude( $tmp );
+										break;
+								
+									case 'UPDATED_ON':
+										if( strlen( $tmp = trim( $row[ $index ] ) ) )
+										{
+											$tmp = explode( '/', $tmp );
+											$date = $tmp[ 2 ].'-'.$tmp[ 1 ].'-'.$tmp[ 0 ];
+											$inst->Stamp( new CDataTypeStamp( $date ) );
+										}
+										break;
+								
+									case 'V_INSTCODE':
+										if( strlen( $tmp = trim( $row[ $index ] ) ) )
+											$inst->Valid( $tmp );
+										break;
+								
+								} // Parsed field.
+							
+							} // Data field there.
+							
+							//
+							// Reached end of data fields.
+							//
+							else
+								break;										// =>
+						
+						} // Iterating fields.
+						
+						//
+						// Handle address.
+						//
+						if( count( $addr ) )
+						{
+							//
+							// Add country.
+							//
+							$addr->Country( $country );
+							
+							//
+							// Add address.
+							//
+							$inst->Mail( $addr );
+						
+						} // Has address
+						
+						//
+						// Check institute.
+						//
+						if( count( $inst ) )
+						{
+							//
+							// Commit institute.
+							//
+							$inst->Commit( $theContainer, NULL, kFLAG_PERSIST_REPLACE +
+																kFLAG_STATE_ENCODED );
+							
+							//
+							// Count.
+							//
+							$count++;
+						
+						} // Has data.
 					
 					} // Iterating file.
+					
+					//
+					// Close and delete text file.
+					//
+					fclose( $fp );
+					unlink( $txt );
 				
-				) // Opened text file.
+				} // Opened text file.
 				
 				//
 				// Unable to read zip file.
 				//
 				else
+				{
+					//
+					// Reset EOL.
+					//
+					ini_set( 'auto_detect_line_endings', $save );
+				
 					throw new CException
 						( "Unable to read text file",
 						  kERROR_INVALID_PARAMETER,
 						  kMESSAGE_TYPE_ERROR,
 						  array( 'URL' => kENTITY_INST_FAO_DOWNLOAD ) );		// !@! ==>
-				
+				}
+			
 				//
 				// Reset EOL.
 				//
@@ -412,152 +664,9 @@ class CFAOInstitute extends CInstitute
 				  kMESSAGE_TYPE_ERROR,
 				  array( 'URL' => kENTITY_INST_FAO_DOWNLOAD ) );				// !@! ==>
 		
-		
-		
-		
-		//
-		// Check data.
-		//
-		if( is_array( $theData )
-		 || ($theData instanceof ArrayObject) )
-		{
-			//
-			// Valid institute record.
-			//
-			if( array_key_exists( 'INSTCODE', (array) $theData ) )
-			{
-				//
-				// Init local storage.
-				//
-				$inst = new CFAOInstitute();
-				$addr = new CMailAddress();
-			
-				//
-				// Get institute code.
-				//
-				$inst->Code( $theData[ 'INSTCODE' ] );
-				
-				//
-				// Load other elements.
-				//
-				if( array_key_exists( 'ACRONYM', (array) $theData )
-				 && strlen( $tmp = trim( $theData[ 'ACRONYM' ] ) ) )
-					$inst->Acronym( $tmp );
-
-				if( array_key_exists( 'ECPACRONYM', (array) $theData )
-				 && strlen( $tmp = trim( $theData[ 'ECPACRONYM' ] ) ) )
-					$inst->EAcronym( $tmp );
-
-				if( array_key_exists( 'FULL_NAME', (array) $theData )
-				 && strlen( $tmp = trim( $theData[ 'FULL_NAME' ] ) ) )
-					$inst->Name( $tmp );
-
-				if( array_key_exists( 'TYPE', (array) $theData )
-				 && strlen( $theData[ 'TYPE' ] ) )
-				{
-					$list = explode( '/', $theData[ 'TYPE' ] );
-					foreach( $list as $element )
-					{
-						if( strlen( $tmp = trim( $element ) ) )
-							$inst->FAOType( $tmp, TRUE );
-					}
-				}
-
-				if( array_key_exists( 'PGR_ACTIVITY', (array) $theData )
-				 && ($theData[ 'PGR_ACTIVITY' ] == 'Y') )
-					$inst->Kind( kENTITY_INST_FAO_ACT_PGR, TRUE );
-
-				if( array_key_exists( 'MAINTCOLL', (array) $theData )
-				 && ($theData[ 'MAINTCOLL' ] == 'Y') )
-					$inst->Kind( kENTITY_INST_FAO_ACT_COLL, TRUE );
-
-				if( array_key_exists( 'STREET_POB', (array) $theData )
-				 && strlen( $tmp = trim( $theData[ 'STREET_POB' ] ) ) )
-					$addr->Street( $tmp );
-
-				if( array_key_exists( 'CITY_STATE', (array) $theData )
-				 && strlen( $tmp = trim( $theData[ 'CITY_STATE' ] ) ) )
-					$addr->City( $tmp );
-
-				if( array_key_exists( 'ZIP_CODE', (array) $theData )
-				 && strlen( $tmp = trim( $theData[ 'ZIP_CODE' ] ) ) )
-					$addr->Zip( $tmp );
-				
-				if( count( $addr ) )
-				{
-					$addr->Country( substr( $theData[ 'INSTCODE' ], 0, 3 ) );
-					$inst->Mail( $addr );
-				}
-
-				if( array_key_exists( 'PHONE', (array) $theData )
-				 && strlen( $tmp = trim( $theData[ 'PHONE' ] ) ) )
-					$inst->Phone( $tmp );
-
-				if( array_key_exists( 'FAX', (array) $theData )
-				 && strlen( $tmp = trim( $theData[ 'FAX' ] ) ) )
-					$inst->Fax( $tmp );
-
-				if( array_key_exists( 'EMAIL', (array) $theData )
-				 && strlen( $tmp = trim( $theData[ 'EMAIL' ] ) ) )
-					$inst->Email( $tmp );
-
-				if( array_key_exists( 'URL', (array) $theData )
-				 && strlen( $tmp = trim( $theData[ 'URL' ] ) ) )
-					$inst->URL( $tmp );
-
-				if( array_key_exists( 'LATITUDE', (array) $theData )
-				 && strlen( $tmp = trim( $theData[ 'LATITUDE' ] ) ) )
-					$inst->Latitude( $tmp );
-
-				if( array_key_exists( 'LONGITUDE', (array) $theData )
-				 && strlen( $tmp = trim( $theData[ 'LONGITUDE' ] ) ) )
-					$inst->Longitude( $tmp );
-
-				if( array_key_exists( 'ALTITUDE', (array) $theData )
-				 && strlen( $tmp = trim( $theData[ 'ALTITUDE' ] ) ) )
-					$inst->Altitude( $tmp );
-
-				if( array_key_exists( 'UPDATED_ON', (array) $theData )
-				 && strlen( $tmp = trim( $theData[ 'UPDATED_ON' ] ) ) )
-					$inst->Stamp( new CDataTypeStamp( $tmp ) );
-
-				if( array_key_exists( 'V_INSTCODE', (array) $theData )
-				 && strlen( $tmp = trim( $theData[ 'V_INSTCODE' ] ) ) )
-					$inst->Valid( $tmp );
-				
-				//
-				// Commit institute.
-				//
-				$inst->Commit( $theContainer, NULL, kFLAG_PERSIST_REPLACE +
-													kFLAG_STATE_ENCODED );
-				
-				return 1;															// ==>
-			
-			} // Valid institute.
-		
-		} // Valid data.
-		
-		else
-			throw new CException
-				( "Invalid import data format",
-				  kERROR_INVALID_PARAMETER,
-				  kMESSAGE_TYPE_ERROR,
-				  array( 'Data' => $theData ) );								// !@! ==>
-			
-		//
-		// Init local storage.
-		//
-		$count = 0;
-			
-		//
-		// Assume it is a list.
-		//
-		foreach( $theData as $element )
-			$count += self::Import( $theContainer, $element );
-		
 		return $count;																// ==>
 
-	} // Update.
+	} // Import.
 
 		
 

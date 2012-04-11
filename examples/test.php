@@ -221,7 +221,7 @@ $stat = $collection->remove( $crit, $opt );
 echo( '<pre>' ); print_r( $stat ); echo( '</pre>' );
 $stat = $collection->remove( $crit, $opt );
 echo( '<pre>' ); print_r( $stat ); echo( '</pre>' );
-*/
+
 //
 // Test TAB-delimited.
 //
@@ -237,6 +237,39 @@ if( $fp !== FALSE )
 	fclose( $fp );
 }
 ini_set( 'auto_detect_line_endings', $save );
+*/
 
+//
+// Test min/max.
+//
+
+//
+// Collection selection.
+//
+$mongo = New Mongo();
+$db = $mongo->selectDB( 'GERMPLASM' );
+$collection = $db->selectCollection( 'VOCABULARY' );
+
+//
+// Build query.
+//
+$query = array( 'Dataset.Name' => 'OLS' );
+//
+// Build fields list.
+//
+$fields = array( 'Dataset.ID' => TRUE, '_id' => FALSE );
+//
+// Build sort list.
+//
+$sort = array( 'Dataset.ID' => -1 );
+
+//
+// Execute.
+//
+$max = $collection->find( $query, $fields )->sort( $sort )->limit( 1 )->getNext();
+$max = $max[ 'Dataset' ][ 'ID' ];
+echo( '<pre>' );
+print_r( $max );
+echo( '</pre>' );
 
 ?>

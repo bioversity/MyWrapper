@@ -59,6 +59,7 @@ try
 	//
 	$collection = new CMongoContainer( $db->selectCollection( 'CFAOInstitute' ) );
 	 
+/*
 	//
 	// Load institutes.
 	//
@@ -109,47 +110,24 @@ try
 	$institute1->Longitude( 250 );
 	echo( '<i>$institute1->Altitude( 70 );</i><br>' );
 	$institute1->Altitude( 70 );
-	echo( '<i>$institute1->Stamp( new CDataTypeStamp( \'2004-08-06\' ) );</i><br>' );
-	$institute1->Stamp( new CDataTypeStamp( '2004-08-06 00:00:00' ) );
+	echo( '<i>$institute1->Stamp( new CDataTypeStamp( \'2003-08-06\' ) );</i><br>' );
+	$institute1->Stamp( new CDataTypeStamp( '2003-08-06 00:00:00' ) );
 	echo( '<i>$institute1->Valid( \'MDG010\' );</i><br>' );
 	$institute1->Valid( 'MDG010' );
 	$id1 = $institute1->Commit( $collection );
 	echo( "$id1<pre>" ); print_r( $institute1 ); echo( '</pre>' );
 	echo( '<hr>' );
+*/
 	 
 	//
 	// Load institutes list.
 	//
-	echo( '<h3>Load institutes list</h3>' );
+	echo( '<h3>Import institutes</h3>' );
 	
-	echo( '<i><b>List of institutes</b></i><br>' );
-	$matrix = Array();
-	$fp = fopen( 'Code_FAO_Institutes.csv', 'r' );
-	if( $fp !== FALSE )
-	{
-		if( $header = fgetcsv( $fp, 4096 ) )
-		{
-			$values = fgetcsv( $fp, 4096 );
-			while( $values )
-			{
-				$tmp = Array();
-				$hrd = $header;
-				if( count( $values ) < count( $hrd ) )
-					array_splice( $hrd, count( $values ) );
-				for( $i = 0; $i < count( $hrd ); $i++ )
-					$tmp[ $hrd[ $i ] ] = $values[ $i ];
-				$matrix[] = $tmp;
-				$values = fgetcsv( $fp, 4096 );
-			}
-		}
-		
-		fclose( $fp );
-	}
-	else
-		echo( '<i>Unable to open file!</i><br>' );
-	echo( '<i>$count = CFAOInstitute::Import( $collection, $matrix );</i><br>' );
-	$count = CFAOInstitute::Import( $collection, $matrix );
-	echo( $count );
+	echo( '<i><b>Import from FAO/WIEWS</b></i><br>' );
+	echo( '<i>$count = CFAOInstitute::Import( $collection  );</i><br>' );
+	$count = CFAOInstitute::Import( $collection );
+	echo( "<i>Imported [$count] records</i><br>" );
 	echo( '<hr>' );
 	
 	echo( '<h3>DONE</h3>' );

@@ -103,7 +103,7 @@ define( "kENTITY_INST_FAO_ACT_COLL",			':ACTIVITY:COLL' );
 
 
 /*=======================================================================================
- *	DEFAULT FAO/WIEWS INSTITUTE DOWNLOAD URL											*
+ *	DEFAULT DOWNLOAD DEFINITIONS														*
  *======================================================================================*/
 
 /**
