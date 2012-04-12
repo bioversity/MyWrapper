@@ -7,7 +7,7 @@
  * data type mapping classes.
  *
  *	@package	MyWrapper
- *	@subpackage	Core
+ *	@subpackage	Framework
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 21/03/2012
@@ -78,7 +78,7 @@ require_once( kPATH_LIBRARY_DEFINES."Types.inc.php" );
  * </ul>
  *
  *	@package	MyWrapper
- *	@subpackage	Core
+ *	@subpackage	Framework
  */
 abstract class CDataType extends CArrayObject
 {

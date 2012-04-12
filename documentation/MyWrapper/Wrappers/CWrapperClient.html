@@ -39,7 +39,7 @@
         and off logging the request: if on, the request will be returned by the web-service,
         it is stored in the <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPT_LOG_REQUEST">kAPI_OPT_LOG_REQUEST</a> offset.</li><li><em>Log <a href="../../MyWrapper/Wrappers/CWrapperClient.html#methodLogTrace">trace</a></em>: This element represents a switch to turn on
         and off tracing exceptions: if on, any exception will also hold a trace, it is
-        stored in the <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPT_LOG_TRACE">kAPI_OPT_LOG_TRACE</a> offset.</li></ul></p><p>Objects of this class require at least the <a href="../../MyWrapper/Wrappers/CWrapperClient.html#methodUrl">URL</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_URL">offset</a>,  <a href="../../MyWrapper/Wrappers/CWrapperClient.html#methodOperation">operation</a> <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">offset</a> and the  <a href="../../MyWrapper/Wrappers/CWrapperClient.html#methodFormat">format</a> <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">offset</a> to be set if they expect to have an  <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">initialised</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>, which is necessary  to send <a href="../../MyWrapper/Wrappers/CWrapperClient.html#methodRequest">requests</a> to web-services.</p></p>
+        stored in the <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPT_LOG_TRACE">kAPI_OPT_LOG_TRACE</a> offset.</li></ul></p><p>Objects of this class require at least the <a href="../../MyWrapper/Wrappers/CWrapperClient.html#methodUrl">URL</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_URL">offset</a>,  <a href="../../MyWrapper/Wrappers/CWrapperClient.html#methodOperation">operation</a> <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">offset</a> and the  <a href="../../MyWrapper/Wrappers/CWrapperClient.html#methodFormat">format</a> <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">offset</a> to be set if they expect to have an  <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">initialised</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>, which is necessary  to send <a href="../../MyWrapper/Wrappers/CWrapperClient.html#methodRequest">requests</a> to web-services.</p></p>
 		<p class="notes">
 			Located in <a class="field" href="_classes---CWrapperClient.php.html">/classes/CWrapperClient.php</a> (line <span class="field">65</span>)
 		</p>
@@ -47,9 +47,9 @@
 				
 		<pre>ArrayObject
    |
-   --<a href="../../MyWrapper/Core/CArrayObject.html">CArrayObject</a>
+   --<a href="../../MyWrapper/Framework/CArrayObject.html">CArrayObject</a>
       |
-      --<a href="../../MyWrapper/Core/CStatusObject.html">CStatusObject</a>
+      --<a href="../../MyWrapper/Framework/CStatusObject.html">CStatusObject</a>
          |
          --CWrapperClient</pre>
 	
@@ -196,11 +196,11 @@
 			
 							<h4>Inherited Variables</h4>
 				<A NAME='inherited_vars'><!-- --></A>
-									<p>Inherited from <span class="classname"><a href="../../MyWrapper/Core/CStatusObject.html">CStatusObject</a></span></p>
+									<p>Inherited from <span class="classname"><a href="../../MyWrapper/Framework/CStatusObject.html">CStatusObject</a></span></p>
 					<blockquote>
 													<img src="../../media/images/Variable.png" />
 							<span class="var-title">
-								<span class="var-name"><a href="../../MyWrapper/Core/CStatusObject.html#var$mStatus">CStatusObject::$mStatus</a></span><br>
+								<span class="var-name"><a href="../../MyWrapper/Framework/CStatusObject.html#var$mStatus">CStatusObject::$mStatus</a></span><br>
 							</span>
 											</blockquote> 
 										
@@ -220,7 +220,7 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="methodRequest" id="Request"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
@@ -235,7 +235,7 @@
             this format, the method will return the metadata of the operation for
             troubleshooting purposes.</li></ul></li></ul></p></p>
 	<ul class="tags">
-				<li><span class="field">throws:</span> <a href="../../MyWrapper/Core/CException.html">CException</a></li>
+				<li><span class="field">throws:</span> <a href="../../MyWrapper/Framework/CException.html">CException</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -264,7 +264,7 @@
 			
 	</div>
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Constructor.png" />
@@ -296,7 +296,7 @@
 			
 	</div>
 <a name="methodExecute" id="Execute"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -307,7 +307,7 @@
 <p class="short-description">Send an HTTP request.</p>
 <p class="description"><p>This method can be used to sent an <em>HTTP</em> request using the current contents of  the object and return a response.</p></p>
 	<ul class="tags">
-				<li><span class="field">throws:</span> <a href="../../MyWrapper/Core/CException.html">CException</a></li>
+				<li><span class="field">throws:</span> <a href="../../MyWrapper/Framework/CException.html">CException</a></li>
 				<li><span class="field">access:</span> public</li>
 			</ul>
 	
@@ -328,7 +328,7 @@
 			
 	</div>
 <a name="methodFormat" id="Format"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -346,9 +346,9 @@
 	<ul class="tags">
 				<li><span class="field">see:</span> kAPI_OP_HELP kAPI_OP_PING</li>
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">kAPI_FORMAT</a></li>
-				<li><span class="field">throws:</span> <a href="../../MyWrapper/Core/CException.html">CException</a></li>
+				<li><span class="field">throws:</span> <a href="../../MyWrapper/Framework/CException.html">CException</a></li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -371,7 +371,7 @@
 			
 	</div>
 <a name="methodLogRequest" id="LogRequest"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -384,7 +384,7 @@
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPT_LOG_REQUEST">kAPI_OPT_LOG_REQUEST</a></li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -407,7 +407,7 @@
 			
 	</div>
 <a name="methodLogTrace" id="LogTrace"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -420,7 +420,7 @@
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPT_LOG_TRACE">kAPI_OPT_LOG_TRACE</a></li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -443,7 +443,7 @@
 			
 	</div>
 <a name="methodoffsetSet" id="offsetSet"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -452,7 +452,7 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Set a value for a given offset.</p>
-<p class="description"><p>We overload this method to manage the <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">inited</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>: this is set if <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_URL">URL</a>,  <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">operation</a> and <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">format</a> are all set.</p></p>
+<p class="description"><p>We overload this method to manage the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">inited</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>: this is set if <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_URL">URL</a>,  <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">operation</a> and <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">format</a> are all set.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 			</ul>
@@ -477,13 +477,13 @@
 			<hr class="separator" />
 		<div class="notes">Redefinition of:</div>
 		<dl>
-			<dt><a href="../../MyWrapper/Core/CStatusObject.html#methodoffsetSet">CStatusObject::offsetSet()</a></dt>
+			<dt><a href="../../MyWrapper/Framework/CStatusObject.html#methodoffsetSet">CStatusObject::offsetSet()</a></dt>
 						<dd>Set a value for a given offset.</dd>
 					</dl>
 			
 	</div>
 <a name="methodoffsetUnset" id="offsetUnset"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -492,7 +492,7 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Reset a value for a given offset.</p>
-<p class="description"><p>We overload this method to manage the <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">inited</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>: this is set if <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_URL">URL</a>,  <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">operation</a> and <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">format</a> are all set.</p></p>
+<p class="description"><p>We overload this method to manage the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">inited</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>: this is set if <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_URL">URL</a>,  <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">operation</a> and <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">format</a> are all set.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 			</ul>
@@ -514,13 +514,13 @@
 			<hr class="separator" />
 		<div class="notes">Redefinition of:</div>
 		<dl>
-			<dt><a href="../../MyWrapper/Core/CStatusObject.html#methodoffsetUnset">CStatusObject::offsetUnset()</a></dt>
+			<dt><a href="../../MyWrapper/Framework/CStatusObject.html#methodoffsetUnset">CStatusObject::offsetUnset()</a></dt>
 						<dd>Reset a value for a given offset.</dd>
 					</dl>
 			
 	</div>
 <a name="methodOperation" id="Operation"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -535,9 +535,9 @@
 	<ul class="tags">
 				<li><span class="field">see:</span> kAPI_OP_HELP kAPI_OP_PING</li>
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">kAPI_OPERATION</a></li>
-				<li><span class="field">throws:</span> <a href="../../MyWrapper/Core/CException.html">CException</a></li>
+				<li><span class="field">throws:</span> <a href="../../MyWrapper/Framework/CException.html">CException</a></li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -576,7 +576,7 @@
 				</ul>
 	</div>
 <a name="methodStamp" id="Stamp"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -589,7 +589,7 @@
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_REQ_STAMP">kAPI_REQ_STAMP</a></li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -612,7 +612,7 @@
 			
 	</div>
 <a name="methodUrl" id="Url"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -625,7 +625,7 @@
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_URL">kOFFSET_URL</a></li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -650,40 +650,40 @@
 							<h4>Inherited Methods</h4>
 				<a name='inherited_methods'><!-- --></a>	
 									<!-- =========== Summary =========== -->
-					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Core/CStatusObject.html">CStatusObject</a></span></p>
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Framework/CStatusObject.html">CStatusObject</a></span></p>
 					<blockquote>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#methodoffsetSet">CStatusObject::offsetSet()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#methodoffsetSet">CStatusObject::offsetSet()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#methodoffsetUnset">CStatusObject::offsetUnset()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#methodoffsetUnset">CStatusObject::offsetUnset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#methodStatus">CStatusObject::Status()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#methodStatus">CStatusObject::Status()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#method_IsDirty">CStatusObject::_IsDirty()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#method_IsDirty">CStatusObject::_IsDirty()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#method_ManageBitField">CStatusObject::_ManageBitField()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#method_ManageBitField">CStatusObject::_ManageBitField()</a></span><br>
 											</blockquote>
 									<!-- =========== Summary =========== -->
-					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Core/CArrayObject.html">CArrayObject</a></span></p>
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Framework/CArrayObject.html">CArrayObject</a></span></p>
 					<blockquote>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodkeys">CArrayObject::keys()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodkeys">CArrayObject::keys()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodoffsetGet">CArrayObject::offsetGet()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetGet">CArrayObject::offsetGet()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodoffsetSet">CArrayObject::offsetSet()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetSet">CArrayObject::offsetSet()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodoffsetUnset">CArrayObject::offsetUnset()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetUnset">CArrayObject::offsetUnset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodvalues">CArrayObject::values()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodvalues">CArrayObject::values()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#method_ManageTypedArrayOffset">CArrayObject::_ManageTypedArrayOffset()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedArrayOffset">CArrayObject::_ManageTypedArrayOffset()</a></span><br>
 											</blockquote>
 									<!-- =========== Summary =========== -->
 					<p>Inherited From <span class="classname">ArrayObject (Internal Class)</span></p>
@@ -770,7 +770,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Thu, 12 Apr 2012 17:47:33 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 12 Apr 2012 19:49:36 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

@@ -31,7 +31,7 @@
 <p class="short-description">Contact.</p>
 <p class="description"><p>This class overloads its <a href="../../MyWrapper/Entities/CEntity.html">ancestor</a> to implement a contact entity.</p><p>Contacts are entities that need to be tracked by <a href="../../MyWrapper/Entities/CContact.html#methodMail">mail</a>,  <a href="../../MyWrapper/Entities/CContact.html#methodPhone">telephone</a> or <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a>.</p><p>The class features the following properties:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL">kOFFSET_MAIL</a></em>: The contact <a href="../../MyWrapper/Entities/CContact.html#methodMail">mailing</a> address
         list.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_PHONE">kOFFSET_PHONE</a></em>: The contact <a href="../../MyWrapper/Entities/CContact.html#methodPhone">telephone</a>
-        list.</li></ul></p><p>These three properties are managed as an array of elements discriminated by the  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kTAG_KIND</a> offset, no two elements may share the same  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kind</a>.</p><p>The object inherits the <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">inited</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>, it  is the responsibility of concrete classes to implement this feature.</p></p>
+        list.</li></ul></p><p>These three properties are managed as an array of elements discriminated by the  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kTAG_KIND</a> offset, no two elements may share the same  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kind</a>.</p><p>The object inherits the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">inited</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>, it  is the responsibility of concrete classes to implement this feature.</p></p>
 		<p class="notes">
 			Located in <a class="field" href="_classes---CContact.php.html">/classes/CContact.php</a> (line <span class="field">63</span>)
 		</p>
@@ -39,9 +39,9 @@
 				
 		<pre>ArrayObject
    |
-   --<a href="../../MyWrapper/Core/CArrayObject.html">CArrayObject</a>
+   --<a href="../../MyWrapper/Framework/CArrayObject.html">CArrayObject</a>
       |
-      --<a href="../../MyWrapper/Core/CStatusObject.html">CStatusObject</a>
+      --<a href="../../MyWrapper/Framework/CStatusObject.html">CStatusObject</a>
          |
          --<a href="../../MyWrapper/Persistence/CPersistentObject.html">CPersistentObject</a>
             |
@@ -150,11 +150,11 @@
 			
 							<h4>Inherited Variables</h4>
 				<A NAME='inherited_vars'><!-- --></A>
-									<p>Inherited from <span class="classname"><a href="../../MyWrapper/Core/CStatusObject.html">CStatusObject</a></span></p>
+									<p>Inherited from <span class="classname"><a href="../../MyWrapper/Framework/CStatusObject.html">CStatusObject</a></span></p>
 					<blockquote>
 													<img src="../../media/images/Variable.png" />
 							<span class="var-title">
-								<span class="var-name"><a href="../../MyWrapper/Core/CStatusObject.html#var$mStatus">CStatusObject::$mStatus</a></span><br>
+								<span class="var-name"><a href="../../MyWrapper/Framework/CStatusObject.html#var$mStatus">CStatusObject::$mStatus</a></span><br>
 							</span>
 											</blockquote> 
 										
@@ -412,40 +412,40 @@
 							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_PrepareLoad">CPersistentObject::_PrepareLoad()</a></span><br>
 											</blockquote>
 									<!-- =========== Summary =========== -->
-					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Core/CStatusObject.html">CStatusObject</a></span></p>
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Framework/CStatusObject.html">CStatusObject</a></span></p>
 					<blockquote>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#methodoffsetSet">CStatusObject::offsetSet()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#methodoffsetSet">CStatusObject::offsetSet()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#methodoffsetUnset">CStatusObject::offsetUnset()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#methodoffsetUnset">CStatusObject::offsetUnset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#methodStatus">CStatusObject::Status()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#methodStatus">CStatusObject::Status()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#method_IsDirty">CStatusObject::_IsDirty()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#method_IsDirty">CStatusObject::_IsDirty()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#method_ManageBitField">CStatusObject::_ManageBitField()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#method_ManageBitField">CStatusObject::_ManageBitField()</a></span><br>
 											</blockquote>
 									<!-- =========== Summary =========== -->
-					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Core/CArrayObject.html">CArrayObject</a></span></p>
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Framework/CArrayObject.html">CArrayObject</a></span></p>
 					<blockquote>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodkeys">CArrayObject::keys()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodkeys">CArrayObject::keys()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodoffsetGet">CArrayObject::offsetGet()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetGet">CArrayObject::offsetGet()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodoffsetSet">CArrayObject::offsetSet()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetSet">CArrayObject::offsetSet()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodoffsetUnset">CArrayObject::offsetUnset()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetUnset">CArrayObject::offsetUnset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodvalues">CArrayObject::values()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodvalues">CArrayObject::values()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#method_ManageTypedArrayOffset">CArrayObject::_ManageTypedArrayOffset()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedArrayOffset">CArrayObject::_ManageTypedArrayOffset()</a></span><br>
 											</blockquote>
 									<!-- =========== Summary =========== -->
 					<p>Inherited From <span class="classname">ArrayObject (Internal Class)</span></p>
@@ -532,7 +532,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Thu, 12 Apr 2012 17:47:24 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 12 Apr 2012 19:49:26 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

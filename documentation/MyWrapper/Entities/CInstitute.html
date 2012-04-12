@@ -31,7 +31,7 @@
 <p class="short-description">Institute.</p>
 <p class="description"><p>This class overloads its <a href="../../MyWrapper/Entities/CContact.html">ancestor</a> to implement an institute contact  entity.</p><p>Institutes feature specific properties that are added to the inherited ones:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_ACRONYM">kOFFSET_ACRONYM</a></em>: This offset represents the institute
         list of <a href="../../MyWrapper/Entities/CInstitute.html#methodAcronym">acronyms</a>.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_URL">kOFFSET_URL</a></em>: This offset represents the institute list of
-        URLs or web pages.</li></ul></p><p>The object is considered <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">initialised</a> only if it has its  <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a>, as its <a href="../../MyWrapper/Entities/CEntity.html">ancestor</a>, its <a href="../../MyWrapper/Entities/CEntity.html#methodName">name</a>,  Password() and <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a> address.</p><p>If the <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a> has not been explicitly set, <a href="../../MyWrapper/Entities/CInstitute.html#method_PrepareCommit">before</a>  <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">committing</a> the object it will be set to the value of the  <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a>. Also in that phase, the <a href="../../MyWrapper/Entities/_classes---CUser.inc.php.html#definekENTITY_USER">kENTITY_USER</a> constant  will be set in the user Type().</p><p>The <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a> in this class is a scalar property, in other classes it will  probably be a list of different e-mail types. In this class we want to link a single  user with a single e-mail, possibly not shared by any other user, that is why we link by  default the user <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a> and <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a>.</p></p>
+        URLs or web pages.</li></ul></p><p>The object is considered <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">initialised</a> only if it has its  <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a>, as its <a href="../../MyWrapper/Entities/CEntity.html">ancestor</a>, its <a href="../../MyWrapper/Entities/CEntity.html#methodName">name</a>,  Password() and <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a> address.</p><p>If the <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a> has not been explicitly set, <a href="../../MyWrapper/Entities/CInstitute.html#method_PrepareCommit">before</a>  <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">committing</a> the object it will be set to the value of the  <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a>. Also in that phase, the <a href="../../MyWrapper/Entities/_classes---CUser.inc.php.html#definekENTITY_USER">kENTITY_USER</a> constant  will be set in the user Type().</p><p>The <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a> in this class is a scalar property, in other classes it will  probably be a list of different e-mail types. In this class we want to link a single  user with a single e-mail, possibly not shared by any other user, that is why we link by  default the user <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a> and <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a>.</p></p>
 		<p class="notes">
 			Located in <a class="field" href="_classes---CInstitute.php.html">/classes/CInstitute.php</a> (line <span class="field">68</span>)
 		</p>
@@ -39,9 +39,9 @@
 				
 		<pre>ArrayObject
    |
-   --<a href="../../MyWrapper/Core/CArrayObject.html">CArrayObject</a>
+   --<a href="../../MyWrapper/Framework/CArrayObject.html">CArrayObject</a>
       |
-      --<a href="../../MyWrapper/Core/CStatusObject.html">CStatusObject</a>
+      --<a href="../../MyWrapper/Framework/CStatusObject.html">CStatusObject</a>
          |
          --<a href="../../MyWrapper/Persistence/CPersistentObject.html">CPersistentObject</a>
             |
@@ -182,11 +182,11 @@
 			
 							<h4>Inherited Variables</h4>
 				<A NAME='inherited_vars'><!-- --></A>
-									<p>Inherited from <span class="classname"><a href="../../MyWrapper/Core/CStatusObject.html">CStatusObject</a></span></p>
+									<p>Inherited from <span class="classname"><a href="../../MyWrapper/Framework/CStatusObject.html">CStatusObject</a></span></p>
 					<blockquote>
 													<img src="../../media/images/Variable.png" />
 							<span class="var-title">
-								<span class="var-name"><a href="../../MyWrapper/Core/CStatusObject.html#var$mStatus">CStatusObject::$mStatus</a></span><br>
+								<span class="var-name"><a href="../../MyWrapper/Framework/CStatusObject.html#var$mStatus">CStatusObject::$mStatus</a></span><br>
 							</span>
 											</blockquote> 
 										
@@ -215,7 +215,7 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Instantiate class.</p>
-<p class="description"><p>We CEntity::__construct() the constructor to initialise the  <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">inited</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">flag</a> if the  <a href="../../MyWrapper/Entities/CEntity.html#methodName">name</a> element is set.</p><p>We also enforce the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsEncoded">encoded</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">flag</a>.</p></p>
+<p class="description"><p>We CEntity::__construct() the constructor to initialise the  <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">inited</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">flag</a> if the  <a href="../../MyWrapper/Entities/CEntity.html#methodName">name</a> element is set.</p><p>We also enforce the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsEncoded">encoded</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">flag</a>.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 			</ul>
@@ -258,11 +258,11 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage entity acronyms.</p>
-<p class="description"><p>This method can be used to handle the institute <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_ACRONYM">acronyms</a>  list, it uses the standard accessor <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageArrayOffset">method</a> to manage the  list of acronyms.</p><p>Each element of this list should indicate an acronym by which one refers to the  current institute, the nature and specifics of these elements is the responsibility  of concrete classes.</p><p>For a more thorough reference of how this method works, please consult the  <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageArrayOffset">_ManageArrayOffset</a> method, in which the first parameter  will be the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_ACRONYM">kOFFSET_ACRONYM</a>.</p></p>
+<p class="description"><p>This method can be used to handle the institute <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_ACRONYM">acronyms</a>  list, it uses the standard accessor <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">method</a> to manage the  list of acronyms.</p><p>Each element of this list should indicate an acronym by which one refers to the  current institute, the nature and specifics of these elements is the responsibility  of concrete classes.</p><p>For a more thorough reference of how this method works, please consult the  <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">_ManageArrayOffset</a> method, in which the first parameter  will be the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_ACRONYM">kOFFSET_ACRONYM</a>.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_ACRONYM">kOFFSET_ACRONYM</a></li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -297,10 +297,10 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Set a value for a given offset.</p>
-<p class="description"><p>We overload this method to manage the <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">inited</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>: this is set if the  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">name</a>, <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_EMAIL">e-mail</a>,  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_PASSWORD">password</a> and the parent <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a> are set.</p></p>
+<p class="description"><p>We overload this method to manage the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">inited</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>: this is set if the  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">name</a>, <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_EMAIL">e-mail</a>,  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_PASSWORD">password</a> and the parent <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a> are set.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsCommitted">CPersistentObject::_IsCommitted()</a></li>
 			</ul>
 	
@@ -347,10 +347,10 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Reset a value for a given offset.</p>
-<p class="description"><p>We overload this method to manage the <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">inited</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>: this is set if the  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">name</a>, <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_EMAIL">e-mail</a>,  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_PASSWORD">password</a> and the parent <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a> are set.</p></p>
+<p class="description"><p>We overload this method to manage the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">inited</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>: this is set if the  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">name</a>, <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_EMAIL">e-mail</a>,  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_PASSWORD">password</a> and the parent <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a> are set.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsCommitted">CPersistentObject::_IsCommitted()</a></li>
 			</ul>
 	
@@ -524,7 +524,7 @@
 <p class="description"><p>We overload this method to initialise the <a href="../../MyWrapper/Entities/_classes---CInstitute.inc.php.html#definekENTITY_INST">kENTITY_INST</a>  Type() to the object prior <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">saving</a> it.</p><p>We also force the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsEncoded">encoded</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">flag</a>.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Errors.inc.php.html#definekERROR_OPTION_MISSING">kERROR_OPTION_MISSING</a></li>
-				<li><span class="field">throws:</span> <a href="../../MyWrapper/Core/CException.html">CException</a></li>
+				<li><span class="field">throws:</span> <a href="../../MyWrapper/Framework/CException.html">CException</a></li>
 				<li><span class="field">access:</span> protected</li>
 			</ul>
 	
@@ -675,40 +675,40 @@
 							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_PrepareLoad">CPersistentObject::_PrepareLoad()</a></span><br>
 											</blockquote>
 									<!-- =========== Summary =========== -->
-					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Core/CStatusObject.html">CStatusObject</a></span></p>
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Framework/CStatusObject.html">CStatusObject</a></span></p>
 					<blockquote>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#methodoffsetSet">CStatusObject::offsetSet()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#methodoffsetSet">CStatusObject::offsetSet()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#methodoffsetUnset">CStatusObject::offsetUnset()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#methodoffsetUnset">CStatusObject::offsetUnset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#methodStatus">CStatusObject::Status()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#methodStatus">CStatusObject::Status()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#method_IsDirty">CStatusObject::_IsDirty()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#method_IsDirty">CStatusObject::_IsDirty()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#method_ManageBitField">CStatusObject::_ManageBitField()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#method_ManageBitField">CStatusObject::_ManageBitField()</a></span><br>
 											</blockquote>
 									<!-- =========== Summary =========== -->
-					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Core/CArrayObject.html">CArrayObject</a></span></p>
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Framework/CArrayObject.html">CArrayObject</a></span></p>
 					<blockquote>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodkeys">CArrayObject::keys()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodkeys">CArrayObject::keys()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodoffsetGet">CArrayObject::offsetGet()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetGet">CArrayObject::offsetGet()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodoffsetSet">CArrayObject::offsetSet()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetSet">CArrayObject::offsetSet()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodoffsetUnset">CArrayObject::offsetUnset()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetUnset">CArrayObject::offsetUnset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodvalues">CArrayObject::values()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodvalues">CArrayObject::values()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#method_ManageTypedArrayOffset">CArrayObject::_ManageTypedArrayOffset()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedArrayOffset">CArrayObject::_ManageTypedArrayOffset()</a></span><br>
 											</blockquote>
 									<!-- =========== Summary =========== -->
 					<p>Inherited From <span class="classname">ArrayObject (Internal Class)</span></p>
@@ -795,7 +795,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Thu, 12 Apr 2012 17:47:28 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 12 Apr 2012 19:49:30 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

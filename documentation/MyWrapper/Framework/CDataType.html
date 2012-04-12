@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class CDataType</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name"><img src="../../media/images/AbstractClass_logo.png"
+														alt="Abstract Class"
+														title="Abstract Class"
+														style="vertical-align: middle"> CDataType</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+							<a href="#sec-descendents">Descendents</a>
+			|													<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Data types ancestor.</p>
+<p class="description"><p>This abstract class is the ancestor of data type classes in this library, classes derived  from this one can be used to wrap special data types in a standard class so that it can  be converted to a custom data type by <a href="../../MyWrapper/Wrappers/CDataWrapper.html">wrappers</a> and  <a href="../../MyWrapper/Persistence/CContainer.html">containers</a>.</p><p>This may become necessary when <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">storing</a> objects in  persistent data <a href="../../MyWrapper/Wrappers/CDataWrapper.html">stores</a>.</p><p>Current derived classes are:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_INT32">kDATA_TYPE_INT32</a></em>: 32 bit integer, this data type is
+        generally available, but it might be useful to distinguish it from the
+        <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_INT64">64</a> bit version.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_INT64">kDATA_TYPE_INT64</a></em>: 64 bit integer, this data type is
+        supported only on 64 bit systems.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_STAMP">kDATA_TYPE_STAMP</a></em>: Time stamp, we create this type to
+        have a standard way of representing a time-stamp.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_BINARY">kDATA_TYPE_BINARY</a></em>: Binary string, binary strings
+        are supported by PHPO, but they must be encoded for transport over the network or
+        for storing in databases.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_REGEX">kDATA_TYPE_REGEX</a></em>: Regular expression query.</li></ul></p><p>Other specialised data types are:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_MongoId">kDATA_TYPE_MongoId</a></em>: MongoDB _id.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_MongoCode">kDATA_TYPE_MongoCode</a></em>: MongoDB map/reduce
+        javascript code.</li></ul></p><p>The object derives from <a href="../../MyWrapper/Framework/CArrayObject.html">CArrayObject</a> and holds the following default  offsets:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a></em>: Data type code, this element indicates the data
+        type.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: This element holds the serialised data.</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_classes---CDataType.php.html">/classes/CDataType.php</a> (line <span class="field">83</span>)
+		</p>
+		
+				
+		<pre>ArrayObject
+   |
+   --<a href="../../MyWrapper/Framework/CArrayObject.html">CArrayObject</a>
+      |
+      --CDataType</pre>
+	
+			</div>
+</div>
+
+	<a name="sec-descendents"></a>
+	<div class="info-box">
+		<div class="info-box-title">Direct descendents</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+			<span class="disabled">Descendents</span>
+			|															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<table cellpadding="2" cellspacing="0" class="class-table">
+				<tr>
+					<th class="class-table-header">Class</th>
+					<th class="class-table-header">Description</th>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; white-space: nowrap">
+						<img src="../../media/images/Class.png"
+								 alt=" class"
+								 title=" class"
+								 style="vertical-align: center"/>
+						<a href="../../MyWrapper/Framework/CDataTypeBinary.html">CDataTypeBinary</a>
+					</td>
+					<td>
+											Binary string.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; white-space: nowrap">
+						<img src="../../media/images/Class.png"
+								 alt=" class"
+								 title=" class"
+								 style="vertical-align: center"/>
+						<a href="../../MyWrapper/Framework/CDataTypeInt32.html">CDataTypeInt32</a>
+					</td>
+					<td>
+											32 bit signed integer.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; white-space: nowrap">
+						<img src="../../media/images/Class.png"
+								 alt=" class"
+								 title=" class"
+								 style="vertical-align: center"/>
+						<a href="../../MyWrapper/Framework/CDataTypeInt64.html">CDataTypeInt64</a>
+					</td>
+					<td>
+											64 bit signed integer.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; white-space: nowrap">
+						<img src="../../media/images/Class.png"
+								 alt=" class"
+								 title=" class"
+								 style="vertical-align: center"/>
+						<a href="../../MyWrapper/Framework/CDataTypeMongoCode.html">CDataTypeMongoCode</a>
+					</td>
+					<td>
+											Time-stamp.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; white-space: nowrap">
+						<img src="../../media/images/Class.png"
+								 alt=" class"
+								 title=" class"
+								 style="vertical-align: center"/>
+						<a href="../../MyWrapper/Framework/CDataTypeMongoId.html">CDataTypeMongoId</a>
+					</td>
+					<td>
+											Binary string.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; white-space: nowrap">
+						<img src="../../media/images/Class.png"
+								 alt=" class"
+								 title=" class"
+								 style="vertical-align: center"/>
+						<a href="../../MyWrapper/Framework/CDataTypeRegex.html">CDataTypeRegex</a>
+					</td>
+					<td>
+											Regular expression.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; white-space: nowrap">
+						<img src="../../media/images/Class.png"
+								 alt=" class"
+								 title=" class"
+								 style="vertical-align: center"/>
+						<a href="../../MyWrapper/Framework/CDataTypeStamp.html">CDataTypeStamp</a>
+					</td>
+					<td>
+											Time-stamp.
+										</td>
+				</tr>
+							</table>
+		</div>
+	</div>
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendants</a> |
+												<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																				<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">void</span>
+										<a href="#SerialiseData" title="details" class="method-name">SerialiseData</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theElement</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">void</span>
+										<a href="#SerialiseElement" title="details" class="method-name">SerialiseElement</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theElement</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">&$theType</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">void</span>
+										<a href="#SerialiseObject" title="details" class="method-name">SerialiseObject</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theObject</span>)
+									</div>
+																																				<div class="method-definition">
+					<img src="../../media/images/Constructor.png" alt=" "/>
+											<span class="method-result">CDataType</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theData</span> = <span class="var-default">NULL</span>])
+									</div>
+																																								<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#value" title="details" class="method-name">value</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">string</span>
+										<a href="#__toString" title="details" class="method-name">__toString</a>
+										()
+									</div>
+											</div>
+		</div>
+	</div>		
+
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+													<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+<a name="methodSerialiseData" id="SerialiseData"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static SerialiseData</span> (line <span class="line-number">534</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Serialise provided data element.</p>
+<p class="description"><p>This method can be used to convert custom data types to a standard format that can  be serialised and transmitted through the network. This method is generally called  by <a href="../../MyWrapper/Framework/CDataType.html#methodSerialiseObject">SerialiseObject</a> which passes each scalar element as a  reference to this method which should decide whether the provided element is to be  converted or not.</p><p>This method will check if the provided parameter corresponds to a custom data type  that needs to be converted, if so, it will convert it to an instance derived from  this class.</p><p>The following data types will be converted:</p><p><ul><li><em>MongoId</em>: We convert into a <a href="../../MyWrapper/Framework/CDataTypeMongoId.html">CDataTypeMongoId</a>
+        object.</li><li><em>MongoCode</em>: We convert into a
+        <a href="../../MyWrapper/Framework/CDataTypeMongoCode.html">CDataTypeMongoCode</a> object.</li><li><em>MongoDate</em>: We convert into a <a href="../../MyWrapper/Framework/CDataTypeStamp.html">CDataTypeStamp</a>
+        object.</li><li><em>MongoRegex</em>: We convert into a
+        <a href="../../MyWrapper/Framework/CDataTypeRegex.html">CDataTypeRegex</a> object.</li><li><em>MongoBinData</em>: We convert into a <a href="../../MyWrapper/Framework/CDataTypeBinary.html">CDataTypeBinary</a>
+        object.</li><li><em>MongoInt32</em>: We convert into a <a href="../../MyWrapper/Framework/CDataTypeInt32.html">CDataTypeInt32</a>
+        object.</li><li><em>MongoInt64</em>: We convert into a <a href="../../MyWrapper/Framework/CDataTypeInt64.html">CDataTypeInt64</a>
+        object.</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CContainer.html#method_FinishDelete">CContainer::_FinishDelete()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CContainer.html#method_FinishCommit">CContainer::_FinishCommit()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CContainer.html#method_FinishLoad">CContainer::_FinishLoad()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			SerialiseData
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theElement</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theElement</span><span class="var-description">: Element to encode.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodSerialiseElement" id="SerialiseElement"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static SerialiseElement</span> (line <span class="line-number">298</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Serialise provided element.</p>
+<p class="description"><p>This method can be used to enforce converting custom data types to a standard format  that can be serialised and transmitted through the network. This method accepts two  parameters: the data type and the value: depending on their combination, the method  will convert in place the data and the type.</p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			SerialiseElement
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theElement</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">&$theType</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theElement</span><span class="var-description">: Element to encode.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">&$theType</span><span class="var-description">: Element data type.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodSerialiseObject" id="SerialiseObject"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static SerialiseObject</span> (line <span class="line-number">233</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Serialise provided object.</p>
+<p class="description"><p>This method will take an object and convert all data elements that are compatible  with one of the concrete classes derived from this one into a derived concrete  instance.</p><p>This method is useful when encoding objects in a format suitable for being  transmitted, or just after <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">committing</a> them to  a persistent <a href="../../MyWrapper/Persistence/CContainer.html">container</a>.</p><p>This method will ensure that the object contains data types compatible with PHP and  this library; it will be the duty of persistent <a href="../../MyWrapper/Persistence/CContainer.html">containers</a> to  convert these structures into custom data types compatible with their storage  engines.</p><p>The method will scan the provided data elements: array or ArrayObject elements will  be recursed, scalar elements will be sent to the public  <a href="../../MyWrapper/Framework/CDataType.html#methodSerialiseData">SerialiseData</a> method that will take care of performing the  actual data conversion.</p><p>If an element of the provided structure is converted, it will <em>always</em> be an  object derived from this class, and all conversions will be performed on the object  itself, which means that you should expect the provided object to be modified.</p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CContainer.html#method_FinishLoad">CContainer::_FinishLoad()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CContainer.html#method_FinishCommit">CContainer::_FinishCommit()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			SerialiseObject
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theObject</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theObject</span><span class="var-description">: Object to decode.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Constructor.png" />
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">120</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Instantiate class.</p>
+<p class="description"><p>This class enforces a standard constructor that accepts one parameter which  represents the custom data contents, these will be stored in the  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a> offset, this element must be filled.</p><p>The method will ensure that this parameter is not <em>NULL</em> and not an array; it  may be an ArrayObject, but it must then have the _toString() method.</p><p>No <em>NULL</em> concrete instance is allowed, all instances derived from this class  must have a value.</p><p>The @link kTAG_TYPE kTAG_TYPE} offset will be set by derived classes.</p></p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> Exception</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">CDataType</span>
+		<span class="method-name">
+			__construct
+		</span>
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theData</span> = <span class="var-default">NULL</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theData</span><span class="var-description">: Custom data.</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Framework/CDataTypeBinary.html#method__construct">CDataTypeBinary::__construct()</a>
+								: Instantiate class.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Framework/CDataTypeInt32.html#method__construct">CDataTypeInt32::__construct()</a>
+								: Instantiate class.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Framework/CDataTypeInt64.html#method__construct">CDataTypeInt64::__construct()</a>
+								: Instantiate class.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Framework/CDataTypeMongoCode.html#method__construct">CDataTypeMongoCode::__construct()</a>
+								: Instantiate class.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Framework/CDataTypeMongoId.html#method__construct">CDataTypeMongoId::__construct()</a>
+								: Instantiate class.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Framework/CDataTypeRegex.html#method__construct">CDataTypeRegex::__construct()</a>
+								: Instantiate class.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Framework/CDataTypeStamp.html#method__construct">CDataTypeStamp::__construct()</a>
+								: Instantiate class.
+							</li>
+				</ul>
+	</div>
+<a name="methodvalue" id="value"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">value</span> (line <span class="line-number">188</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return data value.</p>
+<p class="description"><p>This method should return the custom data value in the closest type possible in PHP.</p><p>By default we return the string representation of the data, this is the last resort  if the actual data type cannot be represented in PHP; derived classes that can be  represented in PHP should overload this method.</p></p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> Exception</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			value
+		</span>
+				()
+			</div>
+	
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Framework/CDataTypeBinary.html#methodvalue">CDataTypeBinary::value()</a>
+								: Return data value.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Framework/CDataTypeInt32.html#methodvalue">CDataTypeInt32::value()</a>
+								: Return data value.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Framework/CDataTypeInt64.html#methodvalue">CDataTypeInt64::value()</a>
+								: Return data value.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Framework/CDataTypeMongoCode.html#methodvalue">CDataTypeMongoCode::value()</a>
+								: Return data value.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Framework/CDataTypeMongoId.html#methodvalue">CDataTypeMongoId::value()</a>
+								: Return data value.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Framework/CDataTypeRegex.html#methodvalue">CDataTypeRegex::value()</a>
+								: Return data value.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Framework/CDataTypeStamp.html#methodvalue">CDataTypeStamp::value()</a>
+								: Return data value.
+							</li>
+				</ul>
+	</div>
+<a name="method__toString" id="__toString"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">__toString</span> (line <span class="line-number">158</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return string representation.</p>
+<p class="description"><p>This method should return a string representation of the custom data type contents,  this method must be implemented for all concrete classes.</p><p>By default this method expects the custom data part to be convertable to string, if  this is not the case, overload this method.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			__toString
+		</span>
+				()
+			</div>
+	
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Framework/CDataTypeStamp.html#method__toString">CDataTypeStamp::__toString()</a>
+								: Return string representation.
+							</li>
+				</ul>
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Framework/CArrayObject.html">CArrayObject</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodkeys">CArrayObject::keys()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetGet">CArrayObject::offsetGet()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetSet">CArrayObject::offsetSet()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetUnset">CArrayObject::offsetUnset()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodvalues">CArrayObject::values()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedArrayOffset">CArrayObject::_ManageTypedArrayOffset()</a></span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+	
+	<p class="notes" id="credit">
+		Documentation generated on Thu, 12 Apr 2012 19:49:27 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

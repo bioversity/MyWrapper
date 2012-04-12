@@ -12,7 +12,7 @@
  * level exceptions.
  *
  *	@package	MyWrapper
- *	@subpackage	Core
+ *	@subpackage	Framework
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 22/12/2010
@@ -66,7 +66,7 @@ require_once( kPATH_LIBRARY_DEFINES."MessageTypes.inc.php" );
  * aborted.
  *
  *	@package	MyWrapper
- *	@subpackage	Core
+ *	@subpackage	Framework
  */
 class CException extends Exception
 {

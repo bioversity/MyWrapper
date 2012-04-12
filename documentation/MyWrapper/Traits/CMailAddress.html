@@ -25,7 +25,7 @@
 	<div class="info-box-body">
         		<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Mailing address.</p>
-<p class="description"><p>This class implements a mailing address, it wraps the <a href="../../MyWrapper/Core/CArrayObject.html">parent</a> class  around a structure that defines a mailing address.</p><p>In general instances of this class will be embedded in  <a href="../../MyWrapper/Persistence/CPersistentObject.html">persistent</a> objects to add lists of addresses, the current class  does not feature any persistence functions, it only concentrates in managing an address  as a set of properties:</p><p><ul><li><em><a href="../../MyWrapper/Traits/CMailAddress.html#methodPlace">Place</a></em>: This <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_PLACE">property</a> defines a
+<p class="description"><p>This class implements a mailing address, it wraps the <a href="../../MyWrapper/Framework/CArrayObject.html">parent</a> class  around a structure that defines a mailing address.</p><p>In general instances of this class will be embedded in  <a href="../../MyWrapper/Persistence/CPersistentObject.html">persistent</a> objects to add lists of addresses, the current class  does not feature any persistence functions, it only concentrates in managing an address  as a set of properties:</p><p><ul><li><em><a href="../../MyWrapper/Traits/CMailAddress.html#methodPlace">Place</a></em>: This <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_PLACE">property</a> defines a
         named place or location, it should be used only if required.</li><li><em><a href="../../MyWrapper/Traits/CMailAddress.html#methodCare">Care</a> of</em>: This <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_CARE">property</a> indicates
         who is the owner or reference at the address that is not the same as the sender. It
         should be used only if required.</li><li><em><a href="../../MyWrapper/Traits/CMailAddress.html#methodStreet">Street</a></em>: This <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_STREET">property</a> indicates
@@ -43,7 +43,7 @@
 				
 		<pre>ArrayObject
    |
-   --<a href="../../MyWrapper/Core/CArrayObject.html">CArrayObject</a>
+   --<a href="../../MyWrapper/Framework/CArrayObject.html">CArrayObject</a>
       |
       --CMailAddress</pre>
 	
@@ -176,7 +176,7 @@
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_CARE">kOFFSET_MAIL_CARE</a></li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -212,7 +212,7 @@
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_CITY">kOFFSET_MAIL_CITY</a></li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -248,7 +248,7 @@
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_COUNTRY">kOFFSET_MAIL_COUNTRY</a></li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -284,7 +284,7 @@
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_FULL">kOFFSET_MAIL_FULL</a></li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -320,7 +320,7 @@
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_PLACE">kOFFSET_MAIL_PLACE</a></li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -356,7 +356,7 @@
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_PROVINCE">kOFFSET_MAIL_PROVINCE</a></li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -392,7 +392,7 @@
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_STREET">kOFFSET_MAIL_STREET</a></li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -428,7 +428,7 @@
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_ZIP">kOFFSET_MAIL_ZIP</a></li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -453,24 +453,24 @@
 							<h4>Inherited Methods</h4>
 				<a name='inherited_methods'><!-- --></a>	
 									<!-- =========== Summary =========== -->
-					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Core/CArrayObject.html">CArrayObject</a></span></p>
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Framework/CArrayObject.html">CArrayObject</a></span></p>
 					<blockquote>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodkeys">CArrayObject::keys()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodkeys">CArrayObject::keys()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodoffsetGet">CArrayObject::offsetGet()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetGet">CArrayObject::offsetGet()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodoffsetSet">CArrayObject::offsetSet()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetSet">CArrayObject::offsetSet()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodoffsetUnset">CArrayObject::offsetUnset()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetUnset">CArrayObject::offsetUnset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodvalues">CArrayObject::values()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodvalues">CArrayObject::values()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#method_ManageTypedArrayOffset">CArrayObject::_ManageTypedArrayOffset()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedArrayOffset">CArrayObject::_ManageTypedArrayOffset()</a></span><br>
 											</blockquote>
 										
 		</div>
@@ -478,7 +478,7 @@
 
 	
 	<p class="notes" id="credit">
-		Documentation generated on Thu, 12 Apr 2012 17:47:29 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 12 Apr 2012 19:49:31 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

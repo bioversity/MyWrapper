@@ -118,11 +118,13 @@ try
 
 	echo( '<i>$id3 = $object3->Commit( $collection, NULL, kFLAG_PERSIST_INSERT + kFLAG_STATE_ENCODED );</i><br>' );
 	$id3 = $object3->Commit( $collection, NULL, kFLAG_PERSIST_INSERT + kFLAG_STATE_ENCODED );
-	echo( "<pre>" ); print_r( $object3 ); echo( '</pre>' );
 	echo( "<pre>" ); print_r( $object1 ); echo( '</pre>' );
 	echo( "<pre>" ); print_r( $object2 ); echo( '</pre>' );
+	echo( "<pre>" ); print_r( $object3 ); echo( '</pre>' );
 	echo( '<hr>' );
-exit;
+	
+	$id1 = $object1[ kTAG_ID_NATIVE ];
+	$id2 = $object2[ kTAG_ID_NATIVE ];
 	 
 	//
 	// Test valid chain.

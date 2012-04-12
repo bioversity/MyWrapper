@@ -7,7 +7,7 @@
  * around a signed 64 bit integer.
  *
  *	@package	MyWrapper
- *	@subpackage	Core
+ *	@subpackage	Framework
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 21/03/2012
@@ -40,7 +40,7 @@ require_once( kPATH_LIBRARY_SOURCE."CDataType.php" );
  * This class is necessary, because to date PHP doesn't handle 64 bit integers.
  *
  *	@package	MyWrapper
- *	@subpackage	Core
+ *	@subpackage	Framework
  */
 class CDataTypeInt64 extends CDataType
 {

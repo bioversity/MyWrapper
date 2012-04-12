@@ -7,7 +7,7 @@
  * methods and definitions.
  *
  *	@package	MyWrapper
- *	@subpackage	Core
+ *	@subpackage	Framework
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 07/04/2012
@@ -94,7 +94,7 @@ require_once( kPATH_LIBRARY_DEFINES."Flags.inc.php" );
  * </ul>
  *
  *	@package	MyWrapper
- *	@subpackage	Core
+ *	@subpackage	Framework
  */
 abstract class CObject
 {

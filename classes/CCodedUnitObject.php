@@ -458,7 +458,7 @@ class CCodedUnitObject extends CPersistentUnitObject
 		
 		} while( ($object !== NULL) && ($theIdentifier !== NULL) );
 		
-		return $object;															// ==>
+		return $object;																// ==>
 		
 	} // ValidObject.
 

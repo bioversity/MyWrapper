@@ -59,63 +59,11 @@ require_once( kPATH_LIBRARY_DEFINES."Tokens.inc.php" );
  * {@link kTOKEN_NAMESPACE_SEPARATOR separator} token; if the term has no namespace, the
  * token is omitted.
  *
- * Objects of this class require at least the {@link Code() code} {@link kTAG_CODE offset}
- * and the {@link Name() name} {@link kTAG_NAME offset} to have an
- * {@link _IsInited() initialised} {@link kFLAG_STATE_INITED status}.
- *
  *	@package	MyWrapper
  *	@subpackage	Ontology
  */
 class CTerm extends CGraphUnitObject
 {
-		
-
-/*=======================================================================================
- *																						*
- *											MAGIC										*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	__construct																		*
-	 *==================================================================================*/
-
-	/**
-	 * Instantiate class.
-	 *
-	 * We {@link CCodedUnitObject::__construct() overload} the constructor to initialise
-	 * the {@link _IsInited() inited} {@link kFLAG_STATE_INITED flag} if the
-	 * {@link Code() code} and {@link Name() name} attributes are set.
-	 *
-	 * @param mixed					$theContainer		Persistent container.
-	 * @param mixed					$theIdentifier		Object identifier.
-	 * @param bitfield				$theModifiers		Create modifiers.
-	 *
-	 * @access public
-	 *
-	 * @uses _IsInited
-	 *
-	 * @see kTAG_CODE kTAG_NAME
-	 */
-	public function __construct( $theContainer = NULL,
-								 $theIdentifier = NULL,
-								 $theModifiers = kFLAG_DEFAULT )
-	{
-		//
-		// Call ancestor method.
-		//
-		parent::__construct( $theContainer, $theIdentifier, $theModifiers );
-		
-		//
-		// Set inited status.
-		//
-		$this->_IsInited( $this->_IsInited() &&
-						  $this->offsetExists( kTAG_NAME ) );
-		
-	} // Constructor.
-
 		
 
 /*=======================================================================================
@@ -276,79 +224,6 @@ class CTerm extends CGraphUnitObject
 			( kTAG_DEFINITION, kTAG_LANGUAGE, $theLanguage, $theValue, $getOld );	// ==>
 
 	} // Definition.
-
-		
-
-/*=======================================================================================
- *																						*
- *								PUBLIC ARRAY ACCESS INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	offsetSet																		*
-	 *==================================================================================*/
-
-	/**
-	 * Set a value for a given offset.
-	 *
-	 * We overload this method to manage the {@link _IsInited() inited}
-	 * {@link kFLAG_STATE_INITED status}: this is set if the {@link Code() code} and
-	 * {@link Name() name} attributes are set.
-	 *
-	 * @param string				$theOffset			Offset.
-	 * @param string|NULL			$theValue			Value to set at offset.
-	 *
-	 * @access public
-	 */
-	public function offsetSet( $theOffset, $theValue )
-	{
-		//
-		// Call parent method.
-		//
-		parent::offsetSet( $theOffset, $theValue );
-		
-		//
-		// Set inited flag.
-		//
-		if( $theValue !== NULL )
-			$this->_IsInited( $this->_IsInited() &&
-							  $this->offsetExists( kTAG_NAME ) );
-	
-	} // offsetSet.
-
-	 
-	/*===================================================================================
-	 *	offsetUnset																		*
-	 *==================================================================================*/
-
-	/**
-	 * Reset a value for a given offset.
-	 *
-	 * We overload this method to manage the {@link _IsInited() inited}
-	 * {@link kFLAG_STATE_INITED status}: this is set if the {@link Code() code} and
-	 * {@link Name() name} attributes are set.
-	 *
-	 * @param string				$theOffset			Offset.
-	 *
-	 * @access public
-	 */
-	public function offsetUnset( $theOffset )
-	{
-		//
-		// Call parent method.
-		//
-		CStatusObject::offsetUnset( $theOffset );
-		
-		//
-		// Set inited flag.
-		//
-		$this->_IsInited( $this->_IsInited() &&
-						  $this->offsetExists( kTAG_NAME ) );
-	
-	} // offsetUnset.
 
 		
 

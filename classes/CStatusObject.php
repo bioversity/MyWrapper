@@ -7,7 +7,7 @@
  * {@link CArrayObject ancestor} to handle states.
  *
  *	@package	MyWrapper
- *	@subpackage	Core
+ *	@subpackage	Framework
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 14/02/2012
@@ -55,7 +55,7 @@ require_once( kPATH_LIBRARY_SOURCE."CArrayObject.php" );
  * </ul>
  *
  *	@package	MyWrapper
- *	@subpackage	Core
+ *	@subpackage	Framework
  */
 class CStatusObject extends CArrayObject
 {

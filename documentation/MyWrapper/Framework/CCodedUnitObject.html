@@ -36,7 +36,7 @@
         when the current object becomes obsolete: instead of deleting it we create a new one
         and store in this <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_VALID">offset</a> the identifier of the new object that
         will replace the current one.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_MOD_STAMP">kTAG_MOD_STAMP</a></em>: This offset holds the object's last
-        modification time stamp, this property should be used to mark all objects.</li></ul></p><p>By default, the unique <a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_index">identifier</a> of the object is its  <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a>, which is also its <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_id">id</a>.</p><p>Objects of this class require at least the <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">offset</a>  to have an <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">initialised</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>.</p></p>
+        modification time stamp, this property should be used to mark all objects.</li></ul></p><p>By default, the unique <a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_index">identifier</a> of the object is its  <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a>, which is also its <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_id">id</a>.</p><p>Objects of this class require at least the <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">offset</a>  to have an <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">initialised</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>.</p></p>
 		<p class="notes">
 			Located in <a class="field" href="_classes---CCodedUnitObject.php.html">/classes/CCodedUnitObject.php</a> (line <span class="field">57</span>)
 		</p>
@@ -44,9 +44,9 @@
 				
 		<pre>ArrayObject
    |
-   --<a href="../../MyWrapper/Core/CArrayObject.html">CArrayObject</a>
+   --<a href="../../MyWrapper/Framework/CArrayObject.html">CArrayObject</a>
       |
-      --<a href="../../MyWrapper/Core/CStatusObject.html">CStatusObject</a>
+      --<a href="../../MyWrapper/Framework/CStatusObject.html">CStatusObject</a>
          |
          --<a href="../../MyWrapper/Persistence/CPersistentObject.html">CPersistentObject</a>
             |
@@ -185,11 +185,11 @@
 			
 							<h4>Inherited Variables</h4>
 				<A NAME='inherited_vars'><!-- --></A>
-									<p>Inherited from <span class="classname"><a href="../../MyWrapper/Core/CStatusObject.html">CStatusObject</a></span></p>
+									<p>Inherited from <span class="classname"><a href="../../MyWrapper/Framework/CStatusObject.html">CStatusObject</a></span></p>
 					<blockquote>
 													<img src="../../media/images/Variable.png" />
 							<span class="var-title">
-								<span class="var-name"><a href="../../MyWrapper/Core/CStatusObject.html#var$mStatus">CStatusObject::$mStatus</a></span><br>
+								<span class="var-name"><a href="../../MyWrapper/Framework/CStatusObject.html#var$mStatus">CStatusObject::$mStatus</a></span><br>
 							</span>
 											</blockquote> 
 										
@@ -241,6 +241,14 @@
 				</ul>
 		
 			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyBaseTerm.html#methodValidObject">COntologyBaseTerm::ValidObject()</a>
+								: Return a valid object.
+							</li>
+				</ul>
 	</div>
 <a name="method__construct" id="__construct"><!-- --></a>
 <div class="oddrow">
@@ -252,11 +260,11 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Instantiate class.</p>
-<p class="description"><p>We <a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">overload</a> the constructor to initialise  the <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">inited</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">flag</a> if the  <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a> attribute is set.</p></p>
+<p class="description"><p>We <a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">overload</a> the constructor to initialise  the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">inited</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">flag</a> if the  <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a> attribute is set.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">kTAG_CODE</a></li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -298,7 +306,11 @@
 								: Instantiate class.
 							</li>
 					<li>
-				<a href="../../MyWrapper/Ontology/CTerm.html#method__construct">CTerm::__construct()</a>
+				<a href="../../MyWrapper/Ontology/COntologyBaseTerm.html#method__construct">COntologyBaseTerm::__construct()</a>
+								: Instantiate class.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyTerm.html#method__construct">COntologyTerm::__construct()</a>
 								: Instantiate class.
 							</li>
 				</ul>
@@ -313,11 +325,11 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage code.</p>
-<p class="description"><p>This method can be used to handle the object's <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a>, it uses the  standard accessor <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">method</a> to manage the  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">offset</a>.</p><p>The code represents the object's <a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_index">identifier</a>.</p><p>For a more in-depth reference of this method, please consult the  <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">_ManageOffset</a> method, in which the first parameter will be  the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">kTAG_CODE</a>.</p></p>
+<p class="description"><p>This method can be used to handle the object's <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a>, it uses the  standard accessor <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">method</a> to manage the  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">offset</a>.</p><p>The code represents the object's <a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_index">identifier</a>.</p><p>For a more in-depth reference of this method, please consult the  <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">_ManageOffset</a> method, in which the first parameter will be  the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">kTAG_CODE</a>.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">kTAG_CODE</a></li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -349,11 +361,13 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage kind.</p>
-<p class="description"><p>This method can be used to handle the object's <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kinds</a>, it uses the  standard accessor <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageArrayOffset">method</a> to manage the list of kinds.</p><p>Each element of this list should indicate a function or quality of the current  object</p><p>For a more thorough reference of how this method works, please consult the  <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageArrayOffset">_ManageArrayOffset</a> method, in which the first parameter  will be the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kTAG_KIND</a>.</p></p>
+<p class="description"><p>This method can be used to handle the object's <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kinds</a>, it uses the  standard accessor <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">method</a> to manage the list of kinds.</p><p>Each element of this list should indicate a function or quality of the current  object</p><p>For a more thorough reference of how this method works, please consult the  <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">_ManageArrayOffset</a> method, in which the first parameter  will be the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kTAG_KIND</a>.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kTAG_KIND</a></li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/CTermNamespace.html#method_PrepareCommit">CTermNamespace::_PrepareCommit()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTerm.html#method_PrepareCommit">COntologyTerm::_PrepareCommit()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -388,7 +402,7 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Set a value for a given offset.</p>
-<p class="description"><p>We overload this method to manage the <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">inited</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>: this is set if <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a> property is  set.</p></p>
+<p class="description"><p>We overload this method to manage the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">inited</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>: this is set if <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a> property is  set.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 			</ul>
@@ -413,7 +427,7 @@
 			<hr class="separator" />
 		<div class="notes">Redefinition of:</div>
 		<dl>
-			<dt><a href="../../MyWrapper/Core/CStatusObject.html#methodoffsetSet">CStatusObject::offsetSet()</a></dt>
+			<dt><a href="../../MyWrapper/Framework/CStatusObject.html#methodoffsetSet">CStatusObject::offsetSet()</a></dt>
 						<dd>Set a value for a given offset.</dd>
 					</dl>
 			
@@ -433,7 +447,7 @@
 								: Set a value for a given offset.
 							</li>
 					<li>
-				<a href="../../MyWrapper/Ontology/CTerm.html#methodoffsetSet">CTerm::offsetSet()</a>
+				<a href="../../MyWrapper/Ontology/COntologyTerm.html#methodoffsetSet">COntologyTerm::offsetSet()</a>
 								: Set a value for a given offset.
 							</li>
 				</ul>
@@ -448,7 +462,7 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Reset a value for a given offset.</p>
-<p class="description"><p>We overload this method to manage the <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">inited</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>: this is set if <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a> property is  set.</p></p>
+<p class="description"><p>We overload this method to manage the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">inited</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>: this is set if <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a> property is  set.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 			</ul>
@@ -470,7 +484,7 @@
 			<hr class="separator" />
 		<div class="notes">Redefinition of:</div>
 		<dl>
-			<dt><a href="../../MyWrapper/Core/CStatusObject.html#methodoffsetUnset">CStatusObject::offsetUnset()</a></dt>
+			<dt><a href="../../MyWrapper/Framework/CStatusObject.html#methodoffsetUnset">CStatusObject::offsetUnset()</a></dt>
 						<dd>Reset a value for a given offset.</dd>
 					</dl>
 			
@@ -490,7 +504,7 @@
 								: Reset a value for a given offset.
 							</li>
 					<li>
-				<a href="../../MyWrapper/Ontology/CTerm.html#methodoffsetUnset">CTerm::offsetUnset()</a>
+				<a href="../../MyWrapper/Ontology/COntologyTerm.html#methodoffsetUnset">COntologyTerm::offsetUnset()</a>
 								: Reset a value for a given offset.
 							</li>
 				</ul>
@@ -505,13 +519,13 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage object time stamp.</p>
-<p class="description"><p>This method can be used to manage the object <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_MOD_STAMP">time-stamp</a>, or  the date in which the last modification was made on the object, it uses the standard  accessor <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">method</a> to manage the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_MOD_STAMP">offset</a>:</p><p><ul><li><strong>$theValue</strong>: The value or operation:
+<p class="description"><p>This method can be used to manage the object <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_MOD_STAMP">time-stamp</a>, or  the date in which the last modification was made on the object, it uses the standard  accessor <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">method</a> to manage the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_MOD_STAMP">offset</a>:</p><p><ul><li><strong>$theValue</strong>: The value or operation:
      <ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the value.</li><li><em>other</em>: Set value.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
      <ul><li><em>TRUE</em>: Return the value <em>before</em> it was eventually modified.</li><li><em>FALSE</em>: Return the value <em>after</em> it was eventually modified.</li></ul></li></ul></p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_MOD_STAMP">kTAG_MOD_STAMP</a></li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -543,11 +557,11 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage valid reference.</p>
-<p class="description"><p>This method can be used to handle the valid object's  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a>, it uses the standard accessor  <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">method</a> to manage the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_VALID">offset</a>.</p><p>Objects derived from this class should be persistent, in other words, it is not an  option to delete such objects: by creating a new object and referencing it from the  old one, we maintain the original reference and point to the valid object.</p><p>For a more in-depth reference of this method, please consult the  <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">_ManageOffset</a> method, in which the first parameter will be  the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_VALID">kTAG_VALID</a>.</p></p>
+<p class="description"><p>This method can be used to handle the valid object's  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a>, it uses the standard accessor  <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">method</a> to manage the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_VALID">offset</a>.</p><p>Objects derived from this class should be persistent, in other words, it is not an  option to delete such objects: by creating a new object and referencing it from the  old one, we maintain the original reference and point to the valid object.</p><p>For a more in-depth reference of this method, please consult the  <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">_ManageOffset</a> method, in which the first parameter will be  the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_VALID">kTAG_VALID</a>.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_VALID">kTAG_VALID</a></li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -568,6 +582,14 @@
 				</ul>
 		
 			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyBaseTerm.html#methodValid">COntologyBaseTerm::Valid()</a>
+								: Manage valid reference.
+							</li>
+				</ul>
 	</div>
 <a name="method_index" id="_index"><!-- --></a>
 <div class="evenrow">
@@ -676,40 +698,40 @@
 							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_PrepareLoad">CPersistentObject::_PrepareLoad()</a></span><br>
 											</blockquote>
 									<!-- =========== Summary =========== -->
-					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Core/CStatusObject.html">CStatusObject</a></span></p>
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Framework/CStatusObject.html">CStatusObject</a></span></p>
 					<blockquote>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#methodoffsetSet">CStatusObject::offsetSet()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#methodoffsetSet">CStatusObject::offsetSet()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#methodoffsetUnset">CStatusObject::offsetUnset()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#methodoffsetUnset">CStatusObject::offsetUnset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#methodStatus">CStatusObject::Status()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#methodStatus">CStatusObject::Status()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#method_IsDirty">CStatusObject::_IsDirty()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#method_IsDirty">CStatusObject::_IsDirty()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#method_ManageBitField">CStatusObject::_ManageBitField()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#method_ManageBitField">CStatusObject::_ManageBitField()</a></span><br>
 											</blockquote>
 									<!-- =========== Summary =========== -->
-					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Core/CArrayObject.html">CArrayObject</a></span></p>
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Framework/CArrayObject.html">CArrayObject</a></span></p>
 					<blockquote>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodkeys">CArrayObject::keys()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodkeys">CArrayObject::keys()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodoffsetGet">CArrayObject::offsetGet()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetGet">CArrayObject::offsetGet()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodoffsetSet">CArrayObject::offsetSet()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetSet">CArrayObject::offsetSet()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodoffsetUnset">CArrayObject::offsetUnset()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetUnset">CArrayObject::offsetUnset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodvalues">CArrayObject::values()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodvalues">CArrayObject::values()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#method_ManageTypedArrayOffset">CArrayObject::_ManageTypedArrayOffset()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedArrayOffset">CArrayObject::_ManageTypedArrayOffset()</a></span><br>
 											</blockquote>
 									<!-- =========== Summary =========== -->
 					<p>Inherited From <span class="classname">ArrayObject (Internal Class)</span></p>
@@ -796,7 +818,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Thu, 12 Apr 2012 17:47:24 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 12 Apr 2012 19:49:26 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

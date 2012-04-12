@@ -7,7 +7,7 @@
  * ancestor of all classes in this library.
  *
  *	@package	MyWrapper
- *	@subpackage	Core
+ *	@subpackage	Framework
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 07/04/2009
@@ -63,7 +63,7 @@ require_once( kPATH_LIBRARY_DEFINES."Offsets.inc.php" );
  * </ul>
  *
  *	@package	MyWrapper
- *	@subpackage	Core
+ *	@subpackage	Framework
  */
 class CArrayObject extends ArrayObject
 {

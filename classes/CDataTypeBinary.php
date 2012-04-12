@@ -7,7 +7,7 @@
  * around a binary string.
  *
  *	@package	MyWrapper
- *	@subpackage	Core
+ *	@subpackage	Framework
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 21/03/2012
@@ -52,7 +52,7 @@ require_once( kPATH_LIBRARY_SOURCE."CDataType.php" );
  * </ul>
  *
  *	@package	MyWrapper
- *	@subpackage	Core
+ *	@subpackage	Framework
  */
 class CDataTypeBinary extends CDataType
 {

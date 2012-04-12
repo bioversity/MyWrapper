@@ -30,7 +30,7 @@
         		<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Persistent objects ancestor.</p>
 <p class="description"><p>This class is the ancestor of all persistent objects in this library, it implements the  common interfaces and workflow that persistent objects will use to be  <a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">instantiated</a>, <a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">retrieved</a> or  <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">stored</a> in object <a href="../../MyWrapper/Persistence/CContainer.html">containers</a>.</p><p>This class interacts closely with <a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a> derived classes so that  concrete classes derived from this one need only to be concerned with their specific  functionality, while persistent issues are handled foth by this class and by the  concrete classes derived from <a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a>.</p><p>The class declares three main persistence operations whose workflow is as follows:</p><p><ul><li><em><a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">Create</a></em>: The <a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">constructor</a> can
-        instantiate an object from data, as its <a href="../../MyWrapper/Core/CArrayObject.html">ancestor</a>, a protected
+        instantiate an object from data, as its <a href="../../MyWrapper/Framework/CArrayObject.html">ancestor</a>, a protected
         <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_Create">method</a> may be overloaded by derived classes to implement
         specific functionality.</li><li><em><a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">Retrieve</a></em>: The <a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">constructor</a> is
         also used to retrieve objects stored in a <a href="../../MyWrapper/Persistence/CContainer.html">container</a>, this
@@ -41,7 +41,7 @@
         <a href="../../MyWrapper/Persistence/CContainer.html">container</a>, the followed steps are:
      <ul><li><em><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_PrepareCommit">Prepare</a></em>: This step is used to check parameters
             and prepare the resources needed to save the object.</li><li><em><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_Commit">Store</a></em>: This operation will perform the actual
-            storage, this step should be delegated to the <a href="../../MyWrapper/Persistence/CContainer.html">container</a>.</li></ul></li></ul></p><p>This class implements the default behaviour, in derived classes you should overload these  methods if necessary, without changing the public interface.</p><p>This class extends its <a href="../../MyWrapper/Core/CStatusObject.html">ancestor</a> behaviour to record persistence  status and accepts only instances derived from <a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a> as  containers.</p></p>
+            storage, this step should be delegated to the <a href="../../MyWrapper/Persistence/CContainer.html">container</a>.</li></ul></li></ul></p><p>This class implements the default behaviour, in derived classes you should overload these  methods if necessary, without changing the public interface.</p><p>This class extends its <a href="../../MyWrapper/Framework/CStatusObject.html">ancestor</a> behaviour to record persistence  status and accepts only instances derived from <a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a> as  containers.</p></p>
 		<p class="notes">
 			Located in <a class="field" href="_classes---CPersistentObject.php.html">/classes/CPersistentObject.php</a> (line <span class="field">80</span>)
 		</p>
@@ -49,9 +49,9 @@
 				
 		<pre>ArrayObject
    |
-   --<a href="../../MyWrapper/Core/CArrayObject.html">CArrayObject</a>
+   --<a href="../../MyWrapper/Framework/CArrayObject.html">CArrayObject</a>
       |
-      --<a href="../../MyWrapper/Core/CStatusObject.html">CStatusObject</a>
+      --<a href="../../MyWrapper/Framework/CStatusObject.html">CStatusObject</a>
          |
          --CPersistentObject</pre>
 	
@@ -222,11 +222,11 @@
 			
 							<h4>Inherited Variables</h4>
 				<A NAME='inherited_vars'><!-- --></A>
-									<p>Inherited from <span class="classname"><a href="../../MyWrapper/Core/CStatusObject.html">CStatusObject</a></span></p>
+									<p>Inherited from <span class="classname"><a href="../../MyWrapper/Framework/CStatusObject.html">CStatusObject</a></span></p>
 					<blockquote>
 													<img src="../../media/images/Variable.png" />
 							<span class="var-title">
-								<span class="var-name"><a href="../../MyWrapper/Core/CStatusObject.html#var$mStatus">CStatusObject::$mStatus</a></span><br>
+								<span class="var-name"><a href="../../MyWrapper/Framework/CStatusObject.html#var$mStatus">CStatusObject::$mStatus</a></span><br>
 							</span>
 											</blockquote> 
 										
@@ -278,10 +278,10 @@
      <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a></em>: If the option is on,
             the object will be passed through a
             <a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseObject">conversion</a> process that will convert
-            all <a href="../../MyWrapper/Core/CDataType.html">standard</a> data types into native container custom data
+            all <a href="../../MyWrapper/Framework/CDataType.html">standard</a> data types into native container custom data
             types <a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareCommit">before</a>
             <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">committing</a> the object; the opposite
-            <a href="../../MyWrapper/Core/CDataType.html#methodSerialiseObject">conversion</a> process will take place
+            <a href="../../MyWrapper/Framework/CDataType.html#methodSerialiseObject">conversion</a> process will take place
             <a href="../../MyWrapper/Persistence/CContainer.html#method_FinishLoad">after</a> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">loading</a> the
             object from a container. It is a good idea to keep this flag ON, because the
             converted object will be compatible with any <a href="../../MyWrapper/Persistence/CContainer.html">container</a>
@@ -295,7 +295,7 @@
         the provided <em>$theIdentifier</em> as a key or query, and if:
      <ul><li><em>Found</em>: We set the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsCommitted">committed</a>
             <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_COMMITTED">flag</a> on.</li><li><em>Not found</em>: We instantiate an empty object and ignore the
-            <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsCommitted">committed</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_COMMITTED">flag</a>.</li></ul></li></ul></p><p>The <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">inited</a> status <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">flag</a> is not set by  default, this will prevent the object from being <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">stored</a> and it is  the responsibility of derived concrete instances to manage this status.</p><p>This method takes advantage of a protected interface which should be overloaded by  derived classes instead of overloading this method:</p><p><ul><li><em>Retrieve object</em>: If the second parameter was provided, it implies that
+            <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsCommitted">committed</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_COMMITTED">flag</a>.</li></ul></li></ul></p><p>The <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">inited</a> status <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">flag</a> is not set by  default, this will prevent the object from being <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">stored</a> and it is  the responsibility of derived concrete instances to manage this status.</p><p>This method takes advantage of a protected interface which should be overloaded by  derived classes instead of overloading this method:</p><p><ul><li><em>Retrieve object</em>: If the second parameter was provided, it implies that
         the object is to be retrieved from the first parameter which represents the
         <a href="../../MyWrapper/Persistence/CContainer.html">container</a> in which the object contents are stored.
      <ul><li><em><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_PrepareLoad">_PrepareLoad</a>()</em>: This method should check and
@@ -356,7 +356,11 @@
 								: Instantiate class.
 							</li>
 					<li>
-				<a href="../../MyWrapper/Ontology/CTerm.html#method__construct">CTerm::__construct()</a>
+				<a href="../../MyWrapper/Ontology/COntologyBaseTerm.html#method__construct">COntologyBaseTerm::__construct()</a>
+								: Instantiate class.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyTerm.html#method__construct">COntologyTerm::__construct()</a>
 								: Instantiate class.
 							</li>
 				</ul>
@@ -407,12 +411,12 @@
             than actually removing the object from the container.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a></em>: If the option is on,
             the object will be passed through a
             <a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseObject">conversion</a> process that will convert
-            all <a href="../../MyWrapper/Core/CDataType.html">standard</a> data types into native container custom data
+            all <a href="../../MyWrapper/Framework/CDataType.html">standard</a> data types into native container custom data
             types <a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareCommit">before</a> committing the object. It
             is a good idea to keep this flag ON, because the converted object will be
             compatible with any <a href="../../MyWrapper/Persistence/CContainer.html">container</a> and it will make data
             transfers from one database to the other easy. This process is automatic and
-            transparent.</li></ul></li></ul></p><p>The method will only operate if either the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsCommitted">committed</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_COMMITTED">flag</a> is <em>not set</em>, or the  <a href="../../MyWrapper/Core/CStatusObject.html#method_IsDirty">dirty</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_DIRTY">flag</a> is <em>set</em>, if none of  these two conditions are satisfied, the method will do nothing.</p><p>The method will by default <em>set</em> the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsCommitted">committed</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_COMMITTED">flag</a> and <em>reset</em> the <a href="../../MyWrapper/Core/CStatusObject.html#method_IsDirty">dirty</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_DIRTY">flag</a> if the operation was successful.</p><p>This method should raise an exception if any error occurs.</p><p>The method should return the unique identifier of the object or <em>NULL</em> if the  operation was not performed.</p><p>In derived classes you should not overload this method, instead, you should overload  the protected interface:</p><p><ul><li><em><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_PrepareCommit">_PrepareCommit</a>()</em>: This method can be used to
+            transparent.</li></ul></li></ul></p><p>The method will only operate if either the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsCommitted">committed</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_COMMITTED">flag</a> is <em>not set</em>, or the  <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsDirty">dirty</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_DIRTY">flag</a> is <em>set</em>, if none of  these two conditions are satisfied, the method will do nothing.</p><p>The method will by default <em>set</em> the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsCommitted">committed</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_COMMITTED">flag</a> and <em>reset</em> the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsDirty">dirty</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_DIRTY">flag</a> if the operation was successful.</p><p>This method should raise an exception if any error occurs.</p><p>The method should return the unique identifier of the object or <em>NULL</em> if the  operation was not performed.</p><p>In derived classes you should not overload this method, instead, you should overload  the protected interface:</p><p><ul><li><em><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_PrepareCommit">_PrepareCommit</a>()</em>: This method can be used to
         initialise or check the parameters and resources.</li><li><em><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_Commit">_Commit</a>()</em>: This method will perform the
         actual commit.</li><li><em><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_FinishCommit">_FinishCommit</a>()</em>: This method can be used to perform
         eventual post-flight adjustments.</li></ul></p></p>
@@ -421,7 +425,7 @@
 				<li><span class="field">see:</span> kFLAG_PERSIST_REPLACE kFLAG_STATE_ENCODED</li>
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_PrepareCommit">CPersistentObject::_PrepareCommit()</a></li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CStatusObject.html#method_IsDirty">CStatusObject::_IsDirty()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsDirty">CStatusObject::_IsDirty()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_FinishCommit">CPersistentObject::_FinishCommit()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsCommitted">CPersistentObject::_IsCommitted()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_Commit">CPersistentObject::_Commit()</a></li>
@@ -459,7 +463,7 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Reset _IsCommitted() status.</p>
-<p class="description"><p>This method can be used to reset the object's <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_COMMITTED">committed</a>  <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsCommitted">status</a>, this may be necessary when copying an object from one  container to the other, since the object will be <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">committed</a> only if  the <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_COMMITTED">committed</a> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsCommitted">status</a> is not set,  or if the <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_DIRTY">dirty</a> <a href="../../MyWrapper/Core/CStatusObject.html#method_IsDirty">status</a> is set.</p></p>
+<p class="description"><p>This method can be used to reset the object's <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_COMMITTED">committed</a>  <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsCommitted">status</a>, this may be necessary when copying an object from one  container to the other, since the object will be <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">committed</a> only if  the <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_COMMITTED">committed</a> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsCommitted">status</a> is not set,  or if the <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_DIRTY">dirty</a> <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsDirty">status</a> is set.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsCommitted">CPersistentObject::_IsCommitted()</a></li>
@@ -531,7 +535,7 @@
 			classes you can overload this method to handle custom types.</li></ul></li></ul></p><p>The method returns a boolean where <em>TRUE</em> indicates that the object was  instantiated with data, and <em>FALSE</em> indicating that the object is empty. This  will be used by the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">caller</a> to set the object  <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsCommitted">committed</a> status <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_COMMITTED">flag</a>.</p><p>The parameter is provided as a reference.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Errors.inc.php.html#definekERROR_UNSUPPORTED">kERROR_UNSUPPORTED</a></li>
-				<li><span class="field">throws:</span> <a href="../../MyWrapper/Core/CException.html">CException</a></li>
+				<li><span class="field">throws:</span> <a href="../../MyWrapper/Framework/CException.html">CException</a></li>
 				<li><span class="field">access:</span> protected</li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">CPersistentObject::__construct()</a></li>
 			</ul>
@@ -638,7 +642,7 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage committed status.</p>
-<p class="description"><p>This method can be used to get or set the object's committed state.</p><p>A committed object is one that has either been loaded from a container or committed  to a container. This state indicates that the object is persistent. This state,  combined with the <a href="../../MyWrapper/Core/CStatusObject.html#method_IsDirty">dirty</a> status, can determine if an object needs  to be committed in a container or not.</p><p>The method features a single parameter:</p><p><ul><li><em>NULL</em>: The method will return <em>TRUE</em> if the object is committed, or
+<p class="description"><p>This method can be used to get or set the object's committed state.</p><p>A committed object is one that has either been loaded from a container or committed  to a container. This state indicates that the object is persistent. This state,  combined with the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsDirty">dirty</a> status, can determine if an object needs  to be committed in a container or not.</p><p>The method features a single parameter:</p><p><ul><li><em>NULL</em>: The method will return <em>TRUE</em> if the object is committed, or
         <em>FALSE</em> if the object is not committed.</li><li><em>TRUE</em>: The method will set the object to committed.</li><li><em>FALSE</em>: The method will reset the object's committed state.</li></ul></p><p>In all cases the method will return the state <em>after</em> it was eventually  modified.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_COMMITTED">kFLAG_STATE_COMMITTED</a></li>
@@ -649,7 +653,7 @@
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Entities/CInstitute.html#methodoffsetSet">CInstitute::offsetSet()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">CPersistentObject::Commit()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">CPersistentObject::__construct()</a></li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CStatusObject.html#method_ManageBitField">CStatusObject::_ManageBitField()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CStatusObject.html#method_ManageBitField">CStatusObject::_ManageBitField()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodUncommit">CPersistentObject::Uncommit()</a></li>
 			</ul>
 	
@@ -679,14 +683,16 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage encoded status.</p>
-<p class="description"><p>This method can be used to get or set the object's encoded state.</p><p>This flag determines whether custom data types are to be converted to  <a href="../../MyWrapper/Core/CDataType.html">standard</a> types when working with the object. This is especially  useful when transmitting the object through the network or when managing custom  database types.</p><p>The conversion to <a href="../../MyWrapper/Core/CDataType.html">standard</a> types is  <a href="../../MyWrapper/Core/CDataType.html#methodSerialiseObject">done</a> when <a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">loading</a> the  object from a <a href="../../MyWrapper/Persistence/CContainer.html">container</a> and the opposite is  <a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseObject">done</a> before <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">storing</a> the  object into a <a href="../../MyWrapper/Persistence/CContainer.html">container</a>, these operations are performed by the  <a href="../../MyWrapper/Persistence/CContainer.html">container</a> object that takes care of object persistence.</p><p>This <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a> flag can be provided at  <a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">instantiation</a> or directly to the persistence methods, although  it is a better idea to provide it in the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">constructor</a> to have  this conversion happen transparently.</p><p>The method features a single parameter:</p><p><ul><li><em>NULL</em>: The method will return <em>TRUE</em> if the object is encoded, or
+<p class="description"><p>This method can be used to get or set the object's encoded state.</p><p>This flag determines whether custom data types are to be converted to  <a href="../../MyWrapper/Framework/CDataType.html">standard</a> types when working with the object. This is especially  useful when transmitting the object through the network or when managing custom  database types.</p><p>The conversion to <a href="../../MyWrapper/Framework/CDataType.html">standard</a> types is  <a href="../../MyWrapper/Framework/CDataType.html#methodSerialiseObject">done</a> when <a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">loading</a> the  object from a <a href="../../MyWrapper/Persistence/CContainer.html">container</a> and the opposite is  <a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseObject">done</a> before <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">storing</a> the  object into a <a href="../../MyWrapper/Persistence/CContainer.html">container</a>, these operations are performed by the  <a href="../../MyWrapper/Persistence/CContainer.html">container</a> object that takes care of object persistence.</p><p>This <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a> flag can be provided at  <a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">instantiation</a> or directly to the persistence methods, although  it is a better idea to provide it in the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">constructor</a> to have  this conversion happen transparently.</p><p>The method features a single parameter:</p><p><ul><li><em>NULL</em>: The method will return <em>TRUE</em> if the object is encoded, or
         <em>FALSE</em> if the object is not encoded.</li><li><em>TRUE</em>: The method will set the object to encoded.</li><li><em>FALSE</em>: The method will reset the object's encoded state.</li></ul></p><p>In all cases the method will return the state <em>after</em> it was eventually  modified.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a></li>
 				<li><span class="field">access:</span> protected</li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_PrepareLoad">CPersistentObject::_PrepareLoad()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyBaseTerm.html#method_CheckReference">COntologyBaseTerm::_CheckReference()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyBaseTerm.html#method_PrepareCreate">COntologyBaseTerm::_PrepareCreate()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_PrepareCreate">CPersistentObject::_PrepareCreate()</a></li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CStatusObject.html#method_ManageBitField">CStatusObject::_ManageBitField()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CStatusObject.html#method_ManageBitField">CStatusObject::_ManageBitField()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_PrepareLoad">CPersistentObject::_PrepareLoad()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -753,13 +759,13 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Normalise before a store.</p>
-<p class="description"><p>This method will be called before the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_Commit">store</a> operation, its  duty is to prepare the object and check the parameters for the  <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_Commit">commit</a> operation, please refer to <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">this</a>  documentation for a reference of these parameters. Note that in this method all three  parameters are passed by reference.</p><p>By default we perform the following checks:</p><p><ul><li>Ensure the container is an instance of <a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a>.</li><li>Ensure the object is <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">initialised</a>.</li></ul></p><p>In derived classes you should handle your custom containers or delegate to the parent  method.</p><p>In this class we do not check the identifier.</p><p>Any errors should raise an exception.</p></p>
+<p class="description"><p>This method will be called before the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_Commit">store</a> operation, its  duty is to prepare the object and check the parameters for the  <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_Commit">commit</a> operation, please refer to <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">this</a>  documentation for a reference of these parameters. Note that in this method all three  parameters are passed by reference.</p><p>By default we perform the following checks:</p><p><ul><li>Ensure the container is an instance of <a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a>.</li><li>Ensure the object is <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">initialised</a>.</li></ul></p><p>In derived classes you should handle your custom containers or delegate to the parent  method.</p><p>In this class we do not check the identifier.</p><p>Any errors should raise an exception.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> kERROR_INVALID_STATE kERROR_OPTION_MISSING kERROR_UNSUPPORTED</li>
-				<li><span class="field">throws:</span> <a href="../../MyWrapper/Core/CException.html">CException</a></li>
+				<li><span class="field">throws:</span> <a href="../../MyWrapper/Framework/CException.html">CException</a></li>
 				<li><span class="field">access:</span> protected</li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">CPersistentObject::Commit()</a></li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -806,6 +812,18 @@
 				<a href="../../MyWrapper/Entities/CUser.html#method_PrepareCommit">CUser::_PrepareCommit()</a>
 								: Normalise parameters of a store.
 							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyBaseTerm.html#method_PrepareCommit">COntologyBaseTerm::_PrepareCommit()</a>
+								: Normalise before a store.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyTerm.html#method_PrepareCommit">COntologyTerm::_PrepareCommit()</a>
+								: Normalise before a store.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/CTermNamespace.html#method_PrepareCommit">CTermNamespace::_PrepareCommit()</a>
+								: Normalise before a store.
+							</li>
 				</ul>
 	</div>
 <a name="method_PrepareCreate" id="_PrepareCreate"><!-- --></a>
@@ -846,6 +864,14 @@
 				</ul>
 		
 			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyBaseTerm.html#method_PrepareCreate">COntologyBaseTerm::_PrepareCreate()</a>
+								: Normalise parameters of a create.
+							</li>
+				</ul>
 	</div>
 <a name="method_PrepareLoad" id="_PrepareLoad"><!-- --></a>
 <div class="evenrow">
@@ -860,7 +886,7 @@
 <p class="description"><p>The duty of this method is to ensure that the parameters provided to a  <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_Load">find</a> operation are valid.</p><p>The method should first check if the provided container is of the correct type, then  it should ensure that the identifier is valid.</p><p>We know that the identifier cannot be missing, since this method is only called if  the identifier was provided. We should check that the provided container is of the  correct type. In derived classes you should first handle your custom types, then  let the parent method handle other types.</p><p>Any errors should raise an exception.</p><p>In this class we only support <a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a> containers and the  identifier is not expected to be <em>NULL</em>.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> kERROR_OPTION_MISSING kERROR_UNSUPPORTED</li>
-				<li><span class="field">throws:</span> <a href="../../MyWrapper/Core/CException.html">CException</a></li>
+				<li><span class="field">throws:</span> <a href="../../MyWrapper/Framework/CException.html">CException</a></li>
 				<li><span class="field">access:</span> protected</li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">CPersistentObject::__construct()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsEncoded">CPersistentObject::_IsEncoded()</a></li>
@@ -899,40 +925,40 @@
 							<h4>Inherited Methods</h4>
 				<a name='inherited_methods'><!-- --></a>	
 									<!-- =========== Summary =========== -->
-					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Core/CStatusObject.html">CStatusObject</a></span></p>
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Framework/CStatusObject.html">CStatusObject</a></span></p>
 					<blockquote>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#methodoffsetSet">CStatusObject::offsetSet()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#methodoffsetSet">CStatusObject::offsetSet()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#methodoffsetUnset">CStatusObject::offsetUnset()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#methodoffsetUnset">CStatusObject::offsetUnset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#methodStatus">CStatusObject::Status()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#methodStatus">CStatusObject::Status()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#method_IsDirty">CStatusObject::_IsDirty()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#method_IsDirty">CStatusObject::_IsDirty()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CStatusObject.html#method_ManageBitField">CStatusObject::_ManageBitField()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#method_ManageBitField">CStatusObject::_ManageBitField()</a></span><br>
 											</blockquote>
 									<!-- =========== Summary =========== -->
-					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Core/CArrayObject.html">CArrayObject</a></span></p>
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Framework/CArrayObject.html">CArrayObject</a></span></p>
 					<blockquote>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodkeys">CArrayObject::keys()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodkeys">CArrayObject::keys()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodoffsetGet">CArrayObject::offsetGet()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetGet">CArrayObject::offsetGet()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodoffsetSet">CArrayObject::offsetSet()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetSet">CArrayObject::offsetSet()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodoffsetUnset">CArrayObject::offsetUnset()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetUnset">CArrayObject::offsetUnset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#methodvalues">CArrayObject::values()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodvalues">CArrayObject::values()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Core/CArrayObject.html#method_ManageTypedArrayOffset">CArrayObject::_ManageTypedArrayOffset()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedArrayOffset">CArrayObject::_ManageTypedArrayOffset()</a></span><br>
 											</blockquote>
 									<!-- =========== Summary =========== -->
 					<p>Inherited From <span class="classname">ArrayObject (Internal Class)</span></p>
@@ -1019,7 +1045,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Thu, 12 Apr 2012 17:47:30 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 12 Apr 2012 19:49:33 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>
