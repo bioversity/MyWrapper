@@ -64,6 +64,18 @@ try
 	//
 	echo( '<h3>Load terms</h3>' );
 	
+	echo( '<i><b>PREDICATE</b></i><br>' );
+	echo( '<i>$predicate = new COntologyBaseTerm();</i><br>' );
+	$predicate = new COntologyBaseTerm();
+	echo( '<i>$predicate->Code( \'IS_A\' );</i><br>' );
+	$predicate->Code( 'IS_A' );
+	echo( '<i>$predicate->Name( \'Is a\' );</i><br>' );
+	$predicate->Name( 'Is a' );
+	echo( '<i>$idp = $predicate->Commit( $collection );</i><br>' );
+	$idp = $predicate->Commit( $collection );
+	echo( "$predicate<pre>" ); print_r( $predicate ); echo( '</pre>' );
+	echo( '<hr>' );
+
 	echo( '<i><b>TERM 1</b></i><br>' );
 	echo( '<i>$term1 = new COntologyBaseTerm();</i><br>' );
 	$term1 = new COntologyBaseTerm();
@@ -83,7 +95,7 @@ try
 	$term1->Stamp( new CDataTypeStamp() );
 	echo( '<i>$id1 = $term1->Commit( $collection );</i><br>' );
 	$id1 = $term1->Commit( $collection );
-	echo( $term1->Identifier()."<pre>" ); print_r( $term1 ); echo( '</pre>' );
+	echo( "$term1<pre>" ); print_r( $term1 ); echo( '</pre>' );
 	echo( '<hr>' );
 	
 	echo( '<i><b>TERM 2</b></i><br>' );
@@ -103,15 +115,15 @@ try
 	$term2->Definition( 'This is the first term', 'en' );
 	echo( '<i>$term2->Definition( \'Questo è il primo termine\', \'it\' );</i><br>' );
 	$term2->Definition( 'Questo è il primo termine', 'it' );
-	echo( '<i>$term2->RelatedFrom( $term1, TRUE );</i><br>' );
-	$term2->RelatedFrom( $term1, TRUE );
+	echo( '<i>$term2->RelatedFrom( $term1, $predicate, TRUE );</i><br>' );
+	$term2->RelatedFrom( $term1, $predicate, TRUE );
 	echo( '<i>$term2->Valid( $term1 );</i><br>' );
 	$term2->Valid( $term1 );
 	echo( '<i>$term2->Stamp( new CDataTypeStamp() );</i><br>' );
 	$term2->Stamp( new CDataTypeStamp() );
 	echo( '<i>$id2 = $term2->Commit( $collection );</i><br>' );
 	$id2 = $term2->Commit( $collection );
-	echo( $term2->Identifier()."<pre>" ); print_r( $term2 ); echo( '</pre>' );
+	echo( "$term2<pre>" ); print_r( $term2 ); echo( '</pre>' );
 	echo( '<hr>' );
 	
 	echo( '<i><b>TERM 3</b></i><br>' );
@@ -123,15 +135,15 @@ try
 	$term3->Code( 'TERM3' );
 	echo( '<i>$term3->Name( \'Term 3\' );</i><br>' );
 	$term3->Name( 'Term 3' );
-	echo( '<i>$term3->RelatedFrom( $term1, TRUE );</i><br>' );
-	$term3->RelatedFrom( $term1, TRUE );
-	echo( '<i>$object3->RelateTo( $term2, TRUE );</i><br>' );
-	$term3->RelateTo( $term2, TRUE );
-	echo( '<i>$term3->Valid( $term2->Identifier() );</i><br>' );
-	$term3->Valid( $term2->Identifier() );
+	echo( '<i>$term3->RelatedFrom( $term1, $predicate, TRUE );</i><br>' );
+	$term3->RelatedFrom( $term1, $predicate, TRUE );
+	echo( '<i>$object3->RelateTo( $term2, $predicate, TRUE );</i><br>' );
+	$term3->RelateTo( $term2, $predicate, TRUE );
+	echo( '<i>$term3->Valid( (string) $term2 );</i><br>' );
+	$term3->Valid( (string) $term2 );
 	echo( '<i>$id3 = $term3->Commit( $collection );</i><br>' );
 	$id3 = $term3->Commit( $collection );
-	echo( $term3->Identifier()."<pre>" ); print_r( $term3 ); echo( '</pre>' );
+	echo( "$term3<pre>" ); print_r( $term3 ); echo( '</pre>' );
 	echo( '<hr>' );
 	echo( '<hr>' );
 	 
@@ -140,19 +152,19 @@ try
 	//
 	echo( '<h3>Test valid chain</h3>' );
 
-	echo( "<i>".$term1->Identifier()."</i><br>" );
+	echo( "<i>$term1</i><br>" );
 	echo( '<i>$valid = COntologyBaseTerm::ValidObject( $collection, $id1 );</i><br>' );
 	$valid = COntologyBaseTerm::ValidObject( $collection, $id1 );
 	echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
 	echo( '<hr>' );
 
-	echo( "<i>".$term2->Identifier()."</i><br>" );
+	echo( "<i>$term2</i><br>" );
 	echo( '<i>$valid = COntologyBaseTerm::ValidObject( $collection, $id2 );</i><br>' );
 	$valid = COntologyBaseTerm::ValidObject( $collection, $id2 );
 	echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
 	echo( '<hr>' );
 
-	echo( "<i>".$term3->Identifier()."</i><br>" );
+	echo( "<i>$term3</i><br>" );
 	echo( '<i>$valid = COntologyBaseTerm::ValidObject( $collection, $id3 );</i><br>' );
 	$valid = COntologyBaseTerm::ValidObject( $collection, $id3 );
 	echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
@@ -177,6 +189,33 @@ try
 		echo( CException::AsHTML( $error ) );
 		echo( '<br>' );
 	}
+	echo( '<hr>' );
+	 
+	//
+	// Try duplicate reference.
+	//
+	echo( '<h3>Try duplicate reference</h3>' );
+
+	echo( '<i>$term3->RelatedFrom( $id1, $idp, TRUE );</i><br>' );
+	$term3->RelatedFrom( $id1, $idp, TRUE );
+	echo( '<pre>' ); print_r( $term3 ); echo( '</pre>' );
+	echo( '<i>$term3->Commit( $collection );</i><br>' );
+	$term3->Commit( $collection );
+	echo( '<pre>' ); print_r( $term3 ); echo( '</pre>' );
+	echo( '<hr>' );
+	echo( '<hr>' );
+	 
+	//
+	// Try delete reference.
+	//
+	echo( '<h3>Try delete reference</h3>' );
+
+	echo( '<i>$term3->RelatedFrom( $id1, $idp, FALSE );</i><br>' );
+	$term3->RelatedFrom( $id1, $idp, FALSE );
+	echo( '<i>$term3->Commit( $collection );</i><br>' );
+	$term3->Commit( $collection );
+	echo( '<pre>' ); print_r( $term3 ); echo( '</pre>' );
+	echo( '<hr>' );
 	echo( '<hr>' );
 }
 

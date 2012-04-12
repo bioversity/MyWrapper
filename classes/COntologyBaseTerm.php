@@ -96,6 +96,170 @@ class COntologyBaseTerm extends CTerm
 
 	 
 	/*===================================================================================
+	 *	RelatedFrom																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage incoming references.
+	 *
+	 * We {@link CGraphUnitObject::RelatedFrom() override} this method to handle references
+	 * structured as follows:
+	 *
+	 * <ul>
+	 *	<li><i>{@link kTAG_KIND kTAG_KIND}</i>: This offset represents the reference
+	 *		predicate, it may be omitted if the reference has no type or when we want to
+	 *		define a default reference. By default we expect here a term
+	 *		{@link _CheckReference() reference}.
+	 *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: This offset represents the referenced term,
+	 *		it should be in the form of an object {@link _CheckReference() reference}.
+	 * </ul>
+	 *
+	 * The method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$thePredicate</b>: Reference predicate in the form of a term
+	 *		{@link _CheckReference() reference}, if you omit the predicate, the element
+	 *		will not have the above structure, but will only contain the object reference.
+	 *	<li><b>$theSubject</b>: Reference subject in the form of a term
+	 *		{@link _CheckReference() reference}.
+	 *	<li><b>$theOperation</b>: The operation to perform:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Return the element matched by the previous parameters.
+	 *		<li><i>FALSE</i>: Delete the element matched by the previous parameters and
+	 *			return it.
+	 *		<li><i>other</i>: Any other value means that we want to add to the list the
+	 *			element provided in the previous parameters, either appending it if there
+	 *			was no matching element, or by replacing a matching element. The method will
+	 *			return either the replaced element or the new one.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return when deleting or
+	 *		replacing:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the deleted or replaced element.
+	 *		<li><i>FALSE</i>: Return the replacing element or <i>NULL</i> when deleting.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * 
+	 *
+	 * @param mixed					$theSubject			Reference subject.
+	 * @param mixed					$thePredicate		Reference predicate.
+	 * @param mixed					$theOperation		Operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 *
+	 * @see kTAG_LINK_IN kTAG_KIND kTAG_DATA
+	 */
+	public function RelatedFrom( $theSubject, $thePredicate = NULL,
+											  $theOperation = NULL,
+											  $getOld = FALSE )
+	{
+		//
+		// Convert reference subject.
+		//
+		$theSubject = $this->_CheckReference( $theSubject );
+		
+		//
+		// Convert reference predicate.
+		//
+		$thePredicate = $this->_CheckReference( $thePredicate );
+		
+		//
+		// Create reference.
+		//
+		$reference = ( $thePredicate !== NULL )
+				   ? array( kTAG_KIND => $thePredicate, kTAG_DATA => $theSubject )
+				   : $theSubject;
+				
+		return parent::RelatedFrom( $reference, $theOperation, $getOld );			// ==>
+
+	} // RelatedFrom.
+
+	 
+	/*===================================================================================
+	 *	RelateTo																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage outgoing references.
+	 *
+	 * We {@link CGraphUnitObject::RelateTo() override} this method to handle references
+	 * structured as follows:
+	 *
+	 * <ul>
+	 *	<li><i>{@link kTAG_KIND kTAG_KIND}</i>: This offset represents the reference
+	 *		predicate, it may be omitted if the reference has no type or when we want to
+	 *		define a default reference. By default we expect here a term
+	 *		{@link _CheckReference() reference}.
+	 *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: This offset represents the referenced term,
+	 *		it should be in the form of an object {@link _CheckReference() reference}.
+	 * </ul>
+	 *
+	 * The method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$thePredicate</b>: Reference predicate in the form of a term
+	 *		{@link _CheckReference() reference}, if you omit the predicate, the element
+	 *		will not have the above structure, but will only contain the object reference.
+	 *	<li><b>$theObject</b>: Reference object in the form of a term
+	 *		{@link _CheckReference() reference}.
+	 *	<li><b>$theOperation</b>: The operation to perform:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Return the element matched by the previous parameters.
+	 *		<li><i>FALSE</i>: Delete the element matched by the previous parameters and
+	 *			return it.
+	 *		<li><i>other</i>: Any other value means that we want to add to the list the
+	 *			element provided in the previous parameters, either appending it if there
+	 *			was no matching element, or by replacing a matching element. The method will
+	 *			return either the replaced element or the new one.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return when deleting or
+	 *		replacing:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the deleted or replaced element.
+	 *		<li><i>FALSE</i>: Return the replacing element or <i>NULL</i> when deleting.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * @param mixed					$theObject			Reference object.
+	 * @param mixed					$thePredicate		Reference predicate.
+	 * @param mixed					$theOperation		Operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 *
+	 * @see kTAG_LINK_OUT kTAG_KIND kTAG_DATA
+	 */
+	public function RelateTo( $theObject, $thePredicate = NULL,
+										  $theOperation = NULL,
+										  $getOld = FALSE )
+	{
+		//
+		// Convert reference object.
+		//
+		$theObject = $this->_CheckReference( $theObject );
+		
+		//
+		// Convert reference predicate.
+		//
+		$thePredicate = $this->_CheckReference( $thePredicate );
+		
+		//
+		// Create reference.
+		//
+		$reference = ( $thePredicate !== NULL )
+				   ? array( kTAG_KIND => $thePredicate, kTAG_DATA => $theObject )
+				   : $theObject;
+		
+		return parent::RelateTo( $reference, $theOperation, $getOld );				// ==>
+
+	} // RelateTo.
+
+		
+	/*===================================================================================
 	 *	Valid																			*
 	 *==================================================================================*/
 
@@ -131,34 +295,6 @@ class COntologyBaseTerm extends CTerm
 		return parent::Valid( $theValue, $getOld );									// ==>
 
 	} // Valid.
-
-		
-
-/*=======================================================================================
- *																						*
- *								PUBLIC MEMBER UTILITIES									*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	Identifier																		*
-	 *==================================================================================*/
-
-	/**
-	 * Return object identifier.
-	 *
-	 * This method can be used to retrieve the object unique {@link _index() identifier},
-	 * since the {@link _index() method} is protected and the object
-	 * {@link _id() identifier} is a binary string.
-	 *
-	 * @access public
-	 * @return string
-	 *
-	 * @uses _index
-	 */
-	public function Identifier()								{	return $this->_index();	}
 
 		
 
@@ -326,7 +462,7 @@ class COntologyBaseTerm extends CTerm
 	 *
 	 * This method can be used to normalise a parameter that is supposed to be a reference
 	 * to another term, that is, a binary string hash of the term's
-	 * {@link Identifier() identifier} converted to a {@link CDataTypeBinary binary}
+	 * {@link _index() identifier} converted to a {@link CDataTypeBinary binary}
 	 * standard type.
 	 *
 	 * The method will perform the following conversions:
@@ -340,7 +476,7 @@ class COntologyBaseTerm extends CTerm
 	 *		{@link _id() identifier} extracted.
 	 *	<li><i>NULL</i>: NULL data will simply be passed.
 	 *	<li><i>other</i>: Any other data type is assumed to be the term's
-	 *		{@link Identifier() identifier}, so it will be hashed into a binary string and
+	 *		{@link _index() identifier}, so it will be hashed into a binary string and
 	 *		converted to the standard {@link CDataTypeBinary CDataTypeBinary} type.
 	 *	<li><i>array</i>: Arrays cannot be converted to string, so the method will raise an
 	 *		exception.

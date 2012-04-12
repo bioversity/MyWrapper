@@ -65,6 +65,18 @@ try
 	//
 	echo( '<h3>Load terms</h3>' );
 	
+	echo( '<i><b>PREDICATE</b></i><br>' );
+	echo( '<i>$predicate = new COntologyTerm();</i><br>' );
+	$predicate = new COntologyTerm();
+	echo( '<i>$predicate->Code( \'IS_A\' );</i><br>' );
+	$predicate->Code( 'IS_A' );
+	echo( '<i>$predicate->Name( \'Is a\' );</i><br>' );
+	$predicate->Name( 'Is a' );
+	echo( '<i>$idp = $predicate->Commit( $collection );</i><br>' );
+	$idp = $predicate->Commit( $collection );
+	echo( "$predicate<pre>" ); print_r( $predicate ); echo( '</pre>' );
+	echo( '<hr>' );
+
 	echo( '<i><b>TERM 1</b></i><br>' );
 	echo( '<i>$term1 = new CTermNamespace();</i><br>' );
 	$term1 = new CTermNamespace();
@@ -82,7 +94,7 @@ try
 	$term1->Stamp( new CDataTypeStamp() );
 	echo( '<i>$id1 = $term1->Commit( $collection );</i><br>' );
 	$id1 = $term1->Commit( $collection );
-	echo( $term1->Identifier()."<pre>" ); print_r( $term1 ); echo( '</pre>' );
+	echo( "$term1<pre>" ); print_r( $term1 ); echo( '</pre>' );
 	echo( '<hr>' );
 	
 	echo( '<i><b>TERM 2</b></i><br>' );
@@ -108,7 +120,7 @@ try
 	$term2->Stamp( new CDataTypeStamp() );
 	echo( '<i>$id2 = $term2->Commit( $collection );</i><br>' );
 	$id2 = $term2->Commit( $collection );
-	echo( $term2->Identifier()."<pre>" ); print_r( $term2 ); echo( '</pre>' );
+	echo( "$term2<pre>" ); print_r( $term2 ); echo( '</pre>' );
 	echo( '<hr>' );
 	
 	echo( '<i><b>TERM 3</b></i><br>' );
@@ -124,11 +136,11 @@ try
 	$term3->RelatedFrom( $term1, TRUE );
 	echo( '<i>$object3->RelateTo( $term2, TRUE );</i><br>' );
 	$term3->RelateTo( $term2, TRUE );
-	echo( '<i>$term3->Valid( $term2->Identifier() );</i><br>' );
-	$term3->Valid( $term2->Identifier() );
+	echo( '<i>$term3->Valid( (string) $term2 );</i><br>' );
+	$term3->Valid(  (string) $term2 );
 	echo( '<i>$id3 = $term3->Commit( $collection );</i><br>' );
 	$id3 = $term3->Commit( $collection );
-	echo( $term3->Identifier()."<pre>" ); print_r( $term3 ); echo( '</pre>' );
+	echo( "$term3<pre>" ); print_r( $term3 ); echo( '</pre>' );
 	echo( '<hr>' );
 	echo( '<hr>' );
 	 
@@ -137,19 +149,19 @@ try
 	//
 	echo( '<h3>Test valid chain</h3>' );
 
-	echo( "<i>".$term1->Identifier()."</i><br>" );
+	echo( "<i>$term1</i><br>" );
 	echo( '<i>$valid = COntologyTerm::ValidObject( $collection, $id1 );</i><br>' );
 	$valid = COntologyTerm::ValidObject( $collection, $id1 );
 	echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
 	echo( '<hr>' );
 
-	echo( "<i>".$term2->Identifier()."</i><br>" );
+	echo( "<i>$term2</i><br>" );
 	echo( '<i>$valid = COntologyTerm::ValidObject( $collection, $id2 );</i><br>' );
 	$valid = COntologyTerm::ValidObject( $collection, $id2 );
 	echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
 	echo( '<hr>' );
 
-	echo( "<i>".$term3->Identifier()."</i><br>" );
+	echo( "<i>$term3</i><br>" );
 	echo( '<i>$valid = COntologyTerm::ValidObject( $collection, $id3 );</i><br>' );
 	$valid = COntologyTerm::ValidObject( $collection, $id3 );
 	echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );

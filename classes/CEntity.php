@@ -246,23 +246,28 @@ class CEntity extends CGraphUnitObject
 	 * @access public
 	 * @return string
 	 *
-	 * @uses _ManageObjectList()
-	 *
 	 * @see kTAG_LINK_IN kTAG_KIND kTAG_DATA
 	 */
 	public function RelatedFrom( $theType, $theValue, $theOperation = NULL,
 													  $getOld = FALSE )
 	{
 		//
-		// Build reference element.
+		// Init reference element.
 		//
-		$ref = Array();
-		if( $theType !== NULL )
-			$ref[ kTAG_KIND ] = $theType;
-		$ref[ kTAG_DATA ] = $theValue;
+		$reference = Array();
 		
-		return $this->_ManageObjectList
-				( kTAG_LINK_IN, $ref, $theOperation, $getOld );						// ==>
+		//
+		// Handle kind.
+		//
+		if( $theType !== NULL )
+			$reference[ kTAG_KIND ] = $theType;
+		
+		//
+		// Set value.
+		//
+		$reference[ kTAG_DATA ] = $theValue;
+		
+		return parent::RelatedFrom( $reference, $theOperation, $getOld );			// ==>
 
 	} // RelatedFrom.
 
@@ -339,22 +344,27 @@ class CEntity extends CGraphUnitObject
 	 * @access public
 	 * @return string
 	 *
-	 * @uses _ManageObjectList()
-	 *
 	 * @see kTAG_LINK_OUT kTAG_KIND kTAG_DATA
 	 */
 	public function RelateTo( $theType, $theValue, $theOperation = NULL, $getOld = FALSE )
 	{
 		//
-		// Build reference element.
+		// Init reference element.
 		//
-		$ref = Array();
-		if( $theType !== NULL )
-			$ref[ kTAG_KIND ] = $theType;
-		$ref[ kTAG_DATA ] = $theValue;
+		$reference = Array();
 		
-		return $this->_ManageObjectList
-				( kTAG_LINK_OUT, $ref, $theOperation, $getOld );					// ==>
+		//
+		// Handle kind.
+		//
+		if( $theType !== NULL )
+			$reference[ kTAG_KIND ] = $theType;
+		
+		//
+		// Set value.
+		//
+		$reference[ kTAG_DATA ] = $theValue;
+		
+		return parent::RelateTo( $reference, $theOperation, $getOld );				// ==>
 
 	} // RelateTo.
 

@@ -51,6 +51,9 @@ require_once( kPATH_LIBRARY_SOURCE."CPersistentUnitObject.php" );
  * Objects of this class require at least the {@link Code() code} {@link kTAG_CODE offset}
  * to have an {@link _IsInited() initialised} {@link kFLAG_STATE_INITED status}.
  *
+ * This class implements the string {@link __toString() conversion}, by default it returns
+ * the value of the object {@link _index() identifier}.
+ *
  *	@package	MyWrapper
  *	@subpackage	Framework
  */
@@ -102,6 +105,23 @@ class CCodedUnitObject extends CPersistentUnitObject
 		$this->_IsInited( $this->offsetExists( kTAG_CODE ) );
 		
 	} // Constructor.
+
+	 
+	/*===================================================================================
+	 *	__toString																		*
+	 *==================================================================================*/
+
+	/**
+	 * Return object identifier.
+	 *
+	 * In this class we return the object string {@link _index() identifier}.
+	 *
+	 * @access public
+	 * @return string
+	 *
+	 * @uses _index()
+	 */
+	public function __toString()								{	return $this->_index();	}
 
 		
 

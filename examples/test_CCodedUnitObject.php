@@ -126,19 +126,19 @@ try
 	//
 	echo( '<h3>Test valid chain</h3>' );
 
-	echo( "<i>$id1</i><br>" );
+	echo( "<i>$object1</i><br>" );
 	echo( '<i>$valid = CCodedUnitObject::ValidObject( $collection, $id1, kFLAG_STATE_ENCODED );</i><br>' );
 	$valid = CCodedUnitObject::ValidObject( $collection, $id1, kFLAG_STATE_ENCODED );
 	echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
 	echo( '<hr>' );
 
-	echo( "<i>$id2</i><br>" );
+	echo( "<i>$object2</i><br>" );
 	echo( '<i>$valid = CCodedUnitObject::ValidObject( $collection, $id2, kFLAG_STATE_ENCODED );</i><br>' );
 	$valid = CCodedUnitObject::ValidObject( $collection, $id2, kFLAG_STATE_ENCODED );
 	echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
 	echo( '<hr>' );
 
-	echo( "<i>$id3</i><br>" );
+	echo( "<i>$object3</i><br>" );
 	echo( '<i>$valid = CCodedUnitObject::ValidObject( $collection, $id3, kFLAG_STATE_ENCODED );</i><br>' );
 	$valid = CCodedUnitObject::ValidObject( $collection, $id3, kFLAG_STATE_ENCODED );
 	echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
