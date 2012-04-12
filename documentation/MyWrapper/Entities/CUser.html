@@ -31,7 +31,7 @@
 <p class="description"><p>This class overloads its <a href="../../MyWrapper/Entities/CEntity.html">ancestor</a> to implement a user entity.</p><p>Users are entities that are used for authentication purposes, they share the same  attributes as their parent <a href="../../MyWrapper/Entities/CEntity.html">class</a> and add one required element:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_PASSWORD">kOFFSET_PASSWORD</a></em>: This offset represents the user
         access password, it will be used in the authentication process.
         The class features a member accessor <a href="../../MyWrapper/Entities/CUser.html#methodPassword">method</a> to manage this
-        property.</li></ul></p><p>The object is considered <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">initialised</a> only if it has its  <a href="../../MyWrapper/Entities/CEntity.html#methodCode">code</a>, as its <a href="../../MyWrapper/Entities/CEntity.html">ancestor</a>, its <a href="../../MyWrapper/Entities/CEntity.html#methodName">name</a>,  <a href="../../MyWrapper/Entities/CUser.html#methodPassword">password</a> and <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a> address.</p><p>If the <a href="../../MyWrapper/Entities/CEntity.html#methodCode">code</a> has not been explicitly set, <a href="../../MyWrapper/Entities/CUser.html#method_PrepareCommit">before</a>  <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">committing</a> the object it will be set to the value of the  <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a>. Also in that phase, the <a href="../../MyWrapper/Entities/_classes---CUser.inc.php.html#definekENTITY_USER">kENTITY_USER</a> constant  will be set in the user Type().</p><p>The <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a> in this class is a scalar property, in other classes it will  probably be a list of different e-mail types. In this class we want to link a single  user with a single e-mail, possibly not shared by any other user, that is why we link by  default the user <a href="../../MyWrapper/Entities/CEntity.html#methodCode">code</a> and <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a>.</p><p><em>&lt;b&gt;Note: this class enforces the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsEncoded">encoded</a> <a href="../../MyWrapper/Core/CStatusObject.html#methodStatus">status</a>
+        property.</li></ul></p><p>The object is considered <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">initialised</a> only if it has its  <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a>, as its <a href="../../MyWrapper/Entities/CEntity.html">ancestor</a>, its <a href="../../MyWrapper/Entities/CEntity.html#methodName">name</a>,  <a href="../../MyWrapper/Entities/CUser.html#methodPassword">password</a> and <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a> address.</p><p>If the <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a> has not been explicitly set, <a href="../../MyWrapper/Entities/CUser.html#method_PrepareCommit">before</a>  <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">committing</a> the object it will be set to the value of the  <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a>. Also in that phase, the <a href="../../MyWrapper/Entities/_classes---CUser.inc.php.html#definekENTITY_USER">kENTITY_USER</a> constant  will be set in the user Type().</p><p>The <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a> in this class is a scalar property, in other classes it will  probably be a list of different e-mail types. In this class we want to link a single  user with a single e-mail, possibly not shared by any other user, that is why we link by  default the user <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a> and <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a>.</p><p><em>&lt;b&gt;Note: this class enforces the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsEncoded">encoded</a> <a href="../../MyWrapper/Core/CStatusObject.html#methodStatus">status</a>
  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">flag</a>, because the object identifier is a binary string, so
  always use complex data type instances derived from the <a href="../../MyWrapper/Core/CDataType.html">standard</a>
  types&lt;/b&gt;</em>.</p></p>
@@ -50,9 +50,13 @@
             |
             --<a href="../../MyWrapper/Persistence/CPersistentUnitObject.html">CPersistentUnitObject</a>
                |
-               --<a href="../../MyWrapper/Entities/CEntity.html">CEntity</a>
+               --<a href="../../MyWrapper/Framework/CCodedUnitObject.html">CCodedUnitObject</a>
                   |
-                  --CUser</pre>
+                  --<a href="../../MyWrapper/Framework/CGraphUnitObject.html">CGraphUnitObject</a>
+                     |
+                     --<a href="../../MyWrapper/Entities/CEntity.html">CEntity</a>
+                        |
+                        --CUser</pre>
 	
 			</div>
 </div>
@@ -161,7 +165,7 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Constructor.png" />
@@ -170,7 +174,7 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Instantiate class.</p>
-<p class="description"><p>We <a href="../../MyWrapper/Entities/CEntity.html#method__construct">overload</a> the constructor to initialise the  <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">inited</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">flag</a> if the  <a href="../../MyWrapper/Entities/CUser.html#methodPassword">password</a> element is set.</p><p>We also pass the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsEncoded">encoded</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">flag</a> to the  parent constructor.</p></p>
+<p class="description"><p>We CEntity::__construct() the constructor to initialise the  <a href="../../MyWrapper/Core/CStatusObject.html#method_IsInited">inited</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">flag</a> if the  <a href="../../MyWrapper/Entities/CUser.html#methodPassword">password</a> element is set.</p><p>We also pass the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsEncoded">encoded</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">flag</a> to the  parent constructor.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 			</ul>
@@ -198,13 +202,13 @@
 			<hr class="separator" />
 		<div class="notes">Redefinition of:</div>
 		<dl>
-			<dt><a href="../../MyWrapper/Entities/CEntity.html#method__construct">CEntity::__construct()</a></dt>
+			<dt><a href="../../MyWrapper/Framework/CCodedUnitObject.html#method__construct">CCodedUnitObject::__construct()</a></dt>
 						<dd>Instantiate class.</dd>
 					</dl>
 			
 	</div>
 <a name="methodoffsetSet" id="offsetSet"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -240,13 +244,13 @@
 			<hr class="separator" />
 		<div class="notes">Redefinition of:</div>
 		<dl>
-			<dt><a href="../../MyWrapper/Entities/CEntity.html#methodoffsetSet">CEntity::offsetSet()</a></dt>
+			<dt><a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodoffsetSet">CCodedUnitObject::offsetSet()</a></dt>
 						<dd>Set a value for a given offset.</dd>
 					</dl>
 			
 	</div>
 <a name="methodoffsetUnset" id="offsetUnset"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -279,13 +283,13 @@
 			<hr class="separator" />
 		<div class="notes">Redefinition of:</div>
 		<dl>
-			<dt><a href="../../MyWrapper/Entities/CEntity.html#methodoffsetUnset">CEntity::offsetUnset()</a></dt>
+			<dt><a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodoffsetUnset">CCodedUnitObject::offsetUnset()</a></dt>
 						<dd>Reset a value for a given offset.</dd>
 					</dl>
 			
 	</div>
 <a name="methodPassword" id="Password"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -321,7 +325,7 @@
 			
 	</div>
 <a name="method_id" id="_id"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -353,7 +357,7 @@
 			
 	</div>
 <a name="method_index" id="_index"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -364,7 +368,7 @@
 <p class="short-description">Return the object's unique index.</p>
 <p class="description"><p>In this class we return a string composed of the following elements:</p><p><ul><li><em><a href="../../MyWrapper/Entities/_classes---CUser.inc.php.html#definekENTITY_USER">kENTITY_USER</a></em>: This token defines the object domain
         which is the users domain.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Tokens.inc.php.html#definekTOKEN_CLASS_SEPARATOR">kTOKEN_CLASS_SEPARATOR</a></em>: This token is used
-        to separate a class from the rest of the code.</li><li><em><a href="../../MyWrapper/Entities/CEntity.html#methodCode">Code</a></em>: The user code.</li></ul></p><p>The concatenation of these three elements represents the unique identifier of the  user.</p></p>
+        to separate a class from the rest of the code.</li><li><em><a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">Code</a></em>: The user code.</li></ul></p><p>The concatenation of these three elements represents the unique identifier of the  user.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
 			</ul>
@@ -381,13 +385,13 @@
 			<hr class="separator" />
 		<div class="notes">Redefinition of:</div>
 		<dl>
-			<dt><a href="../../MyWrapper/Entities/CEntity.html#method_index">CEntity::_index()</a></dt>
+			<dt><a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_index">CCodedUnitObject::_index()</a></dt>
 						<dd>Return the object's unique index.</dd>
 					</dl>
 			
 	</div>
 <a name="method_PrepareCommit" id="_PrepareCommit"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -396,7 +400,7 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Normalise parameters of a store.</p>
-<p class="description"><p>We overload this method to add the <a href="../../MyWrapper/Entities/_classes---CUser.inc.php.html#definekENTITY_USER">kENTITY_USER</a>  Type() to the object prior <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">saving</a> it and we initialise  the user <a href="../../MyWrapper/Entities/CEntity.html#methodCode">code</a>, if empty, with the <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a>.</p><p>We also force the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsEncoded">encoded</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">flag</a>.</p></p>
+<p class="description"><p>We overload this method to add the <a href="../../MyWrapper/Entities/_classes---CUser.inc.php.html#definekENTITY_USER">kENTITY_USER</a>  Type() to the object prior <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">saving</a> it and we initialise  the user <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a>, if empty, with the <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a>.</p><p>We also force the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsEncoded">encoded</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">flag</a>.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Errors.inc.php.html#definekERROR_OPTION_MISSING">kERROR_OPTION_MISSING</a></li>
 				<li><span class="field">throws:</span> <a href="../../MyWrapper/Core/CException.html">CException</a></li>
@@ -426,7 +430,7 @@
 			<hr class="separator" />
 		<div class="notes">Redefinition of:</div>
 		<dl>
-			<dt><a href="../../MyWrapper/Entities/CEntity.html#method_PrepareCommit">CEntity::_PrepareCommit()</a></dt>
+			<dt><a href="../../MyWrapper/Framework/CGraphUnitObject.html#method_PrepareCommit">CGraphUnitObject::_PrepareCommit()</a></dt>
 						<dd>Normalise before a store.</dd>
 					</dl>
 			
@@ -436,34 +440,48 @@
 									<!-- =========== Summary =========== -->
 					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Entities/CEntity.html">CEntity</a></span></p>
 					<blockquote>
-													<img src="../../media/images/Constructor.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#method__construct">CEntity::__construct()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodAffiliate">CEntity::Affiliate()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodCode">CEntity::Code()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodDefaultContainer">CEntity::DefaultContainer()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodEmail">CEntity::Email()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodKind">CEntity::Kind()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodName">CEntity::Name()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodoffsetSet">CEntity::offsetSet()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodRelatedFrom">CEntity::RelatedFrom()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodoffsetUnset">CEntity::offsetUnset()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodRelateTo">CEntity::RelateTo()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Framework/CGraphUnitObject.html">CGraphUnitObject</a></span></p>
+					<blockquote>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodStamp">CEntity::Stamp()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CGraphUnitObject.html#methodRelatedFrom">CGraphUnitObject::RelatedFrom()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodValid">CEntity::Valid()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CGraphUnitObject.html#methodRelateTo">CGraphUnitObject::RelateTo()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodValidEntity">CEntity::ValidEntity()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CGraphUnitObject.html#method_PrepareCommit">CGraphUnitObject::_PrepareCommit()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Framework/CCodedUnitObject.html">CCodedUnitObject</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Constructor.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#method__construct">CCodedUnitObject::__construct()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#method_index">CEntity::_index()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">CCodedUnitObject::Code()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#method_PrepareCommit">CEntity::_PrepareCommit()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodKind">CCodedUnitObject::Kind()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodoffsetSet">CCodedUnitObject::offsetSet()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodoffsetUnset">CCodedUnitObject::offsetUnset()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodStamp">CCodedUnitObject::Stamp()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodValid">CCodedUnitObject::Valid()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodValidObject">CCodedUnitObject::ValidObject()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_index">CCodedUnitObject::_index()</a></span><br>
 											</blockquote>
 									<!-- =========== Summary =========== -->
 					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html">CPersistentUnitObject</a></span></p>
@@ -637,7 +655,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Wed, 11 Apr 2012 17:12:15 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 12 Apr 2012 17:47:32 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

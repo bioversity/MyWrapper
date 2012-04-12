@@ -88,8 +88,7 @@ class CInstitute extends CContact
 	 * {@link _IsInited() inited} {@link kFLAG_STATE_INITED flag} if the
 	 * {@link Name() name} element is set.
 	 *
-	 * We also pass the {@link _IsEncoded() encoded} {@link kFLAG_STATE_ENCODED flag} to the
-	 * parent constructor.
+	 * We also enforce the {@link _IsEncoded() encoded} {@link kFLAG_STATE_ENCODED flag}.
 	 *
 	 * @param mixed					$theContainer		Persistent container.
 	 * @param mixed					$theIdentifier		Object identifier.

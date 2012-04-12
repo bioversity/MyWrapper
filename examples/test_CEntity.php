@@ -110,13 +110,13 @@ try
 	//
 	echo( '<h3>Relations</h3>' );
 	
-	echo( '<i>$entity2->Affiliate( \'COLL\', $entity1, TRUE );</i><br>' );
-	$entity2->Affiliate( 'COLL', $entity1, TRUE );
+	echo( '<i>$entity2->RelateTo( \'COLL\', $entity1, TRUE );</i><br>' );
+	$entity2->RelateTo( 'COLL', $entity1, TRUE );
 	echo( '<pre>' ); print_r( $entity2 ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	echo( '<i>$entity3->Affiliate( \'COLL\', $entity2, FALSE );</i><br>' );
-	$entity3->Affiliate( 'COLL', $entity2, TRUE );
+	echo( '<i>$entity3->RelatedFrom( \'COLL\', $entity2, FALSE );</i><br>' );
+	$entity3->RelatedFrom( 'COLL', $entity2, TRUE );
 	echo( '<pre>' ); print_r( $entity3 ); echo( '</pre>' );
 	echo( '<hr>' );
 	 
@@ -125,7 +125,7 @@ try
 	//
 	echo( '<h3>Persistence</h3>' );
 
-	echo( '<i>$identifier = $entity3->Commit( $collection, kFLAG_PERSIST_INSERT + kFLAG_STATE_ENCODED );</i><br>' );
+	echo( '<i>$identifier = $entity3->Commit( $collection, NULL, kFLAG_PERSIST_INSERT + kFLAG_STATE_ENCODED );</i><br>' );
 	$identifier = $entity3->Commit( $collection, NULL, kFLAG_PERSIST_INSERT + kFLAG_STATE_ENCODED );
 	echo( "entity1<pre>" ); print_r( $entity1 ); echo( '</pre>' );
 	echo( "entity2<pre>" ); print_r( $entity2 ); echo( '</pre>' );
@@ -150,8 +150,8 @@ try
 	//
 	echo( '<h3>Try duplicate affiliation</h3>' );
 
-	echo( '<i>$entity2->Affiliate( \'COLL\', $entity1, TRUE );</i><br>' );
-	$entity2->Affiliate( 'COLL', $entity1, TRUE );
+	echo( '<i>$entity2->RelateTo( \'COLL\', $entity1, TRUE );</i><br>' );
+	$entity2->RelateTo( 'COLL', $entity1, TRUE );
 	echo( '<pre>' ); print_r( $entity2 ); echo( '</pre>' );
 	echo( '<i>$entity2->Commit( $collection, NULL, kFLAG_PERSIST_UPDATE + kFLAG_STATE_ENCODED );</i><br>' );
 	$entity2->Commit( $collection, NULL, kFLAG_PERSIST_UPDATE + kFLAG_STATE_ENCODED );
@@ -182,22 +182,22 @@ try
 
 	echo( '<i>$entity1[ kTAG_ID_NATIVE ];</i><br>' );
 	echo( '<pre>' ); print_r( $entity1[ kTAG_ID_NATIVE ] ); echo( '</pre>' );
-	echo( '<i>$valid = CEntity::ValidEntity( $collection, $entity1[ kTAG_ID_NATIVE ], kFLAG_STATE_ENCODED );</i><br>' );
-	$valid = CEntity::ValidEntity( $collection, $entity1[ kTAG_ID_NATIVE ], kFLAG_STATE_ENCODED );
+	echo( '<i>$valid = CEntity::ValidObject( $collection, $entity1[ kTAG_ID_NATIVE ], kFLAG_STATE_ENCODED );</i><br>' );
+	$valid = CEntity::ValidObject( $collection, $entity1[ kTAG_ID_NATIVE ], kFLAG_STATE_ENCODED );
 	echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
 	echo( '<hr>' );
 
 	echo( '<i>$entity2[ kTAG_ID_NATIVE ];</i><br>' );
 	echo( '<pre>' ); print_r( $entity2[ kTAG_ID_NATIVE ] ); echo( '</pre>' );
-	echo( '<i>$valid = CEntity::ValidEntity( $collection, $entity2[ kTAG_ID_NATIVE ], kFLAG_STATE_ENCODED );</i><br>' );
-	$valid = CEntity::ValidEntity( $collection, $entity2[ kTAG_ID_NATIVE ], kFLAG_STATE_ENCODED );
+	echo( '<i>$valid = CEntity::ValidObject( $collection, $entity2[ kTAG_ID_NATIVE ], kFLAG_STATE_ENCODED );</i><br>' );
+	$valid = CEntity::ValidObject( $collection, $entity2[ kTAG_ID_NATIVE ], kFLAG_STATE_ENCODED );
 	echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
 	echo( '<hr>' );
 
 	echo( '<i>$entity3[ kTAG_ID_NATIVE ];</i><br>' );
 	echo( '<pre>' ); print_r( $entity3[ kTAG_ID_NATIVE ] ); echo( '</pre>' );
-	echo( '<i>$valid = CEntity::ValidEntity( $collection, $entity3[ kTAG_ID_NATIVE ], kFLAG_STATE_ENCODED );</i><br>' );
-	$valid = CEntity::ValidEntity( $collection, $entity3[ kTAG_ID_NATIVE ], kFLAG_STATE_ENCODED );
+	echo( '<i>$valid = CEntity::ValidObject( $collection, $entity3[ kTAG_ID_NATIVE ], kFLAG_STATE_ENCODED );</i><br>' );
+	$valid = CEntity::ValidObject( $collection, $entity3[ kTAG_ID_NATIVE ], kFLAG_STATE_ENCODED );
 	echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
 	echo( '<hr>' );
 	echo( '<hr>' );
@@ -215,8 +215,8 @@ try
 		echo( '<pre>' ); print_r( $entity3 ); echo( '</pre>' );
 		echo( '<i>$entity1[ kTAG_ID_NATIVE ];</i><br>' );
 		echo( '<pre>' ); print_r( $entity1[ kTAG_ID_NATIVE ] ); echo( '</pre>' );
-		echo( '<i>$valid = CEntity::ValidEntity( $collection, $entity1[ kTAG_ID_NATIVE ], kFLAG_STATE_ENCODED );</i><br>' );
-		$valid = CEntity::ValidEntity( $collection, $entity1[ kTAG_ID_NATIVE ], kFLAG_STATE_ENCODED );
+		echo( '<i>$valid = CEntity::ValidObject( $collection, $entity1[ kTAG_ID_NATIVE ], kFLAG_STATE_ENCODED );</i><br>' );
+		$valid = CEntity::ValidObject( $collection, $entity1[ kTAG_ID_NATIVE ], kFLAG_STATE_ENCODED );
 		echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
 	}
 	catch( Exception $error )
@@ -230,8 +230,8 @@ try
 	{
 		echo( '<i>$collection->Delete( $entity2[ kTAG_ID_NATIVE ], kFLAG_STATE_ENCODED );</i><br>' );
 		$collection->Delete( $entity2[ kTAG_ID_NATIVE ], kFLAG_STATE_ENCODED );
-		echo( '<i>$valid = CEntity::ValidEntity( $collection, $entity1[ kTAG_ID_NATIVE ], kFLAG_STATE_ENCODED );</i><br>' );
-		$valid = CEntity::ValidEntity( $collection, $entity1[ kTAG_ID_NATIVE ], kFLAG_STATE_ENCODED );
+		echo( '<i>$valid = CEntity::ValidObject( $collection, $entity1[ kTAG_ID_NATIVE ], kFLAG_STATE_ENCODED );</i><br>' );
+		$valid = CEntity::ValidObject( $collection, $entity1[ kTAG_ID_NATIVE ], kFLAG_STATE_ENCODED );
 		echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
 	}
 	catch( Exception $error )

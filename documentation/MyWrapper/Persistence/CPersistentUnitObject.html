@@ -33,7 +33,7 @@
         persistent container to uniquely identify the object.</li><li><em><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_index">_index()</a></em>: The full index that uniquely identifies the
         object.</li></ul></p><p>Although both methods seem to return the same information, they are different, in the  sense that the <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_index">_index</a> method should return the property or properties  that constitute the object's unique identifier concatenated in a single string, this may  be too long to use as an index, whereas <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_id">_id()</a> returns the actual value used  as the key, which may be the hashed <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_index">_index</a> value. In other words  <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_index">_index</a> is the human readable version of <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_id">_id</a>.</p><p>When the object is <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">committed</a> for the first time, the value of the  <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_id">_id</a> method will be set in the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">kTAG_ID_NATIVE</a> offset  which represents the object ID. This offset should never be changed and represents the  persistent identifier of the object.</p><p>Objects derived from this class also hold, by default, their class name in an  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CLASS">offset</a>, this is used to <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodNewObject">instantiate</a> objects of the  correct class when retrieving data from a container.</p><p>This class also features a <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_VERSION">version</a> which is an integer, incremented  each time the object is <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">committed</a>: this is  useful to implement a  concurrency control mechanism.</p><p>Starting from this class we only handle <a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a> derived instances  as containers, other container types will not be supported. This is because  <a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a> derived instances have an  <a href="../../MyWrapper/Core/CDataType.html#methodSerialiseObject">serialise</a> and  CMongoDataWrapper::UnserialiseObject() interface for handling special  data types.</p><p>The specifics of this are managed by the <a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a> derived classes,  so when planning your objects think in advance in what containers you plan to store them.</p></p>
 		<p class="notes">
-			Located in <a class="field" href="_classes---CPersistentUnitObject.php.html">/classes/CPersistentUnitObject.php</a> (line <span class="field">82</span>)
+			Located in <a class="field" href="_classes---CPersistentUnitObject.php.html">/classes/CPersistentUnitObject.php</a> (line <span class="field">81</span>)
 		</p>
 		
 				
@@ -74,10 +74,10 @@
 								 alt=" class"
 								 title=" class"
 								 style="vertical-align: center"/>
-						<a href="../../MyWrapper/Entities/CEntity.html">CEntity</a>
+						<a href="../../MyWrapper/Framework/CCodedUnitObject.html">CCodedUnitObject</a>
 					</td>
 					<td>
-											Entity.
+											Coded unit object.
 										</td>
 				</tr>
 							</table>
@@ -153,7 +153,7 @@
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">void</span>
 										<a href="#_PrepareReferenceList" title="details" class="method-name">_PrepareReferenceList</a>
-											(<span class="var-type"><a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a></span>&nbsp;<span class="var-name">$theContainer</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>, [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_REFERENCE_IDENTIFIER</span>])
+											(<span class="var-type"><a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a></span>&nbsp;<span class="var-name">$theContainer</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>, <span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span>)
 									</div>
 											</div>
 		</div>
@@ -206,7 +206,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static NewObject</span> (line <span class="line-number">121</span>)
+		<span class="method-title">static NewObject</span> (line <span class="line-number">120</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -240,7 +240,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static Reference</span> (line <span class="line-number">240</span>)
+		<span class="method-title">static Reference</span> (line <span class="line-number">239</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -292,7 +292,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_id</span> (line <span class="line-number">374</span>)
+		<span class="method-title">_id</span> (line <span class="line-number">373</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -334,7 +334,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_index</span> (line <span class="line-number">396</span>)
+		<span class="method-title">_index</span> (line <span class="line-number">395</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -358,7 +358,7 @@
 		<div class="notes">Redefined in descendants as:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../MyWrapper/Entities/CEntity.html#method_index">CEntity::_index()</a>
+				<a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_index">CCodedUnitObject::_index()</a>
 								: Return the object's unique index.
 							</li>
 					<li>
@@ -373,6 +373,10 @@
 				<a href="../../MyWrapper/Entities/CUser.html#method_index">CUser::_index()</a>
 								: Return the object's unique index.
 							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/CTerm.html#method_index">CTerm::_index()</a>
+								: Return the object's unique index.
+							</li>
 				</ul>
 	</div>
 <a name="method_ManageObjectList" id="_ManageObjectList"><!-- --></a>
@@ -380,7 +384,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ManageObjectList</span> (line <span class="line-number">814</span>)
+		<span class="method-title">_ManageObjectList</span> (line <span class="line-number">815</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -413,6 +417,10 @@
      <ul><li><em>TRUE</em>: Return the deleted or replaced element.</li><li><em>FALSE</em>: Return the replacing element or <em>NULL</em> when deleting.</li></ul></li></ul></p><p>The <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_ObjectIndex">method</a> used to match the list elements expects  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifiers</a> in the references or objects, if these are not  there, there is no way to discern duplicates.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Entities/CEntity.html#methodRelateTo">CEntity::RelateTo()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Entities/CEntity.html#methodRelatedFrom">CEntity::RelatedFrom()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CGraphUnitObject.html#methodRelateTo">CGraphUnitObject::RelateTo()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CGraphUnitObject.html#methodRelatedFrom">CGraphUnitObject::RelatedFrom()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -445,7 +453,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ObjectIndex</span> (line <span class="line-number">1292</span>)
+		<span class="method-title">_ObjectIndex</span> (line <span class="line-number">1293</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -482,7 +490,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">522</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">521</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -538,7 +546,7 @@
 		<div class="notes">Redefined in descendants as:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../MyWrapper/Entities/CEntity.html#method_PrepareCommit">CEntity::_PrepareCommit()</a>
+				<a href="../../MyWrapper/Framework/CGraphUnitObject.html#method_PrepareCommit">CGraphUnitObject::_PrepareCommit()</a>
 								: Normalise before a store.
 							</li>
 					<li>
@@ -560,7 +568,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">429</span>)
+		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">428</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -605,7 +613,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareReferenceList</span> (line <span class="line-number">630</span>)
+		<span class="method-title">_PrepareReferenceList</span> (line <span class="line-number">632</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -628,7 +636,7 @@
             current object's Database() name is <em>NULL</em>, the
             offset will not be set.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_REFERENCE_CLASS">kFLAG_REFERENCE_CLASS</a></em>: The element
             object's class name will be stored under the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CLASS">kTAG_CLASS</a>
-            offset.</li></ul></li></ul></p></p>
+            offset.</li></ul></li></ul></p><p>Note that when we <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">commit</a> referenced objects we use  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_REPLACE">kFLAG_PERSIST_REPLACE</a> as the commit type.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
 			</ul>
@@ -638,7 +646,7 @@
 		<span class="method-name">
 			_PrepareReferenceList
 		</span>
-					(<span class="var-type"><a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a></span>&nbsp;<span class="var-name">$theContainer</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>, [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_REFERENCE_IDENTIFIER</span>])
+					(<span class="var-type"><a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a></span>&nbsp;<span class="var-name">$theContainer</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>, <span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span>)
 			</div>
 	
 			<ul class="parameters">
@@ -808,7 +816,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Wed, 11 Apr 2012 17:12:14 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 12 Apr 2012 17:47:30 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

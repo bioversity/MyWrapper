@@ -36,7 +36,6 @@ require_once( kPATH_LIBRARY_SOURCE."CPersistentObject.php" );
  * Instances derived from this class have a series of additional properties and methods that
  * govern how these can be stored and retrieved from containers.
  *
- *
  * The class features two read-only public methods that return:
  *
  * <ul>
@@ -621,15 +620,16 @@ class CPersistentUnitObject extends CPersistentObject
 	 *	 </ul>
 	 * </ul>
 	 *
+	 * Note that when we {@link Commit() commit} referenced objects we use
+	 * {@link kFLAG_PERSIST_REPLACE kFLAG_PERSIST_REPLACE} as the commit type.
+	 *
 	 * @param CContainer			$theContainer		Object container.
 	 * @param string				$theOffset			Reference list offset.
 	 * @param bitfield				$theModifiers		Referencing options.
 	 *
 	 * @access protected
 	 */
-	protected function _PrepareReferenceList( $theContainer,
-											  $theOffset,
-											  $theModifiers = kFLAG_REFERENCE_IDENTIFIER )
+	protected function _PrepareReferenceList( $theContainer, $theOffset, $theModifiers )
 	{
 		//
 		// Check container.
@@ -646,8 +646,8 @@ class CPersistentUnitObject extends CPersistentObject
 		//
 		$done = FALSE;
 		$references = $this->offsetGet( $theOffset );
+		$modifiers = kFLAG_PERSIST_REPLACE | ($theModifiers & kFLAG_STATE_ENCODED);
 		$theModifiers |= kFLAG_REFERENCE_IDENTIFIER;
-		$modifiers = $theModifiers & (~kFLAG_REFERENCE_MASK);
 		
 		//
 		// Handle list.
@@ -693,7 +693,8 @@ class CPersistentUnitObject extends CPersistentObject
 						//
 						// Commit.
 						//
-						$value[ kTAG_DATA ]->Commit( $theContainer, NULL, $modifiers );
+						$value[ kTAG_DATA ]->Commit
+								( $theContainer, NULL, $modifiers );
 						
 						//
 						// Convert to reference.

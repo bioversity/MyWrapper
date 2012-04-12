@@ -23,7 +23,7 @@
  */
 
 /*=======================================================================================
- *	DEFAULT IDENTIFICATION OFFSETS														*
+ *	DEFAULT IDENTIFICATION TAGS															*
  *======================================================================================*/
 
 /**
@@ -40,7 +40,7 @@
 define( "kTAG_ID_NATIVE",						'_id' );
 
 /*=======================================================================================
- *	DEFAULT TREE OFFSETS																*
+ *	DEFAULT TREE TAGS																	*
  *======================================================================================*/
 
 /**
@@ -65,7 +65,7 @@ define( "kTAG_NODE_LEFT",						'_left' );
 define( "kTAG_NODE_RIGHT",						'_right' );
 
 /*=======================================================================================
- *	REFERENCE DEFAULT OFFSETS															*
+ *	DEFAULT REFERENCE TAGS																*
  *======================================================================================*/
 
 /**
@@ -89,6 +89,26 @@ define( "kTAG_CONTAINER_REFERENCE",				'$ref' );
  * This tag is the offset used to indicate a database within an object reference.
  */
 define( "kTAG_DATABASE_REFERENCE",				'$db' );
+
+/*=======================================================================================
+ *	DEFAULT LINK TAGS																	*
+ *======================================================================================*/
+
+/**
+ * Incoming links tag.
+ *
+ * This is the offset that should be used to store the object's list of incoming links or
+ * references, in general, this will be a list of object identifiers.
+ */
+define( "kTAG_LINK_IN",							':IN' );
+
+/**
+ * Outgoing links tag.
+ *
+ * This is the offset that should be used to store the object's list of outgoing links or
+ * references, in general, this will be a list of object identifiers.
+ */
+define( "kTAG_LINK_OUT",						':OUT' );
 
 /*=======================================================================================
  *	DEFAULT OBJECT TAGS																	*
@@ -143,6 +163,13 @@ define( "kTAG_DATA",							':DATA' );
 define( "kTAG_CODE",							':CODE' );
 
 /**
+ * Namespace offset.
+ *
+ * This tag is used as the default offset for indicating a namespace code or acronym.
+ */
+define( "kTAG_NAMESPACE",						':NS' );
+
+/**
  * Name offset.
  *
  * This tag is used as the default offset for indicating an attribute's name.
@@ -152,10 +179,16 @@ define( "kTAG_NAME",							':NAME' );
 /**
  * Description.
  *
- * This tag is used as the default offset for indicating an attribute's description or
- * definition.
+ * This tag is used as the default offset for indicating an attribute's description.
  */
-define( "kTAG_DESCRIPTION",						':DESCRIPTION' );
+define( "kTAG_DESCRIPTION",						':DESCR' );
+
+/**
+ * Definition.
+ *
+ * This tag is used as the default offset for indicating an attribute's definition.
+ */
+define( "kTAG_DEFINITION",						':DEF' );
 
 /**
  * Language.
@@ -249,7 +282,7 @@ define( "kOFFSET_FAX",							':FAX' );
  *
  * <ul>
  *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: Relation type, it will usually be a string or
- *		code indicating the type of the relationship.
+ *		code indicating the type of the relationship; it may also be omitted.
  *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: Relation data, it will be a reference to an
  *		object in which the following elements may appear:
  *	 <ul>
@@ -373,6 +406,24 @@ define( "kOFFSET_LONGITUDE",					':LON' );
  * This is the tag that represents an altitude, no specific data type is assumed.
  */
 define( "kOFFSET_ALTITUDE",						':ALT' );
+
+/*=======================================================================================
+ *	DEFAULT TERM TYPE PROPERTIES														*
+ *======================================================================================*/
+
+/**
+ * Term.
+ *
+ * This is the tag that represents a generic term.
+ */
+define( "kOFFSET_TERM",							':TERM' );
+
+/**
+ * Namespace.
+ *
+ * This is the tag that represents a namespace term.
+ */
+define( "kOFFSET_TERM_NAMESPACE",				':TERM:NS' );
 
 
 ?>

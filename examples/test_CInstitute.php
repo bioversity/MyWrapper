@@ -150,22 +150,22 @@ try
 
 	echo( '<i>$id1;</i><br>' );
 	echo( '<pre>' ); print_r( $id1 ); echo( '</pre>' );
-	echo( '<i>$valid = CInstitute::ValidEntity( $collection, $id1, kFLAG_STATE_ENCODED );</i><br>' );
-	$valid = CInstitute::ValidEntity( $collection, $id1, kFLAG_STATE_ENCODED );
+	echo( '<i>$valid = CInstitute::ValidObject( $collection, $id1, kFLAG_STATE_ENCODED );</i><br>' );
+	$valid = CInstitute::ValidObject( $collection, $id1, kFLAG_STATE_ENCODED );
 	echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
 	echo( '<hr>' );
 
 	echo( '<i>$id2;</i><br>' );
 	echo( '<pre>' ); print_r( $id2 ); echo( '</pre>' );
-	echo( '<i>$valid = CInstitute::ValidEntity( $collection, $id2, kFLAG_STATE_ENCODED );</i><br>' );
-	$valid = CInstitute::ValidEntity( $collection, $id2, kFLAG_STATE_ENCODED );
+	echo( '<i>$valid = CInstitute::ValidObject( $collection, $id2, kFLAG_STATE_ENCODED );</i><br>' );
+	$valid = CInstitute::ValidObject( $collection, $id2, kFLAG_STATE_ENCODED );
 	echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
 	echo( '<hr>' );
 
 	echo( '<i>$id2;</i><br>' );
 	echo( '<pre>' ); print_r( $id3 ); echo( '</pre>' );
-	echo( '<i>$valid = CInstitute::ValidEntity( $collection, $id3, kFLAG_STATE_ENCODED );</i><br>' );
-	$valid = CInstitute::ValidEntity( $collection, $id3, kFLAG_STATE_ENCODED );
+	echo( '<i>$valid = CInstitute::ValidObject( $collection, $id3, kFLAG_STATE_ENCODED );</i><br>' );
+	$valid = CInstitute::ValidObject( $collection, $id3, kFLAG_STATE_ENCODED );
 	echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
 	echo( '<hr>' );
 	echo( '<hr>' );
@@ -181,8 +181,8 @@ try
 		$institute2->Valid( $id3 );
 		echo( '<i>$institute2->Commit( $collection, NULL, kFLAG_PERSIST_UPDATE + kFLAG_STATE_ENCODED );</i><br>' );
 		$institute2->Commit( $collection, NULL, kFLAG_PERSIST_UPDATE + kFLAG_STATE_ENCODED );
-		echo( '<i>$valid = CInstitute::ValidEntity( $collection, $id2, kFLAG_STATE_ENCODED );</i><br>' );
-		$valid = CInstitute::ValidEntity( $collection, $id2, kFLAG_STATE_ENCODED );
+		echo( '<i>$valid = CInstitute::ValidObject( $collection, $id2, kFLAG_STATE_ENCODED );</i><br>' );
+		$valid = CInstitute::ValidObject( $collection, $id2, kFLAG_STATE_ENCODED );
 		echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
 	}
 	catch( Exception $error )
@@ -196,8 +196,8 @@ try
 	{
 		echo( '<i>$collection->Delete( $id2, kFLAG_STATE_ENCODED );</i><br>' );
 		$collection->Delete( $id2, kFLAG_STATE_ENCODED );
-		echo( '<i>$valid = CInstitute::ValidEntity( $collection, $id3, kFLAG_STATE_ENCODED );</i><br>' );
-		$valid = CInstitute::ValidEntity( $collection, $id3, kFLAG_STATE_ENCODED );
+		echo( '<i>$valid = CInstitute::ValidObject( $collection, $id3, kFLAG_STATE_ENCODED );</i><br>' );
+		$valid = CInstitute::ValidObject( $collection, $id3, kFLAG_STATE_ENCODED );
 		echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
 	}
 	catch( Exception $error )

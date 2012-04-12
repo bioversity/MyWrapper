@@ -31,7 +31,7 @@
 <p class="description"><p>This class overloads its <a href="../../MyWrapper/Wrappers/CMongoDataWrapper.html">ancestor</a> to implement a web-service  customised to the germplasm data warehouse.</p><p>This class adds the following operations:</p><p><ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OP_LOGIN">kAPI_OP_LOGIN</a></em>: Login, this operation expects the user
         <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_USER_CODE">code</a> and <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_USER_PASS">password</a> and will
         return the matching user.</li></ul></p><p>The class adds the following options:</p><p><ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_USER_CODE">kAPI_OPT_USER_CODE</a></em>: User code, this option expects
-        a string corresponding to the user <a href="../../MyWrapper/Entities/CEntity.html#methodCode">code</a>.</li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_USER_PASS">kAPI_OPT_USER_PASS</a></em>: User code, this option expects
+        a string corresponding to the user CEntity::Code().</li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_USER_PASS">kAPI_OPT_USER_PASS</a></em>: User code, this option expects
         a string corresponding to the user <a href="../../MyWrapper/Entities/CUser.html#methodPassword">password</a>.</li></ul></p></p>
 		<p class="notes">
 			Located in <a class="field" href="_classes---CWarehouseWrapper.php.html">/classes/CWarehouseWrapper.php</a> (line <span class="field">70</span>)
@@ -160,7 +160,7 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="method_HandleRequest" id="_HandleRequest"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -192,7 +192,7 @@
 			
 	</div>
 <a name="method_Handle_Login" id="_Handle_Login"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -201,7 +201,7 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Handle <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OP_LOGIN">login</a> request.</p>
-<p class="description"><p>This method will first <a href="../../MyWrapper/Entities/CUser.html#method__construct">load</a> the user by using its  <a href="../../MyWrapper/Entities/CEntity.html#methodCode">code</a>, then match the <a href="../../MyWrapper/Entities/CUser.html#methodPassword">password</a>; if  they match it will return the user record.</p></p>
+<p class="description"><p>This method will first <a href="../../MyWrapper/Entities/CUser.html#method__construct">load</a> the user by using its  CEntity::Code(), then match the <a href="../../MyWrapper/Entities/CUser.html#methodPassword">password</a>; if  they match it will return the user record.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
 			</ul>
@@ -218,7 +218,7 @@
 			
 	</div>
 <a name="method_ParseRequest" id="_ParseRequest"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -252,7 +252,7 @@
 			
 	</div>
 <a name="method_ParseUserCode" id="_ParseUserCode"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -280,7 +280,7 @@
 			
 	</div>
 <a name="method_ParseUserPass" id="_ParseUserPass"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -308,7 +308,7 @@
 			
 	</div>
 <a name="method_ValidateOperation" id="_ValidateOperation"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -607,7 +607,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Wed, 11 Apr 2012 17:12:15 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 12 Apr 2012 17:47:32 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>
