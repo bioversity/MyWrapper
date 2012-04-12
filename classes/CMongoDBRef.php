@@ -36,10 +36,11 @@ require_once( kPATH_LIBRARY_SOURCE."CPersistentObject.php" );
  * The object properties are the same as the MongoDBRef properties:
  *
  * <ul>
- *	<li><i>{@link kTAG_DATABASE_REFERENCE kTAG_DATABASE_REFERENCE}</i>: Database reference.
- *	<li><i>{@link kTAG_CONTAINER_REFERENCE kTAG_CONTAINER_REFERENCE}</i>: Collection
+ *	<li><i>{@link kOFFSET_REFERENCE_DATABASE kOFFSET_REFERENCE_DATABASE}</i>: Database
  *		reference.
- *	<li><i>{@link kTAG_ID_REFERENCE kTAG_ID_REFERENCE}</i>: Object identifier.
+ *	<li><i>{@link kOFFSET_REFERENCE_CONTAINER kOFFSET_REFERENCE_CONTAINER}</i>: Collection
+ *		reference.
+ *	<li><i>{@link kOFFSET_REFERENCE_ID kOFFSET_REFERENCE_ID}</i>: Object identifier.
  * </ul>
  *
  * This class adds a new reference offset, {@link kTAG_CLASS kTAG_CLASS}, which is used to
@@ -137,14 +138,14 @@ class CMongoDBRef extends CPersistentObject
 							//
 							// Set collection reference.
 							//
-							$reference[ kTAG_CONTAINER_REFERENCE ]
+							$reference[ kOFFSET_REFERENCE_CONTAINER ]
 								= $theContainer->getName();
 							
 							//
 							// Set database reference.
 							//
-							if( array_key_exists( kTAG_DATABASE_REFERENCE, $reference ) )
-								$reference[ kTAG_DATABASE_REFERENCE ]
+							if( array_key_exists( kOFFSET_REFERENCE_DATABASE, $reference ) )
+								$reference[ kOFFSET_REFERENCE_DATABASE ]
 									= (string) $theContainer->db;
 						
 						} // Valid container type.
@@ -173,14 +174,14 @@ class CMongoDBRef extends CPersistentObject
 					//
 					// Load object ID.
 					//
-					if( array_key_exists( kTAG_ID_NATIVE, (array) $theReference ) )
-						$reference[ kTAG_ID_REFERENCE ] = $theReference[ kTAG_ID_NATIVE ];
+					if( array_key_exists( kOFFSET_ID, (array) $theReference ) )
+						$reference[ kOFFSET_REFERENCE_ID ] = $theReference[ kOFFSET_ID ];
 					else
 						throw new CException
 								( "Unable to find object identifier",
 								  kERROR_INVALID_STATE,
 								  kMESSAGE_TYPE_ERROR,
-								  array( 'Identifier' => kTAG_ID_NATIVE,
+								  array( 'Identifier' => kOFFSET_ID,
 								  		 'Object' => $theReference ) );			// !@! ==>
 					
 					//
@@ -192,7 +193,7 @@ class CMongoDBRef extends CPersistentObject
 						// Check container type.
 						//
 						if( $theContainer instanceof MongoCollection )
-							$reference[ kTAG_CONTAINER_REFERENCE ]
+							$reference[ kOFFSET_REFERENCE_CONTAINER ]
 								= $theContainer->getName();
 						
 						else
@@ -375,15 +376,16 @@ class CMongoDBRef extends CPersistentObject
 
 	 
 	/*===================================================================================
-	 *	Database																			*
+	 *	Database																		*
 	 *==================================================================================*/
 
 	/**
 	 * Manage database.
 	 *
 	 * This method can be used to manage the reference
-	 * {@link kTAG_DATABASE_REFERENCE database}, it uses the standard accessor
-	 * {@link _ManageOffset() method} to manage the {@link kTAG_DATABASE_REFERENCE offset}:
+	 * {@link kOFFSET_REFERENCE_DATABASE database}, it uses the standard accessor
+	 * {@link _ManageOffset() method} to manage the
+	 * {@link kOFFSET_REFERENCE_DATABASE offset}:
 	 *
 	 * <ul>
 	 *	<li><b>$theValue</b>: The value or operation:
@@ -407,7 +409,8 @@ class CMongoDBRef extends CPersistentObject
 	 */
 	public function Database( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kTAG_DATABASE_REFERENCE, $theValue, $getOld );	// ==>
+		return $this->_ManageOffset
+				( kOFFSET_REFERENCE_DATABASE, $theValue, $getOld );					// ==>
 
 	} // Database.
 
@@ -420,9 +423,9 @@ class CMongoDBRef extends CPersistentObject
 	 * Manage collection.
 	 *
 	 * This method can be used to manage the database
-	 * {@link kTAG_CONTAINER_REFERENCE collection}, it uses the standard accessor
+	 * {@link kOFFSET_REFERENCE_CONTAINER collection}, it uses the standard accessor
 	 * {@link _ManageOffset() method} to manage the
-	 * {@link kTAG_CONTAINER_REFERENCE offset}:
+	 * {@link kOFFSET_REFERENCE_CONTAINER offset}:
 	 *
 	 * <ul>
 	 *	<li><b>$theValue</b>: The value or operation:
@@ -449,7 +452,7 @@ class CMongoDBRef extends CPersistentObject
 		//
 		// Handle offset.
 		//
-		$result = $this->_ManageOffset( kTAG_CONTAINER_REFERENCE, $theValue, $getOld );
+		$result = $this->_ManageOffset( kOFFSET_REFERENCE_CONTAINER, $theValue, $getOld );
 		
 		//
 		// Set inited status.
@@ -470,8 +473,8 @@ class CMongoDBRef extends CPersistentObject
 	 * Manage identifier.
 	 *
 	 * This method can be used to manage the collection
-	 * {@link kTAG_ID_REFERENCE identifier}, it uses the standard accessor
-	 * {@link _ManageOffset() method} to manage the {@link kTAG_ID_REFERENCE offset}:
+	 * {@link kOFFSET_REFERENCE_ID identifier}, it uses the standard accessor
+	 * {@link _ManageOffset() method} to manage the {@link kOFFSET_REFERENCE_ID offset}:
 	 *
 	 * <ul>
 	 *	<li><b>$theValue</b>: The value or operation:
@@ -498,7 +501,7 @@ class CMongoDBRef extends CPersistentObject
 		//
 		// Handle offset.
 		//
-		$result = $this->_ManageOffset( kTAG_ID_REFERENCE, $theValue, $getOld );
+		$result = $this->_ManageOffset( kOFFSET_REFERENCE_ID, $theValue, $getOld );
 		
 		//
 		// Set inited status.

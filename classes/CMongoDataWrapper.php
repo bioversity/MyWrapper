@@ -184,7 +184,7 @@ class CMongoDataWrapper extends CDataWrapper
 	 * have been sent.
 	 *
 	 * In this class we check if the provided {@link kAPI_DATA_OBJECT object} contains the
-	 * {@link kTAG_ID_REFERENCE identifier} when executing tree functions.
+	 * {@link kOFFSET_REFERENCE_ID identifier} when executing tree functions.
 	 *
 	 * @access protected
 	 */
@@ -387,14 +387,14 @@ class CMongoDataWrapper extends CDataWrapper
 						// Add database reference.
 						//
 						if( array_key_exists( kAPI_DATABASE, $_REQUEST ) )
-							$reference[ kTAG_DATABASE_REFERENCE ]
+							$reference[ kOFFSET_REFERENCE_DATABASE ]
 								= (string) $_REQUEST[ kAPI_DATABASE ];
 						
 						//
 						// Add container reference.
 						//
 						if( array_key_exists( kAPI_CONTAINER, $_REQUEST ) )
-							$reference[ kTAG_CONTAINER_REFERENCE ]
+							$reference[ kOFFSET_REFERENCE_CONTAINER ]
 								= $_REQUEST[ kAPI_CONTAINER ]->getName();
 						
 						//
@@ -405,22 +405,22 @@ class CMongoDataWrapper extends CDataWrapper
 						//
 						// Handle database.
 						//
-						if( array_key_exists( kTAG_DATABASE_REFERENCE, $reference )
+						if( array_key_exists( kOFFSET_REFERENCE_DATABASE, $reference )
 						 && (! array_key_exists( kAPI_DATABASE, $_REQUEST )) )
 						{
 							$_REQUEST[ kAPI_DATABASE ]
-								= $reference[ kTAG_DATABASE_REFERENCE ];
+								= $reference[ kOFFSET_REFERENCE_DATABASE ];
 							$this->_FormatDatabase();
 						}
 						
 						//
 						// Handle container.
 						//
-						if( array_key_exists( kTAG_CONTAINER_REFERENCE, $reference )
+						if( array_key_exists( kOFFSET_REFERENCE_CONTAINER, $reference )
 						 && (! array_key_exists( kAPI_CONTAINER, $_REQUEST )) )
 						{
 							$_REQUEST[ kAPI_CONTAINER ]
-								= $reference[ kTAG_CONTAINER_REFERENCE ];
+								= $reference[ kOFFSET_REFERENCE_CONTAINER ];
 							$this->_FormatContainer();
 						}
 					
@@ -504,7 +504,7 @@ class CMongoDataWrapper extends CDataWrapper
 	 * {@link kAPI_OPERATION operation} parameter is valid.
 	 *
 	 * In this class, if the query was omitted and an object reference was required, we
-	 * check if the object {@link kTAG_ID_NATIVE native} identifier is there: in that case
+	 * check if the object {@link kOFFSET_ID native} identifier is there: in that case
 	 * we compile the query with that value.
 	 *
 	 * @access protected
@@ -579,7 +579,7 @@ class CMongoDataWrapper extends CDataWrapper
 	 * Validate request object.
 	 *
 	 * This method can be used to check whether the provided
-	 * {@link kAPI_DATA_OBJECT object} contains the {@link kTAG_ID_REFERENCE identifier}
+	 * {@link kAPI_DATA_OBJECT object} contains the {@link kOFFSET_REFERENCE_ID identifier}
 	 * when executing tree functions.
 	 *
 	 * @access protected
@@ -1069,8 +1069,8 @@ class CMongoDataWrapper extends CDataWrapper
 					// Handle excluded identifier.
 					// By default the returned array is indexed by ID...
 					//
-					if( array_key_exists( kTAG_ID_NATIVE, $fields )
-					 && (! $fields[ kTAG_ID_NATIVE ]) )
+					if( array_key_exists( kOFFSET_ID, $fields )
+					 && (! $fields[ kOFFSET_ID ]) )
 					{
 						//
 						// Collect results.

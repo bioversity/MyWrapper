@@ -462,13 +462,13 @@ abstract class CContainer extends CObject
 	 * The method will return an array composed by the following offsets:
 	 *
 	 * <ul>
-	 *	<li><i>{@link kTAG_ID_REFERENCE kTAG_ID_REFERENCE}</i>: The object identifier, if
-	 *		the provided object does not have an {@link kTAG_ID_NATIVE identifier}, this
+	 *	<li><i>{@link kOFFSET_REFERENCE_ID kOFFSET_REFERENCE_ID}</i>: The object identifier,
+	 *		if the provided object does not have an {@link kOFFSET_ID identifier}, this
 	 *		method will raise an exception.
-	 *	<li><i>{@link kTAG_CONTAINER_REFERENCE kTAG_CONTAINER_REFERENCE}</i>: The container
-	 *		name.
-	 *	<li><i>{@link kTAG_DATABASE_REFERENCE kTAG_DATABASE_REFERENCE}</i>: The database
-	 *		name.
+	 *	<li><i>{@link kOFFSET_REFERENCE_CONTAINER kOFFSET_REFERENCE_CONTAINER}</i>: The
+	 *		container name.
+	 *	<li><i>{@link kOFFSET_REFERENCE_DATABASE kOFFSET_REFERENCE_DATABASE}</i>: The
+	 *		database name.
 	 *	<li><i>{@link kTAG_CLASS kTAG_CLASS}</i>: The object's class name.
 	 * </ul>
 	 *
@@ -482,17 +482,17 @@ abstract class CContainer extends CObject
 	 *		in the reference:
 	 *	 <ul>
 	 *		<li><i>{@link kFLAG_REFERENCE_IDENTIFIER kFLAG_REFERENCE_IDENTIFIER}</i>: The
-	 *			object {@link kTAG_ID_NATIVE identifier} will be stored under the
-	 *			{@link kTAG_ID_REFERENCE kTAG_ID_REFERENCE} offset. If the object does not
-	 *			have this identifier, the method will raise an exception. This is the
+	 *			object {@link kOFFSET_ID identifier} will be stored under the
+	 *			{@link kOFFSET_REFERENCE_ID kOFFSET_REFERENCE_ID} offset. If the object does
+	 *			not have this identifier, the method will raise an exception. This is the
 	 *			default option.
 	 *		<li><i>{@link kFLAG_REFERENCE_CONTAINER kFLAG_REFERENCE_CONTAINER}</i>: The
 	 *			current container name will be stored under the
-	 *			{@link kTAG_CONTAINER_REFERENCE kTAG_CONTAINER_REFERENCE} offset. If the
-	 *			provided value is empty, the offset will not be set.
+	 *			{@link kOFFSET_REFERENCE_CONTAINER kOFFSET_REFERENCE_CONTAINER} offset. If
+	 *			the provided value is empty, the offset will not be set.
 	 *		<li><i>{@link kFLAG_REFERENCE_DATABASE kFLAG_REFERENCE_DATABASE}</i>: The
 	 *			current container's database name will be stored under the
-	 *			{@link kTAG_DATABASE_REFERENCE kTAG_DATABASE_REFERENCE} offset. If the
+	 *			{@link kOFFSET_REFERENCE_DATABASE kOFFSET_REFERENCE_DATABASE} offset. If the
 	 *			current object's {@link Database() database} name is <i>NULL</i>, the
 	 *			offset will not be set.
 	 *		<li><i>{@link kFLAG_REFERENCE_CLASS kFLAG_REFERENCE_CLASS}</i>: The provided
@@ -537,8 +537,8 @@ abstract class CContainer extends CObject
 		//
 		if( $theModifiers & kFLAG_REFERENCE_IDENTIFIER )
 		{
-			if( $theObject->offsetExists( kTAG_ID_NATIVE ) )
-				$reference[ kTAG_ID_REFERENCE ] = $theObject[ kTAG_ID_NATIVE ];
+			if( $theObject->offsetExists( kOFFSET_ID ) )
+				$reference[ kOFFSET_REFERENCE_ID ] = $theObject[ kOFFSET_ID ];
 			else
 				throw new CException
 					( "Object does not have an identifier",
@@ -552,14 +552,14 @@ abstract class CContainer extends CObject
 		//
 		if( ($theModifiers & kFLAG_REFERENCE_CONTAINER)
 		 && strlen( $tmp = $this->__toString() ) )
-			$reference[ kTAG_CONTAINER_REFERENCE ] = $tmp;
+			$reference[ kOFFSET_REFERENCE_CONTAINER ] = $tmp;
 		
 		//
 		// Load database information.
 		//
 		if( ($theModifiers & kFLAG_REFERENCE_DATABASE)
 		 && (($tmp = $this->Database()) !== NULL) )
-			$reference[ kTAG_DATABASE_REFERENCE ] = (string) $tmp;
+			$reference[ kOFFSET_REFERENCE_DATABASE ] = (string) $tmp;
 		
 		//
 		// Load object class information.

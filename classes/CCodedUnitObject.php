@@ -37,7 +37,7 @@ require_once( kPATH_LIBRARY_SOURCE."CPersistentUnitObject.php" );
  *	<li><i>{@link kTAG_KIND kTAG_KIND}</i>: This attribute represents the current object's
  *		{@link Kind() kind} or type.
  *	<li><i>{@link kTAG_VALID kTAG_VALID}</i>: This offset holds the
- *		{@link kTAG_ID_NATIVE native} identifier of the valid object. This should be used
+ *		{@link kOFFSET_ID native} identifier of the valid object. This should be used
  *		when the current object becomes obsolete: instead of deleting it we create a new one
  *		and store in this {@link kTAG_VALID offset} the identifier of the new object that
  *		will replace the current one.
@@ -211,7 +211,7 @@ class CCodedUnitObject extends CPersistentUnitObject
 	 * Manage valid reference.
 	 *
 	 * This method can be used to handle the valid object's
-	 * {@link kTAG_ID_NATIVE identifier}, it uses the standard accessor
+	 * {@link kOFFSET_ID identifier}, it uses the standard accessor
 	 * {@link _ManageOffset() method} to manage the {@link kTAG_VALID offset}.
 	 *
 	 * Objects derived from this class should be persistent, in other words, it is not an
@@ -250,14 +250,14 @@ class CCodedUnitObject extends CPersistentUnitObject
 				//
 				// Check native identifier.
 				//
-				if( array_key_exists( kTAG_ID_NATIVE, (array) $theValue ) )
-					$theValue = $theValue[ kTAG_ID_NATIVE ];
+				if( array_key_exists( kOFFSET_ID, (array) $theValue ) )
+					$theValue = $theValue[ kOFFSET_ID ];
 			
 				//
 				// Check reference identifier.
 				//
-				if( array_key_exists( kTAG_ID_REFERENCE, (array) $theValue ) )
-					$theValue = $theValue[ kTAG_ID_REFERENCE ];
+				if( array_key_exists( kOFFSET_REFERENCE_ID, (array) $theValue ) )
+					$theValue = $theValue[ kOFFSET_REFERENCE_ID ];
 			
 			} // Not an identifier.
 		
@@ -500,7 +500,7 @@ class CCodedUnitObject extends CPersistentUnitObject
 	 * Return the object's unique index.
 	 *
 	 * In this class we consider the {@link kTAG_CODE code} to be the object's unique
-	 * {@link kTAG_ID_NATIVE identifier}.
+	 * {@link kOFFSET_ID identifier}.
 	 *
 	 * @access protected
 	 * @return string

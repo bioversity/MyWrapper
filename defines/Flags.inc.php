@@ -162,7 +162,7 @@ define( "kFLAG_PERSIST_MASK",			0x000000F0 );		// Persist mask.
  * Reference: Identifier.
  *
  * This bitfield value indicates that we intend to include
- * {@link kTAG_ID_REFERENCE identifier} information to the reference, this is used when
+ * {@link kOFFSET_REFERENCE_ID identifier} information to the reference, this is used when
  * {@link CConttainer::Reference() converting} a {@link CPersistentObject persistent} object
  * to a reference.
  */
@@ -172,7 +172,7 @@ define( "kFLAG_REFERENCE_IDENTIFIER",	0x00000100 );		// Identifier.
  * Reference: Container.
  *
  * This bitfield value indicates that we intend to include
- * {@link kTAG_CONTAINER_REFERENCE container} information to the reference, this is used
+ * {@link kOFFSET_REFERENCE_CONTAINER container} information to the reference, this is used
  * when {@link CConttainer::Reference() converting} a {@link CPersistentObject persistent}
  * object to a reference.
  */
@@ -182,7 +182,7 @@ define( "kFLAG_REFERENCE_CONTAINER",	0x00000200 );		// Container.
  * Reference: Database.
  *
  * This bitfield value indicates that we intend to include
- * {@link kTAG_DATABASE_REFERENCE database} information to the reference, this is used
+ * {@link kOFFSET_REFERENCE_DATABASE database} information to the reference, this is used
  * when {@link CConttainer::Reference() converting} a {@link CPersistentObject persistent}
  * object to a reference.
  */

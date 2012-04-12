@@ -89,7 +89,7 @@ try
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	$ref = array( kTAG_CONTAINER_REFERENCE => 'Collection', kTAG_ID_REFERENCE => 'ID' );
+	$ref = array( kOFFSET_REFERENCE_CONTAINER => 'Collection', kOFFSET_REFERENCE_ID => 'ID' );
 	echo( 'Reference<pre>' ); print_r( $ref ); echo( '</pre>' );
 	echo( '<i>$test = new CMongoDBRef( $ref );</i><br>' );
 	$test = new CMongoDBRef( $ref );
@@ -122,9 +122,9 @@ try
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	$ref = array( kTAG_CONTAINER_REFERENCE => 'Collection',
-				  kTAG_ID_REFERENCE => 'ID',
-				  kTAG_DATABASE_REFERENCE => 'OtherDatabase' );
+	$ref = array( kOFFSET_REFERENCE_CONTAINER => 'Collection',
+				  kOFFSET_REFERENCE_ID => 'ID',
+				  kOFFSET_REFERENCE_DATABASE => 'OtherDatabase' );
 	echo( 'Reference<pre>' ); print_r( $ref ); echo( '</pre>' );
 	echo( '<i>$test = new CMongoDBRef( $ref, $collection );</i><br>' );
 	$test = new CMongoDBRef( $ref, $collection );
@@ -136,8 +136,8 @@ try
 	//
 	echo( '<h3>Resolve</h3>' );
 	
-	$ref = array( kTAG_ID_REFERENCE => $id, kTAG_CONTAINER_REFERENCE => $collection->getname() );
-	echo( '<i>$ref = array( kTAG_ID_REFERENCE => $id, kTAG_CONTAINER_REFERENCE => $collection->getname() );</i><br>' );
+	$ref = array( kOFFSET_REFERENCE_ID => $id, kOFFSET_REFERENCE_CONTAINER => $collection->getname() );
+	echo( '<i>$ref = array( kOFFSET_REFERENCE_ID => $id, kOFFSET_REFERENCE_CONTAINER => $collection->getname() );</i><br>' );
 	echo( '<i>$test = new CMongoDBRef( $ref );</i><br>' );
 	$test = new CMongoDBRef( $ref );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );

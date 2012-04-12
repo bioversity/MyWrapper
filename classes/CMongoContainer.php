@@ -383,7 +383,7 @@ class CMongoContainer extends CContainer
 									  kMESSAGE_TYPE_ERROR,
 									  array( 'Status' => $status ) );			// !@! ==>
 			
-			return $theObject[ kTAG_ID_NATIVE ];									// ==>
+			return $theObject[ kOFFSET_ID ];									// ==>
 		
 		} // Replace.
 		
@@ -396,15 +396,15 @@ class CMongoContainer extends CContainer
 			// Use provided identifier.
 			//
 			if( $theIdentifier !== NULL )
-				$criteria = array( kTAG_ID_NATIVE => $theIdentifier );
+				$criteria = array( kOFFSET_ID => $theIdentifier );
 			
 			//
 			// Get identifier from object.
 			//
-			elseif( array_key_exists( kTAG_ID_NATIVE, (array) $theObject ) )
+			elseif( array_key_exists( kOFFSET_ID, (array) $theObject ) )
 			{
-				$theIdentifier = $theObject[ kTAG_ID_NATIVE ];
-				$criteria = array( kTAG_ID_NATIVE => $theIdentifier );
+				$theIdentifier = $theObject[ kOFFSET_ID ];
+				$criteria = array( kOFFSET_ID => $theIdentifier );
 			}
 			
 			//
@@ -455,7 +455,7 @@ class CMongoContainer extends CContainer
 			foreach( $theObject as $key => $value )
 			{
 				if( ($value !== NULL)
-				 && ($key != kTAG_ID_NATIVE) )
+				 && ($key != kOFFSET_ID) )
 					$tmp[ $key ] = $value;
 			}
 			
@@ -488,7 +488,7 @@ class CMongoContainer extends CContainer
 			// Set identifier.
 			//
 			if( $theIdentifier !== NULL )
-				$theObject[ kTAG_ID_NATIVE ] = $theIdentifier;
+				$theObject[ kOFFSET_ID ] = $theIdentifier;
 			
 			//
 			// Save array.
@@ -509,7 +509,7 @@ class CMongoContainer extends CContainer
 			else
 				$status = $container->insert( $theObject, $options );
 			
-			return $theObject[ kTAG_ID_NATIVE ];									// ==>
+			return $theObject[ kOFFSET_ID ];									// ==>
 		
 		} // Insert.
 		
@@ -528,11 +528,11 @@ class CMongoContainer extends CContainer
 			// Determine criteria.
 			//
 			if( $theIdentifier !== NULL )
-				$criteria = array( kTAG_ID_NATIVE => $theIdentifier );
-			elseif( array_key_exists( kTAG_ID_NATIVE, (array) $theObject ) )
+				$criteria = array( kOFFSET_ID => $theIdentifier );
+			elseif( array_key_exists( kOFFSET_ID, (array) $theObject ) )
 			{
-				$theIdentifier = $theObject[ kTAG_ID_NATIVE ];
-				$criteria = array( kTAG_ID_NATIVE => $theIdentifier );
+				$theIdentifier = $theObject[ kOFFSET_ID ];
+				$criteria = array( kOFFSET_ID => $theIdentifier );
 			}
 			else
 				throw new CException
@@ -593,7 +593,7 @@ class CMongoContainer extends CContainer
 		//
 		// Set criteria.
 		//
-		$criteria = array( kTAG_ID_NATIVE => $theIdentifier );
+		$criteria = array( kOFFSET_ID => $theIdentifier );
 		
 		return $this->Container()->findOne( $criteria );							// ==>
 	
@@ -633,7 +633,7 @@ class CMongoContainer extends CContainer
 			//
 			// Set criteria.
 			//
-			$criteria = array( kTAG_ID_NATIVE => $theIdentifier );
+			$criteria = array( kOFFSET_ID => $theIdentifier );
 			
 			//
 			// Set options.
@@ -670,8 +670,8 @@ class CMongoContainer extends CContainer
 	 *
 	 * We {@link CContaoiner::_PrepareCommit() overload} this method to handle the
 	 * identifier: if provided, it means that that is to become the object's unique
-	 * {@link kTAG_ID_NATIVE identifier}; if not provided and the object has an
-	 * {@link kTAG_ID_NATIVE identifier}, we use that one.
+	 * {@link kOFFSET_ID identifier}; if not provided and the object has an
+	 * {@link kOFFSET_ID identifier}, we use that one.
 	 *
 	 * We also raise an exception if the provided object is not either an array or an
 	 * ArrayObject.
@@ -711,13 +711,13 @@ class CMongoContainer extends CContainer
 		// Set identifier.
 		//
 		if( $theIdentifier !== NULL )
-			$theObject[ kTAG_ID_NATIVE ] = $theIdentifier;
+			$theObject[ kOFFSET_ID ] = $theIdentifier;
 			
 		//
 		// Get identifier.
 		//
-		elseif( array_key_exists( kTAG_ID_NATIVE, (array) $theObject ) )
-			$theIdentifier = $theObject[ kTAG_ID_NATIVE ];
+		elseif( array_key_exists( kOFFSET_ID, (array) $theObject ) )
+			$theIdentifier = $theObject[ kOFFSET_ID ];
 	
 	} // _PrepareCommit.
 

@@ -97,7 +97,7 @@ try
 						kOFFSET_PASSWORD => 'Secret',
 						kTAG_NAME => 'Milko A. Škofič',
 						kOFFSET_EMAIL => 'm.skofic@cgiar.org',
-						kTAG_ID_NATIVE => new CDataTypeBinary( md5( 'Milko', TRUE ) ) );
+						kOFFSET_ID => new CDataTypeBinary( md5( 'Milko', TRUE ) ) );
 	echo( "Container<pre>" ); print_r( $container ); echo( '</pre>' );
 	echo( '<i>$test = new CUser( $container );</i><br>' );
 	echo( '<i>$identifier = $test->Commit( $collection );</i><br>' );

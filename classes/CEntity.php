@@ -68,12 +68,12 @@ require_once( kPATH_LIBRARY_SOURCE."CEntity.inc.php" );
  *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: This offset represents the reference itself, it
  *		has the following structure:
  *	 <ul>
- *		<li><i>{@link kTAG_ID_REFERENCE kTAG_ID_REFERENCE}</i>: The unique identifier of
- *			the referenced object.
- *		<li><i>{@link kTAG_CONTAINER_REFERENCE kTAG_CONTAINER_REFERENCE}</i>: The
+ *		<li><i>{@link kOFFSET_REFERENCE_ID kOFFSET_REFERENCE_ID}</i>: The unique identifier
+ *			of the referenced object.
+ *		<li><i>{@link kOFFSET_REFERENCE_CONTAINER kOFFSET_REFERENCE_CONTAINER}</i>: The
  *			{@link CContainer container} name.
- *		<li><i>{@link kTAG_DATABASE_REFERENCE kTAG_DATABASE_REFERENCE}</i>: The database
- *			name.
+ *		<li><i>{@link kOFFSET_REFERENCE_DATABASE kOFFSET_REFERENCE_DATABASE}</i>: The
+ *			database name.
  *		<li><i>{@link kTAG_CLASS kTAG_CLASS}</i>: The object class name.
  *	 </ul>
  * </ul>
@@ -192,16 +192,16 @@ class CEntity extends CGraphUnitObject
 	 *		it may be in two forms:
 	 *	 <ul>
 	 *		<li><i>Scalar</i>: A scalar is interpreted as the object's
-	 *			{@link kTAG_ID_NATIVE identifier}.
+	 *			{@link kOFFSET_ID identifier}.
 	 *		<li><i>Reference</i>: An object reference structured as follows:
 	 *		 <ul>
-	 *			<li><i>{@link kTAG_ID_REFERENCE kTAG_ID_REFERENCE}</i>: The unique
-	 *				{@link kTAG_ID_NATIVE identifier} of the referenced object. This element
+	 *			<li><i>{@link kOFFSET_REFERENCE_ID kOFFSET_REFERENCE_ID}</i>: The unique
+	 *				{@link kOFFSET_ID identifier} of the referenced object. This element
 	 *				is required by default.
-	 *			<li><i>{@link kTAG_CONTAINER_REFERENCE kTAG_CONTAINER_REFERENCE}</i>: The
-	 *				{@link CContainer container} name. This element is optional.
-	 *			<li><i>{@link kTAG_DATABASE_REFERENCE kTAG_DATABASE_REFERENCE}</i>: The
-	 *				database name. This element is optional.
+	 *			<li><i>{@link kOFFSET_REFERENCE_CONTAINER kOFFSET_REFERENCE_CONTAINER}</i>:
+	 *				The {@link CContainer container} name. This element is optional.
+	 *			<li><i>{@link kOFFSET_REFERENCE_DATABASE kOFFSET_REFERENCE_DATABASE}</i>:
+	 *				The database name. This element is optional.
 	 *		 </ul>
 	 *		<li><i>Object</i>: An object derived from this class will be interpreted as the
 	 *			referenced object itself. When {@link Commit() committing} the current
@@ -218,7 +218,7 @@ class CEntity extends CGraphUnitObject
 	 *		value may be <i>NULL</i> for references that do not imply a type.
 	 *	<li><b>$theValue</b>: Reference or object. This parameter represents the reference,
 	 *		it may be a scalar, representing either the referenced object
-	 *		{@link kTAG_ID_NATIVE identifier}, a structure representing an object reference,
+	 *		{@link kOFFSET_ID identifier}, a structure representing an object reference,
 	 *		or the referenced object itself.
 	 *	<li><b>$theOperation</b>: The operation to perform:
 	 *	 <ul>
@@ -290,15 +290,15 @@ class CEntity extends CGraphUnitObject
 	 *		it may be in two forms:
 	 *	 <ul>
 	 *		<li><i>Scalar</i>: A scalar is interpreted as the object's
-	 *			{@link kTAG_ID_NATIVE identifier}.
+	 *			{@link kOFFSET_ID identifier}.
 	 *		<li><i>Reference</i>: An object reference structured as follows:
 	 *		 <ul>
-	 *			<li><i>{@link kTAG_ID_REFERENCE kTAG_ID_REFERENCE}</i>: The unique
-	 *				{@link kTAG_ID_NATIVE identifier} of the referenced object. This element
+	 *			<li><i>{@link kOFFSET_REFERENCE_ID kOFFSET_REFERENCE_ID}</i>: The unique
+	 *				{@link kOFFSET_ID identifier} of the referenced object. This element
 	 *				is required by default.
-	 *			<li><i>{@link kTAG_CONTAINER_REFERENCE kTAG_CONTAINER_REFERENCE}</i>: The
-	 *				{@link CContainer container} name. This element is optional.
-	 *			<li><i>{@link kTAG_DATABASE_REFERENCE kTAG_DATABASE_REFERENCE}</i>: The
+	 *			<li><i>{@link kOFFSET_REFERENCE_CONTAINER kOFFSET_REFERENCE_CONTAINER}</i>:
+	 *				The {@link CContainer container} name. This element is optional.
+	 *			<li><i>{@link kOFFSET_REFERENCE_DATABASE kOFFSET_REFERENCE_DATABASE}</i>: The
 	 *				database name. This element is optional.
 	 *		 </ul>
 	 *		<li><i>Object</i>: An object derived from this class will be interpreted as the
@@ -316,7 +316,7 @@ class CEntity extends CGraphUnitObject
 	 *		value may be <i>NULL</i> for references that do not imply a type.
 	 *	<li><b>$theValue</b>: Reference or object. This parameter represents the reference,
 	 *		it may be a scalar, representing either the referenced object
-	 *		{@link kTAG_ID_NATIVE identifier}, a structure representing an object reference,
+	 *		{@link kOFFSET_ID identifier}, a structure representing an object reference,
 	 *		or the referenced object itself.
 	 *	<li><b>$theOperation</b>: The operation to perform:
 	 *	 <ul>

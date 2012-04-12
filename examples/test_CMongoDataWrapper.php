@@ -62,7 +62,7 @@ $object1[ 'Inst' ] = 'International Plant Genetic Resources Institute';
 $object1[ 'Cat' ] = array( 'Colours' => array( 'Orange', 'Yellow' ),
 						   'Teams' => array( 'Roma' ) );
 $object1[ 'Other' ] = 'Other data';
-$object1[ kTAG_ID_NATIVE ] = 'Škofič';
+$object1[ kOFFSET_ID ] = 'Škofič';
  
 //
 // Create object 2.
@@ -99,7 +99,7 @@ $object4[ 'Number' ] = new CDataTypeInt64( '123456789123459' );
 $object4[ 'Inst' ] = 'Stretto di Messina';
 $object4[ 'Cat' ] = array( 'Colours' => array( 'Blue' ),
 						   'Teams' => array( 'Milan' ) );
-$object4[ kTAG_ID_NATIVE ] = new CDataTypeBinary( 'Sampieri' );
+$object4[ kOFFSET_ID ] = new CDataTypeBinary( 'Sampieri' );
  
 //
 // Create object 5.
@@ -754,9 +754,9 @@ try
 		//
 		$reference = Array();
 		$container->UnserialiseObject( $object );			// To feed to MongoDBRef.
-		$reference[ kTAG_ID_REFERENCE ] = $object[ kTAG_ID_NATIVE ];
-		$reference[ kTAG_CONTAINER_REFERENCE ] = 'CMongoDataWrapper';
-		$reference[ kTAG_DATABASE_REFERENCE ] = 'TEST';
+		$reference[ kOFFSET_REFERENCE_ID ] = $object[ kOFFSET_ID ];
+		$reference[ kOFFSET_REFERENCE_CONTAINER ] = 'CMongoDataWrapper';
+		$reference[ kOFFSET_REFERENCE_DATABASE ] = 'TEST';
 		$found = MongoDBRef::get( $db, $reference );
 	}
 	//
@@ -885,9 +885,9 @@ try
 		//
 		$reference = Array();
 		$container->UnserialiseObject( $object );			// To feed to MongoDBRef.
-		$reference[ kTAG_ID_REFERENCE ] = $object[ kTAG_ID_NATIVE ];
-		$reference[ kTAG_CONTAINER_REFERENCE ] = 'CMongoDataWrapper';
-		$reference[ kTAG_DATABASE_REFERENCE ] = 'TEST';
+		$reference[ kOFFSET_REFERENCE_ID ] = $object[ kOFFSET_ID ];
+		$reference[ kOFFSET_REFERENCE_CONTAINER ] = 'CMongoDataWrapper';
+		$reference[ kOFFSET_REFERENCE_DATABASE ] = 'TEST';
 		$found = MongoDBRef::get( $db, $reference );
 	}
 	//
@@ -1058,10 +1058,10 @@ try
 		(
 			array
 			(
-				kAPI_QUERY_SUBJECT => kTAG_ID_NATIVE,
+				kAPI_QUERY_SUBJECT => kOFFSET_ID,
 				kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-				kAPI_QUERY_TYPE => $object[ kTAG_ID_NATIVE ][ kTAG_TYPE ],
-				kAPI_QUERY_DATA => $object[ kTAG_ID_NATIVE ]
+				kAPI_QUERY_TYPE => $object[ kOFFSET_ID ][ kTAG_TYPE ],
+				kAPI_QUERY_DATA => $object[ kOFFSET_ID ]
 			)
 		)
 	);
@@ -1152,9 +1152,9 @@ try
 		//
 		$reference = Array();
 		$container->UnserialiseObject( $object );			// To feed to MongoDBRef.
-		$reference[ kTAG_ID_REFERENCE ] = $object[ kTAG_ID_NATIVE ];
-		$reference[ kTAG_CONTAINER_REFERENCE ] = 'CMongoDataWrapper';
-		$reference[ kTAG_DATABASE_REFERENCE ] = 'TEST';
+		$reference[ kOFFSET_REFERENCE_ID ] = $object[ kOFFSET_ID ];
+		$reference[ kOFFSET_REFERENCE_CONTAINER ] = 'CMongoDataWrapper';
+		$reference[ kOFFSET_REFERENCE_DATABASE ] = 'TEST';
 		$found = MongoDBRef::get( $db, $reference );
 	}
  	//
@@ -1221,10 +1221,10 @@ try
 		(
 			array
 			(
-				kAPI_QUERY_SUBJECT => kTAG_ID_NATIVE,
+				kAPI_QUERY_SUBJECT => kOFFSET_ID,
 				kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-				kAPI_QUERY_TYPE => $object[ kTAG_ID_NATIVE ][ kTAG_TYPE ],
-				kAPI_QUERY_DATA => $object[ kTAG_ID_NATIVE ]
+				kAPI_QUERY_TYPE => $object[ kOFFSET_ID ][ kTAG_TYPE ],
+				kAPI_QUERY_DATA => $object[ kOFFSET_ID ]
 			)
 		)
 	);
@@ -1305,9 +1305,9 @@ try
 	//
 	$reference = Array();
 	$container->UnserialiseObject( $object );			// To feed to MongoDBRef.
-	$reference[ kTAG_ID_REFERENCE ] = $object[ kTAG_ID_NATIVE ];
-	$reference[ kTAG_CONTAINER_REFERENCE ] = 'CMongoDataWrapper';
-	$reference[ kTAG_DATABASE_REFERENCE ] = 'TEST';
+	$reference[ kOFFSET_REFERENCE_ID ] = $object[ kOFFSET_ID ];
+	$reference[ kOFFSET_REFERENCE_CONTAINER ] = 'CMongoDataWrapper';
+	$reference[ kOFFSET_REFERENCE_DATABASE ] = 'TEST';
 	$found = MongoDBRef::get( $db, $reference );
  	//
 	// Display.
@@ -1434,9 +1434,9 @@ try
 		//
 		$reference = Array();
 		$container->UnserialiseObject( $object );			// To feed to MongoDBRef.
-		$reference[ kTAG_ID_REFERENCE ] = $object[ kTAG_ID_NATIVE ];
-		$reference[ kTAG_CONTAINER_REFERENCE ] = 'CMongoDataWrapper';
-		$reference[ kTAG_DATABASE_REFERENCE ] = 'TEST';
+		$reference[ kOFFSET_REFERENCE_ID ] = $object[ kOFFSET_ID ];
+		$reference[ kOFFSET_REFERENCE_CONTAINER ] = 'CMongoDataWrapper';
+		$reference[ kOFFSET_REFERENCE_DATABASE ] = 'TEST';
 		$found = MongoDBRef::get( $db, $reference );
 	}
 	//
@@ -2126,9 +2126,9 @@ try
 	// Build reference.
 	//
 	$reference = Array();
-	$reference[ kTAG_ID_REFERENCE ] = $object3[ kTAG_ID_NATIVE ];
-	$reference[ kTAG_CONTAINER_REFERENCE ] = 'CMongoDataWrapper';
-	$reference[ kTAG_DATABASE_REFERENCE ] = 'TEST';
+	$reference[ kOFFSET_REFERENCE_ID ] = $object3[ kOFFSET_ID ];
+	$reference[ kOFFSET_REFERENCE_CONTAINER ] = 'CMongoDataWrapper';
+	$reference[ kOFFSET_REFERENCE_DATABASE ] = 'TEST';
 	//
 	// Convert reference.
 	//

@@ -35,10 +35,10 @@ require_once( kPATH_LIBRARY_SOURCE."CCodedUnitObject.php" );
  * <ul>
  *	<li><i>{@link kTAG_LINK_IN kTAG_LINK_IN}</i>: This property contains the list of
  *		{@link RelatedFrom() incoming} references or links, it is a list of object
- *		{@link kTAG_ID_NATIVE identifiers} or object references.
+ *		{@link kOFFSET_ID identifiers} or object references.
  *	<li><i>{@link kTAG_LINK_OUT kTAG_LINK_OUT}</i>: This property contains the list of
  *		{@link RelateTo() outgoing} references or links, it is a list of object
- *		{@link kTAG_ID_NATIVE identifiers} or object references.
+ *		{@link kOFFSET_ID identifiers} or object references.
  * </ul>
  *
  *	@package	MyWrapper
@@ -69,7 +69,7 @@ class CGraphUnitObject extends CCodedUnitObject
 	 * <ul>
 	 *	<li><b>$theValue</b>: Reference or object. This parameter represents the reference,
 	 *		it may be a scalar, representing either the referenced object
-	 *		{@link kTAG_ID_NATIVE identifier}, a structure representing an object reference,
+	 *		{@link kOFFSET_ID identifier}, a structure representing an object reference,
 	 *		or the referenced object itself.
 	 *	<li><b>$theOperation</b>: The operation to perform:
 	 *	 <ul>
@@ -121,7 +121,7 @@ class CGraphUnitObject extends CCodedUnitObject
 	 * <ul>
 	 *	<li><b>$theValue</b>: Reference or object. This parameter represents the reference,
 	 *		it may be a scalar, representing either the referenced object
-	 *		{@link kTAG_ID_NATIVE identifier}, a structure representing an object reference,
+	 *		{@link kOFFSET_ID identifier}, a structure representing an object reference,
 	 *		or the referenced object itself.
 	 *	<li><b>$theOperation</b>: The operation to perform:
 	 *	 <ul>

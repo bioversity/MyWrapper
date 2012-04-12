@@ -244,7 +244,7 @@ class CTerm extends CGraphUnitObject
 	 *
 	 * In this class we use the term's {@link kTAG_NAMESPACE namespace} and
 	 * {@link kTAG_CODE code} to build the object's unique
-	 * {@link kTAG_ID_NATIVE identifier}; if the {@link kTAG_NAMESPACE namespace} is
+	 * {@link kOFFSET_ID identifier}; if the {@link kTAG_NAMESPACE namespace} is
 	 * missing, we use the {@link kTAG_CODE code}; if the {@link kTAG_NAMESPACE namespace}
 	 * is present, we use it as a prefix with the {@link kTAG_CODE code}, separated by the
 	 * {@link kTOKEN_NAMESPACE_SEPARATOR separator} token.

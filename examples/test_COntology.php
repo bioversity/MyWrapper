@@ -1,10 +1,10 @@
 <?php
 
 /**
- * {@link COntologyBaseTerm.php Base} term test suite.
+ * {@link COntology.php Base} term test suite.
  *
  * This file contains routines to test and demonstrate the behaviour of the
- * base term {@link COntologyBaseTerm class}.
+ * base term {@link COntology class}.
  *
  *	@package	Test
  *	@subpackage	Entities
@@ -15,7 +15,7 @@
 
 /*=======================================================================================
  *																						*
- *								test_COntologyBaseTerm.php								*
+ *									test_COntology.php									*
  *																						*
  *======================================================================================*/
 
@@ -27,7 +27,8 @@ require_once( '/Library/WebServer/Library/wrapper/includes.inc.php' );
 //
 // Class includes.
 //
-require_once( kPATH_LIBRARY_SOURCE."COntologyBaseTerm.php" );
+require_once( kPATH_LIBRARY_SOURCE."COntology.php" );
+require_once( kPATH_LIBRARY_SOURCE."CTermNamespace.php" );
 
 
 /*=======================================================================================
@@ -57,7 +58,7 @@ try
 	//
 	// Instantiate CMongoContainer.
 	//
-	$collection = new CMongoContainer( $db->selectCollection( 'COntologyBaseTerm' ) );
+	$collection = new CMongoContainer( $db->selectCollection( 'COntology' ) );
 	 
 	//
 	// Load terms.
@@ -65,8 +66,8 @@ try
 	echo( '<h3>Load terms</h3>' );
 	
 	echo( '<i><b>PREDICATE</b></i><br>' );
-	echo( '<i>$predicate = new COntologyBaseTerm();</i><br>' );
-	$predicate = new COntologyBaseTerm();
+	echo( '<i>$predicate = new COntology();</i><br>' );
+	$predicate = new COntology();
 	echo( '<i>$predicate->Code( \'IS_A\' );</i><br>' );
 	$predicate->Code( 'IS_A' );
 	echo( '<i>$predicate->Name( \'Is a\' );</i><br>' );
@@ -77,12 +78,10 @@ try
 	echo( '<hr>' );
 
 	echo( '<i><b>TERM 1</b></i><br>' );
-	echo( '<i>$term1 = new COntologyBaseTerm();</i><br>' );
-	$term1 = new COntologyBaseTerm();
+	echo( '<i>$term1 = new CTermNamespace();</i><br>' );
+	$term1 = new CTermNamespace();
 	echo( '<i>$term1->Code( \'NS\' );</i><br>' );
 	$term1->Code( 'NS' );
-	echo( '<i>$term1->Kind( kTAG_TERM_NAMESPACE, TRUE );</i><br>' );
-	$term1->Kind( kTAG_TERM_NAMESPACE, TRUE );
 	echo( '<i>$term1->Name( \'Namespace term\', \'en\' );</i><br>' );
 	$term1->Name( 'Namespace term', 'en' );
 	echo( '<i>$term1->Name( \'Termine spazio nome\', \'it\' );</i><br>' );
@@ -99,14 +98,12 @@ try
 	echo( '<hr>' );
 	
 	echo( '<i><b>TERM 2</b></i><br>' );
-	echo( '<i>$term2 = new COntologyBaseTerm();</i><br>' );
-	$term2 = new COntologyBaseTerm();
+	echo( '<i>$term2 = new COntology();</i><br>' );
+	$term2 = new COntology();
 	echo( '<i>$term2->NS( \'NS\' );</i><br>' );
 	$term2->NS( 'NS' );
 	echo( '<i>$term2->Code( \'TERM2\' );</i><br>' );
 	$term2->Code( 'TERM2' );
-	echo( '<i>$term2->Kind( kTAG_TERM, TRUE );</i><br>' );
-	$term2->Kind( kTAG_TERM, TRUE );
 	echo( '<i>$term2->Name( \'Term 2\', \'en\' );</i><br>' );
 	$term2->Name( 'Term 2', 'en' );
 	echo( '<i>$term2->Name( \'Termine 1\', \'it\' );</i><br>' );
@@ -115,8 +112,8 @@ try
 	$term2->Definition( 'This is the first term', 'en' );
 	echo( '<i>$term2->Definition( \'Questo è il primo termine\', \'it\' );</i><br>' );
 	$term2->Definition( 'Questo è il primo termine', 'it' );
-	echo( '<i>$term2->RelatedFrom( $term1, $predicate, TRUE );</i><br>' );
-	$term2->RelatedFrom( $term1, $predicate, TRUE );
+	echo( '<i>$term2->RelatedFrom( $term1, TRUE );</i><br>' );
+	$term2->RelatedFrom( $term1, TRUE );
 	echo( '<i>$term2->Valid( $term1 );</i><br>' );
 	$term2->Valid( $term1 );
 	echo( '<i>$term2->Stamp( new CDataTypeStamp() );</i><br>' );
@@ -127,20 +124,20 @@ try
 	echo( '<hr>' );
 	
 	echo( '<i><b>TERM 3</b></i><br>' );
-	echo( '<i>$term3 = new COntologyBaseTerm();</i><br>' );
-	$term3 = new COntologyBaseTerm();
+	echo( '<i>$term3 = new COntology();</i><br>' );
+	$term3 = new COntology();
 	echo( '<i>$term3->NS( \'NS\' );</i><br>' );
 	$term3->NS( 'NS' );
 	echo( '<i>$term3->Code( \'TERM3\' );</i><br>' );
 	$term3->Code( 'TERM3' );
 	echo( '<i>$term3->Name( \'Term 3\' );</i><br>' );
 	$term3->Name( 'Term 3' );
-	echo( '<i>$term3->RelatedFrom( $term1, $predicate, TRUE );</i><br>' );
-	$term3->RelatedFrom( $term1, $predicate, TRUE );
-	echo( '<i>$object3->RelateTo( $term2, $predicate, TRUE );</i><br>' );
-	$term3->RelateTo( $term2, $predicate, TRUE );
+	echo( '<i>$term3->RelatedFrom( $term1, TRUE );</i><br>' );
+	$term3->RelatedFrom( $term1, TRUE );
+	echo( '<i>$object3->RelateTo( $term2, TRUE );</i><br>' );
+	$term3->RelateTo( $term2, TRUE );
 	echo( '<i>$term3->Valid( (string) $term2 );</i><br>' );
-	$term3->Valid( (string) $term2 );
+	$term3->Valid(  (string) $term2 );
 	echo( '<i>$id3 = $term3->Commit( $collection );</i><br>' );
 	$id3 = $term3->Commit( $collection );
 	echo( "$term3<pre>" ); print_r( $term3 ); echo( '</pre>' );
@@ -153,20 +150,20 @@ try
 	echo( '<h3>Test valid chain</h3>' );
 
 	echo( "<i>$term1</i><br>" );
-	echo( '<i>$valid = COntologyBaseTerm::ValidObject( $collection, $id1 );</i><br>' );
-	$valid = COntologyBaseTerm::ValidObject( $collection, $id1 );
+	echo( '<i>$valid = COntology::ValidObject( $collection, $id1 );</i><br>' );
+	$valid = COntology::ValidObject( $collection, $id1 );
 	echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
 	echo( '<hr>' );
 
 	echo( "<i>$term2</i><br>" );
-	echo( '<i>$valid = COntologyBaseTerm::ValidObject( $collection, $id2 );</i><br>' );
-	$valid = COntologyBaseTerm::ValidObject( $collection, $id2 );
+	echo( '<i>$valid = COntology::ValidObject( $collection, $id2 );</i><br>' );
+	$valid = COntology::ValidObject( $collection, $id2 );
 	echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
 	echo( '<hr>' );
 
 	echo( "<i>$term3</i><br>" );
-	echo( '<i>$valid = COntologyBaseTerm::ValidObject( $collection, $id3 );</i><br>' );
-	$valid = COntologyBaseTerm::ValidObject( $collection, $id3 );
+	echo( '<i>$valid = COntology::ValidObject( $collection, $id3 );</i><br>' );
+	$valid = COntology::ValidObject( $collection, $id3 );
 	echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
 	echo( '<hr>' );
 	 
@@ -189,33 +186,6 @@ try
 		echo( CException::AsHTML( $error ) );
 		echo( '<br>' );
 	}
-	echo( '<hr>' );
-	 
-	//
-	// Try duplicate reference.
-	//
-	echo( '<h3>Try duplicate reference</h3>' );
-
-	echo( '<i>$term3->RelatedFrom( $id1, $idp, TRUE );</i><br>' );
-	$term3->RelatedFrom( $id1, $idp, TRUE );
-	echo( '<pre>' ); print_r( $term3 ); echo( '</pre>' );
-	echo( '<i>$term3->Commit( $collection );</i><br>' );
-	$term3->Commit( $collection );
-	echo( '<pre>' ); print_r( $term3 ); echo( '</pre>' );
-	echo( '<hr>' );
-	echo( '<hr>' );
-	 
-	//
-	// Try delete reference.
-	//
-	echo( '<h3>Try delete reference</h3>' );
-
-	echo( '<i>$term3->RelatedFrom( $id1, $idp, FALSE );</i><br>' );
-	$term3->RelatedFrom( $id1, $idp, FALSE );
-	echo( '<i>$term3->Commit( $collection );</i><br>' );
-	$term3->Commit( $collection );
-	echo( '<pre>' ); print_r( $term3 ); echo( '</pre>' );
-	echo( '<hr>' );
 	echo( '<hr>' );
 }
 

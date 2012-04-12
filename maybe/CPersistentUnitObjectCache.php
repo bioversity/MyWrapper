@@ -34,10 +34,10 @@ require_once( kPATH_LIBRARY_SOURCE."CArrayObject.php" );
  *
  * Objects of this class can be 
  Since instances of that class have a unique identifier, instances can be
- * retrieved by {@link kTAG_ID_NATIVE identifier}.
+ * retrieved by {@link kOFFSET_ID identifier}.
  *
  * The cache uses the object's internal array and the element keys are the object's
- * {@link kTAG_ID_NATIVE identifiers} cast to string.
+ * {@link kOFFSET_ID identifiers} cast to string.
  *
  * The main use of such objects is to 
  *
@@ -253,7 +253,7 @@ class CPersistentUnitObjectCache extends CArrayObject
 	 *
 	 * In this class we handle {@link CPersistentUnitObject CPersistentUnitObject}
 	 * instances, so we accept providing offsets as the instance itself, but in that case
-	 * we need to use the object's {@link kTAG_ID_NATIVE identifier}.
+	 * we need to use the object's {@link kOFFSET_ID identifier}.
 	 *
 	 * @param string				$theOffset			Offset.
 	 *
@@ -270,7 +270,7 @@ class CPersistentUnitObjectCache extends CArrayObject
 			//
 			// Get identifier.
 			//
-			$offset = $theOffset->offsetGet( kTAG_ID_NATIVE );
+			$offset = $theOffset->offsetGet( kOFFSET_ID );
 			
 			//
 			// Check object identifier.

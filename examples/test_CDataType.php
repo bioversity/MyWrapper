@@ -247,7 +247,7 @@ try
 	
 	$array = array
 	(
-		kTAG_ID_NATIVE => new MongoId( '4d95830b2e4398070722f414' ),
+		kOFFSET_ID => new MongoId( '4d95830b2e4398070722f414' ),
 		'Stamp' => new MongoDate(),
 		'RegExpr' => new MongoRegEx( '/^pippo/i' ),
 		'Int32' => new MongoInt32( 123456789 ),
