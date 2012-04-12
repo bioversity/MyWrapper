@@ -264,6 +264,13 @@ define( "kTAG_TERM_ONTOLOGY",					':TERM:ONTO' );
  */
 define( "kTAG_TERM_PREDICATE",					':TERM:PRED' );
 
+/**
+ * Enumeration.
+ *
+ * This is the tag that represents an enumeration term.
+ */
+define( "kTAG_TERM_ENUM",						':TERM:ENUM' );
+
 /*=======================================================================================
  *	DEFAULT PROPERTY OFFSETS															*
  *======================================================================================*/
