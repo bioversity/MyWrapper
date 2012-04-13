@@ -31,14 +31,17 @@
 <p class="short-description">Coded unit object.</p>
 <p class="description"><p>Objects derived from this class have the following predefined properties:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">kTAG_CODE</a></em>: This attribute represents the current object's
         <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a>, identifier or acronym.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kTAG_KIND</a></em>: This attribute represents the current object's
-        <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodKind">kind</a> or type.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_VALID">kTAG_VALID</a></em>: This offset holds the
-        <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">native</a> identifier of the valid object. This should be used
+        <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodKind">kind</a> or type.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_REFS">kTAG_REFS</a></em>: This offset holds the object list of references,
+        these are references to other objects that form a subject/predicate/object triplet,
+        where the subject is the current object, and the list of predicate/object pairs is
+        held in this offset.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_VALID">kTAG_VALID</a></em>: This offset holds the
+        <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_ID">native</a> identifier of the valid object. This should be used
         when the current object becomes obsolete: instead of deleting it we create a new one
         and store in this <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_VALID">offset</a> the identifier of the new object that
         will replace the current one.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_MOD_STAMP">kTAG_MOD_STAMP</a></em>: This offset holds the object's last
-        modification time stamp, this property should be used to mark all objects.</li></ul></p><p>By default, the unique <a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_index">identifier</a> of the object is its  <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a>, which is also its <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_id">id</a>.</p><p>Objects of this class require at least the <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">offset</a>  to have an <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">initialised</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>.</p></p>
+        modification time stamp, this property should be used to mark all objects.</li></ul></p><p>By default, the unique <a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_index">identifier</a> of the object is its  <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a>, which is also its <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_id">id</a>.</p><p>Objects of this class require at least the <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">offset</a>  to have an <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">initialised</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>.</p><p>This class implements the string <a href="../../MyWrapper/Framework/CCodedUnitObject.html#method__toString">conversion</a>, by default it returns  the value of the object <a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_index">identifier</a>.</p></p>
 		<p class="notes">
-			Located in <a class="field" href="_classes---CCodedUnitObject.php.html">/classes/CCodedUnitObject.php</a> (line <span class="field">57</span>)
+			Located in <a class="field" href="_classes---CCodedUnitObject.php.html">/classes/CCodedUnitObject.php</a> (line <span class="field">64</span>)
 		</p>
 		
 				
@@ -81,10 +84,10 @@
 								 alt=" class"
 								 title=" class"
 								 style="vertical-align: center"/>
-						<a href="../../MyWrapper/Framework/CGraphUnitObject.html">CGraphUnitObject</a>
+						<a href="../../MyWrapper/Entities/CEntity.html">CEntity</a>
 					</td>
 					<td>
-											Graph unit object.
+											Entity.
 										</td>
 				</tr>
 							</table>
@@ -108,13 +111,13 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																																																																				<div class="method-definition">
+																																																																												<div class="method-definition">
 					<img src="../../media/images/StaticMethod.png" alt=" "/>
 											static <span class="method-result"><a href="../../MyWrapper/Framework/CCodedUnitObject.html">CCodedUnitObject</a></span>
 										<a href="#ValidObject" title="details" class="method-name">ValidObject</a>
 											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>, [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_DEFAULT</span>])
 									</div>
-																												<div class="method-definition">
+																																																																												<div class="method-definition">
 					<img src="../../media/images/Constructor.png" alt=" "/>
 											<span class="method-result">CCodedUnitObject</span>
 										<a href="#__construct" title="details" class="method-name">__construct</a>
@@ -146,6 +149,12 @@
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#Relate" title="details" class="method-name">Relate</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$thePredicate</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theOperation</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">string</span>
 										<a href="#Stamp" title="details" class="method-name">Stamp</a>
 											([<span class="var-type">NULL|FALSE|string</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
@@ -158,8 +167,44 @@
 									</div>
 																								<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#_CheckRelationObject" title="details" class="method-name">_CheckRelationObject</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#_CheckRelationPredicate" title="details" class="method-name">_CheckRelationPredicate</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#_CommitReference" title="details" class="method-name">_CommitReference</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theReference</span>, <span class="var-type"><a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a></span>&nbsp;<span class="var-name">$theContainer</span>, <span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span>, [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$doRecurse</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_CommitReferences" title="details" class="method-name">_CommitReferences</a>
+											(<span class="var-type"><a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a></span>&nbsp;<span class="var-name">$theContainer</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>, <span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">string</span>
 										<a href="#_index" title="details" class="method-name">_index</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_PrepareCommit" title="details" class="method-name">_PrepareCommit</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">string</span>
+										<a href="#__toString" title="details" class="method-name">__toString</a>
 										()
 									</div>
 											</div>
@@ -213,7 +258,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static ValidObject</span> (line <span class="line-number">398</span>)
+		<span class="method-title">static ValidObject</span> (line <span class="line-number">528</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -241,21 +286,13 @@
 				</ul>
 		
 			
-			<hr class="separator" />
-		<div class="notes">Redefined in descendants as:</div>
-		<ul class="redefinitions">
-					<li>
-				<a href="../../MyWrapper/Ontology/COntologyBaseTerm.html#methodValidObject">COntologyBaseTerm::ValidObject()</a>
-								: Return a valid object.
-							</li>
-				</ul>
 	</div>
 <a name="method__construct" id="__construct"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Constructor.png" />
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">90</span>)
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">97</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -305,14 +342,6 @@
 				<a href="../../MyWrapper/Entities/CUser.html#method__construct">CUser::__construct()</a>
 								: Instantiate class.
 							</li>
-					<li>
-				<a href="../../MyWrapper/Ontology/COntologyBaseTerm.html#method__construct">COntologyBaseTerm::__construct()</a>
-								: Instantiate class.
-							</li>
-					<li>
-				<a href="../../MyWrapper/Ontology/COntologyTerm.html#method__construct">COntologyTerm::__construct()</a>
-								: Instantiate class.
-							</li>
 				</ul>
 	</div>
 <a name="methodCode" id="Code"><!-- --></a>
@@ -320,7 +349,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Code</span> (line <span class="line-number">143</span>)
+		<span class="method-title">Code</span> (line <span class="line-number">167</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -356,7 +385,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Kind</span> (line <span class="line-number">178</span>)
+		<span class="method-title">Kind</span> (line <span class="line-number">202</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -365,8 +394,6 @@
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kTAG_KIND</a></li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/CTermNamespace.html#method_PrepareCommit">CTermNamespace::_PrepareCommit()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTerm.html#method_PrepareCommit">COntologyTerm::_PrepareCommit()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></li>
 			</ul>
 	
@@ -397,7 +424,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetSet</span> (line <span class="line-number">318</span>)
+		<span class="method-title">offsetSet</span> (line <span class="line-number">448</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -446,10 +473,6 @@
 				<a href="../../MyWrapper/Entities/CUser.html#methodoffsetSet">CUser::offsetSet()</a>
 								: Set a value for a given offset.
 							</li>
-					<li>
-				<a href="../../MyWrapper/Ontology/COntologyTerm.html#methodoffsetSet">COntologyTerm::offsetSet()</a>
-								: Set a value for a given offset.
-							</li>
 				</ul>
 	</div>
 <a name="methodoffsetUnset" id="offsetUnset"><!-- --></a>
@@ -457,7 +480,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetUnset</span> (line <span class="line-number">349</span>)
+		<span class="method-title">offsetUnset</span> (line <span class="line-number">479</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -503,18 +526,55 @@
 				<a href="../../MyWrapper/Entities/CUser.html#methodoffsetUnset">CUser::offsetUnset()</a>
 								: Reset a value for a given offset.
 							</li>
-					<li>
-				<a href="../../MyWrapper/Ontology/COntologyTerm.html#methodoffsetUnset">COntologyTerm::offsetUnset()</a>
-								: Reset a value for a given offset.
-							</li>
 				</ul>
 	</div>
-<a name="methodStamp" id="Stamp"><!-- --></a>
+<a name="methodRelate" id="Relate"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Stamp</span> (line <span class="line-number">286</span>)
+		<span class="method-title">Relate</span> (line <span class="line-number">284</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage object references.</p>
+<p class="description"><p>This method can be used to manage relationships between the current object and other  objects, it is represented as a list of subject/predicate/object relationships in  which the subject is the current object, and the list of predicate/object pairs will  be stored in the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_REFS">kTAG_REFS</a> offset.</p><p>The method accepts the following parameters:</p><p></p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> kTAG_REFS kTAG_KIND kTAG_DATA</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			Relate
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$thePredicate</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theOperation</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theObject</span><span class="var-description">: Reference object.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$thePredicate</span><span class="var-description">: Reference predicate.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theOperation</span><span class="var-description">: Operation.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodStamp" id="Stamp"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Stamp</span> (line <span class="line-number">416</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -548,16 +608,16 @@
 			
 	</div>
 <a name="methodValid" id="Valid"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Valid</span> (line <span class="line-number">215</span>)
+		<span class="method-title">Valid</span> (line <span class="line-number">367</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage valid reference.</p>
-<p class="description"><p>This method can be used to handle the valid object's  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a>, it uses the standard accessor  <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">method</a> to manage the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_VALID">offset</a>.</p><p>Objects derived from this class should be persistent, in other words, it is not an  option to delete such objects: by creating a new object and referencing it from the  old one, we maintain the original reference and point to the valid object.</p><p>For a more in-depth reference of this method, please consult the  <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">_ManageOffset</a> method, in which the first parameter will be  the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_VALID">kTAG_VALID</a>.</p></p>
+<p class="description"><p>This method can be used to handle the valid object's  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_ID">identifier</a>, it uses the standard accessor  <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">method</a> to manage the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_VALID">offset</a>.</p><p>Objects derived from this class should be persistent, in other words, it is not an  option to delete such objects: by creating a new object and referencing it from the  old one, we maintain the original reference and point to the valid object.</p><p>For a more in-depth reference of this method, please consult the  <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">_ManageOffset</a> method, in which the first parameter will be  the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_VALID">kTAG_VALID</a>.</p><p>In this class we feed the value to the  <a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_CheckRelationObject">_CheckRelationObject</a> method that will take care of  handling object references.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_VALID">kTAG_VALID</a></li>
 				<li><span class="field">access:</span> public</li>
@@ -582,28 +642,225 @@
 				</ul>
 		
 			
-			<hr class="separator" />
-		<div class="notes">Redefined in descendants as:</div>
-		<ul class="redefinitions">
-					<li>
-				<a href="../../MyWrapper/Ontology/COntologyBaseTerm.html#methodValid">COntologyBaseTerm::Valid()</a>
-								: Manage valid reference.
-							</li>
-				</ul>
 	</div>
-<a name="method_index" id="_index"><!-- --></a>
+<a name="method_CheckRelationObject" id="_CheckRelationObject"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_CheckRelationObject</span> (line <span class="line-number">994</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Normalise object reference parameter.</p>
+<p class="description"><p>This method can be used to normalise a parameter that is supposed to be a reference  to another object, the method will perform the following conversions:</p><p><ul><li><em>CCodedUnitObject</em>: Objects derived from this class will be handled as
+		follows:
+	 <ul><li><em><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsCommitted">Committed</a></em>: If the provided object has a
+            <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsCommitted">committed</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_COMMITTED">status</a>, the
+            method will return the object's <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_ID">identifier</a>.</li><li><em>Not <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsCommitted">committed</a></em>: The parameter will not be
+            converted.</li></ul></li><li><em><a href="../../MyWrapper/Framework/CDataType.html">CDataType</a></em>: When providing a complex data type, we
+        assume the value corresponds to the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_ID">identifier</a>, in which case
+        we leave it untouched.</li><li><em>Array</em> or <em>ArrayObject</em>: In this case the method will assume the
+        provided structure is an object reference and it will check if the
+        <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_REFERENCE_ID">kOFFSET_REFERENCE_ID</a> offset is there, if this is
+        not the case the method will raise an exception.</li><li><em>other</em>: Any other type will be converted to a string.</li></ul></p><p>The method will return the converted value, derived classes should first handle  custom types and pass other types to the parent method.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> kOFFSET_ID kOFFSET_REFERENCE_ID</li>
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsCommitted">CPersistentObject::_IsCommitted()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			_CheckRelationObject
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Object or reference.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_CheckRelationPredicate" id="_CheckRelationPredicate"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_index</span> (line <span class="line-number">488</span>)
+		<span class="method-title">_CheckRelationPredicate</span> (line <span class="line-number">1075</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Normalise predicate reference parameter.</p>
+<p class="description"><p>This method can be used to normalise a parameter that is supposed to be a relation  predicate, the method will perform the following conversions:</p><p><ul><li><em>NULL</em>: No conversion.</li><li><em>FALSE</em>: No conversion.</li><li><em>CCodedUnitObject</em>: The method will pass the parameter to the
+		<a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_CheckRelationObject">_CheckRelationObject</a> method.</li><li><em><a href="../../MyWrapper/Framework/CDataType.html">CDataType</a></em>: The method will pass the parameter to the
+        <a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_CheckRelationObject">_CheckRelationObject</a> method.</li><li><em>Array</em> or <em>ArrayObject</em>: The method will pass the parameter to the
+        <a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_CheckRelationObject">_CheckRelationObject</a> method.</li><li><em>other</em>: Any other type will be converted to a string.</li></ul></p><p>The method will return the converted value, derived classes should first handle  custom types and pass other types to the parent method.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> kOFFSET_ID kOFFSET_REFERENCE_ID</li>
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsCommitted">CPersistentObject::_IsCommitted()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			_CheckRelationPredicate
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Relation predicate.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_CommitReference" id="_CommitReference"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_CommitReference</span> (line <span class="line-number">866</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Commit instance reference.</p>
+<p class="description"><p>This method will check if the provided reference is an object derived from this  class, in that case it will <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">commit</a> it and convert it to an object  reference.</p><p>The parameters to this method are:</p><p><ul><li><strong>&amp;$theReference</strong>: The reference, depending on its type:
+     <ul><li><em>CCodedUnitObject</em>: Objects derived from this class will be
+            <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">committed</a> and the parameter will be replaced with the
+            object <a href="../../MyWrapper/Persistence/CContainer.html#methodReference">reference</a>.</li><li><em>Array</em> or <em>ArrayObject</em>: In this case we shall check whether the
+            structure has the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kTAG_KIND</a> and/or the
+            <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a> elements: in that case if these elements are
+            derived from this class, we <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">commit</a> them and replace them
+            with object <a href="../../MyWrapper/Persistence/CContainer.html#methodReference">references</a>.</li></ul></li><li><strong>$theContainer</strong>: The container that is about to receive the current object,
+        it must also be the container in which to find the references and must be
+        derived from <a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a>.</li><li><strong>$theModifiers</strong>: A bitfield indicating which elements of the
+        <a href="../../MyWrapper/Persistence/CContainer.html#methodReference">reference</a> should be included, this parameter
+        will be passed to the <a href="../../MyWrapper/Persistence/CContainer.html#methodReference">method</a> that will convert
+        the object into a reference:
+     <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_REFERENCE_IDENTIFIER">kFLAG_REFERENCE_IDENTIFIER</a></em>: The
+            object <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_ID">identifier</a> will be stored under the
+            <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_REFERENCE_ID">kOFFSET_REFERENCE_ID</a> offset. This option is
+            enforced.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_REFERENCE_CONTAINER">kFLAG_REFERENCE_CONTAINER</a></em>: The
+            provided container name will be stored under the
+            <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_REFERENCE_CONTAINER">kOFFSET_REFERENCE_CONTAINER</a> offset. If
+            the provided value is empty, the offset will not be set.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_REFERENCE_DATABASE">kFLAG_REFERENCE_DATABASE</a></em>: The
+            provided container's database name will be stored under the
+            <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_REFERENCE_DATABASE">kOFFSET_REFERENCE_DATABASE</a> offset. If the
+            current object's Database() name is <em>NULL</em>, the
+            offset will not be set.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_REFERENCE_CLASS">kFLAG_REFERENCE_CLASS</a></em>: The element
+            object's class name will be stored under the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CLASS">kTAG_CLASS</a>
+            offset.</li></ul></li></ul></p><p>The method will return <em>TRUE</em> if a <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">commit</a> was performed, or  <em>NULL</em> if not.</p><p>Note that when we <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">commit</a> referenced objects we use  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_REPLACE">kFLAG_PERSIST_REPLACE</a> as the commit type.</p><p>This method is called by  <a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_CommitReferences">_CommitReferences</a>, so we assume that the  provided container is an instance of <a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a>.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> kTAG_KIND kTAG_DATA</li>
+				<li><span class="field">see:</span> kFLAG_PERSIST_REPLACE kFLAG_STATE_ENCODED kFLAG_REFERENCE_IDENTIFIER</li>
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_CommitReferences">CCodedUnitObject::_CommitReferences()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			_CommitReference
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theReference</span>, <span class="var-type"><a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a></span>&nbsp;<span class="var-name">$theContainer</span>, <span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span>, [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$doRecurse</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theReference</span><span class="var-description">: Reference.</span>			</li>
+					<li>
+				<span class="var-type"><a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a></span>
+				<span class="var-name">$theContainer</span><span class="var-description">: Object container.</span>			</li>
+					<li>
+				<span class="var-type">bitfield</span>
+				<span class="var-name">$theModifiers</span><span class="var-description">: Reference options.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$doRecurse</span><span class="var-description">: Recurse flag.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_CommitReferences" id="_CommitReferences"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_CommitReferences</span> (line <span class="line-number">736</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Commit instance references.</p>
+<p class="description"><p>This method will take care of committing object references expressed as the actual  instances of objects. It is called <a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_PrepareCommit">before</a>  <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">storing</a> objects that contain references to other objects, its duty  is to traverse these lists and <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">commit</a> any element that is actually  an instance derived from this class, and convert it back to a reference.</p><p>The parameters to this method are:</p><p><ul><li><strong>$theContainer</strong>: The container that is about to receive the current object,
+        it must also be the container in which to find the references and must be
+        derived from <a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a>.</li><li><strong>$theOffset</strong>: The current object's offset in which the reference list or
+        element is stored.</li><li><strong>$theModifiers</strong>: A bitfield indicating which elements of the
+        <a href="../../MyWrapper/Persistence/CContainer.html#methodReference">reference</a> should be included, this parameter
+        will be passed to the <a href="../../MyWrapper/Persistence/CContainer.html#methodReference">method</a> that will convert
+        the object into a reference:
+     <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_REFERENCE_IDENTIFIER">kFLAG_REFERENCE_IDENTIFIER</a></em>: The
+            object <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_ID">identifier</a> will be stored under the
+            <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_REFERENCE_ID">kOFFSET_REFERENCE_ID</a> offset. This option is
+            enforced.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_REFERENCE_CONTAINER">kFLAG_REFERENCE_CONTAINER</a></em>: The
+            provided container name will be stored under the
+            <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_REFERENCE_CONTAINER">kOFFSET_REFERENCE_CONTAINER</a> offset. If
+            the provided value is empty, the offset will not be set.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_REFERENCE_DATABASE">kFLAG_REFERENCE_DATABASE</a></em>: The
+            provided container's database name will be stored under the
+            <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_REFERENCE_DATABASE">kOFFSET_REFERENCE_DATABASE</a> offset. If the
+            current object's Database() name is <em>NULL</em>, the
+            offset will not be set.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_REFERENCE_CLASS">kFLAG_REFERENCE_CLASS</a></em>: The element
+            object's class name will be stored under the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CLASS">kTAG_CLASS</a>
+            offset.</li></ul></li></ul></p><p>Note that when we <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">commit</a> referenced objects we use  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_REPLACE">kFLAG_PERSIST_REPLACE</a> as the commit type.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_CommitReference">CCodedUnitObject::_CommitReference()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_CommitReferences
+		</span>
+					(<span class="var-type"><a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a></span>&nbsp;<span class="var-name">$theContainer</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>, <span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a></span>
+				<span class="var-name">$theContainer</span><span class="var-description">: Object container.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theOffset</span><span class="var-description">: Reference list offset.</span>			</li>
+					<li>
+				<span class="var-type">bitfield</span>
+				<span class="var-name">$theModifiers</span><span class="var-description">: Referencing options.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_index" id="_index"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_index</span> (line <span class="line-number">618</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Return the object's unique index.</p>
-<p class="description"><p>In this class we consider the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a> to be the object's unique  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a>.</p></p>
+<p class="description"><p>In this class we consider the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a> to be the object's unique  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_ID">identifier</a>.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CCodedUnitObject.html#method__toString">CCodedUnitObject::__toString()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -637,11 +894,95 @@
 				<a href="../../MyWrapper/Entities/CUser.html#method_index">CUser::_index()</a>
 								: Return the object's unique index.
 							</li>
+				</ul>
+	</div>
+<a name="method_PrepareCommit" id="_PrepareCommit"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">651</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Normalise before a store.</p>
+<p class="description"><p>We overload this method to <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">commit</a> eventual object references stored  as instances. We scan the <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodRelate">relations</a> and the <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodValid">valid</a>  references and process all elements that derive from this class.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Errors.inc.php.html#definekERROR_OPTION_MISSING">kERROR_OPTION_MISSING</a></li>
+				<li><span class="field">throws:</span> <a href="../../MyWrapper/Framework/CException.html">CException</a></li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_PrepareCommit
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+			</div>
+	
+			<ul class="parameters">
 					<li>
-				<a href="../../MyWrapper/Ontology/CTerm.html#method_index">CTerm::_index()</a>
-								: Return the object's unique index.
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theContainer</span><span class="var-description">: Object container.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theModifiers</span><span class="var-description">: Commit modifiers.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_PrepareCommit">CPersistentUnitObject::_PrepareCommit()</a></dt>
+						<dd>Normalise before a store.</dd>
+					</dl>
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Entities/CInstitute.html#method_PrepareCommit">CInstitute::_PrepareCommit()</a>
+								: Normalise parameters of a store.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Entities/CFAOInstitute.html#method_PrepareCommit">CFAOInstitute::_PrepareCommit()</a>
+								: Normalise parameters of a store.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Entities/CUser.html#method_PrepareCommit">CUser::_PrepareCommit()</a>
+								: Normalise parameters of a store.
 							</li>
 				</ul>
+	</div>
+<a name="method__toString" id="__toString"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">__toString</span> (line <span class="line-number">128</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return object identifier.</p>
+<p class="description"><p>In this class we return the object string <a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_index">identifier</a>.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_index">CCodedUnitObject::_index()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			__toString
+		</span>
+				()
+			</div>
+	
+		
+			
 	</div>
 							<h4>Inherited Methods</h4>
 				<a name='inherited_methods'><!-- --></a>	
@@ -664,8 +1005,6 @@
 							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_PrepareCommit">CPersistentUnitObject::_PrepareCommit()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_PrepareLoad">CPersistentUnitObject::_PrepareLoad()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_PrepareReferenceList">CPersistentUnitObject::_PrepareReferenceList()</a></span><br>
 											</blockquote>
 									<!-- =========== Summary =========== -->
 					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Persistence/CPersistentObject.html">CPersistentObject</a></span></p>
@@ -818,7 +1157,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Thu, 12 Apr 2012 19:49:26 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 13 Apr 2012 16:34:56 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

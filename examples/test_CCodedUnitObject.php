@@ -89,8 +89,8 @@ try
 	$object2->Kind( 'USER', TRUE );
 	echo( '<i>$object2->Stamp( new CDataTypeStamp() );</i><br>' );
 	$object2->Stamp( new CDataTypeStamp() );
-	echo( '<i>$object2->Valid( $object1->Code() );</i><br>' );
-	$object2->Valid( $object1->Code() );
+	echo( '<i>$object2->Valid( $object1 );</i><br>' );
+	$object2->Valid( $object1 );
 	echo( '<pre>' ); print_r( $object2 ); echo( '</pre>' );
 	echo( '<hr>' );
 	
@@ -99,8 +99,16 @@ try
 	$object3 = new CCodedUnitObject();
 	echo( '<i>$object3->Code( \'ENTITY3\' );</i><br>' );
 	$object3->Code( 'ENTITY3' );
-	echo( '<i>$object3->Valid( $object2->Code() );</i><br>' );
-	$object3->Valid( $object2->Code() );
+	echo( '<i>$object3->Relate( $object1, $object2, TRUE );</i><br>' );
+	$object3->Relate( $object1, $object2, TRUE );
+	echo( '<i>$object3->Relate( $object2, NULL, TRUE );</i><br>' );
+	$object3->Relate( $object2, NULL, TRUE );
+	echo( '<i>$object3->Relate( $object3->Code(), FALSE, TRUE );</i><br>' );
+	$object3->Relate( $object3->Code(), FALSE, TRUE );
+	echo( '<i>$object3->Relate( $object3->Code(), NULL, TRUE );</i><br>' );
+	$object3->Relate( $object3->Code(), NULL, TRUE );
+	echo( '<i>$object3->Valid( $object2 );</i><br>' );
+	$object3->Valid( $object2 );
 	echo( '<pre>' ); print_r( $object3 ); echo( '</pre>' );
 	echo( '<hr>' );
 	echo( '<hr>' );
@@ -110,15 +118,17 @@ try
 	//
 	echo( '<h3>Persistence</h3>' );
 
+	echo( '<i>Committing Object 3 should commit all others, since they are intertangled.<br></i>' );
+	echo( '<i>$id3 = $object3->Commit( $collection, NULL, kFLAG_PERSIST_INSERT + kFLAG_STATE_ENCODED );</i><br>' );
+	$id3 = $object3->Commit( $collection, NULL, kFLAG_PERSIST_INSERT + kFLAG_STATE_ENCODED );
+	echo( "$id3<pre>" ); print_r( $object3 ); echo( '</pre>' );
+exit;
 	echo( '<i>$id1 = $object1->Commit( $collection, NULL, kFLAG_PERSIST_INSERT + kFLAG_STATE_ENCODED );</i><br>' );
 	$id1 = $object1->Commit( $collection, NULL, kFLAG_PERSIST_INSERT + kFLAG_STATE_ENCODED );
 	echo( "$id1<pre>" ); print_r( $object1 ); echo( '</pre>' );
 	echo( '<i>$id2 = $object2->Commit( $collection, NULL, kFLAG_PERSIST_INSERT + kFLAG_STATE_ENCODED );</i><br>' );
 	$id2 = $object2->Commit( $collection, NULL, kFLAG_PERSIST_INSERT + kFLAG_STATE_ENCODED );
 	echo( "$id2<pre>" ); print_r( $object2 ); echo( '</pre>' );
-	echo( '<i>$id3 = $object3->Commit( $collection, NULL, kFLAG_PERSIST_INSERT + kFLAG_STATE_ENCODED );</i><br>' );
-	$id3 = $object3->Commit( $collection, NULL, kFLAG_PERSIST_INSERT + kFLAG_STATE_ENCODED );
-	echo( "$id3<pre>" ); print_r( $object3 ); echo( '</pre>' );
 	echo( '<hr>' );
 	 
 	//

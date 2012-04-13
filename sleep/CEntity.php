@@ -24,7 +24,7 @@
  *
  * This include file contains the parent class definitions.
  */
-require_once( kPATH_LIBRARY_SOURCE."CCodedUnitObject.php" );
+require_once( kPATH_LIBRARY_SOURCE."CGraphUnitObject.php" );
 
 /**
  * Local defines.
@@ -36,18 +36,51 @@ require_once( kPATH_LIBRARY_SOURCE."CEntity.inc.php" );
 /**
  * Entity.
  *
- * An entity can be an individual, and organisation or a legal entity that exists as a unit,
- * rather than being embedded in another object.
+ * An entity can be an individual, and organisation or a legal entity that must be
+ * referenced.
  *
- * In this class we add to the {@link CCodedUnitObject parent} the following properties:
+ * The main difference between objects derived from this class and other instances of
+ * people or organisations is that in the latter case these entities may be embedded in
+ * in other objects, whereas in the case of this class, these entities must exist on their
+ * own since they are to be referenced by different sources.
+ *
+ * In this class we declare only the bare minimum attributes that any entity needs, derived
+ * classes will use this one as a base to implement concrete instances:
+ *
+ * We add to the {@link CGraphUnitObject parent} the following properties:
  *
  * <ul>
- *	<li><i>{@link kTAG_NAME kTAG_NAME}</i>: This offset represents the entity name, the
- *		class features a member accessor {@link Name() method} to manage this property.
+ *	<li><i>{@link kTAG_NAME kTAG_NAME}</i>: This offset represents the entity name. It may
+ *		be considered an expanded version of the code or a label that can be applied to the
+ *		entity. By default it should be a string, concrete derived instances may expand on
+ *		this. The class features a member accessor {@link Name() method} to manage this
+ *		property.
  *	<li><i>{@link kOFFSET_EMAIL kOFFSET_EMAIL}</i>: This offset represents the entity e-mail
- *		address, it is a scalar property and the class features a member accessor
- *		{@link Email() method} to manage it.
+ *		address. It is a single element and should be always up to date.
  * </ul>
+ *
+ * The {@link kTAG_LINK_IN incoming} and {@link kTAG_LINK_OUT outgoing} references have the
+ * following structure:
+ *
+ * <ul>
+ *	<li><i>{@link kTAG_KIND kTAG_KIND}</i>: This offset represents the reference type or
+ *		context.
+ *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: This offset represents the reference itself, it
+ *		has the following structure:
+ *	 <ul>
+ *		<li><i>{@link kOFFSET_REFERENCE_ID kOFFSET_REFERENCE_ID}</i>: The unique identifier
+ *			of the referenced object.
+ *		<li><i>{@link kOFFSET_REFERENCE_CONTAINER kOFFSET_REFERENCE_CONTAINER}</i>: The
+ *			{@link CContainer container} name.
+ *		<li><i>{@link kOFFSET_REFERENCE_DATABASE kOFFSET_REFERENCE_DATABASE}</i>: The
+ *			database name.
+ *		<li><i>{@link kTAG_CLASS kTAG_CLASS}</i>: The object class name.
+ *	 </ul>
+ * </ul>
+ *
+ * When {@link Commit() committing}, eventual {@link Affiliate() reference} elements set as
+ * the actual instances will be first {@link Commit() saved} to the same
+ * {@link CContainer container}, then replaced by references.
  *
  * The class also features a static {@link DefaultContainer() method} that returns the
  * default container name for objects of this type.
@@ -55,7 +88,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEntity.inc.php" );
  *	@package	MyWrapper
  *	@subpackage	Entities
  */
-class CEntity extends CCodedUnitObject
+class CEntity extends CGraphUnitObject
 {
 		
 
@@ -139,6 +172,8 @@ class CEntity extends CCodedUnitObject
 		return $this->_ManageOffset( kOFFSET_EMAIL, $theValue, $getOld );			// ==>
 
 	} // Email.
+
+	 
 	/*===================================================================================
 	 *	RelatedFrom																		*
 	 *==================================================================================*/
@@ -146,7 +181,7 @@ class CEntity extends CCodedUnitObject
 	/**
 	 * Manage incoming references.
 	 *
-	 * We {@link CCodedUnitObject::RelatedFrom() override} this method to handle references
+	 * We {@link CGraphUnitObject::RelatedFrom() override} this method to handle references
 	 * structured as follows:
 	 *
 	 * <ul>
@@ -244,7 +279,7 @@ class CEntity extends CCodedUnitObject
 	/**
 	 * Manage outgoing references.
 	 *
-	 * We {@link CCodedUnitObject::RelateTo() override} this method to handle references
+	 * We {@link CGraphUnitObject::RelateTo() override} this method to handle references
 	 * structured as follows:
 	 *
 	 * <ul>

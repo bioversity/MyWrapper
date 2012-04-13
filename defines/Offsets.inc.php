@@ -316,13 +316,14 @@ define( "kOFFSET_FAX",							':FAX' );
 /**
  * References tag.
  *
- * This is the tag that represents the list of references of an object. It is an array of
- * elements structured as follows:
+ * This is the tag that represents the list of references of an object, it is an array of
+ * object references in which each element may either be the reference itself or the
+ * following structure:
  *
  * <ul>
- *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: Relation type, it will usually be a string or
- *		code indicating the type of the relationship; it may also be omitted.
- *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: Relation data, it will be a reference to an
+ *	<li><i>{@link kTAG_KIND kTAG_KIND}</i>: Relation predicate, it can either be an object
+ *		reference or a string.
+ *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: Relation object, it will be a reference to an
  *		object in which the following elements may appear:
  *	 <ul>
  *		<li><i>{@link kOFFSET_REFERENCE_ID kOFFSET_REFERENCE_ID}</i>: The unique identifier

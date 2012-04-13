@@ -355,14 +355,6 @@
 				<a href="../../MyWrapper/Entities/CUser.html#method__construct">CUser::__construct()</a>
 								: Instantiate class.
 							</li>
-					<li>
-				<a href="../../MyWrapper/Ontology/COntologyBaseTerm.html#method__construct">COntologyBaseTerm::__construct()</a>
-								: Instantiate class.
-							</li>
-					<li>
-				<a href="../../MyWrapper/Ontology/COntologyTerm.html#method__construct">COntologyTerm::__construct()</a>
-								: Instantiate class.
-							</li>
 				</ul>
 	</div>
 <a name="methodCommit" id="Commit"><!-- --></a>
@@ -647,14 +639,16 @@
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_COMMITTED">kFLAG_STATE_COMMITTED</a></li>
 				<li><span class="field">access:</span> protected</li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Entities/CInstitute.html#methodoffsetUnset">CInstitute::offsetUnset()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Entities/CUser.html#methodoffsetSet">CUser::offsetSet()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Entities/CUser.html#methodoffsetUnset">CUser::offsetUnset()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Entities/CInstitute.html#methodoffsetSet">CInstitute::offsetSet()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">CPersistentObject::Commit()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">CPersistentObject::__construct()</a></li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CStatusObject.html#method_ManageBitField">CStatusObject::_ManageBitField()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Entities/CInstitute.html#methodoffsetUnset">CInstitute::offsetUnset()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Entities/CUser.html#methodoffsetUnset">CUser::offsetUnset()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_CheckRelationPredicate">CCodedUnitObject::_CheckRelationPredicate()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Entities/CUser.html#methodoffsetSet">CUser::offsetSet()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodUncommit">CPersistentObject::Uncommit()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">CPersistentObject::__construct()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">CPersistentObject::Commit()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CStatusObject.html#method_ManageBitField">CStatusObject::_ManageBitField()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_CheckRelationObject">CCodedUnitObject::_CheckRelationObject()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -688,11 +682,9 @@
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a></li>
 				<li><span class="field">access:</span> protected</li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyBaseTerm.html#method_CheckReference">COntologyBaseTerm::_CheckReference()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyBaseTerm.html#method_PrepareCreate">COntologyBaseTerm::_PrepareCreate()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_PrepareLoad">CPersistentObject::_PrepareLoad()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_PrepareCreate">CPersistentObject::_PrepareCreate()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CStatusObject.html#method_ManageBitField">CStatusObject::_ManageBitField()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_PrepareLoad">CPersistentObject::_PrepareLoad()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -797,7 +789,7 @@
 								: Normalise before a store.
 							</li>
 					<li>
-				<a href="../../MyWrapper/Framework/CGraphUnitObject.html#method_PrepareCommit">CGraphUnitObject::_PrepareCommit()</a>
+				<a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_PrepareCommit">CCodedUnitObject::_PrepareCommit()</a>
 								: Normalise before a store.
 							</li>
 					<li>
@@ -811,18 +803,6 @@
 					<li>
 				<a href="../../MyWrapper/Entities/CUser.html#method_PrepareCommit">CUser::_PrepareCommit()</a>
 								: Normalise parameters of a store.
-							</li>
-					<li>
-				<a href="../../MyWrapper/Ontology/COntologyBaseTerm.html#method_PrepareCommit">COntologyBaseTerm::_PrepareCommit()</a>
-								: Normalise before a store.
-							</li>
-					<li>
-				<a href="../../MyWrapper/Ontology/COntologyTerm.html#method_PrepareCommit">COntologyTerm::_PrepareCommit()</a>
-								: Normalise before a store.
-							</li>
-					<li>
-				<a href="../../MyWrapper/Ontology/CTermNamespace.html#method_PrepareCommit">CTermNamespace::_PrepareCommit()</a>
-								: Normalise before a store.
 							</li>
 				</ul>
 	</div>
@@ -864,14 +844,6 @@
 				</ul>
 		
 			
-			<hr class="separator" />
-		<div class="notes">Redefined in descendants as:</div>
-		<ul class="redefinitions">
-					<li>
-				<a href="../../MyWrapper/Ontology/COntologyBaseTerm.html#method_PrepareCreate">COntologyBaseTerm::_PrepareCreate()</a>
-								: Normalise parameters of a create.
-							</li>
-				</ul>
 	</div>
 <a name="method_PrepareLoad" id="_PrepareLoad"><!-- --></a>
 <div class="evenrow">
@@ -1045,7 +1017,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Thu, 12 Apr 2012 19:49:33 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 13 Apr 2012 16:35:03 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

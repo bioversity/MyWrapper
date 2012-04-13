@@ -3,7 +3,7 @@
   <html xmlns="http://www.w3.org/1999/xhtml">
 		<head>
 			<!-- template designed by Marco Von Ballmoos -->
-			<title>Docs For Class CTermNamespace</title>
+			<title>Docs For Class CPredicateTerm</title>
 			<link rel="stylesheet" href="../../media/stylesheet.css" />
 			<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
 		</head>
@@ -12,7 +12,7 @@
 <h2 class="class-name"><img src="../../media/images/Class_logo.png"
 														alt=" Class"
 														title=" Class"
-														style="vertical-align: middle"> CTermNamespace</h2>
+														style="vertical-align: middle"> CPredicateTerm</h2>
 
 <a name="sec-description"></a>
 <div class="info-box">
@@ -24,10 +24,10 @@
 					</div>
 	<div class="info-box-body">
         		<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Namespace term.</p>
-<p class="description"><p>This <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM_NAMESPACE">kind</a> of <a href="../../MyWrapper/Ontology/COntologyBaseTerm.html">term</a> represents a  namespace, or group that qualifies the Code() and <a href="../../MyWrapper/Ontology/CTerm.html#methodName">names</a> of  the <a href="../../MyWrapper/Ontology/COntologyBaseTerm.html">terms</a> that belong to this namespace.</p><p>In this class we enforce the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM_NAMESPACE">kTAG_TERM_NAMESPACE</a>  Kind().</p></p>
+<p class="short-description">Predicate term.</p>
+<p class="description"><p>This <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM_PREDICATE">kind</a> of <a href="../../MyWrapper/Ontology/COntologyTerm.html">term</a> represents the  root term of an ontology. In general, it can represent the ontology as a whole.</p><p>In this class we enforce the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM_PREDICATE">kTAG_TERM_PREDICATE</a>  Kind().</p></p>
 		<p class="notes">
-			Located in <a class="field" href="_classes---CTermNamespace.php.html">/classes/CTermNamespace.php</a> (line <span class="field">42</span>)
+			Located in <a class="field" href="_classes---CPredicateTerm.php.html">/classes/CPredicateTerm.php</a> (line <span class="field">41</span>)
 		</p>
 		
 				
@@ -37,7 +37,9 @@
       |
       --<a href="../../MyWrapper/Ontology/COntologyBaseTerm.html">COntologyBaseTerm</a>
          |
-         --CTermNamespace</pre>
+         --<a href="../../MyWrapper/Ontology/COntologyTerm.html">COntologyTerm</a>
+            |
+            --CPredicateTerm</pre>
 	
 			</div>
 </div>
@@ -80,14 +82,14 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">76</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">77</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Normalise before a store.</p>
-<p class="description"><p>We overload this method to enforce the  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM_NAMESPACE">kTAG_TERM_NAMESPACE</a> Kind().</p></p>
+<p class="description"><p>We overload this method to enforce the  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM_PREDICATE">kTAG_TERM_PREDICATE</a> Kind(), note that  we call the <a href="../../MyWrapper/Ontology/COntologyBaseTerm.html">COntologyBaseTerm</a> version of this method  instead of the <a href="../../MyWrapper/Ontology/COntologyTerm.html">parent</a> one.</p></p>
 	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM_NAMESPACE">kTAG_TERM_NAMESPACE</a></li>
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM_PREDICATE">kTAG_TERM_PREDICATE</a></li>
 				<li><span class="field">throws:</span> <a href="../../MyWrapper/Framework/CException.html">CException</a></li>
 				<li><span class="field">access:</span> protected</li>
 				<li><span class="field">uses:</span> Kind()</li>
@@ -116,13 +118,25 @@
 			<hr class="separator" />
 		<div class="notes">Redefinition of:</div>
 		<dl>
-			<dt><a href="../../MyWrapper/Ontology/COntologyBaseTerm.html#method_PrepareCommit">COntologyBaseTerm::_PrepareCommit()</a></dt>
+			<dt><a href="../../MyWrapper/Ontology/COntologyTerm.html#method_PrepareCommit">COntologyTerm::_PrepareCommit()</a></dt>
 						<dd>Normalise before a store.</dd>
 					</dl>
 			
 	</div>
 							<h4>Inherited Methods</h4>
 				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Ontology/COntologyTerm.html">COntologyTerm</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Constructor.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Ontology/COntologyTerm.html#method__construct">COntologyTerm::__construct()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Ontology/COntologyTerm.html#methodoffsetSet">COntologyTerm::offsetSet()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Ontology/COntologyTerm.html#methodoffsetUnset">COntologyTerm::offsetUnset()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Ontology/COntologyTerm.html#method_PrepareCommit">COntologyTerm::_PrepareCommit()</a></span><br>
+											</blockquote>
 									<!-- =========== Summary =========== -->
 					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Ontology/COntologyBaseTerm.html">COntologyBaseTerm</a></span></p>
 					<blockquote>
@@ -163,7 +177,7 @@
 
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 13 Apr 2012 16:35:04 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 13 Apr 2012 16:35:03 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

@@ -29,20 +29,12 @@
 	<div class="info-box-body">
         		<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Entity.</p>
-<p class="description"><p>An entity can be an individual, and organisation or a legal entity that must be  referenced.</p><p>The main difference between objects derived from this class and other instances of  people or organisations is that in the latter case these entities may be embedded in  in other objects, whereas in the case of this class, these entities must exist on their  own since they are to be referenced by different sources.</p><p>In this class we declare only the bare minimum attributes that any entity needs, derived  classes will use this one as a base to implement concrete instances:</p><p>We add to the <a href="../../MyWrapper/Framework/CGraphUnitObject.html">parent</a> the following properties:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">kTAG_NAME</a></em>: This offset represents the entity name. It may
-        be considered an expanded version of the code or a label that can be applied to the
-        entity. By default it should be a string, concrete derived instances may expand on
-        this. The class features a member accessor <a href="../../MyWrapper/Entities/CEntity.html#methodName">method</a> to manage this
-        property.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_EMAIL">kOFFSET_EMAIL</a></em>: This offset represents the entity e-mail
-        address. It is a single element and should be always up to date.</li></ul></p><p>The <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LINK_IN">incoming</a> and <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LINK_OUT">outgoing</a> references have the  following structure:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kTAG_KIND</a></em>: This offset represents the reference type or
-        context.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: This offset represents the reference itself, it
-        has the following structure:
-     <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_REFERENCE">kTAG_ID_REFERENCE</a></em>: The unique identifier of
-            the referenced object.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CONTAINER_REFERENCE">kTAG_CONTAINER_REFERENCE</a></em>: The
-            <a href="../../MyWrapper/Persistence/CContainer.html">container</a> name.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATABASE_REFERENCE">kTAG_DATABASE_REFERENCE</a></em>: The database
-            name.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CLASS">kTAG_CLASS</a></em>: The object class name.</li></ul></li></ul></p><p>When <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">committing</a>, eventual Affiliate() elements set as  the actual instances will be first <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">saved</a> to the same  <a href="../../MyWrapper/Persistence/CContainer.html">container</a>, then replaced by references.</p><p>The class also features a static <a href="../../MyWrapper/Entities/CEntity.html#methodDefaultContainer">method</a> that returns the  default container name for objects of this type.</p></p>
+<p class="description"><p>An entity can be an individual, and organisation or a legal entity that exists as a unit,  rather than being embedded in another object.</p><p>In this class we add to the <a href="../../MyWrapper/Framework/CCodedUnitObject.html">parent</a> the following properties:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">kTAG_NAME</a></em>: This offset represents the entity name, the
+        class features a member accessor <a href="../../MyWrapper/Entities/CEntity.html#methodName">method</a> to manage this property.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_EMAIL">kOFFSET_EMAIL</a></em>: This offset represents the entity e-mail
+        address, it is a scalar property and the class features a member accessor
+        <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">method</a> to manage it.</li></ul></p><p>The class also features a static <a href="../../MyWrapper/Entities/CEntity.html#methodDefaultContainer">method</a> that returns the  default container name for objects of this type.</p></p>
 		<p class="notes">
-			Located in <a class="field" href="_classes---CEntity.php.html">/classes/CEntity.php</a> (line <span class="field">91</span>)
+			Located in <a class="field" href="_classes---CEntity.php.html">/classes/CEntity.php</a> (line <span class="field">58</span>)
 		</p>
 		
 				
@@ -58,9 +50,7 @@
                |
                --<a href="../../MyWrapper/Framework/CCodedUnitObject.html">CCodedUnitObject</a>
                   |
-                  --<a href="../../MyWrapper/Framework/CGraphUnitObject.html">CGraphUnitObject</a>
-                     |
-                     --CEntity</pre>
+                  --CEntity</pre>
 	
 			</div>
 </div>
@@ -205,11 +195,11 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="methodDefaultContainer" id="DefaultContainer"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static DefaultContainer</span> (line <span class="line-number">383</span>)
+		<span class="method-title">static DefaultContainer</span> (line <span class="line-number">358</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -228,11 +218,11 @@
 			
 	</div>
 <a name="methodEmail" id="Email"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Email</span> (line <span class="line-number">170</span>)
+		<span class="method-title">Email</span> (line <span class="line-number">137</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -264,11 +254,11 @@
 			
 	</div>
 <a name="methodName" id="Name"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Name</span> (line <span class="line-number">132</span>)
+		<span class="method-title">Name</span> (line <span class="line-number">99</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -300,33 +290,33 @@
 			
 	</div>
 <a name="methodRelatedFrom" id="RelatedFrom"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">RelatedFrom</span> (line <span class="line-number">253</span>)
+		<span class="method-title">RelatedFrom</span> (line <span class="line-number">216</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage incoming references.</p>
-<p class="description"><p>We <a href="../../MyWrapper/Framework/CGraphUnitObject.html#methodRelatedFrom">override</a> this method to handle references  structured as follows:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kTAG_KIND</a></em>: This offset represents the reference type or
+<p class="description"><p>We CCodedUnitObject::RelatedFrom() this method to handle references  structured as follows:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kTAG_KIND</a></em>: This offset represents the reference type or
         class, it may be omitted if the reference has no type or when we want to define
         a default reference. The first parameter will be stored here.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: This offset represents the reference itself,
         it may be in two forms:
      <ul><li><em>Scalar</em>: A scalar is interpreted as the object's
-            <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a>.</li><li><em>Reference</em>: An object reference structured as follows:
-         <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_REFERENCE">kTAG_ID_REFERENCE</a></em>: The unique
-                <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a> of the referenced object. This element
-                is required by default.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CONTAINER_REFERENCE">kTAG_CONTAINER_REFERENCE</a></em>: The
-                <a href="../../MyWrapper/Persistence/CContainer.html">container</a> name. This element is optional.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATABASE_REFERENCE">kTAG_DATABASE_REFERENCE</a></em>: The
-                database name. This element is optional.</li></ul></li><li><em>Object</em>: An object derived from this class will be interpreted as the
+            <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_ID">identifier</a>.</li><li><em>Reference</em>: An object reference structured as follows:
+         <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_REFERENCE_ID">kOFFSET_REFERENCE_ID</a></em>: The unique
+                <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_ID">identifier</a> of the referenced object. This element
+                is required by default.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_REFERENCE_CONTAINER">kOFFSET_REFERENCE_CONTAINER</a></em>:
+                The <a href="../../MyWrapper/Persistence/CContainer.html">container</a> name. This element is optional.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_REFERENCE_DATABASE">kOFFSET_REFERENCE_DATABASE</a></em>:
+                The database name. This element is optional.</li></ul></li><li><em>Object</em>: An object derived from this class will be interpreted as the
             referenced object itself. When <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">committing</a> the current
             object, these objects will also be <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">committed</a> and
             <a href="../../MyWrapper/Persistence/CContainer.html#methodReference">converted</a> to references.</li></ul></li></ul></p><p>The method accepts the following parameters:</p><p><ul><li><strong>$theType</strong>: Type of reference, this is a scalar, possibly a string, that
         indicates the type of reference we are adding, retrieving or deleting. This
         value may be <em>NULL</em> for references that do not imply a type.</li><li><strong>$theValue</strong>: Reference or object. This parameter represents the reference,
         it may be a scalar, representing either the referenced object
-        <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a>, a structure representing an object reference,
+        <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_ID">identifier</a>, a structure representing an object reference,
         or the referenced object itself.</li><li><strong>$theOperation</strong>: The operation to perform:
      <ul><li><em>NULL</em>: Return the element matched by the previous parameters.</li><li><em>FALSE</em>: Delete the element matched by the previous parameters and
             return it.</li><li><em>other</em>: Any other value means that we want to add to the list the
@@ -338,7 +328,6 @@
 	<ul class="tags">
 				<li><span class="field">see:</span> kTAG_LINK_IN kTAG_KIND kTAG_DATA</li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_ManageObjectList">CPersistentUnitObject::_ManageObjectList()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -364,34 +353,28 @@
 				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
 				</ul>
 		
-			<hr class="separator" />
-		<div class="notes">Redefinition of:</div>
-		<dl>
-			<dt><a href="../../MyWrapper/Framework/CGraphUnitObject.html#methodRelatedFrom">CGraphUnitObject::RelatedFrom()</a></dt>
-						<dd>Manage incoming references.</dd>
-					</dl>
 			
 	</div>
 <a name="methodRelateTo" id="RelateTo"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">RelateTo</span> (line <span class="line-number">346</span>)
+		<span class="method-title">RelateTo</span> (line <span class="line-number">314</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage outgoing references.</p>
-<p class="description"><p>We <a href="../../MyWrapper/Framework/CGraphUnitObject.html#methodRelateTo">override</a> this method to handle references  structured as follows:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kTAG_KIND</a></em>: This offset represents the reference type or
+<p class="description"><p>We CCodedUnitObject::RelateTo() this method to handle references  structured as follows:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kTAG_KIND</a></em>: This offset represents the reference type or
         class, it may be omitted if the reference has no type or when we want to define
         a default reference. The first parameter will be stored here.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: This offset represents the reference itself,
         it may be in two forms:
      <ul><li><em>Scalar</em>: A scalar is interpreted as the object's
-            <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a>.</li><li><em>Reference</em>: An object reference structured as follows:
-         <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_REFERENCE">kTAG_ID_REFERENCE</a></em>: The unique
-                <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a> of the referenced object. This element
-                is required by default.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CONTAINER_REFERENCE">kTAG_CONTAINER_REFERENCE</a></em>: The
-                <a href="../../MyWrapper/Persistence/CContainer.html">container</a> name. This element is optional.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATABASE_REFERENCE">kTAG_DATABASE_REFERENCE</a></em>: The
+            <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_ID">identifier</a>.</li><li><em>Reference</em>: An object reference structured as follows:
+         <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_REFERENCE_ID">kOFFSET_REFERENCE_ID</a></em>: The unique
+                <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_ID">identifier</a> of the referenced object. This element
+                is required by default.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_REFERENCE_CONTAINER">kOFFSET_REFERENCE_CONTAINER</a></em>:
+                The <a href="../../MyWrapper/Persistence/CContainer.html">container</a> name. This element is optional.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_REFERENCE_DATABASE">kOFFSET_REFERENCE_DATABASE</a></em>: The
                 database name. This element is optional.</li></ul></li><li><em>Object</em>: An object derived from this class will be interpreted as the
             referenced object itself. When <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">committing</a> the current
             object, these objects will also be <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">committed</a> and
@@ -399,7 +382,7 @@
         indicates the type of reference we are adding, retrieving or deleting. This
         value may be <em>NULL</em> for references that do not imply a type.</li><li><strong>$theValue</strong>: Reference or object. This parameter represents the reference,
         it may be a scalar, representing either the referenced object
-        <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a>, a structure representing an object reference,
+        <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_ID">identifier</a>, a structure representing an object reference,
         or the referenced object itself.</li><li><strong>$theOperation</strong>: The operation to perform:
      <ul><li><em>NULL</em>: Return the element matched by the previous parameters.</li><li><em>FALSE</em>: Delete the element matched by the previous parameters and
             return it.</li><li><em>other</em>: Any other value means that we want to add to the list the
@@ -411,7 +394,6 @@
 	<ul class="tags">
 				<li><span class="field">see:</span> kTAG_LINK_OUT kTAG_KIND kTAG_DATA</li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_ManageObjectList">CPersistentUnitObject::_ManageObjectList()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -437,26 +419,10 @@
 				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
 				</ul>
 		
-			<hr class="separator" />
-		<div class="notes">Redefinition of:</div>
-		<dl>
-			<dt><a href="../../MyWrapper/Framework/CGraphUnitObject.html#methodRelateTo">CGraphUnitObject::RelateTo()</a></dt>
-						<dd>Manage outgoing references.</dd>
-					</dl>
 			
 	</div>
 							<h4>Inherited Methods</h4>
 				<a name='inherited_methods'><!-- --></a>	
-									<!-- =========== Summary =========== -->
-					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Framework/CGraphUnitObject.html">CGraphUnitObject</a></span></p>
-					<blockquote>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Framework/CGraphUnitObject.html#methodRelatedFrom">CGraphUnitObject::RelatedFrom()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Framework/CGraphUnitObject.html#methodRelateTo">CGraphUnitObject::RelateTo()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Framework/CGraphUnitObject.html#method_PrepareCommit">CGraphUnitObject::_PrepareCommit()</a></span><br>
-											</blockquote>
 									<!-- =========== Summary =========== -->
 					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Framework/CCodedUnitObject.html">CCodedUnitObject</a></span></p>
 					<blockquote>
@@ -471,13 +437,27 @@
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodoffsetUnset">CCodedUnitObject::offsetUnset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodRelate">CCodedUnitObject::Relate()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodStamp">CCodedUnitObject::Stamp()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodValid">CCodedUnitObject::Valid()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodValidObject">CCodedUnitObject::ValidObject()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_CheckRelationObject">CCodedUnitObject::_CheckRelationObject()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_CheckRelationPredicate">CCodedUnitObject::_CheckRelationPredicate()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_CommitReference">CCodedUnitObject::_CommitReference()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_CommitReferences">CCodedUnitObject::_CommitReferences()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_index">CCodedUnitObject::_index()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_PrepareCommit">CCodedUnitObject::_PrepareCommit()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#method__toString">CCodedUnitObject::__toString()</a></span><br>
 											</blockquote>
 									<!-- =========== Summary =========== -->
 					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html">CPersistentUnitObject</a></span></p>
@@ -498,8 +478,6 @@
 							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_PrepareCommit">CPersistentUnitObject::_PrepareCommit()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_PrepareLoad">CPersistentUnitObject::_PrepareLoad()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_PrepareReferenceList">CPersistentUnitObject::_PrepareReferenceList()</a></span><br>
 											</blockquote>
 									<!-- =========== Summary =========== -->
 					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Persistence/CPersistentObject.html">CPersistentObject</a></span></p>
@@ -652,7 +630,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Thu, 12 Apr 2012 19:49:29 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 13 Apr 2012 16:34:59 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

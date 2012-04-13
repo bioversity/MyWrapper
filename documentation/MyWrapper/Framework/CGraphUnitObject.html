@@ -31,9 +31,9 @@
 <p class="short-description">Graph unit object.</p>
 <p class="description"><p>This class represents the ancestor of <a href="../../MyWrapper/Framework/CCodedUnitObject.html">coded</a> unit objects that  exist within a graph, they add two default properties:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LINK_IN">kTAG_LINK_IN</a></em>: This property contains the list of
         <a href="../../MyWrapper/Framework/CGraphUnitObject.html#methodRelatedFrom">incoming</a> references or links, it is a list of object
-        <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifiers</a> or object references.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LINK_OUT">kTAG_LINK_OUT</a></em>: This property contains the list of
+        <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_ID">identifiers</a> or object references.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LINK_OUT">kTAG_LINK_OUT</a></em>: This property contains the list of
         <a href="../../MyWrapper/Framework/CGraphUnitObject.html#methodRelateTo">outgoing</a> references or links, it is a list of object
-        <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifiers</a> or object references.</li></ul></p></p>
+        <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_ID">identifiers</a> or object references.</li></ul></p></p>
 		<p class="notes">
 			Located in <a class="field" href="_classes---CGraphUnitObject.php.html">/classes/CGraphUnitObject.php</a> (line <span class="field">47</span>)
 		</p>
@@ -184,7 +184,7 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="methodRelatedFrom" id="RelatedFrom"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -195,7 +195,7 @@
 <p class="short-description">Manage incoming references.</p>
 <p class="description"><p>This method can be used to handle <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LINK_IN">incoming</a> references, it  accepts the following parameters:</p><p><ul><li><strong>$theValue</strong>: Reference or object. This parameter represents the reference,
         it may be a scalar, representing either the referenced object
-        <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a>, a structure representing an object reference,
+        <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_ID">identifier</a>, a structure representing an object reference,
         or the referenced object itself.</li><li><strong>$theOperation</strong>: The operation to perform:
      <ul><li><em>NULL</em>: Return the element matched by the previous parameters.</li><li><em>FALSE</em>: Delete the element matched by the previous parameters and
             return it.</li><li><em>other</em>: Any other value means that we want to add to the list the
@@ -238,10 +238,14 @@
 				<a href="../../MyWrapper/Entities/CEntity.html#methodRelatedFrom">CEntity::RelatedFrom()</a>
 								: Manage incoming references.
 							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyBaseTerm.html#methodRelatedFrom">COntologyBaseTerm::RelatedFrom()</a>
+								: Manage incoming references.
+							</li>
 				</ul>
 	</div>
 <a name="methodRelateTo" id="RelateTo"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -252,7 +256,7 @@
 <p class="short-description">Manage outgoing references.</p>
 <p class="description"><p>This method can be used to handle <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LINK_OUT">outgoing</a> references, it  accepts the following parameters:</p><p><ul><li><strong>$theValue</strong>: Reference or object. This parameter represents the reference,
         it may be a scalar, representing either the referenced object
-        <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID_NATIVE">identifier</a>, a structure representing an object reference,
+        <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_ID">identifier</a>, a structure representing an object reference,
         or the referenced object itself.</li><li><strong>$theOperation</strong>: The operation to perform:
      <ul><li><em>NULL</em>: Return the element matched by the previous parameters.</li><li><em>FALSE</em>: Delete the element matched by the previous parameters and
             return it.</li><li><em>other</em>: Any other value means that we want to add to the list the
@@ -295,10 +299,14 @@
 				<a href="../../MyWrapper/Entities/CEntity.html#methodRelateTo">CEntity::RelateTo()</a>
 								: Manage outgoing references.
 							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyBaseTerm.html#methodRelateTo">COntologyBaseTerm::RelateTo()</a>
+								: Manage outgoing references.
+							</li>
 				</ul>
 	</div>
 <a name="method_PrepareCommit" id="_PrepareCommit"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -365,6 +373,14 @@
 								: Normalise before a store.
 							</li>
 					<li>
+				<a href="../../MyWrapper/Ontology/COntology.html#method_PrepareCommit">COntology::_PrepareCommit()</a>
+								: Normalise before a store.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/CPredicateTerm.html#method_PrepareCommit">CPredicateTerm::_PrepareCommit()</a>
+								: Normalise before a store.
+							</li>
+					<li>
 				<a href="../../MyWrapper/Ontology/CTermNamespace.html#method_PrepareCommit">CTermNamespace::_PrepareCommit()</a>
 								: Normalise before a store.
 							</li>
@@ -393,6 +409,8 @@
 							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodValidObject">CCodedUnitObject::ValidObject()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_index">CCodedUnitObject::_index()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#method__toString">CCodedUnitObject::__toString()</a></span><br>
 											</blockquote>
 									<!-- =========== Summary =========== -->
 					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html">CPersistentUnitObject</a></span></p>
@@ -567,7 +585,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Thu, 12 Apr 2012 19:49:30 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 13 Apr 2012 10:39:46 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>
