@@ -752,10 +752,17 @@ class CCodedUnitObject extends CPersistentUnitObject
 		$reference = $this->offsetGet( $theOffset );
 		
 		//
+		// Handle scalar.
+		//
+		if( $reference instanceof self )
+			$done = $this->_CommitReference
+						( $reference, $theContainer, $theModifiers, TRUE );
+		
+		//
 		// Handle list.
 		//
-		if( is_array( $reference )
-		 || ($reference instanceof ArrayObject) )
+		elseif( is_array( $reference )
+			 || ($reference instanceof ArrayObject) )
 		{
 			//
 			// Iterate list.
@@ -773,13 +780,6 @@ class CCodedUnitObject extends CPersistentUnitObject
 			} // Iterating list.
 		
 		} // Is a list.
-		
-		//
-		// Handle scalar.
-		//
-		elseif( $reference !== NULL )
-			$done = $this->_CommitReference
-						( $reference, $theContainer, $theModifiers, TRUE );
 		
 		//
 		// Update reference.
