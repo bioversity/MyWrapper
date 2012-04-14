@@ -226,7 +226,7 @@ class CCodedUnitObject extends CPersistentUnitObject
 	 *		itself, or an object reference to the relation's object. Before the current
 	 *		object is {@link Commit() committed}, all elements provided as instances derived
 	 *		from the {@link CPersistentUnitObject CPersistentUnitObject} class will also be
-	 *		{@link _CommitReferences() committed} and converted to object references.
+	 *		{@link _HandleReferences() committed} and converted to object references.
 	 *		This parameter is passed through a protected
 	 *		{@link _CheckRelationObject() method} that derived classes can use to validate
 	 *		and normalise relation objects.
@@ -658,12 +658,12 @@ class CCodedUnitObject extends CPersistentUnitObject
 		//
 		// Handle relations.
 		//
-		$this->_CommitReferences( $theContainer, kTAG_REFS, $theModifiers );
+		$this->_HandleReferences( kTAG_REFS, $theContainer, $theModifiers );
 		
 		//
 		// Handle valid reference.
 		//
-		$this->_CommitReferences( $theContainer, kTAG_VALID, $theModifiers );
+		$this->_HandleReferences( kTAG_VALID, $theContainer, $theModifiers );
 		
 	} // _PrepareCommit.
 
@@ -678,30 +678,62 @@ class CCodedUnitObject extends CPersistentUnitObject
 
 	 
 	/*===================================================================================
-	 *	_CommitReferences																*
+	 *	_HandleReferences																*
 	 *==================================================================================*/
 
 	/**
-	 * Commit instance references.
+	 * Handle references.
 	 *
-	 * This method will take care of committing object references expressed as the actual
-	 * instances of objects. It is called {@link _PrepareCommit() before}
-	 * {@link Commit() storing} objects that contain references to other objects, its duty
-	 * is to traverse these lists and {@link Commit() commit} any element that is actually
-	 * an instance derived from this class, and convert it back to a reference.
+	 * This method will parse the provided offset and convert all instances derived from
+	 é this class to object references according to a series of rules.
+	 *
+	 * Object references may have two forms:
+	 *
+	 * <ul>
+	 *	<li><i>Scalar</i>: A scalar value represents the object
+	 *		{@link kOFFSET_ID identifier}.
+	 *	<li><i>Object reference structure</i>: This form is a structure holding the
+	 *		following elements:
+	 *	 <ul>
+	 *		<li><i>{@link kOFFSET_REFERENCE_ID kOFFSET_REFERENCE_ID}</i>: This offset holds
+	 *			the object's {@link kOFFSET_ID identifier}.
+	 *		<li><i>{@link kOFFSET_REFERENCE_CONTAINER kOFFSET_REFERENCE_CONTAINER}</i>: This
+	 *			offset holds the container name in which the object resides.
+	 *		<li><i>{@link kOFFSET_REFERENCE_DATABASE kOFFSET_REFERENCE_DATABASE}</i>: This
+	 *			offset holds the database name in which the object resides.
+	 *		<li><i>{@link kTAG_CLASS kTAG_CLASS}</i>: This offset holds the object's class
+	 *			name.
+	 *	 </ul>
+	 *		Such structures should not have any other allowed offset.
+	 * </ul>
+	 *
+	 * Object references are stored in offsets with the following forms:
+	 *
+	 * <ul>
+	 *	<li><i>Scalar</i>: The offset holds the object reference as a scalar element.
+	 *	<li><i>Typed</i>: A typed object reference consists of a structure in which the
+	 *		{@link kTAG_DATA kTAG_DATA} offset holds the object reference and an optional
+	 *		{@link kTAG_KIND kTAG_KIND} offset holds the relation predicate, which may also
+	 *		be in the form of an object reference.
+	 *	<li><i>List</i>: A list of references whose elements may be a combination of the
+	 *		previous two formats.
+	 * </ul>
+	 *
+	 * This method will pass the provided offset value to a
+	 * {@link _ParseReferences() method} that will take care of parsing the contents and
+	 * {@link _CommitReference() committing} all instances derived from this class into
+	 * object references according to the provided modifier flags.
 	 *
 	 * The parameters to this method are:
 	 *
 	 * <ul>
+	 *	<li><b>$theOffset</b>: The current object's offset that holds the reference or
+	 *		references.
 	 *	<li><b>$theContainer</b>: The container that is about to receive the current object,
 	 *		it must also be the container in which to find the references and must be
 	 *		derived from {@link CContainer CContainer}.
-	 *	<li><b>$theOffset</b>: The current object's offset in which the reference list or
-	 *		element is stored.
-	 *	<li><b>$theModifiers</b>: A bitfield indicating which elements of the
-	 *		{@link CContainer::Reference() reference} should be included, this parameter
-	 *		will be passed to the {@link CContainer::Reference() method} that will convert
-	 *		the object into a reference:
+	 *	<li><b>$theModifiers</b>: A bitfield indicating which elements should be included in
+	 *		the {@link CContainer::Reference() reference}:
 	 *	 <ul>
 	 *		<li><i>{@link kFLAG_REFERENCE_IDENTIFIER kFLAG_REFERENCE_IDENTIFIER}</i>: The
 	 *			object {@link kOFFSET_ID identifier} will be stored under the
@@ -720,20 +752,23 @@ class CCodedUnitObject extends CPersistentUnitObject
 	 *			object's class name will be stored under the {@link kTAG_CLASS kTAG_CLASS}
 	 *			offset.
 	 *	 </ul>
+	 *		If none of the above flags are set, it means that object references are
+	 *		expressed directly as the value of the {@link kOFFSET_ID identifier}, and that
+	 *		{@link kOFFSET_REFERENCE_CONTAINER container} and
+	 *		{@link kOFFSET_REFERENCE_DATABASE database} are implicit.
 	 * </ul>
 	 *
-	 * Note that when we {@link Commit() commit} referenced objects we use
-	 * {@link kFLAG_PERSIST_REPLACE kFLAG_PERSIST_REPLACE} as the commit type.
-	 *
-	 * @param CContainer			$theContainer		Object container.
 	 * @param string				$theOffset			Reference list offset.
+	 * @param CContainer			$theContainer		Object container.
 	 * @param bitfield				$theModifiers		Referencing options.
 	 *
 	 * @access protected
 	 *
 	 * @uses _CommitReference()
 	 */
-	protected function _CommitReferences( $theContainer, $theOffset, $theModifiers )
+	protected function _HandleReferences( $theOffset,
+										  $theContainer,
+										  $theModifiers = kFLAG_DEFAULT )
 	{
 		//
 		// Check container.
@@ -746,207 +781,215 @@ class CCodedUnitObject extends CPersistentUnitObject
 					  array( 'Container' => $theContainer ) );					// !@! ==>
 		
 		//
-		// Init local storage.
+		// Load offset value.
 		//
-		$done = FALSE;
 		$reference = $this->offsetGet( $theOffset );
 		
 		//
-		// Handle scalar.
+		// Parse value.
 		//
-		if( $reference instanceof self )
-			$done = $this->_CommitReference
-						( $reference, $theContainer, $theModifiers, TRUE );
-		
-		//
-		// Handle list.
-		//
-		elseif( is_array( $reference )
-			 || ($reference instanceof ArrayObject) )
-		{
-			//
-			// Iterate list.
-			//
-			foreach( $reference as $key => $value )
-			{
-				//
-				// Resolve.
-				//
-				$done = $this->_CommitReference
-						( $value, $theContainer, $theModifiers, TRUE );
-				if( $done !== NULL )
-					$reference[ $key ] = $value;
-			
-			} // Iterating list.
-		
-		} // Is a list.
-		
-		//
-		// Update reference.
-		//
-		if( $done )
+		if( $this->_ParseReferences( $reference, $theContainer, $theModifiers ) )
 			$this->offsetSet( $theOffset, $reference );
 		
-	} // _CommitReferences.
+	} // _HandleReferences.
 
-
+	 
 	/*===================================================================================
-	 *	_CommitReference																*
+	 *	_ParseReferences																*
 	 *==================================================================================*/
 
 	/**
-	 * Commit instance reference.
+	 * Parse references.
 	 *
-	 * This method will check if the provided reference is an object derived from this
-	 * class, in that case it will {@link Commit() commit} it and convert it to an object
-	 * reference.
+	 * This method will parse the provided value looking for object references, if such
+	 * references are expressed as instances derived from this class, it will pass them
+	 * to a {@link _CommitReferences() method} that will {@link Commit() commit} these
+	 * instances and convert them to object references.
+	 *
+	 * The method will first check if the provided reference is a scalar, then it will
+	 * check if it is a predicate/object par and finally it will check if it is a list of
+	 * references.
 	 *
 	 * The parameters to this method are:
 	 *
 	 * <ul>
-	 *	<li><b>&$theReference</b>: The reference, depending on its type:
-	 *	 <ul>
-	 *		<li><i>CCodedUnitObject</i>: Objects derived from this class will be
-	 *			{@link Commit() committed} and the parameter will be replaced with the
-	 *			object {@link CContainer::Reference() reference}.
-	 *		<li><i>Array</i> or <i>ArrayObject</i>: In this case we shall check whether the
-	 *			structure has the {@link kTAG_KIND kTAG_KIND} and/or the
-	 *			{@link kTAG_DATA kTAG_DATA} elements: in that case if these elements are
-	 *			derived from this class, we {@link Commit() commit} them and replace them
-	 *			with object {@link CContainer::Reference() references}.
-	 *	 </ul>
-	 *	<li><b>$theContainer</b>: The container that is about to receive the current object,
-	 *		it must also be the container in which to find the references and must be
-	 *		derived from {@link CContainer CContainer}.
+	 *	<li><b>$theReference</b>: The reference to be parsed, the conversion will replace
+	 *		the provided parameter.
+	 *	<li><b>$theContainer</b>: The container in which the referenced object(s) resides,
+	 *		please refer to the documentation of
+	 *		{@link _HandleReferences() _HandleReferences} for more information.
 	 *	<li><b>$theModifiers</b>: A bitfield indicating which elements of the
-	 *		{@link CContainer::Reference() reference} should be included, this parameter
-	 *		will be passed to the {@link CContainer::Reference() method} that will convert
-	 *		the object into a reference:
-	 *	 <ul>
-	 *		<li><i>{@link kFLAG_REFERENCE_IDENTIFIER kFLAG_REFERENCE_IDENTIFIER}</i>: The
-	 *			object {@link kOFFSET_ID identifier} will be stored under the
-	 *			{@link kOFFSET_REFERENCE_ID kOFFSET_REFERENCE_ID} offset. This option is
-	 *			enforced.
-	 *		<li><i>{@link kFLAG_REFERENCE_CONTAINER kFLAG_REFERENCE_CONTAINER}</i>: The
-	 *			provided container name will be stored under the
-	 *			{@link kOFFSET_REFERENCE_CONTAINER kOFFSET_REFERENCE_CONTAINER} offset. If
-	 *			the provided value is empty, the offset will not be set.
-	 *		<li><i>{@link kFLAG_REFERENCE_DATABASE kFLAG_REFERENCE_DATABASE}</i>: The
-	 *			provided container's database name will be stored under the
-	 *			{@link kOFFSET_REFERENCE_DATABASE kOFFSET_REFERENCE_DATABASE} offset. If the
-	 *			current object's {@link Database() database} name is <i>NULL</i>, the
-	 *			offset will not be set.
-	 *		<li><i>{@link kFLAG_REFERENCE_CLASS kFLAG_REFERENCE_CLASS}</i>: The element
-	 *			object's class name will be stored under the {@link kTAG_CLASS kTAG_CLASS}
-	 *			offset.
-	 *	 </ul>
+	 *		{@link CContainer::Reference() reference} should be included, please refer to
+	 *		the documentation of {@link _HandleReferences() _HandleReferences} for more
+	 *		information.
+	 *	<li><b>$doRecurse</b>: This is a private parameter that you should leave untouched, it
+	 *		it determines whether or not to recurse this method: it starts with a value of
+	 *		2, and at each recursion the value decreases, when it reaches zero, structures
+	 *		will no more be considered.
 	 * </ul>
 	 *
-	 * The method will return <i>TRUE</i> if a {@link Commit() commit} was performed, or
-	 * <i>NULL</i> if not.
+	 * The method follows this set of rules:
+	 *
+	 * <ul>
+	 *	<li><i>Handle scalars</i>: A scalar element may be an instance derived from this
+	 *		class, an instance derived from CDataType, or anything that is not an array or
+	 *		an ArrayObject. If the scalar is an instance of this class, we pass it to a
+	 *		{@link _CommitReferences() method} that will {@link Commit() commit} the
+	 *		instance and convert it to an object reference.
+	 *	<li><i>Handle structures</i>: Once we have determined it is not a scalar, we check
+	 *		if it is either a predicate/object pair, or if it is a list of references; in
+	 *		the both cases the elements will be passed recursively to this method.
+	 * </ul>
 	 *
 	 * Note that when we {@link Commit() commit} referenced objects we use
 	 * {@link kFLAG_PERSIST_REPLACE kFLAG_PERSIST_REPLACE} as the commit type.
 	 *
-	 * This method is called by
-	 * {@link _CommitReferences() _CommitReferences}, so we assume that the
-	 * provided container is an instance of {@link CContainer CContainer}.
+	 * The method will return <i>TRUE</i> is a conversion occurred and <i>FALSE</i> if not.
 	 *
 	 * @param reference			   &$theReference		Reference.
 	 * @param CContainer			$theContainer		Object container.
 	 * @param bitfield				$theModifiers		Reference options.
-	 * @param boolean				$doRecurse			Recurse flag.
+	 * @param integer				$doRecurse			Recurse level.
 	 *
 	 * @access protected
-	 * @return mixed
 	 *
-	 * @see kTAG_KIND kTAG_DATA
-	 * @see kFLAG_PERSIST_REPLACE kFLAG_STATE_ENCODED kFLAG_REFERENCE_IDENTIFIER
+	 * @uses _CommitReference()
 	 */
-	protected function _CommitReference( &$theReference,
+	protected function _ParseReferences( &$theReference,
 										  $theContainer,
 										  $theModifiers,
-										  $doRecurse = FALSE )
+										  $doRecurse = 2 )
 	{
 		//
-		// Handle simple reference.
+		// Init local storage.
+		//
+		$done = FALSE;
+		
+		//
+		// Handle instances of this class.
 		//
 		if( $theReference instanceof self )
 		{
 			//
-			// Init local storage.
-			//
-			$modifiers = kFLAG_PERSIST_REPLACE | ($theModifiers & kFLAG_STATE_ENCODED);
-			$theModifiers |= kFLAG_REFERENCE_IDENTIFIER;
-			
-			//
-			// Check for recursion
+			// Check for recursion.
 			//
 			if( $this->_index() == $theReference->_index() )
 				throw new CException( "Recursive reference",
 									  kERROR_INVALID_STATE,
 									  kMESSAGE_TYPE_ERROR,
 									  array( 'Reference' => $theReference ) );	// !@! ==>
+
+			//
+			// Set commit modifiers.
+			//
+			$modifiers = kFLAG_PERSIST_REPLACE | ($theModifiers & kFLAG_STATE_ENCODED);
 			
 			//
 			// Commit object.
 			//
-			$theReference->Commit( $theContainer, NULL, $modifiers );
+			$id = $theReference->Commit( $theContainer, NULL, $modifiers );
 			
 			//
-			// Convert to reference.
+			// Convert object.
 			//
-			$theReference = $theContainer->Reference( $theReference, $theModifiers );
+			$theReference = ( $theModifiers & kFLAG_REFERENCE_MASK )
+						  ? $theContainer->Reference( $theReference, $theModifiers )
+						  : $id;
 			
-			return TRUE;															// ==>
+			//
+			// Set result.
+			//
+			$done = TRUE;
 		
-		} // Simple reference.
+		} // Found an instance to convert.
 		
 		//
-		// Handle typed reference.
+		// Skip data type scalars.
 		//
-		if( ( is_array( $theReference )
-		   || ($theReference instanceof ArrayObject) )
-		 && $doRecurse )
+		elseif( ! $theReference instanceof CDataType )
 		{
 			//
-			// Init local storage.
+			// Check structures.
 			//
-			$done = NULL;
-
-			//
-			// Handle predicate.
-			// Need to do this dirty trick,
-			// because references are not pointers...
-			//
-			if( array_key_exists( kTAG_KIND, (array) $theReference ) )
+			if( $doRecurse
+			 && ( is_array( $theReference )
+			   || ($theReference instanceof ArrayObject) ) )
 			{
-				$tmp = $theReference[ kTAG_KIND ];
-				$done |= $this->_CommitReference
-							( $tmp, $theContainer, $theModifiers, FALSE );
-				$theReference[ kTAG_KIND ] = $tmp;
-			}
-		
-			//
-			// Handle object.
-			// Need to do this dirty trick,
-			// because references are not pointers...
-			//
-			if( array_key_exists( kTAG_DATA, (array) $theReference ) )
-			{
-				$tmp = $theReference[ kTAG_DATA ];
-				$done |= $this->_CommitReference
-							( $tmp, $theContainer, $theModifiers, FALSE );
-				$theReference[ kTAG_DATA ] = $tmp;
-			}
+				//
+				// Check data element.
+				//
+				if( array_key_exists( kTAG_DATA, (array) $theReference ) )
+				{
+					//
+					// Recurse on data element.
+					//
+					$tmp = $theReference[ kTAG_DATA ];
+					if( $this->_ParseReferences
+						( $tmp, $theContainer, $theModifiers, 0 ) )
+					{
+						$done = TRUE;
+						$theReference[ kTAG_DATA ] = $tmp;
+					
+					} // Converted.
+					
+					//
+					// Recurse on predicate element.
+					//
+					if( array_key_exists( kTAG_KIND, (array) $theReference ) )
+					{
+						//
+						// Recurse on data element.
+						//
+						$tmp = $theReference[ kTAG_KIND ];
+						if( $this->_ParseReferences
+							( $tmp, $theContainer, $theModifiers, 0 ) )
+						{
+							$done = TRUE;
+							$theReference[ kTAG_KIND ] = $tmp;
+						
+						} // Converted.
+					
+					} // Has predicate.
+				
+				} // Found predicate relation.
+				
+				//
+				// Handle list.
+				//
+				elseif( $doRecurse > 1 )
+				{
+					//
+					// Adjust recursion level.
+					//
+					$doRecurse--;
+					
+					//
+					// Scan list.
+					//
+					foreach( $theReference as $key => $value )
+					{
+						//
+						// Recurse element.
+						//
+						if( $this->_ParseReferences
+							( $value, $theContainer, $theModifiers, $doRecurse ) )
+						{
+							$done = TRUE;
+							$theReference[ $key ] = $value;
+						
+						} // Converted.
+					
+					} // Iterating list.
+				
+				} // Found list.
 			
-			return $done;															// ==>
+			} // Structure or list.
 		
-		} // Typed reference.
+		} // Not a scalar data type.
 		
-		return NULL;																// ==>
+		return $done;																// ==>
 		
-	} // _CommitReference.
+	} // _ParseReferences.
 
 	 
 	/*===================================================================================

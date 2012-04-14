@@ -49,7 +49,7 @@ class MyClass extends CPersistentUnitObject
 	{
 		$this->_isInited( TRUE );
 		parent::_PrepareCommit( $theContainer, $theIdentifier, $theModifiers );
-		$this->_CommitReferences($theContainer, 'REFERENCE', kFLAG_REFERENCE_MASK );
+		$this->_HandleReferences('REFERENCE', $theContainer, kFLAG_REFERENCE_MASK );
 	}
 }
 

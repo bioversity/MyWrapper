@@ -204,12 +204,12 @@ class CGraphUnitObject extends CCodedUnitObject
 		//
 		// Handle incoming references.
 		//
-		$this->_CommitReferences( $theContainer, kTAG_LINK_IN, $theModifiers );
+		$this->_HandleReferences( kTAG_LINK_IN, $theContainer, $theModifiers );
 		
 		//
 		// Handle outgoing references.
 		//
-		$this->_CommitReferences( $theContainer, kTAG_LINK_OUT, $theModifiers );
+		$this->_HandleReferences( kTAG_LINK_OUT, $theContainer, $theModifiers );
 		
 	} // _PrepareCommit.
 

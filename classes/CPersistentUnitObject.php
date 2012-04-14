@@ -57,6 +57,9 @@ require_once( kPATH_LIBRARY_SOURCE."CPersistentObject.php" );
  * which represents the object ID. This offset should never be changed and represents the
  * persistent identifier of the object.
  *
+ * This object also introduces the concept of object reference, that is, a structure that
+ * can be used to refer to other objects.
+ *
  * Objects derived from this class also hold, by default, their class name in an
  * {@link kTAG_CLASS offset}, this is used to {@link NewObject() instantiate} objects of the
  * correct class when retrieving data from a container.
