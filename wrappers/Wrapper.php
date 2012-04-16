@@ -5,8 +5,8 @@
  *
  * This file contains a wrapper server using the {@link CWrapper CWrapper} class.
  *
- *	@package	Server
- *	@subpackage	Wrappers
+ *	@package	MyWrapper
+ *	@subpackage	Server
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 22/12/2011

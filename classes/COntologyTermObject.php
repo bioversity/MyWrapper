@@ -29,10 +29,19 @@ require_once( kPATH_LIBRARY_SOURCE."CTerm.php" );
 /**
  * Ontology term ancestor.
  *
- * This class defines a {@link CTerm term} that resides in an ontology, the only change it
- * makes over its {@link CTerm parent}, is to hash the {@link _id() identifier} into a
+ * This class defines a {@link CTerm term} that resides in an ontology, it overloads ita
+ * {@link CTerm parent} to hash the {@link _id() identifier} into a
  * {@link CDataTypeBinary binary} string and enforce the {@link _IsEncoded() encoded}
  * {@link Status() status} {@link kFLAG_STATE_ENCODED flag}.
+ *
+ * The class also adds the following properties:
+ *
+ * <ul>
+ *	<li><i>{@link kOFFSET_SYNONYM kOFFSET_SYNONYM}</i>: This {@link Synonym() property} can
+ *		be used to store synonyms as strings.
+ *	<li><i>{@link kOFFSET_XREF kOFFSET_XREF}</i>: This {@link Xref() property} can be used
+ *		to store cross references to other terms in the ontology.
+ * </ul>
  *
  * We declare this class abstract to force the creation of specific ontology term types.
  *
@@ -157,6 +166,177 @@ abstract class COntologyTermObject extends CTerm
 		return $this->_ManageOffset( kTAG_NAMESPACE, $theValue, $getOld );			// ==>
 
 	} // NS.
+
+	 
+	/*===================================================================================
+	 *	Synonym																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage synonyms.
+	 *
+	 * This method can be used to manage the term {@link kOFFSET_SYNONYM synonyms} list,
+	 * these elements are strings that can be considered synonyms of the current term, the
+	 * method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: The value or operation:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Return the current value selected by the second parameter.
+	 *		<li><i>FALSE</i>: Delete the value selected by the second parameter.
+	 *		<li><i>other</i>: Set value selected by the second parameter.
+	 *	 </ul>
+	 *	<li><b>$theType</b>: The synonym type:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: This value indicates that the synonym has no type or kind, in
+	 *			general, when adding elements, this case applies to default elements.
+	 *		<li><i>other</i>: All other types will be interpreted as the synonym type:
+	 *		 <ul>
+	 *			<li><i>{@link kTAG_REFERENCE_EXACT kTAG_REFERENCE_EXACT}</i>: Exact synonym.
+	 *			<li><i>{@link kTAG_REFERENCE_BROAD kTAG_REFERENCE_BROAD}</i>: Broad synonym.
+	 *			<li><i>{@link kTAG_REFERENCE_NARROW kTAG_REFERENCE_NARROW}</i>: Narrow
+	 *				synonym.
+	 *			<li><i>{@link kTAG_REFERENCE_RELATED kTAG_REFERENCE_RELATED}</i>: Related
+	 *				synonym.
+	 *		 </ul>
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
+	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * @param string				$theValue			URL or operation.
+	 * @param mixed					$theType			Mailing address kind or index.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 */
+	public function Synonym( $theValue = NULL, $theType = NULL, $getOld = FALSE )
+	{
+		//
+		// Check synonym kind.
+		//
+		if( $theType !== NULL )
+		{
+			//
+			// Parse type.
+			//
+			switch( $theType )
+			{
+				case kTAG_REFERENCE_EXACT:
+				case kTAG_REFERENCE_BROAD:
+				case kTAG_REFERENCE_NARROW:
+				case kTAG_REFERENCE_RELATED:
+					break;
+				
+				default:
+					throw new CException
+						( "Invalid synonym type",
+						  kERROR_UNSUPPORTED,
+						  kMESSAGE_TYPE_ERROR,
+						  array( 'Kind' => $theType ) );						// !@! ==>
+			}
+		
+		} // Provided synonym kind.
+		
+		return $this->_ManageTypedArrayOffset
+			( kOFFSET_SYNONYM, kTAG_KIND, $theType, $theValue, $getOld );			// ==>
+
+	} // Synonym.
+
+	 
+	/*===================================================================================
+	 *	Xref																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage cross-references.
+	 *
+	 * This method can be used to manage the term {@link kOFFSET_XREF cross-references}
+	 * list, these elements are references to other terms that can be considered synonyms of
+	 * the current term, the reference should be the term's {@link _id() identifier}. The
+	 * method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: The value or operation:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Return the current value selected by the second parameter.
+	 *		<li><i>FALSE</i>: Delete the value selected by the second parameter.
+	 *		<li><i>other</i>: Set value selected by the second parameter.
+	 *	 </ul>
+	 *	<li><b>$theType</b>: The cross-reference type:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: This value indicates that the reference has no type or kind, in
+	 *			general, when adding elements, this case applies to default elements.
+	 *		<li><i>other</i>: All other types will be interpreted as the cross-reference
+	 *			type:
+	 *		 <ul>
+	 *			<li><i>{@link kTAG_REFERENCE_EXACT kTAG_REFERENCE_EXACT}</i>: Exact
+	 *				reference.
+	 *			<li><i>{@link kTAG_REFERENCE_BROAD kTAG_REFERENCE_BROAD}</i>: Broad
+	 *				reference.
+	 *			<li><i>{@link kTAG_REFERENCE_NARROW kTAG_REFERENCE_NARROW}</i>: Narrow
+	 *				reference.
+	 *			<li><i>{@link kTAG_REFERENCE_RELATED kTAG_REFERENCE_RELATED}</i>: Related
+	 *				reference.
+	 *		 </ul>
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
+	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * @param string				$theValue			URL or operation.
+	 * @param mixed					$theType			Mailing address kind or index.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 */
+	public function Xref( $theValue = NULL, $theType = NULL, $getOld = FALSE )
+	{
+		//
+		// Normalise reference.
+		//
+		if( ($theValue !== NULL)
+		 && ($theValue !== FALSE) )
+			$theValue = $this->_CheckReference( $theValue );
+		
+		//
+		// Check cross-reference kind.
+		//
+		if( $theType !== NULL )
+		{
+			//
+			// Parse type.
+			//
+			switch( $theType )
+			{
+				case kTAG_REFERENCE_EXACT:
+				case kTAG_REFERENCE_BROAD:
+				case kTAG_REFERENCE_NARROW:
+				case kTAG_REFERENCE_RELATED:
+					break;
+				
+				default:
+					throw new CException
+						( "Invalid cross-reference type",
+						  kERROR_UNSUPPORTED,
+						  kMESSAGE_TYPE_ERROR,
+						  array( 'Kind' => $theType ) );						// !@! ==>
+			}
+		
+		} // Provided cross-reference kind.
+		
+		return $this->_ManageTypedArrayOffset
+			( kOFFSET_XREF, kTAG_KIND, $theType, $theValue, $getOld );				// ==>
+
+	} // Xref.
 
 	 
 	/*===================================================================================

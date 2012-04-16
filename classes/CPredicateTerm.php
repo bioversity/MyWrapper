@@ -29,8 +29,9 @@ require_once( kPATH_LIBRARY_SOURCE."COntologyTerm.php" );
 /**
  * Predicate term.
  *
- * This {@link kTAG_TERM_PREDICATE kind} of {@link COntologyTerm term} represents the
- * root term of an ontology. In general, it can represent the ontology as a whole.
+ * This {@link kTAG_TERM_PREDICATE kind} of {@link COntologyTerm term} represents a
+ * predicate {@link COntologyTerm term}. In general, it can represent a term that is mainly
+ * used to qualify a relationship.
  *
  * In this class we enforce the {@link kTAG_TERM_PREDICATE kTAG_TERM_PREDICATE}
  * {@link Kind() kind}.

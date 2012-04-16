@@ -8,8 +8,8 @@
  *
  * This can effectively be used as a wrapper to a MongoDB database.
  *
- *	@package	Server
- *	@subpackage	Wrappers
+ *	@package	MyWrapper
+ *	@subpackage	Server
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 22/12/2011

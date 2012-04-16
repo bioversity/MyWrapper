@@ -66,6 +66,56 @@ define( "kTAG_REFERENCE_CONTAINER",				'$ref' );
 define( "kTAG_REFERENCE_DATABASE",				'$db' );
 
 /*=======================================================================================
+ *	DEFAULT REFERENCE KINDS																*
+ *======================================================================================*/
+
+/**
+ * Exact reference.
+ *
+ * This is the tag that represents an exact reference.
+ */
+define( "kTAG_REFERENCE_EXACT",					':REF:EXACT' );
+
+/**
+ * Broad reference.
+ *
+ * This is the tag that represents a broad reference.
+ */
+define( "kTAG_REFERENCE_BROAD",					':REF:BROAD' );
+
+/**
+ * Narrow reference.
+ *
+ * This is the tag that represents a narrow reference.
+ */
+define( "kTAG_REFERENCE_NARROW",				':REF:NARROW' );
+
+/**
+ * Related reference.
+ *
+ * This is the tag that represents a related reference.
+ */
+define( "kTAG_REFERENCE_RELATED",				':REF:RELATED' );
+
+/*=======================================================================================
+ *	DEFAULT REFERENCE OFFSETS															*
+ *======================================================================================*/
+
+/**
+ * Synonym offset.
+ *
+ * This is the tag that represents a synonym.
+ */
+define( "kOFFSET_SYNONYM",						':SYN' );
+
+/**
+ * Cross-reference offset.
+ *
+ * This is the tag that represents a cross-reference.
+ */
+define( "kOFFSET_XREF",							':XREF' );
+
+/*=======================================================================================
  *	DEFAULT OBJECT TAGS																	*
  *======================================================================================*/
 
@@ -246,6 +296,13 @@ define( "kTAG_TERM_ONTOLOGY",					':TERM:ONTO' );
  * This is the tag that represents a predicate term.
  */
 define( "kTAG_TERM_PREDICATE",					':TERM:PRED' );
+
+/**
+ * Attribute.
+ *
+ * This is the tag that represents an attribute term.
+ */
+define( "kTAG_TERM_ATTRIBUTE",					':TERM:ATTR' );
 
 /**
  * Scale.

@@ -91,7 +91,7 @@ class CMeasureTerm extends COntologyTerm
 		// Set inited status.
 		//
 		$this->_IsInited( $this->_IsInited() &&
-						  $this->offsetExists( kTAG_TYPE )
+						  $this->offsetExists( kTAG_TYPE ) );
 		
 	} // Constructor.
 
@@ -225,7 +225,7 @@ class CMeasureTerm extends COntologyTerm
 		//
 		if( $theValue !== NULL )
 			$this->_IsInited( $this->_IsInited() &&
-							  $this->offsetExists( kTAG_TYPE )
+							  $this->offsetExists( kTAG_TYPE ) );
 	
 	} // offsetSet.
 
@@ -256,7 +256,7 @@ class CMeasureTerm extends COntologyTerm
 		// Set inited flag.
 		//
 		$this->_IsInited( $this->_IsInited() &&
-						  $this->offsetExists( kTAG_TYPE )
+						  $this->offsetExists( kTAG_TYPE ) );
 	
 	} // offsetUnset.
 

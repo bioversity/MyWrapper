@@ -6,8 +6,8 @@
  * This file represents an example wrapper used to test the
  * {@link CDataWrapper CDataWrapper} class.
  *
- *	@package	Server
- *	@subpackage	Wrappers
+ *	@package	MyWrapper
+ *	@subpackage	Server
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 22/12/2011

@@ -177,16 +177,6 @@ class CInstitute extends CContact
 	 * list, the method expects the following parameters:
 	 *
 	 * <ul>
-	 *	<li><i>{@link kTAG_KIND kTAG_KIND}</i>: The institute URL kind, this could be
-	 *		<i>main</i>, <i>sales</i> or <i>international</i>. This element represents the
-	 *		array key, although technically it is implemented as an element to allow
-	 *		searching on all values.
-	 *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The URL or web page address.
-	 * </ul>
-	 *
-	 * The parameters to this method are:
-	 *
-	 * <ul>
 	 *	<li><b>$theValue</b>: The value or operation:
 	 *	 <ul>
 	 *		<li><i>NULL</i>: Return the current value selected by the second parameter.
