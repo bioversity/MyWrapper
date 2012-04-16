@@ -1,10 +1,10 @@
 <?php
 
 /**
- * {@link CPredicate.php Base} term test suite.
+ * {@link CPredicateTerm.php Base} term test suite.
  *
  * This file contains routines to test and demonstrate the behaviour of the
- * base term {@link CPredicate class}.
+ * base term {@link CPredicateTerm class}.
  *
  *	@package	Test
  *	@subpackage	Entities
@@ -27,8 +27,8 @@ require_once( '/Library/WebServer/Library/wrapper/includes.inc.php' );
 //
 // Class includes.
 //
-require_once( kPATH_LIBRARY_SOURCE."CPredicate.php" );
-require_once( kPATH_LIBRARY_SOURCE."CNamespace.php" );
+require_once( kPATH_LIBRARY_SOURCE."CPredicateTerm.php" );
+require_once( kPATH_LIBRARY_SOURCE."CNamespaceTerm.php" );
 
 
 /*=======================================================================================
@@ -58,7 +58,7 @@ try
 	//
 	// Instantiate CMongoContainer.
 	//
-	$collection = new CMongoContainer( $db->selectCollection( 'CPredicate' ) );
+	$collection = new CMongoContainer( $db->selectCollection( 'CPredicateTerm' ) );
 	 
 	//
 	// Load terms.
@@ -66,8 +66,8 @@ try
 	echo( '<h3>Load terms</h3>' );
 	
 	echo( '<i><b>PREDICATE</b></i><br>' );
-	echo( '<i>$predicate = new CPredicate();</i><br>' );
-	$predicate = new CPredicate();
+	echo( '<i>$predicate = new CPredicateTerm();</i><br>' );
+	$predicate = new CPredicateTerm();
 	echo( '<i>$predicate->Code( \'IS_A\' );</i><br>' );
 	$predicate->Code( 'IS_A' );
 	echo( '<i>$predicate->Name( \'Is a\' );</i><br>' );
@@ -78,8 +78,8 @@ try
 	echo( '<hr>' );
 
 	echo( '<i><b>TERM 1</b></i><br>' );
-	echo( '<i>$term1 = new CNamespace();</i><br>' );
-	$term1 = new CNamespace();
+	echo( '<i>$term1 = new CNamespaceTerm();</i><br>' );
+	$term1 = new CNamespaceTerm();
 	echo( '<i>$term1->Code( \'NS\' );</i><br>' );
 	$term1->Code( 'NS' );
 	echo( '<i>$term1->Name( \'Namespace term\', \'en\' );</i><br>' );
@@ -98,8 +98,8 @@ try
 	echo( '<hr>' );
 	
 	echo( '<i><b>TERM 2</b></i><br>' );
-	echo( '<i>$term2 = new CPredicate();</i><br>' );
-	$term2 = new CPredicate();
+	echo( '<i>$term2 = new CPredicateTerm();</i><br>' );
+	$term2 = new CPredicateTerm();
 	echo( '<i>$term2->NS( \'NS\' );</i><br>' );
 	$term2->NS( 'NS' );
 	echo( '<i>$term2->Code( \'TERM2\' );</i><br>' );
@@ -124,8 +124,8 @@ try
 	echo( '<hr>' );
 	
 	echo( '<i><b>TERM 3</b></i><br>' );
-	echo( '<i>$term3 = new CPredicate();</i><br>' );
-	$term3 = new CPredicate();
+	echo( '<i>$term3 = new CPredicateTerm();</i><br>' );
+	$term3 = new CPredicateTerm();
 	echo( '<i>$term3->NS( \'NS\' );</i><br>' );
 	$term3->NS( 'NS' );
 	echo( '<i>$term3->Code( \'TERM3\' );</i><br>' );
@@ -150,20 +150,20 @@ try
 	echo( '<h3>Test valid chain</h3>' );
 
 	echo( "<i>$term1</i><br>" );
-	echo( '<i>$valid = CPredicate::ValidObject( $collection, $id1 );</i><br>' );
-	$valid = CPredicate::ValidObject( $collection, $id1 );
+	echo( '<i>$valid = CPredicateTerm::ValidObject( $collection, $id1 );</i><br>' );
+	$valid = CPredicateTerm::ValidObject( $collection, $id1 );
 	echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
 	echo( '<hr>' );
 
 	echo( "<i>$term2</i><br>" );
-	echo( '<i>$valid = CPredicate::ValidObject( $collection, $id2 );</i><br>' );
-	$valid = CPredicate::ValidObject( $collection, $id2 );
+	echo( '<i>$valid = CPredicateTerm::ValidObject( $collection, $id2 );</i><br>' );
+	$valid = CPredicateTerm::ValidObject( $collection, $id2 );
 	echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
 	echo( '<hr>' );
 
 	echo( "<i>$term3</i><br>" );
-	echo( '<i>$valid = CPredicate::ValidObject( $collection, $id3 );</i><br>' );
-	$valid = CPredicate::ValidObject( $collection, $id3 );
+	echo( '<i>$valid = CPredicateTerm::ValidObject( $collection, $id3 );</i><br>' );
+	$valid = CPredicateTerm::ValidObject( $collection, $id3 );
 	echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
 	echo( '<hr>' );
 	 

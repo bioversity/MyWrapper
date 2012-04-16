@@ -1,10 +1,10 @@
 <?php
 
 /**
- * <i>CPredicate</i> class definition.
+ * <i>CNamespaceTerm</i> class definition.
  *
- * This file contains the class definition of <b>CPredicate</b> which represents a
- * predicate {@link COntologyTerm term}.
+ * This file contains the class definition of <b>CNamespaceTerm</b> which represents the
+ * ancestor of namespace term objects.
  *
  *	@package	MyWrapper
  *	@subpackage	Ontology
@@ -15,7 +15,7 @@
 
 /*=======================================================================================
  *																						*
- *									CPredicate.php										*
+ *									CNamespaceTerm.php									*
  *																						*
  *======================================================================================*/
 
@@ -24,21 +24,26 @@
  *
  * This include file contains the parent class definitions.
  */
-require_once( kPATH_LIBRARY_SOURCE."COntologyTerm.php" );
+require_once( kPATH_LIBRARY_SOURCE."COntologyTermObject.php" );
 
 /**
- * Predicate term.
+ * Namespace term.
  *
- * This {@link kTAG_TERM_PREDICATE kind} of {@link COntologyTerm term} represents the
- * root term of an ontology. In general, it can represent the ontology as a whole.
+ * This {@link kTAG_TERM_NAMESPACE kind} of {@link COntologyTermObject term} represents a
+ * namespace, or group that qualifies the {@link Code() codes} and {@link Name() names} of
+ * the {@link COntologyTermObject terms} that belong to this namespace.
  *
- * In this class we enforce the {@link kTAG_TERM_PREDICATE kTAG_TERM_PREDICATE}
+ * In this class we enforce the {@link kTAG_TERM_NAMESPACE kTAG_TERM_NAMESPACE}
  * {@link Kind() kind}.
+ *
+ * Note that we inherit from {@link COntologyTermObject COntologyTermObject} because this
+ * class does not require the object to have the {@link Name() name} in order to have an
+ * {@link _IsInited() inited} {@link kFLAG_STATE_INITED status}.
  *
  *	@package	MyWrapper
  *	@subpackage	Ontology
  */
-class CPredicate extends COntologyTerm
+class CNamespaceTerm extends COntologyTermObject
 {
 		
 
@@ -58,9 +63,7 @@ class CPredicate extends COntologyTerm
 	 * Normalise before a store.
 	 *
 	 * We overload this method to enforce the
-	 * {@link kTAG_TERM_PREDICATE kTAG_TERM_PREDICATE} {@link Kind() kind}, note that
-	 * we call the {@link COntologyTermObject COntologyTermObject} version of this method
-	 * instead of the {@link COntologyTerm parent} one.
+	 * {@link kTAG_TERM_NAMESPACE kTAG_TERM_NAMESPACE} {@link Kind() kind}.
 	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
@@ -72,25 +75,25 @@ class CPredicate extends COntologyTerm
 	 *
 	 * @uses Kind()
 	 *
-	 * @see kTAG_TERM_PREDICATE
+	 * @see kTAG_TERM_NAMESPACE
 	 */
 	protected function _PrepareCommit( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
 		// Set namespace kind.
 		//
-		$this->Kind( kTAG_TERM_PREDICATE, TRUE );
+		$this->Kind( kTAG_TERM_NAMESPACE, TRUE );
 		
 		//
 		// Call parent method.
 		//
-		COntologyTermObject::_PrepareCommit( $theContainer, $theIdentifier, $theModifiers );
+		parent::_PrepareCommit( $theContainer, $theIdentifier, $theModifiers );
 	
 	} // _PrepareCommit.
 
 	 
 
-} // class CPredicate.
+} // class CNamespaceTerm.
 
 
 ?>

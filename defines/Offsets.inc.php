@@ -37,32 +37,7 @@
  *
  * This value should be tightly integrated with the database.
  */
-define( "kOFFSET_ID",							'_id' );
-
-/*=======================================================================================
- *	DEFAULT TREE TAGS																	*
- *======================================================================================*/
-
-/**
- * Node level.
- *
- * This offset represents the node level.
- */
-define( "kTAG_NODE_LEVEL",						'_level' );
-
-/**
- * Left branch reference.
- *
- * This offset represents the node left branch reference.
- */
-define( "kTAG_NODE_LEFT",						'_left' );
-
-/**
- * Right branch reference.
- *
- * This offset represents the node right branch reference.
- */
-define( "kTAG_NODE_RIGHT",						'_right' );
+define( "kTAG_ID",								'_id' );
 
 /*=======================================================================================
  *	DEFAULT REFERENCE TAGS																*
@@ -74,41 +49,21 @@ define( "kTAG_NODE_RIGHT",						'_right' );
  * This is the tag is the offset used to indicate an object unique identifier within an
  * object reference.
  */
-define( "kOFFSET_REFERENCE_ID",					'$id' );
+define( "kTAG_REFERENCE_ID",					'$id' );
 
 /**
  * Collection name reference tag.
  *
  * This tag is the offset used to indicate a container within an object reference.
  */
-define( "kOFFSET_REFERENCE_CONTAINER",			'$ref' );
+define( "kTAG_REFERENCE_CONTAINER",				'$ref' );
 
 /**
  * Database name reference tag.
  *
  * This tag is the offset used to indicate a database within an object reference.
  */
-define( "kOFFSET_REFERENCE_DATABASE",			'$db' );
-
-/*=======================================================================================
- *	DEFAULT LINK TAGS																	*
- *======================================================================================*/
-
-/**
- * Incoming links tag.
- *
- * This is the offset that should be used to store the object's list of incoming links or
- * references, in general, this will be a list of object identifiers.
- */
-define( "kTAG_LINK_IN",							':IN' );
-
-/**
- * Outgoing links tag.
- *
- * This is the offset that should be used to store the object's list of outgoing links or
- * references, in general, this will be a list of object identifiers.
- */
-define( "kTAG_LINK_OUT",						':OUT' );
+define( "kTAG_REFERENCE_DATABASE",				'$db' );
 
 /*=======================================================================================
  *	DEFAULT OBJECT TAGS																	*
@@ -158,6 +113,15 @@ define( "kTAG_TYPE",							':TYPE' );
 define( "kTAG_KIND",							':KIND' );
 
 /**
+ * Unit.
+ *
+ * This tag is used as the default offset for indicating a unit attribute. A unit is a
+ * measurement unit such as centimeters, in general this offset will hold a reference to
+ * an object that defines the unit.
+ */
+define( "kTAG_UNIT",							':UNIT' );
+
+/**
  * Data.
  *
  * This tag is used as the default offset for indicating an attribute's data or content, in
@@ -171,6 +135,14 @@ define( "kTAG_DATA",							':DATA' );
  * This tag is used as the default offset for indicating an attribute's code or acronym.
  */
 define( "kTAG_CODE",							':CODE' );
+
+/**
+ * Enumeration offset.
+ *
+ * This tag is used as the default offset for indicating an attribute containing an
+ * enumeration code or acronym.
+ */
+define( "kTAG_ENUM",							':ENUM' );
 
 /**
  * Namespace offset.
@@ -225,12 +197,23 @@ define( "kTAG_STATUS",							':STATUS' );
  */
 define( "kTAG_ANNOTATION",						':ANNOTATION' );
 
+/*=======================================================================================
+ *	DEFAULT TIME-STAMP TAGS																*
+ *======================================================================================*/
+
+/**
+ * Creation time-stammp.
+ *
+ * This tag is used as the default offset for indicating a creation time-stamp.
+ */
+define( "kTAG_STAMP_CRE",						':STAMP:CRE' );
+
 /**
  * Last modification time-stammp.
  *
  * This tag is used as the default offset for indicating a last modification time-stamp.
  */
-define( "kTAG_MOD_STAMP",						':STAMP:MOD' );
+define( "kTAG_STAMP_MOD",						':STAMP:MOD' );
 
 /*=======================================================================================
  *	DEFAULT TERM KIND TAGS																*
@@ -263,6 +246,13 @@ define( "kTAG_TERM_ONTOLOGY",					':TERM:ONTO' );
  * This is the tag that represents a predicate term.
  */
 define( "kTAG_TERM_PREDICATE",					':TERM:PRED' );
+
+/**
+ * Scale.
+ *
+ * This is the tag that represents a measure term.
+ */
+define( "kTAG_TERM_MEASURE",					':TERM:MEASURE' );
 
 /**
  * Enumeration.
@@ -326,17 +316,17 @@ define( "kOFFSET_FAX",							':FAX' );
  *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: Relation object, it will be a reference to an
  *		object in which the following elements may appear:
  *	 <ul>
- *		<li><i>{@link kOFFSET_REFERENCE_ID kOFFSET_REFERENCE_ID}</i>: The unique identifier
- *			of the referenced object.
- *		<li><i>{@link kOFFSET_REFERENCE_CONTAINER kOFFSET_REFERENCE_CONTAINER}</i>: The
+ *		<li><i>{@link kTAG_REFERENCE_ID kTAG_REFERENCE_ID}</i>: The unique identifier of the
+ *			referenced object.
+ *		<li><i>{@link kTAG_REFERENCE_CONTAINER kTAG_REFERENCE_CONTAINER}</i>: The
  *			{@link CContainer container} name.
- *		<li><i>{@link kOFFSET_REFERENCE_DATABASE kOFFSET_REFERENCE_DATABASE}</i>: The
- *			database name.
+ *		<li><i>{@link kTAG_REFERENCE_DATABASE kTAG_REFERENCE_DATABASE}</i>: The database
+ *			name.
  *		<li><i>{@link kTAG_CLASS kTAG_CLASS}</i>: The object class name.
  *	 </ul>
  * </ul>
  */
-define( "kTAG_REFS",							':REFS' );
+define( "kOFFSET_REFS",							':REFS' );
 
 /**
  * Valid tag.
@@ -344,9 +334,9 @@ define( "kTAG_REFS",							':REFS' );
  * This is the tag that represents the valid entry related to the current one. There may be
  * cases in which it is not an option to delete objects, so we create a new one and the old
  * one will point to the new one. This tag represents that property and it expects the value
- * of the {@link kOFFSET_ID native} identifier of the new object here.
+ * of the {@link kTAG_ID native} identifier of the new object here.
  */
-define( "kTAG_VALID",							':VALID' );
+define( "kOFFSET_VALID",						':VALID' );
 
 /**
  * URL.
@@ -421,31 +411,6 @@ define( "kOFFSET_MAIL_COUNTRY",					':MAIL:COUNTRY' );
  * This is the tag that represents the full address as a string.
  */
 define( "kOFFSET_MAIL_FULL",					'MAIL:FULL' );
-
-/*=======================================================================================
- *	DEFAULT GEOGRAPHIC COORDINATE PROPERTY OFFSETS										*
- *======================================================================================*/
-
-/**
- * Latitude.
- *
- * This is the tag that represents a latitude, no specific data type is assumed.
- */
-define( "kOFFSET_LATITUDE",						':LAT' );
-
-/**
- * Longitude.
- *
- * This is the tag that represents a longitude, no specific data type is assumed.
- */
-define( "kOFFSET_LONGITUDE",					':LON' );
-
-/**
- * Altitude.
- *
- * This is the tag that represents an altitude, no specific data type is assumed.
- */
-define( "kOFFSET_ALTITUDE",						':ALT' );
 
 
 ?>

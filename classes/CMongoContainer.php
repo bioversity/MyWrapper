@@ -383,7 +383,7 @@ class CMongoContainer extends CContainer
 									  kMESSAGE_TYPE_ERROR,
 									  array( 'Status' => $status ) );			// !@! ==>
 			
-			return $theObject[ kOFFSET_ID ];									// ==>
+			return $theObject[ kTAG_ID ];									// ==>
 		
 		} // Replace.
 		
@@ -396,15 +396,15 @@ class CMongoContainer extends CContainer
 			// Use provided identifier.
 			//
 			if( $theIdentifier !== NULL )
-				$criteria = array( kOFFSET_ID => $theIdentifier );
+				$criteria = array( kTAG_ID => $theIdentifier );
 			
 			//
 			// Get identifier from object.
 			//
-			elseif( array_key_exists( kOFFSET_ID, (array) $theObject ) )
+			elseif( array_key_exists( kTAG_ID, (array) $theObject ) )
 			{
-				$theIdentifier = $theObject[ kOFFSET_ID ];
-				$criteria = array( kOFFSET_ID => $theIdentifier );
+				$theIdentifier = $theObject[ kTAG_ID ];
+				$criteria = array( kTAG_ID => $theIdentifier );
 			}
 			
 			//
@@ -455,7 +455,7 @@ class CMongoContainer extends CContainer
 			foreach( $theObject as $key => $value )
 			{
 				if( ($value !== NULL)
-				 && ($key != kOFFSET_ID) )
+				 && ($key != kTAG_ID) )
 					$tmp[ $key ] = $value;
 			}
 			
@@ -488,7 +488,7 @@ class CMongoContainer extends CContainer
 			// Set identifier.
 			//
 			if( $theIdentifier !== NULL )
-				$theObject[ kOFFSET_ID ] = $theIdentifier;
+				$theObject[ kTAG_ID ] = $theIdentifier;
 			
 			//
 			// Save array.
@@ -509,7 +509,7 @@ class CMongoContainer extends CContainer
 			else
 				$status = $container->insert( $theObject, $options );
 			
-			return $theObject[ kOFFSET_ID ];									// ==>
+			return $theObject[ kTAG_ID ];									// ==>
 		
 		} // Insert.
 		
@@ -528,11 +528,11 @@ class CMongoContainer extends CContainer
 			// Determine criteria.
 			//
 			if( $theIdentifier !== NULL )
-				$criteria = array( kOFFSET_ID => $theIdentifier );
-			elseif( array_key_exists( kOFFSET_ID, (array) $theObject ) )
+				$criteria = array( kTAG_ID => $theIdentifier );
+			elseif( array_key_exists( kTAG_ID, (array) $theObject ) )
 			{
-				$theIdentifier = $theObject[ kOFFSET_ID ];
-				$criteria = array( kOFFSET_ID => $theIdentifier );
+				$theIdentifier = $theObject[ kTAG_ID ];
+				$criteria = array( kTAG_ID => $theIdentifier );
 			}
 			else
 				throw new CException
@@ -574,8 +574,8 @@ class CMongoContainer extends CContainer
 	 * We implement this method to handle MongoCollection object stores, this method will
 	 * retrieve the object from the current container.
 	 *
-	 * The {@link Load() caller} will have resolved {@link CMongoDBRef references} and
-	 * eventually extracted the identifier from the provided parameter.
+	 * The {@link Load() caller} will have resolved references andeventually extracted the
+	 * identifier from the provided parameter.
 	 *
 	 * This method will check if the current container is a MongoCollection, if this is not 
 	 * the case, it will raise an {@link kERROR_INVALID_STATE exception}.
@@ -593,7 +593,7 @@ class CMongoContainer extends CContainer
 		//
 		// Set criteria.
 		//
-		$criteria = array( kOFFSET_ID => $theIdentifier );
+		$criteria = array( kTAG_ID => $theIdentifier );
 		
 		return $this->Container()->findOne( $criteria );							// ==>
 	
@@ -633,7 +633,7 @@ class CMongoContainer extends CContainer
 			//
 			// Set criteria.
 			//
-			$criteria = array( kOFFSET_ID => $theIdentifier );
+			$criteria = array( kTAG_ID => $theIdentifier );
 			
 			//
 			// Set options.
@@ -670,8 +670,8 @@ class CMongoContainer extends CContainer
 	 *
 	 * We {@link CContaoiner::_PrepareCommit() overload} this method to handle the
 	 * identifier: if provided, it means that that is to become the object's unique
-	 * {@link kOFFSET_ID identifier}; if not provided and the object has an
-	 * {@link kOFFSET_ID identifier}, we use that one.
+	 * {@link kTAG_ID identifier}; if not provided and the object has an
+	 * {@link kTAG_ID identifier}, we use that one.
 	 *
 	 * We also raise an exception if the provided object is not either an array or an
 	 * ArrayObject.
@@ -711,13 +711,13 @@ class CMongoContainer extends CContainer
 		// Set identifier.
 		//
 		if( $theIdentifier !== NULL )
-			$theObject[ kOFFSET_ID ] = $theIdentifier;
+			$theObject[ kTAG_ID ] = $theIdentifier;
 			
 		//
 		// Get identifier.
 		//
-		elseif( array_key_exists( kOFFSET_ID, (array) $theObject ) )
-			$theIdentifier = $theObject[ kOFFSET_ID ];
+		elseif( array_key_exists( kTAG_ID, (array) $theObject ) )
+			$theIdentifier = $theObject[ kTAG_ID ];
 	
 	} // _PrepareCommit.
 

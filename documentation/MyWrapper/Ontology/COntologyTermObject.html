@@ -83,7 +83,7 @@
 								 alt=" class"
 								 title=" class"
 								 style="vertical-align: center"/>
-						<a href="../../MyWrapper/Ontology/CNamespace.html">CNamespace</a>
+						<a href="../../MyWrapper/Ontology/CNamespaceTerm.html">CNamespaceTerm</a>
 					</td>
 					<td>
 											Namespace term.
@@ -313,6 +313,14 @@
 				<a href="../../MyWrapper/Ontology/COntologyTerm.html#method__construct">COntologyTerm::__construct()</a>
 								: Instantiate class.
 							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/CEnumerationTerm.html#method__construct">CEnumerationTerm::__construct()</a>
+								: Instantiate class.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/CMeasureTerm.html#method__construct">CMeasureTerm::__construct()</a>
+								: Instantiate class.
+							</li>
 				</ul>
 	</div>
 <a name="methodNS" id="NS"><!-- --></a>
@@ -419,7 +427,7 @@
 <p class="short-description">Manage valid reference.</p>
 <p class="description"><p>We <a href="../../MyWrapper/Persistence/CRelatedUnitObject.html#methodValid">overload</a> this method to  <a href="../../MyWrapper/Ontology/COntologyTermObject.html#method_CheckReference">ensure</a> that references are provided in the correct manner,  that is, as a <a href="../../MyWrapper/Framework/CDataTypeBinary.html">binary</a> standard type.</p></p>
 	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_VALID">kTAG_VALID</a></li>
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_VALID">kOFFSET_VALID</a></li>
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 			</ul>
@@ -569,7 +577,7 @@
 		<div class="notes">Redefined in descendants as:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../MyWrapper/Ontology/CNamespace.html#method_PrepareCommit">CNamespace::_PrepareCommit()</a>
+				<a href="../../MyWrapper/Ontology/CNamespaceTerm.html#method_PrepareCommit">CNamespaceTerm::_PrepareCommit()</a>
 								: Normalise before a store.
 							</li>
 					<li>
@@ -577,11 +585,19 @@
 								: Normalise before a store.
 							</li>
 					<li>
+				<a href="../../MyWrapper/Ontology/CEnumerationTerm.html#method_PrepareCommit">CEnumerationTerm::_PrepareCommit()</a>
+								: Normalise before a store.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/CMeasureTerm.html#method_PrepareCommit">CMeasureTerm::_PrepareCommit()</a>
+								: Normalise before a store.
+							</li>
+					<li>
 				<a href="../../MyWrapper/Ontology/COntology.html#method_PrepareCommit">COntology::_PrepareCommit()</a>
 								: Normalise before a store.
 							</li>
 					<li>
-				<a href="../../MyWrapper/Ontology/CPredicate.html#method_PrepareCommit">CPredicate::_PrepareCommit()</a>
+				<a href="../../MyWrapper/Ontology/CPredicateTerm.html#method_PrepareCommit">CPredicateTerm::_PrepareCommit()</a>
 								: Normalise before a store.
 							</li>
 				</ul>
@@ -856,7 +872,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Mon, 16 Apr 2012 13:34:19 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Mon, 16 Apr 2012 15:48:23 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

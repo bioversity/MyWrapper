@@ -27,9 +27,9 @@ require_once( '/Library/WebServer/Library/wrapper/includes.inc.php' );
 //
 // Class includes.
 //
-require_once( kPATH_LIBRARY_SOURCE."CNamespace.php" );
+require_once( kPATH_LIBRARY_SOURCE."CNamespaceTerm.php" );
 require_once( kPATH_LIBRARY_SOURCE."COntology.php" );
-require_once( kPATH_LIBRARY_SOURCE."CPredicate.php" );
+require_once( kPATH_LIBRARY_SOURCE."CPredicateTerm.php" );
 require_once( kPATH_LIBRARY_SOURCE."COntologyTerm.php" );
 
 
@@ -68,8 +68,8 @@ try
 	echo( '<h3>Load terms</h3>' );
 	
 	echo( '<i><b>NAMESPACE</b></i><br>' );
-	echo( '<i>$namespace = new CNamespace();</i><br>' );
-	$namespace = new CNamespace();
+	echo( '<i>$namespace = new CNamespaceTerm();</i><br>' );
+	$namespace = new CNamespaceTerm();
 	echo( '<i>$namespace->Code( \'NS\' );</i><br>' );
 	$namespace->Code( 'NS' );
 	echo( '<i>$idn = $namespace->Commit( $collection );</i><br>' );
@@ -78,8 +78,8 @@ try
 	echo( '<hr>' );
 	
 	echo( '<i><b>PREDICATE</b></i><br>' );
-	echo( '<i>$predicate = new CPredicate();</i><br>' );
-	$predicate = new CPredicate();
+	echo( '<i>$predicate = new CPredicateTerm();</i><br>' );
+	$predicate = new CPredicateTerm();
 	echo( '<i>$predicate->NS( $namespace );</i><br>' );
 	$predicate->NS( $namespace );
 	echo( '<i>$predicate->Code( \'IS_A\' );</i><br>' );

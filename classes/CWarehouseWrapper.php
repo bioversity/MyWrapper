@@ -215,7 +215,8 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				//
 				// Check for database.
 				//
-				if( ! array_key_exists( kAPI_DATABASE, $_REQUEST ) )
+				if( (! array_key_exists( kAPI_DATABASE, $_REQUEST ))
+				 || (! strlen( $_REQUEST[ kAPI_DATABASE ] )) )
 					throw new CException
 						( "Missing database reference",
 						  kERROR_OPTION_MISSING,
@@ -225,7 +226,8 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				//
 				// Check for container.
 				//
-				if( ! array_key_exists( kAPI_CONTAINER, $_REQUEST ) )
+				if( (! array_key_exists( kAPI_CONTAINER, $_REQUEST ))
+				 || (! strlen( $_REQUEST[ kAPI_CONTAINER ] )) )
 					throw new CException
 						( "Missing container reference",
 						  kERROR_OPTION_MISSING,

@@ -31,7 +31,7 @@
 <p class="short-description">Coded unit object.</p>
 <p class="description"><p>Objects derived from this class have the following predefined properties:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">kTAG_CODE</a></em>: This attribute represents the current object's
         <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a>, identifier or acronym.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kTAG_KIND</a></em>: This attribute represents the current object's
-        <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodKind">kind</a> or type.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_MOD_STAMP">kTAG_MOD_STAMP</a></em>: This offset holds the object's last
+        <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodKind">kind</a> or type.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_STAMP_MOD">kTAG_STAMP_MOD</a></em>: This offset holds the object's last
         modification time stamp, this property should be used to mark all objects.</li></ul></p><p>By default, the unique <a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_index">identifier</a> of the object is its  <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a>, which is also its <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_id">id</a>.</p><p>Objects of this class require at least the <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">offset</a>  to have an <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">initialised</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>.</p></p>
 		<p class="notes">
 			Located in <a class="field" href="_classes---CCodedUnitObject.php.html">/classes/CCodedUnitObject.php</a> (line <span class="field">52</span>)
@@ -269,6 +269,14 @@
 				<a href="../../MyWrapper/Ontology/COntologyTerm.html#method__construct">COntologyTerm::__construct()</a>
 								: Instantiate class.
 							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/CEnumerationTerm.html#method__construct">CEnumerationTerm::__construct()</a>
+								: Instantiate class.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/CMeasureTerm.html#method__construct">CMeasureTerm::__construct()</a>
+								: Instantiate class.
+							</li>
 				</ul>
 	</div>
 <a name="methodCode" id="Code"><!-- --></a>
@@ -321,11 +329,13 @@
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kTAG_KIND</a></li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/CPredicate.html#method_PrepareCommit">CPredicate::_PrepareCommit()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntology.html#method_PrepareCommit">COntology::_PrepareCommit()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/CNamespace.html#method_PrepareCommit">CNamespace::_PrepareCommit()</a></li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/CPredicateTerm.html#method_PrepareCommit">CPredicateTerm::_PrepareCommit()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/CMeasureTerm.html#method_PrepareCommit">CMeasureTerm::_PrepareCommit()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTerm.html#method_PrepareCommit">COntologyTerm::_PrepareCommit()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/CNamespaceTerm.html#method_PrepareCommit">CNamespaceTerm::_PrepareCommit()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/CEnumerationTerm.html#method_PrepareCommit">CEnumerationTerm::_PrepareCommit()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -408,6 +418,14 @@
 				<a href="../../MyWrapper/Ontology/COntologyTerm.html#methodoffsetSet">COntologyTerm::offsetSet()</a>
 								: Set a value for a given offset.
 							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/CEnumerationTerm.html#methodoffsetSet">CEnumerationTerm::offsetSet()</a>
+								: Set a value for a given offset.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/CMeasureTerm.html#methodoffsetSet">CMeasureTerm::offsetSet()</a>
+								: Set a value for a given offset.
+							</li>
 				</ul>
 	</div>
 <a name="methodoffsetUnset" id="offsetUnset"><!-- --></a>
@@ -465,6 +483,14 @@
 				<a href="../../MyWrapper/Ontology/COntologyTerm.html#methodoffsetUnset">COntologyTerm::offsetUnset()</a>
 								: Reset a value for a given offset.
 							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/CEnumerationTerm.html#methodoffsetUnset">CEnumerationTerm::offsetUnset()</a>
+								: Reset a value for a given offset.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/CMeasureTerm.html#methodoffsetUnset">CMeasureTerm::offsetUnset()</a>
+								: Reset a value for a given offset.
+							</li>
 				</ul>
 	</div>
 <a name="methodStamp" id="Stamp"><!-- --></a>
@@ -477,11 +503,11 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage object time stamp.</p>
-<p class="description"><p>This method can be used to manage the object <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_MOD_STAMP">time-stamp</a>, or  the date in which the last modification was made on the object, it uses the standard  accessor <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">method</a> to manage the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_MOD_STAMP">offset</a>:</p><p><ul><li><strong>$theValue</strong>: The value or operation:
+<p class="description"><p>This method can be used to manage the object <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_STAMP_MOD">time-stamp</a>, or  the date in which the last modification was made on the object, it uses the standard  accessor <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">method</a> to manage the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_STAMP_MOD">offset</a>:</p><p><ul><li><strong>$theValue</strong>: The value or operation:
      <ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the value.</li><li><em>other</em>: Set value.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
      <ul><li><em>TRUE</em>: Return the value <em>before</em> it was eventually modified.</li><li><em>FALSE</em>: Return the value <em>after</em> it was eventually modified.</li></ul></li></ul></p></p>
 	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_MOD_STAMP">kTAG_MOD_STAMP</a></li>
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_STAMP_MOD">kTAG_STAMP_MOD</a></li>
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 			</ul>
@@ -515,7 +541,7 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Return the object's unique index.</p>
-<p class="description"><p>In this class we consider the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a> to be the object's unique  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_ID">identifier</a>.</p></p>
+<p class="description"><p>In this class we consider the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a> to be the object's unique  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID">identifier</a>.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
 			</ul>
@@ -752,7 +778,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Mon, 16 Apr 2012 13:34:12 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Mon, 16 Apr 2012 15:48:15 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

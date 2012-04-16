@@ -35,14 +35,14 @@ require_once( kPATH_LIBRARY_SOURCE."CPersistentUnitObject.php" );
  *
  * This object introduces the concept of object reference, that is, a structure that can be
  * used to refer to other objects. The {@link Relate() Relate} method can be used to manage
- * a list of object references in the {@link kTAG_REFS kTAG_REFS} offset, this list can take
- * two forms: it can be an array of object references, or an array of predicate/object pairs
- * that can constitute a graph.
+ * a list of object references in the {@link kOFFSET_REFS kOFFSET_REFS} offset, this list
+ * can take two forms: it can be an array of object references, or an array of
+ * predicate/object pairs that can constitute a graph.
  *
- * This class also features a {@link kTAG_VALID property} that can be {@link Valid() used}
- * to refer to a valid object: in other words, objects do not get deleted, they simply point
- * to the {@link Valid() valid} object, that way one can implement a system that maintains
- * referential integrity.
+ * This class also features a {@link kOFFSET_VALID property} that can be
+ * {@link Valid() used} to refer to a valid object: in other words, objects do not get
+ * deleted, they simply point to the {@link Valid() valid} object, that way one can
+ * implement a system that maintains referential integrity.
  *
  * To supplement the last property, this class implements a static
  * {@link ValidObject() method} that can be used to return the valid object, objects that
@@ -77,7 +77,7 @@ abstract class CRelatedUnitObject extends CPersistentUnitObject
 	 * This method can be used to manage relationships between the current object and other
 	 * objects, it is represented as a list of subject/predicate/object relationships in
 	 * which the subject is the current object, and the list of predicate/object pairs will
-	 * be stored in the {@link kTAG_REFS kTAG_REFS} offset.
+	 * be stored in the {@link kOFFSET_REFS kOFFSET_REFS} offset.
 	 *
 	 * The method accepts the following parameters:
 	 *
@@ -139,7 +139,7 @@ abstract class CRelatedUnitObject extends CPersistentUnitObject
 	 * @uses _CheckRelationPredicate()
 	 * @uses _ManageObjectList()
 	 *
-	 * @see kTAG_REFS kTAG_KIND kTAG_DATA
+	 * @see kOFFSET_REFS kTAG_KIND kTAG_DATA
 	 */
 	public function Relate( $theObject, $thePredicate = NULL,
 										$theOperation = NULL,
@@ -184,9 +184,9 @@ abstract class CRelatedUnitObject extends CPersistentUnitObject
 		else
 			$relation = $theObject;
 		
-		return $this->_ManageObjectList( kTAG_REFS, $relation,
-													$theOperation,
-													$getOld );						// ==>
+		return $this->_ManageObjectList( kOFFSET_REFS, $relation,
+													   $theOperation,
+													   $getOld );					// ==>
 
 	} // Relate.
 
@@ -199,8 +199,8 @@ abstract class CRelatedUnitObject extends CPersistentUnitObject
 	 * Manage valid reference.
 	 *
 	 * This method can be used to handle the valid object's
-	 * {@link kOFFSET_ID identifier}, it uses the standard accessor
-	 * {@link _ManageOffset() method} to manage the {@link kTAG_VALID offset}.
+	 * {@link kTAG_ID identifier}, it uses the standard accessor
+	 * {@link _ManageOffset() method} to manage the {@link kOFFSET_VALID offset}.
 	 *
 	 * Objects derived from this class should be persistent, in other words, it is not an
 	 * option to delete such objects: by creating a new object and referencing it from the
@@ -208,7 +208,7 @@ abstract class CRelatedUnitObject extends CPersistentUnitObject
 	 *
 	 * For a more in-depth reference of this method, please consult the
 	 * {@link _ManageOffset() _ManageOffset} method, in which the first parameter will be
-	 * the constant {@link kTAG_VALID kTAG_VALID}.
+	 * the constant {@link kOFFSET_VALID kOFFSET_VALID}.
 	 *
 	 * In this class we feed the value to the
 	 * {@link _CheckRelationObject() _CheckRelationObject} method that will take care of
@@ -222,7 +222,7 @@ abstract class CRelatedUnitObject extends CPersistentUnitObject
 	 *
 	 * @uses _ManageOffset
 	 *
-	 * @see kTAG_VALID
+	 * @see kOFFSET_VALID
 	 */
 	public function Valid( $theValue = NULL, $getOld = FALSE )
 	{
@@ -233,7 +233,7 @@ abstract class CRelatedUnitObject extends CPersistentUnitObject
 		 && ($theValue !== FALSE) )
 			$theValue = $this->_CheckRelationObject( $theValue );
 		
-		return $this->_ManageOffset( kTAG_VALID, $theValue, $getOld );				// ==>
+		return $this->_ManageOffset( kOFFSET_VALID, $theValue, $getOld );			// ==>
 
 	} // Valid.
 
@@ -263,7 +263,7 @@ abstract class CRelatedUnitObject extends CPersistentUnitObject
 	 * exception.
 	 *
 	 * The method will return the first object that does not have a {@link Valid() valid}
-	 * {@link kTAG_VALID reference}, or <i>NULL</i> if the object was not found.
+	 * {@link kOFFSET_VALID reference}, or <i>NULL</i> if the object was not found.
 	 *
 	 * @param mixed					$theContainer		Persistent container.
 	 * @param mixed					$theIdentifier		Object identifier.
@@ -319,7 +319,7 @@ abstract class CRelatedUnitObject extends CPersistentUnitObject
 				//
 				// Copy valid.
 				//
-				$theIdentifier = $object[ kTAG_VALID ];
+				$theIdentifier = $object[ kOFFSET_VALID ];
 				
 			} // Found entity.
 			
@@ -381,12 +381,12 @@ abstract class CRelatedUnitObject extends CPersistentUnitObject
 		//
 		// Handle relations.
 		//
-		$this->_ParseReferences( kTAG_REFS, $theContainer, $theModifiers );
+		$this->_ParseReferences( kOFFSET_REFS, $theContainer, $theModifiers );
 		
 		//
 		// Handle valid reference.
 		//
-		$this->_ParseReferences( kTAG_VALID, $theContainer, $theModifiers );
+		$this->_ParseReferences( kOFFSET_VALID, $theContainer, $theModifiers );
 		
 	} // _PrepareCommit.
 

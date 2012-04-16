@@ -276,8 +276,8 @@ try
 	echo( '<hr>' );
 	
 	echo( '<i>Load with reference</i><br>' );
-	echo( '<i>$ref = array( kOFFSET_REFERENCE_ID => 1 );</i><br>' );
-	$ref = array( kOFFSET_REFERENCE_ID => 1 );
+	echo( '<i>$ref = array( kTAG_REFERENCE_ID => 1 );</i><br>' );
+	$ref = array( kTAG_REFERENCE_ID => 1 );
 	echo( '<i>$test = new MyClass( $mcontainer, $ref );</i><br>' );
 	$test = new MyClass( $mcontainer, $ref );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
@@ -305,7 +305,7 @@ try
 	// Create references.
 	//
 	$id1 = 1;
-	$ref1 = new MyClass( array( 'Name' => 'Relation 1', kOFFSET_ID => $id1 ) );
+	$ref1 = new MyClass( array( 'Name' => 'Relation 1', kTAG_ID => $id1 ) );
 	$ref2 = new MyClass( array( 'Name' => 'Relation 2' ) );
 	$ref3 = new MyClass( array( 'Name' => 'Relation 3' ) );
 	$id3 = $ref3->Commit( $mcontainer );
@@ -443,7 +443,7 @@ try
 	
 	$array = array
 	(
-		kOFFSET_ID => array
+		kTAG_ID => array
 		(
 			kTAG_TYPE => kDATA_TYPE_MongoId,
 			kTAG_DATA => '4f5e28d2961be56010000003'
@@ -507,8 +507,8 @@ try
 	echo( '<hr>' );
 	
 	echo( '<i>Full reference object</i><br>' );
-	echo( '<i>$ref = MongoDBRef::create( \'CPersistentUnitObject\', $ref[ kOFFSET_REFERENCE_ID ], \'TEST\' );</i><br>' );
-	$ref = MongoDBRef::create( 'CPersistentUnitObject', $ref[ kOFFSET_REFERENCE_ID ], 'TEST' );
+	echo( '<i>$ref = MongoDBRef::create( \'CPersistentUnitObject\', $ref[ kTAG_REFERENCE_ID ], \'TEST\' );</i><br>' );
+	$ref = MongoDBRef::create( 'CPersistentUnitObject', $ref[ kTAG_REFERENCE_ID ], 'TEST' );
 	echo( '<i>$ref = CPersistentUnitObject::Reference( $ref, kFLAG_REFERENCE_MASK );</i><br>' );
 	$ref = CPersistentUnitObject::Reference( $ref, kFLAG_REFERENCE_MASK );
 	echo( 'Reference:<pre>' ); print_r( $ref ); echo( '</pre>' );

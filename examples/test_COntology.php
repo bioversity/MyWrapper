@@ -28,7 +28,7 @@ require_once( '/Library/WebServer/Library/wrapper/includes.inc.php' );
 // Class includes.
 //
 require_once( kPATH_LIBRARY_SOURCE."COntology.php" );
-require_once( kPATH_LIBRARY_SOURCE."CNamespace.php" );
+require_once( kPATH_LIBRARY_SOURCE."CNamespaceTerm.php" );
 
 
 /*=======================================================================================
@@ -78,8 +78,8 @@ try
 	echo( '<hr>' );
 
 	echo( '<i><b>TERM 1</b></i><br>' );
-	echo( '<i>$term1 = new CNamespace();</i><br>' );
-	$term1 = new CNamespace();
+	echo( '<i>$term1 = new CNamespaceTerm();</i><br>' );
+	$term1 = new CNamespaceTerm();
 	echo( '<i>$term1->Code( \'NS\' );</i><br>' );
 	$term1->Code( 'NS' );
 	echo( '<i>$term1->Name( \'Namespace term\', \'en\' );</i><br>' );

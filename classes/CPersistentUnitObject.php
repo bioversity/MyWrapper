@@ -53,7 +53,7 @@ require_once( kPATH_LIBRARY_SOURCE."CPersistentObject.php" );
  * {@link _index() _index} is the human readable version of {@link _id() _id}.
  *
  * When the object is {@link Commit committed} for the first time, the value of the
- * {@link _id() _id} method will be set in the {@link kOFFSET_ID kOFFSET_ID} offset
+ * {@link _id() _id} method will be set in the {@link kTAG_ID kTAG_ID} offset
  * which represents the object ID. This offset should never be changed and represents the
  * persistent identifier of the object.
  *
@@ -84,12 +84,12 @@ require_once( kPATH_LIBRARY_SOURCE."CPersistentObject.php" );
  * derived classes in order to handle objects derived from this class.
  *
  * Objects derived from this class also hold, by default, their class name in an
- * {@link kTAG_CLASS offset}, this is used to {@link NewObject() instantiate} objects of the
- * correct class when retrieving data from a container.
+ * {@link kTAG_CLASS offset}, this is used to {@link NewObject() instantiate} objects of
+ * thecorrect class when retrieving data from a container.
  *
- * This class also features a {@link kTAG_VERSION version} which is an integer, incremented
- * each time the object is {@link Commit() committed}: this is  useful to implement a
- * concurrency control mechanism.
+ * This class also features a {@link kTAG_VERSION version} which is an integer,
+ * incremented each time the object is {@link Commit() committed}: this is  useful to
+ * implement a concurrency control mechanism.
  *
  * Starting from this class we only handle {@link CContainer CContainer} derived instances
  * as containers, other container types will not be supported. This is because
@@ -110,8 +110,8 @@ require_once( kPATH_LIBRARY_SOURCE."CPersistentObject.php" );
  *		{@link kTAG_CLASS class}.
  *	<li><i>{@link Reference() Reference}</i>: This method will convert an instance derived
  *		from this class into a standard object reference structure in which it is possible
- *		to indicate both the {@link kOFFSET_REFERENCE_CONTAINER container} and the
- *		{@link kOFFSET_REFERENCE_DATABASE database}.
+ *		to indicate both the {@link kTAG_REFERENCE_CONTAINER container} and the
+ *		{@link kTAG_REFERENCE_DATABASE database}.
  * </ul>
  *
  * We declare the class abstract because the object must be {@link _IsInited() inited} to be
@@ -167,11 +167,11 @@ abstract class CPersistentUnitObject extends CPersistentObject
 	 *
 	 * This method can be used to instantiate an object from a mixed class data store, it
 	 * expects the container to be a {@link CContainer CContainer} derived instance and the
-	 * identifier to be the {@link _id() unique} {@link kOFFSET_ID identifier} of the
+	 * identifier to be the {@link _id() unique} {@link kTAG_ID identifier} of the
 	 * object.
 	 *
-	 * This method takes advantage of the {@link Commit() stored} {@link kTAG_CLASS class}
-	 * name.
+	 * This method takes advantage of the {@link Commit() stored}
+	 * {@link kTAG_CLASS class} name.
 	 *
 	 * The method will return an object, if the identifier matches and the object has its
 	 * {@link kTAG_CLASS class} name; an array if the identifier matches, but the data
@@ -258,15 +258,15 @@ abstract class CPersistentUnitObject extends CPersistentObject
 	 * The method will return an array composed by the following offsets:
 	 *
 	 * <ul>
-	 *	<li><i>{@link kOFFSET_REFERENCE_ID kOFFSET_REFERENCE_ID}</i>: The object identifier,
-	 *		if the provided object does not have an {@link kOFFSET_ID identifier}, this
-	 *		method will search for a {@link kOFFSET_REFERENCE_ID reference}.
-	 *	<li><i>{@link kOFFSET_REFERENCE_CONTAINER kOFFSET_REFERENCE_CONTAINER}</i>: The
+	 *	<li><i>{@link kTAG_REFERENCE_ID kTAG_REFERENCE_ID}</i>: The object identifier,
+	 *		if the provided object does not have an {@link kTAG_ID identifier}, this
+	 *		method will search for a {@link kTAG_REFERENCE_ID reference}.
+	 *	<li><i>{@link kTAG_REFERENCE_CONTAINER kTAG_REFERENCE_CONTAINER}</i>: The
 	 *		container name, if the provided object is a reference.
-	 *	<li><i>{@link kOFFSET_REFERENCE_DATABASE kOFFSET_REFERENCE_DATABASE}</i>: The
+	 *	<li><i>{@link kTAG_REFERENCE_DATABASE kTAG_REFERENCE_DATABASE}</i>: The
 	 *		database name, if the provided object is a reference.
-	 *	<li><i>{@link kTAG_CLASS kTAG_CLASS}</i>: If the provided object is derived from
-	 *		this class, the object's class.
+	 *	<li><i>{@link kTAG_CLASS kTAG_CLASS}</i>: If the provided object is derived
+	 *		from this class, the object's class.
 	 * </ul>
 	 *
 	 * The method accepts two parameters:
@@ -278,8 +278,8 @@ abstract class CPersistentUnitObject extends CPersistentObject
 	 *		in the reference:
 	 *	 <ul>
 	 *		<li><i>{@link kFLAG_REFERENCE_IDENTIFIER kFLAG_REFERENCE_IDENTIFIER}</i>: The
-	 *			object {@link kOFFSET_ID identifier} will be stored under the
-	 *			{@link kOFFSET_REFERENCE_ID kOFFSET_REFERENCE_ID} offset. If the object does
+	 *			object {@link kTAG_ID identifier} will be stored under the
+	 *			{@link kTAG_REFERENCE_ID kTAG_REFERENCE_ID} offset. If the object does
 	 *			not have this identifier, the method will raise an exception. This is the
 	 *			default option.
 	 *		<li><i>{@link kFLAG_REFERENCE_CONTAINER kFLAG_REFERENCE_CONTAINER}</i>: The
@@ -301,8 +301,8 @@ abstract class CPersistentUnitObject extends CPersistentObject
 	 *
 	 * @see kFLAG_REFERENCE_IDENTIFIER kFLAG_REFERENCE_CONTAINER
 	 * @see kFLAG_REFERENCE_DATABASE kFLAG_REFERENCE_CLASS
-	 * @see kOFFSET_REFERENCE_ID kOFFSET_REFERENCE_CONTAINER kOFFSET_REFERENCE_DATABASE
-	 * @see kTAG_CLASS kOFFSET_ID
+	 * @see kTAG_REFERENCE_ID kTAG_REFERENCE_CONTAINER kTAG_REFERENCE_DATABASE
+	 * @see kTAG_CLASS kTAG_ID
 	 */
 	static function Reference( $theObject, $theModifiers = kFLAG_REFERENCE_IDENTIFIER )
 	{
@@ -326,21 +326,21 @@ abstract class CPersistentUnitObject extends CPersistentObject
 				// Try identifier.
 				//
 				if( ( is_array( $theObject )
-				   && array_key_exists( kOFFSET_ID, $theObject ) )
+				   && array_key_exists( kTAG_ID, $theObject ) )
 				 || ( ($theObject instanceof ArrayObject)
-				   && $theObject->offsetExists( kOFFSET_ID ) ) )
-					$reference[ kOFFSET_REFERENCE_ID ]
-						= $theObject[ kOFFSET_ID ];
+				   && $theObject->offsetExists( kTAG_ID ) ) )
+					$reference[ kTAG_REFERENCE_ID ]
+						= $theObject[ kTAG_ID ];
 	
 				//
 				// Try reference.
 				//
 				elseif( ( is_array( $theObject )
-					   && array_key_exists( kOFFSET_REFERENCE_ID, $theObject ) )
+					   && array_key_exists( kTAG_REFERENCE_ID, $theObject ) )
 					 || ( ($theObject instanceof ArrayObject)
-					   && $theObject->offsetExists( kOFFSET_REFERENCE_ID ) ) )
-					$reference[ kOFFSET_REFERENCE_ID ]
-						= $theObject[ kOFFSET_REFERENCE_ID ];
+					   && $theObject->offsetExists( kTAG_REFERENCE_ID ) ) )
+					$reference[ kTAG_REFERENCE_ID ]
+						= $theObject[ kTAG_REFERENCE_ID ];
 			
 			} // Handle identifier.
 
@@ -350,11 +350,11 @@ abstract class CPersistentUnitObject extends CPersistentObject
 			if( $theModifiers & kFLAG_REFERENCE_CONTAINER )
 			{
 				if( ( is_array( $theObject )
-				   && array_key_exists( kOFFSET_REFERENCE_CONTAINER, $theObject ) )
+				   && array_key_exists( kTAG_REFERENCE_CONTAINER, $theObject ) )
 				 || ( ($theObject instanceof ArrayObject)
-				   && $theObject->offsetExists( kOFFSET_REFERENCE_CONTAINER ) ) )
-					$reference[ kOFFSET_REFERENCE_CONTAINER ]
-						= $theObject[ kOFFSET_REFERENCE_CONTAINER ];
+				   && $theObject->offsetExists( kTAG_REFERENCE_CONTAINER ) ) )
+					$reference[ kTAG_REFERENCE_CONTAINER ]
+						= $theObject[ kTAG_REFERENCE_CONTAINER ];
 			
 			} // Handle container.
 
@@ -364,11 +364,11 @@ abstract class CPersistentUnitObject extends CPersistentObject
 			if( $theModifiers & kFLAG_REFERENCE_DATABASE )
 			{
 				if( ( is_array( $theObject )
-				   && array_key_exists( kOFFSET_REFERENCE_DATABASE, $theObject ) )
+				   && array_key_exists( kTAG_REFERENCE_DATABASE, $theObject ) )
 				 || ( ($theObject instanceof ArrayObject)
-				   && $theObject->offsetExists( kOFFSET_REFERENCE_DATABASE ) ) )
-					$reference[ kOFFSET_REFERENCE_DATABASE ]
-						= $theObject[ kOFFSET_REFERENCE_DATABASE ];
+				   && $theObject->offsetExists( kTAG_REFERENCE_DATABASE ) ) )
+					$reference[ kTAG_REFERENCE_DATABASE ]
+						= $theObject[ kTAG_REFERENCE_DATABASE ];
 			
 			} // Handle database.
 
@@ -428,7 +428,7 @@ abstract class CPersistentUnitObject extends CPersistentObject
 	 * {@link _index() _index} method and hash it if necessary.
 	 *
 	 * This method will be called {@link _PrepareCommit() before} {@link Commit() committing}
-	 * the object to fill its unique identifier {@link kOFFSET_ID offset}. 
+	 * the object to fill its unique identifier {@link kTAG_ID offset}. 
 	 *
 	 * If this method returns <i>NULL</i>, it is assumed that it will be the
 	 * {@link CContainer container} that will provide a default unique value.
@@ -452,7 +452,7 @@ abstract class CPersistentUnitObject extends CPersistentObject
 	 * identifier. This value should generally be extracted from the object's properties.
 	 *
 	 * In general this value will be used by the {@link _id() _id} method to form the
-	 * object's unique {@link kOFFSET_ID identifier}, maybe hashed to make the index
+	 * object's unique {@link kTAG_ID identifier}, maybe hashed to make the index
 	 * smaller.
 	 *
 	 * In this class we require derived classes to implement the method.
@@ -480,8 +480,8 @@ abstract class CPersistentUnitObject extends CPersistentObject
 	 * Normalise parameters of a find.
 	 *
 	 * We {@link CPersistentObject::_PrepareLoad() overload} this method to handle
-	 * identifiers provided as structures containing either the {@link kOFFSET_ID native}
-	 * identifier or an object {@link kOFFSET_REFERENCE_ID reference}.
+	 * identifiers provided as structures containing either the {@link kTAG_ID native}
+	 * identifier or an object {@link kTAG_REFERENCE_ID reference}.
 	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
@@ -504,14 +504,14 @@ abstract class CPersistentUnitObject extends CPersistentObject
 			//
 			// Try object identifier.
 			//
-			if( array_key_exists( kOFFSET_ID, (array) $theIdentifier ) )
-				$theIdentifier = $theIdentifier[ kOFFSET_ID ];
+			if( array_key_exists( kTAG_ID, (array) $theIdentifier ) )
+				$theIdentifier = $theIdentifier[ kTAG_ID ];
 			
 			//
 			// Try object reference.
 			//
-			elseif( array_key_exists( kOFFSET_REFERENCE_ID, (array) $theIdentifier ) )
-				$theIdentifier = $theIdentifier[ kOFFSET_REFERENCE_ID ];
+			elseif( array_key_exists( kTAG_REFERENCE_ID, (array) $theIdentifier ) )
+				$theIdentifier = $theIdentifier[ kTAG_REFERENCE_ID ];
 		}
 
 		//
@@ -534,22 +534,22 @@ abstract class CPersistentUnitObject extends CPersistentObject
 	 *
 	 * <ul>
 	 *	<li><i>Identifier as structure</i>: We handle identifiers provided as object
-	 *		structures or references by checking the {@link kOFFSET_ID native} identifier
-	 *		or the object {@link kOFFSET_REFERENCE_ID reference}.
+	 *		structures or references by checking the {@link kTAG_ID native} identifier
+	 *		or the object {@link kTAG_REFERENCE_ID reference}.
 	 *	<li><i>Set identifier</i>: If the current object has already an
-	 *		{@link kOFFSET_ID identifier} and an identifier was not provided we set it, if
+	 *		{@link kTAG_ID identifier} and an identifier was not provided we set it, if
 	 *		this is not the case we set it via the {@link _id() _id} method.
 	 *	<li><i>Call parent method</i>: We then call the parent method, this is to ensure all
 	 *		required data is provided.
 	 *	<li><i>{@link kTAG_CLASS kTAG_CLASS}</i>: We set this offset with the current
 	 *		object's class name. Note that we overwrite old values.
-	 *	<li><i>{@link kTAG_VERSION kTAG_VERSION}</i>: If not set, we initialise this value
-	 *		to zero, if already set, we increment it.
+	 *	<li><i>{@link kTAG_VERSION kTAG_VERSION}</i>: If not set, we initialise this
+	 *		value to zero, if already set, we increment it.
 	 * </ul>
 	 *
 	 * identifiers
-	 * provided as structures containing either the {@link kOFFSET_ID native} identifier
-	 * or an object {@link kOFFSET_REFERENCE_ID reference}.
+	 * provided as structures containing either the {@link kTAG_ID native} identifier
+	 * or an object {@link kTAG_REFERENCE_ID reference}.
 	 *
 	 * The duty of this method is to ensure that the parameters provided to the
 	 * {@link _Commit() store} operation are correct.
@@ -559,8 +559,8 @@ abstract class CPersistentUnitObject extends CPersistentObject
 	 * in the case it was not provided:
 	 *
 	 * <ul>
-	 *	<li><i>Get {@link kOFFSET_ID kOFFSET_ID}</i>: If the object features the
-	 *		{@link kOFFSET_ID kOFFSET_ID} offset, it will be preferred. This is
+	 *	<li><i>Get {@link kTAG_ID kTAG_ID}</i>: If the object features the
+	 *		{@link kTAG_ID kTAG_ID} offset, it will be preferred. This is
 	 *		necessary, because we don't want the object identifier to change in time.
 	 *	<li><i>Use the {@link _id() :id} method</i>: We use the value returned by the
 	 *		{@link _id() _id} protected method, this will be the case when
@@ -572,8 +572,8 @@ abstract class CPersistentUnitObject extends CPersistentObject
 	 * <ul>
 	 *	<li><i>{@link kTAG_CLASS kTAG_CLASS}</i>: We set this offset with the current
 	 *		object's name. Note that we overwrite old values.
-	 *	<li><i>{@link kTAG_VERSION kTAG_VERSION}</i>: If not set, we initialise this value
-	 *		to zero, if already set, we increment it.
+	 *	<li><i>{@link kTAG_VERSION kTAG_VERSION}</i>: If not set, we initialise this
+	 *		value to zero, if already set, we increment it.
 	 * </ul>
 	 *
 	 * @param reference			   &$theContainer		Object container.
@@ -597,14 +597,14 @@ abstract class CPersistentUnitObject extends CPersistentObject
 			//
 			// Try object identifier.
 			//
-			if( array_key_exists( kOFFSET_ID, (array) $theIdentifier ) )
-				$theIdentifier = $theIdentifier[ kOFFSET_ID ];
+			if( array_key_exists( kTAG_ID, (array) $theIdentifier ) )
+				$theIdentifier = $theIdentifier[ kTAG_ID ];
 			
 			//
 			// Try object reference.
 			//
-			elseif( array_key_exists( kOFFSET_REFERENCE_ID, (array) $theIdentifier ) )
-				$theIdentifier = $theIdentifier[ kOFFSET_REFERENCE_ID ];
+			elseif( array_key_exists( kTAG_REFERENCE_ID, (array) $theIdentifier ) )
+				$theIdentifier = $theIdentifier[ kTAG_REFERENCE_ID ];
 		}
 		
 		//
@@ -615,8 +615,8 @@ abstract class CPersistentUnitObject extends CPersistentObject
 			//
 			// Check native identifier.
 			//
-			if( $this->offsetExists( kOFFSET_ID ) )
-				$theIdentifier = $this->offsetGet( kOFFSET_ID );
+			if( $this->offsetExists( kTAG_ID ) )
+				$theIdentifier = $this->offsetGet( kTAG_ID );
 			
 			//
 			// Check identifier value.
@@ -639,8 +639,8 @@ abstract class CPersistentUnitObject extends CPersistentObject
 		// Set version.
 		//
 		$this->offsetSet( kTAG_VERSION, ( $this->offsetExists( kTAG_VERSION ) )
-									  ? ($this->offsetGet( kTAG_VERSION ) + 1)
-									  : 0 );
+										 ? ($this->offsetGet( kTAG_VERSION ) + 1)
+										 : 0 );
 	
 	} // _PrepareCommit.
 
@@ -668,18 +668,18 @@ abstract class CPersistentUnitObject extends CPersistentObject
 	 *
 	 * <ul>
 	 *	<li><i>Scalar</i>: A scalar value represents the object
-	 *		{@link kOFFSET_ID identifier}.
+	 *		{@link kTAG_ID identifier}.
 	 *	<li><i>Object reference structure</i>: This form is a structure holding the
 	 *		following elements:
 	 *	 <ul>
-	 *		<li><i>{@link kOFFSET_REFERENCE_ID kOFFSET_REFERENCE_ID}</i>: This offset holds
-	 *			the object's {@link kOFFSET_ID identifier}.
-	 *		<li><i>{@link kOFFSET_REFERENCE_CONTAINER kOFFSET_REFERENCE_CONTAINER}</i>: This
+	 *		<li><i>{@link kTAG_REFERENCE_ID kTAG_REFERENCE_ID}</i>: This offset holds
+	 *			the object's {@link kTAG_ID identifier}.
+	 *		<li><i>{@link kTAG_REFERENCE_CONTAINER kTAG_REFERENCE_CONTAINER}</i>: This
 	 *			offset holds the container name in which the object resides.
-	 *		<li><i>{@link kOFFSET_REFERENCE_DATABASE kOFFSET_REFERENCE_DATABASE}</i>: This
+	 *		<li><i>{@link kTAG_REFERENCE_DATABASE kTAG_REFERENCE_DATABASE}</i>: This
 	 *			offset holds the database name in which the object resides.
-	 *		<li><i>{@link kTAG_CLASS kTAG_CLASS}</i>: This offset holds the object's class
-	 *			name.
+	 *		<li><i>{@link kTAG_CLASS kTAG_CLASS}</i>: This offset holds the object's
+	 *			class name.
 	 *	 </ul>
 	 *		Such structures should not have any other allowed offset.
 	 * </ul>
@@ -713,26 +713,26 @@ abstract class CPersistentUnitObject extends CPersistentObject
 	 *		the {@link CContainer::Reference() reference}:
 	 *	 <ul>
 	 *		<li><i>{@link kFLAG_REFERENCE_IDENTIFIER kFLAG_REFERENCE_IDENTIFIER}</i>: The
-	 *			object {@link kOFFSET_ID identifier} will be stored under the
-	 *			{@link kOFFSET_REFERENCE_ID kOFFSET_REFERENCE_ID} offset. This option is
+	 *			object {@link kTAG_ID identifier} will be stored under the
+	 *			{@link kTAG_REFERENCE_ID kTAG_REFERENCE_ID} offset. This option is
 	 *			enforced.
 	 *		<li><i>{@link kFLAG_REFERENCE_CONTAINER kFLAG_REFERENCE_CONTAINER}</i>: The
 	 *			provided container name will be stored under the
-	 *			{@link kOFFSET_REFERENCE_CONTAINER kOFFSET_REFERENCE_CONTAINER} offset. If
+	 *			{@link kTAG_REFERENCE_CONTAINER kTAG_REFERENCE_CONTAINER} offset. If
 	 *			the provided value is empty, the offset will not be set.
 	 *		<li><i>{@link kFLAG_REFERENCE_DATABASE kFLAG_REFERENCE_DATABASE}</i>: The
 	 *			provided container's database name will be stored under the
-	 *			{@link kOFFSET_REFERENCE_DATABASE kOFFSET_REFERENCE_DATABASE} offset. If the
+	 *			{@link kTAG_REFERENCE_DATABASE kTAG_REFERENCE_DATABASE} offset. If the
 	 *			current object's {@link Database() database} name is <i>NULL</i>, the
 	 *			offset will not be set.
 	 *		<li><i>{@link kFLAG_REFERENCE_CLASS kFLAG_REFERENCE_CLASS}</i>: The element
-	 *			object's class name will be stored under the {@link kTAG_CLASS kTAG_CLASS}
-	 *			offset.
+	 *			object's class name will be stored under the
+	 *			{@link kTAG_CLASS kTAG_CLASS} offset.
 	 *	 </ul>
 	 *		If none of the above flags are set, it means that object references are
-	 *		expressed directly as the value of the {@link kOFFSET_ID identifier}, and that
-	 *		{@link kOFFSET_REFERENCE_CONTAINER container} and
-	 *		{@link kOFFSET_REFERENCE_DATABASE database} are implicit.
+	 *		expressed directly as the value of the {@link kTAG_ID identifier}, and that
+	 *		{@link kTAG_REFERENCE_CONTAINER container} and
+	 *		{@link kTAG_REFERENCE_DATABASE database} are implicit.
 	 * </ul>
 	 *
 	 * @param string				$theOffset			Reference list offset.
@@ -869,7 +869,7 @@ abstract class CPersistentUnitObject extends CPersistentObject
 			//
 			$theReference = ( $theModifiers & kFLAG_REFERENCE_MASK )
 						  ? $theContainer->Reference( $theReference, $theModifiers )
-						  : $theReference[ kOFFSET_ID ];
+						  : $theReference[ kTAG_ID ];
 			
 			//
 			// Set result.
@@ -991,7 +991,7 @@ abstract class CPersistentUnitObject extends CPersistentObject
 	 *	 <ul>
 	 *		<li><i>The object</i>: The actual referenced object.
 	 *		<li><i>The object reference</i>: An object reference structure or a scalar
-	 *			representing the object {@link kOFFSET_ID identifier}.
+	 *			representing the object {@link kTAG_ID identifier}.
 	 *	 </ul>
 	 *		or:
 	 *	<li><i>Array</i>: A structure composed of two items:
@@ -1042,7 +1042,7 @@ abstract class CPersistentUnitObject extends CPersistentObject
 	 * </ul>
 	 *
 	 * The {@link _ObjectIndex() method} used to match the list elements expects
-	 * {@link kOFFSET_ID identifiers} in the references or objects, if these are not
+	 * {@link kTAG_ID identifiers} in the references or objects, if these are not
 	 * there, there is no way to discern duplicates.
 	 *
 	 * @param string				$theOffset			Offset.
@@ -1519,16 +1519,16 @@ abstract class CPersistentUnitObject extends CPersistentObject
 	 *	 <ul>
 	 *		<li><i>{@link _IsCommitted() Committed}</i>: If the provided object has a
 	 *			{@link _IsCommitted() committed} {@link kFLAG_STATE_COMMITTED status}, the
-	 *			method will return the object's {@link kOFFSET_ID identifier}.
+	 *			method will return the object's {@link kTAG_ID identifier}.
 	 *		<li><i>Not {@link _IsCommitted() committed}</i>: The parameter will not be
 	 *			converted.
 	 *	 </ul>
 	 *	<li><i>{@link CDataType CDataType}</i>: When providing a complex data type, we
-	 *		assume the value corresponds to the {@link kOFFSET_ID identifier}, in which case
+	 *		assume the value corresponds to the {@link kTAG_ID identifier}, in which case
 	 *		we leave it untouched.
 	 *	<li><i>Array</i> or <i>ArrayObject</i>: In this case the method will assume the
 	 *		provided structure is an object reference and it will check if the
-	 *		{@link kOFFSET_REFERENCE_ID kOFFSET_REFERENCE_ID} offset is there, if this is
+	 *		{@link kTAG_REFERENCE_ID kTAG_REFERENCE_ID} offset is there, if this is
 	 *		not the case the method will raise an exception.
 	 *	<li><i>other</i>: Any other type will be converted to a string.
 	 * </ul>
@@ -1543,7 +1543,7 @@ abstract class CPersistentUnitObject extends CPersistentObject
 	 *
 	 * @uses _IsCommitted()
 	 *
-	 * @see kOFFSET_ID kOFFSET_REFERENCE_ID
+	 * @see kTAG_ID kTAG_REFERENCE_ID
 	 */
 	protected function _CheckRelationObject( $theValue )
 	{
@@ -1556,7 +1556,7 @@ abstract class CPersistentUnitObject extends CPersistentObject
 			// Reference committed objects.
 			//
 			if( $theValue->_IsCommitted() )
-				return $theValue[ kOFFSET_ID ];										// ==>
+				return $theValue[ kTAG_ID ];										// ==>
 			
 			return $theValue;														// ==>
 		
@@ -1577,7 +1577,7 @@ abstract class CPersistentUnitObject extends CPersistentObject
 			//
 			// Check identifier.
 			//
-			if( array_key_exists( kOFFSET_REFERENCE_ID, (array) $theValue ) )
+			if( array_key_exists( kTAG_REFERENCE_ID, (array) $theValue ) )
 				return $theValue;													// ==>
 
 			throw new CException( "Invalid object reference: missing identifier",
@@ -1624,7 +1624,7 @@ abstract class CPersistentUnitObject extends CPersistentObject
 	 *
 	 * @uses _IsCommitted()
 	 *
-	 * @see kOFFSET_ID kOFFSET_REFERENCE_ID
+	 * @see kTAG_ID kTAG_REFERENCE_ID
 	 */
 	protected function _CheckRelationPredicate( $theValue )
 	{
@@ -1658,7 +1658,7 @@ abstract class CPersistentUnitObject extends CPersistentObject
 	 *
 	 * This method is a utility that can be used to extract an object identifier from a
 	 * value, it is used when adding objects or object references to a list that is not
-	 * organised by object {@link kOFFSET_ID ID}.
+	 * organised by object {@link kTAG_ID ID}.
 	 *
 	 * This method will attempt to infer the object identifier by performing the following
 	 * steps:
@@ -1668,9 +1668,9 @@ abstract class CPersistentUnitObject extends CPersistentObject
 	 *		be either an instance of the object itself, or a reference to the object, we
 	 *		check in order if any of the following can be found:
 	 *	 <ul>
-	 *		<li><i>{@link kOFFSET_ID kOFFSET_ID}</i>: We first check whether the
+	 *		<li><i>{@link kTAG_ID kTAG_ID}</i>: We first check whether the
 	 *			object has that offset and use it is so.
-	 *		<li><i>{@link kOFFSET_REFERENCE_ID kOFFSET_REFERENCE_ID}</i>: We then check
+	 *		<li><i>{@link kTAG_REFERENCE_ID kTAG_REFERENCE_ID}</i>: We then check
 	 *			whether the structure contains a reference identifier.
 	 *		<li><i>{@link _id() _id}</i>: If the parameter is an object derived from this
 	 *			class, we try to call this method and use its result.
@@ -1698,19 +1698,19 @@ abstract class CPersistentUnitObject extends CPersistentObject
 		// Try identifier.
 		//
 		if( ( is_array( $theValue )
-		   && array_key_exists( kOFFSET_ID, $theValue ) )
+		   && array_key_exists( kTAG_ID, $theValue ) )
 		 || ( ($theValue instanceof ArrayObject)
-		   && $theValue->offsetExists( kOFFSET_ID ) ) )
-			return $theValue[ kOFFSET_ID ];											// ==>
+		   && $theValue->offsetExists( kTAG_ID ) ) )
+			return $theValue[ kTAG_ID ];											// ==>
 
 		//
 		// Try reference identifier.
 		//
 		if( ( is_array( $theValue )
-		   && array_key_exists( kOFFSET_REFERENCE_ID, $theValue ) )
+		   && array_key_exists( kTAG_REFERENCE_ID, $theValue ) )
 		 || ( ($theValue instanceof ArrayObject)
-		   && $theValue->offsetExists( kOFFSET_REFERENCE_ID ) ) )
-			return $theValue[ kOFFSET_REFERENCE_ID ];								// ==>
+		   && $theValue->offsetExists( kTAG_REFERENCE_ID ) ) )
+			return $theValue[ kTAG_REFERENCE_ID ];									// ==>
 		
 		//
 		// Try identifier value.

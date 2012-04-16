@@ -212,9 +212,9 @@ abstract class COntologyTermObject extends CTerm
 				   ? array( kTAG_KIND => $thePredicate, kTAG_DATA => $theObject )
 				   : $theObject;
 		
-		return $this->_ManageObjectList( kTAG_REFS, $reference,
-													$theOperation,
-													$getOld );						// ==>
+		return $this->_ManageObjectList( kOFFSET_REFS, $reference,
+													   $theOperation,
+													   $getOld );					// ==>
 
 	} // RelateTo.
 
@@ -238,7 +238,7 @@ abstract class COntologyTermObject extends CTerm
 	 *
 	 * @uses _ManageOffset
 	 *
-	 * @see kTAG_VALID
+	 * @see kOFFSET_VALID
 	 */
 	public function Valid( $theValue = NULL, $getOld = FALSE )
 	{

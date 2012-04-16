@@ -73,8 +73,8 @@ try
 	$entity1->Name( 'Milko A. Škofič' );
 	echo( '<i>$entity1->Kind( \'PERSON\', TRUE );</i><br>' );
 	$entity1->Kind( 'PERSON', TRUE );
-	echo( '<i>$entity1[ kOFFSET_ID ] = new CDataTypeBinary( md5( \'MILKO\', TRUE ) );</i><br>' );
-	$entity1[ kOFFSET_ID ] = new CDataTypeBinary( md5( 'MILKO', TRUE ) );
+	echo( '<i>$entity1[ kTAG_ID ] = new CDataTypeBinary( md5( \'MILKO\', TRUE ) );</i><br>' );
+	$entity1[ kTAG_ID ] = new CDataTypeBinary( md5( 'MILKO', TRUE ) );
 	echo( '<pre>' ); print_r( $entity1 ); echo( '</pre>' );
 	echo( '<hr>' );
 	
@@ -89,8 +89,8 @@ try
 	$entity2->Kind( 'PERSON', TRUE );
 	echo( '<i>$entity2->Kind( \'USER\', TRUE );</i><br>' );
 	$entity2->Kind( 'USER', TRUE );
-	echo( '<i>$entity2[ kOFFSET_ID ] = new CDataTypeMongoId();</i><br>' );
-	$entity2[ kOFFSET_ID ] = new CDataTypeMongoId();
+	echo( '<i>$entity2[ kTAG_ID ] = new CDataTypeMongoId();</i><br>' );
+	$entity2[ kTAG_ID ] = new CDataTypeMongoId();
 	echo( '<pre>' ); print_r( $entity2 ); echo( '</pre>' );
 	echo( '<hr>' );
 	
@@ -138,9 +138,9 @@ try
 	echo( "Object:<pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 
-	echo( '<i>$test = new CEntity( $collection, $entity1[ kOFFSET_ID ], kFLAG_STATE_ENCODED );</i><br>' );
-	$test = new CEntity( $collection, $entity1[ kOFFSET_ID ], kFLAG_STATE_ENCODED );
-	echo( "Identifier:<pre>" ); print_r( $entity1[ kOFFSET_ID ] ); echo( '</pre>' );
+	echo( '<i>$test = new CEntity( $collection, $entity1[ kTAG_ID ], kFLAG_STATE_ENCODED );</i><br>' );
+	$test = new CEntity( $collection, $entity1[ kTAG_ID ], kFLAG_STATE_ENCODED );
+	echo( "Identifier:<pre>" ); print_r( $entity1[ kTAG_ID ] ); echo( '</pre>' );
 	echo( "Object:<pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	echo( '<hr>' );
@@ -180,24 +180,24 @@ try
 	//
 	echo( '<h3>Test valid entity</h3>' );
 
-	echo( '<i>$entity1[ kOFFSET_ID ];</i><br>' );
-	echo( '<pre>' ); print_r( $entity1[ kOFFSET_ID ] ); echo( '</pre>' );
-	echo( '<i>$valid = CEntity::ValidObject( $collection, $entity1[ kOFFSET_ID ], kFLAG_STATE_ENCODED );</i><br>' );
-	$valid = CEntity::ValidObject( $collection, $entity1[ kOFFSET_ID ], kFLAG_STATE_ENCODED );
+	echo( '<i>$entity1[ kTAG_ID ];</i><br>' );
+	echo( '<pre>' ); print_r( $entity1[ kTAG_ID ] ); echo( '</pre>' );
+	echo( '<i>$valid = CEntity::ValidObject( $collection, $entity1[ kTAG_ID ], kFLAG_STATE_ENCODED );</i><br>' );
+	$valid = CEntity::ValidObject( $collection, $entity1[ kTAG_ID ], kFLAG_STATE_ENCODED );
 	echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
 	echo( '<hr>' );
 
-	echo( '<i>$entity2[ kOFFSET_ID ];</i><br>' );
-	echo( '<pre>' ); print_r( $entity2[ kOFFSET_ID ] ); echo( '</pre>' );
-	echo( '<i>$valid = CEntity::ValidObject( $collection, $entity2[ kOFFSET_ID ], kFLAG_STATE_ENCODED );</i><br>' );
-	$valid = CEntity::ValidObject( $collection, $entity2[ kOFFSET_ID ], kFLAG_STATE_ENCODED );
+	echo( '<i>$entity2[ kTAG_ID ];</i><br>' );
+	echo( '<pre>' ); print_r( $entity2[ kTAG_ID ] ); echo( '</pre>' );
+	echo( '<i>$valid = CEntity::ValidObject( $collection, $entity2[ kTAG_ID ], kFLAG_STATE_ENCODED );</i><br>' );
+	$valid = CEntity::ValidObject( $collection, $entity2[ kTAG_ID ], kFLAG_STATE_ENCODED );
 	echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
 	echo( '<hr>' );
 
-	echo( '<i>$entity3[ kOFFSET_ID ];</i><br>' );
-	echo( '<pre>' ); print_r( $entity3[ kOFFSET_ID ] ); echo( '</pre>' );
-	echo( '<i>$valid = CEntity::ValidObject( $collection, $entity3[ kOFFSET_ID ], kFLAG_STATE_ENCODED );</i><br>' );
-	$valid = CEntity::ValidObject( $collection, $entity3[ kOFFSET_ID ], kFLAG_STATE_ENCODED );
+	echo( '<i>$entity3[ kTAG_ID ];</i><br>' );
+	echo( '<pre>' ); print_r( $entity3[ kTAG_ID ] ); echo( '</pre>' );
+	echo( '<i>$valid = CEntity::ValidObject( $collection, $entity3[ kTAG_ID ], kFLAG_STATE_ENCODED );</i><br>' );
+	$valid = CEntity::ValidObject( $collection, $entity3[ kTAG_ID ], kFLAG_STATE_ENCODED );
 	echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
 	echo( '<hr>' );
 	echo( '<hr>' );
@@ -209,14 +209,14 @@ try
 
 	try
 	{
-		echo( '<i>$entity3->Valid( $entity1[ kOFFSET_ID ] );</i><br>' );
-		$entity3->Valid( $entity1[ kOFFSET_ID ] );
+		echo( '<i>$entity3->Valid( $entity1[ kTAG_ID ] );</i><br>' );
+		$entity3->Valid( $entity1[ kTAG_ID ] );
 		$entity3->Commit( $collection, NULL, kFLAG_PERSIST_UPDATE + kFLAG_STATE_ENCODED );
 		echo( '<pre>' ); print_r( $entity3 ); echo( '</pre>' );
-		echo( '<i>$entity1[ kOFFSET_ID ];</i><br>' );
-		echo( '<pre>' ); print_r( $entity1[ kOFFSET_ID ] ); echo( '</pre>' );
-		echo( '<i>$valid = CEntity::ValidObject( $collection, $entity1[ kOFFSET_ID ], kFLAG_STATE_ENCODED );</i><br>' );
-		$valid = CEntity::ValidObject( $collection, $entity1[ kOFFSET_ID ], kFLAG_STATE_ENCODED );
+		echo( '<i>$entity1[ kTAG_ID ];</i><br>' );
+		echo( '<pre>' ); print_r( $entity1[ kTAG_ID ] ); echo( '</pre>' );
+		echo( '<i>$valid = CEntity::ValidObject( $collection, $entity1[ kTAG_ID ], kFLAG_STATE_ENCODED );</i><br>' );
+		$valid = CEntity::ValidObject( $collection, $entity1[ kTAG_ID ], kFLAG_STATE_ENCODED );
 		echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
 	}
 	catch( Exception $error )
@@ -228,10 +228,10 @@ try
 	
 	try
 	{
-		echo( '<i>$collection->Delete( $entity2[ kOFFSET_ID ], kFLAG_STATE_ENCODED );</i><br>' );
-		$collection->Delete( $entity2[ kOFFSET_ID ], kFLAG_STATE_ENCODED );
-		echo( '<i>$valid = CEntity::ValidObject( $collection, $entity1[ kOFFSET_ID ], kFLAG_STATE_ENCODED );</i><br>' );
-		$valid = CEntity::ValidObject( $collection, $entity1[ kOFFSET_ID ], kFLAG_STATE_ENCODED );
+		echo( '<i>$collection->Delete( $entity2[ kTAG_ID ], kFLAG_STATE_ENCODED );</i><br>' );
+		$collection->Delete( $entity2[ kTAG_ID ], kFLAG_STATE_ENCODED );
+		echo( '<i>$valid = CEntity::ValidObject( $collection, $entity1[ kTAG_ID ], kFLAG_STATE_ENCODED );</i><br>' );
+		$valid = CEntity::ValidObject( $collection, $entity1[ kTAG_ID ], kFLAG_STATE_ENCODED );
 		echo( '<pre>' ); print_r( $valid ); echo( '</pre>' );
 	}
 	catch( Exception $error )

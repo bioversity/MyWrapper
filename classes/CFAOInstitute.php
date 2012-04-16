@@ -48,15 +48,16 @@ require_once( kPATH_LIBRARY_SOURCE."CFAOInstitute.inc.php" );
  *		the institute set of {@link FAOType() FAO} institute types.
  *	<li><i>{@link kOFFSET_URL kOFFSET_URL}</i>: This offset represents the institute
  *		{@link URL() URL}.
- *	<li><i>{@link kOFFSET_LATITUDE kOFFSET_LATITUDE}</i>: This offset represents the
- *		institute {@link Latitude() latitude}, note this is an integer value.
- *	<li><i>{@link kOFFSET_LONGITUDE kOFFSET_LONGITUDE}</i>: This offset represents the
+ *	<li><i>{@link kENTITY_INST_FAO_LAT kOFFSET_kENTITY_INST_FAO_LATLATITUDE}</i>: This
+ *		offset represents the institute {@link Latitude() latitude}, note this is an integer
+ *		value.
+ *	<li><i>{@link kENTITY_INST_FAO_LON kENTITY_INST_FAO_LON}</i>: This offset represents the
  *		institute {@link Longitude() longitude}, note this is an integer value.
- *	<li><i>{@link kOFFSET_ALTITUDE kOFFSET_ALTITUDE}</i>: This offset represents the
+ *	<li><i>{@link kENTITY_INST_FAO_ALT kENTITY_INST_FAO_ALT}</i>: This offset represents the
  *		institute {@link Altitude() altitude}, note this is an integer value.
  * </ul>
  *
- * The object unique {@link kOFFSET_ID identifier} is {@link _id() formed} by
+ * The object unique {@link kTAG_ID identifier} is {@link _id() formed} by
  * {@link _index() using} the {@link Code() code} without any formatting.
  *
  *	@package	MyWrapper

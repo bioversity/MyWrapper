@@ -123,8 +123,8 @@ try
 	echo( "<pre>" ); print_r( $object3 ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	$id1 = $object1[ kOFFSET_ID ];
-	$id2 = $object2[ kOFFSET_ID ];
+	$id1 = $object1[ kTAG_ID ];
+	$id2 = $object2[ kTAG_ID ];
 	 
 	//
 	// Test valid chain.
