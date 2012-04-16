@@ -1,21 +1,21 @@
 <?php
 
 /**
- * <i>COntologyBaseTerm</i> class definition.
+ * <i>COntologyTermObject</i> class definition.
  *
- * This file contains the class definition of <b>COntologyBaseTerm</b> which represents the
+ * This file contains the class definition of <b>COntologyTermObject</b> which represents the
  * ancestor of ontology term objects.
  *
  *	@package	MyWrapper
  *	@subpackage	Ontology
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
- *	@version	1.00 12/04/2012
+ *	@version	1.00 16/04/2012
  */
 
 /*=======================================================================================
  *																						*
- *								COntologyBaseTerm.php									*
+ *								COntologyTermObject.php									*
  *																						*
  *======================================================================================*/
 
@@ -27,17 +27,19 @@
 require_once( kPATH_LIBRARY_SOURCE."CTerm.php" );
 
 /**
- * Ontology term.
+ * Ontology term ancestor.
  *
  * This class defines a {@link CTerm term} that resides in an ontology, the only change it
  * makes over its {@link CTerm parent}, is to hash the {@link _id() identifier} into a
  * {@link CDataTypeBinary binary} string and enforce the {@link _IsEncoded() encoded}
  * {@link Status() status} {@link kFLAG_STATE_ENCODED flag}.
  *
+ * We declare this class abstract to force the creation of specific ontology term types.
+ *
  *	@package	MyWrapper
  *	@subpackage	Ontology
  */
-class COntologyBaseTerm extends CTerm
+abstract class COntologyTermObject extends CTerm
 {
 		
 
@@ -96,96 +98,75 @@ class COntologyBaseTerm extends CTerm
 
 	 
 	/*===================================================================================
-	 *	RelatedFrom																		*
+	 *	NS																				*
 	 *==================================================================================*/
 
 	/**
-	 * Manage incoming references.
+	 * Manage term namespace.
 	 *
-	 * We {@link CGraphUnitObject::RelatedFrom() override} this method to handle references
-	 * structured as follows:
+	 * We {@link CTerm::NS() overload} this method in order to normalise the namespace: it
+	 * must be provided as a string, so if you provide an object, it must be derived from
+	 * this class and this method will use the provided object's {@link _index() index}.
 	 *
-	 * <ul>
-	 *	<li><i>{@link kTAG_KIND kTAG_KIND}</i>: This offset represents the reference
-	 *		predicate, it may be omitted if the reference has no type or when we want to
-	 *		define a default reference. By default we expect here a term
-	 *		{@link _CheckReference() reference}.
-	 *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: This offset represents the referenced term,
-	 *		it should be in the form of an object {@link _CheckReference() reference}.
-	 * </ul>
+	 * In this class we do not support instances as namespaces.
 	 *
-	 * The method accepts the following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$thePredicate</b>: Reference predicate in the form of a term
-	 *		{@link _CheckReference() reference}, if you omit the predicate, the element
-	 *		will not have the above structure, but will only contain the object reference.
-	 *	<li><b>$theSubject</b>: Reference subject in the form of a term
-	 *		{@link _CheckReference() reference}.
-	 *	<li><b>$theOperation</b>: The operation to perform:
-	 *	 <ul>
-	 *		<li><i>NULL</i>: Return the element matched by the previous parameters.
-	 *		<li><i>FALSE</i>: Delete the element matched by the previous parameters and
-	 *			return it.
-	 *		<li><i>other</i>: Any other value means that we want to add to the list the
-	 *			element provided in the previous parameters, either appending it if there
-	 *			was no matching element, or by replacing a matching element. The method will
-	 *			return either the replaced element or the new one.
-	 *	 </ul>
-	 *	<li><b>$getOld</b>: Determines what the method will return when deleting or
-	 *		replacing:
-	 *	 <ul>
-	 *		<li><i>TRUE</i>: Return the deleted or replaced element.
-	 *		<li><i>FALSE</i>: Return the replacing element or <i>NULL</i> when deleting.
-	 *	 </ul>
-	 * </ul>
-	 *
-	 * 
-	 *
-	 * @param mixed					$theSubject			Reference subject.
-	 * @param mixed					$thePredicate		Reference predicate.
-	 * @param mixed					$theOperation		Operation.
+	 * @param mixed					$theValue			Value.
 	 * @param boolean				$getOld				TRUE get old value.
 	 *
 	 * @access public
 	 * @return string
 	 *
-	 * @see kTAG_LINK_IN kTAG_KIND kTAG_DATA
+	 * @see kTAG_NAMESPACE
 	 */
-	public function RelatedFrom( $theSubject, $thePredicate = NULL,
-											  $theOperation = NULL,
-											  $getOld = FALSE )
+	public function NS( $theValue = NULL, $getOld = FALSE )
 	{
 		//
-		// Convert reference subject.
+		// Normalise value.
 		//
-		$theSubject = $this->_CheckReference( $theSubject );
-		
-		//
-		// Convert reference predicate.
-		//
-		$thePredicate = $this->_CheckReference( $thePredicate );
-		
-		//
-		// Create reference.
-		//
-		$reference = ( $thePredicate !== NULL )
-				   ? array( kTAG_KIND => $thePredicate, kTAG_DATA => $theSubject )
-				   : $theSubject;
+		if( ($theValue !== NULL)
+		 && ($theValue !== FALSE) )
+		{
+			//
+			// Handle object.
+			//
+			if( $theValue instanceof self )
+			{
+				//
+				// Check if it has a code.
+				//
+				if( $theValue->Code() !== NULL )
+					$theValue = $theValue->_index();
 				
-		return parent::RelatedFrom( $reference, $theOperation, $getOld );			// ==>
+				else
+					throw new CException
+						( "Invalid namespace reference",
+						  kERROR_UNSUPPORTED,
+						  kMESSAGE_TYPE_ERROR,
+						  array( 'Reference' => $theValue ) );					// !@! ==>
+			
+			} // Provided object.
+			
+			//
+			// Convert to string
+			//
+			else
+				$theValue = (string) $theValue;
+		
+		} // Provided new value.
+		
+		return $this->_ManageOffset( kTAG_NAMESPACE, $theValue, $getOld );			// ==>
 
-	} // RelatedFrom.
+	} // NS.
 
 	 
 	/*===================================================================================
-	 *	RelateTo																		*
+	 *	Relate																			*
 	 *==================================================================================*/
 
 	/**
-	 * Manage outgoing references.
+	 * Manage object references.
 	 *
-	 * We {@link CGraphUnitObject::RelateTo() override} this method to handle references
+	 * We {@link CRelatedUnitObject::Relate() override} this method to handle references
 	 * structured as follows:
 	 *
 	 * <ul>
@@ -197,31 +178,8 @@ class COntologyBaseTerm extends CTerm
 	 *		it should be in the form of an object {@link _CheckReference() reference}.
 	 * </ul>
 	 *
-	 * The method accepts the following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$thePredicate</b>: Reference predicate in the form of a term
-	 *		{@link _CheckReference() reference}, if you omit the predicate, the element
-	 *		will not have the above structure, but will only contain the object reference.
-	 *	<li><b>$theObject</b>: Reference object in the form of a term
-	 *		{@link _CheckReference() reference}.
-	 *	<li><b>$theOperation</b>: The operation to perform:
-	 *	 <ul>
-	 *		<li><i>NULL</i>: Return the element matched by the previous parameters.
-	 *		<li><i>FALSE</i>: Delete the element matched by the previous parameters and
-	 *			return it.
-	 *		<li><i>other</i>: Any other value means that we want to add to the list the
-	 *			element provided in the previous parameters, either appending it if there
-	 *			was no matching element, or by replacing a matching element. The method will
-	 *			return either the replaced element or the new one.
-	 *	 </ul>
-	 *	<li><b>$getOld</b>: Determines what the method will return when deleting or
-	 *		replacing:
-	 *	 <ul>
-	 *		<li><i>TRUE</i>: Return the deleted or replaced element.
-	 *		<li><i>FALSE</i>: Return the replacing element or <i>NULL</i> when deleting.
-	 *	 </ul>
-	 * </ul>
+	 * The main reason to override the method is to ensure references are standard
+	 * {@link CDataTypeBinary binary} strings.
 	 *
 	 * @param mixed					$theObject			Reference object.
 	 * @param mixed					$thePredicate		Reference predicate.
@@ -233,9 +191,9 @@ class COntologyBaseTerm extends CTerm
 	 *
 	 * @see kTAG_LINK_OUT kTAG_KIND kTAG_DATA
 	 */
-	public function RelateTo( $theObject, $thePredicate = NULL,
-										  $theOperation = NULL,
-										  $getOld = FALSE )
+	public function Relate( $theObject, $thePredicate = NULL,
+										$theOperation = NULL,
+										$getOld = FALSE )
 	{
 		//
 		// Convert reference object.
@@ -254,7 +212,9 @@ class COntologyBaseTerm extends CTerm
 				   ? array( kTAG_KIND => $thePredicate, kTAG_DATA => $theObject )
 				   : $theObject;
 		
-		return parent::RelateTo( $reference, $theOperation, $getOld );				// ==>
+		return $this->_ManageObjectList( kTAG_REFS, $reference,
+													$theOperation,
+													$getOld );						// ==>
 
 	} // RelateTo.
 
@@ -266,7 +226,7 @@ class COntologyBaseTerm extends CTerm
 	/**
 	 * Manage valid reference.
 	 *
-	 * We {@link CCodedUnitObject::Valid() overload} this method to
+	 * We {@link CRelatedUnitObject::Valid() overload} this method to
 	 * {@link _CheckReference() ensure} that references are provided in the correct manner,
 	 * that is, as a {@link CDataTypeBinary binary} standard type.
 	 *
@@ -313,7 +273,7 @@ class COntologyBaseTerm extends CTerm
 	/**
 	 * Return a valid object.
 	 *
-	 * We {@link CCodedUnitObject::ValidObject() overload} this method to enforce the
+	 * We {@link CRelatedUnitObject::ValidObject() overload} this method to enforce the
 	 * {@link _IsEncoded() encoded} {@link kFLAG_STATE_ENCODED flag}.
 	 *
 	 * @param mixed					$theContainer		Persistent container.
@@ -472,7 +432,7 @@ class COntologyBaseTerm extends CTerm
 	 *		for the identifier.
 	 *	<li><i>{@link MongoBinData MongoBinData}</i>: This type will be converted to the
 	 *		standard {@link CDataTypeBinary CDataTypeBinary} type.
-	 *	<li><i>COntologyBaseTerm</i>: Objects of the same class will have their
+	 *	<li><i>COntologyTermObject</i>: Objects of the same class will have their
 	 *		{@link _id() identifier} extracted.
 	 *	<li><i>NULL</i>: NULL data will simply be passed.
 	 *	<li><i>other</i>: Any other data type is assumed to be the term's
@@ -540,7 +500,7 @@ class COntologyBaseTerm extends CTerm
 
 	 
 
-} // class COntologyBaseTerm.
+} // class COntologyTermObject.
 
 
 ?>

@@ -10,7 +10,7 @@
  *	@subpackage	Ontology
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
- *	@version	1.00 12/04/2012
+ *	@version	1.00 16/04/2012
  */
 
 /*=======================================================================================
@@ -24,12 +24,12 @@
  *
  * This include file contains the parent class definitions.
  */
-require_once( kPATH_LIBRARY_SOURCE."COntologyBaseTerm.php" );
+require_once( kPATH_LIBRARY_SOURCE."COntologyTermObject.php" );
 
 /**
  * Generic term.
  *
- * This {@link kTAG_TERM kind} of {@link COntologyBaseTerm term} represents a generic
+ * This {@link kTAG_TERM kind} of {@link COntologyTermObject term} represents a generic
  * term that does not have any specific qualification or function, expect to serve as an
  * aggregator or category for other terms.
  *
@@ -40,7 +40,7 @@ require_once( kPATH_LIBRARY_SOURCE."COntologyBaseTerm.php" );
  *	@package	MyWrapper
  *	@subpackage	Ontology
  */
-class COntologyTerm extends COntologyBaseTerm
+class COntologyTerm extends COntologyTermObject
 {
 		
 

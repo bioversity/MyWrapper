@@ -42,14 +42,14 @@ require_once( kPATH_LIBRARY_SOURCE."CPersistentObject.php" );
  *	<li><i>{@link _id() _id()}</i>: The object unique identifier as used by the native
  *		persistent container to uniquely identify the object.
  *	<li><i>{@link _index() _index()}</i>: The full index that uniquely identifies the
- *		object.
+ *		object, expressed as a string.
  * </ul>
  *
  * Although both methods seem to return the same information, they are different, in the
  * sense that the {@link _index() _index} method should return the property or properties
- * that constitute the object's unique identifier concatenated in a single string, this may
- * be too long to use as an index, whereas {@link _id() _id()} returns the actual value used
- * as the key, which may be the hashed {@link _index() _index} value. In other words
+ * that constitute the object's unique identifier concatenated in a single string. This may
+ * be too long to use as an index, so {@link _id() _id()} should return the actual value
+ * used as the key, which may be the hashed {@link _index() _index} value. In other words,
  * {@link _index() _index} is the human readable version of {@link _id() _id}.
  *
  * When the object is {@link Commit committed} for the first time, the value of the
@@ -57,8 +57,31 @@ require_once( kPATH_LIBRARY_SOURCE."CPersistentObject.php" );
  * which represents the object ID. This offset should never be changed and represents the
  * persistent identifier of the object.
  *
+ * The class implements the {@link __toString() __toString} method to return the value of
+ * the object's {@link _index() index} by default.
+ *
  * This object also introduces the concept of object reference, that is, a structure that
- * can be used to refer to other objects.
+ * can be used to refer to other objects. The class implements a series of protected methods
+ * that derived classes can use to implement properties that point to other objects:
+ *
+ * <ul>
+ *	<li><i>{@link _ParseReferences() _ParseReferences}</i>: When adding object references to
+ *		properties one is also allowed to add the actual instance, at
+ *		{@link Commit() commit} time, these objects must also be committed before committing
+ *		the object that references them: this method will handle this.
+ *	<li><i>{@link _ManageObjectList() _ManageObjectList}</i>: This method can be used as a
+ *		base for handling properties that consist of object references lists. It handles a
+ *		list of scalar object reference elements or a list of predicate/object pairs.
+ *	<li><i>{@link _CheckRelationObject() _CheckRelationObject}</i>: This method can be used
+ *		to normalise parameters that expect object references, these can be overloaded by
+ *		derived classes to implement a custom framework.
+ *	<li><i>{@link _CheckRelationPredicate() _CheckRelationPredicate}</i>: This method can be
+ *		used to normalise parameters that expect predicate object references, these can be
+ *		overloaded by derived classes to implement a custom framework.
+ * </ul>
+ *
+ * The above protected interface is not used in this class, but it is made available to
+ * derived classes in order to handle objects derived from this class.
  *
  * Objects derived from this class also hold, by default, their class name in an
  * {@link kTAG_CLASS offset}, this is used to {@link NewObject() instantiate} objects of the
@@ -78,11 +101,53 @@ require_once( kPATH_LIBRARY_SOURCE."CPersistentObject.php" );
  * The specifics of this are managed by the {@link CContainer CContainer} derived classes,
  * so when planning your objects think in advance in what containers you plan to store them.
  *
+ * Finally, this class features a series of static methods;
+ *
+ * <ul>
+ *	<li><i>{@link NewObject() NewObject}</i>: This method can be used to instantiate a class
+ *		from a mixed class data store, it accepts the same parameters as the
+ *		{@link __construct() constructor}, but will return an instance of the correct
+ *		{@link kTAG_CLASS class}.
+ *	<li><i>{@link Reference() Reference}</i>: This method will convert an instance derived
+ *		from this class into a standard object reference structure in which it is possible
+ *		to indicate both the {@link kOFFSET_REFERENCE_CONTAINER container} and the
+ *		{@link kOFFSET_REFERENCE_DATABASE database}.
+ * </ul>
+ *
+ * We declare the class abstract because the object must be {@link _IsInited() inited} to be
+ * {@link Commit() committed} and the {@link _index() index} must be explicitly implemented.
+ *
  *	@package	MyWrapper
  *	@subpackage	Persistence
  */
-class CPersistentUnitObject extends CPersistentObject
+abstract class CPersistentUnitObject extends CPersistentObject
 {
+		
+
+/*=======================================================================================
+ *																						*
+ *											MAGIC										*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	__toString																		*
+	 *==================================================================================*/
+
+	/**
+	 * Return object identifier.
+	 *
+	 * In this class we return the object string {@link _index() identifier}.
+	 *
+	 * @access public
+	 * @return string
+	 *
+	 * @uses _index()
+	 */
+	public function __toString()								{	return $this->_index();	}
+
 		
 
 /*=======================================================================================
@@ -390,12 +455,12 @@ class CPersistentUnitObject extends CPersistentObject
 	 * object's unique {@link kOFFSET_ID identifier}, maybe hashed to make the index
 	 * smaller.
 	 *
-	 * In this class we return by default <i>NULL</i>.
+	 * In this class we require derived classes to implement the method.
 	 *
 	 * @access protected
 	 * @return string
 	 */
-	protected function _index()											{	return NULL;	}
+	abstract protected function _index();
 
 		
 
@@ -583,6 +648,328 @@ class CPersistentUnitObject extends CPersistentObject
 
 /*=======================================================================================
  *																						*
+ *								PROTECTED REFERENCE UTILITIES							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	_ParseReferences																*
+	 *==================================================================================*/
+
+	/**
+	 * Handle references.
+	 *
+	 * This method will parse the provided offset and convert all instances derived from
+	 é this class to object references according to a series of rules.
+	 *
+	 * Object references may have two forms:
+	 *
+	 * <ul>
+	 *	<li><i>Scalar</i>: A scalar value represents the object
+	 *		{@link kOFFSET_ID identifier}.
+	 *	<li><i>Object reference structure</i>: This form is a structure holding the
+	 *		following elements:
+	 *	 <ul>
+	 *		<li><i>{@link kOFFSET_REFERENCE_ID kOFFSET_REFERENCE_ID}</i>: This offset holds
+	 *			the object's {@link kOFFSET_ID identifier}.
+	 *		<li><i>{@link kOFFSET_REFERENCE_CONTAINER kOFFSET_REFERENCE_CONTAINER}</i>: This
+	 *			offset holds the container name in which the object resides.
+	 *		<li><i>{@link kOFFSET_REFERENCE_DATABASE kOFFSET_REFERENCE_DATABASE}</i>: This
+	 *			offset holds the database name in which the object resides.
+	 *		<li><i>{@link kTAG_CLASS kTAG_CLASS}</i>: This offset holds the object's class
+	 *			name.
+	 *	 </ul>
+	 *		Such structures should not have any other allowed offset.
+	 * </ul>
+	 *
+	 * Object references are stored in offsets with the following forms:
+	 *
+	 * <ul>
+	 *	<li><i>Scalar</i>: The offset holds the object reference as a scalar element.
+	 *	<li><i>Typed</i>: A typed object reference consists of a structure in which the
+	 *		{@link kTAG_DATA kTAG_DATA} offset holds the object reference and an optional
+	 *		{@link kTAG_KIND kTAG_KIND} offset holds the relation predicate, which may also
+	 *		be in the form of an object reference.
+	 *	<li><i>List</i>: A list of references whose elements may be a combination of the
+	 *		previous two formats.
+	 * </ul>
+	 *
+	 * This method will pass the provided offset value to a
+	 * {@link _CommitReferences() method} that will take care of parsing the contents and
+	 * {@link _CommitReference() committing} all instances derived from this class into
+	 * object references according to the provided modifier flags.
+	 *
+	 * The parameters to this method are:
+	 *
+	 * <ul>
+	 *	<li><b>$theOffset</b>: The current object's offset that holds the reference or
+	 *		references.
+	 *	<li><b>$theContainer</b>: The container that is about to receive the current object,
+	 *		it must also be the container in which to find the references and must be
+	 *		derived from {@link CContainer CContainer}.
+	 *	<li><b>$theModifiers</b>: A bitfield indicating which elements should be included in
+	 *		the {@link CContainer::Reference() reference}:
+	 *	 <ul>
+	 *		<li><i>{@link kFLAG_REFERENCE_IDENTIFIER kFLAG_REFERENCE_IDENTIFIER}</i>: The
+	 *			object {@link kOFFSET_ID identifier} will be stored under the
+	 *			{@link kOFFSET_REFERENCE_ID kOFFSET_REFERENCE_ID} offset. This option is
+	 *			enforced.
+	 *		<li><i>{@link kFLAG_REFERENCE_CONTAINER kFLAG_REFERENCE_CONTAINER}</i>: The
+	 *			provided container name will be stored under the
+	 *			{@link kOFFSET_REFERENCE_CONTAINER kOFFSET_REFERENCE_CONTAINER} offset. If
+	 *			the provided value is empty, the offset will not be set.
+	 *		<li><i>{@link kFLAG_REFERENCE_DATABASE kFLAG_REFERENCE_DATABASE}</i>: The
+	 *			provided container's database name will be stored under the
+	 *			{@link kOFFSET_REFERENCE_DATABASE kOFFSET_REFERENCE_DATABASE} offset. If the
+	 *			current object's {@link Database() database} name is <i>NULL</i>, the
+	 *			offset will not be set.
+	 *		<li><i>{@link kFLAG_REFERENCE_CLASS kFLAG_REFERENCE_CLASS}</i>: The element
+	 *			object's class name will be stored under the {@link kTAG_CLASS kTAG_CLASS}
+	 *			offset.
+	 *	 </ul>
+	 *		If none of the above flags are set, it means that object references are
+	 *		expressed directly as the value of the {@link kOFFSET_ID identifier}, and that
+	 *		{@link kOFFSET_REFERENCE_CONTAINER container} and
+	 *		{@link kOFFSET_REFERENCE_DATABASE database} are implicit.
+	 * </ul>
+	 *
+	 * @param string				$theOffset			Reference list offset.
+	 * @param CContainer			$theContainer		Object container.
+	 * @param bitfield				$theModifiers		Referencing options.
+	 *
+	 * @access protected
+	 *
+	 * @uses _CommitReference()
+	 */
+	protected function _ParseReferences( $theOffset,
+										  $theContainer,
+										  $theModifiers = kFLAG_DEFAULT )
+	{
+		//
+		// Check container.
+		//
+		if( ! $theContainer instanceof CContainer )
+			throw new CException
+					( "Unsupported container type",
+					  kERROR_UNSUPPORTED,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Container' => $theContainer ) );					// !@! ==>
+		
+		//
+		// Load offset value.
+		//
+		$reference = $this->offsetGet( $theOffset );
+		
+		//
+		// Parse value.
+		//
+		if( $this->_CommitReferences( $reference, $theContainer, $theModifiers ) )
+			$this->offsetSet( $theOffset, $reference );
+		
+	} // _ParseReferences.
+
+	 
+	/*===================================================================================
+	 *	_CommitReferences																*
+	 *==================================================================================*/
+
+	/**
+	 * Parse references.
+	 *
+	 * This method will parse the provided value looking for object references, if such
+	 * references are expressed as instances derived from this class, it will will
+	 * {@link Commit() commit} these instances and convert them to object references.
+	 *
+	 * The method will first check if the provided reference is a scalar, then it will
+	 * check if it is a predicate/object par and finally it will check if it is a list of
+	 * references.
+	 *
+	 * The parameters to this method are:
+	 *
+	 * <ul>
+	 *	<li><b>$theReference</b>: The reference to be parsed, the conversion will replace
+	 *		the provided parameter.
+	 *	<li><b>$theContainer</b>: The container in which the referenced object(s) resides,
+	 *		please refer to the documentation of
+	 *		{@link _ParseReferences() _ParseReferences} for more information.
+	 *	<li><b>$theModifiers</b>: A bitfield indicating which elements of the
+	 *		{@link CContainer::Reference() reference} should be included, please refer to
+	 *		the documentation of {@link _ParseReferences() _ParseReferences} for more
+	 *		information.
+	 *	<li><b>$doRecurse</b>: This is a private parameter that you should leave untouched, it
+	 *		it determines whether or not to recurse this method: it starts with a value of
+	 *		2, and at each recursion the value decreases, when it reaches zero, structures
+	 *		will no more be considered.
+	 * </ul>
+	 *
+	 * The method follows this set of rules:
+	 *
+	 * <ul>
+	 *	<li><i>Handle scalars</i>: A scalar element may be an instance derived from this
+	 *		class, an instance derived from CDataType, or anything that is not an array or
+	 *		an ArrayObject. If the scalar is an instance of this class, we
+	 *		{@link Commit() commit} the instance and convert it to an object reference.
+	 *	<li><i>Handle structures</i>: Once we have determined it is not a scalar, we check
+	 *		if it is either a predicate/object pair, or if it is a list of references; in
+	 *		the both cases the elements will be passed recursively to this method.
+	 * </ul>
+	 *
+	 * Note that when we {@link Commit() commit} referenced objects we use
+	 * {@link kFLAG_PERSIST_REPLACE kFLAG_PERSIST_REPLACE} as the commit type.
+	 *
+	 * The method will return <i>TRUE</i> is a conversion occurred and <i>FALSE</i> if not.
+	 *
+	 * @param reference			   &$theReference		Reference.
+	 * @param CContainer			$theContainer		Object container.
+	 * @param bitfield				$theModifiers		Reference options.
+	 * @param integer				$doRecurse			Recurse level.
+	 *
+	 * @access protected
+	 *
+	 * @uses _CommitReference()
+	 */
+	protected function _CommitReferences( &$theReference,
+										  $theContainer,
+										  $theModifiers,
+										  $doRecurse = 2 )
+	{
+		//
+		// Init local storage.
+		//
+		$done = FALSE;
+		
+		//
+		// Handle instances of this class.
+		//
+		if( $theReference instanceof self )
+		{
+			//
+			// Check for recursion.
+			//
+			if( $this->_index() == $theReference->_index() )
+				throw new CException( "Recursive reference",
+									  kERROR_INVALID_STATE,
+									  kMESSAGE_TYPE_ERROR,
+									  array( 'Reference' => $theReference ) );	// !@! ==>
+
+			//
+			// Set commit modifiers.
+			//
+			$modifiers = kFLAG_PERSIST_REPLACE | ($theModifiers & kFLAG_STATE_ENCODED);
+			
+			//
+			// Commit object.
+			//
+			$theReference->Commit( $theContainer, NULL, $modifiers );
+			
+			//
+			// Convert object.
+			//
+			$theReference = ( $theModifiers & kFLAG_REFERENCE_MASK )
+						  ? $theContainer->Reference( $theReference, $theModifiers )
+						  : $theReference[ kOFFSET_ID ];
+			
+			//
+			// Set result.
+			//
+			$done = TRUE;
+		
+		} // Found an instance to convert.
+		
+		//
+		// Skip data type scalars.
+		//
+		elseif( ! $theReference instanceof CDataType )
+		{
+			//
+			// Check structures.
+			//
+			if( $doRecurse
+			 && ( is_array( $theReference )
+			   || ($theReference instanceof ArrayObject) ) )
+			{
+				//
+				// Check data element.
+				//
+				if( array_key_exists( kTAG_DATA, (array) $theReference ) )
+				{
+					//
+					// Recurse on data element.
+					//
+					$tmp = $theReference[ kTAG_DATA ];
+					if( $this->_CommitReferences
+						( $tmp, $theContainer, $theModifiers, 0 ) )
+					{
+						$done = TRUE;
+						$theReference[ kTAG_DATA ] = $tmp;
+					
+					} // Converted.
+					
+					//
+					// Recurse on predicate element.
+					//
+					if( array_key_exists( kTAG_KIND, (array) $theReference ) )
+					{
+						//
+						// Recurse on data element.
+						//
+						$tmp = $theReference[ kTAG_KIND ];
+						if( $this->_CommitReferences
+							( $tmp, $theContainer, $theModifiers, 0 ) )
+						{
+							$done = TRUE;
+							$theReference[ kTAG_KIND ] = $tmp;
+						
+						} // Converted.
+					
+					} // Has predicate.
+				
+				} // Found predicate relation.
+				
+				//
+				// Handle list.
+				//
+				elseif( $doRecurse > 1 )
+				{
+					//
+					// Adjust recursion level.
+					//
+					$doRecurse--;
+					
+					//
+					// Scan list.
+					//
+					foreach( $theReference as $key => $value )
+					{
+						//
+						// Recurse element.
+						//
+						if( $this->_CommitReferences
+							( $value, $theContainer, $theModifiers, $doRecurse ) )
+						{
+							$done = TRUE;
+							$theReference[ $key ] = $value;
+						
+						} // Converted.
+					
+					} // Iterating list.
+				
+				} // Found list.
+			
+			} // Structure or list.
+		
+		} // Not a scalar data type.
+		
+		return $done;																// ==>
+		
+	} // _CommitReferences.
+
+		
+
+/*=======================================================================================
+ *																						*
  *							PROTECTED MEMBER ACCESSOR INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -610,7 +997,7 @@ class CPersistentUnitObject extends CPersistentObject
 	 *	<li><i>Array</i>: A structure composed of two items:
 	 *	 <ul>
 	 *		<li><i>{@link kTAG_KIND kTAG_KIND}</i>: This offset represents the type or
-	 *			class of the reference.
+	 *			predicate of the reference.
 	 *		<li><i>{@link kTAG_DATA kTAG_DATA}</i>: This offset represents the actual object
 	 *			or object reference.
 	 *	 </ul>
@@ -719,7 +1106,7 @@ class CPersistentUnitObject extends CPersistentObject
 			// Set match type.
 			//
 			$type = ( array_key_exists( kTAG_KIND, (array) $theValue ) )
-				  ? (string) $theValue[ kTAG_KIND ]
+				  ? $this->_ObjectIndex( $theValue[ kTAG_KIND ] )
 				  : NULL;
 			
 			//
@@ -791,7 +1178,7 @@ class CPersistentUnitObject extends CPersistentObject
 							//
 							if( ($type !== NULL)
 							 && array_key_exists( kTAG_KIND, (array) $value )
-							 && ($type == $value[ kTAG_KIND ]) )
+							 && ($type == $this->_ObjectIndex( $value[ kTAG_KIND ] )) )
 							{
 								//
 								// Match identifier.
@@ -885,7 +1272,7 @@ class CPersistentUnitObject extends CPersistentObject
 							//
 							if( ($type !== NULL)
 							 && array_key_exists( kTAG_KIND, (array) $value )
-							 && ($type == $value[ kTAG_KIND ]) )
+							 && ($type == $this->_ObjectIndex( $value[ kTAG_KIND ] )) )
 							{
 								//
 								// Match identifier.
@@ -1024,7 +1411,7 @@ class CPersistentUnitObject extends CPersistentObject
 						//
 						if( ($type !== NULL)
 						 && array_key_exists( kTAG_KIND, (array) $value )
-						 && ($type == $value[ kTAG_KIND ]) )
+						 && ($type == $this->_ObjectIndex( $value[ kTAG_KIND ] )) )
 						{
 							//
 							// Match identifier.
@@ -1106,6 +1493,161 @@ class CPersistentUnitObject extends CPersistentObject
 	
 	} // _ManageObjectList.
 
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED REFERENCING UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	_CheckRelationObject															*
+	 *==================================================================================*/
+
+	/**
+	 * Normalise object reference parameter.
+	 *
+	 * This method can be used to normalise a parameter that is supposed to be a reference
+	 * to another object, the method will perform the following conversions:
+	 *
+	 * <ul>
+	 *	<li><i>CGraphNodeObject</i>: Objects derived from this class will be handled as
+	 *		follows:
+	 *	 <ul>
+	 *		<li><i>{@link _IsCommitted() Committed}</i>: If the provided object has a
+	 *			{@link _IsCommitted() committed} {@link kFLAG_STATE_COMMITTED status}, the
+	 *			method will return the object's {@link kOFFSET_ID identifier}.
+	 *		<li><i>Not {@link _IsCommitted() committed}</i>: The parameter will not be
+	 *			converted.
+	 *	 </ul>
+	 *	<li><i>{@link CDataType CDataType}</i>: When providing a complex data type, we
+	 *		assume the value corresponds to the {@link kOFFSET_ID identifier}, in which case
+	 *		we leave it untouched.
+	 *	<li><i>Array</i> or <i>ArrayObject</i>: In this case the method will assume the
+	 *		provided structure is an object reference and it will check if the
+	 *		{@link kOFFSET_REFERENCE_ID kOFFSET_REFERENCE_ID} offset is there, if this is
+	 *		not the case the method will raise an exception.
+	 *	<li><i>other</i>: Any other type will be converted to a string.
+	 * </ul>
+	 *
+	 * The method will return the converted value, derived classes should first handle
+	 * custom types and pass other types to the parent method.
+	 *
+	 * @param mixed					$theValue			Object or reference.
+	 *
+	 * @access protected
+	 * @return mixed
+	 *
+	 * @uses _IsCommitted()
+	 *
+	 * @see kOFFSET_ID kOFFSET_REFERENCE_ID
+	 */
+	protected function _CheckRelationObject( $theValue )
+	{
+		//
+		// Handle object's derived from this class.
+		//
+		if( $theValue instanceof self )
+		{
+			//
+			// Reference committed objects.
+			//
+			if( $theValue->_IsCommitted() )
+				return $theValue[ kOFFSET_ID ];										// ==>
+			
+			return $theValue;														// ==>
+		
+		} // Object derived from this class.
+		
+		//
+		// Handle complex data types.
+		//
+		if( $theValue instanceof CDataType )
+			return $theValue;														// ==>
+		
+		//
+		// Check object reference.
+		//
+		if( is_array( $theValue )
+		 || ($theValue instanceof ArrayObject) )
+		{
+			//
+			// Check identifier.
+			//
+			if( array_key_exists( kOFFSET_REFERENCE_ID, (array) $theValue ) )
+				return $theValue;													// ==>
+
+			throw new CException( "Invalid object reference: missing identifier",
+								  kERROR_INVALID_PARAMETER,
+								  kMESSAGE_TYPE_ERROR,
+								  array( 'Reference' => $theValue ) );			// !@! ==>
+		
+		} // Object reference?
+		
+		return (string) $theValue;													// ==>
+	
+	} // _CheckRelationObject.
+
+	 
+	/*===================================================================================
+	 *	_CheckRelationPredicate															*
+	 *==================================================================================*/
+
+	/**
+	 * Normalise predicate reference parameter.
+	 *
+	 * This method can be used to normalise a parameter that is supposed to be a relation
+	 * predicate, the method will perform the following conversions:
+	 *
+	 * <ul>
+	 *	<li><i>NULL</i>: No conversion.
+	 *	<li><i>FALSE</i>: No conversion.
+	 *	<li><i>CGraphNodeObject</i>: The method will pass the parameter to the
+	 *		{@link _CheckRelationObject() _CheckRelationObject} method.
+	 *	<li><i>{@link CDataType CDataType}</i>: The method will pass the parameter to the
+	 *		{@link _CheckRelationObject() _CheckRelationObject} method.
+	 *	<li><i>Array</i> or <i>ArrayObject</i>: The method will pass the parameter to the
+	 *		{@link _CheckRelationObject() _CheckRelationObject} method.
+	 *	<li><i>other</i>: Any other type will be converted to a string.
+	 * </ul>
+	 *
+	 * The method will return the converted value, derived classes should first handle
+	 * custom types and pass other types to the parent method.
+	 *
+	 * @param mixed					$theValue			Relation predicate.
+	 *
+	 * @access protected
+	 * @return mixed
+	 *
+	 * @uses _IsCommitted()
+	 *
+	 * @see kOFFSET_ID kOFFSET_REFERENCE_ID
+	 */
+	protected function _CheckRelationPredicate( $theValue )
+	{
+		//
+		// Handle missing or empty predicate.
+		//
+		if( ($theValue === NULL)
+		 || ($theValue === FALSE) )
+			return $theValue;														// ==>
+		
+		//
+		// Handle object.
+		//
+		if( is_array( $theValue )
+		 || ($theValue instanceof self)
+		 || ($theValue instanceof CDataType)
+		 || ($theValue instanceof ArrayObject) )
+			return $this->_CheckRelationObject( $theValue );						// ==>
+		
+		return (string) $theValue;													// ==>
+	
+	} // _CheckRelationPredicate.
+
 	 
 	/*===================================================================================
 	 *	_ObjectIndex																	*
@@ -1114,9 +1656,9 @@ class CPersistentUnitObject extends CPersistentObject
 	/**
 	 * Return object index.
 	 *
-	 * This method is a utility that can be used to extract an identifier from a value, it
-	 * is used when adding objects or object references to a list that is not organised by
-	 * object {@link kOFFSET_ID ID}.
+	 * This method is a utility that can be used to extract an object identifier from a
+	 * value, it is used when adding objects or object references to a list that is not
+	 * organised by object {@link kOFFSET_ID ID}.
 	 *
 	 * This method will attempt to infer the object identifier by performing the following
 	 * steps:
@@ -1159,7 +1701,7 @@ class CPersistentUnitObject extends CPersistentObject
 		   && array_key_exists( kOFFSET_ID, $theValue ) )
 		 || ( ($theValue instanceof ArrayObject)
 		   && $theValue->offsetExists( kOFFSET_ID ) ) )
-			return (string) $theValue[ kOFFSET_ID ];								// ==>
+			return $theValue[ kOFFSET_ID ];											// ==>
 
 		//
 		// Try reference identifier.
@@ -1168,25 +1710,15 @@ class CPersistentUnitObject extends CPersistentObject
 		   && array_key_exists( kOFFSET_REFERENCE_ID, $theValue ) )
 		 || ( ($theValue instanceof ArrayObject)
 		   && $theValue->offsetExists( kOFFSET_REFERENCE_ID ) ) )
-			return (string) $theValue[ kOFFSET_REFERENCE_ID ];						// ==>
+			return $theValue[ kOFFSET_REFERENCE_ID ];								// ==>
 		
 		//
 		// Try identifier value.
 		//
 		if( $theValue instanceof self )
-		{
-			//
-			// Get identifier value.
-			//
-			$id = $theValue->_id();
-			if( $id !== NULL )
-				return (string) $id;												// ==>
-			
-			return NULL;															// ==>
+			return (string) $theValue;
 		
-		} // Try identifier value.
-		
-		return (string) $theValue;													// ==>
+		return $theValue;															// ==>
 	
 	} // _ObjectIndex.
 

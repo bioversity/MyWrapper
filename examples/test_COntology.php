@@ -28,7 +28,7 @@ require_once( '/Library/WebServer/Library/wrapper/includes.inc.php' );
 // Class includes.
 //
 require_once( kPATH_LIBRARY_SOURCE."COntology.php" );
-require_once( kPATH_LIBRARY_SOURCE."CTermNamespace.php" );
+require_once( kPATH_LIBRARY_SOURCE."CNamespace.php" );
 
 
 /*=======================================================================================
@@ -78,8 +78,8 @@ try
 	echo( '<hr>' );
 
 	echo( '<i><b>TERM 1</b></i><br>' );
-	echo( '<i>$term1 = new CTermNamespace();</i><br>' );
-	$term1 = new CTermNamespace();
+	echo( '<i>$term1 = new CNamespace();</i><br>' );
+	$term1 = new CNamespace();
 	echo( '<i>$term1->Code( \'NS\' );</i><br>' );
 	$term1->Code( 'NS' );
 	echo( '<i>$term1->Name( \'Namespace term\', \'en\' );</i><br>' );
@@ -112,8 +112,8 @@ try
 	$term2->Definition( 'This is the first term', 'en' );
 	echo( '<i>$term2->Definition( \'Questo è il primo termine\', \'it\' );</i><br>' );
 	$term2->Definition( 'Questo è il primo termine', 'it' );
-	echo( '<i>$term2->RelatedFrom( $term1, TRUE );</i><br>' );
-	$term2->RelatedFrom( $term1, TRUE );
+	echo( '<i>$term2->Relate( $term1, NULL, TRUE );</i><br>' );
+	$term2->Relate( $term1, NULL, TRUE );
 	echo( '<i>$term2->Valid( $term1 );</i><br>' );
 	$term2->Valid( $term1 );
 	echo( '<i>$term2->Stamp( new CDataTypeStamp() );</i><br>' );
@@ -132,10 +132,10 @@ try
 	$term3->Code( 'TERM3' );
 	echo( '<i>$term3->Name( \'Term 3\' );</i><br>' );
 	$term3->Name( 'Term 3' );
-	echo( '<i>$term3->RelatedFrom( $term1, TRUE );</i><br>' );
-	$term3->RelatedFrom( $term1, TRUE );
-	echo( '<i>$object3->RelateTo( $term2, TRUE );</i><br>' );
-	$term3->RelateTo( $term2, TRUE );
+	echo( '<i>$term3->Relate( $term1, NULL, TRUE );</i><br>' );
+	$term3->Relate( $term1, NULL, TRUE );
+	echo( '<i>$object3->Relate( $term2, $predicate, TRUE );</i><br>' );
+	$term3->Relate( $term2, $predicate, TRUE );
 	echo( '<i>$term3->Valid( (string) $term2 );</i><br>' );
 	$term3->Valid(  (string) $term2 );
 	echo( '<i>$id3 = $term3->Commit( $collection );</i><br>' );

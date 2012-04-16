@@ -235,7 +235,8 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				//
 				// Check for user code.
 				//
-				if( ! array_key_exists( kAPI_OPT_USER_CODE, $_REQUEST ) )
+				if( (! array_key_exists( kAPI_OPT_USER_CODE, $_REQUEST ))
+				 || (! strlen( $_REQUEST[ kAPI_OPT_USER_CODE ] )) )
 					throw new CException
 						( "Missing user code",
 						  kERROR_OPTION_MISSING,
@@ -245,7 +246,8 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				//
 				// Check for user password.
 				//
-				if( ! array_key_exists( kAPI_OPT_USER_PASS, $_REQUEST ) )
+				if( (! array_key_exists( kAPI_OPT_USER_PASS, $_REQUEST ))
+				 || (! strlen( $_REQUEST[ kAPI_OPT_USER_PASS ] )) )
 					throw new CException
 						( "Missing user password",
 						  kERROR_OPTION_MISSING,

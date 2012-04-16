@@ -110,13 +110,13 @@ try
 	//
 	echo( '<h3>Relations</h3>' );
 	
-	echo( '<i>$entity2->RelateTo( \'COLL\', $entity1, TRUE );</i><br>' );
-	$entity2->RelateTo( 'COLL', $entity1, TRUE );
+	echo( '<i>$entity2->Relate( $entity1, \'COLL\', TRUE );</i><br>' );
+	$entity2->Relate( $entity1, 'COLL', TRUE );
 	echo( '<pre>' ); print_r( $entity2 ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	echo( '<i>$entity3->RelatedFrom( \'COLL\', $entity2, FALSE );</i><br>' );
-	$entity3->RelatedFrom( 'COLL', $entity2, TRUE );
+	echo( '<i>$entity3->Relate( $entity2, \'COLL\', TRUE );</i><br>' );
+	$entity3->Relate( $entity2, 'COLL', TRUE );
 	echo( '<pre>' ); print_r( $entity3 ); echo( '</pre>' );
 	echo( '<hr>' );
 	 
@@ -150,8 +150,8 @@ try
 	//
 	echo( '<h3>Try duplicate affiliation</h3>' );
 
-	echo( '<i>$entity2->RelateTo( \'COLL\', $entity1, TRUE );</i><br>' );
-	$entity2->RelateTo( 'COLL', $entity1, TRUE );
+	echo( '<i>$entity2->Relate( $entity1, \'COLL\', TRUE );</i><br>' );
+	$entity2->Relate( $entity1, 'COLL', TRUE );
 	echo( '<pre>' ); print_r( $entity2 ); echo( '</pre>' );
 	echo( '<i>$entity2->Commit( $collection, NULL, kFLAG_PERSIST_UPDATE + kFLAG_STATE_ENCODED );</i><br>' );
 	$entity2->Commit( $collection, NULL, kFLAG_PERSIST_UPDATE + kFLAG_STATE_ENCODED );

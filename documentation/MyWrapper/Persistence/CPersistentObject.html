@@ -28,7 +28,7 @@
 			</div>
 	<div class="info-box-body">
         		<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Persistent objects ancestor.</p>
+<p class="short-description">Persistent unit objects ancestor.</p>
 <p class="description"><p>This class is the ancestor of all persistent objects in this library, it implements the  common interfaces and workflow that persistent objects will use to be  <a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">instantiated</a>, <a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">retrieved</a> or  <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">stored</a> in object <a href="../../MyWrapper/Persistence/CContainer.html">containers</a>.</p><p>This class interacts closely with <a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a> derived classes so that  concrete classes derived from this one need only to be concerned with their specific  functionality, while persistent issues are handled foth by this class and by the  concrete classes derived from <a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a>.</p><p>The class declares three main persistence operations whose workflow is as follows:</p><p><ul><li><em><a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">Create</a></em>: The <a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">constructor</a> can
         instantiate an object from data, as its <a href="../../MyWrapper/Framework/CArrayObject.html">ancestor</a>, a protected
         <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_Create">method</a> may be overloaded by derived classes to implement
@@ -90,9 +90,9 @@
 				</tr>
 								<tr>
 					<td style="padding-right: 2em; white-space: nowrap">
-						<img src="../../media/images/Class.png"
-								 alt=" class"
-								 title=" class"
+						<img src="../../media/images/AbstractClass.png"
+								 alt="Abstract class"
+								 title="Abstract class"
 								 style="vertical-align: center"/>
 						<a href="../../MyWrapper/Persistence/CPersistentUnitObject.html">CPersistentUnitObject</a>
 					</td>
@@ -246,7 +246,7 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Constructor.png" />
@@ -355,10 +355,18 @@
 				<a href="../../MyWrapper/Entities/CUser.html#method__construct">CUser::__construct()</a>
 								: Instantiate class.
 							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyTermObject.html#method__construct">COntologyTermObject::__construct()</a>
+								: Instantiate class.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyTerm.html#method__construct">COntologyTerm::__construct()</a>
+								: Instantiate class.
+							</li>
 				</ul>
 	</div>
 <a name="methodCommit" id="Commit"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -446,7 +454,7 @@
 			
 	</div>
 <a name="methodUncommit" id="Uncommit"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -473,7 +481,7 @@
 			
 	</div>
 <a name="method_Commit" id="_Commit"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -512,7 +520,7 @@
 			
 	</div>
 <a name="method_Create" id="_Create"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -549,7 +557,7 @@
 			
 	</div>
 <a name="method_FinishCommit" id="_FinishCommit"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -587,7 +595,7 @@
 			
 	</div>
 <a name="method_FinishLoad" id="_FinishLoad"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -625,7 +633,7 @@
 			
 	</div>
 <a name="method_IsCommitted" id="_IsCommitted"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -642,13 +650,13 @@
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Entities/CInstitute.html#methodoffsetSet">CInstitute::offsetSet()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Entities/CInstitute.html#methodoffsetUnset">CInstitute::offsetUnset()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Entities/CUser.html#methodoffsetUnset">CUser::offsetUnset()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_CheckRelationPredicate">CCodedUnitObject::_CheckRelationPredicate()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_CheckRelationPredicate">CPersistentUnitObject::_CheckRelationPredicate()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Entities/CUser.html#methodoffsetSet">CUser::offsetSet()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodUncommit">CPersistentObject::Uncommit()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">CPersistentObject::__construct()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">CPersistentObject::Commit()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CStatusObject.html#method_ManageBitField">CStatusObject::_ManageBitField()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_CheckRelationObject">CCodedUnitObject::_CheckRelationObject()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_CheckRelationObject">CPersistentUnitObject::_CheckRelationObject()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -668,7 +676,7 @@
 			
 	</div>
 <a name="method_IsEncoded" id="_IsEncoded"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -682,9 +690,11 @@
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a></li>
 				<li><span class="field">access:</span> protected</li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_PrepareLoad">CPersistentObject::_PrepareLoad()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTermObject.html#method_CheckReference">COntologyTermObject::_CheckReference()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTermObject.html#method_PrepareCreate">COntologyTermObject::_PrepareCreate()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_PrepareCreate">CPersistentObject::_PrepareCreate()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CStatusObject.html#method_ManageBitField">CStatusObject::_ManageBitField()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_PrepareLoad">CPersistentObject::_PrepareLoad()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -704,7 +714,7 @@
 			
 	</div>
 <a name="method_Load" id="_Load"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -742,7 +752,7 @@
 			
 	</div>
 <a name="method_PrepareCommit" id="_PrepareCommit"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -789,7 +799,7 @@
 								: Normalise before a store.
 							</li>
 					<li>
-				<a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_PrepareCommit">CCodedUnitObject::_PrepareCommit()</a>
+				<a href="../../MyWrapper/Persistence/CRelatedUnitObject.html#method_PrepareCommit">CRelatedUnitObject::_PrepareCommit()</a>
 								: Normalise before a store.
 							</li>
 					<li>
@@ -804,10 +814,30 @@
 				<a href="../../MyWrapper/Entities/CUser.html#method_PrepareCommit">CUser::_PrepareCommit()</a>
 								: Normalise parameters of a store.
 							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyTermObject.html#method_PrepareCommit">COntologyTermObject::_PrepareCommit()</a>
+								: Normalise before a store.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/CNamespace.html#method_PrepareCommit">CNamespace::_PrepareCommit()</a>
+								: Normalise before a store.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyTerm.html#method_PrepareCommit">COntologyTerm::_PrepareCommit()</a>
+								: Normalise before a store.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/COntology.html#method_PrepareCommit">COntology::_PrepareCommit()</a>
+								: Normalise before a store.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/CPredicate.html#method_PrepareCommit">CPredicate::_PrepareCommit()</a>
+								: Normalise before a store.
+							</li>
 				</ul>
 	</div>
 <a name="method_PrepareCreate" id="_PrepareCreate"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -844,9 +874,17 @@
 				</ul>
 		
 			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyTermObject.html#method_PrepareCreate">COntologyTermObject::_PrepareCreate()</a>
+								: Normalise parameters of a create.
+							</li>
+				</ul>
 	</div>
 <a name="method_PrepareLoad" id="_PrepareLoad"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -1017,7 +1055,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 13 Apr 2012 16:35:03 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Mon, 16 Apr 2012 13:34:19 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

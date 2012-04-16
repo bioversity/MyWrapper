@@ -49,7 +49,7 @@ class MyClass extends CPersistentUnitObject
 	{
 		$this->_isInited( TRUE );
 		parent::_PrepareCommit( $theContainer, $theIdentifier, $theModifiers );
-		$this->_HandleReferences('REFERENCE', $theContainer, kFLAG_REFERENCE_MASK );
+		$this->_ParseReferences('REFERENCE', $theContainer, kFLAG_REFERENCE_MASK );
 	}
 }
 
@@ -338,10 +338,18 @@ try
 	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	echo( 'Before:<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( '<i>$id = $test->Commit( $mcontainer );</i><br>' );
-	$id = $test->Commit( $mcontainer );
-	echo( 'After:<pre>' ); print_r( $test ); echo( '</pre>' );
+	try
+	{
+		echo( 'Before:<pre>' ); print_r( $test ); echo( '</pre>' );
+		echo( '<i>$id = $test->Commit( $mcontainer );</i><br>' );
+		$id = $test->Commit( $mcontainer );
+		echo( 'After:<pre>' ); print_r( $test ); echo( '</pre>' );
+	}
+	catch( Exception $error )
+	{
+		echo( CException::AsHTML( $error ) );
+		echo( '<br>' );
+	}
 	echo( '<hr>' );
 	
 	echo( '<i>$res = $test->Relation( $id1, FALSE );</i><br>' );

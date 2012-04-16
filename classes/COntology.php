@@ -10,7 +10,7 @@
  *	@subpackage	Ontology
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
- *	@version	1.00 12/04/2012
+ *	@version	1.00 16/04/2012
  */
 
 /*=======================================================================================
@@ -59,7 +59,7 @@ class COntology extends COntologyTerm
 	 *
 	 * We overload this method to enforce the
 	 * {@link kTAG_TERM_ONTOLOGY kTAG_TERM_ONTOLOGY} {@link Kind() kind}, note that we
-	 * call the {@link COntologyBaseTerm COntologyBaseTerm} version of this method instead
+	 * call the {@link COntologyTermObject COntologyTermObject} version of this method instead
 	 * of the {@link COntologyTerm parent} one.
 	 *
 	 * @param reference			   &$theContainer		Object container.
@@ -84,7 +84,7 @@ class COntology extends COntologyTerm
 		//
 		// Call parent method.
 		//
-		COntologyBaseTerm::_PrepareCommit( $theContainer, $theIdentifier, $theModifiers );
+		COntologyTermObject::_PrepareCommit( $theContainer, $theIdentifier, $theModifiers );
 	
 	} // _PrepareCommit.
 

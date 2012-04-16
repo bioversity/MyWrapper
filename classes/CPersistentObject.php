@@ -29,7 +29,7 @@
 require_once( kPATH_LIBRARY_SOURCE."CStatusObject.php" );
 
 /**
- * Persistent objects ancestor.
+ * Persistent unit objects ancestor.
  *
  * This class is the ancestor of all persistent objects in this library, it implements the
  * common interfaces and workflow that persistent objects will use to be

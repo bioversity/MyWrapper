@@ -10,7 +10,7 @@
  *	@subpackage	Ontology
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
- *	@version	1.00 12/04/2012
+ *	@version	1.00 16/04/2012
  */
 
 /*=======================================================================================
@@ -24,7 +24,7 @@
  *
  * This include file contains the parent class definitions.
  */
-require_once( kPATH_LIBRARY_SOURCE."CGraphUnitObject.php" );
+require_once( kPATH_LIBRARY_SOURCE."CCodedUnitObject.php" );
 
 /**
  * Tokens.
@@ -42,7 +42,7 @@ require_once( kPATH_LIBRARY_DEFINES."Tokens.inc.php" );
  * {@link NS() namespace}.
  *
  * Terms are used in ontologies and to tag data elements, We add to the
- * {@link CGraphUnitObject parent} the following properties:
+ * {@link CCodedUnitObject parent} the following properties:
  *
  * <ul>
  *	<li><i>{@link kTAG_NAMESPACE kTAG_NAMESPACE}</i>: This attribute contains the
@@ -54,15 +54,15 @@ require_once( kPATH_LIBRARY_DEFINES."Tokens.inc.php" );
  *		current term's {@link Definition() description} or definition.
  * </ul>
  *
- * The unique {@link _index() identifier} of instances from this class are formed by hashing
- * the combination of the {@link NS() namespace} and @link Code() code}, separated by a
+ * The unique {@link _index() identifier} of instances from this class are formed by the
+ * combination of the {@link NS() namespace} and @link Code() code}, separated by a
  * {@link kTOKEN_NAMESPACE_SEPARATOR separator} token; if the term has no namespace, the
  * token is omitted.
  *
  *	@package	MyWrapper
  *	@subpackage	Ontology
  */
-class CTerm extends CGraphUnitObject
+class CTerm extends CCodedUnitObject
 {
 		
 

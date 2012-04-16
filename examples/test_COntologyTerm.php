@@ -27,7 +27,9 @@ require_once( '/Library/WebServer/Library/wrapper/includes.inc.php' );
 //
 // Class includes.
 //
-require_once( kPATH_LIBRARY_SOURCE."CTermNamespace.php" );
+require_once( kPATH_LIBRARY_SOURCE."CNamespace.php" );
+require_once( kPATH_LIBRARY_SOURCE."COntology.php" );
+require_once( kPATH_LIBRARY_SOURCE."CPredicate.php" );
 require_once( kPATH_LIBRARY_SOURCE."COntologyTerm.php" );
 
 
@@ -65,9 +67,21 @@ try
 	//
 	echo( '<h3>Load terms</h3>' );
 	
+	echo( '<i><b>NAMESPACE</b></i><br>' );
+	echo( '<i>$namespace = new CNamespace();</i><br>' );
+	$namespace = new CNamespace();
+	echo( '<i>$namespace->Code( \'NS\' );</i><br>' );
+	$namespace->Code( 'NS' );
+	echo( '<i>$idn = $namespace->Commit( $collection );</i><br>' );
+	$idn = $namespace->Commit( $collection );
+	echo( "$namespace<pre>" ); print_r( $namespace ); echo( '</pre>' );
+	echo( '<hr>' );
+	
 	echo( '<i><b>PREDICATE</b></i><br>' );
-	echo( '<i>$predicate = new COntologyTerm();</i><br>' );
-	$predicate = new COntologyTerm();
+	echo( '<i>$predicate = new CPredicate();</i><br>' );
+	$predicate = new CPredicate();
+	echo( '<i>$predicate->NS( $namespace );</i><br>' );
+	$predicate->NS( $namespace );
 	echo( '<i>$predicate->Code( \'IS_A\' );</i><br>' );
 	$predicate->Code( 'IS_A' );
 	echo( '<i>$predicate->Name( \'Is a\' );</i><br>' );
@@ -78,18 +92,20 @@ try
 	echo( '<hr>' );
 
 	echo( '<i><b>TERM 1</b></i><br>' );
-	echo( '<i>$term1 = new CTermNamespace();</i><br>' );
-	$term1 = new CTermNamespace();
-	echo( '<i>$term1->Code( \'NS\' );</i><br>' );
-	$term1->Code( 'NS' );
-	echo( '<i>$term1->Name( \'Namespace term\', \'en\' );</i><br>' );
-	$term1->Name( 'Namespace term', 'en' );
-	echo( '<i>$term1->Name( \'Termine spazio nome\', \'it\' );</i><br>' );
-	$term1->Name( 'Termine spazio nome', 'it' );
-	echo( '<i>$term1->Definition( \'This term is the namespace of other terms\', \'en\' );</i><br>' );
-	$term1->Definition( 'This term is the namespace of other terms', 'en' );
-	echo( '<i>$term1->Definition( \'Questo termine è lo spazio nomi di altri termini\', \'it\' );</i><br>' );
-	$term1->Definition( 'Questo termine è lo spazio nomi di altri termini', 'it' );
+	echo( '<i>$term1 = new COntologyTerm();</i><br>' );
+	$term1 = new COntologyTerm();
+	echo( '<i>$term1->NS( $namespace );</i><br>' );
+	$term1->NS( $namespace );
+	echo( '<i>$term1->Code( \'TERM1\' );</i><br>' );
+	$term1->Code( 'TERM1' );
+	echo( '<i>$term1->Name( \'Term 1\', \'en\' );</i><br>' );
+	$term1->Name( 'Term 1', 'en' );
+	echo( '<i>$term1->Name( \'Termine 1\', \'it\' );</i><br>' );
+	$term1->Name( 'Termine 1', 'it' );
+	echo( '<i>$term1->Definition( \'This term is the first term\', \'en\' );</i><br>' );
+	$term1->Definition( 'This term is the first term', 'en' );
+	echo( '<i>$term1->Definition( \'Questo è il primo termine\', \'it\' );</i><br>' );
+	$term1->Definition( 'Questo è il primo termine', 'it' );
 	echo( '<i>$term1->Stamp( new CDataTypeStamp() );</i><br>' );
 	$term1->Stamp( new CDataTypeStamp() );
 	echo( '<i>$id1 = $term1->Commit( $collection );</i><br>' );
@@ -108,12 +124,12 @@ try
 	$term2->Name( 'Term 2', 'en' );
 	echo( '<i>$term2->Name( \'Termine 1\', \'it\' );</i><br>' );
 	$term2->Name( 'Termine 1', 'it' );
-	echo( '<i>$term2->Definition( \'This is the first term\', \'en\' );</i><br>' );
-	$term2->Definition( 'This is the first term', 'en' );
-	echo( '<i>$term2->Definition( \'Questo è il primo termine\', \'it\' );</i><br>' );
-	$term2->Definition( 'Questo è il primo termine', 'it' );
-	echo( '<i>$term2->RelatedFrom( $term1, TRUE );</i><br>' );
-	$term2->RelatedFrom( $term1, TRUE );
+	echo( '<i>$term2->Definition( \'This is the second term\', \'en\' );</i><br>' );
+	$term2->Definition( 'This is the second term', 'en' );
+	echo( '<i>$term2->Definition( \'Questo è il secondo termine\', \'it\' );</i><br>' );
+	$term2->Definition( 'Questo è il secondo termine', 'it' );
+	echo( '<i>$term2->Relate( $term1, $predicate, TRUE );</i><br>' );
+	$term2->Relate( $term1, $predicate, TRUE );
 	echo( '<i>$term2->Valid( $term1 );</i><br>' );
 	$term2->Valid( $term1 );
 	echo( '<i>$term2->Stamp( new CDataTypeStamp() );</i><br>' );
@@ -126,16 +142,16 @@ try
 	echo( '<i><b>TERM 3</b></i><br>' );
 	echo( '<i>$term3 = new COntologyTerm();</i><br>' );
 	$term3 = new COntologyTerm();
-	echo( '<i>$term3->NS( \'NS\' );</i><br>' );
-	$term3->NS( 'NS' );
+	echo( '<i>$term3->NS( $namespace );</i><br>' );
+	$term3->NS( $namespace );
 	echo( '<i>$term3->Code( \'TERM3\' );</i><br>' );
 	$term3->Code( 'TERM3' );
 	echo( '<i>$term3->Name( \'Term 3\' );</i><br>' );
 	$term3->Name( 'Term 3' );
-	echo( '<i>$term3->RelatedFrom( $term1, TRUE );</i><br>' );
-	$term3->RelatedFrom( $term1, TRUE );
-	echo( '<i>$object3->RelateTo( $term2, TRUE );</i><br>' );
-	$term3->RelateTo( $term2, TRUE );
+	echo( '<i>$term3->Relate( $term1, $predicate, TRUE );</i><br>' );
+	$term3->Relate( $term1, $predicate, TRUE );
+	echo( '<i>$object3->Relate( $term2, $predicate, TRUE );</i><br>' );
+	$term3->Relate( $term2, $predicate, TRUE );
 	echo( '<i>$term3->Valid( (string) $term2 );</i><br>' );
 	$term3->Valid(  (string) $term2 );
 	echo( '<i>$id3 = $term3->Commit( $collection );</i><br>' );

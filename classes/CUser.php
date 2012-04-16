@@ -27,6 +27,13 @@
 require_once( kPATH_LIBRARY_SOURCE."CEntity.php" );
 
 /**
+ * Tokens.
+ *
+ * This include file contains all default token definitions.
+ */
+require_once( kPATH_LIBRARY_DEFINES."Tokens.inc.php" );
+
+/**
  * Local defines.
  *
  * This include file contains the local class definitions.
