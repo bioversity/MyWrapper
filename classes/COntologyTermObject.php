@@ -41,6 +41,8 @@ require_once( kPATH_LIBRARY_SOURCE."CTerm.php" );
  *		be used to store synonyms as strings.
  *	<li><i>{@link kOFFSET_XREF kOFFSET_XREF}</i>: This {@link Xref() property} can be used
  *		to store cross references to other terms in the ontology.
+ *	<li><i>{@link kTAG_SOURCE kTAG_SOURCE}</i>: This {@link Source() property} can be used
+ *		to provide the source of the term.
  * </ul>
  *
  * We declare this class abstract to force the creation of specific ontology term types.
@@ -337,6 +339,62 @@ abstract class COntologyTermObject extends CTerm
 			( kOFFSET_XREF, kTAG_KIND, $theType, $theValue, $getOld );				// ==>
 
 	} // Xref.
+
+	 
+	/*===================================================================================
+	 *	Source																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage term sources.
+	 *
+	 * This method can be used to manage the term {@link kTAG_SOURCE sources}, it manages an
+	 * array of strings with the following offsets:
+	 *
+	 * <ul>
+	 *	<li><i>{@link kTAG_KIND kTAG_KIND}</i>: The source kind, this string can be used to
+	 *		define the type of the source, this element represents the array key, although
+	 *		technically it is implemented as an element to allow searching on all values.
+	 *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The source, this element should hold the
+	 *		actual source reference, which should be convertable to a string.
+	 * </ul>
+	 *
+	 * The parameters to this method are:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: The value or operation:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Return the current value selected by the second parameter.
+	 *		<li><i>FALSE</i>: Delete the value selected by the second parameter.
+	 *		<li><i>other</i>: Set value selected by the second parameter.
+	 *	 </ul>
+	 *	<li><b>$theType</b>: The element type, kind or index:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: This value indicates that the phone has no type or kind, in
+	 *			general, when adding elements, this case applies to default elements.
+	 *		<li><i>other</i>: All other types will be interpreted as the kind or type of
+	 *			the phone number.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
+	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * @param string				$theValue			Source.
+	 * @param mixed					$theType			Source kind or index.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 */
+	public function Source( $theValue = NULL, $theType = NULL, $getOld = FALSE )
+	{
+		return $this->_ManageTypedArrayOffset
+			( kTAG_SOURCE, kTAG_KIND, $theType, $theValue, $getOld );				// ==>
+
+	} // Source.
 
 	 
 	/*===================================================================================

@@ -104,14 +104,19 @@ define( "kTAG_REFERENCE_RELATED",				':REF:RELATED' );
 /**
  * Synonym offset.
  *
- * This is the tag that represents a synonym.
+ * This is the offset used to indicate a synonym, a synonym is a string that can be used as
+ * a substitute to the term, it may be of several kinds: {@link kTAG_REFERENCE_EXACT exact},
+ * {@link kTAG_REFERENCE_BROAD broad}, {@link kTAG_REFERENCE_NARROW narrow} and
+ * {@link kTAG_REFERENCE_RELATED related}.
  */
 define( "kOFFSET_SYNONYM",						':SYN' );
 
 /**
- * Cross-reference offset.
- *
- * This is the tag that represents a cross-reference.
+ * This is the offset used to indicate a cross-reference, a cross-reference is a reference
+ * to another term in the same container, a sort of synonym, except that it is not a string,
+ * but a reference to another term object. Cross-references can be of several kinds:
+ * {@link kTAG_REFERENCE_EXACT exact}, {@link kTAG_REFERENCE_BROAD broad},
+ * {@link kTAG_REFERENCE_NARROW narrow} and {@link kTAG_REFERENCE_RELATED related}.
  */
 define( "kOFFSET_XREF",							':XREF' );
 
@@ -148,7 +153,7 @@ define( "kTAG_VERSION",							':VERSION' );
  *
  * This tag is used as the default offset for indicating an attribute's data type, in
  * general it is used in a structure in conjunction with the {@link kTAG_DATA data} offset
- + to indicate the data type of the item.
+ * to indicate the data type of the item.
  */
 define( "kTAG_TYPE",							':TYPE' );
 
@@ -172,10 +177,20 @@ define( "kTAG_KIND",							':KIND' );
 define( "kTAG_UNIT",							':UNIT' );
 
 /**
+ * Source.
+ *
+ * This tag is used as the default offset for indicating a unit attribute. A unit is a
+ * measurement unit such as centimeters, in general this offset will hold a reference to
+ * an object that defines the unit.
+ */
+define( "kTAG_SOURCE",							':SOURCE' );
+
+/**
  * Data.
  *
  * This tag is used as the default offset for indicating an attribute's data or content, in
- * general this tag is used with the {@link kTAG_TYPE type} offset when storing 
+ * general this tag is used in conjunction with the {@link kTAG_TYPE type} or
+ * {@link kTAG_KIND kind} offsets when storing lists of items.
  */
 define( "kTAG_DATA",							':DATA' );
 
@@ -468,6 +483,49 @@ define( "kOFFSET_MAIL_COUNTRY",					':MAIL:COUNTRY' );
  * This is the tag that represents the full address as a string.
  */
 define( "kOFFSET_MAIL_FULL",					'MAIL:FULL' );
+
+/*=======================================================================================
+ *	DEFAULT PREDICATES																	*
+ *======================================================================================*/
+
+/**
+ * IS-A.
+ *
+ * This is the tag that defines the IS-A predicate.
+ *
+ * This predicate is equivalent to a subclass, it can be used to relate a term to the
+ * default category to which it belongs within the current ontology.
+ */
+define( "kPRED_IS_A",							':IS-A' );
+
+/**
+ * PART-OF.
+ *
+ * This is the tag that defines the PART-OF predicate.
+ *
+ * This predicate indicates that the subject is part of the object.
+ */
+define( "kPRED_PART_OF",						':PART-OF' );
+
+/**
+ * SCALE-OF.
+ *
+ * This is the tag that defines the SCALE-OF predicate.
+ *
+ * This predicate is used to relate a term that can be used to annotate data with its method
+ * term or trait term.
+ */
+define( "kPRED_SCALE_OF",						':SCALE-OF' );
+
+/**
+ * METHOD-OF.
+ *
+ * This is the tag that defines the METHOD-OF predicate.
+ *
+ * This predicate is used to relate a term that defines a measurement method to the trait
+ * term.
+ */
+define( "kPRED_METHOD_OF",						':METHOD-OF' );
 
 
 ?>
