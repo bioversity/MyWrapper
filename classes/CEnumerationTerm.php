@@ -34,7 +34,11 @@ require_once( kPATH_LIBRARY_SOURCE."COntologyTerm.php" );
  * controlled vocabulary.
  *
  * This class adds the {@link kTAG_ENUM kTAG_ENUM} {@link Enumeration() property} which
- * holds the enumeration codes or symbols list.
+ * holds the list of enumeration codes or symbols list. Objects of this class should store
+ * the main enumeration in the {@link Code() code} property and all enumerated synonyms in
+ * the {@link kTAG_ENUM enumeration} {@link Enumeration() property}; for this reason the
+ * class will automatically add the {@link Code() code} to the
+ * {@link Enumeration() enumerations}.
  *
  * In this class we enforce the {@link kTAG_TERM_ENUM kTAG_TERM_ENUM} {@link Kind() kind}
  * and we add the {@link Enumeration() enumeration} {@link kTAG_ENUM offset} to the required
@@ -258,6 +262,11 @@ class CEnumerationTerm extends COntologyTerm
 		// Call parent method.
 		//
 		COntologyTermObject::_PrepareCommit( $theContainer, $theIdentifier, $theModifiers );
+		
+		//
+		// Add code to enumerations.
+		//
+		$this->Enumeration( $this->Code(), TRUE );
 	
 	} // _PrepareCommit.
 

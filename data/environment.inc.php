@@ -31,11 +31,4 @@
  */
 define( "kDEFAULT_DATABASE",		"WAREHOUSE" );
 
-/**
- * Default ontology container name.
- *
- * This value defines the default ontology container name for the current application.
- */
-define( "kDEFAULT_ONTOLOGY",		"VOCABULARY" );
-
 ?>

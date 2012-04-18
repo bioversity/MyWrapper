@@ -24,6 +24,15 @@
  *======================================================================================*/
 
 /**
+ * User instance.
+ *
+ * This tag defines the current user instance.
+ *
+ * Cardinality: one.
+ */
+define( "kSESSION_USER",					':USER' );
+
+/**
  * Mongo instance.
  *
  * This tag defines the default Mongo instance.
@@ -33,13 +42,31 @@
 define( "kSESSION_MONGO",					':MONGO' );
 
 /**
- * User instance.
+ * Database instance.
  *
- * This tag defines the current user instance.
+ * This tag defines the current database instance.
  *
  * Cardinality: one.
  */
-define( "kSESSION_USER",					':USER' );
+define( "kSESSION_DATABASE",				':DATABASE' );
+
+/**
+ * Container instance.
+ *
+ * This tag defines the current container instance.
+ *
+ * Cardinality: one.
+ */
+define( "kSESSION_CONTAINER",				':CONTAINER' );
+
+/**
+ * Default namespace.
+ *
+ * This tag defines the default namespace instance.
+ *
+ * Cardinality: one.
+ */
+define( "kSESSION_NAMESPACE",				':DEF:NAMESPACE' );
 
 
 ?>

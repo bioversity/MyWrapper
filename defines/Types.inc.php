@@ -20,13 +20,24 @@
  */
 
 /*=======================================================================================
+ *	DEFAULT PRIMITIVE DATA TYPE ENUMERATION												*
+ *======================================================================================*/
+
+/**
+ * Default data types.
+ *
+ * This tag represents the default data types enumerations tag.
+ */
+define( "kTAG_DATA_TYPE",					 ':TYPE' );				// String.
+
+/*=======================================================================================
  *	PRIMITIVE DATA TYPE ENUMERATIONS													*
  *======================================================================================*/
 
 /**
  * String type.
  *
- * This value represents the primitive string data type.
+ * This tag represents the primitive string data type.
  */
 define( "kDATA_TYPE_STRING",				':STR' );				// String.
 

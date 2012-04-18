@@ -49,7 +49,7 @@ define( "kPATH_LIBRARY_SOURCE",		"/Library/WebServer/Library/wrapper/classes/" )
 define( "kPATH_LIBRARY_DEFINES",	"/Library/WebServer/Library/wrapper/defines/" );
 
 /*=======================================================================================
- *	DEFAULT LANGUAGE CODE																*
+ *	DEFAULT DEFINITIONS																	*
  *======================================================================================*/
 
 /**
@@ -59,10 +59,6 @@ define( "kPATH_LIBRARY_DEFINES",	"/Library/WebServer/Library/wrapper/defines/" )
  */
 define( "kDEFAULT_LANGUAGE",			'en' );				// English.
 
-/*=======================================================================================
- *	DEFAULT TEMPORARY MEMBER NAME														*
- *======================================================================================*/
-
 /**
  * Default temporary member name.
  *
@@ -70,6 +66,13 @@ define( "kDEFAULT_LANGUAGE",			'en' );				// English.
  * an object, the value represents the member name.
  */
 define( "kDEFAULT_MEMBER",				'___TMP___' );		// Temporary data member name.
+
+/**
+ * Default dictionary container name.
+ *
+ * This value defines the default dictionary container name.
+ */
+define( "kDEFAULT_DICTIONARY",			"DICTIONARY" );
 
 /*=======================================================================================
  *	CLASS AUTOLOADER																	*

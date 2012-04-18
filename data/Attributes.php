@@ -33,6 +33,13 @@ require_once( "/Library/WebServer/Library/wrapper/includes.inc.php" );
 require_once( "environment.inc.php" );
 
 /**
+ * Session.
+ *
+ * This include file contains the session tag definitions.
+ */
+require_once( kPATH_LIBRARY_DEFINES."Session.inc.php" );
+
+/**
  * Namespaces.
  *
  * This include file contains the namespace term class definitions.
@@ -74,6 +81,170 @@ require_once( kPATH_LIBRARY_SOURCE."CMeasureTerm.php" );
  */
 require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 
+		
+
+/*=======================================================================================
+ *																						*
+ *										FUNCTIONS										*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	Connect																			*
+	 *==================================================================================*/
+
+	/**
+	 * Connect.
+	 *
+	 * This function will connect to the database, if you provide <i>TRUE</i> to the last
+	 * parameter, the function will first erase the database.
+	 *
+	 * @param string				$theDatabase		Database name.
+	 * @param string				$theContainer		Container name.
+	 * @param boolean				$doErase			Erase database flag.
+	 *
+	 * @access private
+	 */
+	function Connect( $theDatabase = kDEFAULT_DATABASE,
+					  $theContainer = kDEFAULT_DICTIONARY,
+					  $doErase = FALSE )
+	{
+		//
+		// Instantiate Mongo database.
+		//
+		$_SESSION[ kSESSION_MONGO ] = New Mongo();
+		
+		//
+		// Select database.
+		//
+		$_SESSION[ kSESSION_DATABASE ] = $mongo->selectDB( $theDatabase );
+		
+		//
+		// Erase database.
+		//
+		if( $doErase )
+		{
+			//
+			// Erase.
+			//
+			$_SESSION[ kSESSION_DATABASE ]->drop();
+			
+			//
+			// Connect.
+			//
+			$_SESSION[ kSESSION_DATABASE ] = $mongo->selectDB( $theDatabase );
+		
+		} // Erase database.
+		
+		//
+		// Select collection.
+		//
+		$collection = $db->selectCollection( $theContainer );
+		
+		//
+		// Select container.
+		//
+		$_SESSION[ kSESSION_CONTAINER ] = new CMongoContainer( $collection );
+	
+	} // Connect.
+
+	 
+	/*===================================================================================
+	 *	LoadNamespaces																	*
+	 *==================================================================================*/
+
+	/**
+	 * LoadNamespaces.
+	 *
+	 * This function will load all namespace terms.
+	 *
+	 * If the last parameter is <i>TRUE</i>, the function will display the name of the
+	 * created terms.
+	 *
+	 * @param CCollection			$theCollection		Collection.
+	 * @param boolean				$doDisplay			Display created terms.
+	 *
+	 * @access private
+	 */
+	function LoadNamespaces( CCollection $theCollection, $doDisplay = TRUE )
+	{
+		//
+		// Default namespace.
+		//
+		$ns = new CNamespaceTerm();
+		$ns->Code( '' );
+		$ns->Name( 'Default namespace', kDEFAULT_LANGUAGE );
+		$ns->Definition
+		( 'The default namespace is used to qualify all attributes and other terms that '
+		 .'constitute the default vocabulary for the ontology. Elements of this ontology '
+		 .'are used to create all other ontologies.',
+		  kDEFAULT_LANGUAGE );
+		$ns->Commit( $theCollection );
+		if( $doDisplay )
+			echo( $ns->Name( NULL, kDEFAULT_LANGUAGE )." [$ns]\n" );
+		
+		//
+		// Save default namespace in session.
+		//
+		$_SESSION[ kSESSION_NAMESPACE ] = $ns;
+	
+	} // LoadNamespaces.
+
+	 
+	/*===================================================================================
+	 *	LoadTypes																		*
+	 *==================================================================================*/
+
+	/**
+	 * LoadTypes.
+	 *
+	 * This function will load all namespace terms.
+	 *
+	 * If the last parameter is <i>TRUE</i>, the function will display the name of the
+	 * created terms.
+	 *
+	 * @param CCollection			$theCollection		Collection.
+	 * @param boolean				$doDisplay			Display created terms.
+	 *
+	 * @access private
+	 */
+	function LoadTypes( CCollection $theCollection, $doDisplay = TRUE )
+	{
+		//
+		// Default data types.
+		//
+		$term = new CMeasureTerm();
+		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->Code( substr( kTAG_DATA_TYPE, 1 ) );
+		$term->Name( 'Default type', kDEFAULT_LANGUAGE );
+		$term->Definition
+		( 'This term represents a default data type.',
+		  kDEFAULT_LANGUAGE );
+		$term->Type( kDATA_TYPE_ENUM );
+		$term->Synonym( 'kTAG_DATA_TYPE', kTAG_REFERENCE_EXACT );
+		$term->Commit( $theCollection );
+		if( $doDisplay )
+			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+	
+	} // LoadTypes.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *											MAIN										*
+ *																						*
+ *======================================================================================*/
+
+
+
+/**
+ * Open session.
+ */
+session_start();
+	 
 /**
  * Create default attributes ontology.
  *
@@ -82,35 +253,10 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
  */
 try
 {
-	 
-	/*===================================================================================
-	 *	INITIALISE																		*
-	 *==================================================================================*/
-
 	//
-	// Instantiate Mongo database.
+	// Connect.
 	//
-	$mongo = New Mongo();
-	
-	//
-	// Select MCPD database.
-	//
-	$db = $mongo->selectDB( kDEFAULT_DATABASE );
-	
-	//
-	// Instantiate collection.
-	//
-	$container = new CMongoContainer( $db->selectCollection( kDEFAULT_ONTOLOGY ) );
-	
-	//
-	// Drop collection.
-	//
-	$container->Container()->drop();
-	
-	//
-	// Instantiate collection.
-	//
-	$collection = new CMongoContainer( $db->selectCollection( kDEFAULT_ONTOLOGY ) );
+	Connect();
 	 
 	/*===================================================================================
 	 *	DEFAULT NAMESPACE																*
@@ -123,7 +269,7 @@ try
 					.'terms that constitute the default vocabulary for the ontology. '
 					.'Elements of this ontology are used to create all other ontologies.',
 					  kDEFAULT_LANGUAGE );
-	$ns->Commit( $collection );
+	$ns->Commit( $theCollection );
 	echo( $ns->Name( NULL, kDEFAULT_LANGUAGE )." [$ns]\n" );
 	 
 	/*===================================================================================
@@ -139,7 +285,7 @@ try
 					  .'within the current ontology.',
 					   kDEFAULT_LANGUAGE );
 	$term->Synonym( 'kPRED_IS_A', kTAG_REFERENCE_EXACT );
-	$term->Commit( $collection );
+	$term->Commit( $theCollection );
 	echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
 	
 	$term = new CPredicateTerm();
@@ -149,7 +295,7 @@ try
 	$term->Definition( 'This predicate indicates that the subject is part of the object.',
 					   kDEFAULT_LANGUAGE );
 	$term->Synonym( 'kPRED_PART_OF', kTAG_REFERENCE_EXACT );
-	$term->Commit( $collection );
+	$term->Commit( $theCollection );
 	echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
 	
 	$term = new CPredicateTerm();
@@ -160,7 +306,7 @@ try
 					  .'annotate data with its method term or trait term.',
 					   kDEFAULT_LANGUAGE );
 	$term->Synonym( 'kPRED_SCALE_OF', kTAG_REFERENCE_EXACT );
-	$term->Commit( $collection );
+	$term->Commit( $theCollection );
 	echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
 	
 	$term = new CPredicateTerm();
@@ -171,7 +317,20 @@ try
 					  .'a measurement method to the trait term.',
 					   kDEFAULT_LANGUAGE );
 	$term->Synonym( 'kPRED_METHOD_OF', kTAG_REFERENCE_EXACT );
-	$term->Commit( $collection );
+	$term->Commit( $theCollection );
+	echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+	 
+	/*===================================================================================
+	 *	DEFAULT DATA TYPE TAGS															*
+	 *==================================================================================*/
+	
+	$term = new CAttributeTerm();
+	$term->Code( kDATA_TYPE_STRING );
+	$term->Name( 'String', kDEFAULT_LANGUAGE );
+	$term->Definition( 'This term represents the primitive string data type.',
+					  kDEFAULT_LANGUAGE );
+	$term->Synonym( 'kDATA_TYPE_STRING', kTAG_REFERENCE_EXACT );
+	$term->Commit( $theCollection );
 	echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
 	 
 	/*===================================================================================
@@ -184,7 +343,7 @@ try
 	$term->Definition( 'This offset corresponds to the object\'s unique local identifier.',
 					  kDEFAULT_LANGUAGE );
 	$term->Synonym( 'kTAG_ID', kTAG_REFERENCE_EXACT );
-	$term->Commit( $collection );
+	$term->Commit( $theCollection );
 	echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
 	 
 	/*===================================================================================
@@ -198,17 +357,18 @@ try
 					  .'unique identifier within an object reference.',
 					  kDEFAULT_LANGUAGE );
 	$term->Synonym( 'kTAG_REFERENCE_ID', kTAG_REFERENCE_EXACT );
-	$term->Commit( $collection );
+	$term->Commit( $theCollection );
 	echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
 	
-	$term = new CAttributeTerm();
+	$term = new CMeasureTerm();
 	$term->Code( kTAG_REFERENCE_CONTAINER );
 	$term->Name( 'Collection name reference tag', kDEFAULT_LANGUAGE );
 	$term->Definition( 'This is the offset used to indicate a container '
 					  .'within an object reference.',
 					  kDEFAULT_LANGUAGE );
+	$term->Type( kDATA_TYPE_STRING );
 	$term->Synonym( 'kTAG_REFERENCE_CONTAINER', kTAG_REFERENCE_EXACT );
-	$term->Commit( $collection );
+	$term->Commit( $theCollection );
 	echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
 	
 	$term = new CAttributeTerm();
@@ -218,7 +378,7 @@ try
 					  .'within an object reference.',
 					  kDEFAULT_LANGUAGE );
 	$term->Synonym( 'kTAG_REFERENCE_DATABASE', kTAG_REFERENCE_EXACT );
-	$term->Commit( $collection );
+	$term->Commit( $theCollection );
 	echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
 	 
 	/*===================================================================================
@@ -230,7 +390,7 @@ try
 	$term->Code( substr( kTAG_REFERENCE_EXACT, 1 ) );
 	$term->Name( 'Exact reference', kDEFAULT_LANGUAGE );
 	$term->Synonym( 'kTAG_REFERENCE_EXACT', kTAG_REFERENCE_EXACT );
-	$term->Commit( $collection );
+	$term->Commit( $theCollection );
 	echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
 	
 	$term = new CAttributeTerm();
@@ -238,7 +398,7 @@ try
 	$term->Code( substr( kTAG_REFERENCE_BROAD, 1 ) );
 	$term->Name( 'Broad reference', kDEFAULT_LANGUAGE );
 	$term->Synonym( 'kTAG_REFERENCE_BROAD', kTAG_REFERENCE_EXACT );
-	$term->Commit( $collection );
+	$term->Commit( $theCollection );
 	echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
 	
 	$term = new CAttributeTerm();
@@ -246,7 +406,7 @@ try
 	$term->Code( substr( kTAG_REFERENCE_NARROW, 1 ) );
 	$term->Name( 'Broad reference', kDEFAULT_LANGUAGE );
 	$term->Synonym( 'kTAG_REFERENCE_NARROW', kTAG_REFERENCE_EXACT );
-	$term->Commit( $collection );
+	$term->Commit( $theCollection );
 	echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
 	
 	$term = new CAttributeTerm();
@@ -254,7 +414,7 @@ try
 	$term->Code( substr( kTAG_REFERENCE_RELATED, 1 ) );
 	$term->Name( 'Related reference', kDEFAULT_LANGUAGE );
 	$term->Synonym( 'kTAG_REFERENCE_RELATED', kTAG_REFERENCE_EXACT );
-	$term->Commit( $collection );
+	$term->Commit( $theCollection );
 	echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
 	 
 	/*===================================================================================
@@ -271,7 +431,7 @@ try
 					  .'term, it may be of several kinds: exact, broad, narrow and '
 					  .'related.',
 					  kDEFAULT_LANGUAGE );
-	$term->Commit( $collection );
+	$term->Commit( $theCollection );
 	echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
 	
 	$term = new CAttributeTerm();
@@ -285,7 +445,7 @@ try
 					  .'but a reference to another term object. Cross-references can be '
 					  .'of several kinds: exact, broad, narrow and related.',
 					  kDEFAULT_LANGUAGE );
-	$term->Commit( $collection );
+	$term->Commit( $theCollection );
 	echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
 	 
 	/*===================================================================================
@@ -301,7 +461,7 @@ try
 					  .'class name, it will be used to instantiate objects when loading '
 					  .'them from their containers.',
 					  kDEFAULT_LANGUAGE );
-	$term->Commit( $collection );
+	$term->Commit( $theCollection );
 	echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
 	
 	$term = new CAttributeTerm();
@@ -316,7 +476,7 @@ try
 					  .'By default it is an integer incremented each time the object '
 					  .'is saved.',
 					  kDEFAULT_LANGUAGE );
-	$term->Commit( $collection );
+	$term->Commit( $theCollection );
 	echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
 	 
 	/*===================================================================================
@@ -333,7 +493,7 @@ try
 					  .'conjunction with another offset to indicate the data type of '
 					  .'the item.',
 					  kDEFAULT_LANGUAGE );
-	$term->Commit( $collection );
+	$term->Commit( $theCollection );
 	echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
 	
 	$term = new CAttributeTerm();
@@ -346,7 +506,7 @@ try
 					  .'in the latter case it qualifies specifically the data elements, '
 					  .'in this case it discriminates the elements of a list.',
 					  kDEFAULT_LANGUAGE );
-	$term->Commit( $collection );
+	$term->Commit( $theCollection );
 	echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
 	
 	$term = new CAttributeTerm();
@@ -359,7 +519,7 @@ try
 					  .'in general this offset will hold a reference to an object that '
 					  .'defines the unit.',
 					  kDEFAULT_LANGUAGE );
-	$term->Commit( $collection );
+	$term->Commit( $theCollection );
 	echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
 	
 	$term = new CAttributeTerm();
@@ -372,7 +532,7 @@ try
 					  .'in general this offset will hold a reference to an object that '
 					  .'defines the unit.',
 					  kDEFAULT_LANGUAGE );
-	$term->Commit( $collection );
+	$term->Commit( $theCollection );
 	echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
 	
 	$term = new CAttributeTerm();
@@ -385,7 +545,7 @@ try
 					  .'conjunction with the type or kind offsets when storing lists of '
 					  .'items.',
 					  kDEFAULT_LANGUAGE );
-	$term->Commit( $collection );
+	$term->Commit( $theCollection );
 	echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
 	
 	$term = new CAttributeTerm();
@@ -396,7 +556,92 @@ try
 	$term->Definition( 'This tag is used as the default offset for indicating an '
 					  .'attribute\'s code or acronym.',
 					  kDEFAULT_LANGUAGE );
-	$term->Commit( $collection );
+	$term->Commit( $theCollection );
+	echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+	
+	$term = new CAttributeTerm();
+	$term->NS( $ns );
+	$term->Code( substr( kTAG_ENUM, 1 ) );
+	$term->Name( 'Enumeration code', kDEFAULT_LANGUAGE );
+	$term->Synonym( 'kTAG_ENUM', kTAG_REFERENCE_EXACT );
+	$term->Definition( 'This tag is used as the default offset for indicating an attribute containing an '
+					  .'enumeration code or acronym.',
+					  kDEFAULT_LANGUAGE );
+	$term->Commit( $theCollection );
+	echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+	
+	$term = new CAttributeTerm();
+	$term->NS( $ns );
+	$term->Code( substr( kTAG_NAMESPACE, 1 ) );
+	$term->Name( 'Namespace', kDEFAULT_LANGUAGE );
+	$term->Synonym( 'kTAG_NAMESPACE', kTAG_REFERENCE_EXACT );
+	$term->Definition( 'This tag is used as the default offset for indicating a namespace code or acronym.',
+					  kDEFAULT_LANGUAGE );
+	$term->Commit( $theCollection );
+	echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+	
+	$term = new CAttributeTerm();
+	$term->NS( $ns );
+	$term->Code( substr( kTAG_NAME, 1 ) );
+	$term->Name( 'Name', kDEFAULT_LANGUAGE );
+	$term->Synonym( 'kTAG_NAME', kTAG_REFERENCE_EXACT );
+	$term->Definition( 'This tag is used as the default offset for indicating a name.',
+					  kDEFAULT_LANGUAGE );
+	$term->Commit( $theCollection );
+	echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+	
+	$term = new CAttributeTerm();
+	$term->NS( $ns );
+	$term->Code( substr( kTAG_DESCRIPTION, 1 ) );
+	$term->Name( 'Description', kDEFAULT_LANGUAGE );
+	$term->Synonym( 'kTAG_DESCRIPTION', kTAG_REFERENCE_EXACT );
+	$term->Definition( 'This tag is used as the default offset for indicating a description.',
+					  kDEFAULT_LANGUAGE );
+	$term->Commit( $theCollection );
+	echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+	
+	$term = new CAttributeTerm();
+	$term->NS( $ns );
+	$term->Code( substr( kTAG_DEFINITION, 1 ) );
+	$term->Name( 'Description', kDEFAULT_LANGUAGE );
+	$term->Synonym( 'kTAG_DEFINITION', kTAG_REFERENCE_EXACT );
+	$term->Definition( 'This tag is used as the default offset for indicating a definition.',
+					  kDEFAULT_LANGUAGE );
+	$term->Commit( $theCollection );
+	echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+	
+	$term = new CAttributeTerm();
+	$term->NS( $ns );
+	$term->Code( substr( kTAG_LANGUAGE, 1 ) );
+	$term->Name( 'Language', kDEFAULT_LANGUAGE );
+	$term->Synonym( 'kTAG_LANGUAGE', kTAG_REFERENCE_EXACT );
+	$term->Definition( 'This tag is used as the default offset for indicating the language of an attribute, '
+					  .'it should be the 2 character ISO 639 language code.',
+					  kDEFAULT_LANGUAGE );
+	$term->Commit( $theCollection );
+	echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+	
+	$term = new CAttributeTerm();
+	$term->NS( $ns );
+	$term->Code( substr( kTAG_STATUS, 1 ) );
+	$term->Name( 'Status', kDEFAULT_LANGUAGE );
+	$term->Synonym( 'kTAG_STATUS', kTAG_REFERENCE_EXACT );
+	$term->Definition( 'This tag is used as the default offset for indicating an attribute\'s status '
+					  .'or state, it will generally be an array of tags defining the various states associated '
+					  .'with the object.',
+					  kDEFAULT_LANGUAGE );
+	$term->Commit( $theCollection );
+	echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+	
+	$term = new CAttributeTerm();
+	$term->NS( $ns );
+	$term->Code( substr( kTAG_ANNOTATION, 1 ) );
+	$term->Name( 'Annotation', kDEFAULT_LANGUAGE );
+	$term->Synonym( 'kTAG_ANNOTATION', kTAG_REFERENCE_EXACT );
+	$term->Definition( 'This tag is used as the default offset for indicating a list of annotations, '
+					  .'in general it will contain a list of key/value pairs.',
+					  kDEFAULT_LANGUAGE );
+	$term->Commit( $theCollection );
 	echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
 
 } // TRY BLOCK.
