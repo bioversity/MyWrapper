@@ -305,7 +305,7 @@ try
 	// Create references.
 	//
 	$id1 = 1;
-	$ref1 = new MyClass( array( 'Name' => 'Relation 1', kTAG_ID => $id1 ) );
+	$ref1 = new MyClass( array( 'Name' => 'Relation 1', kTAG_LID => $id1 ) );
 	$ref2 = new MyClass( array( 'Name' => 'Relation 2' ) );
 	$ref3 = new MyClass( array( 'Name' => 'Relation 3' ) );
 	$id3 = $ref3->Commit( $mcontainer );
@@ -443,38 +443,38 @@ try
 	
 	$array = array
 	(
-		kTAG_ID => array
+		kTAG_LID => array
 		(
-			kTAG_TYPE => kDATA_TYPE_MongoId,
+			kTAG_TYPE => kTYPE_MongoId,
 			kTAG_DATA => '4f5e28d2961be56010000003'
 		),
 		'Stamp' => array
 		(
-			kTAG_TYPE => kDATA_TYPE_STAMP,
+			kTAG_TYPE => kTYPE_STAMP,
 			kTAG_DATA => array
 			(
-				kOBJ_TYPE_STAMP_SEC => 22,
-				kOBJ_TYPE_STAMP_USEC => 1246
+				kTYPE_STAMP_SEC => 22,
+				kTYPE_STAMP_USEC => 1246
 			)
 		),
 		'RegExpr' => array
 		(
-			kTAG_TYPE => kDATA_TYPE_REGEX,
+			kTAG_TYPE => kTYPE_REGEX,
 			kTAG_DATA => '/^pippo/i'
 		),
 		'Int32' => array
 		(
-			kTAG_TYPE => kDATA_TYPE_INT32,
+			kTAG_TYPE => kTYPE_INT32,
 			kTAG_DATA => 32
 		),
 		'Int64' => array
 		(
-			kTAG_TYPE => kDATA_TYPE_INT64,
+			kTAG_TYPE => kTYPE_INT64,
 			kTAG_DATA => '12345678901234'
 		),
 		'Binary' => array
 		(
-			kTAG_TYPE => kDATA_TYPE_BINARY,
+			kTAG_TYPE => kTYPE_BINARY,
 			kTAG_DATA => bin2hex( 'PIPPO' )
 		)
 	);

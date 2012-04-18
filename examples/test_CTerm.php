@@ -69,8 +69,8 @@ try
 	$term1 = new CTerm();
 	echo( '<i>$term1->Code( \'NS\' );</i><br>' );
 	$term1->Code( 'NS' );
-	echo( '<i>$term1->Kind( kTAG_TERM_NAMESPACE, TRUE );</i><br>' );
-	$term1->Kind( kTAG_TERM_NAMESPACE, TRUE );
+	echo( '<i>$term1->Kind( kTYPE_NAMESPACE_TERM, TRUE );</i><br>' );
+	$term1->Kind( kTYPE_NAMESPACE_TERM, TRUE );
 	echo( '<i>$term1->Name( \'Namespace term\', \'en\' );</i><br>' );
 	$term1->Name( 'Namespace term', 'en' );
 	echo( '<i>$term1->Name( \'Termine spazio nome\', \'it\' );</i><br>' );
@@ -93,8 +93,8 @@ try
 	$term2->NS( 'NS' );
 	echo( '<i>$term2->Code( \'TERM2\' );</i><br>' );
 	$term2->Code( 'TERM2' );
-	echo( '<i>$term2->Kind( kTAG_TERM, TRUE );</i><br>' );
-	$term2->Kind( kTAG_TERM, TRUE );
+	echo( '<i>$term2->Kind( kTYPE_TERM, TRUE );</i><br>' );
+	$term2->Kind( kTYPE_TERM, TRUE );
 	echo( '<i>$term2->Name( \'Term 2\', \'en\' );</i><br>' );
 	$term2->Name( 'Term 2', 'en' );
 	echo( '<i>$term2->Name( \'Termine 1\', \'it\' );</i><br>' );

@@ -33,7 +33,7 @@ require_once( kPATH_LIBRARY_SOURCE."CDataType.php" );
  *
  * <ul>
  *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: The constant
- *		{@link kDATA_TYPE_MongoCode kDATA_TYPE_MongoCode}.
+ *		{@link kTYPE_MongoCode kTYPE_MongoCode}.
  *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The following structure:
  *	 <ul>
  *		<li><i>{@link kOBJ_TYPE_CODE_SRC kOBJ_TYPE_CODE_SRC}</i>: The javascript source.
@@ -90,7 +90,7 @@ class CDataTypeMongoCode extends CDataType
 		//
 		// Load object.
 		//
-		$this->offsetSet( kTAG_TYPE, kDATA_TYPE_MongoCode );
+		$this->offsetSet( kTAG_TYPE, kTYPE_MongoCode );
 		$this->offsetSet( kTAG_DATA, array( kOBJ_TYPE_CODE_SRC => $theData->code,
 											OBJ_TYPE_CODE_SCOPE => $theData->scope ) );
 	

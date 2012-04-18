@@ -33,7 +33,7 @@ require_once( kPATH_LIBRARY_SOURCE."CDataType.php" );
  *
  * <ul>
  *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: The constant
- *		{@link kDATA_TYPE_MongoId kDATA_TYPE_MongoId}.
+ *		{@link kTYPE_MongoId kTYPE_MongoId}.
  *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The HEX string.
  * </ul>
  *
@@ -60,7 +60,7 @@ class CDataTypeMongoId extends CDataType
 	 * Instantiate class.
 	 *
 	 * We overload the parent constructor to set the default
-	 * {@link kDATA_TYPE_MongoId offset} and to set the HEX string into the
+	 * {@link kTYPE_MongoId offset} and to set the HEX string into the
 	 * {@link kTAG_DATA kTAG_DATA} offset.
 	 *
 	 * @param mixed					$theData			Custom data.
@@ -85,7 +85,7 @@ class CDataTypeMongoId extends CDataType
 		//
 		// Load object.
 		//
-		$this->offsetSet( kTAG_TYPE, kDATA_TYPE_MongoId );
+		$this->offsetSet( kTAG_TYPE, kTYPE_MongoId );
 		$this->offsetSet( kTAG_DATA, (string) $theData );
 	
 	} // Constructor.

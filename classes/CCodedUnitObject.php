@@ -36,7 +36,7 @@ require_once( kPATH_LIBRARY_SOURCE."CRelatedUnitObject.php" );
  *		{@link Code() code}, identifier or acronym.
  *	<li><i>{@link kTAG_KIND kTAG_KIND}</i>: This attribute represents the current object's
  *		{@link Kind() kind} or type.
- *	<li><i>{@link kTAG_STAMP_MOD kTAG_STAMP_MOD}</i>: This offset holds the object's last
+ *	<li><i>{@link kTAG_MODIFIED kTAG_MODIFIED}</i>: This offset holds the object's last
  *		modification time stamp, this property should be used to mark all objects.
  * </ul>
  *
@@ -185,9 +185,9 @@ class CCodedUnitObject extends CRelatedUnitObject
 	/**
 	 * Manage object time stamp.
 	 *
-	 * This method can be used to manage the object {@link kTAG_STAMP_MOD time-stamp}, or
+	 * This method can be used to manage the object {@link kTAG_MODIFIED time-stamp}, or
 	 * the date in which the last modification was made on the object, it uses the standard
-	 * accessor {@link _ManageOffset() method} to manage the {@link kTAG_STAMP_MOD offset}:
+	 * accessor {@link _ManageOffset() method} to manage the {@link kTAG_MODIFIED offset}:
 	 *
 	 * <ul>
 	 *	<li><b>$theValue</b>: The value or operation:
@@ -211,11 +211,11 @@ class CCodedUnitObject extends CRelatedUnitObject
 	 *
 	 * @uses _ManageOffset
 	 *
-	 * @see kTAG_STAMP_MOD
+	 * @see kTAG_MODIFIED
 	 */
 	public function Stamp( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kTAG_STAMP_MOD, $theValue, $getOld );			// ==>
+		return $this->_ManageOffset( kTAG_MODIFIED, $theValue, $getOld );			// ==>
 
 	} // Stamp.
 
@@ -308,7 +308,7 @@ class CCodedUnitObject extends CRelatedUnitObject
 	 * Return the object's unique index.
 	 *
 	 * In this class we consider the {@link kTAG_CODE code} to be the object's unique
-	 * {@link kTAG_ID identifier}.
+	 * {@link kTAG_LID identifier}.
 	 *
 	 * @access protected
 	 * @return string

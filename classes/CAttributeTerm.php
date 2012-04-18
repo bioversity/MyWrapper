@@ -29,11 +29,11 @@ require_once( kPATH_LIBRARY_SOURCE."COntologyTerm.php" );
 /**
  * Attribute term.
  *
- * This {@link kTAG_TERM_ATTRIBUTE kind} of {@link COntologyTerm term} represents an
+ * This {@link kTYPE_ATTRIBUTE_TERM kind} of {@link COntologyTerm term} represents an
  * attribute {@link COntologyTerm term}. In general, it represents a term that is mainly
  * used to qas an attribute of other terms.
  *
- * In this class we enforce the {@link kTAG_TERM_ATTRIBUTE kTAG_TERM_ATTRIBUTE}
+ * In this class we enforce the {@link kTYPE_ATTRIBUTE_TERM kTYPE_ATTRIBUTE_TERM}
  * {@link Kind() kind}.
  *
  *	@package	MyWrapper
@@ -59,7 +59,7 @@ class CAttributeTerm extends COntologyTerm
 	 * Normalise before a store.
 	 *
 	 * We overload this method to enforce the
-	 * {@link kTAG_TERM_ATTRIBUTE kTAG_TERM_ATTRIBUTE} {@link Kind() kind}, note that
+	 * {@link kTYPE_ATTRIBUTE_TERM kTYPE_ATTRIBUTE_TERM} {@link Kind() kind}, note that
 	 * we call the {@link COntologyTermObject COntologyTermObject} version of this method
 	 * instead of the {@link COntologyTerm parent} one.
 	 *
@@ -73,14 +73,14 @@ class CAttributeTerm extends COntologyTerm
 	 *
 	 * @uses Kind()
 	 *
-	 * @see kTAG_TERM_ATTRIBUTE
+	 * @see kTYPE_ATTRIBUTE_TERM
 	 */
 	protected function _PrepareCommit( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
 		// Set namespace kind.
 		//
-		$this->Kind( kTAG_TERM_ATTRIBUTE, TRUE );
+		$this->Kind( kTYPE_ATTRIBUTE_TERM, TRUE );
 		
 		//
 		// Call parent method.

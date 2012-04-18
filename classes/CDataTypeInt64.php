@@ -33,7 +33,7 @@ require_once( kPATH_LIBRARY_SOURCE."CDataType.php" );
  *
  * <ul>
  *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: The constant
- *		{@link kDATA_TYPE_INT64 kDATA_TYPE_INT64}.
+ *		{@link kTYPE_INT64 kTYPE_INT64}.
  *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: A string representing the integer.
  * </ul>
  *
@@ -61,7 +61,7 @@ class CDataTypeInt64 extends CDataType
 	/**
 	 * Instantiate class.
 	 *
-	 * In this class we store {@link kDATA_TYPE_INT64 kDATA_TYPE_INT64} in the
+	 * In this class we store {@link kTYPE_INT64 kTYPE_INT64} in the
 	 * {@link kTAG_TYPE kTAG_TYPE} offset and the integer in the
 	 * {@link kTAG_DATA kTAG_DATA} offset.
 	 *
@@ -89,7 +89,7 @@ class CDataTypeInt64 extends CDataType
 		//
 		if( is_numeric( $data = (string) $theData ) )
 		{
-			$this->offsetSet( kTAG_TYPE, kDATA_TYPE_INT64 );
+			$this->offsetSet( kTAG_TYPE, kTYPE_INT64 );
 			$this->offsetSet( kTAG_DATA, ( PHP_INT_SIZE < 8 ) ? $data
 															  : (integer) $data );
 		

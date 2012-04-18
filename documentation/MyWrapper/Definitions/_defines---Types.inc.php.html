@@ -40,34 +40,82 @@
 									<span class="disabled">Constants</span>
 											</div>
 		<div class="info-box-body">	
-			<a name="definekDATA_TYPE_BINARY"><!-- --></a>
-<div class="oddrow">
-	
-	<div>
-		<img src="../../media/images/Constant.png" />
-		<span class="const-title">
-			<span class="const-name">kDATA_TYPE_BINARY</span> = ':BIN'
-			(line <span class="line-number">138</span>)
-		</span>
-	</div>
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Binary type.</p>
-<p class="description"><p>This value represents the primitive binary data type, it is assumed that it is provided  as a hexadecimal string.</p><p>This data type is serialised as follows:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a></em>: Will contain this constant.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: Will contain the following structure:
-     <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekOBJ_TYPE_BINARY_BIN">kOBJ_TYPE_BINARY_BIN</a></em>: The binary string.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekOBJ_TYPE_BINARY_TYPE">kOBJ_TYPE_BINARY_TYPE</a></em>: Binary string type
-            (integer):
-         <ul><li><em>1</em>: Function.</li><li><em>2</em>: Byte array (use as default).</li><li><em>3</em>: UUID.</li><li><em>5</em>: MD5.</li><li><em>128</em>: Custom.</li></ul></li></ul></li></ul></p></p>
-	
-		
-</div>
-<a name="definekDATA_TYPE_BOOLEAN"><!-- --></a>
+			<a name="definekTYPE_ATTRIBUTE_TERM"><!-- --></a>
 <div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
-			<span class="const-name">kDATA_TYPE_BOOLEAN</span> = ':BOOL'
-			(line <span class="line-number">111</span>)
+			<span class="const-name">kTYPE_ATTRIBUTE_TERM</span> = ':TERM:ATTR'
+			(line <span class="line-number">303</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Attribute.</p>
+<p class="description"><p>This is the tag that represents an attribute term.</p></p>
+	
+		
+</div>
+<a name="definekTYPE_BINARY"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kTYPE_BINARY</span> = ':BIN'
+			(line <span class="line-number">88</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Binary type.</p>
+<p class="description"><p>This value represents a binary string data type, it is generally expressed as an instance  of the <a href="../../MyWrapper/Framework/CDataTypeBinary.html">CDataTypeBinary</a> class.</p></p>
+	
+		
+</div>
+<a name="definekTYPE_BINARY_STRING"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kTYPE_BINARY_STRING</span> = 'bin'
+			(line <span class="line-number">170</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Binary string.</p>
+<p class="description"><p>This tag defines a binary string.</p></p>
+	
+		
+</div>
+<a name="definekTYPE_BINARY_TYPE"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kTYPE_BINARY_TYPE</span> = 'type'
+			(line <span class="line-number">185</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Binary string type.</p>
+<p class="description"><p>This tag defines a binary string type (integer):</p><p><ul><li><em>1</em>: Function.</li><li><em>2</em>: Byte array (use as default).</li><li><em>3</em>: UUID.</li><li><em>5</em>: MD5.</li><li><em>128</em>: Custom.</li></ul></p></p>
+	
+		
+</div>
+<a name="definekTYPE_BOOLEAN"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kTYPE_BOOLEAN</span> = ':BOOL'
+			(line <span class="line-number">76</span>)
 		</span>
 	</div>
 	
@@ -77,14 +125,31 @@
 	
 		
 </div>
-<a name="definekDATA_TYPE_CSV"><!-- --></a>
+<a name="definekTYPE_BROAD"><!-- --></a>
 <div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
-			<span class="const-name">kDATA_TYPE_CSV</span> = ':CSV'
-			(line <span class="line-number">255</span>)
+			<span class="const-name">kTYPE_BROAD</span> = ':BROAD'
+			(line <span class="line-number">250</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Broad reference.</p>
+<p class="description"><p>This is the tag that represents a broad reference.</p></p>
+	
+		
+</div>
+<a name="definekTYPE_CSV"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kTYPE_CSV</span> = ':CSV'
+			(line <span class="line-number">225</span>)
 		</span>
 	</div>
 	
@@ -94,14 +159,14 @@
 	
 		
 </div>
-<a name="definekDATA_TYPE_DATE"><!-- --></a>
-<div class="evenrow">
+<a name="definekTYPE_DATE"><!-- --></a>
+<div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
-			<span class="const-name">kDATA_TYPE_DATE</span> = ':DATE'
-			(line <span class="line-number">77</span>)
+			<span class="const-name">kTYPE_DATE</span> = ':DATE'
+			(line <span class="line-number">97</span>)
 		</span>
 	</div>
 	
@@ -111,14 +176,14 @@
 	
 		
 </div>
-<a name="definekDATA_TYPE_ENUM"><!-- --></a>
-<div class="oddrow">
+<a name="definekTYPE_ENUM"><!-- --></a>
+<div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
-			<span class="const-name">kDATA_TYPE_ENUM</span> = ':ENUM'
-			(line <span class="line-number">165</span>)
+			<span class="const-name">kTYPE_ENUM</span> = ':ENUM'
+			(line <span class="line-number">135</span>)
 		</span>
 	</div>
 	
@@ -128,13 +193,64 @@
 	
 		
 </div>
-<a name="definekDATA_TYPE_FLOAT"><!-- --></a>
+<a name="definekTYPE_ENUM_SET"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kTYPE_ENUM_SET</span> = ':SET'
+			(line <span class="line-number">145</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set type.</p>
+<p class="description"><p>This value represents the enumerated set data type, it represents an enumerated set  element or container.</p><p>Sets represent a vocabulary from which one or more value must be chosen.</p></p>
+	
+		
+</div>
+<a name="definekTYPE_ENUM_TERM"><!-- --></a>
 <div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
-			<span class="const-name">kDATA_TYPE_FLOAT</span> = ':FLOAT'
+			<span class="const-name">kTYPE_ENUM_TERM</span> = ':TERM:ENUM'
+			(line <span class="line-number">317</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Enumeration.</p>
+<p class="description"><p>This is the tag that represents an enumeration term.</p></p>
+	
+		
+</div>
+<a name="definekTYPE_EXACT"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kTYPE_EXACT</span> = ':EXACT'
+			(line <span class="line-number">243</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Exact reference.</p>
+<p class="description"><p>This is the tag that represents an exact reference.</p></p>
+	
+		
+</div>
+<a name="definekTYPE_FLOAT"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kTYPE_FLOAT</span> = ':FLOAT'
 			(line <span class="line-number">68</span>)
 		</span>
 	</div>
@@ -145,14 +261,14 @@
 	
 		
 </div>
-<a name="definekDATA_TYPE_HTML"><!-- --></a>
+<a name="definekTYPE_HTML"><!-- --></a>
 <div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
-			<span class="const-name">kDATA_TYPE_HTML</span> = ':HTML'
-			(line <span class="line-number">247</span>)
+			<span class="const-name">kTYPE_HTML</span> = ':HTML'
+			(line <span class="line-number">217</span>)
 		</span>
 	</div>
 	
@@ -162,13 +278,13 @@
 	
 		
 </div>
-<a name="definekDATA_TYPE_INT32"><!-- --></a>
+<a name="definekTYPE_INT32"><!-- --></a>
 <div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
-			<span class="const-name">kDATA_TYPE_INT32</span> = ':INT32'
+			<span class="const-name">kTYPE_INT32</span> = ':INT32'
 			(line <span class="line-number">46</span>)
 		</span>
 	</div>
@@ -180,13 +296,13 @@
 	
 		
 </div>
-<a name="definekDATA_TYPE_INT64"><!-- --></a>
+<a name="definekTYPE_INT64"><!-- --></a>
 <div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
-			<span class="const-name">kDATA_TYPE_INT64</span> = ':INT64'
+			<span class="const-name">kTYPE_INT64</span> = ':INT64'
 			(line <span class="line-number">61</span>)
 		</span>
 	</div>
@@ -198,14 +314,14 @@
 	
 		
 </div>
-<a name="definekDATA_TYPE_JSON"><!-- --></a>
+<a name="definekTYPE_JSON"><!-- --></a>
 <div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
-			<span class="const-name">kDATA_TYPE_JSON</span> = ':JSON'
-			(line <span class="line-number">233</span>)
+			<span class="const-name">kTYPE_JSON</span> = ':JSON'
+			(line <span class="line-number">203</span>)
 		</span>
 	</div>
 	
@@ -215,14 +331,31 @@
 	
 		
 </div>
-<a name="definekDATA_TYPE_META"><!-- --></a>
+<a name="definekTYPE_MEASURE_TERM"><!-- --></a>
 <div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
-			<span class="const-name">kDATA_TYPE_META</span> = ':META'
-			(line <span class="line-number">262</span>)
+			<span class="const-name">kTYPE_MEASURE_TERM</span> = ':TERM:MEASURE'
+			(line <span class="line-number">310</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Measure.</p>
+<p class="description"><p>This is the tag that represents a measure term.</p></p>
+	
+		
+</div>
+<a name="definekTYPE_META"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kTYPE_META</span> = ':META'
+			(line <span class="line-number">232</span>)
 		</span>
 	</div>
 	
@@ -232,14 +365,14 @@
 	
 		
 </div>
-<a name="definekDATA_TYPE_MongoCode"><!-- --></a>
-<div class="evenrow">
+<a name="definekTYPE_MongoCode"><!-- --></a>
+<div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
-			<span class="const-name">kDATA_TYPE_MongoCode</span> = 'MONGO:MongoCode'
-			(line <span class="line-number">296</span>)
+			<span class="const-name">kTYPE_MongoCode</span> = 'MONGO:MongoCode'
+			(line <span class="line-number">351</span>)
 		</span>
 	</div>
 	
@@ -250,14 +383,14 @@
 	
 		
 </div>
-<a name="definekDATA_TYPE_MongoId"><!-- --></a>
-<div class="oddrow">
+<a name="definekTYPE_MongoId"><!-- --></a>
+<div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
-			<span class="const-name">kDATA_TYPE_MongoId</span> = 'MONGO:MongoId'
-			(line <span class="line-number">279</span>)
+			<span class="const-name">kTYPE_MongoId</span> = 'MONGO:MongoId'
+			(line <span class="line-number">334</span>)
 		</span>
 	</div>
 	
@@ -267,14 +400,65 @@
 	
 		
 </div>
-<a name="definekDATA_TYPE_PHP"><!-- --></a>
+<a name="definekTYPE_NAMESPACE_TERM"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kTYPE_NAMESPACE_TERM</span> = ':TERM:NS'
+			(line <span class="line-number">282</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Namespace.</p>
+<p class="description"><p>This is the tag that represents a namespace term.</p></p>
+	
+		
+</div>
+<a name="definekTYPE_NARROW"><!-- --></a>
 <div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
-			<span class="const-name">kDATA_TYPE_PHP</span> = ':PHP'
-			(line <span class="line-number">226</span>)
+			<span class="const-name">kTYPE_NARROW</span> = ':NARROW'
+			(line <span class="line-number">257</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Narrow reference.</p>
+<p class="description"><p>This is the tag that represents a narrow reference.</p></p>
+	
+		
+</div>
+<a name="definekTYPE_ONTOLOGY_TERM"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kTYPE_ONTOLOGY_TERM</span> = ':TERM:ONTO'
+			(line <span class="line-number">289</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Ontology.</p>
+<p class="description"><p>This is the tag that represents an ontology root term.</p></p>
+	
+		
+</div>
+<a name="definekTYPE_PHP"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kTYPE_PHP</span> = ':PHP'
+			(line <span class="line-number">196</span>)
 		</span>
 	</div>
 	
@@ -284,152 +468,82 @@
 	
 		
 </div>
-<a name="definekDATA_TYPE_REGEX"><!-- --></a>
+<a name="definekTYPE_PREDICATE_TERM"><!-- --></a>
 <div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
-			<span class="const-name">kDATA_TYPE_REGEX</span> = ':RGEX'
-			(line <span class="line-number">151</span>)
+			<span class="const-name">kTYPE_PREDICATE_TERM</span> = ':TERM:PRED'
+			(line <span class="line-number">296</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Predicate.</p>
+<p class="description"><p>This is the tag that represents a predicate term.</p></p>
+	
+		
+</div>
+<a name="definekTYPE_REGEX"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kTYPE_REGEX</span> = ':RGEX'
+			(line <span class="line-number">113</span>)
 		</span>
 	</div>
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Regular expression type.</p>
-<p class="description"><p>This tag defines a regular expression string type, this data type is serialised as  follows:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a></em>: Will contain this constant.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: Will contain the regular expression string.</li></ul></p></p>
+<p class="description"><p>This tag defines a regular expression string type, it is generally expressed as an  instance of the <a href="../../MyWrapper/Framework/CDataTypeRegex.html">CDataTypeRegex</a> class.</p></p>
 	
 		
 </div>
-<a name="definekDATA_TYPE_SET"><!-- --></a>
-<div class="evenrow">
-	
-	<div>
-		<img src="../../media/images/Constant.png" />
-		<span class="const-title">
-			<span class="const-name">kDATA_TYPE_SET</span> = ':SET'
-			(line <span class="line-number">175</span>)
-		</span>
-	</div>
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Set type.</p>
-<p class="description"><p>This value represents the enumerated set data type, it represents an enumerated set  element or container.</p><p>Sets represent a vocabulary from which one or more value must be chosen.</p></p>
-	
-		
-</div>
-<a name="definekDATA_TYPE_STAMP"><!-- --></a>
+<a name="definekTYPE_RELATED"><!-- --></a>
 <div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
-			<span class="const-name">kDATA_TYPE_STAMP</span> = ':STAMP'
-			(line <span class="line-number">103</span>)
+			<span class="const-name">kTYPE_RELATED</span> = ':RELATED'
+			(line <span class="line-number">264</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Related reference.</p>
+<p class="description"><p>This is the tag that represents a related reference.</p></p>
+	
+		
+</div>
+<a name="definekTYPE_STAMP"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kTYPE_STAMP</span> = ':STAMP'
+			(line <span class="line-number">125</span>)
 		</span>
 	</div>
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Timestamp type.</p>
-<p class="description"><p>This data type should be used for native time-stamps, in general it can be shared as a  structure formatted as follows:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a></em>: Will contain this constant.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: Will contain the following structure:
-     <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekOBJ_TYPE_STAMP_SEC">kOBJ_TYPE_STAMP_SEC</a></em>: Number of seconds since
-            January 1st, 1970.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekOBJ_TYPE_STAMP_USEC">kOBJ_TYPE_STAMP_USEC</a></em>: Milliseconds.</li></ul></li></ul></p></p>
+<p class="description"><p>This data type should be used for native time-stamps, it is generally expressed as an  instance of the <a href="../../MyWrapper/Framework/CDataTypeStamp.html">CDataTypeStamp</a> class.</p></p>
 	
 		
 </div>
-<a name="definekDATA_TYPE_STRING"><!-- --></a>
-<div class="evenrow">
-	
-	<div>
-		<img src="../../media/images/Constant.png" />
-		<span class="const-title">
-			<span class="const-name">kDATA_TYPE_STRING</span> = ':STR'
-			(line <span class="line-number">31</span>)
-		</span>
-	</div>
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">String type.</p>
-<p class="description"><p>This value represents the primitive string data type.</p></p>
-	
-		
-</div>
-<a name="definekDATA_TYPE_TIME"><!-- --></a>
+<a name="definekTYPE_STAMP_SEC"><!-- --></a>
 <div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
-			<span class="const-name">kDATA_TYPE_TIME</span> = ':TIME'
-			(line <span class="line-number">85</span>)
-		</span>
-	</div>
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Time type.</p>
-<p class="description"><p>This value represents a time represented as a <em>YYYY-MM-DD HH:MM:SS</em> string in which  you may not have missing elements.</p></p>
-	
-		
-</div>
-<a name="definekDATA_TYPE_XML"><!-- --></a>
-<div class="evenrow">
-	
-	<div>
-		<img src="../../media/images/Constant.png" />
-		<span class="const-title">
-			<span class="const-name">kDATA_TYPE_XML</span> = ':XML'
-			(line <span class="line-number">240</span>)
-		</span>
-	</div>
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">XML type.</p>
-<p class="description"><p>This value represents the primitive XML data type, it is an XML encoded string.</p></p>
-	
-		
-</div>
-<a name="definekOBJ_TYPE_BINARY_BIN"><!-- --></a>
-<div class="oddrow">
-	
-	<div>
-		<img src="../../media/images/Constant.png" />
-		<span class="const-title">
-			<span class="const-name">kOBJ_TYPE_BINARY_BIN</span> = 'bin'
-			(line <span class="line-number">200</span>)
-		</span>
-	</div>
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Binary string.</p>
-<p class="description"><p>This tag defines a binary string.</p></p>
-	
-		
-</div>
-<a name="definekOBJ_TYPE_BINARY_TYPE"><!-- --></a>
-<div class="evenrow">
-	
-	<div>
-		<img src="../../media/images/Constant.png" />
-		<span class="const-title">
-			<span class="const-name">kOBJ_TYPE_BINARY_TYPE</span> = 'type'
-			(line <span class="line-number">215</span>)
-		</span>
-	</div>
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Binary string type.</p>
-<p class="description"><p>This tag defines a binary string type (integer):</p><p><ul><li><em>1</em>: Function.</li><li><em>2</em>: Byte array (use as default).</li><li><em>3</em>: UUID.</li><li><em>5</em>: MD5.</li><li><em>128</em>: Custom.</li></ul></p></p>
-	
-		
-</div>
-<a name="definekOBJ_TYPE_STAMP_SEC"><!-- --></a>
-<div class="oddrow">
-	
-	<div>
-		<img src="../../media/images/Constant.png" />
-		<span class="const-title">
-			<span class="const-name">kOBJ_TYPE_STAMP_SEC</span> = 'sec'
-			(line <span class="line-number">186</span>)
+			<span class="const-name">kTYPE_STAMP_SEC</span> = 'sec'
+			(line <span class="line-number">156</span>)
 		</span>
 	</div>
 	
@@ -439,14 +553,14 @@
 	
 		
 </div>
-<a name="definekOBJ_TYPE_STAMP_USEC"><!-- --></a>
+<a name="definekTYPE_STAMP_USEC"><!-- --></a>
 <div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
-			<span class="const-name">kOBJ_TYPE_STAMP_USEC</span> = 'usec'
-			(line <span class="line-number">193</span>)
+			<span class="const-name">kTYPE_STAMP_USEC</span> = 'usec'
+			(line <span class="line-number">163</span>)
 		</span>
 	</div>
 	
@@ -456,13 +570,81 @@
 	
 		
 </div>
+<a name="definekTYPE_STRING"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kTYPE_STRING</span> = ':STR'
+			(line <span class="line-number">31</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">String type.</p>
+<p class="description"><p>This tag represents the primitive string data type.</p></p>
+	
+		
+</div>
+<a name="definekTYPE_TERM"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kTYPE_TERM</span> = ':TERM'
+			(line <span class="line-number">275</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Term.</p>
+<p class="description"><p>This is the tag that represents a generic term.</p></p>
+	
+		
+</div>
+<a name="definekTYPE_TIME"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kTYPE_TIME</span> = ':TIME'
+			(line <span class="line-number">105</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Time type.</p>
+<p class="description"><p>This value represents a time represented as a <em>YYYY-MM-DD HH:MM:SS</em> string in which  you may not have missing elements.</p></p>
+	
+		
+</div>
+<a name="definekTYPE_XML"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kTYPE_XML</span> = ':XML'
+			(line <span class="line-number">210</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">XML type.</p>
+<p class="description"><p>This value represents the primitive XML data type, it is an XML encoded string.</p></p>
+	
+		
+</div>
 		</div>
 	</div>
 	
 	
 	
 	<p class="notes" id="credit">
-		Documentation generated on Tue, 17 Apr 2012 12:40:07 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Wed, 18 Apr 2012 20:05:19 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

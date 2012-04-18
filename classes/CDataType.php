@@ -47,24 +47,24 @@ require_once( kPATH_LIBRARY_DEFINES."Types.inc.php" );
  * Current derived classes are:
  *
  * <ul>
- *	<li><i>{@link kDATA_TYPE_INT32 kDATA_TYPE_INT32}</i>: 32 bit integer, this data type is
+ *	<li><i>{@link kTYPE_INT32 kTYPE_INT32}</i>: 32 bit integer, this data type is
  *		generally available, but it might be useful to distinguish it from the
- *		{@link kDATA_TYPE_INT64 64} bit version.
- *	<li><i>{@link kDATA_TYPE_INT64 kDATA_TYPE_INT64}</i>: 64 bit integer, this data type is
+ *		{@link kTYPE_INT64 64} bit version.
+ *	<li><i>{@link kTYPE_INT64 kTYPE_INT64}</i>: 64 bit integer, this data type is
  *		supported only on 64 bit systems.
- *	<li><i>{@link kDATA_TYPE_STAMP kDATA_TYPE_STAMP}</i>: Time stamp, we create this type to
+ *	<li><i>{@link kTYPE_STAMP kTYPE_STAMP}</i>: Time stamp, we create this type to
  *		have a standard way of representing a time-stamp.
- *	<li><i>{@link kDATA_TYPE_BINARY kDATA_TYPE_BINARY}</i>: Binary string, binary strings
+ *	<li><i>{@link kTYPE_BINARY kTYPE_BINARY}</i>: Binary string, binary strings
  *		are supported by PHPO, but they must be encoded for transport over the network or
  *		for storing in databases.
- *	<li><i>{@link kDATA_TYPE_REGEX kDATA_TYPE_REGEX}</i>: Regular expression query.
+ *	<li><i>{@link kTYPE_REGEX kTYPE_REGEX}</i>: Regular expression query.
  * </ul>
  *
  * Other specialised data types are:
  *
  * <ul>
- *	<li><i>{@link kDATA_TYPE_MongoId kDATA_TYPE_MongoId}</i>: MongoDB _id.
- *	<li><i>{@link kDATA_TYPE_MongoCode kDATA_TYPE_MongoCode}</i>: MongoDB map/reduce
+ *	<li><i>{@link kTYPE_MongoId kTYPE_MongoId}</i>: MongoDB _id.
+ *	<li><i>{@link kTYPE_MongoCode kTYPE_MongoCode}</i>: MongoDB map/reduce
  *		javascript code.
  * </ul>
  *
@@ -318,66 +318,66 @@ abstract class CDataType extends CArrayObject
 					switch( get_class( $theElement ) )
 					{
 						case 'MongoId':
-							$theType = kDATA_TYPE_MongoId;
+							$theType = kTYPE_MongoId;
 							$theElement = new CDataTypeMongoId( $theElement );
 							break;
 					
 						case 'MongoCode':
-							$theType = kDATA_TYPE_MongoCode;
+							$theType = kTYPE_MongoCode;
 							$theElement = new CDataTypeMongoCode( $theElement );
 							break;
 					
 						case 'MongoDate':
-							$theType = kDATA_TYPE_STAMP;
+							$theType = kTYPE_STAMP;
 							$theElement = new CDataTypeStamp( $theElement );
 							break;
 					
 						case 'MongoRegex':
-							$theType = kDATA_TYPE_REGEX;
+							$theType = kTYPE_REGEX;
 							$theElement = new CDataTypeRegex( $theElement );
 							break;
 					
 						case 'MongoBinData':
-							$theType = kDATA_TYPE_BINARY;
+							$theType = kTYPE_BINARY;
 							$theElement = new CDataTypeBinary( $theElement->bin );
 							break;
 					
 						case 'MongoInt32':
-							$theType = kDATA_TYPE_INT32;
+							$theType = kTYPE_INT32;
 							$theElement = new CDataTypeInt32( $theElement );
 							break;
 					
 						case 'MongoInt64':
-							$theType = kDATA_TYPE_INT64;
+							$theType = kTYPE_INT64;
 							$theElement = new CDataTypeInt64( $theElement );
 							break;
 						
 						case 'CDataTypeInt32':
-							$theType = kDATA_TYPE_INT32;
+							$theType = kTYPE_INT32;
 							break;
 						
 						case 'CDataTypeInt64':
-							$theType = kDATA_TYPE_INT64;
+							$theType = kTYPE_INT64;
 							break;
 						
 						case 'CDataTypeBinary':
-							$theType = kDATA_TYPE_BINARY;
+							$theType = kTYPE_BINARY;
 							break;
 						
 						case 'CDataTypeMongoCode':
-							$theType = kDATA_TYPE_MongoCode;
+							$theType = kTYPE_MongoCode;
 							break;
 						
 						case 'CDataTypeStamp':
-							$theType = kDATA_TYPE_STAMP;
+							$theType = kTYPE_STAMP;
 							break;
 						
 						case 'CDataTypeRegex':
-							$theType = kDATA_TYPE_REGEX;
+							$theType = kTYPE_REGEX;
 							break;
 						
 						case 'CDataTypeBinary':
-							$theType = kDATA_TYPE_BINARY;
+							$theType = kTYPE_BINARY;
 							break;
 						
 						default:
@@ -392,20 +392,20 @@ abstract class CDataType extends CArrayObject
 				//
 				elseif( is_float( $theElement )
 					 || is_double( $theElement ) )
-					$theType = kDATA_TYPE_FLOAT;
+					$theType = kTYPE_FLOAT;
 				
 				//
 				// Handle boolean.
 				//
 				elseif( is_bool( $theElement ) )
-					$theType = kDATA_TYPE_BOOLEAN;
+					$theType = kTYPE_BOOLEAN;
 				
 				//
 				// Handle integers.
 				//
 				elseif( is_int( $theElement ) )
 				{
-					$theType = kDATA_TYPE_INT64;
+					$theType = kTYPE_INT64;
 					$theElement = new CDataTypeInt32( (string) $theElement );
 				}
 				
@@ -413,7 +413,7 @@ abstract class CDataType extends CArrayObject
 				// Handle strings.
 				//
 				elseif( is_string( $theElement ) )
-					$theType = kDATA_TYPE_STRING;
+					$theType = kTYPE_STRING;
 			
 			} // Data type not provided.
 			
@@ -427,52 +427,52 @@ abstract class CDataType extends CArrayObject
 				//
 				switch( $theType )
 				{
-					case kDATA_TYPE_STRING:
+					case kTYPE_STRING:
 						$theElement = (string) $theElement;
 						break;
 	
-					case kDATA_TYPE_INT32:
+					case kTYPE_INT32:
 						$theElement = new CDataTypeInt32( (string) $theElement );
 						break;
 	
-					case kDATA_TYPE_INT64:
+					case kTYPE_INT64:
 						$theElement = new CDataTypeInt64( (string) $theElement );
 						break;
 					
-					case kDATA_TYPE_FLOAT:
+					case kTYPE_FLOAT:
 						$theElement = (double) $theElement;
 						break;
 					
-					case kDATA_TYPE_DATE:
+					case kTYPE_DATE:
 						$theElement = (string) $theElement;
 						break;
 					
-					case kDATA_TYPE_TIME:
-						$theType = kDATA_TYPE_STAMP;
+					case kTYPE_TIME:
+						$theType = kTYPE_STAMP;
 						$theElement = new CDataTypeStamp( $theElement );
 						break;
 					
-					case kDATA_TYPE_STAMP:
+					case kTYPE_STAMP:
 						$theElement = new CDataTypeStamp( $theElement );
 						break;
 					
-					case kDATA_TYPE_BOOLEAN:
+					case kTYPE_BOOLEAN:
 						$theElement = ( $theElement ) ? 1 : 0;
 						break;
 					
-					case kDATA_TYPE_BINARY:
+					case kTYPE_BINARY:
 						$theElement = new CDataTypeBinary( $theElement );
 						break;
 					
-					case kDATA_TYPE_REGEX:
+					case kTYPE_REGEX:
 						$theElement = new CDataTypeRegex( $theElement );
 						break;
 					
-					case kDATA_TYPE_MongoId:
+					case kTYPE_MongoId:
 						$theElement = new CDataTypeMongoId( $theElement );
 						break;
 					
-					case kDATA_TYPE_MongoCode:
+					case kTYPE_MongoCode:
 						$theElement = new CDataTypeMongoCode( $theElement );
 						break;
 					

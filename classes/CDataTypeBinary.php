@@ -34,12 +34,12 @@ require_once( kPATH_LIBRARY_SOURCE."CDataType.php" );
  *
  * <ul>
  *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: The constant
- *		{@link kDATA_TYPE_BINARY kDATA_TYPE_BINARY}.
+ *		{@link kTYPE_BINARY kTYPE_BINARY}.
  *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The following structure:
  *	 <ul>
- *		<li><i>{@link kOBJ_TYPE_BINARY_BIN kOBJ_TYPE_BINARY_BIN}</i>: The binary string in
+ *		<li><i>{@link kTYPE_BINARY_STRING kTYPE_BINARY_STRING}</i>: The binary string in
  *			hexadecimal.
- *		<li><i>{@link kOBJ_TYPE_BINARY_TYPE kOBJ_TYPE_BINARY_TYPE}</i>: The binary string
+ *		<li><i>{@link kTYPE_BINARY_TYPE kTYPE_BINARY_TYPE}</i>: The binary string
  *			type (integer):
  *		 <ul>
  *			<li><i>1</i>: Function.
@@ -74,7 +74,7 @@ class CDataTypeBinary extends CDataType
 	 * Instantiate class.
 	 *
 	 * We overload the parent constructor to set the default
-	 * {@link kDATA_TYPE_BINARY offset} and to set the binary string into the
+	 * {@link kTYPE_BINARY offset} and to set the binary string into the
 	 * {@link kTAG_DATA kTAG_DATA} offset.
 	 *
 	 * @param mixed					$theData			Custom data.
@@ -93,7 +93,7 @@ class CDataTypeBinary extends CDataType
 		//
 		// Load object.
 		//
-		$this->offsetSet( kTAG_TYPE, kDATA_TYPE_BINARY );
+		$this->offsetSet( kTAG_TYPE, kTYPE_BINARY );
 		$this->offsetSet( kTAG_DATA, bin2hex( (string) $theData ) );
 	
 	} // Constructor.

@@ -29,11 +29,11 @@ require_once( kPATH_LIBRARY_SOURCE."COntologyTermObject.php" );
 /**
  * Namespace term.
  *
- * This {@link kTAG_TERM_NAMESPACE kind} of {@link COntologyTermObject term} represents a
+ * This {@link kTYPE_NAMESPACE_TERM kind} of {@link COntologyTermObject term} represents a
  * namespace, or group that qualifies the {@link Code() codes} and {@link Name() names} of
  * the {@link COntologyTermObject terms} that belong to this namespace.
  *
- * In this class we enforce the {@link kTAG_TERM_NAMESPACE kTAG_TERM_NAMESPACE}
+ * In this class we enforce the {@link kTYPE_NAMESPACE_TERM kTYPE_NAMESPACE_TERM}
  * {@link Kind() kind}.
  *
  * Note that we inherit from {@link COntologyTermObject COntologyTermObject} because this
@@ -63,7 +63,7 @@ class CNamespaceTerm extends COntologyTermObject
 	 * Normalise before a store.
 	 *
 	 * We overload this method to enforce the
-	 * {@link kTAG_TERM_NAMESPACE kTAG_TERM_NAMESPACE} {@link Kind() kind}.
+	 * {@link kTYPE_NAMESPACE_TERM kTYPE_NAMESPACE_TERM} {@link Kind() kind}.
 	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
@@ -75,14 +75,14 @@ class CNamespaceTerm extends COntologyTermObject
 	 *
 	 * @uses Kind()
 	 *
-	 * @see kTAG_TERM_NAMESPACE
+	 * @see kTYPE_NAMESPACE_TERM
 	 */
 	protected function _PrepareCommit( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
 		// Set namespace kind.
 		//
-		$this->Kind( kTAG_TERM_NAMESPACE, TRUE );
+		$this->Kind( kTYPE_NAMESPACE_TERM, TRUE );
 		
 		//
 		// Call parent method.

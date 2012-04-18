@@ -163,7 +163,7 @@ try
 		//
 		$params = new CWarehouseWrapperClient( $url );
 		$params->Operation( kAPI_OP_LOGIN );
-		$params->Format( kDATA_TYPE_JSON );
+		$params->Format( kTYPE_JSON );
 		$params->Database( 'TEST' );
 		$params->Container( 'CWarehouseWrapper' );
 		$params->Options( kAPI_OPT_SAFE, TRUE );
@@ -186,7 +186,7 @@ try
 		//
 		$params = Array();
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_LOGIN;				// Command.
-		$params[] = kAPI_FORMAT.'='.kDATA_TYPE_JSON;				// Format.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;				// Format.
 		$params[] = kAPI_OPT_USER_CODE.'='.'MILKO';					// User code.
 		$params[] = kAPI_OPT_USER_PASS.'='.'MilkoPass';				// User password.
 		$params[] = kAPI_DATABASE.'='.'TEST';						// Database.
@@ -246,7 +246,7 @@ try
 		//
 		$params = new CWarehouseWrapperClient( $url );
 		$params->Operation( kAPI_OP_LOGIN );
-		$params->Format( kDATA_TYPE_JSON );
+		$params->Format( kTYPE_JSON );
 		$params->Database( 'TEST' );
 		$params->Container( 'CWarehouseWrapper' );
 		$params->Options( kAPI_OPT_SAFE, TRUE );
@@ -269,7 +269,7 @@ try
 		//
 		$params = Array();
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_LOGIN;				// Command.
-		$params[] = kAPI_FORMAT.'='.kDATA_TYPE_JSON;				// Format.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;				// Format.
 		$params[] = kAPI_OPT_USER_CODE.'='.'LUCA';					// User code.
 		$params[] = kAPI_OPT_USER_PASS.'='.'LucaPass';				// User password.
 		$params[] = kAPI_DATABASE.'='.'TEST';						// Database.
@@ -329,7 +329,7 @@ try
 		//
 		$params = new CWarehouseWrapperClient( $url );
 		$params->Operation( kAPI_OP_LOGIN );
-		$params->Format( kDATA_TYPE_JSON );
+		$params->Format( kTYPE_JSON );
 		$params->Database( 'TEST' );
 		$params->Container( 'CWarehouseWrapper' );
 		$params->Options( kAPI_OPT_SAFE, TRUE );
@@ -352,7 +352,7 @@ try
 		//
 		$params = Array();
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_LOGIN;				// Command.
-		$params[] = kAPI_FORMAT.'='.kDATA_TYPE_JSON;				// Format.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;				// Format.
 		$params[] = kAPI_OPT_USER_CODE.'='.'LUCA';					// User code.
 		$params[] = kAPI_OPT_USER_PASS.'='.'NOT VALID';				// User password.
 		$params[] = kAPI_DATABASE.'='.'TEST';						// Database.
@@ -412,7 +412,7 @@ try
 		//
 		$params = new CWarehouseWrapperClient( $url );
 		$params->Operation( kAPI_OP_LOGIN );
-		$params->Format( kDATA_TYPE_JSON );
+		$params->Format( kTYPE_JSON );
 		$params->Database( 'TEST' );
 		$params->Container( 'CWarehouseWrapper' );
 		$params->Options( kAPI_OPT_SAFE, TRUE );
@@ -434,7 +434,7 @@ try
 		//
 		$params = Array();
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_LOGIN;				// Command.
-		$params[] = kAPI_FORMAT.'='.kDATA_TYPE_JSON;				// Format.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;				// Format.
 		$params[] = kAPI_OPT_USER_PASS.'='.'NOT VALID';				// User password.
 		$params[] = kAPI_DATABASE.'='.'TEST';						// Database.
 		$params[] = kAPI_CONTAINER.'='.'CWarehouseWrapper';			// Container.

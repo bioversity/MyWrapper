@@ -57,7 +57,7 @@ require_once( kPATH_LIBRARY_SOURCE."CFAOInstitute.inc.php" );
  *		institute {@link Altitude() altitude}, note this is an integer value.
  * </ul>
  *
- * The object unique {@link kTAG_ID identifier} is {@link _id() formed} by
+ * The object unique {@link kTAG_LID identifier} is {@link _id() formed} by
  * {@link _index() using} the {@link Code() code} without any formatting.
  *
  *	@package	MyWrapper

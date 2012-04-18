@@ -50,7 +50,7 @@ define( "kAPI_OP_PING",				'@PING' );
  * This is the tag that represents the web-service request and response format.
  *
  * This applies both to the request and the response; if the parameter is not provided we
- * assume the {@link kDATA_TYPE_JSON JSON} format.
+ * assume the {@link kTYPE_JSON JSON} format.
  *
  * Cardinality: one.
  */

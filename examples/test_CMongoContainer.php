@@ -262,31 +262,31 @@ try
 	(
 		'Stamp' => array
 		(
-			kTAG_TYPE => kDATA_TYPE_STAMP,
+			kTAG_TYPE => kTYPE_STAMP,
 			kTAG_DATA => array
 			(
-				kOBJ_TYPE_STAMP_SEC => 22,
-				kOBJ_TYPE_STAMP_USEC => 1246
+				kTYPE_STAMP_SEC => 22,
+				kTYPE_STAMP_USEC => 1246
 			)
 		),
 		'RegExpr' => array
 		(
-			kTAG_TYPE => kDATA_TYPE_REGEX,
+			kTAG_TYPE => kTYPE_REGEX,
 			kTAG_DATA => '/^pippo/i'
 		),
 		'Int32' => array
 		(
-			kTAG_TYPE => kDATA_TYPE_INT32,
+			kTAG_TYPE => kTYPE_INT32,
 			kTAG_DATA => 32
 		),
 		'Int64' => array
 		(
-			kTAG_TYPE => kDATA_TYPE_INT64,
+			kTAG_TYPE => kTYPE_INT64,
 			kTAG_DATA => '12345678901234'
 		),
 		'Binary' => array
 		(
-			kTAG_TYPE => kDATA_TYPE_BINARY,
+			kTAG_TYPE => kTYPE_BINARY,
 			kTAG_DATA => bin2hex( 'PIPPO' )
 		),
 		'Integer' => 123456789,

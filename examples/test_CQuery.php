@@ -46,7 +46,7 @@ $query01 = array
 		(
 			kAPI_QUERY_SUBJECT => ':XREF.:SCOPE',
 			kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-			kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+			kAPI_QUERY_TYPE => kTYPE_STRING,
 			kAPI_QUERY_DATA => '2'
 		),
 		
@@ -58,7 +58,7 @@ $query01 = array
 				(
 					kAPI_QUERY_SUBJECT => ':XREF.:DATA._code',
 					kAPI_QUERY_OPERATOR => kOPERATOR_PREFIX,
-					kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+					kAPI_QUERY_TYPE => kTYPE_STRING,
 					kAPI_QUERY_DATA => 'NCBI_taxid:'
 				),
 				
@@ -66,7 +66,7 @@ $query01 = array
 				(
 					kAPI_QUERY_SUBJECT => ':XREF.:DATA._code',
 					kAPI_QUERY_OPERATOR => kOPERATOR_PREFIX,
-					kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+					kAPI_QUERY_TYPE => kTYPE_STRING,
 					kAPI_QUERY_DATA =>  'GR:'
 				)
 			)
@@ -82,7 +82,7 @@ $query02 = array
 		(
 			kAPI_QUERY_SUBJECT => ':XREF.:SCOPE',
 			kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-			kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+			kAPI_QUERY_TYPE => kTYPE_STRING,
 			kAPI_QUERY_DATA => '2'
 		),
 		
@@ -94,7 +94,7 @@ $query02 = array
 				(
 					kAPI_QUERY_SUBJECT => ':XREF.:DATA._code',
 					kAPI_QUERY_OPERATOR => kOPERATOR_PREFIX,
-					kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+					kAPI_QUERY_TYPE => kTYPE_STRING,
 					kAPI_QUERY_DATA => 'NCBI_taxid:'
 				),
 				
@@ -102,7 +102,7 @@ $query02 = array
 				(
 					kAPI_QUERY_SUBJECT => ':XREF.:DATA._code',
 					kAPI_QUERY_OPERATOR => kOPERATOR_PREFIX,
-					kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+					kAPI_QUERY_TYPE => kTYPE_STRING,
 					kAPI_QUERY_DATA =>  'GR:'
 				),
 				
@@ -114,7 +114,7 @@ $query02 = array
 						(
 							kAPI_QUERY_SUBJECT => ':XREF.:SCOPE',
 							kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-							kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+							kAPI_QUERY_TYPE => kTYPE_STRING,
 							kAPI_QUERY_DATA => '2'
 						),
 						
@@ -126,7 +126,7 @@ $query02 = array
 								(
 									kAPI_QUERY_SUBJECT => ':XREF.:DATA._code',
 									kAPI_QUERY_OPERATOR => kOPERATOR_PREFIX,
-									kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+									kAPI_QUERY_TYPE => kTYPE_STRING,
 									kAPI_QUERY_DATA => 'NCBI_taxid:'
 								),
 								
@@ -134,7 +134,7 @@ $query02 = array
 								(
 									kAPI_QUERY_SUBJECT => ':XREF.:DATA._code',
 									kAPI_QUERY_OPERATOR => kOPERATOR_PREFIX,
-									kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+									kAPI_QUERY_TYPE => kTYPE_STRING,
 									kAPI_QUERY_DATA =>  'GR:'
 								)
 							)
@@ -154,7 +154,7 @@ $query03 = array
 		(
 //				kAPI_QUERY_SUBJECT => ':XREF.:SCOPE',
 			kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-			kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+			kAPI_QUERY_TYPE => kTYPE_STRING,
 			kAPI_QUERY_DATA => '2'
 		),
 	)
@@ -168,7 +168,7 @@ $query04 = array
 		(
 			kAPI_QUERY_SUBJECT => ':XREF.:SCOPE',
 //				kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-			kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+			kAPI_QUERY_TYPE => kTYPE_STRING,
 			kAPI_QUERY_DATA => '2'
 		),
 	)
@@ -182,7 +182,7 @@ $query05 = array
 		(
 			kAPI_QUERY_SUBJECT => ':XREF.:SCOPE',
 			kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-//				kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+//				kAPI_QUERY_TYPE => kTYPE_STRING,
 			kAPI_QUERY_DATA => '2'
 		),
 	)
@@ -196,7 +196,7 @@ $query06 = array
 		(
 			kAPI_QUERY_SUBJECT => ':XREF.:SCOPE',
 			kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-			kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+			kAPI_QUERY_TYPE => kTYPE_STRING,
 //				kAPI_QUERY_DATA => '2'
 		),
 	)
@@ -240,7 +240,7 @@ try
 		(
 			kAPI_QUERY_SUBJECT => ':XREF.:SCOPE',
 			kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-			kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+			kAPI_QUERY_TYPE => kTYPE_STRING,
 			kAPI_QUERY_DATA => '2'
 		);
 	$test->AppendStatement( $statement, kOPERATOR_AND );
@@ -272,7 +272,7 @@ try
 	(
 		kAPI_QUERY_SUBJECT => ':XREF.:DATA._code',
 		kAPI_QUERY_OPERATOR => kOPERATOR_PREFIX,
-		kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+		kAPI_QUERY_TYPE => kTYPE_STRING,
 		kAPI_QUERY_DATA => 'NCBI_taxid:'
 	);
 	$test->AppendStatement( $statement, kOPERATOR_OR );
@@ -289,7 +289,7 @@ try
 	(
 		kAPI_QUERY_SUBJECT => ':XREF.:DATA._code',
 		kAPI_QUERY_OPERATOR => kOPERATOR_PREFIX,
-		kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+		kAPI_QUERY_TYPE => kTYPE_STRING,
 		kAPI_QUERY_DATA =>  'GR:'
 	);
 	$test->AppendStatement( $statement, kOPERATOR_OR );
@@ -306,7 +306,7 @@ try
 		(
 			kAPI_QUERY_SUBJECT => ':XREF.:SCOPE',
 			kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-			kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+			kAPI_QUERY_TYPE => kTYPE_STRING,
 			kAPI_QUERY_DATA => '2'
 		);
 	$test->AppendStatement( $statement );
@@ -327,14 +327,14 @@ try
 			(
 				kAPI_QUERY_SUBJECT => ':XREF.:DATA._code',
 				kAPI_QUERY_OPERATOR => kOPERATOR_PREFIX,
-				kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+				kAPI_QUERY_TYPE => kTYPE_STRING,
 				kAPI_QUERY_DATA => 'NCBI_taxid:'
 			),
 			array
 			(
 				kAPI_QUERY_SUBJECT => ':XREF.:DATA._code',
 				kAPI_QUERY_OPERATOR => kOPERATOR_PREFIX,
-				kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+				kAPI_QUERY_TYPE => kTYPE_STRING,
 				kAPI_QUERY_DATA =>  'GR:'
 			)
 		)

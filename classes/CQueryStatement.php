@@ -126,16 +126,16 @@ require_once( kPATH_LIBRARY_SOURCE."CQuery.inc.php" );
  *		type of the {@link kAPI_QUERY_DATA kAPI_QUERY_DATA} element, if the latter is
  *		required:
  *	 <ul>
- *		<li><i>{@link kDATA_TYPE_STRING kDATA_TYPE_STRING}</i>: String, we assume
+ *		<li><i>{@link kTYPE_STRING kTYPE_STRING}</i>: String, we assume
  *			in UTF8 character set.
- *		<li><i>{@link kDATA_TYPE_INT32 kDATA_TYPE_INT32}</i>: 32 bit signed integer.
- *		<li><i>{@link kDATA_TYPE_INT64 kDATA_TYPE_INT64}</i>: 64 bit signed integer.
- *		<li><i>{@link kDATA_TYPE_FLOAT kDATA_TYPE_FLOAT}</i>: Floating point number.
- *		<li><i>{@link kDATA_TYPE_DATE kDATA_TYPE_DATE}</i>: A date.
- *		<li><i>{@link kDATA_TYPE_TIME kDATA_TYPE_TIME}</i>: A date and time.
- *		<li><i>{@link kDATA_TYPE_STAMP kDATA_TYPE_STAMP}</i>: A native timestamp.
- *		<li><i>{@link kDATA_TYPE_BOOLEAN kDATA_TYPE_BOOLEAN}</i>: An on/off switch.
- *		<li><i>{@link kDATA_TYPE_BINARY kDATA_TYPE_BINARY}</i>: A binary string.
+ *		<li><i>{@link kTYPE_INT32 kTYPE_INT32}</i>: 32 bit signed integer.
+ *		<li><i>{@link kTYPE_INT64 kTYPE_INT64}</i>: 64 bit signed integer.
+ *		<li><i>{@link kTYPE_FLOAT kTYPE_FLOAT}</i>: Floating point number.
+ *		<li><i>{@link kTYPE_DATE kTYPE_DATE}</i>: A date.
+ *		<li><i>{@link kTYPE_TIME kTYPE_TIME}</i>: A date and time.
+ *		<li><i>{@link kTYPE_STAMP kTYPE_STAMP}</i>: A native timestamp.
+ *		<li><i>{@link kTYPE_BOOLEAN kTYPE_BOOLEAN}</i>: An on/off switch.
+ *		<li><i>{@link kTYPE_BINARY kTYPE_BINARY}</i>: A binary string.
  *	 </ul>
  *	<li><i>{@link kAPI_QUERY_DATA kAPI_QUERY_DATA}</i>: The statement object or test data.
  * </ul>
@@ -244,32 +244,32 @@ class CQueryStatement extends CArrayObject
 	 *	<li><b>$theType</b>: The statement object data type, this qualifies all remaining
 	 *		parameters. The allowed values are:
 	 *	 <ul>
-	 *		<li><i>{@link kDATA_TYPE_STRING kDATA_TYPE_STRING}</i>: String, we assume in
+	 *		<li><i>{@link kTYPE_STRING kTYPE_STRING}</i>: String, we assume in
 	 *			UTF8 character set, the string is expected in the next parameter.
-	 *		<li><i>{@link kDATA_TYPE_INT32 kDATA_TYPE_INT32}</i>: 32 bit signed integer, the
+	 *		<li><i>{@link kTYPE_INT32 kTYPE_INT32}</i>: 32 bit signed integer, the
 	 *			number is expected in the next parameter, either as an integer, float or
 	 *			string; once received, it will be converted to a
 	 *			{@link CDataTypeInt32 CDataTypeInt32} object.
-	 *		<li><i>{@link kDATA_TYPE_INT64 kDATA_TYPE_INT64}</i>: 64 bit signed integer, the
+	 *		<li><i>{@link kTYPE_INT64 kTYPE_INT64}</i>: 64 bit signed integer, the
 	 *			number is expected in the next parameter, either as an integer, float or
 	 *			string; once received, it will be converted to a
 	 *			{@link CDataTypeInt64 CDataTypeInt64} object.
-	 *		<li><i>{@link kDATA_TYPE_FLOAT kDATA_TYPE_FLOAT}</i>: Floating point number, the
+	 *		<li><i>{@link kTYPE_FLOAT kTYPE_FLOAT}</i>: Floating point number, the
 	 *			number is expected in the next parameter, either as an integer, float or
 	 *			string.
-	 *		<li><i>{@link kDATA_TYPE_DATE kDATA_TYPE_DATE}</i>: A string date, it is treated
+	 *		<li><i>{@link kTYPE_DATE kTYPE_DATE}</i>: A string date, it is treated
 	 *			as a string date with a YYYYMMDD format in which month and day may be
 	 *			omitted.
-	 *		<li><i>{@link kDATA_TYPE_TIME kDATA_TYPE_TIME}</i>: A string time, it is treated
+	 *		<li><i>{@link kTYPE_TIME kTYPE_TIME}</i>: A string time, it is treated
 	 *			as a string time with a YYYY-MM-DD HH:MM:SS format in which all elements are
 	 *			required; this element will be converted to a
-	 *			{@link kDATA_TYPE_STAMP kDATA_TYPE_STAMP} data type.
-	 *		<li><i>{@link kDATA_TYPE_STAMP kDATA_TYPE_STAMP}</i>: A timestamp, optionally
+	 *			{@link kTYPE_STAMP kTYPE_STAMP} data type.
+	 *		<li><i>{@link kTYPE_STAMP kTYPE_STAMP}</i>: A timestamp, optionally
 	 *			including microseconds, elements of this type will be converted to
 	 *			{@link CDataTypeStamp CDataTypeStamp} objects.
-	 *		<li><i>{@link kDATA_TYPE_BOOLEAN kDATA_TYPE_BOOLEAN}</i>: An on/off switch, it
+	 *		<li><i>{@link kTYPE_BOOLEAN kTYPE_BOOLEAN}</i>: An on/off switch, it
 	 *			will be converted to a 1/0 pair.
-	 *		<li><i>{@link kDATA_TYPE_BINARY kDATA_TYPE_BINARY}</i>: A binary string, the
+	 *		<li><i>{@link kTYPE_BINARY kTYPE_BINARY}</i>: A binary string, the
 	 *			string will be converted to a {@link CDataTypeBinary CDataTypeBinary}
 	 *			object.
 	 *	 </ul>
@@ -581,20 +581,20 @@ class CQueryStatement extends CArrayObject
 	 *	<li><i>FALSE</i>: Delete the current value.
 	 *	<li><i>other</i>: Set the value with the provided parameter:
 	 *	 <ul>
-	 *		<li><i>{@link kDATA_TYPE_STRING kDATA_TYPE_STRING}</i>: String, we assume in
+	 *		<li><i>{@link kTYPE_STRING kTYPE_STRING}</i>: String, we assume in
 	 *			UTF8 character set.
-	 *		<li><i>{@link kDATA_TYPE_INT32 kDATA_TYPE_INT32}</i>: 32 bit signed integer.
-	 *		<li><i>{@link kDATA_TYPE_INT64 kDATA_TYPE_INT64}</i>: 64 bit signed integer.
-	 *		<li><i>{@link kDATA_TYPE_FLOAT kDATA_TYPE_FLOAT}</i>: Floating point number.
-	 *		<li><i>{@link kDATA_TYPE_DATE kDATA_TYPE_DATE}</i>: A string date, it means a
+	 *		<li><i>{@link kTYPE_INT32 kTYPE_INT32}</i>: 32 bit signed integer.
+	 *		<li><i>{@link kTYPE_INT64 kTYPE_INT64}</i>: 64 bit signed integer.
+	 *		<li><i>{@link kTYPE_FLOAT kTYPE_FLOAT}</i>: Floating point number.
+	 *		<li><i>{@link kTYPE_DATE kTYPE_DATE}</i>: A string date, it means a
 	 *			string date with a YYYYMMDD format in which month and day may be omitted.
-	 *		<li><i>{@link kDATA_TYPE_TIME kDATA_TYPE_TIME}</i>: A string time, it is treated
+	 *		<li><i>{@link kTYPE_TIME kTYPE_TIME}</i>: A string time, it is treated
 	 *			as a string time with a YYYY-MM-DD HH:MM:SS format in which all elements are
 	 *			required.
-	 *		<li><i>{@link kDATA_TYPE_STAMP kDATA_TYPE_STAMP}</i>: A timestamp, optionally
+	 *		<li><i>{@link kTYPE_STAMP kTYPE_STAMP}</i>: A timestamp, optionally
 	 *			including microseconds.
-	 *		<li><i>{@link kDATA_TYPE_BOOLEAN kDATA_TYPE_BOOLEAN}</i>: An on/off switch.
-	 *		<li><i>{@link kDATA_TYPE_BINARY kDATA_TYPE_BINARY}</i>: A binary string.
+	 *		<li><i>{@link kTYPE_BOOLEAN kTYPE_BOOLEAN}</i>: An on/off switch.
+	 *		<li><i>{@link kTYPE_BINARY kTYPE_BINARY}</i>: A binary string.
 	 *	 </ul>
 	 *		If the provided value does not match any of the above, the method will raise an
 	 *		exception.
@@ -623,15 +623,15 @@ class CQueryStatement extends CArrayObject
 		{
 			switch( (string) $theValue )
 			{
-				case kDATA_TYPE_STRING:
-				case kDATA_TYPE_INT32:
-				case kDATA_TYPE_INT64:
-				case kDATA_TYPE_FLOAT:
-				case kDATA_TYPE_DATE:
-				case kDATA_TYPE_TIME:
-				case kDATA_TYPE_STAMP:
-				case kDATA_TYPE_BOOLEAN:
-				case kDATA_TYPE_BINARY:
+				case kTYPE_STRING:
+				case kTYPE_INT32:
+				case kTYPE_INT64:
+				case kTYPE_FLOAT:
+				case kTYPE_DATE:
+				case kTYPE_TIME:
+				case kTYPE_STAMP:
+				case kTYPE_BOOLEAN:
+				case kTYPE_BINARY:
 					break;
 				
 				default:
@@ -845,7 +845,7 @@ class CQueryStatement extends CArrayObject
 	 *	<li><b>$theObject</b>: Statement {@link Object() object} match string.
 	 * </ul>
 	 *
-	 * Note that the data type is implicitly a {@link kDATA_TYPE_STRING string}
+	 * Note that the data type is implicitly a {@link kTYPE_STRING string}
 	 *
 	 * The method will return an instance of this class or raise an exception on errors.
 	 *
@@ -854,13 +854,13 @@ class CQueryStatement extends CArrayObject
 	 *
 	 * @static
 	 *
-	 * @see kOPERATOR_LIKE kDATA_TYPE_STRING
+	 * @see kOPERATOR_LIKE kTYPE_STRING
 	 */
 	static function Like( $theSubject, $theObject )
 	{
 		return new self( (string) $theSubject,
 						  kOPERATOR_LIKE,
-						  kDATA_TYPE_STRING,
+						  kTYPE_STRING,
 						  (string) $theObject );									// ==>
 
 	} // Like.
@@ -891,13 +891,13 @@ class CQueryStatement extends CArrayObject
 	 *
 	 * @static
 	 *
-	 * @see kOPERATOR_LIKE_NOT kDATA_TYPE_STRING
+	 * @see kOPERATOR_LIKE_NOT kTYPE_STRING
 	 */
 	static function NotLike( $theSubject, $theObject )
 	{
 		return new self( (string) $theSubject,
 						  kOPERATOR_LIKE_NOT,
-						  kDATA_TYPE_STRING,
+						  kTYPE_STRING,
 						  (string) $theObject );									// ==>
 
 	} // NotLike.
@@ -921,7 +921,7 @@ class CQueryStatement extends CArrayObject
 	 *	<li><b>$theObject</b>: Statement {@link Object() object} prefix string.
 	 * </ul>
 	 *
-	 * Note that the data type is implicitly a {@link kDATA_TYPE_STRING string}
+	 * Note that the data type is implicitly a {@link kTYPE_STRING string}
 	 *
 	 * The method will return an instance of this class or raise an exception on errors.
 	 *
@@ -930,13 +930,13 @@ class CQueryStatement extends CArrayObject
 	 *
 	 * @static
 	 *
-	 * @see kOPERATOR_PREFIX kDATA_TYPE_STRING
+	 * @see kOPERATOR_PREFIX kTYPE_STRING
 	 */
 	static function Prefix( $theSubject, $theObject )
 	{
 		return new self( (string) $theSubject,
 						  kOPERATOR_PREFIX,
-						  kDATA_TYPE_STRING,
+						  kTYPE_STRING,
 						  (string) $theObject );									// ==>
 
 	} // Prefix.
@@ -960,7 +960,7 @@ class CQueryStatement extends CArrayObject
 	 *	<li><b>$theObject</b>: Statement {@link Object() object} match sub-string.
 	 * </ul>
 	 *
-	 * Note that the data type is implicitly a {@link kDATA_TYPE_STRING string}
+	 * Note that the data type is implicitly a {@link kTYPE_STRING string}
 	 *
 	 * The method will return an instance of this class or raise an exception on errors.
 	 *
@@ -969,13 +969,13 @@ class CQueryStatement extends CArrayObject
 	 *
 	 * @static
 	 *
-	 * @see kOPERATOR_CONTAINS kDATA_TYPE_STRING
+	 * @see kOPERATOR_CONTAINS kTYPE_STRING
 	 */
 	static function Contains( $theSubject, $theObject )
 	{
 		return new self( (string) $theSubject,
 						  kOPERATOR_CONTAINS,
-						  kDATA_TYPE_STRING,
+						  kTYPE_STRING,
 						  (string) $theObject );									// ==>
 
 	} // Contains.
@@ -999,7 +999,7 @@ class CQueryStatement extends CArrayObject
 	 *	<li><b>$theObject</b>: Statement {@link Object() object} suffix string.
 	 * </ul>
 	 *
-	 * Note that the data type is implicitly a {@link kDATA_TYPE_STRING string}
+	 * Note that the data type is implicitly a {@link kTYPE_STRING string}
 	 *
 	 * The method will return an instance of this class or raise an exception on errors.
 	 *
@@ -1008,13 +1008,13 @@ class CQueryStatement extends CArrayObject
 	 *
 	 * @static
 	 *
-	 * @see kOPERATOR_SUFFIX kDATA_TYPE_STRING
+	 * @see kOPERATOR_SUFFIX kTYPE_STRING
 	 */
 	static function Suffix( $theSubject, $theObject )
 	{
 		return new self( (string) $theSubject,
 						  kOPERATOR_SUFFIX,
-						  kDATA_TYPE_STRING,
+						  kTYPE_STRING,
 						  (string) $theObject );									// ==>
 
 	} // Suffix.
@@ -1038,7 +1038,7 @@ class CQueryStatement extends CArrayObject
 	 *	<li><b>$theObject</b>: Statement {@link Object() object} regular expression pattern.
 	 * </ul>
 	 *
-	 * Note that the data type is implicitly a {@link kDATA_TYPE_STRING string}
+	 * Note that the data type is implicitly a {@link kTYPE_STRING string}
 	 *
 	 * The method will return an instance of this class or raise an exception on errors.
 	 *
@@ -1047,13 +1047,13 @@ class CQueryStatement extends CArrayObject
 	 *
 	 * @static
 	 *
-	 * @see kOPERATOR_REGEX kDATA_TYPE_STRING
+	 * @see kOPERATOR_REGEX kTYPE_STRING
 	 */
 	static function Regex( $theSubject, $theObject )
 	{
 		return new self( (string) $theSubject,
 						  kOPERATOR_REGEX,
-						  kDATA_TYPE_STRING,
+						  kTYPE_STRING,
 						  (string) $theObject );									// ==>
 
 	} // Regex.
@@ -1614,7 +1614,7 @@ class CQueryStatement extends CArrayObject
 	 * statement in which the object of the statement represents an expression.
 	 *
 	 * Note that in this case the {@link Type() type} is not relevant and it is set by
-	 * default as a {@link kDATA_TYPE_STRING string}.
+	 * default as a {@link kTYPE_STRING string}.
 	 *
 	 * The statement uses the {@link kOPERATOR_EX kOPERATOR_EX} operator and this
 	 * method accepts the following parameters:
@@ -1632,12 +1632,12 @@ class CQueryStatement extends CArrayObject
 	 *
 	 * @static
 	 *
-	 * @see kOPERATOR_EX kDATA_TYPE_STRING
+	 * @see kOPERATOR_EX kTYPE_STRING
 	 */
 	static function Expression( $theSubject, $theObject )
 	{
 		return new self
-			( (string) $theSubject, kOPERATOR_EX, kDATA_TYPE_STRING, $theObject );	// ==>
+			( (string) $theSubject, kOPERATOR_EX, kTYPE_STRING, $theObject );	// ==>
 
 	} // Expression.
 

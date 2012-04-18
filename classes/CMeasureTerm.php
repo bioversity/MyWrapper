@@ -29,7 +29,7 @@ require_once( kPATH_LIBRARY_SOURCE."COntologyTerm.php" );
 /**
  * Scale term.
  *
- * This {@link kTAG_TERM_MEASURE kind} of {@link COntologyTerm term} represents a measure
+ * This {@link kTYPE_MEASURE_TERM kind} of {@link COntologyTerm term} represents a measure
  * term, a term that defines a measurement scale which refers to a {@link kTAG_UNIT unit}
  * {@link COntologyTerm term} and features a data {@link kTAG_TYPE type}; such terms can be
  * used to annotate data elements.
@@ -39,7 +39,7 @@ require_once( kPATH_LIBRARY_SOURCE."COntologyTerm.php" );
  * present for object's {@link kFLAG_STATE_INITED status} to be
  * {@link _IsInited() initialised}.
  *
- * The class also enforces the {@link kTAG_TERM_MEASURE kTAG_TERM_MEASURE}
+ * The class also enforces the {@link kTYPE_MEASURE_TERM kTYPE_MEASURE_TERM}
  * {@link Kind() kind}.
  *
  *	@package	MyWrapper
@@ -76,7 +76,7 @@ class CMeasureTerm extends COntologyTerm
 	 *
 	 * @uses _IsInited
 	 *
-	 * @see kTAG_TERM_ENUM
+	 * @see kTYPE_ENUM_TERM
 	 */
 	public function __construct( $theContainer = NULL,
 								 $theIdentifier = NULL,
@@ -278,7 +278,7 @@ class CMeasureTerm extends COntologyTerm
 	 * Normalise before a store.
 	 *
 	 * We overload this method to enforce the
-	 * {@link kTAG_TERM_MEASURE kTAG_TERM_MEASURE} {@link Kind() kind}, note that we call
+	 * {@link kTYPE_MEASURE_TERM kTYPE_MEASURE_TERM} {@link Kind() kind}, note that we call
 	 * the {@link COntologyTermObject COntologyTermObject} version of this method instead of
 	 * the {@link COntologyTerm parent} one.
 	 *
@@ -292,14 +292,14 @@ class CMeasureTerm extends COntologyTerm
 	 *
 	 * @uses Kind()
 	 *
-	 * @see kTAG_TERM_ENUM
+	 * @see kTYPE_ENUM_TERM
 	 */
 	protected function _PrepareCommit( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
 		// Set namespace kind.
 		//
-		$this->Kind( kTAG_TERM_MEASURE, TRUE );
+		$this->Kind( kTYPE_MEASURE_TERM, TRUE );
 		
 		//
 		// Call parent method.

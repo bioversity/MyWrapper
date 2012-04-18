@@ -504,7 +504,7 @@ class CMongoDataWrapper extends CDataWrapper
 	 * {@link kAPI_OPERATION operation} parameter is valid.
 	 *
 	 * In this class, if the query was omitted and an object reference was required, we
-	 * check if the object {@link kTAG_ID native} identifier is there: in that case
+	 * check if the object {@link kTAG_LID native} identifier is there: in that case
 	 * we compile the query with that value.
 	 *
 	 * @access protected
@@ -947,7 +947,7 @@ class CMongoDataWrapper extends CDataWrapper
 			// Set message.
 			//
 			$this->_OffsetManage( kAPI_DATA_STATUS, kTAG_DESCRIPTION,
-								  array( kTAG_TYPE => kDATA_TYPE_STRING,
+								  array( kTAG_TYPE => kTYPE_STRING,
 										 kTAG_LANGUAGE => 'en',
 										 kTAG_DATA => 'Object not found.' ) );
 		}
@@ -1071,8 +1071,8 @@ class CMongoDataWrapper extends CDataWrapper
 					// Handle excluded identifier.
 					// By default the returned array is indexed by ID...
 					//
-					if( array_key_exists( kTAG_ID, $fields )
-					 && (! $fields[ kTAG_ID ]) )
+					if( array_key_exists( kTAG_LID, $fields )
+					 && (! $fields[ kTAG_LID ]) )
 					{
 						//
 						// Collect results.
@@ -1135,7 +1135,7 @@ class CMongoDataWrapper extends CDataWrapper
 				// Set message.
 				//
 				$this->_OffsetManage( kAPI_DATA_STATUS, kTAG_DESCRIPTION,
-									  array( kTAG_TYPE => kDATA_TYPE_STRING,
+									  array( kTAG_TYPE => kTYPE_STRING,
 											 kTAG_LANGUAGE => 'en',
 											 kTAG_DATA => 'No objects found.' ) );
 			}
@@ -1494,7 +1494,7 @@ class CMongoDataWrapper extends CDataWrapper
 				// Set message.
 				//
 				$this->_OffsetManage( kAPI_DATA_STATUS, kTAG_DESCRIPTION,
-									  array( kTAG_TYPE => kDATA_TYPE_STRING,
+									  array( kTAG_TYPE => kTYPE_STRING,
 											 kTAG_LANGUAGE => 'en',
 											 kTAG_DATA => $ok[ 'errmsg' ] ) );
 			}
@@ -1661,7 +1661,7 @@ class CMongoDataWrapper extends CDataWrapper
 				// Set message.
 				//
 				$this->_OffsetManage( kAPI_DATA_STATUS, kTAG_DESCRIPTION,
-									  array( kTAG_TYPE => kDATA_TYPE_STRING,
+									  array( kTAG_TYPE => kTYPE_STRING,
 											 kTAG_LANGUAGE => 'en',
 											 kTAG_DATA => $ok[ 'errmsg' ] ) );
 			}
@@ -1759,7 +1759,7 @@ class CMongoDataWrapper extends CDataWrapper
 				// Set message.
 				//
 				$this->_OffsetManage( kAPI_DATA_STATUS, kTAG_DESCRIPTION,
-									  array( kTAG_TYPE => kDATA_TYPE_STRING,
+									  array( kTAG_TYPE => kTYPE_STRING,
 											 kTAG_LANGUAGE => 'en',
 											 kTAG_DATA => $ok[ 'errmsg' ] ) );
 			}

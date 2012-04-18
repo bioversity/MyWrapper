@@ -199,7 +199,7 @@ abstract class CRelatedUnitObject extends CPersistentUnitObject
 	 * Manage valid reference.
 	 *
 	 * This method can be used to handle the valid object's
-	 * {@link kTAG_ID identifier}, it uses the standard accessor
+	 * {@link kTAG_LID identifier}, it uses the standard accessor
 	 * {@link _ManageOffset() method} to manage the {@link kOFFSET_VALID offset}.
 	 *
 	 * Objects derived from this class should be persistent, in other words, it is not an

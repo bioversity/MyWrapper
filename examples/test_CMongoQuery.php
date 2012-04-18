@@ -48,7 +48,7 @@ $queries = array
 			(
 				kAPI_QUERY_SUBJECT => 'SUBJECT1',
 				kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-				kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+				kAPI_QUERY_TYPE => kTYPE_STRING,
 				kAPI_QUERY_DATA => 'One'
 			),
 			
@@ -56,7 +56,7 @@ $queries = array
 			(
 				kAPI_QUERY_SUBJECT => 'SUBJECT2',
 				kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-				kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+				kAPI_QUERY_TYPE => kTYPE_STRING,
 				kAPI_QUERY_DATA => '2'
 			)
 		)
@@ -71,7 +71,7 @@ $queries = array
 			(
 				kAPI_QUERY_SUBJECT => 'SUBJECT1',
 				kAPI_QUERY_OPERATOR => kOPERATOR_PREFIX,
-				kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+				kAPI_QUERY_TYPE => kTYPE_STRING,
 				kAPI_QUERY_DATA => 'One'
 			),
 			
@@ -79,7 +79,7 @@ $queries = array
 			(
 				kAPI_QUERY_SUBJECT => 'SUBJECT2',
 				kAPI_QUERY_OPERATOR => kOPERATOR_PREFIX,
-				kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+				kAPI_QUERY_TYPE => kTYPE_STRING,
 				kAPI_QUERY_DATA =>  '2'
 			)
 		)
@@ -94,7 +94,7 @@ $queries = array
 			(
 				kAPI_QUERY_SUBJECT => 'Type',
 				kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-				kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+				kAPI_QUERY_TYPE => kTYPE_STRING,
 				kAPI_QUERY_DATA => 'term'
 			),
 			
@@ -102,7 +102,7 @@ $queries = array
 			(
 				kAPI_QUERY_SUBJECT => 'Scope',
 				kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-				kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+				kAPI_QUERY_TYPE => kTYPE_STRING,
 				kAPI_QUERY_DATA => '2'
 			),
 			
@@ -114,7 +114,7 @@ $queries = array
 					(
 						kAPI_QUERY_SUBJECT => ':XREF.:DATA._code',
 						kAPI_QUERY_OPERATOR => kOPERATOR_PREFIX,
-						kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+						kAPI_QUERY_TYPE => kTYPE_STRING,
 						kAPI_QUERY_DATA => 'NCBI_taxid:'
 					),
 					
@@ -122,7 +122,7 @@ $queries = array
 					(
 						kAPI_QUERY_SUBJECT => ':XREF.:DATA._code',
 						kAPI_QUERY_OPERATOR => kOPERATOR_PREFIX,
-						kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+						kAPI_QUERY_TYPE => kTYPE_STRING,
 						kAPI_QUERY_DATA =>  'GR:'
 					)
 				)
@@ -139,10 +139,10 @@ $queries = array
 			(
 				kAPI_QUERY_SUBJECT => '_id',
 				kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-				kAPI_QUERY_TYPE => kDATA_TYPE_MongoId,
+				kAPI_QUERY_TYPE => kTYPE_MongoId,
 				kAPI_QUERY_DATA => array
 				(
-					kTAG_TYPE => kDATA_TYPE_MongoId,
+					kTAG_TYPE => kTYPE_MongoId,
 					kTAG_DATA => '4de8e3e7961be57b0900329a'
 				)
 			)
@@ -158,17 +158,17 @@ $queries = array
 			(
 				kAPI_QUERY_SUBJECT => ':REF-COUNT',
 				kAPI_QUERY_OPERATOR => kOPERATOR_IRANGE,
-				kAPI_QUERY_TYPE => kDATA_TYPE_INT32,
+				kAPI_QUERY_TYPE => kTYPE_INT32,
 				kAPI_QUERY_DATA => array
 				(
 					array
 					(
-						kTAG_TYPE => kDATA_TYPE_INT32,
+						kTAG_TYPE => kTYPE_INT32,
 						kTAG_DATA => 186
 					),
 					array
 					(
-						kTAG_TYPE => kDATA_TYPE_INT32,
+						kTAG_TYPE => kTYPE_INT32,
 						kTAG_DATA => 103
 					)
 				)
@@ -177,7 +177,7 @@ $queries = array
 			(
 				kAPI_QUERY_SUBJECT => 'Date',
 				kAPI_QUERY_OPERATOR => kOPERATOR_IRANGE,
-				kAPI_QUERY_TYPE => kDATA_TYPE_STAMP,
+				kAPI_QUERY_TYPE => kTYPE_STAMP,
 				kAPI_QUERY_DATA => array
 				(
 					new CDataTypeStamp( '2012-09-01' ),
@@ -209,17 +209,17 @@ $queries = array
 			(
 				kAPI_QUERY_SUBJECT => ':REF-COUNT',
 				kAPI_QUERY_OPERATOR => kOPERATOR_NI,
-				kAPI_QUERY_TYPE => kDATA_TYPE_INT32,
+				kAPI_QUERY_TYPE => kTYPE_INT32,
 				kAPI_QUERY_DATA => array
 				(
 					array
 					(
-						kTAG_TYPE => kDATA_TYPE_INT32,
+						kTAG_TYPE => kTYPE_INT32,
 						kTAG_DATA => 186
 					),
 					array
 					(
-						kTAG_TYPE => kDATA_TYPE_INT32,
+						kTAG_TYPE => kTYPE_INT32,
 						kTAG_DATA => 103
 					)
 				)
@@ -237,17 +237,17 @@ $statements = array
 	(
 		kAPI_QUERY_SUBJECT => ':REF-COUNT',
 		kAPI_QUERY_OPERATOR => kOPERATOR_NI,
-		kAPI_QUERY_TYPE => kDATA_TYPE_INT32,
+		kAPI_QUERY_TYPE => kTYPE_INT32,
 		kAPI_QUERY_DATA => array
 		(
 			array
 			(
-				kTAG_TYPE => kDATA_TYPE_INT32,
+				kTAG_TYPE => kTYPE_INT32,
 				kTAG_DATA => 186
 			),
 			array
 			(
-				kTAG_TYPE => kDATA_TYPE_INT32,
+				kTAG_TYPE => kTYPE_INT32,
 				kTAG_DATA => 103
 			)
 		)
@@ -263,7 +263,7 @@ $statements = array
 	(
 		kAPI_QUERY_SUBJECT => ':XREF.:DATA._code',
 		kAPI_QUERY_OPERATOR => kOPERATOR_PREFIX,
-		kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+		kAPI_QUERY_TYPE => kTYPE_STRING,
 		kAPI_QUERY_DATA => 'NCBI_taxid:'
 	),
 	
@@ -271,7 +271,7 @@ $statements = array
 	(
 		kAPI_QUERY_SUBJECT => ':XREF.:DATA._code',
 		kAPI_QUERY_OPERATOR => kOPERATOR_PREFIX,
-		kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+		kAPI_QUERY_TYPE => kTYPE_STRING,
 		kAPI_QUERY_DATA =>  'GR:'
 	)
 );

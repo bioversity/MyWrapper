@@ -791,21 +791,21 @@ class CMongoQuery extends CQuery
 		$switch = FALSE;
 		switch( $theType )
 		{
-			case kDATA_TYPE_INT32:
-			case kDATA_TYPE_INT64:
+			case kTYPE_INT32:
+			case kTYPE_INT64:
 				if( (double) (string) $list[ 0 ]
 					> (double) (string) $list[ 1 ] )
 					$switch = TRUE;
 				break;
 			
-			case kDATA_TYPE_STAMP:
+			case kTYPE_STAMP:
 				$d1 = new CDataTypeStamp( $list[ 0 ] );
 				$d2 = new CDataTypeStamp( $list[ 1 ] );
 				if( $d1->value() > $d2->value() )
 					$switch = TRUE;
 				break;
 			
-			case kDATA_TYPE_MongoId:
+			case kTYPE_MongoId:
 				if( (string) $list[ 0 ] > (string) $list[ 1 ] )
 					$switch = TRUE;
 				break;

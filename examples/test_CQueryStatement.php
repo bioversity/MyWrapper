@@ -70,7 +70,7 @@ try
 	//
 	// Instantiate disabled range statement.
 	//
-	echo( '<i>$test = CQueryStatement::Disabled( \'SUBJECT\', kDATA_TYPE_INT32, 10, 20 );</i><br>' );
+	echo( '<i>$test = CQueryStatement::Disabled( \'SUBJECT\', kTYPE_INT32, 10, 20 );</i><br>' );
 	$test = CQueryStatement::Disabled( 'SUBJECT', 10, NULL, 20 );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<i>$query->AppendStatement( $test );</i><br>' );
@@ -105,8 +105,8 @@ try
 	//
 	// Instantiate inequality statement.
 	//
-	echo( '<i>$test = CQueryStatement::NotEquals( \'SUB\', \'123\', kDATA_TYPE_INT32 );</i><br>' );
-	$test = CQueryStatement::NotEquals( 'SUB', '123', kDATA_TYPE_INT32 );
+	echo( '<i>$test = CQueryStatement::NotEquals( \'SUB\', \'123\', kTYPE_INT32 );</i><br>' );
+	$test = CQueryStatement::NotEquals( 'SUB', '123', kTYPE_INT32 );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<i>$query->AppendStatement( $test );</i><br>' );
 	$query->AppendStatement( $test );

@@ -75,9 +75,9 @@ try
 	//
 	// Ping wrapper.
 	//
-	$params = array( kAPI_FORMAT => kDATA_TYPE_JSON, kAPI_OPERATION => kAPI_OP_PING );
-	echo( '<i>$decoded = CWrapperClient::Request( $url, $params, \'POST\', kDATA_TYPE_JSON );</i><br>' );
-	$decoded = CWrapperClient::Request( $url, $params, 'POST', kDATA_TYPE_JSON );
+	$params = array( kAPI_FORMAT => kTYPE_JSON, kAPI_OPERATION => kAPI_OP_PING );
+	echo( '<i>$decoded = CWrapperClient::Request( $url, $params, \'POST\', kTYPE_JSON );</i><br>' );
+	$decoded = CWrapperClient::Request( $url, $params, 'POST', kTYPE_JSON );
 	//
 	// Display.
 	//
@@ -103,8 +103,8 @@ try
 	$test->Url( $url );
 	echo( '<i>$test->Operation( kAPI_OP_PING );</i><br>' );
 	$test->Operation( kAPI_OP_PING );
-	echo( '<i>$test->Format( kDATA_TYPE_JSON );</i><br>' );
-	$test->Format( kDATA_TYPE_JSON );
+	echo( '<i>$test->Format( kTYPE_JSON );</i><br>' );
+	$test->Format( kTYPE_JSON );
 	echo( '<i>$decoded = $test->Execute( \'GET\' );</i><br>' );
 	$decoded = $test->Execute( 'GET' );
 	//
@@ -132,8 +132,8 @@ try
 	$test->Url( $url );
 	echo( '<i>$test->Operation( kAPI_OP_HELP );</i><br>' );
 	$test->Operation( kAPI_OP_HELP );
-	echo( '<i>$test->Format( kDATA_TYPE_PHP );</i><br>' );
-	$test->Format( kDATA_TYPE_PHP );
+	echo( '<i>$test->Format( kTYPE_PHP );</i><br>' );
+	$test->Format( kTYPE_PHP );
 	echo( '<i>$decoded = $test->Execute( \'POST\' );</i><br>' );
 	$decoded = $test->Execute( 'POST' );
 	//
@@ -161,8 +161,8 @@ try
 	$test->Url( $url );
 	echo( '<i>$test->Operation( kAPI_OP_PING );</i><br>' );
 	$test->Operation( kAPI_OP_PING );
-	echo( '<i>$test->Format( kDATA_TYPE_JSON );</i><br>' );
-	$test->Format( kDATA_TYPE_JSON );
+	echo( '<i>$test->Format( kTYPE_JSON );</i><br>' );
+	$test->Format( kTYPE_JSON );
 	echo( '<i>$test->Stamp( TRUE );</i><br>' );
 	$test->Stamp( TRUE );
 	echo( '<i>$decoded = $test->Execute( \'POST\' );</i><br>' );
@@ -252,8 +252,8 @@ try
 		//
 		// Execute.
 		//
-		echo( '<i>$test->Format( kDATA_TYPE_META );</i><br>' );
-		$test->Format( kDATA_TYPE_META );
+		echo( '<i>$test->Format( kTYPE_META );</i><br>' );
+		$test->Format( kTYPE_META );
 		//
 		// Execute.
 		//

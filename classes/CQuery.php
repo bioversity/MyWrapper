@@ -119,18 +119,18 @@ require_once( kPATH_LIBRARY_SOURCE."CQuery.inc.php" );
  *			<li><i>{@link kAPI_QUERY_TYPE kAPI_QUERY_TYPE}</i>: The data type of
  *				the {@link kAPI_QUERY_DATA kAPI_QUERY_DATA} element:
  *			 <ul>
- *				<li><i>{@link kDATA_TYPE_STRING kDATA_TYPE_STRING}</i>: String, we assume
+ *				<li><i>{@link kTYPE_STRING kTYPE_STRING}</i>: String, we assume
  *					in UTF8 character set.
- *				<li><i>{@link kDATA_TYPE_INT32 kDATA_TYPE_INT32}</i>: 32 bit signed integer.
- *				<li><i>{@link kDATA_TYPE_INT64 kDATA_TYPE_INT64}</i>: 64 bit signed integer.
- *				<li><i>{@link kDATA_TYPE_FLOAT kDATA_TYPE_FLOAT}</i>: Floating point number.
- *				<li><i>{@link kDATA_TYPE_DATE kDATA_TYPE_DATE}</i>: A date.
- *				<li><i>{@link kDATA_TYPE_TIME kDATA_TYPE_TIME}</i>: A date and time.
- *				<li><i>{@link kDATA_TYPE_STAMP kDATA_TYPE_STAMP}</i>: A native timestamp.
- *				<li><i>{@link kDATA_TYPE_BOOLEAN kDATA_TYPE_BOOLEAN}</i>: An on/off switch.
- *				<li><i>{@link kDATA_TYPE_BINARY kDATA_TYPE_BINARY}</i>: A binary string.
- *				<li><i>{@link kDATA_TYPE_ENUM kDATA_TYPE_ENUM}</i>: An enumerated value.
- *				<li><i>{@link kDATA_TYPE_SET kDATA_TYPE_SET}</i>: An enumerated set of
+ *				<li><i>{@link kTYPE_INT32 kTYPE_INT32}</i>: 32 bit signed integer.
+ *				<li><i>{@link kTYPE_INT64 kTYPE_INT64}</i>: 64 bit signed integer.
+ *				<li><i>{@link kTYPE_FLOAT kTYPE_FLOAT}</i>: Floating point number.
+ *				<li><i>{@link kTYPE_DATE kTYPE_DATE}</i>: A date.
+ *				<li><i>{@link kTYPE_TIME kTYPE_TIME}</i>: A date and time.
+ *				<li><i>{@link kTYPE_STAMP kTYPE_STAMP}</i>: A native timestamp.
+ *				<li><i>{@link kTYPE_BOOLEAN kTYPE_BOOLEAN}</i>: An on/off switch.
+ *				<li><i>{@link kTYPE_BINARY kTYPE_BINARY}</i>: A binary string.
+ *				<li><i>{@link kTYPE_ENUM kTYPE_ENUM}</i>: An enumerated value.
+ *				<li><i>{@link kTYPE_ENUM_SET kTYPE_ENUM_SET}</i>: An enumerated set of
  *					values.
  *			 </ul>
  *			<li><i>{@link kAPI_QUERY_DATA kAPI_QUERY_DATA}</i>: The statement test data.

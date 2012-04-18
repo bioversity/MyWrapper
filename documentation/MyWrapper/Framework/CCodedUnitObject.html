@@ -31,7 +31,7 @@
 <p class="short-description">Coded unit object.</p>
 <p class="description"><p>Objects derived from this class have the following predefined properties:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">kTAG_CODE</a></em>: This attribute represents the current object's
         <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a>, identifier or acronym.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kTAG_KIND</a></em>: This attribute represents the current object's
-        <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodKind">kind</a> or type.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_STAMP_MOD">kTAG_STAMP_MOD</a></em>: This offset holds the object's last
+        <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodKind">kind</a> or type.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_MODIFIED">kTAG_MODIFIED</a></em>: This offset holds the object's last
         modification time stamp, this property should be used to mark all objects.</li></ul></p><p>By default, the unique <a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_index">identifier</a> of the object is its  <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a>, which is also its <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_id">id</a>.</p><p>Objects of this class require at least the <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">offset</a>  to have an <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">initialised</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>.</p></p>
 		<p class="notes">
 			Located in <a class="field" href="_classes---CCodedUnitObject.php.html">/classes/CCodedUnitObject.php</a> (line <span class="field">52</span>)
@@ -504,11 +504,11 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage object time stamp.</p>
-<p class="description"><p>This method can be used to manage the object <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_STAMP_MOD">time-stamp</a>, or  the date in which the last modification was made on the object, it uses the standard  accessor <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">method</a> to manage the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_STAMP_MOD">offset</a>:</p><p><ul><li><strong>$theValue</strong>: The value or operation:
+<p class="description"><p>This method can be used to manage the object <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_MODIFIED">time-stamp</a>, or  the date in which the last modification was made on the object, it uses the standard  accessor <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">method</a> to manage the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_MODIFIED">offset</a>:</p><p><ul><li><strong>$theValue</strong>: The value or operation:
      <ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the value.</li><li><em>other</em>: Set value.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
      <ul><li><em>TRUE</em>: Return the value <em>before</em> it was eventually modified.</li><li><em>FALSE</em>: Return the value <em>after</em> it was eventually modified.</li></ul></li></ul></p></p>
 	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_STAMP_MOD">kTAG_STAMP_MOD</a></li>
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_MODIFIED">kTAG_MODIFIED</a></li>
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 			</ul>
@@ -542,7 +542,7 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Return the object's unique index.</p>
-<p class="description"><p>In this class we consider the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a> to be the object's unique  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ID">identifier</a>.</p></p>
+<p class="description"><p>In this class we consider the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a> to be the object's unique  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LID">identifier</a>.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
 			</ul>
@@ -779,7 +779,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Tue, 17 Apr 2012 12:39:54 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Wed, 18 Apr 2012 20:05:06 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

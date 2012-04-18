@@ -79,7 +79,7 @@ try
 	//
 	// Ping wrapper.
 	//
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_JSON),
+	$params = array( (kAPI_FORMAT.'='.kTYPE_JSON),
 					 (kAPI_OPERATION.'='.kAPI_OP_PING) );
 	$request = implode( '&', $params );
 	$request = "$url?$request";
@@ -112,7 +112,7 @@ try
 	//
 	// Ping wrapper.
 	//
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_JSON),
+	$params = array( (kAPI_FORMAT.'='.kTYPE_JSON),
 					 (kAPI_OPERATION.'='.kAPI_OP_PING),
 					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
 	$request = implode( '&', $params );
@@ -146,7 +146,7 @@ try
 	//
 	// Ping wrapper.
 	//
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_JSON),
+	$params = array( (kAPI_FORMAT.'='.kTYPE_JSON),
 					 (kAPI_OPERATION.'='.kAPI_OP_PING),
 					 (kAPI_REQ_STAMP.'='.gettimeofday( true )),
 					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
@@ -181,7 +181,7 @@ try
 	//
 	// Debug wrapper.
 	//
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_JSON),
+	$params = array( (kAPI_FORMAT.'='.kTYPE_JSON),
 					 (kAPI_OPERATION.'='.kAPI_OP_DEBUG),
 					 (kAPI_REQ_STAMP.'='.gettimeofday( true )),
 					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
@@ -215,7 +215,7 @@ try
 	//
 	// Invalid operator.
 	//
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_JSON),
+	$params = array( (kAPI_FORMAT.'='.kTYPE_JSON),
 					 (kAPI_OPERATION.'='.'XXX'),
 					 (kAPI_REQ_STAMP.'='.gettimeofday( true )),
 					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
@@ -250,7 +250,7 @@ try
 	//
 	// Missing operator.
 	//
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_JSON),
+	$params = array( (kAPI_FORMAT.'='.kTYPE_JSON),
 					 (kAPI_REQ_STAMP.'='.gettimeofday( true )),
 					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
 	$request = implode( '&', $params );

@@ -35,7 +35,7 @@ require_once( kPATH_LIBRARY_SOURCE."CDataType.php" );
  *
  * <ul>
  *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: The constant
- *		{@link kDATA_TYPE_REGEX kDATA_TYPE_REGEX}.
+ *		{@link kTYPE_REGEX kTYPE_REGEX}.
  *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The regular expression string.
  * </ul>
  *
@@ -80,7 +80,7 @@ class CDataTypeRegex extends CDataType
 		//
 		// Load object.
 		//
-		$this->offsetSet( kTAG_TYPE, kDATA_TYPE_REGEX );
+		$this->offsetSet( kTAG_TYPE, kTYPE_REGEX );
 		$this->offsetSet( kTAG_DATA, (string) $theData );
 	
 	} // Constructor.

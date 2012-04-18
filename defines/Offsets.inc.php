@@ -29,19 +29,51 @@
 /**
  * Local unique identifier offset.
  *
- * This is the tag that represents the object's unique identifier, this offset should hold
- * a scalar value which uniquely identifies the object within the collection that holds it.
+ * This is the tag that represents the object's local unique identifier, this offset should
+ * hold a scalar value which uniquely identifies the object within the collection that holds
+ * it.
  *
- * This should not be confused with the unique global identifier, which represents the value
- * or values used by the public to refer to that object.
+ * This should not be confused with the {@link kTAG_GID global} identifier, which represents
+ * the value or values used by the public to refer to that object.
  *
  * This value should be tightly integrated with the database.
  */
-define( "kTAG_ID",								'_id' );
+define( "kTAG_LID",								'_id' );
+
+/**
+ * Global unique identifier offset.
+ *
+ * This is the tag that represents the object's global unique identifier, this offset should
+ * uniquely identify the object among all collections, it represents a string that may only
+ * reference that specific object.
+ *
+ * This should not be confused with the {@link kTAG_LID local} identifier, which represents
+ * the key to the object within the local database.
+ */
+define( "kTAG_GID",								':GID' );
 
 /*=======================================================================================
  *	DEFAULT REFERENCE TAGS																*
  *======================================================================================*/
+
+/**
+ * Synonym offset.
+ *
+ * This is the offset used to indicate a synonym, a synonym is a string that can be used as
+ * a substitute to the term, it may be of several kinds: {@link kTYPE_EXACT exact},
+ * {@link kTYPE_BROAD broad}, {@link kTYPE_NARROW narrow} and
+ * {@link kTYPE_RELATED related}.
+ */
+define( "kTAG_REFERENCE_SYNONYM",				':SYN' );
+
+/**
+ * This is the offset used to indicate a cross-reference, a cross-reference is a reference
+ * to another term in the same container, a sort of synonym, except that it is not a string,
+ * but a reference to another term object. Cross-references can be of several kinds:
+ * {@link kTYPE_EXACT exact}, {@link kTYPE_BROAD broad},
+ * {@link kTYPE_NARROW narrow} and {@link kTYPE_RELATED related}.
+ */
+define( "kTAG_REFERENCE_XREF",					':XREF' );
 
 /**
  * Identifier reference tag.
@@ -52,7 +84,7 @@ define( "kTAG_ID",								'_id' );
 define( "kTAG_REFERENCE_ID",					'$id' );
 
 /**
- * Collection name reference tag.
+ * Container name reference tag.
  *
  * This tag is the offset used to indicate a container within an object reference.
  */
@@ -66,62 +98,7 @@ define( "kTAG_REFERENCE_CONTAINER",				'$ref' );
 define( "kTAG_REFERENCE_DATABASE",				'$db' );
 
 /*=======================================================================================
- *	DEFAULT REFERENCE KINDS																*
- *======================================================================================*/
-
-/**
- * Exact reference.
- *
- * This is the tag that represents an exact reference.
- */
-define( "kTAG_REFERENCE_EXACT",					':REF:EXACT' );
-
-/**
- * Broad reference.
- *
- * This is the tag that represents a broad reference.
- */
-define( "kTAG_REFERENCE_BROAD",					':REF:BROAD' );
-
-/**
- * Narrow reference.
- *
- * This is the tag that represents a narrow reference.
- */
-define( "kTAG_REFERENCE_NARROW",				':REF:NARROW' );
-
-/**
- * Related reference.
- *
- * This is the tag that represents a related reference.
- */
-define( "kTAG_REFERENCE_RELATED",				':REF:RELATED' );
-
-/*=======================================================================================
- *	DEFAULT REFERENCE OFFSETS															*
- *======================================================================================*/
-
-/**
- * Synonym offset.
- *
- * This is the offset used to indicate a synonym, a synonym is a string that can be used as
- * a substitute to the term, it may be of several kinds: {@link kTAG_REFERENCE_EXACT exact},
- * {@link kTAG_REFERENCE_BROAD broad}, {@link kTAG_REFERENCE_NARROW narrow} and
- * {@link kTAG_REFERENCE_RELATED related}.
- */
-define( "kOFFSET_SYNONYM",						':SYN' );
-
-/**
- * This is the offset used to indicate a cross-reference, a cross-reference is a reference
- * to another term in the same container, a sort of synonym, except that it is not a string,
- * but a reference to another term object. Cross-references can be of several kinds:
- * {@link kTAG_REFERENCE_EXACT exact}, {@link kTAG_REFERENCE_BROAD broad},
- * {@link kTAG_REFERENCE_NARROW narrow} and {@link kTAG_REFERENCE_RELATED related}.
- */
-define( "kOFFSET_XREF",							':XREF' );
-
-/*=======================================================================================
- *	DEFAULT OBJECT TAGS																	*
+ *	DEFAULT TAGS																		*
  *======================================================================================*/
 
 /**
@@ -134,6 +111,20 @@ define( "kOFFSET_XREF",							':XREF' );
 define( "kTAG_CLASS",							':CLASS' );
 
 /**
+ * Creation time-stammp.
+ *
+ * This tag is used as the default offset for indicating a creation time-stamp.
+ */
+define( "kTAG_CREATED",							':CREATED' );
+
+/**
+ * Last modification time-stammp.
+ *
+ * This tag is used as the default offset for indicating a last modification time-stamp.
+ */
+define( "kTAG_MODIFIED",						':MODIFIED' );
+
+/**
  * Version tag.
  *
  * This tag is an offset that should be used to represent the object's version, the version
@@ -143,10 +134,6 @@ define( "kTAG_CLASS",							':CLASS' );
  * By default it is an integer incremented each time the object is saved.
  */
 define( "kTAG_VERSION",							':VERSION' );
-
-/*=======================================================================================
- *	DEFAULT ATTRIBUTE TAGS																*
- *======================================================================================*/
 
 /**
  * Type.
@@ -179,9 +166,8 @@ define( "kTAG_UNIT",							':UNIT' );
 /**
  * Source.
  *
- * This tag is used as the default offset for indicating a unit attribute. A unit is a
- * measurement unit such as centimeters, in general this offset will hold a reference to
- * an object that defines the unit.
+ * This tag is used as the default offset for indicating a source. A source indicates from
+ * where an object comes from, it is usually expressed as an URL.
  */
 define( "kTAG_SOURCE",							':SOURCE' );
 
@@ -263,77 +249,6 @@ define( "kTAG_STATUS",							':STATUS' );
 define( "kTAG_ANNOTATION",						':ANNOTATION' );
 
 /*=======================================================================================
- *	DEFAULT TIME-STAMP TAGS																*
- *======================================================================================*/
-
-/**
- * Creation time-stammp.
- *
- * This tag is used as the default offset for indicating a creation time-stamp.
- */
-define( "kTAG_STAMP_CRE",						':STAMP:CRE' );
-
-/**
- * Last modification time-stammp.
- *
- * This tag is used as the default offset for indicating a last modification time-stamp.
- */
-define( "kTAG_STAMP_MOD",						':STAMP:MOD' );
-
-/*=======================================================================================
- *	DEFAULT TERM KIND TAGS																*
- *======================================================================================*/
-
-/**
- * Term.
- *
- * This is the tag that represents a generic term.
- */
-define( "kTAG_TERM",							':TERM' );
-
-/**
- * Namespace.
- *
- * This is the tag that represents a namespace term.
- */
-define( "kTAG_TERM_NAMESPACE",					':TERM:NS' );
-
-/**
- * Ontology.
- *
- * This is the tag that represents an ontology root term.
- */
-define( "kTAG_TERM_ONTOLOGY",					':TERM:ONTO' );
-
-/**
- * Predicate.
- *
- * This is the tag that represents a predicate term.
- */
-define( "kTAG_TERM_PREDICATE",					':TERM:PRED' );
-
-/**
- * Attribute.
- *
- * This is the tag that represents an attribute term.
- */
-define( "kTAG_TERM_ATTRIBUTE",					':TERM:ATTR' );
-
-/**
- * Scale.
- *
- * This is the tag that represents a measure term.
- */
-define( "kTAG_TERM_MEASURE",					':TERM:MEASURE' );
-
-/**
- * Enumeration.
- *
- * This is the tag that represents an enumeration term.
- */
-define( "kTAG_TERM_ENUM",						':TERM:ENUM' );
-
-/*=======================================================================================
  *	DEFAULT PROPERTY OFFSETS															*
  *======================================================================================*/
 
@@ -406,7 +321,7 @@ define( "kOFFSET_REFS",							':REFS' );
  * This is the tag that represents the valid entry related to the current one. There may be
  * cases in which it is not an option to delete objects, so we create a new one and the old
  * one will point to the new one. This tag represents that property and it expects the value
- * of the {@link kTAG_ID native} identifier of the new object here.
+ * of the {@link kTAG_LID native} identifier of the new object here.
  */
 define( "kOFFSET_VALID",						':VALID' );
 

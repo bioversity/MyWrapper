@@ -54,8 +54,8 @@ require_once( kPATH_LIBRARY_SOURCE."CWrapper.inc.php" );
  *	<li><i>{@link kAPI_FORMAT kAPI_FORMAT}</i> (required): The data format of the response,
  *		 it will be returned as:
  *	 <ul>
- *		<li><i>{@link kDATA_TYPE_PHP kDATA_TYPE_PHP}</i>: A PHP-serialised string.
- *		<li><i>{@link kDATA_TYPE_JSON kDATA_TYPE_JSON}</i>: A JSON-serialised string.
+ *		<li><i>{@link kTYPE_PHP kTYPE_PHP}</i>: A PHP-serialised string.
+ *		<li><i>{@link kTYPE_JSON kTYPE_JSON}</i>: A JSON-serialised string.
  *	 </ul>
  *	<li><i>{@link kAPI_OPERATION kAPI_OPERATION}</i> (required): The requested operation,
  *		each class will implement specialised handlers, this class only implements the
@@ -113,7 +113,7 @@ require_once( kPATH_LIBRARY_SOURCE."CWrapper.inc.php" );
  *			generally be formatted as an array structured as follows:
  *		 <ul>
  *			<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: The data type of the message, it will be
- *				a {@link kDATA_TYPE_STRING string} in general.
+ *				a {@link kTYPE_STRING string} in general.
  *			<li><i>{@link kTAG_LANGUAGE kTAG_LANGUAGE}</i>: The language ISO 639 2
  *				character code in which the message is expressed in.
  *			<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The actual message data contents.
@@ -774,7 +774,7 @@ class CWrapper extends CStatusObject
 	 *
 	 * @access private
 	 *
-	 * @see kDATA_TYPE_PHP kDATA_TYPE_JSON
+	 * @see kTYPE_PHP kTYPE_JSON
 	 */
 	protected function _ValidateFormat()
 	{
@@ -786,8 +786,8 @@ class CWrapper extends CStatusObject
 			//
 			// Valid formats.
 			//
-			case kDATA_TYPE_PHP:
-			case kDATA_TYPE_JSON:
+			case kTYPE_PHP:
+			case kTYPE_JSON:
 				break;
 			
 			//
@@ -1189,7 +1189,7 @@ class CWrapper extends CStatusObject
 		//
 		if( ($tmp = $theException->getMessage()) !== NULL )
 			$status[ kTAG_DESCRIPTION ]
-				= array( array( kTAG_TYPE => kDATA_TYPE_STRING,
+				= array( array( kTAG_TYPE => kTYPE_STRING,
 								kTAG_LANGUAGE => kDEFAULT_LANGUAGE,
 								kTAG_DATA => $tmp ) );
 		
@@ -1272,17 +1272,17 @@ class CWrapper extends CStatusObject
 		//
 		$format = ( array_key_exists( kAPI_FORMAT, $_REQUEST ) )
 				? $_REQUEST[ kAPI_FORMAT ]
-				: kDATA_TYPE_JSON;
+				: kTYPE_JSON;
 		
 		//
 		// Parse by format.
 		//
 		switch( $format )
 		{
-			case kDATA_TYPE_PHP:
+			case kTYPE_PHP:
 				return serialize( $this->getArrayCopy() );							// ==>
 
-			case kDATA_TYPE_JSON:
+			case kTYPE_JSON:
 				try
 				{
 					return CObject::JsonEncode( $this->getArrayCopy() );				// ==>

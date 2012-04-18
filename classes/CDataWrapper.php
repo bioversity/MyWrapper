@@ -1207,7 +1207,7 @@ class CDataWrapper extends CWrapper
 	 * Decode parameter.
 	 *
 	 * This method can be used to decode a parameter according to the provided format,
-	 * {@link kDATA_TYPE_JSON JSON} or {@link kDATA_TYPE_PHP PHP}.
+	 * {@link kTYPE_JSON JSON} or {@link kTYPE_PHP PHP}.
 	 *
 	 * The method will return the decoded parameter.
 	 *
@@ -1218,7 +1218,7 @@ class CDataWrapper extends CWrapper
 	 *
 	 * @uses CObject::JsonDecode()
 	 *
-	 * @see kDATA_TYPE_JSON kDATA_TYPE_PHP
+	 * @see kTYPE_JSON kTYPE_PHP
 	 */
 	protected function _DecodeParameter( $theParameter )
 	{
@@ -1238,7 +1238,7 @@ class CDataWrapper extends CWrapper
 			//
 			switch( $format )
 			{
-				case kDATA_TYPE_JSON:
+				case kTYPE_JSON:
 					try
 					{
 						$_REQUEST[ $theParameter ] = CObject::JsonDecode( $encoded );
@@ -1257,7 +1257,7 @@ class CDataWrapper extends CWrapper
 					
 					break;
 
-				case kDATA_TYPE_PHP:
+				case kTYPE_PHP:
 					$decoded = @unserialize( $encoded );
 					if( $decoded === FALSE )
 						throw new CException

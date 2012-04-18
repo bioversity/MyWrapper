@@ -29,7 +29,7 @@ require_once( kPATH_LIBRARY_SOURCE."COntologyTerm.php" );
 /**
  * Enumeration term.
  *
- * This {@link kTAG_TERM_ENUM kind} of {@link COntologyTerm term} represents a term that
+ * This {@link kTYPE_ENUM_TERM kind} of {@link COntologyTerm term} represents a term that
  * maps an enumeration element. Enumerations represent key/value pais that are used as a
  * controlled vocabulary.
  *
@@ -40,7 +40,7 @@ require_once( kPATH_LIBRARY_SOURCE."COntologyTerm.php" );
  * class will automatically add the {@link Code() code} to the
  * {@link Enumeration() enumerations}.
  *
- * In this class we enforce the {@link kTAG_TERM_ENUM kTAG_TERM_ENUM} {@link Kind() kind}
+ * In this class we enforce the {@link kTYPE_ENUM_TERM kTYPE_ENUM_TERM} {@link Kind() kind}
  * and we add the {@link Enumeration() enumeration} {@link kTAG_ENUM offset} to the required
  * elements for making the object's {@link kFLAG_STATE_INITED status}
  * {@link _IsInited() initialised}.
@@ -79,7 +79,7 @@ class CEnumerationTerm extends COntologyTerm
 	 *
 	 * @uses _IsInited
 	 *
-	 * @see kTAG_TERM_ENUM
+	 * @see kTYPE_ENUM_TERM
 	 */
 	public function __construct( $theContainer = NULL,
 								 $theIdentifier = NULL,
@@ -94,7 +94,7 @@ class CEnumerationTerm extends COntologyTerm
 		// Set inited status.
 		//
 		$this->_IsInited( $this->_IsInited() &&
-						  $this->offsetExists( kTAG_TERM_ENUM ) );
+						  $this->offsetExists( kTYPE_ENUM_TERM ) );
 		
 	} // Constructor.
 
@@ -115,7 +115,7 @@ class CEnumerationTerm extends COntologyTerm
 	/**
 	 * Manage enumerations.
 	 *
-	 * This method can be used to handle the object's {@link kTAG_TERM_ENUM enumerations},
+	 * This method can be used to handle the object's {@link kTYPE_ENUM_TERM enumerations},
 	 * it uses the standard accessor {@link _ManageArrayOffset() method} to manage the list
 	 * of enumerations.
 	 *
@@ -124,7 +124,7 @@ class CEnumerationTerm extends COntologyTerm
 	 *
 	 * For a more thorough reference of how this method works, please consult the
 	 * {@link _ManageArrayOffset() _ManageArrayOffset} method, in which the first parameter
-	 * will be the constant {@link kTAG_TERM_ENUM kTAG_TERM_ENUM}.
+	 * will be the constant {@link kTYPE_ENUM_TERM kTYPE_ENUM_TERM}.
 	 *
 	 * @param mixed					$theValue			Value or index.
 	 * @param mixed					$theOperation		Operation.
@@ -135,12 +135,12 @@ class CEnumerationTerm extends COntologyTerm
 	 *
 	 * @uses _ManageArrayOffset
 	 *
-	 * @see kTAG_TERM_ENUM
+	 * @see kTYPE_ENUM_TERM
 	 */
 	public function Enumeration( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
 	{
 		return $this->_ManageArrayOffset
-					( kTAG_TERM_ENUM, $theValue, $theOperation, $getOld );			// ==>
+					( kTYPE_ENUM_TERM, $theValue, $theOperation, $getOld );			// ==>
 
 	} // Enumeration.
 
@@ -162,7 +162,7 @@ class CEnumerationTerm extends COntologyTerm
 	 * Set a value for a given offset.
 	 *
 	 * We overload this method to manage the {@link _IsInited() inited}
-	 * {@link kFLAG_STATE_INITED status}: this is set if {@link kTAG_TERM_ENUM enumeration}
+	 * {@link kFLAG_STATE_INITED status}: this is set if {@link kTYPE_ENUM_TERM enumeration}
 	 * property is set.
 	 *
 	 * @param string				$theOffset			Offset.
@@ -182,7 +182,7 @@ class CEnumerationTerm extends COntologyTerm
 		//
 		if( $theValue !== NULL )
 			$this->_IsInited( $this->_IsInited() &&
-							  $this->offsetExists( kTAG_TERM_ENUM ) );
+							  $this->offsetExists( kTYPE_ENUM_TERM ) );
 	
 	} // offsetSet.
 
@@ -195,7 +195,7 @@ class CEnumerationTerm extends COntologyTerm
 	 * Reset a value for a given offset.
 	 *
 	 * We overload this method to manage the {@link _IsInited() inited}
-	 * {@link kFLAG_STATE_INITED status}: this is set if {@link kTAG_TERM_ENUM enumeration}
+	 * {@link kFLAG_STATE_INITED status}: this is set if {@link kTYPE_ENUM_TERM enumeration}
 	 * property is set.
 	 *
 	 * @param string				$theOffset			Offset.
@@ -213,7 +213,7 @@ class CEnumerationTerm extends COntologyTerm
 		// Set inited flag.
 		//
 		$this->_IsInited( $this->_IsInited() &&
-						  $this->offsetExists( kTAG_TERM_ENUM ) );
+						  $this->offsetExists( kTYPE_ENUM_TERM ) );
 	
 	} // offsetUnset.
 
@@ -235,7 +235,7 @@ class CEnumerationTerm extends COntologyTerm
 	 * Normalise before a store.
 	 *
 	 * We overload this method to enforce the
-	 * {@link kTAG_TERM_ENUM kTAG_TERM_ENUM} {@link Kind() kind}, note that we call the
+	 * {@link kTYPE_ENUM_TERM kTYPE_ENUM_TERM} {@link Kind() kind}, note that we call the
 	 * {@link COntologyTermObject COntologyTermObject} version of this method instead of the
 	 * {@link COntologyTerm parent} one.
 	 *
@@ -249,14 +249,14 @@ class CEnumerationTerm extends COntologyTerm
 	 *
 	 * @uses Kind()
 	 *
-	 * @see kTAG_TERM_ENUM
+	 * @see kTYPE_ENUM_TERM
 	 */
 	protected function _PrepareCommit( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
 		// Set namespace kind.
 		//
-		$this->Kind( kTAG_TERM_ENUM, TRUE );
+		$this->Kind( kTYPE_ENUM_TERM, TRUE );
 		
 		//
 		// Call parent method.

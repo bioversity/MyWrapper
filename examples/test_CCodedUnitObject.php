@@ -121,8 +121,8 @@ try
 	echo( '<i>Committing Object 3 should commit all others, since they are intertangled.<br></i>' );
 	echo( '<i>$id3 = $object3->Commit( $collection, NULL, kFLAG_PERSIST_INSERT + kFLAG_STATE_ENCODED );</i><br>' );
 	$id3 = $object3->Commit( $collection, NULL, kFLAG_PERSIST_INSERT + kFLAG_STATE_ENCODED );
-	$id1 = $object1[ kTAG_ID ];
-	$id2 = $object2[ kTAG_ID ];
+	$id1 = $object1[ kTAG_LID ];
+	$id2 = $object2[ kTAG_LID ];
 	echo( "$id3<pre>" ); print_r( $object3 ); echo( '</pre>' );
 	echo( "$id1<pre>" ); print_r( $object1 ); echo( '</pre>' );
 	echo( "$id2<pre>" ); print_r( $object2 ); echo( '</pre>' );

@@ -111,7 +111,7 @@ try
 	//
 	// Missing operation.
 	//
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_PHP),
+	$params = array( (kAPI_FORMAT.'='.kTYPE_PHP),
 					 (kAPI_REQ_STAMP.'='.gettimeofday( true )),
 					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
 	$request = $url.'?'.implode( '&', $params );
@@ -140,7 +140,7 @@ try
 	//
 	// Ping wrapper in PHP.
 	//
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_PHP),
+	$params = array( (kAPI_FORMAT.'='.kTYPE_PHP),
 					 (kAPI_OPERATION.'='.kAPI_OP_PING),
 					 (kAPI_REQ_STAMP.'='.gettimeofday( true )),
 					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
@@ -170,7 +170,7 @@ try
 	//
 	// Ping wrapper in JSON.
 	//
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_JSON),
+	$params = array( (kAPI_FORMAT.'='.kTYPE_JSON),
 					 (kAPI_OPERATION.'='.kAPI_OP_PING),
 					 (kAPI_REQ_STAMP.'='.gettimeofday( true )),
 					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
@@ -200,7 +200,7 @@ try
 	//
 	// Debug wrapper.
 	//
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_JSON),
+	$params = array( (kAPI_FORMAT.'='.kTYPE_JSON),
 					 (kAPI_OPERATION.'='.kAPI_OP_DEBUG),
 					 (kAPI_REQ_STAMP.'='.gettimeofday( true )),
 					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
@@ -226,7 +226,7 @@ try
 	//
 	// Test decode object in PHP.
 	//
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_PHP),
+	$params = array( (kAPI_FORMAT.'='.kTYPE_PHP),
 					 (kAPI_OPERATION.'='.kAPI_OP_PING),
 					 (kAPI_DATA_OBJECT.'='.urlencode( $object_php )),
 					 (kAPI_REQ_STAMP.'='.gettimeofday( true )),
@@ -257,7 +257,7 @@ try
 	//
 	// Test decode object in JSON.
 	//
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_JSON),
+	$params = array( (kAPI_FORMAT.'='.kTYPE_JSON),
 					 (kAPI_OPERATION.'='.kAPI_OP_PING),
 					 (kAPI_DATA_OBJECT.'='.urlencode( $object_json )),
 					 (kAPI_REQ_STAMP.'='.gettimeofday( true )),
@@ -296,7 +296,7 @@ try
 			(
 				kAPI_QUERY_SUBJECT => ':XREF.:SCOPE',
 				kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-				kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+				kAPI_QUERY_TYPE => kTYPE_STRING,
 				kAPI_QUERY_DATA => '2'
 			),
 			
@@ -308,7 +308,7 @@ try
 					(
 						kAPI_QUERY_SUBJECT => ':XREF.:DATA._code',
 						kAPI_QUERY_OPERATOR => kOPERATOR_PREFIX,
-						kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+						kAPI_QUERY_TYPE => kTYPE_STRING,
 						kAPI_QUERY_DATA => 'NCBI_taxid:'
 					),
 					
@@ -316,7 +316,7 @@ try
 					(
 						kAPI_QUERY_SUBJECT => ':XREF.:DATA._code',
 						kAPI_QUERY_OPERATOR => kOPERATOR_PREFIX,
-						kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+						kAPI_QUERY_TYPE => kTYPE_STRING,
 						kAPI_QUERY_DATA =>  'GR:'
 					)
 				)
@@ -326,7 +326,7 @@ try
 	$fields_php = serialize( array( ':GID', ':XREF' ) );
 	$sort_php = serialize( array( ':LID', ':TYPE' ) );
 	$object_php = serialize( $object );
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_PHP),
+	$params = array( (kAPI_FORMAT.'='.kTYPE_PHP),
 					 (kAPI_OPERATION.'='.kAPI_OP_DEBUG),
 					 (kAPI_PAGE_START.'='.'0'),
 					 (kAPI_PAGE_LIMIT.'='.'10'),
@@ -366,7 +366,7 @@ try
 			(
 				kAPI_QUERY_SUBJECT => ':XREF.:SCOPE',
 				kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-				kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+				kAPI_QUERY_TYPE => kTYPE_STRING,
 				kAPI_QUERY_DATA => '2'
 			),
 			
@@ -378,7 +378,7 @@ try
 					(
 						kAPI_QUERY_SUBJECT => ':XREF.:DATA._code',
 						kAPI_QUERY_OPERATOR => kOPERATOR_PREFIX,
-						kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+						kAPI_QUERY_TYPE => kTYPE_STRING,
 						kAPI_QUERY_DATA => 'NCBI_taxid:'
 					),
 					
@@ -386,7 +386,7 @@ try
 					(
 						kAPI_QUERY_SUBJECT => ':XREF.:DATA._code',
 						kAPI_QUERY_OPERATOR => kOPERATOR_PREFIX,
-						kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+						kAPI_QUERY_TYPE => kTYPE_STRING,
 						kAPI_QUERY_DATA =>  'GR:'
 					)
 				)
@@ -396,7 +396,7 @@ try
 	$fields_json = json_encode( array( ':GID', ':XREF' ) );
 	$sort_json = json_encode( array( ':LID', ':TYPE' ) );
 	$object_json = json_encode( $object );
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_JSON),
+	$params = array( (kAPI_FORMAT.'='.kTYPE_JSON),
 					 (kAPI_OPERATION.'='.kAPI_OP_COUNT),
 					 (kAPI_PAGE_START.'='.'0'),
 					 (kAPI_PAGE_LIMIT.'='.'10'),
@@ -430,7 +430,7 @@ try
 	//
 	// Invalid operation.
 	//
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_JSON),
+	$params = array( (kAPI_FORMAT.'='.kTYPE_JSON),
 					 (kAPI_OPERATION.'='.'XXX'),
 					 (kAPI_REQ_STAMP.'='.gettimeofday( true )),
 					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
@@ -460,7 +460,7 @@ try
 	//
 	// Missing operation.
 	//
-	$params = array( (kAPI_FORMAT.'='.kDATA_TYPE_JSON),
+	$params = array( (kAPI_FORMAT.'='.kTYPE_JSON),
 					 (kAPI_REQ_STAMP.'='.gettimeofday( true )),
 					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
 	$request = $url.'?'.implode( '&', $params );

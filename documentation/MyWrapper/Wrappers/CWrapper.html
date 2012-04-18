@@ -31,7 +31,7 @@
 <p class="short-description">Wrapper.</p>
 <p class="description"><p>This class represents a web-services wrapper server, it is the ancestor of web-service  classes in this library.</p><p>Wrappers are objects that respond to standard web calls and receive parameters in both  <em>GET</em> and <em>POST</em> parameters, the main two parameters handled by this class are:</p><p><ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">kAPI_FORMAT</a></em> (required): The data format of the response,
          it will be returned as:
-     <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_PHP">kDATA_TYPE_PHP</a></em>: A PHP-serialised string.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_JSON">kDATA_TYPE_JSON</a></em>: A JSON-serialised string.</li></ul></li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">kAPI_OPERATION</a></em> (required): The requested operation,
+     <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_PHP">kTYPE_PHP</a></em>: A PHP-serialised string.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_JSON">kTYPE_JSON</a></em>: A JSON-serialised string.</li></ul></li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OPERATION">kAPI_OPERATION</a></em> (required): The requested operation,
         each class will implement specialised handlers, this class only implements the
         following two operations:
      <ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_OP_HELP">kAPI_OP_HELP</a></em>: A <em>LIST-OP</em> command, this
@@ -62,7 +62,7 @@
             informative messages or to return error messages when the service fails. It will
             generally be formatted as an array structured as follows:
          <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a></em>: The data type of the message, it will be
-                a <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_STRING">string</a> in general.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LANGUAGE">kTAG_LANGUAGE</a></em>: The language ISO 639 2
+                a <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_STRING">string</a> in general.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LANGUAGE">kTAG_LANGUAGE</a></em>: The language ISO 639 2
                 character code in which the message is expressed in.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: The actual message data contents.</li></ul></li><li><em><a href="../../MyWrapper/Wrappers/_classes---CMongoDataWrapper.inc.php.html#definekAPI_AFFECTED_COUNT">kAPI_AFFECTED_COUNT</a></em>: <em>Record count</em>.
             The total number of elements affected by the operation. This tag will only be
             used by derived classes returning data elements.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ANNOTATION">kTAG_ANNOTATION</a></em>: <em>Attachments</em>.
@@ -941,7 +941,7 @@
 <p class="short-description">Validate request format.</p>
 <p class="description"><p>This method can be used to check whether the provided <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">format</a>  parameter is valid.</p></p>
 	<ul class="tags">
-				<li><span class="field">see:</span> kDATA_TYPE_PHP kDATA_TYPE_JSON</li>
+				<li><span class="field">see:</span> kTYPE_PHP kTYPE_JSON</li>
 				<li><span class="field">access:</span> protected</li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#method_ValidateRequest">CWrapper::_ValidateRequest()</a></li>
 			</ul>
@@ -1165,7 +1165,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Tue, 17 Apr 2012 12:40:06 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Wed, 18 Apr 2012 20:05:19 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

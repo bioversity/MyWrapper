@@ -463,7 +463,7 @@ abstract class CContainer extends CObject
 	 *
 	 * <ul>
 	 *	<li><i>{@link kTAG_REFERENCE_ID kTAG_REFERENCE_ID}</i>: The object identifier,
-	 *		if the provided object does not have an {@link kTAG_ID identifier}, this
+	 *		if the provided object does not have an {@link kTAG_LID identifier}, this
 	 *		method will raise an exception.
 	 *	<li><i>{@link kTAG_REFERENCE_CONTAINER kTAG_REFERENCE_CONTAINER}</i>: The
 	 *		container name.
@@ -482,7 +482,7 @@ abstract class CContainer extends CObject
 	 *		in the reference:
 	 *	 <ul>
 	 *		<li><i>{@link kFLAG_REFERENCE_IDENTIFIER kFLAG_REFERENCE_IDENTIFIER}</i>: The
-	 *			object {@link kTAG_ID identifier} will be stored under the
+	 *			object {@link kTAG_LID identifier} will be stored under the
 	 *			{@link kTAG_REFERENCE_ID kTAG_REFERENCE_ID} offset. If the object does
 	 *			not have this identifier, the method will raise an exception. This is the
 	 *			default option.
@@ -537,8 +537,8 @@ abstract class CContainer extends CObject
 		//
 		if( $theModifiers & kFLAG_REFERENCE_IDENTIFIER )
 		{
-			if( $theObject->offsetExists( kTAG_ID ) )
-				$reference[ kTAG_REFERENCE_ID ] = $theObject[ kTAG_ID ];
+			if( $theObject->offsetExists( kTAG_LID ) )
+				$reference[ kTAG_REFERENCE_ID ] = $theObject[ kTAG_LID ];
 			else
 				throw new CException
 					( "Object does not have an identifier",

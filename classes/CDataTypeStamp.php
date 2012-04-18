@@ -34,12 +34,12 @@ require_once( kPATH_LIBRARY_SOURCE."CDataType.php" );
  *
  * <ul>
  *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: The constant
- *		{@link kDATA_TYPE_STAMP kDATA_TYPE_STAMP}.
+ *		{@link kTYPE_STAMP kTYPE_STAMP}.
  *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The following structure:
  *	 <ul>
- *		<li><i>{@link kOBJ_TYPE_STAMP_SEC kOBJ_TYPE_STAMP_SEC}</i>: The number of seconds
+ *		<li><i>{@link kTYPE_STAMP_SEC kTYPE_STAMP_SEC}</i>: The number of seconds
  *			since midnight January 1st 1970 GMT, an integer.
- *		<li><i>{@link kOBJ_TYPE_STAMP_USEC kOBJ_TYPE_STAMP_USEC}</i>: The milliseconds part
+ *		<li><i>{@link kTYPE_STAMP_USEC kTYPE_STAMP_USEC}</i>: The milliseconds part
  *			of the value, or zero.
  *	 </ul>
  * </ul>
@@ -105,7 +105,7 @@ class CDataTypeStamp extends CDataType
 		//
 		// Load data type.
 		//
-		$this->offsetSet( kTAG_TYPE, kDATA_TYPE_STAMP );
+		$this->offsetSet( kTAG_TYPE, kTYPE_STAMP );
 		
 		//
 		// Handle float.
@@ -117,36 +117,36 @@ class CDataTypeStamp extends CDataType
 			{
 				$usec = sprintf( '%-06s', $tmp[ 1 ] );
 				$this->offsetSet( kTAG_DATA,
-								  array( kOBJ_TYPE_STAMP_SEC => (integer) $tmp[ 0 ],
-										 kOBJ_TYPE_STAMP_USEC => (integer) $usec ) );
+								  array( kTYPE_STAMP_SEC => (integer) $tmp[ 0 ],
+										 kTYPE_STAMP_USEC => (integer) $usec ) );
 			}
 			else
 				$this->offsetSet( kTAG_DATA,
-								  array( kOBJ_TYPE_STAMP_SEC => (integer) $theData,
-										 kOBJ_TYPE_STAMP_USEC => 0 ) );
+								  array( kTYPE_STAMP_SEC => (integer) $theData,
+										 kTYPE_STAMP_USEC => 0 ) );
 		}
 		
 		//
 		// Handle integer.
 		//
 		elseif( is_integer( $theData ) )
-			$this->offsetSet( kTAG_DATA, array( kOBJ_TYPE_STAMP_SEC => (integer) $theData,
-												kOBJ_TYPE_STAMP_USEC => 0 ) );
+			$this->offsetSet( kTAG_DATA, array( kTYPE_STAMP_SEC => (integer) $theData,
+												kTYPE_STAMP_USEC => 0 ) );
 		
 		//
 		// Handle MongoDate.
 		//
 		elseif( $theData instanceof MongoDate )
-			$this->offsetSet( kTAG_DATA, array( kOBJ_TYPE_STAMP_SEC => $theData->sec,
-												kOBJ_TYPE_STAMP_USEC => $theData->usec ) );
+			$this->offsetSet( kTAG_DATA, array( kTYPE_STAMP_SEC => $theData->sec,
+												kTYPE_STAMP_USEC => $theData->usec ) );
 		
 		//
 		// Handle DateTime.
 		//
 		elseif( $theData instanceof DateTime )
 			$this->offsetSet( kTAG_DATA,
-							  array( kOBJ_TYPE_STAMP_SEC => $theData->format( "U" ),
-									 kOBJ_TYPE_STAMP_USEC => 0 ) );
+							  array( kTYPE_STAMP_SEC => $theData->format( "U" ),
+									 kTYPE_STAMP_USEC => 0 ) );
 		
 		//
 		// Handle other types.
@@ -155,8 +155,8 @@ class CDataTypeStamp extends CDataType
 		{
 			$sec = strtotime( (string) $theData );
 			if( $sec !== FALSE )
-				$this->offsetSet( kTAG_DATA, array( kOBJ_TYPE_STAMP_SEC => $sec,
-													kOBJ_TYPE_STAMP_USEC => 0 ) );
+				$this->offsetSet( kTAG_DATA, array( kTYPE_STAMP_SEC => $sec,
+													kTYPE_STAMP_USEC => 0 ) );
 			else
 				throw new CException( "Invalid data",
 									  kERROR_INVALID_PARAMETER,
@@ -229,12 +229,12 @@ class CDataTypeStamp extends CDataType
 		//
 		// Get seconds.
 		//
-		$sec = (string) $str[ kOBJ_TYPE_STAMP_SEC ];
+		$sec = (string) $str[ kTYPE_STAMP_SEC ];
 		
 		//
 		// Get milliseconds.
 		//
-		$sec .= ('.'.$str[ kOBJ_TYPE_STAMP_USEC ]);
+		$sec .= ('.'.$str[ kTYPE_STAMP_USEC ]);
 		
 		return (float) $sec;														// ==>
 	

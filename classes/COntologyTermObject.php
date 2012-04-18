@@ -37,10 +37,10 @@ require_once( kPATH_LIBRARY_SOURCE."CTerm.php" );
  * The class also adds the following properties:
  *
  * <ul>
- *	<li><i>{@link kOFFSET_SYNONYM kOFFSET_SYNONYM}</i>: This {@link Synonym() property} can
- *		be used to store synonyms as strings.
- *	<li><i>{@link kOFFSET_XREF kOFFSET_XREF}</i>: This {@link Xref() property} can be used
- *		to store cross references to other terms in the ontology.
+ *	<li><i>{@link kTAG_REFERENCE_SYNONYM kTAG_REFERENCE_SYNONYM}</i>: This
+ *		{@link Synonym() property} can be used to store synonyms as strings.
+ *	<li><i>{@link kTAG_REFERENCE_XREF kTAG_REFERENCE_XREF}</i>: This {@link Xref() property}
+ *		can be used to store cross references to other terms in the ontology.
  *	<li><i>{@link kTAG_SOURCE kTAG_SOURCE}</i>: This {@link Source() property} can be used
  *		to provide the source of the term.
  * </ul>
@@ -177,9 +177,9 @@ abstract class COntologyTermObject extends CTerm
 	/**
 	 * Manage synonyms.
 	 *
-	 * This method can be used to manage the term {@link kOFFSET_SYNONYM synonyms} list,
-	 * these elements are strings that can be considered synonyms of the current term, the
-	 * method expects the following parameters:
+	 * This method can be used to manage the term {@link kTAG_REFERENCE_SYNONYM synonyms}
+	 * list, these elements are strings that can be considered synonyms of the current term,
+	 * the method expects the following parameters:
 	 *
 	 * <ul>
 	 *	<li><b>$theValue</b>: The value or operation:
@@ -194,11 +194,11 @@ abstract class COntologyTermObject extends CTerm
 	 *			general, when adding elements, this case applies to default elements.
 	 *		<li><i>other</i>: All other types will be interpreted as the synonym type:
 	 *		 <ul>
-	 *			<li><i>{@link kTAG_REFERENCE_EXACT kTAG_REFERENCE_EXACT}</i>: Exact synonym.
-	 *			<li><i>{@link kTAG_REFERENCE_BROAD kTAG_REFERENCE_BROAD}</i>: Broad synonym.
-	 *			<li><i>{@link kTAG_REFERENCE_NARROW kTAG_REFERENCE_NARROW}</i>: Narrow
+	 *			<li><i>{@link kTYPE_EXACT kTYPE_EXACT}</i>: Exact synonym.
+	 *			<li><i>{@link kTYPE_BROAD kTYPE_BROAD}</i>: Broad synonym.
+	 *			<li><i>{@link kTYPE_NARROW kTYPE_NARROW}</i>: Narrow
 	 *				synonym.
-	 *			<li><i>{@link kTAG_REFERENCE_RELATED kTAG_REFERENCE_RELATED}</i>: Related
+	 *			<li><i>{@link kTYPE_RELATED kTYPE_RELATED}</i>: Related
 	 *				synonym.
 	 *		 </ul>
 	 *	 </ul>
@@ -228,10 +228,10 @@ abstract class COntologyTermObject extends CTerm
 			//
 			switch( $theType )
 			{
-				case kTAG_REFERENCE_EXACT:
-				case kTAG_REFERENCE_BROAD:
-				case kTAG_REFERENCE_NARROW:
-				case kTAG_REFERENCE_RELATED:
+				case kTYPE_EXACT:
+				case kTYPE_BROAD:
+				case kTYPE_NARROW:
+				case kTYPE_RELATED:
 					break;
 				
 				default:
@@ -245,7 +245,7 @@ abstract class COntologyTermObject extends CTerm
 		} // Provided synonym kind.
 		
 		return $this->_ManageTypedArrayOffset
-			( kOFFSET_SYNONYM, kTAG_KIND, $theType, $theValue, $getOld );			// ==>
+			( kTAG_REFERENCE_SYNONYM, kTAG_KIND, $theType, $theValue, $getOld );	// ==>
 
 	} // Synonym.
 
@@ -257,10 +257,10 @@ abstract class COntologyTermObject extends CTerm
 	/**
 	 * Manage cross-references.
 	 *
-	 * This method can be used to manage the term {@link kOFFSET_XREF cross-references}
-	 * list, these elements are references to other terms that can be considered synonyms of
-	 * the current term, the reference should be the term's {@link _id() identifier}. The
-	 * method expects the following parameters:
+	 * This method can be used to manage the term
+	 * {@link kTAG_REFERENCE_XREF cross-references} list, these elements are references to
+	 * other terms that can be considered synonyms of the current term, the reference should
+	 * be the term's {@link _id() identifier}. The method expects the following parameters:
 	 *
 	 * <ul>
 	 *	<li><b>$theValue</b>: The value or operation:
@@ -276,13 +276,13 @@ abstract class COntologyTermObject extends CTerm
 	 *		<li><i>other</i>: All other types will be interpreted as the cross-reference
 	 *			type:
 	 *		 <ul>
-	 *			<li><i>{@link kTAG_REFERENCE_EXACT kTAG_REFERENCE_EXACT}</i>: Exact
+	 *			<li><i>{@link kTYPE_EXACT kTYPE_EXACT}</i>: Exact
 	 *				reference.
-	 *			<li><i>{@link kTAG_REFERENCE_BROAD kTAG_REFERENCE_BROAD}</i>: Broad
+	 *			<li><i>{@link kTYPE_BROAD kTYPE_BROAD}</i>: Broad
 	 *				reference.
-	 *			<li><i>{@link kTAG_REFERENCE_NARROW kTAG_REFERENCE_NARROW}</i>: Narrow
+	 *			<li><i>{@link kTYPE_NARROW kTYPE_NARROW}</i>: Narrow
 	 *				reference.
-	 *			<li><i>{@link kTAG_REFERENCE_RELATED kTAG_REFERENCE_RELATED}</i>: Related
+	 *			<li><i>{@link kTYPE_RELATED kTYPE_RELATED}</i>: Related
 	 *				reference.
 	 *		 </ul>
 	 *	 </ul>
@@ -319,10 +319,10 @@ abstract class COntologyTermObject extends CTerm
 			//
 			switch( $theType )
 			{
-				case kTAG_REFERENCE_EXACT:
-				case kTAG_REFERENCE_BROAD:
-				case kTAG_REFERENCE_NARROW:
-				case kTAG_REFERENCE_RELATED:
+				case kTYPE_EXACT:
+				case kTYPE_BROAD:
+				case kTYPE_NARROW:
+				case kTYPE_RELATED:
 					break;
 				
 				default:
@@ -336,7 +336,7 @@ abstract class COntologyTermObject extends CTerm
 		} // Provided cross-reference kind.
 		
 		return $this->_ManageTypedArrayOffset
-			( kOFFSET_XREF, kTAG_KIND, $theType, $theValue, $getOld );				// ==>
+			( kTAG_REFERENCE_XREF, kTAG_KIND, $theType, $theValue, $getOld );		// ==>
 
 	} // Xref.
 

@@ -28,7 +28,7 @@
 	<div class="info-box-body">
         		<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Scale term.</p>
-<p class="description"><p>This <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM_MEASURE">kind</a> of <a href="../../MyWrapper/Ontology/COntologyTerm.html">term</a> represents a measure  term, a term that defines a measurement scale which refers to a <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_UNIT">unit</a>  <a href="../../MyWrapper/Ontology/COntologyTerm.html">term</a> and features a data <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">type</a>; such terms can be  used to annotate data elements.</p><p>These two properties are managed respectively by the <a href="../../MyWrapper/Ontology/CMeasureTerm.html#methodUnit">Unit</a> and  <a href="../../MyWrapper/Ontology/CMeasureTerm.html#methodType">Type</a> methods, the <a href="../../MyWrapper/Ontology/CMeasureTerm.html#methodType">type</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">property</a> must be  present for object's <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a> to be  <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">initialised</a>.</p><p>The class also enforces the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM_MEASURE">kTAG_TERM_MEASURE</a>  <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodKind">kind</a>.</p></p>
+<p class="description"><p>This <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_MEASURE_TERM">kind</a> of <a href="../../MyWrapper/Ontology/COntologyTerm.html">term</a> represents a measure  term, a term that defines a measurement scale which refers to a <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_UNIT">unit</a>  <a href="../../MyWrapper/Ontology/COntologyTerm.html">term</a> and features a data <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">type</a>; such terms can be  used to annotate data elements.</p><p>These two properties are managed respectively by the <a href="../../MyWrapper/Ontology/CMeasureTerm.html#methodUnit">Unit</a> and  <a href="../../MyWrapper/Ontology/CMeasureTerm.html#methodType">Type</a> methods, the <a href="../../MyWrapper/Ontology/CMeasureTerm.html#methodType">type</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">property</a> must be  present for object's <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a> to be  <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">initialised</a>.</p><p>The class also enforces the <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_MEASURE_TERM">kTYPE_MEASURE_TERM</a>  <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodKind">kind</a>.</p></p>
 		<p class="notes">
 			Located in <a class="field" href="_classes---CMeasureTerm.php.html">/classes/CMeasureTerm.php</a> (line <span class="field">48</span>)
 		</p>
@@ -168,7 +168,7 @@
 <p class="short-description">Instantiate class.</p>
 <p class="description"><p>We <a href="../../MyWrapper/Ontology/COntologyTermObject.html#method__construct">overload</a> the constructor to initialise  the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">inited</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">flag</a> if the  <a href="../../MyWrapper/Ontology/CMeasureTerm.html#methodType">type</a> attribute is set.</p></p>
 	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM_ENUM">kTAG_TERM_ENUM</a></li>
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ENUM_TERM">kTYPE_ENUM_TERM</a></li>
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></li>
 			</ul>
@@ -360,9 +360,9 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Normalise before a store.</p>
-<p class="description"><p>We overload this method to enforce the  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM_MEASURE">kTAG_TERM_MEASURE</a> <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodKind">kind</a>, note that we call  the <a href="../../MyWrapper/Ontology/COntologyTermObject.html">COntologyTermObject</a> version of this method instead of  the <a href="../../MyWrapper/Ontology/COntologyTerm.html">parent</a> one.</p></p>
+<p class="description"><p>We overload this method to enforce the  <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_MEASURE_TERM">kTYPE_MEASURE_TERM</a> <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodKind">kind</a>, note that we call  the <a href="../../MyWrapper/Ontology/COntologyTermObject.html">COntologyTermObject</a> version of this method instead of  the <a href="../../MyWrapper/Ontology/COntologyTerm.html">parent</a> one.</p></p>
 	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM_ENUM">kTAG_TERM_ENUM</a></li>
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ENUM_TERM">kTYPE_ENUM_TERM</a></li>
 				<li><span class="field">throws:</span> <a href="../../MyWrapper/Framework/CException.html">CException</a></li>
 				<li><span class="field">access:</span> protected</li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodKind">CCodedUnitObject::Kind()</a></li>
@@ -660,7 +660,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Tue, 17 Apr 2012 12:39:59 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Wed, 18 Apr 2012 20:05:11 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

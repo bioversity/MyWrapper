@@ -29,11 +29,11 @@ require_once( kPATH_LIBRARY_SOURCE."COntologyTermObject.php" );
 /**
  * Generic term.
  *
- * This {@link kTAG_TERM kind} of {@link COntologyTermObject term} represents a generic
+ * This {@link kTYPE_TERM kind} of {@link COntologyTermObject term} represents a generic
  * term that does not have any specific qualification or function, expect to serve as an
  * aggregator or category for other terms.
  *
- * In this class we enforce the {@link kTAG_TERM kTAG_TERM} {@link Kind() kind}, and
+ * In this class we enforce the {@link kTYPE_TERM kTYPE_TERM} {@link Kind() kind}, and
  * we ensure that the term has both the {@link Code() code} and {@link Name() name} in order
  * to have an {@link _IsInited() inited} {@link kFLAG_STATE_INITED status}.
  *
@@ -180,7 +180,7 @@ class COntologyTerm extends COntologyTermObject
 	/**
 	 * Normalise before a store.
 	 *
-	 * We overload this method to enforce the {@link kTAG_TERM kTAG_TERM}
+	 * We overload this method to enforce the {@link kTYPE_TERM kTYPE_TERM}
 	 * {@link Kind() kind}.
 	 *
 	 * @param reference			   &$theContainer		Object container.
@@ -193,14 +193,14 @@ class COntologyTerm extends COntologyTermObject
 	 *
 	 * @uses Kind()
 	 *
-	 * @see kTAG_TERM
+	 * @see kTYPE_TERM
 	 */
 	protected function _PrepareCommit( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
 		// Set namespace kind.
 		//
-		$this->Kind( kTAG_TERM, TRUE );
+		$this->Kind( kTYPE_TERM, TRUE );
 		
 		//
 		// Call parent method.

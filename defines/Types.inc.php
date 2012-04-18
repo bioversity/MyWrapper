@@ -20,17 +20,6 @@
  */
 
 /*=======================================================================================
- *	DEFAULT PRIMITIVE DATA TYPE ENUMERATION												*
- *======================================================================================*/
-
-/**
- * Default data types.
- *
- * This tag represents the default data types enumerations tag.
- */
-define( "kTAG_DATA_TYPE",					 ':TYPE' );				// String.
-
-/*=======================================================================================
  *	PRIMITIVE DATA TYPE ENUMERATIONS													*
  *======================================================================================*/
 
@@ -39,7 +28,7 @@ define( "kTAG_DATA_TYPE",					 ':TYPE' );				// String.
  *
  * This tag represents the primitive string data type.
  */
-define( "kDATA_TYPE_STRING",				':STR' );				// String.
+define( "kTYPE_STRING",						':STR' );				// String.
 
 /**
  * 32 bit signed integer type.
@@ -54,7 +43,7 @@ define( "kDATA_TYPE_STRING",				':STR' );				// String.
  *		integer.
  * </ul>
  */
-define( "kDATA_TYPE_INT32",					':INT32' );				// 32 bit integer.
+define( "kTYPE_INT32",						':INT32' );				// 32 bit integer.
 
 /**
  * 64 bit signed integer type.
@@ -69,14 +58,34 @@ define( "kDATA_TYPE_INT32",					':INT32' );				// 32 bit integer.
  *		integer.
  * </ul>
  */
-define( "kDATA_TYPE_INT64",					':INT64' );				// 64 bit integer.
+define( "kTYPE_INT64",						':INT64' );				// 64 bit integer.
 
 /**
  * Float type.
  *
  * This value represents the primitive floating point data type.
  */
-define( "kDATA_TYPE_FLOAT",					':FLOAT' );				// Float.
+define( "kTYPE_FLOAT",						':FLOAT' );				// Float.
+
+/**
+ * Boolean type.
+ *
+ * This value represents the primitive boolean data type, it is assumed that it is provided
+ * as (y/n; Yes/No; 1/0; TRUE/FALSE) and will be converted to 1/0.
+ */
+define( "kTYPE_BOOLEAN",					':BOOL' );				// Boolean.
+
+/*=======================================================================================
+ *	COMPOSITE DATA TYPE ENUMERATIONS													*
+ *======================================================================================*/
+
+/**
+ * Binary type.
+ *
+ * This value represents a binary string data type, it is generally expressed as an instance
+ * of the {@link CDataTypeBinary CDataTypeBinary} class.
+ */
+define( "kTYPE_BINARY",						':BIN' );				// Binary.
 
 /**
  * Date type.
@@ -85,7 +94,7 @@ define( "kDATA_TYPE_FLOAT",					':FLOAT' );				// Float.
  * elements should be omitted. This means that if we don't know the day we can express that
  * date as <i>YYYYMM</i>.
  */
-define( "kDATA_TYPE_DATE",					':DATE' );				// Date.
+define( "kTYPE_DATE",						':DATE' );				// Date.
 
 /**
  * Time type.
@@ -93,77 +102,27 @@ define( "kDATA_TYPE_DATE",					':DATE' );				// Date.
  * This value represents a time represented as a <i>YYYY-MM-DD HH:MM:SS</i> string in which
  * you may not have missing elements.
  */
-define( "kDATA_TYPE_TIME",					':TIME' );				// Time.
-
-/**
- * Timestamp type.
- *
- * This data type should be used for native time-stamps, in general it can be shared as a
- * structure formatted as follows:
- *
- * <ul>
- *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: Will contain this constant.
- *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: Will contain the following structure:
- *	 <ul>
- *		<li><i>{@link kOBJ_TYPE_STAMP_SEC kOBJ_TYPE_STAMP_SEC}</i>: Number of seconds since
- *			January 1st, 1970.
- *		<li><i>{@link kOBJ_TYPE_STAMP_USEC kOBJ_TYPE_STAMP_USEC}</i>: Milliseconds.
- *	 </ul>
- * </ul>
- */
-define( "kDATA_TYPE_STAMP",					':STAMP' );				// Timestamp.
-
-/**
- * Boolean type.
- *
- * This value represents the primitive boolean data type, it is assumed that it is provided
- * as (y/n; Yes/No; 1/0; TRUE/FALSE) and will be converted to 1/0.
- */
-define( "kDATA_TYPE_BOOLEAN",				':BOOL' );				// Boolean.
-
-/**
- * Binary type.
- *
- * This value represents the primitive binary data type, it is assumed that it is provided
- * as a hexadecimal string.
- *
- * This data type is serialised as follows:
- *
- * <ul>
- *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: Will contain this constant.
- *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: Will contain the following structure:
- *	 <ul>
- *		<li><i>{@link kOBJ_TYPE_BINARY_BIN kOBJ_TYPE_BINARY_BIN}</i>: The binary string.
- *		<li><i>{@link kOBJ_TYPE_BINARY_TYPE kOBJ_TYPE_BINARY_TYPE}</i>: Binary string type
- *			(integer):
- *		 <ul>
- *			<li><i>1</i>: Function.
- *			<li><i>2</i>: Byte array (use as default).
- *			<li><i>3</i>: UUID.
- *			<li><i>5</i>: MD5.
- *			<li><i>128</i>: Custom.
- *		 </ul>
- *	 </ul>
- * </ul>
- */
-define( "kDATA_TYPE_BINARY",				':BIN' );				// Binary.
+define( "kTYPE_TIME",						':TIME' );				// Time.
 
 /**
  * Regular expression type.
  *
- * This tag defines a regular expression string type, this data type is serialised as
- * follows:
- *
- * <ul>
- *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: Will contain this constant.
- *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: Will contain the regular expression string.
- * </ul>
+ * This tag defines a regular expression string type, it is generally expressed as an
+ * instance of the {@link CDataTypeRegex CDataTypeRegex} class.
  */
-define( "kDATA_TYPE_REGEX",					':RGEX' );
+define( "kTYPE_REGEX",						':RGEX' );				// Regular expression.
 
 /*=======================================================================================
- *	STRUCTURED STRING DATA TYPE ENUMERATIONS											*
+ *	STRUCTURED DATA TYPE ENUMERATIONS													*
  *======================================================================================*/
+
+/**
+ * Timestamp type.
+ *
+ * This data type should be used for native time-stamps, it is generally expressed as an
+ * instance of the {@link CDataTypeStamp CDataTypeStamp} class.
+ */
+define( "kTYPE_STAMP",						':STAMP' );				// Timestamp.
 
 /**
  * Enumeration type.
@@ -173,7 +132,7 @@ define( "kDATA_TYPE_REGEX",					':RGEX' );
  *
  * Enumerations represent a vocabulary from which one value must be chosen.
  */
-define( "kDATA_TYPE_ENUM",					':ENUM' );				// Enumeration.
+define( "kTYPE_ENUM",						':ENUM' );				// Enumeration.
 
 /**
  * Set type.
@@ -183,7 +142,7 @@ define( "kDATA_TYPE_ENUM",					':ENUM' );				// Enumeration.
  *
  * Sets represent a vocabulary from which one or more value must be chosen.
  */
-define( "kDATA_TYPE_SET",					':SET' );				// Set.
+define( "kTYPE_ENUM_SET",					':SET' );				// Set.
 
 /*=======================================================================================
  *	SUB-OBJECT TYPES																	*
@@ -194,21 +153,21 @@ define( "kDATA_TYPE_SET",					':SET' );				// Set.
  *
  * This tag defines the number of seconds since January 1st, 1970.
  */
-define( "kOBJ_TYPE_STAMP_SEC",				'sec' );
+define( "kTYPE_STAMP_SEC",					'sec' );
 
 /**
  * Microseconds.
  *
  * This tag defines microseconds.
  */
-define( "kOBJ_TYPE_STAMP_USEC",				'usec' );
+define( "kTYPE_STAMP_USEC",					'usec' );
 
 /**
  * Binary string.
  *
  * This tag defines a binary string.
  */
-define( "kOBJ_TYPE_BINARY_BIN",				'bin' );
+define( "kTYPE_BINARY_STRING",				'bin' );
 
 /**
  * Binary string type.
@@ -223,7 +182,7 @@ define( "kOBJ_TYPE_BINARY_BIN",				'bin' );
  *	<li><i>128</i>: Custom.
  * </ul>
  */
-define( "kOBJ_TYPE_BINARY_TYPE",			'type' );
+define( "kTYPE_BINARY_TYPE",				'type' );
 
 /*=======================================================================================
  *	STRING FORMAT ENUMERATIONS															*
@@ -234,28 +193,28 @@ define( "kOBJ_TYPE_BINARY_TYPE",			'type' );
  *
  * This value represents the primitive PHP data type, it is an PHP serialised object string.
  */
-define( "kDATA_TYPE_PHP",					':PHP' );				// PHP.
+define( "kTYPE_PHP",						':PHP' );				// PHP.
 
 /**
  * JSON type.
  *
  * This value represents the primitive JSON data type, it is an JSON encoded string.
  */
-define( "kDATA_TYPE_JSON",					':JSON' );				// JSON.
+define( "kTYPE_JSON",						':JSON' );				// JSON.
 
 /**
  * XML type.
  *
  * This value represents the primitive XML data type, it is an XML encoded string.
  */
-define( "kDATA_TYPE_XML",					':XML' );				// XML.
+define( "kTYPE_XML",						':XML' );				// XML.
 
 /**
  * HTML type.
  *
  * This value represents the primitive HTML data type, it is an HTML encoded string.
  */
-define( "kDATA_TYPE_HTML",					':HTML' );				// HTML.
+define( "kTYPE_HTML",						':HTML' );				// HTML.
 
 /**
  * CSV type.
@@ -263,14 +222,99 @@ define( "kDATA_TYPE_HTML",					':HTML' );				// HTML.
  * This value represents the primitive comma separated data type, it is an CSV encoded
  * string.
  */
-define( "kDATA_TYPE_CSV",					':CSV' );				// CSV.
+define( "kTYPE_CSV",						':CSV' );				// CSV.
 
 /**
  * META type.
  *
  * This value represents the primitive meta data type, it is a generalised metadata type.
  */
-define( "kDATA_TYPE_META",					':META' );				// META.
+define( "kTYPE_META",						':META' );				// META.
+
+/*=======================================================================================
+ *	REFERENCE TYPES																		*
+ *======================================================================================*/
+
+/**
+ * Exact reference.
+ *
+ * This is the tag that represents an exact reference.
+ */
+define( "kTYPE_EXACT",						':EXACT' );
+
+/**
+ * Broad reference.
+ *
+ * This is the tag that represents a broad reference.
+ */
+define( "kTYPE_BROAD",						':BROAD' );
+
+/**
+ * Narrow reference.
+ *
+ * This is the tag that represents a narrow reference.
+ */
+define( "kTYPE_NARROW",						':NARROW' );
+
+/**
+ * Related reference.
+ *
+ * This is the tag that represents a related reference.
+ */
+define( "kTYPE_RELATED",					':RELATED' );
+
+/*=======================================================================================
+ *	TERM TYPES																			*
+ *======================================================================================*/
+
+/**
+ * Term.
+ *
+ * This is the tag that represents a generic term.
+ */
+define( "kTYPE_TERM",							':TERM' );
+
+/**
+ * Namespace.
+ *
+ * This is the tag that represents a namespace term.
+ */
+define( "kTYPE_NAMESPACE_TERM",					':TERM:NS' );
+
+/**
+ * Ontology.
+ *
+ * This is the tag that represents an ontology root term.
+ */
+define( "kTYPE_ONTOLOGY_TERM",					':TERM:ONTO' );
+
+/**
+ * Predicate.
+ *
+ * This is the tag that represents a predicate term.
+ */
+define( "kTYPE_PREDICATE_TERM",					':TERM:PRED' );
+
+/**
+ * Attribute.
+ *
+ * This is the tag that represents an attribute term.
+ */
+define( "kTYPE_ATTRIBUTE_TERM",					':TERM:ATTR' );
+
+/**
+ * Measure.
+ *
+ * This is the tag that represents a measure term.
+ */
+define( "kTYPE_MEASURE_TERM",					':TERM:MEASURE' );
+
+/**
+ * Enumeration.
+ *
+ * This is the tag that represents an enumeration term.
+ */
+define( "kTYPE_ENUM_TERM",						':TERM:ENUM' );
 
 /*=======================================================================================
  *	MONGODB DATA TYPES																	*
@@ -287,7 +331,7 @@ define( "kDATA_TYPE_META",					':META' );				// META.
  *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: Will contain the HEX string ID.
  * </ul>
  */
-define( "kDATA_TYPE_MongoId",				'MONGO:MongoId' );			// MongoId.
+define( "kTYPE_MongoId",					'MONGO:MongoId' );			// MongoId.
 
 /**
  * MongoCode.
@@ -304,7 +348,7 @@ define( "kDATA_TYPE_MongoId",				'MONGO:MongoId' );			// MongoId.
  *	 </ul>
  * </ul>
  */
-define( "kDATA_TYPE_MongoCode",				'MONGO:MongoCode' );		// MongoCode.
+define( "kTYPE_MongoCode",				'MONGO:MongoCode' );		// MongoCode.
 
 
 ?>

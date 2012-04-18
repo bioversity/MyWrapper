@@ -29,10 +29,10 @@ require_once( kPATH_LIBRARY_SOURCE."COntologyTerm.php" );
 /**
  * Ontology term.
  *
- * This {@link kTAG_TERM_ONTOLOGY kind} of {@link COntologyTerm term} represents the
+ * This {@link kTYPE_ONTOLOGY_TERM kind} of {@link COntologyTerm term} represents the
  * root term of an ontology. In general, it can represent the ontology as a whole.
  *
- * In this class we enforce the {@link kTAG_TERM_ONTOLOGY kTAG_TERM_ONTOLOGY}
+ * In this class we enforce the {@link kTYPE_ONTOLOGY_TERM kTYPE_ONTOLOGY_TERM}
  * {@link Kind() kind}.
  *
  *	@package	MyWrapper
@@ -58,7 +58,7 @@ class COntology extends COntologyTerm
 	 * Normalise before a store.
 	 *
 	 * We overload this method to enforce the
-	 * {@link kTAG_TERM_ONTOLOGY kTAG_TERM_ONTOLOGY} {@link Kind() kind}, note that we
+	 * {@link kTYPE_ONTOLOGY_TERM kTYPE_ONTOLOGY_TERM} {@link Kind() kind}, note that we
 	 * call the {@link COntologyTermObject COntologyTermObject} version of this method instead
 	 * of the {@link COntologyTerm parent} one.
 	 *
@@ -72,14 +72,14 @@ class COntology extends COntologyTerm
 	 *
 	 * @uses Kind()
 	 *
-	 * @see kTAG_TERM_ONTOLOGY
+	 * @see kTYPE_ONTOLOGY_TERM
 	 */
 	protected function _PrepareCommit( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
 		// Set namespace kind.
 		//
-		$this->Kind( kTAG_TERM_ONTOLOGY, TRUE );
+		$this->Kind( kTYPE_ONTOLOGY_TERM, TRUE );
 		
 		//
 		// Call parent method.

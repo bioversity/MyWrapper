@@ -62,7 +62,7 @@ $object1[ 'Inst' ] = 'International Plant Genetic Resources Institute';
 $object1[ 'Cat' ] = array( 'Colours' => array( 'Orange', 'Yellow' ),
 						   'Teams' => array( 'Roma' ) );
 $object1[ 'Other' ] = 'Other data';
-$object1[ kTAG_ID ] = 'Škofič';
+$object1[ kTAG_LID ] = 'Škofič';
  
 //
 // Create object 2.
@@ -99,7 +99,7 @@ $object4[ 'Number' ] = new CDataTypeInt64( '123456789123459' );
 $object4[ 'Inst' ] = 'Stretto di Messina';
 $object4[ 'Cat' ] = array( 'Colours' => array( 'Blue' ),
 						   'Teams' => array( 'Milan' ) );
-$object4[ kTAG_ID ] = new CDataTypeBinary( 'Sampieri' );
+$object4[ kTAG_LID ] = new CDataTypeBinary( 'Sampieri' );
  
 //
 // Create object 5.
@@ -167,7 +167,7 @@ try
 		//
 		$params = new CMongoDataWrapperClient( $url );
 		$params->Operation( kAPI_OP_HELP );
-		$params->Format( kDATA_TYPE_JSON );
+		$params->Format( kTYPE_JSON );
 		//
 		// Get response.
 		//
@@ -183,7 +183,7 @@ try
 		//
 		$params = Array();
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_HELP;				// Command.
-		$params[] = kAPI_FORMAT.'='.kDATA_TYPE_JSON;				// Format.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;				// Format.
 		//
 		// Build request.
 		//
@@ -237,7 +237,7 @@ try
 		//
 		$params = new CMongoDataWrapperClient( $url );
 		$params->Operation( kAPI_OP_HELP );
-		$params->Format( kDATA_TYPE_JSON );
+		$params->Format( kTYPE_JSON );
 		//
 		// Get response.
 		//
@@ -252,12 +252,12 @@ try
 		// Build parameters.
 		//
 		$params = Array();
-		$params[ kAPI_FORMAT ] = kDATA_TYPE_JSON;				// Format.
+		$params[ kAPI_FORMAT ] = kTYPE_JSON;				// Format.
 		$params[ kAPI_OPERATION ] = kAPI_OP_HELP;				// Command.
 		//
 		// Use static method.
 		//
-		$decoded = CWrapperClient::Request( $url, $params, 'POST', kDATA_TYPE_JSON );
+		$decoded = CWrapperClient::Request( $url, $params, 'POST', kTYPE_JSON );
 	}
 	//
 	// Display.
@@ -358,7 +358,7 @@ try
 			// Build parameters.
 			//
 			$params = new CMongoDataWrapperClient( $url );
-			$params->Format( kDATA_TYPE_PHP );
+			$params->Format( kTYPE_PHP );
 			$params->Stamp( TRUE );
 			$params->LogTrace( TRUE );
 			$params->LogRequest( TRUE );
@@ -376,7 +376,7 @@ try
 			// Build parameters.
 			//
 			$params = Array();
-			$params[] = kAPI_FORMAT.'='.kDATA_TYPE_PHP;					// Format.
+			$params[] = kAPI_FORMAT.'='.kTYPE_PHP;					// Format.
 			$params[] = kAPI_REQ_STAMP.'='.gettimeofday( true );		// Time-stamp.
 			$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
 			$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
@@ -444,7 +444,7 @@ try
 			//
 			$params = new CMongoDataWrapperClient( $url );
 			$params->Operation( 'XXX' );
-			$params->Format( kDATA_TYPE_PHP );
+			$params->Format( kTYPE_PHP );
 			$params->Stamp( TRUE );
 			$params->LogTrace( TRUE );
 			$params->LogRequest( TRUE );
@@ -462,7 +462,7 @@ try
 			// Build parameters.
 			//
 			$params = Array();
-			$params[] = kAPI_FORMAT.'='.kDATA_TYPE_PHP;					// Format.
+			$params[] = kAPI_FORMAT.'='.kTYPE_PHP;					// Format.
 			$params[] = kAPI_OPERATION.'='.'XXX';						// Operation.
 			$params[] = kAPI_REQ_STAMP.'='.gettimeofday( true );		// Time-stamp.
 			$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
@@ -526,7 +526,7 @@ try
 		//
 		$params = new CMongoDataWrapperClient( $url );
 		$params->Operation( kAPI_OP_PING );
-		$params->Format( kDATA_TYPE_PHP );
+		$params->Format( kTYPE_PHP );
 		$params->Stamp( TRUE );
 		$params->LogTrace( TRUE );
 		$params->LogRequest( TRUE );
@@ -544,7 +544,7 @@ try
 		// Build parameters.
 		//
 		$params = Array();
-		$params[] = kAPI_FORMAT.'='.kDATA_TYPE_PHP;					// Format.
+		$params[] = kAPI_FORMAT.'='.kTYPE_PHP;					// Format.
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_PING;				// Command.
 		$params[] = kAPI_REQ_STAMP.'='.gettimeofday( true );		// Time-stamp.
 		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
@@ -603,7 +603,7 @@ try
 		//
 		$params = new CMongoDataWrapperClient( $url );
 		$params->Operation( kAPI_OP_PING );
-		$params->Format( kDATA_TYPE_JSON );
+		$params->Format( kTYPE_JSON );
 		$params->Stamp( TRUE );
 		$params->LogTrace( TRUE );
 		$params->LogRequest( TRUE );
@@ -621,7 +621,7 @@ try
 		// Build parameters.
 		//
 		$params = Array();
-		$params[] = kAPI_FORMAT.'='.kDATA_TYPE_JSON;				// Format.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;				// Format.
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_PING;				// Command.
 		$params[] = kAPI_REQ_STAMP.'='.gettimeofday( true );		// Time-stamp.
 		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
@@ -684,7 +684,7 @@ try
 		// Build parameters.
 		//
 		$params = new CMongoDataWrapperClient( $url );
-		$params->Format( kDATA_TYPE_JSON );
+		$params->Format( kTYPE_JSON );
 		$params->Operation( kAPI_OP_INSERT );
 		$params->Stamp( TRUE );
 		$params->Database( 'TEST' );
@@ -717,7 +717,7 @@ try
 		// Build parameters.
 		//
 		$params = Array();
-		$params[] = kAPI_FORMAT.'='.kDATA_TYPE_JSON;				// Format.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;				// Format.
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_INSERT;				// Command.
 		$params[] = kAPI_REQ_STAMP.'='.gettimeofday( true );		// Time-stamp.
 		$params[] = kAPI_DATABASE.'='.'TEST';						// Database.
@@ -754,7 +754,7 @@ try
 		//
 		$reference = Array();
 		$container->UnserialiseObject( $object );			// To feed to MongoDBRef.
-		$reference[ kTAG_REFERENCE_ID ] = $object[ kTAG_ID ];
+		$reference[ kTAG_REFERENCE_ID ] = $object[ kTAG_LID ];
 		$reference[ kTAG_REFERENCE_CONTAINER ] = 'CMongoDataWrapper';
 		$reference[ kTAG_REFERENCE_DATABASE ] = 'TEST';
 		$found = MongoDBRef::get( $db, $reference );
@@ -811,7 +811,7 @@ try
 		// Build parameters.
 		//
 		$params = new CMongoDataWrapperClient( $url );
-		$params->Format( kDATA_TYPE_JSON );
+		$params->Format( kTYPE_JSON );
 		$params->Operation( kAPI_OP_SET );
 		$params->Stamp( TRUE );
 		$params->Database( 'TEST' );
@@ -844,7 +844,7 @@ try
 		// Build parameters.
 		//
 		$params = Array();
-		$params[] = kAPI_FORMAT.'='.kDATA_TYPE_JSON;				// Format.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;				// Format.
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_SET;					// Command.
 		$params[] = kAPI_REQ_STAMP.'='.gettimeofday( true );		// Time-stamp.
 		$params[] = kAPI_DATABASE.'='.'TEST';						// Database.
@@ -885,7 +885,7 @@ try
 		//
 		$reference = Array();
 		$container->UnserialiseObject( $object );			// To feed to MongoDBRef.
-		$reference[ kTAG_REFERENCE_ID ] = $object[ kTAG_ID ];
+		$reference[ kTAG_REFERENCE_ID ] = $object[ kTAG_LID ];
 		$reference[ kTAG_REFERENCE_CONTAINER ] = 'CMongoDataWrapper';
 		$reference[ kTAG_REFERENCE_DATABASE ] = 'TEST';
 		$found = MongoDBRef::get( $db, $reference );
@@ -942,7 +942,7 @@ try
 		// Build parameters.
 		//
 		$params = new CMongoDataWrapperClient( $url );
-		$params->Format( kDATA_TYPE_JSON );
+		$params->Format( kTYPE_JSON );
 		$params->Operation( kAPI_OP_BATCH_INSERT );
 		$params->Database( 'TEST' );
 		$params->Container( 'CMongoDataWrapper' );
@@ -975,7 +975,7 @@ try
 		// Build parameters.
 		//
 		$params = Array();
-		$params[] = kAPI_FORMAT.'='.kDATA_TYPE_JSON;				// Format.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;				// Format.
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_BATCH_INSERT;		// Command.
 		$params[] = kAPI_DATABASE.'='.'TEST';						// Database.
 		$params[] = kAPI_CONTAINER.'='.'CMongoDataWrapper';			// Container.
@@ -1058,10 +1058,10 @@ try
 		(
 			array
 			(
-				kAPI_QUERY_SUBJECT => kTAG_ID,
+				kAPI_QUERY_SUBJECT => kTAG_LID,
 				kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-				kAPI_QUERY_TYPE => $object[ kTAG_ID ][ kTAG_TYPE ],
-				kAPI_QUERY_DATA => $object[ kTAG_ID ]
+				kAPI_QUERY_TYPE => $object[ kTAG_LID ][ kTAG_TYPE ],
+				kAPI_QUERY_DATA => $object[ kTAG_LID ]
 			)
 		)
 	);
@@ -1074,7 +1074,7 @@ try
 		// Build parameters.
 		//
 		$params = new CMongoDataWrapperClient( $url );
-		$params->Format( kDATA_TYPE_JSON );
+		$params->Format( kTYPE_JSON );
 		$params->Operation( kAPI_OP_UPDATE );
 		$params->Database( 'TEST' );
 		$params->Container( 'CMongoDataWrapper' );
@@ -1113,7 +1113,7 @@ try
 		// Build parameters.
 		//
 		$params = Array();
-		$params[] = kAPI_FORMAT.'='.kDATA_TYPE_JSON;				// Format.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;				// Format.
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_UPDATE;				// Command.
 		$params[] = kAPI_REQ_STAMP.'='.gettimeofday( true );		// Time-stamp.
 		$params[] = kAPI_DATABASE.'='.'TEST';						// Database.
@@ -1152,7 +1152,7 @@ try
 		//
 		$reference = Array();
 		$container->UnserialiseObject( $object );			// To feed to MongoDBRef.
-		$reference[ kTAG_REFERENCE_ID ] = $object[ kTAG_ID ];
+		$reference[ kTAG_REFERENCE_ID ] = $object[ kTAG_LID ];
 		$reference[ kTAG_REFERENCE_CONTAINER ] = 'CMongoDataWrapper';
 		$reference[ kTAG_REFERENCE_DATABASE ] = 'TEST';
 		$found = MongoDBRef::get( $db, $reference );
@@ -1221,10 +1221,10 @@ try
 		(
 			array
 			(
-				kAPI_QUERY_SUBJECT => kTAG_ID,
+				kAPI_QUERY_SUBJECT => kTAG_LID,
 				kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-				kAPI_QUERY_TYPE => $object[ kTAG_ID ][ kTAG_TYPE ],
-				kAPI_QUERY_DATA => $object[ kTAG_ID ]
+				kAPI_QUERY_TYPE => $object[ kTAG_LID ][ kTAG_TYPE ],
+				kAPI_QUERY_DATA => $object[ kTAG_LID ]
 			)
 		)
 	);
@@ -1237,7 +1237,7 @@ try
 		// Build parameters.
 		//
 		$params = new CMongoDataWrapperClient( $url );
-		$params->Format( kDATA_TYPE_JSON );
+		$params->Format( kTYPE_JSON );
 		$params->Operation( kAPI_OP_MODIFY );
 		$params->Database( 'TEST' );
 		$params->Container( 'CMongoDataWrapper' );
@@ -1276,7 +1276,7 @@ try
 		// Build parameters.
 		//
 		$params = Array();
-		$params[] = kAPI_FORMAT.'='.kDATA_TYPE_JSON;				// Format.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;				// Format.
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_MODIFY;				// Command.
 		$params[] = kAPI_REQ_STAMP.'='.gettimeofday( true );		// Time-stamp.
 		$params[] = kAPI_DATABASE.'='.'TEST';						// Database.
@@ -1305,7 +1305,7 @@ try
 	//
 	$reference = Array();
 	$container->UnserialiseObject( $object );			// To feed to MongoDBRef.
-	$reference[ kTAG_REFERENCE_ID ] = $object[ kTAG_ID ];
+	$reference[ kTAG_REFERENCE_ID ] = $object[ kTAG_LID ];
 	$reference[ kTAG_REFERENCE_CONTAINER ] = 'CMongoDataWrapper';
 	$reference[ kTAG_REFERENCE_DATABASE ] = 'TEST';
 	$found = MongoDBRef::get( $db, $reference );
@@ -1364,7 +1364,7 @@ try
 		// Build parameters.
 		//
 		$params = new CMongoDataWrapperClient( $url );
-		$params->Format( kDATA_TYPE_JSON );
+		$params->Format( kTYPE_JSON );
 		$params->Operation( kAPI_OP_INSERT );
 		$params->Database( 'TEST' );
 		$params->Container( 'CMongoDataWrapper' );
@@ -1397,7 +1397,7 @@ try
 		// Build parameters.
 		//
 		$params = Array();
-		$params[] = kAPI_FORMAT.'='.kDATA_TYPE_JSON;				// Format.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;				// Format.
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_INSERT;				// Command.
 		$params[] = kAPI_REQ_STAMP.'='.gettimeofday( true );		// Time-stamp.
 		$params[] = kAPI_DATABASE.'='.'TEST';						// Database.
@@ -1434,7 +1434,7 @@ try
 		//
 		$reference = Array();
 		$container->UnserialiseObject( $object );			// To feed to MongoDBRef.
-		$reference[ kTAG_REFERENCE_ID ] = $object[ kTAG_ID ];
+		$reference[ kTAG_REFERENCE_ID ] = $object[ kTAG_LID ];
 		$reference[ kTAG_REFERENCE_CONTAINER ] = 'CMongoDataWrapper';
 		$reference[ kTAG_REFERENCE_DATABASE ] = 'TEST';
 		$found = MongoDBRef::get( $db, $reference );
@@ -1496,7 +1496,7 @@ try
 			(
 				kAPI_QUERY_SUBJECT => 'not there',
 				kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-				kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+				kAPI_QUERY_TYPE => kTYPE_STRING,
 				kAPI_QUERY_DATA => 'either'
 			)
 		)
@@ -1510,7 +1510,7 @@ try
 		// Build parameters.
 		//
 		$params = new CMongoDataWrapperClient( $url );
-		$params->Format( kDATA_TYPE_JSON );
+		$params->Format( kTYPE_JSON );
 		$params->Operation( kAPI_OP_UPDATE );
 		$params->Database( 'TEST' );
 		$params->Container( 'CMongoDataWrapper' );
@@ -1549,7 +1549,7 @@ try
 		// Build parameters.
 		//
 		$params = Array();
-		$params[] = kAPI_FORMAT.'='.kDATA_TYPE_JSON;				// Format.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;				// Format.
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_UPDATE;				// Command.
 		$params[] = kAPI_REQ_STAMP.'='.gettimeofday( true );		// Time-stamp.
 		$params[] = kAPI_DATABASE.'='.'TEST';						// Database.
@@ -1626,14 +1626,14 @@ try
 			(
 				kAPI_QUERY_SUBJECT => 'Name',
 				kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-				kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+				kAPI_QUERY_TYPE => kTYPE_STRING,
 				kAPI_QUERY_DATA => 'Luca'
 			),
 			array
 			(
 				kAPI_QUERY_SUBJECT => 'Date',
 				kAPI_QUERY_OPERATOR => kOPERATOR_IRANGE,
-				kAPI_QUERY_TYPE => kDATA_TYPE_STAMP,
+				kAPI_QUERY_TYPE => kTYPE_STAMP,
 				kAPI_QUERY_DATA => array
 				(
 					new CDataTypeStamp(),
@@ -1651,7 +1651,7 @@ try
 		// Build parameters.
 		//
 		$params = new CMongoDataWrapperClient( $url );
-		$params->Format( kDATA_TYPE_JSON );
+		$params->Format( kTYPE_JSON );
 		$params->Operation( kAPI_OP_COUNT );
 		$params->Database( 'TEST' );
 		$params->Container( 'CMongoDataWrapper' );
@@ -1675,7 +1675,7 @@ try
 		// Build parameters.
 		//
 		$params = Array();
-		$params[] = kAPI_FORMAT.'='.kDATA_TYPE_JSON;				// Format.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;				// Format.
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_COUNT;				// Command.
 		$params[] = kAPI_REQ_STAMP.'='.gettimeofday( true );		// Time-stamp.
 		$params[] = kAPI_DATABASE.'='.'TEST';						// Database.
@@ -1743,7 +1743,7 @@ try
 			(
 				kAPI_QUERY_SUBJECT => 'Number',
 				kAPI_QUERY_OPERATOR => kOPERATOR_GREAT_EQUAL,
-				kAPI_QUERY_TYPE => kDATA_TYPE_INT64,
+				kAPI_QUERY_TYPE => kTYPE_INT64,
 				kAPI_QUERY_DATA => new CDataTypeInt64( '123456789123456' )
 			)
 		)
@@ -1757,7 +1757,7 @@ try
 		// Build parameters.
 		//
 		$params = new CMongoDataWrapperClient( $url );
-		$params->Format( kDATA_TYPE_JSON );
+		$params->Format( kTYPE_JSON );
 		$params->Operation( kAPI_OP_GET_ONE );
 		$params->Database( 'TEST' );
 		$params->Container( 'CMongoDataWrapper' );
@@ -1781,7 +1781,7 @@ try
 		// Build parameters.
 		//
 		$params = Array();
-		$params[] = kAPI_FORMAT.'='.kDATA_TYPE_JSON;				// Format.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;				// Format.
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_ONE;				// Command.
 		$params[] = kAPI_REQ_STAMP.'='.gettimeofday( true );		// Time-stamp.
 		$params[] = kAPI_DATABASE.'='.'TEST';						// Database.
@@ -1850,14 +1850,14 @@ try
 			(
 				kAPI_QUERY_SUBJECT => 'Name',
 				kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-				kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+				kAPI_QUERY_TYPE => kTYPE_STRING,
 				kAPI_QUERY_DATA => 'Luca'
 			),
 			array
 			(
 				kAPI_QUERY_SUBJECT => 'Date',
 				kAPI_QUERY_OPERATOR => kOPERATOR_IRANGE,
-				kAPI_QUERY_TYPE => kDATA_TYPE_STAMP,
+				kAPI_QUERY_TYPE => kTYPE_STAMP,
 				kAPI_QUERY_DATA => array
 				(
 					new CDataTypeStamp(),
@@ -1883,7 +1883,7 @@ try
 		// Build parameters.
 		//
 		$params = new CMongoDataWrapperClient( $url );
-		$params->Format( kDATA_TYPE_JSON );
+		$params->Format( kTYPE_JSON );
 		$params->Operation( kAPI_OP_GET );
 		$params->Database( 'TEST' );
 		$params->Container( 'CMongoDataWrapper' );
@@ -1916,7 +1916,7 @@ try
 		// Build parameters.
 		//
 		$params = Array();
-		$params[] = kAPI_FORMAT.'='.kDATA_TYPE_JSON;				// Format.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;				// Format.
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET;					// Command.
 		$params[] = kAPI_DATABASE.'='.'TEST';						// Database.
 		$params[] = kAPI_CONTAINER.'='.'CMongoDataWrapper';			// Container.
@@ -1986,14 +1986,14 @@ try
 			(
 				kAPI_QUERY_SUBJECT => 'Name',
 				kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-				kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+				kAPI_QUERY_TYPE => kTYPE_STRING,
 				kAPI_QUERY_DATA => 'Luca'
 			),
 			array
 			(
 				kAPI_QUERY_SUBJECT => 'Date',
 				kAPI_QUERY_OPERATOR => kOPERATOR_IRANGE,
-				kAPI_QUERY_TYPE => kDATA_TYPE_STAMP,
+				kAPI_QUERY_TYPE => kTYPE_STAMP,
 				kAPI_QUERY_DATA => array
 				(
 					new CDataTypeStamp(),
@@ -2004,7 +2004,7 @@ try
 			(
 				kAPI_QUERY_SUBJECT => 'Cat.Colours',
 				kAPI_QUERY_OPERATOR => kOPERATOR_PREFIX,
-				kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+				kAPI_QUERY_TYPE => kTYPE_STRING,
 				kAPI_QUERY_DATA => 'Blu'
 			)
 		)
@@ -2026,7 +2026,7 @@ try
 		// Build parameters.
 		//
 		$params = new CMongoDataWrapperClient( $url );
-		$params->Format( kDATA_TYPE_JSON );
+		$params->Format( kTYPE_JSON );
 		$params->Operation( kAPI_OP_GET );
 		$params->Database( 'TEST' );
 		$params->Container( 'CMongoDataWrapper' );
@@ -2061,7 +2061,7 @@ try
 		// Build parameters.
 		//
 		$params = Array();
-		$params[] = kAPI_FORMAT.'='.kDATA_TYPE_JSON;				// Format.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;				// Format.
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET;					// Command.
 		$params[] = kAPI_DATABASE.'='.'TEST';						// Database.
 		$params[] = kAPI_CONTAINER.'='.'CMongoDataWrapper';			// Container.
@@ -2126,7 +2126,7 @@ try
 	// Build reference.
 	//
 	$reference = Array();
-	$reference[ kTAG_REFERENCE_ID ] = $object3[ kTAG_ID ];
+	$reference[ kTAG_REFERENCE_ID ] = $object3[ kTAG_LID ];
 	$reference[ kTAG_REFERENCE_CONTAINER ] = 'CMongoDataWrapper';
 	$reference[ kTAG_REFERENCE_DATABASE ] = 'TEST';
 	//
@@ -2142,7 +2142,7 @@ try
 		// Build parameters.
 		//
 		$params = new CMongoDataWrapperClient( $url );
-		$params->Format( kDATA_TYPE_JSON );
+		$params->Format( kTYPE_JSON );
 		$params->Operation( kAPI_OP_GET_OBJECT_REF );
 		$params->Object( $reference );
 		//
@@ -2163,7 +2163,7 @@ try
 		// Build parameters.
 		//
 		$params = Array();
-		$params[] = kAPI_FORMAT.'='.kDATA_TYPE_JSON;				// Format.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;				// Format.
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_OBJECT_REF;		// Command.
 		$params[] = kAPI_DATA_OBJECT.'='.urlencode( $object );		// Object.
 		//
@@ -2235,7 +2235,7 @@ try
 		// Build parameters.
 		//
 		$params = new CMongoDataWrapperClient( $url );
-		$params->Format( kDATA_TYPE_JSON );
+		$params->Format( kTYPE_JSON );
 		$params->Operation( kAPI_OP_GET_OBJECT_REF );
 		$params->Database( 'TEST' );
 		$params->Container( 'CMongoDataWrapper' );
@@ -2258,7 +2258,7 @@ try
 		// Build parameters.
 		//
 		$params = Array();
-		$params[] = kAPI_FORMAT.'='.kDATA_TYPE_JSON;				// Format.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;				// Format.
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_OBJECT_REF;		// Command.
 		$params[] = kAPI_REQ_STAMP.'='.gettimeofday( true );		// Time-stamp.
 		$params[] = kAPI_DATABASE.'='.'TEST';						// Database.
@@ -2330,7 +2330,7 @@ try
             (
                 kAPI_QUERY_SUBJECT => 'Inst',
                 kAPI_QUERY_OPERATOR => kOPERATOR_CONTAINS,
-                kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+                kAPI_QUERY_TYPE => kTYPE_STRING,
                 kAPI_QUERY_DATA => 'International'
             )
         )
@@ -2344,7 +2344,7 @@ try
         // Build parameters.
         //
         $params = new CMongoDataWrapperClient( $url );
-        $params->Format( kDATA_TYPE_JSON );
+        $params->Format( kTYPE_JSON );
         $params->Operation( kAPI_OP_DEL );
         $params->Database( 'TEST' );
         $params->Container( 'CMongoDataWrapper' );
@@ -2374,7 +2374,7 @@ try
         // Build parameters.
         //
         $params = Array();
-        $params[] = kAPI_FORMAT.'='.kDATA_TYPE_JSON;                // Format.
+        $params[] = kAPI_FORMAT.'='.kTYPE_JSON;                // Format.
         $params[] = kAPI_OPERATION.'='.kAPI_OP_DEL;                 // Command.
         $params[] = kAPI_DATABASE.'='.'TEST';                       // Database.
         $params[] = kAPI_CONTAINER.'='.'CMongoDataWrapper';         // Container.
@@ -2446,7 +2446,7 @@ try
 			(
 				kAPI_QUERY_SUBJECT => 'Cat.Colours',
 				kAPI_QUERY_OPERATOR => kOPERATOR_IN,
-				kAPI_QUERY_TYPE => kDATA_TYPE_STRING,
+				kAPI_QUERY_TYPE => kTYPE_STRING,
 				kAPI_QUERY_DATA => array( 'Blue', 'Green' )
 			)
 		)
@@ -2460,7 +2460,7 @@ try
         // Build parameters.
         //
         $params = new CMongoDataWrapperClient( $url );
-        $params->Format( kDATA_TYPE_JSON );
+        $params->Format( kTYPE_JSON );
         $params->Operation( kAPI_OP_DEL );
         $params->Database( 'TEST' );
         $params->Container( 'CMongoDataWrapper' );
@@ -2489,7 +2489,7 @@ try
 		// Build parameters.
 		//
 		$params = Array();
-		$params[] = kAPI_FORMAT.'='.kDATA_TYPE_JSON;				// Format.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;				// Format.
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_DEL;					// Command.
 		$params[] = kAPI_DATABASE.'='.'TEST';						// Database.
 		$params[] = kAPI_CONTAINER.'='.'CMongoDataWrapper';			// Container.
@@ -2555,7 +2555,7 @@ try
         // Build parameters.
         //
         $params = new CMongoDataWrapperClient( $url );
-        $params->Format( kDATA_TYPE_JSON );
+        $params->Format( kTYPE_JSON );
         $params->Operation( kAPI_OP_GET );
         $params->Database( 'TEST' );
         $params->Container( 'CMongoDataWrapper' );
@@ -2573,7 +2573,7 @@ try
 		// Build parameters.
 		//
 		$params = Array();
-		$params[] = kAPI_FORMAT.'='.kDATA_TYPE_JSON;				// Format.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;				// Format.
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET;					// Command.
 		$params[] = kAPI_DATABASE.'='.'TEST';						// Database.
 		$params[] = kAPI_CONTAINER.'='.'CMongoDataWrapper';			// Container.

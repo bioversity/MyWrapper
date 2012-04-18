@@ -29,11 +29,11 @@ require_once( kPATH_LIBRARY_SOURCE."COntologyTerm.php" );
 /**
  * Predicate term.
  *
- * This {@link kTAG_TERM_PREDICATE kind} of {@link COntologyTerm term} represents a
+ * This {@link kTYPE_PREDICATE_TERM kind} of {@link COntologyTerm term} represents a
  * predicate {@link COntologyTerm term}. In general, it can represent a term that is mainly
  * used to qualify a relationship.
  *
- * In this class we enforce the {@link kTAG_TERM_PREDICATE kTAG_TERM_PREDICATE}
+ * In this class we enforce the {@link kTYPE_PREDICATE_TERM kTYPE_PREDICATE_TERM}
  * {@link Kind() kind}.
  *
  *	@package	MyWrapper
@@ -59,7 +59,7 @@ class CPredicateTerm extends COntologyTerm
 	 * Normalise before a store.
 	 *
 	 * We overload this method to enforce the
-	 * {@link kTAG_TERM_PREDICATE kTAG_TERM_PREDICATE} {@link Kind() kind}, note that
+	 * {@link kTYPE_PREDICATE_TERM kTYPE_PREDICATE_TERM} {@link Kind() kind}, note that
 	 * we call the {@link COntologyTermObject COntologyTermObject} version of this method
 	 * instead of the {@link COntologyTerm parent} one.
 	 *
@@ -73,14 +73,14 @@ class CPredicateTerm extends COntologyTerm
 	 *
 	 * @uses Kind()
 	 *
-	 * @see kTAG_TERM_PREDICATE
+	 * @see kTYPE_PREDICATE_TERM
 	 */
 	protected function _PrepareCommit( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
 		// Set namespace kind.
 		//
-		$this->Kind( kTAG_TERM_PREDICATE, TRUE );
+		$this->Kind( kTYPE_PREDICATE_TERM, TRUE );
 		
 		//
 		// Call parent method.

@@ -190,25 +190,25 @@ class CMongoContainer extends CContainer
 	 *
 	 * <ul>
 	 *	<li><i>{@link CDataTypeMongoId CDataTypeMongoId} object or
-	 *		{@link kDATA_TYPE_MongoId kDATA_TYPE_MongoId} offset</i>: We return a MongoId
+	 *		{@link kTYPE_MongoId kTYPE_MongoId} offset</i>: We return a MongoId
 	 *		object.
 	 *	<li><i>{@link CDataTypeMongoCode CDataTypeMongoCode} object or
-	 *		{@link kDATA_TYPE_MongoCode kDATA_TYPE_MongoCode} offset</i>: We return a
+	 *		{@link kTYPE_MongoCode kTYPE_MongoCode} offset</i>: We return a
 	 *		MongoCode object.
 	 *	<li><i>{@link CDataTypeStamp CDataTypeStamp} object or
-	 *		{@link kDATA_TYPE_STAMP kDATA_TYPE_STAMP} offset</i>: We return a MongoDate
+	 *		{@link kTYPE_STAMP kTYPE_STAMP} offset</i>: We return a MongoDate
 	 *		object.
 	 *	<li><i>{@link CDataTypeRegex CDataTypeRegex} object or
-	 *		{@link kDATA_TYPE_REGEX kDATA_TYPE_REGEX} offset</i>: We return a
+	 *		{@link kTYPE_REGEX kTYPE_REGEX} offset</i>: We return a
 	 *		MongoRegex object.
 	 *	<li><i>{@link CDataTypeInt32 CDataTypeInt32} object or
-	 *		{@link kDATA_TYPE_INT32 kDATA_TYPE_INT32} offset</i>: We return a MongoInt32
+	 *		{@link kTYPE_INT32 kTYPE_INT32} offset</i>: We return a MongoInt32
 	 *		object.
 	 *	<li><i>{@link CDataTypeInt64 CDataTypeInt64} object or
-	 *		{@link kDATA_TYPE_INT64 kDATA_TYPE_INT64} offset</i>: We return a MongoInt64
+	 *		{@link kTYPE_INT64 kTYPE_INT64} offset</i>: We return a MongoInt64
 	 *		object.
 	 *	<li><i>{@link CDataTypeBinary CDataTypeBinary} object or
-	 *		{@link kDATA_TYPE_BINARY kDATA_TYPE_BINARY} offset</i>: We return a MongoBinData
+	 *		{@link kTYPE_BINARY kTYPE_BINARY} offset</i>: We return a MongoBinData
 	 *		object.
 	 * </ul>
 	 *
@@ -233,14 +233,14 @@ class CMongoContainer extends CContainer
 				//
 				// MongoId.
 				//
-				case kDATA_TYPE_MongoId:
+				case kTYPE_MongoId:
 					$theElement = new MongoId( (string) $data );
 					break;
 				
 				//
 				// MongoCode.
 				//
-				case kDATA_TYPE_MongoCode:
+				case kTYPE_MongoCode:
 					if( is_array( $data )
 					 || ($data instanceof ArrayObject) )
 					{
@@ -255,13 +255,13 @@ class CMongoContainer extends CContainer
 				//
 				// MongoDate.
 				//
-				case kDATA_TYPE_STAMP:
+				case kTYPE_STAMP:
 					if( is_array( $data )
 					 || ($data instanceof ArrayObject) )
 					{
-						$tmp1 = $data[ kOBJ_TYPE_STAMP_SEC ];
-						$tmp2 = ( array_key_exists( kOBJ_TYPE_STAMP_USEC, (array) $data ) )
-							  ? $data[ kOBJ_TYPE_STAMP_USEC ]
+						$tmp1 = $data[ kTYPE_STAMP_SEC ];
+						$tmp2 = ( array_key_exists( kTYPE_STAMP_USEC, (array) $data ) )
+							  ? $data[ kTYPE_STAMP_USEC ]
 							  : 0;
 						$theElement = new MongoDate( $tmp1, $tmp2 );
 					}
@@ -270,28 +270,28 @@ class CMongoContainer extends CContainer
 				//
 				// MongoInt32.
 				//
-				case kDATA_TYPE_INT32:
+				case kTYPE_INT32:
 					$theElement = new MongoInt32( $data );
 					break;
 				
 				//
 				// MongoInt64.
 				//
-				case kDATA_TYPE_INT64:
+				case kTYPE_INT64:
 					$theElement = new MongoInt64( $data );
 					break;
 	
 				//
 				// MongoRegex.
 				//
-				case kDATA_TYPE_REGEX:
+				case kTYPE_REGEX:
 					$theElement = new MongoRegex( $data );
 					break;
 	
 				//
 				// MongoBinData.
 				//
-				case kDATA_TYPE_BINARY:
+				case kTYPE_BINARY:
 					$data = ( function_exists( 'hex2bin' ) )
 						  ? hex2bin( $data )
 						  : pack( 'H*', $data );
@@ -383,7 +383,7 @@ class CMongoContainer extends CContainer
 									  kMESSAGE_TYPE_ERROR,
 									  array( 'Status' => $status ) );			// !@! ==>
 			
-			return $theObject[ kTAG_ID ];									// ==>
+			return $theObject[ kTAG_LID ];									// ==>
 		
 		} // Replace.
 		
@@ -396,15 +396,15 @@ class CMongoContainer extends CContainer
 			// Use provided identifier.
 			//
 			if( $theIdentifier !== NULL )
-				$criteria = array( kTAG_ID => $theIdentifier );
+				$criteria = array( kTAG_LID => $theIdentifier );
 			
 			//
 			// Get identifier from object.
 			//
-			elseif( array_key_exists( kTAG_ID, (array) $theObject ) )
+			elseif( array_key_exists( kTAG_LID, (array) $theObject ) )
 			{
-				$theIdentifier = $theObject[ kTAG_ID ];
-				$criteria = array( kTAG_ID => $theIdentifier );
+				$theIdentifier = $theObject[ kTAG_LID ];
+				$criteria = array( kTAG_LID => $theIdentifier );
 			}
 			
 			//
@@ -455,7 +455,7 @@ class CMongoContainer extends CContainer
 			foreach( $theObject as $key => $value )
 			{
 				if( ($value !== NULL)
-				 && ($key != kTAG_ID) )
+				 && ($key != kTAG_LID) )
 					$tmp[ $key ] = $value;
 			}
 			
@@ -488,7 +488,7 @@ class CMongoContainer extends CContainer
 			// Set identifier.
 			//
 			if( $theIdentifier !== NULL )
-				$theObject[ kTAG_ID ] = $theIdentifier;
+				$theObject[ kTAG_LID ] = $theIdentifier;
 			
 			//
 			// Save array.
@@ -509,7 +509,7 @@ class CMongoContainer extends CContainer
 			else
 				$status = $container->insert( $theObject, $options );
 			
-			return $theObject[ kTAG_ID ];									// ==>
+			return $theObject[ kTAG_LID ];									// ==>
 		
 		} // Insert.
 		
@@ -528,11 +528,11 @@ class CMongoContainer extends CContainer
 			// Determine criteria.
 			//
 			if( $theIdentifier !== NULL )
-				$criteria = array( kTAG_ID => $theIdentifier );
-			elseif( array_key_exists( kTAG_ID, (array) $theObject ) )
+				$criteria = array( kTAG_LID => $theIdentifier );
+			elseif( array_key_exists( kTAG_LID, (array) $theObject ) )
 			{
-				$theIdentifier = $theObject[ kTAG_ID ];
-				$criteria = array( kTAG_ID => $theIdentifier );
+				$theIdentifier = $theObject[ kTAG_LID ];
+				$criteria = array( kTAG_LID => $theIdentifier );
 			}
 			else
 				throw new CException
@@ -593,7 +593,7 @@ class CMongoContainer extends CContainer
 		//
 		// Set criteria.
 		//
-		$criteria = array( kTAG_ID => $theIdentifier );
+		$criteria = array( kTAG_LID => $theIdentifier );
 		
 		return $this->Container()->findOne( $criteria );							// ==>
 	
@@ -633,7 +633,7 @@ class CMongoContainer extends CContainer
 			//
 			// Set criteria.
 			//
-			$criteria = array( kTAG_ID => $theIdentifier );
+			$criteria = array( kTAG_LID => $theIdentifier );
 			
 			//
 			// Set options.
@@ -670,8 +670,8 @@ class CMongoContainer extends CContainer
 	 *
 	 * We {@link CContaoiner::_PrepareCommit() overload} this method to handle the
 	 * identifier: if provided, it means that that is to become the object's unique
-	 * {@link kTAG_ID identifier}; if not provided and the object has an
-	 * {@link kTAG_ID identifier}, we use that one.
+	 * {@link kTAG_LID identifier}; if not provided and the object has an
+	 * {@link kTAG_LID identifier}, we use that one.
 	 *
 	 * We also raise an exception if the provided object is not either an array or an
 	 * ArrayObject.
@@ -711,13 +711,13 @@ class CMongoContainer extends CContainer
 		// Set identifier.
 		//
 		if( $theIdentifier !== NULL )
-			$theObject[ kTAG_ID ] = $theIdentifier;
+			$theObject[ kTAG_LID ] = $theIdentifier;
 			
 		//
 		// Get identifier.
 		//
-		elseif( array_key_exists( kTAG_ID, (array) $theObject ) )
-			$theIdentifier = $theObject[ kTAG_ID ];
+		elseif( array_key_exists( kTAG_LID, (array) $theObject ) )
+			$theIdentifier = $theObject[ kTAG_LID ];
 	
 	} // _PrepareCommit.
 

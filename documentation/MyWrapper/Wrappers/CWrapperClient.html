@@ -111,7 +111,7 @@
 					<img src="../../media/images/StaticMethod.png" alt=" "/>
 											static <span class="method-result">mixed</span>
 										<a href="#Request" title="details" class="method-name">Request</a>
-											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theUrl</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theParams</span> = <span class="var-default">NULL</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$theMode</span> = <span class="var-default">'POST'</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$theFormat</span> = <span class="var-default">kDATA_TYPE_JSON</span>])
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theUrl</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theParams</span> = <span class="var-default">NULL</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$theMode</span> = <span class="var-default">'POST'</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$theFormat</span> = <span class="var-default">kTYPE_JSON</span>])
 									</div>
 																																				<div class="method-definition">
 					<img src="../../media/images/Constructor.png" alt=" "/>
@@ -231,7 +231,7 @@
 <p class="short-description">Send a HTTP request.</p>
 <p class="description"><p>This method can be used to sent an <em>HTTP</em> request via <em>GET</em> or <em>POST</em>.</p><p>The method accepts the following parameters:</p><p><ul><li><strong>$theUrl</strong>: The request URL.</li><li><strong>$theParams</strong>: An array of key/value parameters for the request.</li><li><strong>$theMode</strong>: The request mode:
 	 <ul><li><em>GET</em>: GET, default.</li><li><em>POST</em>: POST.</li></ul></li><li><strong>$theFormat</strong>: The request format:
-	 <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_XML">kDATA_TYPE_XML</a></em>: XML.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_PHP">kDATA_TYPE_PHP</a></em>: PHP.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_JSON">kDATA_TYPE_JSON</a></em>: JSON.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_META">kDATA_TYPE_META</a></em>: Metadata: if you provide
+	 <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_XML">kTYPE_XML</a></em>: XML.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_PHP">kTYPE_PHP</a></em>: PHP.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_JSON">kTYPE_JSON</a></em>: JSON.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_META">kTYPE_META</a></em>: Metadata: if you provide
             this format, the method will return the metadata of the operation for
             troubleshooting purposes.</li></ul></li></ul></p></p>
 	<ul class="tags">
@@ -243,7 +243,7 @@
 		<span class="method-name">
 			Request
 		</span>
-					(<span class="var-type">string</span>&nbsp;<span class="var-name">$theUrl</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theParams</span> = <span class="var-default">NULL</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$theMode</span> = <span class="var-default">'POST'</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$theFormat</span> = <span class="var-default">kDATA_TYPE_JSON</span>])
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$theUrl</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theParams</span> = <span class="var-default">NULL</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$theMode</span> = <span class="var-default">'POST'</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$theFormat</span> = <span class="var-default">kTYPE_JSON</span>])
 			</div>
 	
 			<ul class="parameters">
@@ -337,10 +337,10 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage format.</p>
-<p class="description"><p>This method can be used to manage the <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">format</a> in which both the  parameters are sent and the response is returned from the web-service. It accepts a  parameter which represents either the web-service format code or this method  operation, depending on its value:</p><p><ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the current value.</li><li><em>other</em>: Set the value with the provided parameter.</li></ul></p><p>The second parameter is a boolean which if <em>TRUE</em> will return the <em>old</em>  value when replacing values; if <em>FALSE</em>, it will return the currently set value.</p><p>This method will check whether the provided format is supported, if this is not  the case, it will raise an exception. Derived classes should first check their  specific operations, if not matched, they should pass the parameter to the parent  method. In this class we support the following operations:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_PHP">kDATA_TYPE_PHP</a></em>: Parameters and response will be
-        serialized.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_XML">kDATA_TYPE_XML</a></em>: Parameters and response will be
-        encoded in XML.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_JSON">kDATA_TYPE_JSON</a></em>: Parameters and response will be
-        encoded in JSON.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekDATA_TYPE_META">kDATA_TYPE_META</a></em>: This data type can be used to
+<p class="description"><p>This method can be used to manage the <a href="../../MyWrapper/Wrappers/_classes---CWrapper.inc.php.html#definekAPI_FORMAT">format</a> in which both the  parameters are sent and the response is returned from the web-service. It accepts a  parameter which represents either the web-service format code or this method  operation, depending on its value:</p><p><ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the current value.</li><li><em>other</em>: Set the value with the provided parameter.</li></ul></p><p>The second parameter is a boolean which if <em>TRUE</em> will return the <em>old</em>  value when replacing values; if <em>FALSE</em>, it will return the currently set value.</p><p>This method will check whether the provided format is supported, if this is not  the case, it will raise an exception. Derived classes should first check their  specific operations, if not matched, they should pass the parameter to the parent  method. In this class we support the following operations:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_PHP">kTYPE_PHP</a></em>: Parameters and response will be
+        serialized.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_XML">kTYPE_XML</a></em>: Parameters and response will be
+        encoded in XML.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_JSON">kTYPE_JSON</a></em>: Parameters and response will be
+        encoded in JSON.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_META">kTYPE_META</a></em>: This data type can be used to
         return service metadata, the <a href="../../MyWrapper/Wrappers/CWrapperClient.html#methodExecute">request</a> will return headers
         metadata for troubleshooting, rather than the response from the web-service.</li></ul></p></p>
 	<ul class="tags">
@@ -770,7 +770,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Tue, 17 Apr 2012 12:40:06 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Wed, 18 Apr 2012 20:05:19 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

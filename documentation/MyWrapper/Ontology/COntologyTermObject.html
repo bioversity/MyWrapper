@@ -29,9 +29,9 @@
 	<div class="info-box-body">
         		<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Ontology term ancestor.</p>
-<p class="description"><p>This class defines a <a href="../../MyWrapper/Ontology/CTerm.html">term</a> that resides in an ontology, it overloads ita  <a href="../../MyWrapper/Ontology/CTerm.html">parent</a> to hash the <a href="../../MyWrapper/Ontology/COntologyTermObject.html#method_id">identifier</a> into a  <a href="../../MyWrapper/Framework/CDataTypeBinary.html">binary</a> string and enforce the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsEncoded">encoded</a>  <a href="../../MyWrapper/Framework/CStatusObject.html#methodStatus">status</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">flag</a>.</p><p>The class also adds the following properties:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_SYNONYM">kOFFSET_SYNONYM</a></em>: This <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodSynonym">property</a> can
-        be used to store synonyms as strings.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_XREF">kOFFSET_XREF</a></em>: This <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodXref">property</a> can be used
-        to store cross references to other terms in the ontology.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_SOURCE">kTAG_SOURCE</a></em>: This <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodSource">property</a> can be used
+<p class="description"><p>This class defines a <a href="../../MyWrapper/Ontology/CTerm.html">term</a> that resides in an ontology, it overloads ita  <a href="../../MyWrapper/Ontology/CTerm.html">parent</a> to hash the <a href="../../MyWrapper/Ontology/COntologyTermObject.html#method_id">identifier</a> into a  <a href="../../MyWrapper/Framework/CDataTypeBinary.html">binary</a> string and enforce the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsEncoded">encoded</a>  <a href="../../MyWrapper/Framework/CStatusObject.html#methodStatus">status</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">flag</a>.</p><p>The class also adds the following properties:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_REFERENCE_SYNONYM">kTAG_REFERENCE_SYNONYM</a></em>: This
+        <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodSynonym">property</a> can be used to store synonyms as strings.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_REFERENCE_XREF">kTAG_REFERENCE_XREF</a></em>: This <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodXref">property</a>
+        can be used to store cross references to other terms in the ontology.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_SOURCE">kTAG_SOURCE</a></em>: This <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodSource">property</a> can be used
         to provide the source of the term.</li></ul></p><p>We declare this class abstract to force the creation of specific ontology term types.</p></p>
 	<ul class="tags">
 				<li><span class="field">abstract:</span> </li>
@@ -491,12 +491,12 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage synonyms.</p>
-<p class="description"><p>This method can be used to manage the term <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_SYNONYM">synonyms</a> list,  these elements are strings that can be considered synonyms of the current term, the  method expects the following parameters:</p><p><ul><li><strong>$theValue</strong>: The value or operation:
+<p class="description"><p>This method can be used to manage the term <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_REFERENCE_SYNONYM">synonyms</a>  list, these elements are strings that can be considered synonyms of the current term,  the method expects the following parameters:</p><p><ul><li><strong>$theValue</strong>: The value or operation:
      <ul><li><em>NULL</em>: Return the current value selected by the second parameter.</li><li><em>FALSE</em>: Delete the value selected by the second parameter.</li><li><em>other</em>: Set value selected by the second parameter.</li></ul></li><li><strong>$theType</strong>: The synonym type:
      <ul><li><em>NULL</em>: This value indicates that the synonym has no type or kind, in
             general, when adding elements, this case applies to default elements.</li><li><em>other</em>: All other types will be interpreted as the synonym type:
-         <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_REFERENCE_EXACT">kTAG_REFERENCE_EXACT</a></em>: Exact synonym.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_REFERENCE_BROAD">kTAG_REFERENCE_BROAD</a></em>: Broad synonym.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_REFERENCE_NARROW">kTAG_REFERENCE_NARROW</a></em>: Narrow
-                synonym.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_REFERENCE_RELATED">kTAG_REFERENCE_RELATED</a></em>: Related
+         <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_EXACT">kTYPE_EXACT</a></em>: Exact synonym.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_BROAD">kTYPE_BROAD</a></em>: Broad synonym.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_NARROW">kTYPE_NARROW</a></em>: Narrow
+                synonym.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_RELATED">kTYPE_RELATED</a></em>: Related
                 synonym.</li></ul></li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
      <ul><li><em>TRUE</em>: Return the value <em>before</em> it was eventually modified.</li><li><em>FALSE</em>: Return the value <em>after</em> it was eventually modified.</li></ul></li></ul></p></p>
 	<ul class="tags">
@@ -577,15 +577,15 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage cross-references.</p>
-<p class="description"><p>This method can be used to manage the term <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_XREF">cross-references</a>  list, these elements are references to other terms that can be considered synonyms of  the current term, the reference should be the term's <a href="../../MyWrapper/Ontology/COntologyTermObject.html#method_id">identifier</a>. The  method expects the following parameters:</p><p><ul><li><strong>$theValue</strong>: The value or operation:
+<p class="description"><p>This method can be used to manage the term  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_REFERENCE_XREF">cross-references</a> list, these elements are references to  other terms that can be considered synonyms of the current term, the reference should  be the term's <a href="../../MyWrapper/Ontology/COntologyTermObject.html#method_id">identifier</a>. The method expects the following parameters:</p><p><ul><li><strong>$theValue</strong>: The value or operation:
      <ul><li><em>NULL</em>: Return the current value selected by the second parameter.</li><li><em>FALSE</em>: Delete the value selected by the second parameter.</li><li><em>other</em>: Set value selected by the second parameter.</li></ul></li><li><strong>$theType</strong>: The cross-reference type:
      <ul><li><em>NULL</em>: This value indicates that the reference has no type or kind, in
             general, when adding elements, this case applies to default elements.</li><li><em>other</em>: All other types will be interpreted as the cross-reference
             type:
-         <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_REFERENCE_EXACT">kTAG_REFERENCE_EXACT</a></em>: Exact
-                reference.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_REFERENCE_BROAD">kTAG_REFERENCE_BROAD</a></em>: Broad
-                reference.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_REFERENCE_NARROW">kTAG_REFERENCE_NARROW</a></em>: Narrow
-                reference.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_REFERENCE_RELATED">kTAG_REFERENCE_RELATED</a></em>: Related
+         <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_EXACT">kTYPE_EXACT</a></em>: Exact
+                reference.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_BROAD">kTYPE_BROAD</a></em>: Broad
+                reference.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_NARROW">kTYPE_NARROW</a></em>: Narrow
+                reference.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_RELATED">kTYPE_RELATED</a></em>: Related
                 reference.</li></ul></li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
      <ul><li><em>TRUE</em>: Return the value <em>before</em> it was eventually modified.</li><li><em>FALSE</em>: Return the value <em>after</em> it was eventually modified.</li></ul></li></ul></p></p>
 	<ul class="tags">
@@ -1033,7 +1033,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Tue, 17 Apr 2012 12:40:02 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Wed, 18 Apr 2012 20:05:15 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

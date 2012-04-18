@@ -267,13 +267,13 @@ class CWrapperClient extends CStatusObject
 	 * method. In this class we support the following operations:
 	 *
 	 * <ul>
-	 *	<li><i>{@link kDATA_TYPE_PHP kDATA_TYPE_PHP}</i>: Parameters and response will be
+	 *	<li><i>{@link kTYPE_PHP kTYPE_PHP}</i>: Parameters and response will be
 	 *		serialized.
-	 *	<li><i>{@link kDATA_TYPE_XML kDATA_TYPE_XML}</i>: Parameters and response will be
+	 *	<li><i>{@link kTYPE_XML kTYPE_XML}</i>: Parameters and response will be
 	 *		encoded in XML.
-	 *	<li><i>{@link kDATA_TYPE_JSON kDATA_TYPE_JSON}</i>: Parameters and response will be
+	 *	<li><i>{@link kTYPE_JSON kTYPE_JSON}</i>: Parameters and response will be
 	 *		encoded in JSON.
-	 *	<li><i>{@link kDATA_TYPE_META kDATA_TYPE_META}</i>: This data type can be used to
+	 *	<li><i>{@link kTYPE_META kTYPE_META}</i>: This data type can be used to
 	 *		return service metadata, the {@link Execute() request} will return headers
 	 *		metadata for troubleshooting, rather than the response from the web-service.
 	 * </ul>
@@ -301,12 +301,12 @@ class CWrapperClient extends CStatusObject
 		{
 			switch( $theValue )
 			{
-				case kDATA_TYPE_PHP:
-				case kDATA_TYPE_JSON:
-				case kDATA_TYPE_META:
+				case kTYPE_PHP:
+				case kTYPE_JSON:
+				case kTYPE_META:
 					break;
 				
-				case kDATA_TYPE_XML:
+				case kTYPE_XML:
 				default:
 					throw new CException( "Unsupported format",
 										  kERROR_UNSUPPORTED,
@@ -573,11 +573,11 @@ class CWrapperClient extends CStatusObject
 			{
 				switch( $this->Format() )
 				{
-					case kDATA_TYPE_PHP:
+					case kTYPE_PHP:
 						$params[ $key ] = serialize( $value );
 						break;
 
-					case kDATA_TYPE_JSON:
+					case kTYPE_JSON:
 						$params[ $key ] = CObject::JsonEncode( $value );
 						break;
 					
@@ -623,10 +623,10 @@ class CWrapperClient extends CStatusObject
 	 *	 </ul>
 	 *	<li><b>$theFormat</b>: The request format:
 	 *	 <ul>
-	 *		<li><i>{@link kDATA_TYPE_XML kDATA_TYPE_XML}</i>: XML.
-	 *		<li><i>{@link kDATA_TYPE_PHP kDATA_TYPE_PHP}</i>: PHP.
-	 *		<li><i>{@link kDATA_TYPE_JSON kDATA_TYPE_JSON}</i>: JSON.
-	 *		<li><i>{@link kDATA_TYPE_META kDATA_TYPE_META}</i>: Metadata: if you provide
+	 *		<li><i>{@link kTYPE_XML kTYPE_XML}</i>: XML.
+	 *		<li><i>{@link kTYPE_PHP kTYPE_PHP}</i>: PHP.
+	 *		<li><i>{@link kTYPE_JSON kTYPE_JSON}</i>: JSON.
+	 *		<li><i>{@link kTYPE_META kTYPE_META}</i>: Metadata: if you provide
 	 *			this format, the method will return the metadata of the operation for
 	 *			troubleshooting purposes.
 	 *	 </ul>
@@ -644,7 +644,7 @@ class CWrapperClient extends CStatusObject
 	 */
 	static function Request( $theUrl, $theParams = NULL,
 									  $theMode = 'POST',
-									  $theFormat = kDATA_TYPE_JSON )
+									  $theFormat = kTYPE_JSON )
 	{
 		//
 		// Check mode.
@@ -710,7 +710,7 @@ class CWrapperClient extends CStatusObject
 		// by displating the metadata you can see the HTTP response header
 		// across all redirects.
 		//
-		if( $theFormat == kDATA_TYPE_META )
+		if( $theFormat == kTYPE_META )
 		{
 			$meta = stream_get_meta_data( $fp );
 			fclose( $fp );
@@ -732,10 +732,10 @@ class CWrapperClient extends CStatusObject
 		//
 		switch( $theFormat )
 		{
-			case kDATA_TYPE_JSON:
+			case kTYPE_JSON:
 				return CObject::JsonDecode( $result );								// ==>
 	
-			case kDATA_TYPE_XML:
+			case kTYPE_XML:
 				$response = simplexml_load_string( $result );
 				if( $response !== NULL )
 					return $response;												// ==>
@@ -744,7 +744,7 @@ class CWrapperClient extends CStatusObject
 									  kMESSAGE_TYPE_ERROR,
 									  array( 'Response' => $result ) );			// !@! ==>
 			
-			case kDATA_TYPE_PHP:
+			case kTYPE_PHP:
 				return unserialize( $result );										// ==>
 		}
 		

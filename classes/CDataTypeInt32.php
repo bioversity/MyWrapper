@@ -33,7 +33,7 @@ require_once( kPATH_LIBRARY_SOURCE."CDataType.php" );
  *
  * <ul>
  *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: The constant
- *		{@link kDATA_TYPE_INT32 kDATA_TYPE_INT32}.
+ *		{@link kTYPE_INT32 kTYPE_INT32}.
  *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: An integer representing the integer :-)
  * </ul>
  *
@@ -59,7 +59,7 @@ class CDataTypeInt32 extends CDataType
 	/**
 	 * Instantiate class.
 	 *
-	 * In this class we store {@link kDATA_TYPE_INT32 kDATA_TYPE_INT32} in the
+	 * In this class we store {@link kTYPE_INT32 kTYPE_INT32} in the
 	 * {@link kTAG_TYPE kTAG_TYPE} offset and the integer in the
 	 * {@link kTAG_DATA kTAG_DATA} offset.
 	 *
@@ -84,7 +84,7 @@ class CDataTypeInt32 extends CDataType
 		//
 		if( is_numeric( $data = (string) $theData ) )
 		{
-			$this->offsetSet( kTAG_TYPE, kDATA_TYPE_INT32 );
+			$this->offsetSet( kTAG_TYPE, kTYPE_INT32 );
 			$this->offsetSet( kTAG_DATA, (integer) $data );
 		
 		} // Valid data.

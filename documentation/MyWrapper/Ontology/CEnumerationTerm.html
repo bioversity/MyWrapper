@@ -28,9 +28,9 @@
 	<div class="info-box-body">
         		<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Enumeration term.</p>
-<p class="description"><p>This <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM_ENUM">kind</a> of <a href="../../MyWrapper/Ontology/COntologyTerm.html">term</a> represents a term that  maps an enumeration element. Enumerations represent key/value pais that are used as a  controlled vocabulary.</p><p>This class adds the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ENUM">kTAG_ENUM</a> <a href="../../MyWrapper/Ontology/CEnumerationTerm.html#methodEnumeration">property</a> which  holds the enumeration codes or symbols list.</p><p>In this class we enforce the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM_ENUM">kTAG_TERM_ENUM</a> <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodKind">kind</a>  and we add the <a href="../../MyWrapper/Ontology/CEnumerationTerm.html#methodEnumeration">enumeration</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ENUM">offset</a> to the required  elements for making the object's <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>  <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">initialised</a>.</p></p>
+<p class="description"><p>This <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ENUM_TERM">kind</a> of <a href="../../MyWrapper/Ontology/COntologyTerm.html">term</a> represents a term that  maps an enumeration element. Enumerations represent key/value pais that are used as a  controlled vocabulary.</p><p>This class adds the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ENUM">kTAG_ENUM</a> <a href="../../MyWrapper/Ontology/CEnumerationTerm.html#methodEnumeration">property</a> which  holds the list of enumeration codes or symbols list. Objects of this class should store  the main enumeration in the <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a> property and all enumerated synonyms in  the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ENUM">enumeration</a> <a href="../../MyWrapper/Ontology/CEnumerationTerm.html#methodEnumeration">property</a>; for this reason the  class will automatically add the <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a> to the  <a href="../../MyWrapper/Ontology/CEnumerationTerm.html#methodEnumeration">enumerations</a>.</p><p>In this class we enforce the <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ENUM_TERM">kTYPE_ENUM_TERM</a> <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodKind">kind</a>  and we add the <a href="../../MyWrapper/Ontology/CEnumerationTerm.html#methodEnumeration">enumeration</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ENUM">offset</a> to the required  elements for making the object's <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>  <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">initialised</a>.</p></p>
 		<p class="notes">
-			Located in <a class="field" href="_classes---CEnumerationTerm.php.html">/classes/CEnumerationTerm.php</a> (line <span class="field">47</span>)
+			Located in <a class="field" href="_classes---CEnumerationTerm.php.html">/classes/CEnumerationTerm.php</a> (line <span class="field">51</span>)
 		</p>
 		
 				
@@ -155,14 +155,14 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Constructor.png" />
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">80</span>)
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">84</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Instantiate class.</p>
 <p class="description"><p>We <a href="../../MyWrapper/Ontology/COntologyTermObject.html#method__construct">overload</a> the constructor to initialise  the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">inited</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">flag</a> if the  <a href="../../MyWrapper/Ontology/CEnumerationTerm.html#methodEnumeration">enumeration</a> attribute is set.</p></p>
 	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM_ENUM">kTAG_TERM_ENUM</a></li>
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ENUM_TERM">kTYPE_ENUM_TERM</a></li>
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></li>
 			</ul>
@@ -200,14 +200,14 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Enumeration</span> (line <span class="line-number">136</span>)
+		<span class="method-title">Enumeration</span> (line <span class="line-number">140</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage enumerations.</p>
-<p class="description"><p>This method can be used to handle the object's <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM_ENUM">enumerations</a>,  it uses the standard accessor <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">method</a> to manage the list  of enumerations.</p><p>Each element of this list should indicate a code or acronym defining the current  object</p><p>For a more thorough reference of how this method works, please consult the  <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">_ManageArrayOffset</a> method, in which the first parameter  will be the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM_ENUM">kTAG_TERM_ENUM</a>.</p></p>
+<p class="description"><p>This method can be used to handle the object's <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ENUM_TERM">enumerations</a>,  it uses the standard accessor <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">method</a> to manage the list  of enumerations.</p><p>Each element of this list should indicate a code or acronym defining the current  object</p><p>For a more thorough reference of how this method works, please consult the  <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">_ManageArrayOffset</a> method, in which the first parameter  will be the constant <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ENUM_TERM">kTYPE_ENUM_TERM</a>.</p></p>
 	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM_ENUM">kTAG_TERM_ENUM</a></li>
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ENUM_TERM">kTYPE_ENUM_TERM</a></li>
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></li>
 			</ul>
@@ -239,12 +239,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetSet</span> (line <span class="line-number">169</span>)
+		<span class="method-title">offsetSet</span> (line <span class="line-number">173</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Set a value for a given offset.</p>
-<p class="description"><p>We overload this method to manage the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">inited</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>: this is set if <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM_ENUM">enumeration</a>  property is set.</p></p>
+<p class="description"><p>We overload this method to manage the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">inited</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>: this is set if <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ENUM_TERM">enumeration</a>  property is set.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 			</ul>
@@ -279,12 +279,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetUnset</span> (line <span class="line-number">201</span>)
+		<span class="method-title">offsetUnset</span> (line <span class="line-number">205</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Reset a value for a given offset.</p>
-<p class="description"><p>We overload this method to manage the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">inited</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>: this is set if <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM_ENUM">enumeration</a>  property is set.</p></p>
+<p class="description"><p>We overload this method to manage the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">inited</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>: this is set if <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ENUM_TERM">enumeration</a>  property is set.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 			</ul>
@@ -316,14 +316,14 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">250</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">254</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Normalise before a store.</p>
-<p class="description"><p>We overload this method to enforce the  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM_ENUM">kTAG_TERM_ENUM</a> <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodKind">kind</a>, note that we call the  <a href="../../MyWrapper/Ontology/COntologyTermObject.html">COntologyTermObject</a> version of this method instead of the  <a href="../../MyWrapper/Ontology/COntologyTerm.html">parent</a> one.</p></p>
+<p class="description"><p>We overload this method to enforce the  <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ENUM_TERM">kTYPE_ENUM_TERM</a> <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodKind">kind</a>, note that we call the  <a href="../../MyWrapper/Ontology/COntologyTermObject.html">COntologyTermObject</a> version of this method instead of the  <a href="../../MyWrapper/Ontology/COntologyTerm.html">parent</a> one.</p></p>
 	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM_ENUM">kTAG_TERM_ENUM</a></li>
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ENUM_TERM">kTYPE_ENUM_TERM</a></li>
 				<li><span class="field">throws:</span> <a href="../../MyWrapper/Framework/CException.html">CException</a></li>
 				<li><span class="field">access:</span> protected</li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodKind">CCodedUnitObject::Kind()</a></li>
@@ -621,7 +621,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Tue, 17 Apr 2012 12:39:57 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Wed, 18 Apr 2012 20:05:09 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

@@ -88,7 +88,7 @@ function rest_helper( $theUrl, $theParams = NULL, $theMode = 'GET', $theFormat =
 //
 // Build parameters.
 //
-$params = array( kAPI_FORMAT => kDATA_TYPE_JSON, kAPI_OPERATION => kAPI_OP_HELP );
+$params = array( kAPI_FORMAT => kTYPE_JSON, kAPI_OPERATION => kAPI_OP_HELP );
 
 //
 // My test.

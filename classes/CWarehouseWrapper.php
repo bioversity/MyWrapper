@@ -392,7 +392,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		// Set message.
 		//
 		$this->_OffsetManage( kAPI_DATA_STATUS, kTAG_DESCRIPTION,
-							  array( kTAG_TYPE => kDATA_TYPE_STRING,
+							  array( kTAG_TYPE => kTYPE_STRING,
 									 kTAG_LANGUAGE => 'en',
 									 kTAG_DATA => 'Object not found.' ) );
 	
