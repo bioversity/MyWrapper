@@ -78,6 +78,18 @@
 				</tr>
 								<tr>
 					<td style="padding-right: 2em; white-space: nowrap">
+						<img src="../../media/images/Class.png"
+								 alt=" class"
+								 title=" class"
+								 style="vertical-align: center"/>
+						<a href="../../MyWrapper/Persistence/CGraphNode.html">CGraphNode</a>
+					</td>
+					<td>
+											Graph node.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; white-space: nowrap">
 						<img src="../../media/images/AbstractClass.png"
 								 alt="Abstract class"
 								 title="Abstract class"
@@ -109,7 +121,7 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																																																																																																																								<div class="method-definition">
+																																																																																																																																<div class="method-definition">
 					<img src="../../media/images/Constructor.png" alt=" "/>
 											<span class="method-result">CPersistentObject</span>
 										<a href="#__construct" title="details" class="method-name">__construct</a>
@@ -143,6 +155,12 @@
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">void</span>
 										<a href="#_FinishCommit" title="details" class="method-name">_FinishCommit</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_FinishCreate" title="details" class="method-name">_FinishCreate</a>
 											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
 									</div>
 																<div class="method-definition">
@@ -234,11 +252,11 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Constructor.png" />
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">212</span>)
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">213</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -299,6 +317,7 @@
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_PrepareLoad">CPersistentObject::_PrepareLoad()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_Load">CPersistentObject::_Load()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsCommitted">CPersistentObject::_IsCommitted()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_FinishCreate">CPersistentObject::_FinishCreate()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_FinishLoad">CPersistentObject::_FinishLoad()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_Create">CPersistentObject::_Create()</a></li>
 			</ul>
@@ -327,6 +346,10 @@
 			<hr class="separator" />
 		<div class="notes">Redefined in descendants as:</div>
 		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Persistence/CGraphNode.html#method__construct">CGraphNode::__construct()</a>
+								: Instantiate class.
+							</li>
 					<li>
 				<a href="../../MyWrapper/Framework/CCodedUnitObject.html#method__construct">CCodedUnitObject::__construct()</a>
 								: Instantiate class.
@@ -358,11 +381,11 @@
 				</ul>
 	</div>
 <a name="methodCommit" id="Commit"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Commit</span> (line <span class="line-number">368</span>)
+		<span class="method-title">Commit</span> (line <span class="line-number">379</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -446,11 +469,11 @@
 			
 	</div>
 <a name="methodUncommit" id="Uncommit"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Uncommit</span> (line <span class="line-number">435</span>)
+		<span class="method-title">Uncommit</span> (line <span class="line-number">446</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -473,11 +496,11 @@
 			
 	</div>
 <a name="method_Commit" id="_Commit"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Commit</span> (line <span class="line-number">665</span>)
+		<span class="method-title">_Commit</span> (line <span class="line-number">676</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -510,13 +533,21 @@
 				</ul>
 		
 			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Persistence/CGraphNode.html#method_Commit">CGraphNode::_Commit()</a>
+								: Store object in container.
+							</li>
+				</ul>
 	</div>
 <a name="method_Create" id="_Create"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Create</span> (line <span class="line-number">594</span>)
+		<span class="method-title">_Create</span> (line <span class="line-number">605</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -547,13 +578,21 @@
 				</ul>
 		
 			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Persistence/CGraphNode.html#method_Create">CGraphNode::_Create()</a>
+								: Create object.
+							</li>
+				</ul>
 	</div>
 <a name="method_FinishCommit" id="_FinishCommit"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishCommit</span> (line <span class="line-number">931</span>)
+		<span class="method-title">_FinishCommit</span> (line <span class="line-number">965</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -586,12 +625,58 @@
 		
 			
 	</div>
+<a name="method_FinishCreate" id="_FinishCreate"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_FinishCreate</span> (line <span class="line-number">912</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Normalise after a _Create().</p>
+<p class="description"><p>This method will be called after the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_Create">create</a> operation, its duty is  to initialise an empty object. Both the container and the identifier parameters are  passed by reference.</p><p>This method will be called if the identifier was not provided to the  <a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">constructor</a>, or if the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">constructor</a> was  unable to <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_Load">find</a> the requested object.</p><p>In this class we do nothing.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">CPersistentObject::__construct()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_FinishCreate
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theContainer</span><span class="var-description">: Object container.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theModifiers</span><span class="var-description">: Create modifiers.</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Persistence/CGraphNode.html#method_FinishCreate">CGraphNode::_FinishCreate()</a>
+								: Normalise after a _Create().
+							</li>
+				</ul>
+	</div>
 <a name="method_FinishLoad" id="_FinishLoad"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishLoad</span> (line <span class="line-number">908</span>)
+		<span class="method-title">_FinishLoad</span> (line <span class="line-number">934</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -629,7 +714,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_IsCommitted</span> (line <span class="line-number">482</span>)
+		<span class="method-title">_IsCommitted</span> (line <span class="line-number">493</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -672,7 +757,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_IsEncoded</span> (line <span class="line-number">538</span>)
+		<span class="method-title">_IsEncoded</span> (line <span class="line-number">549</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -682,8 +767,9 @@
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a></li>
 				<li><span class="field">access:</span> protected</li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTermObject.html#method_CheckReference">COntologyTermObject::_CheckReference()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTermObject.html#method_PrepareCreate">COntologyTermObject::_PrepareCreate()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTermObject.html#method_CheckReference">COntologyTermObject::_CheckReference()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CGraphNode.html#method_PrepareCreate">CGraphNode::_PrepareCreate()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_PrepareCreate">CPersistentObject::_PrepareCreate()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CStatusObject.html#method_ManageBitField">CStatusObject::_ManageBitField()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_PrepareLoad">CPersistentObject::_PrepareLoad()</a></li>
@@ -710,7 +796,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Load</span> (line <span class="line-number">695</span>)
+		<span class="method-title">_Load</span> (line <span class="line-number">706</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -742,13 +828,21 @@
 				</ul>
 		
 			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Persistence/CGraphNode.html#method_Load">CGraphNode::_Load()</a>
+								: Find object.
+							</li>
+				</ul>
 	</div>
 <a name="method_PrepareCommit" id="_PrepareCommit"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">855</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">856</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -786,6 +880,10 @@
 			<hr class="separator" />
 		<div class="notes">Redefined in descendants as:</div>
 		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Persistence/CGraphNode.html#method_PrepareCommit">CGraphNode::_PrepareCommit()</a>
+								: Normalise before a store.
+							</li>
 					<li>
 				<a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_PrepareCommit">CPersistentUnitObject::_PrepareCommit()</a>
 								: Normalise before a store.
@@ -845,7 +943,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCreate</span> (line <span class="line-number">737</span>)
+		<span class="method-title">_PrepareCreate</span> (line <span class="line-number">748</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -882,6 +980,10 @@
 		<div class="notes">Redefined in descendants as:</div>
 		<ul class="redefinitions">
 					<li>
+				<a href="../../MyWrapper/Persistence/CGraphNode.html#method_PrepareCreate">CGraphNode::_PrepareCreate()</a>
+								: Normalise parameters of a create.
+							</li>
+					<li>
 				<a href="../../MyWrapper/Ontology/COntologyTermObject.html#method_PrepareCreate">COntologyTermObject::_PrepareCreate()</a>
 								: Normalise parameters of a create.
 							</li>
@@ -892,7 +994,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">783</span>)
+		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">794</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -930,6 +1032,10 @@
 			<hr class="separator" />
 		<div class="notes">Redefined in descendants as:</div>
 		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Persistence/CGraphNode.html#method_PrepareLoad">CGraphNode::_PrepareLoad()</a>
+								: Normalise parameters of a find.
+							</li>
 					<li>
 				<a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_PrepareLoad">CPersistentUnitObject::_PrepareLoad()</a>
 								: Normalise parameters of a find.
@@ -1059,7 +1165,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Thu, 19 Apr 2012 12:13:46 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 19 Apr 2012 20:16:01 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>
