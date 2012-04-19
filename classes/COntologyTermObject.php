@@ -171,6 +171,26 @@ abstract class COntologyTermObject extends CTerm
 
 	 
 	/*===================================================================================
+	 *	GID																				*
+	 *==================================================================================*/
+
+	/**
+	 * Manage term global identifier.
+	 *
+	 * The term global {@link kTAG_GID identifier} represents the un-hashed version of the
+	 * term local {@link kTAG_LID identifier}.
+	 *
+	 * This value is set automatically by methods, so this method is read-only.
+	 *
+	 * @access public
+	 * @return string
+	 *
+	 * @see kTAG_GID
+	 */
+	public function GID()									{	return $this[ kTAG_GID ];	}
+
+	 
+	/*===================================================================================
 	 *	Synonym																			*
 	 *==================================================================================*/
 
@@ -537,6 +557,31 @@ abstract class COntologyTermObject extends CTerm
 		
 	} // ValidObject.
 
+	 
+	/*===================================================================================
+	 *	HashIndex																		*
+	 *==================================================================================*/
+
+	/**
+	 * Hash index.
+	 *
+	 * This method can be used to format an identifier provided as a string, it will be
+	 * used by the {@link _id() _id} method to format the result of the
+	 * {@link _index() _index} method. One can consider this as the index hashing method for
+	 * all derived classes.
+	 *
+	 * @param string				$theValue			Value to hash.
+	 *
+	 * @static
+	 * @return string
+	 */
+	static function HashIndex( $theValue )
+	{
+		return new CDataTypeBinary( md5( $theValue, TRUE ) );						// ==>
+//		return $theValue;															// ==>
+	
+	} // HashIndex.
+
 		
 
 /*=======================================================================================
@@ -560,7 +605,7 @@ abstract class COntologyTermObject extends CTerm
 	 * @access protected
 	 * @return mixed
 	 */
-	protected function _id(){	return new CDataTypeBinary( md5( $this->_index(), TRUE ) );	}
+	protected function _id()				{	return $this->HashIndex( $this->_index() );	}
 
 		
 
@@ -638,6 +683,11 @@ abstract class COntologyTermObject extends CTerm
 		// Call parent method.
 		//
 		parent::_PrepareCommit( $theContainer, $theIdentifier, $theModifiers );
+		
+		//
+		// Set global identifier.
+		//
+		$this[ kTAG_GID ] = $this->_index();
 	
 	} // _PrepareCommit.
 
@@ -726,7 +776,7 @@ abstract class COntologyTermObject extends CTerm
 				//
 				// Convert to identifier.
 				//
-				return new CDataTypeBinary( md5( (string) $theReference, TRUE ) );	// ==>
+				return $this->HashIndex( $theReference );							// ==>
 			
 			} // Not default type.
 		

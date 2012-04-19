@@ -331,7 +331,7 @@ define( "kTYPE_ENUM_TERM",						':TERM:ENUM' );
  *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: Will contain the HEX string ID.
  * </ul>
  */
-define( "kTYPE_MongoId",					'MONGO:MongoId' );			// MongoId.
+define( "kTYPE_MongoId",						':MongoId' );			// MongoId.
 
 /**
  * MongoCode.
@@ -348,7 +348,7 @@ define( "kTYPE_MongoId",					'MONGO:MongoId' );			// MongoId.
  *	 </ul>
  * </ul>
  */
-define( "kTYPE_MongoCode",				'MONGO:MongoCode' );		// MongoCode.
+define( "kTYPE_MongoCode",						':MongoCode' );		// MongoCode.
 
 
 ?>

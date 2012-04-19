@@ -248,6 +248,41 @@ define( "kTAG_STATUS",							':STATUS' );
  */
 define( "kTAG_ANNOTATION",						':ANNOTATION' );
 
+/**
+ * References tag.
+ *
+ * This is the tag that represents the list of references of an object, it is an array of
+ * object references in which each element may either be the reference itself or the
+ * following structure:
+ *
+ * <ul>
+ *	<li><i>{@link kTAG_KIND kTAG_KIND}</i>: Relation predicate, it can either be an object
+ *		reference or a string.
+ *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: Relation object, it will be a reference to an
+ *		object in which the following elements may appear:
+ *	 <ul>
+ *		<li><i>{@link kTAG_REFERENCE_ID kTAG_REFERENCE_ID}</i>: The unique identifier of the
+ *			referenced object.
+ *		<li><i>{@link kTAG_REFERENCE_CONTAINER kTAG_REFERENCE_CONTAINER}</i>: The
+ *			{@link CContainer container} name.
+ *		<li><i>{@link kTAG_REFERENCE_DATABASE kTAG_REFERENCE_DATABASE}</i>: The database
+ *			name.
+ *		<li><i>{@link kTAG_CLASS kTAG_CLASS}</i>: The object class name.
+ *	 </ul>
+ * </ul>
+ */
+define( "kOFFSET_REFS",							':REFS' );
+
+/**
+ * Valid tag.
+ *
+ * This is the tag that represents the valid entry related to the current one. There may be
+ * cases in which it is not an option to delete objects, so we create a new one and the old
+ * one will point to the new one. This tag represents that property and it expects the value
+ * of the {@link kTAG_LID native} identifier of the new object here.
+ */
+define( "kOFFSET_VALID",						':VALID' );
+
 /*=======================================================================================
  *	DEFAULT PROPERTY OFFSETS															*
  *======================================================================================*/
@@ -289,41 +324,6 @@ define( "kOFFSET_PHONE",						':PHONE' );
  * an array.
  */
 define( "kOFFSET_FAX",							':FAX' );
-
-/**
- * References tag.
- *
- * This is the tag that represents the list of references of an object, it is an array of
- * object references in which each element may either be the reference itself or the
- * following structure:
- *
- * <ul>
- *	<li><i>{@link kTAG_KIND kTAG_KIND}</i>: Relation predicate, it can either be an object
- *		reference or a string.
- *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: Relation object, it will be a reference to an
- *		object in which the following elements may appear:
- *	 <ul>
- *		<li><i>{@link kTAG_REFERENCE_ID kTAG_REFERENCE_ID}</i>: The unique identifier of the
- *			referenced object.
- *		<li><i>{@link kTAG_REFERENCE_CONTAINER kTAG_REFERENCE_CONTAINER}</i>: The
- *			{@link CContainer container} name.
- *		<li><i>{@link kTAG_REFERENCE_DATABASE kTAG_REFERENCE_DATABASE}</i>: The database
- *			name.
- *		<li><i>{@link kTAG_CLASS kTAG_CLASS}</i>: The object class name.
- *	 </ul>
- * </ul>
- */
-define( "kOFFSET_REFS",							':REFS' );
-
-/**
- * Valid tag.
- *
- * This is the tag that represents the valid entry related to the current one. There may be
- * cases in which it is not an option to delete objects, so we create a new one and the old
- * one will point to the new one. This tag represents that property and it expects the value
- * of the {@link kTAG_LID native} identifier of the new object here.
- */
-define( "kOFFSET_VALID",						':VALID' );
 
 /**
  * URL.
@@ -397,7 +397,7 @@ define( "kOFFSET_MAIL_COUNTRY",					':MAIL:COUNTRY' );
  *
  * This is the tag that represents the full address as a string.
  */
-define( "kOFFSET_MAIL_FULL",					'MAIL:FULL' );
+define( "kOFFSET_MAIL_FULL",					':MAIL:FULL' );
 
 /*=======================================================================================
  *	DEFAULT PREDICATES																	*

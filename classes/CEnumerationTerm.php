@@ -79,7 +79,7 @@ class CEnumerationTerm extends COntologyTerm
 	 *
 	 * @uses _IsInited
 	 *
-	 * @see kTYPE_ENUM_TERM
+	 * @see kTAG_ENUM
 	 */
 	public function __construct( $theContainer = NULL,
 								 $theIdentifier = NULL,
@@ -94,7 +94,7 @@ class CEnumerationTerm extends COntologyTerm
 		// Set inited status.
 		//
 		$this->_IsInited( $this->_IsInited() &&
-						  $this->offsetExists( kTYPE_ENUM_TERM ) );
+						  $this->offsetExists( kTAG_ENUM ) );
 		
 	} // Constructor.
 
@@ -115,16 +115,16 @@ class CEnumerationTerm extends COntologyTerm
 	/**
 	 * Manage enumerations.
 	 *
-	 * This method can be used to handle the object's {@link kTYPE_ENUM_TERM enumerations},
-	 * it uses the standard accessor {@link _ManageArrayOffset() method} to manage the list
-	 * of enumerations.
+	 * This method can be used to handle the object's {@link kTAG_ENUM enumerations}, it
+	 * uses the standard accessor {@link _ManageArrayOffset() method} to manage the list of
+	 * enumerations.
 	 *
 	 * Each element of this list should indicate a code or acronym defining the current
 	 * object
 	 *
 	 * For a more thorough reference of how this method works, please consult the
 	 * {@link _ManageArrayOffset() _ManageArrayOffset} method, in which the first parameter
-	 * will be the constant {@link kTYPE_ENUM_TERM kTYPE_ENUM_TERM}.
+	 * will be the constant {@link kTAG_ENUM kTAG_ENUM}.
 	 *
 	 * @param mixed					$theValue			Value or index.
 	 * @param mixed					$theOperation		Operation.
@@ -135,12 +135,12 @@ class CEnumerationTerm extends COntologyTerm
 	 *
 	 * @uses _ManageArrayOffset
 	 *
-	 * @see kTYPE_ENUM_TERM
+	 * @see kTAG_ENUM
 	 */
 	public function Enumeration( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
 	{
 		return $this->_ManageArrayOffset
-					( kTYPE_ENUM_TERM, $theValue, $theOperation, $getOld );			// ==>
+					( kTAG_ENUM, $theValue, $theOperation, $getOld );				// ==>
 
 	} // Enumeration.
 
@@ -162,7 +162,7 @@ class CEnumerationTerm extends COntologyTerm
 	 * Set a value for a given offset.
 	 *
 	 * We overload this method to manage the {@link _IsInited() inited}
-	 * {@link kFLAG_STATE_INITED status}: this is set if {@link kTYPE_ENUM_TERM enumeration}
+	 * {@link kFLAG_STATE_INITED status}: this is set if {@link kTAG_ENUM enumeration}
 	 * property is set.
 	 *
 	 * @param string				$theOffset			Offset.
@@ -182,7 +182,7 @@ class CEnumerationTerm extends COntologyTerm
 		//
 		if( $theValue !== NULL )
 			$this->_IsInited( $this->_IsInited() &&
-							  $this->offsetExists( kTYPE_ENUM_TERM ) );
+							  $this->offsetExists( kTAG_ENUM ) );
 	
 	} // offsetSet.
 
@@ -195,7 +195,7 @@ class CEnumerationTerm extends COntologyTerm
 	 * Reset a value for a given offset.
 	 *
 	 * We overload this method to manage the {@link _IsInited() inited}
-	 * {@link kFLAG_STATE_INITED status}: this is set if {@link kTYPE_ENUM_TERM enumeration}
+	 * {@link kFLAG_STATE_INITED status}: this is set if {@link kTAG_ENUM enumeration}
 	 * property is set.
 	 *
 	 * @param string				$theOffset			Offset.
@@ -213,7 +213,7 @@ class CEnumerationTerm extends COntologyTerm
 		// Set inited flag.
 		//
 		$this->_IsInited( $this->_IsInited() &&
-						  $this->offsetExists( kTYPE_ENUM_TERM ) );
+						  $this->offsetExists( kTAG_ENUM ) );
 	
 	} // offsetUnset.
 
@@ -259,14 +259,15 @@ class CEnumerationTerm extends COntologyTerm
 		$this->Kind( kTYPE_ENUM_TERM, TRUE );
 		
 		//
-		// Call parent method.
-		//
-		COntologyTermObject::_PrepareCommit( $theContainer, $theIdentifier, $theModifiers );
-		
-		//
 		// Add code to enumerations.
 		//
 		$this->Enumeration( $this->Code(), TRUE );
+
+		
+		//
+		// Call parent method.
+		//
+		COntologyTermObject::_PrepareCommit( $theContainer, $theIdentifier, $theModifiers );
 	
 	} // _PrepareCommit.
 

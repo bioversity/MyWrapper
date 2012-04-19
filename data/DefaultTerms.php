@@ -85,6 +85,73 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 
 /*=======================================================================================
  *																						*
+ *											MAIN										*
+ *																						*
+ *======================================================================================*/
+
+
+
+/**
+ * Open session.
+ */
+session_start();
+	 
+/**
+ * Create default attributes ontology.
+ *
+ *	@package	MyWrapper
+ *	@subpackage	Data
+ */
+try
+{
+	//
+	// Connect.
+	//
+	Connect( kDEFAULT_DATABASE, kDEFAULT_DICTIONARY, TRUE );
+	
+	//
+	// Load types.
+	//
+	LoadNamespaces( $_SESSION[ kSESSION_CONTAINER ], TRUE );
+	LoadPredicates( $_SESSION[ kSESSION_CONTAINER ], TRUE );
+	LoadPrimitiveTypes( $_SESSION[ kSESSION_CONTAINER ], TRUE );
+	LoadCompositeTypes( $_SESSION[ kSESSION_CONTAINER ], TRUE );
+	LoadStructuredTypes( $_SESSION[ kSESSION_CONTAINER ], TRUE );
+	LoadEncodedTypes( $_SESSION[ kSESSION_CONTAINER ], TRUE );
+	LoadReferenceTypes( $_SESSION[ kSESSION_CONTAINER ], TRUE );
+	LoadTermTypes( $_SESSION[ kSESSION_CONTAINER ], TRUE );
+	LoadCustomTypes( $_SESSION[ kSESSION_CONTAINER ], TRUE );
+	
+	//
+	// Load terms.
+	//
+	LoadIdentifierTerms( $_SESSION[ kSESSION_CONTAINER ], TRUE );
+	LoadReferenceTerms( $_SESSION[ kSESSION_CONTAINER ], TRUE );
+	LoadAttributeTerms( $_SESSION[ kSESSION_CONTAINER ], TRUE );
+	LoadPropertyTerms( $_SESSION[ kSESSION_CONTAINER ], TRUE );
+	
+	//
+	// Load properties.
+	//
+	LoadMailProperties( $_SESSION[ kSESSION_CONTAINER ], TRUE );
+
+} // TRY BLOCK.
+
+//
+// CATCH BLOCK.
+//
+catch( Exception $error )
+{
+//	echo( CException::AsHTML( $error ) );
+	echo( (string) $error );
+}
+
+exit( "Done!\n" );
+
+		
+
+/*=======================================================================================
+ *																						*
  *										FUNCTIONS										*
  *																						*
  *======================================================================================*/
@@ -187,11 +254,6 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		if( $doDisplay )
 			echo( $ns->Name( NULL, kDEFAULT_LANGUAGE )." [$ns]\n" );
 		
-		//
-		// Save default namespace in session.
-		//
-		$_SESSION[ kSESSION_NAMESPACE ] = $ns;
-	
 	} // LoadNamespaces.
 
 	 
@@ -215,10 +277,21 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 	function LoadPredicates( CContainer $theContainer, $doDisplay = TRUE )
 	{
 		//
+		// Get default namespace.
+		//
+		$ns
+			= CPersistentUnitObject::NewObject
+				( $theContainer, COntologyTermObject::HashIndex( '' ),
+				  kFLAG_STATE_ENCODED );
+		if( ! $ns )
+			throw new Exception
+				( 'Unable to find default namsepace [].' );						// !@! ==>
+	
+		//
 		// IS-A.
 		//
 		$term = new CPredicateTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kPRED_IS_A, 1 ) );
 		$term->Name( 'Is-a', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -227,6 +300,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		 .'within the current ontology.',
 		  kDEFAULT_LANGUAGE );
 		$term->Synonym( 'kPRED_IS_A', kTYPE_EXACT );
+		$term->Commit( $theContainer );
 		if( $doDisplay )
 			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
 		
@@ -234,7 +308,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// PART-OF.
 		//
 		$term = new CPredicateTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kPRED_PART_OF, 1 ) );
 		$term->Name( 'Part-of', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -249,7 +323,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// SCALE-OF.
 		//
 		$term = new CPredicateTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kPRED_SCALE_OF, 1 ) );
 		$term->Name( 'Scale-of', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -265,7 +339,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// METHOD-OF.
 		//
 		$term = new CPredicateTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kPRED_METHOD_OF, 1 ) );
 		$term->Name( 'Method-of', kDEFAULT_LANGUAGE );
 		$term->Definition( 'This predicate is used to relate a term that defines '
@@ -300,10 +374,21 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 	function LoadPrimitiveTypes( CContainer $theContainer, $doDisplay = TRUE )
 	{
 		//
+		// Get default namespace.
+		//
+		$ns
+			= CPersistentUnitObject::NewObject
+				( $theContainer, COntologyTermObject::HashIndex( '' ),
+				  kFLAG_STATE_ENCODED );
+		if( ! $ns )
+			throw new Exception
+				( 'Unable to find default namsepace [].' );						// !@! ==>
+	
+		//
 		// String.
 		//
 		$term = new CEnumerationTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTYPE_STRING, 1 ) );
 		$term->Name( 'String', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -318,7 +403,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// 32 bit integer.
 		//
 		$term = new CEnumerationTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTYPE_INT32, 1 ) );
 		$term->Name( '32 bit integer', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -333,7 +418,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// 64 bit integer.
 		//
 		$term = new CEnumerationTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTYPE_INT64, 1 ) );
 		$term->Name( '32 bit integer', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -348,7 +433,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// Floating point number.
 		//
 		$term = new CEnumerationTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTYPE_FLOAT, 1 ) );
 		$term->Name( 'Float', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -363,7 +448,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// Boolean.
 		//
 		$term = new CEnumerationTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTYPE_BOOLEAN, 1 ) );
 		$term->Name( 'Boolean', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -401,10 +486,21 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 	function LoadCompositeTypes( CContainer $theContainer, $doDisplay = TRUE )
 	{
 		//
+		// Get default namespace.
+		//
+		$ns
+			= CPersistentUnitObject::NewObject
+				( $theContainer, COntologyTermObject::HashIndex( '' ),
+				  kFLAG_STATE_ENCODED );
+		if( ! $ns )
+			throw new Exception
+				( 'Unable to find default namsepace [].' );						// !@! ==>
+	
+		//
 		// Date.
 		//
 		$term = new CEnumerationTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTYPE_DATE, 1 ) );
 		$term->Name( 'Date', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -422,7 +518,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// Time.
 		//
 		$term = new CEnumerationTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTYPE_TIME, 1 ) );
 		$term->Name( 'Time', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -438,7 +534,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// Regular expression.
 		//
 		$term = new CEnumerationTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTYPE_REGEX, 1 ) );
 		$term->Name( 'Regular expression', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -453,7 +549,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// Seconds.
 		//
 		$term = new CEnumerationTerm();
-		$term->Code( substr( kTYPE_STAMP_SEC, 1 ) );
+		$term->Code( kTYPE_STAMP_SEC );
 		$term->Name( 'Seconds', kDEFAULT_LANGUAGE );
 		$term->Definition
 		( 'This term represents the number of seconds since January 1st, 1970.',
@@ -467,7 +563,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// Microseconds.
 		//
 		$term = new CEnumerationTerm();
-		$term->Code( substr( kTYPE_STAMP_USEC, 1 ) );
+		$term->Code( kTYPE_STAMP_USEC );
 		$term->Name( 'Microseconds', kDEFAULT_LANGUAGE );
 		$term->Definition
 		( 'This term represents the number of microseconds.',
@@ -481,7 +577,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// Binary string.
 		//
 		$term = new CEnumerationTerm();
-		$term->Code( substr( kTYPE_BINARY_STRING, 1 ) );
+		$term->Code( kTYPE_BINARY_STRING );
 		$term->Name( 'Binary string', kDEFAULT_LANGUAGE );
 		$term->Definition
 		( 'This term represents a binary string.',
@@ -495,7 +591,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// Binary string type.
 		//
 		$term = new CEnumerationTerm();
-		$term->Code( substr( kTYPE_BINARY_TYPE, 1 ) );
+		$term->Code( kTYPE_BINARY_TYPE );
 		$term->Name( 'Binary string type', kDEFAULT_LANGUAGE );
 		$term->Definition
 		( 'This term represents a binary string type.',
@@ -529,10 +625,21 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 	function LoadStructuredTypes( CContainer $theContainer, $doDisplay = TRUE )
 	{
 		//
+		// Get default namespace.
+		//
+		$ns
+			= CPersistentUnitObject::NewObject
+				( $theContainer, COntologyTermObject::HashIndex( '' ),
+				  kFLAG_STATE_ENCODED );
+		if( ! $ns )
+			throw new Exception
+				( 'Unable to find default namsepace [].' );						// !@! ==>
+	
+		//
 		// Binary.
 		//
 		$term = new CEnumerationTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTYPE_BINARY, 1 ) );
 		$term->Name( 'Binary', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -548,7 +655,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// Timestamp.
 		//
 		$term = new CEnumerationTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTYPE_STAMP, 1 ) );
 		$term->Name( 'Time-stamp', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -565,7 +672,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// Enumeration.
 		//
 		$term = new CEnumerationTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTYPE_ENUM, 1 ) );
 		$term->Name( 'Enumeration', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -583,7 +690,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// Set.
 		//
 		$term = new CEnumerationTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTYPE_ENUM_SET, 1 ) );
 		$term->Name( 'Enumerated set', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -621,10 +728,21 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 	function LoadEncodedTypes( CContainer $theContainer, $doDisplay = TRUE )
 	{
 		//
+		// Get default namespace.
+		//
+		$ns
+			= CPersistentUnitObject::NewObject
+				( $theContainer, COntologyTermObject::HashIndex( '' ),
+				  kFLAG_STATE_ENCODED );
+		if( ! $ns )
+			throw new Exception
+				( 'Unable to find default namsepace [].' );						// !@! ==>
+	
+		//
 		// PHP.
 		//
 		$term = new CEnumerationTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTYPE_PHP, 1 ) );
 		$term->Name( 'PHP', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -639,7 +757,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// JSON.
 		//
 		$term = new CEnumerationTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTYPE_JSON, 1 ) );
 		$term->Name( 'JSON', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -654,7 +772,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// XML.
 		//
 		$term = new CEnumerationTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTYPE_XML, 1 ) );
 		$term->Name( 'XML', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -669,7 +787,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// HTML.
 		//
 		$term = new CEnumerationTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTYPE_HTML, 1 ) );
 		$term->Name( 'HTML', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -684,7 +802,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// CSV.
 		//
 		$term = new CEnumerationTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTYPE_CSV, 1 ) );
 		$term->Name( 'Comma separated values', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -699,7 +817,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// Metadata.
 		//
 		$term = new CEnumerationTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTYPE_META, 1 ) );
 		$term->Name( 'Metadata', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -734,24 +852,22 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 	function LoadCustomTypes( CContainer $theContainer, $doDisplay = TRUE )
 	{
 		//
-		// Mongo namespace.
+		// Get default namespace.
 		//
-		$ns = new CNamespaceTerm();
-		$ns->Code( 'MONGO' );
-		$ns->Name( 'Mongo namespace', kDEFAULT_LANGUAGE );
-		$ns->Definition
-		( 'This namespace collects all terms specifically related to MongoDB.',
-		  kDEFAULT_LANGUAGE );
-		$ns->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $ns->Name( NULL, kDEFAULT_LANGUAGE )." [$ns]\n" );
+		$ns
+			= CPersistentUnitObject::NewObject
+				( $theContainer, COntologyTermObject::HashIndex( '' ),
+				  kFLAG_STATE_ENCODED );
+		if( ! $ns )
+			throw new Exception
+				( 'Unable to find default namsepace [].' );						// !@! ==>
 		
 		//
 		// MongoId.
 		//
 		$term = new CEnumerationTerm();
 		$term->NS( $ns );
-		$term->Code( 'MongoId' );
+		$term->Code( substr( kTYPE_MongoId, 1 ) );
 		$term->Name( 'MongoId', kDEFAULT_LANGUAGE );
 		$term->Definition
 		( 'This term represents a MongoId type.',
@@ -766,7 +882,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		//
 		$term = new CEnumerationTerm();
 		$term->NS( $ns );
-		$term->Code( 'MongoCode' );
+		$term->Code( substr( kTYPE_MongoCode, 1 ) );
 		$term->Name( 'MongoCode', kDEFAULT_LANGUAGE );
 		$term->Definition
 		( 'This term represents a MongoCode type.',
@@ -799,10 +915,21 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 	function LoadReferenceTypes( CContainer $theContainer, $doDisplay = TRUE )
 	{
 		//
+		// Get default namespace.
+		//
+		$ns
+			= CPersistentUnitObject::NewObject
+				( $theContainer, COntologyTermObject::HashIndex( '' ),
+				  kFLAG_STATE_ENCODED );
+		if( ! $ns )
+			throw new Exception
+				( 'Unable to find default namsepace [].' );						// !@! ==>
+		
+		//
 		// Exact reference.
 		//
 		$term = new CEnumerationTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTYPE_EXACT, 1 ) );
 		$term->Name( 'Exact reference', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -817,7 +944,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// Broad reference.
 		//
 		$term = new CEnumerationTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTYPE_BROAD, 1 ) );
 		$term->Name( 'Broad reference', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -832,7 +959,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// Narrow reference.
 		//
 		$term = new CEnumerationTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTYPE_NARROW, 1 ) );
 		$term->Name( 'Narrow reference', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -847,7 +974,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// Related reference.
 		//
 		$term = new CEnumerationTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTYPE_RELATED, 1 ) );
 		$term->Name( 'Related reference', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -881,10 +1008,21 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 	function LoadTermTypes( CContainer $theContainer, $doDisplay = TRUE )
 	{
 		//
+		// Get default namespace.
+		//
+		$tmp
+			= CPersistentUnitObject::NewObject
+				( $theContainer, COntologyTermObject::HashIndex( '' ),
+				  kFLAG_STATE_ENCODED );
+		if( ! $tmp )
+			throw new Exception
+				( 'Unable to find default namsepace [].' );						// !@! ==>
+		
+		//
 		// Term.
 		//
 		$ns = new CEnumerationTerm();
-		$ns->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$ns->NS( $tmp );
 		$ns->Code( substr( kTYPE_TERM, 1 ) );
 		$ns->Name( 'Term', kDEFAULT_LANGUAGE );
 		$ns->Definition
@@ -893,12 +1031,12 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		$ns->Synonym( 'kTYPE_TERM', kTYPE_EXACT );
 		$ns->Commit( $theContainer );
 		if( $doDisplay )
-			echo( $ns->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+			echo( $ns->Name( NULL, kDEFAULT_LANGUAGE )." [$ns]\n" );
 		
 		//
 		// Init local storage.
 		//
-		$len = strlen( (string) $ns );
+		$len = strlen( (string) $ns ) + 1;
 	
 		//
 		// Namespace term.
@@ -1013,6 +1151,17 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 	function LoadIdentifierTerms( CContainer $theContainer, $doDisplay = TRUE )
 	{
 		//
+		// Get default namespace.
+		//
+		$ns
+			= CPersistentUnitObject::NewObject
+				( $theContainer, COntologyTermObject::HashIndex( '' ),
+				  kFLAG_STATE_ENCODED );
+		if( ! $ns )
+			throw new Exception
+				( 'Unable to find default namsepace [].' );						// !@! ==>
+		
+		//
 		// Local unique identifier.
 		//
 		$term = new CAttributeTerm();
@@ -1034,8 +1183,8 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		//
 		// Global unique identifier.
 		//
-		$term = new CAttributeTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term = new CMeasureTerm();
+		$term->NS( $ns );
 		$term->Code( substr( kTAG_GID, 1 ) );
 		$term->Name( 'Global unique identifier', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -1045,6 +1194,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		 .'local identifier, which represents the key to the object within the local '
 		 .'database.',
 		  kDEFAULT_LANGUAGE );
+		$term->Type( kTYPE_STRING );
 		$term->Synonym( 'kTAG_GID', kTYPE_EXACT );
 		$term->Commit( $theContainer );
 		if( $doDisplay )
@@ -1073,10 +1223,21 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 	function LoadReferenceTerms( CContainer $theContainer, $doDisplay = TRUE )
 	{
 		//
+		// Get default namespace.
+		//
+		$ns
+			= CPersistentUnitObject::NewObject
+				( $theContainer, COntologyTermObject::HashIndex( '' ),
+				  kFLAG_STATE_ENCODED );
+		if( ! $ns )
+			throw new Exception
+				( 'Unable to find default namsepace [].' );						// !@! ==>
+		
+		//
 		// Synonym.
 		//
 		$term = new CAttributeTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTAG_REFERENCE_SYNONYM, 1 ) );
 		$term->Name( 'Synonym', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -1093,7 +1254,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// Cross-reference.
 		//
 		$term = new CAttributeTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTAG_REFERENCE_XREF, 1 ) );
 		$term->Name( 'Cross-reference', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -1124,12 +1285,13 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		//
 		// Container reference.
 		//
-		$term = new CAttributeTerm();
+		$term = new CMeasureTerm();
 		$term->Code( kTAG_REFERENCE_CONTAINER );
 		$term->Name( 'Container reference', kDEFAULT_LANGUAGE );
 		$term->Definition
 		( 'This term represents a container within an object reference.',
 		  kDEFAULT_LANGUAGE );
+		$term->Type( kTYPE_STRING );
 		$term->Synonym( 'kTAG_REFERENCE_CONTAINER', kTYPE_EXACT );
 		$term->Commit( $theContainer );
 		if( $doDisplay )
@@ -1138,12 +1300,13 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		//
 		// Database reference.
 		//
-		$term = new CAttributeTerm();
+		$term = new CMeasureTerm();
 		$term->Code( kTAG_REFERENCE_DATABASE );
 		$term->Name( 'Database reference', kDEFAULT_LANGUAGE );
 		$term->Definition
 		( 'This term represents a database within an object reference.',
 		  kDEFAULT_LANGUAGE );
+		$term->Type( kTYPE_STRING );
 		$term->Synonym( 'kTAG_REFERENCE_DATABASE', kTYPE_EXACT );
 		$term->Commit( $theContainer );
 		if( $doDisplay )
@@ -1172,10 +1335,21 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 	function LoadAttributeTerms( CContainer $theContainer, $doDisplay = TRUE )
 	{
 		//
+		// Get default namespace.
+		//
+		$ns
+			= CPersistentUnitObject::NewObject
+				( $theContainer, COntologyTermObject::HashIndex( '' ),
+				  kFLAG_STATE_ENCODED );
+		if( ! $ns )
+			throw new Exception
+				( 'Unable to find default namsepace [].' );						// !@! ==>
+		
+		//
 		// Class.
 		//
 		$term = new CMeasureTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTAG_CLASS, 1 ) );
 		$term->Name( 'Class', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -1191,7 +1365,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// Created.
 		//
 		$term = new CMeasureTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTAG_CREATED, 1 ) );
 		$term->Name( 'Created', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -1207,7 +1381,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// Modified.
 		//
 		$term = new CMeasureTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTAG_MODIFIED, 1 ) );
 		$term->Name( 'Modified', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -1222,13 +1396,14 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		//
 		// Version.
 		//
-		$term = new CAttributeTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term = new CMeasureTerm();
+		$term->NS( $ns );
 		$term->Code( substr( kTAG_VERSION, 1 ) );
 		$term->Name( 'Version', kDEFAULT_LANGUAGE );
 		$term->Definition
 		( 'This term represents a version value.',
 		  kDEFAULT_LANGUAGE );
+		$term->Type( kTYPE_INT32 );
 		$term->Synonym( 'kTAG_VERSION', kTYPE_EXACT );
 		$term->Commit( $theContainer );
 		if( $doDisplay )
@@ -1237,14 +1412,15 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		//
 		// Type.
 		//
-		$term = new CAttributeTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term = new CMeasureTerm();
+		$term->NS( $ns );
 		$term->Code( substr( kTAG_TYPE, 1 ) );
 		$term->Name( 'Type', kDEFAULT_LANGUAGE );
 		$term->Definition
 		( 'This term represents a type, in general this is used to indicate the data type '
 		 .'of an object.',
 		  kDEFAULT_LANGUAGE );
+		$term->Type( kTYPE_STRING );
 		$term->Synonym( 'kTAG_TYPE', kTYPE_EXACT );
 		$term->Commit( $theContainer );
 		if( $doDisplay )
@@ -1254,7 +1430,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// Kind.
 		//
 		$term = new CAttributeTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTAG_KIND, 1 ) );
 		$term->Name( 'Kind', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -1270,7 +1446,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// Unit.
 		//
 		$term = new CAttributeTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTAG_UNIT, 1 ) );
 		$term->Name( 'Unit', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -1285,7 +1461,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// Source.
 		//
 		$term = new CAttributeTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTAG_SOURCE, 1 ) );
 		$term->Name( 'Source', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -1300,7 +1476,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// Data.
 		//
 		$term = new CAttributeTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTAG_DATA, 1 ) );
 		$term->Name( 'Data', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -1314,13 +1490,14 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		//
 		// Code.
 		//
-		$term = new CAttributeTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term = new CMeasureTerm();
+		$term->NS( $ns );
 		$term->Code( substr( kTAG_CODE, 1 ) );
 		$term->Name( 'Code', kDEFAULT_LANGUAGE );
 		$term->Definition
 		( 'This term is used to indicate a code or acronym.',
 		  kDEFAULT_LANGUAGE );
+		$term->Type( kTYPE_STRING );
 		$term->Synonym( 'kTAG_CODE', kTYPE_EXACT );
 		$term->Commit( $theContainer );
 		if( $doDisplay )
@@ -1330,7 +1507,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// Enum.
 		//
 		$term = new CAttributeTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTAG_ENUM, 1 ) );
 		$term->Name( 'Enumeration', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -1345,7 +1522,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// Namespace.
 		//
 		$term = new CAttributeTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTAG_NAMESPACE, 1 ) );
 		$term->Name( 'Namespace', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -1360,7 +1537,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// Name.
 		//
 		$term = new CAttributeTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTAG_NAME, 1 ) );
 		$term->Name( 'Name', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -1375,7 +1552,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// Description.
 		//
 		$term = new CAttributeTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTAG_DESCRIPTION, 1 ) );
 		$term->Name( 'Description', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -1390,7 +1567,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// Definition.
 		//
 		$term = new CAttributeTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTAG_DEFINITION, 1 ) );
 		$term->Name( 'Definition', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -1405,7 +1582,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// Language.
 		//
 		$term = new CAttributeTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTAG_LANGUAGE, 1 ) );
 		$term->Name( 'Language', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -1420,7 +1597,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// Status.
 		//
 		$term = new CAttributeTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTAG_STATUS, 1 ) );
 		$term->Name( 'Status', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -1435,7 +1612,7 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		// Annotation.
 		//
 		$term = new CAttributeTerm();
-		$term->NS( $_SESSION[ kSESSION_NAMESPACE ] );
+		$term->NS( $ns );
 		$term->Code( substr( kTAG_ANNOTATION, 1 ) );
 		$term->Name( 'Annotation', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -1446,68 +1623,345 @@ require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
 		if( $doDisplay )
 			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
 	
+		//
+		// References.
+		//
+		$term = new CAttributeTerm();
+		$term->NS( $ns );
+		$term->Code( substr( kOFFSET_REFS, 1 ) );
+		$term->Name( 'References', kDEFAULT_LANGUAGE );
+		$term->Definition
+		( 'This term represents the list of references of an object, it describes '
+		 .'a list of predicate/object pairs.',
+		  kDEFAULT_LANGUAGE );
+		$term->Synonym( 'kOFFSET_REFS', kTYPE_EXACT );
+		$term->Commit( $theContainer );
+		if( $doDisplay )
+			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+	
+		//
+		// Valid.
+		//
+		$term = new CAttributeTerm();
+		$term->NS( $ns );
+		$term->Code( substr( kOFFSET_VALID, 1 ) );
+		$term->Name( 'Valid', kDEFAULT_LANGUAGE );
+		$term->Definition
+		( 'This term represents a reference to the valid object, there are cases '
+		 .'in which deleting an object is not an option, in such cases the invalid '
+		 .'or obsolete object points to the valid object through this term.',
+		  kDEFAULT_LANGUAGE );
+		$term->Synonym( 'kOFFSET_VALID', kTYPE_EXACT );
+		$term->Commit( $theContainer );
+		if( $doDisplay )
+			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+	
 	} // LoadAttributeTerms.
 
-		
-
-/*=======================================================================================
- *																						*
- *											MAIN										*
- *																						*
- *======================================================================================*/
-
-
-
-/**
- * Open session.
- */
-session_start();
 	 
-/**
- * Create default attributes ontology.
- *
- *	@package	MyWrapper
- *	@subpackage	Data
- */
-try
-{
-	//
-	// Connect.
-	//
-	Connect();
+	/*===================================================================================
+	 *	LoadPropertyTerms																*
+	 *==================================================================================*/
+
+	/**
+	 * Load property terms.
+	 *
+	 * This function will load all default property terms.
+	 *
+	 * If the last parameter is <i>TRUE</i>, the function will display the name of the
+	 * created terms.
+	 *
+	 * @param CContainer			$theContainer		Collection.
+	 * @param boolean				$doDisplay			Display created terms.
+	 *
+	 * @access private
+	 */
+	function LoadPropertyTerms( CContainer $theContainer, $doDisplay = TRUE )
+	{
+		//
+		// Get default namespace.
+		//
+		$ns
+			= CPersistentUnitObject::NewObject
+				( $theContainer, COntologyTermObject::HashIndex( '' ),
+				  kFLAG_STATE_ENCODED );
+		if( ! $ns )
+			throw new Exception
+				( 'Unable to find default namsepace [].' );						// !@! ==>
+		
+		//
+		// Password.
+		//
+		$term = new CMeasureTerm();
+		$term->NS( $ns );
+		$term->Code( substr( kOFFSET_PASSWORD, 1 ) );
+		$term->Name( 'Password', kDEFAULT_LANGUAGE );
+		$term->Definition
+		( 'This term represents a password.',
+		  kDEFAULT_LANGUAGE );
+		$term->Type( kTYPE_STRING );
+		$term->Synonym( 'kOFFSET_PASSWORD', kTYPE_EXACT );
+		$term->Commit( $theContainer );
+		if( $doDisplay )
+			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
 	
-	//
-	// Load types.
-	//
-	LoadNamespaces( $_SESSION[ kSESSION_CONTAINER ], TRUE );
-	LoadPredicates( $_SESSION[ kSESSION_CONTAINER ], TRUE );
-	LoadPrimitiveTypes( $_SESSION[ kSESSION_CONTAINER ], TRUE );
-	LoadCompositeTypes( $_SESSION[ kSESSION_CONTAINER ], TRUE );
-	LoadStructuredTypes( $_SESSION[ kSESSION_CONTAINER ], TRUE );
-	LoadEncodedTypes( $_SESSION[ kSESSION_CONTAINER ], TRUE );
-	LoadCustomTypes( $_SESSION[ kSESSION_CONTAINER ], TRUE );
-	LoadReferenceTypes( $_SESSION[ kSESSION_CONTAINER ], TRUE );
-	LoadTermTypes( $_SESSION[ kSESSION_CONTAINER ], TRUE );
+		//
+		// Address.
+		//
+		$term = new CAttributeTerm();
+		$term->NS( $ns );
+		$term->Code( substr( kOFFSET_MAIL, 1 ) );
+		$term->Name( 'Mail', kDEFAULT_LANGUAGE );
+		$term->Definition
+		( 'This term represents a mailing address.',
+		  kDEFAULT_LANGUAGE );
+		$term->Synonym( 'kOFFSET_MAIL', kTYPE_EXACT );
+		$term->Commit( $theContainer );
+		if( $doDisplay )
+			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
 	
-	//
-	// Load terms.
-	//
-	LoadIdentifierTerms( $_SESSION[ kSESSION_CONTAINER ], TRUE );
-	LoadReferenceTerms( $_SESSION[ kSESSION_CONTAINER ], TRUE );
-	LoadAttributeTerms( $_SESSION[ kSESSION_CONTAINER ], TRUE );
+		//
+		// Email.
+		//
+		$term = new CAttributeTerm();
+		$term->NS( $ns );
+		$term->Code( substr( kOFFSET_EMAIL, 1 ) );
+		$term->Name( 'E-mail', kDEFAULT_LANGUAGE );
+		$term->Definition
+		( 'This term represents an e-mail address.',
+		  kDEFAULT_LANGUAGE );
+		$term->Synonym( 'kOFFSET_EMAIL', kTYPE_EXACT );
+		$term->Commit( $theContainer );
+		if( $doDisplay )
+			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+	
+		//
+		// Phone.
+		//
+		$term = new CAttributeTerm();
+		$term->NS( $ns );
+		$term->Code( substr( kOFFSET_PHONE, 1 ) );
+		$term->Name( 'Phone', kDEFAULT_LANGUAGE );
+		$term->Definition
+		( 'This term represents a telephone number.',
+		  kDEFAULT_LANGUAGE );
+		$term->Synonym( 'kOFFSET_PHONE', kTYPE_EXACT );
+		$term->Commit( $theContainer );
+		if( $doDisplay )
+			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+	
+		//
+		// Fax.
+		//
+		$term = new CAttributeTerm();
+		$term->NS( $ns );
+		$term->Code( substr( kOFFSET_FAX, 1 ) );
+		$term->Name( 'Fax', kDEFAULT_LANGUAGE );
+		$term->Definition
+		( 'This term represents a telefax number.',
+		  kDEFAULT_LANGUAGE );
+		$term->Synonym( 'kOFFSET_FAX', kTYPE_EXACT );
+		$term->Commit( $theContainer );
+		if( $doDisplay )
+			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+	
+		//
+		// URL.
+		//
+		$term = new CAttributeTerm();
+		$term->NS( $ns );
+		$term->Code( substr( kOFFSET_URL, 1 ) );
+		$term->Name( 'Fax', kDEFAULT_LANGUAGE );
+		$term->Definition
+		( 'This term represents an URL or internet web address.',
+		  kDEFAULT_LANGUAGE );
+		$term->Synonym( 'kOFFSET_URL', kTYPE_EXACT );
+		$term->Commit( $theContainer );
+		if( $doDisplay )
+			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+	
+		//
+		// Acronym.
+		//
+		$term = new CAttributeTerm();
+		$term->NS( $ns );
+		$term->Code( substr( kOFFSET_ACRONYM, 1 ) );
+		$term->Name( 'Fax', kDEFAULT_LANGUAGE );
+		$term->Definition
+		( 'This term represents an acronym.',
+		  kDEFAULT_LANGUAGE );
+		$term->Synonym( 'kOFFSET_ACRONYM', kTYPE_EXACT );
+		$term->Commit( $theContainer );
+		if( $doDisplay )
+			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+	
+	} // LoadPropertyTerms.
 
-} // TRY BLOCK.
+	 
+	/*===================================================================================
+	 *	LoadMailProperties																*
+	 *==================================================================================*/
 
-//
-// CATCH BLOCK.
-//
-catch( Exception $error )
-{
-//	echo( CException::AsHTML( $error ) );
-	echo( (string) $error );
-}
-
-echo( "Done!\n" );
+	/**
+	 * Load mail property terms.
+	 *
+	 * This function will load all default mailing address property terms.
+	 *
+	 * If the last parameter is <i>TRUE</i>, the function will display the name of the
+	 * created terms.
+	 *
+	 * @param CContainer			$theContainer		Collection.
+	 * @param boolean				$doDisplay			Display created terms.
+	 *
+	 * @access private
+	 */
+	function LoadMailProperties( CContainer $theContainer, $doDisplay = TRUE )
+	{
+		//
+		// Get namespace.
+		//
+		$ns
+			= CPersistentUnitObject::NewObject
+				( $theContainer, COntologyTermObject::HashIndex( kOFFSET_MAIL ),
+				  kFLAG_STATE_ENCODED );
+		if( ! $ns )
+			throw new Exception
+				( 'Unable to find mailing address namsepace [kOFFSET_MAIL].' );	// !@! ==>
+		
+		//
+		// Init local storage.
+		//
+		$len = strlen( (string) $ns ) + 1;
+	
+		//
+		// Place.
+		//
+		$term = new CMeasureTerm();
+		$term->NS( $ns );
+		$term->Code( substr( kOFFSET_MAIL_PLACE, $len ) );
+		$term->Name( 'Place', kDEFAULT_LANGUAGE );
+		$term->Definition
+		( 'This term represents a place or named location part of a mailing address.',
+		  kDEFAULT_LANGUAGE );
+		$term->Type( kTYPE_STRING );
+		$term->Synonym( 'kOFFSET_MAIL_PLACE', kTYPE_EXACT );
+		$term->Commit( $theContainer );
+		if( $doDisplay )
+			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+	
+		//
+		// Care of.
+		//
+		$term = new CMeasureTerm();
+		$term->NS( $ns );
+		$term->Code( substr( kOFFSET_MAIL_CARE, $len ) );
+		$term->Name( 'Care of', kDEFAULT_LANGUAGE );
+		$term->Definition
+		( 'This term represents the care of part of a mailing address.',
+		  kDEFAULT_LANGUAGE );
+		$term->Type( kTYPE_STRING );
+		$term->Synonym( 'kOFFSET_MAIL_CARE', kTYPE_EXACT );
+		$term->Commit( $theContainer );
+		if( $doDisplay )
+			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+	
+		//
+		// Street.
+		//
+		$term = new CMeasureTerm();
+		$term->NS( $ns );
+		$term->Code( substr( kOFFSET_MAIL_STREET, $len ) );
+		$term->Name( 'Street/P.O. Box', kDEFAULT_LANGUAGE );
+		$term->Definition
+		( 'This term represents the street or P.O. Box part of a mailing address.',
+		  kDEFAULT_LANGUAGE );
+		$term->Type( kTYPE_STRING );
+		$term->Synonym( 'kOFFSET_MAIL_STREET', kTYPE_EXACT );
+		$term->Commit( $theContainer );
+		if( $doDisplay )
+			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+	
+		//
+		// Zip.
+		//
+		$term = new CMeasureTerm();
+		$term->NS( $ns );
+		$term->Code( substr( kOFFSET_MAIL_ZIP, $len ) );
+		$term->Name( 'Zip', kDEFAULT_LANGUAGE );
+		$term->Definition
+		( 'This term represents the zip code part of a mailing address.',
+		  kDEFAULT_LANGUAGE );
+		$term->Type( kTYPE_STRING );
+		$term->Synonym( 'kOFFSET_MAIL_ZIP', kTYPE_EXACT );
+		$term->Commit( $theContainer );
+		if( $doDisplay )
+			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+	
+		//
+		// City.
+		//
+		$term = new CMeasureTerm();
+		$term->NS( $ns );
+		$term->Code( substr( kOFFSET_MAIL_CITY, $len ) );
+		$term->Name( 'City', kDEFAULT_LANGUAGE );
+		$term->Definition
+		( 'This term represents the city part of a mailing address.',
+		  kDEFAULT_LANGUAGE );
+		$term->Type( kTYPE_STRING );
+		$term->Synonym( 'kOFFSET_MAIL_CITY', kTYPE_EXACT );
+		$term->Commit( $theContainer );
+		if( $doDisplay )
+			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+	
+		//
+		// Province.
+		//
+		$term = new CMeasureTerm();
+		$term->NS( $ns );
+		$term->Code( substr( kOFFSET_MAIL_PROVINCE, $len ) );
+		$term->Name( 'Province', kDEFAULT_LANGUAGE );
+		$term->Definition
+		( 'This term represents the province part of a mailing address.',
+		  kDEFAULT_LANGUAGE );
+		$term->Type( kTYPE_STRING );
+		$term->Synonym( 'kOFFSET_MAIL_PROVINCE', kTYPE_EXACT );
+		$term->Commit( $theContainer );
+		if( $doDisplay )
+			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+	
+		//
+		// Country.
+		//
+		$term = new CMeasureTerm();
+		$term->NS( $ns );
+		$term->Code( substr( kOFFSET_MAIL_COUNTRY, $len ) );
+		$term->Name( 'Country', kDEFAULT_LANGUAGE );
+		$term->Definition
+		( 'This term represents the province part of a mailing address.',
+		  kDEFAULT_LANGUAGE );
+		$term->Type( kTYPE_STRING );
+		$term->Synonym( 'kOFFSET_MAIL_COUNTRY', kTYPE_EXACT );
+		$term->Commit( $theContainer );
+		if( $doDisplay )
+			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+	
+		//
+		// Full address.
+		//
+		$term = new CMeasureTerm();
+		$term->NS( $ns );
+		$term->Code( substr( kOFFSET_MAIL_FULL, $len ) );
+		$term->Name( 'Full mailing address', kDEFAULT_LANGUAGE );
+		$term->Definition
+		( 'This term represents a full mailing address in the form of a string.',
+		  kDEFAULT_LANGUAGE );
+		$term->Type( kTYPE_STRING );
+		$term->Synonym( 'kOFFSET_MAIL_FULL', kTYPE_EXACT );
+		$term->Commit( $theContainer );
+		if( $doDisplay )
+			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+	
+	} // LoadMailProperties.
 
 
 ?>

@@ -59,14 +59,5 @@ define( "kSESSION_DATABASE",				':DATABASE' );
  */
 define( "kSESSION_CONTAINER",				':CONTAINER' );
 
-/**
- * Default namespace.
- *
- * This tag defines the default namespace instance.
- *
- * Cardinality: one.
- */
-define( "kSESSION_NAMESPACE",				':DEF:NAMESPACE' );
-
 
 ?>
