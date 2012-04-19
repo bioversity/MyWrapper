@@ -31,4 +31,44 @@
  */
 define( "kDEFAULT_DATABASE",		"WAREHOUSE" );
 
+/*=======================================================================================
+ *	NEO4J CLIENT PARAMETERS																*
+ *======================================================================================*/
+
+/**
+ * Neo4j host.
+ *
+ * This tag defines the default NEO4J host.
+ *
+ * Cardinality: one.
+ */
+define( "DEFAULT_kNEO4J_HOST",		'localhost' );
+
+/**
+ * Neo4j port.
+ *
+ * This tag defines the default NEO4J port.
+ *
+ * Cardinality: one.
+ */
+define( "DEFAULT_kNEO4J_PORT",		'7474' );
+
+/**
+ * Neo4j user.
+ *
+ * This tag defines the default NEO4J user.
+ *
+ * Cardinality: one.
+ */
+define( "DEFAULT_kNEO4J_USER",		NULL );
+
+/**
+ * Neo4j password.
+ *
+ * This tag defines the default NEO4J user password.
+ *
+ * Cardinality: one.
+ */
+define( "DEFAULT_kNEO4J_PASS",		NULL );
+
 ?>

@@ -42,6 +42,15 @@ define( "kSESSION_USER",					':USER' );
 define( "kSESSION_MONGO",					':MONGO' );
 
 /**
+ * Neo4j instance.
+ *
+ * This tag defines the default Neo4j instance.
+ *
+ * Cardinality: one.
+ */
+define( "kSESSION_NEO4J",					':NEO4J' );
+
+/**
  * Database instance.
  *
  * This tag defines the current database instance.

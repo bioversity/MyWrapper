@@ -21,6 +21,13 @@
  *======================================================================================*/
 
 /**
+ * Neo4j defines.
+ *
+ * This include file contains Neo4j definitions.
+ */
+require_once( kPATH_LIBRARY_SOURCE."CNeo4jClient.inc.php" );
+
+/**
  * Ancestor.
  *
  * This include file contains the parent class definitions.
@@ -69,6 +76,36 @@ require_once( kPATH_LIBRARY_SOURCE."CWarehouseWrapper.inc.php" );
  */
 class CWarehouseWrapper extends CMongoDataWrapper
 {
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED INITIALISATION INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	_InitResources																	*
+	 *==================================================================================*/
+
+	/**
+	 * Initialise resources.
+	 *
+	 * In this class we instantiate the Neo4j client.
+	 *
+	 * @access private
+	 */
+	protected function _InitResources()
+	{
+		//
+		// Call parent method.
+		//
+		parent::_InitResources();
+	
+	} // _InitResources.
+
 		
 
 /*=======================================================================================

@@ -30,7 +30,7 @@ require_once( "/Library/WebServer/Library/wrapper/includes.inc.php" );
  *
  * This include file contains the run-time definitions.
  */
-require_once( "environment.inc.php" );
+require_once( "/Library/WebServer/Library/wrapper/environment.inc.php" );
 
 /**
  * Session.
@@ -1529,6 +1529,21 @@ exit( "Done!\n" );
 		( 'This term is used to indicate a namespace.',
 		  kDEFAULT_LANGUAGE );
 		$term->Synonym( 'kTAG_NAMESPACE', kTYPE_EXACT );
+		$term->Commit( $theContainer );
+		if( $doDisplay )
+			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+	
+		//
+		// Node.
+		//
+		$term = new CAttributeTerm();
+		$term->NS( $ns );
+		$term->Code( substr( kTAG_NODE, 1 ) );
+		$term->Name( 'Node', kDEFAULT_LANGUAGE );
+		$term->Definition
+		( 'This term is used to indicate a graph node.',
+		  kDEFAULT_LANGUAGE );
+		$term->Synonym( 'kTAG_NODE', kTYPE_EXACT );
 		$term->Commit( $theContainer );
 		if( $doDisplay )
 			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );

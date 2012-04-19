@@ -25,6 +25,11 @@
 require_once( '/Library/WebServer/Library/wrapper/includes.inc.php' );
 
 //
+// Environment includes.
+//
+require_once( '/Library/WebServer/Library/wrapper/environment.inc.php' );
+
+//
 // Style includes.
 //
 require_once( '/Library/WebServer/Library/wrapper/styles.inc.php' );

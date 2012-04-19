@@ -631,6 +631,16 @@ abstract class CPersistentUnitObject extends CPersistentObject
 		parent::_PrepareCommit( $theContainer, $theIdentifier, $theModifiers );
 		
 		//
+		// Check if container is supported.
+		//
+		if( ! $theContainer instanceof CContainer )
+			throw new CException
+					( "Unsupported container type",
+					  kERROR_UNSUPPORTED,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Container' => $theContainer ) );					// !@! ==>
+		
+		//
 		// Set class.
 		//
 		$this->offsetSet( kTAG_CLASS, get_class( $this ) );

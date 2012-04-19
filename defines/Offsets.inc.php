@@ -203,6 +203,13 @@ define( "kTAG_ENUM",							':ENUM' );
 define( "kTAG_NAMESPACE",						':NS' );
 
 /**
+ * Node offset.
+ *
+ * This tag is used as the default offset for indicating a graph node.
+ */
+define( "kTAG_NODE",							':NODE' );
+
+/**
  * Name offset.
  *
  * This tag is used as the default offset for indicating an attribute's name.

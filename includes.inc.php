@@ -21,7 +21,7 @@
  */
 
 /*=======================================================================================
- *	LIBRARY PATHS																		*
+ *	MYWRAPPER LIBRARY PATHS																*
  *======================================================================================*/
 
 /**
@@ -47,6 +47,17 @@ define( "kPATH_LIBRARY_SOURCE",		"/Library/WebServer/Library/wrapper/classes/" )
  * directory.
  */
 define( "kPATH_LIBRARY_DEFINES",	"/Library/WebServer/Library/wrapper/defines/" );
+
+/*=======================================================================================
+ *	NEO4J LIBRARY PATHS																	*
+ *======================================================================================*/
+
+/**
+ * Neo4j library root.
+ *
+ * This value defines the <b><i>absolute</i></b> path to the Neo4j library directory.
+ */
+define( "kPATH_LIBRARY_NEO4J",		"/Library/WebServer/Library/Neo4jphp/" );
 
 /*=======================================================================================
  *	DEFAULT DEFINITIONS																	*
@@ -83,7 +94,11 @@ define( "kDEFAULT_DICTIONARY",			"DICTIONARY" );
  */
 function MyAutoload( $theClassName )
 {
-	require_once( kPATH_LIBRARY_SOURCE.$theClassName.'.php' );
+	$_path = kPATH_LIBRARY_SOURCE
+			.str_replace( '\\', DIRECTORY_SEPARATOR, $theClassName )
+			.'.php';
+	if( file_exists( $_path ) )
+		require_once( $_path );
 }
 spl_autoload_register( 'MyAutoload' );
 

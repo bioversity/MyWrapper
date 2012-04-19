@@ -208,6 +208,7 @@ class CPersistentObject extends CStatusObject
 	 * @uses _Create()
 	 * @uses _IsCommitted()
 	 * @uses _FinishLoad()
+	 * @uses _FinishCreate()
 	 */
 	public function __construct( $theContainer = NULL,
 								 $theIdentifier = NULL,
@@ -219,7 +220,7 @@ class CPersistentObject extends CStatusObject
 		$this->_PrepareCreate( $theContainer, $theIdentifier, $theModifiers );
 		
 		//
-		// Provided container.
+		// Provided identifier.
 		//
 		if( $theIdentifier !== NULL )
 		{
@@ -245,7 +246,17 @@ class CPersistentObject extends CStatusObject
 		// Provided content.
 		//
 		else
+		{
+			//
+			// Load content.
+			//
 			$this->_Create( $theContainer );
+			
+			//
+			// Initialise object.
+			//
+			$this->_FinishCreate( $theContainer, $theIdentifier, $theModifiers );
+		}
 		
 	} // Constructor.
 
@@ -694,7 +705,7 @@ class CPersistentObject extends CStatusObject
 	 */
 	protected function _Load( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
-		return $theContainer->Load( $theIdentifier, $theModifiers );								// ==>
+		return $theContainer->Load( $theIdentifier, $theModifiers );				// ==>
 	
 	} // _Load.
 
@@ -790,16 +801,6 @@ class CPersistentObject extends CStatusObject
 					( "Missing object container",
 					  kERROR_OPTION_MISSING,
 					  kMESSAGE_TYPE_ERROR );									// !@! ==>
-		
-		//
-		// Check if container is supported.
-		//
-		if( ! $theContainer instanceof CContainer )
-			throw new CException
-					( "Unsupported container type",
-					  kERROR_UNSUPPORTED,
-					  kMESSAGE_TYPE_ERROR,
-					  array( 'Container' => $theContainer ) );					// !@! ==>
 
 		//
 		// Check if identifier is there.
@@ -866,12 +867,11 @@ class CPersistentObject extends CStatusObject
 		//
 		// Check if container is supported.
 		//
-		if( ! $theContainer instanceof CContainer )
+		if( $theContainer === NULL )
 			throw new CException
-					( "Unsupported container type",
-					  kERROR_UNSUPPORTED,
-					  kMESSAGE_TYPE_ERROR,
-					  array( 'Container' => $theContainer ) );					// !@! ==>
+					( "Missing container",
+					  kERROR_OPTION_MISSING,
+					  kMESSAGE_TYPE_ERROR );									// !@! ==>
 
 		//
 		// Check if inited.
@@ -884,6 +884,32 @@ class CPersistentObject extends CStatusObject
 					  array( 'Object' => $this ) );								// !@! ==>
 	
 	} // _PrepareCommit.
+
+	 
+	/*===================================================================================
+	 *	_FinishCreate																		*
+	 *==================================================================================*/
+
+	/**
+	 * Normalise after a {@link _Create() create}.
+	 *
+	 * This method will be called after the {@link _Create() create} operation, its duty is
+	 * to initialise an empty object. Both the container and the identifier parameters are
+	 * passed by reference.
+	 *
+	 * This method will be called if the identifier was not provided to the
+	 * {@link __construct() constructor}, or if the {@link __construct() constructor} was
+	 * unable to {@link _Load() find} the requested object.
+	 *
+	 * In this class we do nothing.
+	 *
+	 * @param reference			   &$theContainer		Object container.
+	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Create modifiers.
+	 *
+	 * @access protected
+	 */
+	protected function _FinishCreate( &$theContainer, &$theIdentifier, &$theModifiers )	   {}
 
 	 
 	/*===================================================================================
@@ -905,7 +931,15 @@ class CPersistentObject extends CStatusObject
 	 *
 	 * @access protected
 	 */
-	protected function _FinishLoad( &$theContainer, &$theIdentifier, &$theModifiers )	   {}
+	protected function _FinishLoad( &$theContainer, &$theIdentifier, &$theModifiers )
+	{
+		//
+		// Initialise object.
+		//
+		if( ! $this->_IsCommitted() )
+			$this->_FinishCreate( $theContainer, $theIdentifier, $theModifiers );
+	
+	} // _FinishLoad.
 
 	 
 	/*===================================================================================
