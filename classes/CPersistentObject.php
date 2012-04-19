@@ -403,12 +403,6 @@ class CPersistentObject extends CStatusObject
 			//
 			$this->_FinishCommit( $theContainer, $theIdentifier, $theModifiers );
 			
-			//
-			// Set status.
-			//
-			$this->_IsCommitted( TRUE );
-			$this->_IsDirty( FALSE );
-			
 			return $theIdentifier;													// ==>
 		}
 		
@@ -954,7 +948,9 @@ class CPersistentObject extends CStatusObject
 	 * {@link Commit() this} documentation for a reference of these parameters. Note that in
 	 * this method all three parameters are passed by reference.
 	 *
-	 * In this class we do nothing.
+	 * In this class we set the {@link _IsCommitted() commit}
+	 * {@link kFLAG_STATE_COMMITTED flag} and reset the {@link _IsDirty() dirty}
+	 * {@link kFLAG_STATE_DIRTY flag}.
 	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
@@ -962,7 +958,22 @@ class CPersistentObject extends CStatusObject
 	 *
 	 * @access protected
 	 */
-	protected function _FinishCommit( &$theContainer, &$theIdentifier, &$theModifiers )	   {}
+	protected function _FinishCommit( &$theContainer, &$theIdentifier, &$theModifiers )
+	{
+		//
+		// Set committed status.
+		// Note that we reset the status when deleting.
+		//
+		$this->_IsCommitted( ! ($theModifiers & kFLAG_PERSIST_DELETE) );
+if( ! $theModifiers & kFLAG_PERSIST_DELETE )
+	exit( '<br>XXX<br>' );
+
+		//
+		// Set dirty status.
+		//
+		$this->_IsDirty( FALSE );
+	
+	} // _FinishCommit.
 
 	 
 

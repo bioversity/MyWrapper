@@ -164,7 +164,7 @@ class CGraphNode extends CPersistentObject
 
 	 
 	/*===================================================================================
-	 *	NodeProperty																	*
+	 *	Property																		*
 	 *==================================================================================*/
 
 	/**
@@ -199,7 +199,7 @@ class CGraphNode extends CPersistentObject
 	 * @access public
 	 * @return mixed
 	 */
-	public function NodeProperty( $theKey = NULL, $theValue = NULL, $getOld = FALSE )
+	public function Property( $theKey = NULL, $theValue = NULL, $getOld = FALSE )
 	{
 		//
 		// Save node.
@@ -305,7 +305,7 @@ class CGraphNode extends CPersistentObject
 		
 		return $theValue;															// ==>
 
-	} // NodeProperty.
+	} // Property.
 
 		
 
@@ -454,27 +454,37 @@ class CGraphNode extends CPersistentObject
 	protected function _Commit( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
+		// Get native node.
+		//
+		$node = $this->Node();
+		
+		//
 		// Handle delete.
 		//
 		if( $theModifiers & kFLAG_PERSIST_DELETE )
 		{
-@@@
+			//
+			// Delete node.
+			//
+			if( $node->hasId()								// Prevent exceptions.
+			 && $theContainer->deleteNode( $node ) )
+				$this->Node( $theContainer->makeNode() );
+			
+			return $node->getId();													// ==>
 		
 		} // Delete.
 		
 		//
-		// Save.
+		// Save node.
 		//
-		else
-		{
-			//
-			// Save node.
-			//
-			$this->Node()->save();
-			
-			return $this->Node()->getID();											// ==>
+		$node->save();
 		
-		} // Save.
+		//
+		// Copy node.
+		//
+		$this->Node( $node );
+		
+		return $node->getID();														// ==>
 	
 	} // _Commit.
 
