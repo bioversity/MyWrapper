@@ -6,7 +6,17 @@
  * This file contains the class definition of <b>CGraphNode</b> which represents the
  * ancestor of all graph nodes in this library.
  *
- * Objects derived from this class have one main property which is the node
+ * The class is derived from {@link CPersistentObject CPersistentObject}, of which it
+ * inherits the persistence framework, but it differs profoundly in that, although the class
+ * is an ArrayObject, the actual array that it manages is the properties array of the node.
+ * In other words, when you add, retrieve and delete properties, you are not doing so to
+ * the internal array, but to the node's properties array.
+ *
+ * The class features a single property, the {@link Node() node} which contains a Neo4j node
+ * reference.
+ *
+ * <i>Note that the class will not cast to an array correctly, you must use the
+ * {@link getArrayCopy() getArrayCopy} method for that.</i>
  *
  *	@package	MyWrapper
  *	@subpackage	Persistence
@@ -45,63 +55,14 @@ require_once( kPATH_LIBRARY_SOURCE."CGraphNode.inc.php" );
  */
 class CGraphNode extends CPersistentObject
 {
-		
-
-/*=======================================================================================
- *																						*
- *											MAGIC										*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	__construct																		*
-	 *==================================================================================*/
-
 	/**
-	 * Instantiate class.
+	 * Node.
 	 *
-	 * We {@link CPersistentObject::__construct() overload} the constructor to initialise
-	 * the {@link _IsInited() inited} {@link kFLAG_STATE_INITED flag} if the
-	 * {@link Node() node} property is set.
+	 * This data member holds the Neo4j node.
 	 *
-	 * We also enforce the container, empty nodes must be instantiated by a Neo4j container.
-	 *
-	 * @param mixed					$theContainer		Persistent container.
-	 * @param mixed					$theIdentifier		Object identifier.
-	 * @param bitfield				$theModifiers		Create modifiers.
-	 *
-	 * @access public
-	 *
-	 * @uses _IsInited
-	 *
-	 * @see kTAG_NODE
+	 * @var Everyman\Neo4j\Node
 	 */
-	public function __construct( $theContainer = NULL,
-								 $theIdentifier = NULL,
-								 $theModifiers = kFLAG_DEFAULT )
-	{
-		//
-		// Check container.
-		//
-		if( $theContainer === NULL )
-			throw new CException
-					( "Missing object container",
-					  kERROR_OPTION_MISSING,
-					  kMESSAGE_TYPE_ERROR );									// !@! ==>
-			
-		//
-		// Call parent method.
-		//
-		parent::__construct( $theContainer, $theIdentifier, $theModifiers );
-		
-		//
-		// Set inited status.
-		//
-		$this->_IsInited( $this->offsetExists( kTAG_NODE ) );
-		
-	} // Constructor.
+	 protected $mNode = NULL;
 
 		
 
@@ -121,7 +82,7 @@ class CGraphNode extends CPersistentObject
 	 * Manage native node.
 	 *
 	 * This method can be used to manage the native node reference, it uses the standard
-	 * accessor {@link _ManageOffset() method} to manage the {@link kTAG_NODE offset}:
+	 * accessor {@link CObject::ManageMember() method} to manage the property:
 	 *
 	 * <ul>
 	 *	<li><b>$theValue</b>: The value or operation:
@@ -158,154 +119,30 @@ class CGraphNode extends CPersistentObject
 					  kMESSAGE_TYPE_ERROR,
 					  array( 'Node' => $theValue ) );							// !@! ==>
 		
-		return $this->_ManageOffset( kTAG_NODE, $theValue, $getOld );				// ==>
+		//
+		// Handle data.
+		//
+		$save = CObject::ManageMember( $this->mNode, $theValue, $getOld );
+				
+		//
+		// Set status.
+		//
+		if( $theValue !== NULL )
+		{
+			//
+			// Set dirty flag.
+			//
+			$this->_IsDirty( TRUE );
+			
+			//
+			// Set inited flag.
+			//
+			$this->_IsInited( $this->Node() !== NULL );
+		}
+		
+		return $save;																// ==>
 
 	} // Node.
-
-	 
-	/*===================================================================================
-	 *	Property																		*
-	 *==================================================================================*/
-
-	/**
-	 * Manage native node properties.
-	 *
-	 * This method can be used to manage the native node properties, it accepts the
-	 * following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theKey</b>: The property key:
-	 *	 <ul>
-	 *		<li><i>NULL</i>: Operate on all properties.
-	 *		<li><i>other</i>: Property key.
-	 *	 </ul>
-	 *	<li><b>$theValue</b>: The property value or operation:
-	 *	 <ul>
-	 *		<li><i>NULL</i>: Return the property pointed by the key.
-	 *		<li><i>FALSE</i>: Delete the property pointed by the key.
-	 *		<li><i>other</i>: Set the property pointed by the key.
-	 *	 </ul>
-	 *	<li><b>$getOld</b>: Determines what the method will return:
-	 *	 <ul>
-	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
-	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
-	 *	 </ul>
-	 * </ul>
-	 *
-	 * @param string				$theKey				Property key.
-	 * @param mixed					$theValue			Property value or operation.
-	 * @param boolean				$getOld				TRUE get old value.
-	 *
-	 * @access public
-	 * @return mixed
-	 */
-	public function Property( $theKey = NULL, $theValue = NULL, $getOld = FALSE )
-	{
-		//
-		// Save node.
-		//
-		$node = $this->Node();
-		
-		//
-		// Save old values.
-		//
-		if( $node === NULL )
-			$save = NULL;
-		elseif( $theKey === NULL )
-			$save = $node->getProperties();
-		else
-			$save = $node->getProperty( $theKey );
-		
-		//
-		// Return property.
-		//
-		if( $theValue === NULL )
-			return $save;															// ==>
-		
-		//
-		// Delete property.
-		//
-		if( $theValue === FALSE )
-		{
-			//
-			// Handle properties.
-			//
-			if( $save !== NULL )
-			{
-				//
-				// Something to delete.
-				//
-				$this->_IsDirty( TRUE );
-				
-				//
-				// Handle all properties.
-				//
-				if( $theKey === NULL )
-				{
-					//
-					// Iterate properties.
-					//
-					foreach( $save as $key => $value )
-						$node->removeProperty( $key );
-				
-				} // All properties.
-				
-				//
-				// Handle single property.
-				//
-				else
-					$node->removeProperty( $theKey );
-			
-			} // Has properties.
-			
-			if( $getOld )
-				return $save;														// ==>
-			
-			return NULL;															// ==>
-		
-		} // Delete property.
-		
-		//
-		// Something to add.
-		//
-		$this->_IsDirty( TRUE );
-		
-		//
-		// Set properties.
-		//
-		if( $theKey === NULL )
-		{
-			//
-			// Check values.
-			//
-			if( (! is_array( $theValue ))
-			 && (! $theValue instanceof ArrayObject) )
-				throw new CException
-						( "Inconsistent parameters",
-						  kERROR_INVALID_PARAMETER,
-						  kMESSAGE_TYPE_ERROR,
-						  array( 'Key' => $theKey,
-						  		 'Value' => $theValue ) );						// !@! ==>
-		
-			//
-			// Set properties.
-			//
-			$node->setProperties( $theValue );
-		
-		} // Add many properties.
-		
-		//
-		// Set property.
-		//
-		else
-			$node->setProperty( $theKey, $theValue );
-		
-		if( $getOld )
-			return $save;															// ==>
-		
-		return $theValue;															// ==>
-
-	} // Property.
 
 		
 
@@ -318,15 +155,72 @@ class CGraphNode extends CPersistentObject
 
 	 
 	/*===================================================================================
+	 *	offsetExists																	*
+	 *==================================================================================*/
+
+	/**
+	 * Check whether a given offset exists.
+	 *
+	 * We overload this method to wrap the internal array over the node properties.
+	 *
+	 * @param string				$theOffset			Offset.
+	 *
+	 * @access public
+	 * @return boolean
+	 */
+	public function offsetExists( $theOffset )
+	{
+		//
+		// Require node.
+		//
+		if( ($node = $this->Node()) !== NULL )
+			return array_key_exists( $theOffset, $node->getProperties() );			// ==>
+		
+		return FALSE;																// ==>
+	
+	} // offsetExists.
+
+	 
+	/*===================================================================================
+	 *	offsetGet																		*
+	 *==================================================================================*/
+
+	/**
+	 * Return a value at a given offset.
+	 *
+	 * We overload this method to wrap the internal array over the node properties.
+	 *
+	 * In this class no offset may have a <i>NULL</i> value, if this method returns a
+	 * <i>NULL</i> value, it means that the offset doesn't exist.
+	 *
+	 * @param string				$theOffset			Offset.
+	 *
+	 * @access public
+	 * @return mixed
+	 */
+	public function offsetGet( $theOffset )
+	{
+		//
+		// Require node.
+		//
+		if( ($node = $this->Node()) !== NULL )
+			return $node->getProperty( $theOffset );								// ==>
+		
+		return NULL;																// ==>
+	
+	} // offsetGet.
+
+	 
+	/*===================================================================================
 	 *	offsetSet																		*
 	 *==================================================================================*/
 
 	/**
 	 * Set a value for a given offset.
 	 *
-	 * We overload this method to manage the {@link _IsInited() inited}
-	 * {@link kFLAG_STATE_INITED status}: this is set if {@link kTAG_NODE code} property is
-	 * set.
+	 * We overload this method to wrap the internal array over the node properties.
+	 *
+	 * In this class we delete the entry if the value is <i>NULL</i>.
 	 *
 	 * @param string				$theOffset			Offset.
 	 * @param string|NULL			$theValue			Value to set at offset.
@@ -336,15 +230,40 @@ class CGraphNode extends CPersistentObject
 	public function offsetSet( $theOffset, $theValue )
 	{
 		//
-		// Call parent method.
+		// Require node.
 		//
-		parent::offsetSet( $theOffset, $theValue );
+		if( ($node = $this->Node()) !== NULL )
+		{
+			//
+			// Set value.
+			//
+			if( $theValue !== NULL )
+			{
+				//
+				// Provided offset.
+				//
+				if( strlen( $theOffset ) )
+					$node->setProperty( $theOffset, $theValue );
+				
+				//
+				// Omitted offset.
+				//
+				else
+				{
+					$props = $node->getProperties();
+					$props[] = $theValue;
+					$node->setProperties( $props );
+				}
+			
+			} // Provided value.
+			
+			//
+			// Delete offset.
+			//
+			else
+				$node->removeProperty( $theOffset );
 		
-		//
-		// Set inited flag.
-		//
-		if( $theValue !== NULL )
-			$this->_IsInited( $this->offsetExists( kTAG_NODE ) );
+		} // Has node.
 	
 	} // offsetSet.
 
@@ -356,9 +275,7 @@ class CGraphNode extends CPersistentObject
 	/**
 	 * Reset a value for a given offset.
 	 *
-	 * We overload this method to manage the {@link _IsInited() inited}
-	 * {@link kFLAG_STATE_INITED status}: this is set if {@link kTAG_NODE code} property is
-	 * set.
+	 * We overload this method to wrap the internal array over the node properties.
 	 *
 	 * @param string				$theOffset			Offset.
 	 *
@@ -367,16 +284,322 @@ class CGraphNode extends CPersistentObject
 	public function offsetUnset( $theOffset )
 	{
 		//
-		// Call parent method.
+		// Require node.
 		//
-		parent::offsetUnset( $theOffset );
-		
-		//
-		// Set inited flag.
-		//
-		$this->_IsInited( $this->offsetExists( kTAG_NODE ) );
+		if( ($node = $this->Node()) !== NULL )
+			$node->removeProperty( $theOffset );
 	
 	} // offsetUnset.
+
+	 
+	/*===================================================================================
+	 *	append																			*
+	 *==================================================================================*/
+
+	/**
+	 * Append a value.
+	 *
+	 * We overload this method to wrap the internal array over the node properties.
+	 *
+	 * @param mixed					$theValue			Value.
+	 *
+	 * @access public
+	 */
+	public function append( $theValue )
+	{
+		//
+		// Require node.
+		//
+		if( ($node = $this->Node()) !== NULL )
+		{
+			$props = $node->getProperties();
+			$props[] = $theValue;
+			$node->setProperties( $props );
+		}
+	
+	} // append.
+
+	 
+	/*===================================================================================
+	 *	asort																			*
+	 *==================================================================================*/
+
+	/**
+	 * Sort array by values.
+	 *
+	 * We overload this method to wrap the internal array over the node properties.
+	 *
+	 * @access public
+	 */
+	public function asort()
+	{
+		//
+		// Require node.
+		//
+		if( ($node = $this->Node()) !== NULL )
+		{
+			$props = $node->getProperties();
+			asort( $props );
+			$node->setProperties( $props );
+		}
+	
+	} // asort.
+
+	 
+	/*===================================================================================
+	 *	ksort																			*
+	 *==================================================================================*/
+
+	/**
+	 * Sort array by keys.
+	 *
+	 * We overload this method to wrap the internal array over the node properties.
+	 *
+	 * @access public
+	 */
+	public function ksort()
+	{
+		//
+		// Require node.
+		//
+		if( ($node = $this->Node()) !== NULL )
+		{
+			$props = $node->getProperties();
+			ksort( $props );
+			$node->setProperties( $props );
+		}
+	
+	} // ksort.
+
+	 
+	/*===================================================================================
+	 *	natcasesort																		*
+	 *==================================================================================*/
+
+	/**
+	 * Sort array by case insensitive natural order algorythm.
+	 *
+	 * We overload this method to wrap the internal array over the node properties.
+	 *
+	 * @access public
+	 */
+	public function natcasesort()
+	{
+		//
+		// Require node.
+		//
+		if( ($node = $this->Node()) !== NULL )
+		{
+			$props = $node->getProperties();
+			natcasesort( $props );
+			$node->setProperties( $props );
+		}
+	
+	} // natcasesort.
+
+	 
+	/*===================================================================================
+	 *	natsort																			*
+	 *==================================================================================*/
+
+	/**
+	 * Sort array by natural order algorythm.
+	 *
+	 * We overload this method to wrap the internal array over the node properties.
+	 *
+	 * @access public
+	 */
+	public function natsort()
+	{
+		//
+		// Require node.
+		//
+		if( ($node = $this->Node()) !== NULL )
+		{
+			$props = $node->getProperties();
+			natsort( $props );
+			$node->setProperties( $props );
+		}
+	
+	} // natsort.
+
+	 
+	/*===================================================================================
+	 *	count																			*
+	 *==================================================================================*/
+
+	/**
+	 * Count number of elements.
+	 *
+	 * We overload this method to wrap the internal array over the node properties.
+	 *
+	 * Note that if the node exists the method will return an integer, if not, it will
+	 * return <i>NULL</i>.
+	 *
+	 * @access public
+	 * @return mixed
+	 */
+	public function count()
+	{
+		//
+		// Require node.
+		//
+		if( ($node = $this->Node()) !== NULL )
+			return count( $node->getProperties() );									// ==>
+		
+		return NULL;																// ==>
+	
+	} // count.
+
+	 
+	/*===================================================================================
+	 *	exchangeArray																	*
+	 *==================================================================================*/
+
+	/**
+	 * Exchange arrays.
+	 *
+	 * We overload this method to wrap the internal array over the node properties.
+	 *
+	 * Note that if the node exists the method will return an array, if not, it will
+	 * return an empty array.
+	 *
+	 * @param mixed					$theValue			Value.
+	 *
+	 * @access public
+	 * @return mixed
+	 */
+	public function exchangeArray( $theValue )
+	{
+		//
+		// Require node.
+		//
+		if( ($node = $this->Node()) !== NULL )
+		{
+			$old = $node->getProperties();
+			$node->setProperties( $theValue );
+			
+			return $old;															// ==>
+		}
+		
+		return Array();																// ==>
+	
+	} // exchangeArray.
+
+	 
+	/*===================================================================================
+	 *	getArrayCopy																	*
+	 *==================================================================================*/
+
+	/**
+	 * Create a copy of the array.
+	 *
+	 * We overload this method to wrap the internal array over the node properties.
+	 *
+	 * Note that if the node exists the method will return an array, if not, it will
+	 * return an empty array.
+	 *
+	 * @access public
+	 * @return mixed
+	 */
+	public function getArrayCopy()
+	{
+		//
+		// Require node.
+		//
+		if( ($node = $this->Node()) !== NULL )
+			return $node->getProperties();											// ==>
+		
+		return Array();																// ==>
+	
+	} // getArrayCopy.
+
+	 
+	/*===================================================================================
+	 *	getIterator																		*
+	 *==================================================================================*/
+
+	/**
+	 * Get array iterator.
+	 *
+	 * We overload this method to wrap the internal array over the node properties.
+	 *
+	 * Note that if the node exists the method will return an array, if not, it will
+	 * return an empty array.
+	 *
+	 * @access public
+	 * @return ArrayIterator
+	 */
+	public function getIterator()
+	{
+		//
+		// Require node.
+		//
+		if( ($node = $this->Node()) !== NULL )
+			return new ArrayIterator( $node->getProperties() );						// ==>
+		
+		return new ArrayIterator();													// ==>
+	
+	} // getIterator.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC ARRAY UTILITY INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	keys																			*
+	 *==================================================================================*/
+
+	/**
+	 * Return object's keys.
+	 *
+	 * We overload this method to wrap the internal array over the node properties.
+	 *
+	 * @access public
+	 * @return array
+	 */
+	public function keys()
+	{
+		//
+		// Require node.
+		//
+		if( ($node = $this->Node()) !== NULL )
+			return array_keys( $node->getProperties() );							// ==>
+		
+		return Array();																// ==>
+	
+	} // keys.
+
+	 
+	/*===================================================================================
+	 *	values																			*
+	 *==================================================================================*/
+
+	/**
+	 * Return object's values.
+	 *
+	 * We overload this method to wrap the internal array over the node properties.
+	 *
+	 * @access public
+	 * @return array
+	 */
+	public function values()
+	{
+		//
+		// Require node.
+		//
+		if( ($node = $this->Node()) !== NULL )
+			return array_values( $node->getProperties() );							// ==>
+		
+		return Array();																// ==>
+	
+	} // keys.
 
 		
 
@@ -544,6 +767,15 @@ class CGraphNode extends CPersistentObject
 	protected function _PrepareCreate( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
+		// Check container.
+		//
+		if( $theContainer === NULL )
+			throw new CException
+					( "Missing object container",
+					  kERROR_OPTION_MISSING,
+					  kMESSAGE_TYPE_ERROR );									// !@! ==>
+			
+		//
 		// Call parent method.
 		//
 		parent::_PrepareCreate( $theContainer, $theIdentifier, $theModifiers );
@@ -659,7 +891,17 @@ class CGraphNode extends CPersistentObject
 		// Create empty node.
 		//
 		if( $theContainer instanceof Everyman\Neo4j\Client )
+		{
+			//
+			// Create node.
+			//
 			$this->Node( $theContainer->makeNode() );
+			
+			//
+			// Set inited flag.
+			//
+			$this->_IsInited( TRUE );
+		}
 	
 	} // _FinishCreate.
 

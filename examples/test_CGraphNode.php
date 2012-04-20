@@ -108,31 +108,41 @@ try
 	echo( '<hr>' );
 	
 	echo( '<i>Load property</i><br>' );
-	echo( '<i>$test->Property( kTAG_NAME, \'The name\' );</i><br>' );
-	$test->Property( kTAG_NAME, 'The name' );
+	echo( '<i>$test[ kTAG_NAME ] = \'The name\' );</i><br>' );
+	$test[ kTAG_NAME ] = 'The name';
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	echo( '<i>Load properties</i><br>' );
-	echo( '<i>$prop = array( kTAG_DESCRIPTION => \'Description\', kTAG_DEFINITION => \'Definition\' );</i><br>' );
-	$prop = array( kTAG_DESCRIPTION => 'Description', kTAG_DEFINITION => 'Definition' );
-	echo( '<i>$test->Property( NULL, $prop );</i><br>' );
-	$test->Property( NULL, $prop );
-	echo( '<i>$prop = $test->Property();</i><br>' );
-	$prop = $test->Property();
-	echo( 'Properties:<pre>' ); print_r( $prop ); echo( '</pre>' );
+	echo( '<i>Add properties</i><br>' );
+	echo( '<i>$test[ kTAG_DESCRIPTION ] = \'Description\' );</i><br>' );
+	$test[ kTAG_DESCRIPTION ] = 'Description';
+	echo( '<i>$test[ kTAG_DEFINITION ] = \'Definition\' );</i><br>' );
+	$test[ kTAG_DEFINITION ] = 'Definition';
+	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$props = $test->getArrayCopy();</i><br>' );
+	$props = $test->getArrayCopy();
+	echo( 'Properties:<pre>' ); print_r( $props ); echo( '</pre>' );
+	foreach( $test as $key => $value )
+		echo( "[$key] $value<br>" );
 	echo( '<hr>' );
 	
 	echo( '<i>Delete property</i><br>' );
-	echo( '<i>$test->Property( kTAG_DEFINITION, FALSE );</i><br>' );
-	$test->Property( kTAG_DEFINITION, FALSE );
-	$prop = $test->Property();
-	echo( 'Properties:<pre>' ); print_r( $prop ); echo( '</pre>' );
+	echo( '<i>$test->offsetUnset( kTAG_DEFINITION );</i><br>' );
+	$test->offsetUnset( kTAG_DEFINITION );
+	$props = $test->getArrayCopy();
+	echo( 'Properties:<pre>' ); print_r( $props ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>Delete property</i><br>' );
+	echo( '<i>$test[ kTAG_DESCRIPTION ] = NULL;</i><br>' );
+	$test[ kTAG_DESCRIPTION ] = NULL;
+	$props = $test->getArrayCopy();
+	echo( 'Properties:<pre>' ); print_r( $props ); echo( '</pre>' );
 	echo( '<hr>' );
 	
 	echo( '<i>Retrieve property</i><br>' );
-	echo( '<i>$prop = $test->Property( kTAG_DESCRIPTION );</i><br>' );
-	$prop = $test->Property( kTAG_DESCRIPTION );
+	echo( '<i>$prop = $test[ kTAG_NAME ];</i><br>' );
+	$prop = $test[ kTAG_NAME ];
 	echo( 'Property:<pre>' ); print_r( $prop ); echo( '</pre>' );
 	echo( '<hr>' );
 	echo( '<hr>' );

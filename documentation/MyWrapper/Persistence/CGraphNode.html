@@ -19,7 +19,7 @@
 	<div class="info-box-title">Description</div>
 	<div class="nav-bar">
 					<span class="disabled">Description</span> |
-													<a href="#sec-vars">Vars</a>
+													<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
 						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
 						
 											<a href="#sec-consts">Constants</a>
@@ -30,7 +30,7 @@
 <p class="short-description">Graph node.</p>
 <p class="description"><p>This class implements a graph node.</p></p>
 		<p class="notes">
-			Located in <a class="field" href="_classes---CGraphNode.php.html">/classes/CGraphNode.php</a> (line <span class="field">46</span>)
+			Located in <a class="field" href="_classes---CGraphNode.php.html">/classes/CGraphNode.php</a> (line <span class="field">56</span>)
 		</p>
 		
 				
@@ -49,6 +49,28 @@
 
 
 
+	<a name="sec-var-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variable Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+						<span class="disabled">Vars</span> (<a href="#sec-vars">details</a>)
+							| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+															<a href="#sec-consts">Constants</a>
+							
+					</div>
+		<div class="info-box-body">
+			<div class="var-summary">
+																								<div class="var-title">
+					<img src="../../media/images/Variable.png" alt=" " />
+					<span class="var-type">Everyman\Neo4j\Node</span>
+					<a href="#$mNode" title="details" class="var-name">$mNode</a>
+				</div>
+											</div>
+		</div>
+	</div>
 
 	<a name="sec-method-summary"></a>
 	<div class="info-box">
@@ -57,24 +79,90 @@
 			<a href="#sec-description">Description</a> |
 															<a href="#sec-consts">Constants</a>
 							
-															<a href="#sec-vars">Vars</a>
+															<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
 				 
 				|
 						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																																																																																																																<div class="method-definition">
-					<img src="../../media/images/Constructor.png" alt=" "/>
-											<span class="method-result">CGraphNode</span>
-										<a href="#__construct" title="details" class="method-name">__construct</a>
-											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span> = <span class="var-default">NULL</span>], [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_DEFAULT</span>])
+																																																																																																																																																																																																								<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#append" title="details" class="method-name">append</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#asort" title="details" class="method-name">asort</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#count" title="details" class="method-name">count</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#exchangeArray" title="details" class="method-name">exchangeArray</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#getArrayCopy" title="details" class="method-name">getArrayCopy</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">ArrayIterator</span>
+										<a href="#getIterator" title="details" class="method-name">getIterator</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">array</span>
+										<a href="#keys" title="details" class="method-name">keys</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#ksort" title="details" class="method-name">ksort</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#natcasesort" title="details" class="method-name">natcasesort</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#natsort" title="details" class="method-name">natsort</a>
+										()
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">Everyman\Neo4j\Node</span>
 										<a href="#Node" title="details" class="method-name">Node</a>
 											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">boolean</span>
+										<a href="#offsetExists" title="details" class="method-name">offsetExists</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#offsetGet" title="details" class="method-name">offsetGet</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>)
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -90,9 +178,9 @@
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
-											<span class="method-result">mixed</span>
-										<a href="#Property" title="details" class="method-name">Property</a>
-											([<span class="var-type">string</span>&nbsp;<span class="var-name">$theKey</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+											<span class="method-result">array</span>
+										<a href="#values" title="details" class="method-name">values</a>
+										()
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -156,6 +244,30 @@
 					</div>
 		<div class="info-box-body">
 			
+<a name="var$mNode" id="$mNode"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<img src="../../media/images/Variable.png" />
+		<span class="var-title">
+			<span class="var-type">Everyman\Neo4j\Node</span>
+			<span class="var-name">$mNode</span>
+			 = <span class="var-default"> NULL</span>			(line <span class="line-number">65</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Node.</p>
+<p class="description"><p>This data member holds the Neo4j node.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
 							<h4>Inherited Variables</h4>
 				<A NAME='inherited_vars'><!-- --></A>
 									<p>Inherited from <span class="classname"><a href="../../MyWrapper/Framework/CStatusObject.html">CStatusObject</a></span></p>
@@ -174,55 +286,286 @@
 		<div class="info-box-title">Methods</div>
 		<div class="nav-bar">
 			<a href="#sec-description">Description</a> |
-															<a href="#sec-vars">Vars</a>
+															<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
 														<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
 						
 		</div>
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
-<a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<a name="methodappend" id="append"><!-- --></a>
+<div class="evenrow">
 	
 	<div class="method-header">
-		<img src="../../media/images/Constructor.png" />
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">81</span>)
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">append</span> (line <span class="line-number">308</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Instantiate class.</p>
-<p class="description"><p>We <a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">overload</a> the constructor to initialise  the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">inited</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">flag</a> if the  <a href="../../MyWrapper/Persistence/CGraphNode.html#methodNode">node</a> property is set.</p><p>We also enforce the container, empty nodes must be instantiated by a Neo4j container.</p></p>
+<p class="short-description">Append a value.</p>
+<p class="description"><p>We overload this method to wrap the internal array over the node properties.</p></p>
 	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NODE">kTAG_NODE</a></li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></li>
 			</ul>
 	
 	<div class="method-signature">
-		<span class="method-result">CGraphNode</span>
+		<span class="method-result">void</span>
 		<span class="method-name">
-			__construct
+			append
 		</span>
-					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span> = <span class="var-default">NULL</span>], [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_DEFAULT</span>])
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span>)
 			</div>
 	
 			<ul class="parameters">
 					<li>
 				<span class="var-type">mixed</span>
-				<span class="var-name">$theContainer</span><span class="var-description">: Persistent container.</span>			</li>
+				<span class="var-name">$theValue</span><span class="var-description">: Value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodasort" id="asort"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">asort</span> (line <span class="line-number">334</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Sort array by values.</p>
+<p class="description"><p>We overload this method to wrap the internal array over the node properties.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			asort
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodcount" id="count"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">count</span> (line <span class="line-number">442</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Count number of elements.</p>
+<p class="description"><p>We overload this method to wrap the internal array over the node properties.</p><p>Note that if the node exists the method will return an integer, if not, it will  return <em>NULL</em>.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			count
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodexchangeArray" id="exchangeArray"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">exchangeArray</span> (line <span class="line-number">472</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Exchange arrays.</p>
+<p class="description"><p>We overload this method to wrap the internal array over the node properties.</p><p>Note that if the node exists the method will return an array, if not, it will  return an empty array.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			exchangeArray
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span>)
+			</div>
+	
+			<ul class="parameters">
 					<li>
 				<span class="var-type">mixed</span>
-				<span class="var-name">$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
-					<li>
-				<span class="var-type">bitfield</span>
-				<span class="var-name">$theModifiers</span><span class="var-description">: Create modifiers.</span>			</li>
+				<span class="var-name">$theValue</span><span class="var-description">: Value.</span>			</li>
 				</ul>
+		
+			
+	</div>
+<a name="methodgetArrayCopy" id="getArrayCopy"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">getArrayCopy</span> (line <span class="line-number">505</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a copy of the array.</p>
+<p class="description"><p>We overload this method to wrap the internal array over the node properties.</p><p>Note that if the node exists the method will return an array, if not, it will  return an empty array.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			getArrayCopy
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodgetIterator" id="getIterator"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">getIterator</span> (line <span class="line-number">533</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get array iterator.</p>
+<p class="description"><p>We overload this method to wrap the internal array over the node properties.</p><p>Note that if the node exists the method will return an array, if not, it will  return an empty array.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">ArrayIterator</span>
+		<span class="method-name">
+			getIterator
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodkeys" id="keys"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">keys</span> (line <span class="line-number">567</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return object's keys.</p>
+<p class="description"><p>We overload this method to wrap the internal array over the node properties.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			keys
+		</span>
+				()
+			</div>
+	
 		
 			<hr class="separator" />
 		<div class="notes">Redefinition of:</div>
 		<dl>
-			<dt><a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">CPersistentObject::__construct()</a></dt>
-						<dd>Instantiate class.</dd>
+			<dt><a href="../../MyWrapper/Framework/CArrayObject.html#methodkeys">CArrayObject::keys()</a></dt>
+						<dd>Return object's keys.</dd>
 					</dl>
+			
+	</div>
+<a name="methodksort" id="ksort"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">ksort</span> (line <span class="line-number">360</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Sort array by keys.</p>
+<p class="description"><p>We overload this method to wrap the internal array over the node properties.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			ksort
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodnatcasesort" id="natcasesort"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">natcasesort</span> (line <span class="line-number">386</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Sort array by case insensitive natural order algorythm.</p>
+<p class="description"><p>We overload this method to wrap the internal array over the node properties.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			natcasesort
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodnatsort" id="natsort"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">natsort</span> (line <span class="line-number">412</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Sort array by natural order algorythm.</p>
+<p class="description"><p>We overload this method to wrap the internal array over the node properties.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			natsort
+		</span>
+				()
+			</div>
+	
+		
 			
 	</div>
 <a name="methodNode" id="Node"><!-- --></a>
@@ -230,12 +573,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Node</span> (line <span class="line-number">147</span>)
+		<span class="method-title">Node</span> (line <span class="line-number">108</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage native node.</p>
-<p class="description"><p>This method can be used to manage the native node reference, it uses the standard  accessor <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">method</a> to manage the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NODE">offset</a>:</p><p><ul><li><strong>$theValue</strong>: The value or operation:
+<p class="description"><p>This method can be used to manage the native node reference, it uses the standard  accessor <a href="../../MyWrapper/Framework/CObject.html#methodManageMember">method</a> to manage the property:</p><p><ul><li><strong>$theValue</strong>: The value or operation:
      <ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the value.</li><li><em>Everyman\Neo4j\Node</em>: Set value.</li><li><em>other</em>: Raise exception.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
      <ul><li><em>TRUE</em>: Return the value <em>before</em> it was eventually modified.</li><li><em>FALSE</em>: Return the value <em>after</em> it was eventually modified.</li></ul></li></ul></p></p>
 	<ul class="tags">
@@ -261,17 +604,85 @@
 		
 			
 	</div>
+<a name="methodoffsetExists" id="offsetExists"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">offsetExists</span> (line <span class="line-number">171</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Check whether a given offset exists.</p>
+<p class="description"><p>We overload this method to wrap the internal array over the node properties.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">boolean</span>
+		<span class="method-name">
+			offsetExists
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theOffset</span><span class="var-description">: Offset.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodoffsetGet" id="offsetGet"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">offsetGet</span> (line <span class="line-number">201</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return a value at a given offset.</p>
+<p class="description"><p>We overload this method to wrap the internal array over the node properties.</p><p>In this class no offset may have a <em>NULL</em> value, if this method returns a  <em>NULL</em> value, it means that the offset doesn't exist.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			offsetGet
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theOffset</span><span class="var-description">: Offset.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetGet">CArrayObject::offsetGet()</a></dt>
+						<dd>Return a value at a given offset.</dd>
+					</dl>
+			
+	</div>
 <a name="methodoffsetSet" id="offsetSet"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetSet</span> (line <span class="line-number">336</span>)
+		<span class="method-title">offsetSet</span> (line <span class="line-number">230</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Set a value for a given offset.</p>
-<p class="description"><p>We overload this method to manage the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">inited</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>: this is set if <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NODE">code</a> property is  set.</p></p>
+<p class="description"><p>We overload this method to wrap the internal array over the node properties.</p><p>In this class we delete the entry if the value is <em>NULL</em>.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 			</ul>
@@ -306,12 +717,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetUnset</span> (line <span class="line-number">367</span>)
+		<span class="method-title">offsetUnset</span> (line <span class="line-number">284</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Reset a value for a given offset.</p>
-<p class="description"><p>We overload this method to manage the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">inited</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>: this is set if <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NODE">code</a> property is  set.</p></p>
+<p class="description"><p>We overload this method to wrap the internal array over the node properties.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 			</ul>
@@ -338,44 +749,36 @@
 					</dl>
 			
 	</div>
-<a name="methodProperty" id="Property"><!-- --></a>
+<a name="methodvalues" id="values"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Property</span> (line <span class="line-number">202</span>)
+		<span class="method-title">values</span> (line <span class="line-number">592</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Manage native node properties.</p>
-<p class="description"><p>This method can be used to manage the native node properties, it accepts the  following parameters:</p><p><ul><li><strong>$theKey</strong>: The property key:
-	 <ul><li><em>NULL</em>: Operate on all properties.</li><li><em>other</em>: Property key.</li></ul></li><li><strong>$theValue</strong>: The property value or operation:
-	 <ul><li><em>NULL</em>: Return the property pointed by the key.</li><li><em>FALSE</em>: Delete the property pointed by the key.</li><li><em>other</em>: Set the property pointed by the key.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
-	 <ul><li><em>TRUE</em>: Return the value <em>before</em> it was eventually modified.</li><li><em>FALSE</em>: Return the value <em>after</em> it was eventually modified.</li></ul></li></ul></p></p>
+<p class="short-description">Return object's values.</p>
+<p class="description"><p>We overload this method to wrap the internal array over the node properties.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 			</ul>
 	
 	<div class="method-signature">
-		<span class="method-result">mixed</span>
+		<span class="method-result">array</span>
 		<span class="method-name">
-			Property
+			values
 		</span>
-					([<span class="var-type">string</span>&nbsp;<span class="var-name">$theKey</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+				()
 			</div>
 	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$theKey</span><span class="var-description">: Property key.</span>			</li>
-					<li>
-				<span class="var-type">mixed</span>
-				<span class="var-name">$theValue</span><span class="var-description">: Property value or operation.</span>			</li>
-					<li>
-				<span class="var-type">boolean</span>
-				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
-				</ul>
 		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Framework/CArrayObject.html#methodvalues">CArrayObject::values()</a></dt>
+						<dd>Return object's values.</dd>
+					</dl>
 			
 	</div>
 <a name="method_Commit" id="_Commit"><!-- --></a>
@@ -383,7 +786,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Commit</span> (line <span class="line-number">454</span>)
+		<span class="method-title">_Commit</span> (line <span class="line-number">677</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -426,7 +829,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Create</span> (line <span class="line-number">409</span>)
+		<span class="method-title">_Create</span> (line <span class="line-number">632</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -465,7 +868,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishCreate</span> (line <span class="line-number">656</span>)
+		<span class="method-title">_FinishCreate</span> (line <span class="line-number">888</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -508,7 +911,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Load</span> (line <span class="line-number">508</span>)
+		<span class="method-title">_Load</span> (line <span class="line-number">731</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -551,7 +954,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">621</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">853</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -595,7 +998,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCreate</span> (line <span class="line-number">544</span>)
+		<span class="method-title">_PrepareCreate</span> (line <span class="line-number">767</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -640,7 +1043,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">584</span>)
+		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">816</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -809,7 +1212,7 @@
 										<a href="#sec-var-summary">Constants</a> (<span class="disabled">details</span>)
 						
 			
-												<a href="#sec-vars">Vars</a>
+												<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
 														| 
 									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
 							
@@ -833,7 +1236,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 20 Apr 2012 01:32:20 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 20 Apr 2012 13:45:06 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>
