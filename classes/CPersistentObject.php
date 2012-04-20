@@ -824,7 +824,8 @@ class CPersistentObject extends CStatusObject
 	 * By default we perform the following checks:
 	 *
 	 * <ul>
-	 *	<li>Ensure the container is an instance of {@link CContainer CContainer}.
+	 *	<li>Ensure the container is provided.
+	 *	<li>Ensure the identifier is provided if {@link kFLAG_PERSIST_UPDATE updating}.
 	 *	<li>Ensure the object is {@link _IsInited() initialised}.
 	 * </ul>
 	 *
@@ -859,11 +860,12 @@ class CPersistentObject extends CStatusObject
 					  kMESSAGE_TYPE_ERROR );									// !@! ==>
 		
 		//
-		// Check if container is supported.
+		// Check if identifier is there on updates.
 		//
-		if( $theContainer === NULL )
+		if( ($theIdentifier === NULL)
+		 && (($theModifiers & kFLAG_PERSIST_MASK) == kFLAG_PERSIST_UPDATE) )
 			throw new CException
-					( "Missing container",
+					( "Identifier is required for updates",
 					  kERROR_OPTION_MISSING,
 					  kMESSAGE_TYPE_ERROR );									// !@! ==>
 
@@ -925,15 +927,7 @@ class CPersistentObject extends CStatusObject
 	 *
 	 * @access protected
 	 */
-	protected function _FinishLoad( &$theContainer, &$theIdentifier, &$theModifiers )
-	{
-		//
-		// Initialise object.
-		//
-		if( ! $this->_IsCommitted() )
-			$this->_FinishCreate( $theContainer, $theIdentifier, $theModifiers );
-	
-	} // _FinishLoad.
+	protected function _FinishLoad( &$theContainer, &$theIdentifier, &$theModifiers )	   {}
 
 	 
 	/*===================================================================================
@@ -965,8 +959,6 @@ class CPersistentObject extends CStatusObject
 		// Note that we reset the status when deleting.
 		//
 		$this->_IsCommitted( ! ($theModifiers & kFLAG_PERSIST_DELETE) );
-if( ! $theModifiers & kFLAG_PERSIST_DELETE )
-	exit( '<br>XXX<br>' );
 
 		//
 		// Set dirty status.

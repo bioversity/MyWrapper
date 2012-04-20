@@ -27,9 +27,9 @@
 require_once( kPATH_LIBRARY_SOURCE."CGraphNode.php" );
 
 /**
- * Graph node.
+ * Ontology graph node.
  *
- * This class implements an ontology node.
+ * This class implements an ontology graph node.
  *
  * The class is derived from {@link CGraphNode CGraphNode}, it adds another required
  * property, the {@link Term() term}. This class will wrap the array access framework to
@@ -47,7 +47,8 @@ require_once( kPATH_LIBRARY_SOURCE."CGraphNode.php" );
  * </ul>
  *
  * <i>Note that the class will not cast to an array correctly, you must use the
- * {@link getArrayCopy() getArrayCopy} method for that.</i>
+ * {@link getArrayCopy() getArrayCopy} method to get an array, if you know how to solve
+ * this, please do it!</i>
  *
  *	@package	MyWrapper
  *	@subpackage	Ontology
@@ -98,11 +99,19 @@ class COntologyNode extends CGraphNode
 	 *	 </ul>
 	 * </ul>
 	 *
+	 * The method will also set the {@link _IsDirty() dirty}
+	 * {@link kFLAG_STATE_DIRTY status} and the {@link _IsInited() inited}
+	 * {@link kFLAG_STATE_INITED status} if the node is provided.
+	 *
 	 * @param mixed					$theValue			Term or operation.
 	 * @param boolean				$getOld				TRUE get old value.
 	 *
 	 * @access public
-	 * @return Everyman\Neo4j\Node
+	 * @return COntologyTermObject
+	 *
+	 * @uses CObject::ManageMember()
+	 * @uses _IsDirty()
+	 * @uses _IsInited()
 	 */
 	public function Term( $theValue = NULL, $getOld = FALSE )
 	{
@@ -179,8 +188,8 @@ class COntologyNode extends CGraphNode
 		//
 		// Require term.
 		//
-		if( ($term = $this->Term()) !== NULL )
-			return $term->offsetExists( $theOffset );								// ==>
+		if( $this->mTerm !== NULL )
+			return $this->mTerm->offsetExists( $theOffset );						// ==>
 		
 		return FALSE;																// ==>
 	
@@ -215,8 +224,8 @@ class COntologyNode extends CGraphNode
 		//
 		// Require term.
 		//
-		if( ($term = $this->Term()) !== NULL )
-			return $term->offsetGet( $theOffset );									// ==>
+		if( $this->mTerm !== NULL )
+			return $this->mTerm->offsetGet( $theOffset );							// ==>
 		
 		return NULL;																// ==>
 	
@@ -240,18 +249,7 @@ class COntologyNode extends CGraphNode
 	 */
 	public function count()
 	{
-		//
-		// Get node property count.
-		//
-		$count = (integer) parent::count();
-		
-		//
-		// Require term.
-		//
-		if( ($term = $this->Term()) !== NULL )
-			$count += $term->count();
-		
-		return $count;																// ==>
+		return count( $this->getArrayCopy() );										// ==>
 	
 	} // count.
 
@@ -274,106 +272,15 @@ class COntologyNode extends CGraphNode
 	public function getArrayCopy()
 	{
 		//
-		// Init local storage.
-		//
-		$array = Array();
-		
-		//
 		// Require term.
 		//
-		if( ($term = $this->Term()) !== NULL )
-			$array = array_merge( $array, $term->getArrayCopy() );
+		if( $this->mTerm !== NULL )
+			return array_merge( $this->mTerm->getArrayCopy(),
+								parent::getArrayCopy() );							// ==>
 		
-		//
-		// Add node properties.
-		//
-		return array_merge( $array, parent::getArrayCopy() );						// ==>
+		return parent::getArrayCopy();												// ==>
 	
 	} // getArrayCopy.
-
-	 
-	/*===================================================================================
-	 *	getIterator																		*
-	 *==================================================================================*/
-
-	/**
-	 * Get array iterator.
-	 *
-	 * We overload this method to wrap the internal array over the node properties.
-	 *
-	 * Note that if the node exists the method will return an array, if not, it will
-	 * return an empty array.
-	 *
-	 * @access public
-	 * @return ArrayIterator
-	 */
-	public function getIterator()
-	{
-		//
-		// Get array.
-		//
-		$array = $this->getArrayCopy();
-		
-		return new ArrayIterator( $array );											// ==>
-	
-	} // getIterator.
-
-		
-
-/*=======================================================================================
- *																						*
- *								PUBLIC ARRAY UTILITY INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	keys																			*
-	 *==================================================================================*/
-
-	/**
-	 * Return object's keys.
-	 *
-	 * We overload this method to wrap the internal array over the node properties.
-	 *
-	 * @access public
-	 * @return array
-	 */
-	public function keys()
-	{
-		//
-		// Get array.
-		//
-		$array = $this->getArrayCopy();
-		
-		return array_keys( $array );												// ==>
-	
-	} // keys.
-
-	 
-	/*===================================================================================
-	 *	values																			*
-	 *==================================================================================*/
-
-	/**
-	 * Return object's values.
-	 *
-	 * We overload this method to wrap the internal array over the node properties.
-	 *
-	 * @access public
-	 * @return array
-	 */
-	public function values()
-	{
-		//
-		// Get array.
-		//
-		$array = $this->getArrayCopy();
-		
-		return array_values( $array );												// ==>
-	
-	} // keys.
 
 		
 
@@ -383,107 +290,6 @@ class COntologyNode extends CGraphNode
  *																						*
  *======================================================================================*/
 
-
-	 
-	/*===================================================================================
-	 *	_Create																			*
-	 *==================================================================================*/
-
-	/**
-	 * Create object.
-	 *
-	 * We {@link CPersistentObject::_Create() overload} this method to handle Neo4j nodes.
-	 *
-	 * @param reference			   &$theContent			Object data content.
-	 *
-	 * @access protected
-	 * @return boolean
-	 *
-	 * @throws {@link CException CException}
-	 *
-	 * @see kERROR_UNSUPPORTED
-	 */
-	protected function _Create( &$theContent )
-	{
-		//
-		// Handle node.
-		//
-		if( $theContent instanceof Everyman\Neo4j\Node )
-		{
-			//
-			// Save node.
-			//
-			$this->Node( $theContent );
-			
-			return TRUE;															// ==>
-		
-		} // Received node.
-		
-		//
-		// Handle empty node.
-		//
-		if( $theContent instanceof Everyman\Neo4j\Client )
-			return FALSE;															// ==>
-
-		return parent::_Create( $theContent );										// ==>
-	
-	} // _Create.
-
-	 
-	/*===================================================================================
-	 *	_Commit																			*
-	 *==================================================================================*/
-
-	/**
-	 * Store object in container.
-	 *
-	 * In this class we save the node and return its ID.
-	 *
-	 * We ignore the identifier here.
-	 *
-	 * @param reference			   &$theContainer		Object container.
-	 * @param reference			   &$theIdentifier		Object identifier.
-	 * @param reference			   &$theModifiers		Commit modifiers.
-	 *
-	 * @access protected
-	 * @return mixed
-	 */
-	protected function _Commit( &$theContainer, &$theIdentifier, &$theModifiers )
-	{
-		//
-		// Get native node.
-		//
-		$node = $this->Node();
-		
-		//
-		// Handle delete.
-		//
-		if( $theModifiers & kFLAG_PERSIST_DELETE )
-		{
-			//
-			// Delete node.
-			//
-			if( $node->hasId()								// Prevent exceptions.
-			 && $theContainer->deleteNode( $node ) )
-				$this->Node( $theContainer->makeNode() );
-			
-			return $node->getId();													// ==>
-		
-		} // Delete.
-		
-		//
-		// Save node.
-		//
-		$node->save();
-		
-		//
-		// Copy node.
-		//
-		$this->Node( $node );
-		
-		return $node->getID();														// ==>
-	
-	} // _Commit.
 
 	 
 	/*===================================================================================
@@ -504,7 +310,9 @@ class COntologyNode extends CGraphNode
 	 */
 	protected function _Load( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
-		return $theContainer->getNode( $theIdentifier );							// ==>
+		return parent::_Load( $theContainer[ kTAG_NODE ],
+							  $theIdentifier,
+							  $theModifiers );										// ==>
 	
 	} // _Load.
 
@@ -535,7 +343,9 @@ class COntologyNode extends CGraphNode
 	 * </ul>
 	 *
 	 * If the container has the correct structure the {@link kTAG_NODE node} container will
-	 * be passed to the parent method and the {@link kTAG_TERM term} container
+	 * be passed to the parent method and the method will check if the
+	 * {@link kTAG_TERM term} container is a
+	 * {@link COntologyTermObject COntologyTermObject}.
 	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
@@ -550,28 +360,53 @@ class COntologyNode extends CGraphNode
 	protected function _PrepareCreate( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
+		// Init local storage.
+		//
+		$node_cont = $term_cont = NULL;
+		
+		//
+		// Verify container.
+		//
+		if( is_array( $theContainer )
+		 || ($theContainer instanceof ArrayObject) )
+		{
+			//
+			// Get node container.
+			//
+			if( array_key_exists( kTAG_NODE, (array) $theContainer ) )
+				$node_cont = $theContainer[ kTAG_NODE ];
+		
+			//
+			// Get term container.
+			//
+			if( array_key_exists( kTAG_TERM, (array) $theContainer ) )
+				$term_cont = $theContainer[ kTAG_TERM ];
+		
+		} // Structured container.
+		
+		//
 		// Check container.
 		//
-		if( $theContainer === NULL )
+		if( $term_cont === NULL )
 			throw new CException
-					( "Missing object container",
+					( "Missing term container",
 					  kERROR_OPTION_MISSING,
 					  kMESSAGE_TYPE_ERROR );									// !@! ==>
 			
 		//
 		// Check container type.
 		//
-		if( ! $theContainer instanceof Everyman\Neo4j\Client )
+		if( ! $term_cont instanceof CContainer )
 			throw new CException
-					( "Unsupported container type",
+					( "Unsupported term container type",
 					  kERROR_UNSUPPORTED,
 					  kMESSAGE_TYPE_ERROR,
-					  array( 'Container' => $theContainer ) );					// !@! ==>
-			
+					  array( 'Container' => $term_cont ) );						// !@! ==>
+		
 		//
-		// Call parent method.
+		// Call node method.
 		//
-		parent::_PrepareCreate( $theContainer, $theIdentifier, $theModifiers );
+		parent::_PrepareCreate( $node_cont, $theIdentifier, $theModifiers );
 	
 	} // _PrepareCreate.
 
@@ -583,7 +418,8 @@ class COntologyNode extends CGraphNode
 	/**
 	 * Normalise parameters of a find.
 	 *
-	 * In this class we check if the provided container is supported.
+	 * In this class we check if the provided container is supported., terms require a
+	 * container instance derived from {@link CContainer CContainer}.
 	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
@@ -596,19 +432,53 @@ class COntologyNode extends CGraphNode
 	protected function _PrepareLoad( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
-		// Call parent method.
+		// Init local storage.
 		//
-		parent::_PrepareLoad( $theContainer, $theIdentifier, $theModifiers );
-	
+		$node_cont = $term_cont = NULL;
+		
 		//
-		// Check if container is supported.
+		// Verify container.
 		//
-		if( ! $theContainer instanceof Everyman\Neo4j\Client )
+		if( is_array( $theContainer )
+		 || ($theContainer instanceof ArrayObject) )
+		{
+			//
+			// Get node container.
+			//
+			if( array_key_exists( kTAG_NODE, (array) $theContainer ) )
+				$node_cont = $theContainer[ kTAG_NODE ];
+		
+			//
+			// Get term container.
+			//
+			if( array_key_exists( kTAG_TERM, (array) $theContainer ) )
+				$term_cont = $theContainer[ kTAG_TERM ];
+		
+		} // Structured container.
+		
+		//
+		// Call node method.
+		//
+		parent::_PrepareLoad( $node_cont, $theIdentifier, $theModifiers );
+		
+		//
+		// Check container.
+		//
+		if( $term_cont === NULL )
 			throw new CException
-					( "Unsupported container type",
+					( "Missing term container",
+					  kERROR_OPTION_MISSING,
+					  kMESSAGE_TYPE_ERROR );									// !@! ==>
+			
+		//
+		// Check container type.
+		//
+		if( ! $term_cont instanceof CContainer )
+			throw new CException
+					( "Unsupported term container type",
 					  kERROR_UNSUPPORTED,
 					  kMESSAGE_TYPE_ERROR,
-					  array( 'Container' => $theContainer ) );					// !@! ==>
+					  array( 'Container' => $term_cont ) );						// !@! ==>
 
 	} // _PrepareLoad.
 
@@ -620,7 +490,9 @@ class COntologyNode extends CGraphNode
 	/**
 	 * Normalise before a store.
 	 *
-	 * In this class we check if the provided container is supported.
+	 * In this class we check if the provided container is supported and we set the
+	 * {@link kTAG_TERM term} property in the node and {@link Commit() commit} the
+	 * {@link Term() term}.
 	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
@@ -633,20 +505,55 @@ class COntologyNode extends CGraphNode
 	protected function _PrepareCommit( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
+		// Init local storage.
+		//
+		$node_cont = $term_cont = NULL;
+		
+		//
+		// Verify container.
+		//
+		if( is_array( $theContainer )
+		 || ($theContainer instanceof ArrayObject) )
+		{
+			//
+			// Get node container.
+			//
+			if( array_key_exists( kTAG_NODE, (array) $theContainer ) )
+				$node_cont = $theContainer[ kTAG_NODE ];
+		
+			//
+			// Get term container.
+			//
+			if( array_key_exists( kTAG_TERM, (array) $theContainer ) )
+				$term_cont = $theContainer[ kTAG_TERM ];
+		
+		} // Structured container.
+		
+		//
 		// Call parent method.
 		//
-		parent::_PrepareCommit( $theContainer, $theIdentifier, $theModifiers );
+		parent::_PrepareCommit( $node_cont, $theIdentifier, $theModifiers );
 	
 		//
 		// Check if container is supported.
 		//
-		if( ! $theContainer instanceof Everyman\Neo4j\Client )
+		if( ! $term_cont instanceof CContainer )
 			throw new CException
 					( "Unsupported container type",
 					  kERROR_UNSUPPORTED,
 					  kMESSAGE_TYPE_ERROR,
 					  array( 'Container' => $theContainer ) );					// !@! ==>
+		
+		//
+		// Commit term.
+		//
+		$id = $this->mTerm->Commit( $term_cont );
 	
+		//
+		// Set term reference.
+		//
+		$this->offsetSet( kTAG_TERM, $this->mTerm[ kTAG_GID ] );
+		
 	} // _PrepareCommit.
 
 	 
@@ -668,22 +575,63 @@ class COntologyNode extends CGraphNode
 	protected function _FinishCreate( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
+		// Create empty term.
+		//
+		$this->Term( new COntologyTerm() );
+	
+		//
 		// Create empty node.
 		//
-		if( $theContainer instanceof Everyman\Neo4j\Client )
-		{
-			//
-			// Create node.
-			//
-			$this->Node( $theContainer->makeNode() );
-			
-			//
-			// Set inited flag.
-			//
-			$this->_IsInited( $this->_IsInited() && TRUE );
-		}
-	
+		parent::_FinishCreate( $theContainer[ kTAG_NODE ], $theIdentifier, $theModifiers );
+		
 	} // _FinishCreate.
+
+	 
+	/*===================================================================================
+	 *	_FinishLoad																		*
+	 *==================================================================================*/
+
+	/**
+	 * Normalise after a {@link _Load() load}.
+	 *
+	 * In this class we get the {@link kTAG_TERM term} reference from the node properties
+	 * and load it.
+	 *
+	 * @param reference			   &$theContainer		Object container.
+	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Create modifiers.
+	 *
+	 * @access protected
+	 */
+	protected function _FinishLoad( &$theContainer, &$theIdentifier, &$theModifiers )
+	{
+		//
+		// Load or create node.
+		//
+		parent::_FinishLoad( $theContainer[ kTAG_NODE ], $theIdentifier, $theModifiers );
+		
+		//
+		// Get term reference.
+		//
+		$term = $this->offsetGet( kTAG_TERM );
+		
+		//
+		// Load term.
+		//
+		if( $term !== NULL )
+			$this->Term(
+				CPersistentUnitObject::NewObject(
+					$theContainer[ kTAG_TERM ],
+					COntologyTermObject::HashIndex( $term ),
+					kFLAG_STATE_ENCODED ) );
+		
+		//
+		// Initialise term.
+		//
+		else
+			$this->Term( new COntologyTerm() );
+	
+	} // _FinishLoad.
 
 	 
 

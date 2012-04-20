@@ -588,7 +588,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishCommit</span> (line <span class="line-number">961</span>)
+		<span class="method-title">_FinishCommit</span> (line <span class="line-number">955</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -626,7 +626,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishCreate</span> (line <span class="line-number">906</span>)
+		<span class="method-title">_FinishCreate</span> (line <span class="line-number">908</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -665,6 +665,10 @@
 				<a href="../../MyWrapper/Persistence/CGraphNode.html#method_FinishCreate">CGraphNode::_FinishCreate()</a>
 								: Normalise after a _Create().
 							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyNode.html#method_FinishCreate">COntologyNode::_FinishCreate()</a>
+								: Normalise after a _Create().
+							</li>
 				</ul>
 	</div>
 <a name="method_FinishLoad" id="_FinishLoad"><!-- --></a>
@@ -672,7 +676,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishLoad</span> (line <span class="line-number">928</span>)
+		<span class="method-title">_FinishLoad</span> (line <span class="line-number">930</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -704,6 +708,18 @@
 				</ul>
 		
 			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Persistence/CGraphNode.html#method_FinishLoad">CGraphNode::_FinishLoad()</a>
+								: Normalise after a _Load().
+							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyNode.html#method_FinishLoad">COntologyNode::_FinishLoad()</a>
+								: Normalise after a _Load().
+							</li>
+				</ul>
 	</div>
 <a name="method_IsCommitted" id="_IsCommitted"><!-- --></a>
 <div class="oddrow">
@@ -765,7 +781,7 @@
 				<li><span class="field">access:</span> protected</li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTermObject.html#method_PrepareCreate">COntologyTermObject::_PrepareCreate()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTermObject.html#method_CheckReference">COntologyTermObject::_CheckReference()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CGraphNode.html#method_PrepareCreate">CGraphNode::_PrepareCreate()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyNode.html#method_PrepareCreate">COntologyNode::_PrepareCreate()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_PrepareCreate">CPersistentObject::_PrepareCreate()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CStatusObject.html#method_ManageBitField">CStatusObject::_ManageBitField()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_PrepareLoad">CPersistentObject::_PrepareLoad()</a></li>
@@ -831,6 +847,10 @@
 				<a href="../../MyWrapper/Persistence/CGraphNode.html#method_Load">CGraphNode::_Load()</a>
 								: Find object.
 							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyNode.html#method_Load">COntologyNode::_Load()</a>
+								: Find object.
+							</li>
 				</ul>
 	</div>
 <a name="method_PrepareCommit" id="_PrepareCommit"><!-- --></a>
@@ -838,12 +858,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">850</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">851</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Normalise before a store.</p>
-<p class="description"><p>This method will be called before the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_Commit">store</a> operation, its  duty is to prepare the object and check the parameters for the  <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_Commit">commit</a> operation, please refer to <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">this</a>  documentation for a reference of these parameters. Note that in this method all three  parameters are passed by reference.</p><p>By default we perform the following checks:</p><p><ul><li>Ensure the container is an instance of <a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a>.</li><li>Ensure the object is <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">initialised</a>.</li></ul></p><p>In derived classes you should handle your custom containers or delegate to the parent  method.</p><p>In this class we do not check the identifier.</p><p>Any errors should raise an exception.</p></p>
+<p class="description"><p>This method will be called before the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_Commit">store</a> operation, its  duty is to prepare the object and check the parameters for the  <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_Commit">commit</a> operation, please refer to <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">this</a>  documentation for a reference of these parameters. Note that in this method all three  parameters are passed by reference.</p><p>By default we perform the following checks:</p><p><ul><li>Ensure the container is provided.</li><li>Ensure the identifier is provided if <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_UPDATE">updating</a>.</li><li>Ensure the object is <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">initialised</a>.</li></ul></p><p>In derived classes you should handle your custom containers or delegate to the parent  method.</p><p>In this class we do not check the identifier.</p><p>Any errors should raise an exception.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> kERROR_INVALID_STATE kERROR_OPTION_MISSING kERROR_UNSUPPORTED</li>
 				<li><span class="field">throws:</span> <a href="../../MyWrapper/Framework/CException.html">CException</a></li>
@@ -878,6 +898,10 @@
 		<ul class="redefinitions">
 					<li>
 				<a href="../../MyWrapper/Persistence/CGraphNode.html#method_PrepareCommit">CGraphNode::_PrepareCommit()</a>
+								: Normalise before a store.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyNode.html#method_PrepareCommit">COntologyNode::_PrepareCommit()</a>
 								: Normalise before a store.
 							</li>
 					<li>
@@ -980,6 +1004,10 @@
 								: Normalise parameters of a create.
 							</li>
 					<li>
+				<a href="../../MyWrapper/Ontology/COntologyNode.html#method_PrepareCreate">COntologyNode::_PrepareCreate()</a>
+								: Normalise parameters of a create.
+							</li>
+					<li>
 				<a href="../../MyWrapper/Ontology/COntologyTermObject.html#method_PrepareCreate">COntologyTermObject::_PrepareCreate()</a>
 								: Normalise parameters of a create.
 							</li>
@@ -1030,6 +1058,10 @@
 		<ul class="redefinitions">
 					<li>
 				<a href="../../MyWrapper/Persistence/CGraphNode.html#method_PrepareLoad">CGraphNode::_PrepareLoad()</a>
+								: Normalise parameters of a find.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyNode.html#method_PrepareLoad">COntologyNode::_PrepareLoad()</a>
 								: Normalise parameters of a find.
 							</li>
 					<li>
@@ -1161,7 +1193,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 20 Apr 2012 13:45:11 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 20 Apr 2012 19:39:27 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>
