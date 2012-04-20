@@ -1,13 +1,13 @@
 <?php
 
 /**
- * <i>CGraphNode</i> class definition.
+ * <i>COntologyNode</i> class definition.
  *
- * This file contains the class definition of <b>CGraphNode</b> which represents the
+ * This file contains the class definition of <b>COntologyNode</b> which represents the
  * ancestor of all graph nodes in this library.
  *
  *	@package	MyWrapper
- *	@subpackage	Persistence
+ *	@subpackage	Ontology
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 18/04/2012
@@ -15,7 +15,7 @@
 
 /*=======================================================================================
  *																						*
- *									CGraphNode.php										*
+ *									COntologyNode.php									*
  *																						*
  *======================================================================================*/
 
@@ -24,51 +24,44 @@
  *
  * This include file contains the parent class definitions.
  */
-require_once( kPATH_LIBRARY_SOURCE."CPersistentObject.php" );
-
-/**
- * Local defines.
- *
- * This include file contains all local definitions.
- */
-require_once( kPATH_LIBRARY_SOURCE."CGraphNode.inc.php" );
+require_once( kPATH_LIBRARY_SOURCE."CGraphNode.php" );
 
 /**
  * Graph node.
  *
- * This class implements a graph node.
+ * This class implements an ontology node.
  *
- * The class is derived from {@link CPersistentObject CPersistentObject}, of which it
- * inherits the persistence framework, but it differs profoundly in that, although the class
- * is an ArrayObject, the actual array that it manages is the properties array of the node.
- * In other words, when you add, retrieve and delete properties, you are not doing so to
- * the internal array, but to the node's properties array.
+ * The class is derived from {@link CGraphNode CGraphNode}, it adds another required
+ * property, the {@link Term() term}. This class will wrap the array access framework to
+ * the combination of the {@link Node() node} properties and the {@link Term() term}
+ * elements, except that the {@link Term() term} elements will be read-only.
  *
- * The class features a single property, the {@link Node() node} which contains a Neo4j node
- * reference.
+ * This class introduces a new kind of container: it must be an array of two elements
+ * structured as follows:
  *
- * The {@link __construct() constructor} also doesn't follow the inherited standards in
- * that one may not instantiate the object contents, since the object data is wrapped around
- * a Neo4j node: so one may either instantiate an empty object or load it from the
- * container; for this reason the container is required by the
- * {@link __construct() constructor}.
+ * <ul>
+ *	<li><i>{@link kTAG_NODE kTAG_NODE}</i>: This element should hold the nodes container,
+ *		it must be a Everyman\Neo4j\Client instance.
+ *	<li><i>{@link kTAG_TERM kTAG_TERM}</i>: This element should hold the terms container,
+ *		it must be a {@link COntologyTermObject COntologyTermObject} instance.
+ * </ul>
  *
  * <i>Note that the class will not cast to an array correctly, you must use the
  * {@link getArrayCopy() getArrayCopy} method for that.</i>
  *
  *	@package	MyWrapper
- *	@subpackage	Persistence
+ *	@subpackage	Ontology
  */
-class CGraphNode extends CPersistentObject
+class COntologyNode extends CGraphNode
 {
 	/**
 	 * Node.
 	 *
 	 * This data member holds the Neo4j node.
 	 *
-	 * @var Everyman\Neo4j\Node
+	 * @var COntologyTerm
 	 */
-	 protected $mNode = NULL;
+	 protected $mTerm = NULL;
 
 		
 
@@ -81,13 +74,13 @@ class CGraphNode extends CPersistentObject
 
 	 
 	/*===================================================================================
-	 *	Node																			*
+	 *	Term																			*
 	 *==================================================================================*/
 
 	/**
-	 * Manage native node.
+	 * Manage native term.
 	 *
-	 * This method can be used to manage the native node reference, it uses the standard
+	 * This method can be used to manage the native term reference, it uses the standard
 	 * accessor {@link CObject::ManageMember() method} to manage the property:
 	 *
 	 * <ul>
@@ -95,7 +88,7 @@ class CGraphNode extends CPersistentObject
 	 *	 <ul>
 	 *		<li><i>NULL</i>: Return the current value.
 	 *		<li><i>FALSE</i>: Delete the value.
-	 *		<li><i>Everyman\Neo4j\Node</i>: Set value.
+	 *		<li><i>{@link COntologyTermObject COntologyTermObject}</i>: Set value.
 	 *		<li><i>other</i>: Raise exception.
 	 *	 </ul>
 	 *	<li><b>$getOld</b>: Determines what the method will return:
@@ -105,30 +98,30 @@ class CGraphNode extends CPersistentObject
 	 *	 </ul>
 	 * </ul>
 	 *
-	 * @param mixed					$theValue			Node or operation.
+	 * @param mixed					$theValue			Term or operation.
 	 * @param boolean				$getOld				TRUE get old value.
 	 *
 	 * @access public
 	 * @return Everyman\Neo4j\Node
 	 */
-	public function Node( $theValue = NULL, $getOld = FALSE )
+	public function Term( $theValue = NULL, $getOld = FALSE )
 	{
 		//
 		// Check provided value.
 		//
 		if( ($theValue !== NULL)
 		 && ($theValue !== FALSE)
-		 && (! $theValue instanceof Everyman\Neo4j\Node) )
+		 && (! $theValue instanceof COntologyTermObject) )
 			throw new CException
-					( "Unsupported node type",
+					( "Unsupported term type",
 					  kERROR_UNSUPPORTED,
 					  kMESSAGE_TYPE_ERROR,
-					  array( 'Node' => $theValue ) );							// !@! ==>
+					  array( 'Term' => $theValue ) );							// !@! ==>
 		
 		//
 		// Handle data.
 		//
-		$save = CObject::ManageMember( $this->mNode, $theValue, $getOld );
+		$save = CObject::ManageMember( $this->mTerm, $theValue, $getOld );
 				
 		//
 		// Set status.
@@ -143,12 +136,13 @@ class CGraphNode extends CPersistentObject
 			//
 			// Set inited flag.
 			//
-			$this->_IsInited( $this->Node() !== NULL );
+			$this->_IsInited( $this->_IsInited() &&
+							  ($this->Term() !== NULL) );
 		}
 		
 		return $save;																// ==>
 
-	} // Node.
+	} // Term.
 
 		
 
@@ -177,10 +171,16 @@ class CGraphNode extends CPersistentObject
 	public function offsetExists( $theOffset )
 	{
 		//
-		// Require node.
+		// Check node.
 		//
-		if( ($node = $this->Node()) !== NULL )
-			return array_key_exists( $theOffset, $node->getProperties() );			// ==>
+		if( parent::offsetExists( $theOffset ) )
+			return TRUE;															// ==>
+		
+		//
+		// Require term.
+		//
+		if( ($term = $this->Term()) !== NULL )
+			return $term->offsetExists( $theOffset );								// ==>
 		
 		return FALSE;																// ==>
 	
@@ -207,229 +207,22 @@ class CGraphNode extends CPersistentObject
 	public function offsetGet( $theOffset )
 	{
 		//
-		// Require node.
+		// Check node.
 		//
-		if( ($node = $this->Node()) !== NULL )
-			return $node->getProperty( $theOffset );								// ==>
+		if( ($found = parent::offsetGet( $theOffset )) !== NULL )
+			return $found;															// ==>
+		
+		//
+		// Require term.
+		//
+		if( ($term = $this->Term()) !== NULL )
+			return $term->offsetGet( $theOffset );									// ==>
 		
 		return NULL;																// ==>
 	
 	} // offsetGet.
 
-	 
-	/*===================================================================================
-	 *	offsetSet																		*
-	 *==================================================================================*/
 
-	/**
-	 * Set a value for a given offset.
-	 *
-	 * We overload this method to wrap the internal array over the node properties.
-	 *
-	 * In this class we delete the entry if the value is <i>NULL</i>.
-	 *
-	 * @param string				$theOffset			Offset.
-	 * @param string|NULL			$theValue			Value to set at offset.
-	 *
-	 * @access public
-	 */
-	public function offsetSet( $theOffset, $theValue )
-	{
-		//
-		// Require node.
-		//
-		if( ($node = $this->Node()) !== NULL )
-		{
-			//
-			// Set value.
-			//
-			if( $theValue !== NULL )
-			{
-				//
-				// Provided offset.
-				//
-				if( strlen( $theOffset ) )
-					$node->setProperty( $theOffset, $theValue );
-				
-				//
-				// Omitted offset.
-				//
-				else
-				{
-					$props = $node->getProperties();
-					$props[] = $theValue;
-					$node->setProperties( $props );
-				}
-			
-			} // Provided value.
-			
-			//
-			// Delete offset.
-			//
-			else
-				$node->removeProperty( $theOffset );
-		
-		} // Has node.
-	
-	} // offsetSet.
-
-	 
-	/*===================================================================================
-	 *	offsetUnset																		*
-	 *==================================================================================*/
-
-	/**
-	 * Reset a value for a given offset.
-	 *
-	 * We overload this method to wrap the internal array over the node properties.
-	 *
-	 * @param string				$theOffset			Offset.
-	 *
-	 * @access public
-	 */
-	public function offsetUnset( $theOffset )
-	{
-		//
-		// Require node.
-		//
-		if( ($node = $this->Node()) !== NULL )
-			$node->removeProperty( $theOffset );
-	
-	} // offsetUnset.
-
-	 
-	/*===================================================================================
-	 *	append																			*
-	 *==================================================================================*/
-
-	/**
-	 * Append a value.
-	 *
-	 * We overload this method to wrap the internal array over the node properties.
-	 *
-	 * @param mixed					$theValue			Value.
-	 *
-	 * @access public
-	 */
-	public function append( $theValue )
-	{
-		//
-		// Require node.
-		//
-		if( ($node = $this->Node()) !== NULL )
-		{
-			$props = $node->getProperties();
-			$props[] = $theValue;
-			$node->setProperties( $props );
-		}
-	
-	} // append.
-
-	 
-	/*===================================================================================
-	 *	asort																			*
-	 *==================================================================================*/
-
-	/**
-	 * Sort array by values.
-	 *
-	 * We overload this method to wrap the internal array over the node properties.
-	 *
-	 * @access public
-	 */
-	public function asort()
-	{
-		//
-		// Require node.
-		//
-		if( ($node = $this->Node()) !== NULL )
-		{
-			$props = $node->getProperties();
-			asort( $props );
-			$node->setProperties( $props );
-		}
-	
-	} // asort.
-
-	 
-	/*===================================================================================
-	 *	ksort																			*
-	 *==================================================================================*/
-
-	/**
-	 * Sort array by keys.
-	 *
-	 * We overload this method to wrap the internal array over the node properties.
-	 *
-	 * @access public
-	 */
-	public function ksort()
-	{
-		//
-		// Require node.
-		//
-		if( ($node = $this->Node()) !== NULL )
-		{
-			$props = $node->getProperties();
-			ksort( $props );
-			$node->setProperties( $props );
-		}
-	
-	} // ksort.
-
-	 
-	/*===================================================================================
-	 *	natcasesort																		*
-	 *==================================================================================*/
-
-	/**
-	 * Sort array by case insensitive natural order algorythm.
-	 *
-	 * We overload this method to wrap the internal array over the node properties.
-	 *
-	 * @access public
-	 */
-	public function natcasesort()
-	{
-		//
-		// Require node.
-		//
-		if( ($node = $this->Node()) !== NULL )
-		{
-			$props = $node->getProperties();
-			natcasesort( $props );
-			$node->setProperties( $props );
-		}
-	
-	} // natcasesort.
-
-	 
-	/*===================================================================================
-	 *	natsort																			*
-	 *==================================================================================*/
-
-	/**
-	 * Sort array by natural order algorythm.
-	 *
-	 * We overload this method to wrap the internal array over the node properties.
-	 *
-	 * @access public
-	 */
-	public function natsort()
-	{
-		//
-		// Require node.
-		//
-		if( ($node = $this->Node()) !== NULL )
-		{
-			$props = $node->getProperties();
-			natsort( $props );
-			$node->setProperties( $props );
-		}
-	
-	} // natsort.
-
-	 
 	/*===================================================================================
 	 *	count																			*
 	 *==================================================================================*/
@@ -448,49 +241,19 @@ class CGraphNode extends CPersistentObject
 	public function count()
 	{
 		//
-		// Require node.
+		// Get node property count.
 		//
-		if( ($node = $this->Node()) !== NULL )
-			return count( $node->getProperties() );									// ==>
+		$count = (integer) parent::count();
 		
-		return NULL;																// ==>
+		//
+		// Require term.
+		//
+		if( ($term = $this->Term()) !== NULL )
+			$count += $term->count();
+		
+		return $count;																// ==>
 	
 	} // count.
-
-	 
-	/*===================================================================================
-	 *	exchangeArray																	*
-	 *==================================================================================*/
-
-	/**
-	 * Exchange arrays.
-	 *
-	 * We overload this method to wrap the internal array over the node properties.
-	 *
-	 * Note that if the node exists the method will return an array, if not, it will
-	 * return an empty array.
-	 *
-	 * @param mixed					$theValue			Value.
-	 *
-	 * @access public
-	 * @return mixed
-	 */
-	public function exchangeArray( $theValue )
-	{
-		//
-		// Require node.
-		//
-		if( ($node = $this->Node()) !== NULL )
-		{
-			$old = $node->getProperties();
-			$node->setProperties( $theValue );
-			
-			return $old;															// ==>
-		}
-		
-		return Array();																// ==>
-	
-	} // exchangeArray.
 
 	 
 	/*===================================================================================
@@ -511,12 +274,20 @@ class CGraphNode extends CPersistentObject
 	public function getArrayCopy()
 	{
 		//
-		// Require node.
+		// Init local storage.
 		//
-		if( ($node = $this->Node()) !== NULL )
-			return $node->getProperties();											// ==>
+		$array = Array();
 		
-		return Array();																// ==>
+		//
+		// Require term.
+		//
+		if( ($term = $this->Term()) !== NULL )
+			$array = array_merge( $array, $term->getArrayCopy() );
+		
+		//
+		// Add node properties.
+		//
+		return array_merge( $array, parent::getArrayCopy() );						// ==>
 	
 	} // getArrayCopy.
 
@@ -539,12 +310,11 @@ class CGraphNode extends CPersistentObject
 	public function getIterator()
 	{
 		//
-		// Require node.
+		// Get array.
 		//
-		if( ($node = $this->Node()) !== NULL )
-			return new ArrayIterator( $node->getProperties() );						// ==>
+		$array = $this->getArrayCopy();
 		
-		return new ArrayIterator();													// ==>
+		return new ArrayIterator( $array );											// ==>
 	
 	} // getIterator.
 
@@ -573,12 +343,11 @@ class CGraphNode extends CPersistentObject
 	public function keys()
 	{
 		//
-		// Require node.
+		// Get array.
 		//
-		if( ($node = $this->Node()) !== NULL )
-			return array_keys( $node->getProperties() );							// ==>
+		$array = $this->getArrayCopy();
 		
-		return Array();																// ==>
+		return array_keys( $array );												// ==>
 	
 	} // keys.
 
@@ -598,12 +367,11 @@ class CGraphNode extends CPersistentObject
 	public function values()
 	{
 		//
-		// Require node.
+		// Get array.
 		//
-		if( ($node = $this->Node()) !== NULL )
-			return array_values( $node->getProperties() );							// ==>
+		$array = $this->getArrayCopy();
 		
-		return Array();																// ==>
+		return array_values( $array );												// ==>
 	
 	} // keys.
 
@@ -757,9 +525,17 @@ class CGraphNode extends CPersistentObject
 	/**
 	 * Normalise parameters of a create.
 	 *
-	 * In this class we first enforce that the container was provided, then we check whether
-	 * the container is an instance of Everyman\Neo4j\Client if the identifier was not
-	 * provided.
+	 * In this class we first check whether the container has the following structure:
+	 *
+	 * <ul>
+	 *	<li><i>{@link kTAG_NODE kTAG_NODE}</i>: This element should hold the nodes
+	 *		container, it must be a Everyman\Neo4j\Client instance.
+	 *	<li><i>{@link kTAG_TERM kTAG_TERM}</i>: This element should hold the terms
+	 *		container, it must be a {@link COntologyTermObject COntologyTermObject} instance.
+	 * </ul>
+	 *
+	 * If the container has the correct structure the {@link kTAG_NODE node} container will
+	 * be passed to the parent method and the {@link kTAG_TERM term} container
 	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
@@ -904,14 +680,14 @@ class CGraphNode extends CPersistentObject
 			//
 			// Set inited flag.
 			//
-			$this->_IsInited( TRUE );
+			$this->_IsInited( $this->_IsInited() && TRUE );
 		}
 	
 	} // _FinishCreate.
 
 	 
 
-} // class CGraphNode.
+} // class COntologyNode.
 
 
 ?>

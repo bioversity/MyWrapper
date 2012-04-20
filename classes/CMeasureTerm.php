@@ -159,7 +159,7 @@ class CMeasureTerm extends COntologyTerm
 	 *
 	 * For a more in-depth reference of this method, please consult the
 	 * {@link _ManageOffset() _ManageOffset} method, in which the first parameter will be
-	 * the constant {@link kOFFSET_VALID kOFFSET_VALID}.
+	 * the constant {@link kTAG_VALID kTAG_VALID}.
 	 *
 	 * In this class we feed the value to the{@link _CheckReference() _CheckReference}
 	 * method that will take care of handling object references.

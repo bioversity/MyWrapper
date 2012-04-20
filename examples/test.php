@@ -237,7 +237,6 @@ if( $fp !== FALSE )
 	fclose( $fp );
 }
 ini_set( 'auto_detect_line_endings', $save );
-*/
 
 //
 // Test min/max.
@@ -271,5 +270,11 @@ $max = $max[ 'Dataset' ][ 'ID' ];
 echo( '<pre>' );
 print_r( $max );
 echo( '</pre>' );
+*/
+
+//
+// Test cast to int.
+//
+echo( "NULL: ".(integer) NULL.'<br>' );
 
 ?>

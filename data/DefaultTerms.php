@@ -1549,6 +1549,21 @@ exit( "Done!\n" );
 			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
 	
 		//
+		// Term.
+		//
+		$term = new CAttributeTerm();
+		$term->NS( $ns );
+		$term->Code( substr( kTAG_TERM, 1 ) );
+		$term->Name( 'Term', kDEFAULT_LANGUAGE );
+		$term->Definition
+		( 'This term is used to indicate a graph node term.',
+		  kDEFAULT_LANGUAGE );
+		$term->Synonym( 'kTAG_TERM', kTYPE_EXACT );
+		$term->Commit( $theContainer );
+		if( $doDisplay )
+			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+	
+		//
 		// Name.
 		//
 		$term = new CAttributeTerm();
@@ -1643,13 +1658,13 @@ exit( "Done!\n" );
 		//
 		$term = new CAttributeTerm();
 		$term->NS( $ns );
-		$term->Code( substr( kOFFSET_REFS, 1 ) );
+		$term->Code( substr( kTAG_REFS, 1 ) );
 		$term->Name( 'References', kDEFAULT_LANGUAGE );
 		$term->Definition
 		( 'This term represents the list of references of an object, it describes '
 		 .'a list of predicate/object pairs.',
 		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kOFFSET_REFS', kTYPE_EXACT );
+		$term->Synonym( 'kTAG_REFS', kTYPE_EXACT );
 		$term->Commit( $theContainer );
 		if( $doDisplay )
 			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
@@ -1659,14 +1674,14 @@ exit( "Done!\n" );
 		//
 		$term = new CAttributeTerm();
 		$term->NS( $ns );
-		$term->Code( substr( kOFFSET_VALID, 1 ) );
+		$term->Code( substr( kTAG_VALID, 1 ) );
 		$term->Name( 'Valid', kDEFAULT_LANGUAGE );
 		$term->Definition
 		( 'This term represents a reference to the valid object, there are cases '
 		 .'in which deleting an object is not an option, in such cases the invalid '
 		 .'or obsolete object points to the valid object through this term.',
 		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kOFFSET_VALID', kTYPE_EXACT );
+		$term->Synonym( 'kTAG_VALID', kTYPE_EXACT );
 		$term->Commit( $theContainer );
 		if( $doDisplay )
 			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );

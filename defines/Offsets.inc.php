@@ -210,6 +210,13 @@ define( "kTAG_NAMESPACE",						':NS' );
 define( "kTAG_NODE",							':NODE' );
 
 /**
+ * Term offset.
+ *
+ * This tag is used as the default offset for indicating a graph node term.
+ */
+define( "kTAG_TERM",							':TERM' );
+
+/**
  * Name offset.
  *
  * This tag is used as the default offset for indicating an attribute's name.
@@ -278,7 +285,7 @@ define( "kTAG_ANNOTATION",						':ANNOTATION' );
  *	 </ul>
  * </ul>
  */
-define( "kOFFSET_REFS",							':REFS' );
+define( "kTAG_REFS",							':REFS' );
 
 /**
  * Valid tag.
@@ -288,7 +295,7 @@ define( "kOFFSET_REFS",							':REFS' );
  * one will point to the new one. This tag represents that property and it expects the value
  * of the {@link kTAG_LID native} identifier of the new object here.
  */
-define( "kOFFSET_VALID",						':VALID' );
+define( "kTAG_VALID",							':VALID' );
 
 /*=======================================================================================
  *	DEFAULT PROPERTY OFFSETS															*

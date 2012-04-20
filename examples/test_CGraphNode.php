@@ -63,20 +63,36 @@ try
 	}
 	echo( '<hr>' );
 	
-	echo( '<i>From array</i><br>' );
-	echo( '<i>$content = array( \'Name\' => \'Milko\' );</i><br>' );
-	$content = array( 'Name' => 'Milko' );
-	echo( '<i>$test = new CGraphNode( $content ) );</i><br>' );
-	$test = new CGraphNode( $content );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	try
+	{
+		echo( '<i>From array</i><br>' );
+		echo( '<i>$content = array( \'Name\' => \'Milko\' );</i><br>' );
+		$content = array( 'Name' => 'Milko' );
+		echo( '<i>$test = new CGraphNode( $content ) );</i><br>' );
+		$test = new CGraphNode( $content );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	}
+	catch( Exception $error )
+	{
+		echo( CException::AsHTML( $error ) );
+		echo( '<br>' );
+	}
 	echo( '<hr>' );
 	
-	echo( '<i>From ArrayObject</i><br>' );
-	echo( '<i>$content = new ArrayObject( array( \'Name\' => \'Milko\' ) );</i><br>' );
-	$content = new ArrayObject( array( 'Name' => 'Milko' ) );
-	echo( '<i>$test = new CGraphNode( $content ) );</i><br>' );
-	$test = new CGraphNode( $content );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	try
+	{
+		echo( '<i>From ArrayObject</i><br>' );
+		echo( '<i>$content = new ArrayObject( array( \'Name\' => \'Milko\' ) );</i><br>' );
+		$content = new ArrayObject( array( 'Name' => 'Milko' ) );
+		echo( '<i>$test = new CGraphNode( $content ) );</i><br>' );
+		$test = new CGraphNode( $content );
+		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	}
+	catch( Exception $error )
+	{
+		echo( CException::AsHTML( $error ) );
+		echo( '<br>' );
+	}
 	echo( '<hr>' );
 
 	try
