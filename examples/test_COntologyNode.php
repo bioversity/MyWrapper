@@ -231,18 +231,16 @@ try
 	echo( '<hr>' );
 	
 	echo( '<i>Delete node</i><br>' );
-	echo( '<i>$ok = $test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );</i><br>' );
-	$ok = $test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );
-	echo( "$ok:<pre>" ); print_r( $test ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	echo( '<i>Delete node</i><br>' );
+	echo( '<i>$term = $test->Term();</i><br>' );
+	$term = $test->Term();
 	echo( '<i>$ok = $test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );</i><br>' );
 	$ok = $test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );
 	echo( "$ok:<pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
 	echo( '<i>Test indexes</i><br>' );
+	echo( '<i>$test->Term( $term );</i><br>' );
+	$test->Term( $term );
 	echo( '<i>$ok = $test->Commit( $container, NULL );</i><br>' );
 	$ok = $test->Commit( $container, NULL );
 	echo( '<i>$index = new NodeIndex( $container[ kTAG_NODE ], kINDEX_TERM );</i><br>' );

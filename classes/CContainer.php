@@ -198,7 +198,7 @@ abstract class CContainer extends CObject
 
 /*=======================================================================================
  *																						*
- *								PUBLIC MANAGEMENT INTERFACE								*
+ *								PUBLIC PERSISTENCE INTERFACE							*
  *																						*
  *======================================================================================*/
 
@@ -234,12 +234,40 @@ abstract class CContainer extends CObject
 	 *			if this is not the case the method must raise an
 	 *			{@link kERROR_NOT_FOUND exception}. With this option it is assumed that the
 	 *			provided object's attributes will replace all the existing object's ones.
-	 *		<li><i>{@link kFLAG_PERSIST_MODIFY kFLAG_PERSIST_MODIFY}</i>: The provided
-	 *			object is assumed to contain a subset of an existing object's attributes,
-	 *			these provided attributes will be appended or replace the existing ones.
-	 *			In this case the method expects the container to have an entry with the
-	 *			same key as the provided identifier, if this is not the case the method must
-	 *			raise an {@link kERROR_NOT_FOUND exception}.
+	 *		<li><i>{@link kFLAG_PERSIST_MODIFY kFLAG_PERSIST_MODIFY}</i>: This option can be
+	 *			used to apply modifications to a subset of the object. In this case, the
+	 *			provided object contains a series of key/value pairs in which the key
+	 *			represents the field to operate on, and the value represents the modifier.
+	 *			A series of other flags determine what are the exact operations:
+	 *		 <ul>
+	 *			<li><i>{@link kFLAG_MODIFY_MASK kFLAG_MODIFY_MASK} off</i>: If none of 
+	 *				 flags in this mask are set, it means that the provided key/value pairs
+	 *				represent a list of elements to add or to remove from the object: if the
+	 *				value is <i>NULL</i>, the field corresponding to the key will be
+	 *				removed; if the value is not <i>NULL</i>, the field value will be set or
+	 *				replaced.
+	 *			<li><i>{@link kFLAG_MODIFY_INCREMENT kFLAG_MODIFY_INCREMENT}</i>: This
+	 *				option represents an increment or decrement operation, depending on the
+	 *				provided value. The provided values will increment the fields
+	 *				corresponding to the provided keys, if the fields do not exist, these
+	 *				will be set with the provided values.
+	 *			<li><i>{@link kFLAG_MODIFY_APPEND kFLAG_MODIFY_APPEND}</i>: This option will
+	 *				append the provided values to the arrays of the corresponding fields. If
+	 *				the field does not exist, it will be created with an array composed of
+	 *				the provided value. If the field exists and its value is not an array,
+	 *				an error should occur.
+	 *			<li><i>{@link kFLAG_MODIFY_ADDSET kFLAG_MODIFY_ADDSET}</i>: This option is
+	 *				equivalent to the {@link kFLAG_MODIFY_APPEND previous} one, except that
+	 *				the value will only be appended if it doesn't already exist in the
+	 *				field.
+	 *			<li><i>{@link kFLAG_MODIFY_POP kFLAG_MODIFY_POP}</i>: This option will
+	 *				remove the first or last element of the array contained by the field:
+	 *				if the value is 1, the last element will be removed, if it is -1, the
+	 *				first element will be removed.
+	 *			<li><i>{@link kFLAG_MODIFY_PULL kFLAG_MODIFY_PULL}</i>: This option will
+	 *				remove all occurrences of the provided value from the field's array; if
+	 *				the field does not hold an array, an error should be raised.
+	 *		 </ul>
 	 *		<li><i>{@link kFLAG_PERSIST_REPLACE kFLAG_PERSIST_REPLACE}</i>: The provided
 	 *			object will be {@link kFLAG_PERSIST_INSERT inserted}, if the identifier
 	 *			doesn't match any container elements, or it will

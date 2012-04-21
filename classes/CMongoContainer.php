@@ -423,57 +423,181 @@ class CMongoContainer extends CContainer
 			$options[ 'multiple' ] = FALSE;
 			
 			//
-			// Create deletions matrix.
+			// Handle additions and deletions.
 			//
-			$tmp = Array();
-			foreach( $theObject as $key => $value )
+			if( ! ($theModifiers & kFLAG_MODIFY_MASK) )
 			{
-				if( $value === NULL )
-					$tmp[ $key ] = 1;
-			}
+				//
+				// Create deletions matrix.
+				//
+				$tmp = Array();
+				foreach( $theObject as $key => $value )
+				{
+					if( $value === NULL )
+						$tmp[ $key ] = 1;
+				}
+				
+				//
+				// Remove attributes.
+				//
+				if( count( $tmp ) )
+				{
+					//
+					// Set command.
+					//
+					$tmp = array( '$unset' => $tmp );
+					
+					//
+					// Update.
+					//
+					$status = $container->update( $criteria, $tmp, $options );
+				}
+				
+				//
+				// Create additions matrix.
+				//
+				$tmp = Array();
+				foreach( $theObject as $key => $value )
+				{
+					if( ($value !== NULL)
+					 && ($key != kTAG_LID) )
+						$tmp[ $key ] = $value;
+				}
+				
+				//
+				// Modify attributes.
+				//
+				if( count( $tmp ) )
+				{
+					//
+					// Set command.
+					//
+					$tmp = array( '$set' => $tmp );
+					
+					//
+					// Update.
+					//
+					$status = $container->update( $criteria, $tmp, $options );
+				}
+			
+			} // No specific modification options provided.
 			
 			//
-			// Remove attributes.
+			// Increment/decrement field.
 			//
-			if( count( $tmp ) )
+			elseif( ($theModifiers & kFLAG_MODIFY_MASK) == kFLAG_MODIFY_INCREMENT )
 			{
 				//
 				// Set command.
 				//
-				$tmp = array( '$unset' => $tmp );
+				$tmp = array( '$inc' => Array() );
+				foreach( $theObject as $key => $value )
+				{
+					if( $key != kTAG_LID )
+						$tmp[ '$inc' ][ $key ] = $value;
+				}
 				
 				//
 				// Update.
 				//
 				$status = $container->update( $criteria, $tmp, $options );
-			}
+			
+			} // Increment/decrement.
 			
 			//
-			// Create additions matrix.
+			// Append to field.
 			//
-			$tmp = Array();
-			foreach( $theObject as $key => $value )
-			{
-				if( ($value !== NULL)
-				 && ($key != kTAG_LID) )
-					$tmp[ $key ] = $value;
-			}
-			
-			//
-			// Modify attributes.
-			//
-			if( count( $tmp ) )
+			elseif( ($theModifiers & kFLAG_MODIFY_MASK) == kFLAG_MODIFY_APPEND )
 			{
 				//
 				// Set command.
 				//
-				$tmp = array( '$set' => $tmp );
+				$tmp = array( '$push' => Array() );
+				foreach( $theObject as $key => $value )
+				{
+					if( $key != kTAG_LID )
+						$tmp[ '$push' ][ $key ] = $value;
+				}
 				
 				//
 				// Update.
 				//
 				$status = $container->update( $criteria, $tmp, $options );
-			}
+			
+			} // Append.
+			
+			//
+			// Add to set.
+			//
+			elseif( ($theModifiers & kFLAG_MODIFY_MASK) == kFLAG_MODIFY_ADDSET )
+			{
+				//
+				// Set command.
+				//
+				$tmp = array( '$addToSet' => Array() );
+				foreach( $theObject as $key => $value )
+				{
+					if( $key != kTAG_LID )
+						$tmp[ '$addToSet' ][ $key ] = $value;
+				}
+				
+				//
+				// Update.
+				//
+				$status = $container->update( $criteria, $tmp, $options );
+			
+			} // Add to set.
+			
+			//
+			// Pop.
+			//
+			elseif( ($theModifiers & kFLAG_MODIFY_MASK) == kFLAG_MODIFY_POP )
+			{
+				//
+				// Set command.
+				//
+				$tmp = array( '$pop' => Array() );
+				foreach( $theObject as $key => $value )
+				{
+					if( $key != kTAG_LID )
+						$tmp[ '$pop' ][ $key ] = $value;
+				}
+				
+				//
+				// Update.
+				//
+				$status = $container->update( $criteria, $tmp, $options );
+			
+			} // Pop.
+			
+			//
+			// Pull.
+			//
+			elseif( ($theModifiers & kFLAG_MODIFY_MASK) == kFLAG_MODIFY_PULL )
+			{
+				//
+				// Set command.
+				//
+				$tmp = array( '$pull' => Array() );
+				foreach( $theObject as $key => $value )
+				{
+					if( $key != kTAG_LID )
+						$tmp[ '$pull' ][ $key ] = $value;
+				}
+				
+				//
+				// Update.
+				//
+				$status = $container->update( $criteria, $tmp, $options );
+			
+			} // Pull.
+			
+			else
+				throw new CException
+					( "Invalid modification options",
+					  kERROR_INVALID_PARAMETER,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Modifiers' => $theModifiers ) );					// !@! ==>
 			
 			return $this->Load( $theIdentifier );									// ==>
 		

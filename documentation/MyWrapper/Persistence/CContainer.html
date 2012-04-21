@@ -350,7 +350,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Commit</span> (line <span class="line-number">292</span>)
+		<span class="method-title">Commit</span> (line <span class="line-number">320</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -369,12 +369,33 @@
             the container to have an entry with the same key as the provided identifier,
             if this is not the case the method must raise an
             <a href="../../MyWrapper/Definitions/_defines---Errors.inc.php.html#definekERROR_NOT_FOUND">exception</a>. With this option it is assumed that the
-            provided object's attributes will replace all the existing object's ones.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_MODIFY">kFLAG_PERSIST_MODIFY</a></em>: The provided
-            object is assumed to contain a subset of an existing object's attributes,
-            these provided attributes will be appended or replace the existing ones.
-            In this case the method expects the container to have an entry with the
-            same key as the provided identifier, if this is not the case the method must
-            raise an <a href="../../MyWrapper/Definitions/_defines---Errors.inc.php.html#definekERROR_NOT_FOUND">exception</a>.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_REPLACE">kFLAG_PERSIST_REPLACE</a></em>: The provided
+            provided object's attributes will replace all the existing object's ones.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_MODIFY">kFLAG_PERSIST_MODIFY</a></em>: This option can be
+            used to apply modifications to a subset of the object. In this case, the
+            provided object contains a series of key/value pairs in which the key
+            represents the field to operate on, and the value represents the modifier.
+            A series of other flags determine what are the exact operations:
+         <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFY_MASK">kFLAG_MODIFY_MASK</a> off</em>: If none of
+                 flags in this mask are set, it means that the provided key/value pairs
+                represent a list of elements to add or to remove from the object: if the
+                value is <em>NULL</em>, the field corresponding to the key will be
+                removed; if the value is not <em>NULL</em>, the field value will be set or
+                replaced.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFY_INCREMENT">kFLAG_MODIFY_INCREMENT</a></em>: This
+                option represents an increment or decrement operation, depending on the
+                provided value. The provided values will increment the fields
+                corresponding to the provided keys, if the fields do not exist, these
+                will be set with the provided values.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFY_APPEND">kFLAG_MODIFY_APPEND</a></em>: This option will
+                append the provided values to the arrays of the corresponding fields. If
+                the field does not exist, it will be created with an array composed of
+                the provided value. If the field exists and its value is not an array,
+                an error should occur.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFY_ADDSET">kFLAG_MODIFY_ADDSET</a></em>: This option is
+                equivalent to the <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFY_APPEND">previous</a> one, except that
+                the value will only be appended if it doesn't already exist in the
+                field.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFY_POP">kFLAG_MODIFY_POP</a></em>: This option will
+                remove the first or last element of the array contained by the field:
+                if the value is 1, the last element will be removed, if it is -1, the
+                first element will be removed.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFY_PULL">kFLAG_MODIFY_PULL</a></em>: This option will
+                remove all occurrences of the provided value from the field's array; if
+                the field does not hold an array, an error should be raised.</li></ul></li><li><em><a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_REPLACE">kFLAG_PERSIST_REPLACE</a></em>: The provided
             object will be <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_INSERT">inserted</a>, if the identifier
             doesn't match any container elements, or it will
             <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_UPDATE">replace</a> the existing object. As with
@@ -520,7 +541,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Delete</span> (line <span class="line-number">420</span>)
+		<span class="method-title">Delete</span> (line <span class="line-number">448</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -562,7 +583,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Load</span> (line <span class="line-number">357</span>)
+		<span class="method-title">Load</span> (line <span class="line-number">385</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -604,7 +625,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Reference</span> (line <span class="line-number">518</span>)
+		<span class="method-title">Reference</span> (line <span class="line-number">546</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -664,7 +685,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/AbstractMethod.png" />
-		<span class="method-title">UnserialiseData</span> (line <span class="line-number">782</span>)
+		<span class="method-title">UnserialiseData</span> (line <span class="line-number">810</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -716,7 +737,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">UnserialiseObject</span> (line <span class="line-number">629</span>)
+		<span class="method-title">UnserialiseObject</span> (line <span class="line-number">657</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -755,7 +776,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/AbstractMethod.png" />
-		<span class="method-title">_Commit</span> (line <span class="line-number">841</span>)
+		<span class="method-title">_Commit</span> (line <span class="line-number">869</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -806,7 +827,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Container</span> (line <span class="line-number">808</span>)
+		<span class="method-title">_Container</span> (line <span class="line-number">836</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -836,7 +857,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/AbstractMethod.png" />
-		<span class="method-title">_Delete</span> (line <span class="line-number">885</span>)
+		<span class="method-title">_Delete</span> (line <span class="line-number">913</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -884,7 +905,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishCommit</span> (line <span class="line-number">1166</span>)
+		<span class="method-title">_FinishCommit</span> (line <span class="line-number">1194</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -927,7 +948,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishDelete</span> (line <span class="line-number">1273</span>)
+		<span class="method-title">_FinishDelete</span> (line <span class="line-number">1301</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -968,7 +989,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishLoad</span> (line <span class="line-number">1221</span>)
+		<span class="method-title">_FinishLoad</span> (line <span class="line-number">1249</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1011,7 +1032,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/AbstractMethod.png" />
-		<span class="method-title">_Load</span> (line <span class="line-number">863</span>)
+		<span class="method-title">_Load</span> (line <span class="line-number">891</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1059,7 +1080,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">943</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">971</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1119,7 +1140,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareDelete</span> (line <span class="line-number">1103</span>)
+		<span class="method-title">_PrepareDelete</span> (line <span class="line-number">1131</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1159,7 +1180,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">1039</span>)
+		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">1067</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1259,7 +1280,7 @@
 
 	
 	<p class="notes" id="credit">
-		Documentation generated on Sat, 21 Apr 2012 02:21:53 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Sun, 22 Apr 2012 00:00:21 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

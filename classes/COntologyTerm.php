@@ -94,6 +94,55 @@ class COntologyTerm extends COntologyTermObject
 
 /*=======================================================================================
  *																						*
+ *								PUBLIC MEMBER INTERFACE									*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	Node																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage node references.
+	 *
+	 * This method can be used to handle the object's {@link kTAG_NODE node} references, it
+	 * uses the standard accessor {@link _ManageArrayOffset() method} to manage the list of
+	 * nodes that point to this term.
+	 *
+	 * Each element of this list represents the ID of a node in the ontology.
+	 *
+	 * For a more thorough reference of how this method works, please consult the
+	 * {@link _ManageArrayOffset() _ManageArrayOffset} method, in which the first parameter
+	 * will be the constant {@link kTAG_KIND kTAG_KIND}.
+	 *
+	 * Note that you should only use this method for retrieving information, since
+	 * {@link COntologyNode nodes} store automatically this information when
+	 * {@link Commit() saved}.
+	 *
+	 * @param mixed					$theValue			Value or index.
+	 * @param mixed					$theOperation		Operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return mixed
+	 *
+	 * @uses _ManageArrayOffset
+	 *
+	 * @see kTAG_NODE
+	 */
+	public function Node( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
+	{
+		return $this->_ManageArrayOffset
+					( kTAG_NODE, $theValue, $theOperation, $getOld );				// ==>
+
+	} // Node.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PUBLIC ARRAY ACCESS INTERFACE							*
  *																						*
  *======================================================================================*/

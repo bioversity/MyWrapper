@@ -42,6 +42,6 @@ define( "kINDEX_TERM_NAME",						'NAMES' );
  *
  * This tag defines the ontology node names index.
  */
-define( "kINDEX_TERM_DEFINITION",				'NAMES' );
+define( "kINDEX_TERM_DEFINITION",				'DEFINITIONS' );
 
 ?>

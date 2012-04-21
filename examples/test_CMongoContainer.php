@@ -193,17 +193,66 @@ try
 	//
 	echo( '<h3>Modify</h3>' );
 	
-	echo( '<i>$mod = array( 1 => 10, 2 => 20, 3 => 30 );</i><br>' );
-	$mod = array( 1 => 10, 2 => 20, 3 => 30 );
+	echo( '<i>$mod = array( \'A\' => 10, \'B\' => 20, \'C\' => 30, \'D\' => array( 1, 2, 3 ), \'E\' => 22 );</i><br>' );
+	$mod = array( 'A' => 10, 'B' => 20, 'C' => 30, 'D' => array( 1, 2, 3 ), 'E' => 22 );
 	echo( '<i>$found = $test->Commit( $mod, 9, kFLAG_PERSIST_MODIFY );</i><br>' );
 	$found = $test->Commit( $mod, 9, kFLAG_PERSIST_MODIFY );
 	echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	echo( '<i>$mod = array( 1 => NULL, 2 => 200, 3 => NULL );</i><br>' );
-	$mod = array( 1 => NULL, 2 => 200, 3 => NULL );
+	echo( '<i>$mod = array( \'A\' => NULL, \'B\' => 200, \'C\' => NULL );</i><br>' );
+	$mod = array( 'A' => NULL, 'B' => 200, 'C' => NULL );
 	echo( '<i>$found = $test->Commit( $mod, 9, kFLAG_PERSIST_MODIFY );</i><br>' );
 	$found = $test->Commit( $mod, 9, kFLAG_PERSIST_MODIFY );
+	echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$mod = array( \'B\' => 2, \'E\' => -2 );</i><br>' );
+	$mod = array( 'B' => 2, 'E' => -2 );
+	echo( '<i>$found = $test->Commit( $mod, 9, kFLAG_PERSIST_MODIFY + kFLAG_MODIFY_INCREMENT );</i><br>' );
+	$found = $test->Commit( $mod, 9, kFLAG_PERSIST_MODIFY + kFLAG_MODIFY_INCREMENT );
+	echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$mod = array( \'D\' => \'APPENDED\' );</i><br>' );
+	$mod = array( 'D' => 'APPENDED' );
+	echo( '<i>$found = $test->Commit( $mod, 9, kFLAG_PERSIST_MODIFY + kFLAG_MODIFY_APPEND );</i><br>' );
+	$found = $test->Commit( $mod, 9, kFLAG_PERSIST_MODIFY + kFLAG_MODIFY_APPEND );
+	echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$mod = array( \'D\' => 4 );</i><br>' );
+	$mod = array( 'D' => 4 );
+	echo( '<i>$found = $test->Commit( $mod, 9, kFLAG_PERSIST_MODIFY + kFLAG_MODIFY_ADDSET );</i><br>' );
+	$found = $test->Commit( $mod, 9, kFLAG_PERSIST_MODIFY + kFLAG_MODIFY_ADDSET );
+	echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$mod = array( \'D\' => 4 );</i><br>' );
+	$mod = array( 'D' => 4 );
+	echo( '<i>$found = $test->Commit( $mod, 9, kFLAG_PERSIST_MODIFY + kFLAG_MODIFY_ADDSET );</i><br>' );
+	$found = $test->Commit( $mod, 9, kFLAG_PERSIST_MODIFY + kFLAG_MODIFY_ADDSET );
+	echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$mod = array( \'D\' => 1 );</i><br>' );
+	$mod = array( 'D' => 1 );
+	echo( '<i>$found = $test->Commit( $mod, 9, kFLAG_PERSIST_MODIFY + kFLAG_MODIFY_POP );</i><br>' );
+	$found = $test->Commit( $mod, 9, kFLAG_PERSIST_MODIFY + kFLAG_MODIFY_POP );
+	echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$mod = array( \'D\' => -1 );</i><br>' );
+	$mod = array( 'D' => -1 );
+	echo( '<i>$found = $test->Commit( $mod, 9, kFLAG_PERSIST_MODIFY + kFLAG_MODIFY_POP );</i><br>' );
+	$found = $test->Commit( $mod, 9, kFLAG_PERSIST_MODIFY + kFLAG_MODIFY_POP );
+	echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$mod = array( \'D\' => 2 );</i><br>' );
+	$mod = array( 'D' => 2 );
+	echo( '<i>$found = $test->Commit( $mod, 9, kFLAG_PERSIST_MODIFY + kFLAG_MODIFY_PULL );</i><br>' );
+	$found = $test->Commit( $mod, 9, kFLAG_PERSIST_MODIFY + kFLAG_MODIFY_PULL );
 	echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
 	echo( '<hr>' );
 	

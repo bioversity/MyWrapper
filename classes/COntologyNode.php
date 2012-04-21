@@ -331,17 +331,66 @@ class COntologyNode extends CGraphNode
 		//
 		// Call parent method.
 		//
-		$id = parent::_Commit( $theContainer[ kTAG_NODE ],
-							   $theIdentifier,
-							   $theModifiers );
+		$id = parent::_Commit( $theContainer[ kTAG_NODE ], $theIdentifier, $theModifiers );
 		
 		//
-		// Add indexes.
+		// Handle save.
 		//
-		if( ! $theModifiers & kFLAG_PERSIST_DELETE )
+		if( ! ($theModifiers & kFLAG_PERSIST_DELETE) )
+		{
+			//
+			// Set node in term.
+			//
+/*
+			$this->mTerm->Node( $id, TRUE );
+			$this->mTerm->Commit( $theContainer[ kTAG_TERM ] );
+*/
+			$id = $this->mNode->getId();
+			$this->mTerm->Node( $id, TRUE );
+			$mod = array( kTAG_NODE => $id );
+			$theContainer[ kTAG_TERM ]->Commit( $mod,
+												$this->mTerm[ kTAG_LID ],
+												kFLAG_PERSIST_MODIFY +
+												kFLAG_MODIFY_ADDSET +
+												kFLAG_STATE_ENCODED );
+			
+			//
+			// Add indexes.
+			//
 			$this->_CreateNodeIndex( $theContainer[ kTAG_NODE ] );
 		
-		return $id;																	// ==>
+		} // Saving.
+		
+		//
+		// Handle delete.
+		//
+		else
+		{
+			//
+			// Remove node from term.
+			//
+/*
+			$this->mTerm->Node( $id, FALSE );
+			$this->mTerm->Commit( $theContainer[ kTAG_TERM ] );
+*/
+			$this->mTerm->Node( $id, FALSE );
+			$mod = array( kTAG_NODE => $id );
+			$theContainer[ kTAG_TERM ]->Commit( $mod,
+												$this->mTerm[ kTAG_LID ],
+												kFLAG_PERSIST_MODIFY +
+												kFLAG_MODIFY_PULL +
+												kFLAG_STATE_ENCODED );
+			
+			//
+			// Reset term
+			//
+			$this->Term( new COntologyTerm() );
+			
+			return $id;																// ==>
+		
+		} // Deleting.
+		
+		return $this->mNode->getId();												// ==>
 	
 	} // _Commit.
 

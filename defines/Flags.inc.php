@@ -155,6 +155,71 @@ define( "kFLAG_PERSIST_WRITE_MASK",		0x00000070 );		// Write mask.
 define( "kFLAG_PERSIST_MASK",			0x000000F0 );		// Persist mask.
 
 /*=======================================================================================
+ *	PERSISTENCE MODIFICATION FLAGS														*
+ *======================================================================================*/
+
+/**
+ * Modify: Increment.
+ *
+ * This bitfield value indicates that we intend to increment a value of a field, if the
+ * field does not exist, the provided increment value will be set in the field. This option
+ * must be provided in conjunction with the {kFLAG_PERSIST_MODIFY kFLAG_PERSIST_MODIFY}
+ * flag.
+ */
+define( "kFLAG_MODIFY_INCREMENT",		0x00000100 );		// Increment.
+
+/**
+ * Modify: Append.
+ *
+ * This bitfield value indicates that we intend to append a value to an existing field, if
+ * field is not present, an array with the provided value will be set in the field; if the
+ * field does not contain an array, an error should occur. This option must be provided in
+ * conjunction with the {kFLAG_PERSIST_MODIFY kFLAG_PERSIST_MODIFY} flag.
+ */
+define( "kFLAG_MODIFY_APPEND",			0x00000200 );		// Append.
+
+/**
+ * Modify: Add to set.
+ *
+ * This bitfield value indicates that we intend to add a value to an existing array field
+ * only if this value is not yet present, the options are the same as for the
+ * {@link kFLAG_MODIFY_APPEND kFLAG_MODIFY_APPEND} flag.
+ */
+define( "kFLAG_MODIFY_ADDSET",			0x00000400 );		// Add to set.
+
+/**
+ * Modify: Pop.
+ *
+ * This bitfield value indicates that we intend to remove the last or first element of an
+ * array: if the value is 1 the last element will be removed, if the value is -1 it will be
+ * the first element. This option must be provided in conjunction with the
+ * {kFLAG_PERSIST_MODIFY kFLAG_PERSIST_MODIFY} flag.
+ */
+define( "kFLAG_MODIFY_POP",				0x00000A00 );		// Pop.
+
+/**
+ * Modify: Pull.
+ *
+ * This bitfield value indicates that we intend to remove all occurrences of a value from
+ * an array. If the field exists, but it is not an array, an error should be raised. This
+ * option must be provided in conjunction with the
+ * {kFLAG_PERSIST_MODIFY kFLAG_PERSIST_MODIFY} flag.
+ */
+define( "kFLAG_MODIFY_PULL",			0x00000C00 );		// Pull.
+
+/*=======================================================================================
+ *	PERSISTENCE MODIFICATION FLAGS - MASKS												*
+ *======================================================================================*/
+
+/**
+ * Modifications mask.
+ *
+ * This value masks the access flags that indicate modification options to the
+ * {@link kFLAG_PERSIST_MODIFY kFLAG_PERSIST_MODIFY} persistence action.
+ */
+define( "kFLAG_MODIFY_MASK",			0x00000F00 );		// Modifications mask.
+
+/*=======================================================================================
  *	REFERENCE OPTION FLAGS																*
  *======================================================================================*/
 
@@ -166,7 +231,7 @@ define( "kFLAG_PERSIST_MASK",			0x000000F0 );		// Persist mask.
  * {@link CConttainer::Reference() converting} a {@link CPersistentObject persistent} object
  * to a reference.
  */
-define( "kFLAG_REFERENCE_IDENTIFIER",	0x00000100 );		// Identifier.
+define( "kFLAG_REFERENCE_IDENTIFIER",	0x00001000 );		// Identifier.
 
 /**
  * Reference: Container.
@@ -176,7 +241,7 @@ define( "kFLAG_REFERENCE_IDENTIFIER",	0x00000100 );		// Identifier.
  * when {@link CConttainer::Reference() converting} a {@link CPersistentObject persistent}
  * object to a reference.
  */
-define( "kFLAG_REFERENCE_CONTAINER",	0x00000200 );		// Container.
+define( "kFLAG_REFERENCE_CONTAINER",	0x00002000 );		// Container.
 
 /**
  * Reference: Database.
@@ -186,7 +251,7 @@ define( "kFLAG_REFERENCE_CONTAINER",	0x00000200 );		// Container.
  * when {@link CConttainer::Reference() converting} a {@link CPersistentObject persistent}
  * object to a reference.
  */
-define( "kFLAG_REFERENCE_DATABASE",		0x00000400 );		// Database.
+define( "kFLAG_REFERENCE_DATABASE",		0x00004000 );		// Database.
 
 /**
  * Reference: Class.
@@ -196,7 +261,7 @@ define( "kFLAG_REFERENCE_DATABASE",		0x00000400 );		// Database.
  * {@link CConttainer::Reference() converting} a {@link CPersistentObject persistent}
  * object to a reference.
  */
-define( "kFLAG_REFERENCE_CLASS",		0x00000800 );		// Class.
+define( "kFLAG_REFERENCE_CLASS",		0x00008000 );		// Class.
 
 /*=======================================================================================
  *	REFERENCE OPTION FLAGS - MASKS														*
@@ -207,7 +272,7 @@ define( "kFLAG_REFERENCE_CLASS",		0x00000800 );		// Class.
  *
  * This value masks all the reference option flags.
  */
-define( "kFLAG_REFERENCE_MASK",			0x00000F00 );		// Reference options mask.
+define( "kFLAG_REFERENCE_MASK",			0x0000F000 );		// Reference options mask.
 
 /*=======================================================================================
  *	STRING MODIFIER FLAGS																*
