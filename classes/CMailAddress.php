@@ -38,22 +38,22 @@ require_once( kPATH_LIBRARY_SOURCE."CArrayObject.php" );
  * as a set of properties:
  *
  * <ul>
- *	<li><i>{@link Place() Place}</i>: This {@link kOFFSET_MAIL_PLACE property} defines a
+ *	<li><i>{@link Place() Place}</i>: This {@link kOFFSET_PLACE property} defines a
  *		named place or location, it should be used only if required.
- *	<li><i>{@link Care() Care} of</i>: This {@link kOFFSET_MAIL_CARE property} indicates
+ *	<li><i>{@link Care() Care} of</i>: This {@link kOFFSET_CARE property} indicates
  *		who is the owner or reference at the address that is not the same as the sender. It
  *		should be used only if required.
- *	<li><i>{@link Street() Street}</i>: This {@link kOFFSET_MAIL_STREET property} indicates
+ *	<li><i>{@link Street() Street}</i>: This {@link kOFFSET_STREET property} indicates
  *		the street name or P.O. box number.
- *	<li><i>{@link Zip() Zip}</i>: This {@link kOFFSET_MAIL_ZIP property} indicates the ZIP
+ *	<li><i>{@link Zip() Zip}</i>: This {@link kOFFSET_ZIP_CODE property} indicates the ZIP
  *		code.
- *	<li><i>{@link City() City}</i>: This {@link kOFFSET_MAIL_CITY property} indicates the
+ *	<li><i>{@link City() City}</i>: This {@link kOFFSET_CITY property} indicates the
  *		address city name.
- *	<li><i>{@link Province() Province}</i>: This {@link kOFFSET_MAIL_PROVINCE property}
+ *	<li><i>{@link Province() Province}</i>: This {@link kOFFSET_PROVINCE property}
  *		indicates the address province name or code.
- *	<li><i>{@link Country() Country}</i>: This {@link kOFFSET_MAIL_COUNTRY property}
+ *	<li><i>{@link Country() Country}</i>: This {@link kOFFSET_COUNTRY property}
  *		indicates the address country name or code.
- *	<li><i>{@link Full() Full} address</i>: This {@link kOFFSET_MAIL_FULL property} can be
+ *	<li><i>{@link Full() Full} address</i>: This {@link kOFFSET_FULL property} can be
  *		used when an address does not have its properties separated, or it can be used as an
  *		export feature.
  * </ul>
@@ -112,35 +112,35 @@ class CMailAddress extends CArrayObject
 				//
 				switch( $key )
 				{
-					case kOFFSET_MAIL_PLACE:
+					case kOFFSET_PLACE:
 						$this->Place( $value );
 						break;
 				
-					case kOFFSET_MAIL_CARE:
+					case kOFFSET_CARE:
 						$this->Care( $value );
 						break;
 				
-					case kOFFSET_MAIL_STREET:
+					case kOFFSET_STREET:
 						$this->Street( $value );
 						break;
 				
-					case kOFFSET_MAIL_ZIP:
+					case kOFFSET_ZIP_CODE:
 						$this->Zip( $value );
 						break;
 				
-					case kOFFSET_MAIL_CITY:
+					case kOFFSET_CITY:
 						$this->City( $value );
 						break;
 				
-					case kOFFSET_MAIL_PROVINCE:
+					case kOFFSET_PROVINCE:
 						$this->Province( $value );
 						break;
 				
-					case kOFFSET_MAIL_COUNTRY:
+					case kOFFSET_COUNTRY:
 						$this->Country( $value );
 						break;
 				
-					case kOFFSET_MAIL_FULL:
+					case kOFFSET_FULL:
 						$this->Full( $value );
 						break;
 				
@@ -175,7 +175,7 @@ class CMailAddress extends CArrayObject
 	/**
 	 * Manage place.
 	 *
-	 * This method can be used to manage the address {@link kOFFSET_MAIL_PLACE place}, it
+	 * This method can be used to manage the address {@link kOFFSET_PLACE place}, it
 	 * accepts a parameter which represents either the place name or the requested
 	 * operation, depending on its value:
 	 *
@@ -196,11 +196,11 @@ class CMailAddress extends CArrayObject
 	 *
 	 * @uses _ManageOffset()
 	 *
-	 * @see kOFFSET_MAIL_PLACE
+	 * @see kOFFSET_PLACE
 	 */
 	public function Place( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kOFFSET_MAIL_PLACE, $theValue, $getOld );		// ==>
+		return $this->_ManageOffset( kOFFSET_PLACE, $theValue, $getOld );		// ==>
 
 	} // Place.
 
@@ -212,7 +212,7 @@ class CMailAddress extends CArrayObject
 	/**
 	 * Manage care-of.
 	 *
-	 * This method can be used to manage the address {@link kOFFSET_MAIL_CARE care-of}, it
+	 * This method can be used to manage the address {@link kOFFSET_CARE care-of}, it
 	 * accepts a parameter which represents a care-of reference or the requested operation,
 	 * depending on its value:
 	 *
@@ -233,11 +233,11 @@ class CMailAddress extends CArrayObject
 	 *
 	 * @uses _ManageOffset()
 	 *
-	 * @see kOFFSET_MAIL_CARE
+	 * @see kOFFSET_CARE
 	 */
 	public function Care( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kOFFSET_MAIL_CARE, $theValue, $getOld );		// ==>
+		return $this->_ManageOffset( kOFFSET_CARE, $theValue, $getOld );		// ==>
 
 	} // Care.
 
@@ -249,7 +249,7 @@ class CMailAddress extends CArrayObject
 	/**
 	 * Manage street.
 	 *
-	 * This method can be used to manage the address {@link kOFFSET_MAIL_STREET street}, it
+	 * This method can be used to manage the address {@link kOFFSET_STREET street}, it
 	 * accepts a parameter which represents a street name, P.O. box or the requested
 	 * operation, depending on its value:
 	 *
@@ -270,11 +270,11 @@ class CMailAddress extends CArrayObject
 	 *
 	 * @uses _ManageOffset()
 	 *
-	 * @see kOFFSET_MAIL_STREET
+	 * @see kOFFSET_STREET
 	 */
 	public function Street( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kOFFSET_MAIL_STREET, $theValue, $getOld );		// ==>
+		return $this->_ManageOffset( kOFFSET_STREET, $theValue, $getOld );		// ==>
 
 	} // Street.
 
@@ -286,7 +286,7 @@ class CMailAddress extends CArrayObject
 	/**
 	 * Manage zip code.
 	 *
-	 * This method can be used to manage the address {@link kOFFSET_MAIL_ZIP zip} code, it
+	 * This method can be used to manage the address {@link kOFFSET_ZIP_CODE zip} code, it
 	 * accepts a parameter which represents the address zip code or the requested operation,
 	 * depending on its value:
 	 *
@@ -307,11 +307,11 @@ class CMailAddress extends CArrayObject
 	 *
 	 * @uses _ManageOffset()
 	 *
-	 * @see kOFFSET_MAIL_ZIP
+	 * @see kOFFSET_ZIP_CODE
 	 */
 	public function Zip( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kOFFSET_MAIL_ZIP, $theValue, $getOld );		// ==>
+		return $this->_ManageOffset( kOFFSET_ZIP_CODE, $theValue, $getOld );		// ==>
 
 	} // Zip.
 
@@ -323,7 +323,7 @@ class CMailAddress extends CArrayObject
 	/**
 	 * Manage city.
 	 *
-	 * This method can be used to manage the address {@link kOFFSET_MAIL_CITY city}, it
+	 * This method can be used to manage the address {@link kOFFSET_CITY city}, it
 	 * accepts a parameter which represents the address city name or the requested
 	 * operation, depending on its value:
 	 *
@@ -344,11 +344,11 @@ class CMailAddress extends CArrayObject
 	 *
 	 * @uses _ManageOffset()
 	 *
-	 * @see kOFFSET_MAIL_CITY
+	 * @see kOFFSET_CITY
 	 */
 	public function City( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kOFFSET_MAIL_CITY, $theValue, $getOld );		// ==>
+		return $this->_ManageOffset( kOFFSET_CITY, $theValue, $getOld );		// ==>
 
 	} // City.
 
@@ -360,7 +360,7 @@ class CMailAddress extends CArrayObject
 	/**
 	 * Manage province.
 	 *
-	 * This method can be used to manage the address {@link kOFFSET_MAIL_PROVINCE province},
+	 * This method can be used to manage the address {@link kOFFSET_PROVINCE province},
 	 * it accepts a parameter which represents the address province name, code or the
 	 * requested operation, depending on its value:
 	 *
@@ -381,11 +381,11 @@ class CMailAddress extends CArrayObject
 	 *
 	 * @uses _ManageOffset()
 	 *
-	 * @see kOFFSET_MAIL_PROVINCE
+	 * @see kOFFSET_PROVINCE
 	 */
 	public function Province( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kOFFSET_MAIL_PROVINCE, $theValue, $getOld );	// ==>
+		return $this->_ManageOffset( kOFFSET_PROVINCE, $theValue, $getOld );	// ==>
 
 	} // Province.
 
@@ -397,7 +397,7 @@ class CMailAddress extends CArrayObject
 	/**
 	 * Manage province.
 	 *
-	 * This method can be used to manage the address {@link kOFFSET_MAIL_COUNTRY country},
+	 * This method can be used to manage the address {@link kOFFSET_COUNTRY country},
 	 * it accepts a parameter which represents the address country name, code or the
 	 * requested operation, depending on its value:
 	 *
@@ -418,11 +418,11 @@ class CMailAddress extends CArrayObject
 	 *
 	 * @uses _ManageOffset()
 	 *
-	 * @see kOFFSET_MAIL_COUNTRY
+	 * @see kOFFSET_COUNTRY
 	 */
 	public function Country( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kOFFSET_MAIL_COUNTRY, $theValue, $getOld );	// ==>
+		return $this->_ManageOffset( kOFFSET_COUNTRY, $theValue, $getOld );	// ==>
 
 	} // Country.
 
@@ -435,7 +435,7 @@ class CMailAddress extends CArrayObject
 	 * Manage full address.
 	 *
 	 * This method can be used to manage the full address as a
-	 * {@link kOFFSET_MAIL_FULL string}, it accepts a parameter which represents the full
+	 * {@link kOFFSET_FULL string}, it accepts a parameter which represents the full
 	 * address or the requested operation, depending on its value:
 	 *
 	 * <ul>
@@ -458,7 +458,7 @@ class CMailAddress extends CArrayObject
 	 *
 	 * @uses _ManageOffset()
 	 *
-	 * @see kOFFSET_MAIL_FULL
+	 * @see kOFFSET_FULL
 	 */
 	public function Full( $theValue = NULL, $getOld = FALSE )
 	{
@@ -466,7 +466,7 @@ class CMailAddress extends CArrayObject
 		// Return full address.
 		//
 		if( ($theValue === NULL)
-		 && (! $this->offsetExists( kOFFSET_MAIL_FULL )) )
+		 && (! $this->offsetExists( kOFFSET_FULL )) )
 		{
 			//
 			// Build address.
@@ -494,7 +494,7 @@ class CMailAddress extends CArrayObject
 		
 		} // Retrieve and value missing.
 		
-		return $this->_ManageOffset( kOFFSET_MAIL_FULL, $theValue, $getOld );		// ==>
+		return $this->_ManageOffset( kOFFSET_FULL, $theValue, $getOld );			// ==>
 
 	} // Full.
 

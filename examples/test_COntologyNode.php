@@ -29,6 +29,14 @@ require_once( '/Library/WebServer/Library/wrapper/includes.inc.php' );
 //
 require_once( kPATH_LIBRARY_SOURCE."COntologyNode.php" );
 
+use Everyman\Neo4j\Transport,
+	Everyman\Neo4j\Client,
+	Everyman\Neo4j\Index\NodeIndex,
+	Everyman\Neo4j\Index\RelationshipIndex,
+	Everyman\Neo4j\Index\NodeFulltextIndex,
+	Everyman\Neo4j\Node,
+	Everyman\Neo4j\Batch;
+
 
 /*=======================================================================================
  *	TEST ONTOLOGY NODES																	*
@@ -221,7 +229,6 @@ try
 	$test = new COntologyNode( $container, $id );
 	echo( "$id:<pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
-exit( 'Need to handle DELETE...' );
 	
 	echo( '<i>Delete node</i><br>' );
 	echo( '<i>$ok = $test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );</i><br>' );
@@ -232,6 +239,16 @@ exit( 'Need to handle DELETE...' );
 	echo( '<i>Delete node</i><br>' );
 	echo( '<i>$ok = $test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );</i><br>' );
 	$ok = $test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );
+	echo( "$ok:<pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>Test indexes</i><br>' );
+	echo( '<i>$ok = $test->Commit( $container, NULL );</i><br>' );
+	$ok = $test->Commit( $container, NULL );
+	echo( '<i>$index = new NodeIndex( $container[ kTAG_NODE ], kINDEX_TERM );</i><br>' );
+	$index = new NodeIndex( $container[ kTAG_NODE ], kINDEX_TERM );
+	echo( '<i>$test = $index->findOne( kTAG_GID, \'A\' );</i><br>' );
+	$test = $index->findOne( kTAG_GID, 'A' );
 	echo( "$ok:<pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 }

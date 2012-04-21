@@ -27,6 +27,21 @@
 require_once( kPATH_LIBRARY_SOURCE."CGraphNode.php" );
 
 /**
+ * Local defines.
+ *
+ * This include file contains the local class definitions.
+ */
+require_once( kPATH_LIBRARY_SOURCE."COntologyNode.inc.php" );
+
+use Everyman\Neo4j\Transport,
+	Everyman\Neo4j\Client,
+	Everyman\Neo4j\Index\NodeIndex,
+	Everyman\Neo4j\Index\RelationshipIndex,
+	Everyman\Neo4j\Index\NodeFulltextIndex,
+	Everyman\Neo4j\Node,
+	Everyman\Neo4j\Batch;
+
+/**
  * Ontology graph node.
  *
  * This class implements an ontology graph node.
@@ -290,6 +305,45 @@ class COntologyNode extends CGraphNode
  *																						*
  *======================================================================================*/
 
+
+	 
+	/*===================================================================================
+	 *	_Commit																			*
+	 *==================================================================================*/
+
+	/**
+	 * Store object in container.
+	 *
+	 * We {@link CGraphNode::_Commit() overload} this method to provide the correct
+	 * container to the {@link CGraphNode parent} {@link CGraphNode::_Commit() method}.
+	 *
+	 * @param reference			   &$theContainer		Object container.
+	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Commit modifiers.
+	 *
+	 * @access protected
+	 * @return mixed
+	 *
+	 * @uses Node()
+	 */
+	protected function _Commit( &$theContainer, &$theIdentifier, &$theModifiers )
+	{
+		//
+		// Call parent method.
+		//
+		$id = parent::_Commit( $theContainer[ kTAG_NODE ],
+							   $theIdentifier,
+							   $theModifiers );
+		
+		//
+		// Add indexes.
+		//
+		if( ! $theModifiers & kFLAG_PERSIST_DELETE )
+			$this->_CreateNodeIndex( $theContainer[ kTAG_NODE ] );
+		
+		return $id;																	// ==>
+	
+	} // _Commit.
 
 	 
 	/*===================================================================================
@@ -632,6 +686,82 @@ class COntologyNode extends CGraphNode
 			$this->Term( new COntologyTerm() );
 	
 	} // _FinishLoad.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED INDEXING UTILITIES							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	_CreateNodeIndex																*
+	 *==================================================================================*/
+
+	/**
+	 * Create node indexes.
+	 *
+	 * This method will save node indexes after the node was {@link _Commit() committed},
+	 * it will perform the following selections:
+	 *
+	 * <ul>
+	 *	<li><i>{@link kINDEX_TERM kINDEX_TERM}</i>: The {@link Term() term}
+	 *		{@link kTAG_GID global} identifier (NodeIndex).
+	 *		container, it must be a Everyman\Neo4j\Client instance.
+	 *	<li><i>{@link kINDEX_TERM_NAME kINDEX_TERM_NAME}</i>: The {@link Term() term}
+	 *		{@link CTerm::Name() names} in all languages (NodeIndex).
+	 *	<li><i>{@link kINDEX_TERM_DEFINITION kINDEX_TERM_DEFINITION}</i>: The
+	 *		{@link Term() term} {@link CTerm::Definition() definitions} (NodeFulltextIndex).
+	 * </ul>
+	 *
+	 * @param Everyman\Neo4j\Client	$theContainer		Node container.
+	 *
+	 * @access protected
+	 */
+	protected function _CreateNodeIndex( Everyman\Neo4j\Client $theContainer )
+	{
+		//
+		// Load term and node.
+		//
+		$node = $this->Node();
+		$term = $this->Term();
+		
+		//
+		// Instantiate and remove indexes.
+		//
+		$idx_term = new NodeIndex( $theContainer, kINDEX_TERM );
+		$idx_term->save();
+		$idx_term->remove( $node, kINDEX_TERM );
+	
+		$idx_name = new NodeIndex( $theContainer, kINDEX_TERM_NAME );
+		$idx_name->save();
+		$idx_name->remove( $node, kINDEX_TERM_NAME );
+	
+		$idx_defs = new NodeFulltextIndex( $theContainer, kINDEX_TERM_DEFINITION );
+		$idx_defs->save();
+		$idx_defs->remove( $node, kINDEX_TERM_DEFINITION );
+	
+		//
+		// Add term index.
+		//
+		$idx_term->add( $node, kTAG_GID, $term[ kTAG_GID ] );
+	
+		//
+		// Add names index.
+		//
+		foreach( $term[ kTAG_NAME ] as $element )
+			$idx_name->add( $node, kTAG_NAME, $element[ kTAG_DATA ] );
+	
+		//
+		// Add definitions index.
+		//
+		foreach( $term[ kTAG_DEFINITION ] as $element )
+			$idx_defs->add( $node, kTAG_DEFINITION, $element[ kTAG_DATA ] );
+	
+	} // _PrepareCreate.
 
 	 
 

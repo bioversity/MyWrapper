@@ -646,11 +646,12 @@
      <ul><li><em>TRUE</em>: Return the value <em>before</em> it was eventually modified.</li><li><em>FALSE</em>: Return the value <em>after</em> it was eventually modified.</li></ul></li></ul></p><p>The method will also set the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsDirty">dirty</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_DIRTY">status</a> and the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">inited</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a> if the node is provided.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CGraphNode.html#method_Create">CGraphNode::_Create()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CGraphNode.html#method_Commit">CGraphNode::_Commit()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyNode.html#method_Commit">COntologyNode::_Commit()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CGraphNode.html#method_Create">CGraphNode::_Create()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CObject.html#methodManageMember">CObject::ManageMember()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsDirty">CStatusObject::_IsDirty()</a></li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CObject.html#methodManageMember">CObject::ManageMember()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -870,12 +871,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Commit</span> (line <span class="line-number">736</span>)
+		<span class="method-title">_Commit</span> (line <span class="line-number">737</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Store object in container.</p>
-<p class="description"><p>In this class we override the</p><p>We ignore the identifier here.</p></p>
+<p class="description"><p>In this class we save the node, or we delete it if the  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_DELETE">kFLAG_PERSIST_DELETE</a> flag is provided in the modifiers.</p><p>We ignore the identifier here.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CGraphNode.html#methodNode">CGraphNode::Node()</a></li>
@@ -908,6 +909,14 @@
 						<dd>Store object in container.</dd>
 					</dl>
 			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyNode.html#method_Commit">COntologyNode::_Commit()</a>
+								: Store object in container.
+							</li>
+				</ul>
 	</div>
 <a name="method_Create" id="_Create"><!-- --></a>
 <div class="oddrow">
@@ -952,7 +961,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishCreate</span> (line <span class="line-number">944</span>)
+		<span class="method-title">_FinishCreate</span> (line <span class="line-number">945</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1003,7 +1012,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishLoad</span> (line <span class="line-number">975</span>)
+		<span class="method-title">_FinishLoad</span> (line <span class="line-number">976</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1054,7 +1063,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Load</span> (line <span class="line-number">785</span>)
+		<span class="method-title">_Load</span> (line <span class="line-number">786</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1105,7 +1114,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">902</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">903</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1157,7 +1166,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCreate</span> (line <span class="line-number">817</span>)
+		<span class="method-title">_PrepareCreate</span> (line <span class="line-number">818</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1208,7 +1217,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">863</span>)
+		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">864</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1410,7 +1419,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 20 Apr 2012 19:39:22 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Sat, 21 Apr 2012 02:21:56 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

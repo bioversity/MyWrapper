@@ -146,7 +146,7 @@ abstract class CPersistentUnitObject extends CPersistentObject
 	 *
 	 * @uses _index()
 	 */
-	public function __toString()								{	return $this->_index();	}
+	public function __toString()					{	return (string) $this->_index();	}
 
 		
 
@@ -406,6 +406,31 @@ abstract class CPersistentUnitObject extends CPersistentObject
 		
 	} // Reference.
 
+	 
+	/*===================================================================================
+	 *	HashIndex																		*
+	 *==================================================================================*/
+
+	/**
+	 * Hash index.
+	 *
+	 * This method can be used to format an identifier provided as a string, it will be
+	 * used by the {@link _id() _id} method to format the result of the
+	 * {@link _index() _index} method. One can consider this as the index hashing method for
+	 * all derived classes.
+	 *
+	 * @param string				$theValue			Value to hash.
+	 *
+	 * @static
+	 * @return string
+	 */
+	static function HashIndex( $theValue )
+	{
+		return new CDataTypeBinary( md5( $theValue, TRUE ) );						// ==>
+//		return $theValue;															// ==>
+	
+	} // HashIndex.
+
 		
 
 /*=======================================================================================
@@ -433,12 +458,13 @@ abstract class CPersistentUnitObject extends CPersistentObject
 	 * If this method returns <i>NULL</i>, it is assumed that it will be the
 	 * {@link CContainer container} that will provide a default unique value.
 	 *
-	 * In this class we return the value of {@link _index() _index} by default.
+	 * In this class we return the {@link HashIndex() hashed} value of
+	 * {@link _index() _index}.
 	 *
 	 * @access protected
 	 * @return mixed
 	 */
-	protected function _id()									{	return $this->_index();	}
+	protected function _id()				{	return $this->HashIndex( $this->_index() );	}
 
 	 
 	/*===================================================================================

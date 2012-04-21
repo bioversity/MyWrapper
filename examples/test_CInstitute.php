@@ -126,16 +126,16 @@ try
 	//
 	echo( '<h3>Relations</h3>' );
 	
-	echo( '<i>$institute3->Affiliate( \'Division\', $institute1, TRUE );</i><br>' );
-	$institute3->Affiliate( 'Division', $institute1, TRUE );
+	echo( '<i>$institute3->Relate( $institute1, \'Division\', TRUE );</i><br>' );
+	$institute3->Relate( $institute1, 'Division', TRUE );
 	echo( '<pre>' ); print_r( $institute3 ); echo( '</pre>' );
 	echo( '<i>$institute3->Commit( $collection, NULL, kFLAG_PERSIST_UPDATE + kFLAG_STATE_ENCODED );</i><br>' );
 	$institute3->Commit( $collection, NULL, kFLAG_PERSIST_UPDATE + kFLAG_STATE_ENCODED );
 	echo( '<pre>' ); print_r( $institute3 ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	echo( '<i>$institute2->Affiliate( \'Partner\', $id1, TRUE );</i><br>' );
-	$institute2->Affiliate( 'Partner', $id1, TRUE );
+	echo( '<i>$institute2->Relate( $id1, \'Partner\', TRUE );</i><br>' );
+	$institute2->Relate( $id1, 'Partner', TRUE );
 	echo( '<pre>' ); print_r( $institute2 ); echo( '</pre>' );
 	echo( '<i>$institute2->Commit( $collection, NULL, kFLAG_PERSIST_UPDATE + kFLAG_STATE_ENCODED );</i><br>' );
 	$institute2->Commit( $collection, NULL, kFLAG_PERSIST_UPDATE + kFLAG_STATE_ENCODED );

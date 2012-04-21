@@ -276,29 +276,6 @@ class CUser extends CEntity
 
 	 
 	/*===================================================================================
-	 *	_id																				*
-	 *==================================================================================*/
-
-	/**
-	 * Return the object's unique identifier.
-	 *
-	 * In this class we hash the result of the {@link _index() _index} method, this means
-	 * that we need to 
-	 *
-	 * @access protected
-	 * @return mixed
-	 */
-	protected function _id()
-	{
-		//
-		// In this class we hash the index value.
-		//
-		return new CDataTypeBinary( md5( $this->_index(), TRUE ) );
-	
-	} // _id.
-
-	 
-	/*===================================================================================
 	 *	_index																			*
 	 *==================================================================================*/
 

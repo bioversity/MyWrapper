@@ -35,4 +35,16 @@ function Neo4jAutoload( $theClassName )
 
 } spl_autoload_register( 'Neo4jAutoload' );
 
+/*=======================================================================================
+ *	REFERENCE NEO4J CLASSES																*
+ *======================================================================================*/
+
+use Everyman\Neo4j\Transport,
+	Everyman\Neo4j\Client,
+	Everyman\Neo4j\Index\NodeIndex,
+	Everyman\Neo4j\Index\RelationshipIndex,
+	Everyman\Neo4j\Index\NodeFulltextIndex,
+	Everyman\Neo4j\Node,
+	Everyman\Neo4j\Batch;
+
 ?>

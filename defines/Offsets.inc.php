@@ -362,56 +362,56 @@ define( "kOFFSET_ACRONYM",						':ACRONYM' );
  *
  * This is the tag that represents a place or named location.
  */
-define( "kOFFSET_MAIL_PLACE",					':MAIL:PLACE' );
+define( "kOFFSET_PLACE",						':PLACE' );
 
 /**
  * Care of offset.
  *
  * This is the tag that represents a care of address reference.
  */
-define( "kOFFSET_MAIL_CARE",					':MAIL:CARE' );
+define( "kOFFSET_CARE",							':CARE' );
 
 /**
  * Street offset.
  *
  * This is the tag that represents a place or named location.
  */
-define( "kOFFSET_MAIL_STREET",					':MAIL:STREET' );
+define( "kOFFSET_STREET",						':STREET' );
 
 /**
  * ZIP offset.
  *
  * This is the tag that represents a ZIP code.
  */
-define( "kOFFSET_MAIL_ZIP",						':MAIL:ZIP' );
+define( "kOFFSET_ZIP_CODE",						':ZIP' );
 
 /**
  * City offset.
  *
  * This is the tag that represents a city name.
  */
-define( "kOFFSET_MAIL_CITY",					':MAIL:CITY' );
+define( "kOFFSET_CITY",							':CITY' );
 
 /**
  * Province offset.
  *
  * This is the tag that represents a province name or code.
  */
-define( "kOFFSET_MAIL_PROVINCE",				':MAIL:PROV' );
+define( "kOFFSET_PROVINCE",						':PROV' );
 
 /**
  * Country offset.
  *
  * This is the tag that represents an ISO3166 3 character country code.
  */
-define( "kOFFSET_MAIL_COUNTRY",					':MAIL:COUNTRY' );
+define( "kOFFSET_COUNTRY",						':COUNTRY' );
 
 /**
- * Full address offset.
+ * Full data offset.
  *
- * This is the tag that represents the full address as a string.
+ * This is the tag that represents the full data as a string.
  */
-define( "kOFFSET_MAIL_FULL",					':MAIL:FULL' );
+define( "kOFFSET_FULL",							':FULL' );
 
 /*=======================================================================================
  *	DEFAULT PREDICATES																	*

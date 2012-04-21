@@ -1848,15 +1848,15 @@ exit( "Done!\n" );
 	function LoadMailProperties( CContainer $theContainer, $doDisplay = TRUE )
 	{
 		//
-		// Get namespace.
+		// Get default namespace.
 		//
 		$ns
 			= CPersistentUnitObject::NewObject
-				( $theContainer, COntologyTermObject::HashIndex( kOFFSET_MAIL ),
+				( $theContainer, COntologyTermObject::HashIndex( '' ),
 				  kFLAG_STATE_ENCODED );
 		if( ! $ns )
 			throw new Exception
-				( 'Unable to find mailing address namsepace [kOFFSET_MAIL].' );	// !@! ==>
+				( 'Unable to find default namsepace [].' );						// !@! ==>
 		
 		//
 		// Init local storage.
@@ -1868,13 +1868,13 @@ exit( "Done!\n" );
 		//
 		$term = new CMeasureTerm();
 		$term->NS( $ns );
-		$term->Code( substr( kOFFSET_MAIL_PLACE, $len ) );
+		$term->Code( substr( kOFFSET_PLACE, $len ) );
 		$term->Name( 'Place', kDEFAULT_LANGUAGE );
 		$term->Definition
 		( 'This term represents a place or named location part of a mailing address.',
 		  kDEFAULT_LANGUAGE );
 		$term->Type( kTYPE_STRING );
-		$term->Synonym( 'kOFFSET_MAIL_PLACE', kTYPE_EXACT );
+		$term->Synonym( 'kOFFSET_PLACE', kTYPE_EXACT );
 		$term->Commit( $theContainer );
 		if( $doDisplay )
 			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
@@ -1884,13 +1884,13 @@ exit( "Done!\n" );
 		//
 		$term = new CMeasureTerm();
 		$term->NS( $ns );
-		$term->Code( substr( kOFFSET_MAIL_CARE, $len ) );
+		$term->Code( substr( kOFFSET_CARE, $len ) );
 		$term->Name( 'Care of', kDEFAULT_LANGUAGE );
 		$term->Definition
 		( 'This term represents the care of part of a mailing address.',
 		  kDEFAULT_LANGUAGE );
 		$term->Type( kTYPE_STRING );
-		$term->Synonym( 'kOFFSET_MAIL_CARE', kTYPE_EXACT );
+		$term->Synonym( 'kOFFSET_CARE', kTYPE_EXACT );
 		$term->Commit( $theContainer );
 		if( $doDisplay )
 			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
@@ -1900,13 +1900,13 @@ exit( "Done!\n" );
 		//
 		$term = new CMeasureTerm();
 		$term->NS( $ns );
-		$term->Code( substr( kOFFSET_MAIL_STREET, $len ) );
+		$term->Code( substr( kOFFSET_STREET, $len ) );
 		$term->Name( 'Street/P.O. Box', kDEFAULT_LANGUAGE );
 		$term->Definition
 		( 'This term represents the street or P.O. Box part of a mailing address.',
 		  kDEFAULT_LANGUAGE );
 		$term->Type( kTYPE_STRING );
-		$term->Synonym( 'kOFFSET_MAIL_STREET', kTYPE_EXACT );
+		$term->Synonym( 'kOFFSET_STREET', kTYPE_EXACT );
 		$term->Commit( $theContainer );
 		if( $doDisplay )
 			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
@@ -1916,13 +1916,13 @@ exit( "Done!\n" );
 		//
 		$term = new CMeasureTerm();
 		$term->NS( $ns );
-		$term->Code( substr( kOFFSET_MAIL_ZIP, $len ) );
+		$term->Code( substr( kOFFSET_ZIP_CODE, $len ) );
 		$term->Name( 'Zip', kDEFAULT_LANGUAGE );
 		$term->Definition
 		( 'This term represents the zip code part of a mailing address.',
 		  kDEFAULT_LANGUAGE );
 		$term->Type( kTYPE_STRING );
-		$term->Synonym( 'kOFFSET_MAIL_ZIP', kTYPE_EXACT );
+		$term->Synonym( 'kOFFSET_ZIP_CODE', kTYPE_EXACT );
 		$term->Commit( $theContainer );
 		if( $doDisplay )
 			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
@@ -1932,13 +1932,13 @@ exit( "Done!\n" );
 		//
 		$term = new CMeasureTerm();
 		$term->NS( $ns );
-		$term->Code( substr( kOFFSET_MAIL_CITY, $len ) );
+		$term->Code( substr( kOFFSET_CITY, $len ) );
 		$term->Name( 'City', kDEFAULT_LANGUAGE );
 		$term->Definition
 		( 'This term represents the city part of a mailing address.',
 		  kDEFAULT_LANGUAGE );
 		$term->Type( kTYPE_STRING );
-		$term->Synonym( 'kOFFSET_MAIL_CITY', kTYPE_EXACT );
+		$term->Synonym( 'kOFFSET_CITY', kTYPE_EXACT );
 		$term->Commit( $theContainer );
 		if( $doDisplay )
 			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
@@ -1948,13 +1948,13 @@ exit( "Done!\n" );
 		//
 		$term = new CMeasureTerm();
 		$term->NS( $ns );
-		$term->Code( substr( kOFFSET_MAIL_PROVINCE, $len ) );
+		$term->Code( substr( kOFFSET_PROVINCE, $len ) );
 		$term->Name( 'Province', kDEFAULT_LANGUAGE );
 		$term->Definition
 		( 'This term represents the province part of a mailing address.',
 		  kDEFAULT_LANGUAGE );
 		$term->Type( kTYPE_STRING );
-		$term->Synonym( 'kOFFSET_MAIL_PROVINCE', kTYPE_EXACT );
+		$term->Synonym( 'kOFFSET_PROVINCE', kTYPE_EXACT );
 		$term->Commit( $theContainer );
 		if( $doDisplay )
 			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
@@ -1964,13 +1964,13 @@ exit( "Done!\n" );
 		//
 		$term = new CMeasureTerm();
 		$term->NS( $ns );
-		$term->Code( substr( kOFFSET_MAIL_COUNTRY, $len ) );
+		$term->Code( substr( kOFFSET_COUNTRY, $len ) );
 		$term->Name( 'Country', kDEFAULT_LANGUAGE );
 		$term->Definition
 		( 'This term represents the province part of a mailing address.',
 		  kDEFAULT_LANGUAGE );
 		$term->Type( kTYPE_STRING );
-		$term->Synonym( 'kOFFSET_MAIL_COUNTRY', kTYPE_EXACT );
+		$term->Synonym( 'kOFFSET_COUNTRY', kTYPE_EXACT );
 		$term->Commit( $theContainer );
 		if( $doDisplay )
 			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
@@ -1980,13 +1980,13 @@ exit( "Done!\n" );
 		//
 		$term = new CMeasureTerm();
 		$term->NS( $ns );
-		$term->Code( substr( kOFFSET_MAIL_FULL, $len ) );
+		$term->Code( substr( kOFFSET_FULL, $len ) );
 		$term->Name( 'Full mailing address', kDEFAULT_LANGUAGE );
 		$term->Definition
 		( 'This term represents a full mailing address in the form of a string.',
 		  kDEFAULT_LANGUAGE );
 		$term->Type( kTYPE_STRING );
-		$term->Synonym( 'kOFFSET_MAIL_FULL', kTYPE_EXACT );
+		$term->Synonym( 'kOFFSET_FULL', kTYPE_EXACT );
 		$term->Commit( $theContainer );
 		if( $doDisplay )
 			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );

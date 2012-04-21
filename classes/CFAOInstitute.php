@@ -669,6 +669,27 @@ class CFAOInstitute extends CInstitute
 
 	} // Import.
 
+	 
+	/*===================================================================================
+	 *	HashIndex																		*
+	 *==================================================================================*/
+
+	/**
+	 * Hash index.
+	 *
+	 * In this class we do not hash the id.
+	 *
+	 * @param string				$theValue			Value to hash.
+	 *
+	 * @static
+	 * @return string
+	 */
+	static function HashIndex( $theValue )
+	{
+		return $theValue;															// ==>
+	
+	} // HashIndex.
+
 		
 
 /*=======================================================================================
@@ -677,29 +698,6 @@ class CFAOInstitute extends CInstitute
  *																						*
  *======================================================================================*/
 
-
-	 
-	/*===================================================================================
-	 *	_id																				*
-	 *==================================================================================*/
-
-	/**
-	 * Return the object's unique identifier.
-	 *
-	 * In this class we use directly the value of the {@link _index() index} method: it is
-	 * a 7 character string, so it is not necessary to hash the result.
-	 *
-	 * @access protected
-	 * @return mixed
-	 */
-	protected function _id()
-	{
-		//
-		// In this class we hash the index value.
-		//
-		return $this->_index();														// ==>
-	
-	} // _id.
 
 	 
 	/*===================================================================================

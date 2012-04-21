@@ -25,15 +25,15 @@
 	<div class="info-box-body">
         		<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Mailing address.</p>
-<p class="description"><p>This class implements a mailing address, it wraps the <a href="../../MyWrapper/Framework/CArrayObject.html">parent</a> class  around a structure that defines a mailing address.</p><p>In general instances of this class will be embedded in  <a href="../../MyWrapper/Persistence/CPersistentObject.html">persistent</a> objects to add lists of addresses, the current class  does not feature any persistence functions, it only concentrates in managing an address  as a set of properties:</p><p><ul><li><em><a href="../../MyWrapper/Traits/CMailAddress.html#methodPlace">Place</a></em>: This <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_PLACE">property</a> defines a
-        named place or location, it should be used only if required.</li><li><em><a href="../../MyWrapper/Traits/CMailAddress.html#methodCare">Care</a> of</em>: This <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_CARE">property</a> indicates
+<p class="description"><p>This class implements a mailing address, it wraps the <a href="../../MyWrapper/Framework/CArrayObject.html">parent</a> class  around a structure that defines a mailing address.</p><p>In general instances of this class will be embedded in  <a href="../../MyWrapper/Persistence/CPersistentObject.html">persistent</a> objects to add lists of addresses, the current class  does not feature any persistence functions, it only concentrates in managing an address  as a set of properties:</p><p><ul><li><em><a href="../../MyWrapper/Traits/CMailAddress.html#methodPlace">Place</a></em>: This <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_PLACE">property</a> defines a
+        named place or location, it should be used only if required.</li><li><em><a href="../../MyWrapper/Traits/CMailAddress.html#methodCare">Care</a> of</em>: This <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_CARE">property</a> indicates
         who is the owner or reference at the address that is not the same as the sender. It
-        should be used only if required.</li><li><em><a href="../../MyWrapper/Traits/CMailAddress.html#methodStreet">Street</a></em>: This <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_STREET">property</a> indicates
-        the street name or P.O. box number.</li><li><em><a href="../../MyWrapper/Traits/CMailAddress.html#methodZip">Zip</a></em>: This <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_ZIP">property</a> indicates the ZIP
-        code.</li><li><em><a href="../../MyWrapper/Traits/CMailAddress.html#methodCity">City</a></em>: This <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_CITY">property</a> indicates the
-        address city name.</li><li><em><a href="../../MyWrapper/Traits/CMailAddress.html#methodProvince">Province</a></em>: This <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_PROVINCE">property</a>
-        indicates the address province name or code.</li><li><em><a href="../../MyWrapper/Traits/CMailAddress.html#methodCountry">Country</a></em>: This <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_COUNTRY">property</a>
-        indicates the address country name or code.</li><li><em><a href="../../MyWrapper/Traits/CMailAddress.html#methodFull">Full</a> address</em>: This <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_FULL">property</a> can be
+        should be used only if required.</li><li><em><a href="../../MyWrapper/Traits/CMailAddress.html#methodStreet">Street</a></em>: This <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_STREET">property</a> indicates
+        the street name or P.O. box number.</li><li><em><a href="../../MyWrapper/Traits/CMailAddress.html#methodZip">Zip</a></em>: This <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_ZIP_CODE">property</a> indicates the ZIP
+        code.</li><li><em><a href="../../MyWrapper/Traits/CMailAddress.html#methodCity">City</a></em>: This <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_CITY">property</a> indicates the
+        address city name.</li><li><em><a href="../../MyWrapper/Traits/CMailAddress.html#methodProvince">Province</a></em>: This <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_PROVINCE">property</a>
+        indicates the address province name or code.</li><li><em><a href="../../MyWrapper/Traits/CMailAddress.html#methodCountry">Country</a></em>: This <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_COUNTRY">property</a>
+        indicates the address country name or code.</li><li><em><a href="../../MyWrapper/Traits/CMailAddress.html#methodFull">Full</a> address</em>: This <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_FULL">property</a> can be
         used when an address does not have its properties separated, or it can be used as an
         export feature.</li></ul></p></p>
 		<p class="notes">
@@ -172,9 +172,9 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage care-of.</p>
-<p class="description"><p>This method can be used to manage the address <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_CARE">care-of</a>, it  accepts a parameter which represents a care-of reference or the requested operation,  depending on its value:</p><p><ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the current value.</li><li><em>other</em>: Set the value with the provided parameter.</li></ul></p><p>The second parameter is a boolean which if <em>TRUE</em> will return the <em>old</em>  value when replacing values; if <em>FALSE</em>, it will return the currently set value.</p></p>
+<p class="description"><p>This method can be used to manage the address <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_CARE">care-of</a>, it  accepts a parameter which represents a care-of reference or the requested operation,  depending on its value:</p><p><ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the current value.</li><li><em>other</em>: Set the value with the provided parameter.</li></ul></p><p>The second parameter is a boolean which if <em>TRUE</em> will return the <em>old</em>  value when replacing values; if <em>FALSE</em>, it will return the currently set value.</p></p>
 	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_CARE">kOFFSET_MAIL_CARE</a></li>
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_CARE">kOFFSET_CARE</a></li>
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 			</ul>
@@ -208,9 +208,9 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage city.</p>
-<p class="description"><p>This method can be used to manage the address <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_CITY">city</a>, it  accepts a parameter which represents the address city name or the requested  operation, depending on its value:</p><p><ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the current value.</li><li><em>other</em>: Set the value with the provided parameter.</li></ul></p><p>The second parameter is a boolean which if <em>TRUE</em> will return the <em>old</em>  value when replacing values; if <em>FALSE</em>, it will return the currently set value.</p></p>
+<p class="description"><p>This method can be used to manage the address <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_CITY">city</a>, it  accepts a parameter which represents the address city name or the requested  operation, depending on its value:</p><p><ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the current value.</li><li><em>other</em>: Set the value with the provided parameter.</li></ul></p><p>The second parameter is a boolean which if <em>TRUE</em> will return the <em>old</em>  value when replacing values; if <em>FALSE</em>, it will return the currently set value.</p></p>
 	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_CITY">kOFFSET_MAIL_CITY</a></li>
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_CITY">kOFFSET_CITY</a></li>
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 			</ul>
@@ -244,9 +244,9 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage province.</p>
-<p class="description"><p>This method can be used to manage the address <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_COUNTRY">country</a>,  it accepts a parameter which represents the address country name, code or the  requested operation, depending on its value:</p><p><ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the current value.</li><li><em>other</em>: Set the value with the provided parameter.</li></ul></p><p>The second parameter is a boolean which if <em>TRUE</em> will return the <em>old</em>  value when replacing values; if <em>FALSE</em>, it will return the currently set value.</p></p>
+<p class="description"><p>This method can be used to manage the address <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_COUNTRY">country</a>,  it accepts a parameter which represents the address country name, code or the  requested operation, depending on its value:</p><p><ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the current value.</li><li><em>other</em>: Set the value with the provided parameter.</li></ul></p><p>The second parameter is a boolean which if <em>TRUE</em> will return the <em>old</em>  value when replacing values; if <em>FALSE</em>, it will return the currently set value.</p></p>
 	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_COUNTRY">kOFFSET_MAIL_COUNTRY</a></li>
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_COUNTRY">kOFFSET_COUNTRY</a></li>
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 			</ul>
@@ -280,9 +280,9 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage full address.</p>
-<p class="description"><p>This method can be used to manage the full address as a  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_FULL">string</a>, it accepts a parameter which represents the full  address or the requested operation, depending on its value:</p><p><ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the current value.</li><li><em>other</em>: Set the value with the provided parameter.</li></ul></p><p>The second parameter is a boolean which if <em>TRUE</em> will return the <em>old</em>  value when replacing values; if <em>FALSE</em>, it will return the currently set value.</p><p>When retrieving values, if the full address was not set, this method will return in  any case the string representation of the full address.</p></p>
+<p class="description"><p>This method can be used to manage the full address as a  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_FULL">string</a>, it accepts a parameter which represents the full  address or the requested operation, depending on its value:</p><p><ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the current value.</li><li><em>other</em>: Set the value with the provided parameter.</li></ul></p><p>The second parameter is a boolean which if <em>TRUE</em> will return the <em>old</em>  value when replacing values; if <em>FALSE</em>, it will return the currently set value.</p><p>When retrieving values, if the full address was not set, this method will return in  any case the string representation of the full address.</p></p>
 	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_FULL">kOFFSET_MAIL_FULL</a></li>
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_FULL">kOFFSET_FULL</a></li>
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 			</ul>
@@ -316,9 +316,9 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage place.</p>
-<p class="description"><p>This method can be used to manage the address <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_PLACE">place</a>, it  accepts a parameter which represents either the place name or the requested  operation, depending on its value:</p><p><ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the current value.</li><li><em>other</em>: Set the value with the provided parameter.</li></ul></p><p>The second parameter is a boolean which if <em>TRUE</em> will return the <em>old</em>  value when replacing values; if <em>FALSE</em>, it will return the currently set value.</p></p>
+<p class="description"><p>This method can be used to manage the address <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_PLACE">place</a>, it  accepts a parameter which represents either the place name or the requested  operation, depending on its value:</p><p><ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the current value.</li><li><em>other</em>: Set the value with the provided parameter.</li></ul></p><p>The second parameter is a boolean which if <em>TRUE</em> will return the <em>old</em>  value when replacing values; if <em>FALSE</em>, it will return the currently set value.</p></p>
 	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_PLACE">kOFFSET_MAIL_PLACE</a></li>
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_PLACE">kOFFSET_PLACE</a></li>
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 			</ul>
@@ -352,9 +352,9 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage province.</p>
-<p class="description"><p>This method can be used to manage the address <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_PROVINCE">province</a>,  it accepts a parameter which represents the address province name, code or the  requested operation, depending on its value:</p><p><ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the current value.</li><li><em>other</em>: Set the value with the provided parameter.</li></ul></p><p>The second parameter is a boolean which if <em>TRUE</em> will return the <em>old</em>  value when replacing values; if <em>FALSE</em>, it will return the currently set value.</p></p>
+<p class="description"><p>This method can be used to manage the address <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_PROVINCE">province</a>,  it accepts a parameter which represents the address province name, code or the  requested operation, depending on its value:</p><p><ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the current value.</li><li><em>other</em>: Set the value with the provided parameter.</li></ul></p><p>The second parameter is a boolean which if <em>TRUE</em> will return the <em>old</em>  value when replacing values; if <em>FALSE</em>, it will return the currently set value.</p></p>
 	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_PROVINCE">kOFFSET_MAIL_PROVINCE</a></li>
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_PROVINCE">kOFFSET_PROVINCE</a></li>
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 			</ul>
@@ -388,9 +388,9 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage street.</p>
-<p class="description"><p>This method can be used to manage the address <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_STREET">street</a>, it  accepts a parameter which represents a street name, P.O. box or the requested  operation, depending on its value:</p><p><ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the current value.</li><li><em>other</em>: Set the value with the provided parameter.</li></ul></p><p>The second parameter is a boolean which if <em>TRUE</em> will return the <em>old</em>  value when replacing values; if <em>FALSE</em>, it will return the currently set value.</p></p>
+<p class="description"><p>This method can be used to manage the address <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_STREET">street</a>, it  accepts a parameter which represents a street name, P.O. box or the requested  operation, depending on its value:</p><p><ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the current value.</li><li><em>other</em>: Set the value with the provided parameter.</li></ul></p><p>The second parameter is a boolean which if <em>TRUE</em> will return the <em>old</em>  value when replacing values; if <em>FALSE</em>, it will return the currently set value.</p></p>
 	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_STREET">kOFFSET_MAIL_STREET</a></li>
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_STREET">kOFFSET_STREET</a></li>
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 			</ul>
@@ -424,9 +424,9 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage zip code.</p>
-<p class="description"><p>This method can be used to manage the address <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_ZIP">zip</a> code, it  accepts a parameter which represents the address zip code or the requested operation,  depending on its value:</p><p><ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the current value.</li><li><em>other</em>: Set the value with the provided parameter.</li></ul></p><p>The second parameter is a boolean which if <em>TRUE</em> will return the <em>old</em>  value when replacing values; if <em>FALSE</em>, it will return the currently set value.</p></p>
+<p class="description"><p>This method can be used to manage the address <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_ZIP_CODE">zip</a> code, it  accepts a parameter which represents the address zip code or the requested operation,  depending on its value:</p><p><ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the current value.</li><li><em>other</em>: Set the value with the provided parameter.</li></ul></p><p>The second parameter is a boolean which if <em>TRUE</em> will return the <em>old</em>  value when replacing values; if <em>FALSE</em>, it will return the currently set value.</p></p>
 	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MAIL_ZIP">kOFFSET_MAIL_ZIP</a></li>
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_ZIP_CODE">kOFFSET_ZIP_CODE</a></li>
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 			</ul>
@@ -478,7 +478,7 @@
 
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 20 Apr 2012 19:39:23 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Sat, 21 Apr 2012 02:21:57 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

@@ -720,7 +720,8 @@ class CGraphNode extends CPersistentObject
 	/**
 	 * Store object in container.
 	 *
-	 * In this class we override the 
+	 * In this class we save the node, or we delete it if the
+	 * {@link kFLAG_PERSIST_DELETE kFLAG_PERSIST_DELETE} flag is provided in the modifiers.
 	 *
 	 * We ignore the identifier here.
 	 *

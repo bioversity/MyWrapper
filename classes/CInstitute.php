@@ -27,6 +27,13 @@
 require_once( kPATH_LIBRARY_SOURCE."CContact.php" );
 
 /**
+ * Tokens.
+ *
+ * This include file contains all default token definitions.
+ */
+require_once( kPATH_LIBRARY_DEFINES."Tokens.inc.php" );
+
+/**
  * Local defines.
  *
  * This include file contains the local class definitions.
@@ -291,37 +298,6 @@ class CInstitute extends CContact
 						  $this->offsetExists( kTAG_NAME ) );
 	
 	} // offsetUnset.
-
-		
-
-/*=======================================================================================
- *																						*
- *							PROTECTED IDENTIFICATION INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	_id																				*
-	 *==================================================================================*/
-
-	/**
-	 * Return the object's unique identifier.
-	 *
-	 * In this class we hash the result of the {@link _index() _index} method.
-	 *
-	 * @access protected
-	 * @return mixed
-	 */
-	protected function _id()
-	{
-		//
-		// In this class we hash the index value.
-		//
-		return new CDataTypeBinary( md5( $this->_index(), TRUE ) );					// ==>
-	
-	} // _id.
 
 	 
 	/*===================================================================================

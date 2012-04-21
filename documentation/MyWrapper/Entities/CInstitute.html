@@ -33,7 +33,7 @@
         list of <a href="../../MyWrapper/Entities/CInstitute.html#methodAcronym">acronyms</a>.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_URL">kOFFSET_URL</a></em>: This offset represents the institute list of
         URLs or web pages.</li></ul></p><p>The object is considered <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">initialised</a> only if it has its  <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a>, as its <a href="../../MyWrapper/Entities/CEntity.html">ancestor</a>, its <a href="../../MyWrapper/Entities/CEntity.html#methodName">name</a>,  Password() and <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a> address.</p><p>If the <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a> has not been explicitly set, <a href="../../MyWrapper/Entities/CInstitute.html#method_PrepareCommit">before</a>  <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">committing</a> the object it will be set to the value of the  <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a>. Also in that phase, the <a href="../../MyWrapper/Entities/_classes---CUser.inc.php.html#definekENTITY_USER">kENTITY_USER</a> constant  will be set in the user Type().</p><p>The <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a> in this class is a scalar property, in other classes it will  probably be a list of different e-mail types. In this class we want to link a single  user with a single e-mail, possibly not shared by any other user, that is why we link by  default the user <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a> and <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a>.</p></p>
 		<p class="notes">
-			Located in <a class="field" href="_classes---CInstitute.php.html">/classes/CInstitute.php</a> (line <span class="field">68</span>)
+			Located in <a class="field" href="_classes---CInstitute.php.html">/classes/CInstitute.php</a> (line <span class="field">75</span>)
 		</p>
 		
 				
@@ -111,7 +111,7 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																																																																																<div class="method-definition">
+																																																																								<div class="method-definition">
 					<img src="../../media/images/Constructor.png" alt=" "/>
 											<span class="method-result">CInstitute</span>
 										<a href="#__construct" title="details" class="method-name">__construct</a>
@@ -140,12 +140,6 @@
 											<span class="method-result">string</span>
 										<a href="#URL" title="details" class="method-name">URL</a>
 											([<span class="var-type">string</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
-									</div>
-																<div class="method-definition">
-					<img src="../../media/images/Method.png" alt=" "/>
-											<span class="method-result">mixed</span>
-										<a href="#_id" title="details" class="method-name">_id</a>
-										()
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -210,7 +204,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Constructor.png" />
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">99</span>)
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">106</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -253,7 +247,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Acronym</span> (line <span class="line-number">161</span>)
+		<span class="method-title">Acronym</span> (line <span class="line-number">168</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -292,7 +286,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetSet</span> (line <span class="line-number">244</span>)
+		<span class="method-title">offsetSet</span> (line <span class="line-number">251</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -342,7 +336,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetUnset</span> (line <span class="line-number">280</span>)
+		<span class="method-title">offsetUnset</span> (line <span class="line-number">287</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -389,7 +383,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">URL</span> (line <span class="line-number">207</span>)
+		<span class="method-title">URL</span> (line <span class="line-number">214</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -426,52 +420,12 @@
 		
 			
 	</div>
-<a name="method_id" id="_id"><!-- --></a>
+<a name="method_index" id="_index"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_id</span> (line <span class="line-number">317</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Return the object's unique identifier.</p>
-<p class="description"><p>In this class we hash the result of the <a href="../../MyWrapper/Entities/CInstitute.html#method_index">_index</a> method.</p></p>
-	<ul class="tags">
-				<li><span class="field">access:</span> protected</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">mixed</span>
-		<span class="method-name">
-			_id
-		</span>
-				()
-			</div>
-	
-		
-			<hr class="separator" />
-		<div class="notes">Redefinition of:</div>
-		<dl>
-			<dt><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_id">CPersistentUnitObject::_id()</a></dt>
-						<dd>Return the object's unique identifier.</dd>
-					</dl>
-			
-			<hr class="separator" />
-		<div class="notes">Redefined in descendants as:</div>
-		<ul class="redefinitions">
-					<li>
-				<a href="../../MyWrapper/Entities/CFAOInstitute.html#method_id">CFAOInstitute::_id()</a>
-								: Return the object's unique identifier.
-							</li>
-				</ul>
-	</div>
-<a name="method_index" id="_index"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<img src="../../media/images/Method.png" />
-		<span class="method-title">_index</span> (line <span class="line-number">350</span>)
+		<span class="method-title">_index</span> (line <span class="line-number">326</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -509,11 +463,11 @@
 				</ul>
 	</div>
 <a name="method_PrepareCommit" id="_PrepareCommit"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">388</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">364</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -616,6 +570,8 @@
 									<!-- =========== Summary =========== -->
 					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html">CPersistentUnitObject</a></span></p>
 					<blockquote>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodHashIndex">CPersistentUnitObject::HashIndex()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodNewObject">CPersistentUnitObject::NewObject()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
@@ -796,7 +752,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 20 Apr 2012 19:39:22 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Sat, 21 Apr 2012 02:21:57 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

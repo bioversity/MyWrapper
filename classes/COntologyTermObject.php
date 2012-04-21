@@ -557,56 +557,6 @@ abstract class COntologyTermObject extends CTerm
 		
 	} // ValidObject.
 
-	 
-	/*===================================================================================
-	 *	HashIndex																		*
-	 *==================================================================================*/
-
-	/**
-	 * Hash index.
-	 *
-	 * This method can be used to format an identifier provided as a string, it will be
-	 * used by the {@link _id() _id} method to format the result of the
-	 * {@link _index() _index} method. One can consider this as the index hashing method for
-	 * all derived classes.
-	 *
-	 * @param string				$theValue			Value to hash.
-	 *
-	 * @static
-	 * @return string
-	 */
-	static function HashIndex( $theValue )
-	{
-		return new CDataTypeBinary( md5( $theValue, TRUE ) );						// ==>
-//		return $theValue;															// ==>
-	
-	} // HashIndex.
-
-		
-
-/*=======================================================================================
- *																						*
- *							PROTECTED IDENTIFICATION INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	_id																				*
-	 *==================================================================================*/
-
-	/**
-	 * Return the object's unique identifier.
-	 *
-	 * In this class we hash the unique {@link _index() identifier} into a
-	 * {@link CDataTypeBinary binary} string.
-	 *
-	 * @access protected
-	 * @return mixed
-	 */
-	protected function _id()				{	return $this->HashIndex( $this->_index() );	}
-
 		
 
 /*=======================================================================================
