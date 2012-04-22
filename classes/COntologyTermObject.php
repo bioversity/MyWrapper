@@ -471,10 +471,10 @@ abstract class COntologyTermObject extends CTerm
 				   : $theObject;
 		
 		return $this->_ManageObjectList( kTAG_REFS, $reference,
-													   $theOperation,
-													   $getOld );					// ==>
+													$theOperation,
+													$getOld );						// ==>
 
-	} // RelateTo.
+	} // Relate.
 
 		
 	/*===================================================================================
