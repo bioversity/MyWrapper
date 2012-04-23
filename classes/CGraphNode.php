@@ -67,7 +67,7 @@ class CGraphNode extends CPersistentObject
 	 *
 	 * This data member holds the Neo4j node.
 	 *
-	 * @var Everyman\Neo4j\Node
+	 * @var Everyman\Neo4j\PropertyContainer
 	 */
 	 protected $mNode = NULL;
 
@@ -96,7 +96,7 @@ class CGraphNode extends CPersistentObject
 	 *	 <ul>
 	 *		<li><i>NULL</i>: Return the current value.
 	 *		<li><i>FALSE</i>: Delete the value.
-	 *		<li><i>Everyman\Neo4j\Node</i>: Set value.
+	 *		<li><i>Everyman\Neo4j\PropertyContainer</i>: Set value.
 	 *		<li><i>other</i>: Raise exception.
 	 *	 </ul>
 	 *	<li><b>$getOld</b>: Determines what the method will return:
@@ -114,7 +114,7 @@ class CGraphNode extends CPersistentObject
 	 * @param boolean				$getOld				TRUE get old value.
 	 *
 	 * @access public
-	 * @return Everyman\Neo4j\Node
+	 * @return Everyman\Neo4j\PropertyContainer
 	 *
 	 * @uses CObject::ManageMember()
 	 * @uses _IsDirty()
@@ -697,7 +697,7 @@ class CGraphNode extends CPersistentObject
 		//
 		// Handle node.
 		//
-		if( $theContent instanceof Everyman\Neo4j\Node )
+		if( $theContent instanceof Everyman\Neo4j\PropertyContainer )
 		{
 			//
 			// Save node.

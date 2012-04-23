@@ -1,0 +1,567 @@
+<?php
+
+/**
+ * <i>CGraphEdge</i> class definition.
+ *
+ * This file contains the class definition of <b>CGraphEdge</b> which represents the
+ * ancestor of all graph edges in this library.
+ *
+ *	@package	MyWrapper
+ *	@subpackage	Persistence
+ *
+ *	@author		Milko A. Škofič <m.skofic@cgiar.org>
+ *	@version	1.00 23/04/2012
+ */
+
+/*=======================================================================================
+ *																						*
+ *									CGraphEdge.php										*
+ *																						*
+ *======================================================================================*/
+
+/**
+ * Ancestor.
+ *
+ * This include file contains the parent class definitions.
+ */
+require_once( kPATH_LIBRARY_SOURCE."CGraphNode.php" );
+
+/**
+ * Graph edge.
+ *
+ * This class implements a graph edge.
+ *
+ * This class extends its {@link CGraphNode parent} class in that its {@link Node() node}
+ * property is a relationship node rather than a plain node.
+ *
+ *	@package	MyWrapper
+ *	@subpackage	Persistence
+ */
+class CGraphEdge extends CGraphNode
+{
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC MEMBER INTERFACE									*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	Type																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage node type.
+	 *
+	 * This property corresponds to the node type, or predicate reference, this property is
+	 * a string, and it is managed directly by the relationship node: we simply wrap this
+	 * method around the native management:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: The value or operation:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Return the current value.
+	 *		<li><i>other</i>: Set the value converted to string.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
+	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * @param mixed					$theValue			Node or operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 *
+	 * @uses Node()
+	 * @uses _IsDirty()
+	 * @uses _IsInited()
+	 */
+	public function Type( $theValue = NULL, $getOld = FALSE )
+	{
+		//
+		// Save node.
+		//
+		$node = $this->Node();
+		
+		//
+		// Save value.
+		//
+		$save = ( $node !== NULL )
+			  ? $node->getType()
+			  : NULL;
+		
+		//
+		// Retrieve value.
+		//
+		if( $theValue === NULL )
+			return $save;															// ==>
+		
+		//
+		// Set new value.
+		//
+		if( $node !== NULL )
+		{
+			//
+			// Set type.
+			//
+			$node->setType( (string) $theValue );
+			
+			//
+			// Set dirty flag.
+			//
+			$this->_IsDirty( TRUE );
+			
+			//
+			// Set inited flag.
+			//
+			$this->_IsInited( ($this->mNode !== NULL) &&
+							  ($this->mNode->getType() !== NULL) &&
+							  ($this->mNode->getEndNode() !== NULL) &&
+							  ($this->mNode->getStartNode() !== NULL) );
+			
+		} // Has node.
+		
+		if( $getOld )
+			return $save;															// ==>
+		
+		return (string) $theValue;													// ==>
+
+	} // Type.
+
+	 
+	/*===================================================================================
+	 *	Node																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage native node.
+	 *
+	 * We override the {@link CGraphNode parent} {@link CGRaphNode::Node() method} to
+	 * enforce Everyman\Neo4j\Relationship objects rather than Everyman\Neo4j\Node objects.
+	 *
+	 * @param mixed					$theValue			Node or operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return Everyman\Neo4j\Relationship
+	 *
+	 * @uses CObject::ManageMember()
+	 * @uses _IsDirty()
+	 * @uses _IsInited()
+	 */
+	public function Node( $theValue = NULL, $getOld = FALSE )
+	{
+		//
+		// Check provided value.
+		//
+		if( ($theValue !== NULL)
+		 && ($theValue !== FALSE)
+		 && (! $theValue instanceof Everyman\Neo4j\Relationship) )
+			throw new CException
+					( "Unsupported relationship type",
+					  kERROR_UNSUPPORTED,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Node' => $theValue ) );							// !@! ==>
+		
+		//
+		// Handle data.
+		//
+		$save = CObject::ManageMember( $this->mNode, $theValue, $getOld );
+				
+		//
+		// Set status.
+		//
+		if( $theValue !== NULL )
+		{
+			//
+			// Set dirty flag.
+			//
+			$this->_IsDirty( TRUE );
+			
+			//
+			// Set inited flag.
+			//
+			$this->_IsInited( ($this->mNode !== NULL) &&
+							  ($this->mNode->getType() !== NULL) &&
+							  ($this->mNode->getEndNode() !== NULL) &&
+							  ($this->mNode->getStartNode() !== NULL) );
+		}
+		
+		return $save;																// ==>
+
+	} // Node.
+
+	 
+	/*===================================================================================
+	 *	Subject																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage subject node.
+	 *
+	 * This method will wrap the member accessor around the native relationship node, note
+	 * that the method will not allow to delete a value, you must replace it.
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: The value or operation:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Return the current value.
+	 *		<li><i>Everyman\Neo4j\Node</i>: Set value.
+	 *		<li><i>other</i>: Raise exception.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
+	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * @param mixed					$theValue			Subject node or operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return Everyman\Neo4j\Node
+	 *
+	 * @uses Node()
+	 * @uses _IsDirty()
+	 * @uses _IsInited()
+	 */
+	public function Subject( $theValue = NULL, $getOld = FALSE )
+	{
+		//
+		// Save node.
+		//
+		$node = $this->Node();
+		
+		//
+		// Save value.
+		//
+		$save = ( $node !== NULL )
+			  ? $node->getStartNode()
+			  : NULL;
+		
+		//
+		// Retrieve value.
+		//
+		if( $theValue === NULL )
+			return $save;															// ==>
+		
+		//
+		// Handle GraphNode.
+		//
+		if( $theValue instanceof CGraphNode )
+			$theValue = $theValue->Node();
+		
+		//
+		// Check Node.
+		//
+		if( ! $theValue instanceof Everyman\Neo4j\Node )
+			throw new CException
+					( "Unsupported node type",
+					  kERROR_UNSUPPORTED,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Node' => $theValue ) );							// !@! ==>
+		
+		//
+		// Set new value.
+		//
+		if( $node !== NULL )
+			$node->setStartNode( $theValue );
+		else
+			throw new CException
+					( "Relationship is not initialised",
+					  kERROR_NOT_INITED,
+					  kMESSAGE_TYPE_ERROR );									// !@! ==>
+
+		//
+		// Set dirty flag.
+		//
+		$this->_IsDirty( TRUE );
+		
+		//
+		// Set inited flag.
+		//
+		$this->_IsInited( ($this->mNode !== NULL) &&
+						  ($this->mNode->getType() !== NULL) &&
+						  ($this->mNode->getEndNode() !== NULL) &&
+						  ($this->mNode->getStartNode() !== NULL) );
+		
+		if( $getOld )
+			return $save;															// ==>
+		
+		return $theValue;															// ==>
+
+	} // Subject.
+
+	 
+	/*===================================================================================
+	 *	Object																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage object node.
+	 *
+	 * This method will wrap the member accessor around the native relationship node, note
+	 * that the method will not allow to delete a value, you must replace it.
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: The value or operation:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Return the current value.
+	 *		<li><i>Everyman\Neo4j\Node</i>: Set value.
+	 *		<li><i>other</i>: Raise exception.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
+	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * @param mixed					$theValue			Object node or operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return Everyman\Neo4j\Node
+	 *
+	 * @uses Node()
+	 * @uses _IsDirty()
+	 * @uses _IsInited()
+	 */
+	public function Object( $theValue = NULL, $getOld = FALSE )
+	{
+		//
+		// Save node.
+		//
+		$node = $this->Node();
+		
+		//
+		// Save value.
+		//
+		$save = ( $node !== NULL )
+			  ? $node->getEndNode()
+			  : NULL;
+		
+		//
+		// Retrieve value.
+		//
+		if( $theValue === NULL )
+			return $save;															// ==>
+		
+		//
+		// Handle GraphNode.
+		//
+		if( $theValue instanceof CGraphNode )
+			$theValue = $theValue->Node();
+		
+		//
+		// Check Node.
+		//
+		if( ! $theValue instanceof Everyman\Neo4j\Node )
+			throw new CException
+					( "Unsupported node type",
+					  kERROR_UNSUPPORTED,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Node' => $theValue ) );							// !@! ==>
+		
+		//
+		// Set new value.
+		//
+		if( $node !== NULL )
+			$node->setEndNode( $theValue );
+		else
+			throw new CException
+					( "Relationship is not initialised",
+					  kERROR_NOT_INITED,
+					  kMESSAGE_TYPE_ERROR );									// !@! ==>
+
+		//
+		// Set dirty flag.
+		//
+		$this->_IsDirty( TRUE );
+		
+		//
+		// Set inited flag.
+		//
+		$this->_IsInited( ($this->mNode !== NULL) &&
+						  ($this->mNode->getType() !== NULL) &&
+						  ($this->mNode->getEndNode() !== NULL) &&
+						  ($this->mNode->getStartNode() !== NULL) );
+		
+		if( $getOld )
+			return $save;															// ==>
+		
+		return $theValue;															// ==>
+
+	} // Object.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED PERSISTENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	_Commit																			*
+	 *==================================================================================*/
+
+	/**
+	 * Store object in container.
+	 *
+	 * We {@link CGraphNode::_Commit() override} this method to initialise an empty
+	 * relationship rather than a node when deleting.
+	 *
+	 * @param reference			   &$theContainer		Object container.
+	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Commit modifiers.
+	 *
+	 * @access protected
+	 * @return mixed
+	 *
+	 * @uses Node()
+	 */
+	protected function _Commit( &$theContainer, &$theIdentifier, &$theModifiers )
+	{
+		//
+		// Handle delete.
+		//
+		if( $theModifiers & kFLAG_PERSIST_DELETE )
+		{
+			//
+			// Save node.
+			//
+			$save = $this->Node();
+			
+			//
+			// Delete node if needed.
+			//
+			if( $save->hasId()
+			 && $theContainer->deleteNode( $save ) )
+				$this->Node( $theContainer->makeRelationship() );
+			
+			return $save->getId();													// ==>
+		
+		} // Delete.
+		
+		//
+		// Save node.
+		//
+		$this->mNode->save();
+		
+		return $this->mNode->getID();												// ==>
+	
+	} // _Commit.
+
+	 
+	/*===================================================================================
+	 *	_Load																			*
+	 *==================================================================================*/
+
+	/**
+	 * Find object.
+	 *
+	 * We {@link CGraphNode::_Commit() override} this method to locate relationships rather
+	 * than nodes.
+	 *
+	 * @param reference			   &$theContainer		Object container.
+	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Create options.
+	 *
+	 * @access protected
+	 * @return mixed
+	 */
+	protected function _Load( &$theContainer, &$theIdentifier, &$theModifiers )
+	{
+		return $theContainer->getRelationship( $theIdentifier );					// ==>
+	
+	} // _Load.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED PERSISTENCE UTILITIES							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	_FinishCreate																	*
+	 *==================================================================================*/
+
+	/**
+	 * Normalise after a {@link _Create() create}.
+	 *
+	 * We {@link CGraphNode::_FinishCreate() override} this method to handle relationships
+	 * rather than nodes.
+	 *
+	 * @param reference			   &$theContainer		Object container.
+	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Create modifiers.
+	 *
+	 * @access protected
+	 */
+	protected function _FinishCreate( &$theContainer, &$theIdentifier, &$theModifiers )
+	{
+		//
+		// Create empty node.
+		//
+		$this->Node( $theContainer->makeRelationship() );
+		
+		//
+		// Set inited flag.
+		//
+		$this->_IsInited( TRUE );
+	
+	} // _FinishCreate.
+
+	 
+	/*===================================================================================
+	 *	_FinishLoad																		*
+	 *==================================================================================*/
+
+	/**
+	 * Normalise after a {@link _Load() load}.
+	 *
+	 * We {@link CGraphNode::_FinishCreate() override} this method to handle relationships
+	 * rather than nodes.
+	 *
+	 * @param reference			   &$theContainer		Object container.
+	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Create modifiers.
+	 *
+	 * @access protected
+	 */
+	protected function _FinishLoad( &$theContainer, &$theIdentifier, &$theModifiers )
+	{
+		//
+		// Create empty node.
+		//
+		if( $this->mNode === NULL )
+			$this->Node( $theContainer->makeRelationship() );
+		
+		//
+		// Set inited flag.
+		//
+		$this->_IsInited( TRUE );
+	
+	} // _FinishLoad.
+
+	 
+
+} // class CGraphEdge.
+
+
+?>

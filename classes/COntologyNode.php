@@ -3,8 +3,8 @@
 /**
  * <i>COntologyNode</i> class definition.
  *
- * This file contains the class definition of <b>COntologyNode</b> which represents the
- * ancestor of all graph nodes in this library.
+ * This file contains the class definition of <b>COntologyNode</b> which wraps an ontology
+ * node around a {@link COntologyTerm term} and a graph {@link CGraphNode node}.
  *
  *	@package	MyWrapper
  *	@subpackage	Ontology
@@ -73,7 +73,7 @@ class COntologyNode extends CGraphNode
 	/**
 	 * Node.
 	 *
-	 * This data member holds the Neo4j node.
+	 * This data member holds the node {@link COntologyTerm term}.
 	 *
 	 * @var COntologyTerm
 	 */
