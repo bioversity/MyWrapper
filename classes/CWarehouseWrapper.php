@@ -21,13 +21,6 @@
  *======================================================================================*/
 
 /**
- * Neo4j defines.
- *
- * This include file contains Neo4j definitions.
- */
-require_once( kPATH_LIBRARY_SOURCE."CNeo4jClient.inc.php" );
-
-/**
  * Ancestor.
  *
  * This include file contains the parent class definitions.
