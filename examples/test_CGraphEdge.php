@@ -219,7 +219,6 @@ try
 	$id = $test->Commit( $container );
 	echo( "$id:<pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
-exit;
 	
 	echo( '<i>Retrieve node</i><br>' );
 	echo( '<i>$test = new CGraphEdge( $container, $id );</i><br>' );
@@ -233,10 +232,18 @@ exit;
 	echo( "$ok:<pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	echo( '<i>Delete node</i><br>' );
-	echo( '<i>$ok = $test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );</i><br>' );
-	$ok = $test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );
-	echo( "$ok:<pre>" ); print_r( $test ); echo( '</pre>' );
+	try
+	{
+		echo( '<i>Delete node</i><br>' );
+		echo( '<i>$ok = $test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );</i><br>' );
+		$ok = $test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );
+		echo( "$ok:<pre>" ); print_r( $test ); echo( '</pre>' );
+	}
+	catch( Exception $error )
+	{
+		echo( CException::AsHTML( $error ) );
+		echo( '<br>' );
+	}
 	echo( '<hr>' );
 }
 

@@ -1,10 +1,10 @@
 <?php
 
 /**
- * {@link COntologyNode.php Base} object test suite.
+ * {@link COntologyEdge.php Base} object test suite.
  *
  * This file contains routines to test and demonstrate the behaviour of the
- * base object {@link COntologyNode class}.
+ * base object {@link COntologyEdge class}.
  *
  *	@package	Test
  *	@subpackage	Persistence
@@ -15,7 +15,7 @@
 
 /*=======================================================================================
  *																						*
- *								test_COntologyNode.php									*
+ *								test_COntologyEdge.php									*
  *																						*
  *======================================================================================*/
 
@@ -27,7 +27,7 @@ require_once( '/Library/WebServer/Library/wrapper/includes.inc.php' );
 //
 // Class includes.
 //
-require_once( kPATH_LIBRARY_SOURCE."COntologyNode.php" );
+require_once( kPATH_LIBRARY_SOURCE."COntologyEdge.php" );
 
 use Everyman\Neo4j\Transport,
 	Everyman\Neo4j\Client,
@@ -77,7 +77,7 @@ try
 	//
 	$container[ kTAG_TERM ]
 		= new CMongoContainer
-			( $db->selectCollection( 'COntologyNode' ) );
+			( $db->selectCollection( 'COntologyEdge' ) );
 	 
 	//
 	// Test content.
@@ -87,8 +87,8 @@ try
 	try
 	{
 		echo( '<i>Empty object</i><br>' );
-		echo( '<i>$test = new COntologyNode();</i><br>' );
-		$test = new COntologyNode();
+		echo( '<i>$test = new COntologyEdge();</i><br>' );
+		$test = new COntologyEdge();
 		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	}
 	catch( Exception $error )
@@ -103,8 +103,8 @@ try
 		echo( '<i>From array</i><br>' );
 		echo( '<i>$content = array( \'Name\' => \'Milko\' );</i><br>' );
 		$content = array( 'Name' => 'Milko' );
-		echo( '<i>$test = new COntologyNode( $content ) );</i><br>' );
-		$test = new COntologyNode( $content );
+		echo( '<i>$test = new COntologyEdge( $content ) );</i><br>' );
+		$test = new COntologyEdge( $content );
 		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	}
 	catch( Exception $error )
@@ -119,8 +119,8 @@ try
 		echo( '<i>From ArrayObject</i><br>' );
 		echo( '<i>$content = new ArrayObject( array( \'Name\' => \'Milko\' ) );</i><br>' );
 		$content = new ArrayObject( array( 'Name' => 'Milko' ) );
-		echo( '<i>$test = new COntologyNode( $content ) );</i><br>' );
-		$test = new COntologyNode( $content );
+		echo( '<i>$test = new COntologyEdge( $content ) );</i><br>' );
+		$test = new COntologyEdge( $content );
 		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	}
 	catch( Exception $error )
@@ -135,8 +135,8 @@ try
 		echo( '<i>From any other type</i><br>' );
 		echo( '<i>$content = 10;</i><br>' );
 		$content = 10;
-		echo( '<i>$test = new COntologyNode( $content ) );</i><br>' );
-		$test = new COntologyNode( $content );
+		echo( '<i>$test = new COntologyEdge( $content ) );</i><br>' );
+		$test = new COntologyEdge( $content );
 		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	}
 	catch( Exception $error )
@@ -153,20 +153,31 @@ try
 	echo( '<h3>Properties</h3>' );
 	
 	echo( '<i>Empty node</i><br>' );
-	echo( '<i>$test = new COntologyNode( $container );</i><br>' );
-	$test = new COntologyNode( $container );
+	echo( '<i>$test = new COntologyEdge( $container );</i><br>' );
+	$test = new COntologyEdge( $container );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	echo( '<i>Load term properties</i><br>' );
-	echo( '<i>$test->Term()->Code( \'A\' );</i><br>' );
-	$test->Term()->Code( 'A' );
-	echo( '<i>$test->Term()->Name( \'Term 1\', kDEFAULT_LANGUAGE );</i><br>' );
-	$test->Term()->Name( 'Term 1', kDEFAULT_LANGUAGE );
-	echo( '<i>$test->Term()->Definition( \'Term 1 definition\', kDEFAULT_LANGUAGE );</i><br>' );
-	$test->Term()->Definition( 'Term 1 definition', kDEFAULT_LANGUAGE );
+	echo( '<i>Load predicate term properties</i><br>' );
+	echo( '<i>$test->Term()->Code( \'IS-A\' );</i><br>' );
+	$test->Term()->Code( 'IS-A' );
+	echo( '<i>$test->Term()->Name( \'Is-a\', kDEFAULT_LANGUAGE );</i><br>' );
+	$test->Term()->Name( 'Is-a', kDEFAULT_LANGUAGE );
+	echo( '<i>$test->Term()->Definition( \'Subclass predicate\', kDEFAULT_LANGUAGE );</i><br>' );
+	$test->Term()->Definition( 'Subclass predicate', kDEFAULT_LANGUAGE );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
+	
+	echo( '<i>Load subject term properties</i><br>' );
+	echo( '<i>$test->SubjectTerm()->Code( \'SUBJECT\' );</i><br>' );
+	$test->SubjectTerm()->Code( 'SUBJECT' );
+	echo( '<i>$test->SubjectTerm()->Name( \'Subject\', kDEFAULT_LANGUAGE );</i><br>' );
+	$test->SubjectTerm()->Name( 'Subject', kDEFAULT_LANGUAGE );
+	echo( '<i>$test->SubjectTerm()->Definition( \'Subject term\', kDEFAULT_LANGUAGE );</i><br>' );
+	$test->SubjectTerm()->Definition( 'Subject term', kDEFAULT_LANGUAGE );
+	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
+exit;
 	
 	echo( '<i>Load node properties</i><br>' );
 	echo( '<i>$test[ \'A1\' ] = \'Attribute 1\' );</i><br>' );
@@ -225,8 +236,8 @@ try
 	echo( '<hr>' );
 	
 	echo( '<i>Retrieve</i><br>' );
-	echo( '<i>$test = new COntologyNode( $container, $id );</i><br>' );
-	$test = new COntologyNode( $container, $id );
+	echo( '<i>$test = new COntologyEdge( $container, $id );</i><br>' );
+	$test = new COntologyEdge( $container, $id );
 	echo( "$id:<pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	

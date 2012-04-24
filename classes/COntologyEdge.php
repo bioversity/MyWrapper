@@ -1,21 +1,21 @@
 <?php
 
 /**
- * <i>COntologyNode</i> class definition.
+ * <i>COntologyEdge</i> class definition.
  *
- * This file contains the class definition of <b>COntologyNode</b> which wraps an ontology
- * node around a {@link COntologyTerm term} and a graph {@link CGraphNode node}.
+ * This file contains the class definition of <b>COntologyEdge</b> which couples ontology
+ * edge nodes with  {@link COntologyTerm terms}.
  *
  *	@package	MyWrapper
  *	@subpackage	Ontology
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
- *	@version	1.00 18/04/2012
+ *	@version	1.00 24/04/2012
  */
 
 /*=======================================================================================
  *																						*
- *									COntologyNode.php									*
+ *									COntologyEdge.php									*
  *																						*
  *======================================================================================*/
 
@@ -24,7 +24,7 @@
  *
  * This include file contains the parent class definitions.
  */
-require_once( kPATH_LIBRARY_SOURCE."CGraphNode.php" );
+require_once( kPATH_LIBRARY_SOURCE."CGraphEdge.php" );
 
 /**
  * Local defines.
@@ -42,42 +42,48 @@ use Everyman\Neo4j\Transport,
 	Everyman\Neo4j\Batch;
 
 /**
- * Ontology graph node.
+ * Ontology graph edge node.
  *
- * This class implements an ontology graph node.
+ * This class implements an ontology graph edge node.
  *
- * The class is derived from {@link CGraphNode CGraphNode}, it adds another required
- * property, the {@link Term() term}. This class will wrap the array access framework to
- * the combination of the {@link Node() node} properties and the {@link Term() term}
- * elements, except that the {@link Term() term} elements will be read-only.
+ * The class is derived from {@link CGraphEdge CGraphEdge} and implements the exact same
+ * functionality as {@link COntologyNode COntologyNode}, it adds two elements: the
+ * {@link SubjectTerm() subject} and {@link ObjectTerm() object} {@link COntologyTerm terms}
+ * which are linked with the {@link Subject() subject} and {@link Object() object} nodes.
  *
- * This class introduces a new kind of container: it must be an array of two elements
- * structured as follows:
- *
- * <ul>
- *	<li><i>{@link kTAG_NODE kTAG_NODE}</i>: This element should hold the nodes container,
- *		it must be a Everyman\Neo4j\Client instance.
- *	<li><i>{@link kTAG_TERM kTAG_TERM}</i>: This element should hold the terms container,
- *		it must be a {@link COntologyTermObject COntologyTermObject} instance.
- * </ul>
- *
- * <i>Note that the class will not cast to an array correctly, you must use the
- * {@link getArrayCopy() getArrayCopy} method to get an array, if you know how to solve
- * this, please do it!</i>
+ * Instances of this class represent predicate nodes and they hold the referenced nodes.
  *
  *	@package	MyWrapper
  *	@subpackage	Ontology
  */
-class COntologyNode extends CGraphNode
+class COntologyEdge extends CGraphEdge
 {
 	/**
-	 * Term.
+	 * Predicate term.
 	 *
-	 * This data member holds the node {@link COntologyTerm term}.
+	 * This data member holds the node predicate {@link COntologyTerm term}.
 	 *
 	 * @var COntologyTerm
 	 */
-	 protected $mTerm = NULL;
+	 protected $mPredicateTerm = NULL;
+
+	/**
+	 * Subject term.
+	 *
+	 * This data member holds the node subject {@link COntologyTerm term}.
+	 *
+	 * @var COntologyTerm
+	 */
+	 protected $mSubjectTerm = NULL;
+
+	/**
+	 * Object term.
+	 *
+	 * This data member holds the node object {@link COntologyTerm term}.
+	 *
+	 * @var COntologyTerm
+	 */
+	 protected $mObjectTerm = NULL;
 
 		
 
@@ -145,7 +151,7 @@ class COntologyNode extends CGraphNode
 		//
 		// Handle data.
 		//
-		$save = CObject::ManageMember( $this->mTerm, $theValue, $getOld );
+		$save = CObject::ManageMember( $this->mPredicateTerm, $theValue, $getOld );
 				
 		//
 		// Set status.
@@ -161,12 +167,178 @@ class COntologyNode extends CGraphNode
 			// Set inited flag.
 			//
 			$this->_IsInited( $this->_IsInited() &&
-							  ($this->mTerm !== NULL) );
+							  ($this->mPredicateTerm !== NULL) &&
+							  ($this->mSubjectTerm !== NULL) &&
+							  ($this->mObjectTerm !== NULL) );
 		}
 		
 		return $save;																// ==>
 
 	} // Term.
+
+	 
+	/*===================================================================================
+	 *	SubjectTerm																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage subject term.
+	 *
+	 * This method can be used to manage the subject node term reference, it uses the
+	 * standard accessor {@link CObject::ManageMember() method} to manage the property:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: The value or operation:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Return the current value.
+	 *		<li><i>FALSE</i>: Delete the value.
+	 *		<li><i>{@link COntologyTermObject COntologyTermObject}</i>: Set value.
+	 *		<li><i>other</i>: Raise exception.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
+	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * The method will also set the {@link _IsDirty() dirty}
+	 * {@link kFLAG_STATE_DIRTY status} and the {@link _IsInited() inited}
+	 * {@link kFLAG_STATE_INITED status} if the node is provided.
+	 *
+	 * @param mixed					$theValue			Term or operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return COntologyTermObject
+	 *
+	 * @uses CObject::ManageMember()
+	 * @uses _IsDirty()
+	 * @uses _IsInited()
+	 */
+	public function SubjectTerm( $theValue = NULL, $getOld = FALSE )
+	{
+		//
+		// Check provided value.
+		//
+		if( ($theValue !== NULL)
+		 && ($theValue !== FALSE)
+		 && (! $theValue instanceof COntologyTermObject) )
+			throw new CException
+					( "Unsupported term type",
+					  kERROR_UNSUPPORTED,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Term' => $theValue ) );							// !@! ==>
+		
+		//
+		// Handle data.
+		//
+		$save = CObject::ManageMember( $this->mSubjectTerm, $theValue, $getOld );
+				
+		//
+		// Set status.
+		//
+		if( $theValue !== NULL )
+		{
+			//
+			// Set dirty flag.
+			//
+			$this->_IsDirty( TRUE );
+			
+			//
+			// Set inited flag.
+			//
+			$this->_IsInited( $this->_IsInited() &&
+							  ($this->mPredicateTerm !== NULL) &&
+							  ($this->mSubjectTerm !== NULL) &&
+							  ($this->mObjectTerm !== NULL) );
+		}
+		
+		return $save;																// ==>
+
+	} // SubjectTerm.
+
+	 
+	/*===================================================================================
+	 *	ObjectTerm																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage object term.
+	 *
+	 * This method can be used to manage the object node term reference, it uses the
+	 * standard accessor {@link CObject::ManageMember() method} to manage the property:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: The value or operation:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Return the current value.
+	 *		<li><i>FALSE</i>: Delete the value.
+	 *		<li><i>{@link COntologyTermObject COntologyTermObject}</i>: Set value.
+	 *		<li><i>other</i>: Raise exception.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
+	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * The method will also set the {@link _IsDirty() dirty}
+	 * {@link kFLAG_STATE_DIRTY status} and the {@link _IsInited() inited}
+	 * {@link kFLAG_STATE_INITED status} if the node is provided.
+	 *
+	 * @param mixed					$theValue			Term or operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return COntologyTermObject
+	 *
+	 * @uses CObject::ManageMember()
+	 * @uses _IsDirty()
+	 * @uses _IsInited()
+	 */
+	public function ObjectTerm( $theValue = NULL, $getOld = FALSE )
+	{
+		//
+		// Check provided value.
+		//
+		if( ($theValue !== NULL)
+		 && ($theValue !== FALSE)
+		 && (! $theValue instanceof COntologyTermObject) )
+			throw new CException
+					( "Unsupported term type",
+					  kERROR_UNSUPPORTED,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Term' => $theValue ) );							// !@! ==>
+		
+		//
+		// Handle data.
+		//
+		$save = CObject::ManageMember( $this->mObjectTerm, $theValue, $getOld );
+				
+		//
+		// Set status.
+		//
+		if( $theValue !== NULL )
+		{
+			//
+			// Set dirty flag.
+			//
+			$this->_IsDirty( TRUE );
+			
+			//
+			// Set inited flag.
+			//
+			$this->_IsInited( $this->_IsInited() &&
+							  ($this->mPredicateTerm !== NULL) &&
+							  ($this->mSubjectTerm !== NULL) &&
+							  ($this->mObjectTerm !== NULL) );
+		}
+		
+		return $save;																// ==>
+
+	} // ObjectTerm.
 
 		
 
@@ -203,8 +375,8 @@ class COntologyNode extends CGraphNode
 		//
 		// Require term.
 		//
-		if( $this->mTerm !== NULL )
-			return $this->mTerm->offsetExists( $theOffset );						// ==>
+		if( $this->mPredicateTerm !== NULL )
+			return $this->mPredicateTerm->offsetExists( $theOffset );				// ==>
 		
 		return FALSE;																// ==>
 	
@@ -239,8 +411,8 @@ class COntologyNode extends CGraphNode
 		//
 		// Require term.
 		//
-		if( $this->mTerm !== NULL )
-			return $this->mTerm->offsetGet( $theOffset );							// ==>
+		if( $this->mPredicateTerm !== NULL )
+			return $this->mPredicateTerm->offsetGet( $theOffset );					// ==>
 		
 		return NULL;																// ==>
 	
@@ -289,8 +461,8 @@ class COntologyNode extends CGraphNode
 		//
 		// Require term.
 		//
-		if( $this->mTerm !== NULL )
-			return array_merge( $this->mTerm->getArrayCopy(),
+		if( $this->mPredicateTerm !== NULL )
+			return array_merge( $this->mPredicateTerm->getArrayCopy(),
 								parent::getArrayCopy() );							// ==>
 		
 		return parent::getArrayCopy();												// ==>
@@ -314,8 +486,8 @@ class COntologyNode extends CGraphNode
 	/**
 	 * Store object in container.
 	 *
-	 * We {@link CGraphNode::_Commit() overload} this method to provide the correct
-	 * container to the {@link CGraphNode parent} {@link CGraphNode::_Commit() method}.
+	 * We {@link CGraphEdge::_Commit() overload} this method to provide the correct
+	 * container to the {@link CGraphEdge parent} {@link CGraphEdge::_Commit() method}.
 	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
@@ -342,17 +514,33 @@ class COntologyNode extends CGraphNode
 			// Set node in term.
 			//
 /*
-			$this->mTerm->Node( $id, TRUE );
-			$this->mTerm->Commit( $theContainer[ kTAG_TERM ] );
+			$this->mPredicateTerm->Node( $id, TRUE );
+			$this->mPredicateTerm->Commit( $theContainer[ kTAG_TERM ] );
 */
 			$id = $this->mNode->getId();
-			$this->mTerm->Node( $id, TRUE );
+			$this->mPredicateTerm->Node( $id, TRUE );
 			$mod = array( kTAG_NODE => $id );
 			$theContainer[ kTAG_TERM ]->Commit( $mod,
-												$this->mTerm[ kTAG_LID ],
+												$this->mPredicateTerm[ kTAG_LID ],
 												kFLAG_PERSIST_MODIFY +
 												kFLAG_MODIFY_ADDSET +
 												kFLAG_STATE_ENCODED );
+			
+			//
+			// Commit subject term.
+			//
+			$this->mSubjectTerm->Commit( $theContainer[ kTAG_TERM ],
+										 NULL,
+										 kFLAG_PERSIST_REPLACE +
+										 kFLAG_STATE_ENCODED );
+			
+			//
+			// Commit object term.
+			//
+			$this->mObjectTerm->Commit( $theContainer[ kTAG_TERM ],
+										NULL,
+										kFLAG_PERSIST_REPLACE +
+										kFLAG_STATE_ENCODED );
 			
 			//
 			// Add indexes.
@@ -370,13 +558,13 @@ class COntologyNode extends CGraphNode
 			// Remove node from term.
 			//
 /*
-			$this->mTerm->Node( $id, FALSE );
-			$this->mTerm->Commit( $theContainer[ kTAG_TERM ] );
+			$this->mPredicateTerm->Node( $id, FALSE );
+			$this->mPredicateTerm->Commit( $theContainer[ kTAG_TERM ] );
 */
-			$this->mTerm->Node( $id, FALSE );
+			$this->mPredicateTerm->Node( $id, FALSE );
 			$mod = array( kTAG_NODE => $id );
 			$theContainer[ kTAG_TERM ]->Commit( $mod,
-												$this->mTerm[ kTAG_LID ],
+												$this->mPredicateTerm[ kTAG_LID ],
 												kFLAG_PERSIST_MODIFY +
 												kFLAG_MODIFY_PULL +
 												kFLAG_STATE_ENCODED );
@@ -650,12 +838,12 @@ class COntologyNode extends CGraphNode
 		//
 		// Commit term.
 		//
-		$id = $this->mTerm->Commit( $term_cont );
+		$id = $this->mPredicateTerm->Commit( $term_cont );
 	
 		//
 		// Set term reference.
 		//
-		$this->offsetSet( kTAG_TERM, $this->mTerm[ kTAG_GID ] );
+		$this->Type( $this->mPredicateTerm[ kTAG_GID ] );
 		
 	} // _PrepareCommit.
 
@@ -697,7 +885,7 @@ class COntologyNode extends CGraphNode
 	/**
 	 * Normalise after a {@link _Load() load}.
 	 *
-	 * In this class we get the {@link kTAG_TERM term} reference from the node properties
+	 * In this class we get the term reference from the node {@link Type() type} property
 	 * and load it.
 	 *
 	 * @param reference			   &$theContainer		Object container.
@@ -716,7 +904,7 @@ class COntologyNode extends CGraphNode
 		//
 		// Get term reference.
 		//
-		$term = $this->offsetGet( kTAG_TERM );
+		$term = $this->Type();
 		
 		//
 		// Load term.
@@ -814,7 +1002,7 @@ class COntologyNode extends CGraphNode
 
 	 
 
-} // class COntologyNode.
+} // class COntologyEdge.
 
 
 ?>

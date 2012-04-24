@@ -184,6 +184,39 @@ class CUser extends CEntity
 
 /*=======================================================================================
  *																						*
+ *								STATIC REFERENCE INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	HashIndex																		*
+	 *==================================================================================*/
+
+	/**
+	 * Hash index.
+	 *
+	 * This method can be used to format an identifier provided as a string, it will be
+	 * used by the {@link _id() _id} method to format the result of the
+	 * {@link _index() _index} method. One can consider this as the index hashing method for
+	 * all derived classes.
+	 *
+	 * @param string				$theValue			Value to hash.
+	 *
+	 * @static
+	 * @return string
+	 */
+	static function HashIndex( $theValue )
+	{
+		return new CDataTypeBinary( md5( kENTITY_USER.kTOKEN_CLASS_SEPARATOR.$theValue, TRUE ) );
+	
+	} // HashIndex.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PUBLIC ARRAY ACCESS INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -264,45 +297,6 @@ class CUser extends CEntity
 							  $this->offsetExists( kOFFSET_PASSWORD ) );
 	
 	} // offsetUnset.
-
-		
-
-/*=======================================================================================
- *																						*
- *							PROTECTED IDENTIFICATION INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	_index																			*
-	 *==================================================================================*/
-
-	/**
-	 * Return the object's unique index.
-	 *
-	 * In this class we return a string composed of the following elements:
-	 *
-	 * <ul>
-	 *	<li><i>{@link kENTITY_USER kENTITY_USER}</i>: This token defines the object domain
-	 *		which is the users domain.
-	 *	<li><i>{@link kTOKEN_CLASS_SEPARATOR kTOKEN_CLASS_SEPARATOR}</i>: This token is used
-	 *		to separate a class from the rest of the code.
-	 *	<li><i>{@link Code() Code}</i>: The user code.
-	 * </ul>
-	 *
-	 * The concatenation of these three elements represents the unique identifier of the
-	 * user.
-	 *
-	 * @access protected
-	 * @return string
-	 */
-	protected function _index()
-	{
-		return kENTITY_USER.kTOKEN_CLASS_SEPARATOR.$this->Code();					// ==>
-	
-	} // _index.
 
 		
 

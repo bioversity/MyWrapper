@@ -447,7 +447,7 @@ class CGraphEdge extends CGraphNode
 			// Delete node if needed.
 			//
 			if( $save->hasId()
-			 && $theContainer->deleteNode( $save ) )
+			 && $theContainer->deleteRelationship( $save ) )
 				$this->Node( $theContainer->makeRelationship() );
 			
 			return $save->getId();													// ==>
@@ -516,9 +516,19 @@ class CGraphEdge extends CGraphNode
 	protected function _FinishCreate( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
-		// Create empty node.
+		// Create empty predicate node.
 		//
 		$this->Node( $theContainer->makeRelationship() );
+		
+		//
+		// Create empty subject node.
+		//
+		$this->Subject( $theContainer->makeNode() );
+		
+		//
+		// Create empty object node.
+		//
+		$this->Object( $theContainer->makeNode() );
 		
 		//
 		// Set inited flag.
@@ -547,10 +557,22 @@ class CGraphEdge extends CGraphNode
 	protected function _FinishLoad( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
-		// Create empty node.
+		// Create empty predicate node.
 		//
 		if( $this->mNode === NULL )
 			$this->Node( $theContainer->makeRelationship() );
+		
+		//
+		// Create empty subject node.
+		//
+		if( $this->mNode->getStartNode() === NULL )
+			$this->SubjectNode( $theContainer->makeNode() );
+		
+		//
+		// Create empty object node.
+		//
+		if( $this->mNode->getEndNode() === NULL )
+			$this->ObjectNode( $theContainer->makeNode() );
 		
 		//
 		// Set inited flag.

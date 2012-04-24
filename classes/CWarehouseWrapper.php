@@ -362,12 +362,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		//
 		// Create user ID.
 		//
-		$id = kENTITY_USER.kTOKEN_CLASS_SEPARATOR.$_REQUEST[ kAPI_OPT_USER_CODE ];
-		
-		//
-		// Format user ID.
-		//
-		$id = new CDataTypeBinary( md5( $id, TRUE ) );
+		$id = CUser::HashIndex( $_REQUEST[ kAPI_OPT_USER_CODE ] );
 		
 		//
 		// Instantiate user.

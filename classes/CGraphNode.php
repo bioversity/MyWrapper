@@ -127,7 +127,7 @@ class CGraphNode extends CPersistentObject
 		//
 		if( ($theValue !== NULL)
 		 && ($theValue !== FALSE)
-		 && (! $theValue instanceof Everyman\Neo4j\Node) )
+		 && (! $theValue instanceof Everyman\Neo4j\PropertyContainer) )
 			throw new CException
 					( "Unsupported node type",
 					  kERROR_UNSUPPORTED,
@@ -152,7 +152,8 @@ class CGraphNode extends CPersistentObject
 			//
 			// Set inited flag.
 			//
-			$this->_IsInited( $this->mNode !== NULL );
+			$this->_IsInited( $this->_IsInited() &&
+							  ($this->mNode !== NULL) );
 		}
 		
 		return $save;																// ==>
