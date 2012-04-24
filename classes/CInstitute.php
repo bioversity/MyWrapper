@@ -69,6 +69,15 @@ require_once( kPATH_LIBRARY_SOURCE."CInstitute.inc.php" );
  * user with a single e-mail, possibly not shared by any other user, that is why we link by
  * default the user {@link Code() code} and {@link Email() e-mail}.
  *
+ * The unique identifier of this class is composed by the default {@link _index() index} of
+ * thew object, prefixed by the {@link kENTITY_INST kENTITY_INST} token and the
+ * {@link kTOKEN_CLASS_SEPARATOR kTOKEN_CLASS_SEPARATOR} token, this allows institutes and
+ * other types of {@link CEntity entities} to share the same {@link Code() code}; this is
+ * enforced both in the {@link HashIndex() HashIndex} method, to which you only need to pass
+ * the user {@link Code() code}, and in the protected
+ * {@link _PrepareCommit() _PrepareCommit} method which will place the resulting string in
+ * the global {@link kTAG_GID identifier}.
+ *
  *	@package	MyWrapper
  *	@subpackage	Entities
  */
@@ -222,6 +231,45 @@ class CInstitute extends CContact
 
 /*=======================================================================================
  *																						*
+ *								STATIC REFERENCE INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	HashIndex																		*
+	 *==================================================================================*/
+
+	/**
+	 * Hash index.
+	 *
+	 * This method can be used to format an identifier provided as a string, it will be
+	 * used by the {@link _id() _id} method to format the result of the
+	 * {@link _index() _index} method. One can consider this as the index hashing method for
+	 * all derived classes.
+	 *
+	 * In this class we take the provided {@link Code() code} and prefix it with the
+	 * {@link kENTITY_INST kENTITY_INST} token, the result will be
+	 * {@link CDataTypeBinary hashed}
+	 *
+	 * @param string				$theValue			Value to hash.
+	 *
+	 * @static
+	 * @return string
+	 */
+	static function HashIndex( $theValue )
+	{
+		return new CDataTypeBinary(
+					md5( kENTITY_INST.kTOKEN_CLASS_SEPARATOR.$theValue,
+						 TRUE ) );													// ==>
+	
+	} // HashIndex.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PUBLIC ARRAY ACCESS INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -299,36 +347,6 @@ class CInstitute extends CContact
 	
 	} // offsetUnset.
 
-	 
-	/*===================================================================================
-	 *	_index																			*
-	 *==================================================================================*/
-
-	/**
-	 * Return the object's unique index.
-	 *
-	 * In this class we return a string composed of the following elements:
-	 *
-	 * <ul>
-	 *	<li><i>{@link kENTITY_INST kENTITY_INST}</i>: This token defines the object domain
-	 *		which is the institutes domain.
-	 *	<li><i>{@link kTOKEN_CLASS_SEPARATOR kTOKEN_CLASS_SEPARATOR}</i>: This token is used
-	 *		to separate a class from the rest of the code.
-	 *	<li><i>{@link Code() Code}</i>: The institute code.
-	 * </ul>
-	 *
-	 * The concatenation of these three elements represents the unique identifier of the
-	 * institute.
-	 *
-	 * @access protected
-	 * @return string
-	 */
-	protected function _index()
-	{
-		return kENTITY_INST.kTOKEN_CLASS_SEPARATOR.$this->Code();					// ==>
-	
-	} // _index.
-
 		
 
 /*=======================================================================================
@@ -364,19 +382,19 @@ class CInstitute extends CContact
 	protected function _PrepareCommit( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
-		// Enforce encoding flag.
-		//
-		$theModifiers |= kFLAG_STATE_ENCODED;
-		
-		//
 		// Call parent method.
 		//
 		parent::_PrepareCommit( $theContainer, $theIdentifier, $theModifiers );
 		
 		//
-		// Add institute kind.
+		// Add user type.
 		//
 		$this->Kind( kENTITY_INST, TRUE );
+		
+		//
+		// Set global identifier.
+		//
+		$this[ kTAG_GID ] = kENTITY_INST.kTOKEN_CLASS_SEPARATOR.$this->_index();
 		
 	} // _PrepareCommit.
 

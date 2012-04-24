@@ -57,8 +57,11 @@ require_once( kPATH_LIBRARY_SOURCE."CFAOInstitute.inc.php" );
  *		institute {@link Altitude() altitude}, note this is an integer value.
  * </ul>
  *
- * The object unique {@link kTAG_LID identifier} is {@link _id() formed} by
- * {@link _index() using} the {@link Code() code} without any formatting.
+ * Unlike its {@link CInstitute parent}, this class will use the institute
+ * {@link Code() code} as-is for the object unique {@link _id() identifier}, the index
+ * {@link HashIndex() hashing} method will not transform the {@link _index() index} since
+ * it is at most 7 characters thus cannot conflict with other {@link CEntity entity}
+ * identifiers.
  *
  *	@package	MyWrapper
  *	@subpackage	Entities
@@ -452,6 +455,12 @@ class CFAOInstitute extends CInstitute
 							if( $index < count( $row ) )
 							{
 								//
+								// Skip 'null' fields.
+								//
+								if( strtolower( $row[ $index ] ) == 'null' )
+									$field = NULL;
+								
+								//
 								// Parse by field.
 								//
 								switch( $field )
@@ -677,7 +686,8 @@ class CFAOInstitute extends CInstitute
 	/**
 	 * Hash index.
 	 *
-	 * In this class we do not hash the id.
+	 * In this class we do not nodify the provided value, it is supposed to be the FAO
+	 * institute <i>INSTCODE</i> field.
 	 *
 	 * @param string				$theValue			Value to hash.
 	 *
@@ -689,32 +699,6 @@ class CFAOInstitute extends CInstitute
 		return $theValue;															// ==>
 	
 	} // HashIndex.
-
-		
-
-/*=======================================================================================
- *																						*
- *							PROTECTED IDENTIFICATION INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	_index																			*
-	 *==================================================================================*/
-
-	/**
-	 * Return the object's unique index.
-	 *
-	 * In this class we return directly the institute {@link Code() code}, we do not prefix
-	 * the code with the domain, since the {@link Code() code} it has a specific and
-	 * univoque format.
-	 *
-	 * @access protected
-	 * @return string
-	 */
-	protected function _index()									{	return $this->Code();	}
 
 		
 
@@ -757,6 +741,11 @@ class CFAOInstitute extends CInstitute
 		// Add institute kind.
 		//
 		$this->Kind( kENTITY_INST_FAO, TRUE );
+		
+		//
+		// Set global identifier.
+		//
+		$this[ kTAG_GID ] = $this->_index();
 		
 	} // _PrepareCommit.
 

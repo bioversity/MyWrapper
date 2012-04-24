@@ -96,8 +96,7 @@ try
 	$container = array( kTAG_CODE => 'Milko',
 						kOFFSET_PASSWORD => 'Secret',
 						kTAG_NAME => 'Milko A. Škofič',
-						kOFFSET_EMAIL => 'm.skofic@cgiar.org',
-						kTAG_LID => new CDataTypeBinary( md5( 'Milko', TRUE ) ) );
+						kOFFSET_EMAIL => 'm.skofic@cgiar.org' );
 	echo( "Container<pre>" ); print_r( $container ); echo( '</pre>' );
 	echo( '<i>$test = new CUser( $container );</i><br>' );
 	echo( '<i>$identifier = $test->Commit( $collection );</i><br>' );
@@ -119,6 +118,7 @@ try
 	 
 	try
 	{
+		echo( '<i>Deleting name property...</i><br>' );
 		echo( '<i>$test[ kTAG_NAME ] = NULL;</i><br>' );
 		echo( '<i>$test->Commit( $collection );</i><br>' );
 		$test[ kTAG_NAME ] = NULL;
@@ -133,24 +133,23 @@ try
 	echo( '<hr>' );
 
 	echo( '<i>$test = new CUser( $collection, $luca );</i><br>' );
-	$test = new CUser( $collection, $luca, kFLAG_STATE_ENCODED );
+	$test = new CUser( $collection, $luca );
 	echo( "$luca<pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
-exit;
 
-	echo( '<i>$test = new CUser( $collection, new CDataTypeBinary( md5( \'Milko\', TRUE ) ) );</i><br>' );
-	$test = new CUser( $collection, new CDataTypeBinary( md5( 'Milko', TRUE ) ) );
-	echo( "$identifier<pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$test = new CUser( $collection, CUser::HashIndex( \'Milko\' ) );</i><br>' );
+	$test = new CUser( $collection, CUser::HashIndex( 'Milko' ) );
+	echo( "<pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 
-	echo( '<i>$test = CUser::NewObject( $collection, new MongoBinData( md5( \'Milko\', TRUE ) ) );</i><br>' );
-	$test = CUser::NewObject( $collection, new MongoBinData( md5( 'Milko', TRUE ) ) );
-	echo( "$identifier<pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$test = CUser::NewObject( $collection, new MongoBinData( md5( kENTITY_USER.kTOKEN_CLASS_SEPARATOR.\'Milko\', TRUE ) ) );</i><br>' );
+	$test = CUser::NewObject( $collection, new MongoBinData( md5( kENTITY_USER.kTOKEN_CLASS_SEPARATOR.'Milko', TRUE ) ) );
+	echo( "<pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 
-	echo( '<i>$test = CUser::NewObject( $collection, \'Milko\' );</i><br>' );
-	$test = CUser::NewObject( $collection, 'Milko' );
-	echo( "$identifier<pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$test = CUser::NewObject( $collection, CUser::HashIndex( \'Milko\' ) );</i><br>' );
+	$test = CUser::NewObject( $collection, CUser::HashIndex( 'Milko' ), kFLAG_STATE_ENCODED );
+	echo( "<pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 }
 

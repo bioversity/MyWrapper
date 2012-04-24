@@ -52,6 +52,11 @@ require_once( kPATH_LIBRARY_SOURCE."CEntity.inc.php" );
  * The class also features a static {@link DefaultContainer() method} that returns the
  * default container name for objects of this type.
  *
+ * Objects derived from this class will have their {@link _IsEncoded() encoded}
+ * {@link kFLAG_STATE_ENCODED flag} set by default and must implement a protected
+ * {@link _TokeniseIdentifier() method} that must add tokens to the object
+ * {@link _index() index} in order to ensure a unique identifier.
+ *
  *	@package	MyWrapper
  *	@subpackage	Entities
  */
@@ -65,6 +70,27 @@ class CEntity extends CCodedUnitObject
  *																						*
  *======================================================================================*/
 
+
+	 
+	/*===================================================================================
+	 *	GID																				*
+	 *==================================================================================*/
+
+	/**
+	 * Manage entity global identifier.
+	 *
+	 * The term global {@link kTAG_GID identifier} represents the un-hashed version of the
+	 * term local {@link kTAG_LID identifier}.
+	 *
+	 * This value is set automatically by a protected {@link _PrepareCommit() method}, so
+	 * this method is read-only.
+	 *
+	 * @access public
+	 * @return string
+	 *
+	 * @see kTAG_GID
+	 */
+	public function GID()									{	return $this[ kTAG_GID ];	}
 
 	 
 	/*===================================================================================
@@ -163,6 +189,92 @@ class CEntity extends CCodedUnitObject
 	 * @return string
 	 */
 	static function DefaultContainer()						{	return kENTITY_CONTAINER;	}
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED PERSISTENCE UTILITIES							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	_PrepareCreate																	*
+	 *==================================================================================*/
+
+	/**
+	 * Normalise parameters of a create.
+	 *
+	 * We overload this method to enforce the {@link kFLAG_STATE_ENCODED encoded} modifier.
+	 *
+	 * @param reference			   &$theContainer		Object container.
+	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Create modifiers.
+	 *
+	 * @access protected
+	 *
+	 * @uses _IsEncoded()
+	 *
+	 * @see kFLAG_STATE_ENCODED
+	 */
+	protected function _PrepareCreate( &$theContainer, &$theIdentifier, &$theModifiers )
+	{
+		//
+		// Set encoded flag.
+		//
+		$theModifiers |= kFLAG_STATE_ENCODED;
+		
+		//
+		// Call parent method.
+		//
+		parent::_PrepareCreate( $theContainer, $theIdentifier, $theModifiers );
+	
+	} // _PrepareCreate.
+
+	 
+	/*===================================================================================
+	 *	_PrepareCommit																	*
+	 *==================================================================================*/
+
+	/**
+	 * Normalise before a store.
+	 *
+	 * We overload this method to enforce the {@link kFLAG_STATE_ENCODED encoded} modifier,
+	 * and we set automatically the global {@link kTAG_GID identifier}.
+	 *
+	 * @param reference			   &$theContainer		Object container.
+	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Commit modifiers.
+	 *
+	 * @access protected
+	 *
+	 * @throws {@link CException CException}
+	 *
+	 * @uses _IsInited()
+	 *
+	 * @see kFLAG_STATE_ENCODED
+	 */
+	protected function _PrepareCommit( &$theContainer, &$theIdentifier, &$theModifiers )
+	{
+		//
+		// Initialise code.
+		//
+		if( $this->Code() === NULL )
+			$this->Code( $this->Email() );
+		
+		//
+		// Set encoded flag.
+		//
+		$theModifiers |= kFLAG_STATE_ENCODED;
+		
+		//
+		// Call parent method.
+		//
+		parent::_PrepareCommit( $theContainer, $theIdentifier, $theModifiers );
+	
+	} // _PrepareCommit.
 
 	 
 

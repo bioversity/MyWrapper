@@ -34,9 +34,9 @@
         property.</li></ul></p><p>The object is considered <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">initialised</a> only if it has its  <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a>, as its <a href="../../MyWrapper/Entities/CEntity.html">ancestor</a>, its <a href="../../MyWrapper/Entities/CEntity.html#methodName">name</a>,  <a href="../../MyWrapper/Entities/CUser.html#methodPassword">password</a> and <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a> address.</p><p>If the <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a> has not been explicitly set, <a href="../../MyWrapper/Entities/CUser.html#method_PrepareCommit">before</a>  <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">committing</a> the object it will be set to the value of the  <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a>. Also in that phase, the <a href="../../MyWrapper/Entities/_classes---CUser.inc.php.html#definekENTITY_USER">kENTITY_USER</a> constant  will be set in the user Type().</p><p>The <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a> in this class is a scalar property, in other classes it will  probably be a list of different e-mail types. In this class we want to link a single  user with a single e-mail, possibly not shared by any other user, that is why we link by  default the user <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a> and <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a>.</p><p><em>&lt;b&gt;Note: this class enforces the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsEncoded">encoded</a> <a href="../../MyWrapper/Framework/CStatusObject.html#methodStatus">status</a>
  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">flag</a>, because the object identifier is a binary string, so
  always use complex data type instances derived from the <a href="../../MyWrapper/Framework/CDataType.html">standard</a>
- types&lt;/b&gt;</em>.</p></p>
+ types&lt;/b&gt;</em>.</p><p>The unique identifier of this class is composed by the default <a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_index">index</a> of  thew object, prefixed by the <a href="../../MyWrapper/Entities/_classes---CUser.inc.php.html#definekENTITY_USER">kENTITY_USER</a> token and the  <a href="../../MyWrapper/Definitions/_defines---Tokens.inc.php.html#definekTOKEN_CLASS_SEPARATOR">kTOKEN_CLASS_SEPARATOR</a> token, this allows users and other  types of <a href="../../MyWrapper/Entities/CEntity.html">entities</a> to share the same <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a>; this is enforced  both in the <a href="../../MyWrapper/Entities/CUser.html#methodHashIndex">HashIndex</a> method, to which you only need to pass the user  <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a>, and in the protected <a href="../../MyWrapper/Entities/CUser.html#method_PrepareCommit">_PrepareCommit</a> method  which will place the resulting string in the global <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a>.</p></p>
 		<p class="notes">
-			Located in <a class="field" href="_classes---CUser.php.html">/classes/CUser.php</a> (line <span class="field">80</span>)
+			Located in <a class="field" href="_classes---CUser.php.html">/classes/CUser.php</a> (line <span class="field">88</span>)
 		</p>
 		
 				
@@ -163,12 +163,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static HashIndex</span> (line <span class="line-number">210</span>)
+		<span class="method-title">static HashIndex</span> (line <span class="line-number">222</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Hash index.</p>
-<p class="description"><p>This method can be used to format an identifier provided as a string, it will be  used by the <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_id">_id</a> method to format the result of the  <a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_index">_index</a> method. One can consider this as the index hashing method for  all derived classes.</p></p>
+<p class="description"><p>This method can be used to format an identifier provided as a string, it will be  used by the <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_id">_id</a> method to format the result of the  <a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_index">_index</a> method. One can consider this as the index hashing method for  all derived classes.</p><p>In this class we take the provided <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a> and prefix it with the  <a href="../../MyWrapper/Entities/_classes---CUser.inc.php.html#definekENTITY_USER">kENTITY_USER</a> token, the result will be  <a href="../../MyWrapper/Framework/CDataTypeBinary.html">hashed</a>.</p></p>
 	
 	<div class="method-signature">
 		<span class="method-result">string</span>
@@ -197,7 +197,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Constructor.png" />
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">112</span>)
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">120</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -240,7 +240,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetSet</span> (line <span class="line-number">246</span>)
+		<span class="method-title">offsetSet</span> (line <span class="line-number">260</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -282,7 +282,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetUnset</span> (line <span class="line-number">284</span>)
+		<span class="method-title">offsetUnset</span> (line <span class="line-number">298</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -321,7 +321,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Password</span> (line <span class="line-number">177</span>)
+		<span class="method-title">Password</span> (line <span class="line-number">185</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -357,12 +357,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">334</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">346</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Normalise parameters of a store.</p>
-<p class="description"><p>We overload this method to add the <a href="../../MyWrapper/Entities/_classes---CUser.inc.php.html#definekENTITY_USER">kENTITY_USER</a>  Type() to the object prior <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">saving</a> it and we initialise  the user <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a>, if empty, with the <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a>.</p><p>We also force the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsEncoded">encoded</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">flag</a>.</p></p>
+<p class="description"><p>We overload this method to add the <a href="../../MyWrapper/Entities/_classes---CUser.inc.php.html#definekENTITY_USER">kENTITY_USER</a>  Type() to the object prior <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">saving</a> it and we initialise  the user <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a>, if empty, with the <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a>.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Errors.inc.php.html#definekERROR_OPTION_MISSING">kERROR_OPTION_MISSING</a></li>
 				<li><span class="field">throws:</span> <a href="../../MyWrapper/Framework/CException.html">CException</a></li>
@@ -392,7 +392,7 @@
 			<hr class="separator" />
 		<div class="notes">Redefinition of:</div>
 		<dl>
-			<dt><a href="../../MyWrapper/Persistence/CRelatedUnitObject.html#method_PrepareCommit">CRelatedUnitObject::_PrepareCommit()</a></dt>
+			<dt><a href="../../MyWrapper/Entities/CEntity.html#method_PrepareCommit">CEntity::_PrepareCommit()</a></dt>
 						<dd>Normalise before a store.</dd>
 					</dl>
 			
@@ -407,7 +407,13 @@
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodEmail">CEntity::Email()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodGID">CEntity::GID()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodName">CEntity::Name()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#method_PrepareCommit">CEntity::_PrepareCommit()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#method_PrepareCreate">CEntity::_PrepareCreate()</a></span><br>
 											</blockquote>
 									<!-- =========== Summary =========== -->
 					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Framework/CCodedUnitObject.html">CCodedUnitObject</a></span></p>
@@ -623,7 +629,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Tue, 24 Apr 2012 12:36:29 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Tue, 24 Apr 2012 14:23:51 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

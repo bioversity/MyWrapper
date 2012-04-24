@@ -74,6 +74,14 @@ require_once( kPATH_LIBRARY_SOURCE."CUser.inc.php" );
  * always use complex data type instances derived from the {@link CDataType standard}
  * types</b></i>.
  *
+ * The unique identifier of this class is composed by the default {@link _index() index} of
+ * thew object, prefixed by the {@link kENTITY_USER kENTITY_USER} token and the
+ * {@link kTOKEN_CLASS_SEPARATOR kTOKEN_CLASS_SEPARATOR} token, this allows users and other
+ * types of {@link CEntity entities} to share the same {@link Code() code}; this is enforced
+ * both in the {@link HashIndex() HashIndex} method, to which you only need to pass the user
+ * {@link Code() code}, and in the protected {@link _PrepareCommit() _PrepareCommit} method
+ * which will place the resulting string in the global {@link kTAG_GID identifier}.
+ *
  *	@package	MyWrapper
  *	@subpackage	Entities
  */
@@ -202,6 +210,10 @@ class CUser extends CEntity
 	 * {@link _index() _index} method. One can consider this as the index hashing method for
 	 * all derived classes.
 	 *
+	 * In this class we take the provided {@link Code() code} and prefix it with the
+	 * {@link kENTITY_USER kENTITY_USER} token, the result will be
+	 * {@link CDataTypeBinary hashed}.
+	 *
 	 * @param string				$theValue			Value to hash.
 	 *
 	 * @static
@@ -209,7 +221,9 @@ class CUser extends CEntity
 	 */
 	static function HashIndex( $theValue )
 	{
-		return new CDataTypeBinary( md5( kENTITY_USER.kTOKEN_CLASS_SEPARATOR.$theValue, TRUE ) );
+		return new CDataTypeBinary(
+					md5( kENTITY_USER.kTOKEN_CLASS_SEPARATOR.$theValue,
+						 TRUE ) );													// ==>
 	
 	} // HashIndex.
 
@@ -319,8 +333,6 @@ class CUser extends CEntity
 	 * {@link Type() type} to the object prior {@link Commit() saving} it and we initialise
 	 * the user {@link Code() code}, if empty, with the {@link Email() e-mail}.
 	 *
-	 * We also force the {@link _IsEncoded() encoded} {@link kFLAG_STATE_ENCODED flag}.
-	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
 	 * @param reference			   &$theModifiers		Commit modifiers.
@@ -334,17 +346,6 @@ class CUser extends CEntity
 	protected function _PrepareCommit( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
-		// Enforce encoding flag.
-		//
-		$theModifiers |= kFLAG_STATE_ENCODED;
-		
-		//
-		// Initialise code.
-		//
-		if( $this->Code() === NULL )
-			$this->Code( $this->Email() );
-		
-		//
 		// Call parent method.
 		//
 		parent::_PrepareCommit( $theContainer, $theIdentifier, $theModifiers );
@@ -353,6 +354,11 @@ class CUser extends CEntity
 		// Add user type.
 		//
 		$this->Kind( kENTITY_USER, TRUE );
+		
+		//
+		// Set global identifier.
+		//
+		$this[ kTAG_GID ] = kENTITY_USER.kTOKEN_CLASS_SEPARATOR.$this->_index();
 		
 	} // _PrepareCommit.
 
