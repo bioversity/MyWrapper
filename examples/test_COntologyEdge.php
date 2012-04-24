@@ -165,7 +165,7 @@ try
 	$test->Term()->Name( 'Is-a', kDEFAULT_LANGUAGE );
 	echo( '<i>$test->Term()->Definition( \'Subclass predicate\', kDEFAULT_LANGUAGE );</i><br>' );
 	$test->Term()->Definition( 'Subclass predicate', kDEFAULT_LANGUAGE );
-	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '$test->Term():<pre>' ); print_r( $test->Term() ); echo( '</pre>' );
 	echo( '<hr>' );
 	
 	echo( '<i>Load subject term properties</i><br>' );
@@ -175,20 +175,39 @@ try
 	$test->SubjectTerm()->Name( 'Subject', kDEFAULT_LANGUAGE );
 	echo( '<i>$test->SubjectTerm()->Definition( \'Subject term\', kDEFAULT_LANGUAGE );</i><br>' );
 	$test->SubjectTerm()->Definition( 'Subject term', kDEFAULT_LANGUAGE );
-	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( '<hr>' );
-exit;
-	
-	echo( '<i>Load node properties</i><br>' );
-	echo( '<i>$test[ \'A1\' ] = \'Attribute 1\' );</i><br>' );
-	$test[ 'A1' ] = 'Attribute 1';
-	echo( '<i>$test[ \'A2\' ] = \'Attribute 2\' );</i><br>' );
-	$test[ 'A2' ] = 'Attribute 2';
-	echo( '<i>$test[ kTAG_NAME ] = \'This will shadow the term name\' );</i><br>' );
-	$test[ kTAG_NAME ] = 'This will shadow the term name';
-	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '$test->SubjectTerm():<pre>' ); print_r( $test->SubjectTerm() ); echo( '</pre>' );
 	echo( '<hr>' );
 	
+	echo( '<i>Load object term properties</i><br>' );
+	echo( '<i>$test->ObjectTerm()->Code( \'OBJECT\' );</i><br>' );
+	$test->ObjectTerm()->Code( 'OBJECT' );
+	echo( '<i>$test->ObjectTerm()->Name( \'Object\', kDEFAULT_LANGUAGE );</i><br>' );
+	$test->ObjectTerm()->Name( 'Object', kDEFAULT_LANGUAGE );
+	echo( '<i>$test->ObjectTerm()->Definition( \'Object term\', kDEFAULT_LANGUAGE );</i><br>' );
+	$test->ObjectTerm()->Definition( 'Object term', kDEFAULT_LANGUAGE );
+	echo( '$test->ObjectTerm():<pre>' ); print_r( $test->ObjectTerm() ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>Load predicate node properties</i><br>' );
+	echo( '<i>$test[ \'Name\' ] = \'Predicate node\' );</i><br>' );
+	$test[ 'Name' ] = 'Predicate node';
+	echo( '<i>$test[ \'Description\' ] = \'This is a predicate node\' );</i><br>' );
+	$test[ 'Description' ] = 'This is a predicate node';
+	echo( '$test->Node()->getProperties():<pre>' ); print_r( $test->Node()->getProperties() ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>Load subject node properties</i><br>' );
+	echo( '<i>$test->Subject()->setProperty( \'Name\', \'Subject node\' );</i><br>' );
+	$test->Subject()->setProperty( 'Name', 'Subject node' );
+	echo( '$test->Subject()->getProperties():<pre>' ); print_r( $test->Subject()->getProperties() ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>Load object node properties</i><br>' );
+	echo( '<i>$test->Object()->setProperty( \'Name\', \'Object node\' );</i><br>' );
+	$test->Object()->setProperty( 'Name', 'Object node' );
+	echo( '$test->Object()->getProperties():<pre>' ); print_r( $test->Object()->getProperties() ); echo( '</pre>' );
+	echo( '<hr>' );
+
 	echo( '<i>List properties</i><br>' );
 	foreach( $test as $key => $value )
 		echo( "[$key] $value<br>" );
@@ -202,26 +221,19 @@ exit;
 	echo( '<hr>' );
 	
 	echo( '<i>Delete property (will not work: it\'s a term)</i><br>' );
-	echo( '<i>$test->offsetUnset( kTAG_DEFINITION );</i><br>' );
-	$test->offsetUnset( kTAG_DEFINITION );
+	echo( '<i>$test->offsetUnset( kTAG_NAME );</i><br>' );
+	$test->offsetUnset( kTAG_NAME );
 	$props = $test->getArrayCopy();
 	echo( 'Properties:<pre>' ); print_r( $props ); echo( '</pre>' );
 	echo( '<hr>' );
 	
 	echo( '<i>Delete property (will work: it\'s a node property)</i><br>' );
-	echo( '<i>$test->offsetUnset( \'A2\' );</i><br>' );
-	$test->offsetUnset( 'A2' );
+	echo( '<i>$test->offsetUnset( \'Description\' );</i><br>' );
+	$test->offsetUnset( 'Description' );
 	$props = $test->getArrayCopy();
 	echo( 'Properties:<pre>' ); print_r( $props ); echo( '</pre>' );
 	echo( '<hr>' );
-	
-	echo( '<i>Delete property (will unshadow the term name)</i><br>' );
-	echo( '<i>$test->offsetUnset( kTAG_NAME );</i><br>' );
-	$test->offsetUnset( kTAG_NAME );
-	$props = $test->getArrayCopy();
-	echo( 'Properties:<pre>' ); print_r( $props ); echo( '</pre>' );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( '<hr>' );
 	echo( '<hr>' );
 	
 	//
@@ -241,25 +253,58 @@ exit;
 	echo( "$id:<pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
+	echo( '<i>Save references</i><br>' );
+	echo( '<i>$predicate_term = $test->Term();</i><br>' );
+	$predicate_term = $test->Term();
+	echo( '<i>$subject_term = $test->SubjectTerm();</i><br>' );
+	$subject_term = $test->SubjectTerm();
+	echo( '<i>$subject_node = $test->Subject();</i><br>' );
+	$subject_node = $test->Subject();
+	echo( '<i>$object_term = $test->ObjectTerm();</i><br>' );
+	$object_term = $test->ObjectTerm();
+	echo( '<i>$object_node = $test->Object();</i><br>' );
+	$object_node = $test->Object();
+	echo( '<hr>' );
+	
 	echo( '<i>Delete node</i><br>' );
-	echo( '<i>$term = $test->Term();</i><br>' );
-	$term = $test->Term();
 	echo( '<i>$ok = $test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );</i><br>' );
 	$ok = $test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );
 	echo( "$ok:<pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	echo( '<i>Test indexes</i><br>' );
-	echo( '<i>$test->Term( $term );</i><br>' );
-	$test->Term( $term );
-	echo( '<i>$ok = $test->Commit( $container, NULL );</i><br>' );
-	$ok = $test->Commit( $container, NULL );
-	echo( '<i>$index = new NodeIndex( $container[ kTAG_NODE ], kINDEX_TERM );</i><br>' );
-	$index = new NodeIndex( $container[ kTAG_NODE ], kINDEX_TERM );
-	echo( '<i>$test = $index->findOne( kTAG_GID, \'A\' );</i><br>' );
-	$test = $index->findOne( kTAG_GID, 'A' );
-	echo( "$ok:<pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>Re-create relationship</i><br>' );
+	echo( '<i>$test->Term( $predicate_term );</i><br>' );
+	$test->Term( $predicate_term );
+	echo( '<i>$test->Subject( $subject_node );</i><br>' );
+	$test->Subject( $subject_node );
+	echo( '<i>$test->SubjectTerm( $subject_term );</i><br>' );
+	$test->SubjectTerm( $subject_term );
+	echo( '<i>$test->Object( $object_node );</i><br>' );
+	$test->Object( $object_node );
+	echo( '<i>$test->ObjectTerm( $object_term );</i><br>' );
+	$test->ObjectTerm( $object_term );
+	$id = $test->Commit( $container );
+	echo( "$id:<pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
+	
+	echo( '<i>Test indexes</i><br>' );
+	echo( '<i>$index = new RelationshipIndex( $container[ kTAG_NODE ], kINDEX_TERM );</i><br>' );
+	$index = new RelationshipIndex( $container[ kTAG_NODE ], kINDEX_TERM );
+	echo( '<i>$found = $index->findOne( kTAG_GID, \'IS-A\' );</i><br>' );
+	$found = $index->findOne( kTAG_GID, 'IS-A' );
+	echo( "$ok:<pre>" ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+
+	echo( '<i>Cleanup</i><br>' );
+	echo( '<i>$ok = $test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );</i><br>' );
+	$ok = $test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );
+	echo( '<i>$container[ kTAG_NODE ]->deleteNode( $subject_node );</i><br>' );
+	$container[ kTAG_NODE ]->deleteNode( $subject_node );
+	echo( '<i>$container[ kTAG_NODE ]->deleteNode( $object_node );</i><br>' );
+	$container[ kTAG_NODE ]->deleteNode( $object_node );
+	echo( '<hr>' );
+	
+	echo( '<br>==> DONE!<br>' );
 }
 
 //

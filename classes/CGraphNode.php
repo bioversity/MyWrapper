@@ -743,18 +743,29 @@ class CGraphNode extends CPersistentObject
 		if( $theModifiers & kFLAG_PERSIST_DELETE )
 		{
 			//
-			// Save node.
+			// Save node and id.
 			//
-			$save = $this->Node();
-			
-			//
-			// Delete node if needed.
-			//
-			if( $save->hasId()
-			 && $theContainer->deleteNode( $save ) )
+			$id = $this->mNode->getId();
+			if( $id !== NULL )
+			{
+				//
+				// Delete relationship.
+				//
+				if( ! $theContainer->deleteNode( $this->mNode ) )
+					throw new CException
+							( "Unable to delete node",
+							  kERROR_INVALID_STATE,
+							  kMESSAGE_TYPE_ERROR,
+							  array( 'Id' => $id ) );							// !@! ==>
+				
+				//
+				// Reset relationship.
+				//
 				$this->Node( $theContainer->makeNode() );
+		
+			} // Has ID.
 			
-			return $save->getId();													// ==>
+			return $id;																// ==>
 		
 		} // Delete.
 		

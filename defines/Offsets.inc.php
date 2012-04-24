@@ -210,6 +210,13 @@ define( "kTAG_NAMESPACE",						':NS' );
 define( "kTAG_NODE",							':NODE' );
 
 /**
+ * Predicate offset.
+ *
+ * This tag is used as the default offset for indicating a predicate node.
+ */
+define( "kTAG_PRED",							':PRED' );
+
+/**
  * Term offset.
  *
  * This tag is used as the default offset for indicating a graph node term.

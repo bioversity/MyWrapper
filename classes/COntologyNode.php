@@ -58,7 +58,7 @@ use Everyman\Neo4j\Transport,
  *	<li><i>{@link kTAG_NODE kTAG_NODE}</i>: This element should hold the nodes container,
  *		it must be a Everyman\Neo4j\Client instance.
  *	<li><i>{@link kTAG_TERM kTAG_TERM}</i>: This element should hold the terms container,
- *		it must be a {@link COntologyTermObject COntologyTermObject} instance.
+ *		it must be a {@link CContainer CContainer} instance.
  * </ul>
  *
  * <i>Note that the class will not cast to an array correctly, you must use the
@@ -167,6 +167,66 @@ class COntologyNode extends CGraphNode
 		return $save;																// ==>
 
 	} // Term.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC RELATION INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	RelateTo																		*
+	 *==================================================================================*/
+
+	/**
+	 * Create a graph edge.
+	 *
+	 * This method can be used to create a graph edge or relation between the current node
+	 * and an object node using a predicate node. The method accepts the following
+	 * parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theContainer</b>: The graph and term containers as an array:
+	 *	 <ul>
+	 *		<li><i>{@link kTAG_NODE kTAG_NODE}</i>: This element should hold the nodes
+	 *			container, it must be a Everyman\Neo4j\Client instance.
+	 *		<li><i>{@link kTAG_TERM kTAG_TERM}</i>: This element should hold the terms
+	 *			container, it must be a {@link CContainer CContainer} instance.
+	 *	 </ul>
+	 *	<li><b>$thePredicate</b>: The predicate node or graph edge node:
+	 *	 <ul>
+	 *		<li><i>integer</i>: The method will search for the relationship corresponding to
+	 *			the provided number, if the node was not found, the method will raise an
+	 *			exception.
+	 *		<li><i>Everyman\Neo4j\Relationship</i>: The method will use it.
+	 *	 </ul>
+	 *	<li><b>$theObject</b>: The destination node or relationship object node:
+	 *	 <ul>
+	 *		<li><i>integer</i>: The method will search for the relationship corresponding to
+	 *			the provided number, if the node was not found, the method will raise an
+	 *			exception.
+	 *		<li><i>Everyman\Neo4j\Node</i>: The method will use it.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * The method will return a {@link COntologyEdge COntologyEdge} object, or raise an
+	 * exception if the opreation was not successful.
+	 *
+	 * @param reference				$theContainer		Object container.
+	 * @param mixed					$thePredicate		Predicate.
+	 * @param mixed					$theObject			Object.
+	 *
+	 * @access public
+	 * @return COntologyEdge
+	 */
+	public function RelateTo( $thePredicate, $theObject )
+	{
+
+	} // RelateTo.
 
 		
 
@@ -709,11 +769,6 @@ class COntologyNode extends CGraphNode
 	protected function _FinishLoad( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
-		// Load or create node.
-		//
-		parent::_FinishLoad( $theContainer[ kTAG_NODE ], $theIdentifier, $theModifiers );
-		
-		//
 		// Get term reference.
 		//
 		$term = $this->offsetGet( kTAG_TERM );
@@ -734,6 +789,11 @@ class COntologyNode extends CGraphNode
 		else
 			$this->Term( new COntologyTerm() );
 	
+		//
+		// Initialise empty nodes.
+		//
+		parent::_FinishLoad( $theContainer[ kTAG_NODE ], $theIdentifier, $theModifiers );
+		
 	} // _FinishLoad.
 
 		

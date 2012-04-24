@@ -318,7 +318,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">count</span> (line <span class="line-number">437</span>)
+		<span class="method-title">count</span> (line <span class="line-number">443</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -350,7 +350,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">getArrayCopy</span> (line <span class="line-number">459</span>)
+		<span class="method-title">getArrayCopy</span> (line <span class="line-number">465</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -382,7 +382,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">ObjectTerm</span> (line <span class="line-number">301</span>)
+		<span class="method-title">ObjectTerm</span> (line <span class="line-number">307</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -421,7 +421,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetExists</span> (line <span class="line-number">367</span>)
+		<span class="method-title">offsetExists</span> (line <span class="line-number">373</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -458,7 +458,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetGet</span> (line <span class="line-number">403</span>)
+		<span class="method-title">offsetGet</span> (line <span class="line-number">409</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -495,7 +495,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">SubjectTerm</span> (line <span class="line-number">219</span>)
+		<span class="method-title">SubjectTerm</span> (line <span class="line-number">225</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -573,12 +573,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Commit</span> (line <span class="line-number">501</span>)
+		<span class="method-title">_Commit</span> (line <span class="line-number">510</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Store object in container.</p>
-<p class="description"><p>We <a href="../../MyWrapper/Persistence/CGraphEdge.html#method_Commit">overload</a> this method to provide the correct  container to the <a href="../../MyWrapper/Persistence/CGraphEdge.html">parent</a> <a href="../../MyWrapper/Persistence/CGraphEdge.html#method_Commit">method</a>.</p></p>
+<p class="description"><p>We <a href="../../MyWrapper/Persistence/CGraphEdge.html#method_Commit">overload</a> this method to provide the correct  container to the <a href="../../MyWrapper/Persistence/CGraphEdge.html">parent</a> <a href="../../MyWrapper/Persistence/CGraphEdge.html#method_Commit">method</a>.</p><p>We also COntologyTerm::Commit() the <a href="../../MyWrapper/Ontology/COntologyEdge.html#methodSubjectTerm">subject</a> and  <a href="../../MyWrapper/Ontology/COntologyEdge.html#methodObjectTerm">object</a> <a href="../../MyWrapper/Ontology/COntologyTerm.html">terms</a>.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CGraphEdge.html#methodNode">CGraphEdge::Node()</a></li>
@@ -617,7 +617,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_CreateNodeIndex</span> (line <span class="line-number">961</span>)
+		<span class="method-title">_CreateNodeIndex</span> (line <span class="line-number">1115</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -655,12 +655,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishCreate</span> (line <span class="line-number">866</span>)
+		<span class="method-title">_FinishCreate</span> (line <span class="line-number">925</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Normalise after a _Create().</p>
-<p class="description"><p>In this class we create an empty node by default.</p></p>
+<p class="description"><p>In this class we initialise the <a href="../../MyWrapper/Ontology/COntologyEdge.html#methodTerm">predicate</a>,  <a href="../../MyWrapper/Ontology/COntologyEdge.html#methodSubjectTerm">subject</a> and <a href="../../MyWrapper/Ontology/COntologyEdge.html#methodObjectTerm">object</a>  <a href="../../MyWrapper/Ontology/COntologyTerm.html">terms</a>.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
 			</ul>
@@ -698,12 +698,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishLoad</span> (line <span class="line-number">897</span>)
+		<span class="method-title">_FinishLoad</span> (line <span class="line-number">967</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Normalise after a _Load().</p>
-<p class="description"><p>In this class we get the term reference from the node <a href="../../MyWrapper/Persistence/CGraphEdge.html#methodType">type</a> property  and load it.</p></p>
+<p class="description"><p>In this class we get the term reference from the node <a href="../../MyWrapper/Persistence/CGraphEdge.html#methodType">type</a> property  and load it, along with the <a href="../../MyWrapper/Persistence/CGraphEdge.html#methodSubject">subject</a> and <a href="../../MyWrapper/Persistence/CGraphEdge.html#methodObject">object</a>  terms.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
 			</ul>
@@ -741,12 +741,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Load</span> (line <span class="line-number">602</span>)
+		<span class="method-title">_Load</span> (line <span class="line-number">637</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Find object.</p>
-<p class="description"><p>In this class we try to load the node.</p></p>
+<p class="description"><p>In this class we pass the correct parameters to the <a href="../../MyWrapper/Persistence/CGraphEdge.html">parent</a>  <a href="../../MyWrapper/Persistence/CGraphEdge.html#method_Load">method</a>.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
 			</ul>
@@ -784,7 +784,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">796</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">831</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -828,7 +828,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCreate</span> (line <span class="line-number">651</span>)
+		<span class="method-title">_PrepareCreate</span> (line <span class="line-number">686</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -875,7 +875,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">723</span>)
+		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">758</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1140,7 +1140,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Tue, 24 Apr 2012 14:23:46 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Tue, 24 Apr 2012 20:00:22 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

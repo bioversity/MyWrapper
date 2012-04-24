@@ -1549,6 +1549,21 @@ exit( "Done!\n" );
 			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
 	
 		//
+		// Predicate.
+		//
+		$term = new CAttributeTerm();
+		$term->NS( $ns );
+		$term->Code( substr( kTAG_PRED, 1 ) );
+		$term->Name( 'Predicate', kDEFAULT_LANGUAGE );
+		$term->Definition
+		( 'This term is used to indicate a predicate node.',
+		  kDEFAULT_LANGUAGE );
+		$term->Synonym( 'kTAG_PRED', kTYPE_EXACT );
+		$term->Commit( $theContainer );
+		if( $doDisplay )
+			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+	
+		//
 		// Term.
 		//
 		$term = new CAttributeTerm();

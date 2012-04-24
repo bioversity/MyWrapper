@@ -121,10 +121,10 @@ class CGraphEdge extends CGraphNode
 			//
 			// Set inited flag.
 			//
-			$this->_IsInited( ($this->mNode !== NULL) &&
-							  ($this->mNode->getType() !== NULL) &&
-							  ($this->mNode->getEndNode() !== NULL) &&
-							  ($this->mNode->getStartNode() !== NULL) );
+			$this->_IsInited( ($this->Node() !== NULL) &&
+							  ($this->Node()->getType() !== NULL) &&
+							  ($this->Node()->getEndNode() !== NULL) &&
+							  ($this->Node()->getStartNode() !== NULL) );
 			
 		} // Has node.
 		
@@ -159,21 +159,9 @@ class CGraphEdge extends CGraphNode
 	public function Node( $theValue = NULL, $getOld = FALSE )
 	{
 		//
-		// Check provided value.
+		// Call parent method.
 		//
-		if( ($theValue !== NULL)
-		 && ($theValue !== FALSE)
-		 && (! $theValue instanceof Everyman\Neo4j\Relationship) )
-			throw new CException
-					( "Unsupported relationship type",
-					  kERROR_UNSUPPORTED,
-					  kMESSAGE_TYPE_ERROR,
-					  array( 'Node' => $theValue ) );							// !@! ==>
-		
-		//
-		// Handle data.
-		//
-		$save = CObject::ManageMember( $this->mNode, $theValue, $getOld );
+		$save = parent::Node( $theValue, $getOld );
 				
 		//
 		// Set status.
@@ -181,17 +169,12 @@ class CGraphEdge extends CGraphNode
 		if( $theValue !== NULL )
 		{
 			//
-			// Set dirty flag.
-			//
-			$this->_IsDirty( TRUE );
-			
-			//
 			// Set inited flag.
 			//
-			$this->_IsInited( ($this->mNode !== NULL) &&
-							  ($this->mNode->getType() !== NULL) &&
-							  ($this->mNode->getEndNode() !== NULL) &&
-							  ($this->mNode->getStartNode() !== NULL) );
+			$this->_IsInited( (($tmp = $this->Node()) !== NULL) &&
+							  ($tmp->getType() !== NULL) &&
+							  ($tmp->getEndNode() !== NULL) &&
+							  ($tmp->getStartNode() !== NULL) );
 		}
 		
 		return $save;																// ==>
@@ -260,11 +243,11 @@ class CGraphEdge extends CGraphNode
 			$theValue = $theValue->Node();
 		
 		//
-		// Check Node.
+		// Check node.
 		//
 		if( ! $theValue instanceof Everyman\Neo4j\Node )
 			throw new CException
-					( "Unsupported node type",
+					( "Unsupported subject node type",
 					  kERROR_UNSUPPORTED,
 					  kMESSAGE_TYPE_ERROR,
 					  array( 'Node' => $theValue ) );							// !@! ==>
@@ -288,10 +271,10 @@ class CGraphEdge extends CGraphNode
 		//
 		// Set inited flag.
 		//
-		$this->_IsInited( ($this->mNode !== NULL) &&
-						  ($this->mNode->getType() !== NULL) &&
-						  ($this->mNode->getEndNode() !== NULL) &&
-						  ($this->mNode->getStartNode() !== NULL) );
+		$this->_IsInited( ($this->Node() !== NULL) &&
+						  ($this->Node()->getType() !== NULL) &&
+						  ($this->Node()->getEndNode() !== NULL) &&
+						  ($this->Node()->getStartNode() !== NULL) );
 		
 		if( $getOld )
 			return $save;															// ==>
@@ -366,7 +349,7 @@ class CGraphEdge extends CGraphNode
 		//
 		if( ! $theValue instanceof Everyman\Neo4j\Node )
 			throw new CException
-					( "Unsupported node type",
+					( "Unsupported object node type",
 					  kERROR_UNSUPPORTED,
 					  kMESSAGE_TYPE_ERROR,
 					  array( 'Node' => $theValue ) );							// !@! ==>
@@ -390,10 +373,10 @@ class CGraphEdge extends CGraphNode
 		//
 		// Set inited flag.
 		//
-		$this->_IsInited( ($this->mNode !== NULL) &&
-						  ($this->mNode->getType() !== NULL) &&
-						  ($this->mNode->getEndNode() !== NULL) &&
-						  ($this->mNode->getStartNode() !== NULL) );
+		$this->_IsInited( ($this->Node() !== NULL) &&
+						  ($this->Node()->getType() !== NULL) &&
+						  ($this->Node()->getEndNode() !== NULL) &&
+						  ($this->Node()->getStartNode() !== NULL) );
 		
 		if( $getOld )
 			return $save;															// ==>
@@ -439,27 +422,44 @@ class CGraphEdge extends CGraphNode
 		if( $theModifiers & kFLAG_PERSIST_DELETE )
 		{
 			//
-			// Save node.
+			// Save node and id.
 			//
 			$save = $this->Node();
-			
-			//
-			// Delete node if needed.
-			//
-			if( $save->hasId()
-			 && $theContainer->deleteRelationship( $save ) )
+			$id = $save->getId();
+			if( $id !== NULL )
+			{
+				//
+				// Delete relationship.
+				//
+				if( ! $theContainer->deleteRelationship( $save ) )
+					throw new CException
+							( "Unable to delete relationship",
+							  kERROR_INVALID_STATE,
+							  kMESSAGE_TYPE_ERROR,
+							  array( 'Id' => $id ) );							// !@! ==>
+				
+				//
+				// Reset relationship.
+				//
 				$this->Node( $theContainer->makeRelationship() );
+		
+			} // Has ID.
 			
-			return $save->getId();													// ==>
+			return $id;																// ==>
 		
 		} // Delete.
 		
 		//
-		// Save node.
+		// Save subject node.
 		//
-		$this->mNode->save();
+		$this->Subject()->save();
 		
-		return $this->mNode->getID();												// ==>
+		//
+		// Save object node.
+		//
+		$this->Object()->save();
+		
+		return parent::_Commit( $theContainer, $theIdentifier, $theModifiers );		// ==>
 	
 	} // _Commit.
 
@@ -557,22 +557,31 @@ class CGraphEdge extends CGraphNode
 	protected function _FinishLoad( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
-		// Create empty predicate node.
+		// Save node.
 		//
-		if( $this->mNode === NULL )
+		$save = $this->Node();
+		
+		//
+		// Initialise node resources.
+		//
+		if( $save === NULL )
+		{
+			//
+			// Init predicate node.
+			//
 			$this->Node( $theContainer->makeRelationship() );
+			
+			//
+			// Init subject node.
+			//
+			$this->Subject( $theContainer->makeNode() );
+			
+			//
+			// Init object node.
+			//
+			$this->Object( $theContainer->makeNode() );
 		
-		//
-		// Create empty subject node.
-		//
-		if( $this->mNode->getStartNode() === NULL )
-			$this->SubjectNode( $theContainer->makeNode() );
-		
-		//
-		// Create empty object node.
-		//
-		if( $this->mNode->getEndNode() === NULL )
-			$this->ObjectNode( $theContainer->makeNode() );
+		} // Empty relationship.
 		
 		//
 		// Set inited flag.

@@ -159,6 +159,12 @@ class COntologyEdge extends CGraphEdge
 		if( $theValue !== NULL )
 		{
 			//
+			// Set node type.
+			//
+			if( $theValue !== FALSE )
+				$this->Type( $theValue[ kTAG_GID ] );
+			
+			//
 			// Set dirty flag.
 			//
 			$this->_IsDirty( TRUE );
@@ -489,6 +495,9 @@ class COntologyEdge extends CGraphEdge
 	 * We {@link CGraphEdge::_Commit() overload} this method to provide the correct
 	 * container to the {@link CGraphEdge parent} {@link CGraphEdge::_Commit() method}.
 	 *
+	 * We also {@link COntologyTerm::Commit() commit} the {@link SubjectTerm() subject} and
+	 * {@link ObjectTerm() object} {@link COntologyTerm terms}.
+	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
 	 * @param reference			   &$theModifiers		Commit modifiers.
@@ -501,6 +510,54 @@ class COntologyEdge extends CGraphEdge
 	protected function _Commit( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
+		// Handle delete.
+		//
+		if( $theModifiers & kFLAG_PERSIST_DELETE )
+		{
+			//
+			// Reset predicate term.
+			//
+			$id = $this->Node()->getId();
+			$this->mPredicateTerm->Predicate( $id, FALSE );
+			$mod = array( kTAG_PRED => $id );
+			$theContainer[ kTAG_TERM ]->Commit( $mod,
+												$this->mPredicateTerm[ kTAG_LID ],
+												kFLAG_PERSIST_MODIFY +
+												kFLAG_MODIFY_PULL +
+												kFLAG_STATE_ENCODED );
+			$this->Term( new COntologyTerm() );
+			
+			//
+			// Reset subject term.
+			//
+			$term = $this->SubjectTerm();
+			$id = $this->Subject()->getId();
+			$term->Node( $id, FALSE );
+			$mod = array( kTAG_NODE => $id );
+			$theContainer[ kTAG_TERM ]->Commit( $mod,
+												$term[ kTAG_LID ],
+												kFLAG_PERSIST_MODIFY +
+												kFLAG_MODIFY_PULL +
+												kFLAG_STATE_ENCODED );
+			$this->SubjectTerm( new COntologyTerm() );
+			
+			//
+			// Reset object term.
+			//
+			$term = $this->ObjectTerm();
+			$id = $this->Object()->getId();
+			$term->Node( $id, FALSE );
+			$mod = array( kTAG_NODE => $id );
+			$theContainer[ kTAG_TERM ]->Commit( $mod,
+												$term[ kTAG_LID ],
+												kFLAG_PERSIST_MODIFY +
+												kFLAG_MODIFY_PULL +
+												kFLAG_STATE_ENCODED );
+			$this->ObjectTerm( new COntologyTerm() );
+		
+		} // Delete.
+		
+		//
 		// Call parent method.
 		//
 		$id = parent::_Commit( $theContainer[ kTAG_NODE ], $theIdentifier, $theModifiers );
@@ -511,15 +568,11 @@ class COntologyEdge extends CGraphEdge
 		if( ! ($theModifiers & kFLAG_PERSIST_DELETE) )
 		{
 			//
-			// Set node in term.
+			// Commit predicate term.
 			//
-/*
-			$this->mPredicateTerm->Node( $id, TRUE );
-			$this->mPredicateTerm->Commit( $theContainer[ kTAG_TERM ] );
-*/
-			$id = $this->mNode->getId();
-			$this->mPredicateTerm->Node( $id, TRUE );
-			$mod = array( kTAG_NODE => $id );
+			$id = $this->Node()->getId();
+			$this->mPredicateTerm->Predicate( $id, TRUE );
+			$mod = array( kTAG_PRED => $id );
 			$theContainer[ kTAG_TERM ]->Commit( $mod,
 												$this->mPredicateTerm[ kTAG_LID ],
 												kFLAG_PERSIST_MODIFY +
@@ -529,56 +582,37 @@ class COntologyEdge extends CGraphEdge
 			//
 			// Commit subject term.
 			//
-			$this->mSubjectTerm->Commit( $theContainer[ kTAG_TERM ],
-										 NULL,
-										 kFLAG_PERSIST_REPLACE +
-										 kFLAG_STATE_ENCODED );
+			$id = $this->Subject()->getId();
+			$this->mSubjectTerm->Node( $id, TRUE );
+			$mod = array( kTAG_NODE => $id );
+			$theContainer[ kTAG_TERM ]->Commit( $mod,
+												$this->mSubjectTerm[ kTAG_LID ],
+												kFLAG_PERSIST_MODIFY +
+												kFLAG_MODIFY_ADDSET +
+												kFLAG_STATE_ENCODED );
 			
 			//
 			// Commit object term.
 			//
-			$this->mObjectTerm->Commit( $theContainer[ kTAG_TERM ],
-										NULL,
-										kFLAG_PERSIST_REPLACE +
-										kFLAG_STATE_ENCODED );
+			$id = $this->Object()->getId();
+			$this->mObjectTerm->Node( $id, TRUE );
+			$mod = array( kTAG_NODE => $id );
+			$theContainer[ kTAG_TERM ]->Commit( $mod,
+												$this->mObjectTerm[ kTAG_LID ],
+												kFLAG_PERSIST_MODIFY +
+												kFLAG_MODIFY_ADDSET +
+												kFLAG_STATE_ENCODED );
 			
 			//
 			// Add indexes.
 			//
 			$this->_CreateNodeIndex( $theContainer[ kTAG_NODE ] );
+			
+			return $this->Node()->getId();											// ==>
 		
 		} // Saving.
 		
-		//
-		// Handle delete.
-		//
-		else
-		{
-			//
-			// Remove node from term.
-			//
-/*
-			$this->mPredicateTerm->Node( $id, FALSE );
-			$this->mPredicateTerm->Commit( $theContainer[ kTAG_TERM ] );
-*/
-			$this->mPredicateTerm->Node( $id, FALSE );
-			$mod = array( kTAG_NODE => $id );
-			$theContainer[ kTAG_TERM ]->Commit( $mod,
-												$this->mPredicateTerm[ kTAG_LID ],
-												kFLAG_PERSIST_MODIFY +
-												kFLAG_MODIFY_PULL +
-												kFLAG_STATE_ENCODED );
-			
-			//
-			// Reset term
-			//
-			$this->Term( new COntologyTerm() );
-			
-			return $id;																// ==>
-		
-		} // Deleting.
-		
-		return $this->mNode->getId();												// ==>
+		return $id;																	// ==>
 	
 	} // _Commit.
 
@@ -590,7 +624,8 @@ class COntologyEdge extends CGraphEdge
 	/**
 	 * Find object.
 	 *
-	 * In this class we try to load the node.
+	 * In this class we pass the correct parameters to the {@link CGraphEdge parent}
+	 * {@link CGraphEdge::_Load() method}.
 	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
@@ -836,7 +871,29 @@ class COntologyEdge extends CGraphEdge
 					  array( 'Container' => $theContainer ) );					// !@! ==>
 		
 		//
-		// Commit term.
+		// Commit subject term.
+		//
+		$id = $this->mSubjectTerm->Commit( $term_cont );
+	
+		//
+		// Set subject term reference.
+		//
+		$this->Node()->getStartNode()->setProperty
+			( kTAG_TERM, $this->mSubjectTerm[ kTAG_GID ] );
+		
+		//
+		// Commit object term.
+		//
+		$id = $this->mObjectTerm->Commit( $term_cont );
+	
+		//
+		// Set subject term reference.
+		//
+		$this->Node()->getEndNode()->setProperty
+			( kTAG_TERM, $this->mObjectTerm[ kTAG_GID ] );
+		
+		//
+		// Commit predicate term.
 		//
 		$id = $this->mPredicateTerm->Commit( $term_cont );
 	
@@ -855,7 +912,9 @@ class COntologyEdge extends CGraphEdge
 	/**
 	 * Normalise after a {@link _Create() create}.
 	 *
-	 * In this class we create an empty node by default.
+	 * In this class we initialise the {@link Term() predicate},
+	 * {@link SubjectTerm() subject} and {@link ObjectTerm() object}
+	 * {@link COntologyTerm terms}.
 	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
@@ -869,6 +928,16 @@ class COntologyEdge extends CGraphEdge
 		// Create empty term.
 		//
 		$this->Term( new COntologyTerm() );
+	
+		//
+		// Create empty subject term.
+		//
+		$this->SubjectTerm( new COntologyTerm() );
+	
+		//
+		// Create empty object term.
+		//
+		$this->ObjectTerm( new COntologyTerm() );
 	
 		//
 		// Create empty node.
@@ -886,7 +955,8 @@ class COntologyEdge extends CGraphEdge
 	 * Normalise after a {@link _Load() load}.
 	 *
 	 * In this class we get the term reference from the node {@link Type() type} property
-	 * and load it.
+	 * and load it, along with the {@link Subject() subject} and {@link Object() object}
+	 * terms.
 	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
@@ -897,31 +967,115 @@ class COntologyEdge extends CGraphEdge
 	protected function _FinishLoad( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
-		// Load or create node.
+		// Load term.
+		//
+		if( ($ref = $this->Type()) !== NULL )
+		{
+			//
+			// Find and load predicate term.
+			//
+			$term = CPersistentUnitObject::NewObject
+						( $theContainer[ kTAG_TERM ],
+						  COntologyTermObject::HashIndex( $ref ),
+						  kFLAG_STATE_ENCODED );
+			if( $term )
+				$this->Term( $term );
+			else
+				throw new CException
+						( "Invalid predicate term reference",
+						  kERROR_NOT_FOUND,
+						  kMESSAGE_TYPE_ERROR,
+						  array( 'Term' => $ref ) );							// !@! ==>
+		
+			//
+			// Find subject node and load subject term.
+			//
+			$ref = $this->Subject()->getProperty( kTAG_TERM );
+			if( $ref !== NULL )
+			{
+				//
+				// Load subject term.
+				//
+				$term = CPersistentUnitObject::NewObject
+							( $theContainer[ kTAG_TERM ],
+							  COntologyTermObject::HashIndex( $ref ),
+							  kFLAG_STATE_ENCODED );
+				if( $term )
+					$this->SubjectTerm( $term );
+				else
+					throw new CException
+							( "Invalid subject term reference",
+							  kERROR_NOT_FOUND,
+							  kMESSAGE_TYPE_ERROR,
+							  array( 'Term' => $ref ) );						// !@! ==>
+			
+			} // Has subject term reference.
+
+			else
+				throw new CException
+						( "Subject node is missing term reference",
+						  kERROR_OPTION_MISSING,
+						  kMESSAGE_TYPE_ERROR );								// !@! ==>
+		
+			//
+			// Find object node and load object term.
+			//
+			$ref = $this->Object()->getProperty( kTAG_TERM );
+			if( $ref !== NULL )
+			{
+				//
+				// Load subject term.
+				//
+				$term = CPersistentUnitObject::NewObject
+							( $theContainer[ kTAG_TERM ],
+							  COntologyTermObject::HashIndex( $ref ),
+							  kFLAG_STATE_ENCODED );
+				if( $term )
+					$this->ObjectTerm( $term );
+				else
+					throw new CException
+							( "Invalid object term reference",
+							  kERROR_NOT_FOUND,
+							  kMESSAGE_TYPE_ERROR,
+							  array( 'Term' => $ref ) );						// !@! ==>
+			
+			} // Has object term reference.
+
+			else
+				throw new CException
+						( "Object node is missing term reference",
+						  kERROR_OPTION_MISSING,
+						  kMESSAGE_TYPE_ERROR );								// !@! ==>
+		
+		} // Current node has term reference: it means it was loaded.
+		
+		//
+		// Initialise terms.
+		//
+		else
+		{
+			//
+			// Init predicate term.
+			//
+			$this->Term( new COntologyTerm() );
+	
+			//
+			// Init subject term.
+			//
+			$this->SubjectTerm( new COntologyTerm() );
+	
+			//
+			// Init object term.
+			//
+			$this->ObjectTerm( new COntologyTerm() );
+		
+		} // Node not found.
+	
+		//
+		// Initialise empty nodes.
 		//
 		parent::_FinishLoad( $theContainer[ kTAG_NODE ], $theIdentifier, $theModifiers );
 		
-		//
-		// Get term reference.
-		//
-		$term = $this->Type();
-		
-		//
-		// Load term.
-		//
-		if( $term !== NULL )
-			$this->Term(
-				CPersistentUnitObject::NewObject(
-					$theContainer[ kTAG_TERM ],
-					COntologyTermObject::HashIndex( $term ),
-					kFLAG_STATE_ENCODED ) );
-		
-		//
-		// Initialise term.
-		//
-		else
-			$this->Term( new COntologyTerm() );
-	
 	} // _FinishLoad.
 
 		
@@ -969,17 +1123,13 @@ class COntologyEdge extends CGraphEdge
 		//
 		// Instantiate and remove indexes.
 		//
-		$idx_term = new NodeIndex( $theContainer, kINDEX_TERM );
+		$idx_term = new RelationshipIndex( $theContainer, kINDEX_TERM );
 		$idx_term->save();
 		$idx_term->remove( $node, kINDEX_TERM );
 	
-		$idx_name = new NodeIndex( $theContainer, kINDEX_TERM_NAME );
+		$idx_name = new RelationshipIndex( $theContainer, kINDEX_TERM_NAME );
 		$idx_name->save();
 		$idx_name->remove( $node, kINDEX_TERM_NAME );
-	
-		$idx_defs = new NodeFulltextIndex( $theContainer, kINDEX_TERM_DEFINITION );
-		$idx_defs->save();
-		$idx_defs->remove( $node, kINDEX_TERM_DEFINITION );
 	
 		//
 		// Add term index.
@@ -991,12 +1141,6 @@ class COntologyEdge extends CGraphEdge
 		//
 		foreach( $term[ kTAG_NAME ] as $element )
 			$idx_name->add( $node, kTAG_NAME, $element[ kTAG_DATA ] );
-	
-		//
-		// Add definitions index.
-		//
-		foreach( $term[ kTAG_DEFINITION ] as $element )
-			$idx_defs->add( $node, kTAG_DEFINITION, $element[ kTAG_DATA ] );
 	
 	} // _PrepareCreate.
 

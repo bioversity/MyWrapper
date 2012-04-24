@@ -241,13 +241,18 @@ try
 	echo( '<i>Test indexes</i><br>' );
 	echo( '<i>$test->Term( $term );</i><br>' );
 	$test->Term( $term );
-	echo( '<i>$ok = $test->Commit( $container, NULL );</i><br>' );
-	$ok = $test->Commit( $container, NULL );
+	echo( '<i>$ok = $test->Commit( $container );</i><br>' );
+	$ok = $test->Commit( $container );
 	echo( '<i>$index = new NodeIndex( $container[ kTAG_NODE ], kINDEX_TERM );</i><br>' );
 	$index = new NodeIndex( $container[ kTAG_NODE ], kINDEX_TERM );
-	echo( '<i>$test = $index->findOne( kTAG_GID, \'A\' );</i><br>' );
-	$test = $index->findOne( kTAG_GID, 'A' );
-	echo( "$ok:<pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$node = $index->findOne( kTAG_GID, \'A\' );</i><br>' );
+	$node = $index->findOne( kTAG_GID, 'A' );
+	echo( "$ok:<pre>" ); print_r( $node ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>Delete node</i><br>' );
+	echo( '<i>$ok = $test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );</i><br>' );
+	$ok = $test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );
 	echo( '<hr>' );
 }
 

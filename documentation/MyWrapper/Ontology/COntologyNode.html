@@ -30,7 +30,7 @@
 <p class="short-description">Ontology graph node.</p>
 <p class="description"><p>This class implements an ontology graph node.</p><p>The class is derived from <a href="../../MyWrapper/Persistence/CGraphNode.html">CGraphNode</a>, it adds another required  property, the <a href="../../MyWrapper/Ontology/COntologyNode.html#methodTerm">term</a>. This class will wrap the array access framework to  the combination of the <a href="../../MyWrapper/Persistence/CGraphNode.html#methodNode">node</a> properties and the <a href="../../MyWrapper/Ontology/COntologyNode.html#methodTerm">term</a>  elements, except that the <a href="../../MyWrapper/Ontology/COntologyNode.html#methodTerm">term</a> elements will be read-only.</p><p>This class introduces a new kind of container: it must be an array of two elements  structured as follows:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NODE">kTAG_NODE</a></em>: This element should hold the nodes container,
         it must be a Everyman\Neo4j\Client instance.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM">kTAG_TERM</a></em>: This element should hold the terms container,
-        it must be a <a href="../../MyWrapper/Ontology/COntologyTermObject.html">COntologyTermObject</a> instance.</li></ul></p><p><em>Note that the class will not cast to an array correctly, you must use the
+        it must be a <a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a> instance.</li></ul></p><p><em>Note that the class will not cast to an array correctly, you must use the
  <a href="../../MyWrapper/Ontology/COntologyNode.html#methodgetArrayCopy">getArrayCopy</a> method to get an array, if you know how to solve
  this, please do it!</em></p></p>
 		<p class="notes">
@@ -92,7 +92,7 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																																																																																																																								<div class="method-definition">
+																																																																																																																																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">mixed</span>
 										<a href="#count" title="details" class="method-name">count</a>
@@ -115,6 +115,12 @@
 											<span class="method-result">mixed</span>
 										<a href="#offsetGet" title="details" class="method-name">offsetGet</a>
 											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result"><a href="../../MyWrapper/Ontology/COntologyEdge.html">COntologyEdge</a></span>
+										<a href="#RelateTo" title="details" class="method-name">RelateTo</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$thePredicate</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">$theContainer</span>)
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -250,7 +256,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">count</span> (line <span class="line-number">265</span>)
+		<span class="method-title">count</span> (line <span class="line-number">325</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -282,7 +288,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">getArrayCopy</span> (line <span class="line-number">287</span>)
+		<span class="method-title">getArrayCopy</span> (line <span class="line-number">347</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -314,7 +320,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetExists</span> (line <span class="line-number">195</span>)
+		<span class="method-title">offsetExists</span> (line <span class="line-number">255</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -351,7 +357,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetGet</span> (line <span class="line-number">231</span>)
+		<span class="method-title">offsetGet</span> (line <span class="line-number">291</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -383,8 +389,54 @@
 					</dl>
 			
 	</div>
-<a name="methodTerm" id="Term"><!-- --></a>
+<a name="methodRelateTo" id="RelateTo"><!-- --></a>
 <div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">RelateTo</span> (line <span class="line-number">226</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a graph edge.</p>
+<p class="description"><p>This method can be used to create a graph edge or relation between the current node  and an object node using a predicate node. The method accepts the following  parameters:</p><p><ul><li><strong>$theContainer</strong>: The graph and term containers as an array:
+	 <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NODE">kTAG_NODE</a></em>: This element should hold the nodes
+            container, it must be a Everyman\Neo4j\Client instance.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM">kTAG_TERM</a></em>: This element should hold the terms
+            container, it must be a <a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a> instance.</li></ul></li><li><strong>$thePredicate</strong>: The predicate node or graph edge node:
+     <ul><li><em>integer</em>: The method will search for the relationship corresponding to
+            the provided number, if the node was not found, the method will raise an
+            exception.</li><li><em>Everyman\Neo4j\Relationship</em>: The method will use it.</li></ul></li><li><strong>$theObject</strong>: The destination node or relationship object node:
+     <ul><li><em>integer</em>: The method will search for the relationship corresponding to
+            the provided number, if the node was not found, the method will raise an
+            exception.</li><li><em>Everyman\Neo4j\Node</em>: The method will use it.</li></ul></li></ul></p><p>The method will return a <a href="../../MyWrapper/Ontology/COntologyEdge.html">COntologyEdge</a> object, or raise an  exception if the opreation was not successful.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../../MyWrapper/Ontology/COntologyEdge.html">COntologyEdge</a></span>
+		<span class="method-name">
+			RelateTo
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$thePredicate</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">$theContainer</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">$theContainer</span><span class="var-description">: Object container.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$thePredicate</span><span class="var-description">: Predicate.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theObject</span><span class="var-description">: Object.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodTerm" id="Term"><!-- --></a>
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -423,11 +475,11 @@
 			
 	</div>
 <a name="method_Commit" id="_Commit"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Commit</span> (line <span class="line-number">329</span>)
+		<span class="method-title">_Commit</span> (line <span class="line-number">389</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -467,11 +519,11 @@
 			
 	</div>
 <a name="method_CreateNodeIndex" id="_CreateNodeIndex"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_CreateNodeIndex</span> (line <span class="line-number">773</span>)
+		<span class="method-title">_CreateNodeIndex</span> (line <span class="line-number">833</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -505,11 +557,11 @@
 			
 	</div>
 <a name="method_FinishCreate" id="_FinishCreate"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishCreate</span> (line <span class="line-number">678</span>)
+		<span class="method-title">_FinishCreate</span> (line <span class="line-number">738</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -548,11 +600,11 @@
 			
 	</div>
 <a name="method_FinishLoad" id="_FinishLoad"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishLoad</span> (line <span class="line-number">709</span>)
+		<span class="method-title">_FinishLoad</span> (line <span class="line-number">769</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -591,11 +643,11 @@
 			
 	</div>
 <a name="method_Load" id="_Load"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Load</span> (line <span class="line-number">414</span>)
+		<span class="method-title">_Load</span> (line <span class="line-number">474</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -634,11 +686,11 @@
 			
 	</div>
 <a name="method_PrepareCommit" id="_PrepareCommit"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">608</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">668</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -678,11 +730,11 @@
 			
 	</div>
 <a name="method_PrepareCreate" id="_PrepareCreate"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCreate</span> (line <span class="line-number">463</span>)
+		<span class="method-title">_PrepareCreate</span> (line <span class="line-number">523</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -725,11 +777,11 @@
 			
 	</div>
 <a name="method_PrepareLoad" id="_PrepareLoad"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">535</span>)
+		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">595</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -974,7 +1026,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Tue, 24 Apr 2012 14:23:46 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Tue, 24 Apr 2012 20:00:22 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>
