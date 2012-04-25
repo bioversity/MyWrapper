@@ -266,45 +266,125 @@ try
 	$object_node = $test->Object();
 	echo( '<hr>' );
 	
-	echo( '<i>Delete node</i><br>' );
+	//
+	// Members.
+	//
+	echo( '<h3>Members</h3>' );
+	
+	echo( '<i>Subject node</i><br>' );
+	echo( '<i>$subject_onto_node = $test->SubjectNode( $container );</i><br>' );
+	$subject_onto_node = $test->SubjectNode( $container );
+	echo( "<pre>" ); print_r( $subject_onto_node ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>Object node</i><br>' );
+	echo( '<i>$object_onto_node = $test->ObjectNode( $container );</i><br>' );
+	$object_onto_node = $test->ObjectNode( $container );
+	echo( "<pre>" ); print_r( $object_onto_node ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	//
+	// Relations.
+	//
+	echo( '<h3>Relations</h3>' );
+	
+	echo( '<i>Create relationship elements</i><br>' );
+	echo( '<i>$predicate_term = $test->Term();</i><br>' );
+	$predicate_term = $test->Term();
+	echo( '<i>$predicate_gid = $predicate_term[ kTAG_GID ];</i><br>' );
+	$predicate_gid = $predicate_term[ kTAG_GID ];
+
+	echo( '<i>$subject_onto = $test->SubjectNode( $container );</i><br>' );
+	$subject_onto = $test->SubjectNode( $container );
+
+	echo( '<i>$object_onto = $test->ObjectNode( $container );</i><br>' );
+	$object_onto = $test->ObjectNode( $container );
+	echo( '<i>$object_node = $test->Object();</i><br>' );
+	$object_node = $test->Object();
+	echo( '<i>$object_id = $object_node->getId();</i><br>' );
+	$object_id = $object_node->getId();
+	echo( '<hr>' );
+	
+	echo( '<i>Delete edge</i><br>' );
 	echo( '<i>$ok = $test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );</i><br>' );
 	$ok = $test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );
 	echo( "$ok:<pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
-	
-	echo( '<i>Re-create relationship</i><br>' );
-	echo( '<i>$test->Term( $predicate_term );</i><br>' );
-	$test->Term( $predicate_term );
-	echo( '<i>$test->Subject( $subject_node );</i><br>' );
-	$test->Subject( $subject_node );
-	echo( '<i>$test->SubjectTerm( $subject_term );</i><br>' );
-	$test->SubjectTerm( $subject_term );
-	echo( '<i>$test->Object( $object_node );</i><br>' );
-	$test->Object( $object_node );
-	echo( '<i>$test->ObjectTerm( $object_term );</i><br>' );
-	$test->ObjectTerm( $object_term );
-	$id = $test->Commit( $container );
-	echo( "$id:<pre>" ); print_r( $test ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	echo( '<i>Test indexes</i><br>' );
-	echo( '<i>$index = new RelationshipIndex( $container[ kTAG_NODE ], kINDEX_TERM );</i><br>' );
-	$index = new RelationshipIndex( $container[ kTAG_NODE ], kINDEX_TERM );
-	echo( '<i>$found = $index->findOne( kTAG_GID, \'IS-A\' );</i><br>' );
-	$found = $index->findOne( kTAG_GID, 'IS-A' );
-	echo( "$ok:<pre>" ); print_r( $found ); echo( '</pre>' );
+
+	echo( '<i>$test = $subject_onto->RelateTo( $container, $predicate_term, $object_onto );</i><br>' );
+	$test = $subject_onto->RelateTo( $container, $predicate_term, $object_onto );
+	echo( "<pre>" ); print_r( $test ); echo( '</pre>' );
+
+	echo( '<i>$test = $subject_onto->RelateTo( $container, $predicate_gid, $object_node );</i><br>' );
+	$test = $subject_onto->RelateTo( $container, $predicate_gid, $object_node );
+	echo( "<pre>" ); print_r( $test ); echo( '</pre>' );
+
+	echo( '<i>$test = $subject_onto->RelateTo( $container, $predicate_term, $object_id );</i><br>' );
+	$test = $subject_onto->RelateTo( $container, $predicate_gid, $object_id );
+	echo( "<pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 
-	echo( '<i>Cleanup</i><br>' );
-	echo( '<i>$ok = $test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );</i><br>' );
-	$ok = $test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );
-	echo( '<i>$container[ kTAG_NODE ]->deleteNode( $subject_node );</i><br>' );
-	$container[ kTAG_NODE ]->deleteNode( $subject_node );
-	echo( '<i>$container[ kTAG_NODE ]->deleteNode( $object_node );</i><br>' );
-	$container[ kTAG_NODE ]->deleteNode( $object_node );
+	echo( '<i>Commit relation</i><br>' );
+	echo( '<i>$id = $test->Commit( $container );</i><br>' );
+	$id = $test->Commit( $container );
+	echo( "$id<pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
+
+	echo( '<i>Try relating the same nodes</i><br>' );
+	echo( '<i>$rel = $subject_onto->RelateTo( $container, $predicate_term, $object_node );</i><br>' );
+	$rel = $subject_onto->RelateTo( $container, $predicate_term, $object_node );
+	echo( '<i>$id = $rel->Commit( $container );</i><br>' );
+	$id = $rel->Commit( $container );
+	echo( "$id<pre>" ); print_r( $rel ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	echo( '<br>==> DONE!<br>' );
+	//
+	// Indexes.
+	//
+	echo( '<h3>Indexes</h3>' );
+	
+	echo( '<i>Test indexes</i><br>' );
+	echo( '<i>$index = new RelationshipIndex( $container[ kTAG_NODE ], kINDEX_NODE_TERM );</i><br>' );
+	$index = new RelationshipIndex( $container[ kTAG_NODE ], kINDEX_NODE_TERM );
+	echo( '<hr>' );
+	echo( '<i>$found = $index->findOne( kTAG_TERM, $test[ kTAG_GID ] );</i><br>' );
+	$found = $index->findOne( kTAG_TERM, $test[ kTAG_GID ] );
+	$id = $test[ kTAG_GID ];
+	echo( "$id<pre>" ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	echo( '<i>$found = $index->findOne( kTAG_NAME, \'Is-a\' );</i><br>' );
+	$found = $index->findOne( kTAG_NAME, 'Is-a' );
+	echo( "<pre>" ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	echo( '<i>$found = $index->findOne( kTAG_EDGE_TERM, \'SUBJECT/IS-A/OBJECT\' );</i><br>' );
+	$found = $index->findOne( kTAG_EDGE_TERM, 'SUBJECT/IS-A/OBJECT' );
+	echo( "<pre>" ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	echo( '<i>$id = $test->Subject()->getId().\'/\'.$test[ kTAG_GID ].\'/\'.$test->Object()->getId();</i><br>' );
+	$id = $test->Subject()->getId().'/'.$test[ kTAG_GID ].'/'.$test->Object()->getId();
+	echo( '<i>$found = $index->findOne( kTAG_EDGE_NODE, $id );</i><br>' );
+	$found = $index->findOne( kTAG_EDGE_NODE, $id );
+	echo( "$id<pre>" ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	//
+	// Cleanup.
+	//
+	echo( '<h3>Cleanup</h3>' );
+	
+	echo( '<i>Cleanup</i><br>' );
+	echo( '<i>$subject = $test->Subject();</i>' );
+	$subject = $test->Subject();
+	echo( '<i>$object = $test->Object();</i>' );
+	$object = $test->Object();
+	echo( '<i>$ok = $test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );</i>' );
+	$ok = $test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );
+	echo( " ==> $ok<br>" );
+	echo( '<i>$container[ kTAG_NODE ]->deleteNode( $subject );</i><br>' );
+	$container[ kTAG_NODE ]->deleteNode( $subject );
+	echo( '<i>$container[ kTAG_NODE ]->deleteNode( $object );</i><br>' );
+	$container[ kTAG_NODE ]->deleteNode( $object );
+	echo( '<hr>' );
 }
 
 //

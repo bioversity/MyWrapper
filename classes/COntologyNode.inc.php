@@ -26,22 +26,16 @@
 /**
  * Terms index.
  *
- * This tag defines the ontology node terms index.
- */
-define( "kINDEX_TERM",							'TERMS' );
-
-/**
- * Names index.
+ * This tag defines the index (NodeIndex) collecting ontology node term references. This
+ * index will link the node to the term via the following keys:
  *
- * This tag defines the ontology node names index.
+ * <ul>
+ *	<li><i>{@link kTAG_TERM kTAG_TERM}</i>: This key links the current node to the node's
+ *		{@link COntologyTerm term} {@link kTAG_GID identifiers}.
+ *	<li><i>{@link kTAG_NAME kTAG_NAME}</i>: This key links the current node to the node's
+ *		{@link COntologyTerm term} {@link kTAG_NAME names}.
+ * </ul>
  */
-define( "kINDEX_TERM_NAME",						'NAMES' );
-
-/**
- * Definitions index.
- *
- * This tag defines the ontology node names index.
- */
-define( "kINDEX_TERM_DEFINITION",				'DEFINITIONS' );
+define( "kINDEX_NODE_TERM",						'NODES' );
 
 ?>

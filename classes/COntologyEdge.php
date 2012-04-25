@@ -27,11 +27,11 @@
 require_once( kPATH_LIBRARY_SOURCE."CGraphEdge.php" );
 
 /**
- * Local defines.
+ * Nodes.
  *
- * This include file contains the local class definitions.
+ * This include file contains the ontology node class definitions.
  */
-require_once( kPATH_LIBRARY_SOURCE."COntologyNode.inc.php" );
+require_once( kPATH_LIBRARY_SOURCE."COntologyNode.php" );
 
 use Everyman\Neo4j\Transport,
 	Everyman\Neo4j\Client,
@@ -350,6 +350,115 @@ class COntologyEdge extends CGraphEdge
 
 /*=======================================================================================
  *																						*
+ *								PUBLIC MEMBER UTILITIES									*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	SubjectNode																		*
+	 *==================================================================================*/
+
+	/**
+	 * Return subject node.
+	 *
+	 * This method can be used to convert the {@link Subject() subject}
+	 * {@link COntologyNode node} into an ontology {@link COntologyNode node}.
+	 *
+	 * The method accepts a single parameter which represents the term and node containers
+	 * structured as follows:
+	 *
+	 * <ul>
+	 *	<li><i>{@link kTAG_NODE kTAG_NODE}</i>: This element should hold the nodes
+	 *		container, it must be a Everyman\Neo4j\Client instance.
+	 *	<li><i>{@link kTAG_TERM kTAG_TERM}</i>: This element should hold the terms
+	 *		container, it must be a {@link CContainer CContainer} instance.
+	 * </ul>
+	 *
+	 * @param array					$theContainer		Object container.
+	 *
+	 * @access public
+	 * @return COntologyNode
+	 *
+	 * @uses Subject()
+	 * @uses SubjectTerm()
+	 */
+	public function SubjectNode( $theContainer )
+	{
+		//
+		// Init new node.
+		//
+		$node = new COntologyNode( $theContainer );
+		
+		//
+		// Set node.
+		//
+		$node->Node( $this->Subject() );
+		
+		//
+		// Set term.
+		//
+		$node->Term( $this->SubjectTerm() );
+		
+		return $node;																// ==>
+
+	} // SubjectNode.
+
+	 
+	/*===================================================================================
+	 *	ObjectNode																		*
+	 *==================================================================================*/
+
+	/**
+	 * Return object node.
+	 *
+	 * This method can be used to convert the {@link Object() object}
+	 * {@link COntologyNode node} into an ontology {@link COntologyNode node}.
+	 *
+	 * The method accepts a single parameter which represents the term and node containers
+	 * structured as follows:
+	 *
+	 * <ul>
+	 *	<li><i>{@link kTAG_NODE kTAG_NODE}</i>: This element should hold the nodes
+	 *		container, it must be a Everyman\Neo4j\Client instance.
+	 *	<li><i>{@link kTAG_TERM kTAG_TERM}</i>: This element should hold the terms
+	 *		container, it must be a {@link CContainer CContainer} instance.
+	 * </ul>
+	 *
+	 * @param array					$theContainer		Object container.
+	 *
+	 * @access public
+	 * @return COntologyNode
+	 *
+	 * @uses Object()
+	 * @uses ObjectTerm()
+	 */
+	public function ObjectNode( $theContainer )
+	{
+		//
+		// Init new node.
+		//
+		$node = new COntologyNode( $theContainer );
+		
+		//
+		// Set node.
+		//
+		$node->Node( $this->Object() );
+		
+		//
+		// Set term.
+		//
+		$node->Term( $this->ObjectTerm() );
+		
+		return $node;																// ==>
+
+	} // ObjectNode.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PUBLIC ARRAY ACCESS INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -515,44 +624,62 @@ class COntologyEdge extends CGraphEdge
 		if( $theModifiers & kFLAG_PERSIST_DELETE )
 		{
 			//
+			// Unrelate terms.
+			//
+			$this->mSubjectTerm->Relate( $this->mObjectTerm, $this->mPredicateTerm, FALSE );
+			
+			//
 			// Reset predicate term.
 			//
 			$id = $this->Node()->getId();
 			$this->mPredicateTerm->Predicate( $id, FALSE );
-			$mod = array( kTAG_PRED => $id );
-			$theContainer[ kTAG_TERM ]->Commit( $mod,
-												$this->mPredicateTerm[ kTAG_LID ],
-												kFLAG_PERSIST_MODIFY +
-												kFLAG_MODIFY_PULL +
-												kFLAG_STATE_ENCODED );
+			if( count( $this->mPredicateTerm->Predicate() ) )
+			{
+				$mod = array( kTAG_EDGE => $id );
+				$theContainer[ kTAG_TERM ]->Commit( $mod,
+													$this->mPredicateTerm[ kTAG_LID ],
+													kFLAG_PERSIST_MODIFY +
+													kFLAG_MODIFY_PULL +
+													kFLAG_STATE_ENCODED );
+			}
+			else
+				$this->mPredicateTerm->Commit( $theContainer[ kTAG_TERM ] );
 			$this->Term( new COntologyTerm() );
 			
 			//
 			// Reset subject term.
 			//
-			$term = $this->SubjectTerm();
 			$id = $this->Subject()->getId();
-			$term->Node( $id, FALSE );
-			$mod = array( kTAG_NODE => $id );
-			$theContainer[ kTAG_TERM ]->Commit( $mod,
-												$term[ kTAG_LID ],
-												kFLAG_PERSIST_MODIFY +
-												kFLAG_MODIFY_PULL +
-												kFLAG_STATE_ENCODED );
+			$this->mSubjectTerm->Node( $id, FALSE );
+			if( count( $this->mSubjectTerm->Node() ) )
+			{
+				$mod = array( kTAG_NODE => $id );
+				$theContainer[ kTAG_TERM ]->Commit( $mod,
+													$term[ kTAG_LID ],
+													kFLAG_PERSIST_MODIFY +
+													kFLAG_MODIFY_PULL +
+													kFLAG_STATE_ENCODED );
+			}
+			else
+				$this->mSubjectTerm->Commit( $theContainer[ kTAG_TERM ] );
 			$this->SubjectTerm( new COntologyTerm() );
 			
 			//
 			// Reset object term.
 			//
-			$term = $this->ObjectTerm();
 			$id = $this->Object()->getId();
-			$term->Node( $id, FALSE );
-			$mod = array( kTAG_NODE => $id );
-			$theContainer[ kTAG_TERM ]->Commit( $mod,
-												$term[ kTAG_LID ],
-												kFLAG_PERSIST_MODIFY +
-												kFLAG_MODIFY_PULL +
-												kFLAG_STATE_ENCODED );
+			$this->mObjectTerm->Node( $id, FALSE );
+			if( count( $this->mObjectTerm->Node() ) )
+			{
+				$mod = array( kTAG_NODE => $id );
+				$theContainer[ kTAG_TERM ]->Commit( $mod,
+													$term[ kTAG_LID ],
+													kFLAG_PERSIST_MODIFY +
+													kFLAG_MODIFY_PULL +
+													kFLAG_STATE_ENCODED );
+			}
+			else
+				$this->mObjectTerm->Commit( $theContainer[ kTAG_TERM ] );
 			$this->ObjectTerm( new COntologyTerm() );
 		
 		} // Delete.
@@ -572,7 +699,7 @@ class COntologyEdge extends CGraphEdge
 			//
 			$id = $this->Node()->getId();
 			$this->mPredicateTerm->Predicate( $id, TRUE );
-			$mod = array( kTAG_PRED => $id );
+			$mod = array( kTAG_EDGE => $id );
 			$theContainer[ kTAG_TERM ]->Commit( $mod,
 												$this->mPredicateTerm[ kTAG_LID ],
 												kFLAG_PERSIST_MODIFY +
@@ -604,9 +731,14 @@ class COntologyEdge extends CGraphEdge
 												kFLAG_STATE_ENCODED );
 			
 			//
+			// Relate terms.
+			//
+			$this->mSubjectTerm->Relate( $this->mObjectTerm, $this->mPredicateTerm, TRUE );
+
+			//
 			// Add indexes.
 			//
-			$this->_CreateNodeIndex( $theContainer[ kTAG_NODE ] );
+			$this->_IndexTerms( $theContainer[ kTAG_NODE ] );
 			
 			return $this->Node()->getId();											// ==>
 		
@@ -665,7 +797,7 @@ class COntologyEdge extends CGraphEdge
 	 *	<li><i>{@link kTAG_NODE kTAG_NODE}</i>: This element should hold the nodes
 	 *		container, it must be a Everyman\Neo4j\Client instance.
 	 *	<li><i>{@link kTAG_TERM kTAG_TERM}</i>: This element should hold the terms
-	 *		container, it must be a {@link COntologyTermObject COntologyTermObject} instance.
+	 *		container, it must be a {@link CContainer CContainer} instance.
 	 * </ul>
 	 *
 	 * If the container has the correct structure the {@link kTAG_NODE node} container will
@@ -902,6 +1034,15 @@ class COntologyEdge extends CGraphEdge
 		//
 		$this->Type( $this->mPredicateTerm[ kTAG_GID ] );
 		
+		//
+		// Set term relations index.
+		//
+		$this->Node()->setProperty
+			( kTAG_EDGE_TERM, implode( kTOKEN_INDEX_SEPARATOR,
+										array( $this->mSubjectTerm[ kTAG_GID ],
+											   $this->mPredicateTerm[ kTAG_GID ],
+											   $this->mObjectTerm[ kTAG_GID ] ) ) );
+		
 	} // _PrepareCommit.
 
 	 
@@ -927,17 +1068,20 @@ class COntologyEdge extends CGraphEdge
 		//
 		// Create empty term.
 		//
-		$this->Term( new COntologyTerm() );
+		if( ! $this->Term() instanceof COntologyTerm )
+			$this->Term( new COntologyTerm() );
 	
 		//
 		// Create empty subject term.
 		//
-		$this->SubjectTerm( new COntologyTerm() );
+		if( ! $this->SubjectTerm() instanceof COntologyTerm )
+			$this->SubjectTerm( new COntologyTerm() );
 	
 		//
 		// Create empty object term.
 		//
-		$this->ObjectTerm( new COntologyTerm() );
+		if( ! $this->ObjectTerm() instanceof COntologyTerm )
+			$this->ObjectTerm( new COntologyTerm() );
 	
 		//
 		// Create empty node.
@@ -1089,7 +1233,7 @@ class COntologyEdge extends CGraphEdge
 
 	 
 	/*===================================================================================
-	 *	_CreateNodeIndex																*
+	 *	_IndexTerms																*
 	 *==================================================================================*/
 
 	/**
@@ -1099,20 +1243,39 @@ class COntologyEdge extends CGraphEdge
 	 * it will perform the following selections:
 	 *
 	 * <ul>
-	 *	<li><i>{@link kINDEX_TERM kINDEX_TERM}</i>: The {@link Term() term}
-	 *		{@link kTAG_GID global} identifier (NodeIndex).
+	 *	<li><i>{@link kINDEX_EDGE_TERM kINDEX_EDGE_TERM}</i>: The {@link Term() term}
+	 *		{@link kTAG_GID global} identifier (RelationshipIndex).
 	 *		container, it must be a Everyman\Neo4j\Client instance.
-	 *	<li><i>{@link kINDEX_TERM_NAME kINDEX_TERM_NAME}</i>: The {@link Term() term}
-	 *		{@link CTerm::Name() names} in all languages (NodeIndex).
-	 *	<li><i>{@link kINDEX_TERM_DEFINITION kINDEX_TERM_DEFINITION}</i>: The
-	 *		{@link Term() term} {@link CTerm::Definition() definitions} (NodeFulltextIndex).
+	 *	<li><i>{@link kINDEX_EDGE_NAME kINDEX_EDGE_NAME}</i>: The {@link Term() term}
+	 *		{@link CTerm::Name() names} in all languages (RelationshipIndex).
+	 *	<li><i>{@link kINDEX_EDGE_TERMS kINDEX_EDGE_TERMS}</i>: The node relations, this
+	 *		index records the relation terms, that is, the combination of the subject
+	 *		{@link SubjectTerm() term}, predicate {@link Term() term} and the object
+	 *		{@link ObjectTerm() term}, this can be used to retrieve existing relations.
+	 * </ul>
+	 *
+	 * The following index tags are set:
+	 *
+	 * <ul>
+	 *	<li><i>{@link kTAG_GID kTAG_GID}</i>: The {@link Term() term}
+	 *		{@link kTAG_GID global} identifier.
+	 *	<li><i>{@link kTAG_NAME kTAG_NAME}</i>: The {@link Term() term}
+	 *		{@link kTAG_NAME names}. 
+	 *	<li><i>{@link kTAG_EDGE_TERM kTAG_EDGE_TERM}</i>: The relationships between terms
+	 *		taken from the {@link Node() node}'s {@link kTAG_EDGE_TERM kTAG_EDGE_TERM}
+	 *		property, formatted as a SUBJECT/PREDICATE/OBJECT string, in which each element
+	 *		is the {@link kTAG_GID global} {@link COntologyTerm term} identifier.
+	 *	<li><i>{@link kTAG_NODE kTAG_NODE}</i>: The relationships between
+	 *		{@link Node() nodes}, expressed as a SUBJECT/PREDICATE/OBJECT string, in which
+	 *		the subject and object are the {@link Node() node} identifiers and the predicate
+	 *		is the {@link kTAG_GID global} {@link Term() term}  identifier.
 	 * </ul>
 	 *
 	 * @param Everyman\Neo4j\Client	$theContainer		Node container.
 	 *
 	 * @access protected
 	 */
-	protected function _CreateNodeIndex( Everyman\Neo4j\Client $theContainer )
+	protected function _IndexTerms( Everyman\Neo4j\Client $theContainer )
 	{
 		//
 		// Load term and node.
@@ -1121,28 +1284,73 @@ class COntologyEdge extends CGraphEdge
 		$term = $this->Term();
 		
 		//
-		// Instantiate and remove indexes.
+		// Instantiate terms index.
 		//
-		$idx_term = new RelationshipIndex( $theContainer, kINDEX_TERM );
-		$idx_term->save();
-		$idx_term->remove( $node, kINDEX_TERM );
-	
-		$idx_name = new RelationshipIndex( $theContainer, kINDEX_TERM_NAME );
-		$idx_name->save();
-		$idx_name->remove( $node, kINDEX_TERM_NAME );
+		$idx = $this->_GetNodeIndex( $theContainer, kINDEX_NODE_TERM, TRUE );
 	
 		//
-		// Add term index.
+		// Add term global identifier key.
 		//
-		$idx_term->add( $node, kTAG_GID, $term[ kTAG_GID ] );
+		$idx->add( $node, kTAG_TERM, $term[ kTAG_GID ] );
 	
 		//
-		// Add names index.
+		// Add term names key.
 		//
 		foreach( $term[ kTAG_NAME ] as $element )
-			$idx_name->add( $node, kTAG_NAME, $element[ kTAG_DATA ] );
+			$idx->add( $node, kTAG_NAME, $element[ kTAG_DATA ] );
 	
-	} // _PrepareCreate.
+		//
+		// Add term relations key.
+		//
+		$idx->add( $node, kTAG_EDGE_TERM, $this->Node()->getProperty( kTAG_EDGE_TERM ) );
+	
+		//
+		// Add node relations key.
+		//
+		$idx->add
+			( $node, kTAG_EDGE_NODE, implode( kTOKEN_INDEX_SEPARATOR,
+											   array( $this->Subject()->getId(),
+													  $this->mPredicateTerm[ kTAG_GID ],
+													  $this->Object()->getId() ) ) );
+	
+	} // _IndexTerms.
+
+	 
+	/*===================================================================================
+	 *	_GetNodeIndex																	*
+	 *==================================================================================*/
+
+	/**
+	 * Retrieve the edge index.
+	 *
+	 * This method can be used to return an edge index identified by the provided index tag.
+	 *
+	 * @param Everyman\Neo4j\Client	$theContainer		Node container.
+	 * @param string				$theIndex			Index tag.
+	 * @param boolean				$doClear			TRUE means clear index.
+	 *
+	 * @access protected
+	 * @return Everyman\Neo4j\RelationshipIndex 
+	 */
+	protected function _GetNodeIndex( Everyman\Neo4j\Client $theContainer,
+															$theIndex,
+															$doClear = FALSE )
+	{
+		//
+		// Instantiate edge index.
+		//
+		$idx = new RelationshipIndex( $theContainer, $theIndex );
+		$idx->save();
+		
+		//
+		// Clear node index.
+		//
+		if( $doClear )
+			$idx->remove( $this->Node(), $theIndex );
+		
+		return $idx;																// ==>
+	
+	} // _GetNodeIndex.
 
 	 
 

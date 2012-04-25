@@ -161,6 +161,35 @@ try
 	echo( '<hr>' );
 	 
 	//
+	// Test persistence.
+	//
+	echo( '<h3>Test persistence</h3>' );
+
+	echo( "<i>Load term 1</i><br>" );
+	echo( '<i>$id = COntologyTerm::HashIndex( $term1[ kTAG_GID ] );</i><br>' );
+	$id = COntologyTerm::HashIndex( $term1[ kTAG_GID ] );
+	echo( '<i>$found = new COntologyTerm( $collection, $id );</i><br>' );
+	$found = new COntologyTerm( $collection, $id );
+	echo( '<i>$persistent = $found->Persistent();</i><br>' );
+	$persistent = $found->Persistent();
+	echo( "$persistent<pre>" ); print_r( $found ); echo( '</pre>' );
+	echo( '<i>$id = $term2[ kTAG_LID ];</i><br>' );
+	$id = $term2[ kTAG_LID ];
+	echo( '<i>$found = new COntologyTerm( $collection, $id );</i><br>' );
+	$found = new COntologyTerm( $collection, $id );
+	echo( '<i>$persistent = $found->Persistent();</i><br>' );
+	$persistent = $found->Persistent();
+	echo( "$persistent<pre>" ); print_r( $found ); echo( '</pre>' );
+	echo( '<i>$id = \'INVALID\';</i><br>' );
+	$id = 'INVALID';
+	echo( '<i>$found = new COntologyTerm( $collection, $id );</i><br>' );
+	$found = new COntologyTerm( $collection, $id );
+	echo( '<i>$persistent = $found->Persistent();</i><br>' );
+	$persistent = $found->Persistent();
+	echo( "$persistent<pre>" ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	 
+	//
 	// Test valid chain.
 	//
 	echo( '<h3>Test valid chain</h3>' );

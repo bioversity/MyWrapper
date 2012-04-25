@@ -33,6 +33,13 @@ require_once( kPATH_LIBRARY_SOURCE."CGraphNode.php" );
  */
 require_once( kPATH_LIBRARY_SOURCE."COntologyNode.inc.php" );
 
+/**
+ * Edges.
+ *
+ * This include file contains the ontology edge class definitions.
+ */
+require_once( kPATH_LIBRARY_SOURCE."CGraphEdge.php" );
+
 use Everyman\Neo4j\Transport,
 	Everyman\Neo4j\Client,
 	Everyman\Neo4j\Index\NodeIndex,
@@ -197,24 +204,31 @@ class COntologyNode extends CGraphNode
 	 *		<li><i>{@link kTAG_TERM kTAG_TERM}</i>: This element should hold the terms
 	 *			container, it must be a {@link CContainer CContainer} instance.
 	 *	 </ul>
-	 *	<li><b>$thePredicate</b>: The predicate node or graph edge node:
+	 *	<li><b>$thePredicate</b>: The predicate term:
 	 *	 <ul>
-	 *		<li><i>integer</i>: The method will search for the relationship corresponding to
-	 *			the provided number, if the node was not found, the method will raise an
-	 *			exception.
-	 *		<li><i>Everyman\Neo4j\Relationship</i>: The method will use it.
+	 *		<li><i>{@link COntologyTerm COntologyTerm}</i>: The term {@link kTAG_GID global}
+	 *			identifier will be used as the {@link COntologyEdge node}
+	 *			{@link COntologyEdge::Type() type}.
+	 *		<li><i>string</i>: Any other type will be converted to string and will be used
+	 *			as the {@link COntologyEdge node} {@link COntologyEdge::Type() type}.
 	 *	 </ul>
 	 *	<li><b>$theObject</b>: The destination node or relationship object node:
 	 *	 <ul>
-	 *		<li><i>integer</i>: The method will search for the relationship corresponding to
+	 *		<li><i>Everyman\Neo4j\Node</i>: The method will use it to determine the object
+	 *			node identifier.
+	 *		<li><i>integer</i>: The method will search for the node corresponding to
 	 *			the provided number, if the node was not found, the method will raise an
 	 *			exception.
-	 *		<li><i>Everyman\Neo4j\Node</i>: The method will use it.
 	 *	 </ul>
 	 * </ul>
 	 *
 	 * The method will return a {@link COntologyEdge COntologyEdge} object, or raise an
 	 * exception if the opreation was not successful.
+	 *
+	 * Note that this method will not duplicate relationships between the same
+	 * nodes and predicate term: it uses the {@link kINDEX_NODE_TERM kINDEX_NODE_TERM}
+	 * relationship index and its {@link kTAG_EDGE_NODE kTAG_EDGE_NODE} key to locate
+	 * existing relationships.
 	 *
 	 * @param reference				$theContainer		Object container.
 	 * @param mixed					$thePredicate		Predicate.
@@ -223,8 +237,194 @@ class COntologyNode extends CGraphNode
 	 * @access public
 	 * @return COntologyEdge
 	 */
-	public function RelateTo( $thePredicate, $theObject )
+	public function RelateTo( $theContainer, $thePredicate, $theObject = NULL )
 	{
+		//
+		// Handle edge node.
+		//
+		if( $thePredicate instanceof Everyman\Neo4j\Relationship )
+		{
+			if( ($id = $thePredicate->getId()) !== NULL )
+				return new COntologyEdge( $theContainer, $id );						// ==>
+		}
+		
+		//
+		// Handle edge identifier.
+		//
+		if( is_integer( $thePredicate ) )
+			return new COntologyEdge( $theContainer, $thePredicate );				// ==>
+		
+		//
+		// Verify container.
+		//
+		if( is_array( $theContainer )
+		 || ($theContainer instanceof ArrayObject) )
+		{
+			//
+			// Get node container.
+			//
+			if( array_key_exists( kTAG_NODE, (array) $theContainer ) )
+			{
+				if( ! $theContainer[ kTAG_NODE ] instanceof Everyman\Neo4j\Client )
+					throw new CException
+							( "Unsupported node container type",
+							  kERROR_UNSUPPORTED,
+							  kMESSAGE_TYPE_ERROR,
+							  array( 'Container'
+							  	=> $theContainer[ kTAG_NODE ] ) );				// !@! ==>
+			}
+		
+			//
+			// Get term container.
+			//
+			if( array_key_exists( kTAG_TERM, (array) $theContainer ) )
+			{
+				if( ! $theContainer[ kTAG_TERM ] instanceof CContainer )
+					throw new CException
+							( "Unsupported term container type",
+							  kERROR_UNSUPPORTED,
+							  kMESSAGE_TYPE_ERROR,
+							  array( 'Container'
+							  	=> $theContainer[ kTAG_TERM ] ) );				// !@! ==>
+			}
+		
+		} // Structured container.
+		
+		else
+			throw new CException
+					( "Invalid container type",
+					  kERROR_INVALID_PARAMETER,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Container' => $theContainer ) );					// !@! ==>
+		
+		//
+		// Resolve predicate term.
+		//
+		if( ! $thePredicate instanceof COntologyTerm )
+		{
+			//
+			// Load predicate.
+			//
+			$id = COntologyTerm::HashIndex( (string) $thePredicate );
+			$tmp = new COntologyTerm( $theContainer[ kTAG_TERM ], $id );
+			if( ! $tmp->Persistent() )
+				throw new CException
+						( "Predicate term not found",
+						  kERROR_NOT_FOUND,
+						  kMESSAGE_TYPE_ERROR,
+						  array( 'Predicate' => (string) $thePredicate ) );		// !@! ==>
+			$thePredicate = $tmp;
+		
+		} // Provided predicate GID.
+		
+		//
+		// Resolve object node.
+		//
+		if( ! $theObject instanceof self )
+		{
+			//
+			// Check if graph node.
+			//
+			if( $theObject instanceof Everyman\Neo4j\Node )
+			{
+				//
+				// Init object ontology node.
+				//
+				$node = new self( $theContainer );
+				
+				//
+				// Set graph node.
+				//
+				$node->Node( $theObject );
+				
+				//
+				// Handle term.
+				//
+				$term = $theObject->getProperty( kTAG_TERM );
+				if( $term !== NULL )
+				{
+					$id = COntologyTerm::HashIndex( $term );
+					$tmp = new COntologyTerm( $theContainer[ kTAG_TERM ], $id );
+					if( ! $tmp->Persistent() )
+						throw new CException
+								( "Object term not found",
+								  kERROR_NOT_FOUND,
+								  kMESSAGE_TYPE_ERROR,
+								  array( 'Term' => $id ) );						// !@! ==>
+					$node->Term( $tmp );
+					$theObject = $node;
+				}
+				
+				else
+					throw new CException
+							( "Missing object term",
+							  kERROR_OPTION_MISSING,
+							  kMESSAGE_TYPE_ERROR,
+							  array( 'Object' => (string) $theObject ) );		// !@! ==>
+			}
+			
+			//
+			// Check if graph node ID.
+			//
+			elseif( is_integer( $theObject ) )
+			{
+				//
+				// Load node.
+				//
+				$tmp = new self( $theContainer, $theObject );
+				if( $tmp->Node()->getId() === NULL )
+					throw new CException
+							( "Object node not found",
+							  kERROR_NOT_FOUND,
+							  kMESSAGE_TYPE_ERROR,
+							  array( 'Object' => (string) $theObject ) );		// !@! ==>
+				$theObject = $tmp;
+			}
+			
+			else
+				throw new CException
+						( "Invalid object type",
+						  kERROR_INVALID_PARAMETER,
+						  kMESSAGE_TYPE_ERROR,
+						  array( 'Object' => $theObject ) );					// !@! ==>
+		}
+		
+		//
+		// Check relation.
+		//
+		$index = new RelationshipIndex( $theContainer[ kTAG_NODE ], kINDEX_NODE_TERM );
+		$index->save();
+		$found = $index->findOne( kTAG_EDGE_NODE,
+								  implode( kTOKEN_INDEX_SEPARATOR,
+								  		   array( $this->Node()->getId(),
+												  $thePredicate[ kTAG_GID ],
+												  $theObject->Node()->getId() ) ) );
+		if( $found )
+			return new COntologyEdge( $theContainer, $found->getId() );				// ==>
+		
+		//
+		// Create relation.
+		//
+		$edge = new COntologyEdge( $theContainer );
+		
+		//
+		// Set predicate.
+		//
+		$edge->Term( $thePredicate );
+		
+		//
+		// Set subject.
+		//
+		$edge->Subject( $this->Node() );
+		$edge->SubjectTerm( $this->Term() );
+		
+		//
+		// Set object.
+		//
+		$edge->Object( $theObject->Node() );
+		$edge->ObjectTerm( $theObject->Term() );
+		
+		return $edge;																// ==>
 
 	} // RelateTo.
 
@@ -417,7 +617,7 @@ class COntologyNode extends CGraphNode
 			//
 			// Add indexes.
 			//
-			$this->_CreateNodeIndex( $theContainer[ kTAG_NODE ] );
+			$this->_IndexTerms( $theContainer[ kTAG_NODE ] );
 		
 		} // Saving.
 		
@@ -807,30 +1007,42 @@ class COntologyNode extends CGraphNode
 
 	 
 	/*===================================================================================
-	 *	_CreateNodeIndex																*
+	 *	_IndexTerms																		*
 	 *==================================================================================*/
 
 	/**
-	 * Create node indexes.
+	 * Create node/term indexes.
 	 *
 	 * This method will save node indexes after the node was {@link _Commit() committed},
-	 * it will perform the following selections:
+	 * there are two main indexes for nodes:
 	 *
 	 * <ul>
-	 *	<li><i>{@link kINDEX_TERM kINDEX_TERM}</i>: The {@link Term() term}
-	 *		{@link kTAG_GID global} identifier (NodeIndex).
-	 *		container, it must be a Everyman\Neo4j\Client instance.
-	 *	<li><i>{@link kINDEX_TERM_NAME kINDEX_TERM_NAME}</i>: The {@link Term() term}
-	 *		{@link CTerm::Name() names} in all languages (NodeIndex).
-	 *	<li><i>{@link kINDEX_TERM_DEFINITION kINDEX_TERM_DEFINITION}</i>: The
-	 *		{@link Term() term} {@link CTerm::Definition() definitions} (NodeFulltextIndex).
+	 *	<li><i>{@link kINDEX_NODE_TERM kINDEX_NODE_TERM}</i>: This index (NodeIndex) links
+	 *		the node to its {@link Term() term} through the following keys:
+	 *	 <ul>
+	 *		<li><i>{@link kTAG_TERM kTAG_TERM}</i>: This key represents the
+	 *			{@link Term() term} {@link kTAG_GID identifier}.
+	 *		<li><i>{@link kTAG_NAME kTAG_NAME}</i>: This key represents the
+	 *			{@link Term() term} {@link kTAG_NAME names} in all languages.
+	 *	 </ul>
+	 *	<li><i>{@link kINDEX_NODE_TERM_GEN kINDEX_NODE_TERM_GEN}</i>: This index
+	 *		(NodeFulltextIndex) links the node to its {@link Term() term} through the
+	 *		following keys:
+	 *	 <ul>
+	 *		<li><i>{@link kPROP_REF_TERM_WORD kPROP_REF_TERM_WORD}</i>: This key represents
+	 *			the {@link Term() term} words found in the following properties:
+	 *		 <ul>
+	 *			<li><i>{@link kTAG_DEFINITION kTAG_DEFINITION}</i>: Term definitions in all
+	 *				languages.
+	 *		 </ul>
+	 *	 </ul>
 	 * </ul>
 	 *
 	 * @param Everyman\Neo4j\Client	$theContainer		Node container.
 	 *
 	 * @access protected
 	 */
-	protected function _CreateNodeIndex( Everyman\Neo4j\Client $theContainer )
+	protected function _IndexTerms( Everyman\Neo4j\Client $theContainer )
 	{
 		//
 		// Load term and node.
@@ -839,38 +1051,59 @@ class COntologyNode extends CGraphNode
 		$term = $this->Term();
 		
 		//
-		// Instantiate and remove indexes.
+		// Instantiate node index.
 		//
-		$idx_term = new NodeIndex( $theContainer, kINDEX_TERM );
-		$idx_term->save();
-		$idx_term->remove( $node, kINDEX_TERM );
-	
-		$idx_name = new NodeIndex( $theContainer, kINDEX_TERM_NAME );
-		$idx_name->save();
-		$idx_name->remove( $node, kINDEX_TERM_NAME );
-	
-		$idx_defs = new NodeFulltextIndex( $theContainer, kINDEX_TERM_DEFINITION );
-		$idx_defs->save();
-		$idx_defs->remove( $node, kINDEX_TERM_DEFINITION );
+		$idx = $this->_GetNodeIndex( $theContainer, kINDEX_NODE_TERM, TRUE );
 	
 		//
-		// Add term index.
+		// Add term global identifier key.
 		//
-		$idx_term->add( $node, kTAG_GID, $term[ kTAG_GID ] );
+		$idx->add( $node, kTAG_TERM, $term[ kTAG_GID ] );
 	
 		//
-		// Add names index.
+		// Add term names key.
 		//
 		foreach( $term[ kTAG_NAME ] as $element )
-			$idx_name->add( $node, kTAG_NAME, $element[ kTAG_DATA ] );
+			$idx->add( $node, kTAG_NAME, $element[ kTAG_DATA ] );
 	
+	} // _IndexTerms.
+
+	 
+	/*===================================================================================
+	 *	_GetNodeIndex																	*
+	 *==================================================================================*/
+
+	/**
+	 * Retrieve the node index.
+	 *
+	 * This method can be used to return a node index identified by the provided index tag.
+	 *
+	 * @param Everyman\Neo4j\Client	$theContainer		Node container.
+	 * @param string				$theIndex			Index tag.
+	 * @param boolean				$doClear			TRUE means clear index.
+	 *
+	 * @access protected
+	 * @return Everyman\Neo4j\NodeIndex 
+	 */
+	protected function _GetNodeIndex( Everyman\Neo4j\Client $theContainer,
+															$theIndex,
+															$doClear = FALSE )
+	{
 		//
-		// Add definitions index.
+		// Instantiate node index.
 		//
-		foreach( $term[ kTAG_DEFINITION ] as $element )
-			$idx_defs->add( $node, kTAG_DEFINITION, $element[ kTAG_DATA ] );
+		$idx = new NodeIndex( $theContainer, $theIndex );
+		$idx->save();
+		
+		//
+		// Clear node index.
+		//
+		if( $doClear )
+			$idx->remove( $this->Node(), $theIndex );
+		
+		return $idx;																// ==>
 	
-	} // _PrepareCreate.
+	} // _GetNodeIndex.
 
 	 
 

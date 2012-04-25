@@ -224,6 +224,12 @@ try
 	echo( "$id:<pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
+	echo( '<i>Retrieve non-existing</i><br>' );
+	echo( '<i>$test = new COntologyNode( $container, -1 );</i><br>' );
+	$test = new COntologyNode( $container, -1 );
+	echo( "<pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
+	
 	echo( '<i>Retrieve</i><br>' );
 	echo( '<i>$test = new COntologyNode( $container, $id );</i><br>' );
 	$test = new COntologyNode( $container, $id );
@@ -243,11 +249,14 @@ try
 	$test->Term( $term );
 	echo( '<i>$ok = $test->Commit( $container );</i><br>' );
 	$ok = $test->Commit( $container );
-	echo( '<i>$index = new NodeIndex( $container[ kTAG_NODE ], kINDEX_TERM );</i><br>' );
-	$index = new NodeIndex( $container[ kTAG_NODE ], kINDEX_TERM );
-	echo( '<i>$node = $index->findOne( kTAG_GID, \'A\' );</i><br>' );
-	$node = $index->findOne( kTAG_GID, 'A' );
-	echo( "$ok:<pre>" ); print_r( $node ); echo( '</pre>' );
+	echo( '<i>$index = new NodeIndex( $container[ kTAG_NODE ], kINDEX_NODE_TERM );</i><br>' );
+	$index = new NodeIndex( $container[ kTAG_NODE ], kINDEX_NODE_TERM );
+	echo( '<i>$node = $index->findOne( kTAG_TERM, \'A\' );</i><br>' );
+	$node = $index->findOne( kTAG_TERM, 'A' );
+	echo( "<pre>" ); print_r( $node ); echo( '</pre>' );
+	echo( '<i>$node = $index->findOne( kTAG_NAME, \'Term 1\' );</i><br>' );
+	$node = $index->findOne( kTAG_NAME, 'Term 1' );
+	echo( "<pre>" ); print_r( $node ); echo( '</pre>' );
 	echo( '<hr>' );
 	
 	echo( '<i>Delete node</i><br>' );

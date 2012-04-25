@@ -148,7 +148,7 @@ class COntologyTerm extends COntologyTermObject
 	/**
 	 * Manage predicate node references.
 	 *
-	 * This method can be used to handle the object's predicate {@link kTAG_PRED node}
+	 * This method can be used to handle the object's predicate {@link kTAG_EDGE node}
 	 * references, it uses the standard accessor {@link _ManageArrayOffset() method} to
 	 * manage the list of predicate nodes that point to this term.
 	 *
@@ -172,12 +172,12 @@ class COntologyTerm extends COntologyTermObject
 	 *
 	 * @uses _ManageArrayOffset
 	 *
-	 * @see kTAG_PRED
+	 * @see kTAG_EDGE
 	 */
 	public function Predicate( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
 	{
 		return $this->_ManageArrayOffset
-					( kTAG_PRED, $theValue, $theOperation, $getOld );				// ==>
+					( kTAG_EDGE, $theValue, $theOperation, $getOld );				// ==>
 
 	} // Predicate.
 

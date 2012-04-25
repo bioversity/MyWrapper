@@ -240,7 +240,7 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Constructor.png" />
@@ -297,7 +297,7 @@
 				</ul>
 	</div>
 <a name="methodNode" id="Node"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -336,7 +336,7 @@
 			
 	</div>
 <a name="methodoffsetSet" id="offsetSet"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -388,7 +388,7 @@
 				</ul>
 	</div>
 <a name="methodoffsetUnset" id="offsetUnset"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -437,7 +437,7 @@
 				</ul>
 	</div>
 <a name="methodPredicate" id="Predicate"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -446,9 +446,9 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage predicate node references.</p>
-<p class="description"><p>This method can be used to handle the object's predicate <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_PRED">node</a>  references, it uses the standard accessor <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">method</a> to  manage the list of predicate nodes that point to this term.</p><p>Each element of this list represents the ID of an edge node in the ontology: each  time an edge node references this term, its identifier will be aded to this offset.</p><p>For a more thorough reference of how this method works, please consult the  <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">_ManageArrayOffset</a> method, in which the first parameter  will be the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kTAG_KIND</a>.</p><p>Note that you should only use this method for retrieving information, since  <a href="../../MyWrapper/Ontology/COntologyNode.html">nodes</a> store automatically this information when  <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">saved</a>.</p></p>
+<p class="description"><p>This method can be used to handle the object's predicate <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_EDGE">node</a>  references, it uses the standard accessor <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">method</a> to  manage the list of predicate nodes that point to this term.</p><p>Each element of this list represents the ID of an edge node in the ontology: each  time an edge node references this term, its identifier will be aded to this offset.</p><p>For a more thorough reference of how this method works, please consult the  <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">_ManageArrayOffset</a> method, in which the first parameter  will be the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kTAG_KIND</a>.</p><p>Note that you should only use this method for retrieving information, since  <a href="../../MyWrapper/Ontology/COntologyNode.html">nodes</a> store automatically this information when  <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">saved</a>.</p></p>
 	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_PRED">kTAG_PRED</a></li>
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_EDGE">kTAG_EDGE</a></li>
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></li>
 			</ul>
@@ -476,7 +476,7 @@
 			
 	</div>
 <a name="method_PrepareCommit" id="_PrepareCommit"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -624,6 +624,8 @@
 							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodHashIndex">CPersistentUnitObject::HashIndex()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodNewObject">CPersistentUnitObject::NewObject()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodPersistent">CPersistentUnitObject::Persistent()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodReference">CPersistentUnitObject::Reference()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
@@ -802,7 +804,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Tue, 24 Apr 2012 20:00:23 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Wed, 25 Apr 2012 19:08:14 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

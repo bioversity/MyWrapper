@@ -110,8 +110,8 @@ try
 						kOFFSET_EMAIL => 'l.matteis@cgiar.org' );
 	echo( "Container<pre>" ); print_r( $container ); echo( '</pre>' );
 	echo( '<i>$test = new CUser( $container );</i><br>' );
-	echo( '<i>$identifier = $test->Commit( $collection );</i><br>' );
 	$test = new CUser( $container );
+	echo( '<i>$luca = $test->Commit( $collection );</i><br>' );
 	$luca = $test->Commit( $collection );
 	echo( "$luca<pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );

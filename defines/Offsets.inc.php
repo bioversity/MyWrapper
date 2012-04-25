@@ -203,18 +203,18 @@ define( "kTAG_ENUM",							':ENUM' );
 define( "kTAG_NAMESPACE",						':NS' );
 
 /**
- * Node offset.
+ * Graph node offset.
  *
  * This tag is used as the default offset for indicating a graph node.
  */
 define( "kTAG_NODE",							':NODE' );
 
 /**
- * Predicate offset.
+ * Graph edge offset.
  *
- * This tag is used as the default offset for indicating a predicate node.
+ * This tag is used as the default offset for indicating a graph edge node.
  */
-define( "kTAG_PRED",							':PRED' );
+define( "kTAG_EDGE",							':EDGE' );
 
 /**
  * Term offset.
@@ -293,6 +293,25 @@ define( "kTAG_ANNOTATION",						':ANNOTATION' );
  * </ul>
  */
 define( "kTAG_REFS",							':REFS' );
+
+/**
+ * Edge terms path.
+ *
+ * This tag represents a graph edge node by using its related terms as a path in the form of
+ * a string containing the <i>SUBJECT/PREDICATE/OBJECT</i> path constituted by the term
+ * identifier elements.
+ */
+define( "kTAG_EDGE_TERM",						':TEDGE' );
+
+/**
+ * Edge nodes path.
+ *
+ * This tag represents a graph edge node by using its related nodes and predicate term as a
+ * path in the form of a string containing the <i>SUBJECT/PREDICATE/OBJECT</i> path in which
+ * the subject and object elements are represented by the respective node identifiers, and
+ * the predicate element is represented by the edge term identifier.
+ */
+define( "kTAG_EDGE_NODE",						':NEDGE' );
 
 /**
  * Valid tag.

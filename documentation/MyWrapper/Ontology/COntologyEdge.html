@@ -100,7 +100,7 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																																																																																																																																								<div class="method-definition">
+																																																																																																																																																																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">mixed</span>
 										<a href="#count" title="details" class="method-name">count</a>
@@ -111,6 +111,12 @@
 											<span class="method-result">mixed</span>
 										<a href="#getArrayCopy" title="details" class="method-name">getArrayCopy</a>
 										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result"><a href="../../MyWrapper/Ontology/COntologyNode.html">COntologyNode</a></span>
+										<a href="#ObjectNode" title="details" class="method-name">ObjectNode</a>
+											(<span class="var-type">array</span>&nbsp;<span class="var-name">$theContainer</span>)
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -129,6 +135,12 @@
 											<span class="method-result">mixed</span>
 										<a href="#offsetGet" title="details" class="method-name">offsetGet</a>
 											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result"><a href="../../MyWrapper/Ontology/COntologyNode.html">COntologyNode</a></span>
+										<a href="#SubjectNode" title="details" class="method-name">SubjectNode</a>
+											(<span class="var-type">array</span>&nbsp;<span class="var-name">$theContainer</span>)
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -151,12 +163,6 @@
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">void</span>
-										<a href="#_CreateNodeIndex" title="details" class="method-name">_CreateNodeIndex</a>
-											(<span class="var-type">Client</span>&nbsp;<span class="var-name">\\$theContainer</span>, <span class="var-type">Everyman\Neo4j\Client</span>&nbsp;<span class="var-name">$theContainer</span>)
-									</div>
-																<div class="method-definition">
-					<img src="../../media/images/Method.png" alt=" "/>
-											<span class="method-result">void</span>
 										<a href="#_FinishCreate" title="details" class="method-name">_FinishCreate</a>
 											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
 									</div>
@@ -165,6 +171,18 @@
 											<span class="method-result">void</span>
 										<a href="#_FinishLoad" title="details" class="method-name">_FinishLoad</a>
 											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">Everyman\Neo4j\RelationshipIndex</span>
+										<a href="#_GetNodeIndex" title="details" class="method-name">_GetNodeIndex</a>
+											(<span class="var-type">Client</span>&nbsp;<span class="var-name">\\$theContainer</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theIndex</span>, [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$doClear</span> = <span class="var-default">FALSE</span>], <span class="var-type">Everyman\Neo4j\Client</span>&nbsp;<span class="var-name">$theContainer</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_IndexTerms" title="details" class="method-name">_IndexTerms</a>
+											(<span class="var-type">Client</span>&nbsp;<span class="var-name">\\$theContainer</span>, <span class="var-type">Everyman\Neo4j\Client</span>&nbsp;<span class="var-name">$theContainer</span>)
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -318,7 +336,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">count</span> (line <span class="line-number">443</span>)
+		<span class="method-title">count</span> (line <span class="line-number">552</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -350,7 +368,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">getArrayCopy</span> (line <span class="line-number">465</span>)
+		<span class="method-title">getArrayCopy</span> (line <span class="line-number">574</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -377,8 +395,43 @@
 					</dl>
 			
 	</div>
-<a name="methodObjectTerm" id="ObjectTerm"><!-- --></a>
+<a name="methodObjectNode" id="ObjectNode"><!-- --></a>
 <div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">ObjectNode</span> (line <span class="line-number">437</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return object node.</p>
+<p class="description"><p>This method can be used to convert the <a href="../../MyWrapper/Persistence/CGraphEdge.html#methodObject">object</a>  <a href="../../MyWrapper/Ontology/COntologyNode.html">node</a> into an ontology <a href="../../MyWrapper/Ontology/COntologyNode.html">node</a>.</p><p>The method accepts a single parameter which represents the term and node containers  structured as follows:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NODE">kTAG_NODE</a></em>: This element should hold the nodes
+        container, it must be a Everyman\Neo4j\Client instance.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM">kTAG_TERM</a></em>: This element should hold the terms
+        container, it must be a <a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a> instance.</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Ontology/COntologyEdge.html#methodObjectTerm">COntologyEdge::ObjectTerm()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CGraphEdge.html#methodObject">CGraphEdge::Object()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../../MyWrapper/Ontology/COntologyNode.html">COntologyNode</a></span>
+		<span class="method-name">
+			ObjectNode
+		</span>
+					(<span class="var-type">array</span>&nbsp;<span class="var-name">$theContainer</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$theContainer</span><span class="var-description">: Object container.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodObjectTerm" id="ObjectTerm"><!-- --></a>
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -392,6 +445,7 @@
      <ul><li><em>TRUE</em>: Return the value <em>before</em> it was eventually modified.</li><li><em>FALSE</em>: Return the value <em>after</em> it was eventually modified.</li></ul></li></ul></p><p>The method will also set the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsDirty">dirty</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_DIRTY">status</a> and the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">inited</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a> if the node is provided.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyEdge.html#methodObjectNode">COntologyEdge::ObjectNode()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsDirty">CStatusObject::_IsDirty()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CObject.html#methodManageMember">CObject::ManageMember()</a></li>
@@ -417,11 +471,11 @@
 			
 	</div>
 <a name="methodoffsetExists" id="offsetExists"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetExists</span> (line <span class="line-number">373</span>)
+		<span class="method-title">offsetExists</span> (line <span class="line-number">482</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -454,11 +508,11 @@
 			
 	</div>
 <a name="methodoffsetGet" id="offsetGet"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetGet</span> (line <span class="line-number">409</span>)
+		<span class="method-title">offsetGet</span> (line <span class="line-number">518</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -490,6 +544,41 @@
 					</dl>
 			
 	</div>
+<a name="methodSubjectNode" id="SubjectNode"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">SubjectNode</span> (line <span class="line-number">387</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return subject node.</p>
+<p class="description"><p>This method can be used to convert the <a href="../../MyWrapper/Persistence/CGraphEdge.html#methodSubject">subject</a>  <a href="../../MyWrapper/Ontology/COntologyNode.html">node</a> into an ontology <a href="../../MyWrapper/Ontology/COntologyNode.html">node</a>.</p><p>The method accepts a single parameter which represents the term and node containers  structured as follows:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NODE">kTAG_NODE</a></em>: This element should hold the nodes
+        container, it must be a Everyman\Neo4j\Client instance.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM">kTAG_TERM</a></em>: This element should hold the terms
+        container, it must be a <a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a> instance.</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Ontology/COntologyEdge.html#methodSubjectTerm">COntologyEdge::SubjectTerm()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CGraphEdge.html#methodSubject">CGraphEdge::Subject()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../../MyWrapper/Ontology/COntologyNode.html">COntologyNode</a></span>
+		<span class="method-name">
+			SubjectNode
+		</span>
+					(<span class="var-type">array</span>&nbsp;<span class="var-name">$theContainer</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$theContainer</span><span class="var-description">: Object container.</span>			</li>
+				</ul>
+		
+			
+	</div>
 <a name="methodSubjectTerm" id="SubjectTerm"><!-- --></a>
 <div class="oddrow">
 	
@@ -505,6 +594,7 @@
      <ul><li><em>TRUE</em>: Return the value <em>before</em> it was eventually modified.</li><li><em>FALSE</em>: Return the value <em>after</em> it was eventually modified.</li></ul></li></ul></p><p>The method will also set the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsDirty">dirty</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_DIRTY">status</a> and the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">inited</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a> if the node is provided.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyEdge.html#methodSubjectNode">COntologyEdge::SubjectNode()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsDirty">CStatusObject::_IsDirty()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CObject.html#methodManageMember">CObject::ManageMember()</a></li>
@@ -573,7 +663,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Commit</span> (line <span class="line-number">510</span>)
+		<span class="method-title">_Commit</span> (line <span class="line-number">619</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -612,50 +702,12 @@
 					</dl>
 			
 	</div>
-<a name="method_CreateNodeIndex" id="_CreateNodeIndex"><!-- --></a>
+<a name="method_FinishCreate" id="_FinishCreate"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_CreateNodeIndex</span> (line <span class="line-number">1115</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Create node indexes.</p>
-<p class="description"><p>This method will save node indexes after the node was <a href="../../MyWrapper/Ontology/COntologyEdge.html#method_Commit">committed</a>,  it will perform the following selections:</p><p><ul><li><em><a href="../../MyWrapper/Entities/_classes---COntologyNode.inc.php.html#definekINDEX_TERM">kINDEX_TERM</a></em>: The <a href="../../MyWrapper/Ontology/COntologyEdge.html#methodTerm">term</a>
-        <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">global</a> identifier (NodeIndex).
-        container, it must be a Everyman\Neo4j\Client instance.</li><li><em><a href="../../MyWrapper/Entities/_classes---COntologyNode.inc.php.html#definekINDEX_TERM_NAME">kINDEX_TERM_NAME</a></em>: The <a href="../../MyWrapper/Ontology/COntologyEdge.html#methodTerm">term</a>
-        <a href="../../MyWrapper/Ontology/CTerm.html#methodName">names</a> in all languages (NodeIndex).</li><li><em><a href="../../MyWrapper/Entities/_classes---COntologyNode.inc.php.html#definekINDEX_TERM_DEFINITION">kINDEX_TERM_DEFINITION</a></em>: The
-        <a href="../../MyWrapper/Ontology/COntologyEdge.html#methodTerm">term</a> <a href="../../MyWrapper/Ontology/CTerm.html#methodDefinition">definitions</a> (NodeFulltextIndex).</li></ul></p></p>
-	<ul class="tags">
-				<li><span class="field">access:</span> protected</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			_CreateNodeIndex
-		</span>
-					(<span class="var-type">Client</span>&nbsp;<span class="var-name">\\$theContainer</span>, <span class="var-type">Everyman\Neo4j\Client</span>&nbsp;<span class="var-name">$theContainer</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">Everyman\Neo4j\Client</span>
-				<span class="var-name">$theContainer</span><span class="var-description">: Node container.</span>			</li>
-					<li>
-				<span class="var-type">Client</span>
-				<span class="var-name">\\$theContainer</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="method_FinishCreate" id="_FinishCreate"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishCreate</span> (line <span class="line-number">925</span>)
+		<span class="method-title">_FinishCreate</span> (line <span class="line-number">1066</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -694,11 +746,11 @@
 			
 	</div>
 <a name="method_FinishLoad" id="_FinishLoad"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishLoad</span> (line <span class="line-number">967</span>)
+		<span class="method-title">_FinishLoad</span> (line <span class="line-number">1111</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -736,12 +788,100 @@
 					</dl>
 			
 	</div>
-<a name="method_Load" id="_Load"><!-- --></a>
+<a name="method_GetNodeIndex" id="_GetNodeIndex"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_GetNodeIndex</span> (line <span class="line-number">1335</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Retrieve the edge index.</p>
+<p class="description"><p>This method can be used to return an edge index identified by the provided index tag.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Everyman\Neo4j\RelationshipIndex</span>
+		<span class="method-name">
+			_GetNodeIndex
+		</span>
+					(<span class="var-type">Client</span>&nbsp;<span class="var-name">\\$theContainer</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theIndex</span>, [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$doClear</span> = <span class="var-default">FALSE</span>], <span class="var-type">Everyman\Neo4j\Client</span>&nbsp;<span class="var-name">$theContainer</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">Everyman\Neo4j\Client</span>
+				<span class="var-name">$theContainer</span><span class="var-description">: Node container.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theIndex</span><span class="var-description">: Index tag.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$doClear</span><span class="var-description">: TRUE means clear index.</span>			</li>
+					<li>
+				<span class="var-type">Client</span>
+				<span class="var-name">\\$theContainer</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_IndexTerms" id="_IndexTerms"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Load</span> (line <span class="line-number">637</span>)
+		<span class="method-title">_IndexTerms</span> (line <span class="line-number">1278</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create node indexes.</p>
+<p class="description"><p>This method will save node indexes after the node was <a href="../../MyWrapper/Ontology/COntologyEdge.html#method_Commit">committed</a>,  it will perform the following selections:</p><p><ul><li><em>kINDEX_EDGE_TERM</em>: The <a href="../../MyWrapper/Ontology/COntologyEdge.html#methodTerm">term</a>
+        <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">global</a> identifier (RelationshipIndex).
+        container, it must be a Everyman\Neo4j\Client instance.</li><li><em>kINDEX_EDGE_NAME</em>: The <a href="../../MyWrapper/Ontology/COntologyEdge.html#methodTerm">term</a>
+        <a href="../../MyWrapper/Ontology/CTerm.html#methodName">names</a> in all languages (RelationshipIndex).</li><li><em>kINDEX_EDGE_TERMS</em>: The node relations, this
+        index records the relation terms, that is, the combination of the subject
+        <a href="../../MyWrapper/Ontology/COntologyEdge.html#methodSubjectTerm">term</a>, predicate <a href="../../MyWrapper/Ontology/COntologyEdge.html#methodTerm">term</a> and the object
+        <a href="../../MyWrapper/Ontology/COntologyEdge.html#methodObjectTerm">term</a>, this can be used to retrieve existing relations.</li></ul></p><p>The following index tags are set:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">kTAG_GID</a></em>: The <a href="../../MyWrapper/Ontology/COntologyEdge.html#methodTerm">term</a>
+        <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">global</a> identifier.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">kTAG_NAME</a></em>: The <a href="../../MyWrapper/Ontology/COntologyEdge.html#methodTerm">term</a>
+        <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">names</a>.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_EDGE_TERM">kTAG_EDGE_TERM</a></em>: The relationships between terms
+        taken from the <a href="../../MyWrapper/Persistence/CGraphEdge.html#methodNode">node</a>'s <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_EDGE_TERM">kTAG_EDGE_TERM</a>
+        property, formatted as a SUBJECT/PREDICATE/OBJECT string, in which each element
+        is the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">global</a> <a href="../../MyWrapper/Ontology/COntologyTerm.html">term</a> identifier.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NODE">kTAG_NODE</a></em>: The relationships between
+        <a href="../../MyWrapper/Persistence/CGraphEdge.html#methodNode">nodes</a>, expressed as a SUBJECT/PREDICATE/OBJECT string, in which
+        the subject and object are the <a href="../../MyWrapper/Persistence/CGraphEdge.html#methodNode">node</a> identifiers and the predicate
+        is the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">global</a> <a href="../../MyWrapper/Ontology/COntologyEdge.html#methodTerm">term</a>  identifier.</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_IndexTerms
+		</span>
+					(<span class="var-type">Client</span>&nbsp;<span class="var-name">\\$theContainer</span>, <span class="var-type">Everyman\Neo4j\Client</span>&nbsp;<span class="var-name">$theContainer</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">Everyman\Neo4j\Client</span>
+				<span class="var-name">$theContainer</span><span class="var-description">: Node container.</span>			</li>
+					<li>
+				<span class="var-type">Client</span>
+				<span class="var-name">\\$theContainer</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_Load" id="_Load"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_Load</span> (line <span class="line-number">769</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -780,11 +920,11 @@
 			
 	</div>
 <a name="method_PrepareCommit" id="_PrepareCommit"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">831</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">963</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -824,18 +964,18 @@
 			
 	</div>
 <a name="method_PrepareCreate" id="_PrepareCreate"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCreate</span> (line <span class="line-number">686</span>)
+		<span class="method-title">_PrepareCreate</span> (line <span class="line-number">818</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Normalise parameters of a create.</p>
 <p class="description"><p>In this class we first check whether the container has the following structure:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NODE">kTAG_NODE</a></em>: This element should hold the nodes
         container, it must be a Everyman\Neo4j\Client instance.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM">kTAG_TERM</a></em>: This element should hold the terms
-        container, it must be a <a href="../../MyWrapper/Ontology/COntologyTermObject.html">COntologyTermObject</a> instance.</li></ul></p><p>If the container has the correct structure the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NODE">node</a> container will  be passed to the parent method and the method will check if the  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM">term</a> container is a  <a href="../../MyWrapper/Ontology/COntologyTermObject.html">COntologyTermObject</a>.</p></p>
+        container, it must be a <a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a> instance.</li></ul></p><p>If the container has the correct structure the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NODE">node</a> container will  be passed to the parent method and the method will check if the  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM">term</a> container is a  <a href="../../MyWrapper/Ontology/COntologyTermObject.html">COntologyTermObject</a>.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a></li>
 				<li><span class="field">access:</span> protected</li>
@@ -871,11 +1011,11 @@
 			
 	</div>
 <a name="method_PrepareLoad" id="_PrepareLoad"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">758</span>)
+		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">890</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1140,7 +1280,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Tue, 24 Apr 2012 20:00:22 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Wed, 25 Apr 2012 19:08:13 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

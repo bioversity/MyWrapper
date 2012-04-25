@@ -131,13 +131,19 @@
 										<a href="#NewObject" title="details" class="method-name">NewObject</a>
 											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>, [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_DEFAULT</span>])
 									</div>
-																<div class="method-definition">
+																								<div class="method-definition">
 					<img src="../../media/images/StaticMethod.png" alt=" "/>
 											static <span class="method-result">mixed</span>
 										<a href="#Reference" title="details" class="method-name">Reference</a>
 											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>, [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_REFERENCE_IDENTIFIER</span>])
 									</div>
-																																																																																																																																				<div class="method-definition">
+																																																																																																																												<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">boolean</span>
+										<a href="#Persistent" title="details" class="method-name">Persistent</a>
+										()
+									</div>
+																								<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">mixed</span>
 										<a href="#_CheckRelationObject" title="details" class="method-name">_CheckRelationObject</a>
@@ -250,11 +256,11 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="methodHashIndex" id="HashIndex"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static HashIndex</span> (line <span class="line-number">427</span>)
+		<span class="method-title">static HashIndex</span> (line <span class="line-number">453</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -294,11 +300,11 @@
 				</ul>
 	</div>
 <a name="methodNewObject" id="NewObject"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static NewObject</span> (line <span class="line-number">188</span>)
+		<span class="method-title">static NewObject</span> (line <span class="line-number">214</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -328,11 +334,11 @@
 			
 	</div>
 <a name="methodReference" id="Reference"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static Reference</span> (line <span class="line-number">307</span>)
+		<span class="method-title">static Reference</span> (line <span class="line-number">333</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -379,12 +385,38 @@
 		
 			
 	</div>
+<a name="methodPersistent" id="Persistent"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Persistent</span> (line <span class="line-number">175</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Check whether object is persistent.</p>
+<p class="description"><p>This method will return <em>TRUE</em> if the object has the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LID">local</a>  identifier, this would mean that the object has either been <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">saved</a>  or that the object was <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_Load">loaded</a> from a <a href="../../MyWrapper/Persistence/CContainer.html">container</a>.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">boolean</span>
+		<span class="method-name">
+			Persistent
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
 <a name="method_CheckRelationObject" id="_CheckRelationObject"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_CheckRelationObject</span> (line <span class="line-number">1584</span>)
+		<span class="method-title">_CheckRelationObject</span> (line <span class="line-number">1610</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -428,7 +460,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_CheckRelationPredicate</span> (line <span class="line-number">1665</span>)
+		<span class="method-title">_CheckRelationPredicate</span> (line <span class="line-number">1691</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -465,7 +497,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_CommitReferences</span> (line <span class="line-number">869</span>)
+		<span class="method-title">_CommitReferences</span> (line <span class="line-number">895</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -520,7 +552,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_id</span> (line <span class="line-number">467</span>)
+		<span class="method-title">_id</span> (line <span class="line-number">493</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -546,7 +578,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/AbstractMethod.png" />
-		<span class="method-title">_index</span> (line <span class="line-number">489</span>)
+		<span class="method-title">_index</span> (line <span class="line-number">515</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -586,7 +618,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ManageObjectList</span> (line <span class="line-number">1092</span>)
+		<span class="method-title">_ManageObjectList</span> (line <span class="line-number">1118</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -652,7 +684,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ObjectIndex</span> (line <span class="line-number">1725</span>)
+		<span class="method-title">_ObjectIndex</span> (line <span class="line-number">1751</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -689,7 +721,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseReferences</span> (line <span class="line-number">782</span>)
+		<span class="method-title">_ParseReferences</span> (line <span class="line-number">808</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -760,7 +792,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">615</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">641</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -874,7 +906,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">522</span>)
+		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">548</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1096,7 +1128,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Tue, 24 Apr 2012 20:00:24 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Wed, 25 Apr 2012 19:08:15 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

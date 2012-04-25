@@ -1553,12 +1553,12 @@ exit( "Done!\n" );
 		//
 		$term = new CAttributeTerm();
 		$term->NS( $ns );
-		$term->Code( substr( kTAG_PRED, 1 ) );
+		$term->Code( substr( kTAG_EDGE, 1 ) );
 		$term->Name( 'Predicate', kDEFAULT_LANGUAGE );
 		$term->Definition
 		( 'This term is used to indicate a predicate node.',
 		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTAG_PRED', kTYPE_EXACT );
+		$term->Synonym( 'kTAG_EDGE', kTYPE_EXACT );
 		$term->Commit( $theContainer );
 		if( $doDisplay )
 			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
@@ -1680,6 +1680,42 @@ exit( "Done!\n" );
 		 .'a list of predicate/object pairs.',
 		  kDEFAULT_LANGUAGE );
 		$term->Synonym( 'kTAG_REFS', kTYPE_EXACT );
+		$term->Commit( $theContainer );
+		if( $doDisplay )
+			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+	
+		//
+		// Edge terms path.
+		//
+		$term = new CAttributeTerm();
+		$term->NS( $ns );
+		$term->Code( substr( kTAG_EDGE_TERM, 1 ) );
+		$term->Name( 'Edge terms path', kDEFAULT_LANGUAGE );
+		$term->Definition
+		( 'This term represents a graph edge node by using its related terms as a path '
+		 .'in the form of a string containing the SUBJECT/PREDICATE/OBJECT path '
+		 .'constituted by the term identifier elements.',
+		  kDEFAULT_LANGUAGE );
+		$term->Synonym( 'kTAG_EDGE_TERM', kTYPE_EXACT );
+		$term->Commit( $theContainer );
+		if( $doDisplay )
+			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+	
+		//
+		// Edge nodes path.
+		//
+		$term = new CAttributeTerm();
+		$term->NS( $ns );
+		$term->Code( substr( kTAG_EDGE_NODE, 1 ) );
+		$term->Name( 'Edge nodes path', kDEFAULT_LANGUAGE );
+		$term->Definition
+		( 'This term represents a graph edge node by using its related nodes and '
+		 .'predicate term as a path in the form of a string containing the '
+		 .'SUBJECT/PREDICATE/OBJECT</i> path in which the subject and object elements '
+		 .'are represented by the respective node identifiers, and the predicate element '
+		 .'is represented by the edge term identifier.',
+		  kDEFAULT_LANGUAGE );
+		$term->Synonym( 'kTAG_EDGE_NODE', kTYPE_EXACT );
 		$term->Commit( $theContainer );
 		if( $doDisplay )
 			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );

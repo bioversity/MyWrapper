@@ -518,17 +518,20 @@ class CGraphEdge extends CGraphNode
 		//
 		// Create empty predicate node.
 		//
-		$this->Node( $theContainer->makeRelationship() );
+		if( ! $this->Node() instanceof Everyman\Neo4j\Relationship )
+			$this->Node( $theContainer->makeRelationship() );
 		
 		//
 		// Create empty subject node.
 		//
-		$this->Subject( $theContainer->makeNode() );
+		if( ! $this->Subject() instanceof Everyman\Neo4j\Node )
+			$this->Subject( $theContainer->makeNode() );
 		
 		//
 		// Create empty object node.
 		//
-		$this->Object( $theContainer->makeNode() );
+		if( ! $this->Object() instanceof Everyman\Neo4j\Node )
+			$this->Object( $theContainer->makeNode() );
 		
 		//
 		// Set inited flag.

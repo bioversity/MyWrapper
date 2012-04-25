@@ -152,6 +152,32 @@ abstract class CPersistentUnitObject extends CPersistentObject
 
 /*=======================================================================================
  *																						*
+ *								PUBLIC STATUS INTERFACE									*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	Persistent																		*
+	 *==================================================================================*/
+
+	/**
+	 * Check whether object is persistent.
+	 *
+	 * This method will return <i>TRUE</i> if the object has the {@link kTAG_LID local}
+	 * identifier, this would mean that the object has either been {@link Commit() saved}
+	 * or that the object was {@link _Load() loaded} from a {@link CContainer container}.
+	 *
+	 * @access public
+	 * @return boolean
+	 */
+	public function Persistent()				{	return $this->offsetExists( kTAG_LID );	}
+
+		
+
+/*=======================================================================================
+ *																						*
  *								STATIC REFERENCE INTERFACE								*
  *																						*
  *======================================================================================*/
