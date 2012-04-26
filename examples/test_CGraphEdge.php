@@ -110,7 +110,29 @@ try
 		echo( '<br>' );
 	}
 	echo( '<hr>' );
+
+	echo( '<i>From a node</i><br>' );
+	echo( '<i>$subject = $container->makeNode();</i><br>' );
+	$subject = $container->makeNode();
+	echo( '<i>$subject->setProperty( \'Name\', \'Subject\' )->save();</i><br>' );
+	$subject->setProperty( 'Name', 'Subject' )->save();
+	echo( '<i>$object = $container->makeNode();</i><br>' );
+	$object = $container->makeNode();
+	echo( '<i>$object->setProperty( \'Name\', \'Object\' )->save();</i><br>' );
+	$object->setProperty( 'Name', 'Object' )->save();
+	echo( '<i>$edge = $subject->relateTo( $object, \'PREDICATE\' );</i><br>' );
+	$edge = $subject->relateTo( $object, 'PREDICATE' );
+	echo( '<i>$test = new CGraphEdge( $container, $edge ) );</i><br>' );
+	$test = new CGraphNode( $container, $edge );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
+	echo( '<hr>' );
+	
+	//
+	// Cleanup.
+	//
+	$container->deleteNode( $subject );
+	$container->deleteNode( $object );
 	
 	//
 	// Test properties.
@@ -190,22 +212,22 @@ try
 	//
 	echo( '<h3>Set subject and object</h3>' );
 	
-	echo( '<i>$node = new CGraphNode( $container );</i><br>' );
-	$node = new CGraphNode( $container );
-	echo( '<i>$node[ kTAG_NAME ] = \'Subject\' );</i><br>' );
-	$node[ kTAG_NAME ] = 'Subject';
-	echo( '<i>$id = $node->Commit( $container );</i><br>' );
-	$id = $node->Commit( $container );
-	echo( '<i>$test->Subject( $node );</i><br>' );
-	$test->Subject( $node );
-	echo( '<i>$node = new CGraphNode( $container );</i><br>' );
-	$node = new CGraphNode( $container );
-	echo( '<i>$node[ kTAG_NAME ] = \'Object\' );</i><br>' );
-	$node[ kTAG_NAME ] = 'Object';
-	echo( '<i>$id = $node->Commit( $container );</i><br>' );
-	$id = $node->Commit( $container );
-	echo( '<i>$test->Object( $node );</i><br>' );
-	$test->Object( $node );
+	echo( '<i>$subject = new CGraphNode( $container );</i><br>' );
+	$subject = new CGraphNode( $container );
+	echo( '<i>$subject[ kTAG_NAME ] = \'Subject\' );</i><br>' );
+	$subject[ kTAG_NAME ] = 'Subject';
+	echo( '<i>$id = $subject->Commit( $container );</i><br>' );
+	$id = $subject->Commit( $container );
+	echo( '<i>$test->Subject( $subject );</i><br>' );
+	$test->Subject( $subject );
+	echo( '<i>$object = new CGraphNode( $container );</i><br>' );
+	$object = new CGraphNode( $container );
+	echo( '<i>$object[ kTAG_NAME ] = \'Object\' );</i><br>' );
+	$object[ kTAG_NAME ] = 'Object';
+	echo( '<i>$id = $object->Commit( $container );</i><br>' );
+	$id = $object->Commit( $container );
+	echo( '<i>$test->Object( $object );</i><br>' );
+	$test->Object( $object );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
@@ -245,6 +267,14 @@ try
 		echo( '<br>' );
 	}
 	echo( '<hr>' );
+	
+	//
+	// Cleanup.
+	//
+	echo( '<i>$subject->Commit( $container, NULL, kFLAG_PERSIST_DELETE );</i><br>' );
+	$subject->Commit( $container, NULL, kFLAG_PERSIST_DELETE );
+	echo( '<i>$object->Commit( $container, NULL, kFLAG_PERSIST_DELETE );</i><br>' );
+	$object->Commit( $container, NULL, kFLAG_PERSIST_DELETE );
 }
 
 //

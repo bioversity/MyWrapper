@@ -862,9 +862,106 @@ class COntologyEdge extends CGraphEdge
 					  array( 'Container' => $term_cont ) );						// !@! ==>
 		
 		//
+		// Handle provided ontology edge.
+		//
+		if( $theIdentifier instanceof self )
+			$theIdentifier = $theIdentifier->Node();
+		
+		//
 		// Call node method.
 		//
 		parent::_PrepareCreate( $node_cont, $theIdentifier, $theModifiers );
+		
+		//
+		// Note that at this point nothing has yet been loaded
+		// into the object, so we need to work with the content.
+		//
+		
+		//
+		// Handle provided node.
+		//
+		if( $node_cont instanceof Everyman\Neo4j\Relationship )
+		{
+			//
+			// Load predicate term.
+			//
+			if( ($ref = $node_cont->getType()) !== NULL )
+			{
+				$term = CPersistentUnitObject::NewObject(
+							$theContainer[ kTAG_TERM ],
+							COntologyTermObject::HashIndex( $ref ),
+							kFLAG_STATE_ENCODED );
+				if( $term )
+					$this->Term( $term );
+				else
+					throw new CException
+							( "Invalid predicate term reference",
+							  kERROR_NOT_FOUND,
+							  kMESSAGE_TYPE_ERROR,
+							  array( 'Term' => $ref ) );						// !@! ==>
+
+			} // Has type.
+		
+			//
+			// Load subject term.
+			//
+			if( ($node = $node_cont->getStartNode()) !== NULL )
+			{
+				//
+				// Load subject term.
+				//
+				if( ($ref = $node->getProperty( kTAG_TERM )) !== NULL )
+				{
+					$term = CPersistentUnitObject::NewObject(
+								$theContainer[ kTAG_TERM ],
+								COntologyTermObject::HashIndex( $ref ),
+								kFLAG_STATE_ENCODED );
+					if( $term )
+						$this->SubjectTerm( $term );
+					else
+						throw new CException
+								( "Invalid subject term reference",
+								  kERROR_NOT_FOUND,
+								  kMESSAGE_TYPE_ERROR,
+								  array( 'Term' => $ref ) );					// !@! ==>
+	
+				} // Has term reference property.
+			
+			} // Has start node.
+		
+			//
+			// Load object term.
+			//
+			if( ($node = $node_cont->getEndNode()) !== NULL )
+			{
+				//
+				// Load object term.
+				//
+				if( ($ref = $node->getProperty( kTAG_TERM )) !== NULL )
+				{
+					$term = CPersistentUnitObject::NewObject(
+								$theContainer[ kTAG_TERM ],
+								COntologyTermObject::HashIndex( $ref ),
+								kFLAG_STATE_ENCODED );
+					if( $term )
+						$this->ObjectTerm( $term );
+					else
+						throw new CException
+								( "Invalid object term reference",
+								  kERROR_NOT_FOUND,
+								  kMESSAGE_TYPE_ERROR,
+								  array( 'Term' => $ref ) );					// !@! ==>
+	
+				} // Has term reference property.
+			
+			} // Has end node.
+			
+			//
+			// Set content.
+			//
+			$theContainer = $node_cont;
+		
+		} // Provided node.
 	
 	} // _PrepareCreate.
 
@@ -1058,12 +1155,10 @@ class COntologyEdge extends CGraphEdge
 	 * {@link COntologyTerm terms}.
 	 *
 	 * @param reference			   &$theContainer		Object container.
-	 * @param reference			   &$theIdentifier		Object identifier.
-	 * @param reference			   &$theModifiers		Create modifiers.
 	 *
 	 * @access protected
 	 */
-	protected function _FinishCreate( &$theContainer, &$theIdentifier, &$theModifiers )
+	protected function _FinishCreate( &$theContainer )
 	{
 		//
 		// Create empty term.
@@ -1084,9 +1179,13 @@ class COntologyEdge extends CGraphEdge
 			$this->ObjectTerm( new COntologyTerm() );
 	
 		//
-		// Create empty node.
+		// Call parent method.
 		//
-		parent::_FinishCreate( $theContainer[ kTAG_NODE ], $theIdentifier, $theModifiers );
+		if( is_array( $theContainer )
+		 || ($theContainer instanceof ArrayObject) )
+			parent::_FinishCreate( $theContainer[ kTAG_NODE ] );
+		else
+			parent::_FinishCreate( $theContainer );
 		
 	} // _FinishCreate.
 
@@ -1102,6 +1201,11 @@ class COntologyEdge extends CGraphEdge
 	 * and load it, along with the {@link Subject() subject} and {@link Object() object}
 	 * terms.
 	 *
+	 * Note that if the object has a {@link Type() type} it means it was read from the
+	 * container: in this case it <i>must</i> have term references for both the
+	 * {@link SubjectTerm() subject} and {@link ObjectTerm() object}, or an exception should
+	 * be raised.
+	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
 	 * @param reference			   &$theModifiers		Create modifiers.
@@ -1111,31 +1215,65 @@ class COntologyEdge extends CGraphEdge
 	protected function _FinishLoad( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
-		// Load term.
+		// Handle not found.
 		//
-		if( ($ref = $this->Type()) !== NULL )
+		if( $this->Node() === NULL )
 		{
 			//
-			// Find and load predicate term.
+			// Init predicate term.
 			//
-			$term = CPersistentUnitObject::NewObject
-						( $theContainer[ kTAG_TERM ],
-						  COntologyTermObject::HashIndex( $ref ),
-						  kFLAG_STATE_ENCODED );
-			if( $term )
-				$this->Term( $term );
+			$this->Term( new COntologyTerm() );
+	
+			//
+			// Init subject term.
+			//
+			$this->SubjectTerm( new COntologyTerm() );
+	
+			//
+			// Init object term.
+			//
+			$this->ObjectTerm( new COntologyTerm() );
+		
+		} // Node not found.
+		
+		//
+		// Handle found edge.
+		//
+		else
+		{
+			//
+			// Handle predicate term.
+			//
+			if( ($ref = $this->Type()) !== NULL )
+			{
+				//
+				// Load subject term.
+				//
+				$term = CPersistentUnitObject::NewObject
+							( $theContainer[ kTAG_TERM ],
+							  COntologyTermObject::HashIndex( $ref ),
+							  kFLAG_STATE_ENCODED );
+				if( $term )
+					$this->Term( $term );
+				else
+					throw new CException
+							( "Invalid subject term reference",
+							  kERROR_NOT_FOUND,
+							  kMESSAGE_TYPE_ERROR,
+							  array( 'Term' => $ref ) );						// !@! ==>
+			
+			} // Has edge term reference.
+
 			else
 				throw new CException
-						( "Invalid predicate term reference",
-						  kERROR_NOT_FOUND,
-						  kMESSAGE_TYPE_ERROR,
-						  array( 'Term' => $ref ) );							// !@! ==>
+						( "Predicate node is missing term reference",
+						  kERROR_OPTION_MISSING,
+						  kMESSAGE_TYPE_ERROR );								// !@! ==>
 		
 			//
 			// Find subject node and load subject term.
 			//
-			$ref = $this->Subject()->getProperty( kTAG_TERM );
-			if( $ref !== NULL )
+			if( ($ref = $this->Subject()->getProperty( kTAG_TERM )) !== NULL )
 			{
 				//
 				// Load subject term.
@@ -1164,8 +1302,7 @@ class COntologyEdge extends CGraphEdge
 			//
 			// Find object node and load object term.
 			//
-			$ref = $this->Object()->getProperty( kTAG_TERM );
-			if( $ref !== NULL )
+			if( ($ref = $this->Object()->getProperty( kTAG_TERM )) !== NULL )
 			{
 				//
 				// Load subject term.
@@ -1191,29 +1328,7 @@ class COntologyEdge extends CGraphEdge
 						  kERROR_OPTION_MISSING,
 						  kMESSAGE_TYPE_ERROR );								// !@! ==>
 		
-		} // Current node has term reference: it means it was loaded.
-		
-		//
-		// Initialise terms.
-		//
-		else
-		{
-			//
-			// Init predicate term.
-			//
-			$this->Term( new COntologyTerm() );
-	
-			//
-			// Init subject term.
-			//
-			$this->SubjectTerm( new COntologyTerm() );
-	
-			//
-			// Init object term.
-			//
-			$this->ObjectTerm( new COntologyTerm() );
-		
-		} // Node not found.
+		} // Found edge.
 	
 		//
 		// Initialise empty nodes.
@@ -1233,7 +1348,7 @@ class COntologyEdge extends CGraphEdge
 
 	 
 	/*===================================================================================
-	 *	_IndexTerms																*
+	 *	_IndexTerms																		*
 	 *==================================================================================*/
 
 	/**

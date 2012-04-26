@@ -29,9 +29,9 @@ require_once( kPATH_LIBRARY_SOURCE."COntologyTermObject.php" );
 /**
  * Generic term.
  *
- * This {@link kTYPE_TERM kind} of {@link COntologyTermObject term} represents a generic
- * term that does not have any specific qualification or function, expect to serve as an
- * aggregator or category for other terms.
+ * This kind of {@link COntologyTermObject term} represents a generic term that does not
+ * have any specific qualification or function, expect to serve as an aggregator or category
+ * for other terms.
  *
  * In this class we enforce the {@link kTYPE_TERM kTYPE_TERM} {@link Kind() kind}, and
  * we ensure that the term has both the {@link Code() code} and {@link Name() name} in order

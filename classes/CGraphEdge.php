@@ -505,33 +505,61 @@ class CGraphEdge extends CGraphNode
 	 * Normalise after a {@link _Create() create}.
 	 *
 	 * We {@link CGraphNode::_FinishCreate() override} this method to handle relationships
-	 * rather than nodes.
+	 * rather than nodes, and to initialise related nodes.
 	 *
 	 * @param reference			   &$theContainer		Object container.
-	 * @param reference			   &$theIdentifier		Object identifier.
-	 * @param reference			   &$theModifiers		Create modifiers.
 	 *
 	 * @access protected
 	 */
-	protected function _FinishCreate( &$theContainer, &$theIdentifier, &$theModifiers )
+	protected function _FinishCreate( &$theContainer )
 	{
 		//
-		// Create empty predicate node.
+		// Handle container.
+		// This method is only called with an empty identifier.
 		//
-		if( ! $this->Node() instanceof Everyman\Neo4j\Relationship )
-			$this->Node( $theContainer->makeRelationship() );
+		if( $theContainer instanceof Everyman\Neo4j\Client )
+		{
+			//
+			// Create empty predicate node.
+			//
+			if( ! $this->Node() instanceof Everyman\Neo4j\Relationship )
+				$this->Node( $theContainer->makeRelationship() );
+			
+			//
+			// Create empty subject node.
+			//
+			if( ! $this->Subject() instanceof Everyman\Neo4j\Node )
+				$this->Subject( $theContainer->makeNode() );
+			
+			//
+			// Create empty object node.
+			//
+			if( ! $this->Object() instanceof Everyman\Neo4j\Node )
+				$this->Object( $theContainer->makeNode() );
+			
+			//
+			// Set clean.
+			// Because we don't want to commit an empty node.
+			//
+			$this->_IsDirty( FALSE );
+		
+		} // Provided container.
 		
 		//
-		// Create empty subject node.
+		// Handle content.
 		//
-		if( ! $this->Subject() instanceof Everyman\Neo4j\Node )
-			$this->Subject( $theContainer->makeNode() );
-		
-		//
-		// Create empty object node.
-		//
-		if( ! $this->Object() instanceof Everyman\Neo4j\Node )
-			$this->Object( $theContainer->makeNode() );
+		else
+		{
+			//
+			// Set committed status.
+			//
+			$this->_IsCommitted( $this->Node()->hasId() );
+			
+			//
+			// Set clean if committed.
+			//
+			$this->_IsDirty( ! $this->Node()->hasId() );
+		}
 		
 		//
 		// Set inited flag.
@@ -560,14 +588,9 @@ class CGraphEdge extends CGraphNode
 	protected function _FinishLoad( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
-		// Save node.
+		// Create empty node.
 		//
-		$save = $this->Node();
-		
-		//
-		// Initialise node resources.
-		//
-		if( $save === NULL )
+		if( $this->Node() === NULL )
 		{
 			//
 			// Init predicate node.
@@ -583,8 +606,29 @@ class CGraphEdge extends CGraphNode
 			// Init object node.
 			//
 			$this->Object( $theContainer->makeNode() );
+			
+			//
+			// Set clean.
+			// Because we don't want to commit an empty node.
+			//
+			$this->_IsDirty( FALSE );
+		}
 		
-		} // Empty relationship.
+		//
+		// Handle loaded node.
+		//
+		else
+		{
+			//
+			// Set committed status.
+			//
+			$this->_IsCommitted( $this->Node()->hasId() );
+			
+			//
+			// Set clean if committed.
+			//
+			$this->_IsDirty( ! $this->Node()->hasId() );
+		}
 		
 		//
 		// Set inited flag.

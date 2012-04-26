@@ -19,7 +19,8 @@
 	<div class="info-box-title">Description</div>
 	<div class="nav-bar">
 					<span class="disabled">Description</span> |
-													<a href="#sec-vars">Vars</a>
+							<a href="#sec-descendents">Descendents</a>
+			|											<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
 						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
 						
 											<a href="#sec-consts">Constants</a>
@@ -27,10 +28,14 @@
 			</div>
 	<div class="info-box-body">
         		<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Ontology term.</p>
-<p class="description"><p>This <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ONTOLOGY_TERM">kind</a> of <a href="../../MyWrapper/Ontology/COntologyTerm.html">term</a> represents the  root term of an ontology. In general, it can represent the ontology as a whole.</p><p>In this class we enforce the <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ONTOLOGY_TERM">kTYPE_ONTOLOGY_TERM</a>  <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodKind">kind</a>.</p></p>
+<p class="short-description">Ontology graph node.</p>
+<p class="description"><p>This class implements an ontology graph root node.</p><p>The class is derived from <a href="../../MyWrapper/Persistence/CGraphNode.html">CGraphNode</a>, it adds another required  property, the <a href="../../MyWrapper/Ontology/COntology.html#methodTerm">term</a>. This class will wrap the array access framework to  the combination of the <a href="../../MyWrapper/Persistence/CGraphNode.html#methodNode">node</a> properties and the <a href="../../MyWrapper/Ontology/COntology.html#methodTerm">term</a>  elements, except that the <a href="../../MyWrapper/Ontology/COntology.html#methodTerm">term</a> elements will be read-only.</p><p>This class introduces a new kind of container: it must be an array of two elements  structured as follows:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NODE">kTAG_NODE</a></em>: This element should hold the nodes container,
+        it must be a Everyman\Neo4j\Client instance.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM">kTAG_TERM</a></em>: This element should hold the terms container,
+        it must be a <a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a> instance.</li></ul></p><p><em>Note that the class will not cast to an array correctly, you must use the
+ <a href="../../MyWrapper/Ontology/COntology.html#methodgetArrayCopy">getArrayCopy</a> method to get an array, if you know how to solve
+ this, please do it!</em></p></p>
 		<p class="notes">
-			Located in <a class="field" href="_classes---COntology.php.html">/classes/COntology.php</a> (line <span class="field">41</span>)
+			Located in <a class="field" href="_classes---COntology.php.html">/classes/COntology.php</a> (line <span class="field">78</span>)
 		</p>
 		
 				
@@ -42,44 +47,169 @@
          |
          --<a href="../../MyWrapper/Persistence/CPersistentObject.html">CPersistentObject</a>
             |
-            --<a href="../../MyWrapper/Persistence/CPersistentUnitObject.html">CPersistentUnitObject</a>
+            --<a href="../../MyWrapper/Persistence/CGraphNode.html">CGraphNode</a>
                |
-               --<a href="../../MyWrapper/Persistence/CRelatedUnitObject.html">CRelatedUnitObject</a>
-                  |
-                  --<a href="../../MyWrapper/Framework/CCodedUnitObject.html">CCodedUnitObject</a>
-                     |
-                     --<a href="../../MyWrapper/Ontology/CTerm.html">CTerm</a>
-                        |
-                        --<a href="../../MyWrapper/Ontology/COntologyTermObject.html">COntologyTermObject</a>
-                           |
-                           --<a href="../../MyWrapper/Ontology/COntologyTerm.html">COntologyTerm</a>
-                              |
-                              --COntology</pre>
+               --COntology</pre>
 	
 			</div>
 </div>
 
+	<a name="sec-descendents"></a>
+	<div class="info-box">
+		<div class="info-box-title">Direct descendents</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+			<span class="disabled">Descendents</span>
+			|												<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+								|															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+															<a href="#sec-consts">Constants</a>
+							
+					</div>
+		<div class="info-box-body">
+			<table cellpadding="2" cellspacing="0" class="class-table">
+				<tr>
+					<th class="class-table-header">Class</th>
+					<th class="class-table-header">Description</th>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; white-space: nowrap">
+						<img src="../../media/images/Class.png"
+								 alt=" class"
+								 title=" class"
+								 style="vertical-align: center"/>
+						<a href="../../MyWrapper/Ontology/COntologyNode.html">COntologyNode</a>
+					</td>
+					<td>
+											Ontology node.
+										</td>
+				</tr>
+							</table>
+		</div>
+	</div>
 
 
+	<a name="sec-var-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variable Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendants</a> |
+						<span class="disabled">Vars</span> (<a href="#sec-vars">details</a>)
+							| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+															<a href="#sec-consts">Constants</a>
+							
+					</div>
+		<div class="info-box-body">
+			<div class="var-summary">
+																								<div class="var-title">
+					<img src="../../media/images/Variable.png" alt=" " />
+					<span class="var-type"><a href="../../MyWrapper/Ontology/COntologyTerm.html">COntologyTerm</a></span>
+					<a href="#$mTerm" title="details" class="var-name">$mTerm</a>
+				</div>
+											</div>
+		</div>
+	</div>
 
 	<a name="sec-method-summary"></a>
 	<div class="info-box">
 		<div class="info-box-title">Method Summary</span></div>
 		<div class="nav-bar">
 			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendants</a> |
 															<a href="#sec-consts">Constants</a>
 							
-															<a href="#sec-vars">Vars</a>
+															<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
 				 
 				|
 						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																								<div class="method-definition">
+																																																																																																																																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#count" title="details" class="method-name">count</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#getArrayCopy" title="details" class="method-name">getArrayCopy</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">boolean</span>
+										<a href="#offsetExists" title="details" class="method-name">offsetExists</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#offsetGet" title="details" class="method-name">offsetGet</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result"><a href="../../MyWrapper/Ontology/COntologyTermObject.html">COntologyTermObject</a></span>
+										<a href="#Term" title="details" class="method-name">Term</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#_Commit" title="details" class="method-name">_Commit</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_FinishCreate" title="details" class="method-name">_FinishCreate</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_FinishLoad" title="details" class="method-name">_FinishLoad</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">Everyman\Neo4j\NodeIndex</span>
+										<a href="#_GetNodeIndex" title="details" class="method-name">_GetNodeIndex</a>
+											(<span class="var-type">Client</span>&nbsp;<span class="var-name">\\$theContainer</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theIndex</span>, [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$doClear</span> = <span class="var-default">FALSE</span>], <span class="var-type">Everyman\Neo4j\Client</span>&nbsp;<span class="var-name">$theContainer</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_IndexTerms" title="details" class="method-name">_IndexTerms</a>
+											(<span class="var-type">Client</span>&nbsp;<span class="var-name">\\$theContainer</span>, <span class="var-type">Everyman\Neo4j\Client</span>&nbsp;<span class="var-name">$theContainer</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#_Load" title="details" class="method-name">_Load</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+									</div>
+																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">void</span>
 										<a href="#_PrepareCommit" title="details" class="method-name">_PrepareCommit</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_PrepareCreate" title="details" class="method-name">_PrepareCreate</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_PrepareLoad" title="details" class="method-name">_PrepareLoad</a>
 											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
 									</div>
 											</div>
@@ -91,6 +221,7 @@
 		<div class="info-box-title">Variables</div>
 		<div class="nav-bar">
 			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
 										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
 						
 			
@@ -102,8 +233,39 @@
 					</div>
 		<div class="info-box-body">
 			
+<a name="var$mTerm" id="$mTerm"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<img src="../../media/images/Variable.png" />
+		<span class="var-title">
+			<span class="var-type"><a href="../../MyWrapper/Ontology/COntologyTerm.html">COntologyTerm</a></span>
+			<span class="var-name">$mTerm</span>
+			 = <span class="var-default"> NULL</span>			(line <span class="line-number">87</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Term.</p>
+<p class="description"><p>This data member holds the node <a href="../../MyWrapper/Ontology/COntologyTerm.html">term</a>.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
 							<h4>Inherited Variables</h4>
 				<A NAME='inherited_vars'><!-- --></A>
+									<p>Inherited from <span class="classname"><a href="../../MyWrapper/Persistence/CGraphNode.html">CGraphNode</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Variable.png" />
+							<span class="var-title">
+								<span class="var-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#var$mNode">CGraphNode::$mNode</a></span><br>
+							</span>
+											</blockquote> 
 									<p>Inherited from <span class="classname"><a href="../../MyWrapper/Framework/CStatusObject.html">CStatusObject</a></span></p>
 					<blockquote>
 													<img src="../../media/images/Variable.png" />
@@ -120,28 +282,455 @@
 		<div class="info-box-title">Methods</div>
 		<div class="nav-bar">
 			<a href="#sec-description">Description</a> |
-															<a href="#sec-vars">Vars</a>
+							<a href="#sec-descendents">Descendents</a> |
+															<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
 														<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
 						
 		</div>
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
-<a name="method_PrepareCommit" id="_PrepareCommit"><!-- --></a>
+<a name="methodcount" id="count"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">77</span>)
+		<span class="method-title">count</span> (line <span class="line-number">272</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Count number of elements.</p>
+<p class="description"><p>We overload this method to wrap the internal array over the node properties.</p><p>Note that if the node exists the method will return an integer, if not, it will  return <em>NULL</em>.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			count
+		</span>
+				()
+			</div>
+	
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Persistence/CGraphNode.html#methodcount">CGraphNode::count()</a></dt>
+						<dd>Count number of elements.</dd>
+					</dl>
+			
+	</div>
+<a name="methodgetArrayCopy" id="getArrayCopy"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">getArrayCopy</span> (line <span class="line-number">294</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a copy of the array.</p>
+<p class="description"><p>We overload this method to wrap the internal array over the node properties.</p><p>Note that if the node exists the method will return an array, if not, it will  return an empty array.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			getArrayCopy
+		</span>
+				()
+			</div>
+	
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Persistence/CGraphNode.html#methodgetArrayCopy">CGraphNode::getArrayCopy()</a></dt>
+						<dd>Create a copy of the array.</dd>
+					</dl>
+			
+	</div>
+<a name="methodoffsetExists" id="offsetExists"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">offsetExists</span> (line <span class="line-number">202</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Check whether a given offset exists.</p>
+<p class="description"><p>We overload this method to wrap the internal array over the node properties.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">boolean</span>
+		<span class="method-name">
+			offsetExists
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theOffset</span><span class="var-description">: Offset.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Persistence/CGraphNode.html#methodoffsetExists">CGraphNode::offsetExists()</a></dt>
+						<dd>Check whether the provided offset exists.</dd>
+					</dl>
+			
+	</div>
+<a name="methodoffsetGet" id="offsetGet"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">offsetGet</span> (line <span class="line-number">238</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return a value at a given offset.</p>
+<p class="description"><p>We overload this method to wrap the internal array over the node properties.</p><p>In this class no offset may have a <em>NULL</em> value, if this method returns a  <em>NULL</em> value, it means that the offset doesn't exist.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			offsetGet
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theOffset</span><span class="var-description">: Offset.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Persistence/CGraphNode.html#methodoffsetGet">CGraphNode::offsetGet()</a></dt>
+						<dd>Return the value of the provided offset.</dd>
+					</dl>
+			
+	</div>
+<a name="methodTerm" id="Term"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Term</span> (line <span class="line-number">138</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage node term.</p>
+<p class="description"><p>This method can be used to manage the node term reference, it uses the standard  accessor <a href="../../MyWrapper/Framework/CObject.html#methodManageMember">method</a> to manage the property:</p><p><ul><li><strong>$theValue</strong>: The value or operation:
+     <ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the value.</li><li><em><a href="../../MyWrapper/Ontology/COntologyTermObject.html">COntologyTermObject</a></em>: Set value.</li><li><em>other</em>: Raise exception.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
+     <ul><li><em>TRUE</em>: Return the value <em>before</em> it was eventually modified.</li><li><em>FALSE</em>: Return the value <em>after</em> it was eventually modified.</li></ul></li></ul></p><p>The method will also set the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsDirty">dirty</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_DIRTY">status</a> and the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">inited</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a> if the node is provided.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsDirty">CStatusObject::_IsDirty()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CObject.html#methodManageMember">CObject::ManageMember()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../../MyWrapper/Ontology/COntologyTermObject.html">COntologyTermObject</a></span>
+		<span class="method-name">
+			Term
+		</span>
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Term or operation.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_Commit" id="_Commit"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_Commit</span> (line <span class="line-number">336</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Store object in container.</p>
+<p class="description"><p>We <a href="../../MyWrapper/Persistence/CGraphNode.html#method_Commit">overload</a> this method to provide the correct  container to the <a href="../../MyWrapper/Persistence/CGraphNode.html">parent</a> <a href="../../MyWrapper/Persistence/CGraphNode.html#method_Commit">method</a>.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CGraphNode.html#methodNode">CGraphNode::Node()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			_Commit
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theContainer</span><span class="var-description">: Object container.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theModifiers</span><span class="var-description">: Commit modifiers.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Persistence/CGraphNode.html#method_Commit">CGraphNode::_Commit()</a></dt>
+						<dd>Store object in container.</dd>
+					</dl>
+			
+	</div>
+<a name="method_FinishCreate" id="_FinishCreate"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_FinishCreate</span> (line <span class="line-number">711</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Normalise after a _Create().</p>
+<p class="description"><p>In this class we initialise the <a href="../../MyWrapper/Ontology/COntology.html#methodTerm">term</a> if necessary.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_FinishCreate
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theContainer</span><span class="var-description">: Object container.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Persistence/CGraphNode.html#method_FinishCreate">CGraphNode::_FinishCreate()</a></dt>
+						<dd>Normalise after a _Create().</dd>
+					</dl>
+			
+	</div>
+<a name="method_FinishLoad" id="_FinishLoad"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_FinishLoad</span> (line <span class="line-number">747</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Normalise after a _Load().</p>
+<p class="description"><p>In this class we get the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM">term</a> reference from the node properties  and load it.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_FinishLoad
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theContainer</span><span class="var-description">: Object container.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theModifiers</span><span class="var-description">: Create modifiers.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Persistence/CGraphNode.html#method_FinishLoad">CGraphNode::_FinishLoad()</a></dt>
+						<dd>Normalise after a _Load().</dd>
+					</dl>
+			
+	</div>
+<a name="method_GetNodeIndex" id="_GetNodeIndex"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_GetNodeIndex</span> (line <span class="line-number">869</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Retrieve the node index.</p>
+<p class="description"><p>This method can be used to return a node index identified by the provided index tag.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Everyman\Neo4j\NodeIndex</span>
+		<span class="method-name">
+			_GetNodeIndex
+		</span>
+					(<span class="var-type">Client</span>&nbsp;<span class="var-name">\\$theContainer</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theIndex</span>, [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$doClear</span> = <span class="var-default">FALSE</span>], <span class="var-type">Everyman\Neo4j\Client</span>&nbsp;<span class="var-name">$theContainer</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">Everyman\Neo4j\Client</span>
+				<span class="var-name">$theContainer</span><span class="var-description">: Node container.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theIndex</span><span class="var-description">: Index tag.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$doClear</span><span class="var-description">: TRUE means clear index.</span>			</li>
+					<li>
+				<span class="var-type">Client</span>
+				<span class="var-name">\\$theContainer</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_IndexTerms" id="_IndexTerms"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_IndexTerms</span> (line <span class="line-number">826</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create node/term indexes.</p>
+<p class="description"><p>This method will save node indexes after the node was <a href="../../MyWrapper/Ontology/COntology.html#method_Commit">committed</a>,  there are two main indexes for nodes:</p><p><ul><li><em><a href="../../MyWrapper/Ontology/_classes---COntology.inc.php.html#definekINDEX_NODE_TERM">kINDEX_NODE_TERM</a></em>: This index (NodeIndex) links
+        the node to its <a href="../../MyWrapper/Ontology/COntology.html#methodTerm">term</a> through the following keys:
+     <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM">kTAG_TERM</a></em>: This key represents the
+            <a href="../../MyWrapper/Ontology/COntology.html#methodTerm">term</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a>.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">kTAG_NAME</a></em>: This key represents the
+            <a href="../../MyWrapper/Ontology/COntology.html#methodTerm">term</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">names</a> in all languages.</li></ul></li><li><em>kINDEX_NODE_TERM_GEN</em>: This index
+        (NodeFulltextIndex) links the node to its <a href="../../MyWrapper/Ontology/COntology.html#methodTerm">term</a> through the
+        following keys:
+     <ul><li><em>kPROP_REF_TERM_WORD</em>: This key represents
+            the <a href="../../MyWrapper/Ontology/COntology.html#methodTerm">term</a> words found in the following properties:
+         <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DEFINITION">kTAG_DEFINITION</a></em>: Term definitions in all
+                languages.</li></ul></li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_IndexTerms
+		</span>
+					(<span class="var-type">Client</span>&nbsp;<span class="var-name">\\$theContainer</span>, <span class="var-type">Everyman\Neo4j\Client</span>&nbsp;<span class="var-name">$theContainer</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">Everyman\Neo4j\Client</span>
+				<span class="var-name">$theContainer</span><span class="var-description">: Node container.</span>			</li>
+					<li>
+				<span class="var-type">Client</span>
+				<span class="var-name">\\$theContainer</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_Load" id="_Load"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_Load</span> (line <span class="line-number">421</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Find object.</p>
+<p class="description"><p>In this class we try to load the node.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			_Load
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theContainer</span><span class="var-description">: Object container.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theModifiers</span><span class="var-description">: Create options.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Persistence/CGraphNode.html#method_Load">CGraphNode::_Load()</a></dt>
+						<dd>Find object.</dd>
+					</dl>
+			
+	</div>
+<a name="method_PrepareCommit" id="_PrepareCommit"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">643</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Normalise before a store.</p>
-<p class="description"><p>We overload this method to enforce the  <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ONTOLOGY_TERM">kTYPE_ONTOLOGY_TERM</a> <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodKind">kind</a>, note that we  call the <a href="../../MyWrapper/Ontology/COntologyTermObject.html">COntologyTermObject</a> version of this method instead  of the <a href="../../MyWrapper/Ontology/COntologyTerm.html">parent</a> one.</p></p>
+<p class="description"><p>In this class we check if the provided container is supported and we set the  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM">term</a> property in the node and <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">commit</a> the  <a href="../../MyWrapper/Ontology/COntology.html#methodTerm">term</a>.</p></p>
 	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ONTOLOGY_TERM">kTYPE_ONTOLOGY_TERM</a></li>
 				<li><span class="field">throws:</span> <a href="../../MyWrapper/Framework/CException.html">CException</a></li>
 				<li><span class="field">access:</span> protected</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodKind">CCodedUnitObject::Kind()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -167,132 +756,155 @@
 			<hr class="separator" />
 		<div class="notes">Redefinition of:</div>
 		<dl>
-			<dt><a href="../../MyWrapper/Ontology/COntologyTerm.html#method_PrepareCommit">COntologyTerm::_PrepareCommit()</a></dt>
+			<dt><a href="../../MyWrapper/Persistence/CGraphNode.html#method_PrepareCommit">CGraphNode::_PrepareCommit()</a></dt>
 						<dd>Normalise before a store.</dd>
+					</dl>
+			
+	</div>
+<a name="method_PrepareCreate" id="_PrepareCreate"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_PrepareCreate</span> (line <span class="line-number">469</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Normalise parameters of a create.</p>
+<p class="description"><p>In this class we first check whether the container has the following structure:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NODE">kTAG_NODE</a></em>: This element should hold the nodes
+        container, it must be a Everyman\Neo4j\Client instance.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM">kTAG_TERM</a></em>: This element should hold the terms
+        container, it must be a <a href="../../MyWrapper/Ontology/COntologyTermObject.html">COntologyTermObject</a> instance.</li></ul></p><p>We then call the <a href="../../MyWrapper/Persistence/CGraphNode.html">parent</a>  <a href="../../MyWrapper/Persistence/CGraphNode.html#method_PrepareCreate">method</a> and check if the container was replaced  with the content: in that case we try to load the related <a href="../../MyWrapper/Ontology/COntology.html#methodTerm">term</a>.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a></li>
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsEncoded">CPersistentObject::_IsEncoded()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_PrepareCreate
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theContainer</span><span class="var-description">: Object container.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theModifiers</span><span class="var-description">: Create modifiers.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Persistence/CGraphNode.html#method_PrepareCreate">CGraphNode::_PrepareCreate()</a></dt>
+						<dd>Normalise parameters of a create.</dd>
+					</dl>
+			
+	</div>
+<a name="method_PrepareLoad" id="_PrepareLoad"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">570</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Normalise parameters of a find.</p>
+<p class="description"><p>In this class we check if the provided container is supported., terms require a  container instance derived from <a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a>.</p></p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> <a href="../../MyWrapper/Framework/CException.html">CException</a></li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_PrepareLoad
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theContainer</span><span class="var-description">: Object container.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theModifiers</span><span class="var-description">: Create modifiers.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Persistence/CGraphNode.html#method_PrepareLoad">CGraphNode::_PrepareLoad()</a></dt>
+						<dd>Normalise parameters of a find.</dd>
 					</dl>
 			
 	</div>
 							<h4>Inherited Methods</h4>
 				<a name='inherited_methods'><!-- --></a>	
 									<!-- =========== Summary =========== -->
-					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Ontology/COntologyTerm.html">COntologyTerm</a></span></p>
-					<blockquote>
-													<img src="../../media/images/Constructor.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Ontology/COntologyTerm.html#method__construct">COntologyTerm::__construct()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Ontology/COntologyTerm.html#methodNode">COntologyTerm::Node()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Ontology/COntologyTerm.html#methodoffsetSet">COntologyTerm::offsetSet()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Ontology/COntologyTerm.html#methodoffsetUnset">COntologyTerm::offsetUnset()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Ontology/COntologyTerm.html#methodPredicate">COntologyTerm::Predicate()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Ontology/COntologyTerm.html#method_PrepareCommit">COntologyTerm::_PrepareCommit()</a></span><br>
-											</blockquote>
-									<!-- =========== Summary =========== -->
-					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Ontology/COntologyTermObject.html">COntologyTermObject</a></span></p>
-					<blockquote>
-													<img src="../../media/images/Constructor.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Ontology/COntologyTermObject.html#method__construct">COntologyTermObject::__construct()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodGID">COntologyTermObject::GID()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodNS">COntologyTermObject::NS()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodRelate">COntologyTermObject::Relate()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodSource">COntologyTermObject::Source()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodSynonym">COntologyTermObject::Synonym()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodValid">COntologyTermObject::Valid()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodValidObject">COntologyTermObject::ValidObject()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodXref">COntologyTermObject::Xref()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Ontology/COntologyTermObject.html#method_CheckReference">COntologyTermObject::_CheckReference()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Ontology/COntologyTermObject.html#method_PrepareCommit">COntologyTermObject::_PrepareCommit()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Ontology/COntologyTermObject.html#method_PrepareCreate">COntologyTermObject::_PrepareCreate()</a></span><br>
-											</blockquote>
-									<!-- =========== Summary =========== -->
-					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Ontology/CTerm.html">CTerm</a></span></p>
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Persistence/CGraphNode.html">CGraphNode</a></span></p>
 					<blockquote>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Ontology/CTerm.html#methodDefinition">CTerm::Definition()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#methodappend">CGraphNode::append()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Ontology/CTerm.html#methodName">CTerm::Name()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#methodasort">CGraphNode::asort()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Ontology/CTerm.html#methodNS">CTerm::NS()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#methodcount">CGraphNode::count()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Ontology/CTerm.html#method_index">CTerm::_index()</a></span><br>
-											</blockquote>
-									<!-- =========== Summary =========== -->
-					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Framework/CCodedUnitObject.html">CCodedUnitObject</a></span></p>
-					<blockquote>
-													<img src="../../media/images/Constructor.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#method__construct">CCodedUnitObject::__construct()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#methodexchangeArray">CGraphNode::exchangeArray()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">CCodedUnitObject::Code()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#methodgetArrayCopy">CGraphNode::getArrayCopy()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodKind">CCodedUnitObject::Kind()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#methodgetIterator">CGraphNode::getIterator()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodoffsetSet">CCodedUnitObject::offsetSet()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#methodkeys">CGraphNode::keys()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodoffsetUnset">CCodedUnitObject::offsetUnset()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#methodksort">CGraphNode::ksort()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodStamp">CCodedUnitObject::Stamp()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#methodnatcasesort">CGraphNode::natcasesort()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_index">CCodedUnitObject::_index()</a></span><br>
-											</blockquote>
-									<!-- =========== Summary =========== -->
-					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Persistence/CRelatedUnitObject.html">CRelatedUnitObject</a></span></p>
-					<blockquote>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#methodnatsort">CGraphNode::natsort()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Persistence/CRelatedUnitObject.html#methodRelate">CRelatedUnitObject::Relate()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#methodNode">CGraphNode::Node()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Persistence/CRelatedUnitObject.html#methodValid">CRelatedUnitObject::Valid()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#methodoffsetExists">CGraphNode::offsetExists()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Persistence/CRelatedUnitObject.html#methodValidObject">CRelatedUnitObject::ValidObject()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#methodoffsetGet">CGraphNode::offsetGet()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Persistence/CRelatedUnitObject.html#method_PrepareCommit">CRelatedUnitObject::_PrepareCommit()</a></span><br>
-											</blockquote>
-									<!-- =========== Summary =========== -->
-					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html">CPersistentUnitObject</a></span></p>
-					<blockquote>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#methodoffsetSet">CGraphNode::offsetSet()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodHashIndex">CPersistentUnitObject::HashIndex()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#methodoffsetUnset">CGraphNode::offsetUnset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodNewObject">CPersistentUnitObject::NewObject()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#methodvalues">CGraphNode::values()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodPersistent">CPersistentUnitObject::Persistent()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#method_Commit">CGraphNode::_Commit()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodReference">CPersistentUnitObject::Reference()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#method_Create">CGraphNode::_Create()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_CheckRelationObject">CPersistentUnitObject::_CheckRelationObject()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#method_FinishCreate">CGraphNode::_FinishCreate()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_CheckRelationPredicate">CPersistentUnitObject::_CheckRelationPredicate()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#method_FinishLoad">CGraphNode::_FinishLoad()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_CommitReferences">CPersistentUnitObject::_CommitReferences()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#method_Load">CGraphNode::_Load()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_id">CPersistentUnitObject::_id()</a></span><br>
-													<img src="../../media/images/AbstractMethod.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_index">CPersistentUnitObject::_index()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#method_PrepareCommit">CGraphNode::_PrepareCommit()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_ManageObjectList">CPersistentUnitObject::_ManageObjectList()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#method_PrepareCreate">CGraphNode::_PrepareCreate()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_ObjectIndex">CPersistentUnitObject::_ObjectIndex()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_ParseReferences">CPersistentUnitObject::_ParseReferences()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_PrepareCommit">CPersistentUnitObject::_PrepareCommit()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_PrepareLoad">CPersistentUnitObject::_PrepareLoad()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method__toString">CPersistentUnitObject::__toString()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#method_PrepareLoad">CGraphNode::_PrepareLoad()</a></span><br>
 											</blockquote>
 									<!-- =========== Summary =========== -->
 					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Persistence/CPersistentObject.html">CPersistentObject</a></span></p>
@@ -419,10 +1031,11 @@
 		<div class="info-box-title">Class Constants</div>
 		<div class="nav-bar">
 			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendants</a> |
 										<a href="#sec-var-summary">Constants</a> (<span class="disabled">details</span>)
 						
 			
-												<a href="#sec-vars">Vars</a>
+												<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
 														| 
 									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
 							
@@ -446,7 +1059,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Wed, 25 Apr 2012 19:08:12 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 26 Apr 2012 17:41:31 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

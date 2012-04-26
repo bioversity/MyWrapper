@@ -255,7 +255,7 @@ class CPersistentObject extends CStatusObject
 			//
 			// Initialise object.
 			//
-			$this->_FinishCreate( $theContainer, $theIdentifier, $theModifiers );
+			$this->_FinishCreate( $theContainer );
 		}
 		
 	} // Constructor.
@@ -901,12 +901,10 @@ class CPersistentObject extends CStatusObject
 	 * In this class we do nothing.
 	 *
 	 * @param reference			   &$theContainer		Object container.
-	 * @param reference			   &$theIdentifier		Object identifier.
-	 * @param reference			   &$theModifiers		Create modifiers.
 	 *
 	 * @access protected
 	 */
-	protected function _FinishCreate( &$theContainer, &$theIdentifier, &$theModifiers )	   {}
+	protected function _FinishCreate( &$theContainer )									   {}
 
 	 
 	/*===================================================================================

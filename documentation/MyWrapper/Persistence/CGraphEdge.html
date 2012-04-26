@@ -135,7 +135,7 @@
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">void</span>
 										<a href="#_FinishCreate" title="details" class="method-name">_FinishCreate</a>
-											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>)
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -426,12 +426,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishCreate</span> (line <span class="line-number">516</span>)
+		<span class="method-title">_FinishCreate</span> (line <span class="line-number">514</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Normalise after a _Create().</p>
-<p class="description"><p>We <a href="../../MyWrapper/Persistence/CGraphNode.html#method_FinishCreate">override</a> this method to handle relationships  rather than nodes.</p></p>
+<p class="description"><p>We <a href="../../MyWrapper/Persistence/CGraphNode.html#method_FinishCreate">override</a> this method to handle relationships  rather than nodes, and to initialise related nodes.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
 			</ul>
@@ -441,19 +441,13 @@
 		<span class="method-name">
 			_FinishCreate
 		</span>
-					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>)
 			</div>
 	
 			<ul class="parameters">
 					<li>
 				<span class="var-type">reference</span>
 				<span class="var-name">&$theContainer</span><span class="var-description">: Object container.</span>			</li>
-					<li>
-				<span class="var-type">reference</span>
-				<span class="var-name">&$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
-					<li>
-				<span class="var-type">reference</span>
-				<span class="var-name">&$theModifiers</span><span class="var-description">: Create modifiers.</span>			</li>
 				</ul>
 		
 			<hr class="separator" />
@@ -477,7 +471,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishLoad</span> (line <span class="line-number">560</span>)
+		<span class="method-title">_FinishLoad</span> (line <span class="line-number">588</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -781,7 +775,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Wed, 25 Apr 2012 19:08:08 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 26 Apr 2012 17:41:27 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

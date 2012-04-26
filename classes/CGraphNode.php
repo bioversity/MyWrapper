@@ -71,6 +71,7 @@ class CGraphNode extends CPersistentObject
 	 */
 	 protected $mNode = NULL;
 
+
 		
 
 /*=======================================================================================
@@ -696,12 +697,23 @@ class CGraphNode extends CPersistentObject
 	protected function _Create( &$theContent )
 	{
 		//
-		// Handle node.
+		// Handle container.
+		// This is the case when no identifier was provided:
+		// in this case we pass the container in the parameter.
+		//
+		if( $theContent instanceof Everyman\Neo4j\Client )
+			return FALSE;															// ==>
+		
+		//
+		// Handle content.
+		// This is the case when either the content was loaded,
+		// or the content was provided without identifier.
+		// in this case we pass the content in the parameter.
 		//
 		if( $theContent instanceof Everyman\Neo4j\PropertyContainer )
 		{
 			//
-			// Save node.
+			// Save content in node.
 			//
 			$this->Node( $theContent );
 			
@@ -709,7 +721,7 @@ class CGraphNode extends CPersistentObject
 		
 		} // Loading node.
 		
-		return FALSE;																// ==>
+		return parent::_Create( $theContent );										// ==>
 	
 	} // _Create.
 
@@ -847,6 +859,22 @@ class CGraphNode extends CPersistentObject
 					  kERROR_UNSUPPORTED,
 					  kMESSAGE_TYPE_ERROR,
 					  array( 'Container' => $theContainer ) );					// !@! ==>
+		
+		//
+		// Handle provided node.
+		//
+		if( $theIdentifier instanceof Everyman\Neo4j\PropertyContainer )
+		{
+			//
+			// Set node as container.
+			//
+			$theContainer = $theIdentifier;
+			
+			//
+			// Prevent loading from container.
+			//
+			$theIdentifier = NULL;
+		}
 			
 		//
 		// Call parent method.
@@ -946,20 +974,48 @@ class CGraphNode extends CPersistentObject
 	/**
 	 * Normalise after a {@link _Create() create}.
 	 *
-	 * In this class we create an empty node by default.
+	 * In this class we create an empty node if not yet set.
 	 *
 	 * @param reference			   &$theContainer		Object container.
-	 * @param reference			   &$theIdentifier		Object identifier.
-	 * @param reference			   &$theModifiers		Create modifiers.
 	 *
 	 * @access protected
 	 */
-	protected function _FinishCreate( &$theContainer, &$theIdentifier, &$theModifiers )
+	protected function _FinishCreate( &$theContainer )
 	{
 		//
-		// Create empty node.
+		// Handle container.
+		// This method is only called with an empty identifier.
 		//
-		$this->Node( $theContainer->makeNode() );
+		if( ($theContainer instanceof Everyman\Neo4j\Client)
+		 && ($this->Node() === NULL) )
+		{
+			//
+			// Init node.
+			//
+			$this->Node( $theContainer->makeNode() );
+			
+			//
+			// Set clean.
+			// Because we don't want to commit an empty node.
+			//
+			$this->_IsDirty( FALSE );
+		}
+		
+		//
+		// Handle content.
+		//
+		else
+		{
+			//
+			// Set committed status.
+			//
+			$this->_IsCommitted( $this->Node()->hasId() );
+			
+			//
+			// Set clean if committed.
+			//
+			$this->_IsDirty( ! $this->Node()->hasId() );
+		}
 		
 		//
 		// Set inited flag.
@@ -990,8 +1046,35 @@ class CGraphNode extends CPersistentObject
 		//
 		// Create empty node.
 		//
-		if( $this->mNode === NULL )
+		if( $this->Node() === NULL )
+		{
+			//
+			// Init node.
+			//
 			$this->Node( $theContainer->makeNode() );
+			
+			//
+			// Set clean.
+			// Because we don't want to commit an empty node.
+			//
+			$this->_IsDirty( FALSE );
+		}
+		
+		//
+		// Handle loaded node.
+		//
+		else
+		{
+			//
+			// Set committed status.
+			//
+			$this->_IsCommitted( $this->Node()->hasId() );
+			
+			//
+			// Set clean if committed.
+			//
+			$this->_IsDirty( ! $this->Node()->hasId() );
+		}
 		
 		//
 		// Set inited flag.

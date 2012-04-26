@@ -2,18 +2,17 @@
 
 /*=======================================================================================
  *																						*
- *									COntologyNode.inc.php								*
+ *									COntology.inc.php									*
  *																						*
  *======================================================================================*/
  
 /**
- * {@link COntologyNode COntologyNode} definitions.
+ * {@link COntology COntology} definitions.
  *
- * This file contains common definitions used by the {@link COntologyNode COntologyNode}
- * class.
+ * This file contains common definitions used by the {@link COntology COntology} class.
  *
  *	@package	MyWrapper
- *	@subpackage	Entities
+ *	@subpackage	Ontology
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 21/04/2012

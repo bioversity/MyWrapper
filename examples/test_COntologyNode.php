@@ -146,6 +146,30 @@ try
 	}
 	echo( '<hr>' );
 	echo( '<hr>' );
+
+	echo( '<i>From a node</i><br>' );
+	echo( '<i>$term = new COntologyTerm();</i><br>' );
+	$term = new COntologyTerm();
+	echo( '<i>$term->Code( \'TERM\' );</i><br>' );
+	$term->Code( 'TERM' );
+	echo( '<i>$term->Name( \'A term\', \'en\' );</i><br>' );
+	$term->Name( 'A term', 'en' );
+	echo( '<i>$term->Commit( $container[ kTAG_TERM ] );</i><br>' );
+	$term->Commit( $container[ kTAG_TERM ] );
+	echo( '<i>$node = $container[ kTAG_NODE ]->makeNode();</i><br>' );
+	$node = $container[ kTAG_NODE ]->makeNode();
+	echo( '<i>$node->setProperty( kTAG_TERM, $term[ kTAG_GID ] )->save();</i><br>' );
+	$node->setProperty( kTAG_TERM, $term[ kTAG_GID ] )->save();
+	echo( '<i>$test = new COntology( $container, $node ) );</i><br>' );
+	$test = new COntology( $container, $node );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
+
+	echo( '<i>Cleanup</i><br>' );
+	echo( '<i>$test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );</i><br>' );
+	$test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );
+	echo( '<hr>' );
+	echo( '<hr>' );
 	
 	//
 	// Test properties.

@@ -110,6 +110,16 @@ try
 		echo( '<br>' );
 	}
 	echo( '<hr>' );
+
+	echo( '<i>From a node</i><br>' );
+	echo( '<i>$node = $container->makeNode();</i><br>' );
+	$node = $container->makeNode();
+	echo( '<i>$node->setProperty( \'Name\', \'Milko\' )->setProperty( \'Surname\', \'Skofic\' )->save();</i><br>' );
+	$node->setProperty( 'Name', 'Milko' )->setProperty( 'Surname', 'Skofic' )->save();
+	echo( '<i>$test = new CGraphNode( $container, $node ) );</i><br>' );
+	$test = new CGraphNode( $container, $node );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
 	echo( '<hr>' );
 	
 	//
@@ -184,10 +194,16 @@ try
 	echo( "$id:<pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
+	echo( '<i>Retrieve non-existing</i><br>' );
+	echo( '<i>$test = new CGraphNode( $container, -1 );</i><br>' );
+	$test = new CGraphNode( $container, -1 );
+	echo( "<pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
+	
 	echo( '<i>Retrieve node</i><br>' );
 	echo( '<i>$test = new CGraphNode( $container, $id );</i><br>' );
 	$test = new CGraphNode( $container, $id );
-	echo( "$id:<pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( "<pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
 	echo( '<i>Delete node</i><br>' );
@@ -201,6 +217,11 @@ try
 	$ok = $test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );
 	echo( "$ok:<pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
+	
+	//
+	// Cleanup.
+	//
+	$container->deleteNode( $node );
 }
 
 //
