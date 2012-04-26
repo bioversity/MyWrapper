@@ -137,23 +137,25 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">RelateTo</span> (line <span class="line-number">114</span>)
+		<span class="method-title">RelateTo</span> (line <span class="line-number">121</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Create a graph edge.</p>
-<p class="description"><p>This method can be used to create a graph edge or relation between the current node  and an object node using a predicate node. The method accepts the following  parameters:</p><p><ul><li><strong>$theContainer</strong>: The graph and term containers as an array:
-	 <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NODE">kTAG_NODE</a></em>: This element should hold the nodes
+<p class="description"><p>This method can be used to create a graph edge or relation between the current node  and an object node using a predicate node. This method will not duplicate  relationships between the same nodes and the predicate term: it uses the  <a href="../../MyWrapper/Ontology/_classes---COntology.inc.php.html#definekINDEX_NODE_TERM">kINDEX_NODE_TERM</a> relationship index and its  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_EDGE_NODE">kTAG_EDGE_NODE</a> key to locate existing relationships. For that  reason the subject and object terms of the relationship must relate to  <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsCommitted">committed</a> nodes.</p><p>The method accepts the following parameters:</p><p><ul><li><strong>$theContainer</strong>: The graph and term containers as an array:
+     <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NODE">kTAG_NODE</a></em>: This element should hold the nodes
             container, it must be a Everyman\Neo4j\Client instance.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM">kTAG_TERM</a></em>: This element should hold the terms
             container, it must be a <a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a> instance.</li></ul></li><li><strong>$thePredicate</strong>: The predicate term:
-     <ul><li><em><a href="../../MyWrapper/Ontology/COntologyTerm.html">COntologyTerm</a></em>: The term <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">global</a>
+     <ul><li><em><a href="../../MyWrapper/Ontology/COntology.html">COntology</a></em>: The node <a href="../../MyWrapper/Ontology/COntology.html#methodTerm">term</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">global</a>
+            COntologyTerm::GID().</li><li><em><a href="../../MyWrapper/Ontology/COntologyTerm.html">COntologyTerm</a></em>: The term <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">global</a>
             identifier will be used as the <a href="../../MyWrapper/Ontology/COntologyEdge.html">node</a>
-            COntologyEdge::Type().</li><li><em>string</em>: Any other type will be converted to string and will be used
+            COntologyEdge::Type().</li><li><em>Everyman\Neo4j\Relationship</em>: The relationship's type will be used as
+            the predicate, all other elements of the provided edge node will be ignored.</li><li><em>string</em>: Any other type will be converted to string and will be used
             as the <a href="../../MyWrapper/Ontology/COntologyEdge.html">node</a> COntologyEdge::Type().</li></ul></li><li><strong>$theObject</strong>: The destination node or relationship object node:
-     <ul><li><em>Everyman\Neo4j\Node</em>: The method will use it to determine the object
-            node identifier.</li><li><em>integer</em>: The method will search for the node corresponding to
+     <ul><li><em>COntologyNode</em>: The method will use it's <a href="../../MyWrapper/Persistence/CGraphNode.html#methodNode">node</a>.</li><li><em>Everyman\Neo4j\Node</em>: The method will use it as the relationship
+            object.</li><li><em>integer</em>: The method will search for the node corresponding to
             the provided number, if the node was not found, the method will raise an
-            exception.</li></ul></li></ul></p><p>The method will return a <a href="../../MyWrapper/Ontology/COntologyEdge.html">COntologyEdge</a> object, or raise an  exception if the opreation was not successful.</p><p>Note that this method will not duplicate relationships between the same  nodes and predicate term: it uses the <a href="../../MyWrapper/Ontology/_classes---COntology.inc.php.html#definekINDEX_NODE_TERM">kINDEX_NODE_TERM</a>  relationship index and its <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_EDGE_NODE">kTAG_EDGE_NODE</a> key to locate  existing relationships.</p></p>
+            exception.</li><li><em>other</em>: Any other type will raise an exception.</li></ul></li></ul></p><p>The method will return a <a href="../../MyWrapper/Ontology/COntologyEdge.html">COntologyEdge</a> object, or raise an  exception if the operation was not successful.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 			</ul>
@@ -178,6 +180,12 @@
 				<span class="var-name">$theObject</span><span class="var-description">: Object.</span>			</li>
 				</ul>
 		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Persistence/CGraphNode.html#methodRelateTo">CGraphNode::RelateTo()</a></dt>
+						<dd>Relate node.</dd>
+					</dl>
 			
 	</div>
 							<h4>Inherited Methods</h4>
@@ -213,6 +221,8 @@
 							<span class="method-name"><a href="../../MyWrapper/Ontology/COntology.html#method_PrepareCreate">COntology::_PrepareCreate()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Ontology/COntology.html#method_PrepareLoad">COntology::_PrepareLoad()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Ontology/COntology.html#method__toString">COntology::__toString()</a></span><br>
 											</blockquote>
 									<!-- =========== Summary =========== -->
 					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Persistence/CGraphNode.html">CGraphNode</a></span></p>
@@ -248,6 +258,8 @@
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#methodoffsetUnset">CGraphNode::offsetUnset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#methodRelateTo">CGraphNode::RelateTo()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#methodvalues">CGraphNode::values()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#method_Commit">CGraphNode::_Commit()</a></span><br>
@@ -265,6 +277,8 @@
 							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#method_PrepareCreate">CGraphNode::_PrepareCreate()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#method_PrepareLoad">CGraphNode::_PrepareLoad()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#method__toString">CGraphNode::__toString()</a></span><br>
 											</blockquote>
 									<!-- =========== Summary =========== -->
 					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Persistence/CPersistentObject.html">CPersistentObject</a></span></p>
@@ -418,7 +432,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Thu, 26 Apr 2012 17:41:32 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 26 Apr 2012 20:14:30 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

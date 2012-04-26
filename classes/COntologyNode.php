@@ -67,8 +67,14 @@ class COntologyNode extends COntology
 	 * Create a graph edge.
 	 *
 	 * This method can be used to create a graph edge or relation between the current node
-	 * and an object node using a predicate node. The method accepts the following
-	 * parameters:
+	 * and an object node using a predicate node. This method will not duplicate
+	 * relationships between the same nodes and the predicate term: it uses the
+	 * {@link kINDEX_NODE_TERM kINDEX_NODE_TERM} relationship index and its
+	 * {@link kTAG_EDGE_NODE kTAG_EDGE_NODE} key to locate existing relationships. For that
+	 * reason the subject and object terms of the relationship must relate to
+	 * {@link _IsCommitted() committed} nodes.
+	 *
+	 * The method accepts the following parameters:
 	 *
 	 * <ul>
 	 *	<li><b>$theContainer</b>: The graph and term containers as an array:
@@ -80,29 +86,30 @@ class COntologyNode extends COntology
 	 *	 </ul>
 	 *	<li><b>$thePredicate</b>: The predicate term:
 	 *	 <ul>
+	 *		<li><i>{@link COntology COntology}</i>: The node {@link Term() term} {@link kTAG_GID global}
+	 *			{@link COntologyTerm::GID() identifier}.
 	 *		<li><i>{@link COntologyTerm COntologyTerm}</i>: The term {@link kTAG_GID global}
 	 *			identifier will be used as the {@link COntologyEdge node}
 	 *			{@link COntologyEdge::Type() type}.
+	 *		<li><i>Everyman\Neo4j\Relationship</i>: The relationship's type will be used as
+	 *			the predicate, all other elements of the provided edge node will be ignored.
 	 *		<li><i>string</i>: Any other type will be converted to string and will be used
 	 *			as the {@link COntologyEdge node} {@link COntologyEdge::Type() type}.
 	 *	 </ul>
 	 *	<li><b>$theObject</b>: The destination node or relationship object node:
 	 *	 <ul>
-	 *		<li><i>Everyman\Neo4j\Node</i>: The method will use it to determine the object
-	 *			node identifier.
+	 *		<li><i>COntologyNode</i>: The method will use it's {@link Node() node}.
+	 *		<li><i>Everyman\Neo4j\Node</i>: The method will use it as the relationship
+	 *			object.
 	 *		<li><i>integer</i>: The method will search for the node corresponding to
 	 *			the provided number, if the node was not found, the method will raise an
 	 *			exception.
+	 *		<li><i>other</i>: Any other type will raise an exception.
 	 *	 </ul>
 	 * </ul>
 	 *
 	 * The method will return a {@link COntologyEdge COntologyEdge} object, or raise an
-	 * exception if the opreation was not successful.
-	 *
-	 * Note that this method will not duplicate relationships between the same
-	 * nodes and predicate term: it uses the {@link kINDEX_NODE_TERM kINDEX_NODE_TERM}
-	 * relationship index and its {@link kTAG_EDGE_NODE kTAG_EDGE_NODE} key to locate
-	 * existing relationships.
+	 * exception if the operation was not successful.
 	 *
 	 * @param reference				$theContainer		Object container.
 	 * @param mixed					$thePredicate		Predicate.
@@ -113,21 +120,6 @@ class COntologyNode extends COntology
 	 */
 	public function RelateTo( $theContainer, $thePredicate, $theObject = NULL )
 	{
-		//
-		// Handle edge node.
-		//
-		if( $thePredicate instanceof Everyman\Neo4j\Relationship )
-		{
-			if( ($id = $thePredicate->getId()) !== NULL )
-				return new COntologyEdge( $theContainer, $id );						// ==>
-		}
-		
-		//
-		// Handle edge identifier.
-		//
-		if( is_integer( $thePredicate ) )
-			return new COntologyEdge( $theContainer, $thePredicate );				// ==>
-		
 		//
 		// Verify container.
 		//
@@ -172,96 +164,113 @@ class COntologyNode extends COntology
 					  array( 'Container' => $theContainer ) );					// !@! ==>
 		
 		//
-		// Resolve predicate term.
+		// Handle subject.
 		//
-		if( ! $thePredicate instanceof COntologyTerm )
-		{
-			//
-			// Load predicate.
-			//
-			$id = COntologyTerm::HashIndex( (string) $thePredicate );
-			$tmp = new COntologyTerm( $theContainer[ kTAG_TERM ], $id );
-			if( ! $tmp->Persistent() )
-				throw new CException
-						( "Predicate term not found",
-						  kERROR_NOT_FOUND,
-						  kMESSAGE_TYPE_ERROR,
-						  array( 'Predicate' => (string) $thePredicate ) );		// !@! ==>
-			$thePredicate = $tmp;
-		
-		} // Provided predicate GID.
+		$subject = $this->Node();
+		if( ! $subject instanceof Everyman\Neo4j\Node )
+			throw new CException
+					( "Missing subject node reference",
+					  kERROR_OPTION_MISSING,
+					  kMESSAGE_TYPE_ERROR );									// !@! ==>
+		elseif( ! $subject->hasId() )
+			throw new CException
+					( "Subject node has no identifier",
+					  kERROR_OPTION_MISSING,
+					  kMESSAGE_TYPE_ERROR );									// !@! ==>
 		
 		//
-		// Resolve object node.
+		// Handle predicate.
 		//
-		if( ! $theObject instanceof self )
+		if( $thePredicate instanceof COntology )
 		{
-			//
-			// Check if graph node.
-			//
-			if( $theObject instanceof Everyman\Neo4j\Node )
+			if( ($tmp = $thePredicate->Term()) !== NULL )
 			{
-				//
-				// Init object ontology node.
-				//
-				$node = new self( $theContainer );
-				
-				//
-				// Set graph node.
-				//
-				$node->Node( $theObject );
-				
-				//
-				// Handle term.
-				//
-				$term = $theObject->getProperty( kTAG_TERM );
-				if( $term !== NULL )
-				{
-					$id = COntologyTerm::HashIndex( $term );
-					$tmp = new COntologyTerm( $theContainer[ kTAG_TERM ], $id );
-					if( ! $tmp->Persistent() )
-						throw new CException
-								( "Object term not found",
-								  kERROR_NOT_FOUND,
-								  kMESSAGE_TYPE_ERROR,
-								  array( 'Term' => $id ) );						// !@! ==>
-					$node->Term( $tmp );
-					$theObject = $node;
-				}
-				
-				else
+				$predicate = $tmp->GID();
+				if( ! strlen( $predicate ) )
 					throw new CException
-							( "Missing object term",
-							  kERROR_OPTION_MISSING,
+							( "Empty term global identifier",
+							  kERROR_INVALID_PARAMETER,
 							  kMESSAGE_TYPE_ERROR,
-							  array( 'Object' => (string) $theObject ) );		// !@! ==>
+							  array( 'Predicate' => $thePredicate ) );			// !@! ==>
 			}
-			
-			//
-			// Check if graph node ID.
-			//
-			elseif( is_integer( $theObject ) )
-			{
-				//
-				// Load node.
-				//
-				$tmp = new self( $theContainer, $theObject );
-				if( $tmp->Node()->getId() === NULL )
-					throw new CException
-							( "Object node not found",
-							  kERROR_NOT_FOUND,
-							  kMESSAGE_TYPE_ERROR,
-							  array( 'Object' => (string) $theObject ) );		// !@! ==>
-				$theObject = $tmp;
-			}
-			
 			else
 				throw new CException
-						( "Invalid object type",
+						( "Predicate is missing term reference",
+						  kERROR_OPTION_MISSING,
+						  kMESSAGE_TYPE_ERROR,
+						  array( 'Predicate' => $thePredicate ) );				// !@! ==>
+		}
+		elseif( $thePredicate instanceof COntologyTerm )
+		{
+			$predicate = $thePredicate->GID();
+			if( ! strlen( $predicate ) )
+				throw new CException
+						( "Empty term global identifier",
+						  kERROR_INVALID_PARAMETER,
+						  kMESSAGE_TYPE_ERROR,
+						  array( 'Predicate' => $thePredicate ) );				// !@! ==>
+		}
+		elseif( $thePredicate instanceof Everyman\Neo4j\Relationship )
+		{
+			$predicate = $thePredicate->getType();
+			if( ! strlen( $predicate ) )
+				throw new CException
+						( "Empty edge type",
+						  kERROR_INVALID_PARAMETER,
+						  kMESSAGE_TYPE_ERROR,
+						  array( 'Predicate' => $thePredicate ) );				// !@! ==>
+			if( $theObject === NULL )
+				$theObject = $thePredicate->getEndNode();
+		}
+		else
+		{
+			$predicate = (string) $thePredicate;
+			if( ! strlen( $predicate ) )
+				throw new CException
+						( "Predicate is empty",
+						  kERROR_INVALID_PARAMETER,
+						  kMESSAGE_TYPE_ERROR,
+						  array( 'Predicate' => $thePredicate ) );				// !@! ==>
+		}
+		
+		//
+		// Handle object.
+		//
+		if( $theObject instanceof Everyman\Neo4j\Node )
+		{
+			$object = $theObject;
+			if( ! $object->hasId() )
+				throw new CException
+						( "Object node has no identifier",
+						  kERROR_OPTION_MISSING,
+						  kMESSAGE_TYPE_ERROR );								// !@! ==>
+		}
+		elseif( $theObject instanceof COntologyNode )
+		{
+			$object = $theObject->Node();
+			if( ! $object instanceof Everyman\Neo4j\Node )
+				throw new CException
+						( "Object has no node",
 						  kERROR_INVALID_PARAMETER,
 						  kMESSAGE_TYPE_ERROR,
 						  array( 'Object' => $theObject ) );					// !@! ==>
 		}
+		elseif( is_integer( $theObject ) )
+		{
+			$object = $theContainer[ kTAG_NODE ]->getNode( $theObject );
+			if( $object === NULL )
+				throw new CException
+						( "Object node not found",
+						  kERROR_NOT_FOUND,
+						  kMESSAGE_TYPE_ERROR,
+						  array( 'Object' => $theObject ) );					// !@! ==>
+		}
+		else
+			throw new CException
+					( "Invalid object type",
+					  kERROR_INVALID_PARAMETER,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Object' => $theObject ) );						// !@! ==>
 		
 		//
 		// Check relation.
@@ -270,35 +279,18 @@ class COntologyNode extends COntology
 		$index->save();
 		$found = $index->findOne( kTAG_EDGE_NODE,
 								  implode( kTOKEN_INDEX_SEPARATOR,
-								  		   array( $this->Node()->getId(),
-												  $thePredicate[ kTAG_GID ],
-												  $theObject->Node()->getId() ) ) );
+								  		   array( $subject->getId(),
+												  $predicate,
+												  $object->getId() ) ) );
 		if( $found )
 			return new COntologyEdge( $theContainer, $found->getId() );				// ==>
 		
 		//
-		// Create relation.
+		// Create edge node.
 		//
-		$edge = new COntologyEdge( $theContainer );
+		$edge = parent::RelateTo( $theContainer[ kTAG_NODE ], $predicate, $object );
 		
-		//
-		// Set predicate.
-		//
-		$edge->Term( $thePredicate );
-		
-		//
-		// Set subject.
-		//
-		$edge->Subject( $this->Node() );
-		$edge->SubjectTerm( $this->Term() );
-		
-		//
-		// Set object.
-		//
-		$edge->Object( $theObject->Node() );
-		$edge->ObjectTerm( $theObject->Term() );
-		
-		return $edge;																// ==>
+		return new COntologyEdge( $theContainer, $edge );							// ==>
 
 	} // RelateTo.
 

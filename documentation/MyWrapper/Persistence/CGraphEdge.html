@@ -101,7 +101,7 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																																																																																<div class="method-definition">
+																																																																																								<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">Everyman\Neo4j\Relationship</span>
 										<a href="#Node" title="details" class="method-name">Node</a>
@@ -148,6 +148,12 @@
 											<span class="method-result">mixed</span>
 										<a href="#_Load" title="details" class="method-name">_Load</a>
 											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">string</span>
+										<a href="#__toString" title="details" class="method-name">__toString</a>
+										()
 									</div>
 											</div>
 		</div>
@@ -207,7 +213,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Node</span> (line <span class="line-number">159</span>)
+		<span class="method-title">Node</span> (line <span class="line-number">191</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -255,7 +261,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Object</span> (line <span class="line-number">321</span>)
+		<span class="method-title">Object</span> (line <span class="line-number">353</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -295,7 +301,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Subject</span> (line <span class="line-number">219</span>)
+		<span class="method-title">Subject</span> (line <span class="line-number">251</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -335,7 +341,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Type</span> (line <span class="line-number">86</span>)
+		<span class="method-title">Type</span> (line <span class="line-number">118</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -345,6 +351,7 @@
 	 <ul><li><em>TRUE</em>: Return the value <em>before</em> it was eventually modified.</li><li><em>FALSE</em>: Return the value <em>after</em> it was eventually modified.</li></ul></li></ul></p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CGraphEdge.html#method__toString">CGraphEdge::__toString()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsDirty">CStatusObject::_IsDirty()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CGraphEdge.html#methodNode">CGraphEdge::Node()</a></li>
@@ -374,7 +381,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Commit</span> (line <span class="line-number">417</span>)
+		<span class="method-title">_Commit</span> (line <span class="line-number">449</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -426,7 +433,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishCreate</span> (line <span class="line-number">514</span>)
+		<span class="method-title">_FinishCreate</span> (line <span class="line-number">546</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -471,7 +478,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishLoad</span> (line <span class="line-number">588</span>)
+		<span class="method-title">_FinishLoad</span> (line <span class="line-number">620</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -522,7 +529,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Load</span> (line <span class="line-number">484</span>)
+		<span class="method-title">_Load</span> (line <span class="line-number">516</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -568,6 +575,39 @@
 							</li>
 				</ul>
 	</div>
+<a name="method__toString" id="__toString"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">__toString</span> (line <span class="line-number">66</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return object identifier.</p>
+<p class="description"><p>In this class we return the graph <a href="../../MyWrapper/Persistence/CGraphEdge.html#methodType">type</a>.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CGraphEdge.html#methodType">CGraphEdge::Type()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			__toString
+		</span>
+				()
+			</div>
+	
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Persistence/CGraphNode.html#method__toString">CGraphNode::__toString()</a></dt>
+						<dd>Return object identifier.</dd>
+					</dl>
+			
+	</div>
 							<h4>Inherited Methods</h4>
 				<a name='inherited_methods'><!-- --></a>	
 									<!-- =========== Summary =========== -->
@@ -604,6 +644,8 @@
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#methodoffsetUnset">CGraphNode::offsetUnset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#methodRelateTo">CGraphNode::RelateTo()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#methodvalues">CGraphNode::values()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#method_Commit">CGraphNode::_Commit()</a></span><br>
@@ -621,6 +663,8 @@
 							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#method_PrepareCreate">CGraphNode::_PrepareCreate()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#method_PrepareLoad">CGraphNode::_PrepareLoad()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CGraphNode.html#method__toString">CGraphNode::__toString()</a></span><br>
 											</blockquote>
 									<!-- =========== Summary =========== -->
 					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Persistence/CPersistentObject.html">CPersistentObject</a></span></p>
@@ -775,7 +819,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Thu, 26 Apr 2012 17:41:27 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 26 Apr 2012 20:14:25 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

@@ -206,13 +206,29 @@ try
 	echo( "<pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
+	//
+	// Relations.
+	//
+	echo( '<h3>Relations</h3>' );
+	
+	echo( '<i>Create relationship</i><br>' );
+	echo( '<i>$edge = $test->RelateTo( $container, \'PREDICATE\', $node );</i><br>' );
+	$edge = $test->RelateTo( $container, 'PREDICATE', $node );
+	echo( "$id:<pre>" ); print_r( $edge ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	//
+	// Cleanup.
+	//
+	echo( '<h3>Cleanup</h3>' );
+	
 	echo( '<i>Delete node</i><br>' );
 	echo( '<i>$ok = $test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );</i><br>' );
 	$ok = $test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );
 	echo( "$ok:<pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
-	echo( '<i>Delete node</i><br>' );
+	echo( '<i>Delete node (should not raise an exception, but return NULL)</i><br>' );
 	echo( '<i>$ok = $test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );</i><br>' );
 	$ok = $test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );
 	echo( "$ok:<pre>" ); print_r( $test ); echo( '</pre>' );

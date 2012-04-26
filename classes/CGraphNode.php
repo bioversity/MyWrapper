@@ -76,6 +76,43 @@ class CGraphNode extends CPersistentObject
 
 /*=======================================================================================
  *																						*
+ *											MAGIC										*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	__toString																		*
+	 *==================================================================================*/
+
+	/**
+	 * Return object identifier.
+	 *
+	 * In this class we return the graph {@link Node() node} ID.
+	 *
+	 * @access public
+	 * @return string
+	 *
+	 * @uses Node()
+	 */
+	public function __toString()
+	{
+		$node = $this->Node();
+		if( $node !== NULL )
+		{
+			if( $node->hasId() )
+				return (string) $node->getId();										// ==>
+		}
+		
+		return '';																	// ==>
+	
+	} // __toString.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PUBLIC MEMBER INTERFACE									*
  *																						*
  *======================================================================================*/
@@ -160,6 +197,124 @@ class CGraphNode extends CPersistentObject
 		return $save;																// ==>
 
 	} // Node.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC RELATION INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	RelateTo																		*
+	 *==================================================================================*/
+
+	/**
+	 * Relate node.
+	 *
+	 * This method can be used to relate the current node to anther node, it will return a
+	 * Everyman\Neo4j\Relationship instance.
+	 *
+	 * The parameters to this method are:
+	 *
+	 * <ul>
+	 *	<li><b>$theContainer</b>: The graph container.
+	 *	<li><b>$thePredicate</b>: The predicate string or edge type.
+	 *	<li><b>$theObject</b>: The destination node or relationship object node.
+	 * </ul>
+	 *
+	 * The method will return a Everyman\Neo4j\Relationship object, or raise an exception if
+	 * the operation was not successful.
+	 *
+	 * This method follows the logic of the relateTo() method of Everyman\Neo4j\Node.
+	 *
+	 * @param mixed					$theContainer		Graph container.
+	 * @param string				$thePredicate		Predicate.
+	 * @param mixed					$theObject			Object.
+	 *
+	 * @access public
+	 * @return Everyman\Neo4j\Relationship
+	 */
+	public function RelateTo( $theContainer, $thePredicate, $theObject )
+	{
+		//
+		// Check node.
+		//
+		if( ($node = $this->Node()) !== NULL )
+		{
+			//
+			// Check object.
+			//
+			if( $theObject instanceof self )
+				$theObject = $theObject->Node();
+			
+			//
+			// Handle object.
+			//
+			if( $theObject instanceof Everyman\Neo4j\Node )
+			{
+				//
+				// Handle container.
+				//
+				if( ! $theContainer instanceof Everyman\Neo4j\Client )
+				{
+					//
+					// Provided as node.
+					//
+					if( $theContainer instanceof Everyman\Neo4j\PropertyContainer )
+						$theContainer = $theContainer->getClient();
+					
+					//
+					// Get current container.
+					//
+					else
+						$theContainer = $node->getClient();
+				
+				} // Normalised container.
+				
+				//
+				// Create edge.
+				//
+				$edge = $theContainer->makeRelationship();
+				
+				//
+				// Set subject node.
+				//
+				$edge->setStartNode( $node );
+				
+				//
+				// Set object node.
+				//
+				$edge->setEndNode( $theObject );
+				
+				//
+				// Set predicate.
+				//
+				$edge->setType( (string) $thePredicate );
+			
+			} // Object is node.
+			
+			else
+				throw new CException
+						( "Unsupported object node type",
+						  kERROR_UNSUPPORTED,
+						  kMESSAGE_TYPE_ERROR,
+						  array( 'Object' => $theObject ) );				// !@! ==>
+		
+		} // Has node.
+		
+		else
+			throw new CException
+					( "Subject node is not set",
+					  kERROR_OPTION_MISSING,
+					  kMESSAGE_TYPE_ERROR );									// !@! ==>
+		
+		return $edge;																// ==>
+
+	} // RelateTo.
 
 		
 
