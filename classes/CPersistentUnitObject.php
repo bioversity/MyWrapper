@@ -724,7 +724,7 @@ abstract class CPersistentUnitObject extends CPersistentObject
 	 * Handle references.
 	 *
 	 * This method will parse the provided offset and convert all instances derived from
-	 é this class to object references according to a series of rules.
+	 * this class to object references according to a series of rules.
 	 *
 	 * Object references may have two forms:
 	 *
@@ -838,7 +838,7 @@ abstract class CPersistentUnitObject extends CPersistentObject
 	 *==================================================================================*/
 
 	/**
-	 * Parse references.
+	 * Commit references.
 	 *
 	 * This method will parse the provided value looking for object references, if such
 	 * references are expressed as instances derived from this class, it will will

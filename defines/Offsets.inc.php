@@ -155,6 +155,22 @@ define( "kTAG_TYPE",							':TYPE' );
 define( "kTAG_KIND",							':KIND' );
 
 /**
+ * Cardinality.
+ *
+ * This tag is used as the default offset for indicating the cardinality of a data
+ * attribute, it can take the following values:
+ *
+ * <ul>
+ *	<li><i>{@link kCARD_0_1 kCARD_0_1}</i>: Zero or one, the data is either a scalar or it
+ *		may not be present.
+ *	<li><i>{@link kCARD_1 kCARD_1}</i>: One, the data is a required scalar.
+ *	<li><i>{@link kCARD_ANY kCARD_ANY}</i>: Any, the data may not be present or it may have
+ *		many elements; in general this indicates that the data element must be an array.
+ * </ul>
+ */
+define( "kTAG_CARDINALITY",						':CARD' );
+
+/**
  * Unit.
  *
  * This tag is used as the default offset for indicating a unit attribute. A unit is a
@@ -499,6 +515,31 @@ define( "kPRED_METHOD_OF",						':METHOD-OF' );
  * relates enumeration terms in a hierarchy.
  */
 define( "kPRED_ENUM_OF",						':ENUM-OF' );
+
+/*=======================================================================================
+ *	DEFAULT CARDINALITIES																*
+ *======================================================================================*/
+
+/**
+ * Zero or one.
+ *
+ * This is the tag that defines a cardinality of zero or one.
+ */
+define( "kCARD_0_1",							':01' );
+
+/**
+ * One.
+ *
+ * This is the tag that defines a cardinality of exactly one.
+ */
+define( "kCARD_1",								':1' );
+
+/**
+ * Any.
+ *
+ * This is the tag that defines a cardinality of any kind.
+ */
+define( "kCARD_ANY",							':ANY' );
 
 
 ?>

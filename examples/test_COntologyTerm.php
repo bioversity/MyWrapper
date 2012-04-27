@@ -28,9 +28,6 @@ require_once( '/Library/WebServer/Library/wrapper/includes.inc.php' );
 // Class includes.
 //
 require_once( kPATH_LIBRARY_SOURCE."COntologyTerm.php" );
-require_once( kPATH_LIBRARY_SOURCE."CNamespaceTerm.php" );
-require_once( kPATH_LIBRARY_SOURCE."CEnumerationTerm.php" );
-require_once( kPATH_LIBRARY_SOURCE."CMeasureTerm.php" );
 
 
 /*=======================================================================================
@@ -68,10 +65,12 @@ try
 	echo( '<h3>Create terms</h3>' );
 	
 	echo( '<i><b>NAMESPACE</b></i><br>' );
-	echo( '<i>$namespace = new CNamespaceTerm();</i><br>' );
-	$namespace = new CNamespaceTerm();
+	echo( '<i>$namespace = new COntologyTerm();</i><br>' );
+	$namespace = new COntologyTerm();
 	echo( '<i>$namespace->Code( \'NS\' );</i><br>' );
 	$namespace->Code( 'NS' );
+	echo( '<i>$namespace->Kind( kTYPE_NAMESPACE, TRUE );</i><br>' );
+	$namespace->Kind( kTYPE_NAMESPACE, TRUE );
 	echo( '<i>$idn = $namespace->Commit( $collection );</i><br>' );
 	$idn = $namespace->Commit( $collection );
 	echo( "$namespace<pre>" ); print_r( $namespace ); echo( '</pre>' );
@@ -86,6 +85,8 @@ try
 	$predicate->Code( 'IS_A' );
 	echo( '<i>$predicate->Name( \'Is a\' );</i><br>' );
 	$predicate->Name( 'Is a' );
+	echo( '<i>$predicate->Kind( kTYPE_PREDICATE, TRUE );</i><br>' );
+	$predicate->Kind( kTYPE_PREDICATE, TRUE );
 	echo( '<i>$idp = $predicate->Commit( $collection );</i><br>' );
 	$idp = $predicate->Commit( $collection );
 	echo( "$predicate<pre>" ); print_r( $predicate ); echo( '</pre>' );
@@ -114,8 +115,8 @@ try
 	echo( '<hr>' );
 	
 	echo( '<i><b>TERM 2</b></i><br>' );
-	echo( '<i>$term2 = new CMeasureTerm();</i><br>' );
-	$term2 = new CMeasureTerm();
+	echo( '<i>$term2 = new COntologyTerm();</i><br>' );
+	$term2 = new COntologyTerm();
 	echo( '<i>$term2->NS( \'NS\' );</i><br>' );
 	$term2->NS( 'NS' );
 	echo( '<i>$term2->Code( \'TERM2\' );</i><br>' );
@@ -156,6 +157,8 @@ try
 	$term3->Code( 'TERM3' );
 	echo( '<i>$term3->Name( \'Term 3\' );</i><br>' );
 	$term3->Name( 'Term 3' );
+	echo( '<i>$term3->Enumeration( \'ENUM\', TRUE );</i><br>' );
+	$term3->Enumeration( 'ENUM', TRUE );
 	echo( '<i>$term3->Relate( $term1, $predicate, TRUE );</i><br>' );
 	$term3->Relate( $term1, $predicate, TRUE );
 	echo( '<i>$object3->Relate( $term2, $predicate, TRUE );</i><br>' );
