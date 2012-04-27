@@ -1894,6 +1894,23 @@ exit( "Done!\n" );
 			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
 	
 		//
+		// Tags.
+		//
+		$term = new COntologyTerm();
+		$term->NS( $ns );
+		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
+		$term->Code( substr( kTAG_TAGS, 1 ) );
+		$term->Name( 'Tags', kDEFAULT_LANGUAGE );
+		$term->Definition
+		( 'This term represents the list of attribute terms used in the object.',
+		  kDEFAULT_LANGUAGE );
+		$term->Cardinality( kCARD_ANY );
+		$term->Synonym( 'kTAG_TAGS', kTYPE_EXACT );
+		$term->Commit( $theContainer );
+		if( $doDisplay )
+			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+	
+		//
 		// Edge terms path.
 		//
 		$term = new COntologyTerm();

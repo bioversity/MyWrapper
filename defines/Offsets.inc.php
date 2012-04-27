@@ -319,6 +319,14 @@ define( "kTAG_ANNOTATION",						':ANNOTATION' );
 define( "kTAG_REFS",							':REFS' );
 
 /**
+ * Tags.
+ *
+ * This tag represents a list of attribute tags, it is generally used to collect the list of
+ * tags used in an object.
+ */
+define( "kTAG_TAGS",							':TAGS' );
+
+/**
  * Edge terms path.
  *
  * This tag represents a graph edge node by using its related terms as a path in the form of

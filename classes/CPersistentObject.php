@@ -805,7 +805,7 @@ class CPersistentObject extends CStatusObject
 					( "Missing object identifier",
 					  kERROR_OPTION_MISSING,
 					  kMESSAGE_TYPE_ERROR );									// !@! ==>
-	
+
 	} // _PrepareLoad.
 
 	 
@@ -965,6 +965,63 @@ class CPersistentObject extends CStatusObject
 		$this->_IsDirty( FALSE );
 	
 	} // _FinishCommit.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED TAGGING UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	_SetTags																		*
+	 *==================================================================================*/
+
+	/**
+	 * Set attribute tags.
+	 *
+	 * The duty of this method is to collect all attribute tags used in the object and store
+	 * them as an array at the provided offset.
+	 *
+	 * The method will collect all attributes, overload this method to exclude default
+	 * attributes.
+	 *
+	 * @param string				$theOffset			Offset.
+	 *
+	 * @access protected
+	 */
+	protected function _SetTags( $theOffset = kTAG_TAGS )
+	{
+		//
+		// Load tags.
+		//
+		$tags = array_diff( $this->_GetTags(), array( $theOffset ) );
+		
+		//
+		// Set offset.
+		//
+		$this->offsetSet( $theOffset, $tags );
+	
+	} // _SetTags.
+
+	 
+	/*===================================================================================
+	 *	_GetTags																		*
+	 *==================================================================================*/
+
+	/**
+	 * Get attribute tags.
+	 *
+	 * The duty of this method is to collect all attribute tags used in the object and
+	 * return them as an array.
+	 *
+	 * @access protected
+	 * @return array
+	 */
+	protected function _GetTags()								{	return $this->keys();	}
 
 	 
 

@@ -43,6 +43,7 @@ class MyClass extends CPersistentObject
 	{
 		$this->_isInited( TRUE );
 		parent::_PrepareCommit( $theContainer, $theIdentifier, $theModifiers );
+		$this->_SetTags();
 	}
 }
 

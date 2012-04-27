@@ -570,6 +570,16 @@ abstract class CPersistentUnitObject extends CPersistentObject
 		// Call parent method.
 		//
 		parent::_PrepareLoad( $theContainer, $theIdentifier, $theModifiers );
+		
+		//
+		// Check if container is supported.
+		//
+		if( ! $theContainer instanceof CContainer )
+			throw new CException
+					( "Unsupported container type",
+					  kERROR_UNSUPPORTED,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Container' => $theContainer ) );					// !@! ==>
 	
 	} // _PrepareLoad.
 
@@ -703,6 +713,11 @@ abstract class CPersistentUnitObject extends CPersistentObject
 		$this->offsetSet( kTAG_VERSION, ( $this->offsetExists( kTAG_VERSION ) )
 										 ? ($this->offsetGet( kTAG_VERSION ) + 1)
 										 : 0 );
+		
+		//
+		// Set tags.
+		//
+		$this->_SetTags();
 	
 	} // _PrepareCommit.
 
