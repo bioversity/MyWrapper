@@ -245,6 +245,14 @@ define( "kTAG_DESCRIPTION",						':DESCR' );
 define( "kTAG_DEFINITION",						':DEF' );
 
 /**
+ * Examples.
+ *
+ * This tag is used as the default offset for indicating an attribute containing a list of
+ * examples.
+ */
+define( "kTAG_EXAMPLES",						':EXAMPLE' );
+
+/**
  * Language.
  *
  * This tag is used as the default offset for indicating the language of an attribute, it
@@ -481,6 +489,16 @@ define( "kPRED_SCALE_OF",						':SCALE-OF' );
  * term.
  */
 define( "kPRED_METHOD_OF",						':METHOD-OF' );
+
+/**
+ * ENUM-OF.
+ *
+ * This is the tag that defines the ENUM-OF predicate.
+ *
+ * This predicate is used to relate {@link kTAG_ENUM enumeration} terms, this edge type
+ * relates enumeration terms in a hierarchy.
+ */
+define( "kPRED_ENUM_OF",						':ENUM-OF' );
 
 
 ?>

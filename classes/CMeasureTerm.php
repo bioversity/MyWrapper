@@ -29,7 +29,7 @@ require_once( kPATH_LIBRARY_SOURCE."COntologyTerm.php" );
 /**
  * Scale term.
  *
- * This {@link kTYPE_MEASURE_TERM kind} of {@link COntologyTerm term} represents a measure
+ * This {@link kTYPE_MEASURE kind} of {@link COntologyTerm term} represents a measure
  * term, a term that defines a measurement scale which refers to a {@link kTAG_UNIT unit}
  * {@link COntologyTerm term} and features a data {@link kTAG_TYPE type}; such terms can be
  * used to annotate data elements.
@@ -39,7 +39,7 @@ require_once( kPATH_LIBRARY_SOURCE."COntologyTerm.php" );
  * present for object's {@link kFLAG_STATE_INITED status} to be
  * {@link _IsInited() initialised}.
  *
- * The class also enforces the {@link kTYPE_MEASURE_TERM kTYPE_MEASURE_TERM}
+ * The class also enforces the {@link kTYPE_MEASURE kTYPE_MEASURE}
  * {@link Kind() kind}.
  *
  *	@package	MyWrapper
@@ -76,7 +76,7 @@ class CMeasureTerm extends COntologyTerm
 	 *
 	 * @uses _IsInited
 	 *
-	 * @see kTYPE_ENUM_TERM
+	 * @see kTYPE_ENUMERATION
 	 */
 	public function __construct( $theContainer = NULL,
 								 $theIdentifier = NULL,
@@ -148,7 +148,7 @@ class CMeasureTerm extends COntologyTerm
 	 *==================================================================================*/
 
 	/**
-	 * Manage valid reference.
+	 * Manage data unit.
 	 *
 	 * This method can be used to handle the measure {@link kTAG_UNIT unit}, it uses the
 	 * standard accessor {@link _ManageOffset() method} to manage the
@@ -186,6 +186,45 @@ class CMeasureTerm extends COntologyTerm
 		return $this->_ManageOffset( kTAG_UNIT, $theValue, $getOld );				// ==>
 
 	} // Unit.
+
+	 
+	/*===================================================================================
+	 *	Examples																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage data examples.
+	 *
+	 * This method can be used to handle data {@link kTAG_EXAMPLES examples}, it is a list
+	 * of strings handles by the standard accessor {@link _ManageArrayOffset() method} in
+	 * the examples {@link kTAG_EXAMPLES offset}.
+	 *
+	 * The provided value should be an example of how the current term could be represented,
+	 * an extensive set of examples should be included in order to provide enough
+	 * information to handle correctly any kind of output referenced data elements could
+	 * represent.
+	 *
+	 * For a more in-depth reference of this method, please consult the
+	 * {@link _ManageOffset() _ManageOffset} method, in which the first parameter will be
+	 * the constant {@link kTAG_VALID kTAG_VALID}.
+	 *
+	 * @param mixed					$theValue			Value or index.
+	 * @param mixed					$theOperation		Operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 *
+	 * @uses _ManageOffset
+	 *
+	 * @see kTAG_EXAMPLES
+	 */
+	public function Examples( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
+	{
+		return $this->_ManageArrayOffset
+					( kTAG_EXAMPLES, $theValue, $theOperation, $getOld );			// ==>
+
+	} // Examples.
 
 		
 
@@ -278,7 +317,7 @@ class CMeasureTerm extends COntologyTerm
 	 * Normalise before a store.
 	 *
 	 * We overload this method to enforce the
-	 * {@link kTYPE_MEASURE_TERM kTYPE_MEASURE_TERM} {@link Kind() kind}, note that we call
+	 * {@link kTYPE_MEASURE kTYPE_MEASURE} {@link Kind() kind}, note that we call
 	 * the {@link COntologyTermObject COntologyTermObject} version of this method instead of
 	 * the {@link COntologyTerm parent} one.
 	 *
@@ -292,14 +331,14 @@ class CMeasureTerm extends COntologyTerm
 	 *
 	 * @uses Kind()
 	 *
-	 * @see kTYPE_ENUM_TERM
+	 * @see kTYPE_ENUMERATION
 	 */
 	protected function _PrepareCommit( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
 		// Set namespace kind.
 		//
-		$this->Kind( kTYPE_MEASURE_TERM, TRUE );
+		$this->Kind( kTYPE_MEASURE, TRUE );
 		
 		//
 		// Call parent method.

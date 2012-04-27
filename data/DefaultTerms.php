@@ -40,34 +40,6 @@ require_once( "/Library/WebServer/Library/wrapper/environment.inc.php" );
 require_once( kPATH_LIBRARY_DEFINES."Session.inc.php" );
 
 /**
- * Namespaces.
- *
- * This include file contains the namespace term class definitions.
- */
-require_once( kPATH_LIBRARY_SOURCE."CNamespaceTerm.php" );
-
-/**
- * Ontologies.
- *
- * This include file contains the ontology term class definitions.
- */
-require_once( kPATH_LIBRARY_SOURCE."COntology.php" );
-
-/**
- * Attributes.
- *
- * This include file contains the attribute term class definitions.
- */
-require_once( kPATH_LIBRARY_SOURCE."CAttributeTerm.php" );
-
-/**
- * Predicates.
- *
- * This include file contains the predicate term class definitions.
- */
-require_once( kPATH_LIBRARY_SOURCE."CPredicateTerm.php" );
-
-/**
  * Measures.
  *
  * This include file contains the measure term class definitions.
@@ -290,7 +262,7 @@ exit( "Done!\n" );
 		//
 		// IS-A.
 		//
-		$term = new CPredicateTerm();
+		$term = new COntologyTerm();
 		$term->NS( $ns );
 		$term->Code( substr( kPRED_IS_A, 1 ) );
 		$term->Name( 'Is-a', kDEFAULT_LANGUAGE );
@@ -307,7 +279,7 @@ exit( "Done!\n" );
 		//
 		// PART-OF.
 		//
-		$term = new CPredicateTerm();
+		$term = new COntologyTerm();
 		$term->NS( $ns );
 		$term->Code( substr( kPRED_PART_OF, 1 ) );
 		$term->Name( 'Part-of', kDEFAULT_LANGUAGE );
@@ -322,7 +294,7 @@ exit( "Done!\n" );
 		//
 		// SCALE-OF.
 		//
-		$term = new CPredicateTerm();
+		$term = new COntologyTerm();
 		$term->NS( $ns );
 		$term->Code( substr( kPRED_SCALE_OF, 1 ) );
 		$term->Name( 'Scale-of', kDEFAULT_LANGUAGE );
@@ -338,14 +310,32 @@ exit( "Done!\n" );
 		//
 		// METHOD-OF.
 		//
-		$term = new CPredicateTerm();
+		$term = new COntologyTerm();
 		$term->NS( $ns );
 		$term->Code( substr( kPRED_METHOD_OF, 1 ) );
 		$term->Name( 'Method-of', kDEFAULT_LANGUAGE );
-		$term->Definition( 'This predicate is used to relate a term that defines '
-						  .'a measurement method to the trait term.',
-						   kDEFAULT_LANGUAGE );
+		$term->Definition
+		( 'This predicate is used to relate a term that defines a measurement '
+		 .'method to the trait term.',
+		  kDEFAULT_LANGUAGE );
 		$term->Synonym( 'kPRED_METHOD_OF', kTYPE_EXACT );
+		$term->Commit( $theContainer );
+		if( $doDisplay )
+			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+		
+		//
+		// ENUM-OF.
+		//
+		$term = new COntologyTerm();
+		$term->NS( $ns );
+		$term->Code( substr( kPRED_ENUM_OF, 1 ) );
+		$term->Name( 'Enumeration-of', kDEFAULT_LANGUAGE );
+		$term->Definition
+		( 'This predicate is used to relate enumeration terms, '
+		 .'this edge type relates these terms in a hierarchy, '
+		 .'in which the subject is a subclass of the object.',
+		  kDEFAULT_LANGUAGE );
+		$term->Synonym( 'kPRED_ENUM_OF', kTYPE_EXACT );
 		$term->Commit( $theContainer );
 		if( $doDisplay )
 			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
@@ -1043,12 +1033,12 @@ exit( "Done!\n" );
 		//
 		$term = new CEnumerationTerm();
 		$term->NS( $ns );
-		$term->Code( substr( kTYPE_NAMESPACE_TERM, $len ) );
+		$term->Code( substr( kTYPE_NAMESPACE, $len ) );
 		$term->Name( 'Namespace', kDEFAULT_LANGUAGE );
 		$term->Definition
 		( 'This term represents a namespace.',
 		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_NAMESPACE_TERM', kTYPE_EXACT );
+		$term->Synonym( 'kTYPE_NAMESPACE', kTYPE_EXACT );
 		$term->Commit( $theContainer );
 		if( $doDisplay )
 			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
@@ -1058,12 +1048,12 @@ exit( "Done!\n" );
 		//
 		$term = new CEnumerationTerm();
 		$term->NS( $ns );
-		$term->Code( substr( kTYPE_ONTOLOGY_TERM, $len ) );
+		$term->Code( substr( kTYPE_ONTOLOGY, $len ) );
 		$term->Name( 'Ontology', kDEFAULT_LANGUAGE );
 		$term->Definition
 		( 'This term represents an ontology.',
 		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_ONTOLOGY_TERM', kTYPE_EXACT );
+		$term->Synonym( 'kTYPE_ONTOLOGY', kTYPE_EXACT );
 		$term->Commit( $theContainer );
 		if( $doDisplay )
 			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
@@ -1073,12 +1063,12 @@ exit( "Done!\n" );
 		//
 		$term = new CEnumerationTerm();
 		$term->NS( $ns );
-		$term->Code( substr( kTYPE_PREDICATE_TERM, $len ) );
+		$term->Code( substr( kTYPE_PREDICATE, $len ) );
 		$term->Name( 'Predicate', kDEFAULT_LANGUAGE );
 		$term->Definition
 		( 'This term represents a predicate.',
 		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_PREDICATE_TERM', kTYPE_EXACT );
+		$term->Synonym( 'kTYPE_PREDICATE', kTYPE_EXACT );
 		$term->Commit( $theContainer );
 		if( $doDisplay )
 			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
@@ -1088,12 +1078,12 @@ exit( "Done!\n" );
 		//
 		$term = new CEnumerationTerm();
 		$term->NS( $ns );
-		$term->Code( substr( kTYPE_ATTRIBUTE_TERM, $len ) );
+		$term->Code( substr( kTYPE_ATTRIBUTE, $len ) );
 		$term->Name( 'Attribute', kDEFAULT_LANGUAGE );
 		$term->Definition
 		( 'This term represents an attribute.',
 		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_ATTRIBUTE_TERM', kTYPE_EXACT );
+		$term->Synonym( 'kTYPE_ATTRIBUTE', kTYPE_EXACT );
 		$term->Commit( $theContainer );
 		if( $doDisplay )
 			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
@@ -1103,12 +1093,12 @@ exit( "Done!\n" );
 		//
 		$term = new CEnumerationTerm();
 		$term->NS( $ns );
-		$term->Code( substr( kTYPE_MEASURE_TERM, $len ) );
+		$term->Code( substr( kTYPE_MEASURE, $len ) );
 		$term->Name( 'Measure', kDEFAULT_LANGUAGE );
 		$term->Definition
-		( 'This term represents a scale or measurable attribute.',
+		( 'This term represents a scale or measurable term.',
 		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_MEASURE_TERM', kTYPE_EXACT );
+		$term->Synonym( 'kTYPE_MEASURE', kTYPE_EXACT );
 		$term->Commit( $theContainer );
 		if( $doDisplay )
 			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
@@ -1118,12 +1108,12 @@ exit( "Done!\n" );
 		//
 		$term = new CEnumerationTerm();
 		$term->NS( $ns );
-		$term->Code( substr( kTYPE_ENUM_TERM, $len ) );
+		$term->Code( substr( kTYPE_ENUMERATION, $len ) );
 		$term->Name( 'Enumeration', kDEFAULT_LANGUAGE );
 		$term->Definition
-		( 'This term represents an enumeration.',
+		( 'This term represents an enumeration term.',
 		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_ENUM_TERM', kTYPE_EXACT );
+		$term->Synonym( 'kTYPE_ENUMERATION', kTYPE_EXACT );
 		$term->Commit( $theContainer );
 		if( $doDisplay )
 			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
@@ -1164,7 +1154,7 @@ exit( "Done!\n" );
 		//
 		// Local unique identifier.
 		//
-		$term = new CAttributeTerm();
+		$term = new COntologyTerm();
 		$term->Code( kTAG_LID );
 		$term->Name( 'Local unique identifier', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -1175,6 +1165,7 @@ exit( "Done!\n" );
 		 .'refer to that object. This value should be tightly integrated '
 		 .'with the database.',
 		  kDEFAULT_LANGUAGE );
+		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
 		$term->Synonym( 'kTAG_LID', kTYPE_EXACT );
 		$term->Commit( $theContainer );
 		if( $doDisplay )
@@ -1194,6 +1185,7 @@ exit( "Done!\n" );
 		 .'local identifier, which represents the key to the object within the local '
 		 .'database.',
 		  kDEFAULT_LANGUAGE );
+		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
 		$term->Type( kTYPE_STRING );
 		$term->Synonym( 'kTAG_GID', kTYPE_EXACT );
 		$term->Commit( $theContainer );
@@ -1236,7 +1228,7 @@ exit( "Done!\n" );
 		//
 		// Synonym.
 		//
-		$term = new CAttributeTerm();
+		$term = new COntologyTerm();
 		$term->NS( $ns );
 		$term->Code( substr( kTAG_REFERENCE_SYNONYM, 1 ) );
 		$term->Name( 'Synonym', kDEFAULT_LANGUAGE );
@@ -1253,7 +1245,7 @@ exit( "Done!\n" );
 		//
 		// Cross-reference.
 		//
-		$term = new CAttributeTerm();
+		$term = new COntologyTerm();
 		$term->NS( $ns );
 		$term->Code( substr( kTAG_REFERENCE_XREF, 1 ) );
 		$term->Name( 'Cross-reference', kDEFAULT_LANGUAGE );
@@ -1271,7 +1263,7 @@ exit( "Done!\n" );
 		//
 		// Identifier reference.
 		//
-		$term = new CAttributeTerm();
+		$term = new COntologyTerm();
 		$term->Code( kTAG_REFERENCE_ID );
 		$term->Name( 'Identifier reference', kDEFAULT_LANGUAGE );
 		$term->Definition
@@ -1429,7 +1421,7 @@ exit( "Done!\n" );
 		//
 		// Kind.
 		//
-		$term = new CAttributeTerm();
+		$term = new COntologyTerm();
 		$term->NS( $ns );
 		$term->Code( substr( kTAG_KIND, 1 ) );
 		$term->Name( 'Kind', kDEFAULT_LANGUAGE );
@@ -1445,7 +1437,7 @@ exit( "Done!\n" );
 		//
 		// Unit.
 		//
-		$term = new CAttributeTerm();
+		$term = new COntologyTerm();
 		$term->NS( $ns );
 		$term->Code( substr( kTAG_UNIT, 1 ) );
 		$term->Name( 'Unit', kDEFAULT_LANGUAGE );
@@ -1460,7 +1452,7 @@ exit( "Done!\n" );
 		//
 		// Source.
 		//
-		$term = new CAttributeTerm();
+		$term = new COntologyTerm();
 		$term->NS( $ns );
 		$term->Code( substr( kTAG_SOURCE, 1 ) );
 		$term->Name( 'Source', kDEFAULT_LANGUAGE );
@@ -1475,7 +1467,7 @@ exit( "Done!\n" );
 		//
 		// Data.
 		//
-		$term = new CAttributeTerm();
+		$term = new COntologyTerm();
 		$term->NS( $ns );
 		$term->Code( substr( kTAG_DATA, 1 ) );
 		$term->Name( 'Data', kDEFAULT_LANGUAGE );
@@ -1506,7 +1498,7 @@ exit( "Done!\n" );
 		//
 		// Enum.
 		//
-		$term = new CAttributeTerm();
+		$term = new COntologyTerm();
 		$term->NS( $ns );
 		$term->Code( substr( kTAG_ENUM, 1 ) );
 		$term->Name( 'Enumeration', kDEFAULT_LANGUAGE );
@@ -1521,7 +1513,7 @@ exit( "Done!\n" );
 		//
 		// Namespace.
 		//
-		$term = new CAttributeTerm();
+		$term = new COntologyTerm();
 		$term->NS( $ns );
 		$term->Code( substr( kTAG_NAMESPACE, 1 ) );
 		$term->Name( 'Namespace', kDEFAULT_LANGUAGE );
@@ -1536,7 +1528,7 @@ exit( "Done!\n" );
 		//
 		// Node.
 		//
-		$term = new CAttributeTerm();
+		$term = new COntologyTerm();
 		$term->NS( $ns );
 		$term->Code( substr( kTAG_NODE, 1 ) );
 		$term->Name( 'Node', kDEFAULT_LANGUAGE );
@@ -1551,7 +1543,7 @@ exit( "Done!\n" );
 		//
 		// Predicate.
 		//
-		$term = new CAttributeTerm();
+		$term = new COntologyTerm();
 		$term->NS( $ns );
 		$term->Code( substr( kTAG_EDGE, 1 ) );
 		$term->Name( 'Predicate', kDEFAULT_LANGUAGE );
@@ -1566,7 +1558,7 @@ exit( "Done!\n" );
 		//
 		// Term.
 		//
-		$term = new CAttributeTerm();
+		$term = new COntologyTerm();
 		$term->NS( $ns );
 		$term->Code( substr( kTAG_TERM, 1 ) );
 		$term->Name( 'Term', kDEFAULT_LANGUAGE );
@@ -1581,7 +1573,7 @@ exit( "Done!\n" );
 		//
 		// Name.
 		//
-		$term = new CAttributeTerm();
+		$term = new COntologyTerm();
 		$term->NS( $ns );
 		$term->Code( substr( kTAG_NAME, 1 ) );
 		$term->Name( 'Name', kDEFAULT_LANGUAGE );
@@ -1596,7 +1588,7 @@ exit( "Done!\n" );
 		//
 		// Description.
 		//
-		$term = new CAttributeTerm();
+		$term = new COntologyTerm();
 		$term->NS( $ns );
 		$term->Code( substr( kTAG_DESCRIPTION, 1 ) );
 		$term->Name( 'Description', kDEFAULT_LANGUAGE );
@@ -1611,7 +1603,7 @@ exit( "Done!\n" );
 		//
 		// Definition.
 		//
-		$term = new CAttributeTerm();
+		$term = new COntologyTerm();
 		$term->NS( $ns );
 		$term->Code( substr( kTAG_DEFINITION, 1 ) );
 		$term->Name( 'Definition', kDEFAULT_LANGUAGE );
@@ -1624,9 +1616,25 @@ exit( "Done!\n" );
 			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
 	
 		//
+		// Examples.
+		//
+		$term = new COntologyTerm();
+		$term->NS( $ns );
+		$term->Code( substr( kTAG_EXAMPLES, 1 ) );
+		$term->Name( 'Examples', kDEFAULT_LANGUAGE );
+		$term->Definition
+		( 'This term is used as the default offset for indicating an attribute '
+		 .'containing a list of examples.',
+		  kDEFAULT_LANGUAGE );
+		$term->Synonym( 'kTAG_EXAMPLES', kTYPE_EXACT );
+		$term->Commit( $theContainer );
+		if( $doDisplay )
+			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+	
+		//
 		// Language.
 		//
-		$term = new CAttributeTerm();
+		$term = new COntologyTerm();
 		$term->NS( $ns );
 		$term->Code( substr( kTAG_LANGUAGE, 1 ) );
 		$term->Name( 'Language', kDEFAULT_LANGUAGE );
@@ -1641,7 +1649,7 @@ exit( "Done!\n" );
 		//
 		// Status.
 		//
-		$term = new CAttributeTerm();
+		$term = new COntologyTerm();
 		$term->NS( $ns );
 		$term->Code( substr( kTAG_STATUS, 1 ) );
 		$term->Name( 'Status', kDEFAULT_LANGUAGE );
@@ -1656,7 +1664,7 @@ exit( "Done!\n" );
 		//
 		// Annotation.
 		//
-		$term = new CAttributeTerm();
+		$term = new COntologyTerm();
 		$term->NS( $ns );
 		$term->Code( substr( kTAG_ANNOTATION, 1 ) );
 		$term->Name( 'Annotation', kDEFAULT_LANGUAGE );
@@ -1671,7 +1679,7 @@ exit( "Done!\n" );
 		//
 		// References.
 		//
-		$term = new CAttributeTerm();
+		$term = new COntologyTerm();
 		$term->NS( $ns );
 		$term->Code( substr( kTAG_REFS, 1 ) );
 		$term->Name( 'References', kDEFAULT_LANGUAGE );
@@ -1687,7 +1695,7 @@ exit( "Done!\n" );
 		//
 		// Edge terms path.
 		//
-		$term = new CAttributeTerm();
+		$term = new COntologyTerm();
 		$term->NS( $ns );
 		$term->Code( substr( kTAG_EDGE_TERM, 1 ) );
 		$term->Name( 'Edge terms path', kDEFAULT_LANGUAGE );
@@ -1704,7 +1712,7 @@ exit( "Done!\n" );
 		//
 		// Edge nodes path.
 		//
-		$term = new CAttributeTerm();
+		$term = new COntologyTerm();
 		$term->NS( $ns );
 		$term->Code( substr( kTAG_EDGE_NODE, 1 ) );
 		$term->Name( 'Edge nodes path', kDEFAULT_LANGUAGE );
@@ -1723,7 +1731,7 @@ exit( "Done!\n" );
 		//
 		// Valid.
 		//
-		$term = new CAttributeTerm();
+		$term = new COntologyTerm();
 		$term->NS( $ns );
 		$term->Code( substr( kTAG_VALID, 1 ) );
 		$term->Name( 'Valid', kDEFAULT_LANGUAGE );
@@ -1789,7 +1797,7 @@ exit( "Done!\n" );
 		//
 		// Address.
 		//
-		$term = new CAttributeTerm();
+		$term = new COntologyTerm();
 		$term->NS( $ns );
 		$term->Code( substr( kOFFSET_MAIL, 1 ) );
 		$term->Name( 'Mail', kDEFAULT_LANGUAGE );
@@ -1804,7 +1812,7 @@ exit( "Done!\n" );
 		//
 		// Email.
 		//
-		$term = new CAttributeTerm();
+		$term = new COntologyTerm();
 		$term->NS( $ns );
 		$term->Code( substr( kOFFSET_EMAIL, 1 ) );
 		$term->Name( 'E-mail', kDEFAULT_LANGUAGE );
@@ -1819,7 +1827,7 @@ exit( "Done!\n" );
 		//
 		// Phone.
 		//
-		$term = new CAttributeTerm();
+		$term = new COntologyTerm();
 		$term->NS( $ns );
 		$term->Code( substr( kOFFSET_PHONE, 1 ) );
 		$term->Name( 'Phone', kDEFAULT_LANGUAGE );
@@ -1834,7 +1842,7 @@ exit( "Done!\n" );
 		//
 		// Fax.
 		//
-		$term = new CAttributeTerm();
+		$term = new COntologyTerm();
 		$term->NS( $ns );
 		$term->Code( substr( kOFFSET_FAX, 1 ) );
 		$term->Name( 'Fax', kDEFAULT_LANGUAGE );
@@ -1849,7 +1857,7 @@ exit( "Done!\n" );
 		//
 		// URL.
 		//
-		$term = new CAttributeTerm();
+		$term = new COntologyTerm();
 		$term->NS( $ns );
 		$term->Code( substr( kOFFSET_URL, 1 ) );
 		$term->Name( 'Fax', kDEFAULT_LANGUAGE );
@@ -1864,7 +1872,7 @@ exit( "Done!\n" );
 		//
 		// Acronym.
 		//
-		$term = new CAttributeTerm();
+		$term = new COntologyTerm();
 		$term->NS( $ns );
 		$term->Code( substr( kOFFSET_ACRONYM, 1 ) );
 		$term->Name( 'Fax', kDEFAULT_LANGUAGE );

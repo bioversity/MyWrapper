@@ -69,8 +69,8 @@ try
 	$term1 = new CTerm();
 	echo( '<i>$term1->Code( \'NS\' );</i><br>' );
 	$term1->Code( 'NS' );
-	echo( '<i>$term1->Kind( kTYPE_NAMESPACE_TERM, TRUE );</i><br>' );
-	$term1->Kind( kTYPE_NAMESPACE_TERM, TRUE );
+	echo( '<i>$term1->Kind( kTYPE_NAMESPACE, TRUE );</i><br>' );
+	$term1->Kind( kTYPE_NAMESPACE, TRUE );
 	echo( '<i>$term1->Name( \'Namespace term\', \'en\' );</i><br>' );
 	$term1->Name( 'Namespace term', 'en' );
 	echo( '<i>$term1->Name( \'Termine spazio nome\', \'it\' );</i><br>' );

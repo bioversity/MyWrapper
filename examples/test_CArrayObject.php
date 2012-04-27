@@ -257,6 +257,42 @@ try
 	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
 	echo( '<hr>' );
 	
+	$found = $test->test_ManageArrayOffset( 'Uno', TRUE );
+	echo( '<i>$found = $test->test_ManageArrayOffset( \'Uno\', TRUE );</i><br>' );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	$found = $test->test_ManageArrayOffset( 'Due', TRUE );
+	echo( '<i>$found = $test->test_ManageArrayOffset( \'Due\', TRUE );</i><br>' );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	$found = $test->test_ManageArrayOffset( 'Due', TRUE );
+	echo( '<i>$found = $test->test_ManageArrayOffset( \'Due\', TRUE );</i><br>' );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	$found = $test->test_ManageArrayOffset( 'Uno', FALSE, TRUE );
+	echo( '<i>$found = $test->test_ManageArrayOffset( \'Uno\', FALSE, TRUE );</i><br>' );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	$found = $test->test_ManageArrayOffset( 'Due', FALSE, TRUE );
+	echo( '<i>$found = $test->test_ManageArrayOffset( \'Due\', FALSE, TRUE );</i><br>' );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	$found = $test->test_ManageArrayOffset( '1', FALSE, TRUE );
+	echo( '<i>$found = $test->test_ManageArrayOffset( \'1\', FALSE, TRUE );</i><br>' );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
 	//
 	// Test typed array management function.
 	//

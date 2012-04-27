@@ -264,7 +264,7 @@ define( "kTYPE_NARROW",						':NARROW' );
 define( "kTYPE_RELATED",					':RELATED' );
 
 /*=======================================================================================
- *	TERM TYPES																			*
+ *	TERM OR ONTOLOGY GRAPH NODE TYPES													*
  *======================================================================================*/
 
 /**
@@ -277,44 +277,44 @@ define( "kTYPE_TERM",							':TERM' );
 /**
  * Namespace.
  *
- * This is the tag that represents a namespace term.
+ * This is the tag that represents a namespace.
  */
-define( "kTYPE_NAMESPACE_TERM",					':TERM:NS' );
+define( "kTYPE_NAMESPACE",						':NAMESPACE' );
 
 /**
  * Ontology.
  *
- * This is the tag that represents an ontology root term.
+ * This is the tag that represents an ontology.
  */
-define( "kTYPE_ONTOLOGY_TERM",					':TERM:ONTO' );
+define( "kTYPE_ONTOLOGY",						':ONTOLOGY' );
 
 /**
  * Predicate.
  *
- * This is the tag that represents a predicate term.
+ * This is the tag that represents a predicate.
  */
-define( "kTYPE_PREDICATE_TERM",					':TERM:PRED' );
+define( "kTYPE_PREDICATE",						':PREDICATE' );
 
 /**
  * Attribute.
  *
- * This is the tag that represents an attribute term.
+ * This is the tag that represents an attribute.
  */
-define( "kTYPE_ATTRIBUTE_TERM",					':TERM:ATTR' );
+define( "kTYPE_ATTRIBUTE",						':ATTRIBUTE' );
 
 /**
  * Measure.
  *
  * This is the tag that represents a measure term.
  */
-define( "kTYPE_MEASURE_TERM",					':TERM:MEASURE' );
+define( "kTYPE_MEASURE",						':MEASURE' );
 
 /**
  * Enumeration.
  *
  * This is the tag that represents an enumeration term.
  */
-define( "kTYPE_ENUM_TERM",						':TERM:ENUM' );
+define( "kTYPE_ENUMERATION",					':ENUMERATION' );
 
 /*=======================================================================================
  *	MONGODB DATA TYPES																	*

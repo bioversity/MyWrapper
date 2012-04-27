@@ -114,8 +114,8 @@ try
 	echo( '<hr>' );
 	
 	echo( '<i><b>TERM 2</b></i><br>' );
-	echo( '<i>$term2 = new COntologyTerm();</i><br>' );
-	$term2 = new COntologyTerm();
+	echo( '<i>$term2 = new CMeasureTerm();</i><br>' );
+	$term2 = new CMeasureTerm();
 	echo( '<i>$term2->NS( \'NS\' );</i><br>' );
 	$term2->NS( 'NS' );
 	echo( '<i>$term2->Code( \'TERM2\' );</i><br>' );
@@ -128,6 +128,14 @@ try
 	$term2->Definition( 'This is the second term', 'en' );
 	echo( '<i>$term2->Definition( \'Questo è il secondo termine\', \'it\' );</i><br>' );
 	$term2->Definition( 'Questo è il secondo termine', 'it' );
+	echo( '<i>$term2->Type( kTYPE_INT32 );</i><br>' );
+	$term2->Type( kTYPE_INT32 );
+	echo( '<i>$term2->Unit( $term1 );</i><br>' );
+	$term2->Unit( $term1 );
+	echo( '<i>$term2->Examples( \'1\', TRUE );</i><br>' );
+	$term2->Examples( '1', TRUE );
+	echo( '<i>$term2->Examples( \'3.5 (although integer it also accepts floats)\', TRUE );</i><br>' );
+	$term2->Examples( '3.5 (although integer it also accepts floats)', TRUE );
 	echo( '<i>$term2->Relate( $term1, $predicate, TRUE );</i><br>' );
 	$term2->Relate( $term1, $predicate, TRUE );
 	echo( '<i>$term2->Valid( $term1 );</i><br>' );

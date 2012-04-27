@@ -335,9 +335,15 @@ class CArrayObject extends ArrayObject
 													   $getOld = FALSE )
 	{
 		//
-		// Get current list.
+		// Save current list.
 		//
+		$list = Array();
 		$save = $this->offsetGet( $theOffset );
+		if( $save !== NULL )
+		{
+			foreach( $save as $element )
+				$list[ md5( $element, TRUE ) ] = $element;
+		}
 		
 		//
 		// Return element or list.
@@ -354,8 +360,8 @@ class CArrayObject extends ArrayObject
 			//
 			// Scan list.
 			//
-			if( ($key = array_search( (string) $theValue, $save )) !== FALSE )
-				return $save[ $key ];												// ==>
+			if( array_key_exists( ($key = md5( (string) $theValue, TRUE )), $list ) )
+				return $list[ $key ];												// ==>
 			
 			return NULL;															// ==>
 		
@@ -396,23 +402,23 @@ class CArrayObject extends ArrayObject
 				//
 				// Find element.
 				//
-				if( ($key = array_search( (string) $theValue, $save )) !== FALSE )
+				if( array_key_exists( ($key = md5( (string) $theValue, TRUE )), $list ) )
 				{
 					//
 					// Save old.
 					//
-					$old = $save[ $key ];
+					$old = $list[ $key ];
 					
 					//
 					// Remove element.
 					//
-					unset( $save[ $key ] );
+					unset( $list[ $key ] );
 					
 					//
 					// Update object.
 					//
-					if( count( $save ) )
-						$this->offsetSet( $theOffset, array_values( (array) $save ) );
+					if( count( $list ) )
+						$this->offsetSet( $theOffset, array_values( $list ) );
 					else
 						$this->offsetUnset( $theOffset );
 					
@@ -466,51 +472,23 @@ class CArrayObject extends ArrayObject
 		// Add first element.
 		//
 		if( $save === NULL )
+			$this->offsetSet( $theOffset, array( $theValue ) );
+		
+		//
+		// Set element.
+		//
+		else
 		{
 			//
-			// Build list.
+			// Set in list.
 			//
-			$save = array( $theValue );
+			$list[ md5( (string) $theValue, TRUE ) ] = (string) $theValue;
 			
 			//
-			// Set list.
+			// Replace offset.
 			//
-			$this->offsetSet( $theOffset, $save );
-			
-			if( $getOld )
-				return NULL;														// ==>
-			
-			return $theValue;														// ==>
-		
-		} // New list.
-		
-		//
-		// Replace element.
-		//
-		if( ($key = array_search( (string) $theValue, $save )) !== FALSE )
-		{
-			//
-			// Replace.
-			//
-			$old = $save[ $key ];
-			$save[ $key ] = $theValue;
-			
-			if( $getOld )
-				return $old;														// ==>
-			
-			return $theValue;														// ==>
-		
-		} // List and element exist.
-		
-		//
-		// Append the element.
-		//
-		$save[] = $theValue;
-		
-		//
-		// Update offset.
-		//
-		$this->offsetSet( $theOffset, $save );
+			$this->offsetSet( $theOffset, array_values( $list ) );
+		}
 		
 		if( $getOld )
 			return NULL;															// ==>

@@ -29,7 +29,7 @@ require_once( kPATH_LIBRARY_SOURCE."COntologyTerm.php" );
 /**
  * Enumeration term.
  *
- * This {@link kTYPE_ENUM_TERM kind} of {@link COntologyTerm term} represents a term that
+ * This {@link kTYPE_ENUMERATION kind} of {@link COntologyTerm term} represents a term that
  * maps an enumeration element. Enumerations represent key/value pais that are used as a
  * controlled vocabulary.
  *
@@ -40,7 +40,7 @@ require_once( kPATH_LIBRARY_SOURCE."COntologyTerm.php" );
  * class will automatically add the {@link Code() code} to the
  * {@link Enumeration() enumerations}.
  *
- * In this class we enforce the {@link kTYPE_ENUM_TERM kTYPE_ENUM_TERM} {@link Kind() kind}
+ * In this class we enforce the {@link kTYPE_ENUMERATION kTYPE_ENUMERATION} {@link Kind() kind}
  * and we add the {@link Enumeration() enumeration} {@link kTAG_ENUM offset} to the required
  * elements for making the object's {@link kFLAG_STATE_INITED status}
  * {@link _IsInited() initialised}.
@@ -235,7 +235,7 @@ class CEnumerationTerm extends COntologyTerm
 	 * Normalise before a store.
 	 *
 	 * We overload this method to enforce the
-	 * {@link kTYPE_ENUM_TERM kTYPE_ENUM_TERM} {@link Kind() kind}, note that we call the
+	 * {@link kTYPE_ENUMERATION kTYPE_ENUMERATION} {@link Kind() kind}, note that we call the
 	 * {@link COntologyTermObject COntologyTermObject} version of this method instead of the
 	 * {@link COntologyTerm parent} one.
 	 *
@@ -249,14 +249,14 @@ class CEnumerationTerm extends COntologyTerm
 	 *
 	 * @uses Kind()
 	 *
-	 * @see kTYPE_ENUM_TERM
+	 * @see kTYPE_ENUMERATION
 	 */
 	protected function _PrepareCommit( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
 		// Set namespace kind.
 		//
-		$this->Kind( kTYPE_ENUM_TERM, TRUE );
+		$this->Kind( kTYPE_ENUMERATION, TRUE );
 		
 		//
 		// Add code to enumerations.
