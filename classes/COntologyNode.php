@@ -245,7 +245,7 @@ class COntologyNode extends COntology
 						  kERROR_OPTION_MISSING,
 						  kMESSAGE_TYPE_ERROR );								// !@! ==>
 		}
-		elseif( $theObject instanceof COntologyNode )
+		elseif( $theObject instanceof COntology )
 		{
 			$object = $theObject->Node();
 			if( ! $object instanceof Everyman\Neo4j\Node )

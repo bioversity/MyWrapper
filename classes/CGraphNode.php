@@ -320,6 +320,39 @@ class CGraphNode extends CPersistentObject
 
 /*=======================================================================================
  *																						*
+ *								PUBLIC STATUS INTERFACE									*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	Persistent																		*
+	 *==================================================================================*/
+
+	/**
+	 * Check whether object is persistent.
+	 *
+	 * This method will return <i>TRUE</i> if the node has an ID, which is assuming it was
+	 * committed; or <i>FALSE</i> if not.
+	 *
+	 * @access public
+	 * @return boolean
+	 */
+	public function Persistent()
+	{
+		$node = $this->Node();
+		if( $node !== NULL )
+			return $node->hasId();													// ==>
+		
+		return FALSE;																// ==>
+	
+	} // Persistent.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PUBLIC ARRAY ACCESS INTERFACE							*
  *																						*
  *======================================================================================*/

@@ -85,14 +85,13 @@ class CTerm extends CCodedUnitObject
 	 * the standard accessor {@link _ManageOffset() method} to manage the
 	 * {@link kTAG_NAMESPACE offset}.
 	 *
-	 * The namespace represents the global {@link _index() identifier} of a term which
-	 * represents the current term's namespace, which groups terms according to a specific
-	 * category. This property and the current term's {@link Code() code} represent the
-	 * term's unique {@link _index() identifier}.
+	 * The namespace collects a series of terms under a common group in which each term
+	 * {@link Code() code} is unique, this {@link kTAG_NAMESPACE offset} represents a term
+	 * reference.
 	 *
 	 * For a more in-depth reference of this method, please consult the
 	 * {@link _ManageOffset() _ManageOffset} method, in which the first parameter will be
-	 * the constant {@link kTAG_CODE kTAG_CODE}.
+	 * the constant {@link kTAG_NAMESPACE kTAG_NAMESPACE}.
 	 *
 	 * @param mixed					$theValue			Value.
 	 * @param boolean				$getOld				TRUE get old value.
@@ -109,6 +108,42 @@ class CTerm extends CCodedUnitObject
 		return $this->_ManageOffset( kTAG_NAMESPACE, $theValue, $getOld );			// ==>
 
 	} // NS.
+
+	 
+	/*===================================================================================
+	 *	NamespaceName																	*
+	 *==================================================================================*/
+
+	/**
+	 * Manage term namespace name.
+	 *
+	 * This method can be used to handle the term {@link kOFFSET_NAMESPACE namespace}, it
+	 * uses the standard accessor {@link _ManageOffset() method} to manage the
+	 * {@link kOFFSET_NAMESPACE offset}.
+	 *
+	 * This property represents the term's namespace name or acronym; not to be confused
+	 * with the {@link kTAG_NAMESPACE kTAG_NAMESPACE} offset which represents the namespace
+	 * term reference.
+	 *
+	 * For a more in-depth reference of this method, please consult the
+	 * {@link _ManageOffset() _ManageOffset} method, in which the first parameter will be
+	 * the constant {@link kOFFSET_NAMESPACE kOFFSET_NAMESPACE}.
+	 *
+	 * @param mixed					$theValue			Value.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 *
+	 * @uses _ManageOffset
+	 *
+	 * @see kOFFSET_NAMESPACE
+	 */
+	public function NamespaceName( $theValue = NULL, $getOld = FALSE )
+	{
+		return $this->_ManageOffset( kOFFSET_NAMESPACE, $theValue, $getOld );		// ==>
+
+	} // NamespaceName.
 
 	 
 	/*===================================================================================
@@ -207,8 +242,8 @@ class CTerm extends CCodedUnitObject
 	 *	 </ul>
 	 * </ul>
 	 *
-	 * @param mixed					$theValue			Term name or operation.
-	 * @param mixed					$theLanguage		Term name language code.
+	 * @param mixed					$theValue			Term definition or operation.
+	 * @param mixed					$theLanguage		Term definition language code.
 	 * @param boolean				$getOld				TRUE get old value.
 	 *
 	 * @access public
@@ -224,6 +259,108 @@ class CTerm extends CCodedUnitObject
 			( kTAG_DEFINITION, kTAG_LANGUAGE, $theLanguage, $theValue, $getOld );	// ==>
 
 	} // Definition.
+
+
+	/*===================================================================================
+	 *	Description																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage term description.
+	 *
+	 * This method can be used to manage the term {@link kTAG_DESCRIPTION description}, it
+	 * manages an array of structures with the following offsets:
+	 *
+	 * <ul>
+	 *	<li><i>{@link kTAG_LANGUAGE kTAG_LANGUAGE}</i>: The description's language, this
+	 *		element represents the code of the language in which the next element is
+	 *		expressed in.
+	 *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The term description or comment.
+	 * </ul>
+	 *
+	 * The parameters to this method are:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: The description or operation:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Return the current value selected by the second parameter.
+	 *		<li><i>FALSE</i>: Delete the value selected by the second parameter.
+	 *		<li><i>other</i>: Set value selected by the second parameter.
+	 *	 </ul>
+	 *	<li><b>$theLanguage</b>: The description's language code:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: This value indicates that the description has no language, in
+	 *			general, when adding elements, this case applies to default elements.
+	 *		<li><i>other</i>: All other types will be interpreted as the language code.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
+	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * @param mixed					$theValue			Term description or operation.
+	 * @param mixed					$theLanguage		Term description language code.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 *
+	 * @uses _ManageTypedArrayOffset
+	 *
+	 * @see kTAG_DESCRIPTION kTAG_LANGUAGE
+	 */
+	public function Description( $theValue = NULL, $theLanguage = NULL, $getOld = FALSE )
+	{
+		return $this->_ManageTypedArrayOffset
+			( kTAG_DESCRIPTION, kTAG_LANGUAGE, $theLanguage, $theValue, $getOld );	// ==>
+
+	} // Description.
+
+	 
+	/*===================================================================================
+	 *	Version																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage version.
+	 *
+	 * This method can be used to manage the term public {@link kOFFSET_VERSION version}, it
+	 * uses the standard accessor {@link _ManageOffset() method} to manage the
+	 * {@link kOFFSET_VERSION offset}:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: The value or operation:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Return the current value.
+	 *		<li><i>FALSE</i>: Delete the value.
+	 *		<li><i>other</i>: Set value.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
+	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * Note that the object features another version {@link kTAG_VERSION offset} which is
+	 * automatically managed by the {@link CPersistentUnitObject ancestor}, the latter is an
+	 * internal value, this one can be considere the <i>public</i> version.
+	 *
+	 * @param NULL|FALSE|string		$theValue			Version or operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 *
+	 * @see kOFFSET_VERSION
+	 */
+	public function Version( $theValue = NULL, $getOld = FALSE )
+	{
+		return $this->_ManageOffset( kOFFSET_VERSION, $theValue, $getOld );			// ==>
+
+	} // Version.
 
 		
 

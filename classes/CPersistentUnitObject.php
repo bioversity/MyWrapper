@@ -518,6 +518,44 @@ abstract class CPersistentUnitObject extends CPersistentObject
 
 /*=======================================================================================
  *																						*
+ *								PROTECTED PERSISTENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	_Commit																			*
+	 *==================================================================================*/
+
+	/**
+	 * Store object in container.
+	 *
+	 * We overload this method to {@link _GetTags() collect} and {@link _SetTags() set} the
+	 * object tags.
+	 *
+	 * @param reference			   &$theContainer		Object container.
+	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Commit modifiers.
+	 *
+	 * @access protected
+	 * @return mixed
+	 */
+	protected function _Commit( &$theContainer, &$theIdentifier, &$theModifiers )
+	{
+		//
+		// Set tags.
+		//
+		$this->_SetTags();
+		
+		return parent::_Commit( $theContainer, $theIdentifier, $theModifiers );		// ==>
+	
+	} // _Commit.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PROTECTED PERSISTENCE UTILITIES							*
  *																						*
  *======================================================================================*/
@@ -713,11 +751,6 @@ abstract class CPersistentUnitObject extends CPersistentObject
 		$this->offsetSet( kTAG_VERSION, ( $this->offsetExists( kTAG_VERSION ) )
 										 ? ($this->offsetGet( kTAG_VERSION ) + 1)
 										 : 0 );
-		
-		//
-		// Set tags.
-		//
-		$this->_SetTags();
 	
 	} // _PrepareCommit.
 
@@ -1042,6 +1075,50 @@ abstract class CPersistentUnitObject extends CPersistentObject
 		return $done;																// ==>
 		
 	} // _CommitReferences.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED TAGGING UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	_GetTags																		*
+	 *==================================================================================*/
+
+	/**
+	 * Get attribute tags.
+	 *
+	 * In this class we exclude the {@link kTAG_LID kTAG_LID}, {@link kTAG_CLASS kTAG_CLASS}
+	 * and {@link kTAG_VERSION kTAG_VERSION} tags, since they are set by default.
+	 *
+	 * @access protected
+	 * @return array
+	 */
+	protected function _GetTags()
+	{
+		//
+		// Get tags.
+		//
+		$tags = parent::_GetTags();
+		
+		//
+		// Remove ID, class and version.
+		//
+		if( ($key = array_search( kTAG_LID, $tags )) !== FALSE )
+			unset( $tags[ $key ] );
+		if( ($key = array_search( kTAG_CLASS, $tags )) !== FALSE )
+			unset( $tags[ $key ] );
+		if( ($key = array_search( kTAG_VERSION, $tags )) !== FALSE )
+			unset( $tags[ $key ] );
+		
+		return array_values( $tags );												// ==>
+	
+	} // _SetTags.
 
 		
 

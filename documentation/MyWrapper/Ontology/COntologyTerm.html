@@ -79,7 +79,7 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																																																																																																																<div class="method-definition">
+																																																																																																																								<div class="method-definition">
 					<img src="../../media/images/Constructor.png" alt=" "/>
 											<span class="method-result">COntologyTerm</span>
 										<a href="#__construct" title="details" class="method-name">__construct</a>
@@ -120,6 +120,12 @@
 											<span class="method-result">void</span>
 										<a href="#offsetUnset" title="details" class="method-name">offsetUnset</a>
 											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#Pattern" title="details" class="method-name">Pattern</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theOperation</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -245,7 +251,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Cardinality</span> (line <span class="line-number">314</span>)
+		<span class="method-title">Cardinality</span> (line <span class="line-number">351</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -323,7 +329,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Examples</span> (line <span class="line-number">397</span>)
+		<span class="method-title">Examples</span> (line <span class="line-number">434</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -401,7 +407,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetSet</span> (line <span class="line-number">430</span>)
+		<span class="method-title">offsetSet</span> (line <span class="line-number">467</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -441,7 +447,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetUnset</span> (line <span class="line-number">461</span>)
+		<span class="method-title">offsetUnset</span> (line <span class="line-number">498</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -473,8 +479,47 @@
 					</dl>
 			
 	</div>
-<a name="methodPredicate" id="Predicate"><!-- --></a>
+<a name="methodPattern" id="Pattern"><!-- --></a>
 <div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Pattern</span> (line <span class="line-number">304</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage patterns.</p>
+<p class="description"><p>This method can be used to handle the object's <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_PATTERN">patterns</a>, it  uses the standard accessor <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">method</a> to manage the list of  patterns.</p><p>This term usually describes a <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_STRING">string</a> data element that is  restricted by a series of string patterns, use the standard XML format.</p><p>For a more thorough reference of how this method works, please consult the  <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">_ManageArrayOffset</a> method, in which the first parameter  will be the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_PATTERN">kTAG_PATTERN</a>.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_PATTERN">kTAG_PATTERN</a></li>
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			Pattern
+		</span>
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theOperation</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Value or index.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theOperation</span><span class="var-description">: Operation.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodPredicate" id="Predicate"><!-- --></a>
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -513,7 +558,7 @@
 			
 	</div>
 <a name="methodType" id="Type"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -549,11 +594,11 @@
 			
 	</div>
 <a name="methodUnit" id="Unit"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Unit</span> (line <span class="line-number">352</span>)
+		<span class="method-title">Unit</span> (line <span class="line-number">389</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -585,11 +630,11 @@
 			
 	</div>
 <a name="method_Inited" id="_Inited"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Inited</span> (line <span class="line-number">587</span>)
+		<span class="method-title">_Inited</span> (line <span class="line-number">624</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -618,11 +663,11 @@
 			
 	</div>
 <a name="method_PrepareCommit" id="_PrepareCommit"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">520</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">557</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -702,9 +747,15 @@
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Ontology/CTerm.html#methodDefinition">CTerm::Definition()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Ontology/CTerm.html#methodDescription">CTerm::Description()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Ontology/CTerm.html#methodName">CTerm::Name()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Ontology/CTerm.html#methodNamespaceName">CTerm::NamespaceName()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Ontology/CTerm.html#methodNS">CTerm::NS()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Ontology/CTerm.html#methodVersion">CTerm::Version()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Ontology/CTerm.html#method_index">CTerm::_index()</a></span><br>
 											</blockquote>
@@ -754,7 +805,11 @@
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_CheckRelationPredicate">CPersistentUnitObject::_CheckRelationPredicate()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_Commit">CPersistentUnitObject::_Commit()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_CommitReferences">CPersistentUnitObject::_CommitReferences()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_GetTags">CPersistentUnitObject::_GetTags()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_id">CPersistentUnitObject::_id()</a></span><br>
 													<img src="../../media/images/AbstractMethod.png" alt=" "/>
@@ -842,6 +897,8 @@
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedArrayListOffset">CArrayObject::_ManageTypedArrayListOffset()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedArrayOffset">CArrayObject::_ManageTypedArrayOffset()</a></span><br>
 											</blockquote>
 									<!-- =========== Summary =========== -->
@@ -928,7 +985,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 27 Apr 2012 15:38:14 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Mon, 30 Apr 2012 19:15:49 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

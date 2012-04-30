@@ -64,7 +64,7 @@ define( "kTAG_GID",								':GID' );
  * {@link kTYPE_BROAD broad}, {@link kTYPE_NARROW narrow} and
  * {@link kTYPE_RELATED related}.
  */
-define( "kTAG_REFERENCE_SYNONYM",				':SYN' );
+define( "kTAG_REFERENCE_SYNONYM",				':SYNONYM' );
 
 /**
  * This is the offset used to indicate a cross-reference, a cross-reference is a reference
@@ -133,7 +133,7 @@ define( "kTAG_MODIFIED",						':MODIFIED' );
  *
  * By default it is an integer incremented each time the object is saved.
  */
-define( "kTAG_VERSION",							':VERSION' );
+define( "kTAG_VERSION",							':VERS' );
 
 /**
  * Type.
@@ -153,6 +153,14 @@ define( "kTAG_TYPE",							':TYPE' );
  * discriminates the elements of a list.
  */
 define( "kTAG_KIND",							':KIND' );
+
+/**
+ * Pattern.
+ *
+ * This tag is used to describe a pattern, in general this may be applied to terms that are
+ * of the {@link kTYPE_STRING string} type which are restricted by a pattern.
+ */
+define( "kTAG_PATTERN",							':PATTERN' );
 
 /**
  * Cardinality.
@@ -214,7 +222,7 @@ define( "kTAG_ENUM",							':ENUM' );
 /**
  * Namespace offset.
  *
- * This tag is used as the default offset for indicating a namespace code or acronym.
+ * This tag is used as the default offset for indicating a namespace term reference.
  */
 define( "kTAG_NAMESPACE",						':NS' );
 
@@ -410,6 +418,22 @@ define( "kOFFSET_URL",							':URL' );
  * This is the tag that represents a list of acronyms.
  */
 define( "kOFFSET_ACRONYM",						':ACRONYM' );
+
+/**
+ * Version.
+ *
+ * This is the tag that represents the version, it should not be confused with the
+ * {@link kTAG_VERSION kTAG_VERSION} which is automatically managed in the class library:
+ * this offset represents the actual version.
+ */
+define( "kOFFSET_VERSION",						':VERSION' );
+
+/**
+ * Namespace offset.
+ *
+ * This tag is used as the default offset for indicating a namespace name or acronym.
+ */
+define( "kOFFSET_NAMESPACE",					':NAMESPACE' );
 
 /*=======================================================================================
  *	DEFAULT MAIL PROPERTY OFFSETS														*

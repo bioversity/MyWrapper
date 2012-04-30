@@ -53,6 +53,13 @@ class MyTest extends CArrayObject
 		return $this->_ManageTypedArrayOffset
 					( 'TEST2', kTAG_KIND, $theType, $theValue, $theOperation, $getOld );
 	}
+	public function test_ManageTypedArrayListOffset( $theIndex, $theType, $theData,
+													 $theOperation = NULL,
+													 $getOld = FALSE )
+	{
+		return $this->_ManageTypedArrayListOffset
+					( 'TEST2', $theIndex, $theType, $theData, $theOperation, $getOld );
+	}
 }
 
 
@@ -359,6 +366,77 @@ try
 	
 	echo( '<i>$found = $test->test_ManageTypedArrayOffset( NULL, \'data\', TRUE );</i><br>' );
 	$found = $test->test_ManageTypedArrayOffset( NULL, 'data', TRUE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	//
+	// Test typed array list management function.
+	//
+	echo( '<h3>Typed array list management function</h3>' );
+	
+	echo( '<i>$test = new MyTest();</i><br>' );
+	$test = new MyTest();
+	echo( '<i>$found = $test->test_ManageTypedArrayListOffset( \'TYPE\', \'First\', 1, TRUE );</i><br>' );
+	$found = $test->test_ManageTypedArrayListOffset( 'TYPE', 'First', 1, TRUE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$found = $test->test_ManageTypedArrayListOffset( \'TYPE\', \'First\', \'Uno\', TRUE );</i><br>' );
+	$found = $test->test_ManageTypedArrayListOffset( 'TYPE', 'First', 'Uno', TRUE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$found = $test->test_ManageTypedArrayListOffset( \'TYPE\', \'First\', \'Uno\', NULL );</i><br>' );
+	$found = $test->test_ManageTypedArrayListOffset( 'TYPE', 'First', 'Uno', NULL );
+	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$found = $test->test_ManageTypedArrayListOffset( \'TYPE\', \'First\', \'Due\', NULL );</i><br>' );
+	$found = $test->test_ManageTypedArrayListOffset( 'TYPE', 'First', 'Due', NULL );
+	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$found = $test->test_ManageTypedArrayListOffset( \'TYPE\', \'Second\', \'Due\', TRUE );</i><br>' );
+	$found = $test->test_ManageTypedArrayListOffset( 'TYPE', 'Second', 'Due', TRUE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$found = $test->test_ManageTypedArrayListOffset( \'OTHER\', \'Second\', \'Due\', TRUE );</i><br>' );
+	$found = $test->test_ManageTypedArrayListOffset( 'OTHER', 'Second', 'Due', TRUE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$found = $test->test_ManageTypedArrayListOffset( \'OTHER\', \'Second\', \'Due\', TRUE );</i><br>' );
+	$found = $test->test_ManageTypedArrayListOffset( 'OTHER', 'Second', 'Due', TRUE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$found = $test->test_ManageTypedArrayListOffset( \'TYPE\', \'First\', \'Uno\', FALSE );</i><br>' );
+	$found = $test->test_ManageTypedArrayListOffset( 'TYPE', 'First', 'Uno', FALSE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$found = $test->test_ManageTypedArrayListOffset( \'TYPE\', \'First\', 1, FALSE );</i><br>' );
+	$found = $test->test_ManageTypedArrayListOffset( 'TYPE', 'First', 1, FALSE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$found = $test->test_ManageTypedArrayListOffset( \'TYPE\', \'Second\', \'Due\', FALSE );</i><br>' );
+	$found = $test->test_ManageTypedArrayListOffset( 'TYPE', 'Second', 'Due', FALSE );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$found = $test->test_ManageTypedArrayListOffset( \'OTHER\', \'Second\', \'Due\', FALSE );</i><br>' );
+	$found = $test->test_ManageTypedArrayListOffset( 'OTHER', 'Second', 'Due', FALSE );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
 	echo( '<hr>' );

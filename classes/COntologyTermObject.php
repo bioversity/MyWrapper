@@ -198,29 +198,32 @@ abstract class COntologyTermObject extends CTerm
 	 * Manage synonyms.
 	 *
 	 * This method can be used to manage the term {@link kTAG_REFERENCE_SYNONYM synonyms}
-	 * list, these elements are strings that can be considered synonyms of the current term,
-	 * the method expects the following parameters:
+	 * list, these elements are strings that can be considered synonyms of the current term.
+	 *
+	 * This property is organised as an array of items structured as a pair of elements:
 	 *
 	 * <ul>
-	 *	<li><b>$theValue</b>: The value or operation:
+	 *	<li><i>Type</i>: The synonym type, its value is provided in the <i>$theType</i>
+	 *		parameter.
+	 *	<li><i>Values</i>: The synonym values organised as an array of values.
+	 * </ul>
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: The synonym value.
+	 *	<li><b>$theType</b>: The synonym type, one of the following values is required:
 	 *	 <ul>
-	 *		<li><i>NULL</i>: Return the current value selected by the second parameter.
-	 *		<li><i>FALSE</i>: Delete the value selected by the second parameter.
-	 *		<li><i>other</i>: Set value selected by the second parameter.
+	 *		<li><i>{@link kTYPE_EXACT kTYPE_EXACT}</i>: Exact synonym.
+	 *		<li><i>{@link kTYPE_BROAD kTYPE_BROAD}</i>: Broad synonym.
+	 *		<li><i>{@link kTYPE_NARROW kTYPE_NARROW}</i>: Narrow synonym.
+	 *		<li><i>{@link kTYPE_RELATED kTYPE_RELATED}</i>: Related synonym.
 	 *	 </ul>
-	 *	<li><b>$theType</b>: The synonym type:
+	 *	<li><b>$theOperation</b>: The operation:
 	 *	 <ul>
-	 *		<li><i>NULL</i>: This value indicates that the synonym has no type or kind, in
-	 *			general, when adding elements, this case applies to default elements.
-	 *		<li><i>other</i>: All other types will be interpreted as the synonym type:
-	 *		 <ul>
-	 *			<li><i>{@link kTYPE_EXACT kTYPE_EXACT}</i>: Exact synonym.
-	 *			<li><i>{@link kTYPE_BROAD kTYPE_BROAD}</i>: Broad synonym.
-	 *			<li><i>{@link kTYPE_NARROW kTYPE_NARROW}</i>: Narrow
-	 *				synonym.
-	 *			<li><i>{@link kTYPE_RELATED kTYPE_RELATED}</i>: Related
-	 *				synonym.
-	 *		 </ul>
+	 *		<li><i>NULL</i>: Return the current value selected by the previous parameters.
+	 *		<li><i>FALSE</i>: Delete the value selected by the previous parameters.
+	 *		<li><i>other</i>: Set value selected by the previous parameters.
 	 *	 </ul>
 	 *	<li><b>$getOld</b>: Determines what the method will return:
 	 *	 <ul>
@@ -229,19 +232,23 @@ abstract class COntologyTermObject extends CTerm
 	 *	 </ul>
 	 * </ul>
 	 *
-	 * @param string				$theValue			URL or operation.
-	 * @param mixed					$theType			Mailing address kind or index.
+	 * The method makes use of a protected {@link _ManageTypedArrayListOffset() method},
+	 * please consult its reference for more information.
+	 *
+	 * @param string				$theValue			Synonym.
+	 * @param mixed					$theType			Synonym type.
+	 * @param mixed					$theOperation		Operation.
 	 * @param boolean				$getOld				TRUE get old value.
 	 *
 	 * @access public
 	 * @return string
 	 */
-	public function Synonym( $theValue = NULL, $theType = NULL, $getOld = FALSE )
+	public function Synonym( $theValue, $theType, $theOperation = NULL, $getOld = FALSE )
 	{
 		//
 		// Check synonym kind.
 		//
-		if( $theType !== NULL )
+		if( $theOperation !== NULL )
 		{
 			//
 			// Parse type.
@@ -259,13 +266,15 @@ abstract class COntologyTermObject extends CTerm
 						( "Invalid synonym type",
 						  kERROR_UNSUPPORTED,
 						  kMESSAGE_TYPE_ERROR,
-						  array( 'Kind' => $theType ) );						// !@! ==>
+						  array( 'Type' => $theType ) );						// !@! ==>
 			}
 		
 		} // Provided synonym kind.
 		
-		return $this->_ManageTypedArrayOffset
-			( kTAG_REFERENCE_SYNONYM, kTAG_KIND, $theType, $theValue, $getOld );	// ==>
+		return $this->_ManageTypedArrayListOffset
+			( kTAG_REFERENCE_SYNONYM, kTAG_KIND,
+			  $theType, $theValue,
+			  $theOperation, $getOld );												// ==>
 
 	} // Synonym.
 
@@ -280,31 +289,33 @@ abstract class COntologyTermObject extends CTerm
 	 * This method can be used to manage the term
 	 * {@link kTAG_REFERENCE_XREF cross-references} list, these elements are references to
 	 * other terms that can be considered synonyms of the current term, the reference should
-	 * be the term's {@link _id() identifier}. The method expects the following parameters:
+	 * be the term's {@link _id() identifier}.
+	 *
+	 * This property is organised as an array of items structured as a pair of elements:
 	 *
 	 * <ul>
-	 *	<li><b>$theValue</b>: The value or operation:
+	 *	<li><i>Type</i>: The cross-reference type, its value is provided in the
+	 *		<i>$theType</i> parameter.
+	 *	<li><i>Values</i>: The cross-references organised as an array of values.
+	 * </ul>
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: The cross-reference.
+	 *	<li><b>$theType</b>: The cross-reference type, one of the following values is
+	 *		required:
 	 *	 <ul>
-	 *		<li><i>NULL</i>: Return the current value selected by the second parameter.
-	 *		<li><i>FALSE</i>: Delete the value selected by the second parameter.
-	 *		<li><i>other</i>: Set value selected by the second parameter.
+	 *		<li><i>{@link kTYPE_EXACT kTYPE_EXACT}</i>: Exact cross-reference.
+	 *		<li><i>{@link kTYPE_BROAD kTYPE_BROAD}</i>: Broad cross-reference.
+	 *		<li><i>{@link kTYPE_NARROW kTYPE_NARROW}</i>: Narrow cross-reference.
+	 *		<li><i>{@link kTYPE_RELATED kTYPE_RELATED}</i>: Related cross-reference.
 	 *	 </ul>
-	 *	<li><b>$theType</b>: The cross-reference type:
+	 *	<li><b>$theOperation</b>: The operation:
 	 *	 <ul>
-	 *		<li><i>NULL</i>: This value indicates that the reference has no type or kind, in
-	 *			general, when adding elements, this case applies to default elements.
-	 *		<li><i>other</i>: All other types will be interpreted as the cross-reference
-	 *			type:
-	 *		 <ul>
-	 *			<li><i>{@link kTYPE_EXACT kTYPE_EXACT}</i>: Exact
-	 *				reference.
-	 *			<li><i>{@link kTYPE_BROAD kTYPE_BROAD}</i>: Broad
-	 *				reference.
-	 *			<li><i>{@link kTYPE_NARROW kTYPE_NARROW}</i>: Narrow
-	 *				reference.
-	 *			<li><i>{@link kTYPE_RELATED kTYPE_RELATED}</i>: Related
-	 *				reference.
-	 *		 </ul>
+	 *		<li><i>NULL</i>: Return the current value selected by the previous parameters.
+	 *		<li><i>FALSE</i>: Delete the value selected by the previous parameters.
+	 *		<li><i>other</i>: Set value selected by the previous parameters.
 	 *	 </ul>
 	 *	<li><b>$getOld</b>: Determines what the method will return:
 	 *	 <ul>
@@ -313,6 +324,9 @@ abstract class COntologyTermObject extends CTerm
 	 *	 </ul>
 	 * </ul>
 	 *
+	 * The method makes use of a protected {@link _ManageTypedArrayListOffset() method},
+	 * please consult its reference for more information.
+	 *
 	 * @param string				$theValue			URL or operation.
 	 * @param mixed					$theType			Mailing address kind or index.
 	 * @param boolean				$getOld				TRUE get old value.
@@ -320,7 +334,7 @@ abstract class COntologyTermObject extends CTerm
 	 * @access public
 	 * @return string
 	 */
-	public function Xref( $theValue = NULL, $theType = NULL, $getOld = FALSE )
+	public function Xref( $theValue, $theType, $theOperation = NULL, $getOld = FALSE )
 	{
 		//
 		// Normalise reference.
@@ -332,7 +346,7 @@ abstract class COntologyTermObject extends CTerm
 		//
 		// Check cross-reference kind.
 		//
-		if( $theType !== NULL )
+		if( $theOperation !== NULL )
 		{
 			//
 			// Parse type.
@@ -350,13 +364,15 @@ abstract class COntologyTermObject extends CTerm
 						( "Invalid cross-reference type",
 						  kERROR_UNSUPPORTED,
 						  kMESSAGE_TYPE_ERROR,
-						  array( 'Kind' => $theType ) );						// !@! ==>
+						  array( 'Type' => $theType ) );						// !@! ==>
 			}
 		
 		} // Provided cross-reference kind.
 		
-		return $this->_ManageTypedArrayOffset
-			( kTAG_REFERENCE_XREF, kTAG_KIND, $theType, $theValue, $getOld );		// ==>
+		return $this->_ManageTypedArrayListOffset
+			( kTAG_REFERENCE_XREF, kTAG_KIND,
+			  $theType, $theValue,
+			  $theOperation, $getOld );												// ==>
 
 	} // Xref.
 

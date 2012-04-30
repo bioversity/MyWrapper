@@ -35,6 +35,13 @@ require_once( kPATH_LIBRARY_SOURCE."CMongoDataWrapper.php" );
 require_once( kPATH_LIBRARY_SOURCE."CUser.php" );
 
 /**
+ * Ontology edge definitions.
+ *
+ * This include file contains the ontology edge class definitions.
+ */
+require_once( kPATH_LIBRARY_SOURCE."COntologyEdge.php" );
+
+/**
  * Local definitions.
  *
  * This include file contains all local definitions to this class.
@@ -92,6 +99,13 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	 */
 	protected function _InitResources()
 	{
+		//
+		// Set Neo4j connection.
+		//
+		$_SESSION[ kSESSION_NEO4J ] = new Everyman\Neo4j\Client( 'localhost', 7474 );
+//		$_SESSION[ kSESSION_NEO4J ]->getTransport()
+//								   ->useHttps()->setAuth( 'username', 'password' );
+		
 		//
 		// Call parent method.
 		//

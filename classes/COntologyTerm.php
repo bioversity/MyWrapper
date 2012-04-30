@@ -273,6 +273,43 @@ class COntologyTerm extends COntologyTermObject
 
 	 
 	/*===================================================================================
+	 *	Pattern																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage patterns.
+	 *
+	 * This method can be used to handle the object's {@link kTAG_PATTERN patterns}, it
+	 * uses the standard accessor {@link _ManageArrayOffset() method} to manage the list of
+	 * patterns.
+	 *
+	 * This term usually describes a {@link kTYPE_STRING string} data element that is
+	 * restricted by a series of string patterns, use the standard XML format.
+	 *
+	 * For a more thorough reference of how this method works, please consult the
+	 * {@link _ManageArrayOffset() _ManageArrayOffset} method, in which the first parameter
+	 * will be the constant {@link kTAG_PATTERN kTAG_PATTERN}.
+	 *
+	 * @param mixed					$theValue			Value or index.
+	 * @param mixed					$theOperation		Operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return mixed
+	 *
+	 * @uses _ManageArrayOffset
+	 *
+	 * @see kTAG_PATTERN
+	 */
+	public function Pattern( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
+	{
+		return $this->_ManageArrayOffset
+					( kTAG_PATTERN, $theValue, $theOperation, $getOld );			// ==>
+
+	} // Pattern.
+
+	 
+	/*===================================================================================
 	 *	Cardinality																		*
 	 *==================================================================================*/
 

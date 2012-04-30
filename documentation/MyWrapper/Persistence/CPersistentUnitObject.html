@@ -137,7 +137,7 @@
 										<a href="#Reference" title="details" class="method-name">Reference</a>
 											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>, [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_REFERENCE_IDENTIFIER</span>])
 									</div>
-																																																																																																																												<div class="method-definition">
+																																																																																																																																												<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">boolean</span>
 										<a href="#Persistent" title="details" class="method-name">Persistent</a>
@@ -157,9 +157,21 @@
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#_Commit" title="details" class="method-name">_Commit</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">void</span>
 										<a href="#_CommitReferences" title="details" class="method-name">_CommitReferences</a>
 											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theReference</span>, <span class="var-type"><a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a></span>&nbsp;<span class="var-name">$theContainer</span>, <span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span>, [<span class="var-type">integer</span>&nbsp;<span class="var-name">$doRecurse</span> = <span class="var-default">2</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">array</span>
+										<a href="#_GetTags" title="details" class="method-name">_GetTags</a>
+										()
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -256,7 +268,7 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="methodHashIndex" id="HashIndex"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
@@ -300,7 +312,7 @@
 				</ul>
 	</div>
 <a name="methodNewObject" id="NewObject"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
@@ -334,7 +346,7 @@
 			
 	</div>
 <a name="methodReference" id="Reference"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
@@ -386,7 +398,7 @@
 			
 	</div>
 <a name="methodPersistent" id="Persistent"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -412,11 +424,11 @@
 			
 	</div>
 <a name="method_CheckRelationObject" id="_CheckRelationObject"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_CheckRelationObject</span> (line <span class="line-number">1625</span>)
+		<span class="method-title">_CheckRelationObject</span> (line <span class="line-number">1702</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -456,11 +468,11 @@
 			
 	</div>
 <a name="method_CheckRelationPredicate" id="_CheckRelationPredicate"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_CheckRelationPredicate</span> (line <span class="line-number">1706</span>)
+		<span class="method-title">_CheckRelationPredicate</span> (line <span class="line-number">1783</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -492,12 +504,55 @@
 		
 			
 	</div>
+<a name="method_Commit" id="_Commit"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_Commit</span> (line <span class="line-number">544</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Store object in container.</p>
+<p class="description"><p>We overload this method to <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_GetTags">collect</a> and <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_SetTags">set</a> the  object tags.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			_Commit
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theContainer</span><span class="var-description">: Object container.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theModifiers</span><span class="var-description">: Commit modifiers.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_Commit">CPersistentObject::_Commit()</a></dt>
+						<dd>Store object in container.</dd>
+					</dl>
+			
+	</div>
 <a name="method_CommitReferences" id="_CommitReferences"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_CommitReferences</span> (line <span class="line-number">910</span>)
+		<span class="method-title">_CommitReferences</span> (line <span class="line-number">943</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -547,8 +602,40 @@
 		
 			
 	</div>
-<a name="method_id" id="_id"><!-- --></a>
+<a name="method_GetTags" id="_GetTags"><!-- --></a>
 <div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_GetTags</span> (line <span class="line-number">1102</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get attribute tags.</p>
+<p class="description"><p>In this class we exclude the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LID">kTAG_LID</a>, <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CLASS">kTAG_CLASS</a>  and <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_VERSION">kTAG_VERSION</a> tags, since they are set by default.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			_GetTags
+		</span>
+				()
+			</div>
+	
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_GetTags">CPersistentObject::_GetTags()</a></dt>
+						<dd>Get attribute tags.</dd>
+					</dl>
+			
+	</div>
+<a name="method_id" id="_id"><!-- --></a>
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -574,7 +661,7 @@
 			
 	</div>
 <a name="method_index" id="_index"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/AbstractMethod.png" />
@@ -614,11 +701,11 @@
 				</ul>
 	</div>
 <a name="method_ManageObjectList" id="_ManageObjectList"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ManageObjectList</span> (line <span class="line-number">1133</span>)
+		<span class="method-title">_ManageObjectList</span> (line <span class="line-number">1210</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -680,11 +767,11 @@
 			
 	</div>
 <a name="method_ObjectIndex" id="_ObjectIndex"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ObjectIndex</span> (line <span class="line-number">1766</span>)
+		<span class="method-title">_ObjectIndex</span> (line <span class="line-number">1843</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -717,11 +804,11 @@
 			
 	</div>
 <a name="method_ParseReferences" id="_ParseReferences"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseReferences</span> (line <span class="line-number">823</span>)
+		<span class="method-title">_ParseReferences</span> (line <span class="line-number">856</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -788,11 +875,11 @@
 			
 	</div>
 <a name="method_PrepareCommit" id="_PrepareCommit"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">651</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">689</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -804,7 +891,7 @@
         this is not the case we set it via the <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_id">_id</a> method.</li><li><em>Call parent method</em>: We then call the parent method, this is to ensure all
         required data is provided.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CLASS">kTAG_CLASS</a></em>: We set this offset with the current
         object's class name. Note that we overwrite old values.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_VERSION">kTAG_VERSION</a></em>: If not set, we initialise this
-        value to zero, if already set, we increment it.</li></ul></p><p>identifiers  provided as structures containing either the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LID">native</a> identifier  or an object <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_REFERENCE_ID">reference</a>.</p><p>The duty of this method is to ensure that the parameters provided to the  <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_Commit">store</a> operation are correct.</p><p>In this class we ensure that the container is a ArrayObject or a  <a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a> derived instance and we ensure the identifier is filled  in the case it was not provided:</p><p><ul><li><em>Get <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LID">kTAG_LID</a></em>: If the object features the
+        value to zero, if already set, we increment it.</li></ul></p><p>identifiers  provided as structures containing either the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LID">native</a> identifier  or an object <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_REFERENCE_ID">reference</a>.</p><p>The duty of this method is to ensure that the parameters provided to the  <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_Commit">store</a> operation are correct.</p><p>In this class we ensure that the container is a ArrayObject or a  <a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a> derived instance and we ensure the identifier is filled  in the case it was not provided:</p><p><ul><li><em>Get <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LID">kTAG_LID</a></em>: If the object features the
         <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LID">kTAG_LID</a> offset, it will be preferred. This is
         necessary, because we don't want the object identifier to change in time.</li><li><em>Use the <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_id">:id</a> method</em>: We use the value returned by the
         <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_id">_id</a> protected method, this will be the case when
@@ -878,11 +965,11 @@
 				</ul>
 	</div>
 <a name="method_PrepareLoad" id="_PrepareLoad"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">548</span>)
+		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">586</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -923,7 +1010,7 @@
 			
 	</div>
 <a name="method__toString" id="__toString"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -1021,6 +1108,8 @@
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedArrayListOffset">CArrayObject::_ManageTypedArrayListOffset()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedArrayOffset">CArrayObject::_ManageTypedArrayOffset()</a></span><br>
 											</blockquote>
 									<!-- =========== Summary =========== -->
@@ -1108,7 +1197,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 27 Apr 2012 15:38:16 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Mon, 30 Apr 2012 19:15:52 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

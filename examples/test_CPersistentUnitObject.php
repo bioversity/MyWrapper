@@ -50,7 +50,11 @@ class MyClass extends CPersistentUnitObject
 		$this->_isInited( TRUE );
 		parent::_PrepareCommit( $theContainer, $theIdentifier, $theModifiers );
 		$this->_ParseReferences('REFERENCE', $theContainer, kFLAG_REFERENCE_MASK );
+	}
+	protected function _Commit( &$theContainer, &$theIdentifier, &$theModifiers )
+	{
 		$this->_SetTags();
+		return parent::_Commit( $theContainer, $theIdentifier, $theModifiers );
 	}
 }
 
