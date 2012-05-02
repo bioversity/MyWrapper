@@ -49,6 +49,17 @@ define( "kPATH_LIBRARY_SOURCE",		"/Library/WebServer/Library/wrapper/classes/" )
 define( "kPATH_LIBRARY_DEFINES",	"/Library/WebServer/Library/wrapper/defines/" );
 
 /*=======================================================================================
+ *	ADODB LIBRARY PATHS																	*
+ *======================================================================================*/
+
+/**
+ * ADODB library root.
+ *
+ * This value defines the <b><i>absolute</i></b> path to the ADODB library directory.
+ */
+define( "kPATH_LIB_ADODB",			"/Library/WebServer/Library/adodb/" );
+
+/*=======================================================================================
  *	NEO4J LIBRARY PATHS																	*
  *======================================================================================*/
 

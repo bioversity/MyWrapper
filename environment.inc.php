@@ -71,4 +71,18 @@ define( "DEFAULT_kNEO4J_USER",		NULL );
  */
 define( "DEFAULT_kNEO4J_PASS",		NULL );
 
+/*=======================================================================================
+ *	MYSQL CLIENT PARAMETERS																*
+ *======================================================================================*/
+
+/**
+ * MySQL ANCILLARY DSN.
+ *
+ * This tag holds the MySQL ancillary database data source name (read only).
+ *
+ * Cardinality: one.
+ */
+define( "DEFAULT_ANCILLARY_HOST",
+		'MySQLi://WEB-SERVICES:webservicereader@192.168.181.1/ANCILLARY' );
+
 ?>
