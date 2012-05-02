@@ -436,11 +436,11 @@ define( "kOFFSET_VERSION",						':VERSION' );
 define( "kOFFSET_NAMESPACE",					':NAMESPACE' );
 
 /**
- * Flag offset.
+ * Image offset.
  *
- * This tag is used as the default offset for indicating a flag or icon.
+ * This tag is used as the default offset for indicating an images list.
  */
-define( "kOFFSET_FLAG",							':FLAG' );
+define( "kOFFSET_IMAGE",						':IMAGE' );
 
 /*=======================================================================================
  *	DEFAULT MAIL PROPERTY OFFSETS														*

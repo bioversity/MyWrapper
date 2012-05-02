@@ -499,18 +499,18 @@ class CArrayObject extends ArrayObject
 
 	 
 	/*===================================================================================
-	 *	_ManageTypedArrayOffset															*
+	 *	_ManageKindArrayOffset															*
 	 *==================================================================================*/
 
 	/**
-	 * Manage a typed array offset.
+	 * Manage a kind array offset.
 	 *
 	 * This library implements a standard interface for managing object properties using
 	 * methods, this method extends the approach to offset members that are in the form of
 	 * arrays, in which each element is itself an array of two items:
 	 *
 	 * <ul>
-	 *	<li><i>Index</i>: This element represents the qualifier of the item, it provides a
+	 *	<li><i>Kind</i>: This element represents the qualifier of the item, it provides a
 	 *		type or qualification for the next element. It must be possible to cast this
 	 *		value to a string. This element is defined by the second method parameter.
 	 *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: This element represents the element data.
@@ -577,9 +577,9 @@ class CArrayObject extends ArrayObject
 	 * @uses offsetSet()
 	 * @uses offsetUnset()
 	 */
-	protected function _ManageTypedArrayOffset( $theOffset, $theIndex, $theType = NULL,
-																	   $theData = NULL,
-																	   $getOld = FALSE )
+	protected function _ManageKindArrayOffset( $theOffset, $theIndex, $theType = NULL,
+																	  $theData = NULL,
+																	  $getOld = FALSE )
 	{
 		//
 		// Recursing workflow.
@@ -635,7 +635,7 @@ class CArrayObject extends ArrayObject
 				// Recurse.
 				//
 				$result[]
-					= $this->_ManageTypedArrayOffset
+					= $this->_ManageKindArrayOffset
 						( $theOffset, $theIndex, $type, $data, $getOld );
 				
 				//
@@ -825,6 +825,207 @@ class CArrayObject extends ArrayObject
 		
 		return $theData;															// ==>
 	
+	} // _ManageKindArrayOffset.
+
+	 
+	/*===================================================================================
+	 *	_ManageTypedArrayOffset															*
+	 *==================================================================================*/
+
+	/**
+	 * Manage a type array offset.
+	 *
+	 * This library implements a standard interface for managing object properties using
+	 * methods, this method extends the approach to offset members that are in the form of
+	 * arrays, in which each item is itself an array of three elements:
+	 *
+	 * <ul>
+	 *	<li><i>{@link kTAG_KIND kTAG_KIND}</i>: This element represents the kind or
+	 *		qualifier of the item, the element is required.
+	 *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: This element represents the data type of the
+	 *		item, this element is required.
+	 *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: This element represents the item data which
+	 *		should be expressed in the data type declared in the {@link kTAG_TYPE kTAG_TYPE}
+	 *		element.
+	 * </ul>
+	 *
+	 * No two elements of the list can share the same {@link kTAG_KIND kind} and
+	 * {@link kTAG_TYPE kTAG_TYPE}, these represent the index of the array.
+	 *
+	 * This method is intended for managing list elements rather than the list itself, for
+	 * the latter purpose use the offset management methods.
+	 *
+	 * The parameters to this method are:
+	 *
+	 * <ul>
+	 *	<li><b>$theOffset</b>: The main offset to manage.
+	 *	<li><b>$theKind</b>: The item {@link kTAG_KIND kind}; it should be able to cast this
+	 *		value to a string which represents an index.
+	 *	<li><b>$theType</b>: The item {@link kTAG_TYPE type}; it should be able to cast this
+	 *		value to a string which represents an index.
+	 *	<li><b>$theData</b>: This parameter represents the item's {@link kTAG_DATA data}
+	 *		element, or the operation to be performed:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: This indicates that we want to retrieve the data of the item
+	 *			with index matching the previous parameters.
+	 *		<li><i>FALSE</i>: This indicates that we want to remove the item matching the
+	 *			index provided in the previous parameters.
+	 *		<li><i>other</i>: Any other value indicates that we want to add or replace the
+	 *			{@link kTAG_DATA data} element of the item matching the previous parameters.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the element or list <i>before</i> it was eventually
+	 *			modified.
+	 *		<li><i>FALSE</i>: Return the element or list <i>after</i> it was eventually
+	 *			modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * @param string				$theOffset			Offset.
+	 * @param mixed					$theKind			Item kind.
+	 * @param mixed					$theType			Item type.
+	 * @param mixed					$theData			Item value.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access protected
+	 * @return mixed
+	 *
+	 * @uses offsetGet()
+	 * @uses offsetSet()
+	 * @uses offsetUnset()
+	 */
+	protected function _ManageTypedArrayOffset( $theOffset,
+												$theKind, $theType,
+												$theData = NULL, $getOld = FALSE )
+	{
+		//
+		// Get current list.
+		//
+		$index = $save = NULL;
+		$offset = $this->offsetGet( $theOffset );
+		if( $offset !== NULL )
+		{
+			//
+			// Locate item.
+			//
+			foreach( $offset as $key => $value )
+			{
+				if( ($value[ kTAG_KIND ] == (string) $theKind)
+				 && ($value[ kTAG_TYPE ] == (string) $theType) )
+				{
+					$save = $value[ kTAG_DATA ];
+					$index = $key;
+					
+					break;													// =>
+				}
+			}
+		}
+		
+		//
+		// Retrieve element.
+		//
+		if( $theData === NULL )
+			return $save;															// ==>
+		
+		//
+		// Delete element.
+		//
+		if( $theData === FALSE )
+		{
+			//
+			// Handle existing list.
+			//
+			if( $index != NULL )
+			{
+				//
+				// Delete item.
+				//
+				unset( $offset[ $index ] );
+				
+				//
+				// Replace offset.
+				//
+				if( count( $offset ) )
+					$this->offsetSet( $theOffset, array_values( $offset ) );
+				
+				//
+				// Delete offset.
+				//
+				else
+					$this->offsetUnset( $theOffset );
+				
+				if( $getOld )
+					return $save;													// ==>
+				
+				return NULL;														// ==>
+			}
+			
+			return NULL;															// ==>
+		
+		} // Delete.
+		
+		//
+		// Replace item.
+		//
+		if( $index !== NULL )
+		{
+			//
+			// Replace data.
+			//
+			$offset[ $index ][ kTAG_DATA ] = $theData;
+			
+			//
+			// Replace offset.
+			//
+			$this->offsetSet( $theOffset, array_values( $offset ) );
+			
+			if( $getOld )
+				return $save;														// ==>
+			
+			return $theData;														// ==>
+		}
+		
+		//
+		// Create item.
+		//
+		else
+		{
+			//
+			// Create item.
+			//
+			$item = array( kTAG_KIND => $theKind,
+						   kTAG_TYPE => $theType,
+						   kTAG_DATA => $theData );
+			
+			//
+			// Append item.
+			//
+			if( $offset !== NULL )
+			{
+				//
+				// Add item.
+				//
+				$offset[] = $item;
+				
+				//
+				// Replace offset.
+				//
+				$this->offsetSet( $theOffset, $offset );
+			}
+			
+			//
+			// Create offset.
+			//
+			else
+				$this->offsetSet( $theOffset, array( $item ) );
+		}
+		
+		if( $getOld )
+			return $save;															// ==>
+		
+		return $theData;															// ==>
+	
 	} // _ManageTypedArrayOffset.
 
 	 
@@ -840,8 +1041,9 @@ class CArrayObject extends ArrayObject
 	 *
 	 * <ul>
 	 *	<li><i>Type</i>: The element that holds the item's type.
-	 *	<li><i>Data</i>: The element that holds the list of values for the type, this
-	 *		element has the {@link kTAG_DATA kTAG_DATA} offset by default.
+	 *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The element that holds the list of values
+	 *		for the type, this element has the {@link kTAG_DATA kTAG_DATA} offset by
+	 *		default.
 	 * </ul>
 	 *
 	 * The parameters to this method are:

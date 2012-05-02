@@ -222,7 +222,7 @@ class CInstitute extends CContact
 	 */
 	public function URL( $theValue = NULL, $theType = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageTypedArrayOffset
+		return $this->_ManageKindArrayOffset
 			( kOFFSET_URL, kTAG_KIND, $theType, $theValue, $getOld );				// ==>
 
 	} // URL.

@@ -191,13 +191,13 @@ class CTerm extends CCodedUnitObject
 	 * @access public
 	 * @return string
 	 *
-	 * @uses _ManageTypedArrayOffset
+	 * @uses _ManageKindArrayOffset
 	 *
 	 * @see kTAG_NAME kTAG_LANGUAGE
 	 */
 	public function Name( $theValue = NULL, $theLanguage = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageTypedArrayOffset
+		return $this->_ManageKindArrayOffset
 			( kTAG_NAME, kTAG_LANGUAGE, $theLanguage, $theValue, $getOld );			// ==>
 
 	} // Name.
@@ -249,13 +249,13 @@ class CTerm extends CCodedUnitObject
 	 * @access public
 	 * @return string
 	 *
-	 * @uses _ManageTypedArrayOffset
+	 * @uses _ManageKindArrayOffset
 	 *
 	 * @see kTAG_DEFINITION kTAG_LANGUAGE
 	 */
 	public function Definition( $theValue = NULL, $theLanguage = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageTypedArrayOffset
+		return $this->_ManageKindArrayOffset
 			( kTAG_DEFINITION, kTAG_LANGUAGE, $theLanguage, $theValue, $getOld );	// ==>
 
 	} // Definition.
@@ -307,13 +307,13 @@ class CTerm extends CCodedUnitObject
 	 * @access public
 	 * @return string
 	 *
-	 * @uses _ManageTypedArrayOffset
+	 * @uses _ManageKindArrayOffset
 	 *
 	 * @see kTAG_DESCRIPTION kTAG_LANGUAGE
 	 */
 	public function Description( $theValue = NULL, $theLanguage = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageTypedArrayOffset
+		return $this->_ManageKindArrayOffset
 			( kTAG_DESCRIPTION, kTAG_LANGUAGE, $theLanguage, $theValue, $getOld );	// ==>
 
 	} // Description.

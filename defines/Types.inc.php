@@ -185,7 +185,7 @@ define( "kTYPE_BINARY_STRING",				'bin' );
 define( "kTYPE_BINARY_TYPE",				'type' );
 
 /*=======================================================================================
- *	STRING FORMAT ENUMERATIONS															*
+ *	DATA FORMAT ENUMERATIONS															*
  *======================================================================================*/
 
 /**
@@ -223,6 +223,20 @@ define( "kTYPE_HTML",						':HTML' );				// HTML.
  * string.
  */
 define( "kTYPE_CSV",						':CSV' );				// CSV.
+
+/**
+ * SVG type.
+ *
+ * This value represents the SVG image data type, it is generally expressed in XML.
+ */
+define( "kTYPE_SVG",						':SVG' );				// SVG.
+
+/**
+ * PNG type.
+ *
+ * This value represents the PNG image data type, it is generally expressed in hexadecimal.
+ */
+define( "kTYPE_PNG",						':PNG' );				// PNG.
 
 /**
  * META type.
@@ -272,49 +286,49 @@ define( "kTYPE_RELATED",					':RELATED' );
  *
  * This is the tag that represents a generic term.
  */
-define( "kTYPE_TERM",							':TERM' );
+define( "kTYPE_TERM",						':TERM' );
 
 /**
  * Namespace.
  *
  * This is the tag that represents a namespace.
  */
-define( "kTYPE_NAMESPACE",						':NAMESPACE' );
+define( "kTYPE_NAMESPACE",					':NAMESPACE' );
 
 /**
  * Ontology.
  *
  * This is the tag that represents an ontology.
  */
-define( "kTYPE_ONTOLOGY",						':ONTOLOGY' );
+define( "kTYPE_ONTOLOGY",					':ONTOLOGY' );
 
 /**
  * Predicate.
  *
  * This is the tag that represents a predicate.
  */
-define( "kTYPE_PREDICATE",						':PREDICATE' );
+define( "kTYPE_PREDICATE",					':PREDICATE' );
 
 /**
  * Attribute.
  *
  * This is the tag that represents an attribute.
  */
-define( "kTYPE_ATTRIBUTE",						':ATTRIBUTE' );
+define( "kTYPE_ATTRIBUTE",					':ATTRIBUTE' );
 
 /**
  * Measure.
  *
  * This is the tag that represents a measure term.
  */
-define( "kTYPE_MEASURE",						':MEASURE' );
+define( "kTYPE_MEASURE",					':MEASURE' );
 
 /**
  * Enumeration.
  *
  * This is the tag that represents an enumeration term.
  */
-define( "kTYPE_ENUMERATION",					':ENUMERATION' );
+define( "kTYPE_ENUMERATION",				':ENUMERATION' );
 
 /*=======================================================================================
  *	MONGODB DATA TYPES																	*
@@ -331,7 +345,7 @@ define( "kTYPE_ENUMERATION",					':ENUMERATION' );
  *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: Will contain the HEX string ID.
  * </ul>
  */
-define( "kTYPE_MongoId",						':MongoId' );			// MongoId.
+define( "kTYPE_MongoId",					':MongoId' );			// MongoId.
 
 /**
  * MongoCode.
@@ -348,7 +362,7 @@ define( "kTYPE_MongoId",						':MongoId' );			// MongoId.
  *	 </ul>
  * </ul>
  */
-define( "kTYPE_MongoCode",						':MongoCode' );		// MongoCode.
+define( "kTYPE_MongoCode",					':MongoCode' );		// MongoCode.
 
 
 ?>

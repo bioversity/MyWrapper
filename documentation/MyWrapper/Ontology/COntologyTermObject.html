@@ -113,7 +113,7 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																																																																				<div class="method-definition">
+																																																																												<div class="method-definition">
 					<img src="../../media/images/StaticMethod.png" alt=" "/>
 											static <span class="method-result"><a href="../../MyWrapper/Framework/CCodedUnitObject.html">CCodedUnitObject</a></span>
 										<a href="#ValidObject" title="details" class="method-name">ValidObject</a>
@@ -130,6 +130,12 @@
 											<span class="method-result">string</span>
 										<a href="#GID" title="details" class="method-name">GID</a>
 										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">string</span>
+										<a href="#Image" title="details" class="method-name">Image</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theKind</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theType</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theData</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -232,11 +238,11 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="methodValidObject" id="ValidObject"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static ValidObject</span> (line <span class="line-number">560</span>)
+		<span class="method-title">static ValidObject</span> (line <span class="line-number">627</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -272,7 +278,7 @@
 			
 	</div>
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Constructor.png" />
@@ -325,7 +331,7 @@
 				</ul>
 	</div>
 <a name="methodGID" id="GID"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -348,6 +354,60 @@
 				()
 			</div>
 	
+		
+			
+	</div>
+<a name="methodImage" id="Image"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Image</span> (line <span class="line-number">439</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage cross-references.</p>
+<p class="description"><p>This method can be used to manage the term's list of <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_IMAGE">images</a>,  this <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_IMAGE">offset</a> is represented by an array of items holding three  elements:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kTAG_KIND</a></em>: This element represents the kind or
+        qualifier of the image, the element is required.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a></em>: This element represents the data type of the
+        image, this element is required.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: This element represents the image data which
+        should be expressed in the data type declared in the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a>
+        element.</li></ul></p><p>The method expects the following parameters:</p><p><ul><li><strong>$theOffset</strong>: The main offset to manage.</li><li><strong>$theKind</strong>: The item <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kind</a>; it should be able to cast this
+        value to a string which represents an index.</li><li><strong>$theType</strong>: The item <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">type</a>; it should be able to cast this
+        value to a string which represents an index.</li><li><strong>$theData</strong>: This parameter represents the item's <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">data</a>
+        element, or the operation to be performed:
+     <ul><li><em>NULL</em>: This indicates that we want to retrieve the data of the item
+            with index matching the previous parameters.</li><li><em>FALSE</em>: This indicates that we want to remove the item matching the
+            index provided in the previous parameters.</li><li><em>other</em>: Any other value indicates that we want to add or replace the
+            <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">data</a> element of the item matching the previous parameters.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
+     <ul><li><em>TRUE</em>: Return the element or list <em>before</em> it was eventually
+            modified.</li><li><em>FALSE</em>: Return the element or list <em>after</em> it was eventually
+            modified.</li></ul></li></ul></p><p>The method makes use of a protected <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedArrayOffset">method</a>, please  consult its reference for more information.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			Image
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theKind</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theType</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theData</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theKind</span><span class="var-description">: Image kind.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theType</span><span class="var-description">: Image type.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theData</span><span class="var-description">: Image value.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
 		
 			
 	</div>
@@ -397,7 +457,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Relate</span> (line <span class="line-number">468</span>)
+		<span class="method-title">Relate</span> (line <span class="line-number">535</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -448,7 +508,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Source</span> (line <span class="line-number">428</span>)
+		<span class="method-title">Source</span> (line <span class="line-number">495</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -537,7 +597,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Valid</span> (line <span class="line-number">517</span>)
+		<span class="method-title">Valid</span> (line <span class="line-number">584</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -624,7 +684,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_CheckReference</span> (line <span class="line-number">708</span>)
+		<span class="method-title">_CheckReference</span> (line <span class="line-number">775</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -663,7 +723,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">641</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">708</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -717,7 +777,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCreate</span> (line <span class="line-number">605</span>)
+		<span class="method-title">_PrepareCreate</span> (line <span class="line-number">672</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -913,6 +973,8 @@
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageKindArrayOffset">CArrayObject::_ManageKindArrayOffset()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedArrayListOffset">CArrayObject::_ManageTypedArrayListOffset()</a></span><br>
@@ -1004,7 +1066,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Mon, 30 Apr 2012 19:15:51 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Wed, 02 May 2012 12:19:01 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

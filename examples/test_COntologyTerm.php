@@ -159,6 +159,8 @@ try
 	$term3->Name( 'Term 3' );
 	echo( '<i>$term3->Enumeration( \'ENUM\', TRUE );</i><br>' );
 	$term3->Enumeration( 'ENUM', TRUE );
+	echo( '<i>$term3->Image( \'First\', \'LINK\', \'http://image\' );</i><br>' );
+	$term3->Image( 'First', 'LINK', 'http://image' );
 	echo( '<i>$term3->Relate( $term1, $predicate, TRUE );</i><br>' );
 	$term3->Relate( $term1, $predicate, TRUE );
 	echo( '<i>$object3->Relate( $term2, $predicate, TRUE );</i><br>' );

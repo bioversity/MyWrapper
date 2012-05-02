@@ -378,6 +378,73 @@ abstract class COntologyTermObject extends CTerm
 
 	 
 	/*===================================================================================
+	 *	Image																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage cross-references.
+	 *
+	 * This method can be used to manage the term's list of {@link kOFFSET_IMAGE images},
+	 * this {@link kOFFSET_IMAGE offset} is represented by an array of items holding three
+	 * elements:
+	 *
+	 * <ul>
+	 *	<li><i>{@link kTAG_KIND kTAG_KIND}</i>: This element represents the kind or
+	 *		qualifier of the image, the element is required.
+	 *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: This element represents the data type of the
+	 *		image, this element is required.
+	 *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: This element represents the image data which
+	 *		should be expressed in the data type declared in the {@link kTAG_TYPE kTAG_TYPE}
+	 *		element.
+	 * </ul>
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theOffset</b>: The main offset to manage.
+	 *	<li><b>$theKind</b>: The item {@link kTAG_KIND kind}; it should be able to cast this
+	 *		value to a string which represents an index.
+	 *	<li><b>$theType</b>: The item {@link kTAG_TYPE type}; it should be able to cast this
+	 *		value to a string which represents an index.
+	 *	<li><b>$theData</b>: This parameter represents the item's {@link kTAG_DATA data}
+	 *		element, or the operation to be performed:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: This indicates that we want to retrieve the data of the item
+	 *			with index matching the previous parameters.
+	 *		<li><i>FALSE</i>: This indicates that we want to remove the item matching the
+	 *			index provided in the previous parameters.
+	 *		<li><i>other</i>: Any other value indicates that we want to add or replace the
+	 *			{@link kTAG_DATA data} element of the item matching the previous parameters.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the element or list <i>before</i> it was eventually
+	 *			modified.
+	 *		<li><i>FALSE</i>: Return the element or list <i>after</i> it was eventually
+	 *			modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * The method makes use of a protected {@link _ManageTypedArrayOffset() method}, please
+	 * consult its reference for more information.
+	 *
+	 * @param mixed					$theKind			Image kind.
+	 * @param mixed					$theType			Image type.
+	 * @param mixed					$theData			Image value.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 */
+	public function Image( $theKind, $theType, $theData = NULL, $getOld = FALSE )
+	{
+		return $this->_ManageTypedArrayOffset
+			( kOFFSET_IMAGE, $theKind, $theType, $theData, $getOld );				// ==>
+
+	} // Image.
+
+	 
+	/*===================================================================================
 	 *	Source																			*
 	 *==================================================================================*/
 
@@ -427,7 +494,7 @@ abstract class COntologyTermObject extends CTerm
 	 */
 	public function Source( $theValue = NULL, $theType = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageTypedArrayOffset
+		return $this->_ManageKindArrayOffset
 			( kTAG_SOURCE, kTAG_KIND, $theType, $theValue, $getOld );				// ==>
 
 	} // Source.
