@@ -413,7 +413,7 @@ class CQuery extends CStatusObject
 	 * @param array				$theStatements			Statement.
 	 * @param string			$theCondition			Statement condition.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	protected function _AppendStatement( &$theQuery, $theCondition, $theStatement )
 	{
@@ -578,7 +578,7 @@ class CQuery extends CStatusObject
 	 * @param array					$theStatements			Statements list.
 	 * @param integer				$theLevel				[PRIVATE] condition level.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	protected function _ValidateCondition( $theCondition, $theStatements, $theLevel )
 	{
@@ -640,7 +640,7 @@ class CQuery extends CStatusObject
 	 * @param array					$theStatement			Statement.
 	 * @param integer				$theLevel				[PRIVATE] condition level.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	protected function _ValidateStatement( $theStatement, $theLevel )
 	{

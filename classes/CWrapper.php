@@ -399,7 +399,7 @@ class CWrapper extends CStatusObject
 	 * In this class we set the status to {@link kMESSAGE_TYPE_IDLE idle} and reset the
 	 * status {@link kTAG_CODE code}.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @see kAPI_DATA_STATUS
 	 */
@@ -455,7 +455,7 @@ class CWrapper extends CStatusObject
 	 * In this class we initialise the {@link kAPI_DATA_REQUEST request} and
 	 * {@link kAPI_DATA_TIMING timer} sections if required.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @see kAPI_DATA_REQUEST kAPI_DATA_TIMING
 	 */
@@ -501,7 +501,7 @@ class CWrapper extends CStatusObject
 	 * In derived classes this should be the method that initialises the data store
 	 * resources, in this class we have no resources.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	protected function _InitResources()														{}
 
@@ -534,7 +534,7 @@ class CWrapper extends CStatusObject
 	 * In this class we handle the {@link kAPI_FORMAT format},
 	 * {@link kAPI_OPERATION operation} and {@link kAPI_DATA_TIMING timing} elements.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @uses _ParseFormat()
 	 * @uses _ParseOperation()
@@ -577,7 +577,7 @@ class CWrapper extends CStatusObject
 	 *
 	 * In this class we do nothing.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	protected function _FormatRequest()	
 	{
@@ -612,7 +612,7 @@ class CWrapper extends CStatusObject
 	 * {@link kAPI_OPERATION operation} codes (their presence is checked by the
 	 * {@link __construct() constructor}.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @uses _ValidateFormat()
 	 * @uses _ValidateOperation()
@@ -660,7 +660,7 @@ class CWrapper extends CStatusObject
 	 *
 	 * This method will parse the request format.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @see kAPI_DATA_REQUEST kAPI_FORMAT
 	 */
@@ -689,7 +689,7 @@ class CWrapper extends CStatusObject
 	 *
 	 * This method will parse the request operation.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @see kAPI_DATA_REQUEST kAPI_OPERATION
 	 */
@@ -718,7 +718,7 @@ class CWrapper extends CStatusObject
 	 *
 	 * This method will parse the request timers.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @see kAPI_DATA_REQUEST kAPI_REQ_STAMP
 	 */
@@ -772,7 +772,7 @@ class CWrapper extends CStatusObject
 	 * This method can be used to check whether the provided {@link kAPI_FORMAT format}
 	 * parameter is valid.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @see kTYPE_PHP kTYPE_JSON
 	 */
@@ -834,7 +834,7 @@ class CWrapper extends CStatusObject
 	 * This method can be used to check whether the provided
 	 * {@link kAPI_OPERATION operation} parameter is valid.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @see kAPI_OP_HELP kAPI_OP_PING
 	 */
@@ -904,7 +904,7 @@ class CWrapper extends CStatusObject
 	 *
 	 * This method will handle the request.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @uses _Handle_ListOp()
 	 *
@@ -1021,7 +1021,7 @@ class CWrapper extends CStatusObject
 	 * @param string				$theElement			Object block element.
 	 * @param mixed					$theValue			Element value.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	protected function _OffsetManage( $theBlock, $theElement, $theValue = NULL )
 	{
@@ -1169,7 +1169,7 @@ class CWrapper extends CStatusObject
 	 *
 	 * @param Exception				$theException		Exception.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	protected function _Exception2Status( Exception $theException )
 	{
@@ -1262,7 +1262,7 @@ class CWrapper extends CStatusObject
 	 *
 	 * This method will return the encoded response string.
 	 *
-	 * @access private
+	 * @access protected
 	 * @return string|NULL
 	 */
 	protected function _EncodeResponse()

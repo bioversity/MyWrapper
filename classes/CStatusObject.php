@@ -239,7 +239,7 @@ class CStatusObject extends CArrayObject
 	 *
 	 * @param mixed					$theState			TRUE, FALSE or NULL.
 	 *
-	 * @access private
+	 * @access protected
 	 * @return boolean
 	 *
 	 * @uses _ManageBitField()
@@ -285,7 +285,7 @@ class CStatusObject extends CArrayObject
 	 *
 	 * @param mixed					$theState			TRUE, FALSE or NULL.
 	 *
-	 * @access private
+	 * @access protected
 	 * @return boolean
 	 *
 	 * @uses _ManageBitField()

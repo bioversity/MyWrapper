@@ -60,6 +60,14 @@ require_once( kPATH_LIBRARY_SOURCE."CWarehouseWrapper.inc.php" );
  *	<li><i>{@link kAPI_OP_LOGIN kAPI_OP_LOGIN}</i>: Login, this operation expects the user
  *		{@link kAPI_OPT_USER_CODE code} and {@link kAPI_OPT_USER_PASS password} and will
  *		return the matching user.
+ *	<li><i>{@link kAPI_OP_GET_TERMS kAPI_OP_GET_TERMS}</i>: Get terms, this operation will
+ *		return the list of ontology {@link COntologyTerm terms} matching the identifiers
+ *		provided in the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} option. This
+ *		list is expected to hold {@link COntologyTerm term} {@link kTAG_GID identifiers}.
+ *	<li><i>{@link kAPI_OP_GET_NODES kAPI_OP_GET_NODES}</i>: Get terms, this operation will
+ *		return the list of ontology {@link COntologyTerm terms} matching the identifiers
+ *		provided in the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} option. This
+ *		list is expected to hold {@link COntologyTerm term} {@link kTAG_GID identifiers}.
  * </ul>
  *
  * The class adds the following options:
@@ -69,6 +77,9 @@ require_once( kPATH_LIBRARY_SOURCE."CWarehouseWrapper.inc.php" );
  *		a string corresponding to the user {@link CEntity::Code() code}.
  *	<li><i>{@link kAPI_OPT_USER_PASS kAPI_OPT_USER_PASS}</i>: User code, this option expects
  *		a string corresponding to the user {@link CUser::Password() password}.
+ *	<li><i>{@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS}</i>: Identifiers list, this
+ *		option expects an array of object identifiers. The actual type of these elements is
+ *		determined by the operation.
  * </ul>
  *
  *	@package	MyWrapper
@@ -87,6 +98,69 @@ class CWarehouseWrapper extends CMongoDataWrapper
 
 	 
 	/*===================================================================================
+	 *	_InitOptions																	*
+	 *==================================================================================*/
+
+	/**
+	 * Initialise options.
+	 *
+	 * This method is responsible for parsing and setting all default and provided options,
+	 * derived classes should overload this method to handle custom options.
+	 *
+	 * In this class we set the {@link kAPI_DATA_PAGING paging} options if the operation
+	 * involves using the {@link kAPI_OPT_IDENTIFIERS identifiers} list and no list was
+	 * provided.
+	 *
+	 * @access private
+	 *
+	 * @see kAPI_DATA_REQUEST kAPI_DATA_TIMING
+	 */
+	protected function _InitOptions()
+	{
+		//
+		// Check operation.
+		//
+		if( array_key_exists( kAPI_OPERATION, $_REQUEST ) )
+		{
+			//
+			// Parse by operation.
+			//
+			switch( $_REQUEST[ kAPI_OPERATION ] )
+			{
+				case kAPI_OP_GET_TERMS:
+					//
+					// Check if there are identifiers.
+					//
+					if( ! array_key_exists( kAPI_OPT_IDENTIFIERS, $_REQUEST ) )
+					{
+						//
+						// Enforce start.
+						//
+						if( ! array_key_exists( kAPI_PAGE_START, $_REQUEST ) )
+							$_REQUEST[ kAPI_PAGE_START ] = 0;
+						//
+						// Enforce limit.
+						//
+						if( ! array_key_exists( kAPI_PAGE_LIMIT, $_REQUEST ) )
+							$_REQUEST[ kAPI_PAGE_LIMIT ] = kDEFAULT_LIMITS;
+					
+					} // Missing identifiers.
+
+					break;
+			
+			} // Parsed operation.
+		
+		} // Has operation.
+		
+		//
+		// Call parent method.
+		//
+		parent::_InitOptions();
+	
+	} // _InitOptions.
+
+	 
+	/*===================================================================================
 	 *	_InitResources																	*
 	 *==================================================================================*/
 
@@ -95,7 +169,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	 *
 	 * In this class we instantiate the Neo4j client.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	protected function _InitResources()
 	{
@@ -133,13 +207,18 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	 * We overload this method to parse the user {@link kAPI_OPT_USER_CODE code} and
 	 * {@link kAPI_OPT_USER_PASS password} tags.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @uses _ParseUserCode()
 	 * @uses _ParseUserPass()
 	 */
 	protected function _ParseRequest()
 	{
+		//
+		// Parse identifiers.
+		//
+		$this->_ParseIdentifiers();
+	
 		//
 		// Call parent method.
 		//
@@ -152,6 +231,36 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		$this->_ParseUserPass();
 	
 	} // _ParseRequest.
+
+	 
+	/*===================================================================================
+	 *	_FormatRequest																	*
+	 *==================================================================================*/
+
+	/**
+	 * Format request.
+	 *
+	 * This method should perform any needed formatting before the request will be handled.
+	 *
+	 * In this class we handle the parameters to be decoded
+	 *
+	 * @access protected
+	 *
+	 * @uses _FormatIdentifiers()
+	 */
+	protected function _FormatRequest()	
+	{
+		//
+		// Call parent method.
+		//
+		parent::_FormatRequest();
+		
+		//
+		// Generate query.
+		//
+		$this->_FormatIdentifiers();
+	
+	} // _FormatRequest.
 
 		
 
@@ -172,7 +281,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	 *
 	 * This method will parse the user {@link kAPI_OPT_USER_CODE code} parameter.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @see kAPI_DATA_REQUEST kAPI_OPT_USER_CODE
 	 */
@@ -201,7 +310,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	 *
 	 * This method will parse the user {@link kAPI_OPT_USER_PASS password} parameter.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @see kAPI_DATA_REQUEST kAPI_OPT_USER_PASS
 	 */
@@ -219,6 +328,116 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		}
 	
 	} // _ParseUserPass.
+
+	 
+	/*===================================================================================
+	 *	_ParseIdentifiers																*
+	 *==================================================================================*/
+
+	/**
+	 * Parse identifiers.
+	 *
+	 * This method will parse the user {@link kAPI_OPT_IDENTIFIERS identifiers} parameter.
+	 * This method will transform the original request into a {@link kAPI_OP_GET GET}
+	 * operation.
+	 *
+	 * @access protected
+	 *
+	 * @see kAPI_DATA_REQUEST kAPI_OPT_IDENTIFIERS
+	 */
+	protected function _ParseIdentifiers()
+	{
+		//
+		// Handle identifiers.
+		//
+		if( array_key_exists( kAPI_OPT_IDENTIFIERS, $_REQUEST ) )
+		{
+			//
+			// Add to request.
+			//
+			if( $this->offsetExists( kAPI_DATA_REQUEST ) )
+				$this->_OffsetManage
+					( kAPI_DATA_REQUEST, kAPI_OPT_IDENTIFIERS,
+					  $_REQUEST[ kAPI_OPT_IDENTIFIERS ] );
+		
+		} // Has identifiers list.
+	
+	} // _ParseIdentifiers.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED FORMAT INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	_FormatIdentifiers																*
+	 *==================================================================================*/
+
+	/**
+	 * This method will format the request identifiers list.
+	 *
+	 * This method will actually create a query using the identifiers list, it will
+	 * {@link _Handle_GetTerms() then} call the {@link kAPI_OP_GET GET} handler.
+	 *
+	 * @access protected
+	 *
+	 * @uses _DecodeParameter()
+	 *
+	 * @see kAPI_OPT_IDENTIFIERS
+	 */
+	protected function _FormatIdentifiers()
+	{
+		//
+		// Handle identifiers.
+		//
+		if( array_key_exists( kAPI_OPT_IDENTIFIERS, $_REQUEST ) )
+		{
+			//
+			// Decode parameter.
+			//
+			$this->_DecodeParameter( kAPI_OPT_IDENTIFIERS );
+			
+			//
+			// Handle request.
+			//
+			if( array_key_exists( kAPI_OPERATION, $_REQUEST ) )
+			{
+				//
+				// Parse by request.
+				//
+				switch( $_REQUEST[ kAPI_OPERATION ] )
+				{
+					case kAPI_OP_GET_TERMS:
+						//
+						// Iterate identifiers.
+						//
+						$identifiers = Array();
+						foreach( $_REQUEST[ kAPI_OPT_IDENTIFIERS ] as $identifier )
+							$identifiers[] = COntologyTerm::HashIndex( $identifier );
+			
+						//
+						// Convert to query.
+						//
+						$_REQUEST[ kAPI_DATA_QUERY ] = new CMongoQuery();
+						$_REQUEST[ kAPI_DATA_QUERY ]->AppendStatement(
+														CQueryStatement::Member(
+															kTAG_LID,
+															$identifiers,
+															kTYPE_BINARY ),
+														kOPERATOR_AND );
+						break;
+				
+				} // Parsed by request.
+			
+			} // Provided operation.
+		}
+	
+	} // _FormatIdentifiers.
 
 		
 
@@ -302,6 +521,33 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				
 				break;
 			
+			case kAPI_OP_GET_TERMS:
+			case kAPI_OP_GET_NODES:
+				
+				//
+				// Check for database.
+				//
+				if( (! array_key_exists( kAPI_DATABASE, $_REQUEST ))
+				 || (! strlen( $_REQUEST[ kAPI_DATABASE ] )) )
+					throw new CException
+						( "Missing database reference",
+						  kERROR_OPTION_MISSING,
+						  kMESSAGE_TYPE_ERROR,
+						  array( 'Operation' => $parameter ) );					// !@! ==>
+				
+				//
+				// Check for container.
+				//
+				if( (! array_key_exists( kAPI_CONTAINER, $_REQUEST ))
+				 || (! strlen( $_REQUEST[ kAPI_CONTAINER ] )) )
+					throw new CException
+						( "Missing container reference",
+						  kERROR_OPTION_MISSING,
+						  kMESSAGE_TYPE_ERROR,
+						  array( 'Operation' => $parameter ) );					// !@! ==>
+				
+				break;
+			
 			//
 			// Handle unknown operation.
 			//
@@ -343,6 +589,14 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		{
 			case kAPI_OP_LOGIN:
 				$this->_Handle_Login();
+				break;
+
+			case kAPI_OP_GET_TERMS:
+				$this->_Handle_Get();
+				break;
+
+			case kAPI_OP_GET_NODES:
+				$this->_Handle_GetNodes();
 				break;
 
 			default:
@@ -433,9 +687,118 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		$this->_OffsetManage( kAPI_DATA_STATUS, kTAG_DESCRIPTION,
 							  array( kTAG_TYPE => kTYPE_STRING,
 									 kTAG_LANGUAGE => 'en',
-									 kTAG_DATA => 'Object not found.' ) );
+									 kTAG_DATA => 'User not found.' ) );
 	
 	} // _Handle_Login.
+
+	 
+	/*===================================================================================
+	 *	_Handle_GetNodes																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle {@link kAPI_OP_GET_TERMS get-terms} request.
+	 *
+	 * This method will return an array indexed by the elements provided in the
+	 * {@link kAPI_OPT_IDENTIFIERS identifiers} parameter containing the matching
+	 * {@link COntologyTerm terms}.
+	 *
+	 * @access protected
+	 */
+	protected function _Handle_GetNodes()
+	{
+		//
+		// Init local storage.
+		//
+		$count = 0;
+		$nodes = Array();
+		$container = array( kTAG_TERM => new CMongoContainer( $_REQUEST[ kAPI_CONTAINER ] ),
+							kTAG_NODE => $_SESSION[ kSESSION_NEO4J ] );
+		
+		//
+		// Handle identifiers.
+		//
+		if( array_key_exists( kAPI_OPT_IDENTIFIERS, $_REQUEST ) )
+		{
+			//
+			// Iterate identifiers.
+			//
+			foreach( $_REQUEST[ kAPI_OPT_IDENTIFIERS ] as $identifier )
+			{
+				$node = new COntologyNode( $container, $identifier );
+				if( $node->Persistent() )
+				{
+					$nodes[] = array( kTAG_LID => $node->Node()->getId(),
+									  kTAG_NODE => $node->Node()->getProperties(),
+									  kTAG_TERM => $node->Term()->getArrayCopy() );
+					$count++;
+				}
+			}
+		}
+		
+		//
+		// Set count.
+		//
+		$this->_OffsetManage( kAPI_DATA_STATUS, kAPI_AFFECTED_COUNT, $count );
+
+		//
+		// Copy response.
+		//
+		$this->offsetSet( kAPI_DATA_RESPONSE, $nodes );
+	
+	} // _Handle_GetNodes.
+
+	 
+	/*===================================================================================
+	 *	_Handle_ListOp																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle {@link kAPI_OP_HELP list} operations request.
+	 *
+	 * This method will handle the {@link kAPI_OP_HELP kAPI_OP_HELP} request, which
+	 * should return the list of supported operations.
+	 *
+	 * @param reference				$theList			Receives operations list.
+	 *
+	 * @access protected
+	 */
+	protected function _Handle_ListOp( &$theList )
+	{
+		//
+		// Call parent method.
+		//
+		parent::_Handle_ListOp( $theList );
+		
+		//
+		// Add kAPI_OP_LOGIN.
+		//
+		$theList[ kAPI_OP_LOGIN ]
+			= 'This operation requests a user information according to the provided user ['
+			 .kAPI_OPT_USER_CODE
+			 .'] code and user ['
+			 .kAPI_OPT_USER_PASS
+			 .'] password: if a batch occurs, the service will return the user record.';
+		
+		//
+		// Add kAPI_OP_GET_TERMS.
+		//
+		$theList[ kAPI_OP_GET_TERMS ]
+			= 'This operation will return the list of ontology terms matching the provided '
+			.'list of term ['
+			.kAPI_OPT_IDENTIFIERS
+			.'] identifiers.';
+		
+		//
+		// Add kAPI_OP_GET_NODES.
+		//
+		$theList[ kAPI_OP_GET_NODES ]
+			= 'This operation will return the list of ontology nodes matching the provided '
+			.'list of node ['
+			.kAPI_OPT_IDENTIFIERS
+			.'] identifiers.';
+	
+	} // _Handle_ListOp.
 
 	 
 

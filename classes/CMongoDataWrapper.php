@@ -125,7 +125,7 @@ class CMongoDataWrapper extends CDataWrapper
 	 *
 	 * We overload this method to parse the no {@link kAPI_OPT_NO_RESP response} tag.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @uses _ParseNoResponse()
 	 */
@@ -222,7 +222,7 @@ class CMongoDataWrapper extends CDataWrapper
 	 *
 	 * This method will parse the no response operation.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @see kAPI_DATA_REQUEST kAPI_OPT_NO_RESP
 	 */

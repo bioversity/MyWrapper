@@ -133,7 +133,7 @@ class CMongoQuery extends CQuery
 	 * @param array					$theStatements			Statements list.
 	 * @param integer				$theLevel				[PRIVATE] condition level.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	protected function _ValidateCondition( $theCondition, $theStatements, $theLevel )
 	{
@@ -189,7 +189,7 @@ class CMongoQuery extends CQuery
 	 * @param string				$theCondition			Boolean condition.
 	 * @param array					$theStatements			Statements list.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	protected function _ConvertCondition( &$theQuery, $theContainer,
 													  $theCondition,
@@ -270,7 +270,7 @@ class CMongoQuery extends CQuery
 	 * @param string				$theCondition			Boolean condition.
 	 * @param array					$theStatement			Statement.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	protected function _ConvertStatement( &$theQuery, $theContainer,
 													  $theCondition,
@@ -761,7 +761,7 @@ class CMongoQuery extends CQuery
 	 * @param CMongoComtainer		$theContainer			Query container.
 	 * @param string				$theType				Elements data type.
 	 *
-	 * @access private
+	 * @access protected
 	 * @return array
 	 */
 	protected function _OrderRange( $theRange, CMongoContainer $theContainer, $theType )

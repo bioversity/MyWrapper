@@ -173,7 +173,7 @@ exit( "Done!\n" );
 	 * @param string				$theContainer		Container name.
 	 * @param boolean				$doErase			Erase database flag.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	function Connect( $theDatabase = kDEFAULT_DATABASE,
 					  $theContainer = kDEFAULT_DICTIONARY,
@@ -241,7 +241,7 @@ exit( "Done!\n" );
 	 * @param CContainer			$theContainer		Collection.
 	 * @param boolean				$doDisplay			Display created terms.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	function LoadNamespaces( CContainer $theContainer, $doDisplay = TRUE )
 	{
@@ -288,7 +288,7 @@ exit( "Done!\n" );
 	 * @param CContainer			$theContainer		Collection.
 	 * @param boolean				$doDisplay			Display created terms.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	function LoadPredicates( CContainer $theContainer, $doDisplay = TRUE )
 	{
@@ -417,7 +417,7 @@ exit( "Done!\n" );
 	 * @param CContainer			$theContainer		Collection.
 	 * @param boolean				$doDisplay			Display created terms.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	function LoadPrimitiveTypes( CContainer $theContainer, $doDisplay = TRUE )
 	{
@@ -543,7 +543,7 @@ exit( "Done!\n" );
 	 * @param CContainer			$theContainer		Collection.
 	 * @param boolean				$doDisplay			Display created terms.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	function LoadCompositeTypes( CContainer $theContainer, $doDisplay = TRUE )
 	{
@@ -698,7 +698,7 @@ exit( "Done!\n" );
 	 * @param CContainer			$theContainer		Collection.
 	 * @param boolean				$doDisplay			Display created terms.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	function LoadStructuredTypes( CContainer $theContainer, $doDisplay = TRUE )
 	{
@@ -814,7 +814,7 @@ exit( "Done!\n" );
 	 * @param CContainer			$theContainer		Collection.
 	 * @param boolean				$doDisplay			Display created terms.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	function LoadEncodedTypes( CContainer $theContainer, $doDisplay = TRUE )
 	{
@@ -985,7 +985,7 @@ exit( "Done!\n" );
 	 * @param CContainer			$theContainer		Collection.
 	 * @param boolean				$doDisplay			Display created terms.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	function LoadCustomTypes( CContainer $theContainer, $doDisplay = TRUE )
 	{
@@ -1059,7 +1059,7 @@ exit( "Done!\n" );
 	 * @param CContainer			$theContainer		Collection.
 	 * @param boolean				$doDisplay			Display created terms.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	function LoadReferenceTypes( CContainer $theContainer, $doDisplay = TRUE )
 	{
@@ -1165,7 +1165,7 @@ exit( "Done!\n" );
 	 * @param CContainer			$theContainer		Collection.
 	 * @param boolean				$doDisplay			Display created terms.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	function LoadTermTypes( CContainer $theContainer, $doDisplay = TRUE )
 	{
@@ -1319,7 +1319,7 @@ exit( "Done!\n" );
 	 * @param CContainer			$theContainer		Collection.
 	 * @param boolean				$doDisplay			Display created terms.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	function LoadCardinalityTypes( CContainer $theContainer, $doDisplay = TRUE )
 	{
@@ -1409,7 +1409,7 @@ exit( "Done!\n" );
 	 * @param CContainer			$theContainer		Collection.
 	 * @param boolean				$doDisplay			Display created terms.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	function LoadIdentifierTerms( CContainer $theContainer, $doDisplay = TRUE )
 	{
@@ -1494,7 +1494,7 @@ exit( "Done!\n" );
 	 * @param CContainer			$theContainer		Collection.
 	 * @param boolean				$doDisplay			Display created terms.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	function LoadReferenceTerms( CContainer $theContainer, $doDisplay = TRUE )
 	{
@@ -1627,7 +1627,7 @@ exit( "Done!\n" );
 	 * @param CContainer			$theContainer		Collection.
 	 * @param boolean				$doDisplay			Display created terms.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	function LoadAttributeTerms( CContainer $theContainer, $doDisplay = TRUE )
 	{
@@ -1754,7 +1754,6 @@ exit( "Done!\n" );
 		( 'This term represents a type, in general this is used to indicate the data type '
 		 .'of an object.',
 		  kDEFAULT_LANGUAGE );
-		$term->Type( kTYPE_ENUM );
 		$term->Cardinality( kCARD_0_1 );
 		$term->Synonym( 'kTAG_TYPE', kTYPE_EXACT, TRUE );
 		$term->Commit( $theContainer );
@@ -1773,7 +1772,6 @@ exit( "Done!\n" );
 		( 'This term represents a kind, in general this is used to qualify an object. '
 		 .'This should not be confused with the data type.',
 		  kDEFAULT_LANGUAGE );
-		$term->Type( kTYPE_ENUM );
 		$term->Cardinality( kCARD_ANY );
 		$term->Synonym( 'kTAG_KIND', kTYPE_EXACT, TRUE );
 		$term->Commit( $theContainer );
@@ -1791,7 +1789,6 @@ exit( "Done!\n" );
 		$term->Definition
 		( 'This term indicating the cardinality of a data attribute.',
 		  kDEFAULT_LANGUAGE );
-		$term->Type( kTYPE_ENUM );
 		$term->Cardinality( kCARD_0_1 );
 		$term->Synonym( 'kTAG_CARDINALITY', kTYPE_EXACT, TRUE );
 		$term->Commit( $theContainer );
@@ -2227,7 +2224,7 @@ exit( "Done!\n" );
 	 * @param CContainer			$theContainer		Collection.
 	 * @param boolean				$doDisplay			Display created terms.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	function LoadPropertyTerms( CContainer $theContainer, $doDisplay = TRUE )
 	{
@@ -2393,7 +2390,7 @@ exit( "Done!\n" );
 	 * @param CContainer			$theContainer		Collection.
 	 * @param boolean				$doDisplay			Display created terms.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	function LoadMailProperties( CContainer $theContainer, $doDisplay = TRUE )
 	{
@@ -2591,7 +2588,7 @@ exit( "Done!\n" );
 	 * @param CContainer			$theContainer		Collection.
 	 * @param boolean				$doDisplay			Display created terms.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	function LoadUnStatsRegions( CContainer $theContainer, $doDisplay = TRUE )
 	{
@@ -2847,7 +2844,7 @@ EOT;
 	 * @param CContainer			$theContainer		Collection.
 	 * @param boolean				$doDisplay			Display created terms.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	function LoadISO3166( CContainer $theContainer, $doDisplay = TRUE )
 	{
@@ -3317,7 +3314,7 @@ EOT;
 	 * @param CContainer			$theContainer		Collection.
 	 * @param boolean				$doDisplay			Display created terms.
 	 *
-	 * @access private
+	 * @access protected
 	 */
 	function LoadMCPD( CContainer $theContainer, $doDisplay = TRUE )
 	{

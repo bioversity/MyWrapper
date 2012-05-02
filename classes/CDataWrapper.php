@@ -198,7 +198,7 @@ class CDataWrapper extends CWrapper
 	 *
 	 * We overload this method to normalise the {@link kAPI_DATA_PAGING paging} options.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @see kAPI_PAGE_START kAPI_PAGE_LIMIT kAPI_DATA_PAGING
 	 */
@@ -271,7 +271,7 @@ class CDataWrapper extends CWrapper
 	 *
 	 * In this class we handle the paging request.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @uses _ParseRequest()
 	 * @uses _ParsePaging()
@@ -316,7 +316,7 @@ class CDataWrapper extends CWrapper
 	 *
 	 * In this class we handle the parameters to be decoded
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @uses _FormatQuery()
 	 * @uses _FormatFields()
@@ -357,7 +357,7 @@ class CDataWrapper extends CWrapper
 	 * {@link kAPI_OPERATION operation} codes (their presence is checked by the
 	 * {@link __construct() constructor}.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @uses _ValidateRequest()
 	 * @uses _ValidateFields()
@@ -399,7 +399,7 @@ class CDataWrapper extends CWrapper
 	 *
 	 * This method will parse the request pager.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @uses _OffsetManage()
 	 *
@@ -466,7 +466,7 @@ class CDataWrapper extends CWrapper
 	 *
 	 * This method will parse the request database.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @uses _OffsetManage()
 	 *
@@ -496,7 +496,7 @@ class CDataWrapper extends CWrapper
 	 *
 	 * This method will parse the request container.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @uses _OffsetManage()
 	 *
@@ -526,7 +526,7 @@ class CDataWrapper extends CWrapper
 	 *
 	 * This method will parse the request query.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @uses _OffsetManage()
 	 *
@@ -556,7 +556,7 @@ class CDataWrapper extends CWrapper
 	 *
 	 * This method will parse the request fields.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @uses _OffsetManage()
 	 *
@@ -586,7 +586,7 @@ class CDataWrapper extends CWrapper
 	 *
 	 * This method will parse the request sort.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @uses _OffsetManage()
 	 *
@@ -616,7 +616,7 @@ class CDataWrapper extends CWrapper
 	 *
 	 * This method will parse the request object.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @uses _OffsetManage()
 	 *
@@ -646,7 +646,7 @@ class CDataWrapper extends CWrapper
 	 *
 	 * This method will parse the request options.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @uses _OffsetManage()
 	 *
@@ -685,7 +685,7 @@ class CDataWrapper extends CWrapper
 	 *
 	 * This method will format the request query.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @uses _DecodeParameter()
 	 *
@@ -703,7 +703,7 @@ class CDataWrapper extends CWrapper
 	 *
 	 * This method will format the request fields.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @uses _DecodeParameter()
 	 *
@@ -721,7 +721,7 @@ class CDataWrapper extends CWrapper
 	 *
 	 * This method will format the request sort.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @uses _DecodeParameter()
 	 *
@@ -739,7 +739,7 @@ class CDataWrapper extends CWrapper
 	 *
 	 * This method will format the request object.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @uses _DecodeParameter()
 	 *
@@ -757,7 +757,7 @@ class CDataWrapper extends CWrapper
 	 *
 	 * This method will format the request options.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @uses _DecodeParameter()
 	 *
@@ -785,7 +785,7 @@ class CDataWrapper extends CWrapper
 	 * This method can be used to check whether the provided
 	 * {@link kAPI_OPERATION operation} parameter is valid.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @see kAPI_OPERATION kAPI_OP_SET kAPI_OP_INSERT
 	 * @see kAPI_DATABASE kAPI_CONTAINER kAPI_DATA_OBJECT kAPI_DATA_QUERY
@@ -965,7 +965,7 @@ class CDataWrapper extends CWrapper
 	 *
 	 * In this class we ensure that the fields list is an array.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @see kAPI_DATA_FIELD
 	 */
@@ -1009,7 +1009,7 @@ class CDataWrapper extends CWrapper
 	 *
 	 * In this class we ensure that the sort list is an array.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @see kAPI_DATA_SORT
 	 */
@@ -1054,7 +1054,7 @@ class CDataWrapper extends CWrapper
 	 *
 	 * In this class we ensure that the sort list is an array.
 	 *
-	 * @access private
+	 * @access protected
 	 *
 	 * @see kAPI_DATA_OPTIONS
 	 */
@@ -1213,7 +1213,7 @@ class CDataWrapper extends CWrapper
 	 *
 	 * @param string				$theParameter		Parameter offset.
 	 *
-	 * @access private
+	 * @access protected
 	 * @return array
 	 *
 	 * @uses CObject::JsonDecode()

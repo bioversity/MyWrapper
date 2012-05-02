@@ -40,14 +40,31 @@
 									<span class="disabled">Constants</span>
 											</div>
 		<div class="info-box-body">	
-			<a name="definekAPI_OPT_USER_CODE"><!-- --></a>
+			<a name="definekAPI_OPT_IDENTIFIERS"><!-- --></a>
 <div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
+			<span class="const-name">kAPI_OPT_IDENTIFIERS</span> = ':@identifiers'
+			(line <span class="line-number">84</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Identifiers option.</p>
+<p class="description"><p>This option refers to a list of object identifiers, this option is used by assorted  operations to receive the list of objects to be retrieved; the type of the list's  elements is determined by the operation.</p></p>
+	
+		
+</div>
+<a name="definekAPI_OPT_USER_CODE"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
 			<span class="const-name">kAPI_OPT_USER_CODE</span> = ':@user-code'
-			(line <span class="line-number">44</span>)
+			(line <span class="line-number">67</span>)
 		</span>
 	</div>
 	
@@ -58,13 +75,13 @@
 		
 </div>
 <a name="definekAPI_OPT_USER_PASS"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_OPT_USER_PASS</span> = ':@user-pass'
-			(line <span class="line-number">52</span>)
+			(line <span class="line-number">75</span>)
 		</span>
 	</div>
 	
@@ -74,20 +91,54 @@
 	
 		
 </div>
-<a name="definekAPI_OP_LOGIN"><!-- --></a>
+<a name="definekAPI_OP_GET_NODES"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_OP_GET_NODES</span> = '@GET_NODES'
+			(line <span class="line-number">55</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get nodes web-service.</p>
+<p class="description"><p>This is the tag that represents the get nodes web service, it will locate all  <a href="../../MyWrapper/Ontology/COntologyNode.html">nodes</a> matching the provided identifiers in the  <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter and return an array whose key  is the provided identifier (converted to a string) and as value the matched object or  <em>NULL</em>.</p></p>
+	
+		
+</div>
+<a name="definekAPI_OP_GET_TERMS"><!-- --></a>
 <div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
-			<span class="const-name">kAPI_OP_LOGIN</span> = '@LOGIN'
-			(line <span class="line-number">32</span>)
+			<span class="const-name">kAPI_OP_GET_TERMS</span> = '@GET_TERMS'
+			(line <span class="line-number">44</span>)
 		</span>
 	</div>
 	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">GET-ONE web-service.</p>
-<p class="description"><p>This is the tag that represents the findOne Mongo operation, it will return the first  matched object.</p></p>
+<p class="short-description">Get terms web-service.</p>
+<p class="description"><p>This is the tag that represents the get terms web service, it will locate all  <a href="../../MyWrapper/Ontology/COntologyTerm.html">terms</a> matching the provided identifiers in the  <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter and return an array whose key  is the provided identifier (converted to a string) and as value the matched object or  <em>NULL</em>.</p></p>
+	
+		
+</div>
+<a name="definekAPI_OP_LOGIN"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_OP_LOGIN</span> = '@LOGIN'
+			(line <span class="line-number">33</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">LOGIN web-service.</p>
+<p class="description"><p>This is the tag that represents the LOGIN operation, it will check for the  <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_USER_CODE">user</a> and <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_USER_PASS">password</a> and match both  with a user record.</p></p>
 	
 		
 </div>
@@ -97,7 +148,7 @@
 	
 	
 	<p class="notes" id="credit">
-		Documentation generated on Wed, 02 May 2012 12:19:04 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Wed, 02 May 2012 18:29:05 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

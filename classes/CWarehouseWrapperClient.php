@@ -114,6 +114,8 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 			switch( $theValue )
 			{
 				case kAPI_OP_LOGIN:
+				case kAPI_OP_GET_TERMS:
+				case kAPI_OP_GET_NODES:
 					break;
 				
 				default:
@@ -197,6 +199,40 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 		return $this->_ManageOffset( kAPI_OPT_USER_PASS, $theValue, $getOld );		// ==>
 
 	} // UserPass.
+
+	 
+	/*===================================================================================
+	 *	Identifiers																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage identifiers list.
+	 *
+	 * This method can be used to manage the {@link kAPI_OPT_IDENTIFIERS identifiers}, it
+	 * uses the standard accessor {@link _ManageArrayOffset() method} to manage the list of
+	 * identifiers.
+	 *
+	 * For a more thorough reference of how this method works, please consult the
+	 * {@link _ManageArrayOffset() _ManageArrayOffset} method, in which the first parameter
+	 * will be the constant {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS}.
+	 *
+	 * @param mixed					$theValue			Value or index.
+	 * @param mixed					$theOperation		Operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return mixed
+	 *
+	 * @uses _ManageOffset()
+	 *
+	 * @see kAPI_OPT_IDENTIFIERS
+	 */
+	public function Identifiers( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
+	{
+		return $this->_ManageArrayOffset
+					( kAPI_OPT_IDENTIFIERS, $theValue, $theOperation, $getOld );	// ==>
+
+	} // Identifiers.
 
 	 
 

@@ -182,7 +182,7 @@ try
 		// Build parameters.
 		//
 		$params = Array();
-		$params[] = kAPI_OPERATION.'='.kAPI_OP_HELP;				// Command.
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_HELP;		// Command.
 		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;				// Format.
 		//
 		// Build request.

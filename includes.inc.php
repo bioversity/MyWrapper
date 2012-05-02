@@ -82,6 +82,13 @@ define( "kPATH_LIBRARY_NEO4J",		"/Library/WebServer/Library/Neo4jphp/" );
 define( "kDEFAULT_LANGUAGE",			'en' );				// English.
 
 /**
+ * Default page limits.
+ *
+ * This value defines the default page limits for queries in which this was not provided.
+ */
+define( "kDEFAULT_LIMITS",				'50' );				// 50 by default.
+
+/**
  * Default temporary member name.
  *
  * This value is used whenever there is the necessity to create a temporary data member in
