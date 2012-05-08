@@ -214,6 +214,191 @@ class COntology extends CGraphNode
 
 	} // Term.
 
+	 
+	/*===================================================================================
+	 *	Type																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage node type.
+	 *
+	 * This method can be used to manage the node {@link kTAG_TYPE type}, in general it
+	 * reflects the {@link Term() term} {@link COntologyTerm::Type() type}.
+	 *
+	 * The method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: The value or operation:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Return the current value.
+	 *		<li><i>FALSE</i>: Delete Set value exception.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
+	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * The method will also set the {@link _IsDirty() dirty}
+	 * {@link kFLAG_STATE_DIRTY status}.
+	 *
+	 * @param mixed					$theValue			Term or operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 *
+	 * @uses _ManageProperty()
+	 *
+	 * @see kTAG_TYPE
+	 */
+	public function Type( $theValue = NULL, $getOld = FALSE )
+	{
+		//
+		// Normalise value.
+		//
+		if( ($theValue !== NULL)
+		 && ($theValue !== FALSE) )
+			$theValue = (string) $theValue;
+		
+		return $this->_ManageProperty( kTAG_TYPE, $theValue, $getOld );				// ==>
+
+	} // Type.
+
+	 
+	/*===================================================================================
+	 *	Kind																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage node kind.
+	 *
+	 * This method can be used to manage the node {@link kTAG_KIND kinds}, in general it
+	 * reflects the {@link Term() term} {@link CCodedUnitObject::Kind() kinds}.
+	 *
+	 * For a more thorough reference of how this method works, please consult the
+	 * {@link _ManagePropertyArray() _ManagePropertyArray} method, in which the first
+	 * parameter will be the constant {@link kTAG_KIND kTAG_KIND}.
+	 *
+	 * The method will also set the {@link _IsDirty() dirty}
+	 * {@link kFLAG_STATE_DIRTY status}.
+	 *
+	 * @param mixed					$theValue			Value or index.
+	 * @param mixed					$theOperation		Operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 *
+	 * @uses _ManagePropertyArray()
+	 *
+	 * @see kTAG_KIND
+	 */
+	public function Kind( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
+	{
+		//
+		// Normalise value.
+		//
+		if( ($theValue !== NULL)
+		 && ($theValue !== FALSE)
+		 && (! is_array( $theValue )) )
+			$theValue = (string) $theValue;
+		
+		return $this->_ManagePropertyArray( kTAG_KIND, $theValue,
+													   $theOperation,
+													   $getOld );					// ==>
+
+	} // Kind.
+
+	 
+	/*===================================================================================
+	 *	Domain																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage node kind.
+	 *
+	 * This method can be used to manage the node {@link kTAG_DOMAIN domains}, in general it
+	 * reflects the {@link Term() term} {@link CTerm::Domain() domains}.
+	 *
+	 * For a more thorough reference of how this method works, please consult the
+	 * {@link _ManagePropertyArray() _ManagePropertyArray} method, in which the first
+	 * parameter will be the constant {@link kTAG_DOMAIN kTAG_DOMAIN}.
+	 *
+	 * The method will also set the {@link _IsDirty() dirty}
+	 * {@link kFLAG_STATE_DIRTY status}.
+	 *
+	 * @param mixed					$theValue			Term or operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 *
+	 * @uses _ManagePropertyArray()
+	 *
+	 * @see kTAG_DOMAIN
+	 */
+	public function Domain( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
+	{
+		//
+		// Normalise value.
+		//
+		if( ($theValue !== NULL)
+		 && ($theValue !== FALSE)
+		 && (! is_array( $theValue )) )
+			$theValue = (string) $theValue;
+		
+		return $this->_ManagePropertyArray( kTAG_DOMAIN, $theValue,
+														 $theOperation,
+														 $getOld );					// ==>
+
+	} // Domain.
+
+	 
+	/*===================================================================================
+	 *	Category																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage node kind.
+	 *
+	 * This method can be used to manage the node {@link kTAG_CATEGORY categories}, in
+	 * general it reflects the {@link Term() term} {@link CTerm::Category() categories}.
+	 *
+	 * For a more thorough reference of how this method works, please consult the
+	 * {@link _ManagePropertyArray() _ManagePropertyArray} method, in which the first
+	 * parameter will be the constant {@link kTAG_CATEGORY kTAG_CATEGORY}.
+	 *
+	 * The method will also set the {@link _IsDirty() dirty}
+	 * {@link kFLAG_STATE_DIRTY status}.
+	 *
+	 * @param mixed					$theValue			Term or operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 *
+	 * @uses _ManagePropertyArray()
+	 *
+	 * @see kTAG_CATEGORY
+	 */
+	public function Category( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
+	{
+		//
+		// Normalise value.
+		//
+		if( ($theValue !== NULL)
+		 && ($theValue !== FALSE)
+		 && (! is_array( $theValue )) )
+			$theValue = (string) $theValue;
+		
+		return $this->_ManagePropertyArray( kTAG_CATEGORY, $theValue,
+														   $theOperation,
+														   $getOld );				// ==>
+
+	} // Category.
+
 		
 
 /*=======================================================================================
@@ -401,9 +586,14 @@ class COntology extends CGraphNode
 												kFLAG_STATE_ENCODED );
 			
 			//
-			// Add indexes.
+			// Add term indexes.
 			//
 			$this->_IndexTerms( $theContainer[ kTAG_NODE ] );
+			
+			//
+			// Add node indexes.
+			//
+			$this->_IndexNodes( $theContainer[ kTAG_NODE ] );
 		
 		} // Saving.
 		
@@ -671,6 +861,11 @@ class COntology extends CGraphNode
 	 * {@link kTAG_TERM term} property in the node and {@link Commit() commit} the
 	 * {@link Term() term}.
 	 *
+	 * We also copy the {@link CCodedUnitObject::Kind() kind},
+	 * {@link CTerm::Domain() domain}, {@link CTerm::Category() category} and
+	 * {@link COntologyTerm::Type() type} elements, if not yet present, from the
+	 * {@link Term() term} to the current node.
+	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
 	 * @param reference			   &$theModifiers		Commit modifiers.
@@ -730,6 +925,30 @@ class COntology extends CGraphNode
 		// Set term reference.
 		//
 		$this->offsetSet( kTAG_TERM, $this->mTerm[ kTAG_GID ] );
+		
+		//
+		// Copy term type.
+		//
+		if( $this->Type() === NULL )
+			$this->Type( $this->Term()->Type() );
+		
+		//
+		// Copy term kinds.
+		//
+		if( $this->Kind() === NULL )
+			$this->Kind( $this->Term()->Kind(), TRUE );
+		
+		//
+		// Copy term domains.
+		//
+		if( $this->Domain() === NULL )
+			$this->Domain( $this->Term()->Domain(), TRUE );
+		
+		//
+		// Copy term categories.
+		//
+		if( $this->Category() === NULL )
+			$this->Category( $this->Term()->Category(), TRUE );
 		
 	} // _PrepareCommit.
 
@@ -845,17 +1064,6 @@ class COntology extends CGraphNode
 	 *		<li><i>{@link kTAG_NAME kTAG_NAME}</i>: This key represents the
 	 *			{@link Term() term} {@link kTAG_NAME names} in all languages.
 	 *	 </ul>
-	 *	<li><i>{@link kINDEX_NODE_TERM_GEN kINDEX_NODE_TERM_GEN}</i>: This index
-	 *		(NodeFulltextIndex) links the node to its {@link Term() term} through the
-	 *		following keys:
-	 *	 <ul>
-	 *		<li><i>{@link kPROP_REF_TERM_WORD kPROP_REF_TERM_WORD}</i>: This key represents
-	 *			the {@link Term() term} words found in the following properties:
-	 *		 <ul>
-	 *			<li><i>{@link kTAG_DEFINITION kTAG_DEFINITION}</i>: Term definitions in all
-	 *				languages.
-	 *		 </ul>
-	 *	 </ul>
 	 * </ul>
 	 *
 	 * @param Everyman\Neo4j\Client	$theContainer		Node container.
@@ -887,6 +1095,87 @@ class COntology extends CGraphNode
 			$idx->add( $node, kTAG_NAME, $element[ kTAG_DATA ] );
 	
 	} // _IndexTerms.
+
+	 
+	/*===================================================================================
+	 *	_IndexNodes																		*
+	 *==================================================================================*/
+
+	/**
+	 * Create node property indexes.
+	 *
+	 * This method will save node indexes after the node was {@link _Commit() committed},
+	 * there are two main indexes for node properties:
+	 *
+	 * <ul>
+	 *	<li><i>{@link kINDEX_NODE_NODE kINDEX_NODE_NODE}</i>: This index (NodeIndex) links
+	 *		the node to its properties through the following keys:
+	 *	 <ul>
+	 *		<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: This key links the current node to its
+	 *			{@link Type() type}, which may either be inherited from its
+	 *			{@link Term() term} or have been {@link Type() explicitly} set.
+	 *		<li><i>{@link kTAG_KIND kTAG_KIND}</i>: This key links the current node to its
+	 *			{@link Kind() kinds}, which may either be inherited from its
+	 *			{@link Term() term} or have been {@link Kind() explicitly} set.
+	 *		<li><i>{@link kTAG_DOMAIN kTAG_DOMAIN}</i>: This key links the current node to
+	 *			its {@link Domain() domains}, which may either be inherited from its
+	 *			{@link Term() term} or have been {@link Domain() explicitly} set.
+	 *		<li><i>{@link kTAG_CATEGORY kTAG_CATEGORY}</i>: This key links the current node
+	 *			to its {@link Category() categories}, which may either be inherited from its
+	 *			{@link Category() term} or have been {@link Category() explicitly} set.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * @param Everyman\Neo4j\Client	$theContainer		Node container.
+	 *
+	 * @access protected
+	 */
+	protected function _IndexNodes( Everyman\Neo4j\Client $theContainer )
+	{
+		//
+		// Load term and node.
+		//
+		$node = $this->Node();
+		
+		//
+		// Instantiate node index.
+		//
+		$idx = $this->_GetNodeIndex( $theContainer, kINDEX_NODE_NODE, TRUE );
+	
+		//
+		// Add type.
+		//
+		if( ($tmp = $this->Type()) !== NULL )
+			$idx->add( $node, kTAG_TYPE, $tmp );
+	
+		//
+		// Add kinds.
+		//
+		if( ($tmp = $this->Kind()) !== NULL )
+		{
+			foreach( $tmp as $element )
+				$idx->add( $node, kTAG_KIND, $element );
+		}
+	
+		//
+		// Add domains.
+		//
+		if( ($tmp = $this->Domain()) !== NULL )
+		{
+			foreach( $tmp as $element )
+				$idx->add( $node, kTAG_DOMAIN, $element );
+		}
+	
+		//
+		// Add categories.
+		//
+		if( ($tmp = $this->Category()) !== NULL )
+		{
+			foreach( $tmp as $element )
+				$idx->add( $node, kTAG_CATEGORY, $element );
+		}
+	
+	} // _IndexNodes.
 
 	 
 	/*===================================================================================
@@ -924,6 +1213,378 @@ class COntology extends CGraphNode
 		return $idx;																// ==>
 	
 	} // _GetNodeIndex.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED PROPERTY UTILITIES							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	_ManageProperty																	*
+	 *==================================================================================*/
+
+	/**
+	 * Manage scalar property.
+	 *
+	 * This method will set, retrieve and delete scalar properties, it accepts the following
+	 * parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theOffset</b>: The property offset to manage.
+	 *	<li><b>$theValue</b>: The property value or operation:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Return the property current value.
+	 *		<li><i>FALSE</i>: Delete the property.
+	 *		<li><i>other</i>: Any other type represents the new property value.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the value of the property <i>before</i> it was
+	 *			eventually modified.
+	 *		<li><i>FALSE</i>: Return the value of the property <i>after</i> it was
+	 *			eventually modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * Note that if the current object does no yet have a {@link Node() node} reference, the
+	 * method will raise an exception.
+	 *
+	 * @param string				$theOffset			Property key.
+	 * @param mixed					$theValue			Value or operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access protected
+	 * @return mixed
+	 *
+	 * @throws {@link CException CException}
+	 *
+	 * @uses Node()
+	 * @uses _IsDirty()
+	 */
+	protected function _ManageProperty( $theOffset, $theValue = NULL, $getOld = FALSE )
+	{
+		//
+		// Save current value.
+		//
+		$node = $this->Node();
+		$save = ( $node !== NULL )
+			  ? $node->getProperty( $theOffset )
+			  : NULL;
+		
+		//
+		// Retrieve value.
+		//
+		if( $theValue === NULL )
+			return $save;															// ==>
+		
+		//
+		// Delete value.
+		//
+		if( $theValue === FALSE )
+		{
+			if( $node !== NULL )
+			{
+				$node->removeProperty( $theOffset );
+				$this->_IsDirty( TRUE );
+			}
+			
+			if( $getOld )
+				return $save;														// ==>
+			
+			return NULL;															// ==>
+		}
+		
+		//
+		// Set type.
+		//
+		if( $node !== NULL )
+		{
+			$node->setProperty( $theOffset, $theValue );
+			$this->_IsDirty( TRUE );
+			
+			if( $getOld )
+				return $save;														// ==>
+			
+			return $theValue;														// ==>
+		}
+		
+		throw new CException
+				( "Unable to set node property: missing node reference",
+				  kERROR_OPTION_MISSING,
+				  kMESSAGE_TYPE_ERROR );										// !@! ==>
+	
+	} // _ManageProperty.
+
+	 
+	/*===================================================================================
+	 *	_ManagePropertyArray															*
+	 *==================================================================================*/
+
+	/**
+	 * Manage scalar property.
+	 *
+	 * This method will set, retrieve and delete array element properties, it accepts the
+	 * following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theOffset</b>: The property offset to manage.
+	 *	<li><b>$theValue</b>: This parameter represents either the value to add, or the
+	 *		index of the element to operate on:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: This value indicates that we want to operate on all elements,
+	 *			which means that we are retrieving the full list or deleting it.
+	 *		<li><i>array</i>: This value indicates that we want to replace the whole list,
+	 *			this will only be tested if the next parameter evaluates to <i>TRUE</i>.
+	 *		<li><i>other</i>: Any other type represents either the new value to be added or
+	 *			the index to the value to be returned or deleted. <i>It must be possible to
+	 *			cast this value to a string, this is what will be used to compare
+	 *			elements</i>.
+	 *	 </ul>
+	 *	<li><b>$theOperation</b>: This parameter represents the operation to be performed,
+	 *		it will be evaluated as a boolean and its scope depends on the value of the
+	 *		previous parameter:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Return the element or list.
+	 *		<li><i>FALSE</i>: Delete the element or list.
+	 *		<li><i>TRUE</i>: Add the element or list. Note that with this value, if you
+	 *			provide <i>NULL</i> in the previous parameter, it will be equivalent to
+	 *			deleting the whole list.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the element or list <i>before</i> it was eventually
+	 *			modified.
+	 *		<li><i>FALSE</i>: Return the element or list <i>after</i> it was eventually
+	 *			modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * @param string				$theOffset			Property key.
+	 * @param mixed					$theValue			Value or index.
+	 * @param mixed					$theOperation		Operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @return mixed
+	 *
+	 * @throws {@link CException CException}
+	 *
+	 * @uses Node()
+	 * @uses _IsDirty()
+	 */
+	protected function _ManagePropertyArray( $theOffset, $theValue = NULL,
+														 $theOperation = NULL,
+														 $getOld = FALSE )
+	{
+		//
+		// Save current node.
+		//
+		$node = $this->Node();
+		
+		//
+		// Save current list.
+		//
+		$list = Array();
+		$save = ( $node !== NULL )
+			  ? $node->getProperty( $theOffset )
+			  : NULL;
+		if( $save !== NULL )
+		{
+			foreach( $save as $element )
+				$list[ md5( $element, TRUE ) ] = $element;
+		}
+		
+		//
+		// Return element or list.
+		//
+		if( $theOperation === NULL )
+		{
+			//
+			// Return full list or no list.
+			//
+			if( ($save === NULL)		// Empty list,
+			 || ($theValue === NULL) )	// return full list.
+				return $save;														// ==>
+			
+			//
+			// Scan list.
+			//
+			if( array_key_exists( ($key = md5( (string) $theValue, TRUE )), $list ) )
+				return $list[ $key ];												// ==>
+			
+			return NULL;															// ==>
+		
+		} // Return element or list.
+
+		//
+		// Delete element or list.
+		//
+		if( $theOperation === FALSE )
+		{
+			//
+			// Missing list.
+			//
+			if( $save === NULL )
+				return NULL;														// ==>
+			
+			//
+			// Delete full list.
+			//
+			if( $theValue === NULL )
+			{
+				//
+				// Delete list.
+				//
+				if( $node !== NULL )
+				{
+					$node->removeProperty( $theOffset );
+					$this->_IsDirty( TRUE );
+				}
+				
+				if( $getOld )
+					return $save;													// ==>
+				
+				return NULL;														// ==>
+			}
+			
+			//
+			// Scan list.
+			//
+			if( $save !== NULL )
+			{
+				//
+				// Find element.
+				//
+				if( array_key_exists( ($key = md5( (string) $theValue, TRUE )), $list ) )
+				{
+					//
+					// Save old.
+					//
+					$old = $list[ $key ];
+					
+					//
+					// Remove element.
+					//
+					unset( $list[ $key ] );
+					
+					//
+					// Update object.
+					//
+					if( count( $list ) )
+						$node->setProperty( $theOffset, array_values( $list ) );
+					else
+						$node->removeProperty( $theOffset );
+					
+					//
+					// Set dirty flag.
+					//
+					$this->_IsDirty( TRUE );
+					
+					if( $getOld )
+						return $old;												// ==>
+				
+				} // Found element.
+			
+			} // Has list.
+			
+			return NULL;															// ==>
+		
+		} // Delete element or list.
+		
+		//
+		// Delete full list.
+		// At this pont the operation involves
+		// adding and the value is NULL.
+		//
+		if( $theValue === NULL )
+		{
+			//
+			// Delete list.
+			//
+			if( $node !== NULL )
+			{
+				//
+				// Delete property.
+				//
+				$node->removeProperty( $theOffset );
+				
+				//
+				// Set dirty flag.
+				//
+				$this->_IsDirty( TRUE );
+			}
+			
+			if( $getOld )
+				return $save;														// ==>
+			
+			return NULL;															// ==>
+		}
+		
+		//
+		// Handle node.
+		//
+		if( $node !== NULL )
+		{
+			//
+			// Replace full list.
+			//
+			if( is_array( $theValue ) )
+			{
+				//
+				// Replace offset.
+				//
+				$node->setProperty( $theOffset, $theValue );
+				
+				//
+				// Set dirty flag.
+				//
+				$this->_IsDirty( TRUE );
+				
+				if( $getOld )
+					return $save;													// ==>
+				
+				return $theValue;													// ==>
+			
+			} // Replace full list.
+			
+			//
+			// Add first element.
+			//
+			if( $save === NULL )
+				$node->setProperty( $theOffset, array( $theValue ) );
+			
+			//
+			// Set element.
+			//
+			else
+			{
+				//
+				// Set in list.
+				//
+				$list[ md5( (string) $theValue, TRUE ) ] = (string) $theValue;
+				
+				//
+				// Replace offset.
+				//
+				$node->setProperty( $theOffset, array_values( $list ) );
+			}
+		
+			if( $getOld )
+				return NULL;														// ==>
+			
+			return $theValue;														// ==>
+		}
+		
+		throw new CException
+				( "Unable to set node property: missing node reference",
+				  kERROR_OPTION_MISSING,
+				  kMESSAGE_TYPE_ERROR );										// !@! ==>
+	
+	} // _ManagePropertyArray.
 
 	 
 

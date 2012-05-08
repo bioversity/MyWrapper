@@ -1155,7 +1155,20 @@ class CArrayObject extends ArrayObject
 				//
 				// Get element.
 				//
-				if( ($key = array_search( $theData, $list )) !== FALSE )
+				$found = FALSE;
+				foreach( $list as $key => $tmp )
+				{
+					if( (string) $theData == (string) $tmp )
+					{
+						$found = $key;
+						break;												// =>
+					}
+				}
+				
+				//
+				// Handle found element.
+				//
+				if( $found !== FALSE )
 				{
 					//
 					// Remove element.
@@ -1207,9 +1220,22 @@ class CArrayObject extends ArrayObject
 		if( $list !== NULL )
 		{
 			//
+			// Match element.
+			//
+			$found = FALSE;
+			foreach( $list as $key => $tmp )
+			{
+				if( (string) $theData == (string) $tmp )
+				{
+					$found = $key;
+					break;													// =>
+				}
+			}
+			
+			//
 			// Matched element.
 			//
-			if( ($key = array_search( $theData, $list )) !== FALSE )
+			if( $found !== FALSE )
 				return $theData;													// ==>
 			
 			//

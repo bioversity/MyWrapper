@@ -102,7 +102,7 @@ abstract class COntologyTermObject extends CTerm
 
 /*=======================================================================================
  *																						*
- *								PUBLIC MEMBER INTERFACE									*
+ *								PUBLIC STRUCTURE INTERFACE								*
  *																						*
  *======================================================================================*/
 
@@ -165,7 +165,7 @@ abstract class COntologyTermObject extends CTerm
 		
 		} // Provided new value.
 		
-		return $this->_ManageOffset( kTAG_NAMESPACE, $theValue, $getOld );			// ==>
+		return parent::NS( $theValue, $getOld );									// ==>
 
 	} // NS.
 
@@ -189,6 +189,15 @@ abstract class COntologyTermObject extends CTerm
 	 */
 	public function GID()									{	return $this[ kTAG_GID ];	}
 
+
+	 
+/*=======================================================================================
+ *																						*
+ *							PUBLIC RELATION ATTRIBUTES INTERFACE						*
+ *																						*
+ *======================================================================================*/
+
+
 	 
 	/*===================================================================================
 	 *	Synonym																			*
@@ -197,43 +206,16 @@ abstract class COntologyTermObject extends CTerm
 	/**
 	 * Manage synonyms.
 	 *
-	 * This method can be used to manage the term {@link kTAG_REFERENCE_SYNONYM synonyms}
-	 * list, these elements are strings that can be considered synonyms of the current term.
-	 *
-	 * This property is organised as an array of items structured as a pair of elements:
-	 *
-	 * <ul>
-	 *	<li><i>Type</i>: The synonym type, its value is provided in the <i>$theType</i>
-	 *		parameter.
-	 *	<li><i>Values</i>: The synonym values organised as an array of values.
-	 * </ul>
-	 *
-	 * The method expects the following parameters:
+	 * We {@link CTerm::Synonym() overload} this method to restrict the synonym
+	 * {@link kTAG_KIND kind}: the <i>$theType</i> parameter must take one of the following
+	 * values:
 	 *
 	 * <ul>
-	 *	<li><b>$theValue</b>: The synonym value.
-	 *	<li><b>$theType</b>: The synonym type, one of the following values is required:
-	 *	 <ul>
-	 *		<li><i>{@link kTYPE_EXACT kTYPE_EXACT}</i>: Exact synonym.
-	 *		<li><i>{@link kTYPE_BROAD kTYPE_BROAD}</i>: Broad synonym.
-	 *		<li><i>{@link kTYPE_NARROW kTYPE_NARROW}</i>: Narrow synonym.
-	 *		<li><i>{@link kTYPE_RELATED kTYPE_RELATED}</i>: Related synonym.
-	 *	 </ul>
-	 *	<li><b>$theOperation</b>: The operation:
-	 *	 <ul>
-	 *		<li><i>NULL</i>: Return the current value selected by the previous parameters.
-	 *		<li><i>FALSE</i>: Delete the value selected by the previous parameters.
-	 *		<li><i>other</i>: Set value selected by the previous parameters.
-	 *	 </ul>
-	 *	<li><b>$getOld</b>: Determines what the method will return:
-	 *	 <ul>
-	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
-	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
-	 *	 </ul>
+	 *	<li><i>{@link kTYPE_EXACT kTYPE_EXACT}</i>: Exact synonym.
+	 *	<li><i>{@link kTYPE_BROAD kTYPE_BROAD}</i>: Broad synonym.
+	 *	<li><i>{@link kTYPE_NARROW kTYPE_NARROW}</i>: Narrow synonym.
+	 *	<li><i>{@link kTYPE_RELATED kTYPE_RELATED}</i>: Related synonym.
 	 * </ul>
-	 *
-	 * The method makes use of a protected {@link _ManageTypedArrayListOffset() method},
-	 * please consult its reference for more information.
 	 *
 	 * @param string				$theValue			Synonym.
 	 * @param mixed					$theType			Synonym type.
@@ -271,10 +253,7 @@ abstract class COntologyTermObject extends CTerm
 		
 		} // Provided synonym kind.
 		
-		return $this->_ManageTypedArrayListOffset
-			( kTAG_REFERENCE_SYNONYM, kTAG_KIND,
-			  $theType, $theValue,
-			  $theOperation, $getOld );												// ==>
+		return parent::Synonym( $theValue, $theType, $theOperation, $getOld );		// ==>
 
 	} // Synonym.
 
@@ -286,46 +265,19 @@ abstract class COntologyTermObject extends CTerm
 	/**
 	 * Manage cross-references.
 	 *
-	 * This method can be used to manage the term
-	 * {@link kTAG_REFERENCE_XREF cross-references} list, these elements are references to
-	 * other terms that can be considered synonyms of the current term, the reference should
-	 * be the term's {@link _id() identifier}.
-	 *
-	 * This property is organised as an array of items structured as a pair of elements:
+	 * We {@link CTerm::Xref() overload} this method to restrict the cross-reference
+	 * {@link kTAG_KIND kind}: the <i>$theType</i> parameter must take one of the following
+	 * values:
 	 *
 	 * <ul>
-	 *	<li><i>Type</i>: The cross-reference type, its value is provided in the
-	 *		<i>$theType</i> parameter.
-	 *	<li><i>Values</i>: The cross-references organised as an array of values.
+	 *	<li><i>{@link kTYPE_EXACT kTYPE_EXACT}</i>: Exact cross-reference.
+	 *	<li><i>{@link kTYPE_BROAD kTYPE_BROAD}</i>: Broad cross-reference.
+	 *	<li><i>{@link kTYPE_NARROW kTYPE_NARROW}</i>: Narrow cross-reference.
+	 *	<li><i>{@link kTYPE_RELATED kTYPE_RELATED}</i>: Related cross-reference.
 	 * </ul>
 	 *
-	 * The method expects the following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theValue</b>: The cross-reference.
-	 *	<li><b>$theType</b>: The cross-reference type, one of the following values is
-	 *		required:
-	 *	 <ul>
-	 *		<li><i>{@link kTYPE_EXACT kTYPE_EXACT}</i>: Exact cross-reference.
-	 *		<li><i>{@link kTYPE_BROAD kTYPE_BROAD}</i>: Broad cross-reference.
-	 *		<li><i>{@link kTYPE_NARROW kTYPE_NARROW}</i>: Narrow cross-reference.
-	 *		<li><i>{@link kTYPE_RELATED kTYPE_RELATED}</i>: Related cross-reference.
-	 *	 </ul>
-	 *	<li><b>$theOperation</b>: The operation:
-	 *	 <ul>
-	 *		<li><i>NULL</i>: Return the current value selected by the previous parameters.
-	 *		<li><i>FALSE</i>: Delete the value selected by the previous parameters.
-	 *		<li><i>other</i>: Set value selected by the previous parameters.
-	 *	 </ul>
-	 *	<li><b>$getOld</b>: Determines what the method will return:
-	 *	 <ul>
-	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
-	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
-	 *	 </ul>
-	 * </ul>
-	 *
-	 * The method makes use of a protected {@link _ManageTypedArrayListOffset() method},
-	 * please consult its reference for more information.
+	 * We also {@link _CheckReference() filter} the provided value to extract the object
+	 * identifier.
 	 *
 	 * @param string				$theValue			URL or operation.
 	 * @param mixed					$theType			Mailing address kind or index.
@@ -369,135 +321,9 @@ abstract class COntologyTermObject extends CTerm
 		
 		} // Provided cross-reference kind.
 		
-		return $this->_ManageTypedArrayListOffset
-			( kTAG_REFERENCE_XREF, kTAG_KIND,
-			  $theType, $theValue,
-			  $theOperation, $getOld );												// ==>
+		return parent::Xref( $theValue, $theType, $theOperation, $getOld );			// ==>
 
 	} // Xref.
-
-	 
-	/*===================================================================================
-	 *	Image																			*
-	 *==================================================================================*/
-
-	/**
-	 * Manage cross-references.
-	 *
-	 * This method can be used to manage the term's list of {@link kOFFSET_IMAGE images},
-	 * this {@link kOFFSET_IMAGE offset} is represented by an array of items holding three
-	 * elements:
-	 *
-	 * <ul>
-	 *	<li><i>{@link kTAG_KIND kTAG_KIND}</i>: This element represents the kind or
-	 *		qualifier of the image, the element is required.
-	 *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: This element represents the data type of the
-	 *		image, this element is required.
-	 *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: This element represents the image data which
-	 *		should be expressed in the data type declared in the {@link kTAG_TYPE kTAG_TYPE}
-	 *		element.
-	 * </ul>
-	 *
-	 * The method expects the following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theOffset</b>: The main offset to manage.
-	 *	<li><b>$theKind</b>: The item {@link kTAG_KIND kind}; it should be able to cast this
-	 *		value to a string which represents an index.
-	 *	<li><b>$theType</b>: The item {@link kTAG_TYPE type}; it should be able to cast this
-	 *		value to a string which represents an index.
-	 *	<li><b>$theData</b>: This parameter represents the item's {@link kTAG_DATA data}
-	 *		element, or the operation to be performed:
-	 *	 <ul>
-	 *		<li><i>NULL</i>: This indicates that we want to retrieve the data of the item
-	 *			with index matching the previous parameters.
-	 *		<li><i>FALSE</i>: This indicates that we want to remove the item matching the
-	 *			index provided in the previous parameters.
-	 *		<li><i>other</i>: Any other value indicates that we want to add or replace the
-	 *			{@link kTAG_DATA data} element of the item matching the previous parameters.
-	 *	 </ul>
-	 *	<li><b>$getOld</b>: Determines what the method will return:
-	 *	 <ul>
-	 *		<li><i>TRUE</i>: Return the element or list <i>before</i> it was eventually
-	 *			modified.
-	 *		<li><i>FALSE</i>: Return the element or list <i>after</i> it was eventually
-	 *			modified.
-	 *	 </ul>
-	 * </ul>
-	 *
-	 * The method makes use of a protected {@link _ManageTypedArrayOffset() method}, please
-	 * consult its reference for more information.
-	 *
-	 * @param mixed					$theKind			Image kind.
-	 * @param mixed					$theType			Image type.
-	 * @param mixed					$theData			Image value.
-	 * @param boolean				$getOld				TRUE get old value.
-	 *
-	 * @access public
-	 * @return string
-	 */
-	public function Image( $theKind, $theType, $theData = NULL, $getOld = FALSE )
-	{
-		return $this->_ManageTypedArrayOffset
-			( kOFFSET_IMAGE, $theKind, $theType, $theData, $getOld );				// ==>
-
-	} // Image.
-
-	 
-	/*===================================================================================
-	 *	Source																			*
-	 *==================================================================================*/
-
-	/**
-	 * Manage term sources.
-	 *
-	 * This method can be used to manage the term {@link kTAG_SOURCE sources}, it manages an
-	 * array of strings with the following offsets:
-	 *
-	 * <ul>
-	 *	<li><i>{@link kTAG_KIND kTAG_KIND}</i>: The source kind, this string can be used to
-	 *		define the type of the source, this element represents the array key, although
-	 *		technically it is implemented as an element to allow searching on all values.
-	 *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The source, this element should hold the
-	 *		actual source reference, which should be convertable to a string.
-	 * </ul>
-	 *
-	 * The parameters to this method are:
-	 *
-	 * <ul>
-	 *	<li><b>$theValue</b>: The value or operation:
-	 *	 <ul>
-	 *		<li><i>NULL</i>: Return the current value selected by the second parameter.
-	 *		<li><i>FALSE</i>: Delete the value selected by the second parameter.
-	 *		<li><i>other</i>: Set value selected by the second parameter.
-	 *	 </ul>
-	 *	<li><b>$theType</b>: The element type, kind or index:
-	 *	 <ul>
-	 *		<li><i>NULL</i>: This value indicates that the phone has no type or kind, in
-	 *			general, when adding elements, this case applies to default elements.
-	 *		<li><i>other</i>: All other types will be interpreted as the kind or type of
-	 *			the phone number.
-	 *	 </ul>
-	 *	<li><b>$getOld</b>: Determines what the method will return:
-	 *	 <ul>
-	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
-	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
-	 *	 </ul>
-	 * </ul>
-	 *
-	 * @param string				$theValue			Source.
-	 * @param mixed					$theType			Source kind or index.
-	 * @param boolean				$getOld				TRUE get old value.
-	 *
-	 * @access public
-	 * @return string
-	 */
-	public function Source( $theValue = NULL, $theType = NULL, $getOld = FALSE )
-	{
-		return $this->_ManageKindArrayOffset
-			( kTAG_SOURCE, kTAG_KIND, $theType, $theValue, $getOld );				// ==>
-
-	} // Source.
 
 	 
 	/*===================================================================================

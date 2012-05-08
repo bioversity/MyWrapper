@@ -35,6 +35,33 @@
  *		{@link COntologyTerm term} {@link kTAG_NAME names}.
  * </ul>
  */
-define( "kINDEX_NODE_TERM",						'NODES' );
+define( "kINDEX_NODE_TERM",						'TERMS' );
+
+/**
+ * Nodes index.
+ *
+ * This tag defines the index (NodeIndex) collecting ontology node properties. This
+ * index will link the node to its properties via the following keys:
+ *
+ * <ul>
+ *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: This key links the current node to its
+ *		{@link COntology::Type() type}, which may either be inherited from its
+ *		{@link COntology::Term() term} or have been {@link COntology::Type() explicitly}
+ *		set.
+ *	<li><i>{@link kTAG_KIND kTAG_KIND}</i>: This key links the current node to its
+ *		{@link COntology::Kind() kinds}, which may either be inherited from its
+ *		{@link COntology::Term() term} or have been {@link COntology::Kind() explicitly}
+ *		set.
+ *	<li><i>{@link kTAG_DOMAIN kTAG_DOMAIN}</i>: This key links the current node to its
+ *		{@link COntology::Domain() domains}, which may either be inherited from its
+ *		{@link COntology::Term() term} or have been {@link COntology::Domain() explicitly}
+ *		set.
+ *	<li><i>{@link kTAG_CATEGORY kTAG_CATEGORY}</i>: This key links the current node to its
+ *		{@link COntology::Category() categories}, which may either be inherited from its
+ *		{@link COntology::Category() term} or have been
+ *		{@link COntology::Category() explicitly} set.
+ * </ul>
+ */
+define( "kINDEX_NODE_NODE",						'NODES' );
 
 ?>

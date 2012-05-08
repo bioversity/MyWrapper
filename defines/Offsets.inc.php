@@ -145,6 +145,14 @@ define( "kTAG_VERSION",							':VERS' );
 define( "kTAG_TYPE",							':TYPE' );
 
 /**
+ * Pattern.
+ *
+ * This tag is used to describe a pattern, in general this may be applied to terms that are
+ * of the {@link kTYPE_STRING string} type which are restricted by a pattern.
+ */
+define( "kTAG_PATTERN",							':PATTERN' );
+
+/**
  * Kind.
  *
  * This tag is used as the default offset for indicating a kind attribute. A kind is
@@ -155,12 +163,22 @@ define( "kTAG_TYPE",							':TYPE' );
 define( "kTAG_KIND",							':KIND' );
 
 /**
- * Pattern.
+ * Domain.
  *
- * This tag is used to describe a pattern, in general this may be applied to terms that are
- * of the {@link kTYPE_STRING string} type which are restricted by a pattern.
+ * This tag is used as the default offset for indicating a domain attribute. A domain
+ * represents what kind of object the current object represents, it should indicate the
+ * nature of the instance it represents.
  */
-define( "kTAG_PATTERN",							':PATTERN' );
+define( "kTAG_DOMAIN",							':DOMAIN' );
+
+/**
+ * Category.
+ *
+ * This tag is used as the default offset for indicating a category attribute. A category
+ * represents an area to which the current instance belongs to, it should indicate the main
+ * quality of the instance in regards to other instances.
+ */
+define( "kTAG_CATEGORY",						':CATEGORY' );
 
 /**
  * Cardinality.
@@ -352,6 +370,16 @@ define( "kTAG_EDGE_TERM",						':TEDGE' );
  * the predicate element is represented by the edge term identifier.
  */
 define( "kTAG_EDGE_NODE",						':NEDGE' );
+
+/**
+ * Preferred tag.
+ *
+ * This is the tag that represents the preferred entry related to the current one. There may
+ * be cases in which an object may be obsolete, but still in use, this tag refers to the
+ * object that should be used in place of the current one. This tag  expects the value of
+ * the {@link kTAG_LID native} identifier of the preferred object here.
+ */
+define( "kTAG_PREFERRED",						':PREFERRED' );
 
 /**
  * Valid tag.

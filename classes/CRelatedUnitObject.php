@@ -185,10 +185,56 @@ abstract class CRelatedUnitObject extends CPersistentUnitObject
 			$relation = $theObject;
 		
 		return $this->_ManageObjectList( kTAG_REFS, $relation,
-													   $theOperation,
-													   $getOld );					// ==>
+													$theOperation,
+													$getOld );						// ==>
 
 	} // Relate.
+
+	 
+	/*===================================================================================
+	 *	Preferred																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage preferred reference.
+	 *
+	 * This method can be used to handle the object's preferred reference, it uses the
+	 * standard accessor {@link _ManageOffset() method} to manage the
+	 * {@link kTAG_PREFERRED offset}.
+	 *
+	 * Objects may become obsolete, but still represent valid entries: in this case we use
+	 * this attribute to point to the preferred object.
+	 *
+	 * For a more in-depth reference of this method, please consult the
+	 * {@link _ManageOffset() _ManageOffset} method, in which the first parameter will be
+	 * the constant {@link kTAG_PREFERRED kTAG_PREFERRED}.
+	 *
+	 * In this class we feed the value to the
+	 * {@link _CheckRelationObject() _CheckRelationObject} method that will take care of
+	 * handling object references.
+	 *
+	 * @param mixed					$theValue			Value.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 *
+	 * @uses _ManageOffset
+	 *
+	 * @see kTAG_PREFERRED
+	 */
+	public function Preferred( $theValue = NULL, $getOld = FALSE )
+	{
+		//
+		// Check identifier.
+		//
+		if( ($theValue !== NULL)
+		 && ($theValue !== FALSE) )
+			$theValue = $this->_CheckRelationObject( $theValue );
+		
+		return $this->_ManageOffset( kTAG_PREFERRED, $theValue, $getOld );			// ==>
+
+	} // Preferred.
 
 	 
 	/*===================================================================================
@@ -233,7 +279,7 @@ abstract class CRelatedUnitObject extends CPersistentUnitObject
 		 && ($theValue !== FALSE) )
 			$theValue = $this->_CheckRelationObject( $theValue );
 		
-		return $this->_ManageOffset( kTAG_VALID, $theValue, $getOld );			// ==>
+		return $this->_ManageOffset( kTAG_VALID, $theValue, $getOld );				// ==>
 
 	} // Valid.
 

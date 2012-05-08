@@ -31,7 +31,7 @@
 <p class="short-description">Ontology term ancestor.</p>
 <p class="description"><p>This class defines a <a href="../../MyWrapper/Ontology/CTerm.html">term</a> that resides in an ontology, it overloads ita  <a href="../../MyWrapper/Ontology/CTerm.html">parent</a> to hash the <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_id">identifier</a> into a  <a href="../../MyWrapper/Framework/CDataTypeBinary.html">binary</a> string and enforce the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsEncoded">encoded</a>  <a href="../../MyWrapper/Framework/CStatusObject.html#methodStatus">status</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">flag</a>.</p><p>The class also adds the following properties:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_REFERENCE_SYNONYM">kTAG_REFERENCE_SYNONYM</a></em>: This
         <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodSynonym">property</a> can be used to store synonyms as strings.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_REFERENCE_XREF">kTAG_REFERENCE_XREF</a></em>: This <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodXref">property</a>
-        can be used to store cross references to other terms in the ontology.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_SOURCE">kTAG_SOURCE</a></em>: This <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodSource">property</a> can be used
+        can be used to store cross references to other terms in the ontology.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_SOURCE">kTAG_SOURCE</a></em>: This <a href="../../MyWrapper/Ontology/CTerm.html#methodSource">property</a> can be used
         to provide the source of the term.</li></ul></p><p>We declare this class abstract to force the creation of specific ontology term types.</p></p>
 	<ul class="tags">
 				<li><span class="field">abstract:</span> </li>
@@ -113,7 +113,7 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																																																																												<div class="method-definition">
+																																																												<div class="method-definition">
 					<img src="../../media/images/StaticMethod.png" alt=" "/>
 											static <span class="method-result"><a href="../../MyWrapper/Framework/CCodedUnitObject.html">CCodedUnitObject</a></span>
 										<a href="#ValidObject" title="details" class="method-name">ValidObject</a>
@@ -134,12 +134,6 @@
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">string</span>
-										<a href="#Image" title="details" class="method-name">Image</a>
-											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theKind</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theType</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theData</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
-									</div>
-																<div class="method-definition">
-					<img src="../../media/images/Method.png" alt=" "/>
-											<span class="method-result">string</span>
 										<a href="#NS" title="details" class="method-name">NS</a>
 											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
 									</div>
@@ -148,12 +142,6 @@
 											<span class="method-result">string</span>
 										<a href="#Relate" title="details" class="method-name">Relate</a>
 											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$thePredicate</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theOperation</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
-									</div>
-																<div class="method-definition">
-					<img src="../../media/images/Method.png" alt=" "/>
-											<span class="method-result">string</span>
-										<a href="#Source" title="details" class="method-name">Source</a>
-											([<span class="var-type">string</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -242,7 +230,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static ValidObject</span> (line <span class="line-number">627</span>)
+		<span class="method-title">static ValidObject</span> (line <span class="line-number">453</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -357,62 +345,8 @@
 		
 			
 	</div>
-<a name="methodImage" id="Image"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<img src="../../media/images/Method.png" />
-		<span class="method-title">Image</span> (line <span class="line-number">439</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Manage cross-references.</p>
-<p class="description"><p>This method can be used to manage the term's list of <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_IMAGE">images</a>,  this <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_IMAGE">offset</a> is represented by an array of items holding three  elements:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kTAG_KIND</a></em>: This element represents the kind or
-        qualifier of the image, the element is required.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a></em>: This element represents the data type of the
-        image, this element is required.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: This element represents the image data which
-        should be expressed in the data type declared in the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">kTAG_TYPE</a>
-        element.</li></ul></p><p>The method expects the following parameters:</p><p><ul><li><strong>$theOffset</strong>: The main offset to manage.</li><li><strong>$theKind</strong>: The item <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kind</a>; it should be able to cast this
-        value to a string which represents an index.</li><li><strong>$theType</strong>: The item <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">type</a>; it should be able to cast this
-        value to a string which represents an index.</li><li><strong>$theData</strong>: This parameter represents the item's <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">data</a>
-        element, or the operation to be performed:
-     <ul><li><em>NULL</em>: This indicates that we want to retrieve the data of the item
-            with index matching the previous parameters.</li><li><em>FALSE</em>: This indicates that we want to remove the item matching the
-            index provided in the previous parameters.</li><li><em>other</em>: Any other value indicates that we want to add or replace the
-            <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">data</a> element of the item matching the previous parameters.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
-     <ul><li><em>TRUE</em>: Return the element or list <em>before</em> it was eventually
-            modified.</li><li><em>FALSE</em>: Return the element or list <em>after</em> it was eventually
-            modified.</li></ul></li></ul></p><p>The method makes use of a protected <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedArrayOffset">method</a>, please  consult its reference for more information.</p></p>
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">string</span>
-		<span class="method-name">
-			Image
-		</span>
-					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theKind</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theType</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theData</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">mixed</span>
-				<span class="var-name">$theKind</span><span class="var-description">: Image kind.</span>			</li>
-					<li>
-				<span class="var-type">mixed</span>
-				<span class="var-name">$theType</span><span class="var-description">: Image type.</span>			</li>
-					<li>
-				<span class="var-type">mixed</span>
-				<span class="var-name">$theData</span><span class="var-description">: Image value.</span>			</li>
-					<li>
-				<span class="var-type">boolean</span>
-				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
-				</ul>
-		
-			
-	</div>
 <a name="methodNS" id="NS"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -453,11 +387,11 @@
 			
 	</div>
 <a name="methodRelate" id="Relate"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Relate</span> (line <span class="line-number">535</span>)
+		<span class="method-title">Relate</span> (line <span class="line-number">361</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -503,66 +437,17 @@
 					</dl>
 			
 	</div>
-<a name="methodSource" id="Source"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<img src="../../media/images/Method.png" />
-		<span class="method-title">Source</span> (line <span class="line-number">495</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Manage term sources.</p>
-<p class="description"><p>This method can be used to manage the term <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_SOURCE">sources</a>, it manages an  array of strings with the following offsets:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kTAG_KIND</a></em>: The source kind, this string can be used to
-        define the type of the source, this element represents the array key, although
-        technically it is implemented as an element to allow searching on all values.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: The source, this element should hold the
-        actual source reference, which should be convertable to a string.</li></ul></p><p>The parameters to this method are:</p><p><ul><li><strong>$theValue</strong>: The value or operation:
-     <ul><li><em>NULL</em>: Return the current value selected by the second parameter.</li><li><em>FALSE</em>: Delete the value selected by the second parameter.</li><li><em>other</em>: Set value selected by the second parameter.</li></ul></li><li><strong>$theType</strong>: The element type, kind or index:
-     <ul><li><em>NULL</em>: This value indicates that the phone has no type or kind, in
-            general, when adding elements, this case applies to default elements.</li><li><em>other</em>: All other types will be interpreted as the kind or type of
-            the phone number.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
-     <ul><li><em>TRUE</em>: Return the value <em>before</em> it was eventually modified.</li><li><em>FALSE</em>: Return the value <em>after</em> it was eventually modified.</li></ul></li></ul></p></p>
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">string</span>
-		<span class="method-name">
-			Source
-		</span>
-					([<span class="var-type">string</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$theValue</span><span class="var-description">: Source.</span>			</li>
-					<li>
-				<span class="var-type">mixed</span>
-				<span class="var-name">$theType</span><span class="var-description">: Source kind or index.</span>			</li>
-					<li>
-				<span class="var-type">boolean</span>
-				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
-				</ul>
-		
-			
-	</div>
 <a name="methodSynonym" id="Synonym"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Synonym</span> (line <span class="line-number">246</span>)
+		<span class="method-title">Synonym</span> (line <span class="line-number">228</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage synonyms.</p>
-<p class="description"><p>This method can be used to manage the term <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_REFERENCE_SYNONYM">synonyms</a>  list, these elements are strings that can be considered synonyms of the current term.</p><p>This property is organised as an array of items structured as a pair of elements:</p><p><ul><li><em>Type</em>: The synonym type, its value is provided in the <em>$theType</em>
-        parameter.</li><li><em>Values</em>: The synonym values organised as an array of values.</li></ul></p><p>The method expects the following parameters:</p><p><ul><li><strong>$theValue</strong>: The synonym value.</li><li><strong>$theType</strong>: The synonym type, one of the following values is required:
-     <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_EXACT">kTYPE_EXACT</a></em>: Exact synonym.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_BROAD">kTYPE_BROAD</a></em>: Broad synonym.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_NARROW">kTYPE_NARROW</a></em>: Narrow synonym.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_RELATED">kTYPE_RELATED</a></em>: Related synonym.</li></ul></li><li><strong>$theOperation</strong>: The operation:
-     <ul><li><em>NULL</em>: Return the current value selected by the previous parameters.</li><li><em>FALSE</em>: Delete the value selected by the previous parameters.</li><li><em>other</em>: Set value selected by the previous parameters.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
-     <ul><li><em>TRUE</em>: Return the value <em>before</em> it was eventually modified.</li><li><em>FALSE</em>: Return the value <em>after</em> it was eventually modified.</li></ul></li></ul></p><p>The method makes use of a protected <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedArrayListOffset">method</a>,  please consult its reference for more information.</p></p>
+<p class="description"><p>We <a href="../../MyWrapper/Ontology/CTerm.html#methodSynonym">overload</a> this method to restrict the synonym  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kind</a>: the <em>$theType</em> parameter must take one of the following  values:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_EXACT">kTYPE_EXACT</a></em>: Exact synonym.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_BROAD">kTYPE_BROAD</a></em>: Broad synonym.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_NARROW">kTYPE_NARROW</a></em>: Narrow synonym.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_RELATED">kTYPE_RELATED</a></em>: Related synonym.</li></ul></p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 			</ul>
@@ -590,6 +475,12 @@
 				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
 				</ul>
 		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Ontology/CTerm.html#methodSynonym">CTerm::Synonym()</a></dt>
+						<dd>Manage synonyms.</dd>
+					</dl>
 			
 	</div>
 <a name="methodValid" id="Valid"><!-- --></a>
@@ -597,7 +488,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Valid</span> (line <span class="line-number">584</span>)
+		<span class="method-title">Valid</span> (line <span class="line-number">410</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -639,17 +530,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Xref</span> (line <span class="line-number">337</span>)
+		<span class="method-title">Xref</span> (line <span class="line-number">289</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage cross-references.</p>
-<p class="description"><p>This method can be used to manage the term  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_REFERENCE_XREF">cross-references</a> list, these elements are references to  other terms that can be considered synonyms of the current term, the reference should  be the term's <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_id">identifier</a>.</p><p>This property is organised as an array of items structured as a pair of elements:</p><p><ul><li><em>Type</em>: The cross-reference type, its value is provided in the
-        <em>$theType</em> parameter.</li><li><em>Values</em>: The cross-references organised as an array of values.</li></ul></p><p>The method expects the following parameters:</p><p><ul><li><strong>$theValue</strong>: The cross-reference.</li><li><strong>$theType</strong>: The cross-reference type, one of the following values is
-        required:
-     <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_EXACT">kTYPE_EXACT</a></em>: Exact cross-reference.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_BROAD">kTYPE_BROAD</a></em>: Broad cross-reference.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_NARROW">kTYPE_NARROW</a></em>: Narrow cross-reference.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_RELATED">kTYPE_RELATED</a></em>: Related cross-reference.</li></ul></li><li><strong>$theOperation</strong>: The operation:
-     <ul><li><em>NULL</em>: Return the current value selected by the previous parameters.</li><li><em>FALSE</em>: Delete the value selected by the previous parameters.</li><li><em>other</em>: Set value selected by the previous parameters.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
-     <ul><li><em>TRUE</em>: Return the value <em>before</em> it was eventually modified.</li><li><em>FALSE</em>: Return the value <em>after</em> it was eventually modified.</li></ul></li></ul></p><p>The method makes use of a protected <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedArrayListOffset">method</a>,  please consult its reference for more information.</p></p>
+<p class="description"><p>We <a href="../../MyWrapper/Ontology/CTerm.html#methodXref">overload</a> this method to restrict the cross-reference  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kind</a>: the <em>$theType</em> parameter must take one of the following  values:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_EXACT">kTYPE_EXACT</a></em>: Exact cross-reference.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_BROAD">kTYPE_BROAD</a></em>: Broad cross-reference.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_NARROW">kTYPE_NARROW</a></em>: Narrow cross-reference.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_RELATED">kTYPE_RELATED</a></em>: Related cross-reference.</li></ul></p><p>We also <a href="../../MyWrapper/Ontology/COntologyTermObject.html#method_CheckReference">filter</a> the provided value to extract the object  identifier.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 			</ul>
@@ -677,6 +563,12 @@
 				<span class="var-name">$theOperation</span>			</li>
 				</ul>
 		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Ontology/CTerm.html#methodXref">CTerm::Xref()</a></dt>
+						<dd>Manage cross-references.</dd>
+					</dl>
 			
 	</div>
 <a name="method_CheckReference" id="_CheckReference"><!-- --></a>
@@ -684,7 +576,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_CheckReference</span> (line <span class="line-number">775</span>)
+		<span class="method-title">_CheckReference</span> (line <span class="line-number">601</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -723,7 +615,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">708</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">534</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -777,7 +669,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCreate</span> (line <span class="line-number">672</span>)
+		<span class="method-title">_PrepareCreate</span> (line <span class="line-number">498</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -823,9 +715,15 @@
 					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Ontology/CTerm.html">CTerm</a></span></p>
 					<blockquote>
 													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Ontology/CTerm.html#methodCategory">CTerm::Category()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Ontology/CTerm.html#methodDefinition">CTerm::Definition()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Ontology/CTerm.html#methodDescription">CTerm::Description()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Ontology/CTerm.html#methodDomain">CTerm::Domain()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Ontology/CTerm.html#methodImage">CTerm::Image()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Ontology/CTerm.html#methodName">CTerm::Name()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
@@ -833,7 +731,13 @@
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Ontology/CTerm.html#methodNS">CTerm::NS()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Ontology/CTerm.html#methodSource">CTerm::Source()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Ontology/CTerm.html#methodSynonym">CTerm::Synonym()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Ontology/CTerm.html#methodVersion">CTerm::Version()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Ontology/CTerm.html#methodXref">CTerm::Xref()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Ontology/CTerm.html#method_index">CTerm::_index()</a></span><br>
 											</blockquote>
@@ -858,6 +762,8 @@
 									<!-- =========== Summary =========== -->
 					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Persistence/CRelatedUnitObject.html">CRelatedUnitObject</a></span></p>
 					<blockquote>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CRelatedUnitObject.html#methodPreferred">CRelatedUnitObject::Preferred()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Persistence/CRelatedUnitObject.html#methodRelate">CRelatedUnitObject::Relate()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
@@ -1066,7 +972,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Wed, 02 May 2012 18:29:01 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Tue, 08 May 2012 19:30:07 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>
