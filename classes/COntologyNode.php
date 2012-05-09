@@ -295,6 +295,227 @@ class COntologyNode extends COntology
 	} // RelateTo.
 
 	 
+	/*===================================================================================
+	 *	RelatedTo																		*
+	 *==================================================================================*/
+
+	/**
+	 * Return all {@link COntologyEdge edges} pointing to this node.
+	 *
+	 * This method can be used to retrieve the list of nodes that point to the current one.
+	 * The method will return an array structured as follows:
+	 *
+	 * <ul>
+	 *	<li><i>Key</i>: The {@link kTAG_GID identifier} of the predicate term.
+	 *	<li><i>Value</i>: An array of object nodes structured as follows:
+	 *	 <ul>
+	 *		<li><i>Index</i>: The node ID.
+	 *		<li><i>Value</i>: The {@link Term() term} attributes merged with the
+	 *			{@link Node() node} properties.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * The method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theContainer</b>: The graph and term containers as an array:
+	 *	 <ul>
+	 *		<li><i>{@link kTAG_NODE kTAG_NODE}</i>: This element should hold the nodes
+	 *			container, it must be a Everyman\Neo4j\Client instance.
+	 *		<li><i>{@link kTAG_TERM kTAG_TERM}</i>: This element should hold the terms
+	 *			container, it must be a {@link CContainer CContainer} instance.
+	 *	 </ul>
+	 *	<li><b>$thePredicate</b>: The predicate terms as an array of the following types:
+	 *	 <ul>
+	 *		<li><i>{@link COntology COntology}</i>: The node {@link Term() term} {@link kTAG_GID global}
+	 *			{@link COntologyTerm::GID() identifier}.
+	 *		<li><i>{@link COntologyTerm COntologyTerm}</i>: The term {@link kTAG_GID global}
+	 *			identifier will be used as the {@link COntologyEdge node}
+	 *			{@link COntologyEdge::Type() type}.
+	 *		<li><i>Everyman\Neo4j\Relationship</i>: The relationship's type will be used as
+	 *			the predicate, all other elements of the provided edge node will be ignored.
+	 *		<li><i>string</i>: Any other type will be converted to string and will be used
+	 *			as the {@link COntologyEdge node} {@link COntologyEdge::Type() type}.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * @param reference				$theContainer		Object container.
+	 * @param mixed					$thePredicate		Predicate.
+	 *
+	 * @access public
+	 * @return array
+	 */
+	public function RelatedTo( $theContainer, $thePredicate = NULL )
+	{
+		//
+		// Verify container.
+		//
+		if( is_array( $theContainer )
+		 || ($theContainer instanceof ArrayObject) )
+		{
+			//
+			// Get node container.
+			//
+			if( array_key_exists( kTAG_NODE, (array) $theContainer ) )
+			{
+				if( ! $theContainer[ kTAG_NODE ] instanceof Everyman\Neo4j\Client )
+					throw new CException
+							( "Unsupported node container type",
+							  kERROR_UNSUPPORTED,
+							  kMESSAGE_TYPE_ERROR,
+							  array( 'Container'
+							  	=> $theContainer[ kTAG_NODE ] ) );				// !@! ==>
+			}
+		
+			//
+			// Get term container.
+			//
+			if( array_key_exists( kTAG_TERM, (array) $theContainer ) )
+			{
+				if( ! $theContainer[ kTAG_TERM ] instanceof CContainer )
+					throw new CException
+							( "Unsupported term container type",
+							  kERROR_UNSUPPORTED,
+							  kMESSAGE_TYPE_ERROR,
+							  array( 'Container'
+							  	=> $theContainer[ kTAG_TERM ] ) );				// !@! ==>
+			}
+		
+		} // Structured container.
+		
+		else
+			throw new CException
+					( "Invalid container type",
+					  kERROR_INVALID_PARAMETER,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Container' => $theContainer ) );					// !@! ==>
+		
+		//
+		// Handle subject.
+		//
+		$subject = $this->Node();
+		if( ! $subject instanceof Everyman\Neo4j\Node )
+			throw new CException
+					( "Missing subject node reference",
+					  kERROR_OPTION_MISSING,
+					  kMESSAGE_TYPE_ERROR );									// !@! ==>
+		elseif( ! $subject->hasId() )
+			throw new CException
+					( "Subject node has no identifier",
+					  kERROR_OPTION_MISSING,
+					  kMESSAGE_TYPE_ERROR );									// !@! ==>
+		
+		//
+		// Handle predicates.
+		//
+		$predicates = Array();
+		if( $thePredicate !== NULL )
+		{
+			//
+			// Normalise predicates.
+			//
+			if( ! is_array( $thePredicate ) )
+				$thePredicate = array( $thePredicate );
+			
+			//
+			// Handle predicates.
+			//
+			foreach( $thePredicate as $predicate )
+			{
+				if( $predicate instanceof COntology )
+				{
+					if( ($tmp = $predicate->Term()) !== NULL )
+					{
+						$pred = $tmp->GID();
+						if( ! strlen( $pred ) )
+							throw new CException
+									( "Empty term global identifier",
+									  kERROR_INVALID_PARAMETER,
+									  kMESSAGE_TYPE_ERROR,
+									  array( 'Predicate' => $predicate ) );		// !@! ==>
+					}
+					else
+						throw new CException
+								( "Predicate is missing term reference",
+								  kERROR_OPTION_MISSING,
+								  kMESSAGE_TYPE_ERROR,
+								  array( 'Predicate' => $predicate ) );			// !@! ==>
+				}
+				elseif( $predicate instanceof COntologyTerm )
+				{
+					$pred = $predicate->GID();
+					if( ! strlen( $pred ) )
+						throw new CException
+								( "Empty term global identifier",
+								  kERROR_INVALID_PARAMETER,
+								  kMESSAGE_TYPE_ERROR,
+								  array( 'Predicate' => $predicate ) );			// !@! ==>
+				}
+				elseif( $predicate instanceof Everyman\Neo4j\Relationship )
+				{
+					$pred = $predicate->getType();
+					if( ! strlen( $pred ) )
+						throw new CException
+								( "Empty edge type",
+								  kERROR_INVALID_PARAMETER,
+								  kMESSAGE_TYPE_ERROR,
+								  array( 'Predicate' => $predicate ) );			// !@! ==>
+					if( $theObject === NULL )
+						$theObject = $predicate->getEndNode();
+				}
+				else
+				{
+					$pred = (string) $predicate;
+					if( ! strlen( $pred ) )
+						throw new CException
+								( "Predicate is empty",
+								  kERROR_INVALID_PARAMETER,
+								  kMESSAGE_TYPE_ERROR,
+								  array( 'Predicate' => $predicate ) );			// !@! ==>
+				}
+				
+				$predicates[] = $predicate;
+			
+			} // Iterating predicates.
+		
+		} // Provided predicates.
+		
+		//
+		// Get edges.
+		//
+		$relations = Array();
+		$edges = $subject->getRelationships( $predicates, Relationship::DirectionIn );
+		foreach( $edges as $edge )
+		{
+			//
+			// Get predicate list.
+			//
+			$list = ( array_key_exists( ($predicate = $edge->getType()), $relations ) )
+				  ? $relations[ $predicate ]
+				  : Array();
+			
+			//
+			// Create predicate entry.
+			//
+			if( ! array_key_exists( ($predicate = $edge->getType()), $relations ) )
+			{
+				$relations[ $predicate ] = Array();
+				$rel = & $relations[ $predicate ];
+			}
+			else
+				$rel = & $relations[ $predicate ];
+			
+			//
+			// Add object node.
+			//
+			$rel[] = new COntologyNode( $theContainer, $edge->getEndNode() );
+		}
+		
+		return $relations;															// ==>
+
+	} // RelatedTo.
+
+	 
 
 } // class COntologyNode.
 

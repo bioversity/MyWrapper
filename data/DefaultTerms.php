@@ -3384,6 +3384,17 @@ exit( "Done!\n" );
 		$node_index->save();
 		
 		//
+		// IS-A.
+		//
+		$is_a
+			= CPersistentUnitObject::NewObject
+				( $theContainer, COntologyTermObject::HashIndex( kPRED_IS_A ),
+				  kFLAG_STATE_ENCODED );
+		if( ! $is_a )
+			throw new Exception
+				( 'Unable to find subclass of predicate.' );					// !@! ==>
+		
+		//
 		// ENUM-OF.
 		//
 		$enum_of
@@ -3435,7 +3446,7 @@ exit( "Done!\n" );
 		$region_term->Pattern( '[0-9]{3}', TRUE );
 		$region_term->Domain( kDOMAIN_GEOGRAPHY, TRUE );
 		$region_term->Category( kCATEGORY_ADMIN_UNIT, TRUE );
-		$region_term->Relate( $ns, $enum_of, TRUE );
+		$region_term->Relate( $ns, $is_a, TRUE );
 		$region_term->Commit( $theContainer );
 		$region_node = $term_index->findOne( kTAG_TERM, (string) $region_term );
 		if( $region_node === NULL )
@@ -3452,13 +3463,13 @@ exit( "Done!\n" );
 			$region_node = new COntologyNode( $container, $region_node );
 		$id = Array();
 		$id[] = $region_node->Node()->getId();
-		$id[] = (string) $enum_of;
+		$id[] = (string) $is_a;
 		$id[] = $root->Node()->getId();
 		$id = implode( '/', $id );
 		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
 		if( $edge === NULL )
 		{
-			$edge = $region_node->RelateTo( $container, $enum_of, $root );
+			$edge = $region_node->RelateTo( $container, $is_a, $root );
 			$edge->Commit( $container );
 		}
 		if( $doDisplay )
@@ -3649,6 +3660,17 @@ EOT;
 		$node_index->save();
 		
 		//
+		// IS-A.
+		//
+		$is_a
+			= CPersistentUnitObject::NewObject
+				( $theContainer, COntologyTermObject::HashIndex( kPRED_IS_A ),
+				  kFLAG_STATE_ENCODED );
+		if( ! $is_a )
+			throw new Exception
+				( 'Unable to find subclass of predicate.' );					// !@! ==>
+		
+		//
 		// ENUM-OF.
 		//
 		$enum_of
@@ -3670,6 +3692,8 @@ EOT;
 		 .'subdivisions – Part 1: Country codes.', kDEFAULT_LANGUAGE );
 		$ns->Kind( kTYPE_NAMESPACE, TRUE );
 		$ns->Kind( kTYPE_ONTOLOGY, TRUE );
+		$ns->Domain( kDOMAIN_GEOGRAPHY, TRUE );
+		$ns->Category( kCATEGORY_ADMIN_UNIT, TRUE );
 		$ns->Commit( $theContainer );
 		$root = $term_index->findOne( kTAG_TERM, (string) $ns );
 		if( $root === NULL )
@@ -3677,6 +3701,8 @@ EOT;
 			$root = new COntologyNode( $container );
 			$root->Term( $ns );
 			$root->Kind( kTYPE_ONTOLOGY, TRUE );
+			$root->Domain( kDOMAIN_GEOGRAPHY, TRUE );
+			$root->Category( kCATEGORY_ADMIN_UNIT, TRUE );
 			$root->Commit( $container );
 		}
 		else
@@ -3702,7 +3728,7 @@ EOT;
 		$numeric3_term->Pattern( '[0-9]{3}', TRUE );
 		$numeric3_term->Domain( kDOMAIN_GEOGRAPHY, TRUE );
 		$numeric3_term->Category( kCATEGORY_ADMIN_UNIT, TRUE );
-		$numeric3_term->Relate( $ns, $enum_of, TRUE );
+		$numeric3_term->Relate( $ns, $is_a, TRUE );
 		$numeric3_term->Commit( $theContainer );
 		$numeric3_node = $term_index->findOne( kTAG_TERM, (string) $numeric3_term );
 		if( $numeric3_node === NULL )
@@ -3719,13 +3745,13 @@ EOT;
 			$numeric3_node = new COntologyNode( $container, $numeric3_node );
 		$id = Array();
 		$id[] = $numeric3_node->Node()->getId();
-		$id[] = (string) $enum_of;
+		$id[] = (string) $is_a;
 		$id[] = $root->Node()->getId();
 		$id = implode( '/', $id );
 		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
 		if( $edge === NULL )
 		{
-			$edge = $numeric3_node->RelateTo( $container, $enum_of, $root );
+			$edge = $numeric3_node->RelateTo( $container, $is_a, $root );
 			$edge->Commit( $container );
 		}
 		if( $doDisplay )
@@ -3749,7 +3775,7 @@ EOT;
 		$alpha2_term->Pattern( '[A-Z]{2}', TRUE );
 		$alpha2_term->Domain( kDOMAIN_GEOGRAPHY, TRUE );
 		$alpha2_term->Category( kCATEGORY_ADMIN_UNIT, TRUE );
-		$alpha2_term->Relate( $ns, $enum_of, TRUE );
+		$alpha2_term->Relate( $ns, $is_a, TRUE );
 		$alpha2_term->Commit( $theContainer );
 		$alpha2_node = $term_index->findOne( kTAG_TERM, (string) $alpha2_term );
 		if( $alpha2_node === NULL )
@@ -3766,13 +3792,13 @@ EOT;
 			$alpha2_node = new COntologyNode( $container, $alpha2_node );
 		$id = Array();
 		$id[] = $alpha2_node->Node()->getId();
-		$id[] = (string) $enum_of;
+		$id[] = (string) $is_a;
 		$id[] = $root->Node()->getId();
 		$id = implode( '/', $id );
 		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
 		if( $edge === NULL )
 		{
-			$edge = $alpha2_node->RelateTo( $container, $enum_of, $root );
+			$edge = $alpha2_node->RelateTo( $container, $is_a, $root );
 			$edge->Commit( $container );
 		}
 		if( $doDisplay )
@@ -3796,7 +3822,7 @@ EOT;
 		$alpha3_term->Pattern( '[A-Z]{3}', TRUE );
 		$alpha3_term->Domain( kDOMAIN_GEOGRAPHY, TRUE );
 		$alpha3_term->Category( kCATEGORY_ADMIN_UNIT, TRUE );
-		$alpha3_term->Relate( $ns, $enum_of, TRUE );
+		$alpha3_term->Relate( $ns, $is_a, TRUE );
 		$alpha3_term->Commit( $theContainer );
 		$alpha3_node = $term_index->findOne( kTAG_TERM, (string) $alpha3_term );
 		if( $alpha3_node === NULL )
@@ -3813,13 +3839,13 @@ EOT;
 			$alpha3_node = new COntologyNode( $container, $alpha3_node );
 		$id = Array();
 		$id[] = $alpha3_node->Node()->getId();
-		$id[] = (string) $enum_of;
+		$id[] = (string) $is_a;
 		$id[] = $root->Node()->getId();
 		$id = implode( '/', $id );
 		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
 		if( $edge === NULL )
 		{
-			$edge = $alpha3_node->RelateTo( $container, $enum_of, $root );
+			$edge = $alpha3_node->RelateTo( $container, $is_a, $root );
 			$edge->Commit( $container );
 		}
 		if( $doDisplay )

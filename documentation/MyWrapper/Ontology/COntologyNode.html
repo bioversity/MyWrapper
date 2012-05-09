@@ -68,7 +68,13 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																								<div class="method-definition">
+																																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">array</span>
+										<a href="#RelatedTo" title="details" class="method-name">RelatedTo</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">$theContainer</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$thePredicate</span> = <span class="var-default">NULL</span>])
+									</div>
+																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result"><a href="../../MyWrapper/Ontology/COntologyEdge.html">COntologyEdge</a></span>
 										<a href="#RelateTo" title="details" class="method-name">RelateTo</a>
@@ -132,8 +138,53 @@
 		</div>
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
-<a name="methodRelateTo" id="RelateTo"><!-- --></a>
+<a name="methodRelatedTo" id="RelatedTo"><!-- --></a>
 <div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">RelatedTo</span> (line <span class="line-number">348</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return all <a href="../../MyWrapper/Ontology/COntologyEdge.html">edges</a> pointing to this node.</p>
+<p class="description"><p>This method can be used to retrieve the list of nodes that point to the current one.  The method will return an array structured as follows:</p><p><ul><li><em>Key</em>: The <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a> of the predicate term.</li><li><em>Value</em>: An array of object nodes structured as follows:
+     <ul><li><em>Index</em>: The node ID.</li><li><em>Value</em>: The <a href="../../MyWrapper/Ontology/COntology.html#methodTerm">term</a> attributes merged with the
+            <a href="../../MyWrapper/Persistence/CGraphNode.html#methodNode">node</a> properties.</li></ul></li></ul></p><p>The method accepts the following parameters:</p><p><ul><li><strong>$theContainer</strong>: The graph and term containers as an array:
+     <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NODE">kTAG_NODE</a></em>: This element should hold the nodes
+            container, it must be a Everyman\Neo4j\Client instance.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM">kTAG_TERM</a></em>: This element should hold the terms
+            container, it must be a <a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a> instance.</li></ul></li><li><strong>$thePredicate</strong>: The predicate terms as an array of the following types:
+     <ul><li><em><a href="../../MyWrapper/Ontology/COntology.html">COntology</a></em>: The node <a href="../../MyWrapper/Ontology/COntology.html#methodTerm">term</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">global</a>
+            COntologyTerm::GID().</li><li><em><a href="../../MyWrapper/Ontology/COntologyTerm.html">COntologyTerm</a></em>: The term <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">global</a>
+            identifier will be used as the <a href="../../MyWrapper/Ontology/COntologyEdge.html">node</a>
+            COntologyEdge::Type().</li><li><em>Everyman\Neo4j\Relationship</em>: The relationship's type will be used as
+            the predicate, all other elements of the provided edge node will be ignored.</li><li><em>string</em>: Any other type will be converted to string and will be used
+            as the <a href="../../MyWrapper/Ontology/COntologyEdge.html">node</a> COntologyEdge::Type().</li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			RelatedTo
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">$theContainer</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$thePredicate</span> = <span class="var-default">NULL</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">$theContainer</span><span class="var-description">: Object container.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$thePredicate</span><span class="var-description">: Predicate.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodRelateTo" id="RelateTo"><!-- --></a>
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -456,7 +507,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Wed, 09 May 2012 10:12:44 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Wed, 09 May 2012 19:19:42 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

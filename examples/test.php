@@ -270,11 +270,72 @@ $max = $max[ 'Dataset' ][ 'ID' ];
 echo( '<pre>' );
 print_r( $max );
 echo( '</pre>' );
-*/
 
 //
 // Test cast to int.
 //
 echo( "NULL: ".(integer) NULL.'<br>' );
+*/
+
+//
+// Neo4j queries.
+//
+
+//
+// Includes.
+//
+require_once( "/Library/WebServer/Library/wrapper/includes.inc.php" );
+require_once( "/Library/WebServer/Library/wrapper/classes/CGraphNode.inc.php" );
+
+use Everyman\Neo4j\Transport,
+	Everyman\Neo4j\Client,
+	Everyman\Neo4j\Index\NodeIndex,
+	Everyman\Neo4j\Index\RelationshipIndex,
+	Everyman\Neo4j\Index\NodeFulltextIndex,
+	Everyman\Neo4j\Node,
+	Everyman\Neo4j\Batch;
+
+//
+// Get connected.
+//
+$db = new Everyman\Neo4j\Client( 'localhost', 7474 );
+
+//
+// Get indexes.
+//
+$node_index = new NodeIndex( $db, 'NODES' );
+$node_index->save();
+
+//
+// Try direct search.
+//
+$found = $node_index->find( ':KIND', ':ONTOLOGY' );
+echo( '<i>$found = $node_index->find( \':KIND\', \':ONTOLOGY\' );</i>' );
+echo( '<pre>' ); print_r( $found ); echo( '</pre>' );
+echo( '<hr>' );
+
+//
+// Try query.
+//
+$found = $node_index->query( "\:KIND:\:ONTOLOGY AND \:DOMAIN:\:DOMAIN\:ACCESSION AND \:CATEGORY:\:CATEGORY\:PASSPORT" );
+echo( '<i>$found = $node_index->query( "\:KIND:\:ONTOLOGY AND \:DOMAIN:\:DOMAIN\:ACCESSION AND \:CATEGORY:\:CATEGORY\:PASSPORT" );</i>' );
+echo( '<pre>' ); print_r( $found ); echo( '</pre>' );
+echo( '<hr>' );
+
+//
+// Try my query.
+//
+$node = $node_index->query( "\:KIND:\:ONTOLOGY AND \:DOMAIN:\:DOMAIN\:ACCESSION" );
+echo( '<i>$node = $node_index->query( "\:KIND:\:ONTOLOGY AND \:DOMAIN:\:DOMAIN\:ACCESSION" );</i>' );
+echo( '<pre>' ); print_r( $node ); echo( '</pre>' );
+echo( '<hr>' );
+
+//
+// Try my relationships query.
+//
+$found = $node[ 0 ]->getRelationships();
+echo( '<i>$found = $node[ 0 ]->getRelationships();</i>' );
+echo( '<pre>' ); print_r( $found ); echo( '</pre>' );
+echo( '<hr>' );
 
 ?>

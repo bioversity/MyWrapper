@@ -48,6 +48,14 @@ require_once( kPATH_LIBRARY_SOURCE."COntologyEdge.php" );
  */
 require_once( kPATH_LIBRARY_SOURCE."CWarehouseWrapper.inc.php" );
 
+use Everyman\Neo4j\Transport,
+	Everyman\Neo4j\Client,
+	Everyman\Neo4j\Index\NodeIndex,
+	Everyman\Neo4j\Index\RelationshipIndex,
+	Everyman\Neo4j\Index\NodeFulltextIndex,
+	Everyman\Neo4j\Node,
+	Everyman\Neo4j\Batch;
+
 /**
  *	Warehouse Mongo data wrapper.
  *
@@ -127,7 +135,11 @@ class CWarehouseWrapper extends CMongoDataWrapper
 			//
 			switch( $_REQUEST[ kAPI_OPERATION ] )
 			{
+				//
+				// Enforce page limits on all full lists.
+				//
 				case kAPI_OP_GET_TERMS:
+				case kAPI_OP_GET_NODES:
 					//
 					// Check if there are identifiers.
 					//
@@ -218,6 +230,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		// Parse identifiers.
 		//
 		$this->_ParseIdentifiers();
+		$this->_ParseSelectors();
 	
 		//
 		// Call parent method.
@@ -259,6 +272,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		// Generate query.
 		//
 		$this->_FormatIdentifiers();
+		$this->_FormatSelectors();
 	
 	} // _FormatRequest.
 
@@ -338,8 +352,6 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	 * Parse identifiers.
 	 *
 	 * This method will parse the user {@link kAPI_OPT_IDENTIFIERS identifiers} parameter.
-	 * This method will transform the original request into a {@link kAPI_OP_GET GET}
-	 * operation.
 	 *
 	 * @access protected
 	 *
@@ -363,6 +375,39 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		} // Has identifiers list.
 	
 	} // _ParseIdentifiers.
+
+	 
+	/*===================================================================================
+	 *	_ParseSelectors																	*
+	 *==================================================================================*/
+
+	/**
+	 * Parse identifiers.
+	 *
+	 * This method will parse the user {@link kAPI_OPT_NODE_SELECTORS selectors} parameter.
+	 *
+	 * @access protected
+	 *
+	 * @see kAPI_DATA_REQUEST kAPI_OPT_NODE_SELECTORS
+	 */
+	protected function _ParseSelectors()
+	{
+		//
+		// Handle selectors.
+		//
+		if( array_key_exists( kAPI_OPT_NODE_SELECTORS, $_REQUEST ) )
+		{
+			//
+			// Add to request.
+			//
+			if( $this->offsetExists( kAPI_DATA_REQUEST ) )
+				$this->_OffsetManage
+					( kAPI_DATA_REQUEST, kAPI_OPT_NODE_SELECTORS,
+					  $_REQUEST[ kAPI_OPT_NODE_SELECTORS ] );
+		
+		} // Has selectors list.
+	
+	} // _ParseSelectors.
 
 		
 
@@ -438,6 +483,79 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		}
 	
 	} // _FormatIdentifiers.
+
+	 
+	/*===================================================================================
+	 *	_FormatSelectors																*
+	 *==================================================================================*/
+
+	/**
+	 * This method will format the request selectors list.
+	 *
+	 * This method will convert the attribute/value pairs provided in the
+	 * {@link kAPI_OPT_NODE_SELECTORS kAPI_OPT_NODE_SELECTORS} parameter into a Lucene
+	 * compatible query, connecting all clauses in <i>AND</i>.
+	 *
+	 * Note that the method will enforce the
+	 * {@link kAPI_OPT_NODE_SELECTORS kAPI_OPT_NODE_SELECTORS} parameter by initialising it
+	 * with the {@link kTYPE_ONTOLOGY ontology} {@link kTAG_KIND kind} selection.
+	 *
+	 * @access protected
+	 *
+	 * @uses _DecodeParameter()
+	 *
+	 * @see kAPI_OPT_NODE_SELECTORS
+	 */
+	protected function _FormatSelectors()
+	{
+		//
+		// Init local storage.
+		//
+		$query = array( $this->_EscapeLucene( kTAG_KIND )
+					   .':'
+					   .$this->_EscapeLucene( kTYPE_ONTOLOGY ) );
+		
+		//
+		// Add clauses.
+		//
+		if( array_key_exists( kAPI_OPT_NODE_SELECTORS, $_REQUEST ) )
+		{
+			//
+			// Decode parameter.
+			//
+			$this->_DecodeParameter( kAPI_OPT_NODE_SELECTORS );
+			
+			//
+			// Iterate attributes.
+			//
+			foreach( $_REQUEST[ kAPI_OPT_NODE_SELECTORS ] as $key => $value )
+			{
+				//
+				// Convert key.
+				//
+				$attribute = $this->_EscapeLucene( $key );
+				
+				//
+				// Normalise values.
+				//
+				if( ! is_array( $value ) )
+					$value = array( $value );
+				
+				//
+				// Iterate values.
+				//
+				foreach( $value as $clause )
+					$query[] = "$attribute:".$this->_EscapeLucene( $clause );
+			
+			} // Iterating attributes.
+		}
+		
+		//
+		// Build query.
+		//
+		$_REQUEST[ kAPI_OPT_NODE_SELECTORS ] = implode( ' AND ', $query );
+	
+	} // _FormatSelectors.
 
 		
 
@@ -523,6 +641,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 			
 			case kAPI_OP_GET_TERMS:
 			case kAPI_OP_GET_NODES:
+			case kAPI_OP_QUERY_ONTOLOGIES:
 				
 				//
 				// Check for database.
@@ -597,6 +716,10 @@ class CWarehouseWrapper extends CMongoDataWrapper
 
 			case kAPI_OP_GET_NODES:
 				$this->_Handle_GetNodes();
+				break;
+
+			case kAPI_OP_QUERY_ONTOLOGIES:
+				$this->_Handle_QueryOntologies();
 				break;
 
 			default:
@@ -697,11 +820,11 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	 *==================================================================================*/
 
 	/**
-	 * Handle {@link kAPI_OP_GET_TERMS get-terms} request.
+	 * Handle {@link kAPI_OP_GET_TERMS get-nodes} request.
 	 *
 	 * This method will return an array indexed by the {@link Node() node} ID and having
-	 * as attributes the {@link getArrayCopy() merged} attributes of the {@link Term() term}
-	 * and the {@link Node() node}.
+	 * as attributes the {@link getArrayCopy() merged} attributes of the
+	 * {@link COntology::Term() term} and the {@link COntology::Node() node}.
 	 *
 	 * @access protected
 	 */
@@ -745,6 +868,72 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		$this->offsetSet( kAPI_DATA_RESPONSE, $nodes );
 	
 	} // _Handle_GetNodes.
+
+	 
+	/*===================================================================================
+	 *	_Handle_QueryOntologies															*
+	 *==================================================================================*/
+
+	/**
+	 * Handle {@link kAPI_OP_QUERY_ONTOLOGIES query-nodes} request.
+	 *
+	 * This method will return an array indexed by the {@link Node() node} ID and having
+	 * as attributes the {@link getArrayCopy() merged} attributes of the
+	 * {@link COntology::Term() term} and the {@link COntology::Node() node}.
+	 *
+	 * @access protected
+	 */
+	protected function _Handle_QueryOntologies()
+	{
+		//
+		// Init local storage.
+		//
+		$count = 0;
+		$nodes = Array();
+		$container = array( kTAG_TERM => new CMongoContainer( $_REQUEST[ kAPI_CONTAINER ] ),
+							kTAG_NODE => $_SESSION[ kSESSION_NEO4J ] );
+		
+		//
+		// Handle identifiers.
+		//
+		if( array_key_exists( kAPI_OPT_NODE_SELECTORS, $_REQUEST ) )
+		{
+			//
+			// Instantiate node index.
+			//
+			$idx = new NodeIndex( $_SESSION[ kSESSION_NEO4J ], kINDEX_NODE_NODE );
+			$idx->save();
+			
+			//
+			// Execute query.
+			//
+			$results = $idx->query( $_REQUEST[ kAPI_OPT_NODE_SELECTORS ] );
+			foreach( $results as $object )
+			{
+				//
+				// Create node.
+				//
+				$node = new COntologyNode( $container, $object );
+				if( $node->Persistent() )
+				{
+					$nodes[ $node->Node()->getId() ] = $node->getArrayCopy();
+					$count++;
+				}
+			
+			} // Iterating found ontology nodes.
+		}
+		
+		//
+		// Set count.
+		//
+		$this->_OffsetManage( kAPI_DATA_STATUS, kAPI_AFFECTED_COUNT, $count );
+
+		//
+		// Copy response.
+		//
+		$this->offsetSet( kAPI_DATA_RESPONSE, $nodes );
+	
+	} // _Handle_QueryOntologies.
 
 	 
 	/*===================================================================================
@@ -795,8 +984,71 @@ class CWarehouseWrapper extends CMongoDataWrapper
 			.'list of node ['
 			.kAPI_OPT_IDENTIFIERS
 			.'] identifiers.';
+		
+		//
+		// Add kAPI_OP_QUERY_ONTOLOGIES.
+		//
+		$theList[ kAPI_OP_QUERY_ONTOLOGIES ]
+			= 'This operation will return the list of ontology nodes matching the provided '
+			.'attribute/value pairs in ['
+			.kAPI_OPT_NODE_SELECTORS
+			.'] selectors.';
 	
 	} // _Handle_ListOp.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *									PROTECTED UTILITIES									*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	_EscapeLucene																	*
+	 *==================================================================================*/
+
+	/**
+	 * Escape Lucene element.
+	 *
+	 * This method will escape the provided element to make it compatible with the Lucene
+	 * query language, the method expects the provided parameter to be an element excluding
+	 * specific lucene operators.
+	 *
+	 * @param string				$theElement			Element to escape.
+	 *
+	 * @access protected
+	 * @return string
+	 */
+	protected function _EscapeLucene( $theElement )
+	{
+		//
+		// Init local storage.
+		//
+		$escaped = '';
+		$to_escape = array( '+', '-', '!', ')', '(', '{', '}', '[', ' ',
+							']', '^', '"', '~', '*', '?',  ':', '\\' );
+		
+		//
+		// Normalise parameter.
+		//
+		$theElement = (string) $theElement;
+		
+		//
+		// Iterate element.
+		//
+		for( $i = 0; $i < strlen( $theElement ); $i++ )
+		{
+			if( in_array( $theElement[ $i ], $to_escape ) )
+				$escaped .= '\\';
+			$escaped .= $theElement[ $i ];
+		}
+		
+		return $escaped;															// ==>
+	
+	} // _EscapeLucene.
 
 	 
 

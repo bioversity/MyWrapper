@@ -287,6 +287,38 @@ try
 	echo( '<i>$ok = $test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );</i><br>' );
 	$ok = $test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );
 	echo( '<hr>' );
+	
+	//
+	// Relations.
+	//
+	echo( '<h3>Relations</h3>' );
+	
+	echo( '<i>Create node 1</i><br>' );
+	echo( '<i>$test1 = new COntologyNode( $container );</i><br>' );
+	$test1 = new COntologyNode( $container );
+	echo( '<i>$test1->Term()->Code( \'A\' );</i><br>' );
+	$test1->Term()->Code( 'A' );
+	echo( '<i>$test1->Term()->Name( \'Term 1\', kDEFAULT_LANGUAGE );</i><br>' );
+	$test1->Term()->Name( 'Term 1', kDEFAULT_LANGUAGE );
+	echo( '<i>$id1 = $test->Commit( $container );</i><br>' );
+	$id1 = $test1->Commit( $container );
+	echo( '<i>$test2 = new COntologyNode( $container );</i><br>' );
+	$test2 = new COntologyNode( $container );
+	echo( '<i>$test2->Term()->Code( \'B\' );</i><br>' );
+	$test2->Term()->Code( 'B' );
+	echo( '<i>$test2->Term()->Name( \'Term 2\', kDEFAULT_LANGUAGE );</i><br>' );
+	$test2->Term()->Name( 'Term 2', kDEFAULT_LANGUAGE );
+	echo( '<i>$id2 = $test2->Commit( $container );</i><br>' );
+	$id2 = $test2->Commit( $container );
+	echo( '<i>$test3 = new COntologyNode( $container );</i><br>' );
+	$test3 = new COntologyNode( $container );
+	echo( '<i>$test3->Term()->Code( \'C\' );</i><br>' );
+	$test3->Term()->Code( 'B' );
+	echo( '<i>$test3->Term()->Name( \'Term 3\', kDEFAULT_LANGUAGE );</i><br>' );
+	$test3->Term()->Name( 'Term 3', kDEFAULT_LANGUAGE );
+	echo( '<i>$id3 = $test3->Commit( $container );</i><br>' );
+	$id3 = $test3->Commit( $container );
+	echo( '<hr>' );
 }
 
 //

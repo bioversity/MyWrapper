@@ -116,6 +116,7 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 				case kAPI_OP_LOGIN:
 				case kAPI_OP_GET_TERMS:
 				case kAPI_OP_GET_NODES:
+				case kAPI_OP_QUERY_ONTOLOGIES:
 					break;
 				
 				default:
@@ -233,6 +234,188 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 					( kAPI_OPT_IDENTIFIERS, $theValue, $theOperation, $getOld );	// ==>
 
 	} // Identifiers.
+
+	 
+	/*===================================================================================
+	 *	Selectors																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage selectors list.
+	 *
+	 * This method can be used to manage the {@link kAPI_OPT_NODE_SELECTORS selectors}, it
+	 * manages the following array structure:
+	 *
+	 * <ul>
+	 *	<li><i>Key</i>: The array key should correspond to the node attribute you want to
+	 *		match:
+	 *	 <ul>
+	 *		<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: The ontology node type.
+	 *		<li><i>{@link kTAG_KIND kTAG_KIND}</i>: The ontology node kind.
+	 *		<li><i>{@link kTAG_DOMAIN kTAG_DOMAIN}</i>: The domain of the ontology.
+	 *		<li><i>{@link kTAG_CATEGORY kTAG_CATEGORY}</i>: The category of the ontology.
+	 *	 </ul>
+	 *	<li><i>Value</i>: An array of values to be matched.
+	 * </ul>
+	 *
+	 * The elements of these key/value pairs will be compared in <i>AND</i>.
+	 *
+	 * The parameters to this method are:
+	 *
+	 * <ul>
+	 *	<li><b>$theKey</b>: The attribute key.
+	 *	<li><b>$theValue</b>: The attribute value:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Apply operation to all values.
+	 *		<li><i>other</i>: The attribute value.
+	 *	 </ul>
+	 *	<li><b>$theOperation</b>: The operation:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Return the attribute value matched by the first and second
+	 *			parameters, or return all values matching the first parameter if the second
+	 *			is <i>NULL</i>.
+	 *		<li><i>FALSE</i>: Delete the attribute value matched by the first and second
+	 *			parameters, or delete all values matching the first parameter if the second
+	 *			is <i>NULL</i>.
+	 *		<li><i>TRUE</i>: Add the value in the second parameter to the attributes
+	 *			matching the first parameter, or replace all values matching the first
+	 *			parameter with the value in the second parameter.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * @param mixed					$theKey				Attribute key.
+	 * @param mixed					$theValue			Value or index.
+	 * @param mixed					$theOperation		Operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return mixed
+	 *
+	 * @see kAPI_OPT_NODE_SELECTORS
+	 */
+	public function Selectors( $theKey, $theValue = NULL,
+										$theOperation = NULL,
+										$getOld = FALSE )
+	{
+		//
+		// Normalise parameters.
+		//
+		$theKey = (string) $theKey;
+		
+		//
+		// Save current values.
+		//
+		$save = NULL;
+		$list = Array();
+		$attribute = $this->offsetGet( kAPI_OPT_NODE_SELECTORS );
+		if( $attribute !== NULL )
+		{
+			if( array_key_exists( $theKey, $attribute ) )
+			{
+				$list = $attribute[ $theKey ];
+				if( (! is_array( $theValue ))
+				 && ($theValue !== NULL) )
+					$save = ( in_array( $theValue, $list ) )
+						  ? $theValue
+						  : NULL;
+			}
+		}
+		
+		//
+		// Return information.
+		//
+		if( $theOperation === NULL )
+			return $save;															// ==>
+		
+		//
+		// Delete information.
+		//
+		if( $theOperation === FALSE )
+		{
+			//
+			// Delete attribute.
+			//
+			if( $theValue === NULL )
+			{
+				if( count( $list ) )
+				{
+					unset( $attribute[ $theKey ] );
+					if( count( $attribute ) )
+						$this->offsetSet( kAPI_OPT_NODE_SELECTORS, $attribute );
+					else
+						$this->offsetUnset( kAPI_OPT_NODE_SELECTORS );
+					
+					if( $getOld )
+						return $list;												// ==>
+				}
+				
+				return NULL;														// ==>
+			}
+			
+			//
+			// Delete attribute element.
+			//
+			if( $save !== NULL )
+			{
+				unset( $list[ $theValue ] );
+				if( count( $list ) )
+					$attribute[ $theKey ] = $list;
+				else
+				{
+					unset( $attribute[ $theKey ] );
+					if( ! count( $attribute ) )
+						$this->offsetUnset( kAPI_OPT_NODE_SELECTORS );
+				}
+				
+				if( $getOld )
+					return $save;													// ==>
+			}
+			
+			return NULL;															// ==>
+		}
+		
+		//
+		// Replace attribute.
+		//
+		if( is_array( $theValue ) )
+		{
+			if( $attribute !== NULL )
+				$attribute[ $theKey ] = $theValue;
+			else
+				$attribute = array( $theKey => $theValue );
+			
+			$this->offsetSet( kAPI_OPT_NODE_SELECTORS, $attribute );
+			
+			if( $getOld )
+				return $list;														// ==>
+			
+			return $theValue;														// ==>
+		}
+		
+		//
+		// Add attribute element.
+		//
+		if( $save === NULL )
+		{
+			if( count( $list ) )
+				$list[] = $theValue;
+			else
+				$list = array( $theValue );
+			
+			if( $attribute === NULL )
+				$attribute = Array();
+
+			$attribute[ $theKey ] = $list;
+			
+			$this->offsetSet( kAPI_OPT_NODE_SELECTORS, $attribute );
+		}
+		
+		if( $getOld )
+			return $save;															// ==>
+		
+		return $theValue;															// ==>
+
+	} // Selectors.
 
 	 
 

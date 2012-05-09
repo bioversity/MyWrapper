@@ -49,10 +49,22 @@ define( "kAPI_OP_GET_TERMS",		'@GET_TERMS' );
  * This is the tag that represents the get nodes web service, it will locate all
  * {@link COntologyNode nodes} matching the provided identifiers in the
  * {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter and return an array whose key
- * is the provided identifier (converted to a string) and as value the matched object or
- * <i>NULL</i>.
+ * is the node ID and as value is the {@link COntology::getArrayCopy() merged} attributes of
+ * the node's {@link COntology::Term() term} and the node's properties, or <i>NULL</i>.
  */
 define( "kAPI_OP_GET_NODES",		'@GET_NODES' );
+
+/**
+ * Query ontologies web-service.
+ *
+ * This is the tag that represents the query ontologies web service, it will locate all
+ * {@link kTYPE_ONTOLOGY ontology} {@link COntologyNode nodes} matching the provided
+ * attributes in the {@link kAPI_OPT_NODE_SELECTORS kAPI_OPT_NODE_SELECTORS} parameter and
+ * return an array whose key will be the node ID and as value is the
+ * {@link COntology::getArrayCopy() merged} attributes of the node's
+ * {@link COntology::Term() term} and the node's properties, or <i>NULL</i>.
+ */
+define( "kAPI_OP_QUERY_ONTOLOGIES",	'@QUERY_ONTOLOGIES' );
 
 /*=======================================================================================
  *	DEFAULT OPTION ENUMERATIONS															*
@@ -82,5 +94,15 @@ define( "kAPI_OPT_USER_PASS",		':@user-pass' );
  * elements is determined by the operation.
  */
 define( "kAPI_OPT_IDENTIFIERS",		':@identifiers' );
+
+/**
+ * Attribute selectors option.
+ *
+ * This option refers to a list of attributes and matching values, this option is used by
+ * the nodes {@link kAPI_OP_QUERY_ONTOLOGIES query} operation. The contents are an array
+ * indexed by the node attributes whose value is an array of matching values. The resulting
+ * query will be composed in <i>AND</i> mode.
+ */
+define( "kAPI_OPT_NODE_SELECTORS",	':@node-selectors' );
 
 ?>
