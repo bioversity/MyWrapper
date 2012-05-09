@@ -2742,6 +2742,7 @@ exit( "Done!\n" );
 			$root_node = new COntologyNode( $container );
 			$root_node->Term( $root_term );
 			$root_node->Kind( kTYPE_ONTOLOGY, TRUE );
+			$root_node->Kind( kTYPE_MEASURE, TRUE );
 			$root_node->Commit( $container );
 		}
 		else
@@ -3118,6 +3119,7 @@ exit( "Done!\n" );
 			$root_node = new COntologyNode( $container );
 			$root_node->Term( $root_term );
 			$root_node->Kind( kTYPE_ONTOLOGY, TRUE );
+			$root_node->Kind( kTYPE_MEASURE, TRUE );
 			$root_node->Commit( $container );
 		}
 		else

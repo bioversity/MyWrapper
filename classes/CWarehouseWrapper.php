@@ -699,9 +699,9 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	/**
 	 * Handle {@link kAPI_OP_GET_TERMS get-terms} request.
 	 *
-	 * This method will return an array indexed by the elements provided in the
-	 * {@link kAPI_OPT_IDENTIFIERS identifiers} parameter containing the matching
-	 * {@link COntologyTerm terms}.
+	 * This method will return an array indexed by the {@link Node() node} ID and having
+	 * as attributes the {@link getArrayCopy() merged} attributes of the {@link Term() term}
+	 * and the {@link Node() node}.
 	 *
 	 * @access protected
 	 */
@@ -728,9 +728,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				$node = new COntologyNode( $container, $identifier );
 				if( $node->Persistent() )
 				{
-					$nodes[] = array( kTAG_LID => $node->Node()->getId(),
-									  kTAG_NODE => $node->Node()->getProperties(),
-									  kTAG_TERM => $node->Term()->getArrayCopy() );
+					$nodes[ $node->Node()->getId() ] = $node->getArrayCopy();
 					$count++;
 				}
 			}
