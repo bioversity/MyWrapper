@@ -234,11 +234,11 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="method_EscapeLucene" id="_EscapeLucene"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_EscapeLucene</span> (line <span class="line-number">1025</span>)
+		<span class="method-title">_EscapeLucene</span> (line <span class="line-number">1117</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -265,7 +265,7 @@
 			
 	</div>
 <a name="method_FormatIdentifiers" id="_FormatIdentifiers"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -274,7 +274,7 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">This method will format the request identifiers list.</p>
-<p class="description"><p>This method will actually create a query using the identifiers list, it will  _Handle_GetTerms() call the <a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OP_GET">GET</a> handler.</p></p>
+<p class="description"><p>In this class we handle the terms <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OP_GET_TERMS">list</a> operation by  creating a query and using the <a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OP_GET">GET</a> handler, in this method we  create the <a href="../../MyWrapper/Persistence/CMongoQuery.html">query</a>.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a></li>
 				<li><span class="field">access:</span> protected</li>
@@ -294,11 +294,11 @@
 			
 	</div>
 <a name="method_FormatRequest" id="_FormatRequest"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FormatRequest</span> (line <span class="line-number">264</span>)
+		<span class="method-title">_FormatRequest</span> (line <span class="line-number">263</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -327,11 +327,11 @@
 			
 	</div>
 <a name="method_FormatSelectors" id="_FormatSelectors"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FormatSelectors</span> (line <span class="line-number">509</span>)
+		<span class="method-title">_FormatSelectors</span> (line <span class="line-number">512</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -355,11 +355,11 @@
 			
 	</div>
 <a name="method_HandleRequest" id="_HandleRequest"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_HandleRequest</span> (line <span class="line-number">702</span>)
+		<span class="method-title">_HandleRequest</span> (line <span class="line-number">705</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -387,16 +387,20 @@
 			
 	</div>
 <a name="method_Handle_GetNodes" id="_Handle_GetNodes"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_GetNodes</span> (line <span class="line-number">831</span>)
+		<span class="method-title">_Handle_GetNodes</span> (line <span class="line-number">852</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Handle <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OP_GET_TERMS">get-nodes</a> request.</p>
-<p class="description"><p>This method will return an array indexed by the Node() ID and having  as attributes the getArrayCopy() attributes of the  <a href="../../MyWrapper/Ontology/COntologyNode.html#methodTerm">term</a> and the COntologyNode::Node().</p></p>
+<p class="description"><p>This method expects the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter  to hold a list of node IDs, the method will query these nodes and return the  following structure:</p><p><ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_TERMS">kAPI_RESPONSE_TERMS</a></em>: The list of terms
+        related to the list of nodes as follows:
+     <ul><li><em>Index</em>: The term <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a>.</li><li><em>Value</em>: The term properties.</li></ul></li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_NODES">kAPI_RESPONSE_NODES</a></em>: The list of nodes as
+        follows:
+     <ul><li><em>Index</em>: The node ID.</li><li><em>Value</em>: The node properties.</li></ul></li></ul></p><p>If the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter was not provided,  the method will return the above structure with no content.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
 			</ul>
@@ -413,11 +417,11 @@
 			
 	</div>
 <a name="method_Handle_ListOp" id="_Handle_ListOp"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_ListOp</span> (line <span class="line-number">953</span>)
+		<span class="method-title">_Handle_ListOp</span> (line <span class="line-number">1045</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -453,11 +457,11 @@
 			
 	</div>
 <a name="method_Handle_Login" id="_Handle_Login"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_Login</span> (line <span class="line-number">746</span>)
+		<span class="method-title">_Handle_Login</span> (line <span class="line-number">749</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -479,16 +483,21 @@
 			
 	</div>
 <a name="method_Handle_QueryOntologies" id="_Handle_QueryOntologies"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_QueryOntologies</span> (line <span class="line-number">886</span>)
+		<span class="method-title">_Handle_QueryOntologies</span> (line <span class="line-number">955</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Handle <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OP_QUERY_ONTOLOGIES">query-nodes</a> request.</p>
-<p class="description"><p>This method will return an array indexed by the Node() ID and having  as attributes the getArrayCopy() attributes of the  <a href="../../MyWrapper/Ontology/COntologyNode.html#methodTerm">term</a> and the COntologyNode::Node().</p></p>
+<p class="description"><p>This method expects the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_NODE_SELECTORS">kAPI_OPT_NODE_SELECTORS</a>  parameter to hold a list of key/value pairs filter that will be added to the  default <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ONTOLOGY">ontology</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kind</a> query; if the  parameter was omitted, the method will select all ontologies.</p><p>This method will return the following structure:</p><p><ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_TERMS">kAPI_RESPONSE_TERMS</a></em>: The list of
+        <a href="../../MyWrapper/Ontology/COntologyTerm.html">terms</a> related to the
+        COntologyNode::Node() as follows:
+     <ul><li><em>Index</em>: The term <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a>.</li><li><em>Value</em>: The term properties.</li></ul></li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_NODES">kAPI_RESPONSE_NODES</a></em>: The list of
+        COntologyNode::Node() as follows:
+     <ul><li><em>Index</em>: The COntologyNode::Node() ID.</li><li><em>Value</em>: The COntologyNode::Node() properties.</li></ul></li></ul></p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
 			</ul>
@@ -505,7 +514,7 @@
 			
 	</div>
 <a name="method_InitOptions" id="_InitOptions"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -514,9 +523,10 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Initialise options.</p>
-<p class="description"><p>This method is responsible for parsing and setting all default and provided options,  derived classes should overload this method to handle custom options.</p><p>In this class we set the <a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_PAGING">paging</a> options if the operation  involves using the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">identifiers</a> list and no list was  provided.</p></p>
+<p class="description"><p>This method is responsible for parsing and setting all default and provided options,  derived classes should overload this method to handle custom options.</p><p>In this class we enforce <a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_PAGING">paging</a> options if the</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> kAPI_DATA_REQUEST kAPI_DATA_TIMING</li>
+				<li><span class="field">link:</span> <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a></li>
 				<li><span class="field">access:</span> protected</li>
 			</ul>
 	
@@ -538,11 +548,11 @@
 			
 	</div>
 <a name="method_InitResources" id="_InitResources"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_InitResources</span> (line <span class="line-number">186</span>)
+		<span class="method-title">_InitResources</span> (line <span class="line-number">185</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -570,11 +580,11 @@
 			
 	</div>
 <a name="method_ParseIdentifiers" id="_ParseIdentifiers"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseIdentifiers</span> (line <span class="line-number">360</span>)
+		<span class="method-title">_ParseIdentifiers</span> (line <span class="line-number">359</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -597,11 +607,11 @@
 			
 	</div>
 <a name="method_ParseRequest" id="_ParseRequest"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseRequest</span> (line <span class="line-number">227</span>)
+		<span class="method-title">_ParseRequest</span> (line <span class="line-number">226</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -631,11 +641,11 @@
 			
 	</div>
 <a name="method_ParseSelectors" id="_ParseSelectors"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseSelectors</span> (line <span class="line-number">393</span>)
+		<span class="method-title">_ParseSelectors</span> (line <span class="line-number">392</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -658,11 +668,11 @@
 			
 	</div>
 <a name="method_ParseUserCode" id="_ParseUserCode"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseUserCode</span> (line <span class="line-number">302</span>)
+		<span class="method-title">_ParseUserCode</span> (line <span class="line-number">301</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -686,11 +696,11 @@
 			
 	</div>
 <a name="method_ParseUserPass" id="_ParseUserPass"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseUserPass</span> (line <span class="line-number">331</span>)
+		<span class="method-title">_ParseUserPass</span> (line <span class="line-number">330</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -714,11 +724,11 @@
 			
 	</div>
 <a name="method_ValidateOperation" id="_ValidateOperation"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateOperation</span> (line <span class="line-number">587</span>)
+		<span class="method-title">_ValidateOperation</span> (line <span class="line-number">590</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1017,7 +1027,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Thu, 10 May 2012 12:31:11 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 10 May 2012 14:55:20 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

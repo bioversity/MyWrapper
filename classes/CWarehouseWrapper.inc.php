@@ -38,8 +38,10 @@ define( "kAPI_OP_LOGIN",			'@LOGIN' );
  * This is the tag that represents the get terms web service, it will locate all
  * {@link COntologyTerm terms} matching the provided identifiers in the
  * {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter and return an array whose key
- * is the provided identifier (converted to a string) and as value the matched object or
- * <i>NULL</i>.
+ * is the provided identifier and as value the matched object or <i>NULL</i>. If you omit
+ * the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter it mis assumed that you
+ * want all terms, in that case the service will enforce the use of
+ * {@link kAPI_DATA_PAGING paging} options.
  */
 define( "kAPI_OP_GET_TERMS",		'@GET_TERMS' );
 
@@ -48,10 +50,26 @@ define( "kAPI_OP_GET_TERMS",		'@GET_TERMS' );
  *
  * This is the tag that represents the get nodes web service, it will locate all
  * {@link COntologyNode nodes} matching the provided identifiers in the
- * {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter and return an array whose key
- * is the node ID and as value is the {@link COntologyNode::getArrayCopy() merged}
- * attributes of the node's {@link COntologyNode::Term() term} and the node's properties, or
- * <i>NULL</i>.
+ * {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter and return the following
+ * structure:
+ *
+ * <ul>
+ *	<li><i>{@link kAPI_RESPONSE_TERMS kAPI_RESPONSE_TERMS}</i>: The list of terms related to
+ *		the list of nodes as follows:
+ *	 <ul>
+ *		<li><i>Index</i>: The term {@link kTAG_GID identifier}.
+ *		<li><i>Value</i>: The term properties.
+ *	 </ul>
+ *	<li><i>{@link kAPI_RESPONSE_NODES kAPI_RESPONSE_NODES}</i>: The list of nodes as
+ *		follows:
+ *	 <ul>
+ *		<li><i>Index</i>: The node ID.
+ *		<li><i>Value</i>: The node properties.
+ *	 </ul>
+ * </ul>
+ *
+ * If you omit the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter, no elements
+ * will be returned. The service does not use {@link kAPI_DATA_PAGING paging} options.
  */
 define( "kAPI_OP_GET_NODES",		'@GET_NODES' );
 
@@ -61,11 +79,42 @@ define( "kAPI_OP_GET_NODES",		'@GET_NODES' );
  * This is the tag that represents the query ontologies web service, it will locate all
  * {@link kTYPE_ONTOLOGY ontology} {@link COntologyNode nodes} matching the provided
  * attributes in the {@link kAPI_OPT_NODE_SELECTORS kAPI_OPT_NODE_SELECTORS} parameter and
- * return an array whose key will be the node ID and as value is the
- * {@link COntologyNode::getArrayCopy() merged} attributes of the node's
- * {@link COntologyNode::Term() term} and the node's properties, or <i>NULL</i>.
+ * return the following structure:
+ *
+ * <ul>
+ *	<li><i>{@link kAPI_RESPONSE_TERMS kAPI_RESPONSE_TERMS}</i>: The list of terms related to
+ *		the list of ontologies as follows:
+ *	 <ul>
+ *		<li><i>Index</i>: The term {@link kTAG_GID identifier}.
+ *		<li><i>Value</i>: The term properties.
+ *	 </ul>
+ *	<li><i>{@link kAPI_RESPONSE_NODES kAPI_RESPONSE_NODES}</i>: The list of ontologies as
+ *		follows:
+ *	 <ul>
+ *		<li><i>Index</i>: The node ID.
+ *		<li><i>Value</i>: The node properties.
+ *	 </ul>
+ * </ul>
+ *
+ * If you omit the {@link kAPI_OPT_NODE_SELECTORS kAPI_OPT_NODE_SELECTORS} parameter, all
+ * {@link COntologyNode nodes} with {@link kTYPE_ONTOLOGY ontology}
+ * {@link COntologyNode::Kind() kind} will be returned.
  */
 define( "kAPI_OP_QUERY_ONTOLOGIES",	'@QUERY_ONTOLOGIES' );
+
+/**
+ * Get incoming relations web-service.
+ *
+ * This is the tag that represents the get incoming relations web service, it will locate
+ * all {@link COntologyNode nodes} that point to the nodes provided in the
+ * {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter having as predicate the
+ * {@link COntologyTerm terms} listed in the {@link kAPI_OPT_PREDICATES kAPI_OPT_PREDICATES}
+ * parameter. This service is equivalent to requesting all child nodes of the nodes provided
+ * in the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter. If you omit the
+ * {@link kAPI_OPT_PREDICATES kAPI_OPT_PREDICATES} parameter it is assumed that all
+ * predicates will be considered.
+ */
+define( "kAPI_OP_INCOMING_NODES",	'@NODES_IN' );
 
 /*=======================================================================================
  *	DEFAULT OPTION ENUMERATIONS															*
@@ -105,5 +154,40 @@ define( "kAPI_OPT_IDENTIFIERS",		':@identifiers' );
  * query will be composed in <i>AND</i> mode.
  */
 define( "kAPI_OPT_NODE_SELECTORS",	':@node-selectors' );
+
+/**
+ * Predicates option.
+ *
+ * This option refers to a list of predicates, this option is used when requesting related
+ * nodes: only those relations having the provided predicates will be ciìonsidered. The
+ * elements of this list must be the {@link kTAG_GID identifier} of the predicate
+ * {@link COntologyTerm term}.
+ */
+define( "kAPI_OPT_PREDICATES",		':@predicates' );
+
+/*=======================================================================================
+ *	DEFAULT RESPONSE TAGS																*
+ *======================================================================================*/
+
+/**
+ * Terms.
+ *
+ * This tag will hold the list of terms.
+ */
+define( "kAPI_RESPONSE_TERMS",		'terms' );
+
+/**
+ * Nodes.
+ *
+ * This tag will hold the list of nodes.
+ */
+define( "kAPI_RESPONSE_NODES",		'nodes' );
+
+/**
+ * Edges.
+ *
+ * This tag will hold the list of edges.
+ */
+define( "kAPI_RESPONSE_EDGES",		'edges' );
 
 ?>

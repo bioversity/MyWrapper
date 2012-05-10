@@ -367,7 +367,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">count</span> (line <span class="line-number">864</span>)
+		<span class="method-title">count</span> (line <span class="line-number">854</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -438,7 +438,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">getArrayCopy</span> (line <span class="line-number">886</span>)
+		<span class="method-title">getArrayCopy</span> (line <span class="line-number">876</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -509,7 +509,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetExists</span> (line <span class="line-number">794</span>)
+		<span class="method-title">offsetExists</span> (line <span class="line-number">784</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -546,7 +546,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetGet</span> (line <span class="line-number">830</span>)
+		<span class="method-title">offsetGet</span> (line <span class="line-number">820</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -583,14 +583,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">RelatedFrom</span> (line <span class="line-number">764</span>)
+		<span class="method-title">RelatedFrom</span> (line <span class="line-number">754</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Return all nodes which point to this one.</p>
-<p class="description"><p>This method can be used to retrieve the list of nodes that point to the current node,  in other words the current node is the object of the relation.</p><p>The method will return an array structured as follows:</p><p><ul><li><em>Key</em>: The <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a> of the predicate term.</li><li><em>Value</em>: An array of object nodes structured as follows:
-     <ul><li><em>Index</em>: The node ID.</li><li><em>Value</em>: The <a href="../../MyWrapper/Ontology/COntologyNode.html#methodTerm">term</a> attributes merged with the
-            <a href="../../MyWrapper/Persistence/CGraphNode.html#methodNode">node</a> properties.</li></ul></li></ul></p><p>The method accepts the following parameters:</p><p><ul><li><strong>$theContainer</strong>: The graph and term containers as an array:
+<p class="description"><p>This method can be used to retrieve the list of nodes that point to the current node,  in other words the current node is the object of the relation.</p><p>The method will return an array structured as follows:</p><p><ul><li><em>Key</em>: The <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a> of the predicate term.</li><li><em>Value</em>: The array of related nodes.</li></ul></p><p>The method accepts the following parameters:</p><p><ul><li><strong>$theContainer</strong>: The graph and term containers as an array:
      <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NODE">kTAG_NODE</a></em>: This element should hold the nodes
             container, it must be a Everyman\Neo4j\Client instance.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM">kTAG_TERM</a></em>: This element should hold the terms
             container, it must be a <a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a> instance.</li></ul></li><li><strong>$thePredicate</strong>: The predicate terms as an array of the following types:
@@ -629,14 +627,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">RelatedTo</span> (line <span class="line-number">703</span>)
+		<span class="method-title">RelatedTo</span> (line <span class="line-number">698</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Return all nodes to which this node points to.</p>
-<p class="description"><p>This method can be used to retrieve the list of nodes that the current node is  pointing to, in other words the current node is the subject of the relation.</p><p>The method will return an array structured as follows:</p><p><ul><li><em>Key</em>: The <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a> of the predicate term.</li><li><em>Value</em>: An array of object nodes structured as follows:
-     <ul><li><em>Index</em>: The node ID.</li><li><em>Value</em>: The <a href="../../MyWrapper/Ontology/COntologyNode.html#methodTerm">term</a> attributes merged with the
-            <a href="../../MyWrapper/Persistence/CGraphNode.html#methodNode">node</a> properties.</li></ul></li></ul></p><p>The method accepts the following parameters:</p><p><ul><li><strong>$theContainer</strong>: The graph and term containers as an array:
+<p class="description"><p>This method can be used to retrieve the list of nodes that the current node is  pointing to, in other words the current node is the subject of the relation.</p><p>The method will return an array structured as follows:</p><p><ul><li><em>Key</em>: The <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a> of the predicate term.</li><li><em>Value</em>: The array of related nodes.</li></ul></p><p>The method accepts the following parameters:</p><p><ul><li><strong>$theContainer</strong>: The graph and term containers as an array:
      <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NODE">kTAG_NODE</a></em>: This element should hold the nodes
             container, it must be a Everyman\Neo4j\Client instance.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM">kTAG_TERM</a></em>: This element should hold the terms
             container, it must be a <a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a> instance.</li></ul></li><li><strong>$thePredicate</strong>: The predicate terms as an array of the following types:
@@ -808,7 +804,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Commit</span> (line <span class="line-number">928</span>)
+		<span class="method-title">_Commit</span> (line <span class="line-number">918</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -852,7 +848,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishCreate</span> (line <span class="line-number">1337</span>)
+		<span class="method-title">_FinishCreate</span> (line <span class="line-number">1327</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -889,7 +885,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishLoad</span> (line <span class="line-number">1373</span>)
+		<span class="method-title">_FinishLoad</span> (line <span class="line-number">1363</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -932,7 +928,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_GetNodeIndex</span> (line <span class="line-number">1565</span>)
+		<span class="method-title">_GetNodeIndex</span> (line <span class="line-number">1555</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -972,7 +968,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_GetRelated</span> (line <span class="line-number">1651</span>)
+		<span class="method-title">_GetRelated</span> (line <span class="line-number">1641</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1024,7 +1020,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_IndexNodes</span> (line <span class="line-number">1501</span>)
+		<span class="method-title">_IndexNodes</span> (line <span class="line-number">1491</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1068,7 +1064,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_IndexTerms</span> (line <span class="line-number">1441</span>)
+		<span class="method-title">_IndexTerms</span> (line <span class="line-number">1431</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1106,7 +1102,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Load</span> (line <span class="line-number">1018</span>)
+		<span class="method-title">_Load</span> (line <span class="line-number">1008</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1149,7 +1145,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ManageProperty</span> (line <span class="line-number">1888</span>)
+		<span class="method-title">_ManageProperty</span> (line <span class="line-number">1878</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1194,7 +1190,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ManagePropertyArray</span> (line <span class="line-number">1998</span>)
+		<span class="method-title">_ManagePropertyArray</span> (line <span class="line-number">1988</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1255,7 +1251,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">1245</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">1235</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1299,7 +1295,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCreate</span> (line <span class="line-number">1066</span>)
+		<span class="method-title">_PrepareCreate</span> (line <span class="line-number">1056</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1346,7 +1342,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">1167</span>)
+		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">1157</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1638,7 +1634,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Thu, 10 May 2012 12:31:03 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 10 May 2012 14:55:13 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

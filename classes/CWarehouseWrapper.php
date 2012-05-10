@@ -115,9 +115,9 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	 * This method is responsible for parsing and setting all default and provided options,
 	 * derived classes should overload this method to handle custom options.
 	 *
-	 * In this class we set the {@link kAPI_DATA_PAGING paging} options if the operation
-	 * involves using the {@link kAPI_OPT_IDENTIFIERS identifiers} list and no list was
-	 * provided.
+	 * In this class we enforce {@link kAPI_DATA_PAGING paging} options if the
+	 * @link kAPI_OPT_IDENTIFIERS identifiers} list was not provided and the operation is
+	 * get {@link kAPI_OP_GET_TERMS terms}.
 	 *
 	 * @access private
 	 *
@@ -136,22 +136,21 @@ class CWarehouseWrapper extends CMongoDataWrapper
 			switch( $_REQUEST[ kAPI_OPERATION ] )
 			{
 				//
-				// Enforce page limits on all full lists.
+				// Handle terms list.
 				//
 				case kAPI_OP_GET_TERMS:
-				case kAPI_OP_GET_NODES:
 					//
-					// Check if there are identifiers.
+					// Check if identifiers are missig.
 					//
 					if( ! array_key_exists( kAPI_OPT_IDENTIFIERS, $_REQUEST ) )
 					{
 						//
-						// Enforce start.
+						// Enforce start if missing.
 						//
 						if( ! array_key_exists( kAPI_PAGE_START, $_REQUEST ) )
 							$_REQUEST[ kAPI_PAGE_START ] = 0;
 						//
-						// Enforce limit.
+						// Enforce limit if missing.
 						//
 						if( ! array_key_exists( kAPI_PAGE_LIMIT, $_REQUEST ) )
 							$_REQUEST[ kAPI_PAGE_LIMIT ] = kDEFAULT_LIMITS;
@@ -426,8 +425,9 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	/**
 	 * This method will format the request identifiers list.
 	 *
-	 * This method will actually create a query using the identifiers list, it will
-	 * {@link _Handle_GetTerms() then} call the {@link kAPI_OP_GET GET} handler.
+	 * In this class we handle the terms {@link kAPI_OP_GET_TERMS list} operation by
+	 * creating a query and using the {@link kAPI_OP_GET GET} handler, in this method we
+	 * create the {@link CMongoQuery query}.
 	 *
 	 * @access protected
 	 *
@@ -453,13 +453,16 @@ class CWarehouseWrapper extends CMongoDataWrapper
 			if( array_key_exists( kAPI_OPERATION, $_REQUEST ) )
 			{
 				//
-				// Parse by request.
+				// Parse by operation.
 				//
 				switch( $_REQUEST[ kAPI_OPERATION ] )
 				{
+					//
+					// Handle term references.
+					//
 					case kAPI_OP_GET_TERMS:
 						//
-						// Iterate identifiers.
+						// Hash identifiers.
 						//
 						$identifiers = Array();
 						foreach( $_REQUEST[ kAPI_OPT_IDENTIFIERS ] as $identifier )
@@ -822,9 +825,27 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	/**
 	 * Handle {@link kAPI_OP_GET_TERMS get-nodes} request.
 	 *
-	 * This method will return an array indexed by the {@link Node() node} ID and having
-	 * as attributes the {@link getArrayCopy() merged} attributes of the
-	 * {@link COntologyNode::Term() term} and the {@link COntologyNode::Node() node}.
+	 * This method expects the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter
+	 * to hold a list of node IDs, the method will query these nodes and return the
+	 * following structure:
+	 *
+	 * <ul>
+	 *	<li><i>{@link kAPI_RESPONSE_TERMS kAPI_RESPONSE_TERMS}</i>: The list of terms
+	 *		related to the list of nodes as follows:
+	 *	 <ul>
+	 *		<li><i>Index</i>: The term {@link kTAG_GID identifier}.
+	 *		<li><i>Value</i>: The term properties.
+	 *	 </ul>
+	 *	<li><i>{@link kAPI_RESPONSE_NODES kAPI_RESPONSE_NODES}</i>: The list of nodes as
+	 *		follows:
+	 *	 <ul>
+	 *		<li><i>Index</i>: The node ID.
+	 *		<li><i>Value</i>: The node properties.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * If the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter was not provided,
+	 * the method will return the above structure with no content.
 	 *
 	 * @access protected
 	 */
@@ -834,9 +855,10 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		// Init local storage.
 		//
 		$count = 0;
-		$nodes = Array();
 		$container = array( kTAG_TERM => new CMongoContainer( $_REQUEST[ kAPI_CONTAINER ] ),
 							kTAG_NODE => $_SESSION[ kSESSION_NEO4J ] );
+		$response = array( kAPI_RESPONSE_TERMS => Array(),
+						   kAPI_RESPONSE_NODES => Array() );
 		
 		//
 		// Handle identifiers.
@@ -844,16 +866,44 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		if( array_key_exists( kAPI_OPT_IDENTIFIERS, $_REQUEST ) )
 		{
 			//
+			// Init local storage.
+			//
+			$ref_term = & $response[ kAPI_RESPONSE_TERMS ];
+			$ref_node = & $response[ kAPI_RESPONSE_NODES ];
+			
+			//
 			// Iterate identifiers.
 			//
 			foreach( $_REQUEST[ kAPI_OPT_IDENTIFIERS ] as $identifier )
 			{
+				//
+				// Instantiate node.
+				//
 				$node = new COntologyNode( $container, $identifier );
 				if( $node->Persistent() )
 				{
-					$nodes[ $node->Node()->getId() ] = $node->getArrayCopy();
+					//
+					// Set node properties.
+					//
+					$id = $node->Node()->getId();
+					if( ! array_key_exists( $id, $ref_node ) )
+						$ref_node[ $id ] = $node->Node()->getProperties();
+					
+					//
+					// Set term properties.
+					//
+					$id = $node->Term()->GID();
+					if( ! array_key_exists( $id, $ref_term ) )
+						$ref_term[ $id ] = $node->Term()->getArrayCopy();
+					
+					//
+					// Count.
+					//
 					$count++;
 				}
+				
+				else
+					$ref_node[ $identifier ] = Array();
 			}
 		}
 		
@@ -865,7 +915,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		//
 		// Copy response.
 		//
-		$this->offsetSet( kAPI_DATA_RESPONSE, $nodes );
+		$this->offsetSet( kAPI_DATA_RESPONSE, $response );
 	
 	} // _Handle_GetNodes.
 
@@ -877,9 +927,28 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	/**
 	 * Handle {@link kAPI_OP_QUERY_ONTOLOGIES query-nodes} request.
 	 *
-	 * This method will return an array indexed by the {@link Node() node} ID and having
-	 * as attributes the {@link getArrayCopy() merged} attributes of the
-	 * {@link COntologyNode::Term() term} and the {@link COntologyNode::Node() node}.
+	 * This method expects the {@link kAPI_OPT_NODE_SELECTORS kAPI_OPT_NODE_SELECTORS}
+	 * parameter to hold a list of key/value pairs filter that will be added to the
+	 * default {@link kTYPE_ONTOLOGY ontology} {@link kTAG_KIND kind} query; if the
+	 * parameter was omitted, the method will select all ontologies.
+	 *
+	 * This method will return the following structure:
+	 *
+	 * <ul>
+	 *	<li><i>{@link kAPI_RESPONSE_TERMS kAPI_RESPONSE_TERMS}</i>: The list of
+	 *		{@link COntologyTerm terms} related to the
+	 *		{@link COntologyNode::Node() ontologies} as follows:
+	 *	 <ul>
+	 *		<li><i>Index</i>: The term {@link kTAG_GID identifier}.
+	 *		<li><i>Value</i>: The term properties.
+	 *	 </ul>
+	 *	<li><i>{@link kAPI_RESPONSE_NODES kAPI_RESPONSE_NODES}</i>: The list of
+	 *		{@link COntologyNode::Node() ontologies} as follows:
+	 *	 <ul>
+	 *		<li><i>Index</i>: The {@link COntologyNode::Node() node} ID.
+	 *		<li><i>Value</i>: The {@link COntologyNode::Node() node} properties.
+	 *	 </ul>
+	 * </ul>
 	 *
 	 * @access protected
 	 */
@@ -889,15 +958,22 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		// Init local storage.
 		//
 		$count = 0;
-		$nodes = Array();
 		$container = array( kTAG_TERM => new CMongoContainer( $_REQUEST[ kAPI_CONTAINER ] ),
 							kTAG_NODE => $_SESSION[ kSESSION_NEO4J ] );
+		$response = array( kAPI_RESPONSE_TERMS => Array(),
+						   kAPI_RESPONSE_NODES => Array() );
 		
 		//
-		// Handle identifiers.
+		// Handle selectors.
 		//
 		if( array_key_exists( kAPI_OPT_NODE_SELECTORS, $_REQUEST ) )
 		{
+			//
+			// Init local storage.
+			//
+			$ref_term = & $response[ kAPI_RESPONSE_TERMS ];
+			$ref_node = & $response[ kAPI_RESPONSE_NODES ];
+			
 			//
 			// Instantiate node index.
 			//
@@ -911,12 +987,28 @@ class CWarehouseWrapper extends CMongoDataWrapper
 			foreach( $results as $object )
 			{
 				//
-				// Create node.
+				// Instantiate node.
 				//
 				$node = new COntologyNode( $container, $object );
 				if( $node->Persistent() )
 				{
-					$nodes[ $node->Node()->getId() ] = $node->getArrayCopy();
+					//
+					// Set node properties.
+					//
+					$id = $node->Node()->getId();
+					if( ! array_key_exists( $id, $ref_node ) )
+						$ref_node[ $id ] = $node->Node()->getProperties();
+					
+					//
+					// Set term properties.
+					//
+					$id = $node->Term()->GID();
+					if( ! array_key_exists( $id, $ref_term ) )
+						$ref_term[ $id ] = $node->Term()->getArrayCopy();
+					
+					//
+					// Count.
+					//
 					$count++;
 				}
 			
@@ -931,7 +1023,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		//
 		// Copy response.
 		//
-		$this->offsetSet( kAPI_DATA_RESPONSE, $nodes );
+		$this->offsetSet( kAPI_DATA_RESPONSE, $response );
 	
 	} // _Handle_QueryOntologies.
 
