@@ -115,8 +115,8 @@ try
 	$term2->NS( 'NS' );
 	echo( '<i>$term2->Code( \'TERM2\' );</i><br>' );
 	$term2->Code( 'TERM2' );
-	echo( '<i>$term2->Kind( kTYPE_TERM, TRUE );</i><br>' );
-	$term2->Kind( kTYPE_TERM, TRUE );
+	echo( '<i>$term2->Kind( kTYPE_TRAIT, TRUE );</i><br>' );
+	$term2->Kind( kTYPE_TRAIT, TRUE );
 	echo( '<i>$term2->Name( \'Term 2\', \'en\' );</i><br>' );
 	$term2->Name( 'Term 2', 'en' );
 	echo( '<i>$term2->Name( \'Termine 1\', \'it\' );</i><br>' );

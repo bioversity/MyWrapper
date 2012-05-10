@@ -37,8 +37,8 @@ require_once( kPATH_LIBRARY_SOURCE."COntologyTermObject.php" );
  * <ul>
  *	<li><i>Default</i>: By default the object must have its {@link kTAG_CODE code} set.
  *	<li><i>{@link kTYPE_NAMESPACE kTYPE_NAMESPACE}</i>: It uses the default requirements.
- *	<li><i>{@link kTYPE_ONTOLOGY kTYPE_ONTOLOGY}</i>: It requires the {@link kTAG_NAME name}
- *		to be set.
+ *	<li><i>{@link kTYPE_ROOT kTYPE_ROOT}</i>: It requires the {@link kTAG_NAME name} to be
+ *		set.
  *	<li><i>{@link kTYPE_PREDICATE kTYPE_PREDICATE}</i>: It requires the
  *		{@link kTAG_NAME name}.
  *	<li><i>{@link kTYPE_ATTRIBUTE kTYPE_ATTRIBUTE}</i>: It requires the
@@ -606,8 +606,7 @@ class COntologyTerm extends COntologyTermObject
 	 *		this is {@link COntologyTermObject inherited}.
 	 *	<li><i>{@link kTYPE_NAMESPACE kTYPE_NAMESPACE}</i>: It uses the default
 	 *		requirements.
-	 *	<li><i>{@link kTYPE_ONTOLOGY kTYPE_ONTOLOGY}</i>: It requires the
-	 *		{@link kTAG_NAME name}.
+	 *	<li><i>{@link kTYPE_ROOT kTYPE_ROOT}</i>: It requires the {@link kTAG_NAME name}.
 	 *	<li><i>{@link kTYPE_PREDICATE kTYPE_PREDICATE}</i>: It requires the
 	 *		{@link kTAG_NAME name}.
 	 *	<li><i>{@link kTYPE_ATTRIBUTE kTYPE_ATTRIBUTE}</i>: It requires the
@@ -637,7 +636,7 @@ class COntologyTerm extends COntologyTermObject
 		//
 		// Collect required properties.
 		//
-		if( ($this->Kind( kTYPE_ONTOLOGY ) !== NULL)
+		if( ($this->Kind( kTYPE_ROOT ) !== NULL)
 		 || ($this->Kind( kTYPE_PREDICATE ) !== NULL) )
 			$props[ kTAG_NAME ] = kTAG_NAME;
 		if( $this->Kind( kTYPE_ENUMERATION ) !== NULL )

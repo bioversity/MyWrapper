@@ -282,11 +282,11 @@ define( "kTYPE_RELATED",					':RELATED' );
  *======================================================================================*/
 
 /**
- * Term.
+ * Root.
  *
- * This is the tag that represents a generic term.
+ * This is the tag that represents a root term or node.
  */
-define( "kTYPE_TERM",						':TERM' );
+define( "kTYPE_ROOT",						':ROOT' );
 
 /**
  * Namespace.
@@ -296,11 +296,11 @@ define( "kTYPE_TERM",						':TERM' );
 define( "kTYPE_NAMESPACE",					':NAMESPACE' );
 
 /**
- * Ontology.
+ * Attribute.
  *
- * This is the tag that represents an ontology.
+ * This is the tag that represents an attribute.
  */
-define( "kTYPE_ONTOLOGY",					':ONTOLOGY' );
+define( "kTYPE_ATTRIBUTE",					':ATTRIBUTE' );
 
 /**
  * Predicate.
@@ -310,11 +310,18 @@ define( "kTYPE_ONTOLOGY",					':ONTOLOGY' );
 define( "kTYPE_PREDICATE",					':PREDICATE' );
 
 /**
- * Attribute.
+ * Trait.
  *
- * This is the tag that represents an attribute.
+ * This is the tag that represents a generic trait.
  */
-define( "kTYPE_ATTRIBUTE",					':ATTRIBUTE' );
+define( "kTYPE_TRAIT",						':TRAIT' );
+
+/**
+ * Method.
+ *
+ * This is the tag that represents a generic method.
+ */
+define( "kTYPE_METHOD",						':METHOD' );
 
 /**
  * Measure.

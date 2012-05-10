@@ -112,10 +112,10 @@ define( "kAPI_OP_GET_NODES",		'@GET_NODES' );
 define( "kAPI_OP_GET_EDGES",		'@GET_EDGES' );
 
 /**
- * Query ontologies web-service.
+ * Query roots web-service.
  *
- * This is the tag that represents the query ontologies web service, it will locate all
- * {@link kTYPE_ONTOLOGY ontology} {@link COntologyNode nodes} matching the provided
+ * This is the tag that represents the query roots web service, it will locate all
+ * {@link kTYPE_ROOT root} {@link COntologyNode nodes} matching the provided
  * attributes in the {@link kAPI_OPT_NODE_SELECTORS kAPI_OPT_NODE_SELECTORS} parameter and
  * return the following structure:
  *
@@ -135,7 +135,7 @@ define( "kAPI_OP_GET_EDGES",		'@GET_EDGES' );
  * </ul>
  *
  * If you omit the {@link kAPI_OPT_NODE_SELECTORS kAPI_OPT_NODE_SELECTORS} parameter, all
- * {@link COntologyNode nodes} with {@link kTYPE_ONTOLOGY ontology}
+ * {@link COntologyNode nodes} with {@link kTYPE_ROOT root}
  * {@link COntologyNode::Kind() kind} will be returned.
  */
 define( "kAPI_OP_QUERY_ONTOLOGIES",	'@QUERY_ONTOLOGIES' );

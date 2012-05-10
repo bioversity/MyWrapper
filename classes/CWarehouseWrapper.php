@@ -501,7 +501,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	 *
 	 * Note that the method will enforce the
 	 * {@link kAPI_OPT_NODE_SELECTORS kAPI_OPT_NODE_SELECTORS} parameter by initialising it
-	 * with the {@link kTYPE_ONTOLOGY ontology} {@link kTAG_KIND kind} selection.
+	 * with the {@link kTYPE_ROOT root} {@link kTAG_KIND kind} selection.
 	 *
 	 * @access protected
 	 *
@@ -516,7 +516,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		//
 		$query = array( $this->_EscapeLucene( kTAG_KIND )
 					   .':'
-					   .$this->_EscapeLucene( kTYPE_ONTOLOGY ) );
+					   .$this->_EscapeLucene( kTYPE_ROOT ) );
 		
 		//
 		// Add clauses.
@@ -1078,7 +1078,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	 *
 	 * This method expects the {@link kAPI_OPT_NODE_SELECTORS kAPI_OPT_NODE_SELECTORS}
 	 * parameter to hold a list of key/value pairs filter that will be added to the
-	 * default {@link kTYPE_ONTOLOGY ontology} {@link kTAG_KIND kind} query; if the
+	 * default {@link kTYPE_ROOT root} {@link kTAG_KIND kind} query; if the
 	 * parameter was omitted, the method will select all ontologies.
 	 *
 	 * This method will return the following structure:

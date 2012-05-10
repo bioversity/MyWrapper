@@ -342,7 +342,7 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">This method will format the request selectors list.</p>
-<p class="description"><p>This method will convert the attribute/value pairs provided in the  <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_NODE_SELECTORS">kAPI_OPT_NODE_SELECTORS</a> parameter into a Lucene  compatible query, connecting all clauses in <em>AND</em>.</p><p>Note that the method will enforce the  <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_NODE_SELECTORS">kAPI_OPT_NODE_SELECTORS</a> parameter by initialising it  with the <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ONTOLOGY">ontology</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kind</a> selection.</p></p>
+<p class="description"><p>This method will convert the attribute/value pairs provided in the  <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_NODE_SELECTORS">kAPI_OPT_NODE_SELECTORS</a> parameter into a Lucene  compatible query, connecting all clauses in <em>AND</em>.</p><p>Note that the method will enforce the  <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_NODE_SELECTORS">kAPI_OPT_NODE_SELECTORS</a> parameter by initialising it  with the <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ROOT">root</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kind</a> selection.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_NODE_SELECTORS">kAPI_OPT_NODE_SELECTORS</a></li>
 				<li><span class="field">access:</span> protected</li>
@@ -534,7 +534,7 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Handle <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OP_QUERY_ONTOLOGIES">query-nodes</a> request.</p>
-<p class="description"><p>This method expects the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_NODE_SELECTORS">kAPI_OPT_NODE_SELECTORS</a>  parameter to hold a list of key/value pairs filter that will be added to the  default <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ONTOLOGY">ontology</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kind</a> query; if the  parameter was omitted, the method will select all ontologies.</p><p>This method will return the following structure:</p><p><ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_TERMS">kAPI_RESPONSE_TERMS</a></em>: The list of
+<p class="description"><p>This method expects the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_NODE_SELECTORS">kAPI_OPT_NODE_SELECTORS</a>  parameter to hold a list of key/value pairs filter that will be added to the  default <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ROOT">root</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kind</a> query; if the  parameter was omitted, the method will select all ontologies.</p><p>This method will return the following structure:</p><p><ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_TERMS">kAPI_RESPONSE_TERMS</a></em>: The list of
         <a href="../../MyWrapper/Ontology/COntologyTerm.html">terms</a> related to the
         COntologyNode::Node() as follows:
      <ul><li><em>Index</em>: The term <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a>.</li><li><em>Value</em>: The term properties.</li></ul></li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_NODES">kAPI_RESPONSE_NODES</a></em>: The list of
@@ -1069,7 +1069,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Thu, 10 May 2012 17:40:35 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 11 May 2012 01:49:38 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

@@ -27,18 +27,25 @@
  *
  * This tag represents the default domains namespace.
  */
-define( "kDEF_DOMAIN",						':DOMAIN' );			// Domain.
+define( "kDEF_DOMAIN",				':DOMAIN' );					// Domain.
 
 /**
  * Categories.
  *
  * This tag represents the default categories namespace.
  */
-define( "kDEF_CATEGORY",					':CATEGORY' );			// Category.
+define( "kDEF_CATEGORY",			':CATEGORY' );					// Category.
 
 /*=======================================================================================
  *	DOMAINS																				*
  *======================================================================================*/
+
+/**
+ * Geography.
+ *
+ * This tag represents the geography domain.
+ */
+define( "kDOMAIN_GEOGRAPHY",		':DOMAIN:GEOGRAPHY' );			// Geography.
 
 /**
  * Germplasm.
@@ -53,42 +60,35 @@ define( "kDOMAIN_GERMPLASM",		':DOMAIN:GERMPLASM' );			// Germplasm.
  *
  * This tag represents the germplasm sample domain.
  */
-define( "kDOMAIN_SAMPLE",			':DOMAIN:SAMPLE' );				// Sample.
+define( "kDOMAIN_SAMPLE",			':DOMAIN:GERMPLASM:SAMPLE' );		// Sample.
 
 /**
  * Accession.
  *
  * This tag represents the accession domain.
  */
-define( "kDOMAIN_ACCESSION",		':DOMAIN:ACCESSION' );			// Accession.
+define( "kDOMAIN_ACCESSION",		':DOMAIN:GERMPLASM:ACCESSION' );	// Accession.
 
 /**
  * Specimen.
  *
  * This tag represents the specimen domain.
  */
-define( "kDOMAIN_SPECIMEN",			':DOMAIN:SPECIMEN' );			// Specimen.
+define( "kDOMAIN_SPECIMEN",			':DOMAIN:GERMPLASM:SPECIMEN' );		// Specimen.
 
 /**
  * Land-race.
  *
  * This tag represents the landrace or farmer germplasm domain.
  */
-define( "kDOMAIN_LANDRACE",			':DOMAIN:LANDRACE' );			// Landrace.
+define( "kDOMAIN_LANDRACE",			':DOMAIN:GERMPLASM:LANDRACE' );		// Landrace.
 
 /**
  * Population.
  *
  * This tag represents the in-situ population domain.
  */
-define( "kDOMAIN_POPULATION",		':DOMAIN:POPULATION' );			// Population.
-
-/**
- * Geography.
- *
- * This tag represents the geography domain.
- */
-define( "kDOMAIN_GEOGRAPHY",		':DOMAIN:GEOGRAPHY' );			// Geography.
+define( "kDOMAIN_POPULATION",		':DOMAIN:GERMPLASM:POPULATION' );	// Population.
 
 /*=======================================================================================
  *	CATEGORIES																			*
@@ -97,7 +97,7 @@ define( "kDOMAIN_GEOGRAPHY",		':DOMAIN:GEOGRAPHY' );			// Geography.
 /**
  * Passport.
  *
- * This tag represents the passport category, it collects all elements comprising
+ * This tag represents the passport category, it collects all descriptors comprising
  * passport datasets.
  */
 define( "kCATEGORY_PASSPORT",		':CATEGORY:PASSPORT' );			// Passport.
@@ -105,7 +105,7 @@ define( "kCATEGORY_PASSPORT",		':CATEGORY:PASSPORT' );			// Passport.
 /**
  * Characterisation.
  *
- * This tag represents the characterisation category, it collects all elements comprising
+ * This tag represents the characterisation category, it collects all descriptors comprising
  * characterisation datasets.
  */
 define( "kCATEGORY_CHAR",			':CATEGORY:CHAR' );				// Characterisation.
@@ -113,26 +113,26 @@ define( "kCATEGORY_CHAR",			':CATEGORY:CHAR' );				// Characterisation.
 /**
  * Evaluation.
  *
- * This tag represents the evaluation category, it collects all elements comprising
+ * This tag represents the evaluation category, it collects all descriptors comprising
  * evaluation datasets.
  */
 define( "kCATEGORY_EVAL",			':CATEGORY:EVAL' );				// Evaluation.
 
 /**
- * Administrative units.
+ * Administrative.
  *
- * This tag represents the administrative units category, it collects all elements
+ * This tag represents the administrative units category, it collects all descriptors
  * comprising administrative units.
  */
-define( "kCATEGORY_ADMIN_UNIT",		':CATEGORY:ADMIN-UNIT' );		// Administrative units.
+define( "kCATEGORY_ADMIN",			':CATEGORY:ADMIN' );			// Administrative units.
 
 /**
  * Geographic units.
  *
- * This tag represents the geographic units category, it collects all elements
+ * This tag represents the geographic units category, it collects all descriptors
  * comprising geographic units.
  */
-define( "kCATEGORY_GEO_UNIT",		':CATEGORY:GEO-UNIT' );			// Geographic units.
+define( "kCATEGORY_GEO",			':CATEGORY:GEOG' );				// Geographic units.
 
 
 ?>
