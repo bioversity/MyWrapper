@@ -80,7 +80,7 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																																																																																																																																																								<div class="method-definition">
+																																																																																																																																																																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">string</span>
 										<a href="#_EscapeLucene" title="details" class="method-name">_EscapeLucene</a>
@@ -108,6 +108,12 @@
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">void</span>
 										<a href="#_HandleRequest" title="details" class="method-name">_HandleRequest</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_Handle_GetEdges" title="details" class="method-name">_Handle_GetEdges</a>
 										()
 									</div>
 																<div class="method-definition">
@@ -238,7 +244,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_EscapeLucene</span> (line <span class="line-number">1117</span>)
+		<span class="method-title">_EscapeLucene</span> (line <span class="line-number">1275</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -359,7 +365,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_HandleRequest</span> (line <span class="line-number">705</span>)
+		<span class="method-title">_HandleRequest</span> (line <span class="line-number">706</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -386,12 +392,48 @@
 					</dl>
 			
 	</div>
-<a name="method_Handle_GetNodes" id="_Handle_GetNodes"><!-- --></a>
+<a name="method_Handle_GetEdges" id="_Handle_GetEdges"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_GetNodes</span> (line <span class="line-number">852</span>)
+		<span class="method-title">_Handle_GetEdges</span> (line <span class="line-number">970</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Handle <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OP_GET_EDGES">get-edges</a> request.</p>
+<p class="description"><p>This method expects the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter  to hold a list of edge node IDs, the method will query these nodes and return the  following structure:</p><p><ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_TERMS">kAPI_RESPONSE_TERMS</a></em>: The list of terms
+        related to the list of subject and object nodes and the list of predicate terms
+        as follows:
+     <ul><li><em>Index</em>: The term <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a>.</li><li><em>Value</em>: The term properties.</li></ul></li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_NODES">kAPI_RESPONSE_NODES</a></em>: The list of subject and
+        object nodes as follows:
+     <ul><li><em>Index</em>: The node ID.</li><li><em>Value</em>: The node properties.</li></ul></li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_EDGES">kAPI_RESPONSE_EDGES</a></em>: The list of edges as an
+        array of elements structured as follows:
+     <ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_SUBJECT">kAPI_RESPONSE_SUBJECT</a></em>: The subject
+            <a href="../../MyWrapper/Ontology/COntologyNode.html">node</a> ID.</li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_PREDICATE">kAPI_RESPONSE_PREDICATE</a></em>: The
+            predicate <a href="../../MyWrapper/Ontology/COntologyTerm.html">term</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a>.</li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_OBJECT">kAPI_RESPONSE_OBJECT</a></em>: The object
+            <a href="../../MyWrapper/Ontology/COntologyNode.html">node</a> ID.</li></ul></li></ul></p><p>If the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter was not provided,  the method will return the above structure with no content.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_Handle_GetEdges
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method_Handle_GetNodes" id="_Handle_GetNodes"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_Handle_GetNodes</span> (line <span class="line-number">857</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -417,11 +459,11 @@
 			
 	</div>
 <a name="method_Handle_ListOp" id="_Handle_ListOp"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_ListOp</span> (line <span class="line-number">1045</span>)
+		<span class="method-title">_Handle_ListOp</span> (line <span class="line-number">1194</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -457,11 +499,11 @@
 			
 	</div>
 <a name="method_Handle_Login" id="_Handle_Login"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_Login</span> (line <span class="line-number">749</span>)
+		<span class="method-title">_Handle_Login</span> (line <span class="line-number">754</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -483,11 +525,11 @@
 			
 	</div>
 <a name="method_Handle_QueryOntologies" id="_Handle_QueryOntologies"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_QueryOntologies</span> (line <span class="line-number">955</span>)
+		<span class="method-title">_Handle_QueryOntologies</span> (line <span class="line-number">1104</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -514,7 +556,7 @@
 			
 	</div>
 <a name="method_InitOptions" id="_InitOptions"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -548,7 +590,7 @@
 			
 	</div>
 <a name="method_InitResources" id="_InitResources"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -580,7 +622,7 @@
 			
 	</div>
 <a name="method_ParseIdentifiers" id="_ParseIdentifiers"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -607,7 +649,7 @@
 			
 	</div>
 <a name="method_ParseRequest" id="_ParseRequest"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -641,7 +683,7 @@
 			
 	</div>
 <a name="method_ParseSelectors" id="_ParseSelectors"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -668,7 +710,7 @@
 			
 	</div>
 <a name="method_ParseUserCode" id="_ParseUserCode"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -696,7 +738,7 @@
 			
 	</div>
 <a name="method_ParseUserPass" id="_ParseUserPass"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -724,7 +766,7 @@
 			
 	</div>
 <a name="method_ValidateOperation" id="_ValidateOperation"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -1027,7 +1069,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Thu, 10 May 2012 14:55:20 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 10 May 2012 17:40:35 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

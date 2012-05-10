@@ -3415,12 +3415,16 @@ exit( "Done!\n" );
 		( 'United Nations Statistics Division.', kDEFAULT_LANGUAGE );
 		$ns->Kind( kTYPE_NAMESPACE, TRUE );
 		$ns->Kind( kTYPE_ONTOLOGY, TRUE );
+		$ns->Domain( kDOMAIN_GEOGRAPHY, TRUE );
+		$ns->Category( kCATEGORY_ADMIN_UNIT, TRUE );
 		$ns->Commit( $theContainer );
 		$root = $term_index->findOne( kTAG_TERM, (string) $ns );
 		if( $root === NULL )
 		{
 			$root = new COntologyNode( $container );
 			$root->Term( $ns );
+			$root->Domain( kDOMAIN_GEOGRAPHY, TRUE );
+			$root->Category( kCATEGORY_ADMIN_UNIT, TRUE );
 			$root->Kind( kTYPE_ONTOLOGY, TRUE );
 			$root->Commit( $container );
 		}
@@ -4208,7 +4212,8 @@ EOT;
 		if( ! $mcpd_term->Persistent() )
 		{
 			$mcpd_term->Code( 'MCPD' );
-			$mcpd_term->Name( 'FAO/IPGRI Multi-Crop Passport Descriptor', kDEFAULT_LANGUAGE );
+			$mcpd_term->Name( 'FAO/IPGRI Multi-Crop Passport Descriptor',
+							  kDEFAULT_LANGUAGE );
 			$mcpd_term->Definition
 			( 'The list of multi-crop passport descriptors (MCPD) is developed jointly '
 			 .'by IPGRI and FAO to provide international standards to facilitate germplasm '

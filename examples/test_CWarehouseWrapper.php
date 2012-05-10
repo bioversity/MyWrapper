@@ -1038,9 +1038,9 @@ try
 	echo( '<hr>' );
 	
 	/*===================================================================================
-	 *	GET NODES LIST (PAGING)															*
+	 *	GET EDGES LIST (EMPTY)															*
 	 *==================================================================================*/
-	echo( '<h4>Get nodes list ('.kAPI_OP_GET_NODES.') paging</h4>' );
+	echo( '<h4>Get edges list ('.kAPI_OP_GET_EDGES.') empty</h4>' );
 	//
 	// Use wrapper client.
 	//
@@ -1050,16 +1050,92 @@ try
 		// Build parameters.
 		//
 		$params = new CWarehouseWrapperClient( $url );
-		$params->Operation( kAPI_OP_GET_NODES );
+		$params->Operation( kAPI_OP_GET_EDGES );
 		$params->Format( kTYPE_JSON );
 		$params->Database( 'WAREHOUSE' );
 		$params->Container( 'DICTIONARY' );
+		$params->LogTrace( TRUE );
+		$params->LogRequest( TRUE );
+		//
+		// Get response.
+		//
+		$decoded = $params->Execute();
+	}
+	//
+	// Use raw parameters.
+	//
+	else
+	{
+		//
+		// Build parameters.
+		//
+		$params = Array();
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_EDGES;			// Command.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
+		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
+		$params[] = kAPI_CONTAINER.'='.'DICTIONARY';				// Container.
+		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
+		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
+		//
+		// Build request.
+		//
+		$request = $url.'?'.implode( '&', $params );
+		//
+		// Get response.
+		//
+		$response = file_get_contents( $request );
+		//
+		// Decode response.
+		//
+		$decoded = json_decode( $response, TRUE );
+	}
+	//
+	// Display.
+	//
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	if( ! kUSE_CLIENT )
+	{
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.$response.kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+	}
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	/*===================================================================================
+	 *	GET EDGES LIST (LIST)															*
+	 *==================================================================================*/
+	echo( '<h4>Get edges list ('.kAPI_OP_GET_EDGES.') list</h4>' );
+	//
+	// Use wrapper client.
+	//
+	if( kUSE_CLIENT )
+	{
+		//
+		// Build parameters.
+		//
+		$params = new CWarehouseWrapperClient( $url );
+		$params->Operation( kAPI_OP_GET_EDGES );
+		$params->Format( kTYPE_JSON );
+		$params->Database( 'WAREHOUSE' );
+		$params->Container( 'DICTIONARY' );
+		$params->Identifiers( 0, TRUE );
 		$params->Identifiers( 1, TRUE );
 		$params->Identifiers( 2, TRUE );
-		$params->Identifiers( 3, TRUE );
-		$params->Identifiers( 4, TRUE );
-		$params->Start( 0 );
-		$params->Limit( 2 );
+		$params->Identifiers( 99999, TRUE );
 		$params->LogTrace( TRUE );
 		$params->LogRequest( TRUE );
 		//
@@ -1075,18 +1151,16 @@ try
 		//
 		// Build identifiers list.
 		//
-		$list = json_encode( array( 1, 2, 3, 4 ) );
+		$list = json_encode( array( 0, 1, 2, 99999 ) );
 		//
 		// Build parameters.
 		//
 		$params = Array();
-		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_NODES;			// Command.
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_EDGES;			// Command.
 		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
 		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
 		$params[] = kAPI_CONTAINER.'='.'DICTIONARY';				// Container.
 		$params[] = kAPI_OPT_IDENTIFIERS.'='.$list;					// Identifiers.
-		$params[] = kAPI_PAGE_START.'='.'0';						// Page start.
-		$params[] = kAPI_PAGE_LIMIT.'='.'2';						// Page limits.
 		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
 		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
 		//

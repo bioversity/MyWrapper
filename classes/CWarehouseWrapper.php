@@ -644,6 +644,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 			
 			case kAPI_OP_GET_TERMS:
 			case kAPI_OP_GET_NODES:
+			case kAPI_OP_GET_EDGES:
 			case kAPI_OP_QUERY_ONTOLOGIES:
 				
 				//
@@ -719,6 +720,10 @@ class CWarehouseWrapper extends CMongoDataWrapper
 
 			case kAPI_OP_GET_NODES:
 				$this->_Handle_GetNodes();
+				break;
+
+			case kAPI_OP_GET_EDGES:
+				$this->_Handle_GetEdges();
 				break;
 
 			case kAPI_OP_QUERY_ONTOLOGIES:
@@ -921,6 +926,150 @@ class CWarehouseWrapper extends CMongoDataWrapper
 
 	 
 	/*===================================================================================
+	 *	_Handle_GetEdges																*
+	 *==================================================================================*/
+
+	/**
+	 * Handle {@link kAPI_OP_GET_EDGES get-edges} request.
+	 *
+	 * This method expects the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter
+	 * to hold a list of edge node IDs, the method will query these nodes and return the
+	 * following structure:
+	 *
+	 * <ul>
+	 *	<li><i>{@link kAPI_RESPONSE_TERMS kAPI_RESPONSE_TERMS}</i>: The list of terms
+	 *		related to the list of subject and object nodes and the list of predicate terms
+	 *		as follows:
+	 *	 <ul>
+	 *		<li><i>Index</i>: The term {@link kTAG_GID identifier}.
+	 *		<li><i>Value</i>: The term properties.
+	 *	 </ul>
+	 *	<li><i>{@link kAPI_RESPONSE_NODES kAPI_RESPONSE_NODES}</i>: The list of subject and
+	 *		object nodes as follows:
+	 *	 <ul>
+	 *		<li><i>Index</i>: The node ID.
+	 *		<li><i>Value</i>: The node properties.
+	 *	 </ul>
+	 *	<li><i>{@link kAPI_RESPONSE_EDGES kAPI_RESPONSE_EDGES}</i>: The list of edges as an
+	 *		array of elements structured as follows:
+	 *	 <ul>
+	 *		<li><i>{@link kAPI_RESPONSE_SUBJECT kAPI_RESPONSE_SUBJECT}</i>: The subject
+	 *			{@link COntologyNode node} ID.
+	 *		<li><i>{@link kAPI_RESPONSE_PREDICATE kAPI_RESPONSE_PREDICATE}</i>: The
+	 *			predicate {@link COntologyTerm term} {@link kTAG_GID identifier}.
+	 *		<li><i>{@link kAPI_RESPONSE_OBJECT kAPI_RESPONSE_OBJECT}</i>: The object
+	 *			{@link COntologyNode node} ID.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * If the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter was not provided,
+	 * the method will return the above structure with no content.
+	 *
+	 * @access protected
+	 */
+	protected function _Handle_GetEdges()
+	{
+		//
+		// Init local storage.
+		//
+		$count = 0;
+		$container = array( kTAG_TERM => new CMongoContainer( $_REQUEST[ kAPI_CONTAINER ] ),
+							kTAG_NODE => $_SESSION[ kSESSION_NEO4J ] );
+		$response = array( kAPI_RESPONSE_TERMS => Array(),
+						   kAPI_RESPONSE_NODES => Array(),
+						   kAPI_RESPONSE_EDGES => Array() );
+		
+		//
+		// Handle identifiers.
+		//
+		if( array_key_exists( kAPI_OPT_IDENTIFIERS, $_REQUEST ) )
+		{
+			//
+			// Init local storage.
+			//
+			$ref_term = & $response[ kAPI_RESPONSE_TERMS ];
+			$ref_node = & $response[ kAPI_RESPONSE_NODES ];
+			$ref_edge = & $response[ kAPI_RESPONSE_EDGES ];
+			
+			//
+			// Iterate identifiers.
+			//
+			foreach( $_REQUEST[ kAPI_OPT_IDENTIFIERS ] as $identifier )
+			{
+				//
+				// Instantiate node.
+				//
+				$node = new COntologyEdge( $container, $identifier );
+				if( $node->Persistent() )
+				{
+					//
+					// Set subject node properties.
+					//
+					$id_subject = $node->Subject()->getId();
+					if( ! array_key_exists( $id_subject, $ref_node ) )
+						$ref_node[ $id_subject ] = $node->Subject()->getProperties();
+					
+					//
+					// Set subject term properties.
+					//
+					$id = $node->SubjectTerm()->GID();
+					if( ! array_key_exists( $id, $ref_term ) )
+						$ref_term[ $id ] = $node->SubjectTerm()->getArrayCopy();
+					
+					//
+					// Set object node properties.
+					//
+					$id_object = $node->Object()->getId();
+					if( ! array_key_exists( $id_object, $ref_node ) )
+						$ref_node[ $id_object ] = $node->Object()->getProperties();
+					
+					//
+					// Set object term properties.
+					//
+					$id = $node->ObjectTerm()->GID();
+					if( ! array_key_exists( $id, $ref_term ) )
+						$ref_term[ $id ] = $node->ObjectTerm()->getArrayCopy();
+					
+					//
+					// Set predicate term properties.
+					//
+					$id_predicate = $node->Term()->GID();
+					if( ! array_key_exists( $id_predicate, $ref_term ) )
+						$ref_term[ $id_predicate ] = $node->Term()->getArrayCopy();
+					
+					//
+					// Set subject edge node property.
+					//
+					$ref_edge[ $identifier ]
+						= array( kAPI_RESPONSE_SUBJECT => $id_subject,
+								 kAPI_RESPONSE_PREDICATE => $id_predicate,
+								 kAPI_RESPONSE_OBJECT => $id_object );
+					
+					//
+					// Count.
+					//
+					$count++;
+				}
+				
+				else
+					$ref_edge[ $identifier ] = Array();
+			}
+		}
+		
+		//
+		// Set count.
+		//
+		$this->_OffsetManage( kAPI_DATA_STATUS, kAPI_AFFECTED_COUNT, $count );
+
+		//
+		// Copy response.
+		//
+		$this->offsetSet( kAPI_DATA_RESPONSE, $response );
+	
+	} // _Handle_GetEdges.
+
+	 
+	/*===================================================================================
 	 *	_Handle_QueryOntologies															*
 	 *==================================================================================*/
 
@@ -1074,6 +1223,15 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		$theList[ kAPI_OP_GET_NODES ]
 			= 'This operation will return the list of ontology nodes matching the provided '
 			.'list of node ['
+			.kAPI_OPT_IDENTIFIERS
+			.'] identifiers.';
+		
+		//
+		// Add kAPI_OP_GET_EDGES.
+		//
+		$theList[ kAPI_OP_GET_EDGES ]
+			= 'This operation will return the list of ontology edge nodes matching the '
+			.'provided list of edge node ['
 			.kAPI_OPT_IDENTIFIERS
 			.'] identifiers.';
 		

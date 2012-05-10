@@ -255,9 +255,9 @@ class COntologyEdge extends CGraphEdge
 			// Set inited flag.
 			//
 			$this->_IsInited( $this->_IsInited() &&
-							  ($this->mPredicateTerm !== NULL) &&
-							  ($this->mSubjectTerm !== NULL) &&
-							  ($this->mObjectTerm !== NULL) );
+							 ($this->mPredicateTerm !== NULL) &&
+							 ($this->mSubjectTerm !== NULL) &&
+							 ($this->mObjectTerm !== NULL) );
 		}
 		
 		return $save;																// ==>

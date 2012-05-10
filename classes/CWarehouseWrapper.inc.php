@@ -74,6 +74,44 @@ define( "kAPI_OP_GET_TERMS",		'@GET_TERMS' );
 define( "kAPI_OP_GET_NODES",		'@GET_NODES' );
 
 /**
+ * Get edges web-service.
+ *
+ * This is the tag that represents the get edges web service, it will locate all
+ * {@link COntologyEdge edges} matching the provided identifiers in the
+ * {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter and return the following
+ * structure:
+ *
+ * <ul>
+ *	<li><i>{@link kAPI_RESPONSE_TERMS kAPI_RESPONSE_TERMS}</i>: The list of terms related to
+ *		the list of subject and object nodes and the list of predicate terms as follows:
+ *	 <ul>
+ *		<li><i>Index</i>: The term {@link kTAG_GID identifier}.
+ *		<li><i>Value</i>: The term properties.
+ *	 </ul>
+ *	<li><i>{@link kAPI_RESPONSE_NODES kAPI_RESPONSE_NODES}</i>: The list of subject and
+ *		object nodes as follows:
+ *	 <ul>
+ *		<li><i>Index</i>: The node ID.
+ *		<li><i>Value</i>: The node properties.
+ *	 </ul>
+ *	<li><i>{@link kAPI_RESPONSE_EDGES kAPI_RESPONSE_EDGES}</i>: The list of edges as an
+ *		array of elements structured as follows:
+ *	 <ul>
+ *		<li><i>{@link kAPI_RESPONSE_SUBJECT kAPI_RESPONSE_SUBJECT}</i>: The subject
+ *			{@link COntologyNode node} ID.
+ *		<li><i>{@link kAPI_RESPONSE_PREDICATE kAPI_RESPONSE_PREDICATE}</i>: The predicate
+ *			{@link COntologyTerm term} {@link kTAG_GID identifier}.
+ *		<li><i>{@link kAPI_RESPONSE_OBJECT kAPI_RESPONSE_OBJECT}</i>: The object
+ *			{@link COntologyNode node} ID.
+ *	 </ul>
+ * </ul>
+ *
+ * If you omit the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter, no elements
+ * will be returned. The service does not use {@link kAPI_DATA_PAGING paging} options.
+ */
+define( "kAPI_OP_GET_EDGES",		'@GET_EDGES' );
+
+/**
  * Query ontologies web-service.
  *
  * This is the tag that represents the query ontologies web service, it will locate all
@@ -101,20 +139,6 @@ define( "kAPI_OP_GET_NODES",		'@GET_NODES' );
  * {@link COntologyNode::Kind() kind} will be returned.
  */
 define( "kAPI_OP_QUERY_ONTOLOGIES",	'@QUERY_ONTOLOGIES' );
-
-/**
- * Get incoming relations web-service.
- *
- * This is the tag that represents the get incoming relations web service, it will locate
- * all {@link COntologyNode nodes} that point to the nodes provided in the
- * {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter having as predicate the
- * {@link COntologyTerm terms} listed in the {@link kAPI_OPT_PREDICATES kAPI_OPT_PREDICATES}
- * parameter. This service is equivalent to requesting all child nodes of the nodes provided
- * in the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter. If you omit the
- * {@link kAPI_OPT_PREDICATES kAPI_OPT_PREDICATES} parameter it is assumed that all
- * predicates will be considered.
- */
-define( "kAPI_OP_INCOMING_NODES",	'@NODES_IN' );
 
 /*=======================================================================================
  *	DEFAULT OPTION ENUMERATIONS															*
@@ -155,16 +179,6 @@ define( "kAPI_OPT_IDENTIFIERS",		':@identifiers' );
  */
 define( "kAPI_OPT_NODE_SELECTORS",	':@node-selectors' );
 
-/**
- * Predicates option.
- *
- * This option refers to a list of predicates, this option is used when requesting related
- * nodes: only those relations having the provided predicates will be ciìonsidered. The
- * elements of this list must be the {@link kTAG_GID identifier} of the predicate
- * {@link COntologyTerm term}.
- */
-define( "kAPI_OPT_PREDICATES",		':@predicates' );
-
 /*=======================================================================================
  *	DEFAULT RESPONSE TAGS																*
  *======================================================================================*/
@@ -189,5 +203,33 @@ define( "kAPI_RESPONSE_NODES",		'nodes' );
  * This tag will hold the list of edges.
  */
 define( "kAPI_RESPONSE_EDGES",		'edges' );
+
+/*=======================================================================================
+ *	DEFAULT RELATIONSHIP TAGS															*
+ *======================================================================================*/
+
+/**
+ * Subject.
+ *
+ * This tag {@link kAPI_RESPONSE_NODES refers} to the subject {@link COntologyNode node} of
+ * a relationship.
+ */
+define( "kAPI_RESPONSE_SUBJECT",	's' );
+
+/**
+ * Predicate.
+ *
+ * This tag {@link kAPI_RESPONSE_TERMS refers} to the predicate {@link COntologyTerm term}
+ * of a relationship.
+ */
+define( "kAPI_RESPONSE_PREDICATE",	'p' );
+
+/**
+ * Object.
+ *
+ * This tag {@link kAPI_RESPONSE_NODES refers} to the object {@link COntologyNode node} of
+ * a relationship.
+ */
+define( "kAPI_RESPONSE_OBJECT",		'o' );
 
 ?>
