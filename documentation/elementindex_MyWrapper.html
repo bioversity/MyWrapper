@@ -324,7 +324,7 @@
 			<span class="method-title">_Commit</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/COntology.html#method_Commit">COntology::_Commit()</a> in COntology.php</div>
+			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyNode.html#method_Commit">COntologyNode::_Commit()</a> in COntologyNode.php</div>
 							<div class="index-item-description">Store object in container.</div>
 					</dd>
 			<dt class="field">
@@ -340,7 +340,7 @@
 			<span class="method-title">_FinishCreate</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyEdge.html#method_FinishCreate">COntologyEdge::_FinishCreate()</a> in COntologyEdge.php</div>
+			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyNode.html#method_FinishCreate">COntologyNode::_FinishCreate()</a> in COntologyNode.php</div>
 							<div class="index-item-description">Normalise after a _Create().</div>
 					</dd>
 			<dt class="field">
@@ -348,7 +348,7 @@
 			<span class="method-title">_FinishCreate</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/COntology.html#method_FinishCreate">COntology::_FinishCreate()</a> in COntology.php</div>
+			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyEdge.html#method_FinishCreate">COntologyEdge::_FinishCreate()</a> in COntologyEdge.php</div>
 							<div class="index-item-description">Normalise after a _Create().</div>
 					</dd>
 			<dt class="field">
@@ -356,7 +356,7 @@
 			<span class="method-title">_FinishLoad</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/COntology.html#method_FinishLoad">COntology::_FinishLoad()</a> in COntology.php</div>
+			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyNode.html#method_FinishLoad">COntologyNode::_FinishLoad()</a> in COntologyNode.php</div>
 							<div class="index-item-description">Normalise after a _Load().</div>
 					</dd>
 			<dt class="field">
@@ -372,16 +372,24 @@
 			<span class="method-title">_GetNodeIndex</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/COntology.html#method_GetNodeIndex">COntology::_GetNodeIndex()</a> in COntology.php</div>
-							<div class="index-item-description">Retrieve the node index.</div>
+			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyEdge.html#method_GetNodeIndex">COntologyEdge::_GetNodeIndex()</a> in COntologyEdge.php</div>
+							<div class="index-item-description">Retrieve the edge index.</div>
 					</dd>
 			<dt class="field">
 						<img src="media/images/Method.png" alt="Method" title="Method" />
 			<span class="method-title">_GetNodeIndex</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyEdge.html#method_GetNodeIndex">COntologyEdge::_GetNodeIndex()</a> in COntologyEdge.php</div>
-							<div class="index-item-description">Retrieve the edge index.</div>
+			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyNode.html#method_GetNodeIndex">COntologyNode::_GetNodeIndex()</a> in COntologyNode.php</div>
+							<div class="index-item-description">Retrieve the node index.</div>
+					</dd>
+			<dt class="field">
+						<img src="media/images/Method.png" alt="Method" title="Method" />
+			<span class="method-title">_GetRelated</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyNode.html#method_GetRelated">COntologyNode::_GetRelated()</a> in COntologyNode.php</div>
+							<div class="index-item-description">Return related nodes.</div>
 					</dd>
 			<dt class="field">
 						<img src="media/images/Method.png" alt="Method" title="Method" />
@@ -396,8 +404,16 @@
 			<span class="method-title">_IndexNodes</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/COntology.html#method_IndexNodes">COntology::_IndexNodes()</a> in COntology.php</div>
+			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyNode.html#method_IndexNodes">COntologyNode::_IndexNodes()</a> in COntologyNode.php</div>
 							<div class="index-item-description">Create node property indexes.</div>
+					</dd>
+			<dt class="field">
+						<img src="media/images/Method.png" alt="Method" title="Method" />
+			<span class="method-title">_IndexTerms</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyNode.html#method_IndexTerms">COntologyNode::_IndexTerms()</a> in COntologyNode.php</div>
+							<div class="index-item-description">Create node/term indexes.</div>
 					</dd>
 			<dt class="field">
 						<img src="media/images/Method.png" alt="Method" title="Method" />
@@ -406,14 +422,6 @@
 		<dd class="index-item-body">
 			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyEdge.html#method_IndexTerms">COntologyEdge::_IndexTerms()</a> in COntologyEdge.php</div>
 							<div class="index-item-description">Create node indexes.</div>
-					</dd>
-			<dt class="field">
-						<img src="media/images/Method.png" alt="Method" title="Method" />
-			<span class="method-title">_IndexTerms</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/COntology.html#method_IndexTerms">COntology::_IndexTerms()</a> in COntology.php</div>
-							<div class="index-item-description">Create node/term indexes.</div>
 					</dd>
 			<dt class="field">
 						<img src="media/images/Method.png" alt="Method" title="Method" />
@@ -428,7 +436,7 @@
 			<span class="method-title">_Load</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/COntology.html#method_Load">COntology::_Load()</a> in COntology.php</div>
+			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyEdge.html#method_Load">COntologyEdge::_Load()</a> in COntologyEdge.php</div>
 							<div class="index-item-description">Find object.</div>
 					</dd>
 			<dt class="field">
@@ -436,7 +444,7 @@
 			<span class="method-title">_Load</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyEdge.html#method_Load">COntologyEdge::_Load()</a> in COntologyEdge.php</div>
+			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyNode.html#method_Load">COntologyNode::_Load()</a> in COntologyNode.php</div>
 							<div class="index-item-description">Find object.</div>
 					</dd>
 			<dt class="field">
@@ -444,7 +452,7 @@
 			<span class="method-title">_ManageProperty</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/COntology.html#method_ManageProperty">COntology::_ManageProperty()</a> in COntology.php</div>
+			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyNode.html#method_ManageProperty">COntologyNode::_ManageProperty()</a> in COntologyNode.php</div>
 							<div class="index-item-description">Manage scalar property.</div>
 					</dd>
 			<dt class="field">
@@ -452,16 +460,8 @@
 			<span class="method-title">_ManagePropertyArray</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/COntology.html#method_ManagePropertyArray">COntology::_ManagePropertyArray()</a> in COntology.php</div>
+			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyNode.html#method_ManagePropertyArray">COntologyNode::_ManagePropertyArray()</a> in COntologyNode.php</div>
 							<div class="index-item-description">Manage scalar property.</div>
-					</dd>
-			<dt class="field">
-						<img src="media/images/Method.png" alt="Method" title="Method" />
-			<span class="method-title">_PrepareCommit</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyTerm.html#method_PrepareCommit">COntologyTerm::_PrepareCommit()</a> in COntologyTerm.php</div>
-							<div class="index-item-description">Normalise before a store.</div>
 					</dd>
 			<dt class="field">
 						<img src="media/images/Method.png" alt="Method" title="Method" />
@@ -476,7 +476,7 @@
 			<span class="method-title">_PrepareCommit</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyEdge.html#method_PrepareCommit">COntologyEdge::_PrepareCommit()</a> in COntologyEdge.php</div>
+			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyTerm.html#method_PrepareCommit">COntologyTerm::_PrepareCommit()</a> in COntologyTerm.php</div>
 							<div class="index-item-description">Normalise before a store.</div>
 					</dd>
 			<dt class="field">
@@ -484,16 +484,16 @@
 			<span class="method-title">_PrepareCommit</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/COntology.html#method_PrepareCommit">COntology::_PrepareCommit()</a> in COntology.php</div>
+			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyNode.html#method_PrepareCommit">COntologyNode::_PrepareCommit()</a> in COntologyNode.php</div>
 							<div class="index-item-description">Normalise before a store.</div>
 					</dd>
 			<dt class="field">
 						<img src="media/images/Method.png" alt="Method" title="Method" />
-			<span class="method-title">_PrepareCreate</span>
+			<span class="method-title">_PrepareCommit</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyTermObject.html#method_PrepareCreate">COntologyTermObject::_PrepareCreate()</a> in COntologyTermObject.php</div>
-							<div class="index-item-description">Normalise parameters of a create.</div>
+			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyEdge.html#method_PrepareCommit">COntologyEdge::_PrepareCommit()</a> in COntologyEdge.php</div>
+							<div class="index-item-description">Normalise before a store.</div>
 					</dd>
 			<dt class="field">
 						<img src="media/images/Method.png" alt="Method" title="Method" />
@@ -508,8 +508,24 @@
 			<span class="method-title">_PrepareCreate</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/COntology.html#method_PrepareCreate">COntology::_PrepareCreate()</a> in COntology.php</div>
+			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyNode.html#method_PrepareCreate">COntologyNode::_PrepareCreate()</a> in COntologyNode.php</div>
 							<div class="index-item-description">Normalise parameters of a create.</div>
+					</dd>
+			<dt class="field">
+						<img src="media/images/Method.png" alt="Method" title="Method" />
+			<span class="method-title">_PrepareCreate</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyTermObject.html#method_PrepareCreate">COntologyTermObject::_PrepareCreate()</a> in COntologyTermObject.php</div>
+							<div class="index-item-description">Normalise parameters of a create.</div>
+					</dd>
+			<dt class="field">
+						<img src="media/images/Method.png" alt="Method" title="Method" />
+			<span class="method-title">_PrepareLoad</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyNode.html#method_PrepareLoad">COntologyNode::_PrepareLoad()</a> in COntologyNode.php</div>
+							<div class="index-item-description">Normalise parameters of a find.</div>
 					</dd>
 			<dt class="field">
 						<img src="media/images/Method.png" alt="Method" title="Method" />
@@ -520,12 +536,12 @@
 							<div class="index-item-description">Normalise parameters of a find.</div>
 					</dd>
 			<dt class="field">
-						<img src="media/images/Method.png" alt="Method" title="Method" />
-			<span class="method-title">_PrepareLoad</span>
+						<img src="media/images/Constructor.png" alt="Method" title="Method" />
+			<span class="method-title">__construct</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/COntology.html#method_PrepareLoad">COntology::_PrepareLoad()</a> in COntology.php</div>
-							<div class="index-item-description">Normalise parameters of a find.</div>
+			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyTerm.html#method__construct">COntologyTerm::__construct()</a> in COntologyTerm.php</div>
+							<div class="index-item-description">Instantiate class.</div>
 					</dd>
 			<dt class="field">
 						<img src="media/images/Constructor.png" alt="Method" title="Method" />
@@ -536,19 +552,11 @@
 							<div class="index-item-description">Instantiate class.</div>
 					</dd>
 			<dt class="field">
-						<img src="media/images/Constructor.png" alt="Method" title="Method" />
-			<span class="method-title">__construct</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyTerm.html#method__construct">COntologyTerm::__construct()</a> in COntologyTerm.php</div>
-							<div class="index-item-description">Instantiate class.</div>
-					</dd>
-			<dt class="field">
 						<img src="media/images/Method.png" alt="Method" title="Method" />
 			<span class="method-title">__toString</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/COntology.html#method__toString">COntology::__toString()</a> in COntology.php</div>
+			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyNode.html#method__toString">COntologyNode::__toString()</a> in COntologyNode.php</div>
 							<div class="index-item-description">Return object identifier.</div>
 					</dd>
 			<dt class="field">
@@ -2229,30 +2237,16 @@
 			<span class="method-title">Category</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/COntology.html#methodCategory">COntology::Category()</a> in COntology.php</div>
-							<div class="index-item-description">Manage node kind.</div>
+			<div class="index-item-details"><a href="MyWrapper/Ontology/CTerm.html#methodCategory">CTerm::Category()</a> in CTerm.php</div>
+							<div class="index-item-description">Manage categories.</div>
 					</dd>
 			<dt class="field">
 						<img src="media/images/Method.png" alt="Method" title="Method" />
 			<span class="method-title">Category</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/CTerm.html#methodCategory">CTerm::Category()</a> in CTerm.php</div>
-							<div class="index-item-description">Manage categories.</div>
-					</dd>
-			<dt class="field">
-						<img src="media/images/Page.png" alt="Page" title="Page" />
-			<span class="include-title">COntology.inc.php</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/_classes---COntology.inc.php.html">COntology.inc.php</a> in COntology.inc.php</div>
-					</dd>
-			<dt class="field">
-						<img src="media/images/Page.png" alt="Page" title="Page" />
-			<span class="include-title">COntology.php</span>
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/_classes---COntology.php.html">COntology.php</a> in COntology.php</div>
+			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyNode.html#methodCategory">COntologyNode::Category()</a> in COntologyNode.php</div>
+							<div class="index-item-description">Manage node kind.</div>
 					</dd>
 			<dt class="field">
 						<img src="media/images/Page.png" alt="Page" title="Page" />
@@ -2260,6 +2254,13 @@
 					</dt>
 		<dd class="index-item-body">
 			<div class="index-item-details"><a href="MyWrapper/Ontology/_classes---COntologyEdge.php.html">COntologyEdge.php</a> in COntologyEdge.php</div>
+					</dd>
+			<dt class="field">
+						<img src="media/images/Page.png" alt="Page" title="Page" />
+			<span class="include-title">COntologyNode.inc.php</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="MyWrapper/Ontology/_classes---COntologyNode.inc.php.html">COntologyNode.inc.php</a> in COntologyNode.inc.php</div>
 					</dd>
 			<dt class="field">
 						<img src="media/images/Page.png" alt="Page" title="Page" />
@@ -2291,14 +2292,6 @@
 					</dd>
 			<dt class="field">
 						<img src="media/images/Class.png" alt="Class" title="Class" />
-			COntology
-					</dt>
-		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/COntology.html">COntology</a> in COntology.php</div>
-							<div class="index-item-description">Ontology graph node.</div>
-					</dd>
-			<dt class="field">
-						<img src="media/images/Class.png" alt="Class" title="Class" />
 			COntologyEdge
 					</dt>
 		<dd class="index-item-body">
@@ -2311,7 +2304,7 @@
 					</dt>
 		<dd class="index-item-body">
 			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyNode.html">COntologyNode</a> in COntologyNode.php</div>
-							<div class="index-item-description">Ontology node.</div>
+							<div class="index-item-description">Ontology graph node.</div>
 					</dd>
 			<dt class="field">
 						<img src="media/images/Class.png" alt="Class" title="Class" />
@@ -2334,7 +2327,7 @@
 			<span class="method-title">count</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/COntology.html#methodcount">COntology::count()</a> in COntology.php</div>
+			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyNode.html#methodcount">COntologyNode::count()</a> in COntologyNode.php</div>
 							<div class="index-item-description">Count number of elements.</div>
 					</dd>
 			<dt class="field">
@@ -2843,7 +2836,7 @@
 			<span class="method-title">Domain</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/COntology.html#methodDomain">COntology::Domain()</a> in COntology.php</div>
+			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyNode.html#methodDomain">COntologyNode::Domain()</a> in COntologyNode.php</div>
 							<div class="index-item-description">Manage node kind.</div>
 					</dd>
 			<dt class="field">
@@ -3119,7 +3112,7 @@
 			<span class="method-title">getArrayCopy</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/COntology.html#methodgetArrayCopy">COntology::getArrayCopy()</a> in COntology.php</div>
+			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyEdge.html#methodgetArrayCopy">COntologyEdge::getArrayCopy()</a> in COntologyEdge.php</div>
 							<div class="index-item-description">Create a copy of the array.</div>
 					</dd>
 			<dt class="field">
@@ -3127,7 +3120,7 @@
 			<span class="method-title">getArrayCopy</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyEdge.html#methodgetArrayCopy">COntologyEdge::getArrayCopy()</a> in COntologyEdge.php</div>
+			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyNode.html#methodgetArrayCopy">COntologyNode::getArrayCopy()</a> in COntologyNode.php</div>
 							<div class="index-item-description">Create a copy of the array.</div>
 					</dd>
 			<dt class="field">
@@ -5206,7 +5199,7 @@
 			<span class="method-title">Kind</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/COntology.html#methodKind">COntology::Kind()</a> in COntology.php</div>
+			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyNode.html#methodKind">COntologyNode::Kind()</a> in COntologyNode.php</div>
 							<div class="index-item-description">Manage node kind.</div>
 					</dd>
 			<dt class="field">
@@ -5214,7 +5207,7 @@
 			<span class="const-title">kINDEX_NODE_NODE</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/_classes---COntology.inc.php.html#definekINDEX_NODE_NODE">kINDEX_NODE_NODE</a> in COntology.inc.php</div>
+			<div class="index-item-details"><a href="MyWrapper/Ontology/_classes---COntologyNode.inc.php.html#definekINDEX_NODE_NODE">kINDEX_NODE_NODE</a> in COntologyNode.inc.php</div>
 							<div class="index-item-description">Nodes index.</div>
 					</dd>
 			<dt class="field">
@@ -5222,7 +5215,7 @@
 			<span class="const-title">kINDEX_NODE_TERM</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/_classes---COntology.inc.php.html#definekINDEX_NODE_TERM">kINDEX_NODE_TERM</a> in COntology.inc.php</div>
+			<div class="index-item-details"><a href="MyWrapper/Ontology/_classes---COntologyNode.inc.php.html#definekINDEX_NODE_TERM">kINDEX_NODE_TERM</a> in COntologyNode.inc.php</div>
 							<div class="index-item-description">Terms index.</div>
 					</dd>
 			<dt class="field">
@@ -6013,7 +6006,7 @@
 			<span class="var-title">$mTerm</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/COntology.html#var$mTerm">COntology::$mTerm</a> in COntology.php</div>
+			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyNode.html#var$mTerm">COntologyNode::$mTerm</a> in COntologyNode.php</div>
 							<div class="index-item-description">Term.</div>
 					</dd>
 			<dt class="field">
@@ -6354,7 +6347,7 @@
 			<span class="method-title">offsetExists</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/COntology.html#methodoffsetExists">COntology::offsetExists()</a> in COntology.php</div>
+			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyNode.html#methodoffsetExists">COntologyNode::offsetExists()</a> in COntologyNode.php</div>
 							<div class="index-item-description">Check whether a given offset exists.</div>
 					</dd>
 			<dt class="field">
@@ -6370,7 +6363,7 @@
 			<span class="method-title">offsetGet</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/COntology.html#methodoffsetGet">COntology::offsetGet()</a> in COntology.php</div>
+			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyNode.html#methodoffsetGet">COntologyNode::offsetGet()</a> in COntologyNode.php</div>
 							<div class="index-item-description">Return a value at a given offset.</div>
 					</dd>
 			<dt class="field">
@@ -6647,11 +6640,19 @@
 					</dd>
 			<dt class="field">
 						<img src="media/images/Method.png" alt="Method" title="Method" />
+			<span class="method-title">RelatedFrom</span>
+					</dt>
+		<dd class="index-item-body">
+			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyNode.html#methodRelatedFrom">COntologyNode::RelatedFrom()</a> in COntologyNode.php</div>
+							<div class="index-item-description">Return all nodes which point to this one.</div>
+					</dd>
+			<dt class="field">
+						<img src="media/images/Method.png" alt="Method" title="Method" />
 			<span class="method-title">RelatedTo</span>
 					</dt>
 		<dd class="index-item-body">
 			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyNode.html#methodRelatedTo">COntologyNode::RelatedTo()</a> in COntologyNode.php</div>
-							<div class="index-item-description">Return all <a href="MyWrapper/Ontology/COntologyEdge.html">edges</a> pointing to this node.</div>
+							<div class="index-item-description">Return all nodes to which this node points to.</div>
 					</dd>
 			<dt class="field">
 						<img src="media/images/Method.png" alt="Method" title="Method" />
@@ -6943,7 +6944,7 @@
 			<span class="method-title">Term</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/COntology.html#methodTerm">COntology::Term()</a> in COntology.php</div>
+			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyNode.html#methodTerm">COntologyNode::Term()</a> in COntologyNode.php</div>
 							<div class="index-item-description">Manage node term.</div>
 					</dd>
 			<dt class="field">
@@ -6959,7 +6960,7 @@
 			<span class="method-title">Type</span>
 					</dt>
 		<dd class="index-item-body">
-			<div class="index-item-details"><a href="MyWrapper/Ontology/COntology.html#methodType">COntology::Type()</a> in COntology.php</div>
+			<div class="index-item-details"><a href="MyWrapper/Ontology/COntologyNode.html#methodType">COntologyNode::Type()</a> in COntologyNode.php</div>
 							<div class="index-item-description">Manage node type.</div>
 					</dd>
 			<dt class="field">

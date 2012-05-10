@@ -49,8 +49,9 @@ define( "kAPI_OP_GET_TERMS",		'@GET_TERMS' );
  * This is the tag that represents the get nodes web service, it will locate all
  * {@link COntologyNode nodes} matching the provided identifiers in the
  * {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter and return an array whose key
- * is the node ID and as value is the {@link COntology::getArrayCopy() merged} attributes of
- * the node's {@link COntology::Term() term} and the node's properties, or <i>NULL</i>.
+ * is the node ID and as value is the {@link COntologyNode::getArrayCopy() merged}
+ * attributes of the node's {@link COntologyNode::Term() term} and the node's properties, or
+ * <i>NULL</i>.
  */
 define( "kAPI_OP_GET_NODES",		'@GET_NODES' );
 
@@ -61,8 +62,8 @@ define( "kAPI_OP_GET_NODES",		'@GET_NODES' );
  * {@link kTYPE_ONTOLOGY ontology} {@link COntologyNode nodes} matching the provided
  * attributes in the {@link kAPI_OPT_NODE_SELECTORS kAPI_OPT_NODE_SELECTORS} parameter and
  * return an array whose key will be the node ID and as value is the
- * {@link COntology::getArrayCopy() merged} attributes of the node's
- * {@link COntology::Term() term} and the node's properties, or <i>NULL</i>.
+ * {@link COntologyNode::getArrayCopy() merged} attributes of the node's
+ * {@link COntologyNode::Term() term} and the node's properties, or <i>NULL</i>.
  */
 define( "kAPI_OP_QUERY_ONTOLOGIES",	'@QUERY_ONTOLOGIES' );
 

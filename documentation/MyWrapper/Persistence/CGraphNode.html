@@ -86,7 +86,7 @@
 								 alt=" class"
 								 title=" class"
 								 style="vertical-align: center"/>
-						<a href="../../MyWrapper/Ontology/COntology.html">COntology</a>
+						<a href="../../MyWrapper/Ontology/COntologyNode.html">COntologyNode</a>
 					</td>
 					<td>
 											Ontology graph node.
@@ -458,7 +458,7 @@
 								: Count number of elements.
 							</li>
 					<li>
-				<a href="../../MyWrapper/Ontology/COntology.html#methodcount">COntology::count()</a>
+				<a href="../../MyWrapper/Ontology/COntologyNode.html#methodcount">COntologyNode::count()</a>
 								: Count number of elements.
 							</li>
 				</ul>
@@ -528,7 +528,7 @@
 								: Create a copy of the array.
 							</li>
 					<li>
-				<a href="../../MyWrapper/Ontology/COntology.html#methodgetArrayCopy">COntology::getArrayCopy()</a>
+				<a href="../../MyWrapper/Ontology/COntologyNode.html#methodgetArrayCopy">COntologyNode::getArrayCopy()</a>
 								: Create a copy of the array.
 							</li>
 				</ul>
@@ -684,16 +684,17 @@
      <ul><li><em>TRUE</em>: Return the value <em>before</em> it was eventually modified.</li><li><em>FALSE</em>: Return the value <em>after</em> it was eventually modified.</li></ul></li></ul></p><p>The method will also set the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsDirty">dirty</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_DIRTY">status</a> and the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">inited</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a> if the node is provided.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntology.html#method_Commit">COntology::_Commit()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntology.html#method__toString">COntology::__toString()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntology.html#method_ManageProperty">COntology::_ManageProperty()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntology.html#method_ManagePropertyArray">COntology::_ManagePropertyArray()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CGraphNode.html#method_Commit">CGraphNode::_Commit()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyNode.html#method_GetRelated">COntologyNode::_GetRelated()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyNode.html#method_Commit">COntologyNode::_Commit()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyNode.html#method_ManageProperty">COntologyNode::_ManageProperty()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyNode.html#method_ManagePropertyArray">COntologyNode::_ManagePropertyArray()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyNode.html#method__toString">COntologyNode::__toString()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CGraphNode.html#method_Create">CGraphNode::_Create()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsDirty">CStatusObject::_IsDirty()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CGraphNode.html#method__toString">CGraphNode::__toString()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CObject.html#methodManageMember">CObject::ManageMember()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CGraphNode.html#method_Commit">CGraphNode::_Commit()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -761,7 +762,7 @@
 								: Check whether a given offset exists.
 							</li>
 					<li>
-				<a href="../../MyWrapper/Ontology/COntology.html#methodoffsetExists">COntology::offsetExists()</a>
+				<a href="../../MyWrapper/Ontology/COntologyNode.html#methodoffsetExists">COntologyNode::offsetExists()</a>
 								: Check whether a given offset exists.
 							</li>
 				</ul>
@@ -810,7 +811,7 @@
 								: Return a value at a given offset.
 							</li>
 					<li>
-				<a href="../../MyWrapper/Ontology/COntology.html#methodoffsetGet">COntology::offsetGet()</a>
+				<a href="../../MyWrapper/Ontology/COntologyNode.html#methodoffsetGet">COntologyNode::offsetGet()</a>
 								: Return a value at a given offset.
 							</li>
 				</ul>
@@ -1050,7 +1051,7 @@
 								: Store object in container.
 							</li>
 					<li>
-				<a href="../../MyWrapper/Ontology/COntology.html#method_Commit">COntology::_Commit()</a>
+				<a href="../../MyWrapper/Ontology/COntologyNode.html#method_Commit">COntologyNode::_Commit()</a>
 								: Store object in container.
 							</li>
 				</ul>
@@ -1141,7 +1142,7 @@
 								: Normalise after a _Create().
 							</li>
 					<li>
-				<a href="../../MyWrapper/Ontology/COntology.html#method_FinishCreate">COntology::_FinishCreate()</a>
+				<a href="../../MyWrapper/Ontology/COntologyNode.html#method_FinishCreate">COntologyNode::_FinishCreate()</a>
 								: Normalise after a _Create().
 							</li>
 				</ul>
@@ -1200,7 +1201,7 @@
 								: Normalise after a _Load().
 							</li>
 					<li>
-				<a href="../../MyWrapper/Ontology/COntology.html#method_FinishLoad">COntology::_FinishLoad()</a>
+				<a href="../../MyWrapper/Ontology/COntologyNode.html#method_FinishLoad">COntologyNode::_FinishLoad()</a>
 								: Normalise after a _Load().
 							</li>
 				</ul>
@@ -1259,7 +1260,7 @@
 								: Find object.
 							</li>
 					<li>
-				<a href="../../MyWrapper/Ontology/COntology.html#method_Load">COntology::_Load()</a>
+				<a href="../../MyWrapper/Ontology/COntologyNode.html#method_Load">COntologyNode::_Load()</a>
 								: Find object.
 							</li>
 				</ul>
@@ -1315,7 +1316,7 @@
 								: Normalise before a store.
 							</li>
 					<li>
-				<a href="../../MyWrapper/Ontology/COntology.html#method_PrepareCommit">COntology::_PrepareCommit()</a>
+				<a href="../../MyWrapper/Ontology/COntologyNode.html#method_PrepareCommit">COntologyNode::_PrepareCommit()</a>
 								: Normalise before a store.
 							</li>
 				</ul>
@@ -1370,7 +1371,7 @@
 								: Normalise parameters of a create.
 							</li>
 					<li>
-				<a href="../../MyWrapper/Ontology/COntology.html#method_PrepareCreate">COntology::_PrepareCreate()</a>
+				<a href="../../MyWrapper/Ontology/COntologyNode.html#method_PrepareCreate">COntologyNode::_PrepareCreate()</a>
 								: Normalise parameters of a create.
 							</li>
 				</ul>
@@ -1426,7 +1427,7 @@
 								: Normalise parameters of a find.
 							</li>
 					<li>
-				<a href="../../MyWrapper/Ontology/COntology.html#method_PrepareLoad">COntology::_PrepareLoad()</a>
+				<a href="../../MyWrapper/Ontology/COntologyNode.html#method_PrepareLoad">COntologyNode::_PrepareLoad()</a>
 								: Normalise parameters of a find.
 							</li>
 				</ul>
@@ -1465,7 +1466,7 @@
 								: Return object identifier.
 							</li>
 					<li>
-				<a href="../../MyWrapper/Ontology/COntology.html#method__toString">COntology::__toString()</a>
+				<a href="../../MyWrapper/Ontology/COntologyNode.html#method__toString">COntologyNode::__toString()</a>
 								: Return object identifier.
 							</li>
 				</ul>
@@ -1633,7 +1634,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Wed, 09 May 2012 19:19:37 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 10 May 2012 12:30:59 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

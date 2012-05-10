@@ -816,7 +816,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 
 	 
 	/*===================================================================================
-	 *	_Handle_GetNodes																	*
+	 *	_Handle_GetNodes																*
 	 *==================================================================================*/
 
 	/**
@@ -824,7 +824,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	 *
 	 * This method will return an array indexed by the {@link Node() node} ID and having
 	 * as attributes the {@link getArrayCopy() merged} attributes of the
-	 * {@link COntology::Term() term} and the {@link COntology::Node() node}.
+	 * {@link COntologyNode::Term() term} and the {@link COntologyNode::Node() node}.
 	 *
 	 * @access protected
 	 */
@@ -879,7 +879,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	 *
 	 * This method will return an array indexed by the {@link Node() node} ID and having
 	 * as attributes the {@link getArrayCopy() merged} attributes of the
-	 * {@link COntology::Term() term} and the {@link COntology::Node() node}.
+	 * {@link COntologyNode::Term() term} and the {@link COntologyNode::Node() node}.
 	 *
 	 * @access protected
 	 */

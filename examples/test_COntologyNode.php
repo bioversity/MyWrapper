@@ -160,8 +160,8 @@ try
 	$node = $container[ kTAG_NODE ]->makeNode();
 	echo( '<i>$node->setProperty( kTAG_TERM, $term[ kTAG_GID ] )->save();</i><br>' );
 	$node->setProperty( kTAG_TERM, $term[ kTAG_GID ] )->save();
-	echo( '<i>$test = new COntology( $container, $node ) );</i><br>' );
-	$test = new COntology( $container, $node );
+	echo( '<i>$test = new COntologyNode( $container, $node ) );</i><br>' );
+	$test = new COntologyNode( $container, $node );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 
@@ -293,7 +293,7 @@ try
 	//
 	echo( '<h3>Relations</h3>' );
 	
-	echo( '<i>Create node 1</i><br>' );
+	echo( '<i>Create nodes</i><br>' );
 	echo( '<i>$test1 = new COntologyNode( $container );</i><br>' );
 	$test1 = new COntologyNode( $container );
 	echo( '<i>$test1->Term()->Code( \'A\' );</i><br>' );
@@ -313,12 +313,77 @@ try
 	echo( '<i>$test3 = new COntologyNode( $container );</i><br>' );
 	$test3 = new COntologyNode( $container );
 	echo( '<i>$test3->Term()->Code( \'C\' );</i><br>' );
-	$test3->Term()->Code( 'B' );
+	$test3->Term()->Code( 'C' );
 	echo( '<i>$test3->Term()->Name( \'Term 3\', kDEFAULT_LANGUAGE );</i><br>' );
 	$test3->Term()->Name( 'Term 3', kDEFAULT_LANGUAGE );
 	echo( '<i>$id3 = $test3->Commit( $container );</i><br>' );
 	$id3 = $test3->Commit( $container );
+	echo( '<i>$test4 = new COntologyNode( $container );</i><br>' );
+	$test4 = new COntologyNode( $container );
+	echo( '<i>$test4->Term()->Code( \'D\' );</i><br>' );
+	$test4->Term()->Code( 'D' );
+	echo( '<i>$test4->Term()->Name( \'Term 4\', kDEFAULT_LANGUAGE );</i><br>' );
+	$test4->Term()->Name( 'Term 4', kDEFAULT_LANGUAGE );
+	echo( '<i>$id4 = $test4->Commit( $container );</i><br>' );
+	$id4 = $test4->Commit( $container );
 	echo( '<hr>' );
+
+	echo( '<i>Relate nodes</i><br>' );
+	echo( '<i>$edge1 = $test1->RelateTo( $container, $test1, $test2 );</i><br>' );
+	$edge1 = $test1->RelateTo( $container, $test1, $test2 );
+	echo( '<i>$edge1->Commit( $container );</i><br>' );
+	$edge1->Commit( $container );
+	echo( '<i>$edge2 = $test1->RelateTo( $container, $test1, $test3 );</i><br>' );
+	$edge2 = $test1->RelateTo( $container, $test1, $test3 );
+	echo( '<i>$edge2->Commit( $container );</i><br>' );
+	$edge2->Commit( $container );
+	echo( '<i>$edge3 = $test4->RelateTo( $container, $test1, $test1 );</i><br>' );
+	$edge3 = $test4->RelateTo( $container, $test1, $test1 );
+	echo( '<i>$edge3->Commit( $container );</i><br>' );
+	$edge3->Commit( $container );
+	echo( '<hr>' );
+
+	echo( '<i>Get related to nodes</i><br>' );
+	echo( '<i>$list = $test1->RelatedTo( $container );</i><br>' );
+	$list = $test1->RelatedTo( $container );
+	echo( "<pre>" ); print_r( $list ); echo( '</pre>' );
+	echo( '<i>$list = $test2->RelatedTo( $container );</i><br>' );
+	$list = $test2->RelatedTo( $container );
+	echo( "<pre>" ); print_r( $list ); echo( '</pre>' );
+	echo( '<i>$list = $test3->RelatedTo( $container );</i><br>' );
+	$list = $test3->RelatedTo( $container );
+	echo( "<pre>" ); print_r( $list ); echo( '</pre>' );
+	echo( '<i>$list = $test4->RelatedTo( $container );</i><br>' );
+	$list = $test4->RelatedTo( $container );
+	echo( "<pre>" ); print_r( $list ); echo( '</pre>' );
+	echo( '<hr>' );
+
+	echo( '<i>Get related from nodes</i><br>' );
+	echo( '<i>$list = $test1->RelatedFrom( $container );</i><br>' );
+	$list = $test1->RelatedFrom( $container );
+	echo( "<pre>" ); print_r( $list ); echo( '</pre>' );
+	echo( '<i>$list = $test2->RelatedFrom( $container );</i><br>' );
+	$list = $test2->RelatedFrom( $container );
+	echo( "<pre>" ); print_r( $list ); echo( '</pre>' );
+	echo( '<i>$list = $test3->RelatedFrom( $container );</i><br>' );
+	$list = $test3->RelatedFrom( $container );
+	echo( "<pre>" ); print_r( $list ); echo( '</pre>' );
+	echo( '<i>$list = $test4->RelatedFrom( $container );</i><br>' );
+	$list = $test4->RelatedFrom( $container );
+	echo( "<pre>" ); print_r( $list ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	//
+	// Cleanup.
+	//
+	$ok = $edge1->Commit( $container, NULL, kFLAG_PERSIST_DELETE );
+	$ok = $edge2->Commit( $container, NULL, kFLAG_PERSIST_DELETE );
+	$ok = $edge3->Commit( $container, NULL, kFLAG_PERSIST_DELETE );
+
+	$ok = $test1->Commit( $container, NULL, kFLAG_PERSIST_DELETE );
+	$ok = $test2->Commit( $container, NULL, kFLAG_PERSIST_DELETE );
+	$ok = $test3->Commit( $container, NULL, kFLAG_PERSIST_DELETE );
+	$ok = $test4->Commit( $container, NULL, kFLAG_PERSIST_DELETE );
 }
 
 //
