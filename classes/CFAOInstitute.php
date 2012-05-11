@@ -562,7 +562,7 @@ class CFAOInstitute extends CInstitute
 										{
 											$tmp = explode( '/', $tmp );
 											$date = $tmp[ 2 ].'-'.$tmp[ 1 ].'-'.$tmp[ 0 ];
-											$inst->Stamp( new CDataTypeStamp( $date ) );
+											$inst->Modified( new CDataTypeStamp( $date ) );
 										}
 										break;
 								

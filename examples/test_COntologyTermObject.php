@@ -101,8 +101,8 @@ try
 	$term1->Definition( 'This term is the namespace of other terms', 'en' );
 	echo( '<i>$term1->Definition( \'Questo termine è lo spazio nomi di altri termini\', \'it\' );</i><br>' );
 	$term1->Definition( 'Questo termine è lo spazio nomi di altri termini', 'it' );
-	echo( '<i>$term1->Stamp( new CDataTypeStamp() );</i><br>' );
-	$term1->Stamp( new CDataTypeStamp() );
+	echo( '<i>$term1->Modified( new CDataTypeStamp() );</i><br>' );
+	$term1->Modified( new CDataTypeStamp() );
 	echo( '<i>$id1 = $term1->Commit( $collection );</i><br>' );
 	$id1 = $term1->Commit( $collection );
 	echo( "$term1<pre>" ); print_r( $term1 ); echo( '</pre>' );
@@ -129,8 +129,8 @@ try
 	$term2->Relate( $term1, $predicate, TRUE );
 	echo( '<i>$term2->Valid( $term1 );</i><br>' );
 	$term2->Valid( $term1 );
-	echo( '<i>$term2->Stamp( new CDataTypeStamp() );</i><br>' );
-	$term2->Stamp( new CDataTypeStamp() );
+	echo( '<i>$term2->Modified( new CDataTypeStamp() );</i><br>' );
+	$term2->Modified( new CDataTypeStamp() );
 	echo( '<i>$id2 = $term2->Commit( $collection );</i><br>' );
 	$id2 = $term2->Commit( $collection );
 	echo( "$term2<pre>" ); print_r( $term2 ); echo( '</pre>' );

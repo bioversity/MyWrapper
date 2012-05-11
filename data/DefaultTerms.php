@@ -141,6 +141,7 @@ try
 	//
 	LoadDefaultDomains( $_SESSION[ kSESSION_CONTAINER ], TRUE );
 	LoadDefaultCategories( $_SESSION[ kSESSION_CONTAINER ], TRUE );
+	LoadIANALanguageCodes( $_SESSION[ kSESSION_CONTAINER ], TRUE );
 	LoadUnStatsRegions( $_SESSION[ kSESSION_CONTAINER ], TRUE );
 	LoadISO3166( $_SESSION[ kSESSION_CONTAINER ], TRUE );
 	LoadMCPD( $_SESSION[ kSESSION_CONTAINER ], TRUE );
@@ -3355,6 +3356,236 @@ exit( "Done!\n" );
 				 ." [$term] [".$root_node->Node()->getId()."]\n" );
 		
 	} // LoadDefaultCategories.
+
+	 
+	/*===================================================================================
+	 *	LoadIANALanguageCodes															*
+	 *==================================================================================*/
+
+	/**
+	 * Load Internet Assigned Numbers Authority language codes.
+	 *
+	 * This function will load the Internet Assigned Numbers Authority language enumeration
+	 * terms.
+	 *
+	 * If the last parameter is <i>TRUE</i>, the function will display the name of the
+	 * created terms.
+	 *
+	 * @param CContainer			$theContainer		Collection.
+	 * @param boolean				$doDisplay			Display created terms.
+	 *
+	 * @access protected
+	 */
+	function LoadIANALanguageCodes( CContainer $theContainer, $doDisplay = TRUE )
+	{
+		//
+		// Init local storage.
+		//
+		$_SESSION[ 'Code_IANA_LanguageRegistry_Languages' ] = Array();
+		$_SESSION[ 'Code_IANA_LanguageRegistry_Scripts' ] = Array();
+		
+		//
+		// Open MySQL connection.
+		//
+		$mysql = NewADOConnection( DEFAULT_ANCILLARY_HOST );
+		if( ! $mysql )
+			throw new Exception( 'Unable to connect to MySQL.' );				// !@! ==>
+		$mysql->Execute( "SET CHARACTER SET 'utf8'" );
+		$mysql->setFetchMode( ADODB_FETCH_ASSOC );
+		
+		//
+		// Init local storage.
+		//
+		$container = array( kTAG_TERM => $theContainer,
+							kTAG_NODE => $_SESSION[ kSESSION_NEO4J ] );
+		
+		//
+		// Inform.
+		//
+		if( $doDisplay )
+		{
+			echo( "\n".__FUNCTION__."\n" );
+			echo( "------------------\n" );
+		}
+		
+		//
+		// Get node term index.
+		//
+		$term_index = new NodeIndex( $container[ kTAG_NODE ], kINDEX_NODE_TERM );
+		$term_index->save();
+		$node_index = new RelationshipIndex( $container[ kTAG_NODE ], kINDEX_NODE_TERM );
+		$node_index->save();
+		
+		//
+		// IS-A.
+		//
+		$is_a
+			= CPersistentUnitObject::NewObject
+				( $theContainer, COntologyTermObject::HashIndex( kPRED_IS_A ),
+				  kFLAG_STATE_ENCODED );
+		if( ! $is_a )
+			throw new Exception
+				( 'Unable to find subclass of predicate.' );					// !@! ==>
+		
+		//
+		// ENUM-OF.
+		//
+		$enum_of
+			= CPersistentUnitObject::NewObject
+				( $theContainer, COntologyTermObject::HashIndex( kPRED_ENUM_OF ),
+				  kFLAG_STATE_ENCODED );
+		if( ! $enum_of )
+			throw new Exception
+				( 'Unable to find enumeration predicate.' );					// !@! ==>
+		
+		//
+		// Internet Assigned Numbers Authority.
+		//
+		$ns = new COntologyTerm();
+		$ns->Code( 'IANA' );
+        $ns->Name( 'Internet Assigned Numbers Authority', kDEFAULT_LANGUAGE );
+		$ns->Definition
+		( 'Internet Assigned Numbers Authority.', kDEFAULT_LANGUAGE );
+		$ns->Kind( kTYPE_NAMESPACE, TRUE );
+		$ns->Kind( kTYPE_ROOT, TRUE );
+		$ns->Commit( $theContainer );
+		$root = $term_index->findOne( kTAG_TERM, (string) $ns );
+		if( $root === NULL )
+		{
+			$root = new COntologyNode( $container );
+			$root->Term( $ns );
+			$root->Kind( kTYPE_ROOT, TRUE );
+			$root->Commit( $container );
+		}
+		else
+			$root = new COntologyNode( $container, $root );
+		$namespace = $ns[ kTAG_GID ].kTOKEN_NAMESPACE_SEPARATOR;
+		if( $doDisplay )
+			echo( $ns->Name( NULL, kDEFAULT_LANGUAGE )
+				 ." [$ns] [".$root->Node()->getId()."]\n" );
+		
+		//
+		// IANA - IANA language registry (languages).
+		//
+		$language_term = new COntologyTerm();
+		$language_term->NS( $ns );
+		$language_term->Code( 'LANGUAGES' );
+		$language_term->Name( 'Languages registry', kDEFAULT_LANGUAGE );
+		$language_term->Definition
+		( 'Internet Assigned Numbers Authority (IANA) languages registry.',
+		  kDEFAULT_LANGUAGE );
+		$language_term->Type( kTYPE_ENUM );
+		$language_term->Pattern( '[0-9]{2,3}', TRUE );
+		$language_term->Relate( $ns, $is_a, TRUE );
+		$language_term->Commit( $theContainer );
+		$language_node = $term_index->findOne( kTAG_TERM, (string) $language_term );
+		if( $language_node === NULL )
+		{
+			$language_node = new COntologyNode( $container );
+			$language_node->Term( $language_term );
+			$language_node->Type( kTYPE_ENUM, TRUE );
+			$language_node->Kind( kTYPE_MEASURE, TRUE );
+			$language_node->Commit( $container );
+		}
+		else
+			$language_node = new COntologyNode( $container, $language_node );
+		$id = Array();
+		$id[] = $language_node->Node()->getId();
+		$id[] = (string) $is_a;
+		$id[] = $root->Node()->getId();
+		$id = implode( '/', $id );
+		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
+		if( $edge === NULL )
+		{
+			$edge = $language_node->RelateTo( $container, $is_a, $root );
+			$edge->Commit( $container );
+		}
+		if( $doDisplay )
+			echo( $language_term->Name( NULL, kDEFAULT_LANGUAGE )
+				 ." [$language_term] [".$root->Node()->getId()."]\n" );
+		
+		//
+		// Load language codes.
+		//
+		$query = <<<EOT
+SELECT
+	`Code_IANA_LanguageRegistry_Languages`.`Code`,
+	`Code_IANA_LanguageRegistry_Languages`.`PreferredValue`,
+	`Code_IANA_LanguageRegistry_Languages`.`Macrolanguage`,
+	`Code_IANA_LanguageRegistry_Languages`.`SuppressScript`,
+	`Code_IANA_LanguageRegistry_Languages`.`Scope`,
+	`Code_IANA_LanguageRegistry_Languages`.`Added`,
+	`Code_IANA_LanguageRegistry_Languages`.`Deprecated`,
+	`Code_IANA_LanguageRegistry_Languages`.`Name`,
+	`Code_IANA_LanguageRegistry_Languages`.`Comments`
+FROM
+	`Code_IANA_LanguageRegistry_Languages`
+ORDER BY
+	`Code_IANA_LanguageRegistry_Languages`.`Code`
+EOT;
+		$rs = $mysql->Execute( $query );
+		foreach( $rs as $record )
+		{
+			//
+			// Create region term.
+			//
+			$term = new COntologyTerm();
+			$term->NS( $ns );
+			$term->Code( $record[ 'Code' ] );
+			if( $record[ 'Name' ] !== NULL )
+				$term->Name( $record[ 'Name' ] );
+			if( $record[ 'Comments' ] !== NULL )
+				$term->Description( $record[ 'Comments' ] );
+			if( $record[ 'Scope' ] !== NULL )
+				$term->Category( $record[ 'Scope' ], TRUE );
+			if( $record[ 'Added' ] !== NULL )
+				$term->Created( $record[ 'Added' ] );
+			if( $record[ 'Deprecated' ] !== NULL )
+				$term[ 'Deprecated' ]
+					= new CDataTypeStamp( $record[ 'Deprecated' ] );
+			$term->Kind( kTYPE_ENUMERATION, TRUE );
+			$term->Type( kTYPE_ENUM );
+			$term->Commit( $theContainer );
+			
+			//
+			// Create node.
+			//
+			$node = $term_index->findOne( kTAG_TERM, (string) $term );
+			if( $node === NULL )
+			{
+				$node = new COntologyNode( $container );
+				$node->Term( $term );
+				$node->Kind( kTYPE_ENUMERATION, TRUE );
+				$node->Commit( $container );
+			}
+			else
+				$node = new COntologyNode( $container, $node );
+			
+			//
+			// Create language registry edge.
+			//
+			$id = Array();
+			$id[] = $node->Node()->getId();
+			$id[] = (string) $enum_of;
+			$id[] = $language_node->Node()->getId();
+			$id = implode( '/', $id );
+			$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
+			if( $edge === NULL )
+			{
+				$edge = $node->RelateTo( $container, $enum_of, $language_node );
+				$edge->Commit( $container );
+			}
+		
+			//
+			// Display.
+			//
+			if( $doDisplay )
+				echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
+					 ." [$term]\n" );
+		
+		} $rs->Close();
+		
+	} // LoadIANALanguageCodes.
 
 	 
 	/*===================================================================================

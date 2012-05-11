@@ -110,8 +110,8 @@ try
 	$institute1->Longitude( 250 );
 	echo( '<i>$institute1->Altitude( 70 );</i><br>' );
 	$institute1->Altitude( 70 );
-	echo( '<i>$institute1->Stamp( new CDataTypeStamp( \'2003-08-06\' ) );</i><br>' );
-	$institute1->Stamp( new CDataTypeStamp( '2003-08-06 00:00:00' ) );
+	echo( '<i>$institute1->Modified( new CDataTypeStamp( \'2003-08-06\' ) );</i><br>' );
+	$institute1->Modified( new CDataTypeStamp( '2003-08-06 00:00:00' ) );
 	echo( '<i>$institute1->Valid( \'MDG010\' );</i><br>' );
 	$institute1->Valid( 'MDG010' );
 	$id1 = $institute1->Commit( $collection );
