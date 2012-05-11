@@ -605,7 +605,8 @@ class COntologyEdge extends CGraphEdge
 	 * container to the {@link CGraphEdge parent} {@link CGraphEdge::_Commit() method}.
 	 *
 	 * We also {@link COntologyTerm::Commit() commit} the {@link SubjectTerm() subject} and
-	 * {@link ObjectTerm() object} {@link COntologyTerm terms}.
+	 * {@link ObjectTerm() object} {@link COntologyTerm terms}, setting or removing
+	 * {@link COntologyTerm their} {@link kTAG_NODEnode} reference.
 	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
@@ -626,11 +627,14 @@ class COntologyEdge extends CGraphEdge
 			//
 			// Unrelate terms.
 			//
+		/*
 			$this->mSubjectTerm->Relate( $this->mObjectTerm, $this->mPredicateTerm, FALSE );
+		*/
 			
 			//
 			// Reset predicate term.
 			//
+		/*
 			$id = $this->Node()->getId();
 			$this->mPredicateTerm->Predicate( $id, FALSE );
 			if( count( $this->mPredicateTerm->Predicate() ) )
@@ -644,6 +648,7 @@ class COntologyEdge extends CGraphEdge
 			}
 			else
 				$this->mPredicateTerm->Commit( $theContainer[ kTAG_TERM ] );
+		*/
 			$this->Term( new COntologyTerm() );
 			
 			//
@@ -697,6 +702,7 @@ class COntologyEdge extends CGraphEdge
 			//
 			// Commit predicate term.
 			//
+		/*
 			$id = $this->Node()->getId();
 			$this->mPredicateTerm->Predicate( $id, TRUE );
 			$mod = array( kTAG_EDGE => $id );
@@ -705,6 +711,7 @@ class COntologyEdge extends CGraphEdge
 												kFLAG_PERSIST_MODIFY +
 												kFLAG_MODIFY_ADDSET +
 												kFLAG_STATE_ENCODED );
+		*/
 			
 			//
 			// Commit subject term.
@@ -729,12 +736,14 @@ class COntologyEdge extends CGraphEdge
 												kFLAG_PERSIST_MODIFY +
 												kFLAG_MODIFY_ADDSET +
 												kFLAG_STATE_ENCODED );
-			
+		
+		/*	
 			//
 			// Relate terms.
 			//
 			$this->mSubjectTerm->Relate( $this->mObjectTerm, $this->mPredicateTerm, TRUE );
-
+		*/
+		
 			//
 			// Add indexes.
 			//

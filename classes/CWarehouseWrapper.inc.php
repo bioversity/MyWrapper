@@ -78,8 +78,36 @@ define( "kAPI_OP_GET_NODES",		'@GET_NODES' );
  *
  * This is the tag that represents the get edges web service, it will locate all
  * {@link COntologyEdge edges} matching the provided identifiers in the
- * {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter and return the following
- * structure:
+ * {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter and the direction provided in
+ * the {@link kAPI_OPT_DIRECTION kAPI_OPT_DIRECTION} parameter.
+ *
+ * Depending on the presence or not of the {@link kAPI_OPT_DIRECTION kAPI_OPT_DIRECTION}
+ * parameter:
+ *
+ * <ul>
+ *	<li><i>{@link kAPI_OPT_DIRECTION kAPI_OPT_DIRECTION} not provided</i>: In this case we
+ *		assume that the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter contains
+ *		the list of {@link COntologyEdge edge} identifiers to match.
+ *	<li><i>{@link kAPI_OPT_DIRECTION kAPI_OPT_DIRECTION} provided</i>: In this case we
+ *		assume that the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter contains
+ *		the list of {@link COntologyNode node} identifiers for which we want to retrieve
+ *		connected {@link COntologyEdge edges} in the direction provided in the
+ *		{@link kAPI_OPT_DIRECTION kAPI_OPT_DIRECTION} parameter:
+ *	 <ul>
+ *		<li><i>{@link kAPI_DIRECTION_IN kAPI_DIRECTION_IN}</i>: The service will return all
+ *			{@link COntologyEdge edges} that point to the {@link COntologyNode nodes}
+ *			provided in the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter.
+ *		<li><i>{@link kAPI_DIRECTION_OUT kAPI_DIRECTION_OUT}</i>: The service will return
+ *			all {@link COntologyEdge edges} pointing from the {@link COntologyNode nodes}
+ *			provided in the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter.
+ *		<li><i>{@link kAPI_DIRECTION_ALL kAPI_DIRECTION_ALL}</i>: The service will return
+ *			all {@link COntologyEdge edges} connected in any way to the
+ *			{@link COntologyNode nodes} provided in the
+ *			{@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter.
+ *	 </ul>
+ * </ul>
+ *
+ * The service will return the following structure:
  *
  * <ul>
  *	<li><i>{@link kAPI_RESPONSE_TERMS kAPI_RESPONSE_TERMS}</i>: The list of terms related to
@@ -106,6 +134,10 @@ define( "kAPI_OP_GET_NODES",		'@GET_NODES' );
  *	 </ul>
  * </ul>
  *
+ * If you provide the {@link kAPI_OPT_PREDICATES kAPI_OPT_PREDICATES} parameter, only those
+ * {@link COntologyEdge edges} whose type matches any of the predicate
+ * {@link COntologyTerm term} identifiers provided in that parameter will be selected.
+ *
  * If you omit the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter, no elements
  * will be returned. The service does not use {@link kAPI_DATA_PAGING paging} options.
  */
@@ -116,17 +148,17 @@ define( "kAPI_OP_GET_EDGES",		'@GET_EDGES' );
  *
  * This is the tag that represents the query roots web service, it will locate all
  * {@link kTYPE_ROOT root} {@link COntologyNode nodes} matching the provided
- * attributes in the {@link kAPI_OPT_NODE_SELECTORS kAPI_OPT_NODE_SELECTORS} parameter and
+ * attributes in the {@link kAPI_OPT_ATTRIBUTES kAPI_OPT_ATTRIBUTES} parameter and
  * return the following structure:
  *
  * <ul>
  *	<li><i>{@link kAPI_RESPONSE_TERMS kAPI_RESPONSE_TERMS}</i>: The list of terms related to
- *		the list of ontologies as follows:
+ *		the list of root nodes as follows:
  *	 <ul>
  *		<li><i>Index</i>: The term {@link kTAG_GID identifier}.
  *		<li><i>Value</i>: The term properties.
  *	 </ul>
- *	<li><i>{@link kAPI_RESPONSE_NODES kAPI_RESPONSE_NODES}</i>: The list of ontologies as
+ *	<li><i>{@link kAPI_RESPONSE_NODES kAPI_RESPONSE_NODES}</i>: The list of root nodes as
  *		follows:
  *	 <ul>
  *		<li><i>Index</i>: The node ID.
@@ -134,11 +166,11 @@ define( "kAPI_OP_GET_EDGES",		'@GET_EDGES' );
  *	 </ul>
  * </ul>
  *
- * If you omit the {@link kAPI_OPT_NODE_SELECTORS kAPI_OPT_NODE_SELECTORS} parameter, all
+ * If you omit the {@link kAPI_OPT_ATTRIBUTES kAPI_OPT_ATTRIBUTES} parameter, all
  * {@link COntologyNode nodes} with {@link kTYPE_ROOT root}
  * {@link COntologyNode::Kind() kind} will be returned.
  */
-define( "kAPI_OP_QUERY_ONTOLOGIES",	'@QUERY_ONTOLOGIES' );
+define( "kAPI_OP_QUERY_ROOTS",		'@QUERY_ROOTS' );
 
 /*=======================================================================================
  *	DEFAULT OPTION ENUMERATIONS															*
@@ -170,14 +202,50 @@ define( "kAPI_OPT_USER_PASS",		':@user-pass' );
 define( "kAPI_OPT_IDENTIFIERS",		':@identifiers' );
 
 /**
+ * Predicates option.
+ *
+ * This option refers to a list of predicate {@link COntologyTerm term} identifiers, this
+ * option is used by operations involving the selection of {@link COntologyEdge edge} nodes:
+ * only those {@link COntologyEdge edge} nodes referring to any of the provided predicate
+ * {@link COntologyTerm term} identifiers will be selected.
+ */
+define( "kAPI_OPT_PREDICATES",		':@predicates' );
+
+/**
  * Attribute selectors option.
  *
- * This option refers to a list of attributes and matching values, this option is used by
- * the nodes {@link kAPI_OP_QUERY_ONTOLOGIES query} operation. The contents are an array
- * indexed by the node attributes whose value is an array of matching values. The resulting
- * query will be composed in <i>AND</i> mode.
+ * This option is used by operations that query {@link COntologyNode nodes}, its content is
+ * an array structured as follows:
+ *
+ * <ul>
+ *	<li><i>Index</i>: The array element index is the attribute key.
+ *	<li><i>Value</i>: The value is an array of attribute values to be matched.
+ * </ul>
+ *
+ * The resulting query will be composed in <i>AND</i> mode.
  */
-define( "kAPI_OPT_NODE_SELECTORS",	':@node-selectors' );
+define( "kAPI_OPT_ATTRIBUTES",		':@attributes' );
+
+/**
+ * Relationship direction.
+ *
+ * This option is used when retrieving for {@link kAPI_OP_GET_EDGES edges}: it indicates
+ * the direction of the relationships in regard to the node identifiers provided in the
+ * {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter:
+ *
+ * <ul>
+ *	<li><i>{@link kAPI_DIRECTION_IN kAPI_DIRECTION_IN}</i>: Incoming relationships, this
+ *		will select all elements that point to the objects provided in the
+ *		{@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter.
+ *	<li><i>{@link kAPI_DIRECTION_OUT kAPI_DIRECTION_OUT}</i>: Outgoing relationships, this
+ *		will select all elements pointed to by the objects provided in the
+ *		{@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter.
+ *	<li><i>{@link kAPI_DIRECTION_ALL kAPI_DIRECTION_ALL}</i>: All relationships, this will
+ *		select all elements both pointing to and pointed to by the objects provided in the
+ *		{@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter.
+ * </ul>
+ */
+define( "kAPI_OPT_DIRECTION",		':@direction' );
 
 /*=======================================================================================
  *	DEFAULT RESPONSE TAGS																*
@@ -231,5 +299,33 @@ define( "kAPI_RESPONSE_PREDICATE",	'p' );
  * a relationship.
  */
 define( "kAPI_RESPONSE_OBJECT",		'o' );
+
+/*=======================================================================================
+ *	DEFAULT RELATIONSHIP DIRECTIONS														*
+ *======================================================================================*/
+
+/**
+ * Incoming.
+ *
+ * This tag indicates an incoming relationship, in other words, all elements that point to
+ * the current object.
+ */
+define( "kAPI_DIRECTION_IN",		'i' );
+
+/**
+ * Outgoing.
+ *
+ * This tag indicates an outgoing relationship, in other words, all elements to which the
+ * current object points to.
+ */
+define( "kAPI_DIRECTION_OUT",		'o' );
+
+/**
+ * Incoming and outgoing.
+ *
+ * This tag indicates incoming and outgoing relationships, in other words, all elements that
+ * are related to the current object, both pointing to it and pointed by it.
+ */
+define( "kAPI_DIRECTION_ALL",		'a' );
 
 ?>

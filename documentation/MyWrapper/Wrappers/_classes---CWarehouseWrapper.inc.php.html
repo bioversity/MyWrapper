@@ -40,14 +40,105 @@
 									<span class="disabled">Constants</span>
 											</div>
 		<div class="info-box-body">	
-			<a name="definekAPI_OPT_IDENTIFIERS"><!-- --></a>
+			<a name="definekAPI_DIRECTION_ALL"><!-- --></a>
 <div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
+			<span class="const-name">kAPI_DIRECTION_ALL</span> = 'a'
+			(line <span class="line-number">329</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Incoming and outgoing.</p>
+<p class="description"><p>This tag indicates incoming and outgoing relationships, in other words, all elements that  are related to the current object, both pointing to it and pointed by it.</p></p>
+	
+		
+</div>
+<a name="definekAPI_DIRECTION_IN"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_DIRECTION_IN</span> = 'i'
+			(line <span class="line-number">313</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Incoming.</p>
+<p class="description"><p>This tag indicates an incoming relationship, in other words, all elements that point to  the current object.</p></p>
+	
+		
+</div>
+<a name="definekAPI_DIRECTION_OUT"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_DIRECTION_OUT</span> = 'o'
+			(line <span class="line-number">321</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Outgoing.</p>
+<p class="description"><p>This tag indicates an outgoing relationship, in other words, all elements to which the  current object points to.</p></p>
+	
+		
+</div>
+<a name="definekAPI_OPT_ATTRIBUTES"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_OPT_ATTRIBUTES</span> = ':@attributes'
+			(line <span class="line-number">227</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Attribute selectors option.</p>
+<p class="description"><p>This option is used by operations that query <a href="../../MyWrapper/Ontology/COntologyNode.html">nodes</a>, its content is  an array structured as follows:</p><p><ul><li><em>Index</em>: The array element index is the attribute key.</li><li><em>Value</em>: The value is an array of attribute values to be matched.</li></ul></p><p>The resulting query will be composed in <em>AND</em> mode.</p></p>
+	
+		
+</div>
+<a name="definekAPI_OPT_DIRECTION"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_OPT_DIRECTION</span> = ':@direction'
+			(line <span class="line-number">248</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Relationship direction.</p>
+<p class="description"><p>This option is used when retrieving for <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OP_GET_EDGES">edges</a>: it indicates  the direction of the relationships in regard to the node identifiers provided in the  <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter:</p><p><ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_DIRECTION_IN">kAPI_DIRECTION_IN</a></em>: Incoming relationships, this
+        will select all elements that point to the objects provided in the
+        <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter.</li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_DIRECTION_OUT">kAPI_DIRECTION_OUT</a></em>: Outgoing relationships, this
+        will select all elements pointed to by the objects provided in the
+        <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter.</li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_DIRECTION_ALL">kAPI_DIRECTION_ALL</a></em>: All relationships, this will
+        select all elements both pointing to and pointed to by the objects provided in the
+        <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter.</li></ul></p></p>
+	
+		
+</div>
+<a name="definekAPI_OPT_IDENTIFIERS"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
 			<span class="const-name">kAPI_OPT_IDENTIFIERS</span> = ':@identifiers'
-			(line <span class="line-number">170</span>)
+			(line <span class="line-number">202</span>)
 		</span>
 	</div>
 	
@@ -57,31 +148,31 @@
 	
 		
 </div>
-<a name="definekAPI_OPT_NODE_SELECTORS"><!-- --></a>
-<div class="evenrow">
-	
-	<div>
-		<img src="../../media/images/Constant.png" />
-		<span class="const-title">
-			<span class="const-name">kAPI_OPT_NODE_SELECTORS</span> = ':@node-selectors'
-			(line <span class="line-number">180</span>)
-		</span>
-	</div>
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Attribute selectors option.</p>
-<p class="description"><p>This option refers to a list of attributes and matching values, this option is used by  the nodes <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OP_QUERY_ONTOLOGIES">query</a> operation. The contents are an array  indexed by the node attributes whose value is an array of matching values. The resulting  query will be composed in <em>AND</em> mode.</p></p>
-	
-		
-</div>
-<a name="definekAPI_OPT_USER_CODE"><!-- --></a>
+<a name="definekAPI_OPT_PREDICATES"><!-- --></a>
 <div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
+			<span class="const-name">kAPI_OPT_PREDICATES</span> = ':@predicates'
+			(line <span class="line-number">212</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Predicates option.</p>
+<p class="description"><p>This option refers to a list of predicate <a href="../../MyWrapper/Ontology/COntologyTerm.html">term</a> identifiers, this  option is used by operations involving the selection of <a href="../../MyWrapper/Ontology/COntologyEdge.html">edge</a> nodes:  only those <a href="../../MyWrapper/Ontology/COntologyEdge.html">edge</a> nodes referring to any of the provided predicate  <a href="../../MyWrapper/Ontology/COntologyTerm.html">term</a> identifiers will be selected.</p></p>
+	
+		
+</div>
+<a name="definekAPI_OPT_USER_CODE"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
 			<span class="const-name">kAPI_OPT_USER_CODE</span> = ':@user-code'
-			(line <span class="line-number">153</span>)
+			(line <span class="line-number">185</span>)
 		</span>
 	</div>
 	
@@ -92,13 +183,13 @@
 		
 </div>
 <a name="definekAPI_OPT_USER_PASS"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_OPT_USER_PASS</span> = ':@user-pass'
-			(line <span class="line-number">161</span>)
+			(line <span class="line-number">193</span>)
 		</span>
 	</div>
 	
@@ -109,19 +200,33 @@
 		
 </div>
 <a name="definekAPI_OP_GET_EDGES"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_OP_GET_EDGES</span> = '@GET_EDGES'
-			(line <span class="line-number">112</span>)
+			(line <span class="line-number">144</span>)
 		</span>
 	</div>
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Get edges web-service.</p>
-<p class="description"><p>This is the tag that represents the get edges web service, it will locate all  <a href="../../MyWrapper/Ontology/COntologyEdge.html">edges</a> matching the provided identifiers in the  <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter and return the following  structure:</p><p><ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_TERMS">kAPI_RESPONSE_TERMS</a></em>: The list of terms related to
+<p class="description"><p>This is the tag that represents the get edges web service, it will locate all  <a href="../../MyWrapper/Ontology/COntologyEdge.html">edges</a> matching the provided identifiers in the  <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter and the direction provided in  the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_DIRECTION">kAPI_OPT_DIRECTION</a> parameter.</p><p>Depending on the presence or not of the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_DIRECTION">kAPI_OPT_DIRECTION</a>  parameter:</p><p><ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_DIRECTION">kAPI_OPT_DIRECTION</a> not provided</em>: In this case we
+        assume that the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter contains
+        the list of <a href="../../MyWrapper/Ontology/COntologyEdge.html">edge</a> identifiers to match.</li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_DIRECTION">kAPI_OPT_DIRECTION</a> provided</em>: In this case we
+        assume that the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter contains
+        the list of <a href="../../MyWrapper/Ontology/COntologyNode.html">node</a> identifiers for which we want to retrieve
+        connected <a href="../../MyWrapper/Ontology/COntologyEdge.html">edges</a> in the direction provided in the
+        <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_DIRECTION">kAPI_OPT_DIRECTION</a> parameter:
+     <ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_DIRECTION_IN">kAPI_DIRECTION_IN</a></em>: The service will return all
+            <a href="../../MyWrapper/Ontology/COntologyEdge.html">edges</a> that point to the <a href="../../MyWrapper/Ontology/COntologyNode.html">nodes</a>
+            provided in the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter.</li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_DIRECTION_OUT">kAPI_DIRECTION_OUT</a></em>: The service will return
+            all <a href="../../MyWrapper/Ontology/COntologyEdge.html">edges</a> pointing from the <a href="../../MyWrapper/Ontology/COntologyNode.html">nodes</a>
+            provided in the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter.</li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_DIRECTION_ALL">kAPI_DIRECTION_ALL</a></em>: The service will return
+            all <a href="../../MyWrapper/Ontology/COntologyEdge.html">edges</a> connected in any way to the
+            <a href="../../MyWrapper/Ontology/COntologyNode.html">nodes</a> provided in the
+            <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter.</li></ul></li></ul></p><p>The service will return the following structure:</p><p><ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_TERMS">kAPI_RESPONSE_TERMS</a></em>: The list of terms related to
         the list of subject and object nodes and the list of predicate terms as follows:
      <ul><li><em>Index</em>: The term <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a>.</li><li><em>Value</em>: The term properties.</li></ul></li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_NODES">kAPI_RESPONSE_NODES</a></em>: The list of subject and
         object nodes as follows:
@@ -130,12 +235,12 @@
      <ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_SUBJECT">kAPI_RESPONSE_SUBJECT</a></em>: The subject
             <a href="../../MyWrapper/Ontology/COntologyNode.html">node</a> ID.</li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_PREDICATE">kAPI_RESPONSE_PREDICATE</a></em>: The predicate
             <a href="../../MyWrapper/Ontology/COntologyTerm.html">term</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a>.</li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_OBJECT">kAPI_RESPONSE_OBJECT</a></em>: The object
-            <a href="../../MyWrapper/Ontology/COntologyNode.html">node</a> ID.</li></ul></li></ul></p><p>If you omit the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter, no elements  will be returned. The service does not use <a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_PAGING">paging</a> options.</p></p>
+            <a href="../../MyWrapper/Ontology/COntologyNode.html">node</a> ID.</li></ul></li></ul></p><p>If you provide the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_PREDICATES">kAPI_OPT_PREDICATES</a> parameter, only those  <a href="../../MyWrapper/Ontology/COntologyEdge.html">edges</a> whose type matches any of the predicate  <a href="../../MyWrapper/Ontology/COntologyTerm.html">term</a> identifiers provided in that parameter will be selected.</p><p>If you omit the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter, no elements  will be returned. The service does not use <a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_PAGING">paging</a> options.</p></p>
 	
 		
 </div>
 <a name="definekAPI_OP_GET_NODES"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
@@ -156,7 +261,7 @@
 		
 </div>
 <a name="definekAPI_OP_GET_TERMS"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
@@ -173,7 +278,7 @@
 		
 </div>
 <a name="definekAPI_OP_LOGIN"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
@@ -189,35 +294,35 @@
 	
 		
 </div>
-<a name="definekAPI_OP_QUERY_ONTOLOGIES"><!-- --></a>
-<div class="oddrow">
-	
-	<div>
-		<img src="../../media/images/Constant.png" />
-		<span class="const-title">
-			<span class="const-name">kAPI_OP_QUERY_ONTOLOGIES</span> = '@QUERY_ONTOLOGIES'
-			(line <span class="line-number">141</span>)
-		</span>
-	</div>
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Query roots web-service.</p>
-<p class="description"><p>This is the tag that represents the query roots web service, it will locate all  <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ROOT">root</a> <a href="../../MyWrapper/Ontology/COntologyNode.html">nodes</a> matching the provided  attributes in the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_NODE_SELECTORS">kAPI_OPT_NODE_SELECTORS</a> parameter and  return the following structure:</p><p><ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_TERMS">kAPI_RESPONSE_TERMS</a></em>: The list of terms related to
-        the list of ontologies as follows:
-     <ul><li><em>Index</em>: The term <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a>.</li><li><em>Value</em>: The term properties.</li></ul></li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_NODES">kAPI_RESPONSE_NODES</a></em>: The list of ontologies as
-        follows:
-     <ul><li><em>Index</em>: The node ID.</li><li><em>Value</em>: The node properties.</li></ul></li></ul></p><p>If you omit the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_NODE_SELECTORS">kAPI_OPT_NODE_SELECTORS</a> parameter, all  <a href="../../MyWrapper/Ontology/COntologyNode.html">nodes</a> with <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ROOT">root</a>  <a href="../../MyWrapper/Ontology/COntologyNode.html#methodKind">kind</a> will be returned.</p></p>
-	
-		
-</div>
-<a name="definekAPI_RESPONSE_EDGES"><!-- --></a>
+<a name="definekAPI_OP_QUERY_ROOTS"><!-- --></a>
 <div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
+			<span class="const-name">kAPI_OP_QUERY_ROOTS</span> = '@QUERY_ROOTS'
+			(line <span class="line-number">173</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Query roots web-service.</p>
+<p class="description"><p>This is the tag that represents the query roots web service, it will locate all  <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ROOT">root</a> <a href="../../MyWrapper/Ontology/COntologyNode.html">nodes</a> matching the provided  attributes in the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_ATTRIBUTES">kAPI_OPT_ATTRIBUTES</a> parameter and  return the following structure:</p><p><ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_TERMS">kAPI_RESPONSE_TERMS</a></em>: The list of terms related to
+        the list of root nodes as follows:
+     <ul><li><em>Index</em>: The term <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a>.</li><li><em>Value</em>: The term properties.</li></ul></li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_NODES">kAPI_RESPONSE_NODES</a></em>: The list of root nodes as
+        follows:
+     <ul><li><em>Index</em>: The node ID.</li><li><em>Value</em>: The node properties.</li></ul></li></ul></p><p>If you omit the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_ATTRIBUTES">kAPI_OPT_ATTRIBUTES</a> parameter, all  <a href="../../MyWrapper/Ontology/COntologyNode.html">nodes</a> with <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ROOT">root</a>  <a href="../../MyWrapper/Ontology/COntologyNode.html#methodKind">kind</a> will be returned.</p></p>
+	
+		
+</div>
+<a name="definekAPI_RESPONSE_EDGES"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
 			<span class="const-name">kAPI_RESPONSE_EDGES</span> = 'edges'
-			(line <span class="line-number">205</span>)
+			(line <span class="line-number">273</span>)
 		</span>
 	</div>
 	
@@ -228,13 +333,13 @@
 		
 </div>
 <a name="definekAPI_RESPONSE_NODES"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_RESPONSE_NODES</span> = 'nodes'
-			(line <span class="line-number">198</span>)
+			(line <span class="line-number">266</span>)
 		</span>
 	</div>
 	
@@ -245,13 +350,13 @@
 		
 </div>
 <a name="definekAPI_RESPONSE_OBJECT"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_RESPONSE_OBJECT</span> = 'o'
-			(line <span class="line-number">233</span>)
+			(line <span class="line-number">301</span>)
 		</span>
 	</div>
 	
@@ -262,13 +367,13 @@
 		
 </div>
 <a name="definekAPI_RESPONSE_PREDICATE"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_RESPONSE_PREDICATE</span> = 'p'
-			(line <span class="line-number">225</span>)
+			(line <span class="line-number">293</span>)
 		</span>
 	</div>
 	
@@ -279,13 +384,13 @@
 		
 </div>
 <a name="definekAPI_RESPONSE_SUBJECT"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_RESPONSE_SUBJECT</span> = 's'
-			(line <span class="line-number">217</span>)
+			(line <span class="line-number">285</span>)
 		</span>
 	</div>
 	
@@ -296,13 +401,13 @@
 		
 </div>
 <a name="definekAPI_RESPONSE_TERMS"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_RESPONSE_TERMS</span> = 'terms'
-			(line <span class="line-number">191</span>)
+			(line <span class="line-number">259</span>)
 		</span>
 	</div>
 	
@@ -318,7 +423,7 @@
 	
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 11 May 2012 01:49:38 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 11 May 2012 13:49:50 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

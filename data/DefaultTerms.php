@@ -4032,11 +4032,13 @@ EOT;
 			//
 			if( $record[ 'Region' ] !== NULL )
 			{
-				$region = $_SESSION[ 'REGIONS' ][ $record[ 'Region' ] ];
+				$region
+					= new COntologyNode( $container,
+										 $_SESSION[ 'REGIONS' ][ $record[ 'Region' ] ] );
 				$id = Array();
 				$id[] = $node->Node()->getId();
 				$id[] = (string) $part_of;
-				$id[] = $region;
+				$id[] =  $_SESSION[ 'REGIONS' ][ $record[ 'Region' ] ];
 				$id = implode( '/', $id );
 				$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
 				if( $edge === NULL )
@@ -4044,6 +4046,9 @@ EOT;
 					$edge = $node->RelateTo( $container, $part_of, $region );
 					$edge->Commit( $container );
 				}
+				
+				$term->Relate( $region->Term(), $part_of, TRUE );
+				$term->Commit( $theContainer );
 			}
 			
 			//

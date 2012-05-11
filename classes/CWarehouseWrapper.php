@@ -226,21 +226,18 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	protected function _ParseRequest()
 	{
 		//
-		// Parse identifiers.
+		// Handle parameters.
 		//
 		$this->_ParseIdentifiers();
+		$this->_ParsePredicates();
 		$this->_ParseSelectors();
+		$this->_ParseUserCode();
+		$this->_ParseUserPass();
 	
 		//
 		// Call parent method.
 		//
 		parent::_ParseRequest();
-		
-		//
-		// Handle parameters.
-		//
-		$this->_ParseUserCode();
-		$this->_ParseUserPass();
 	
 	} // _ParseRequest.
 
@@ -271,6 +268,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		// Generate query.
 		//
 		$this->_FormatIdentifiers();
+		$this->_FormatPredicates();
 		$this->_FormatSelectors();
 	
 	} // _FormatRequest.
@@ -285,6 +283,105 @@ class CWarehouseWrapper extends CMongoDataWrapper
 
 
 	 
+	/*===================================================================================
+	 *	_ParseIdentifiers																*
+	 *==================================================================================*/
+
+	/**
+	 * Parse identifiers.
+	 *
+	 * This method will parse the user {@link kAPI_OPT_IDENTIFIERS identifiers} parameter.
+	 *
+	 * @access protected
+	 *
+	 * @see kAPI_DATA_REQUEST kAPI_OPT_IDENTIFIERS
+	 */
+	protected function _ParseIdentifiers()
+	{
+		//
+		// Handle identifiers.
+		//
+		if( array_key_exists( kAPI_OPT_IDENTIFIERS, $_REQUEST ) )
+		{
+			//
+			// Add to request.
+			//
+			if( $this->offsetExists( kAPI_DATA_REQUEST ) )
+				$this->_OffsetManage
+					( kAPI_DATA_REQUEST, kAPI_OPT_IDENTIFIERS,
+					  $_REQUEST[ kAPI_OPT_IDENTIFIERS ] );
+		
+		} // Has identifiers list.
+	
+	} // _ParseIdentifiers.
+
+	 
+	/*===================================================================================
+	 *	_ParsePredicates																*
+	 *==================================================================================*/
+
+	/**
+	 * Parse predicates.
+	 *
+	 * This method will parse the user {@link kAPI_OPT_PREDICATES predicates} parameter.
+	 *
+	 * @access protected
+	 *
+	 * @see kAPI_DATA_REQUEST kAPI_OPT_PREDICATES
+	 */
+	protected function _ParsePredicates()
+	{
+		//
+		// Handle predicates.
+		//
+		if( array_key_exists( kAPI_OPT_PREDICATES, $_REQUEST ) )
+		{
+			//
+			// Add to request.
+			//
+			if( $this->offsetExists( kAPI_DATA_REQUEST ) )
+				$this->_OffsetManage
+					( kAPI_DATA_REQUEST, kAPI_OPT_PREDICATES,
+					  $_REQUEST[ kAPI_OPT_PREDICATES ] );
+		
+		} // Has predicates list.
+	
+	} // _ParsePredicates.
+
+	 
+	/*===================================================================================
+	 *	_ParseSelectors																	*
+	 *==================================================================================*/
+
+	/**
+	 * Parse identifiers.
+	 *
+	 * This method will parse the user {@link kAPI_OPT_ATTRIBUTES selectors} parameter.
+	 *
+	 * @access protected
+	 *
+	 * @see kAPI_DATA_REQUEST kAPI_OPT_ATTRIBUTES
+	 */
+	protected function _ParseSelectors()
+	{
+		//
+		// Handle selectors.
+		//
+		if( array_key_exists( kAPI_OPT_ATTRIBUTES, $_REQUEST ) )
+		{
+			//
+			// Add to request.
+			//
+			if( $this->offsetExists( kAPI_DATA_REQUEST ) )
+				$this->_OffsetManage
+					( kAPI_DATA_REQUEST, kAPI_OPT_ATTRIBUTES,
+					  $_REQUEST[ kAPI_OPT_ATTRIBUTES ] );
+		
+		} // Has selectors list.
+	
+	} // _ParseSelectors.
+
+		
 	/*===================================================================================
 	 *	_ParseUserCode																	*
 	 *==================================================================================*/
@@ -343,72 +440,6 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	} // _ParseUserPass.
 
 	 
-	/*===================================================================================
-	 *	_ParseIdentifiers																*
-	 *==================================================================================*/
-
-	/**
-	 * Parse identifiers.
-	 *
-	 * This method will parse the user {@link kAPI_OPT_IDENTIFIERS identifiers} parameter.
-	 *
-	 * @access protected
-	 *
-	 * @see kAPI_DATA_REQUEST kAPI_OPT_IDENTIFIERS
-	 */
-	protected function _ParseIdentifiers()
-	{
-		//
-		// Handle identifiers.
-		//
-		if( array_key_exists( kAPI_OPT_IDENTIFIERS, $_REQUEST ) )
-		{
-			//
-			// Add to request.
-			//
-			if( $this->offsetExists( kAPI_DATA_REQUEST ) )
-				$this->_OffsetManage
-					( kAPI_DATA_REQUEST, kAPI_OPT_IDENTIFIERS,
-					  $_REQUEST[ kAPI_OPT_IDENTIFIERS ] );
-		
-		} // Has identifiers list.
-	
-	} // _ParseIdentifiers.
-
-	 
-	/*===================================================================================
-	 *	_ParseSelectors																	*
-	 *==================================================================================*/
-
-	/**
-	 * Parse identifiers.
-	 *
-	 * This method will parse the user {@link kAPI_OPT_NODE_SELECTORS selectors} parameter.
-	 *
-	 * @access protected
-	 *
-	 * @see kAPI_DATA_REQUEST kAPI_OPT_NODE_SELECTORS
-	 */
-	protected function _ParseSelectors()
-	{
-		//
-		// Handle selectors.
-		//
-		if( array_key_exists( kAPI_OPT_NODE_SELECTORS, $_REQUEST ) )
-		{
-			//
-			// Add to request.
-			//
-			if( $this->offsetExists( kAPI_DATA_REQUEST ) )
-				$this->_OffsetManage
-					( kAPI_DATA_REQUEST, kAPI_OPT_NODE_SELECTORS,
-					  $_REQUEST[ kAPI_OPT_NODE_SELECTORS ] );
-		
-		} // Has selectors list.
-	
-	} // _ParseSelectors.
-
-		
 
 /*=======================================================================================
  *																						*
@@ -425,7 +456,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	/**
 	 * This method will format the request identifiers list.
 	 *
-	 * In this class we handle the terms {@link kAPI_OP_GET_TERMS list} operation by
+	 * In this class we handle the terms list {@link kAPI_OP_GET_TERMS operation} by
 	 * creating a query and using the {@link kAPI_OP_GET GET} handler, in this method we
 	 * create the {@link CMongoQuery query}.
 	 *
@@ -489,6 +520,32 @@ class CWarehouseWrapper extends CMongoDataWrapper
 
 	 
 	/*===================================================================================
+	 *	_FormatPredicates																*
+	 *==================================================================================*/
+
+	/**
+	 * This method will format the request predicates list.
+	 *
+	 * In this class we {@link _DecodeParameter() decode} the parameter.
+	 *
+	 * @access protected
+	 *
+	 * @uses _DecodeParameter()
+	 *
+	 * @see kAPI_OPT_PREDICATES
+	 */
+	protected function _FormatPredicates()
+	{
+		//
+		// Handle identifiers.
+		//
+		if( array_key_exists( kAPI_OPT_PREDICATES, $_REQUEST ) )
+			$this->_DecodeParameter( kAPI_OPT_PREDICATES );
+	
+	} // _FormatPredicates.
+
+	 
+	/*===================================================================================
 	 *	_FormatSelectors																*
 	 *==================================================================================*/
 
@@ -496,18 +553,18 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	 * This method will format the request selectors list.
 	 *
 	 * This method will convert the attribute/value pairs provided in the
-	 * {@link kAPI_OPT_NODE_SELECTORS kAPI_OPT_NODE_SELECTORS} parameter into a Lucene
+	 * {@link kAPI_OPT_ATTRIBUTES kAPI_OPT_ATTRIBUTES} parameter into a Lucene
 	 * compatible query, connecting all clauses in <i>AND</i>.
 	 *
 	 * Note that the method will enforce the
-	 * {@link kAPI_OPT_NODE_SELECTORS kAPI_OPT_NODE_SELECTORS} parameter by initialising it
+	 * {@link kAPI_OPT_ATTRIBUTES kAPI_OPT_ATTRIBUTES} parameter by initialising it
 	 * with the {@link kTYPE_ROOT root} {@link kTAG_KIND kind} selection.
 	 *
 	 * @access protected
 	 *
 	 * @uses _DecodeParameter()
 	 *
-	 * @see kAPI_OPT_NODE_SELECTORS
+	 * @see kAPI_OPT_ATTRIBUTES
 	 */
 	protected function _FormatSelectors()
 	{
@@ -521,17 +578,17 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		//
 		// Add clauses.
 		//
-		if( array_key_exists( kAPI_OPT_NODE_SELECTORS, $_REQUEST ) )
+		if( array_key_exists( kAPI_OPT_ATTRIBUTES, $_REQUEST ) )
 		{
 			//
 			// Decode parameter.
 			//
-			$this->_DecodeParameter( kAPI_OPT_NODE_SELECTORS );
+			$this->_DecodeParameter( kAPI_OPT_ATTRIBUTES );
 			
 			//
 			// Iterate attributes.
 			//
-			foreach( $_REQUEST[ kAPI_OPT_NODE_SELECTORS ] as $key => $value )
+			foreach( $_REQUEST[ kAPI_OPT_ATTRIBUTES ] as $key => $value )
 			{
 				//
 				// Convert key.
@@ -556,7 +613,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		//
 		// Build query.
 		//
-		$_REQUEST[ kAPI_OPT_NODE_SELECTORS ] = implode( ' AND ', $query );
+		$_REQUEST[ kAPI_OPT_ATTRIBUTES ] = implode( ' AND ', $query );
 	
 	} // _FormatSelectors.
 
@@ -642,10 +699,31 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				
 				break;
 			
+			case kAPI_OP_GET_EDGES:
+				//
+				// Check relation direction.
+				//
+				if( array_key_exists( kAPI_OPT_DIRECTION, $_REQUEST ) )
+				{
+					switch( $_REQUEST[ kAPI_OPT_DIRECTION ] )
+					{
+						case kAPI_DIRECTION_IN:
+						case kAPI_DIRECTION_OUT:
+						case kAPI_DIRECTION_ALL:
+							break;
+						
+						default:
+							throw new CException
+								( "Invalid relationship direction tag",
+								  kERROR_INVALID_PARAMETER,
+								  kMESSAGE_TYPE_ERROR,
+								  array( 'Direction'
+								  		=> $_REQUEST[ kAPI_OPT_DIRECTION ] ) );	// !@! ==>
+					}
+				}
 			case kAPI_OP_GET_TERMS:
 			case kAPI_OP_GET_NODES:
-			case kAPI_OP_GET_EDGES:
-			case kAPI_OP_QUERY_ONTOLOGIES:
+			case kAPI_OP_QUERY_ROOTS:
 				
 				//
 				// Check for database.
@@ -726,7 +804,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				$this->_Handle_GetEdges();
 				break;
 
-			case kAPI_OP_QUERY_ONTOLOGIES:
+			case kAPI_OP_QUERY_ROOTS:
 				$this->_Handle_QueryOntologies();
 				break;
 
@@ -932,14 +1010,11 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	/**
 	 * Handle {@link kAPI_OP_GET_EDGES get-edges} request.
 	 *
-	 * This method expects the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter
-	 * to hold a list of edge node IDs, the method will query these nodes and return the
-	 * following structure:
+	 * This method will return a list of node edges structured as follows:
 	 *
 	 * <ul>
 	 *	<li><i>{@link kAPI_RESPONSE_TERMS kAPI_RESPONSE_TERMS}</i>: The list of terms
-	 *		related to the list of subject and object nodes and the list of predicate terms
-	 *		as follows:
+	 *		related to the subject and object nodes and the edge predicate terms as follows:
 	 *	 <ul>
 	 *		<li><i>Index</i>: The term {@link kTAG_GID identifier}.
 	 *		<li><i>Value</i>: The term properties.
@@ -961,6 +1036,40 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	 *			{@link COntologyNode node} ID.
 	 *	 </ul>
 	 * </ul>
+	 *
+	 * The method will interpret the contents of the
+	 * {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter depending on whether the
+	 * {@link kAPI_OPT_DIRECTION kAPI_OPT_DIRECTION} parameter was provided or not:
+	 *
+	 * <ul>
+	 *	<li><i>{@link kAPI_OPT_DIRECTION kAPI_OPT_DIRECTION} not provided</i>: In this case
+	 *		the method will treat the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS}
+	 *		parameter elements as a list of {@link COntologyEdge edge} identifiers to be
+	 *		matched.
+	 *	<li><i>{@link kAPI_OPT_DIRECTION kAPI_OPT_DIRECTION} provided</i>: In this case the
+	 *		method will treat the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS}
+	 *		parameter elements as a list of {@link COntologyNode node} identifiers for which
+	 *		we want to retrieve connected {@link COntologyEdge edges} in the direction
+	 *		provided in the {@link kAPI_OPT_DIRECTION kAPI_OPT_DIRECTION} parameter:
+	 *	 <ul>
+	 *		<li><i>{@link kAPI_DIRECTION_IN kAPI_DIRECTION_IN}</i>: The service will return
+	 *			all {@link COntologyEdge edges} that point to the
+	 *			{@link COntologyNode nodes} provided in the
+	 *			{@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter.
+	 *		<li><i>{@link kAPI_DIRECTION_OUT kAPI_DIRECTION_OUT}</i>: The service will
+	 *			return all {@link COntologyEdge edges} pointing from the
+	 *			{@link COntologyNode nodes} provided in the
+	 *			{@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter.
+	 *		<li><i>{@link kAPI_DIRECTION_ALL kAPI_DIRECTION_ALL}</i>: The service will
+	 *			return all {@link COntologyEdge edges} connected in any way to the
+	 *			{@link COntologyNode nodes} provided in the
+	 *			{@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * If the {@link kAPI_OPT_PREDICATES kAPI_OPT_PREDICATES} parameter was provided, only
+	 * those {@link COntologyEdge edges} whose type matches any of the predicate
+	 * {@link COntologyTerm term} identifiers provided in that parameter will be selected.
 	 *
 	 * If the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter was not provided,
 	 * the method will return the above structure with no content.
@@ -990,6 +1099,78 @@ class CWarehouseWrapper extends CMongoDataWrapper
 			$ref_term = & $response[ kAPI_RESPONSE_TERMS ];
 			$ref_node = & $response[ kAPI_RESPONSE_NODES ];
 			$ref_edge = & $response[ kAPI_RESPONSE_EDGES ];
+			$predicates = ( array_key_exists( kAPI_OPT_PREDICATES, $_REQUEST ) )
+						? $_REQUEST[ kAPI_OPT_PREDICATES ]
+						: Array();
+			
+			//
+			// Handle node edges.
+			//
+			if( array_key_exists( kAPI_OPT_DIRECTION, $_REQUEST ) )
+			{
+				//
+				// Set direction.
+				//
+				switch( $_REQUEST[ kAPI_OPT_DIRECTION ] )
+				{
+					case kAPI_DIRECTION_IN:
+						$direction = Everyman\Neo4j\Relationship::DirectionIn;
+						break;
+
+					case kAPI_DIRECTION_OUT:
+						$direction = Everyman\Neo4j\Relationship::DirectionOut;
+						break;
+
+					case kAPI_DIRECTION_ALL:
+						$direction = Everyman\Neo4j\Relationship::DirectionAll;
+						break;
+					
+					default:
+						throw new CException
+								( "Untrapped invalid relationship direction",
+								  kERROR_UNSUPPORTED,
+								  kMESSAGE_TYPE_BUG,
+								  array( 'Tag'
+								  		=> $_REQUEST[ kAPI_OPT_DIRECTION ] ) );	// !@! ==>
+				}
+				
+				//
+				// Copy node identifiers.
+				//
+				$identifiers = $_REQUEST[ kAPI_OPT_IDENTIFIERS ];
+				
+				//
+				// Reset node identifiers.
+				//
+				$_REQUEST[ kAPI_OPT_IDENTIFIERS ] = Array();
+				
+				//
+				// Iterate node identifiers.
+				//
+				foreach( $identifiers as $identifier )
+				{
+					//
+					// Instantiate node.
+					//
+					$node = $container[ kTAG_NODE ]->getNode( $identifier );
+					if( $node !== NULL )
+					{
+						//
+						// Get edges.
+						//
+						$edges = $node->getRelationships( $predicates, $direction );
+						foreach( $edges as $edge )
+						{
+							if( ! in_array( $edge->getId(),
+											$_REQUEST[ kAPI_OPT_IDENTIFIERS ] ) )
+								$_REQUEST[ kAPI_OPT_IDENTIFIERS ][] = $edge->getId();
+						}
+					
+					} // Found node.
+				
+				} // Iterating node identifiers.
+			
+			} // Direction provided.
 			
 			//
 			// Iterate identifiers.
@@ -1003,58 +1184,74 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				if( $node->Persistent() )
 				{
 					//
-					// Set subject node properties.
+					// Filter predicates.
 					//
-					$id_subject = $node->Subject()->getId();
-					if( ! array_key_exists( $id_subject, $ref_node ) )
-						$ref_node[ $id_subject ] = $node->Subject()->getProperties();
+					if( (! count( $predicates ))
+					 || in_array( $node->Term()->GID(), $predicates ) )
+					{
+						//
+						// Set subject node properties.
+						//
+						$id_subject = $node->Subject()->getId();
+						if( ! array_key_exists( $id_subject, $ref_node ) )
+							$ref_node[ $id_subject ]
+								= $node->Subject()->getProperties();
+						
+						//
+						// Set subject term properties.
+						//
+						$id = $node->SubjectTerm()->GID();
+						if( ! array_key_exists( $id, $ref_term ) )
+							$ref_term[ $id ]
+								= $node->SubjectTerm()->getArrayCopy();
+						
+						//
+						// Set object node properties.
+						//
+						$id_object = $node->Object()->getId();
+						if( ! array_key_exists( $id_object, $ref_node ) )
+							$ref_node[ $id_object ]
+								= $node->Object()->getProperties();
+						
+						//
+						// Set object term properties.
+						//
+						$id = $node->ObjectTerm()->GID();
+						if( ! array_key_exists( $id, $ref_term ) )
+							$ref_term[ $id ]
+								= $node->ObjectTerm()->getArrayCopy();
+						
+						//
+						// Set predicate term properties.
+						//
+						$id_predicate = $node->Term()->GID();
+						if( ! array_key_exists( $id_predicate, $ref_term ) )
+							$ref_term[ $id_predicate ]
+								= $node->Term()->getArrayCopy();
+						
+						//
+						// Set subject edge node property.
+						//
+						$ref_edge[ $identifier ]
+							= array( kAPI_RESPONSE_SUBJECT => $id_subject,
+									 kAPI_RESPONSE_PREDICATE => $id_predicate,
+									 kAPI_RESPONSE_OBJECT => $id_object );
+						
+						//
+						// Count.
+						//
+						$count++;
 					
-					//
-					// Set subject term properties.
-					//
-					$id = $node->SubjectTerm()->GID();
-					if( ! array_key_exists( $id, $ref_term ) )
-						$ref_term[ $id ] = $node->SubjectTerm()->getArrayCopy();
-					
-					//
-					// Set object node properties.
-					//
-					$id_object = $node->Object()->getId();
-					if( ! array_key_exists( $id_object, $ref_node ) )
-						$ref_node[ $id_object ] = $node->Object()->getProperties();
-					
-					//
-					// Set object term properties.
-					//
-					$id = $node->ObjectTerm()->GID();
-					if( ! array_key_exists( $id, $ref_term ) )
-						$ref_term[ $id ] = $node->ObjectTerm()->getArrayCopy();
-					
-					//
-					// Set predicate term properties.
-					//
-					$id_predicate = $node->Term()->GID();
-					if( ! array_key_exists( $id_predicate, $ref_term ) )
-						$ref_term[ $id_predicate ] = $node->Term()->getArrayCopy();
-					
-					//
-					// Set subject edge node property.
-					//
-					$ref_edge[ $identifier ]
-						= array( kAPI_RESPONSE_SUBJECT => $id_subject,
-								 kAPI_RESPONSE_PREDICATE => $id_predicate,
-								 kAPI_RESPONSE_OBJECT => $id_object );
-					
-					//
-					// Count.
-					//
-					$count++;
-				}
+					} // Predicates omitted or matched.
+				
+				} // Edge node exists.
 				
 				else
 					$ref_edge[ $identifier ] = Array();
-			}
-		}
+			
+			} // Iterating identifiers.
+		
+		} // Provided identifiers list.
 		
 		//
 		// Set count.
@@ -1074,9 +1271,9 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	 *==================================================================================*/
 
 	/**
-	 * Handle {@link kAPI_OP_QUERY_ONTOLOGIES query-nodes} request.
+	 * Handle {@link kAPI_OP_QUERY_ROOTS query-nodes} request.
 	 *
-	 * This method expects the {@link kAPI_OPT_NODE_SELECTORS kAPI_OPT_NODE_SELECTORS}
+	 * This method expects the {@link kAPI_OPT_ATTRIBUTES kAPI_OPT_ATTRIBUTES}
 	 * parameter to hold a list of key/value pairs filter that will be added to the
 	 * default {@link kTYPE_ROOT root} {@link kTAG_KIND kind} query; if the
 	 * parameter was omitted, the method will select all ontologies.
@@ -1115,7 +1312,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		//
 		// Handle selectors.
 		//
-		if( array_key_exists( kAPI_OPT_NODE_SELECTORS, $_REQUEST ) )
+		if( array_key_exists( kAPI_OPT_ATTRIBUTES, $_REQUEST ) )
 		{
 			//
 			// Init local storage.
@@ -1132,7 +1329,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 			//
 			// Execute query.
 			//
-			$results = $idx->query( $_REQUEST[ kAPI_OPT_NODE_SELECTORS ] );
+			$results = $idx->query( $_REQUEST[ kAPI_OPT_ATTRIBUTES ] );
 			foreach( $results as $object )
 			{
 				//
@@ -1236,12 +1433,12 @@ class CWarehouseWrapper extends CMongoDataWrapper
 			.'] identifiers.';
 		
 		//
-		// Add kAPI_OP_QUERY_ONTOLOGIES.
+		// Add kAPI_OP_QUERY_ROOTS.
 		//
-		$theList[ kAPI_OP_QUERY_ONTOLOGIES ]
+		$theList[ kAPI_OP_QUERY_ROOTS ]
 			= 'This operation will return the list of ontology nodes matching the provided '
 			.'attribute/value pairs in ['
-			.kAPI_OPT_NODE_SELECTORS
+			.kAPI_OPT_ATTRIBUTES
 			.'] selectors.';
 	
 	} // _Handle_ListOp.

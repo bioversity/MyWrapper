@@ -1135,6 +1135,7 @@ try
 		$params->Identifiers( 0, TRUE );
 		$params->Identifiers( 1, TRUE );
 		$params->Identifiers( 2, TRUE );
+		$params->Identifiers( 51, TRUE );
 		$params->Identifiers( 99999, TRUE );
 		$params->LogTrace( TRUE );
 		$params->LogRequest( TRUE );
@@ -1151,7 +1152,7 @@ try
 		//
 		// Build identifiers list.
 		//
-		$list = json_encode( array( 0, 1, 2, 99999 ) );
+		$list = json_encode( array( 0, 1, 2, 51, 99999 ) );
 		//
 		// Build parameters.
 		//
@@ -1203,9 +1204,9 @@ try
 	echo( '<hr>' );
 	
 	/*===================================================================================
-	 *	GET ONTOLOGIES (EMPTY)															*
+	 *	GET EDGES LIST (LIST WITH PREDICATES)											*
 	 *==================================================================================*/
-	echo( '<h4>Get ontologies list ('.kAPI_OP_QUERY_ONTOLOGIES.') empty</h4>' );
+	echo( '<h4>Get edges list ('.kAPI_OP_GET_EDGES.') list with predicate selection</h4>' );
 	//
 	// Use wrapper client.
 	//
@@ -1215,7 +1216,362 @@ try
 		// Build parameters.
 		//
 		$params = new CWarehouseWrapperClient( $url );
-		$params->Operation( kAPI_OP_QUERY_ONTOLOGIES );
+		$params->Operation( kAPI_OP_GET_EDGES );
+		$params->Format( kTYPE_JSON );
+		$params->Database( 'WAREHOUSE' );
+		$params->Container( 'DICTIONARY' );
+		$params->Identifiers( 0, TRUE );
+		$params->Identifiers( 1, TRUE );
+		$params->Identifiers( 2, TRUE );
+		$params->Identifiers( 51, TRUE );
+		$params->Identifiers( 99999, TRUE );
+		$params->Predicates( kPRED_PART_OF, TRUE );
+		$params->LogTrace( TRUE );
+		$params->LogRequest( TRUE );
+		//
+		// Get response.
+		//
+		$decoded = $params->Execute();
+	}
+	//
+	// Use raw parameters.
+	//
+	else
+	{
+		//
+		// Build identifiers list.
+		//
+		$list = json_encode( array( 0, 1, 2, 51, 99999 ) );
+		//
+		// Build identifiers list.
+		//
+		$predicates = json_encode( array( kPRED_PART_OF ) );
+		//
+		// Build parameters.
+		//
+		$params = Array();
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_EDGES;			// Command.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
+		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
+		$params[] = kAPI_CONTAINER.'='.'DICTIONARY';				// Container.
+		$params[] = kAPI_OPT_IDENTIFIERS.'='.$list;					// Identifiers.
+		$params[] = kAPI_OPT_PREDICATES.'='.$predicates;			// Predicates.
+		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
+		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
+		//
+		// Build request.
+		//
+		$request = $url.'?'.implode( '&', $params );
+		//
+		// Get response.
+		//
+		$response = file_get_contents( $request );
+		//
+		// Decode response.
+		//
+		$decoded = json_decode( $response, TRUE );
+	}
+	//
+	// Display.
+	//
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	if( ! kUSE_CLIENT )
+	{
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.$response.kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+	}
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	/*===================================================================================
+	 *	GET DIRECTED EDGES (IN)															*
+	 *==================================================================================*/
+	echo( '<h4>Get directed edges ('.kAPI_OP_GET_EDGES.') list</h4>' );
+	echo( '<i>Get all nodes that point to node 2.</i>' );
+	//
+	// Use wrapper client.
+	//
+	if( kUSE_CLIENT )
+	{
+		//
+		// Build parameters.
+		//
+		$params = new CWarehouseWrapperClient( $url );
+		$params->Operation( kAPI_OP_GET_EDGES );
+		$params->Format( kTYPE_JSON );
+		$params->Database( 'WAREHOUSE' );
+		$params->Container( 'DICTIONARY' );
+		$params->Identifiers( 2, TRUE );
+		$params->Direction( kAPI_DIRECTION_IN );
+		$params->LogTrace( TRUE );
+		$params->LogRequest( TRUE );
+		//
+		// Get response.
+		//
+		$decoded = $params->Execute();
+	}
+	//
+	// Use raw parameters.
+	//
+	else
+	{
+		//
+		// Build identifiers list.
+		//
+		$list = json_encode( array( 2 ) );
+		//
+		// Build parameters.
+		//
+		$params = Array();
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_EDGES;			// Command.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
+		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
+		$params[] = kAPI_CONTAINER.'='.'DICTIONARY';				// Container.
+		$params[] = kAPI_OPT_IDENTIFIERS.'='.$list;					// Identifiers.
+		$params[] = kAPI_OPT_DIRECTION.'='.kAPI_DIRECTION_IN;		// Direction.
+		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
+		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
+		//
+		// Build request.
+		//
+		$request = $url.'?'.implode( '&', $params );
+		//
+		// Get response.
+		//
+		$response = file_get_contents( $request );
+		//
+		// Decode response.
+		//
+		$decoded = json_decode( $response, TRUE );
+	}
+	//
+	// Display.
+	//
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	if( ! kUSE_CLIENT )
+	{
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.$response.kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+	}
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	/*===================================================================================
+	 *	GET DIRECTED EDGES (OUT)														*
+	 *==================================================================================*/
+	echo( '<h4>Get directed edges ('.kAPI_OP_GET_EDGES.') list</h4>' );
+	echo( '<i>Get all nodes that node 2 points to.</i>' );
+	//
+	// Use wrapper client.
+	//
+	if( kUSE_CLIENT )
+	{
+		//
+		// Build parameters.
+		//
+		$params = new CWarehouseWrapperClient( $url );
+		$params->Operation( kAPI_OP_GET_EDGES );
+		$params->Format( kTYPE_JSON );
+		$params->Database( 'WAREHOUSE' );
+		$params->Container( 'DICTIONARY' );
+		$params->Identifiers( 2, TRUE );
+		$params->Direction( kAPI_DIRECTION_OUT );
+		$params->LogTrace( TRUE );
+		$params->LogRequest( TRUE );
+		//
+		// Get response.
+		//
+		$decoded = $params->Execute();
+	}
+	//
+	// Use raw parameters.
+	//
+	else
+	{
+		//
+		// Build identifiers list.
+		//
+		$list = json_encode( array( 2 ) );
+		//
+		// Build parameters.
+		//
+		$params = Array();
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_EDGES;			// Command.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
+		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
+		$params[] = kAPI_CONTAINER.'='.'DICTIONARY';				// Container.
+		$params[] = kAPI_OPT_IDENTIFIERS.'='.$list;					// Identifiers.
+		$params[] = kAPI_OPT_DIRECTION.'='.kAPI_DIRECTION_OUT;		// Direction.
+		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
+		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
+		//
+		// Build request.
+		//
+		$request = $url.'?'.implode( '&', $params );
+		//
+		// Get response.
+		//
+		$response = file_get_contents( $request );
+		//
+		// Decode response.
+		//
+		$decoded = json_decode( $response, TRUE );
+	}
+	//
+	// Display.
+	//
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	if( ! kUSE_CLIENT )
+	{
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.$response.kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+	}
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	/*===================================================================================
+	 *	GET DIRECTED EDGES (ALL)														*
+	 *==================================================================================*/
+	echo( '<h4>Get directed edges ('.kAPI_OP_GET_EDGES.') list</h4>' );
+	echo( '<i>Get all nodes related to node 2.</i>' );
+	//
+	// Use wrapper client.
+	//
+	if( kUSE_CLIENT )
+	{
+		//
+		// Build parameters.
+		//
+		$params = new CWarehouseWrapperClient( $url );
+		$params->Operation( kAPI_OP_GET_EDGES );
+		$params->Format( kTYPE_JSON );
+		$params->Database( 'WAREHOUSE' );
+		$params->Container( 'DICTIONARY' );
+		$params->Identifiers( 2, TRUE );
+		$params->Direction( kAPI_DIRECTION_ALL );
+		$params->LogTrace( TRUE );
+		$params->LogRequest( TRUE );
+		//
+		// Get response.
+		//
+		$decoded = $params->Execute();
+	}
+	//
+	// Use raw parameters.
+	//
+	else
+	{
+		//
+		// Build identifiers list.
+		//
+		$list = json_encode( array( 2 ) );
+		//
+		// Build parameters.
+		//
+		$params = Array();
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_EDGES;			// Command.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
+		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
+		$params[] = kAPI_CONTAINER.'='.'DICTIONARY';				// Container.
+		$params[] = kAPI_OPT_IDENTIFIERS.'='.$list;					// Identifiers.
+		$params[] = kAPI_OPT_DIRECTION.'='.kAPI_DIRECTION_ALL;		// Direction.
+		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
+		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
+		//
+		// Build request.
+		//
+		$request = $url.'?'.implode( '&', $params );
+		//
+		// Get response.
+		//
+		$response = file_get_contents( $request );
+		//
+		// Decode response.
+		//
+		$decoded = json_decode( $response, TRUE );
+	}
+	//
+	// Display.
+	//
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	if( ! kUSE_CLIENT )
+	{
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.$response.kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+	}
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	/*===================================================================================
+	 *	GET ONTOLOGIES (EMPTY)															*
+	 *==================================================================================*/
+	echo( '<h4>Get ontologies list ('.kAPI_OP_QUERY_ROOTS.') empty</h4>' );
+	//
+	// Use wrapper client.
+	//
+	if( kUSE_CLIENT )
+	{
+		//
+		// Build parameters.
+		//
+		$params = new CWarehouseWrapperClient( $url );
+		$params->Operation( kAPI_OP_QUERY_ROOTS );
 		$params->Format( kTYPE_JSON );
 		$params->Database( 'WAREHOUSE' );
 		$params->Container( 'DICTIONARY' );
@@ -1235,7 +1591,7 @@ try
 		// Build parameters.
 		//
 		$params = Array();
-		$params[] = kAPI_OPERATION.'='.kAPI_OP_QUERY_ONTOLOGIES;	// Command.
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_QUERY_ROOTS;	// Command.
 		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
 		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
 		$params[] = kAPI_CONTAINER.'='.'DICTIONARY';				// Container.
@@ -1283,7 +1639,7 @@ try
 	/*===================================================================================
 	 *	GET ONTOLOGIES (GEOGRAPHY)															*
 	 *==================================================================================*/
-	echo( '<h4>Get ontologies list ('.kAPI_OP_QUERY_ONTOLOGIES.') Geography domain</h4>' );
+	echo( '<h4>Get ontologies list ('.kAPI_OP_QUERY_ROOTS.') Geography domain</h4>' );
 	//
 	// Use wrapper client.
 	//
@@ -1293,11 +1649,11 @@ try
 		// Build parameters.
 		//
 		$params = new CWarehouseWrapperClient( $url );
-		$params->Operation( kAPI_OP_QUERY_ONTOLOGIES );
+		$params->Operation( kAPI_OP_QUERY_ROOTS );
 		$params->Format( kTYPE_JSON );
 		$params->Database( 'WAREHOUSE' );
 		$params->Container( 'DICTIONARY' );
-		$params->Selectors( kTAG_DOMAIN, kDOMAIN_GEOGRAPHY, TRUE );
+		$params->Attributes( kTAG_DOMAIN, kDOMAIN_GEOGRAPHY, TRUE );
 		$params->LogTrace( TRUE );
 		$params->LogRequest( TRUE );
 		//
@@ -1318,11 +1674,11 @@ try
 		// Build parameters.
 		//
 		$params = Array();
-		$params[] = kAPI_OPERATION.'='.kAPI_OP_QUERY_ONTOLOGIES;	// Command.
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_QUERY_ROOTS;	// Command.
 		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
 		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
 		$params[] = kAPI_CONTAINER.'='.'DICTIONARY';				// Container.
-		$params[] = kAPI_OPT_NODE_SELECTORS.'='.$list;				// Selectors.
+		$params[] = kAPI_OPT_ATTRIBUTES.'='.$list;				// Attributes.
 		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
 		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
 		//
@@ -1367,7 +1723,7 @@ try
 	/*===================================================================================
 	 *	GET ONTOLOGIES (PASSPORT)														*
 	 *==================================================================================*/
-	echo( '<h4>Get ontologies list ('.kAPI_OP_QUERY_ONTOLOGIES.') Accessions Passport</h4>' );
+	echo( '<h4>Get ontologies list ('.kAPI_OP_QUERY_ROOTS.') Accessions Passport</h4>' );
 	//
 	// Use wrapper client.
 	//
@@ -1377,12 +1733,12 @@ try
 		// Build parameters.
 		//
 		$params = new CWarehouseWrapperClient( $url );
-		$params->Operation( kAPI_OP_QUERY_ONTOLOGIES );
+		$params->Operation( kAPI_OP_QUERY_ROOTS );
 		$params->Format( kTYPE_JSON );
 		$params->Database( 'WAREHOUSE' );
 		$params->Container( 'DICTIONARY' );
-		$params->Selectors( kTAG_DOMAIN, kDOMAIN_ACCESSION, TRUE );
-		$params->Selectors( kTAG_CATEGORY, kCATEGORY_PASSPORT, TRUE );
+		$params->Attributes( kTAG_DOMAIN, kDOMAIN_ACCESSION, TRUE );
+		$params->Attributes( kTAG_CATEGORY, kCATEGORY_PASSPORT, TRUE );
 		$params->LogTrace( TRUE );
 		$params->LogRequest( TRUE );
 		//
@@ -1405,11 +1761,11 @@ try
 		// Build parameters.
 		//
 		$params = Array();
-		$params[] = kAPI_OPERATION.'='.kAPI_OP_QUERY_ONTOLOGIES;	// Command.
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_QUERY_ROOTS;	// Command.
 		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
 		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
 		$params[] = kAPI_CONTAINER.'='.'DICTIONARY';				// Container.
-		$params[] = kAPI_OPT_NODE_SELECTORS.'='.$list;				// Selectors.
+		$params[] = kAPI_OPT_ATTRIBUTES.'='.$list;				// Attributes.
 		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
 		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
 		//

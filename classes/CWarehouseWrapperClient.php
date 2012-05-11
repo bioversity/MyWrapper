@@ -116,7 +116,8 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 				case kAPI_OP_LOGIN:
 				case kAPI_OP_GET_TERMS:
 				case kAPI_OP_GET_NODES:
-				case kAPI_OP_QUERY_ONTOLOGIES:
+				case kAPI_OP_GET_EDGES:
+				case kAPI_OP_QUERY_ROOTS:
 					break;
 				
 				default:
@@ -237,14 +238,48 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 
 	 
 	/*===================================================================================
-	 *	Selectors																		*
+	 *	Predicates																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage predicates list.
+	 *
+	 * This method can be used to manage the {@link kAPI_OPT_PREDICATES predicates}, it
+	 * uses the standard accessor {@link _ManageArrayOffset() method} to manage the list of
+	 * predicates.
+	 *
+	 * For a more thorough reference of how this method works, please consult the
+	 * {@link _ManageArrayOffset() _ManageArrayOffset} method, in which the first parameter
+	 * will be the constant {@link kAPI_OPT_PREDICATES kAPI_OPT_PREDICATES}.
+	 *
+	 * @param mixed					$theValue			Value or index.
+	 * @param mixed					$theOperation		Operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return mixed
+	 *
+	 * @uses _ManageOffset()
+	 *
+	 * @see kAPI_OPT_PREDICATES
+	 */
+	public function Predicates( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
+	{
+		return $this->_ManageArrayOffset
+					( kAPI_OPT_PREDICATES, $theValue, $theOperation, $getOld );		// ==>
+
+	} // Predicates.
+
+	 
+	/*===================================================================================
+	 *	Attributes																		*
 	 *==================================================================================*/
 
 	/**
 	 * Manage selectors list.
 	 *
-	 * This method can be used to manage the {@link kAPI_OPT_NODE_SELECTORS selectors}, it
-	 * manages the following array structure:
+	 * This method can be used to manage the {@link kAPI_OPT_ATTRIBUTES attribute}
+	 * selectors, it manages the following array structure:
 	 *
 	 * <ul>
 	 *	<li><i>Key</i>: The array key should correspond to the node attribute you want to
@@ -291,9 +326,9 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 	 * @access public
 	 * @return mixed
 	 *
-	 * @see kAPI_OPT_NODE_SELECTORS
+	 * @see kAPI_OPT_ATTRIBUTES
 	 */
-	public function Selectors( $theKey, $theValue = NULL,
+	public function Attributes( $theKey, $theValue = NULL,
 										$theOperation = NULL,
 										$getOld = FALSE )
 	{
@@ -307,7 +342,7 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 		//
 		$save = NULL;
 		$list = Array();
-		$attribute = $this->offsetGet( kAPI_OPT_NODE_SELECTORS );
+		$attribute = $this->offsetGet( kAPI_OPT_ATTRIBUTES );
 		if( $attribute !== NULL )
 		{
 			if( array_key_exists( $theKey, $attribute ) )
@@ -341,9 +376,9 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 				{
 					unset( $attribute[ $theKey ] );
 					if( count( $attribute ) )
-						$this->offsetSet( kAPI_OPT_NODE_SELECTORS, $attribute );
+						$this->offsetSet( kAPI_OPT_ATTRIBUTES, $attribute );
 					else
-						$this->offsetUnset( kAPI_OPT_NODE_SELECTORS );
+						$this->offsetUnset( kAPI_OPT_ATTRIBUTES );
 					
 					if( $getOld )
 						return $list;												// ==>
@@ -364,7 +399,7 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 				{
 					unset( $attribute[ $theKey ] );
 					if( ! count( $attribute ) )
-						$this->offsetUnset( kAPI_OPT_NODE_SELECTORS );
+						$this->offsetUnset( kAPI_OPT_ATTRIBUTES );
 				}
 				
 				if( $getOld )
@@ -384,7 +419,7 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 			else
 				$attribute = array( $theKey => $theValue );
 			
-			$this->offsetSet( kAPI_OPT_NODE_SELECTORS, $attribute );
+			$this->offsetSet( kAPI_OPT_ATTRIBUTES, $attribute );
 			
 			if( $getOld )
 				return $list;														// ==>
@@ -407,7 +442,7 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 
 			$attribute[ $theKey ] = $list;
 			
-			$this->offsetSet( kAPI_OPT_NODE_SELECTORS, $attribute );
+			$this->offsetSet( kAPI_OPT_ATTRIBUTES, $attribute );
 		}
 		
 		if( $getOld )
@@ -415,7 +450,73 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 		
 		return $theValue;															// ==>
 
-	} // Selectors.
+	} // Attributes.
+
+	 
+	/*===================================================================================
+	 *	Direction																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage edges direction.
+	 *
+	 * This method can be used to manage the {@link kAPI_OP_GET_EDGES edges} direction, it
+	 * accepts a string which represents either the relationship
+	 * {@link kAPI_OPT_DIRECTION direction}, or the requested operation:
+	 *
+	 * <ul>
+	 *	<li><i>NULL</i>: Return the current value.
+	 *	<li><i>FALSE</i>: Delete the current value.
+	 *	<li><i>other</i>: Set the value with the provided parameter:
+	 *	 <ul>
+	 *		<li><i>{@link kAPI_DIRECTION_IN kAPI_DIRECTION_IN}</i>: Incoming relationships.
+	 *		<li><i>{@link kAPI_DIRECTION_OUT kAPI_DIRECTION_OUT}</i>: Outgoing
+	 *			relationships.
+	 *		<li><i>{@link kAPI_DIRECTION_ALL kAPI_DIRECTION_ALL}</i>: Both incoming and
+	 *			outgoing relationships.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * The second parameter is a boolean which if <i>TRUE</i> will return the <i>old</i>
+	 * value when replacing values; if <i>FALSE</i>, it will return the currently set value.
+	 *
+	 * @param integer				$theValue			Value or operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return mixed
+	 *
+	 * @uses _ManageOffset()
+	 *
+	 * @see kAPI_OPT_DIRECTION
+	 */
+	public function Direction( $theValue = NULL, $getOld = FALSE )
+	{
+		//
+		// Check direction parameter.
+		//
+		if( ($theValue !== NULL)
+		 && ($theValue !== FALSE) )
+		{
+			switch( $theValue )
+			{
+				case kAPI_DIRECTION_IN:
+				case kAPI_DIRECTION_OUT:
+				case kAPI_DIRECTION_ALL:
+					break;
+				
+				default:
+					throw new CException
+						( "Unsupported direction option",
+						  kERROR_UNSUPPORTED,
+						  kMESSAGE_TYPE_ERROR,
+						  array( 'Direction' => $theValue ) );					// !@! ==>
+			}
+		}
+		
+		return $this->_ManageOffset( kAPI_OPT_DIRECTION, $theValue, $getOld );		// ==>
+
+	} // Direction.
 
 	 
 

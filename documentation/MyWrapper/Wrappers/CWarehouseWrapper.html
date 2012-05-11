@@ -80,7 +80,7 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																																																																																																																																																																<div class="method-definition">
+																																																																																																																																																																																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">string</span>
 										<a href="#_EscapeLucene" title="details" class="method-name">_EscapeLucene</a>
@@ -90,6 +90,12 @@
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">void</span>
 										<a href="#_FormatIdentifiers" title="details" class="method-name">_FormatIdentifiers</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_FormatPredicates" title="details" class="method-name">_FormatPredicates</a>
 										()
 									</div>
 																<div class="method-definition">
@@ -156,6 +162,12 @@
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">void</span>
 										<a href="#_ParseIdentifiers" title="details" class="method-name">_ParseIdentifiers</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_ParsePredicates" title="details" class="method-name">_ParsePredicates</a>
 										()
 									</div>
 																<div class="method-definition">
@@ -240,11 +252,11 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="method_EscapeLucene" id="_EscapeLucene"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_EscapeLucene</span> (line <span class="line-number">1275</span>)
+		<span class="method-title">_EscapeLucene</span> (line <span class="line-number">1472</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -271,16 +283,16 @@
 			
 	</div>
 <a name="method_FormatIdentifiers" id="_FormatIdentifiers"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FormatIdentifiers</span> (line <span class="line-number">438</span>)
+		<span class="method-title">_FormatIdentifiers</span> (line <span class="line-number">469</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">This method will format the request identifiers list.</p>
-<p class="description"><p>In this class we handle the terms <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OP_GET_TERMS">list</a> operation by  creating a query and using the <a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OP_GET">GET</a> handler, in this method we  create the <a href="../../MyWrapper/Persistence/CMongoQuery.html">query</a>.</p></p>
+<p class="description"><p>In this class we handle the terms list <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OP_GET_TERMS">operation</a> by  creating a query and using the <a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OP_GET">GET</a> handler, in this method we  create the <a href="../../MyWrapper/Persistence/CMongoQuery.html">query</a>.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a></li>
 				<li><span class="field">access:</span> protected</li>
@@ -299,12 +311,40 @@
 		
 			
 	</div>
+<a name="method_FormatPredicates" id="_FormatPredicates"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_FormatPredicates</span> (line <span class="line-number">537</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">This method will format the request predicates list.</p>
+<p class="description"><p>In this class we <a href="../../MyWrapper/Wrappers/CDataWrapper.html#method_DecodeParameter">decode</a> the parameter.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_PREDICATES">kAPI_OPT_PREDICATES</a></li>
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Wrappers/CDataWrapper.html#method_DecodeParameter">CDataWrapper::_DecodeParameter()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_FormatPredicates
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
 <a name="method_FormatRequest" id="_FormatRequest"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FormatRequest</span> (line <span class="line-number">263</span>)
+		<span class="method-title">_FormatRequest</span> (line <span class="line-number">260</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -337,14 +377,14 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FormatSelectors</span> (line <span class="line-number">512</span>)
+		<span class="method-title">_FormatSelectors</span> (line <span class="line-number">569</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">This method will format the request selectors list.</p>
-<p class="description"><p>This method will convert the attribute/value pairs provided in the  <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_NODE_SELECTORS">kAPI_OPT_NODE_SELECTORS</a> parameter into a Lucene  compatible query, connecting all clauses in <em>AND</em>.</p><p>Note that the method will enforce the  <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_NODE_SELECTORS">kAPI_OPT_NODE_SELECTORS</a> parameter by initialising it  with the <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ROOT">root</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kind</a> selection.</p></p>
+<p class="description"><p>This method will convert the attribute/value pairs provided in the  <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_ATTRIBUTES">kAPI_OPT_ATTRIBUTES</a> parameter into a Lucene  compatible query, connecting all clauses in <em>AND</em>.</p><p>Note that the method will enforce the  <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_ATTRIBUTES">kAPI_OPT_ATTRIBUTES</a> parameter by initialising it  with the <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ROOT">root</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kind</a> selection.</p></p>
 	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_NODE_SELECTORS">kAPI_OPT_NODE_SELECTORS</a></li>
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_ATTRIBUTES">kAPI_OPT_ATTRIBUTES</a></li>
 				<li><span class="field">access:</span> protected</li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Wrappers/CDataWrapper.html#method_DecodeParameter">CDataWrapper::_DecodeParameter()</a></li>
 			</ul>
@@ -365,7 +405,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_HandleRequest</span> (line <span class="line-number">706</span>)
+		<span class="method-title">_HandleRequest</span> (line <span class="line-number">784</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -397,14 +437,13 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_GetEdges</span> (line <span class="line-number">970</span>)
+		<span class="method-title">_Handle_GetEdges</span> (line <span class="line-number">1079</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Handle <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OP_GET_EDGES">get-edges</a> request.</p>
-<p class="description"><p>This method expects the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter  to hold a list of edge node IDs, the method will query these nodes and return the  following structure:</p><p><ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_TERMS">kAPI_RESPONSE_TERMS</a></em>: The list of terms
-        related to the list of subject and object nodes and the list of predicate terms
-        as follows:
+<p class="description"><p>This method will return a list of node edges structured as follows:</p><p><ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_TERMS">kAPI_RESPONSE_TERMS</a></em>: The list of terms
+        related to the subject and object nodes and the edge predicate terms as follows:
      <ul><li><em>Index</em>: The term <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a>.</li><li><em>Value</em>: The term properties.</li></ul></li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_NODES">kAPI_RESPONSE_NODES</a></em>: The list of subject and
         object nodes as follows:
      <ul><li><em>Index</em>: The node ID.</li><li><em>Value</em>: The node properties.</li></ul></li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_EDGES">kAPI_RESPONSE_EDGES</a></em>: The list of edges as an
@@ -412,7 +451,24 @@
      <ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_SUBJECT">kAPI_RESPONSE_SUBJECT</a></em>: The subject
             <a href="../../MyWrapper/Ontology/COntologyNode.html">node</a> ID.</li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_PREDICATE">kAPI_RESPONSE_PREDICATE</a></em>: The
             predicate <a href="../../MyWrapper/Ontology/COntologyTerm.html">term</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a>.</li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_OBJECT">kAPI_RESPONSE_OBJECT</a></em>: The object
-            <a href="../../MyWrapper/Ontology/COntologyNode.html">node</a> ID.</li></ul></li></ul></p><p>If the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter was not provided,  the method will return the above structure with no content.</p></p>
+            <a href="../../MyWrapper/Ontology/COntologyNode.html">node</a> ID.</li></ul></li></ul></p><p>The method will interpret the contents of the  <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter depending on whether the  <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_DIRECTION">kAPI_OPT_DIRECTION</a> parameter was provided or not:</p><p><ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_DIRECTION">kAPI_OPT_DIRECTION</a> not provided</em>: In this case
+        the method will treat the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a>
+        parameter elements as a list of <a href="../../MyWrapper/Ontology/COntologyEdge.html">edge</a> identifiers to be
+        matched.</li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_DIRECTION">kAPI_OPT_DIRECTION</a> provided</em>: In this case the
+        method will treat the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a>
+        parameter elements as a list of <a href="../../MyWrapper/Ontology/COntologyNode.html">node</a> identifiers for which
+        we want to retrieve connected <a href="../../MyWrapper/Ontology/COntologyEdge.html">edges</a> in the direction
+        provided in the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_DIRECTION">kAPI_OPT_DIRECTION</a> parameter:
+     <ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_DIRECTION_IN">kAPI_DIRECTION_IN</a></em>: The service will return
+            all <a href="../../MyWrapper/Ontology/COntologyEdge.html">edges</a> that point to the
+            <a href="../../MyWrapper/Ontology/COntologyNode.html">nodes</a> provided in the
+            <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter.</li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_DIRECTION_OUT">kAPI_DIRECTION_OUT</a></em>: The service will
+            return all <a href="../../MyWrapper/Ontology/COntologyEdge.html">edges</a> pointing from the
+            <a href="../../MyWrapper/Ontology/COntologyNode.html">nodes</a> provided in the
+            <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter.</li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_DIRECTION_ALL">kAPI_DIRECTION_ALL</a></em>: The service will
+            return all <a href="../../MyWrapper/Ontology/COntologyEdge.html">edges</a> connected in any way to the
+            <a href="../../MyWrapper/Ontology/COntologyNode.html">nodes</a> provided in the
+            <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter.</li></ul></li></ul></p><p>If the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_PREDICATES">kAPI_OPT_PREDICATES</a> parameter was provided, only  those <a href="../../MyWrapper/Ontology/COntologyEdge.html">edges</a> whose type matches any of the predicate  <a href="../../MyWrapper/Ontology/COntologyTerm.html">term</a> identifiers provided in that parameter will be selected.</p><p>If the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter was not provided,  the method will return the above structure with no content.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
 			</ul>
@@ -433,7 +489,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_GetNodes</span> (line <span class="line-number">857</span>)
+		<span class="method-title">_Handle_GetNodes</span> (line <span class="line-number">935</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -463,7 +519,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_ListOp</span> (line <span class="line-number">1194</span>)
+		<span class="method-title">_Handle_ListOp</span> (line <span class="line-number">1391</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -503,7 +559,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_Login</span> (line <span class="line-number">754</span>)
+		<span class="method-title">_Handle_Login</span> (line <span class="line-number">832</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -529,12 +585,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_QueryOntologies</span> (line <span class="line-number">1104</span>)
+		<span class="method-title">_Handle_QueryOntologies</span> (line <span class="line-number">1301</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Handle <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OP_QUERY_ONTOLOGIES">query-nodes</a> request.</p>
-<p class="description"><p>This method expects the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_NODE_SELECTORS">kAPI_OPT_NODE_SELECTORS</a>  parameter to hold a list of key/value pairs filter that will be added to the  default <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ROOT">root</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kind</a> query; if the  parameter was omitted, the method will select all ontologies.</p><p>This method will return the following structure:</p><p><ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_TERMS">kAPI_RESPONSE_TERMS</a></em>: The list of
+<p class="short-description">Handle <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OP_QUERY_ROOTS">query-nodes</a> request.</p>
+<p class="description"><p>This method expects the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_ATTRIBUTES">kAPI_OPT_ATTRIBUTES</a>  parameter to hold a list of key/value pairs filter that will be added to the  default <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ROOT">root</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kind</a> query; if the  parameter was omitted, the method will select all ontologies.</p><p>This method will return the following structure:</p><p><ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_TERMS">kAPI_RESPONSE_TERMS</a></em>: The list of
         <a href="../../MyWrapper/Ontology/COntologyTerm.html">terms</a> related to the
         COntologyNode::Node() as follows:
      <ul><li><em>Index</em>: The term <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a>.</li><li><em>Value</em>: The term properties.</li></ul></li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_NODES">kAPI_RESPONSE_NODES</a></em>: The list of
@@ -626,7 +682,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseIdentifiers</span> (line <span class="line-number">359</span>)
+		<span class="method-title">_ParseIdentifiers</span> (line <span class="line-number">299</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -648,8 +704,35 @@
 		
 			
 	</div>
-<a name="method_ParseRequest" id="_ParseRequest"><!-- --></a>
+<a name="method_ParsePredicates" id="_ParsePredicates"><!-- --></a>
 <div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_ParsePredicates</span> (line <span class="line-number">332</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Parse predicates.</p>
+<p class="description"><p>This method will parse the user <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_PREDICATES">predicates</a> parameter.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> kAPI_DATA_REQUEST kAPI_OPT_PREDICATES</li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_ParsePredicates
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method_ParseRequest" id="_ParseRequest"><!-- --></a>
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -683,18 +766,18 @@
 			
 	</div>
 <a name="method_ParseSelectors" id="_ParseSelectors"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseSelectors</span> (line <span class="line-number">392</span>)
+		<span class="method-title">_ParseSelectors</span> (line <span class="line-number">365</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Parse identifiers.</p>
-<p class="description"><p>This method will parse the user <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_NODE_SELECTORS">selectors</a> parameter.</p></p>
+<p class="description"><p>This method will parse the user <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_ATTRIBUTES">selectors</a> parameter.</p></p>
 	<ul class="tags">
-				<li><span class="field">see:</span> kAPI_DATA_REQUEST kAPI_OPT_NODE_SELECTORS</li>
+				<li><span class="field">see:</span> kAPI_DATA_REQUEST kAPI_OPT_ATTRIBUTES</li>
 				<li><span class="field">access:</span> protected</li>
 			</ul>
 	
@@ -710,11 +793,11 @@
 			
 	</div>
 <a name="method_ParseUserCode" id="_ParseUserCode"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseUserCode</span> (line <span class="line-number">301</span>)
+		<span class="method-title">_ParseUserCode</span> (line <span class="line-number">398</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -738,11 +821,11 @@
 			
 	</div>
 <a name="method_ParseUserPass" id="_ParseUserPass"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseUserPass</span> (line <span class="line-number">330</span>)
+		<span class="method-title">_ParseUserPass</span> (line <span class="line-number">427</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -766,11 +849,11 @@
 			
 	</div>
 <a name="method_ValidateOperation" id="_ValidateOperation"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateOperation</span> (line <span class="line-number">590</span>)
+		<span class="method-title">_ValidateOperation</span> (line <span class="line-number">647</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1069,7 +1152,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 11 May 2012 01:49:38 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 11 May 2012 13:49:50 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>
