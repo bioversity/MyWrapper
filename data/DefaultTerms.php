@@ -3781,6 +3781,8 @@ EOT;
 		  kDEFAULT_LANGUAGE );
 		$iso_term->Kind( kTYPE_NAMESPACE, TRUE );
 		$iso_term->Kind( kTYPE_ROOT, TRUE );
+		$ns_639->Domain( kDOMAIN_LANGUAGE, TRUE );
+		$ns_639->Domain( kDOMAIN_GEOGRAPHY, TRUE );
 		$iso_term->Commit( $theContainer );
 		$iso_node = $term_index->findOne( kTAG_TERM, (string) $iso_term );
 		if( $iso_node === NULL )
