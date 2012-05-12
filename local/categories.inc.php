@@ -48,12 +48,23 @@ define( "kDEF_CATEGORY",			':CATEGORY' );					// Category.
 define( "kDOMAIN_GEOGRAPHY",		':DOMAIN:GEOGRAPHY' );			// Geography.
 
 /**
+ * Language.
+ *
+ * This tag represents the geography domain.
+ */
+define( "kDOMAIN_LANGUAGE",			':DOMAIN:LANGUAGE' );			// Language.
+
+/**
  * Germplasm.
  *
  * This tag represents the germplasm domain, it is a generalised domain comprising all
  * germplasms.
  */
 define( "kDOMAIN_GERMPLASM",		':DOMAIN:GERMPLASM' );			// Germplasm.
+
+/*=======================================================================================
+ *	SUBDOMAINS																			*
+ *======================================================================================*/
 
 /**
  * Sample.
