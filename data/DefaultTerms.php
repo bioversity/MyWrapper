@@ -5255,6 +5255,7 @@ SELECT
 	`VALID_COUNTRY`.`ISO3` AS `ValidCode`,
 	`Code_ISO_3166`.`Region`,
 	`Code_ISO_3166`.`Name`,
+	`Code_ISO_3166`.`Current`,
 	`Code_ISO_3166`.`FlagThumb`,
 	`Code_ISO_3166`.`FlagImage`,
 	`Code_ISO_3166`.`FlagVector`
@@ -5363,129 +5364,185 @@ EOT;
 			if( $doDisplay )
 				echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
 					 ." [$term] [".$node->Node()->getId()."]" );
-		
+			
 			//
-			// Handle alpha 2 code.
+			// Only valid codes.
 			//
-			if( $record[ 'Code2' ] !== NULL )
+			if( $record[ 'Current' ] )
 			{
 				//
-				// Create alpha 2 term.
+				// Handle alpha 2 code.
 				//
-				$term = new COntologyTerm();
-				$term->NS( $ns_3166 );
-				$term->Code( $record[ 'Code2' ] );
-				$term->Name( $record[ 'Name' ], kDEFAULT_LANGUAGE );
-				$term->Kind( kTYPE_ENUMERATION, TRUE );
-				$term->Type( kTYPE_ENUM );
-				$term->Enumeration( $term->Code(), TRUE );
-				$term->Enumeration( $record[ 'ISO3' ], TRUE );
-				$term->Synonym( $record[ 'ISO3' ], kTYPE_EXACT, TRUE );
-				if( $record[ 'CodeNum' ] !== NULL )
-				{
-					$term->Enumeration( $record[ 'CodeNum' ], TRUE );
-					$term->Synonym( $record[ 'CodeNum' ], kTYPE_EXACT, TRUE );
-				}
-				$term->Relate( $alpha2_term, $is_a, TRUE );
-				$term->Preferred( $preferred );
-				$term->Commit( $theContainer );
-				
-				//
-				// Create alpha 2 node.
-				//
-				$node = $term_index->findOne( kTAG_TERM, (string) $term );
-				if( $node === NULL )
-				{
-					$node = new COntologyNode( $container );
-					$node->Term( $term );
-					$node->Kind( kTYPE_ENUMERATION, TRUE );
-					$node->Commit( $container );
-				}
-				else
-					$node = new COntologyNode( $container, $node );
-				
-				//
-				// Create alpha2 edge.
-				//
-				$id = Array();
-				$id[] = $node->Node()->getId();
-				$id[] = (string) $enum_of;
-				$id[] = $alpha2_node->Node()->getId();
-				$id = implode( '/', $id );
-				$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-				if( $edge === NULL )
-				{
-					$edge = $node->RelateTo( $container, $enum_of, $alpha2_node );
-					$edge->Commit( $container );
-				}
-				
-				//
-				// Display.
-				//
-				if( $doDisplay )
-					echo( " [$term] [".$node->Node()->getId()."]" );
-			}
-		
-			//
-			// Handle numeric 3 code.
-			//
-			if( $record[ 'CodeNum' ] !== NULL )
-			{
-				//
-				// Create numeric 3 term.
-				//
-				$term = new COntologyTerm();
-				$term->NS( $ns_3166 );
-				$term->Code( $record[ 'CodeNum' ] );
-				$term->Name( $record[ 'Name' ], kDEFAULT_LANGUAGE );
-				$term->Kind( kTYPE_ENUMERATION, TRUE );
-				$term->Type( kTYPE_ENUM );
-				$term->Enumeration( $term->Code(), TRUE );
-				$term->Enumeration( $record[ 'ISO3' ], TRUE );
-				$term->Synonym( $record[ 'ISO3' ], kTYPE_EXACT, TRUE );
 				if( $record[ 'Code2' ] !== NULL )
 				{
-					$term->Enumeration( $record[ 'Code2' ], TRUE );
-					$term->Synonym( $record[ 'Code2' ], kTYPE_EXACT, TRUE );
+					//
+					// Create alpha 2 term.
+					//
+					$term = new COntologyTerm();
+					$term->NS( $ns_3166 );
+					$term->Code( $record[ 'Code2' ] );
+					$term->Name( $record[ 'Name' ], kDEFAULT_LANGUAGE );
+					$term->Kind( kTYPE_ENUMERATION, TRUE );
+					$term->Type( kTYPE_ENUM );
+					$term->Enumeration( $term->Code(), TRUE );
+					$term->Enumeration( $record[ 'ISO3' ], TRUE );
+					$term->Synonym( $record[ 'ISO3' ], kTYPE_EXACT, TRUE );
+					if( $record[ 'CodeNum' ] !== NULL )
+					{
+						$term->Enumeration( $record[ 'CodeNum' ], TRUE );
+						$term->Synonym( $record[ 'CodeNum' ], kTYPE_EXACT, TRUE );
+					}
+					$term->Relate( $alpha2_term, $is_a, TRUE );
+					$term->Preferred( $preferred );
+					$term->Commit( $theContainer );
+					
+					//
+					// Create alpha 2 node.
+					//
+					$node = $term_index->findOne( kTAG_TERM, (string) $term );
+					if( $node === NULL )
+					{
+						$node = new COntologyNode( $container );
+						$node->Term( $term );
+						$node->Kind( kTYPE_ENUMERATION, TRUE );
+						$node->Commit( $container );
+					}
+					else
+						$node = new COntologyNode( $container, $node );
+					
+					//
+					// Create alpha2 edge.
+					//
+					$id = Array();
+					$id[] = $node->Node()->getId();
+					$id[] = (string) $enum_of;
+					$id[] = $alpha2_node->Node()->getId();
+					$id = implode( '/', $id );
+					$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
+					if( $edge === NULL )
+					{
+						$edge = $node->RelateTo( $container, $enum_of, $alpha2_node );
+						$edge->Commit( $container );
+					}
+					
+					//
+					// Create region edge.
+					//
+					if( $record[ 'Region' ] !== NULL )
+					{
+						$region
+							= new COntologyNode( $container,
+												 $_SESSION[ 'REGIONS' ]
+												 		  [ $record[ 'Region' ] ] );
+						$id = Array();
+						$id[] = $node->Node()->getId();
+						$id[] = (string) $part_of;
+						$id[] =  $_SESSION[ 'REGIONS' ][ $record[ 'Region' ] ];
+						$id = implode( '/', $id );
+						$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
+						if( $edge === NULL )
+						{
+							$edge = $node->RelateTo( $container, $part_of, $region );
+							$edge->Commit( $container );
+						}
+						
+						$term->Relate( $region->Term(), $part_of, TRUE );
+						$term->Commit( $theContainer );
+					}
+					
+					//
+					// Display.
+					//
+					if( $doDisplay )
+						echo( " [$term] [".$node->Node()->getId()."]" );
 				}
-				$term->Relate( $numeric3_term, $is_a, TRUE );
-				$term->Preferred( $preferred );
-				$term->Commit( $theContainer );
-				
+			
 				//
-				// Create numeric 3 node.
+				// Handle numeric 3 code.
 				//
-				$node = $term_index->findOne( kTAG_TERM, (string) $term );
-				if( $node === NULL )
+				if( $record[ 'CodeNum' ] !== NULL )
 				{
-					$node = new COntologyNode( $container );
-					$node->Term( $term );
-					$node->Kind( kTYPE_ENUMERATION, TRUE );
-					$node->Commit( $container );
+					//
+					// Create numeric 3 term.
+					//
+					$term = new COntologyTerm();
+					$term->NS( $ns_3166 );
+					$term->Code( $record[ 'CodeNum' ] );
+					$term->Name( $record[ 'Name' ], kDEFAULT_LANGUAGE );
+					$term->Kind( kTYPE_ENUMERATION, TRUE );
+					$term->Type( kTYPE_ENUM );
+					$term->Enumeration( $term->Code(), TRUE );
+					$term->Enumeration( $record[ 'ISO3' ], TRUE );
+					$term->Synonym( $record[ 'ISO3' ], kTYPE_EXACT, TRUE );
+					if( $record[ 'Code2' ] !== NULL )
+					{
+						$term->Enumeration( $record[ 'Code2' ], TRUE );
+						$term->Synonym( $record[ 'Code2' ], kTYPE_EXACT, TRUE );
+					}
+					$term->Relate( $numeric3_term, $is_a, TRUE );
+					$term->Preferred( $preferred );
+					$term->Commit( $theContainer );
+					
+					//
+					// Create numeric 3 node.
+					//
+					$node = $term_index->findOne( kTAG_TERM, (string) $term );
+					if( $node === NULL )
+					{
+						$node = new COntologyNode( $container );
+						$node->Term( $term );
+						$node->Kind( kTYPE_ENUMERATION, TRUE );
+						$node->Commit( $container );
+					}
+					else
+						$node = new COntologyNode( $container, $node );
+					
+					//
+					// Create numeric3 edge.
+					//
+					$id = Array();
+					$id[] = $node->Node()->getId();
+					$id[] = (string) $enum_of;
+					$id[] = $numeric3_node->Node()->getId();
+					$id = implode( '/', $id );
+					$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
+					if( $edge === NULL )
+					{
+						$edge = $node->RelateTo( $container, $enum_of, $numeric3_node );
+						$edge->Commit( $container );
+					}
+					
+					//
+					// Create region edge.
+					//
+					if( $record[ 'Region' ] !== NULL )
+					{
+						$region
+							= new COntologyNode
+								( $container, $_SESSION[ 'REGIONS' ]
+													   [ $record[ 'Region' ] ] );
+						$id = Array();
+						$id[] = $node->Node()->getId();
+						$id[] = (string) $part_of;
+						$id[] =  $_SESSION[ 'REGIONS' ][ $record[ 'Region' ] ];
+						$id = implode( '/', $id );
+						$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
+						if( $edge === NULL )
+						{
+							$edge = $node->RelateTo( $container, $part_of, $region );
+							$edge->Commit( $container );
+						}
+						
+						$term->Relate( $region->Term(), $part_of, TRUE );
+						$term->Commit( $theContainer );
+					}
+					
+					//
+					// Display.
+					//
+					if( $doDisplay )
+						echo( " [$term] [".$node->Node()->getId()."]" );
 				}
-				else
-					$node = new COntologyNode( $container, $node );
-				
-				//
-				// Create numeric3 edge.
-				//
-				$id = Array();
-				$id[] = $node->Node()->getId();
-				$id[] = (string) $enum_of;
-				$id[] = $numeric3_node->Node()->getId();
-				$id = implode( '/', $id );
-				$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-				if( $edge === NULL )
-				{
-					$edge = $node->RelateTo( $container, $enum_of, $numeric3_node );
-					$edge->Commit( $container );
-				}
-				
-				//
-				// Display.
-				//
-				if( $doDisplay )
-					echo( " [$term] [".$node->Node()->getId()."]" );
 			}
 			
 			//
