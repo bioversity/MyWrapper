@@ -231,8 +231,10 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		$this->_ParseIdentifiers();
 		$this->_ParsePredicates();
 		$this->_ParseSelectors();
+		$this->_ParseDirection();
 		$this->_ParseUserCode();
 		$this->_ParseUserPass();
+		$this->_ParseLevels();
 	
 		//
 		// Call parent method.
@@ -356,7 +358,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	/**
 	 * Parse identifiers.
 	 *
-	 * This method will parse the user {@link kAPI_OPT_ATTRIBUTES selectors} parameter.
+	 * This method will parse the attribute {@link kAPI_OPT_ATTRIBUTES selectors} parameter.
 	 *
 	 * @access protected
 	 *
@@ -380,6 +382,39 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		} // Has selectors list.
 	
 	} // _ParseSelectors.
+
+	 
+	/*===================================================================================
+	 *	_ParseDirection																	*
+	 *==================================================================================*/
+
+	/**
+	 * Parse direction.
+	 *
+	 * This method will parse the relations {@link kAPI_OPT_DIRECTION direction} parameter.
+	 *
+	 * @access protected
+	 *
+	 * @see kAPI_DATA_REQUEST kAPI_OPT_DIRECTION
+	 */
+	protected function _ParseDirection()
+	{
+		//
+		// Handle direction.
+		//
+		if( array_key_exists( kAPI_OPT_DIRECTION, $_REQUEST ) )
+		{
+			//
+			// Add to request.
+			//
+			if( $this->offsetExists( kAPI_DATA_REQUEST ) )
+				$this->_OffsetManage
+					( kAPI_DATA_REQUEST, kAPI_OPT_DIRECTION,
+					  $_REQUEST[ kAPI_OPT_DIRECTION ] );
+		
+		} // Has direction parameter.
+	
+	} // _ParseDirection.
 
 		
 	/*===================================================================================
@@ -440,6 +475,39 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	} // _ParseUserPass.
 
 	 
+	/*===================================================================================
+	 *	_ParseLevels																	*
+	 *==================================================================================*/
+
+	/**
+	 * Parse level.
+	 *
+	 * This method will parse the relations {@link kAPI_OPT_LEVELS levels} parameter.
+	 *
+	 * @access protected
+	 *
+	 * @see kAPI_DATA_REQUEST kAPI_OPT_LEVELS
+	 */
+	protected function _ParseLevels()
+	{
+		//
+		// Handle levels.
+		//
+		if( array_key_exists( kAPI_OPT_LEVELS, $_REQUEST ) )
+		{
+			//
+			// Add to request.
+			//
+			if( $this->offsetExists( kAPI_DATA_REQUEST ) )
+				$this->_OffsetManage
+					( kAPI_DATA_REQUEST, kAPI_OPT_LEVELS,
+					  $_REQUEST[ kAPI_OPT_LEVELS ] );
+		
+		} // Has levels parameter.
+	
+	} // _ParseLevels.
+
+	 
 
 /*=======================================================================================
  *																						*
@@ -497,7 +565,13 @@ class CWarehouseWrapper extends CMongoDataWrapper
 						//
 						$identifiers = Array();
 						foreach( $_REQUEST[ kAPI_OPT_IDENTIFIERS ] as $identifier )
-							$identifiers[] = COntologyTerm::HashIndex( $identifier );
+						{
+							//
+							// Hash only if not an array.
+							//
+							if( ! is_array( $identifier ) )
+								$identifiers[] = COntologyTerm::HashIndex( $identifier );
+						}
 			
 						//
 						// Convert to query.
@@ -699,6 +773,13 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				
 				break;
 			
+			case kAPI_OP_GET_RELS:
+				//
+				// Check relations level.
+				//
+				if( ! array_key_exists( kAPI_OPT_LEVELS, $_REQUEST ) )
+					$_REQUEST[ kAPI_OPT_LEVELS ] = -1;
+				
 			case kAPI_OP_GET_EDGES:
 				//
 				// Check relation direction.
@@ -721,6 +802,13 @@ class CWarehouseWrapper extends CMongoDataWrapper
 								  		=> $_REQUEST[ kAPI_OPT_DIRECTION ] ) );	// !@! ==>
 					}
 				}
+				
+				//
+				// Force direction if getting relations.
+				//
+				elseif( $parameter == kAPI_OP_GET_RELS )
+					$_REQUEST[ kAPI_OPT_DIRECTION ] = kAPI_DIRECTION_OUT;
+				
 			case kAPI_OP_GET_TERMS:
 			case kAPI_OP_GET_NODES:
 			case kAPI_OP_QUERY_ROOTS:
@@ -802,6 +890,10 @@ class CWarehouseWrapper extends CMongoDataWrapper
 
 			case kAPI_OP_GET_EDGES:
 				$this->_Handle_GetEdges();
+				break;
+
+			case kAPI_OP_GET_RELS:
+				$this->_Handle_GetRelations();
 				break;
 
 			case kAPI_OP_QUERY_ROOTS:
@@ -944,6 +1036,13 @@ class CWarehouseWrapper extends CMongoDataWrapper
 						   kAPI_RESPONSE_NODES => Array() );
 		
 		//
+		// Get fields.
+		//
+		$fields = ( array_key_exists( kAPI_DATA_FIELD, $_REQUEST ) )
+				? $_REQUEST[ kAPI_DATA_FIELD ]
+				: Array();
+
+		//
 		// Handle identifiers.
 		//
 		if( array_key_exists( kAPI_OPT_IDENTIFIERS, $_REQUEST ) )
@@ -977,7 +1076,25 @@ class CWarehouseWrapper extends CMongoDataWrapper
 					//
 					$id = $node->Term()->GID();
 					if( ! array_key_exists( $id, $ref_term ) )
+					{
+						//
+						// Set term.
+						//
 						$ref_term[ $id ] = $node->Term()->getArrayCopy();
+						
+						//
+						// Handle fields.
+						//
+						if( count( $fields ) )
+						{
+							$ref = & $ref_term[ $id ];
+							foreach( $ref as $key => $element )
+							{
+								if( ! in_array( $key, $fields ) )
+									unset( $ref[ $key ] );
+							}
+						}
+					}
 					
 					//
 					// Count.
@@ -988,6 +1105,75 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				else
 					$ref_node[ $identifier ] = Array();
 			}
+/*			
+			
+			//
+			// Add global identifier to fields.
+			//
+			if( count( $fields )
+			 && (! array_key_exists( kTAG_GID, $fields )) )
+				$fields[] = kTAG_GID;
+
+			//
+			// Iterate node identifiers.
+			//
+			foreach( $_REQUEST[ kAPI_OPT_IDENTIFIERS ] as $identifier )
+			{
+				//
+				// Get node.
+				//
+				$node = $_SESSION[ kSESSION_NEO4J ]->getNode( $identifier );
+				if( $node )
+				{
+					//
+					// Set node properties.
+					//
+					$id = $node->getId();
+					$ref_node[ $id ] = $node->getProperties();
+					
+					//
+					// Set term properties.
+					//
+					$id = $node->getProperty( kTAG_TERM );
+					$ref_term[ $id ] = NULL;
+					
+					//
+					// Count.
+					//
+					$count++;
+				}
+				
+				else
+					$ref_node[ $identifier ] = Array();
+			}
+			
+			//
+			// Normalise identifiers.
+			//
+			$terms = Array();
+			foreach( array_keys( $ref_term ) as $term )
+			{
+				$term = COntologyTerm::HashIndex( $term );
+				$container[ kTAG_TERM ]->UnserialiseData( $term );
+				$terms[] = $term;
+			}
+			
+			//
+			// Load terms.
+			//
+			$query = array( kTAG_LID => array( '$in' => $terms ) );
+			$cursor = $container[ kTAG_TERM ]->Container()->find( $query, $fields );
+			
+			//
+			// Save terms.
+			//
+			foreach( $cursor as $record )
+			{
+				CDataType::SerialiseObject( $record );
+				if( array_key_exists( kTAG_GID, $record ) )
+					$ref_term[ $record[ kTAG_GID ] ] = $record;
+			}
+*/
 		}
 		
 		//
@@ -1104,6 +1290,13 @@ class CWarehouseWrapper extends CMongoDataWrapper
 						: Array();
 			
 			//
+			// Get fields.
+			//
+			$fields = ( array_key_exists( kAPI_DATA_FIELD, $_REQUEST ) )
+					? $_REQUEST[ kAPI_DATA_FIELD ]
+					: Array();
+	
+			//
 			// Handle node edges.
 			//
 			if( array_key_exists( kAPI_OPT_DIRECTION, $_REQUEST ) )
@@ -1202,8 +1395,25 @@ class CWarehouseWrapper extends CMongoDataWrapper
 						//
 						$id = $node->SubjectTerm()->GID();
 						if( ! array_key_exists( $id, $ref_term ) )
-							$ref_term[ $id ]
-								= $node->SubjectTerm()->getArrayCopy();
+						{
+							//
+							// Set term.
+							//
+							$ref_term[ $id ] = $node->SubjectTerm()->getArrayCopy();
+							
+							//
+							// Handle fields.
+							//
+							if( count( $fields ) )
+							{
+								$ref = & $ref_term[ $id ];
+								foreach( $ref as $key => $element )
+								{
+									if( ! in_array( $key, $fields ) )
+										unset( $ref[ $key ] );
+								}
+							}
+						}
 						
 						//
 						// Set object node properties.
@@ -1218,16 +1428,50 @@ class CWarehouseWrapper extends CMongoDataWrapper
 						//
 						$id = $node->ObjectTerm()->GID();
 						if( ! array_key_exists( $id, $ref_term ) )
-							$ref_term[ $id ]
-								= $node->ObjectTerm()->getArrayCopy();
+						{
+							//
+							// Set term.
+							//
+							$ref_term[ $id ] = $node->ObjectTerm()->getArrayCopy();
+							
+							//
+							// Handle fields.
+							//
+							if( count( $fields ) )
+							{
+								$ref = & $ref_term[ $id ];
+								foreach( $ref as $key => $element )
+								{
+									if( ! in_array( $key, $fields ) )
+										unset( $ref[ $key ] );
+								}
+							}
+						}
 						
 						//
 						// Set predicate term properties.
 						//
 						$id_predicate = $node->Term()->GID();
 						if( ! array_key_exists( $id_predicate, $ref_term ) )
-							$ref_term[ $id_predicate ]
-								= $node->Term()->getArrayCopy();
+						{
+							//
+							// Set term.
+							//
+							$ref_term[ $id_predicate ] = $node->Term()->getArrayCopy();
+							
+							//
+							// Handle fields.
+							//
+							if( count( $fields ) )
+							{
+								$ref = & $ref_term[ $id_predicate ];
+								foreach( $ref as $key => $element )
+								{
+									if( ! in_array( $key, $fields ) )
+										unset( $ref[ $key ] );
+								}
+							}
+						}
 						
 						//
 						// Set subject edge node property.
@@ -1264,6 +1508,367 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		$this->offsetSet( kAPI_DATA_RESPONSE, $response );
 	
 	} // _Handle_GetEdges.
+
+	 
+	/*===================================================================================
+	 *	_Handle_GetRelations															*
+	 *==================================================================================*/
+
+	/**
+	 * Handle {@link kAPI_OP_GET_RELS get-relations} request.
+	 *
+	 * This method will return a list of node edges structured as follows:
+	 *
+	 * <ul>
+	 *	<li><i>{@link kAPI_RESPONSE_TERMS kAPI_RESPONSE_TERMS}</i>: The list of terms
+	 *		related to the subject and object nodes and the edge predicate terms as follows:
+	 *	 <ul>
+	 *		<li><i>Index</i>: The term {@link kTAG_GID identifier}.
+	 *		<li><i>Value</i>: The term properties.
+	 *	 </ul>
+	 *	<li><i>{@link kAPI_RESPONSE_NODES kAPI_RESPONSE_NODES}</i>: The list of subject and
+	 *		object nodes as follows:
+	 *	 <ul>
+	 *		<li><i>Index</i>: The node ID.
+	 *		<li><i>Value</i>: The node properties.
+	 *	 </ul>
+	 *	<li><i>{@link kAPI_RESPONSE_EDGES kAPI_RESPONSE_EDGES}</i>: The list of edges as an
+	 *		array of elements structured as follows:
+	 *	 <ul>
+	 *		<li><i>Index</i>: The current node identifier provided in the
+	 *			{@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter.
+	 *		<li><i>Value</i>: An array of elements structured as follows:
+	 *		 <ul>
+	 *			<li><i>{@link kAPI_RESPONSE_SUBJECT kAPI_RESPONSE_SUBJECT}</i>: The subject
+	 *				{@link COntologyNode node} ID.
+	 *			<li><i>{@link kAPI_RESPONSE_PREDICATE kAPI_RESPONSE_PREDICATE}</i>: The
+	 *				predicate {@link COntologyTerm term} {@link kTAG_GID identifier}.
+	 *			<li><i>{@link kAPI_RESPONSE_OBJECT kAPI_RESPONSE_OBJECT}</i>: The object
+	 *				{@link COntologyNode node} ID.
+	 *		 </ul>
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * The method expects the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter
+	 * to contain a list of node identifiers for which we want to get the relations.
+	 *
+	 * The {@link kAPI_OPT_DIRECTION kAPI_OPT_DIRECTION} parameter determines whether we
+	 * want the {@link kAPI_DIRECTION_IN incoming}, {@link kAPI_DIRECTION_OUT outgoing} or
+	 * {@link kAPI_DIRECTION_ALL both} graph edges, if omitted it will be initialised to
+	 * {@link kAPI_DIRECTION_IN incoming}.
+	 * 
+	 * The {@link kAPI_OPT_LEVELS kAPI_OPT_LEVELS} parameter is an integer indicating the
+	 * depth of the relations traversal, if omitted all levels are assumed. A negative
+	 * value also assumes all levels.
+	 *
+	 * If the {@link kAPI_OPT_PREDICATES kAPI_OPT_PREDICATES} parameter was provided, only
+	 * those {@link COntologyEdge edges} whose type matches any of the predicate
+	 * {@link COntologyTerm term} identifiers provided in that parameter will be selected.
+	 *
+	 * If the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter was not provided,
+	 * the method will return the above structure with no content.
+	 *
+	 * @access protected
+	 */
+	protected function _Handle_GetRelations()
+	{
+		//
+		// Init local storage.
+		//
+		$count = 0;
+		$container = array( kTAG_TERM => new CMongoContainer( $_REQUEST[ kAPI_CONTAINER ] ),
+							kTAG_NODE => $_SESSION[ kSESSION_NEO4J ] );
+		$response = array( kAPI_RESPONSE_TERMS => Array(),
+						   kAPI_RESPONSE_NODES => Array(),
+						   kAPI_RESPONSE_EDGES => Array() );
+		
+		//
+		// Handle identifiers.
+		//
+		if( array_key_exists( kAPI_OPT_IDENTIFIERS, $_REQUEST ) )
+		{
+			//
+			// Init local storage.
+			//
+			$ref_term = & $response[ kAPI_RESPONSE_TERMS ];
+			$ref_node = & $response[ kAPI_RESPONSE_NODES ];
+			$ref_edge = & $response[ kAPI_RESPONSE_EDGES ];
+			$predicates = ( array_key_exists( kAPI_OPT_PREDICATES, $_REQUEST ) )
+						? $_REQUEST[ kAPI_OPT_PREDICATES ]
+						: Array();
+			
+			//
+			// Get fields.
+			//
+			$fields = ( array_key_exists( kAPI_DATA_FIELD, $_REQUEST ) )
+					? $_REQUEST[ kAPI_DATA_FIELD ]
+					: Array();
+	
+			//
+			// Set direction.
+			//
+			switch( $_REQUEST[ kAPI_OPT_DIRECTION ] )
+			{
+				case kAPI_DIRECTION_IN:
+					$direction = Everyman\Neo4j\Relationship::DirectionIn;
+					break;
+
+				case kAPI_DIRECTION_OUT:
+					$direction = Everyman\Neo4j\Relationship::DirectionOut;
+					break;
+
+				case kAPI_DIRECTION_ALL:
+					$direction = Everyman\Neo4j\Relationship::DirectionAll;
+					break;
+				
+				default:
+					throw new CException
+							( "Untrapped invalid relationship direction",
+							  kERROR_UNSUPPORTED,
+							  kMESSAGE_TYPE_BUG,
+							  array( 'Tag'
+									=> $_REQUEST[ kAPI_OPT_DIRECTION ] ) );		// !@! ==>
+			}
+			
+			//
+			// Iterate node identifiers.
+			//
+			foreach( $_REQUEST[ kAPI_OPT_IDENTIFIERS ] as $identifier )
+			{
+				//
+				// Init loop storage.
+				//
+				$edge_cache = Array();
+				$ref_edge[ $identifier ] = Array();
+				$ref_edge_id = & $ref_edge[ $identifier ];
+				
+				//
+				// Get node.
+				//
+				$node = $container[ kTAG_NODE ]->getNode( $identifier );
+				if( $node !== NULL )
+				{
+					//
+					// Loop relationships.
+					//
+					$node_cache = array( $identifier => $node );
+					while( count( $node_cache ) )
+					{
+						//
+						// Get edges.
+						//
+						$node = array_shift( $node_cache );
+						$edges = $node->getRelationships( $predicates, $direction );
+						foreach( $edges as $edge )
+						{
+							//
+							// Filter recursive edges.
+							//
+							if( ! in_array( $edge->getId(), $edge_cache ) )
+							{
+								//
+								// Cache edge.
+								//
+								$edge_cache[] = $edge->getId();
+								
+								//
+								// Filter predicates.
+								//
+								if( (! count( $predicates ))
+								 || in_array( $node->Term()->GID(), $predicates ) )
+								{
+									//
+									// Instantiate edge object.
+									//
+									$edge = new COntologyEdge( $container, $edge );
+									if( $edge->Persistent() )
+									{
+										//
+										// Handle cache.
+										//
+										switch( $direction )
+										{
+											case Everyman\Neo4j\Relationship::DirectionIn:
+												//
+												// Cache subject.
+												//
+												$node = $edge->Subject();
+												$id = $node->getId();
+												if( ! in_array( $id, $node_cache ) )
+													$node_cache[ $id ] = $node;
+												break;
+										
+											case Everyman\Neo4j\Relationship::DirectionOut:
+												//
+												// Cache object.
+												//
+												$node = $edge->Object();
+												$id = $node->getId();
+												if( ! in_array( $id, $node_cache ) )
+													$node_cache[ $id ] = $node;
+												break;
+										
+											case Everyman\Neo4j\Relationship::DirectionAll:
+												//
+												// Cache subject.
+												//
+												$node = $edge->Subject();
+												$id = $node->getId();
+												if( ! in_array( $id, $node_cache ) )
+													$node_cache[ $id ] = $node;
+												//
+												// Cache object.
+												//
+												$node = $edge->Object();
+												$id = $node->getId();
+												if( ! in_array( $id, $node_cache ) )
+													$node_cache[ $id ] = $node;
+												break;
+										
+										} // Caching nodes.
+									
+									} // Valid edge.
+									
+									else
+										throw new CException
+												( "Missing edge reference",
+												  kERROR_INVALID_STATE,
+												  kMESSAGE_TYPE_BUG,
+												  array( 'Edge'
+													=> $edge->getId() ) );		// !@! ==>
+									
+									//
+									// Set subject node properties.
+									//
+									$id_subject = $node->Subject()->getId();
+									if( ! array_key_exists( $id_subject, $ref_node ) )
+										$ref_node[ $id_subject ]
+											= $node->Subject()->getProperties();
+									
+									//
+									// Set subject term properties.
+									//
+									$id = $node->SubjectTerm()->GID();
+									if( ! array_key_exists( $id, $ref_term ) )
+									{
+										//
+										// Set term.
+										//
+										$ref_term[ $id ]
+											= $node->SubjectTerm()->getArrayCopy();
+										
+										//
+										// Handle fields.
+										//
+										if( count( $fields ) )
+										{
+											$ref = & $ref_term[ $id ];
+											foreach( $ref as $key => $element )
+											{
+												if( ! in_array( $key, $fields ) )
+													unset( $ref[ $key ] );
+											}
+										}
+									}
+									
+									//
+									// Set object node properties.
+									//
+									$id_object = $node->Object()->getId();
+									if( ! array_key_exists( $id_object, $ref_node ) )
+										$ref_node[ $id_object ]
+											= $node->Object()->getProperties();
+									
+									//
+									// Set object term properties.
+									//
+									$id = $node->ObjectTerm()->GID();
+									if( ! array_key_exists( $id, $ref_term ) )
+									{
+										//
+										// Set term.
+										//
+										$ref_term[ $id ]
+											= $node->ObjectTerm()->getArrayCopy();
+										
+										//
+										// Handle fields.
+										//
+										if( count( $fields ) )
+										{
+											$ref = & $ref_term[ $id ];
+											foreach( $ref as $key => $element )
+											{
+												if( ! in_array( $key, $fields ) )
+													unset( $ref[ $key ] );
+											}
+										}
+									}
+									
+									//
+									// Set predicate term properties.
+									//
+									$id_predicate = $node->Term()->GID();
+									if( ! array_key_exists( $id_predicate, $ref_term ) )
+									{
+										//
+										// Set term.
+										//
+										$ref_term[ $id_predicate ]
+											= $node->Term()->getArrayCopy();
+										
+										//
+										// Handle fields.
+										//
+										if( count( $fields ) )
+										{
+											$ref = & $ref_term[ $id_predicate ];
+											foreach( $ref as $key => $element )
+											{
+												if( ! in_array( $key, $fields ) )
+													unset( $ref[ $key ] );
+											}
+										}
+									}
+									
+									//
+									// Set subject edge node property.
+									//
+									$ref_edge_id[ $identifier ]
+										= array( kAPI_RESPONSE_SUBJECT => $id_subject,
+												 kAPI_RESPONSE_PREDICATE => $id_predicate,
+												 kAPI_RESPONSE_OBJECT => $id_object );
+									
+									//
+									// Count.
+									//
+									$count++;
+								
+								} // Predicates omitted or matched.
+
+							} // New edge.
+						
+						} // Iterating relations.
+					
+					} // Related elements left.
+				
+				} // Found node.
+			
+			} // Iterating node identifiers.
+		
+		} // Provided identifiers list.
+		
+		//
+		// Set count.
+		//
+		$this->_OffsetManage( kAPI_DATA_STATUS, kAPI_AFFECTED_COUNT, $count );
+
+		//
+		// Copy response.
+		//
+		$this->offsetSet( kAPI_DATA_RESPONSE, $response );
+	
+	} // _Handle_GetRelations.
 
 	 
 	/*===================================================================================
@@ -1429,6 +2034,15 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		$theList[ kAPI_OP_GET_EDGES ]
 			= 'This operation will return the list of ontology edge nodes matching the '
 			.'provided list of edge node ['
+			.kAPI_OPT_IDENTIFIERS
+			.'] identifiers.';
+		
+		//
+		// Add kAPI_OP_GET_RELS.
+		//
+		$theList[ kAPI_OP_GET_RELS ]
+			= 'This operation will return the list of ontology edge nodes related to the '
+			.'provided list of node ['
 			.kAPI_OPT_IDENTIFIERS
 			.'] identifiers.';
 		

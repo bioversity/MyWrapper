@@ -41,13 +41,13 @@
 											</div>
 		<div class="info-box-body">	
 			<a name="definekAPI_DIRECTION_ALL"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_DIRECTION_ALL</span> = 'a'
-			(line <span class="line-number">329</span>)
+			(line <span class="line-number">384</span>)
 		</span>
 	</div>
 	
@@ -58,13 +58,13 @@
 		
 </div>
 <a name="definekAPI_DIRECTION_IN"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_DIRECTION_IN</span> = 'i'
-			(line <span class="line-number">313</span>)
+			(line <span class="line-number">368</span>)
 		</span>
 	</div>
 	
@@ -75,13 +75,13 @@
 		
 </div>
 <a name="definekAPI_DIRECTION_OUT"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_DIRECTION_OUT</span> = 'o'
-			(line <span class="line-number">321</span>)
+			(line <span class="line-number">376</span>)
 		</span>
 	</div>
 	
@@ -92,13 +92,13 @@
 		
 </div>
 <a name="definekAPI_OPT_ATTRIBUTES"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_OPT_ATTRIBUTES</span> = ':@attributes'
-			(line <span class="line-number">227</span>)
+			(line <span class="line-number">270</span>)
 		</span>
 	</div>
 	
@@ -109,19 +109,19 @@
 		
 </div>
 <a name="definekAPI_OPT_DIRECTION"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_OPT_DIRECTION</span> = ':@direction'
-			(line <span class="line-number">248</span>)
+			(line <span class="line-number">291</span>)
 		</span>
 	</div>
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Relationship direction.</p>
-<p class="description"><p>This option is used when retrieving for <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OP_GET_EDGES">edges</a>: it indicates  the direction of the relationships in regard to the node identifiers provided in the  <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter:</p><p><ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_DIRECTION_IN">kAPI_DIRECTION_IN</a></em>: Incoming relationships, this
+<p class="description"><p>This option is used when retrieving <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OP_GET_EDGES">edges</a>: it indicates  the direction of the relationships in regard to the node identifiers provided in the  <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter:</p><p><ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_DIRECTION_IN">kAPI_DIRECTION_IN</a></em>: Incoming relationships, this
         will select all elements that point to the objects provided in the
         <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter.</li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_DIRECTION_OUT">kAPI_DIRECTION_OUT</a></em>: Outgoing relationships, this
         will select all elements pointed to by the objects provided in the
@@ -132,19 +132,36 @@
 		
 </div>
 <a name="definekAPI_OPT_IDENTIFIERS"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_OPT_IDENTIFIERS</span> = ':@identifiers'
-			(line <span class="line-number">202</span>)
+			(line <span class="line-number">245</span>)
 		</span>
 	</div>
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Identifiers option.</p>
 <p class="description"><p>This option refers to a list of object identifiers, this option is used by assorted  operations to receive the list of objects to be retrieved; the type of the list's  elements is determined by the operation.</p></p>
+	
+		
+</div>
+<a name="definekAPI_OPT_LEVELS"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_OPT_LEVELS</span> = ':@levels'
+			(line <span class="line-number">303</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Relationship levels.</p>
+<p class="description"><p>This option is used when retrieving for <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OP_GET_RELS">relationships</a>: it  indicates the amount of levels to follow.</p><p>If the integer parameter is omitted, the service will force a one level step, if the  parameter is negative, it means that the service will continue until all levels have been  reached.</p></p>
 	
 		
 </div>
@@ -155,7 +172,7 @@
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_OPT_PREDICATES</span> = ':@predicates'
-			(line <span class="line-number">212</span>)
+			(line <span class="line-number">255</span>)
 		</span>
 	</div>
 	
@@ -172,7 +189,7 @@
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_OPT_USER_CODE</span> = ':@user-code'
-			(line <span class="line-number">185</span>)
+			(line <span class="line-number">228</span>)
 		</span>
 	</div>
 	
@@ -189,7 +206,7 @@
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_OPT_USER_PASS</span> = ':@user-pass'
-			(line <span class="line-number">193</span>)
+			(line <span class="line-number">236</span>)
 		</span>
 	</div>
 	
@@ -260,8 +277,32 @@
 	
 		
 </div>
-<a name="definekAPI_OP_GET_TERMS"><!-- --></a>
+<a name="definekAPI_OP_GET_RELS"><!-- --></a>
 <div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_OP_GET_RELS</span> = '@GET_RELS'
+			(line <span class="line-number">187</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get relations web-service.</p>
+<p class="description"><p>This is the tag that represents the get relations web service, it will locate all  <a href="../../MyWrapper/Ontology/COntologyEdge.html">edges</a> related to the provided identifiers in the  <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter, in the direction provided in  the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_DIRECTION">kAPI_OPT_DIRECTION</a> parameter and for the  <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_LEVELS">kAPI_OPT_LEVELS</a> levels.</p><p>The service expects the same parameters as the  <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OP_GET_EDGES">kAPI_OP_GET_EDGES</a> service and returns a similar structure in  which the only difference is that the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_EDGES">kAPI_RESPONSE_EDGES</a>  element will be structured as follows:</p><p><ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_EDGES">kAPI_RESPONSE_EDGES</a></em>: The list of edges will be an
+        array structured as follows:
+     <ul><li><em>Index</em>: The node identifier provided in the
+            <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter.</li><li><em>Value</em>: An array of elements structured as follows:
+         <ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_SUBJECT">kAPI_RESPONSE_SUBJECT</a></em>: The subject
+                <a href="../../MyWrapper/Ontology/COntologyNode.html">node</a> ID.</li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_PREDICATE">kAPI_RESPONSE_PREDICATE</a></em>: The
+                predicate <a href="../../MyWrapper/Ontology/COntologyTerm.html">term</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a>.</li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_OBJECT">kAPI_RESPONSE_OBJECT</a></em>: The object
+                <a href="../../MyWrapper/Ontology/COntologyNode.html">node</a> ID.</li></ul></li></ul></li></ul></p><p>For more information consult the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OP_GET_EDGES">kAPI_OP_GET_EDGES</a> command.</p><p>If the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_DIRECTION">kAPI_OPT_DIRECTION</a> parameteris not provided, the  service will set it by default to <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_DIRECTION_OUT">kAPI_DIRECTION_OUT</a>, which  translates to traversing the graph following the subclass predicate towards the root.</p><p>If the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_LEVELS">kAPI_OPT_LEVELS</a> parameter is not provided, it is assumed  that no limit is set, which means care should be taken. A negative value means no limit.</p></p>
+	
+		
+</div>
+<a name="definekAPI_OP_GET_TERMS"><!-- --></a>
+<div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
@@ -278,7 +319,7 @@
 		
 </div>
 <a name="definekAPI_OP_LOGIN"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
@@ -295,13 +336,13 @@
 		
 </div>
 <a name="definekAPI_OP_QUERY_ROOTS"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_OP_QUERY_ROOTS</span> = '@QUERY_ROOTS'
-			(line <span class="line-number">173</span>)
+			(line <span class="line-number">216</span>)
 		</span>
 	</div>
 	
@@ -316,13 +357,13 @@
 		
 </div>
 <a name="definekAPI_RESPONSE_EDGES"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_RESPONSE_EDGES</span> = 'edges'
-			(line <span class="line-number">273</span>)
+			(line <span class="line-number">328</span>)
 		</span>
 	</div>
 	
@@ -333,13 +374,13 @@
 		
 </div>
 <a name="definekAPI_RESPONSE_NODES"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_RESPONSE_NODES</span> = 'nodes'
-			(line <span class="line-number">266</span>)
+			(line <span class="line-number">321</span>)
 		</span>
 	</div>
 	
@@ -350,13 +391,13 @@
 		
 </div>
 <a name="definekAPI_RESPONSE_OBJECT"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_RESPONSE_OBJECT</span> = 'o'
-			(line <span class="line-number">301</span>)
+			(line <span class="line-number">356</span>)
 		</span>
 	</div>
 	
@@ -367,13 +408,13 @@
 		
 </div>
 <a name="definekAPI_RESPONSE_PREDICATE"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_RESPONSE_PREDICATE</span> = 'p'
-			(line <span class="line-number">293</span>)
+			(line <span class="line-number">348</span>)
 		</span>
 	</div>
 	
@@ -384,13 +425,13 @@
 		
 </div>
 <a name="definekAPI_RESPONSE_SUBJECT"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_RESPONSE_SUBJECT</span> = 's'
-			(line <span class="line-number">285</span>)
+			(line <span class="line-number">340</span>)
 		</span>
 	</div>
 	
@@ -401,13 +442,13 @@
 		
 </div>
 <a name="definekAPI_RESPONSE_TERMS"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_RESPONSE_TERMS</span> = 'terms'
-			(line <span class="line-number">259</span>)
+			(line <span class="line-number">314</span>)
 		</span>
 	</div>
 	
@@ -423,7 +464,7 @@
 	
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 11 May 2012 15:23:44 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Mon, 14 May 2012 17:40:28 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

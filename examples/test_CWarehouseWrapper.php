@@ -1038,6 +1038,98 @@ try
 	echo( '<hr>' );
 	
 	/*===================================================================================
+	 *	GET NODES LIST (FIELDS)															*
+	 *==================================================================================*/
+	echo( '<h4>Get nodes list ('.kAPI_OP_GET_NODES.') fields</h4>' );
+	//
+	// Use wrapper client.
+	//
+	if( kUSE_CLIENT )
+	{
+		//
+		// Build parameters.
+		//
+		$params = new CWarehouseWrapperClient( $url );
+		$params->Operation( kAPI_OP_GET_NODES );
+		$params->Format( kTYPE_JSON );
+		$params->Database( 'WAREHOUSE' );
+		$params->Container( 'DICTIONARY' );
+		$params->Identifiers( 1, TRUE );
+		$params->Identifiers( 2, TRUE );
+		$params->Identifiers( 3, TRUE );
+		$params->Fields( kTAG_NAME );
+		$params->LogTrace( TRUE );
+		$params->LogRequest( TRUE );
+		//
+		// Get response.
+		//
+		$decoded = $params->Execute();
+	}
+	//
+	// Use raw parameters.
+	//
+	else
+	{
+		//
+		// Build identifiers list.
+		//
+		$list = json_encode( array( 1, 2, 3, 99999 ) );
+		//
+		// Build fields list.
+		//
+		$fields = json_encode( array( kTAG_NAME ) );
+		//
+		// Build parameters.
+		//
+		$params = Array();
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_NODES;			// Command.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
+		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
+		$params[] = kAPI_CONTAINER.'='.'DICTIONARY';				// Container.
+		$params[] = kAPI_OPT_IDENTIFIERS.'='.$list;					// Identifiers.
+		$params[] = kAPI_DATA_FIELD.'='.$fields;					// Fields.
+		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
+		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
+		//
+		// Build request.
+		//
+		$request = $url.'?'.implode( '&', $params );
+		//
+		// Get response.
+		//
+		$response = file_get_contents( $request );
+		//
+		// Decode response.
+		//
+		$decoded = json_decode( $response, TRUE );
+	}
+	//
+	// Display.
+	//
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	if( ! kUSE_CLIENT )
+	{
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.$response.kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+	}
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	/*===================================================================================
 	 *	GET EDGES LIST (EMPTY)															*
 	 *==================================================================================*/
 	echo( '<h4>Get edges list ('.kAPI_OP_GET_EDGES.') empty</h4>' );
@@ -1133,10 +1225,11 @@ try
 		$params->Database( 'WAREHOUSE' );
 		$params->Container( 'DICTIONARY' );
 		$params->Identifiers( 0, TRUE );
-		$params->Identifiers( 1, TRUE );
-		$params->Identifiers( 2, TRUE );
+		$params->Identifiers( 9990, TRUE );
+		$params->Identifiers( 9991, TRUE );
 		$params->Identifiers( 51, TRUE );
 		$params->Identifiers( 99999, TRUE );
+		$params->Fields( kTAG_NAME );
 		$params->LogTrace( TRUE );
 		$params->LogRequest( TRUE );
 		//
@@ -1152,7 +1245,11 @@ try
 		//
 		// Build identifiers list.
 		//
-		$list = json_encode( array( 0, 1, 2, 51, 99999 ) );
+		$list = json_encode( array( 0, 9990, 9991, 51, 99999 ) );
+		//
+		// Build fields list.
+		//
+		$fields = json_encode( array( kTAG_NAME ) );
 		//
 		// Build parameters.
 		//
@@ -1162,6 +1259,7 @@ try
 		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
 		$params[] = kAPI_CONTAINER.'='.'DICTIONARY';				// Container.
 		$params[] = kAPI_OPT_IDENTIFIERS.'='.$list;					// Identifiers.
+		$params[] = kAPI_DATA_FIELD.'='.$fields;					// Fields.
 		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
 		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
 		//
@@ -1221,10 +1319,11 @@ try
 		$params->Database( 'WAREHOUSE' );
 		$params->Container( 'DICTIONARY' );
 		$params->Identifiers( 0, TRUE );
-		$params->Identifiers( 1, TRUE );
-		$params->Identifiers( 2, TRUE );
+		$params->Identifiers( 9990, TRUE );
+		$params->Identifiers( 9991, TRUE );
 		$params->Identifiers( 51, TRUE );
 		$params->Identifiers( 99999, TRUE );
+		$params->Fields( kTAG_NAME );
 		$params->Predicates( kPRED_PART_OF, TRUE );
 		$params->LogTrace( TRUE );
 		$params->LogRequest( TRUE );
@@ -1241,7 +1340,11 @@ try
 		//
 		// Build identifiers list.
 		//
-		$list = json_encode( array( 0, 1, 2, 51, 99999 ) );
+		$list = json_encode( array( 0, 9990, 9991, 51, 99999 ) );
+		//
+		// Build fields list.
+		//
+		$fields = json_encode( array( kTAG_NAME ) );
 		//
 		// Build identifiers list.
 		//
@@ -1255,6 +1358,7 @@ try
 		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
 		$params[] = kAPI_CONTAINER.'='.'DICTIONARY';				// Container.
 		$params[] = kAPI_OPT_IDENTIFIERS.'='.$list;					// Identifiers.
+		$params[] = kAPI_DATA_FIELD.'='.$fields;					// Fields.
 		$params[] = kAPI_OPT_PREDICATES.'='.$predicates;			// Predicates.
 		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
 		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
@@ -1316,6 +1420,7 @@ try
 		$params->Database( 'WAREHOUSE' );
 		$params->Container( 'DICTIONARY' );
 		$params->Identifiers( 2, TRUE );
+		$params->Fields( kTAG_NAME );
 		$params->Direction( kAPI_DIRECTION_IN );
 		$params->LogTrace( TRUE );
 		$params->LogRequest( TRUE );
@@ -1334,6 +1439,10 @@ try
 		//
 		$list = json_encode( array( 2 ) );
 		//
+		// Build fields list.
+		//
+		$fields = json_encode( array( kTAG_NAME ) );
+		//
 		// Build parameters.
 		//
 		$params = Array();
@@ -1343,6 +1452,7 @@ try
 		$params[] = kAPI_CONTAINER.'='.'DICTIONARY';				// Container.
 		$params[] = kAPI_OPT_IDENTIFIERS.'='.$list;					// Identifiers.
 		$params[] = kAPI_OPT_DIRECTION.'='.kAPI_DIRECTION_IN;		// Direction.
+		$params[] = kAPI_DATA_FIELD.'='.$fields;					// Fields.
 		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
 		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
 		//
@@ -1404,6 +1514,7 @@ try
 		$params->Container( 'DICTIONARY' );
 		$params->Identifiers( 2, TRUE );
 		$params->Direction( kAPI_DIRECTION_OUT );
+		$params->Fields( kTAG_NAME );
 		$params->LogTrace( TRUE );
 		$params->LogRequest( TRUE );
 		//
@@ -1421,6 +1532,10 @@ try
 		//
 		$list = json_encode( array( 2 ) );
 		//
+		// Build fields list.
+		//
+		$fields = json_encode( array( kTAG_NAME ) );
+		//
 		// Build parameters.
 		//
 		$params = Array();
@@ -1430,6 +1545,7 @@ try
 		$params[] = kAPI_CONTAINER.'='.'DICTIONARY';				// Container.
 		$params[] = kAPI_OPT_IDENTIFIERS.'='.$list;					// Identifiers.
 		$params[] = kAPI_OPT_DIRECTION.'='.kAPI_DIRECTION_OUT;		// Direction.
+		$params[] = kAPI_DATA_FIELD.'='.$fields;					// Fields.
 		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
 		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
 		//
@@ -1491,6 +1607,7 @@ try
 		$params->Container( 'DICTIONARY' );
 		$params->Identifiers( 2, TRUE );
 		$params->Direction( kAPI_DIRECTION_ALL );
+		$params->Fields( kTAG_NAME );
 		$params->LogTrace( TRUE );
 		$params->LogRequest( TRUE );
 		//
@@ -1508,6 +1625,10 @@ try
 		//
 		$list = json_encode( array( 2 ) );
 		//
+		// Build fields list.
+		//
+		$fields = json_encode( array( kTAG_NAME ) );
+		//
 		// Build parameters.
 		//
 		$params = Array();
@@ -1517,6 +1638,7 @@ try
 		$params[] = kAPI_CONTAINER.'='.'DICTIONARY';				// Container.
 		$params[] = kAPI_OPT_IDENTIFIERS.'='.$list;					// Identifiers.
 		$params[] = kAPI_OPT_DIRECTION.'='.kAPI_DIRECTION_ALL;		// Direction.
+		$params[] = kAPI_DATA_FIELD.'='.$fields;					// Fields.
 		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
 		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
 		//

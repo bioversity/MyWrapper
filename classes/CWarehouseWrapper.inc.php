@@ -144,6 +144,49 @@ define( "kAPI_OP_GET_NODES",		'@GET_NODES' );
 define( "kAPI_OP_GET_EDGES",		'@GET_EDGES' );
 
 /**
+ * Get relations web-service.
+ *
+ * This is the tag that represents the get relations web service, it will locate all
+ * {@link COntologyEdge edges} related to the provided identifiers in the
+ * {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter, in the direction provided in
+ * the {@link kAPI_OPT_DIRECTION kAPI_OPT_DIRECTION} parameter and for the
+ * {@link kAPI_OPT_LEVELS kAPI_OPT_LEVELS} levels.
+ *
+ * The service expects the same parameters as the
+ * {@link kAPI_OP_GET_EDGES kAPI_OP_GET_EDGES} service and returns a similar structure in
+ * which the only difference is that the {@link kAPI_RESPONSE_EDGES kAPI_RESPONSE_EDGES}
+ * element will be structured as follows:
+ *
+ * <ul>
+ *	<li><i>{@link kAPI_RESPONSE_EDGES kAPI_RESPONSE_EDGES}</i>: The list of edges will be an
+ *		array structured as follows:
+ *	 <ul>
+ *		<li><i>Index</i>: The node identifier provided in the
+ *			{@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter.
+ *		<li><i>Value</i>: An array of elements structured as follows:
+ *		 <ul>
+ *			<li><i>{@link kAPI_RESPONSE_SUBJECT kAPI_RESPONSE_SUBJECT}</i>: The subject
+ *				{@link COntologyNode node} ID.
+ *			<li><i>{@link kAPI_RESPONSE_PREDICATE kAPI_RESPONSE_PREDICATE}</i>: The
+ *				predicate {@link COntologyTerm term} {@link kTAG_GID identifier}.
+ *			<li><i>{@link kAPI_RESPONSE_OBJECT kAPI_RESPONSE_OBJECT}</i>: The object
+ *				{@link COntologyNode node} ID.
+ *		 </ul>
+ *	 </ul>
+ * </ul>
+ *
+ * For more information consult the {@link kAPI_OP_GET_EDGES kAPI_OP_GET_EDGES} command.
+ *
+ * If the {@link kAPI_OPT_DIRECTION kAPI_OPT_DIRECTION} parameteris not provided, the
+ * service will set it by default to {@link kAPI_DIRECTION_OUT kAPI_DIRECTION_OUT}, which
+ * translates to traversing the graph following the subclass predicate towards the root.
+ * 
+ * If the {@link kAPI_OPT_LEVELS kAPI_OPT_LEVELS} parameter is not provided, it is assumed
+ * that no limit is set, which means care should be taken. A negative value means no limit.
+ */
+define( "kAPI_OP_GET_RELS",			'@GET_RELS' );
+
+/**
  * Query roots web-service.
  *
  * This is the tag that represents the query roots web service, it will locate all
@@ -229,7 +272,7 @@ define( "kAPI_OPT_ATTRIBUTES",		':@attributes' );
 /**
  * Relationship direction.
  *
- * This option is used when retrieving for {@link kAPI_OP_GET_EDGES edges}: it indicates
+ * This option is used when retrieving {@link kAPI_OP_GET_EDGES edges}: it indicates
  * the direction of the relationships in regard to the node identifiers provided in the
  * {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter:
  *
@@ -246,6 +289,18 @@ define( "kAPI_OPT_ATTRIBUTES",		':@attributes' );
  * </ul>
  */
 define( "kAPI_OPT_DIRECTION",		':@direction' );
+
+/**
+ * Relationship levels.
+ *
+ * This option is used when retrieving for {@link kAPI_OP_GET_RELS relationships}: it
+ * indicates the amount of levels to follow.
+ *
+ * If the integer parameter is omitted, the service will force a one level step, if the
+ * parameter is negative, it means that the service will continue until all levels have been
+ * reached.
+ */
+define( "kAPI_OPT_LEVELS",			':@levels' );
 
 /*=======================================================================================
  *	DEFAULT RESPONSE TAGS																*

@@ -293,6 +293,7 @@ use Everyman\Neo4j\Transport,
 	Everyman\Neo4j\Index\RelationshipIndex,
 	Everyman\Neo4j\Index\NodeFulltextIndex,
 	Everyman\Neo4j\Node,
+	Everyman\Neo4j\Relationship,
 	Everyman\Neo4j\Batch;
 
 //
@@ -303,39 +304,67 @@ $db = new Everyman\Neo4j\Client( 'localhost', 7474 );
 //
 // Get indexes.
 //
-$node_index = new NodeIndex( $db, 'NODES' );
-$node_index->save();
+$term_index = new NodeIndex( $db, 'TERMS' );
 
 //
-// Try direct search.
+// Get all outgoing relationships until root is found (language).
 //
-$found = $node_index->find( ':KIND', ':ONTOLOGY' );
-echo( '<i>$found = $node_index->find( \':KIND\', \':ONTOLOGY\' );</i>' );
-echo( '<pre>' ); print_r( $found ); echo( '</pre>' );
-echo( '<hr>' );
+$level = 0;
+$cache = Array();
+$found = $term_index->findOne( ':TERM', 'ISO:639:3:Part3:pmr' );
+$found = $found->getRelationships( NULL, Everyman\Neo4j\Relationship::DirectionOut );
+foreach( $found as $edge )
+	$cache[] = array( 'Subject' => $edge->getStartNode(),
+					  'Predicate' => $edge->getType(),
+					  'Object' => $edge->getEndNode() );
+while( count( $cache ) )
+{
+	$current = array_shift( $cache );
+	echo( $current[ 'Subject' ]->getProperty( ':TERM' ) );
+	if( array_key_exists( 'Predicate', $current ) )
+		echo( ' ==> '.$current[ 'Predicate' ] );
+	if( array_key_exists( 'Object', $current ) )
+		echo( ' ==> '.$current[ 'Object' ]->getProperty( ':TERM' ) );
+	echo( '<br>' );
+	$current = ( array_key_exists( 'Object', $current ) )
+			 ? $current[ 'Object' ]
+			 : $current[ 'Subject' ];
+	$found = $current->getRelationships( NULL, Everyman\Neo4j\Relationship::DirectionOut );
+	foreach( $found as $edge )
+		$cache[] = array( 'Subject' => $edge->getStartNode(),
+						  'Predicate' => $edge->getType(),
+						  'Object' => $edge->getEndNode() );
+
+} echo( '<hr>' );
 
 //
-// Try query.
+// Get all outgoing relationships until roots are found (Italy).
 //
-$found = $node_index->query( "\:KIND:\:ONTOLOGY AND \:DOMAIN:\:DOMAIN\:ACCESSION AND \:CATEGORY:\:CATEGORY\:PASSPORT" );
-echo( '<i>$found = $node_index->query( "\:KIND:\:ONTOLOGY AND \:DOMAIN:\:DOMAIN\:ACCESSION AND \:CATEGORY:\:CATEGORY\:PASSPORT" );</i>' );
-echo( '<pre>' ); print_r( $found ); echo( '</pre>' );
-echo( '<hr>' );
-
-//
-// Try my query.
-//
-$node = $node_index->query( "\:KIND:\:ONTOLOGY AND \:DOMAIN:\:DOMAIN\:ACCESSION" );
-echo( '<i>$node = $node_index->query( "\:KIND:\:ONTOLOGY AND \:DOMAIN:\:DOMAIN\:ACCESSION" );</i>' );
-echo( '<pre>' ); print_r( $node ); echo( '</pre>' );
-echo( '<hr>' );
-
-//
-// Try my relationships query.
-//
-$found = $node[ 0 ]->getRelationships();
-echo( '<i>$found = $node[ 0 ]->getRelationships();</i>' );
-echo( '<pre>' ); print_r( $found ); echo( '</pre>' );
-echo( '<hr>' );
+$level = 0;
+$cache = Array();
+$found = $term_index->findOne( ':TERM', 'ISO:3166-1:ITA' );
+$found = $found->getRelationships( NULL, Everyman\Neo4j\Relationship::DirectionOut );
+foreach( $found as $edge )
+	$cache[] = array( 'Subject' => $edge->getStartNode(),
+					  'Predicate' => $edge->getType(),
+					  'Object' => $edge->getEndNode() );
+while( count( $cache ) )
+{
+	$current = array_shift( $cache );
+	echo( $current[ 'Subject' ]->getProperty( ':TERM' ) );
+	if( array_key_exists( 'Predicate', $current ) )
+		echo( ' ==> '.$current[ 'Predicate' ] );
+	if( array_key_exists( 'Object', $current ) )
+		echo( ' ==> '.$current[ 'Object' ]->getProperty( ':TERM' ) );
+	echo( '<br>' );
+	$current = ( array_key_exists( 'Object', $current ) )
+			 ? $current[ 'Object' ]
+			 : $current[ 'Subject' ];
+	$found = $current->getRelationships( NULL, Everyman\Neo4j\Relationship::DirectionOut );
+	foreach( $found as $edge )
+		$cache[] = array( 'Subject' => $edge->getStartNode(),
+						  'Predicate' => $edge->getType(),
+						  'Object' => $edge->getEndNode() );
+}
 
 ?>
