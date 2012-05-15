@@ -76,10 +76,11 @@ define( "kAPI_OP_GET_NODES",		'@GET_NODES' );
 /**
  * Get edges web-service.
  *
- * This is the tag that represents the get edges web service, it will locate all
- * {@link COntologyEdge edges} matching the provided identifiers in the
- * {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter and the direction provided in
- * the {@link kAPI_OPT_DIRECTION kAPI_OPT_DIRECTION} parameter.
+ * This is the tag that represents the get edges web service, it will either locate all
+ * {@link COntologyEdge edge} nodes matching the provided identifiers in the
+ * {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter or locate all
+ * {@link COntologyEdge edge} nodes related to the {@link COntologyNode node} identifiers
+ * provided in the {@link kAPI_OPT_DIRECTION kAPI_OPT_DIRECTION} parameter.
  *
  * Depending on the presence or not of the {@link kAPI_OPT_DIRECTION kAPI_OPT_DIRECTION}
  * parameter:
@@ -87,11 +88,11 @@ define( "kAPI_OP_GET_NODES",		'@GET_NODES' );
  * <ul>
  *	<li><i>{@link kAPI_OPT_DIRECTION kAPI_OPT_DIRECTION} not provided</i>: In this case we
  *		assume that the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter contains
- *		the list of {@link COntologyEdge edge} identifiers to match.
+ *		the list of {@link COntologyEdge edge} node identifiers to match.
  *	<li><i>{@link kAPI_OPT_DIRECTION kAPI_OPT_DIRECTION} provided</i>: In this case we
  *		assume that the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter contains
  *		the list of {@link COntologyNode node} identifiers for which we want to retrieve
- *		connected {@link COntologyEdge edges} in the direction provided in the
+ *		related {@link COntologyEdge edges} in the direction provided in the
  *		{@link kAPI_OPT_DIRECTION kAPI_OPT_DIRECTION} parameter:
  *	 <ul>
  *		<li><i>{@link kAPI_DIRECTION_IN kAPI_DIRECTION_IN}</i>: The service will return all
@@ -105,6 +106,11 @@ define( "kAPI_OP_GET_NODES",		'@GET_NODES' );
  *			{@link COntologyNode nodes} provided in the
  *			{@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter.
  *	 </ul>
+ *		In this case the service also expects a {@link kAPI_OPT_LEVELS kAPI_OPT_LEVELS}
+ *		parameter, a signed integer number, that indicates how many levels to recurse the
+ *		graph traversal, is this parameter is not provided, it will default to 1 level; to
+ *		traverse all levels this parameter should be set to a negative number; a level of
+ *		0 will only return the list of involved nodes and terms.
  * </ul>
  *
  * The service will return the following structure:
@@ -123,47 +129,10 @@ define( "kAPI_OP_GET_NODES",		'@GET_NODES' );
  *		<li><i>Value</i>: The node properties.
  *	 </ul>
  *	<li><i>{@link kAPI_RESPONSE_EDGES kAPI_RESPONSE_EDGES}</i>: The list of edges as an
- *		array of elements structured as follows:
- *	 <ul>
- *		<li><i>{@link kAPI_RESPONSE_SUBJECT kAPI_RESPONSE_SUBJECT}</i>: The subject
- *			{@link COntologyNode node} ID.
- *		<li><i>{@link kAPI_RESPONSE_PREDICATE kAPI_RESPONSE_PREDICATE}</i>: The predicate
- *			{@link COntologyTerm term} {@link kTAG_GID identifier}.
- *		<li><i>{@link kAPI_RESPONSE_OBJECT kAPI_RESPONSE_OBJECT}</i>: The object
- *			{@link COntologyNode node} ID.
- *	 </ul>
- * </ul>
- *
- * If you provide the {@link kAPI_OPT_PREDICATES kAPI_OPT_PREDICATES} parameter, only those
- * {@link COntologyEdge edges} whose type matches any of the predicate
- * {@link COntologyTerm term} identifiers provided in that parameter will be selected.
- *
- * If you omit the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter, no elements
- * will be returned. The service does not use {@link kAPI_DATA_PAGING paging} options.
- */
-define( "kAPI_OP_GET_EDGES",		'@GET_EDGES' );
-
-/**
- * Get relations web-service.
- *
- * This is the tag that represents the get relations web service, it will locate all
- * {@link COntologyEdge edges} related to the provided identifiers in the
- * {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter, in the direction provided in
- * the {@link kAPI_OPT_DIRECTION kAPI_OPT_DIRECTION} parameter and for the
- * {@link kAPI_OPT_LEVELS kAPI_OPT_LEVELS} levels.
- *
- * The service expects the same parameters as the
- * {@link kAPI_OP_GET_EDGES kAPI_OP_GET_EDGES} service and returns a similar structure in
- * which the only difference is that the {@link kAPI_RESPONSE_EDGES kAPI_RESPONSE_EDGES}
- * element will be structured as follows:
- *
- * <ul>
- *	<li><i>{@link kAPI_RESPONSE_EDGES kAPI_RESPONSE_EDGES}</i>: The list of edges will be an
  *		array structured as follows:
  *	 <ul>
- *		<li><i>Index</i>: The node identifier provided in the
- *			{@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter.
- *		<li><i>Value</i>: An array of elements structured as follows:
+ *		<li><i>Index</i>: The edge identifier.
+ *		<li><i>Value</i>: An array structured as follows:
  *		 <ul>
  *			<li><i>{@link kAPI_RESPONSE_SUBJECT kAPI_RESPONSE_SUBJECT}</i>: The subject
  *				{@link COntologyNode node} ID.
@@ -175,16 +144,14 @@ define( "kAPI_OP_GET_EDGES",		'@GET_EDGES' );
  *	 </ul>
  * </ul>
  *
- * For more information consult the {@link kAPI_OP_GET_EDGES kAPI_OP_GET_EDGES} command.
+ * If you provide the {@link kAPI_OPT_PREDICATES kAPI_OPT_PREDICATES} parameter, only those
+ * {@link COntologyEdge edges} whose type matches any of the predicate
+ * {@link COntologyTerm term} identifiers provided in that parameter will be selected.
  *
- * If the {@link kAPI_OPT_DIRECTION kAPI_OPT_DIRECTION} parameteris not provided, the
- * service will set it by default to {@link kAPI_DIRECTION_OUT kAPI_DIRECTION_OUT}, which
- * translates to traversing the graph following the subclass predicate towards the root.
- * 
- * If the {@link kAPI_OPT_LEVELS kAPI_OPT_LEVELS} parameter is not provided, it is assumed
- * that no limit is set, which means care should be taken. A negative value means no limit.
+ * If you omit the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter, no elements
+ * will be returned. The service does not use {@link kAPI_DATA_PAGING paging} options.
  */
-define( "kAPI_OP_GET_RELS",			'@GET_RELS' );
+define( "kAPI_OP_GET_EDGES",		'@GET_EDGES' );
 
 /**
  * Query roots web-service.
@@ -293,7 +260,7 @@ define( "kAPI_OPT_DIRECTION",		':@direction' );
 /**
  * Relationship levels.
  *
- * This option is used when retrieving for {@link kAPI_OP_GET_RELS relationships}: it
+ * This option is used when retrieving for {@link kAPI_OP_GET_EDGES relationships}: it
  * indicates the amount of levels to follow.
  *
  * If the integer parameter is omitted, the service will force a one level step, if the
