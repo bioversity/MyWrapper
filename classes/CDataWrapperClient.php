@@ -367,50 +367,28 @@ class CDataWrapperClient extends CWrapperClient
 	/**
 	 * Manage query fields.
 	 *
-	 * This method can be used to manage the {@link Query() query}
-	 * {@link kAPI_DATA_FIELD fields}, it accepts an array or ArrayObject which represents
-	 * either the list of fields that the {@link Query() query} should return, or the
-	 * requested operation, depending on its value:
+	 * This method can be used to manage the {@link kAPI_DATA_FIELD fields}, it uses the
+	 * standard accessor {@link _ManageArrayOffset() method} to manage the list of fields.
 	 *
-	 * <ul>
-	 *	<li><i>NULL</i>: Return the current value.
-	 *	<li><i>FALSE</i>: Delete the current value.
-	 *	<li><i>other</i>: Set the value with the provided parameter.
-	 * </ul>
+	 * For a more thorough reference of how this method works, please consult the
+	 * {@link _ManageArrayOffset() _ManageArrayOffset} method, in which the first parameter
+	 * will be the constant {@link kAPI_DATA_FIELD kAPI_DATA_FIELD}.
 	 *
-	 * The second parameter is a boolean which if <i>TRUE</i> will return the <i>old</i>
-	 * value when replacing values; if <i>FALSE</i>, it will return the currently set value.
-	 *
-	 * If the provided value is not an array or an ArrayObject, the method will raise an
-	 * exception.
-	 *
-	 * @param mixed					$theValue			Value or operation.
+	 * @param mixed					$theValue			Value or index.
+	 * @param mixed					$theOperation		Operation.
 	 * @param boolean				$getOld				TRUE get old value.
 	 *
 	 * @access public
 	 * @return mixed
 	 *
-	 * @throws {@link CException CException}
-	 *
-	 * @uses _ManageOffset()
+	 * @uses _ManageArrayOffset()
 	 *
 	 * @see kAPI_DATA_FIELD
 	 */
-	public function Fields( $theValue = NULL, $getOld = FALSE )
+	public function Fields( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
 	{
-		//
-		// Check value.
-		//
-		if( ($theValue !== NULL)
-		 && ($theValue !== FALSE)
-		 && (! is_array( $theValue ))
-		 && (! $theValue instanceof ArrayObject) )
-			throw new CException( "Invalid fields list type",
-								  kERROR_INVALID_PARAMETER,
-								  kMESSAGE_TYPE_ERROR,
-								  array( 'Fields' => $theValue ) );				// !@! ==>
-		
-		return $this->_ManageOffset( kAPI_DATA_FIELD, $theValue, $getOld );			// ==>
+		return $this->_ManageArrayOffset
+					( kAPI_DATA_FIELD, $theValue, $theOperation, $getOld );		// ==>
 
 	} // Fields.
 

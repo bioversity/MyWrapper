@@ -329,8 +329,8 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 	 * @see kAPI_OPT_ATTRIBUTES
 	 */
 	public function Attributes( $theKey, $theValue = NULL,
-										$theOperation = NULL,
-										$getOld = FALSE )
+										 $theOperation = NULL,
+										 $getOld = FALSE )
 	{
 		//
 		// Normalise parameters.
@@ -517,6 +517,51 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 		return $this->_ManageOffset( kAPI_OPT_DIRECTION, $theValue, $getOld );		// ==>
 
 	} // Direction.
+
+	 
+	/*===================================================================================
+	 *	Levels																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage traversal depts level.
+	 *
+	 * This method can be used to manage the {@link kAPI_OPT_LEVELS levels} of depth in
+	 * graph {@link kAPI_OP_GET_EDGES traversals}, it accepts an integer which represents
+	 * the number of levels to traverse; if the value is negative, all levels will be
+	 * traversed.
+	 *
+	 * <ul>
+	 *	<li><i>NULL</i>: Return the current value.
+	 *	<li><i>FALSE</i>: Delete the current value.
+	 *	<li><i>other</i>: Set the value with the provided parameter.
+	 * </ul>
+	 *
+	 * The second parameter is a boolean which if <i>TRUE</i> will return the <i>old</i>
+	 * value when replacing values; if <i>FALSE</i>, it will return the currently set value.
+	 *
+	 * @param integer				$theValue			Value or operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return mixed
+	 *
+	 * @uses _ManageOffset()
+	 *
+	 * @see kAPI_OPT_LEVELS
+	 */
+	public function Levels( $theValue = NULL, $getOld = FALSE )
+	{
+		//
+		// Check level parameter.
+		//
+		if( ($theValue !== NULL)
+		 && ($theValue !== FALSE) )
+			$theValue = (integer) $theValue;
+		
+		return $this->_ManageOffset( kAPI_OPT_LEVELS, $theValue, $getOld );			// ==>
+
+	} // Levels.
 
 	 
 
