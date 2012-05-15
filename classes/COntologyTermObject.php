@@ -279,8 +279,8 @@ abstract class COntologyTermObject extends CTerm
 	 * We also {@link _CheckReference() filter} the provided value to extract the object
 	 * identifier.
 	 *
-	 * @param string				$theValue			URL or operation.
-	 * @param mixed					$theType			Mailing address kind or index.
+	 * @param string				$theValue			Reference or operation.
+	 * @param mixed					$theType			Reference type.
 	 * @param boolean				$getOld				TRUE get old value.
 	 *
 	 * @access public

@@ -2781,7 +2781,7 @@ exit( "Done!\n" );
 		$ger_term->Type( kTYPE_ENUM );
 		$ger_term->Name( 'Germplasm', kDEFAULT_LANGUAGE );
 		$ger_term->Definition
-		( 'Germplasm domain, it is a generalised domain comprising all kinds of '
+		( 'Germplasm, it is a generalised domain comprising all kinds of '
 		 .'germplasms.',
 		  kDEFAULT_LANGUAGE );
 		$ger_term->Commit( $theContainer );
@@ -2825,7 +2825,7 @@ exit( "Done!\n" );
 		$term->Type( kTYPE_ENUM );
 		$term->Name( 'Sample', kDEFAULT_LANGUAGE );
 		$term->Definition
-		( 'Sample domain, it is a generalised domain comprising all descriptors '
+		( 'Germplasm sample, it is a generalised domain comprising all descriptors '
 		 .'related to germplasm samples.',
 		  kDEFAULT_LANGUAGE );
 		$term->Commit( $theContainer );
@@ -2864,7 +2864,7 @@ exit( "Done!\n" );
 		$term->Type( kTYPE_ENUM );
 		$term->Name( 'Accession', kDEFAULT_LANGUAGE );
 		$term->Definition
-		( 'Accession domain, it is a generalised domain comprising all descriptors '
+		( 'Accession, it is a generalised domain comprising all descriptors '
 		 .'related to germplasm accessions.',
 		  kDEFAULT_LANGUAGE );
 		$term->Commit( $theContainer );
@@ -2903,7 +2903,7 @@ exit( "Done!\n" );
 		$term->Type( kTYPE_ENUM );
 		$term->Name( 'Specimen', kDEFAULT_LANGUAGE );
 		$term->Definition
-		( 'Specimen domain, it is a generalised domain comprising all descriptors '
+		( 'Specimen, it is a generalised domain comprising all descriptors '
 		 .'related to germplasm specimens; in general these will not be living material.',
 		  kDEFAULT_LANGUAGE );
 		$term->Commit( $theContainer );
@@ -2942,7 +2942,7 @@ exit( "Done!\n" );
 		$term->Type( kTYPE_ENUM );
 		$term->Name( 'Land-race', kDEFAULT_LANGUAGE );
 		$term->Definition
-		( 'Landrace domain, it is a generalised domain comprising all descriptors '
+		( 'Landrace, it is a generalised domain comprising all descriptors '
 		 .'related to farmer varieties.',
 		  kDEFAULT_LANGUAGE );
 		$term->Commit( $theContainer );
@@ -2981,7 +2981,7 @@ exit( "Done!\n" );
 		$term->Type( kTYPE_ENUM );
 		$term->Name( 'Population', kDEFAULT_LANGUAGE );
 		$term->Definition
-		( 'Population domain, it is a generalised domain comprising all descriptors '
+		( 'Population, it is a generalised domain comprising all descriptors '
 		 .'related to in-situ germplasm populations.',
 		  kDEFAULT_LANGUAGE );
 		$term->Commit( $theContainer );
@@ -3025,7 +3025,7 @@ exit( "Done!\n" );
 		$term->Type( kTYPE_ENUM );
 		$term->Name( 'Geography', kDEFAULT_LANGUAGE );
 		$term->Definition
-		( 'Geography domain, it is a generalised domain comprising all descriptors '
+		( 'Geography, it is a generalised domain comprising all descriptors '
 		 .'related to geographic data.',
 		  kDEFAULT_LANGUAGE );
 		$term->Commit( $theContainer );
@@ -3064,8 +3064,47 @@ exit( "Done!\n" );
 		$term->Type( kTYPE_ENUM );
 		$term->Name( 'Language', kDEFAULT_LANGUAGE );
 		$term->Definition
-		( 'Language domain, it is a generalised domain comprising all descriptors '
+		( 'Language, it is a generalised domain comprising all descriptors '
 		 .'related to languages.',
+		  kDEFAULT_LANGUAGE );
+		$term->Commit( $theContainer );
+		$node = $term_index->findOne( kTAG_TERM, (string) $term );
+		if( $node === NULL )
+		{
+			$node = new COntologyNode( $container );
+			$node->Term( $term );
+			$node->Kind( kTYPE_ENUMERATION, TRUE );
+			$node->Domain( $root_term, TRUE );
+			$node->Commit( $container );
+		}
+		else
+			$node = new COntologyNode( $container, $node );
+		$id = Array();
+		$id[] = $node->Node()->getId();
+		$id[] = (string) $enum_of;
+		$id[] = $root_node->Node()->getId();
+		$id = implode( '/', $id );
+		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
+		if( $edge === NULL )
+		{
+			$edge = $node->RelateTo( $container, $enum_of, $root_node );
+			$edge->Commit( $container );
+		}
+		if( $doDisplay )
+			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
+				 ." [$term] [".$root_node->Node()->getId()."]\n" );
+		
+		//
+		// Taxonomy.
+		//
+		$term = new COntologyTerm();
+		$term->NS( $root_term );
+		$term->Code( substr( kDOMAIN_TAXONOMY, $len ) );
+		$term->Type( kTYPE_ENUM );
+		$term->Name( 'Taxonomy', kDEFAULT_LANGUAGE );
+		$term->Definition
+		( 'Taxonomy, it is a generalised domain comprising all descriptors '
+		 .'related to taxonomy.',
 		  kDEFAULT_LANGUAGE );
 		$term->Commit( $theContainer );
 		$node = $term_index->findOne( kTAG_TERM, (string) $term );
@@ -3393,6 +3432,84 @@ exit( "Done!\n" );
 			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
 				 ." [$term] [".$root_node->Node()->getId()."]\n" );
 		
+		//
+		// Epithet.
+		//
+		$term = new COntologyTerm();
+		$term->NS( $root_term );
+		$term->Code( substr( kCATEGORY_EPITHET, $len ) );
+		$term->Type( kTYPE_ENUM );
+		$term->Name( 'Epithet', kDEFAULT_LANGUAGE );
+		$term->Definition
+		( 'Epithet category, it is a generalised category comprising all '
+		 .'descriptors related to epithets.',
+		  kDEFAULT_LANGUAGE );
+		$term->Commit( $theContainer );
+		$node = $term_index->findOne( kTAG_TERM, (string) $term );
+		if( $node === NULL )
+		{
+			$node = new COntologyNode( $container );
+			$node->Term( $term );
+			$node->Kind( kTYPE_ENUMERATION, TRUE );
+			$node->Domain( $root_term, TRUE );
+			$node->Commit( $container );
+		}
+		else
+			$node = new COntologyNode( $container, $node );
+		$id = Array();
+		$id[] = $node->Node()->getId();
+		$id[] = (string) $enum_of;
+		$id[] = $root_node->Node()->getId();
+		$id = implode( '/', $id );
+		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
+		if( $edge === NULL )
+		{
+			$edge = $node->RelateTo( $container, $enum_of, $root_node );
+			$edge->Commit( $container );
+		}
+		if( $doDisplay )
+			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
+				 ." [$term] [".$root_node->Node()->getId()."]\n" );
+		
+		//
+		// Authority.
+		//
+		$term = new COntologyTerm();
+		$term->NS( $root_term );
+		$term->Code( substr( kCATEGORY_AUTH, $len ) );
+		$term->Type( kTYPE_ENUM );
+		$term->Name( 'Authority', kDEFAULT_LANGUAGE );
+		$term->Definition
+		( 'Authority category, it is a generalised category comprising all '
+		 .'descriptors related to authorities.',
+		  kDEFAULT_LANGUAGE );
+		$term->Commit( $theContainer );
+		$node = $term_index->findOne( kTAG_TERM, (string) $term );
+		if( $node === NULL )
+		{
+			$node = new COntologyNode( $container );
+			$node->Term( $term );
+			$node->Kind( kTYPE_ENUMERATION, TRUE );
+			$node->Domain( $root_term, TRUE );
+			$node->Commit( $container );
+		}
+		else
+			$node = new COntologyNode( $container, $node );
+		$id = Array();
+		$id[] = $node->Node()->getId();
+		$id[] = (string) $enum_of;
+		$id[] = $root_node->Node()->getId();
+		$id = implode( '/', $id );
+		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
+		if( $edge === NULL )
+		{
+			$edge = $node->RelateTo( $container, $enum_of, $root_node );
+			$edge->Commit( $container );
+		}
+		if( $doDisplay )
+			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
+				 ." [$term] [".$root_node->Node()->getId()."]\n" );
+		
 	} // LoadDefaultCategories.
 
 	 
@@ -3516,7 +3633,6 @@ exit( "Done!\n" );
 		$region_term->Pattern( '[0-9]{3}', TRUE );
 		$region_term->Domain( kDOMAIN_GEOGRAPHY, TRUE );
 		$region_term->Category( kCATEGORY_ADMIN, TRUE );
-		$region_term->Relate( $ns, $is_a, TRUE );
 		$region_term->Commit( $theContainer );
 		$region_node = $term_index->findOne( kTAG_TERM, (string) $region_term );
 		if( $region_node === NULL )
@@ -3612,12 +3728,6 @@ EOT;
 						  COntologyTerm::HashIndex( $namespace.$record[ 'Parent' ] ) );
 			else
 				$parent_term = $region_term;
-			
-			//
-			// Relate child term to parent term.
-			//
-			$child_term->Relate( $parent_term, $enum_of, TRUE );
-			$child_term->Commit( $theContainer );
 			
 			//
 			// Get/create parent node.
@@ -3934,7 +4044,6 @@ EOT;
 		$code3_term->Type( kTYPE_ENUM );
 		$code3_term->Pattern( '[A-Z]{3}', TRUE );
 		$code3_term->Domain( kDOMAIN_LANGUAGE, TRUE );
-		$code3_term->Relate( $ns_639_3, $is_a, TRUE );
 		$code3_term->Commit( $theContainer );
 		$code3_node = $term_index->findOne( kTAG_TERM, (string) $code3_term );
 		if( $code3_node === NULL )
@@ -3977,7 +4086,6 @@ EOT;
 		$part2b_term->Type( kTYPE_ENUM );
 		$part2b_term->Pattern( '[0-9]{3}', TRUE );
 		$part2b_term->Domain( kDOMAIN_LANGUAGE, TRUE );
-		$part2b_term->Relate( $ns_639_3, $is_a, TRUE );
 		$part2b_term->Commit( $theContainer );
 		$part2b_node = $term_index->findOne( kTAG_TERM, (string) $part2b_term );
 		if( $part2b_node === NULL )
@@ -4020,7 +4128,6 @@ EOT;
 		$part2t_term->Type( kTYPE_ENUM );
 		$part2t_term->Pattern( '[0-9]{3}', TRUE );
 		$part2t_term->Domain( kDOMAIN_LANGUAGE, TRUE );
-		$part2t_term->Relate( $ns_639_3, $is_a, TRUE );
 		$part2t_term->Commit( $theContainer );
 		$part2t_node = $term_index->findOne( kTAG_TERM, (string) $part2t_term );
 		if( $part2t_node === NULL )
@@ -4063,7 +4170,6 @@ EOT;
 		$part1_term->Type( kTYPE_ENUM );
 		$part1_term->Pattern( '[0-9]{2}', TRUE );
 		$part1_term->Domain( kDOMAIN_LANGUAGE, TRUE );
-		$part1_term->Relate( $ns_639_3, $is_a, TRUE );
 		$part1_term->Commit( $theContainer );
 		$part1_node = $term_index->findOne( kTAG_TERM, (string) $part1_term );
 		if( $part1_node === NULL )
@@ -4102,7 +4208,6 @@ EOT;
 		$scope_term->Definition( 'ISO 639-3 language scope.', kDEFAULT_LANGUAGE );
 		$scope_term->Type( kTYPE_ENUM );
 		$scope_term->Domain( kDOMAIN_LANGUAGE, TRUE );
-		$scope_term->Relate( $ns_639_3, $is_a, TRUE );
 		$scope_term->Commit( $theContainer );
 		$scope_node = $term_index->findOne( kTAG_TERM, (string) $scope_term );
 		if( $scope_node === NULL )
@@ -4142,7 +4247,6 @@ EOT;
 		$individual_scope_term->Kind( kTYPE_ENUMERATION, TRUE );
 		$individual_scope_term->Type( kTYPE_ENUM );
 		$individual_scope_term->Enumeration( $individual_scope_term->Code(), TRUE );
-		$individual_scope_term->Relate( $scope_term, $is_a, TRUE );
 		$individual_scope_term->Commit( $theContainer );
 		$individual_scope_node = $term_index->findOne( kTAG_TERM,
 													   (string) $individual_scope_term );
@@ -4185,7 +4289,6 @@ EOT;
 		$macrolanguage_scope_term->Kind( kTYPE_ENUMERATION, TRUE );
 		$macrolanguage_scope_term->Type( kTYPE_ENUM );
 		$macrolanguage_scope_term->Enumeration( $macrolanguage_scope_term->Code(), TRUE );
-		$macrolanguage_scope_term->Relate( $scope_term, $is_a, TRUE );
 		$macrolanguage_scope_term->Commit( $theContainer );
 		$macrolanguage_scope_node
 			= $term_index->findOne( kTAG_TERM, (string) $macrolanguage_scope_term );
@@ -4229,7 +4332,6 @@ EOT;
 		$special_scope_term->Kind( kTYPE_ENUMERATION, TRUE );
 		$special_scope_term->Type( kTYPE_ENUM );
 		$special_scope_term->Enumeration( $special_scope_term->Code(), TRUE );
-		$special_scope_term->Relate( $scope_term, $is_a, TRUE );
 		$special_scope_term->Commit( $theContainer );
 		$special_scope_node
 			= $term_index->findOne( kTAG_TERM, (string) $special_scope_term );
@@ -4273,7 +4375,6 @@ EOT;
 		  kDEFAULT_LANGUAGE );
 		$type_term->Type( kTYPE_ENUM );
 		$type_term->Domain( kDOMAIN_LANGUAGE, TRUE );
-		$type_term->Relate( $ns_639_3, $is_a, TRUE );
 		$type_term->Commit( $theContainer );
 		$type_node = $term_index->findOne( kTAG_TERM, (string) $type_term );
 		if( $type_node === NULL )
@@ -4313,7 +4414,6 @@ EOT;
 		$ancient_type_term->Kind( kTYPE_ENUMERATION, TRUE );
 		$ancient_type_term->Type( kTYPE_ENUM );
 		$ancient_type_term->Enumeration( $ancient_type_term->Code(), TRUE );
-		$ancient_type_term->Relate( $type_term, $is_a, TRUE );
 		$ancient_type_term->Commit( $theContainer );
 		$ancient_type_node
 			= $term_index->findOne( kTAG_TERM, (string) $ancient_type_term );
@@ -4355,7 +4455,6 @@ EOT;
 		$constructed_type_term->Kind( kTYPE_ENUMERATION, TRUE );
 		$constructed_type_term->Type( kTYPE_ENUM );
 		$constructed_type_term->Enumeration( $constructed_type_term->Code(), TRUE );
-		$constructed_type_term->Relate( $type_term, $is_a, TRUE );
 		$constructed_type_term->Commit( $theContainer );
 		$constructed_type_node
 			= $term_index->findOne( kTAG_TERM, (string) $constructed_type_term );
@@ -4398,7 +4497,6 @@ EOT;
 		$extinct_type_term->Kind( kTYPE_ENUMERATION, TRUE );
 		$extinct_type_term->Type( kTYPE_ENUM );
 		$extinct_type_term->Enumeration( $extinct_type_term->Code(), TRUE );
-		$extinct_type_term->Relate( $type_term, $is_a, TRUE );
 		$extinct_type_term->Commit( $theContainer );
 		$extinct_type_node
 			= $term_index->findOne( kTAG_TERM, (string) $extinct_type_term );
@@ -4440,7 +4538,6 @@ EOT;
 		$historical_type_term->Kind( kTYPE_ENUMERATION, TRUE );
 		$historical_type_term->Type( kTYPE_ENUM );
 		$historical_type_term->Enumeration( $historical_type_term->Code(), TRUE );
-		$historical_type_term->Relate( $type_term, $is_a, TRUE );
 		$historical_type_term->Commit( $theContainer );
 		$historical_type_node
 			= $term_index->findOne( kTAG_TERM, (string) $historical_type_term );
@@ -4482,7 +4579,6 @@ EOT;
 		$living_type_term->Kind( kTYPE_ENUMERATION, TRUE );
 		$living_type_term->Type( kTYPE_ENUM );
 		$living_type_term->Enumeration( $living_type_term->Code(), TRUE );
-		$living_type_term->Relate( $type_term, $is_a, TRUE );
 		$living_type_term->Commit( $theContainer );
 		$living_type_node
 			= $term_index->findOne( kTAG_TERM, (string) $living_type_term );
@@ -4524,7 +4620,6 @@ EOT;
 		$special_type_term->Kind( kTYPE_ENUMERATION, TRUE );
 		$special_type_term->Type( kTYPE_ENUM );
 		$special_type_term->Enumeration( $special_type_term->Code(), TRUE );
-		$special_type_term->Relate( $type_term, $is_a, TRUE );
 		$special_type_term->Commit( $theContainer );
 		$special_type_node
 			= $term_index->findOne( kTAG_TERM, (string) $special_type_term );
@@ -4612,7 +4707,6 @@ EOT;
 		$numeric3_term->Pattern( '[0-9]{3}', TRUE );
 		$numeric3_term->Domain( kDOMAIN_GEOGRAPHY, TRUE );
 		$numeric3_term->Category( kCATEGORY_ADMIN, TRUE );
-		$numeric3_term->Relate( $ns_3166, $is_a, TRUE );
 		$numeric3_term->Commit( $theContainer );
 		$numeric3_node = $term_index->findOne( kTAG_TERM, (string) $numeric3_term );
 		if( $numeric3_node === NULL )
@@ -4659,7 +4753,6 @@ EOT;
 		$alpha2_term->Pattern( '[A-Z]{2}', TRUE );
 		$alpha2_term->Domain( kDOMAIN_GEOGRAPHY, TRUE );
 		$alpha2_term->Category( kCATEGORY_ADMIN, TRUE );
-		$alpha2_term->Relate( $ns_3166, $is_a, TRUE );
 		$alpha2_term->Commit( $theContainer );
 		$alpha2_node = $term_index->findOne( kTAG_TERM, (string) $alpha2_term );
 		if( $alpha2_node === NULL )
@@ -4706,7 +4799,6 @@ EOT;
 		$alpha3_term->Pattern( '[A-Z]{3}', TRUE );
 		$alpha3_term->Domain( kDOMAIN_GEOGRAPHY, TRUE );
 		$alpha3_term->Category( kCATEGORY_ADMIN, TRUE );
-		$alpha3_term->Relate( $ns_3166, $is_a, TRUE );
 		$alpha3_term->Commit( $theContainer );
 		$alpha3_node = $term_index->findOne( kTAG_TERM, (string) $alpha3_term );
 		if( $alpha3_node === NULL )
@@ -4825,7 +4917,6 @@ EOT;
 					$term->Category( $special_type_term->GID(), TRUE );
 					break;
 			}
-			$term->Relate( $code3_term, $is_a, TRUE );
 			$term->Commit( $theContainer );
 			
 			//
@@ -4929,7 +5020,6 @@ EOT;
 						$term->Category( $special_type_term->GID(), TRUE );
 						break;
 				}
-				$term->Relate( $part2b_term, $is_a, TRUE );
 				$term->Commit( $theContainer );
 				
 				//
@@ -5034,7 +5124,6 @@ EOT;
 						$term->Category( $special_type_term->GID(), TRUE );
 						break;
 				}
-				$term->Relate( $part2t_term, $is_a, TRUE );
 				$term->Commit( $theContainer );
 				
 				//
@@ -5139,7 +5228,6 @@ EOT;
 						$term->Category( $special_type_term->GID(), TRUE );
 						break;
 				}
-				$term->Relate( $part1_term, $is_a, TRUE );
 				$term->Commit( $theContainer );
 				
 				//
@@ -5301,7 +5389,6 @@ EOT;
 							  bin2hex( $record[ 'FlagImage' ] ) );
 			if( $record[ 'FlagVector' ] !== NULL )
 				$term->Image( 'Vector flag', kTYPE_SVG, $record[ 'FlagVector' ] );
-			$term->Relate( $alpha3_term, $is_a, TRUE );
 			$term->Commit( $theContainer );
 			$preferred = $term[ kTAG_LID ];
 			
@@ -5353,9 +5440,6 @@ EOT;
 					$edge = $node->RelateTo( $container, $part_of, $region );
 					$edge->Commit( $container );
 				}
-				
-				$term->Relate( $region->Term(), $part_of, TRUE );
-				$term->Commit( $theContainer );
 			}
 			
 			//
@@ -5392,8 +5476,7 @@ EOT;
 						$term->Enumeration( $record[ 'CodeNum' ], TRUE );
 						$term->Synonym( $record[ 'CodeNum' ], kTYPE_EXACT, TRUE );
 					}
-					$term->Relate( $alpha2_term, $is_a, TRUE );
-					$term->Preferred( $preferred );
+					$term->Xref( $preferred, kTYPE_EXACT );
 					$term->Commit( $theContainer );
 					
 					//
@@ -5445,9 +5528,6 @@ EOT;
 							$edge = $node->RelateTo( $container, $part_of, $region );
 							$edge->Commit( $container );
 						}
-						
-						$term->Relate( $region->Term(), $part_of, TRUE );
-						$term->Commit( $theContainer );
 					}
 					
 					//
@@ -5479,8 +5559,7 @@ EOT;
 						$term->Enumeration( $record[ 'Code2' ], TRUE );
 						$term->Synonym( $record[ 'Code2' ], kTYPE_EXACT, TRUE );
 					}
-					$term->Relate( $numeric3_term, $is_a, TRUE );
-					$term->Preferred( $preferred );
+					$term->Xref( $preferred, kTYPE_EXACT );
 					$term->Commit( $theContainer );
 					
 					//
@@ -5532,9 +5611,6 @@ EOT;
 							$edge = $node->RelateTo( $container, $part_of, $region );
 							$edge->Commit( $container );
 						}
-						
-						$term->Relate( $region->Term(), $part_of, TRUE );
-						$term->Commit( $theContainer );
 					}
 					
 					//
@@ -5798,8 +5874,6 @@ EOT;
 			$term->Pattern( '[A-Z]{3}[0-9]{3,4}' );
 			$term->Examples( 'COL002', TRUE );
 			$term->Examples( 'USA1001', TRUE );
-			$term->Domain( kDOMAIN_ACCESSION, TRUE );
-			$term->Category( kCATEGORY_PASSPORT, TRUE );
 			$term->Commit( $theContainer );
 		
 		} $instcode = $term;
@@ -5813,8 +5887,6 @@ EOT;
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
 			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_ACCESSION, TRUE );
-			$node->Category( kCATEGORY_PASSPORT, TRUE );
 			$node->Commit( $container );
 		}
 		else
@@ -5865,8 +5937,6 @@ EOT;
 			$term->Type( kTYPE_STRING );
 			$term->Examples( 'WAB0026873', TRUE );
 			$term->Examples( 'CGN16587', TRUE );
-			$term->Domain( kDOMAIN_ACCESSION, TRUE );
-			$term->Category( kCATEGORY_PASSPORT, TRUE );
 			$term->Commit( $theContainer );
 		
 		} $accenumb = $term;
@@ -5880,8 +5950,6 @@ EOT;
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
 			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_ACCESSION, TRUE );
-			$node->Category( kCATEGORY_PASSPORT, TRUE );
 			$node->Commit( $container );
 		}
 		else
@@ -5934,8 +6002,6 @@ EOT;
 			$term->Examples( 'FA90-110', TRUE );
 			$term->Examples( 'BI 1117 016', TRUE );
 			$term->Examples( 'ZS030', TRUE );
-			$term->Domain( kDOMAIN_ACCESSION, TRUE );
-			$term->Category( kCATEGORY_PASSPORT, TRUE );
 			$term->Commit( $theContainer );
 		}
 		
@@ -5948,8 +6014,6 @@ EOT;
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
 			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_ACCESSION, TRUE );
-			$node->Category( kCATEGORY_PASSPORT, TRUE );
 			$node->Commit( $container );
 		}
 		else
@@ -6002,8 +6066,6 @@ EOT;
 			$term->Pattern( '[A-Z]{3}[0-9]{3,4}' );
 			$term->Examples( 'COL002', TRUE );
 			$term->Examples( 'USA1001', TRUE );
-			$term->Domain( kDOMAIN_ACCESSION, TRUE );
-			$term->Category( kCATEGORY_PASSPORT, TRUE );
 			$term->Xref( $instcode, kTYPE_RELATED, TRUE );
 			$term->Commit( $theContainer );
 		
@@ -6018,8 +6080,6 @@ EOT;
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
 			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_ACCESSION, TRUE );
-			$node->Category( kCATEGORY_PASSPORT, TRUE );
 			$node->Commit( $container );
 		}
 		else
@@ -6066,8 +6126,8 @@ EOT;
 			( 'Genus name for taxon. Initial uppercase letter required.',
 			  kDEFAULT_LANGUAGE );
 			$term->Type( kTYPE_STRING );
-			$term->Domain( kDOMAIN_ACCESSION, TRUE );
-			$term->Category( kCATEGORY_PASSPORT, TRUE );
+			$term->Domain( kDOMAIN_TAXONOMY, TRUE );
+			$term->Category( kCATEGORY_EPITHET, TRUE );
 			$term->Examples( 'Allium', TRUE );
 			$term->Commit( $theContainer );
 		}
@@ -6081,8 +6141,8 @@ EOT;
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
 			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_ACCESSION, TRUE );
-			$node->Category( kCATEGORY_PASSPORT, TRUE );
+			$node->Domain( kDOMAIN_TAXONOMY, TRUE );
+			$node->Category( kCATEGORY_EPITHET, TRUE );
 			$node->Commit( $container );
 		}
 		else
@@ -6131,8 +6191,8 @@ EOT;
 			  kDEFAULT_LANGUAGE );
 			$term->Type( kTYPE_STRING );
 			$term->Examples( 'paniculatum', TRUE );
-			$term->Domain( kDOMAIN_ACCESSION, TRUE );
-			$term->Category( kCATEGORY_PASSPORT, TRUE );
+			$term->Domain( kDOMAIN_TAXONOMY, TRUE );
+			$term->Category( kCATEGORY_EPITHET, TRUE );
 			$term->Commit( $theContainer );
 		}
 		
@@ -6145,8 +6205,8 @@ EOT;
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
 			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_ACCESSION, TRUE );
-			$node->Category( kCATEGORY_PASSPORT, TRUE );
+			$node->Domain( kDOMAIN_TAXONOMY, TRUE );
+			$node->Category( kCATEGORY_EPITHET, TRUE );
 			$node->Commit( $container );
 		}
 		else
@@ -6195,8 +6255,8 @@ EOT;
 			$term->Type( kTYPE_STRING );
 			$term->Examples( 'L.', TRUE );
 			$term->Examples( '(Desf.) B. Fedtsch.', TRUE );
-			$term->Domain( kDOMAIN_ACCESSION, TRUE );
-			$term->Category( kCATEGORY_PASSPORT, TRUE );
+			$term->Domain( kDOMAIN_TAXONOMY, TRUE );
+			$term->Category( kCATEGORY_AUTH, TRUE );
 			$term->Commit( $theContainer );
 		}
 		
@@ -6209,8 +6269,8 @@ EOT;
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
 			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_ACCESSION, TRUE );
-			$node->Category( kCATEGORY_PASSPORT, TRUE );
+			$node->Domain( kDOMAIN_TAXONOMY, TRUE );
+			$node->Category( kCATEGORY_AUTH, TRUE );
 			$node->Commit( $container );
 		}
 		else
@@ -6260,8 +6320,8 @@ EOT;
 			  kDEFAULT_LANGUAGE );
 			$term->Type( kTYPE_STRING );
 			$term->Examples( 'subsp. fuscum', TRUE );
-			$term->Domain( kDOMAIN_ACCESSION, TRUE );
-			$term->Category( kCATEGORY_PASSPORT, TRUE );
+			$term->Domain( kDOMAIN_TAXONOMY, TRUE );
+			$term->Category( kCATEGORY_EPITHET, TRUE );
 			$term->Commit( $theContainer );
 		}
 		
@@ -6274,8 +6334,8 @@ EOT;
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
 			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_ACCESSION, TRUE );
-			$node->Category( kCATEGORY_PASSPORT, TRUE );
+			$node->Domain( kDOMAIN_TAXONOMY, TRUE );
+			$node->Category( kCATEGORY_EPITHET, TRUE );
 			$node->Commit( $container );
 		}
 		else
@@ -6323,8 +6383,8 @@ EOT;
 			  kDEFAULT_LANGUAGE );
 			$term->Type( kTYPE_STRING );
 			$term->Examples( '(Waldst. et Kit.) Arc.', TRUE );
-			$term->Domain( kDOMAIN_ACCESSION, TRUE );
-			$term->Category( kCATEGORY_PASSPORT, TRUE );
+			$term->Domain( kDOMAIN_TAXONOMY, TRUE );
+			$term->Category( kCATEGORY_AUTH, TRUE );
 			$term->Commit( $theContainer );
 		}
 		
@@ -6337,8 +6397,8 @@ EOT;
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
 			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_ACCESSION, TRUE );
-			$node->Category( kCATEGORY_PASSPORT, TRUE );
+			$node->Domain( kDOMAIN_TAXONOMY, TRUE );
+			$node->Category( kCATEGORY_AUTH, TRUE );
 			$node->Commit( $container );
 		}
 		else
@@ -6388,8 +6448,6 @@ EOT;
 			$term->Examples( 'cauliflower', TRUE );
 			$term->Examples( 'white cabbage', TRUE );
 			$term->Examples( 'malting barley', TRUE );
-			$term->Domain( kDOMAIN_ACCESSION, TRUE );
-			$term->Category( kCATEGORY_PASSPORT, TRUE );
 			$term->Commit( $theContainer );
 		}
 		
@@ -6402,8 +6460,6 @@ EOT;
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
 			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_ACCESSION, TRUE );
-			$node->Category( kCATEGORY_PASSPORT, TRUE );
 			$node->Commit( $container );
 		}
 		else
@@ -6453,8 +6509,6 @@ EOT;
 			  kDEFAULT_LANGUAGE );
 			$term->Type( kTYPE_STRING );
 			$term->Examples( 'Rheinische Vorgebirgstrauben;Emma;Avlon', TRUE );
-			$term->Domain( kDOMAIN_ACCESSION, TRUE );
-			$term->Category( kCATEGORY_PASSPORT, TRUE );
 			$term->Commit( $theContainer );
 		}
 		
@@ -6467,8 +6521,6 @@ EOT;
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
 			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_ACCESSION, TRUE );
-			$node->Category( kCATEGORY_PASSPORT, TRUE );
 			$node->Commit( $container );
 		}
 		else
@@ -6520,8 +6572,6 @@ EOT;
 			$term->Examples( '1968----', TRUE );
 			$term->Examples( '197011--', TRUE );
 			$term->Examples( '20020620', TRUE );
-			$term->Domain( kDOMAIN_ACCESSION, TRUE );
-			$term->Category( kCATEGORY_PASSPORT, TRUE );
 			$term->Commit( $theContainer );
 		}
 		
@@ -6534,8 +6584,6 @@ EOT;
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
 			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_ACCESSION, TRUE );
-			$node->Category( kCATEGORY_PASSPORT, TRUE );
 			$node->Commit( $container );
 		}
 		else
@@ -6581,9 +6629,7 @@ EOT;
 			$term->Definition
 			( 'ode of the country in which the sample was originally collected.',
 			  kDEFAULT_LANGUAGE );
-			$term->Domain( kDOMAIN_ACCESSION, TRUE );
 			$term->Domain( kDOMAIN_GEOGRAPHY, TRUE );
-			$term->Category( kCATEGORY_PASSPORT, TRUE );
 			$term->Category( kCATEGORY_ADMIN, TRUE );
 			$term->Commit( $theContainer );
 		}
@@ -6596,9 +6642,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
-			$node->Domain( kDOMAIN_ACCESSION, TRUE );
 			$node->Domain( kDOMAIN_GEOGRAPHY, TRUE );
-			$node->Category( kCATEGORY_PASSPORT, TRUE );
 			$node->Category( kCATEGORY_ADMIN, TRUE );
 			$node->Commit( $container );
 		}
@@ -6690,9 +6734,7 @@ EOT;
 			  kDEFAULT_LANGUAGE );
 			$term->Type( kTYPE_STRING );
 			$term->Examples( '7 km south of Curitiba in the state of Parana', TRUE );
-			$term->Domain( kDOMAIN_ACCESSION, TRUE );
 			$term->Domain( kDOMAIN_GEOGRAPHY, TRUE );
-			$term->Category( kCATEGORY_PASSPORT, TRUE );
 			$term->Category( kCATEGORY_ADMIN, TRUE );
 			$term->Commit( $theContainer );
 		}
@@ -6706,9 +6748,7 @@ EOT;
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
 			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_ACCESSION, TRUE );
 			$node->Domain( kDOMAIN_GEOGRAPHY, TRUE );
-			$node->Category( kCATEGORY_PASSPORT, TRUE );
 			$node->Category( kCATEGORY_ADMIN, TRUE );
 			$node->Commit( $container );
 		}
@@ -6761,9 +6801,7 @@ EOT;
 			$term->Examples( '10----S', TRUE );
 			$term->Examples( '011530N', TRUE );
 			$term->Examples( '4531--S', TRUE );
-			$term->Domain( kDOMAIN_ACCESSION, TRUE );
 			$term->Domain( kDOMAIN_GEOGRAPHY, TRUE );
-			$term->Category( kCATEGORY_PASSPORT, TRUE );
 			$term->Category( kCATEGORY_GEO, TRUE );
 			$term->Commit( $theContainer );
 		}
@@ -6777,9 +6815,7 @@ EOT;
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
 			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_ACCESSION, TRUE );
 			$node->Domain( kDOMAIN_GEOGRAPHY, TRUE );
-			$node->Category( kCATEGORY_PASSPORT, TRUE );
 			$node->Category( kCATEGORY_GEO, TRUE );
 			$node->Commit( $container );
 		}
@@ -6831,9 +6867,7 @@ EOT;
 			$term->Type( kTYPE_STRING );
 			$term->Examples( '0762510W', TRUE );
 			$term->Examples( '076----W', TRUE );
-			$term->Domain( kDOMAIN_ACCESSION, TRUE );
 			$term->Domain( kDOMAIN_GEOGRAPHY, TRUE );
-			$term->Category( kCATEGORY_PASSPORT, TRUE );
 			$term->Category( kCATEGORY_GEO, TRUE );
 			$term->Commit( $theContainer );
 		}
@@ -6847,9 +6881,7 @@ EOT;
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
 			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_ACCESSION, TRUE );
 			$node->Domain( kDOMAIN_GEOGRAPHY, TRUE );
-			$node->Category( kCATEGORY_PASSPORT, TRUE );
 			$node->Category( kCATEGORY_GEO, TRUE );
 			$node->Commit( $container );
 		}
@@ -6900,9 +6932,7 @@ EOT;
 			$term->Type( kTYPE_INT32 );
 			$term->Examples( '763', TRUE );
 			$term->Examples( '-15', TRUE );
-			$term->Domain( kDOMAIN_ACCESSION, TRUE );
 			$term->Domain( kDOMAIN_GEOGRAPHY, TRUE );
-			$term->Category( kCATEGORY_PASSPORT, TRUE );
 			$term->Category( kCATEGORY_GEO, TRUE );
 			$term->Commit( $theContainer );
 		}
@@ -6916,9 +6946,7 @@ EOT;
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
 			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_ACCESSION, TRUE );
 			$node->Domain( kDOMAIN_GEOGRAPHY, TRUE );
-			$node->Category( kCATEGORY_PASSPORT, TRUE );
 			$node->Category( kCATEGORY_GEO, TRUE );
 			$node->Commit( $container );
 		}
@@ -6970,8 +6998,6 @@ EOT;
 			$term->Examples( '1968----', TRUE );
 			$term->Examples( '197011--', TRUE );
 			$term->Examples( '20020620', TRUE );
-			$term->Domain( kDOMAIN_ACCESSION, TRUE );
-			$term->Category( kCATEGORY_PASSPORT, TRUE );
 			$term->Commit( $theContainer );
 		}
 		
@@ -6984,8 +7010,6 @@ EOT;
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
 			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_ACCESSION, TRUE );
-			$node->Category( kCATEGORY_PASSPORT, TRUE );
 			$node->Commit( $container );
 		}
 		else
@@ -7037,8 +7061,6 @@ EOT;
 			$term->Examples( 'COL002', TRUE );
 			$term->Examples( 'USA1001', TRUE );
 			$term->Xref( $instcode, kTYPE_RELATED, TRUE );
-			$term->Domain( kDOMAIN_ACCESSION, TRUE );
-			$term->Category( kCATEGORY_PASSPORT, TRUE );
 			$term->Commit( $theContainer );
 		
 		} $bredcode = $term;
@@ -7052,8 +7074,6 @@ EOT;
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
 			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_ACCESSION, TRUE );
-			$node->Category( kCATEGORY_PASSPORT, TRUE );
 			$node->Commit( $container );
 		}
 		else
@@ -7103,8 +7123,6 @@ EOT;
 			  kDEFAULT_LANGUAGE );
 			$term->Type( kTYPE_ENUM );
 			$term->Pattern( '[0-9]{3}' );
-			$term->Domain( kDOMAIN_ACCESSION, TRUE );
-			$term->Category( kCATEGORY_PASSPORT, TRUE );
 			$term->Commit( $theContainer );
 		}
 		
@@ -7117,8 +7135,6 @@ EOT;
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
 			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_ACCESSION, TRUE );
-			$node->Category( kCATEGORY_PASSPORT, TRUE );
 			$node->Commit( $container );
 		}
 		else
@@ -7190,11 +7206,6 @@ EOT;
 				$enum_term->Kind( kTYPE_ENUMERATION, TRUE );
 				$enum_term->Type( kTYPE_ENUM );
 				$enum_term->Enumeration( $enum_term->Code(), TRUE );
-				if( $record[ 'Parent' ] === NULL )
-				{
-					$enum_term->Relate( $term, $enum_of, TRUE );
-					$enum_term->Commit( $theContainer );
-				}
 				$enum_term->Commit( $theContainer );
 			}
 			
@@ -7330,12 +7341,6 @@ EOT;
 			$parent_node = new COntologyNode( $container, $parent_node );
 			
 			//
-			// Relate terms.
-			//
-			$child_term->Relate( $parent_term, $enum_of, TRUE );
-			$child_term->Commit( $theContainer );
-			
-			//
 			// Get status edge.
 			//
 			$id = Array();
@@ -7382,8 +7387,6 @@ EOT;
 			$term->Examples( 'mutation found in Hanna', TRUE );
 			$term->Examples( 'selection from Irene', TRUE );
 			$term->Examples( 'cross involving amongst others Hanna and Irene', TRUE );
-			$term->Domain( kDOMAIN_ACCESSION, TRUE );
-			$term->Category( kCATEGORY_PASSPORT, TRUE );
 			$term->Commit( $theContainer );
 		}
 		
@@ -7396,8 +7399,6 @@ EOT;
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
 			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_ACCESSION, TRUE );
-			$node->Category( kCATEGORY_PASSPORT, TRUE );
 			$node->Commit( $container );
 		}
 		else
@@ -7447,8 +7448,6 @@ EOT;
 			  kDEFAULT_LANGUAGE );
 			$term->Type( kTYPE_ENUM );
 			$term->Pattern( '[0-9]{2}' );
-			$term->Domain( kDOMAIN_ACCESSION, TRUE );
-			$term->Category( kCATEGORY_PASSPORT, TRUE );
 			$term->Commit( $theContainer );
 		}
 		
@@ -7461,8 +7460,6 @@ EOT;
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
 			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_ACCESSION, TRUE );
-			$node->Category( kCATEGORY_PASSPORT, TRUE );
 			$node->Commit( $container );
 		}
 		else
@@ -7524,11 +7521,6 @@ EOT;
 				$enum_term->Kind( kTYPE_ENUMERATION, TRUE );
 				$enum_term->Type( kTYPE_ENUM );
 				$enum_term->Enumeration( $enum_term->Code(), TRUE );
-				if( $record[ 'Parent' ] === NULL )
-				{
-					$enum_term->Relate( $term, $enum_of, TRUE );
-					$enum_term->Commit( $theContainer );
-				}
 				$enum_term->Commit( $theContainer );
 			}
 			
@@ -7632,12 +7624,6 @@ EOT;
 			$parent_node = new COntologyNode( $container, $parent_node );
 			
 			//
-			// Relate terms.
-			//
-			$child_term->Relate( $parent_term, $enum_of, TRUE );
-			$child_term->Commit( $theContainer );
-			
-			//
 			// Get status edge.
 			//
 			$id = Array();
@@ -7684,8 +7670,6 @@ EOT;
 			$term->Examples( 'COL002', TRUE );
 			$term->Examples( 'USA1001', TRUE );
 			$term->Xref( $instcode, kTYPE_RELATED, TRUE );
-			$term->Domain( kDOMAIN_ACCESSION, TRUE );
-			$term->Category( kCATEGORY_PASSPORT, TRUE );
 			$term->Commit( $theContainer );
 		
 		} $donorcode = $term;
@@ -7699,8 +7683,6 @@ EOT;
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
 			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_ACCESSION, TRUE );
-			$node->Category( kCATEGORY_PASSPORT, TRUE );
 			$node->Commit( $container );
 		}
 		else
@@ -7749,8 +7731,6 @@ EOT;
 			$term->Type( kTYPE_STRING );
 			$term->Examples( 'NGB1912', TRUE );
 			$term->Xref( $accenumb, kTYPE_RELATED, TRUE );
-			$term->Domain( kDOMAIN_ACCESSION, TRUE );
-			$term->Category( kCATEGORY_PASSPORT, TRUE );
 			$term->Commit( $theContainer );
 		}
 		
@@ -7763,8 +7743,6 @@ EOT;
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
 			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_ACCESSION, TRUE );
-			$node->Category( kCATEGORY_PASSPORT, TRUE );
 			$node->Commit( $container );
 		}
 		else
@@ -7824,8 +7802,6 @@ EOT;
 			$term->Examples( 'SWE002:NGB1912;:Bra2343', TRUE );
 			$term->Xref( $instcode, kTYPE_RELATED, TRUE );
 			$term->Xref( $accenumb, kTYPE_RELATED, TRUE );
-			$term->Domain( kDOMAIN_ACCESSION, TRUE );
-			$term->Category( kCATEGORY_PASSPORT, TRUE );
 			$term->Commit( $theContainer );
 		}
 		
@@ -7838,8 +7814,6 @@ EOT;
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
 			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_ACCESSION, TRUE );
-			$node->Category( kCATEGORY_PASSPORT, TRUE );
 			$node->Commit( $container );
 		}
 		else
@@ -7892,8 +7866,6 @@ EOT;
 			$term->Examples( 'COL002', TRUE );
 			$term->Examples( 'USA1001', TRUE );
 			$term->Xref( $instcode, kTYPE_RELATED, TRUE );
-			$term->Domain( kDOMAIN_ACCESSION, TRUE );
-			$term->Category( kCATEGORY_PASSPORT, TRUE );
 			$term->Commit( $theContainer );
 		
 		} $duplsite = $term;
@@ -7907,8 +7879,6 @@ EOT;
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
 			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_ACCESSION, TRUE );
-			$node->Category( kCATEGORY_PASSPORT, TRUE );
 			$node->Commit( $container );
 		}
 		else
@@ -7958,8 +7928,6 @@ EOT;
 			  kDEFAULT_LANGUAGE );
 			$term->Type( kTYPE_ENUM_SET );
 			$term->Pattern( '[0-9]{2}' );
-			$term->Domain( kDOMAIN_ACCESSION, TRUE );
-			$term->Category( kCATEGORY_PASSPORT, TRUE );
 			$term->Commit( $theContainer );
 		}
 		
@@ -7972,8 +7940,6 @@ EOT;
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
 			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_ACCESSION, TRUE );
-			$node->Category( kCATEGORY_PASSPORT, TRUE );
 			$node->Commit( $container );
 		}
 		else
@@ -8002,7 +7968,7 @@ EOT;
 				 ." [$term] [".$node->Node()->getId()."]\n" );
 		
 		//
-		// Load biological status codes.
+		// Load storage codes.
 		//
 		$query = <<<EOT
 SELECT
@@ -8035,11 +8001,6 @@ EOT;
 				$enum_term->Kind( kTYPE_ENUMERATION, TRUE );
 				$enum_term->Type( kTYPE_ENUM );
 				$enum_term->Enumeration( $enum_term->Code(), TRUE );
-				if( $record[ 'Parent' ] === NULL )
-				{
-					$enum_term->Relate( $term, $enum_of, TRUE );
-					$enum_term->Commit( $theContainer );
-				}
 				$enum_term->Commit( $theContainer );
 			}
 			
@@ -8143,12 +8104,6 @@ EOT;
 			$parent_node = new COntologyNode( $container, $parent_node );
 			
 			//
-			// Relate terms.
-			//
-			$child_term->Relate( $parent_term, $enum_of, TRUE );
-			$child_term->Commit( $theContainer );
-			
-			//
 			// Get storage edge.
 			//
 			$id = Array();
@@ -8194,8 +8149,6 @@ EOT;
 			  kDEFAULT_LANGUAGE );
 			$term->Type( kTYPE_STRING );
 			$term->Examples( 'COLLSRC:roadside', TRUE );
-			$term->Domain( kDOMAIN_ACCESSION, TRUE );
-			$term->Category( kCATEGORY_PASSPORT, TRUE );
 			$term->Commit( $theContainer );
 		}
 		
@@ -8208,8 +8161,6 @@ EOT;
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
 			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_ACCESSION, TRUE );
-			$node->Category( kCATEGORY_PASSPORT, TRUE );
 			$node->Commit( $container );
 		}
 		else
@@ -8261,8 +8212,6 @@ EOT;
 			$term->Examples( 'Tuinartikelen Jan van Zomeren, Arnhem, The Netherlands',
 							 TRUE );
 			$term->Xref( $collcode, kTYPE_RELATED, TRUE );
-			$term->Domain( kDOMAIN_ACCESSION, TRUE );
-			$term->Category( kCATEGORY_PASSPORT, TRUE );
 			$term->Commit( $theContainer );
 		}
 		
@@ -8275,8 +8224,6 @@ EOT;
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
 			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_ACCESSION, TRUE );
-			$node->Category( kCATEGORY_PASSPORT, TRUE );
 			$node->Commit( $container );
 		}
 		else
@@ -8327,8 +8274,6 @@ EOT;
 			$term->Type( kTYPE_STRING );
 			$term->Examples( 'CFFR from Chile', TRUE );
 			$term->Xref( $bredcode, kTYPE_RELATED, TRUE );
-			$term->Domain( kDOMAIN_ACCESSION, TRUE );
-			$term->Category( kCATEGORY_PASSPORT, TRUE );
 			$term->Commit( $theContainer );
 		}
 		
@@ -8341,8 +8286,6 @@ EOT;
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
 			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_ACCESSION, TRUE );
-			$node->Category( kCATEGORY_PASSPORT, TRUE );
 			$node->Commit( $container );
 		}
 		else
@@ -8393,8 +8336,6 @@ EOT;
 			$term->Type( kTYPE_STRING );
 			$term->Examples( 'Nelly Goudwaard, Groningen, The Netherlands', TRUE );
 			$term->Xref( $donorcode, kTYPE_RELATED, TRUE );
-			$term->Domain( kDOMAIN_ACCESSION, TRUE );
-			$term->Category( kCATEGORY_PASSPORT, TRUE );
 			$term->Commit( $theContainer );
 		}
 		
@@ -8407,8 +8348,6 @@ EOT;
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
 			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_ACCESSION, TRUE );
-			$node->Category( kCATEGORY_PASSPORT, TRUE );
 			$node->Commit( $container );
 		}
 		else
@@ -8459,8 +8398,6 @@ EOT;
 			$term->Type( kTYPE_STRING );
 			$term->Examples( 'Pakhoed Freezers inc., Paramaribo, Surinam', TRUE );
 			$term->Xref( $duplsite, kTYPE_RELATED, TRUE );
-			$term->Domain( kDOMAIN_ACCESSION, TRUE );
-			$term->Category( kCATEGORY_PASSPORT, TRUE );
 			$term->Commit( $theContainer );
 		}
 		
@@ -8473,8 +8410,6 @@ EOT;
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
 			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_ACCESSION, TRUE );
-			$node->Category( kCATEGORY_PASSPORT, TRUE );
 			$node->Commit( $container );
 		}
 		else
@@ -8524,8 +8459,6 @@ EOT;
 			$term->Type( kTYPE_STRING );
 			$term->Examples( 'http://www.cgn.wageningen-ur.nl/pgr/collections/passdeta.asp?accenumb=CGN04848',
 							 TRUE );
-			$term->Domain( kDOMAIN_ACCESSION, TRUE );
-			$term->Category( kCATEGORY_PASSPORT, TRUE );
 			$term->Commit( $theContainer );
 		}
 		
@@ -8538,8 +8471,6 @@ EOT;
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
 			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_ACCESSION, TRUE );
-			$node->Category( kCATEGORY_PASSPORT, TRUE );
 			$node->Commit( $container );
 		}
 		else
@@ -8593,8 +8524,6 @@ EOT;
 			$term->Type( kTYPE_STRING );
 			$term->Examples( '1', TRUE );
 			$term->Examples( '0', TRUE );
-			$term->Domain( kDOMAIN_ACCESSION, TRUE );
-			$term->Category( kCATEGORY_PASSPORT, TRUE );
 			$term->Commit( $theContainer );
 		}
 		
@@ -8607,8 +8536,6 @@ EOT;
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
 			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_ACCESSION, TRUE );
-			$node->Category( kCATEGORY_PASSPORT, TRUE );
 			$node->Commit( $container );
 		}
 		else
@@ -8661,8 +8588,6 @@ EOT;
 			$term->Type( kTYPE_STRING );
 			$term->Examples( '1', TRUE );
 			$term->Examples( '0', TRUE );
-			$term->Domain( kDOMAIN_ACCESSION, TRUE );
-			$term->Category( kCATEGORY_PASSPORT, TRUE );
 			$term->Commit( $theContainer );
 		}
 		
@@ -8675,8 +8600,6 @@ EOT;
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
 			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_ACCESSION, TRUE );
-			$node->Category( kCATEGORY_PASSPORT, TRUE );
 			$node->Commit( $container );
 		}
 		else

@@ -55,6 +55,13 @@ define( "kDOMAIN_GEOGRAPHY",		':DOMAIN:GEOGRAPHY' );			// Geography.
 define( "kDOMAIN_LANGUAGE",			':DOMAIN:LANGUAGE' );			// Language.
 
 /**
+ * Taxonomy.
+ *
+ * This tag represents the taxonomy domain.
+ */
+define( "kDOMAIN_TAXONOMY",			':DOMAIN:TAXONOMY' );			// Taxonomy.
+
+/**
  * Germplasm.
  *
  * This tag represents the germplasm domain, it is a generalised domain comprising all
@@ -144,6 +151,22 @@ define( "kCATEGORY_ADMIN",			':CATEGORY:ADMIN' );			// Administrative units.
  * comprising geographic units.
  */
 define( "kCATEGORY_GEO",			':CATEGORY:GEOG' );				// Geographic units.
+
+/**
+ * Epithet.
+ *
+ * This tag represents the epithet category, it collects all descriptors related to
+ * epithets.
+ */
+define( "kCATEGORY_EPITHET",		':CATEGORY:EPITH' );			// Epithet.
+
+/**
+ * Authority.
+ *
+ * This tag represents the authority category, it collects all descriptors related to
+ * authorities.
+ */
+define( "kCATEGORY_AUTH",			':CATEGORY:AUTH' );				// Authority.
 
 
 ?>
