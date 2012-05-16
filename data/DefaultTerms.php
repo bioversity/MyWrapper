@@ -3672,7 +3672,7 @@ EOT;
 			// Create region term.
 			//
 			$term = new COntologyTerm();
-			$term->NS( $ns );
+			$term->NS( $group_term );
 			$term->Code( $record[ 'Code' ] );
 			$term->Name( $record[ 'Label' ], kDEFAULT_LANGUAGE );
 			$term->Kind( kTYPE_ENUMERATION, TRUE );
