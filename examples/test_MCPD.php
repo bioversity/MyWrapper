@@ -51,7 +51,7 @@ require_once( kPATH_LIBRARY_SOURCE."CWarehouseWrapperClient.php" );
 //
 // Use raw parameters or use wrapper client?.
 //
-define( 'kUSE_CLIENT', TRUE );
+define( 'kUSE_CLIENT', FALSE );
 
 
 /*=======================================================================================
@@ -141,14 +141,15 @@ try
 	//
 	$node = key( $decoded[ kAPI_DATA_RESPONSE ]
 						 [ kAPI_RESPONSE_NODES ] );
-	echo( "<i>We shall use the first found node [$node] as the root node (let\'s hope it\'s MCPD ;-).</i>" );
+	echo( "<i>We shall use the first found node [$node] as the root node (let's hope it's MCPD ;-).</i>" );
 	echo( '<hr>' );
 	
 	/*===================================================================================
 	 *	GET DIRECTED EDGES (IN)															*
 	 *==================================================================================*/
 	echo( '<h4>Get the MCPD child nodes</h4>' );
-	echo( "<i>We select all nodes pointing to our [$node] root node.</i>" );
+	echo( "<i>We select all nodes pointing to our [$node] root node, in the process, we "
+		 ."only show name, definition and node references.</i>" );
 	//
 	// Use wrapper client.
 	//

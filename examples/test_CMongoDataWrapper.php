@@ -258,7 +258,7 @@ try
 		// Use static method.
 		//
 		$decoded = CWrapperClient::Request( $url, $params, 'POST', kTYPE_JSON );
-	}
+	} 
 	//
 	// Display.
 	//

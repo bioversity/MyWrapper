@@ -53,7 +53,7 @@ require_once( kPATH_LIBRARY_SOURCE."CWarehouseWrapperClient.php" );
 //
 // Use raw parameters or use wrapper client?.
 //
-define( 'kUSE_CLIENT', FALSE );
+define( 'kUSE_CLIENT', TRUE );
 
 
 /*=======================================================================================
@@ -614,6 +614,7 @@ try
 	 *	GET TERMS LIST (EMPTY)															*
 	 *==================================================================================*/
 	echo( '<h4>Get terms list ('.kAPI_OP_GET_TERMS.') empty</h4>' );
+	echo( '<i>It should return at most 50 records.</i>' );
 	//
 	// Use wrapper client.
 	//
@@ -627,6 +628,7 @@ try
 		$params->Format( kTYPE_JSON );
 		$params->Database( 'WAREHOUSE' );
 		$params->Container( 'DICTIONARY' );
+		$params->Fields( array( kTAG_NAME => TRUE ) );
 		$params->LogTrace( TRUE );
 		$params->LogRequest( TRUE );
 		//
@@ -639,6 +641,10 @@ try
 	//
 	else
 	{
+		//
+		// Build fields list.
+		//
+		$fields = json_encode( array( kTAG_NAME => TRUE ) );
 		//
 		// Build parameters.
 		//
@@ -1057,7 +1063,7 @@ try
 		$params->Identifiers( 1, TRUE );
 		$params->Identifiers( 2, TRUE );
 		$params->Identifiers( 3, TRUE );
-		$params->Fields( kTAG_NAME );
+		$params->Fields( array( kTAG_NAME => TRUE ) );
 		$params->LogTrace( TRUE );
 		$params->LogRequest( TRUE );
 		//
@@ -1077,7 +1083,7 @@ try
 		//
 		// Build fields list.
 		//
-		$fields = json_encode( array( kTAG_NAME ) );
+		$fields = json_encode( array( kTAG_NAME => TRUE ) );
 		//
 		// Build parameters.
 		//
@@ -1229,7 +1235,7 @@ try
 		$params->Identifiers( 9991, TRUE );
 		$params->Identifiers( 51, TRUE );
 		$params->Identifiers( 99999, TRUE );
-		$params->Fields( kTAG_NAME );
+		$params->Fields( array( kTAG_NAME => TRUE ) );
 		$params->LogTrace( TRUE );
 		$params->LogRequest( TRUE );
 		//
@@ -1249,7 +1255,7 @@ try
 		//
 		// Build fields list.
 		//
-		$fields = json_encode( array( kTAG_NAME ) );
+		$fields = json_encode( array( kTAG_NAME => TRUE ) );
 		//
 		// Build parameters.
 		//
@@ -1323,7 +1329,7 @@ try
 		$params->Identifiers( 9991, TRUE );
 		$params->Identifiers( 51, TRUE );
 		$params->Identifiers( 99999, TRUE );
-		$params->Fields( kTAG_NAME );
+		$params->Fields( array( kTAG_NAME => TRUE ) );
 		$params->Predicates( kPRED_PART_OF, TRUE );
 		$params->LogTrace( TRUE );
 		$params->LogRequest( TRUE );
@@ -1344,7 +1350,7 @@ try
 		//
 		// Build fields list.
 		//
-		$fields = json_encode( array( kTAG_NAME ) );
+		$fields = json_encode( array( kTAG_NAME => TRUE ) );
 		//
 		// Build identifiers list.
 		//
@@ -1405,7 +1411,7 @@ try
 	 *	GET DIRECTED EDGES (IN)															*
 	 *==================================================================================*/
 	echo( '<h4>Get directed edges ('.kAPI_OP_GET_EDGES.') IN</h4>' );
-	echo( '<i>Get all nodes that point to node 16.</i>' );
+	echo( '<i>Get all nodes that point to node 2.</i>' );
 	//
 	// Use wrapper client.
 	//
@@ -1419,8 +1425,8 @@ try
 		$params->Format( kTYPE_JSON );
 		$params->Database( 'WAREHOUSE' );
 		$params->Container( 'DICTIONARY' );
-		$params->Identifiers( 16, TRUE );
-		$params->Fields( kTAG_NAME );
+		$params->Identifiers( 2, TRUE );
+		$params->Fields( array( kTAG_NAME => TRUE ) );
 		$params->Direction( kAPI_DIRECTION_IN );
 		$params->LogTrace( TRUE );
 		$params->LogRequest( TRUE );
@@ -1437,11 +1443,11 @@ try
 		//
 		// Build identifiers list.
 		//
-		$list = json_encode( array( 16 ) );
+		$list = json_encode( array( 2 ) );
 		//
 		// Build fields list.
 		//
-		$fields = json_encode( array( kTAG_NAME ) );
+		$fields = json_encode( array( kTAG_NAME => TRUE ) );
 		//
 		// Build parameters.
 		//
@@ -1498,7 +1504,7 @@ try
 	 *	GET DIRECTED EDGES (IN) 3 LEVELS												*
 	 *==================================================================================*/
 	echo( '<h4>Get directed edges ('.kAPI_OP_GET_EDGES.') IN 3 LEVELS</h4>' );
-	echo( '<i>Get all nodes that point to node 16.</i>' );
+	echo( '<i>Get all nodes that point to node 1.</i>' );
 	//
 	// Use wrapper client.
 	//
@@ -1512,8 +1518,8 @@ try
 		$params->Format( kTYPE_JSON );
 		$params->Database( 'WAREHOUSE' );
 		$params->Container( 'DICTIONARY' );
-		$params->Identifiers( 16, TRUE );
-		$params->Fields( kTAG_NAME );
+		$params->Identifiers( 1, TRUE );
+		$params->Fields( array( kTAG_NAME => TRUE ) );
 		$params->Direction( kAPI_DIRECTION_IN );
 		$params->Levels( 3 );
 		$params->LogTrace( TRUE );
@@ -1531,11 +1537,11 @@ try
 		//
 		// Build identifiers list.
 		//
-		$list = json_encode( array( 16 ) );
+		$list = json_encode( array( 1 ) );
 		//
 		// Build fields list.
 		//
-		$fields = json_encode( array( kTAG_NAME ) );
+		$fields = json_encode( array( kTAG_NAME => TRUE ) );
 		//
 		// Build parameters.
 		//
@@ -1609,7 +1615,7 @@ try
 		$params->Container( 'DICTIONARY' );
 		$params->Identifiers( 2, TRUE );
 		$params->Direction( kAPI_DIRECTION_OUT );
-		$params->Fields( kTAG_NAME );
+		$params->Fields( array( kTAG_NAME => TRUE ) );
 		$params->LogTrace( TRUE );
 		$params->LogRequest( TRUE );
 		//
@@ -1629,7 +1635,7 @@ try
 		//
 		// Build fields list.
 		//
-		$fields = json_encode( array( kTAG_NAME ) );
+		$fields = json_encode( array( kTAG_NAME => TRUE ) );
 		//
 		// Build parameters.
 		//
@@ -1702,7 +1708,7 @@ try
 		$params->Container( 'DICTIONARY' );
 		$params->Identifiers( 2, TRUE );
 		$params->Direction( kAPI_DIRECTION_ALL );
-		$params->Fields( kTAG_NAME );
+		$params->Fields( array( kTAG_NAME => TRUE ) );
 		$params->LogTrace( TRUE );
 		$params->LogRequest( TRUE );
 		//
@@ -1722,7 +1728,7 @@ try
 		//
 		// Build fields list.
 		//
-		$fields = json_encode( array( kTAG_NAME ) );
+		$fields = json_encode( array( kTAG_NAME => TRUE ) );
 		//
 		// Build parameters.
 		//
