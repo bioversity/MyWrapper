@@ -1632,10 +1632,10 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	 * The parameters to this method are:
 	 *
 	 * <ul>
-	 *	<li><b>$theEdge</i>: Edge node to handle.
-	 *	<li><b>&$theTerms</i>: Reference to the list of term identifiers.
-	 *	<li><b>&$theNodes</i>: Reference to the list of nodes.
-	 *	<li><b>&$theEdges</i>: Reference to the list of edge elements.
+	 *	<li><b>$theEdge</b>: Edge node to handle.
+	 *	<li><b>&$theTerms</b>: Reference to the list of term identifiers.
+	 *	<li><b>&$theNodes</b>: Reference to the list of nodes.
+	 *	<li><b>&$theEdges</b>: Reference to the list of edge elements.
 	 * </ul>
 	 *
 	 * The method will return 1 if the edge was handled, 0 if not.
@@ -1747,11 +1747,11 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	 * The parameters to this method are:
 	 *
 	 * <ul>
-	 *	<li><b>&$theList</i>: List of current level node identifiers.
-	 *	<li><b>&$theTerms</i>: Reference to the list of term identifiers.
-	 *	<li><b>&$theNodes</i>: Reference to the list of nodes.
-	 *	<li><b>&$theEdges</i>: Reference to the list of edge elements.
-	 *	<li><b>$theLevel</i>: Current traversal depth level, 0 means the lowest.
+	 *	<li><b>&$theList</b>: List of current level node identifiers.
+	 *	<li><b>&$theTerms</b>: Reference to the list of term identifiers.
+	 *	<li><b>&$theNodes</b>: Reference to the list of nodes.
+	 *	<li><b>&$theEdges</b>: Reference to the list of edge elements.
+	 *	<li><b>$theLevel</b>: Current traversal depth level, 0 means the lowest.
 	 * </ul>
 	 *
 	 * The method will return the number of processed elements count.

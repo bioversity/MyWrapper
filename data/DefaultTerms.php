@@ -141,6 +141,7 @@ try
 	//
 	LoadDefaultDomains( $_SESSION[ kSESSION_CONTAINER ], TRUE );
 	LoadDefaultCategories( $_SESSION[ kSESSION_CONTAINER ], TRUE );
+	LoadCropGroupDescriptors( $_SESSION[ kSESSION_CONTAINER ], TRUE );
 	LoadUnStatsRegions( $_SESSION[ kSESSION_CONTAINER ], TRUE );
 	LoadISO( $_SESSION[ kSESSION_CONTAINER ], TRUE );
 	LoadMCPD( $_SESSION[ kSESSION_CONTAINER ], TRUE );
@@ -3511,6 +3512,272 @@ exit( "Done!\n" );
 				 ." [$term] [".$root_node->Node()->getId()."]\n" );
 		
 	} // LoadDefaultCategories.
+
+	 
+	/*===================================================================================
+	 *	LoadCropGroupDescriptors														*
+	 *==================================================================================*/
+
+	/**
+	 * Load crop codes.
+	 *
+	 * This function will load the Bioversity generic standards.
+	 *
+	 * If the last parameter is <i>TRUE</i>, the function will display the name of the
+	 * created terms.
+	 *
+	 * @param CContainer			$theContainer		Collection.
+	 * @param boolean				$doDisplay			Display created terms.
+	 *
+	 * @access protected
+	 */
+	function LoadCropGroupDescriptors( CContainer $theContainer, $doDisplay = TRUE )
+	{
+		//
+		// Open MySQL connection.
+		//
+		$mysql = NewADOConnection( DEFAULT_ANCILLARY_HOST );
+		if( ! $mysql )
+			throw new Exception( 'Unable to connect to MySQL.' );				// !@! ==>
+		$mysql->Execute( "SET CHARACTER SET 'utf8'" );
+		$mysql->setFetchMode( ADODB_FETCH_ASSOC );
+		
+		//
+		// Init local storage.
+		//
+		$container = array( kTAG_TERM => $theContainer,
+							kTAG_NODE => $_SESSION[ kSESSION_NEO4J ] );
+		
+		//
+		// Inform.
+		//
+		if( $doDisplay )
+		{
+			echo( "\n".__FUNCTION__."\n" );
+			echo( "------------------\n" );
+		}
+		
+		//
+		// Get node term index.
+		//
+		$term_index = new NodeIndex( $container[ kTAG_NODE ], kINDEX_NODE_TERM );
+		$term_index->save();
+		$node_index = new RelationshipIndex( $container[ kTAG_NODE ], kINDEX_NODE_TERM );
+		$node_index->save();
+		
+		//
+		// IS-A.
+		//
+		$is_a
+			= CPersistentUnitObject::NewObject
+				( $theContainer, COntologyTermObject::HashIndex( kPRED_IS_A ),
+				  kFLAG_STATE_ENCODED );
+		if( ! $is_a )
+			throw new Exception
+				( 'Unable to find subclass of predicate.' );					// !@! ==>
+		
+		//
+		// ENUM-OF.
+		//
+		$enum_of
+			= CPersistentUnitObject::NewObject
+				( $theContainer, COntologyTermObject::HashIndex( kPRED_ENUM_OF ),
+				  kFLAG_STATE_ENCODED );
+		if( ! $enum_of )
+			throw new Exception
+				( 'Unable to find enumeration predicate.' );					// !@! ==>
+		
+		//
+		// International Treaty on Plant Genetic Resources for Food and Agriculture.
+		//
+		$ns = new COntologyTerm();
+		$ns->Code( 'ITPGRFA' );
+        $ns->Name( 'International Treaty on Plant Genetic Resources descriptor',
+        		   kDEFAULT_LANGUAGE );
+		$ns->Definition
+		( 'International Treaty on Plant Genetic Resources for Food and Agriculture '
+		 .'descriptor.', kDEFAULT_LANGUAGE );
+		$ns->Kind( kTYPE_NAMESPACE, TRUE );
+		$ns->Kind( kTYPE_ROOT, TRUE );
+		$ns->Commit( $theContainer );
+		$root = $term_index->findOne( kTAG_TERM, (string) $ns );
+		if( $root === NULL )
+		{
+			$root = new COntologyNode( $container );
+			$root->Term( $ns );
+			$root->Kind( kTYPE_ROOT, TRUE );
+			$root->Commit( $container );
+		}
+		else
+			$root = new COntologyNode( $container, $root );
+		$namespace = $ns[ kTAG_GID ].kTOKEN_NAMESPACE_SEPARATOR;
+		if( $doDisplay )
+			echo( $ns->Name( NULL, kDEFAULT_LANGUAGE )
+				 ." [$ns] [".$root->Node()->getId()."]\n" );
+		
+		//
+		// CROP - Crop group codes.
+		//
+		$group_term = new COntologyTerm();
+		$group_term->NS( $ns );
+		$group_term->Code( 'ANNEX1-CROP-GROUP' );
+		$group_term->Name( 'Crop group code', kDEFAULT_LANGUAGE );
+		$group_term->Definition
+		( 'Annex 1 crop group code.', kDEFAULT_LANGUAGE );
+		$group_term->Type( kTYPE_ENUM );
+		$group_term->Pattern( '[0-9]{3}', TRUE );
+		$group_term->Commit( $theContainer );
+		$group_node = $term_index->findOne( kTAG_TERM, (string) $group_term );
+		if( $group_node === NULL )
+		{
+			$group_node = new COntologyNode( $container );
+			$group_node->Term( $group_term );
+			$group_node->Type( kTYPE_ENUM, TRUE );
+			$group_node->Kind( kTYPE_MEASURE, TRUE );
+			$group_node->Commit( $container );
+		}
+		else
+			$group_node = new COntologyNode( $container, $group_node );
+		$id = Array();
+		$id[] = $group_node->Node()->getId();
+		$id[] = (string) $is_a;
+		$id[] = $root->Node()->getId();
+		$id = implode( '/', $id );
+		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
+		if( $edge === NULL )
+		{
+			$edge = $group_node->RelateTo( $container, $is_a, $root );
+			$edge->Commit( $container );
+		}
+		if( $doDisplay )
+			echo( $group_term->Name( NULL, kDEFAULT_LANGUAGE )
+				 ." [$group_term] [".$root->Node()->getId()."]\n" );
+		
+		//
+		// Load crop group codes.
+		//
+		$query = <<<EOT
+SELECT
+	`Code_Annex1_Groups`.`Code`,
+	`Code_Annex1_Groups`.`Label`
+FROM
+	`Code_Annex1_Groups`
+ORDER BY
+	`Code_Annex1_Groups`.`Code`
+EOT;
+		$rs = $mysql->Execute( $query );
+		foreach( $rs as $record )
+		{
+			//
+			// Create region term.
+			//
+			$term = new COntologyTerm();
+			$term->NS( $ns );
+			$term->Code( $record[ 'Code' ] );
+			$term->Name( $record[ 'Label' ], kDEFAULT_LANGUAGE );
+			$term->Kind( kTYPE_ENUMERATION, TRUE );
+			$term->Type( kTYPE_ENUM );
+			$term->Commit( $theContainer );
+			
+			//
+			// Display.
+			//
+			if( $doDisplay )
+				echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
+					 ." [$term]\n" );
+		
+		} $rs->Close();
+		
+		//
+		// Handle crop group hierarchy.
+		//
+		$query = <<<EOT
+SELECT
+	`Code_Annex1_Groups`.`Code`,
+	`Code_Annex1_Groups`.`Parent`,
+	`Code_Annex1_Groups`.`Label`
+FROM
+	`Code_Annex1_Groups`
+WHERE
+	`Code_Annex1_Groups`.`Parent` IS NOT NULL
+ORDER BY
+	`Code_Annex1_Groups`.`Parent`
+EOT;
+		$rs = $mysql->Execute( $query );
+		foreach( $rs as $record )
+		{
+			//
+			// Get parent and child terms.
+			//
+			$child_term
+				= new COntologyTerm
+					( $theContainer,
+					  COntologyTerm::HashIndex( $namespace.$record[ 'Code' ] ) );
+			if( $record[ 'Parent' ] !== NULL )
+				$parent_term
+					= new COntologyTerm
+						( $theContainer,
+						  COntologyTerm::HashIndex( $namespace.$record[ 'Parent' ] ) );
+			else
+				$parent_term = $group_term;
+			
+			//
+			// Get/create parent node.
+			//
+			if( $record[ 'Parent' ] !== NULL )
+			{
+				$parent_node = $term_index->findOne( kTAG_TERM, (string) $parent_term );
+				if( $parent_node === NULL )
+				{
+					$parent_node = new COntologyNode( $container );
+					$parent_node->Term( $parent_term );
+					$parent_node->Kind( kTYPE_ENUMERATION, TRUE );
+					$parent_node->Commit( $container );
+				}
+				else
+					$parent_node = new COntologyNode( $container, $parent_node );
+			}
+			else
+				$parent_node = $group_node;
+			
+			//
+			// Get/create child node.
+			//
+			$child_node = $term_index->findOne( kTAG_TERM, (string) $child_term );
+			if( $child_node === NULL )
+			{
+				$child_node = new COntologyNode( $container );
+				$child_node->Term( $child_term );
+				$child_node->Kind( kTYPE_ENUMERATION, TRUE );
+				$child_node->Commit( $container );
+			}
+			else
+				$child_node = new COntologyNode( $container, $child_node );
+			
+			//
+			// Create child/parent edge.
+			//
+			$id = Array();
+			$id[] = $child_node->Node()->getId();
+			$id[] = (string) $enum_of;
+			$id[] = $parent_node->Node()->getId();
+			$id = implode( '/', $id );
+			$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
+			if( $edge === NULL )
+			{
+				$edge = $child_node->RelateTo( $container, $enum_of, $parent_node );
+				$edge->Commit( $container );
+			}
+			
+			//
+			// Display.
+			//
+			if( $doDisplay )
+				echo( "[$child_term] ==> [$parent_term]\n" );
+		
+		} $rs->Close();
+		
+	} // LoadCropGroupDescriptors.
 
 	 
 	/*===================================================================================
