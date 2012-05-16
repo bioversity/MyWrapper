@@ -1097,9 +1097,10 @@ class CWarehouseWrapper extends CMongoDataWrapper
 			// Fix fields.
 			//
 			$added = FALSE;
-			if( ! array_key_exists( kTAG_GID, $fields ) )
+			if( count( $fields )
+			 && (! array_key_exists( kTAG_GID, $fields )) )
 			{
-				$fields[] = kTAG_GID;
+				$fields[] = array( kTAG_GID => TRUE );
 				$added = TRUE;
 			}
 			
@@ -1343,9 +1344,10 @@ class CWarehouseWrapper extends CMongoDataWrapper
 			// Fix fields.
 			//
 			$added = FALSE;
-			if( ! array_key_exists( kTAG_GID, $fields ) )
+			if( count( $fields )
+			 && (! array_key_exists( kTAG_GID, $fields )) )
 			{
-				$fields[] = kTAG_GID;
+				$fields[] = array( kTAG_GID => TRUE );
 				$added = TRUE;
 			}
 			

@@ -53,7 +53,7 @@ require_once( kPATH_LIBRARY_SOURCE."CWarehouseWrapperClient.php" );
 //
 // Use raw parameters or use wrapper client?.
 //
-define( 'kUSE_CLIENT', TRUE );
+define( 'kUSE_CLIENT', FALSE );
 
 
 /*=======================================================================================
