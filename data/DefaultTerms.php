@@ -3678,13 +3678,23 @@ EOT;
 			$term->Kind( kTYPE_ENUMERATION, TRUE );
 			$term->Type( kTYPE_ENUM );
 			$term->Commit( $theContainer );
+			$node = $term_index->findOne( kTAG_TERM, (string) $term );
+			if( $node === NULL )
+			{
+				$node = new COntologyNode( $container );
+				$node->Term( $term );
+				$node->Kind( kTYPE_ENUMERATION, TRUE );
+				$node->Commit( $container );
+			}
+			else
+				$node = new COntologyNode( $container, $node );
 			
 			//
 			// Display.
 			//
 			if( $doDisplay )
 				echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-					 ." [$term]\n" );
+					 ." [$term] [".$node->Node()->getId()."]\n" );
 		
 		} $rs->Close();
 		
@@ -3698,8 +3708,6 @@ SELECT
 	`Code_Annex1_Groups`.`Label`
 FROM
 	`Code_Annex1_Groups`
-WHERE
-	`Code_Annex1_Groups`.`Parent` IS NOT NULL
 ORDER BY
 	`Code_Annex1_Groups`.`Parent`
 EOT;
@@ -3712,12 +3720,16 @@ EOT;
 			$child_term
 				= new COntologyTerm
 					( $theContainer,
-					  COntologyTerm::HashIndex( $namespace.$record[ 'Code' ] ) );
+					  COntologyTerm::HashIndex( $group_term
+					  						   .kTOKEN_NAMESPACE_SEPARATOR
+					  						   .$record[ 'Code' ] ) );
 			if( $record[ 'Parent' ] !== NULL )
 				$parent_term
 					= new COntologyTerm
 						( $theContainer,
-						  COntologyTerm::HashIndex( $namespace.$record[ 'Parent' ] ) );
+						  COntologyTerm::HashIndex( $group_term
+												   .kTOKEN_NAMESPACE_SEPARATOR
+												   .$record[ 'Parent' ] ) );
 			else
 				$parent_term = $group_term;
 			

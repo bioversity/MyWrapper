@@ -561,6 +561,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 					// Handle term references.
 					//
 					case kAPI_OP_GET_TERMS:
+					case kAPI_OP_GET_TERMS_COUNT:
 						//
 						// Hash identifiers.
 						//
@@ -804,6 +805,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				}
 				
 			case kAPI_OP_GET_TERMS:
+			case kAPI_OP_GET_TERMS_COUNT:
 			case kAPI_OP_GET_NODES:
 			case kAPI_OP_QUERY_ROOTS:
 				
@@ -876,6 +878,10 @@ class CWarehouseWrapper extends CMongoDataWrapper
 
 			case kAPI_OP_GET_TERMS:
 				$this->_Handle_Get();
+				break;
+
+			case kAPI_OP_GET_TERMS_COUNT:
+				$this->_Handle_Count();
 				break;
 
 			case kAPI_OP_GET_NODES:
@@ -988,7 +994,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	 *==================================================================================*/
 
 	/**
-	 * Handle {@link kAPI_OP_GET_TERMS get-nodes} request.
+	 * Handle {@link kAPI_OP_GET_NODES get-nodes} request.
 	 *
 	 * This method expects the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter
 	 * to hold a list of node IDs, the method will query these nodes and return the
@@ -1531,6 +1537,15 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		//
 		$theList[ kAPI_OP_GET_TERMS ]
 			= 'This operation will return the list of ontology terms matching the provided '
+			.'list of term ['
+			.kAPI_OPT_IDENTIFIERS
+			.'] identifiers.';
+		
+		//
+		// Add kAPI_OP_GET_TERMS_COUNT.
+		//
+		$theList[ kAPI_OP_GET_TERMS_COUNT ]
+			= 'This operation will return the count of ontology terms matching the provided '
 			.'list of term ['
 			.kAPI_OPT_IDENTIFIERS
 			.'] identifiers.';

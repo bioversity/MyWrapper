@@ -46,6 +46,16 @@ define( "kAPI_OP_LOGIN",			'@LOGIN' );
 define( "kAPI_OP_GET_TERMS",		'@GET_TERMS' );
 
 /**
+ * Get terms count web-service.
+ *
+ * This is the tag that represents the get terms count web service, it will locate all
+ * {@link COntologyTerm terms} matching the provided identifiers in the
+ * {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter and return the number of
+ * found elements in the {@link kAPI_AFFECTED_COUNT kAPI_AFFECTED_COUNT} response parameter.
+ */
+define( "kAPI_OP_GET_TERMS_COUNT",	'@GET_TERMS_COUNT' );
+
+/**
  * Get nodes web-service.
  *
  * This is the tag that represents the get nodes web service, it will locate all

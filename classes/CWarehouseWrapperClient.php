@@ -115,6 +115,7 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 			{
 				case kAPI_OP_LOGIN:
 				case kAPI_OP_GET_TERMS:
+				case kAPI_OP_GET_TERMS_COUNT:
 				case kAPI_OP_GET_NODES:
 				case kAPI_OP_GET_EDGES:
 				case kAPI_OP_QUERY_ROOTS:
