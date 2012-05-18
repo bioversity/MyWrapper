@@ -2895,6 +2895,7 @@ EOT;
 		//
 		// Load crop codes.
 		//
+echo( "Need to add the genus and species to the terms!\n" );
 		$query = <<<EOT
 SELECT
 	`Code_Annex1_Crops`.`Code`,
