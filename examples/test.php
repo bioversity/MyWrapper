@@ -275,7 +275,6 @@ echo( '</pre>' );
 // Test cast to int.
 //
 echo( "NULL: ".(integer) NULL.'<br>' );
-*/
 
 //
 // Neo4j queries.
@@ -366,5 +365,28 @@ while( count( $cache ) )
 						  'Predicate' => $edge->getType(),
 						  'Object' => $edge->getEndNode() );
 }
+*/
+
+//
+// Test empty string index.
+//
+$test = Array();
+$test[ 1 ] = 'Uno';
+$test[ 'Due' ] = 2;
+$test[ '' ] = 'NULLA';
+
+//
+// Show.
+//
+echo( '<pre>' );
+print_r( $test );
+echo( '</pre>' );
+
+//
+// Test index.
+//
+echo( '$test[ 1 ] ('.$test[ 1 ].')<br>' );
+echo( '$test[ \'Due\' ] ('.$test[ 'Due' ].')<br>' );
+echo( '$test[ \'\' ] ('.$test[ '' ].')<br>' );
 
 ?>

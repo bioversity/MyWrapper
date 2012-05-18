@@ -95,6 +95,11 @@ use Everyman\Neo4j\Transport,
  * Open session.
  */
 session_start();
+
+/**
+ * Init session variables.
+ */
+$_SESSION[ 'TERMS' ] = $_SESSION[ 'NODES' ] = Array();
 	 
 /**
  * Create default attributes ontology.
@@ -140,6 +145,7 @@ try
 	// Load Standards.
 	//
 	LoadDefaultDomains( $_SESSION[ kSESSION_CONTAINER ], TRUE );
+exit;
 	LoadDefaultCategories( $_SESSION[ kSESSION_CONTAINER ], TRUE );
 	LoadCropGroupDescriptors( $_SESSION[ kSESSION_CONTAINER ], TRUE );
 	LoadUnStatsRegions( $_SESSION[ kSESSION_CONTAINER ], TRUE );
@@ -265,20 +271,45 @@ exit( "Done!\n" );
 		}
 		
 		//
-		// Default namespace.
+		// Init local storage.
 		//
-		$ns = new COntologyTerm();
-		$ns->Code( '' );
-        $ns->Name( 'Default namespace', kDEFAULT_LANGUAGE );
-		$ns->Definition
-		( 'The default namespace is used to qualify all attributes and other terms that '
-		 .'constitute the default vocabulary for the ontology. Elements of this ontology '
-		 .'are used to create all other ontologies.',
-		  kDEFAULT_LANGUAGE );
-		$ns->Kind( kTYPE_NAMESPACE, TRUE );
-		$ns->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $ns->Name( NULL, kDEFAULT_LANGUAGE )." [$ns]\n" );
+		$components = array
+		(
+			array( 'id'	=> '',
+				   'nam' => 'Default namespace',
+				   'def' => 'The default namespace is used to qualify all attributes and '
+						   .'other terms that constitute the default vocabulary for the '
+						   .'ontology. Elements of this namespace will be used to build '
+						   .'ontologies.' )
+		);
+		
+		//
+		// Load terms.
+		//
+		foreach( $components as $component )
+		{
+			//
+			// Create term.
+			//
+			$_SESSION[ 'TERMS' ][ $component[ 'id' ] ]
+				= new COntologyTerm( $theContainer, 
+									 COntologyTerm::HashIndex( $component[ 'id' ] ) );
+			$term = $_SESSION[ 'TERMS' ][ $component[ 'id' ] ];
+			if( ! $term->Persistent() )
+			{
+				$term->Code( $component[ 'id' ] );
+				$term->Kind( kTYPE_NAMESPACE, TRUE );
+				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
+				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
+				$term->Commit( $theContainer );
+			}
+			
+			//
+			// Display.
+			//
+			if( $doDisplay )
+				echo( "[$term] ".$term->Name( NULL, kDEFAULT_LANGUAGE )."\n" );
+		}
 		
 	} // LoadNamespaces.
 
@@ -312,101 +343,78 @@ exit( "Done!\n" );
 		}
 		
 		//
-		// Get default namespace.
+		// Init local storage.
 		//
-		$ns
-			= CPersistentUnitObject::NewObject
-				( $theContainer, COntologyTermObject::HashIndex( '' ),
-				  kFLAG_STATE_ENCODED );
-		if( ! $ns )
-			throw new Exception
-				( 'Unable to find default namsepace [].' );						// !@! ==>
-	
-		//
-		// IS-A.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_PREDICATE );
-		$term->Code( substr( kPRED_IS_A, 1 ) );
-		$term->Name( 'Is-a', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This predicate is equivalent to a subclass, it can be used to '
-		 .'relate a term to the default category to which it belongs '
-		 .'within the current ontology.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kPRED_IS_A', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+		$components = array
+		(
+			array( 'id'	=> kPRED_IS_A,
+				   'syn' => 'kPRED_IS_A',
+				   'nam' => 'Is-a',
+				   'def' => 'This predicate is equivalent to a subclass, it can be used to relate a term to the default '
+				   		   .'category to which it belongs within the current ontology.' ),
+			array( 'id'	=> kPRED_PART_OF,
+				   'syn' => 'kPRED_PART_OF',
+				   'nam' => 'Part-of',
+				   'def' => 'This predicate indicates that the subject or origin of the relation is part of the object or '
+				   		   .'target of the relation.' ),
+			array( 'id'	=> kPRED_SCALE_OF,
+				   'syn' => 'kPRED_SCALE_OF',
+				   'nam' => 'Scale-of',
+				   'def' => 'This predicate is used to relate a term that can be used to annotate data with its method term '
+				   		   .'or trait term.' ),
+			array( 'id'	=> kPRED_METHOD_OF,
+				   'syn' => 'kPRED_METHOD_OF',
+				   'nam' => 'Method-of',
+				   'def' => 'This predicate is used to relate a term which represent a measurement method with '
+				   		   .'its trait term.' ),
+			array( 'id'	=> kPRED_ENUM_OF,
+				   'syn' => 'kPRED_ENUM_OF',
+				   'nam' => 'Method-of',
+				   'def' => 'This predicate is used to relate enumerated terms, it will relate the enumerated value with '
+				   		   .'its measure term or with a superclass of the enumerated value, if in a hierarchy.' )
+		);
 		
 		//
-		// PART-OF.
+		// Save common namespace.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_PREDICATE );
-		$term->Code( substr( kPRED_PART_OF, 1 ) );
-		$term->Name( 'Part-of', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This predicate indicates that the subject is part of the object.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kPRED_PART_OF', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+		$namespace = $_SESSION[ 'TERMS' ][ '' ] ;
 		
 		//
-		// SCALE-OF.
+		// Get namespace length.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_PREDICATE );
-		$term->Code( substr( kPRED_SCALE_OF, 1 ) );
-		$term->Name( 'Scale-of', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This predicate is used to relate a term that can be used to '
-		 .'annotate data with its method term or trait term.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kPRED_SCALE_OF', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+		$len = strlen( $namespace ) + 1;
 		
 		//
-		// METHOD-OF.
+		// Load terms.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_PREDICATE );
-		$term->Code( substr( kPRED_METHOD_OF, 1 ) );
-		$term->Name( 'Method-of', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This predicate is used to relate a term that defines a measurement '
-		 .'method to the trait term.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kPRED_METHOD_OF', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-		
-		//
-		// ENUM-OF.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_PREDICATE );
-		$term->Code( substr( kPRED_ENUM_OF, 1 ) );
-		$term->Name( 'Enumeration-of', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This predicate is used to relate enumeration terms, '
-		 .'this edge type relates these terms in a hierarchy, '
-		 .'in which the subject is a subclass of the object.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kPRED_ENUM_OF', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+		foreach( $components as $component )
+		{
+			//
+			// Create term.
+			//
+			$_SESSION[ 'TERMS' ][ $component[ 'id' ] ]
+				= new COntologyTerm( $theContainer, 
+									 COntologyTerm::HashIndex( $component[ 'id' ] ) );
+			$term = $_SESSION[ 'TERMS' ][ $component[ 'id' ] ];
+			if( ! $term->Persistent() )
+			{
+				$term->NS( $namespace );
+				$term->Code( substr( $component[ 'id' ], $len ) );
+				$term->Kind( kTYPE_PREDICATE, TRUE );
+				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
+				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
+				$term->Synonym( $component[ 'syn' ], kTYPE_EXACT, TRUE );
+				$term->Commit( $theContainer );
+			}
+			
+			//
+			// Display.
+			//
+			if( $doDisplay )
+				echo( "[$term] (".$component[ 'syn' ].") "
+					 .$term->Name( NULL, kDEFAULT_LANGUAGE )
+					 ."\n" );
+		}
 	
 	} // LoadPredicates.
 
@@ -441,96 +449,73 @@ exit( "Done!\n" );
 		}
 		
 		//
-		// Get default namespace.
+		// Init local storage.
 		//
-		$ns
-			= CPersistentUnitObject::NewObject
-				( $theContainer, COntologyTermObject::HashIndex( '' ),
-				  kFLAG_STATE_ENCODED );
-		if( ! $ns )
-			throw new Exception
-				( 'Unable to find default namsepace [].' );						// !@! ==>
-	
+		$components = array
+		(
+			array( 'id'	=> kTYPE_STRING,
+				   'syn' => 'kTYPE_STRING',
+				   'nam' => 'String',
+				   'def' => 'This represents the primitive string data type.' ),
+			array( 'id'	=> kTYPE_INT32,
+				   'syn' => 'kTYPE_INT32',
+				   'nam' => '32 bit integer',
+				   'def' => 'This represents the primitive 32 bit integer data type.' ),
+			array( 'id'	=> kTYPE_INT64,
+				   'syn' => 'kTYPE_INT64',
+				   'nam' => '64 bit integer',
+				   'def' => 'This represents the primitive 64 bit integer data type.' ),
+			array( 'id'	=> kTYPE_FLOAT,
+				   'syn' => 'kTYPE_FLOAT',
+				   'nam' => 'Float',
+				   'def' => 'This represents the primitive floating point number data type.' ),
+			array( 'id'	=> kTYPE_BOOLEAN,
+				   'syn' => 'kTYPE_BOOLEAN',
+				   'nam' => 'Boolean',
+				   'def' => 'This represents the primitive boolean data type, it is assumed that it is provided as 1/0.' )
+		);
+		
 		//
-		// String.
+		// Save common namespace.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kTYPE_STRING, 1 ) );
-		$term->Name( 'String', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents the primitive string data type.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_STRING', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
+		$namespace = $_SESSION[ 'TERMS' ][ '' ] ;
+		
 		//
-		// 32 bit integer.
+		// Get namespace length.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kTYPE_INT32, 1 ) );
-		$term->Name( '32 bit integer', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents the primitive 32 bit integer data type.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_INT32', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
+		$len = strlen( $namespace ) + 1;
+		
 		//
-		// 64 bit integer.
+		// Load terms.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kTYPE_INT64, 1 ) );
-		$term->Name( '32 bit integer', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents the primitive 64 bit integer data type.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_INT64', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Floating point number.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kTYPE_FLOAT, 1 ) );
-		$term->Name( 'Float', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents the primitive floating point number data type.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_FLOAT', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Boolean.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kTYPE_BOOLEAN, 1 ) );
-		$term->Name( 'Boolean', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This value represents the primitive boolean data type, it is assumed that it is '
-		 .'provided as 1/0.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_BOOLEAN', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+		foreach( $components as $component )
+		{
+			//
+			// Create term.
+			//
+			$_SESSION[ 'TERMS' ][ $component[ 'id' ] ]
+				= new COntologyTerm( $theContainer, 
+									 COntologyTerm::HashIndex( $component[ 'id' ] ) );
+			$term = $_SESSION[ 'TERMS' ][ $component[ 'id' ] ];
+			if( ! $term->Persistent() )
+			{
+				$term->NS( $namespace );
+				$term->Code( substr( $component[ 'id' ], $len ) );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
+				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
+				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
+				$term->Synonym( $component[ 'syn' ], kTYPE_EXACT, TRUE );
+				$term->Commit( $theContainer );
+			}
+			
+			//
+			// Display.
+			//
+			if( $doDisplay )
+				echo( "[$term] (".$component[ 'syn' ].") "
+					 .$term->Name( NULL, kDEFAULT_LANGUAGE )
+					 ."\n" );
+		}
 	
 	} // LoadPrimitiveTypes.
 
@@ -567,127 +552,85 @@ exit( "Done!\n" );
 		}
 		
 		//
-		// Get default namespace.
+		// Init local storage.
 		//
-		$ns
-			= CPersistentUnitObject::NewObject
-				( $theContainer, COntologyTermObject::HashIndex( '' ),
-				  kFLAG_STATE_ENCODED );
-		if( ! $ns )
-			throw new Exception
-				( 'Unable to find default namsepace [].' );						// !@! ==>
-	
+		$components = array
+		(
+			array( 'id'	=> kTYPE_DATE,
+				   'syn' => 'kTYPE_DATE',
+				   'nam' => 'Date',
+				   'def' => 'This term represents a date represented as a YYYYMMDD string in which missing '
+						   .'elements should be omitted. This means that if we don\'t know the day we can '
+						   .'express that date as YYYYMM string. The year is required and the month is '
+						   .'required if you provide the day.' ),
+			array( 'id'	=> kTYPE_TIME,
+				   'syn' => 'kTYPE_TIME',
+				   'nam' => 'Time',
+				   'def' => 'This term represents a date represented as a YYYY-MM-DD HH:MM:SS string '
+						   .'in which you may not have missing elements.' ),
+			array( 'id'	=> kTYPE_REGEX,
+				   'syn' => 'kTYPE_REGEX',
+				   'nam' => 'Regular expression',
+				   'def' => 'This term represents a regular expression string type.' ),
+			array( 'id'	=> kTYPE_STAMP_SEC,
+				   'syn' => 'kTYPE_STAMP_SEC',
+				   'nam' => 'Seconds',
+				   'def' => 'This term represents the number of seconds since January 1st, 1970.' ),
+			array( 'id'	=> kTYPE_STAMP_USEC,
+				   'syn' => 'kTYPE_STAMP_USEC',
+				   'nam' => 'Microseconds',
+				   'def' => 'This term represents the number of microseconds since the last second.' ),
+			array( 'id'	=> kTYPE_BINARY_TYPE,
+				   'syn' => 'kTYPE_BINARY_TYPE',
+				   'nam' => 'Binary string type',
+				   'def' => 'This term represents a binary string type.' ),
+			array( 'id'	=> kTYPE_BINARY_STRING,
+				   'syn' => 'kTYPE_BINARY_STRING',
+				   'nam' => 'Binary string',
+				   'def' => 'This term represents a binary string.' )
+		);
+		
 		//
-		// Date.
+		// Save common namespace.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kTYPE_DATE, 1 ) );
-		$term->Name( 'Date', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a date represented as a YYYYMMDD string in which missing '
-		 .'elements should be omitted. This means that if we don\'t know the day we can '
-		 .'express that date as YYYYMM string. The year is required and the month is '
-		 .'required if you provide the day.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_DATE', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
+		$namespace = $_SESSION[ 'TERMS' ][ '' ] ;
+		
 		//
-		// Time.
+		// Get namespace length.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kTYPE_TIME, 1 ) );
-		$term->Name( 'Time', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a date represented as a YYYY-MM-DD HH:MM:SS string '
-		 .'in which you may not have missing elements.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_TIME', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
+		$len = strlen( $namespace ) + 1;
+		
 		//
-		// Regular expression.
+		// Load terms.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kTYPE_REGEX, 1 ) );
-		$term->Name( 'Regular expression', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a regular expression string type.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_REGEX', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Seconds.
-		//
-		$term = new COntologyTerm();
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( kTYPE_STAMP_SEC );
-		$term->Name( 'Seconds', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents the number of seconds since January 1st, 1970.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_STAMP_SEC', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Microseconds.
-		//
-		$term = new COntologyTerm();
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( kTYPE_STAMP_USEC );
-		$term->Name( 'Microseconds', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents the number of microseconds.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_STAMP_USEC', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Binary string.
-		//
-		$term = new COntologyTerm();
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( kTYPE_BINARY_STRING );
-		$term->Name( 'Binary string', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a binary string.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_BINARY_STRING', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Binary string type.
-		//
-		$term = new COntologyTerm();
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( kTYPE_BINARY_TYPE );
-		$term->Name( 'Binary string type', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a binary string type.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_BINARY_TYPE', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+		foreach( $components as $component )
+		{
+			//
+			// Create term.
+			//
+			$_SESSION[ 'TERMS' ][ $component[ 'id' ] ]
+				= new COntologyTerm( $theContainer, 
+									 COntologyTerm::HashIndex( $component[ 'id' ] ) );
+			$term = $_SESSION[ 'TERMS' ][ $component[ 'id' ] ];
+			if( ! $term->Persistent() )
+			{
+				$term->NS( $namespace );
+				$term->Code( substr( $component[ 'id' ], $len ) );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
+				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
+				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
+				$term->Synonym( $component[ 'syn' ], kTYPE_EXACT, TRUE );
+				$term->Commit( $theContainer );
+			}
+			
+			//
+			// Display.
+			//
+			if( $doDisplay )
+				echo( "[$term] (".$component[ 'syn' ].") "
+					 .$term->Name( NULL, kDEFAULT_LANGUAGE )
+					 ."\n" );
+		}
 	
 	} // LoadCompositeTypes.
 
@@ -722,88 +665,87 @@ exit( "Done!\n" );
 		}
 		
 		//
-		// Get default namespace.
+		// Init local storage.
 		//
-		$ns
-			= CPersistentUnitObject::NewObject
-				( $theContainer, COntologyTermObject::HashIndex( '' ),
-				  kFLAG_STATE_ENCODED );
-		if( ! $ns )
-			throw new Exception
-				( 'Unable to find default namsepace [].' );						// !@! ==>
-	
+		$components = array
+		(
+			array( 'id'	=> kTYPE_REF,
+				   'syn' => 'kTYPE_REF',
+				   'nam' => 'Object reference',
+				   'def' => 'This term represents an object reference, in general it '
+				   		   .'will be the local unique identifier of the object used '
+				   		   .'as a scalar value, or a structure adding the container and '
+				   		   .'database in which the referenced object is stored. This data '
+				   		   .'type quelifies all properties and attributes that refer to '
+				   		   .'other objects.' ),
+			array( 'id'	=> kTYPE_BINARY,
+				   'syn' => 'kTYPE_BINARY',
+				   'nam' => 'Binary',
+				   'def' => 'This term represents a binary string data type, in general it will be '
+						   .'as a structure containing a binary string in hexadecimal format.' ),
+			array( 'id'	=> kTYPE_STAMP,
+				   'syn' => 'kTYPE_STAMP',
+				   'nam' => 'Time-stamp',
+				   'def' => 'This term represents a date, time and milliseconds stamp, in general '
+						   .'it will be a structure holding the number of secods since January 1st 1970 '
+						   .'and optionally the number of milliseconds.' ),
+			array( 'id'	=> kTYPE_ENUM,
+				   'syn' => 'kTYPE_ENUM',
+				   'nam' => 'Enumeration',
+				   'def' => 'This term represents an enumeration container, enumerations are '
+						   .'a controlled vocabulary in which one may only choose one element. '
+						   .'This data type implies that the term forms a tree whose siblings '
+						   .'are the enumeration elements.' ),
+			array( 'id'	=> kTYPE_ENUM_SET,
+				   'syn' => 'kTYPE_ENUM_SET',
+				   'nam' => 'Enumerated set',
+				   'def' => 'This term represents an enumerated set container, sets are '
+						   .'a controlled vocabulary from which one may choose one or more elements. '
+						   .'This data type implies that the term forms a tree whose siblings '
+						   .'are the enumeration elements.' )
+		);
+		
 		//
-		// Binary.
+		// Save common namespace.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kTYPE_BINARY, 1 ) );
-		$term->Name( 'Binary', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a binary string data type, in general it will be '
-		 .'as a structure containing a binary string in hexadecimal format.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_BINARY', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
+		$namespace = $_SESSION[ 'TERMS' ][ '' ] ;
+		
 		//
-		// Timestamp.
+		// Get namespace length.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kTYPE_STAMP, 1 ) );
-		$term->Name( 'Time-stamp', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a date, time and milliseconds stamp, in general '
-		 .'it will be a structure holding the number of secods since January 1st 1970 '
-		 .'and optionally the number of milliseconds.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_STAMP', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
+		$len = strlen( $namespace ) + 1;
+		
 		//
-		// Enumeration.
+		// Load terms.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kTYPE_ENUM, 1 ) );
-		$term->Name( 'Enumeration', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents an enumeration container, enumerations are '
-		 .'a controlled vocabulary in which one may only choose one element. '
-		 .'This data type implies that the term forms a tree whose siblings '
-		 .'are the enumeration elements.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_ENUM', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Set.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kTYPE_ENUM_SET, 1 ) );
-		$term->Name( 'Enumerated set', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents an enumerated set container, sets are '
-		 .'a controlled vocabulary from which one may choose one or more elements. '
-		 .'This data type implies that the term forms a tree whose siblings '
-		 .'are the enumeration elements.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_ENUM_SET', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+		foreach( $components as $component )
+		{
+			//
+			// Create term.
+			//
+			$_SESSION[ 'TERMS' ][ $component[ 'id' ] ]
+				= new COntologyTerm( $theContainer, 
+									 COntologyTerm::HashIndex( $component[ 'id' ] ) );
+			$term = $_SESSION[ 'TERMS' ][ $component[ 'id' ] ];
+			if( ! $term->Persistent() )
+			{
+				$term->NS( $namespace );
+				$term->Code( substr( $component[ 'id' ], $len ) );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
+				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
+				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
+				$term->Synonym( $component[ 'syn' ], kTYPE_EXACT, TRUE );
+				$term->Commit( $theContainer );
+			}
+			
+			//
+			// Display.
+			//
+			if( $doDisplay )
+				echo( "[$term] (".$component[ 'syn' ].") "
+					 .$term->Name( NULL, kDEFAULT_LANGUAGE )
+					 ."\n" );
+		}
 	
 	} // LoadStructuredTypes.
 
@@ -838,143 +780,85 @@ exit( "Done!\n" );
 		}
 		
 		//
-		// Get default namespace.
+		// Init local storage.
 		//
-		$ns
-			= CPersistentUnitObject::NewObject
-				( $theContainer, COntologyTermObject::HashIndex( '' ),
-				  kFLAG_STATE_ENCODED );
-		if( ! $ns )
-			throw new Exception
-				( 'Unable to find default namsepace [].' );						// !@! ==>
-	
+		$components = array
+		(
+			array( 'id'	=> kTYPE_PHP,
+				   'syn' => 'kTYPE_PHP',
+				   'nam' => 'PHP',
+				   'def' => 'This term represents PHP-encoded data.' ),
+			array( 'id'	=> kTYPE_JSON,
+				   'syn' => 'kTYPE_JSON',
+				   'nam' => 'JSON',
+				   'def' => 'This term represents JSON-encoded data.' ),
+			array( 'id'	=> kTYPE_XML,
+				   'syn' => 'kTYPE_XML',
+				   'nam' => 'XML',
+				   'def' => 'This term represents XML-encoded data.' ),
+			array( 'id'	=> kTYPE_HTML,
+				   'syn' => 'kTYPE_HTML',
+				   'nam' => 'HTML',
+				   'def' => 'This term represents HTML-encoded data.' ),
+			array( 'id'	=> kTYPE_CSV,
+				   'syn' => 'kTYPE_CSV',
+				   'nam' => 'CSV',
+				   'def' => 'This term represents CSV-encoded data.' ),
+			array( 'id'	=> kTYPE_SVG,
+				   'syn' => 'kTYPE_SVG',
+				   'nam' => 'Scalable Vector Graphics',
+				   'def' => 'This term represents the Scalable Vector Graphics data type.' ),
+			array( 'id'	=> kTYPE_PNG,
+				   'syn' => 'kTYPE_PNG',
+				   'nam' => 'Portable Network Graphics',
+				   'def' => 'This term represents the Portable Network Graphics data type.' ),
+			array( 'id'	=> kTYPE_META,
+				   'syn' => 'kTYPE_META',
+				   'nam' => 'Metadata',
+				   'def' => 'This term represents meta-data.' )
+		);
+		
 		//
-		// PHP.
+		// Save common namespace.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kTYPE_PHP, 1 ) );
-		$term->Name( 'PHP', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents PHP-encoded data.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_PHP', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
+		$namespace = $_SESSION[ 'TERMS' ][ '' ] ;
+		
 		//
-		// JSON.
+		// Get namespace length.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kTYPE_JSON, 1 ) );
-		$term->Name( 'JSON', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents JSON-encoded data.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_JSON', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
+		$len = strlen( $namespace ) + 1;
+		
 		//
-		// XML.
+		// Load terms.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kTYPE_XML, 1 ) );
-		$term->Name( 'XML', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents XML-encoded data.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_XML', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// HTML.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kTYPE_HTML, 1 ) );
-		$term->Name( 'HTML', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents HTML-encoded data.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_HTML', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// CSV.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kTYPE_CSV, 1 ) );
-		$term->Name( 'Comma separated values', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents CSV-encoded data.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_CSV', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// SVG.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kTYPE_SVG, 1 ) );
-		$term->Name( 'Scalable Vector Graphics', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents the Scalable Vector Graphics data type.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_SVG', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// PNG.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kTYPE_PNG, 1 ) );
-		$term->Name( 'Portable Network Graphics', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents the Portable Network Graphics data type.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_PNG', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Metadata.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kTYPE_META, 1 ) );
-		$term->Name( 'Metadata', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents meta-data.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_META', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+		foreach( $components as $component )
+		{
+			//
+			// Create term.
+			//
+			$_SESSION[ 'TERMS' ][ $component[ 'id' ] ]
+				= new COntologyTerm( $theContainer, 
+									 COntologyTerm::HashIndex( $component[ 'id' ] ) );
+			$term = $_SESSION[ 'TERMS' ][ $component[ 'id' ] ];
+			if( ! $term->Persistent() )
+			{
+				$term->NS( $namespace );
+				$term->Code( substr( $component[ 'id' ], $len ) );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
+				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
+				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
+				$term->Synonym( $component[ 'syn' ], kTYPE_EXACT, TRUE );
+				$term->Commit( $theContainer );
+			}
+			
+			//
+			// Display.
+			//
+			if( $doDisplay )
+				echo( "[$term] (".$component[ 'syn' ].") "
+					 .$term->Name( NULL, kDEFAULT_LANGUAGE )
+					 ."\n" );
+		}
 	
 	} // LoadEncodedTypes.
 
@@ -1009,47 +893,61 @@ exit( "Done!\n" );
 		}
 		
 		//
-		// Get default namespace.
+		// Init local storage.
 		//
-		$ns
-			= CPersistentUnitObject::NewObject
-				( $theContainer, COntologyTermObject::HashIndex( '' ),
-				  kFLAG_STATE_ENCODED );
-		if( ! $ns )
-			throw new Exception
-				( 'Unable to find default namsepace [].' );						// !@! ==>
+		$components = array
+		(
+			array( 'id'	=> kTYPE_MongoId,
+				   'syn' => 'kTYPE_MongoId',
+				   'nam' => 'MongoId',
+				   'def' => 'This term represents a MongoId data type.' ),
+			array( 'id'	=> kTYPE_MongoCode,
+				   'syn' => 'kTYPE_MongoCode',
+				   'nam' => 'MongoCode',
+				   'def' => 'This term represents a MongoCode data type.' )
+		);
 		
 		//
-		// MongoId.
+		// Save common namespace.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kTYPE_MongoId, 1 ) );
-		$term->Name( 'MongoId', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a MongoId type.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_MongoId', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+		$namespace = $_SESSION[ 'TERMS' ][ '' ] ;
 		
 		//
-		// MongoCode.
+		// Get namespace length.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kTYPE_MongoCode, 1 ) );
-		$term->Name( 'MongoCode', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a MongoCode type.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_MongoCode', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+		$len = strlen( $namespace ) + 1;
+		
+		//
+		// Load terms.
+		//
+		foreach( $components as $component )
+		{
+			//
+			// Create term.
+			//
+			$_SESSION[ 'TERMS' ][ $component[ 'id' ] ]
+				= new COntologyTerm( $theContainer, 
+									 COntologyTerm::HashIndex( $component[ 'id' ] ) );
+			$term = $_SESSION[ 'TERMS' ][ $component[ 'id' ] ];
+			if( ! $term->Persistent() )
+			{
+				$term->NS( $namespace );
+				$term->Code( substr( $component[ 'id' ], $len ) );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
+				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
+				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
+				$term->Synonym( $component[ 'syn' ], kTYPE_EXACT, TRUE );
+				$term->Commit( $theContainer );
+			}
+			
+			//
+			// Display.
+			//
+			if( $doDisplay )
+				echo( "[$term] (".$component[ 'syn' ].") "
+					 .$term->Name( NULL, kDEFAULT_LANGUAGE )
+					 ."\n" );
+		}
 	
 	} // LoadCustomTypes.
 
@@ -1083,79 +981,69 @@ exit( "Done!\n" );
 		}
 		
 		//
-		// Get default namespace.
+		// Init local storage.
 		//
-		$ns
-			= CPersistentUnitObject::NewObject
-				( $theContainer, COntologyTermObject::HashIndex( '' ),
-				  kFLAG_STATE_ENCODED );
-		if( ! $ns )
-			throw new Exception
-				( 'Unable to find default namsepace [].' );						// !@! ==>
+		$components = array
+		(
+			array( 'id'	=> kTYPE_EXACT,
+				   'syn' => 'kTYPE_EXACT',
+				   'nam' => 'Exact reference',
+				   'def' => 'This term represents an exact reference or synonym.' ),
+			array( 'id'	=> kTYPE_BROAD,
+				   'syn' => 'kTYPE_BROAD',
+				   'nam' => 'Broad reference',
+				   'def' => 'This term represents a broad reference or synonym.' ),
+			array( 'id'	=> kTYPE_NARROW,
+				   'syn' => 'kTYPE_NARROW',
+				   'nam' => 'Narrow reference',
+				   'def' => 'This term represents a narrow reference or synonym.' ),
+			array( 'id'	=> kTYPE_RELATED,
+				   'syn' => 'kTYPE_RELATED',
+				   'nam' => 'Related reference',
+				   'def' => 'This term represents a related reference or synonym.' )
+		);
 		
 		//
-		// Exact reference.
+		// Save common namespace.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kTYPE_EXACT, 1 ) );
-		$term->Name( 'Exact reference', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents an exact reference or synonym.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_EXACT', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
+		$namespace = $_SESSION[ 'TERMS' ][ '' ] ;
+		
 		//
-		// Broad reference.
+		// Get namespace length.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kTYPE_BROAD, 1 ) );
-		$term->Name( 'Broad reference', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a broad reference or synonym.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_BROAD', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
+		$len = strlen( $namespace ) + 1;
+		
 		//
-		// Narrow reference.
+		// Load terms.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kTYPE_NARROW, 1 ) );
-		$term->Name( 'Narrow reference', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a narrow reference or synonym.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_NARROW', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Related reference.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kTYPE_RELATED, 1 ) );
-		$term->Name( 'Related reference', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a related reference or synonym.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_RELATED', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+		foreach( $components as $component )
+		{
+			//
+			// Create term.
+			//
+			$_SESSION[ 'TERMS' ][ $component[ 'id' ] ]
+				= new COntologyTerm( $theContainer, 
+									 COntologyTerm::HashIndex( $component[ 'id' ] ) );
+			$term = $_SESSION[ 'TERMS' ][ $component[ 'id' ] ];
+			if( ! $term->Persistent() )
+			{
+				$term->NS( $namespace );
+				$term->Code( substr( $component[ 'id' ], $len ) );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
+				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
+				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
+				$term->Synonym( $component[ 'syn' ], kTYPE_EXACT, TRUE );
+				$term->Commit( $theContainer );
+			}
+			
+			//
+			// Display.
+			//
+			if( $doDisplay )
+				echo( "[$term] (".$component[ 'syn' ].") "
+					 .$term->Name( NULL, kDEFAULT_LANGUAGE )
+					 ."\n" );
+		}
 	
 	} // LoadReferenceTypes.
 
@@ -1189,143 +1077,92 @@ exit( "Done!\n" );
 		}
 		
 		//
-		// Get default namespace.
+		// Init local storage.
 		//
-		$ns
-			= CPersistentUnitObject::NewObject
-				( $theContainer, COntologyTermObject::HashIndex( '' ),
-				  kFLAG_STATE_ENCODED );
-		if( ! $ns )
-			throw new Exception
-				( 'Unable to find default namsepace [].' );						// !@! ==>
+		$components = array
+		(
+			array( 'id'	=> kTYPE_TRAIT,
+				   'syn' => 'kTYPE_TRAIT',
+				   'nam' => 'Trait',
+				   'def' => 'This term represents a generic trait, this type of term '
+				   		   .'generally refers to what a measured data element refers to.' ),
+			array( 'id'	=> kTYPE_METHOD,
+				   'syn' => 'kTYPE_METHOD',
+				   'nam' => 'Method',
+				   'def' => 'This term represents a generic method, this type of term '
+				   		   .'generally refers to the method by which a data element '
+				   		   .'was obtained.' ),
+			array( 'id'	=> kTYPE_MEASURE,
+				   'syn' => 'kTYPE_MEASURE',
+				   'nam' => 'Measure',
+				   'def' => 'This term represents a generic scale or measure, this type '
+						   .'of term generally refers to the scale and unit of '
+						   .'a data element.' ),
+			array( 'id'	=> kTYPE_NAMESPACE,
+				   'syn' => 'kTYPE_NAMESPACE',
+				   'nam' => 'Namespace',
+				   'def' => 'This term represents a namespace.' ),
+			array( 'id'	=> kTYPE_ROOT,
+				   'syn' => 'kTYPE_ROOT',
+				   'nam' => 'Root',
+				   'def' => 'This term represents a root term or an entry point '
+				   		   .'into an ontology.' ),
+			array( 'id'	=> kTYPE_PREDICATE,
+				   'syn' => 'kTYPE_PREDICATE',
+				   'nam' => 'Predicate',
+				   'def' => 'This term represents a predicate, this type of term '
+				   		   .'generally is used to qualify a relation between two terms.' ),
+			array( 'id'	=> kTYPE_ATTRIBUTE,
+				   'syn' => 'kTYPE_ATTRIBUTE',
+				   'nam' => 'Attribute',
+				   'def' => 'This term represents a generic attribute.' ),
+			array( 'id'	=> kTYPE_ENUMERATION,
+				   'syn' => 'kTYPE_ENUMERATION',
+				   'nam' => 'Enumeration',
+				   'def' => 'This term represents an enumerated term.' )
+		);
 		
 		//
-		// Trait.
+		// Save common namespace.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kTYPE_TRAIT, 1 ) );
-		$term->Name( 'Trait', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a generic trait.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_TRAIT', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$ns]\n" );
+		$namespace = $_SESSION[ 'TERMS' ][ '' ] ;
 		
 		//
-		// Method.
+		// Get namespace length.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kTYPE_METHOD, 1 ) );
-		$term->Name( 'Method', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a generic method.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_METHOD', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$ns]\n" );
-	
+		$len = strlen( $namespace ) + 1;
+		
 		//
-		// Namespace term.
+		// Load terms.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kTYPE_NAMESPACE, 1 ) );
-		$term->Name( 'Namespace', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a namespace.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_NAMESPACE', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Root term.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kTYPE_ROOT, 1 ) );
-		$term->Name( 'Root', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a root term or node.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_ROOT', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Predicate term.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kTYPE_PREDICATE, 1 ) );
-		$term->Name( 'Predicate', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a predicate.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_PREDICATE', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Attribute term.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kTYPE_ATTRIBUTE, 1 ) );
-		$term->Name( 'Attribute', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents an attribute.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_ATTRIBUTE', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Measure term.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kTYPE_MEASURE, 1 ) );
-		$term->Name( 'Measure', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a scale or measurable term.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_MEASURE', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Enumeration term.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kTYPE_ENUMERATION, 1 ) );
-		$term->Name( 'Enumeration', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents an enumeration term.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTYPE_ENUMERATION', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+		foreach( $components as $component )
+		{
+			//
+			// Create term.
+			//
+			$_SESSION[ 'TERMS' ][ $component[ 'id' ] ]
+				= new COntologyTerm( $theContainer, 
+									 COntologyTerm::HashIndex( $component[ 'id' ] ) );
+			$term = $_SESSION[ 'TERMS' ][ $component[ 'id' ] ];
+			if( ! $term->Persistent() )
+			{
+				$term->NS( $namespace );
+				$term->Code( substr( $component[ 'id' ], $len ) );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
+				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
+				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
+				$term->Synonym( $component[ 'syn' ], kTYPE_EXACT, TRUE );
+				$term->Commit( $theContainer );
+			}
+			
+			//
+			// Display.
+			//
+			if( $doDisplay )
+				echo( "[$term] (".$component[ 'syn' ].") "
+					 .$term->Name( NULL, kDEFAULT_LANGUAGE )
+					 ."\n" );
+		}
 	
 	} // LoadTermTypes.
 
@@ -1359,63 +1196,65 @@ exit( "Done!\n" );
 		}
 		
 		//
-		// Get default namespace.
+		// Init local storage.
 		//
-		$ns
-			= CPersistentUnitObject::NewObject
-				( $theContainer, COntologyTermObject::HashIndex( '' ),
-				  kFLAG_STATE_ENCODED );
-		if( ! $ns )
-			throw new Exception
-				( 'Unable to find default namsepace [].' );						// !@! ==>
+		$components = array
+		(
+			array( 'id'	=> kCARD_0_1,
+				   'syn' => 'kCARD_0_1',
+				   'nam' => 'Zero or one',
+				   'def' => 'This term defines a cardinality of zero or one.' ),
+			array( 'id'	=> kCARD_1,
+				   'syn' => 'kCARD_1',
+				   'nam' => 'One',
+				   'def' => 'This term defines a cardinality of exactly one.' ),
+			array( 'id'	=> kCARD_ANY,
+				   'syn' => 'kCARD_ANY',
+				   'nam' => 'Any',
+				   'def' => 'This term defines a cardinality of any kind.' )
+		);
 		
 		//
-		// Zero or one.
+		// Save common namespace.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kCARD_0_1, 1 ) );
-		$term->Name( 'Zero or one', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term defines a cardinality of zero or one.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kCARD_0_1', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$ns]\n" );
+		$namespace = $_SESSION[ 'TERMS' ][ '' ] ;
 		
 		//
-		// One.
+		// Get namespace length.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kCARD_1, 1 ) );
-		$term->Name( 'One', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term defines a cardinality of exactly one.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kCARD_1', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$ns]\n" );
+		$len = strlen( $namespace ) + 1;
 		
 		//
-		// Any.
+		// Load terms.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION );
-		$term->Code( substr( kCARD_ANY, 1 ) );
-		$term->Name( 'Any', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term defines a cardinality of any kind.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kCARD_ANY', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$ns]\n" );
+		foreach( $components as $component )
+		{
+			//
+			// Create term.
+			//
+			$_SESSION[ 'TERMS' ][ $component[ 'id' ] ]
+				= new COntologyTerm( $theContainer, 
+									 COntologyTerm::HashIndex( $component[ 'id' ] ) );
+			$term = $_SESSION[ 'TERMS' ][ $component[ 'id' ] ];
+			if( ! $term->Persistent() )
+			{
+				$term->NS( $namespace );
+				$term->Code( substr( $component[ 'id' ], $len ) );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
+				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
+				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
+				$term->Synonym( $component[ 'syn' ], kTYPE_EXACT, TRUE );
+				$term->Commit( $theContainer );
+			}
+			
+			//
+			// Display.
+			//
+			if( $doDisplay )
+				echo( "[$term] (".$component[ 'syn' ].") "
+					 .$term->Name( NULL, kDEFAULT_LANGUAGE )
+					 ."\n" );
+		}
 	
 	} // LoadCardinalityTypes.
 
@@ -1449,58 +1288,79 @@ exit( "Done!\n" );
 		}
 		
 		//
-		// Get default namespace.
+		// Save common namespace.
 		//
-		$ns
-			= CPersistentUnitObject::NewObject
-				( $theContainer, COntologyTermObject::HashIndex( '' ),
-				  kFLAG_STATE_ENCODED );
-		if( ! $ns )
-			throw new Exception
-				( 'Unable to find default namsepace [].' );						// !@! ==>
+		$namespace = $_SESSION[ 'TERMS' ][ '' ] ;
+		
+		//
+		// Get namespace length.
+		//
+		$len = strlen( $namespace ) + 1;
 		
 		//
 		// Local unique identifier.
 		//
-		$term = new COntologyTerm();
-		$term->Code( kTAG_LID );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Name( 'Local unique identifier', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents the object\'s local unique identifier, this offset should '
-		 .'hold a scalar value which uniquely identifies the object within the '
-		 .'collection that holds it. This should not be confused with the global '
-		 .'identifier, which represents the value or values used by the public to '
-		 .'refer to that object. This value should be tightly integrated '
-		 .'with the database.',
-		  kDEFAULT_LANGUAGE );
-		$term->Cardinality( kCARD_1 );
-		$term->Synonym( 'kTAG_LID', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
+		$_SESSION[ 'TERMS' ][ kTAG_LID ]
+			= new COntologyTerm( $theContainer, 
+								 COntologyTerm::HashIndex( kTAG_LID ) );
+		$term = $_SESSION[ 'TERMS' ][ kTAG_LID ];
+		if( ! $term->Persistent() )
+		{
+			$term->Code( kTAG_LID );
+			$term->Kind( kTYPE_ATTRIBUTE, TRUE );
+			$term->Name( 'Local unique identifier', kDEFAULT_LANGUAGE );
+			$term->Definition
+			( 'This term represents the object\'s local unique identifier, this offset should '
+			 .'hold a scalar value which uniquely identifies the object within the '
+			 .'collection that holds it. This should not be confused with the global '
+			 .'identifier, which represents the value or values used by the public to '
+			 .'refer to that object. This value should be tightly integrated '
+			 .'with the database.',
+			  kDEFAULT_LANGUAGE );
+			$term->Cardinality( kCARD_1 );
+			$term->Synonym( 'kTAG_LID', kTYPE_EXACT, TRUE );
+			$term->Commit( $theContainer );
+		}
+		
+		//
+		// Display.
+		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
+			echo( "[$term] (kTAG_LID) "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )
+				 ."\n" );
+		
 		//
 		// Global unique identifier.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kTAG_GID, 1 ) );
-		$term->Name( 'Global unique identifier', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents the object\'s global unique identifier, this offset should '
-		 .'uniquely identify the object among all containers, it represents a string that '
-		 .'may only reference that specific object. This should not be confused with the '
-		 .'local identifier, which represents the key to the object within the local '
-		 .'database.',
-		  kDEFAULT_LANGUAGE );
-		$term->Type( kTYPE_STRING );
-		$term->Cardinality( kCARD_1 );
-		$term->Synonym( 'kTAG_GID', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
+		$_SESSION[ 'TERMS' ][ kTAG_GID ]
+			= new COntologyTerm( $theContainer, 
+								 COntologyTerm::HashIndex( kTAG_GID ) );
+		$term = $_SESSION[ 'TERMS' ][ kTAG_GID ];
+		if( ! $term->Persistent() )
+		{
+			$term->Code( substr( kTAG_GID, $len ) );
+			$term->Kind( kTYPE_ATTRIBUTE, TRUE );
+			$term->Name( 'Global unique identifier', kDEFAULT_LANGUAGE );
+			$term->Definition
+			( 'This term represents the object\'s global unique identifier, this offset should '
+			 .'uniquely identify the object among all containers, it represents a string that '
+			 .'may only reference that specific object. This should not be confused with the '
+			 .'local identifier, which represents the key to the object within the local '
+			 .'database.',
+			  kDEFAULT_LANGUAGE );
+			$term->Cardinality( kCARD_1 );
+			$term->Synonym( 'kTAG_GID', kTYPE_EXACT, TRUE );
+			$term->Commit( $theContainer );
+		}
+		
+		//
+		// Display.
+		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+			echo( "[$term] (kTAG_GID) "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )
+				 ."\n" );
 	
 	} // LoadIdentifierTerms.
 
@@ -1534,106 +1394,101 @@ exit( "Done!\n" );
 		}
 		
 		//
-		// Get default namespace.
+		// Init local storage.
 		//
-		$ns
-			= CPersistentUnitObject::NewObject
-				( $theContainer, COntologyTermObject::HashIndex( '' ),
-				  kFLAG_STATE_ENCODED );
-		if( ! $ns )
-			throw new Exception
-				( 'Unable to find default namsepace [].' );						// !@! ==>
+		$components = array
+		(
+			array( 'id'	=> kTAG_REFERENCE_SYNONYM,
+				   'syn' => 'kTAG_REFERENCE_SYNONYM',
+				   'car' => 'kCARD_ANY',
+				   'ns'	 => TRUE,
+				   'nam' => 'Synonym',
+				   'def' => 'This term represents a synonym. A synonym is a string that '
+				   		   .'can be used as a substitute to the term, it may be of several '
+				   		   .'kinds: exact, broad, narrow and related.' ),
+			array( 'id'	=> kTAG_REFERENCE_XREF,
+				   'syn' => 'kTAG_REFERENCE_XREF',
+				   'car' => 'kCARD_ANY',
+				   'ns'	 => TRUE,
+				   'nam' => 'Cross-reference',
+				   'def' => 'This term represents a cross-reference. A cross-reference '
+				   		   .'is a reference to another term in the same container, a sort '
+				   		   .'of synonym, except that it is not a string, but a reference '
+				   		   .'to another term object. Cross-references can be of several '
+				   		   .'kinds: exact, broad, narrow and related.' ),
+			array( 'id'	=> kTAG_REFERENCE_ID,
+				   'syn' => 'kTAG_REFERENCE_ID',
+				   'car' => 'kCARD_1',
+				   'ns'	 => FALSE,
+				   'nam' => 'Identifier reference',
+				   'def' => 'This term represents an object unique identifier within '
+				   		   .'an object reference.' ),
+			array( 'id'	=> kTAG_REFERENCE_CONTAINER,
+				   'syn' => 'kTAG_REFERENCE_CONTAINER',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_STRING',
+				   'ns'	 => FALSE,
+				   'nam' => 'Container reference',
+				   'def' => 'This term represents a container within an object '
+				   		   .'reference.' ),
+			array( 'id'	=> kTAG_REFERENCE_DATABASE,
+				   'syn' => 'kTAG_REFERENCE_DATABASE',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_STRING',
+				   'ns'	 => FALSE,
+				   'nam' => 'Database reference',
+				   'def' => 'This term represents a database within an object reference.' )
+		);
 		
 		//
-		// Synonym.
+		// Save common namespace.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kTAG_REFERENCE_SYNONYM, 1 ) );
-		$term->Name( 'Synonym', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a synonym. A synonym is a string that can be used as '
-		 .'a substitute to the term, it may be of several kinds: exact, broad, '
-		 .'narrow and related.',
-		  kDEFAULT_LANGUAGE );
-		$term->Cardinality( kCARD_ANY );
-		$term->Synonym( 'kTAG_REFERENCE_SYNONYM', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
+		$namespace = $_SESSION[ 'TERMS' ][ '' ] ;
+		
 		//
-		// Cross-reference.
+		// Get namespace length.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kTAG_REFERENCE_XREF, 1 ) );
-		$term->Name( 'Cross-reference', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a cross-reference. A cross-reference is a reference to '
-		 .'another term in the same container, a sort of synonym, except that it is not '
-		 .'a string, but a reference to another term object. Cross-references can be of '
-		 .'several kinds: exact, broad, narrow and related.',
-		  kDEFAULT_LANGUAGE );
-		$term->Cardinality( kCARD_ANY );
-		$term->Synonym( 'kTAG_REFERENCE_XREF', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
+		$len = strlen( $namespace ) + 1;
+		
 		//
-		// Identifier reference.
+		// Load terms.
 		//
-		$term = new COntologyTerm();
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( kTAG_REFERENCE_ID );
-		$term->Name( 'Identifier reference', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents an object unique identifier within an object reference.',
-		  kDEFAULT_LANGUAGE );
-		$term->Cardinality( kCARD_1 );
-		$term->Synonym( 'kTAG_REFERENCE_ID', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Container reference.
-		//
-		$term = new COntologyTerm();
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( kTAG_REFERENCE_CONTAINER );
-		$term->Name( 'Container reference', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a container within an object reference.',
-		  kDEFAULT_LANGUAGE );
-		$term->Cardinality( kCARD_ANY );
-		$term->Type( kTYPE_STRING );
-		$term->Cardinality( kCARD_0_1 );
-		$term->Synonym( 'kTAG_REFERENCE_CONTAINER', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Database reference.
-		//
-		$term = new COntologyTerm();
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( kTAG_REFERENCE_DATABASE );
-		$term->Name( 'Database reference', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a database within an object reference.',
-		  kDEFAULT_LANGUAGE );
-		$term->Cardinality( kCARD_0_1 );
-		$term->Type( kTYPE_STRING );
-		$term->Cardinality( kCARD_0_1 );
-		$term->Synonym( 'kTAG_REFERENCE_DATABASE', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+		foreach( $components as $component )
+		{
+			//
+			// Create term.
+			//
+			$_SESSION[ 'TERMS' ][ $component[ 'id' ] ]
+				= new COntologyTerm( $theContainer, 
+									 COntologyTerm::HashIndex( $component[ 'id' ] ) );
+			$term = $_SESSION[ 'TERMS' ][ $component[ 'id' ] ];
+			if( ! $term->Persistent() )
+			{
+				if( $component[ 'ns' ] )
+				{
+					$term->NS( $namespace );
+					$term->Code( substr( $component[ 'id' ], $len ) );
+				}
+				else
+					$term->Code( $component[ 'id' ] );
+				$term->Kind( kTYPE_ATTRIBUTE, TRUE );
+				$term->Cardinality( $component[ 'car' ] );
+				if( array_key_exists( 'typ', $component ) )
+					$term->Type( $component[ 'typ' ] );
+				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
+				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
+				$term->Synonym( $component[ 'syn' ], kTYPE_EXACT, TRUE );
+				$term->Commit( $theContainer );
+			}
+			
+			//
+			// Display.
+			//
+			if( $doDisplay )
+				echo( "[$term] (".$component[ 'syn' ].") "
+					 .$term->Name( NULL, kDEFAULT_LANGUAGE )
+					 ."\n" );
+		}
 	
 	} // LoadReferenceTerms.
 
@@ -1667,644 +1522,290 @@ exit( "Done!\n" );
 		}
 		
 		//
-		// Get default namespace.
+		// Init local storage.
 		//
-		$ns
-			= CPersistentUnitObject::NewObject
-				( $theContainer, COntologyTermObject::HashIndex( '' ),
-				  kFLAG_STATE_ENCODED );
-		if( ! $ns )
-			throw new Exception
-				( 'Unable to find default namsepace [].' );						// !@! ==>
+		$components = array
+		(
+			array( 'id'	=> kTAG_CLASS,
+				   'syn' => 'kTAG_CLASS',
+				   'car' => 'kCARD_1',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'Class',
+				   'def' => 'This term represents a class name.' ),
+			array( 'id'	=> kTAG_CREATED,
+				   'syn' => 'kTAG_CREATED',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_STAMP',
+				   'nam' => 'Created',
+				   'def' => 'This term represents a creation time-stamp.' ),
+			array( 'id'	=> kTAG_MODIFIED,
+				   'syn' => 'kTAG_MODIFIED',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_STAMP',
+				   'nam' => 'Modified',
+				   'def' => 'This term represents a last modification time-stamp.' ),
+			array( 'id'	=> kTAG_VERSION,
+				   'syn' => 'kTAG_VERSION',
+				   'car' => 'kCARD_1',
+				   'typ' => 'kTYPE_INT32',
+				   'nam' => 'Version counter',
+				   'def' => 'This term represents a version counter which is '
+				   		   .'automatically incremented each time the object '
+				   		   .'is committed.' ),
+			array( 'id'	=> kOFFSET_VERSION,
+				   'syn' => 'kOFFSET_VERSION',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'Version',
+				   'def' => 'This term represents a version.' ),
+			array( 'id'	=> kTAG_TYPE,
+				   'syn' => 'kTAG_TYPE',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_ENUM',
+				   'nam' => 'Type',
+				   'def' => 'This term represents a type, in general this is used to '
+				   		   .'indicate the data type of an object.' ),
+			array( 'id'	=> kTAG_PATTERN,
+				   'syn' => 'kTAG_PATTERN',
+				   'car' => 'kCARD_ANY',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'Pattern',
+				   'def' => 'This term represents a pattern attribute, in general this '
+				   		   .'is used to represent the structure, composition and '
+				   		   .'formatting rules of a string data type.' ),
+			array( 'id'	=> kTAG_KIND,
+				   'syn' => 'kTAG_KIND',
+				   'car' => 'kCARD_ANY',
+				   'typ' => 'kTYPE_ENUM',
+				   'nam' => 'Kind',
+				   'def' => 'This term represents a kind, in general this is used '
+				   		   .'to qualify an object. This should not be confused with '
+				   		   .'the data type.' ),
+			array( 'id'	=> kTAG_DOMAIN,
+				   'syn' => 'kTAG_DOMAIN',
+				   'car' => 'kCARD_ANY',
+				   'typ' => 'kTYPE_ENUM',
+				   'nam' => 'Domain',
+				   'def' => 'This term represents a domain attribute, in general this '
+				   		   .'is used to represent the nature of the current object '
+				   		   .'instance.' ),
+			array( 'id'	=> kTAG_CATEGORY,
+				   'syn' => 'kTAG_CATEGORY',
+				   'car' => 'kCARD_ANY',
+				   'typ' => 'kTYPE_ENUM',
+				   'nam' => 'Category',
+				   'def' => 'This term represents a category attribute, in general '
+				   		   .'this is used to represent the area to which the current '
+				   		   .'object instance belongs to.' ),
+			array( 'id'	=> kTAG_CARDINALITY,
+				   'syn' => 'kTAG_CARDINALITY',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_REF',
+				   'nam' => 'Cardinality',
+				   'def' => 'This term indicating the cardinality of a data attribute.' ),
+			array( 'id'	=> kTAG_UNIT,
+				   'syn' => 'kTAG_UNIT',
+				   'car' => 'kCARD_1',
+				   'typ' => 'kTYPE_REF',
+				   'nam' => 'Unit',
+				   'def' => 'This term is used to indicate the unit of a measure.' ),
+			array( 'id'	=> kTAG_SOURCE,
+				   'syn' => 'kTAG_SOURCE',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'Source',
+				   'def' => 'This term is used to indicate the source of an object.' ),
+			array( 'id'	=> kTAG_DATA,
+				   'syn' => 'kTAG_DATA',
+				   'car' => 'kCARD_1',
+				   'nam' => 'Data',
+				   'def' => 'This term is used to indicate the data part of a '
+				   		   .'structured object.' ),
+			array( 'id'	=> kTAG_CODE,
+				   'syn' => 'kTAG_CODE',
+				   'car' => 'kCARD_1',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'Code',
+				   'def' => 'This term is used to indicate a code or acronym.' ),
+			array( 'id'	=> kTAG_ENUM,
+				   'syn' => 'kTAG_ENUM',
+				   'car' => 'kCARD_ANY',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'Enumeration',
+				   'def' => 'This term is used to indicate an enumerated code or key.' ),
+			array( 'id'	=> kTAG_NAMESPACE,
+				   'syn' => 'kTAG_NAMESPACE',
+				   'car' => 'kCARD_1',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'Namespace term',
+				   'def' => 'This term is used to indicate a namespace term reference.' ),
+			array( 'id'	=> kOFFSET_NAMESPACE,
+				   'syn' => 'kOFFSET_NAMESPACE',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'Namespace name',
+				   'def' => 'This term is used to indicate a namespace name or acronym.' ),
+			array( 'id'	=> kOFFSET_IMAGE,
+				   'syn' => 'kOFFSET_IMAGE',
+				   'car' => 'kCARD_ANY',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'Image',
+				   'def' => 'This term is used to indicate an image list.' ),
+			array( 'id'	=> kTAG_NODE,
+				   'syn' => 'kTAG_NODE',
+				   'car' => 'kCARD_ANY',
+				   'typ' => 'kTYPE_INT32',
+				   'nam' => 'Node',
+				   'def' => 'This term is used to indicate a graph nodes list.' ),
+			array( 'id'	=> kTAG_EDGE,
+				   'syn' => 'kTAG_EDGE',
+				   'car' => 'kCARD_ANY',
+				   'typ' => 'kTYPE_INT32',
+				   'nam' => 'Edge',
+				   'def' => 'This term is used to indicate an edge node.' ),
+			array( 'id'	=> kTAG_TERM,
+				   'syn' => 'kTAG_TERM',
+				   'car' => 'kCARD_1',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'Term',
+				   'def' => 'This term is used to indicate a graph node term.' ),
+			array( 'id'	=> kTAG_NAME,
+				   'syn' => 'kTAG_NAME',
+				   'car' => 'kCARD_ANY',
+				   'nam' => 'Name',
+				   'def' => 'This term is used to indicate a name or label.' ),
+			array( 'id'	=> kTAG_DESCRIPTION,
+				   'syn' => 'kTAG_DESCRIPTION',
+				   'car' => 'kCARD_ANY',
+				   'nam' => 'Description',
+				   'def' => 'This term is used to indicate a description or long label.' ),
+			array( 'id'	=> kTAG_DEFINITION,
+				   'syn' => 'kTAG_DEFINITION',
+				   'car' => 'kCARD_ANY',
+				   'nam' => 'Definition',
+				   'def' => 'This term is used to indicate a definition.' ),
+			array( 'id'	=> kTAG_EXAMPLES,
+				   'syn' => 'kTAG_EXAMPLES',
+				   'car' => 'kCARD_ANY',
+				   'nam' => 'Examples',
+				   'def' => 'This term is used as the default offset for indicating '
+				   		   .'an attribute containing a list of examples.' ),
+			array( 'id'	=> kTAG_LANGUAGE,
+				   'syn' => 'kTAG_LANGUAGE',
+				   'car' => 'kCARD_1',
+				   'typ' => 'kTYPE_ENUM',
+				   'nam' => 'Language',
+				   'def' => 'This term is used to indicate a language.' ),
+			array( 'id'	=> kTAG_STATUS,
+				   'syn' => 'kTAG_STATUS',
+				   'car' => 'kCARD_1',
+				   'typ' => 'kTYPE_ENUM',
+				   'nam' => 'Status',
+				   'def' => 'This term is used to indicate a state or status.' ),
+			array( 'id'	=> kTAG_ANNOTATION,
+				   'syn' => 'kTAG_ANNOTATION',
+				   'car' => 'kCARD_ANY',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'Annotation',
+				   'def' => 'This term is used to indicate an annotation, attachment '
+				   		   .'or comment.' ),
+			array( 'id'	=> kTAG_REFS,
+				   'syn' => 'kTAG_REFS',
+				   'car' => 'kCARD_ANY',
+				   'nam' => 'References',
+				   'def' => 'This term represents the list of references of an object, '
+				   		   .'it describes a list of predicate/object pairs.' ),
+			array( 'id'	=> kTAG_TAGS,
+				   'syn' => 'kTAG_TAGS',
+				   'car' => 'kCARD_ANY',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'Tags',
+				   'def' => 'This term represents the list of attribute terms used '
+				   		   .'in the object.' ),
+			array( 'id'	=> kTAG_EDGE_TERM,
+				   'syn' => 'kTAG_EDGE_TERM',
+				   'car' => 'kCARD_1',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'Edge terms path',
+				   'def' => 'This term represents a graph edge node by using its '
+				 		   .'related terms as a path in the form of a string containing '
+				 		   .'the SUBJECT/PREDICATE/OBJECT path constituted by the term '
+				 		   .'identifier elements.' ),
+			array( 'id'	=> kTAG_EDGE_NODE,
+				   'syn' => 'kTAG_EDGE_NODE',
+				   'car' => 'kCARD_1',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'Edge nodes path',
+				   'def' => 'This term represents a graph edge node by using its related '
+				   		   .'nodes and predicate term as a path in the form of a string '
+				   		   .'containing the SUBJECT/PREDICATE/OBJECT</i> path in which '
+				   		   .'the subject and object elements are represented by the '
+				   		   .'respective node identifiers, and the predicate element '
+		 				   .'is represented by the edge term identifier.' ),
+			array( 'id'	=> kTAG_PREFERRED,
+				   'syn' => 'kTAG_PREFERRED',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_REF',
+				   'nam' => 'Preferred',
+				   'def' => 'This term represents a reference to the preferred object, '
+				   		   .'there are cases in which an object is obsolete, but still '
+				   		   .'in use, in this case this attribute should point to the '
+				   		   .'preferred object.' ),
+			array( 'id'	=> kTAG_VALID,
+				   'syn' => 'kTAG_VALID',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_REF',
+				   'nam' => 'Valid',
+				   'def' => 'This term represents a reference to the valid object, there '
+				   		   .'are cases in which deleting an object is not an option, in '
+				   		   .'such cases the invalid or obsolete object points to the valid '
+				   		   .'object through this term.' )
+		);
 		
 		//
-		// Class.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kTAG_CLASS, 1 ) );
-		$term->Name( 'Class', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a class name.',
-		  kDEFAULT_LANGUAGE );
-		$term->Type( kTYPE_STRING );
-		$term->Cardinality( kCARD_1 );
-		$term->Synonym( 'kTAG_CLASS', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Created.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kTAG_CREATED, 1 ) );
-		$term->Name( 'Created', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a creation time-stamp.',
-		  kDEFAULT_LANGUAGE );
-		$term->Type( kTYPE_STAMP );
-		$term->Cardinality( kCARD_0_1 );
-		$term->Synonym( 'kTAG_CREATED', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Modified.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kTAG_MODIFIED, 1 ) );
-		$term->Name( 'Modified', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a last modification time-stamp.',
-		  kDEFAULT_LANGUAGE );
-		$term->Type( kTYPE_STAMP );
-		$term->Cardinality( kCARD_0_1 );
-		$term->Synonym( 'kTAG_MODIFIED', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Version.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kTAG_VERSION, 1 ) );
-		$term->Name( 'Version counter', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a version counter which is automatically incremented '
-		 .'each time the object is committed.',
-		  kDEFAULT_LANGUAGE );
-		$term->Type( kTYPE_INT32 );
-		$term->Cardinality( kCARD_1 );
-		$term->Synonym( 'kTAG_VERSION', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Version.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kOFFSET_VERSION, 1 ) );
-		$term->Name( 'Version', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a version.',
-		  kDEFAULT_LANGUAGE );
-		$term->Type( kTYPE_STRING );
-		$term->Cardinality( kCARD_0_1 );
-		$term->Synonym( 'kOFFSET_VERSION', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Type.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kTAG_TYPE, 1 ) );
-		$term->Name( 'Type', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a type, in general this is used to indicate the data type '
-		 .'of an object.',
-		  kDEFAULT_LANGUAGE );
-		$term->Cardinality( kCARD_0_1 );
-		$term->Synonym( 'kTAG_TYPE', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Pattern.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kTAG_PATTERN, 1 ) );
-		$term->Name( 'Pattern', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a pattern attribute, in general this is used to '
-		 .'represent the structure, composition and formatting rules of a string '
-		 .'data type.',
-		  kDEFAULT_LANGUAGE );
-		$term->Cardinality( kCARD_ANY );
-		$term->Synonym( 'kTAG_PATTERN', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Kind.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kTAG_KIND, 1 ) );
-		$term->Name( 'Kind', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a kind, in general this is used to qualify an object. '
-		 .'This should not be confused with the data type.',
-		  kDEFAULT_LANGUAGE );
-		$term->Cardinality( kCARD_ANY );
-		$term->Synonym( 'kTAG_KIND', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Domain.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kTAG_DOMAIN, 1 ) );
-		$term->Name( 'Domain', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a domain attribute, in general this is used to '
-		 .'represent the nature of the current object instance.',
-		  kDEFAULT_LANGUAGE );
-		$term->Cardinality( kCARD_ANY );
-		$term->Synonym( 'kTAG_DOMAIN', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Category.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kTAG_CATEGORY, 1 ) );
-		$term->Name( 'Category', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a category attribute, in general this is used to '
-		 .'represent the area to which the current object instance belongs to.',
-		  kDEFAULT_LANGUAGE );
-		$term->Cardinality( kCARD_ANY );
-		$term->Synonym( 'kTAG_CATEGORY', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Cardinality.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ENUMERATION, TRUE );
-		$term->Code( substr( kTAG_CARDINALITY, 1 ) );
-		$term->Name( 'Cardinality', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term indicating the cardinality of a data attribute.',
-		  kDEFAULT_LANGUAGE );
-		$term->Cardinality( kCARD_0_1 );
-		$term->Synonym( 'kTAG_CARDINALITY', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Unit.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kTAG_UNIT, 1 ) );
-		$term->Name( 'Unit', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term is used to indicate the unit of a measure.',
-		  kDEFAULT_LANGUAGE );
-		$term->Cardinality( kCARD_0_1 );
-		$term->Synonym( 'kTAG_UNIT', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Source.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kTAG_SOURCE, 1 ) );
-		$term->Name( 'Source', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term is used to indicate the source of an object.',
-		  kDEFAULT_LANGUAGE );
-		$term->Cardinality( kCARD_ANY );
-		$term->Synonym( 'kTAG_SOURCE', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Data.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kTAG_DATA, 1 ) );
-		$term->Name( 'Data', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term is used to indicate the data part of a structured object.',
-		  kDEFAULT_LANGUAGE );
-		$term->Cardinality( kCARD_1 );
-		$term->Synonym( 'kTAG_DATA', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Code.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kTAG_CODE, 1 ) );
-		$term->Name( 'Code', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term is used to indicate a code or acronym.',
-		  kDEFAULT_LANGUAGE );
-		$term->Cardinality( kCARD_1 );
-		$term->Type( kTYPE_STRING );
-		$term->Synonym( 'kTAG_CODE', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Enum.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kTAG_ENUM, 1 ) );
-		$term->Name( 'Enumeration', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term is used to indicate an enumerated code or key.',
-		  kDEFAULT_LANGUAGE );
-		$term->Type( kTYPE_STRING );
-		$term->Cardinality( kCARD_ANY );
-		$term->Synonym( 'kTAG_ENUM', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Namespace.
-		//
-		$term = new COntologyTerm();
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->NS( $ns );
-		$term->Code( substr( kTAG_NAMESPACE, 1 ) );
-		$term->Name( 'Namespace term', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term is used to indicate a namespace term reference.',
-		  kDEFAULT_LANGUAGE );
-		$term->Type( kTYPE_STRING );
-		$term->Cardinality( kCARD_1 );
-		$term->Synonym( 'kTAG_NAMESPACE', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Namespace.
-		//
-		$term = new COntologyTerm();
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->NS( $ns );
-		$term->Code( substr( kOFFSET_NAMESPACE, 1 ) );
-		$term->Name( 'Namespace name', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term is used to indicate a namespace name or acronym.',
-		  kDEFAULT_LANGUAGE );
-		$term->Type( kTYPE_STRING );
-		$term->Cardinality( kCARD_1 );
-		$term->Synonym( 'kOFFSET_NAMESPACE', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Image.
-		//
-		$term = new COntologyTerm();
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->NS( $ns );
-		$term->Code( substr( kOFFSET_IMAGE, 1 ) );
-		$term->Name( 'Image', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term is used to indicate an image list.',
-		  kDEFAULT_LANGUAGE );
-		$term->Type( kTYPE_STRING );
-		$term->Cardinality( kCARD_1 );
-		$term->Synonym( 'kOFFSET_IMAGE', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Node.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kTAG_NODE, 1 ) );
-		$term->Name( 'Node', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term is used to indicate a graph node.',
-		  kDEFAULT_LANGUAGE );
-		$term->Type( kTYPE_INT32 );
-		$term->Cardinality( kCARD_ANY );
-		$term->Synonym( 'kTAG_NODE', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Predicate.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kTAG_EDGE, 1 ) );
-		$term->Name( 'Predicate', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term is used to indicate a predicate node.',
-		  kDEFAULT_LANGUAGE );
-		$term->Type( kTYPE_INT32 );
-		$term->Cardinality( kCARD_ANY );
-		$term->Synonym( 'kTAG_EDGE', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Term.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kTAG_TERM, 1 ) );
-		$term->Name( 'Term', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term is used to indicate a graph node term.',
-		  kDEFAULT_LANGUAGE );
-		$term->Type( kTYPE_STRING );
-		$term->Cardinality( kCARD_1 );
-		$term->Synonym( 'kTAG_TERM', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Name.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kTAG_NAME, 1 ) );
-		$term->Name( 'Name', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term is used to indicate a name or label.',
-		  kDEFAULT_LANGUAGE );
-		$term->Cardinality( kCARD_ANY );
-		$term->Synonym( 'kTAG_NAME', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Description.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kTAG_DESCRIPTION, 1 ) );
-		$term->Name( 'Description', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term is used to indicate a description or long label.',
-		  kDEFAULT_LANGUAGE );
-		$term->Cardinality( kCARD_ANY );
-		$term->Synonym( 'kTAG_DESCRIPTION', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Definition.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kTAG_DEFINITION, 1 ) );
-		$term->Name( 'Definition', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term is used to indicate a definition.',
-		  kDEFAULT_LANGUAGE );
-		$term->Cardinality( kCARD_ANY );
-		$term->Synonym( 'kTAG_DEFINITION', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Examples.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kTAG_EXAMPLES, 1 ) );
-		$term->Name( 'Examples', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term is used as the default offset for indicating an attribute '
-		 .'containing a list of examples.',
-		  kDEFAULT_LANGUAGE );
-		$term->Cardinality( kCARD_ANY );
-		$term->Synonym( 'kTAG_EXAMPLES', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Language.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kTAG_LANGUAGE, 1 ) );
-		$term->Name( 'Language', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term is used to indicate a language.',
-		  kDEFAULT_LANGUAGE );
-		$term->Cardinality( kCARD_1 );
-		$term->Synonym( 'kTAG_LANGUAGE', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Status.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kTAG_STATUS, 1 ) );
-		$term->Name( 'Status', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term is used to indicate a state or status.',
-		  kDEFAULT_LANGUAGE );
-		$term->Cardinality( kCARD_1 );
-		$term->Synonym( 'kTAG_STATUS', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Annotation.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kTAG_ANNOTATION, 1 ) );
-		$term->Name( 'Annotation', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term is used to indicate an annotation, attachment or comment.',
-		  kDEFAULT_LANGUAGE );
-		$term->Cardinality( kCARD_ANY );
-		$term->Synonym( 'kTAG_ANNOTATION', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// References.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kTAG_REFS, 1 ) );
-		$term->Name( 'References', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents the list of references of an object, it describes '
-		 .'a list of predicate/object pairs.',
-		  kDEFAULT_LANGUAGE );
-		$term->Cardinality( kCARD_ANY );
-		$term->Synonym( 'kTAG_REFS', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Tags.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kTAG_TAGS, 1 ) );
-		$term->Name( 'Tags', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents the list of attribute terms used in the object.',
-		  kDEFAULT_LANGUAGE );
-		$term->Cardinality( kCARD_ANY );
-		$term->Synonym( 'kTAG_TAGS', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Edge terms path.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kTAG_EDGE_TERM, 1 ) );
-		$term->Name( 'Edge terms path', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a graph edge node by using its related terms as a path '
-		 .'in the form of a string containing the SUBJECT/PREDICATE/OBJECT path '
-		 .'constituted by the term identifier elements.',
-		  kDEFAULT_LANGUAGE );
-		$term->Type( kTYPE_STRING );
-		$term->Cardinality( kCARD_1 );
-		$term->Synonym( 'kTAG_EDGE_TERM', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Edge nodes path.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kTAG_EDGE_NODE, 1 ) );
-		$term->Name( 'Edge nodes path', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a graph edge node by using its related nodes and '
-		 .'predicate term as a path in the form of a string containing the '
-		 .'SUBJECT/PREDICATE/OBJECT</i> path in which the subject and object elements '
-		 .'are represented by the respective node identifiers, and the predicate element '
-		 .'is represented by the edge term identifier.',
-		  kDEFAULT_LANGUAGE );
-		$term->Type( kTYPE_STRING );
-		$term->Cardinality( kCARD_1 );
-		$term->Synonym( 'kTAG_EDGE_NODE', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Preferred.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kTAG_PREFERRED, 1 ) );
-		$term->Name( 'Preferred', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a reference to the preferred object, there are cases '
-		 .'in which an object is obsolete, but still in use, in this case this attribute '
-		 .'should point to the preferred object.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTAG_PREFERRED', kTYPE_EXACT, TRUE );
-		$term->Cardinality( kCARD_0_1 );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Valid.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kTAG_VALID, 1 ) );
-		$term->Name( 'Valid', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a reference to the valid object, there are cases '
-		 .'in which deleting an object is not an option, in such cases the invalid '
-		 .'or obsolete object points to the valid object through this term.',
-		  kDEFAULT_LANGUAGE );
-		$term->Synonym( 'kTAG_VALID', kTYPE_EXACT, TRUE );
-		$term->Cardinality( kCARD_0_1 );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+		// Save common namespace.
+		//
+		$namespace = $_SESSION[ 'TERMS' ][ '' ] ;
+		
+		//
+		// Get namespace length.
+		//
+		$len = strlen( $namespace ) + 1;
+		
+		//
+		// Load terms.
+		//
+		foreach( $components as $component )
+		{
+			//
+			// Create term.
+			//
+			$_SESSION[ 'TERMS' ][ $component[ 'id' ] ]
+				= new COntologyTerm( $theContainer, 
+									 COntologyTerm::HashIndex( $component[ 'id' ] ) );
+			$term = $_SESSION[ 'TERMS' ][ $component[ 'id' ] ];
+			if( ! $term->Persistent() )
+			{
+				$term->NS( $namespace );
+				$term->Code( substr( $component[ 'id' ], $len ) );
+				$term->Kind( kTYPE_ATTRIBUTE, TRUE );
+				$term->Cardinality( $component[ 'car' ] );
+				if( array_key_exists( 'typ', $component ) )
+					$term->Type( $component[ 'typ' ] );
+				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
+				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
+				$term->Synonym( $component[ 'syn' ], kTYPE_EXACT, TRUE );
+				$term->Commit( $theContainer );
+			}
+			
+			//
+			// Display.
+			//
+			if( $doDisplay )
+				echo( "[$term] (".$component[ 'syn' ].") "
+					 .$term->Name( NULL, kDEFAULT_LANGUAGE )
+					 ."\n" );
+		}
 	
 	} // LoadAttributeTerms.
 
@@ -2338,139 +1839,97 @@ exit( "Done!\n" );
 		}
 		
 		//
-		// Get default namespace.
+		// Init local storage.
 		//
-		$ns
-			= CPersistentUnitObject::NewObject
-				( $theContainer, COntologyTermObject::HashIndex( '' ),
-				  kFLAG_STATE_ENCODED );
-		if( ! $ns )
-			throw new Exception
-				( 'Unable to find default namsepace [].' );						// !@! ==>
+		$components = array
+		(
+			array( 'id'	=> kOFFSET_PASSWORD,
+				   'syn' => 'kOFFSET_PASSWORD',
+				   'car' => 'kCARD_1',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'Password',
+				   'def' => 'This term represents a password.' ),
+			array( 'id'	=> kOFFSET_MAIL,
+				   'syn' => 'kOFFSET_MAIL',
+				   'car' => 'kCARD_ANY',
+				   'nam' => 'Mail',
+				   'def' => 'This term represents a mailing address.' ),
+			array( 'id'	=> kOFFSET_EMAIL,
+				   'syn' => 'kOFFSET_EMAIL',
+				   'car' => 'kCARD_1',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'E-mail',
+				   'def' => 'This term represents an e-mail address.' ),
+			array( 'id'	=> kOFFSET_PHONE,
+				   'syn' => 'kOFFSET_PHONE',
+				   'car' => 'kCARD_ANY',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'Phone',
+				   'def' => 'This term represents a telephone number.' ),
+			array( 'id'	=> kOFFSET_FAX,
+				   'syn' => 'kOFFSET_FAX',
+				   'car' => 'kCARD_ANY',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'Fax',
+				   'def' => 'This term represents a telefax number.' ),
+			array( 'id'	=> kOFFSET_URL,
+				   'syn' => 'kOFFSET_URL',
+				   'car' => 'kCARD_ANY',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'URL',
+				   'def' => 'This term represents an URL or internet web address.' ),
+			array( 'id'	=> kOFFSET_ACRONYM,
+				   'syn' => 'kOFFSET_ACRONYM',
+				   'car' => 'kCARD_ANY',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'Acronym',
+				   'def' => 'This term represents an acronym or abbreviation.' )
+		);
 		
 		//
-		// Password.
+		// Save common namespace.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kOFFSET_PASSWORD, 1 ) );
-		$term->Name( 'Password', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a password.',
-		  kDEFAULT_LANGUAGE );
-		$term->Type( kTYPE_STRING );
-		$term->Cardinality( kCARD_1 );
-		$term->Synonym( 'kOFFSET_PASSWORD', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
+		$namespace = $_SESSION[ 'TERMS' ][ '' ] ;
+		
 		//
-		// Address.
+		// Get namespace length.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kOFFSET_MAIL, 1 ) );
-		$term->Name( 'Mail', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a mailing address.',
-		  kDEFAULT_LANGUAGE );
-		$term->Cardinality( kCARD_ANY );
-		$term->Synonym( 'kOFFSET_MAIL', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
+		$len = strlen( $namespace ) + 1;
+		
 		//
-		// Email.
+		// Load terms.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kOFFSET_EMAIL, 1 ) );
-		$term->Name( 'E-mail', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents an e-mail address.',
-		  kDEFAULT_LANGUAGE );
-		$term->Cardinality( kCARD_1 );
-		$term->Synonym( 'kOFFSET_EMAIL', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Phone.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Type( kTYPE_STRING );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kOFFSET_PHONE, 1 ) );
-		$term->Name( 'Phone', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a telephone number.',
-		  kDEFAULT_LANGUAGE );
-		$term->Cardinality( kCARD_ANY );
-		$term->Synonym( 'kOFFSET_PHONE', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Fax.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Type( kTYPE_STRING );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kOFFSET_FAX, 1 ) );
-		$term->Name( 'Fax', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a telefax number.',
-		  kDEFAULT_LANGUAGE );
-		$term->Cardinality( kCARD_ANY );
-		$term->Synonym( 'kOFFSET_FAX', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// URL.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Type( kTYPE_STRING );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kOFFSET_URL, 1 ) );
-		$term->Name( 'Fax', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents an URL or internet web address.',
-		  kDEFAULT_LANGUAGE );
-		$term->Cardinality( kCARD_ANY );
-		$term->Synonym( 'kOFFSET_URL', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Acronym.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Type( kTYPE_STRING );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kOFFSET_ACRONYM, 1 ) );
-		$term->Name( 'Fax', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents an acronym.',
-		  kDEFAULT_LANGUAGE );
-		$term->Cardinality( kCARD_ANY );
-		$term->Synonym( 'kOFFSET_ACRONYM', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+		foreach( $components as $component )
+		{
+			//
+			// Create term.
+			//
+			$_SESSION[ 'TERMS' ][ $component[ 'id' ] ]
+				= new COntologyTerm( $theContainer, 
+									 COntologyTerm::HashIndex( $component[ 'id' ] ) );
+			$term = $_SESSION[ 'TERMS' ][ $component[ 'id' ] ];
+			if( ! $term->Persistent() )
+			{
+				$term->NS( $namespace );
+				$term->Code( substr( $component[ 'id' ], $len ) );
+				$term->Kind( kTYPE_ATTRIBUTE, TRUE );
+				$term->Cardinality( $component[ 'car' ] );
+				if( array_key_exists( 'typ', $component ) )
+					$term->Type( $component[ 'typ' ] );
+				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
+				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
+				$term->Synonym( $component[ 'syn' ], kTYPE_EXACT, TRUE );
+				$term->Commit( $theContainer );
+			}
+			
+			//
+			// Display.
+			//
+			if( $doDisplay )
+				echo( "[$term] (".$component[ 'syn' ].") "
+					 .$term->Name( NULL, kDEFAULT_LANGUAGE )
+					 ."\n" );
+		}
 	
 	} // LoadPropertyTerms.
 
@@ -2504,170 +1963,110 @@ exit( "Done!\n" );
 		}
 		
 		//
-		// Get default namespace.
-		//
-		$ns
-			= CPersistentUnitObject::NewObject
-				( $theContainer, COntologyTermObject::HashIndex( '' ),
-				  kFLAG_STATE_ENCODED );
-		if( ! $ns )
-			throw new Exception
-				( 'Unable to find default namsepace [].' );						// !@! ==>
-		
-		//
 		// Init local storage.
 		//
-		$len = strlen( (string) $ns ) + 1;
-	
+		$components = array
+		(
+			array( 'id'	=> kOFFSET_PLACE,
+				   'syn' => 'kOFFSET_PLACE',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'Place',
+				   'def' => 'This term represents a place or named location part '
+				   		   .'of a mailing address.' ),
+			array( 'id'	=> kOFFSET_CARE,
+				   'syn' => 'kOFFSET_CARE',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'Care of',
+				   'def' => 'This term represents the care of part of a mailing address.' ),
+			array( 'id'	=> kOFFSET_STREET,
+				   'syn' => 'kOFFSET_STREET',
+				   'car' => 'kCARD_1',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'Street/P.O. Box',
+				   'def' => 'This term represents the street or P.O. Box part of a '
+				   		   .'mailing address.' ),
+			array( 'id'	=> kOFFSET_ZIP_CODE,
+				   'syn' => 'kOFFSET_ZIP_CODE',
+				   'car' => 'kCARD_1',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'Zip',
+				   'def' => 'This term represents the zip code part of a mailing '
+				   		   .'address.' ),
+			array( 'id'	=> kOFFSET_CITY,
+				   'syn' => 'kOFFSET_CITY',
+				   'car' => 'kCARD_1',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'City',
+				   'def' => 'This term represents the city part of a mailing address.' ),
+			array( 'id'	=> kOFFSET_PROVINCE,
+				   'syn' => 'kOFFSET_PROVINCE',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'Province',
+				   'def' => 'This term represents the province part of a mailing '
+				   		   .'address.' ),
+			array( 'id'	=> kOFFSET_COUNTRY,
+				   'syn' => 'kOFFSET_COUNTRY',
+				   'car' => 'kCARD_1',
+				   'typ' => 'kTYPE_ENUM',
+				   'nam' => 'Country',
+				   'def' => 'This term represents the country of the mailing address, '
+				   		   .'in general it should be expressed as an enumerated value.' ),
+			array( 'id'	=> kOFFSET_FULL,
+				   'syn' => 'kOFFSET_FULL',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'Full mailing address',
+				   'def' => 'This term represents a full mailing address in the '
+				   		   .'form of a string.' )
+		);
+		
 		//
-		// Place.
+		// Save common namespace.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Type( kTYPE_STRING );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kOFFSET_PLACE, $len ) );
-		$term->Name( 'Place', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a place or named location part of a mailing address.',
-		  kDEFAULT_LANGUAGE );
-		$term->Type( kTYPE_STRING );
-		$term->Cardinality( kCARD_0_1 );
-		$term->Synonym( 'kOFFSET_PLACE', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
+		$namespace = $_SESSION[ 'TERMS' ][ '' ] ;
+		
 		//
-		// Care of.
+		// Get namespace length.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Type( kTYPE_STRING );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kOFFSET_CARE, $len ) );
-		$term->Name( 'Care of', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents the care of part of a mailing address.',
-		  kDEFAULT_LANGUAGE );
-		$term->Type( kTYPE_STRING );
-		$term->Cardinality( kCARD_0_1 );
-		$term->Synonym( 'kOFFSET_CARE', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
+		$len = strlen( $namespace ) + 1;
+		
 		//
-		// Street.
+		// Load terms.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Code( substr( kOFFSET_STREET, $len ) );
-		$term->Name( 'Street/P.O. Box', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents the street or P.O. Box part of a mailing address.',
-		  kDEFAULT_LANGUAGE );
-		$term->Type( kTYPE_STRING );
-		$term->Cardinality( kCARD_1 );
-		$term->Synonym( 'kOFFSET_STREET', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Zip.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Type( kTYPE_STRING );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kOFFSET_ZIP_CODE, $len ) );
-		$term->Name( 'Zip', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents the zip code part of a mailing address.',
-		  kDEFAULT_LANGUAGE );
-		$term->Type( kTYPE_STRING );
-		$term->Cardinality( kCARD_1 );
-		$term->Synonym( 'kOFFSET_ZIP_CODE', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// City.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Type( kTYPE_STRING );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kOFFSET_CITY, $len ) );
-		$term->Name( 'City', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents the city part of a mailing address.',
-		  kDEFAULT_LANGUAGE );
-		$term->Type( kTYPE_STRING );
-		$term->Cardinality( kCARD_1 );
-		$term->Synonym( 'kOFFSET_CITY', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Province.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Type( kTYPE_STRING );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kOFFSET_PROVINCE, $len ) );
-		$term->Name( 'Province', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents the province part of a mailing address.',
-		  kDEFAULT_LANGUAGE );
-		$term->Type( kTYPE_STRING );
-		$term->Cardinality( kCARD_0_1 );
-		$term->Synonym( 'kOFFSET_PROVINCE', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Country.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Type( kTYPE_STRING );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kOFFSET_COUNTRY, $len ) );
-		$term->Name( 'Country', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents the province part of a mailing address.',
-		  kDEFAULT_LANGUAGE );
-		$term->Type( kTYPE_STRING );
-		$term->Cardinality( kCARD_1 );
-		$term->Synonym( 'kOFFSET_COUNTRY', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
-	
-		//
-		// Full address.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ns );
-		$term->Type( kTYPE_STRING );
-		$term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term->Code( substr( kOFFSET_FULL, $len ) );
-		$term->Name( 'Full mailing address', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'This term represents a full mailing address in the form of a string.',
-		  kDEFAULT_LANGUAGE );
-		$term->Type( kTYPE_STRING );
-		$term->Cardinality( kCARD_0_1 );
-		$term->Synonym( 'kOFFSET_FULL', kTYPE_EXACT, TRUE );
-		$term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )." [$term]\n" );
+		foreach( $components as $component )
+		{
+			//
+			// Create term.
+			//
+			$_SESSION[ 'TERMS' ][ $component[ 'id' ] ]
+				= new COntologyTerm( $theContainer, 
+									 COntologyTerm::HashIndex( $component[ 'id' ] ) );
+			$term = $_SESSION[ 'TERMS' ][ $component[ 'id' ] ];
+			if( ! $term->Persistent() )
+			{
+				$term->NS( $namespace );
+				$term->Code( substr( $component[ 'id' ], $len ) );
+				$term->Kind( kTYPE_ATTRIBUTE, TRUE );
+				$term->Cardinality( $component[ 'car' ] );
+				if( array_key_exists( 'typ', $component ) )
+					$term->Type( $component[ 'typ' ] );
+				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
+				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
+				$term->Synonym( $component[ 'syn' ], kTYPE_EXACT, TRUE );
+				$term->Commit( $theContainer );
+			}
+			
+			//
+			// Display.
+			//
+			if( $doDisplay )
+				echo( "[$term] (".$component[ 'syn' ].") "
+					 .$term->Name( NULL, kDEFAULT_LANGUAGE )
+					 ."\n" );
+		}
 	
 	} // LoadMailProperties.
 
@@ -2715,424 +2114,252 @@ exit( "Done!\n" );
 		$node_index->save();
 		
 		//
-		// Get default namespace.
-		//
-		$ns
-			= CPersistentUnitObject::NewObject
-				( $theContainer, COntologyTermObject::HashIndex( '' ),
-				  kFLAG_STATE_ENCODED );
-		if( ! $ns )
-			throw new Exception
-				( 'Unable to find default namsepace [].' );						// !@! ==>
-		
-		//
 		// ENUM-OF.
 		//
-		$enum_of
-			= CPersistentUnitObject::NewObject
-				( $theContainer, COntologyTermObject::HashIndex( kPRED_ENUM_OF ),
-				  kFLAG_STATE_ENCODED );
-		if( ! $enum_of )
-			throw new Exception
-				( 'Unable to find enumeration predicate.' );					// !@! ==>
+		$enum_of = $_SESSION[ 'TERMS' ][ kPRED_ENUM_OF ];
 		
 		//
-		// Init local storage.
+		// Get default namespace.
 		//
+		$ns = $_SESSION[ 'TERMS' ][ '' ];
 		$len = strlen( (string) $ns ) + 1;
 		
 		//
-		// Domains.
+		// Handle kDEF_DOMAIN term.
 		//
-		$root_term = new COntologyTerm();
-		$root_term->NS( $ns );
-		$root_term->Code( substr( kDEF_DOMAIN, $len ) );
-		$root_term->Kind( kTYPE_NAMESPACE, TRUE );
-		$root_term->Kind( kTYPE_ROOT, TRUE );
-		$root_term->Name( 'Domain', kDEFAULT_LANGUAGE );
-		$root_term->Definition
-		( 'Default domain.', kDEFAULT_LANGUAGE );
-		$root_term->Commit( $theContainer );
-		$root_node = $term_index->findOne( kTAG_TERM, (string) $root_term );
-		if( $root_node === NULL )
+		if( ! array_key_exists( kDEF_DOMAIN, $_SESSION[ 'TERMS' ] ) )
 		{
-			$root_node = new COntologyNode( $container );
-			$root_node->Term( $root_term );
-			$root_node->Kind( kTYPE_ROOT, TRUE );
-			$root_node->Kind( kTYPE_MEASURE, TRUE );
-			$root_node->Commit( $container );
+			$term = $_SESSION[ 'TERMS' ][ kDEF_DOMAIN ] = new COntologyTerm();
+			$term->NS( $ns );
+			$term->Code( substr( kDEF_DOMAIN, $len ) );
+			$term->Kind( kTYPE_ROOT, TRUE );
+			$term->Kind( kTYPE_NAMESPACE, TRUE );
+			$term->Name( 'Domain', kDEFAULT_LANGUAGE );
+			$term->Definition( 'Default domain.', kDEFAULT_LANGUAGE );
+			$term->Synonym( kDEF_DOMAIN, kTYPE_EXACT, TRUE );
+			$term->Commit( $theContainer );
 		}
 		else
-			$root_node = new COntologyNode( $container, $root_node );
+			$term = $_SESSION[ 'TERMS' ][ kDEF_DOMAIN ];
+		//
+		// Handle node.
+		//
+		$node = $term_index->findOne( kTAG_TERM, (string) $term );
+		if( $node === NULL )
+		{
+			$node = new COntologyNode( $container );
+			$node->Term( $term );
+			$node->Kind( kTYPE_ROOT, TRUE );
+			$node->Kind( kTYPE_MEASURE, TRUE );
+			$node->Commit( $container );
+		}
+		else
+			$node = new COntologyNode( $container, $node );
+		$_SESSION[ 'NODES' ][ kDEF_DOMAIN ] = $node;
+		//
+		// Display.
+		//
 		if( $doDisplay )
-			echo( $root_term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$root_term] [".$root_node->Node()->getId()."]\n" );
+			echo( "[$term] (kDEF_DOMAIN) "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+		
+		//
+		// Change namespace.
+		//
+		$ns = $_SESSION[ 'TERMS' ][ kDEF_DOMAIN ];
+		$len = strlen( (string) $ns ) + 1;
 		
 		//
 		// Init local storage.
 		//
-		$len = strlen( (string) $root_term ) + 1;
+		$components = array
+		(
+			array( 'id'	=> kDOMAIN_GERMPLASM,
+				   'syn' => 'kDOMAIN_GERMPLASM',
+				   'nam' => 'Germplasm',
+				   'def' => 'Germplasm, it is a generalised domain comprising all '
+				   		   .'kinds of germplasms.' ),
+			array( 'id'	=> kDOMAIN_GEOGRAPHY,
+				   'syn' => 'kDOMAIN_GEOGRAPHY',
+				   'nam' => 'Geography',
+				   'def' => 'Geography, it is a generalised domain comprising all '
+				   		   .'descriptors related to geographic data.' ),
+			array( 'id'	=> kDOMAIN_LANGUAGE,
+				   'syn' => 'kDOMAIN_LANGUAGE',
+				   'nam' => 'Language',
+				   'def' => 'Language, it is a generalised domain comprising all '
+				   		   .'descriptors related to languages.' ),
+			array( 'id'	=> kDOMAIN_TAXONOMY,
+				   'syn' => 'kDOMAIN_TAXONOMY',
+				   'nam' => 'Taxonomy',
+				   'def' => 'Taxonomy, it is a generalised domain comprising all '
+				   		   .'descriptors related to taxonomy.' )
+		);
 		
 		//
-		// Germplasm.
+		// Load data.
 		//
-		$ger_term = new COntologyTerm();
-		$ger_term->NS( $root_term );
-		$ger_term->Code( substr( kDOMAIN_GERMPLASM, $len ) );
-		$ger_term->Type( kTYPE_ENUM );
-		$ger_term->Name( 'Germplasm', kDEFAULT_LANGUAGE );
-		$ger_term->Definition
-		( 'Germplasm, it is a generalised domain comprising all kinds of '
-		 .'germplasms.',
-		  kDEFAULT_LANGUAGE );
-		$ger_term->Commit( $theContainer );
-		$ger_node = $term_index->findOne( kTAG_TERM, (string) $ger_term );
-		if( $ger_node === NULL )
+		foreach( $components as $component )
 		{
-			$ger_node = new COntologyNode( $container );
-			$ger_node->Term( $ger_term );
-			$ger_node->Kind( kTYPE_ENUMERATION, TRUE );
-			$ger_node->Domain( $root_term, TRUE );
-			$ger_node->Commit( $container );
+			//
+			// Handle term.
+			//
+			if( ! array_key_exists( $component[ 'id' ], $_SESSION[ 'TERMS' ] ) )
+			{
+				$term = $_SESSION[ 'TERMS' ][ $component[ 'id' ] ] = new COntologyTerm();
+				$term->NS( $ns );
+				$term->Code( substr( $component[ 'id' ], $len ) );
+				$term->Type( kTYPE_ENUM );
+				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
+				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
+				$term->Synonym( $component[ 'id' ], kTYPE_EXACT, TRUE );
+				$term->Commit( $theContainer );
+			}
+			else
+				$term = $_SESSION[ 'TERMS' ][ $component[ 'id' ] ];
+			//
+			// Handle node.
+			//
+			$node = $term_index->findOne( kTAG_TERM, (string) $term );
+			if( $node === NULL )
+			{
+				$node = new COntologyNode( $container );
+				$node->Term( $term );
+				$node->Kind( kTYPE_ENUMERATION, TRUE );
+				$node->Domain( $_SESSION[ 'TERMS' ][ kDEF_DOMAIN ], TRUE );
+				$node->Commit( $container );
+			}
+			else
+				$node = new COntologyNode( $container, $node );
+			$_SESSION[ 'NODES' ][ $component[ 'id' ] ] = $node;
+			//
+			// Handle edge.
+			//
+			$id = Array();
+			$id[] = $_SESSION[ 'NODES' ][ $component[ 'id' ] ]->Node()->getId();
+			$id[] = (string) $enum_of;
+			$id[] = $_SESSION[ 'NODES' ][ kDEF_DOMAIN ]->Node()->getId();
+			$id = implode( '/', $id );
+			$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
+			if( $edge === NULL )
+			{
+				$edge = $_SESSION[ 'NODES' ][ $component[ 'id' ] ]
+					->RelateTo( $container, $enum_of,
+											$_SESSION[ 'NODES' ][ kDEF_DOMAIN ] );
+				$edge->Commit( $container );
+			}
+			//
+			// Display.
+			//
+			if( $doDisplay )
+				echo( "[$term] (kDEF_DOMAIN) "
+					 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+					 .$node->Node()->getId()."}"
+					 ."\n" );
 		}
-		else
-			$ger_node = new COntologyNode( $container, $ger_node );
-		$id = Array();
-		$id[] = $ger_node->Node()->getId();
-		$id[] = (string) $enum_of;
-		$id[] = $root_node->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $ger_node->RelateTo( $container, $enum_of, $root_node );
-			$edge->Commit( $container );
-		}
-		if( $doDisplay )
-			echo( $ger_term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$ger_term] [".$root_node->Node()->getId()."]\n" );
 		
 		//
-		// Init local storage.
+		// Change namespace.
 		//
-		$len = strlen( (string) $ger_term ) + 1;
-		
-		//
-		// Sample.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ger_term );
-		$term->Code( substr( kDOMAIN_SAMPLE, $len ) );
-		$term->Type( kTYPE_ENUM );
-		$term->Name( 'Sample', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'Germplasm sample, it is a generalised domain comprising all descriptors '
-		 .'related to germplasm samples.',
-		  kDEFAULT_LANGUAGE );
-		$term->Commit( $theContainer );
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_ENUMERATION, TRUE );
-			$node->Domain( $root_term, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $enum_of;
-		$id[] = $ger_node->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $enum_of, $ger_node );
-			$edge->Commit( $container );
-		}
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$root_node->Node()->getId()."]\n" );
-		
-		//
-		// Accession.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ger_term );
-		$term->Code( substr( kDOMAIN_ACCESSION, $len ) );
-		$term->Type( kTYPE_ENUM );
-		$term->Name( 'Accession', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'Accession, it is a generalised domain comprising all descriptors '
-		 .'related to germplasm accessions.',
-		  kDEFAULT_LANGUAGE );
-		$term->Commit( $theContainer );
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_ENUMERATION, TRUE );
-			$node->Domain( $root_term, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $enum_of;
-		$id[] = $ger_node->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $enum_of, $ger_node );
-			$edge->Commit( $container );
-		}
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$root_node->Node()->getId()."]\n" );
-		
-		//
-		// Specimen.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ger_term );
-		$term->Code( substr( kDOMAIN_SPECIMEN, $len ) );
-		$term->Type( kTYPE_ENUM );
-		$term->Name( 'Specimen', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'Specimen, it is a generalised domain comprising all descriptors '
-		 .'related to germplasm specimens; in general these will not be living material.',
-		  kDEFAULT_LANGUAGE );
-		$term->Commit( $theContainer );
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_ENUMERATION, TRUE );
-			$node->Domain( $root_term, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $enum_of;
-		$id[] = $ger_node->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $enum_of, $ger_node );
-			$edge->Commit( $container );
-		}
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$root_node->Node()->getId()."]\n" );
-		
-		//
-		// Land-race.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ger_term );
-		$term->Code( substr( kDOMAIN_LANDRACE, $len ) );
-		$term->Type( kTYPE_ENUM );
-		$term->Name( 'Land-race', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'Landrace, it is a generalised domain comprising all descriptors '
-		 .'related to farmer varieties.',
-		  kDEFAULT_LANGUAGE );
-		$term->Commit( $theContainer );
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_ENUMERATION, TRUE );
-			$node->Domain( $root_term, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $enum_of;
-		$id[] = $ger_node->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $enum_of, $ger_node );
-			$edge->Commit( $container );
-		}
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$root_node->Node()->getId()."]\n" );
-		
-		//
-		// Population.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $ger_term );
-		$term->Code( substr( kDOMAIN_POPULATION, $len ) );
-		$term->Type( kTYPE_ENUM );
-		$term->Name( 'Population', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'Population, it is a generalised domain comprising all descriptors '
-		 .'related to in-situ germplasm populations.',
-		  kDEFAULT_LANGUAGE );
-		$term->Commit( $theContainer );
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_ENUMERATION, TRUE );
-			$node->Domain( $root_term, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $enum_of;
-		$id[] = $ger_node->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $enum_of, $ger_node );
-			$edge->Commit( $container );
-		}
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$root_node->Node()->getId()."]\n" );
+		$ns = $_SESSION[ 'TERMS' ][ kDOMAIN_GERMPLASM ];
+		$len = strlen( (string) $ns ) + 1;
 		
 		//
 		// Init local storage.
 		//
-		$len = strlen( (string) $root_term ) + 1;
+		$components = array
+		(
+			array( 'id'	=> kDOMAIN_SAMPLE,
+				   'syn' => 'kDOMAIN_SAMPLE',
+				   'nam' => 'Sample',
+				   'def' => 'Germplasm sample, it is a generalised domain comprising '
+				   		   .'all descriptors related to germplasm samples.' ),
+			array( 'id'	=> kDOMAIN_ACCESSION,
+				   'syn' => 'kDOMAIN_ACCESSION',
+				   'nam' => 'Accession',
+				   'def' => 'Accession, it is a generalised domain comprising all '
+				   		   .'descriptors related to germplasm accessions.' ),
+			array( 'id'	=> kDOMAIN_SPECIMEN,
+				   'syn' => 'kDOMAIN_SPECIMEN',
+				   'nam' => 'Specimen',
+				   'def' => 'Specimen, it is a generalised domain comprising all '
+				   		   .'descriptors related to germplasm specimens; in general '
+				   		   .'these will not be living material.' ),
+			array( 'id'	=> kDOMAIN_LANDRACE,
+				   'syn' => 'kDOMAIN_LANDRACE',
+				   'nam' => 'Land-race',
+				   'def' => 'Landrace, it is a generalised domain comprising all '
+				   		   .'descriptors related to farmer varieties.' ),
+			array( 'id'	=> kDOMAIN_POPULATION,
+				   'syn' => 'kDOMAIN_POPULATION',
+				   'nam' => 'Population',
+				   'def' => 'Population, it is a generalised domain comprising all '
+				   		   .'descriptors related to in-situ germplasm populations.' )
+		);
 		
 		//
-		// Geography.
+		// Load data.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $root_term );
-		$term->Code( substr( kDOMAIN_GEOGRAPHY, $len ) );
-		$term->Type( kTYPE_ENUM );
-		$term->Name( 'Geography', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'Geography, it is a generalised domain comprising all descriptors '
-		 .'related to geographic data.',
-		  kDEFAULT_LANGUAGE );
-		$term->Commit( $theContainer );
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
+		foreach( $components as $component )
 		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_ENUMERATION, TRUE );
-			$node->Domain( $root_term, TRUE );
-			$node->Commit( $container );
+			//
+			// Handle term.
+			//
+			if( ! array_key_exists( $component[ 'id' ], $_SESSION[ 'TERMS' ] ) )
+			{
+				$term = $_SESSION[ 'TERMS' ][ $component[ 'id' ] ] = new COntologyTerm();
+				$term->NS( $ns );
+				$term->Code( substr( $component[ 'id' ], $len ) );
+				$term->Type( kTYPE_ENUM );
+				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
+				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
+				$term->Synonym( $component[ 'id' ], kTYPE_EXACT, TRUE );
+				$term->Commit( $theContainer );
+			}
+			else
+				$term = $_SESSION[ 'TERMS' ][ $component[ 'id' ] ];
+			//
+			// Handle node.
+			//
+			$node = $term_index->findOne( kTAG_TERM, (string) $term );
+			if( $node === NULL )
+			{
+				$node = new COntologyNode( $container );
+				$node->Term( $term );
+				$node->Kind( kTYPE_ENUMERATION, TRUE );
+				$node->Domain( $_SESSION[ 'TERMS' ][ kDEF_DOMAIN ], TRUE );
+				$node->Commit( $container );
+			}
+			else
+				$node = new COntologyNode( $container, $node );
+			$_SESSION[ 'NODES' ][ $component[ 'id' ] ] = $node;
+			//
+			// Handle edge.
+			//
+			$id = Array();
+			$id[] = $_SESSION[ 'NODES' ][ $component[ 'id' ] ]->Node()->getId();
+			$id[] = (string) $enum_of;
+			$id[] = $_SESSION[ 'NODES' ][ kDOMAIN_GERMPLASM ]->Node()->getId();
+			$id = implode( '/', $id );
+			$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
+			if( $edge === NULL )
+			{
+				$edge = $_SESSION[ 'NODES' ][ $component[ 'id' ] ]
+					->RelateTo( $container, $enum_of,
+											$_SESSION[ 'NODES' ][ kDOMAIN_GERMPLASM ] );
+				$edge->Commit( $container );
+			}
+			//
+			// Display.
+			//
+			if( $doDisplay )
+				echo( "[$term] (kDEF_DOMAIN) "
+					 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+					 .$node->Node()->getId()."}"
+					 ."\n" );
 		}
-		else
-			$node = new COntologyNode( $container, $node );
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $enum_of;
-		$id[] = $root_node->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $enum_of, $root_node );
-			$edge->Commit( $container );
-		}
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$root_node->Node()->getId()."]\n" );
-		
-		//
-		// Language.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $root_term );
-		$term->Code( substr( kDOMAIN_LANGUAGE, $len ) );
-		$term->Type( kTYPE_ENUM );
-		$term->Name( 'Language', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'Language, it is a generalised domain comprising all descriptors '
-		 .'related to languages.',
-		  kDEFAULT_LANGUAGE );
-		$term->Commit( $theContainer );
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_ENUMERATION, TRUE );
-			$node->Domain( $root_term, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $enum_of;
-		$id[] = $root_node->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $enum_of, $root_node );
-			$edge->Commit( $container );
-		}
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$root_node->Node()->getId()."]\n" );
-		
-		//
-		// Taxonomy.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $root_term );
-		$term->Code( substr( kDOMAIN_TAXONOMY, $len ) );
-		$term->Type( kTYPE_ENUM );
-		$term->Name( 'Taxonomy', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'Taxonomy, it is a generalised domain comprising all descriptors '
-		 .'related to taxonomy.',
-		  kDEFAULT_LANGUAGE );
-		$term->Commit( $theContainer );
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_ENUMERATION, TRUE );
-			$node->Domain( $root_term, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $enum_of;
-		$id[] = $root_node->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $enum_of, $root_node );
-			$edge->Commit( $container );
-		}
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$root_node->Node()->getId()."]\n" );
 		
 	} // LoadDefaultDomains.
 
@@ -3521,7 +2748,8 @@ exit( "Done!\n" );
 	/**
 	 * Load crop codes.
 	 *
-	 * This function will load the Bioversity generic standards.
+	 * This function will load the International Treaty on Plant Genetic Resources
+	 * standards.
 	 *
 	 * If the last parameter is <i>TRUE</i>, the function will display the name of the
 	 * created terms.
@@ -3586,6 +2814,17 @@ exit( "Done!\n" );
 		if( ! $enum_of )
 			throw new Exception
 				( 'Unable to find enumeration predicate.' );					// !@! ==>
+		
+		//
+		// PART-OF.
+		//
+		$part_of
+			= CPersistentUnitObject::NewObject
+				( $theContainer, COntologyTermObject::HashIndex( kPRED_PART_OF ),
+				  kFLAG_STATE_ENCODED );
+		if( ! $part_of )
+			throw new Exception
+				( 'Unable to find part-of predicate.' );						// !@! ==>
 		
 		//
 		// International Treaty on Plant Genetic Resources for Food and Agriculture.

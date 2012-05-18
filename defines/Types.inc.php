@@ -117,6 +117,27 @@ define( "kTYPE_REGEX",						':RGEX' );				// Regular expression.
  *======================================================================================*/
 
 /**
+ * Object reference type.
+ *
+ * This data type should be used as object references, it is generally expressed as a
+ * structure composed of the following elements:
+ *
+ * <ul>
+ *	<li><i>{@link kTAG_REFERENCE_ID kTAG_REFERENCE_ID}</i>: Object
+ *		{@link kTAG_LID local} unique identifier. This value may be used as a scalar in
+ *		cases in which the location of the object is univoque.
+ *	<li><i>{@link kTAG_REFERENCE_CONTAINER kTAG_REFERENCE_CONTAINER}</i>: Object container,
+ *		reference to the container in which the object is stored. This component will be
+ *		used in cases in which the container of the object is not univoque.
+ *	<li><i>{@link kTAG_REFERENCE_DATABASE kTAG_REFERENCE_DATABASE}</i>: Database container,
+ *		reference to the database or container superclass in which the object is stored.
+ *		This component will be used in cases in which the database of the object is not
+ *		univoque.
+ * </ul>
+ */
+define( "kTYPE_REF",						':REF' );				// Timestamp.
+
+/**
  * Timestamp type.
  *
  * This data type should be used for native time-stamps, it is generally expressed as an
