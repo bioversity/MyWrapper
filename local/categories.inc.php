@@ -41,33 +41,33 @@ define( "kDEF_CATEGORY",			':CATEGORY' );					// Category.
  *======================================================================================*/
 
 /**
+ * Germplasm.
+ *
+ * This tag represents the germplasm domain, it is a generalised domain comprising all
+ * germplasms.
+ */
+define( "kDOMAIN_GERMPLASM",		':DOMAIN:100' );				// Germplasm.
+
+/**
  * Geography.
  *
  * This tag represents the geography domain.
  */
-define( "kDOMAIN_GEOGRAPHY",		':DOMAIN:GEOGRAPHY' );			// Geography.
+define( "kDOMAIN_GEOGRAPHY",		':DOMAIN:200' );				// Geography.
 
 /**
  * Language.
  *
  * This tag represents the geography domain.
  */
-define( "kDOMAIN_LANGUAGE",			':DOMAIN:LANGUAGE' );			// Language.
+define( "kDOMAIN_LANGUAGE",			':DOMAIN:300' );				// Language.
 
 /**
  * Taxonomy.
  *
  * This tag represents the taxonomy domain.
  */
-define( "kDOMAIN_TAXONOMY",			':DOMAIN:TAXONOMY' );			// Taxonomy.
-
-/**
- * Germplasm.
- *
- * This tag represents the germplasm domain, it is a generalised domain comprising all
- * germplasms.
- */
-define( "kDOMAIN_GERMPLASM",		':DOMAIN:GERMPLASM' );			// Germplasm.
+define( "kDOMAIN_TAXONOMY",			':DOMAIN:400' );				// Taxonomy.
 
 /*=======================================================================================
  *	SUBDOMAINS																			*
@@ -78,35 +78,35 @@ define( "kDOMAIN_GERMPLASM",		':DOMAIN:GERMPLASM' );			// Germplasm.
  *
  * This tag represents the germplasm sample domain.
  */
-define( "kDOMAIN_SAMPLE",			':DOMAIN:GERMPLASM:SAMPLE' );		// Sample.
+define( "kDOMAIN_SAMPLE",			':DOMAIN:110' );				// Sample.
 
 /**
  * Accession.
  *
  * This tag represents the accession domain.
  */
-define( "kDOMAIN_ACCESSION",		':DOMAIN:GERMPLASM:ACCESSION' );	// Accession.
+define( "kDOMAIN_ACCESSION",		':DOMAIN:120' );				// Accession.
 
 /**
  * Specimen.
  *
  * This tag represents the specimen domain.
  */
-define( "kDOMAIN_SPECIMEN",			':DOMAIN:GERMPLASM:SPECIMEN' );		// Specimen.
+define( "kDOMAIN_SPECIMEN",			':DOMAIN:130' );				// Specimen.
 
 /**
  * Land-race.
  *
  * This tag represents the landrace or farmer germplasm domain.
  */
-define( "kDOMAIN_LANDRACE",			':DOMAIN:GERMPLASM:LANDRACE' );		// Landrace.
+define( "kDOMAIN_LANDRACE",			':DOMAIN:140' );				// Landrace.
 
 /**
  * Population.
  *
  * This tag represents the in-situ population domain.
  */
-define( "kDOMAIN_POPULATION",		':DOMAIN:GERMPLASM:POPULATION' );	// Population.
+define( "kDOMAIN_POPULATION",		':DOMAIN:150' );				// Population.
 
 /*=======================================================================================
  *	CATEGORIES																			*
@@ -118,7 +118,7 @@ define( "kDOMAIN_POPULATION",		':DOMAIN:GERMPLASM:POPULATION' );	// Population.
  * This tag represents the passport category, it collects all descriptors comprising
  * passport datasets.
  */
-define( "kCATEGORY_PASSPORT",		':CATEGORY:PASSPORT' );			// Passport.
+define( "kCATEGORY_PASSPORT",		':CATEGORY:1' );				// Passport.
 
 /**
  * Characterisation.
@@ -126,7 +126,7 @@ define( "kCATEGORY_PASSPORT",		':CATEGORY:PASSPORT' );			// Passport.
  * This tag represents the characterisation category, it collects all descriptors comprising
  * characterisation datasets.
  */
-define( "kCATEGORY_CHAR",			':CATEGORY:CHAR' );				// Characterisation.
+define( "kCATEGORY_CHAR",			':CATEGORY:2' );				// Characterisation.
 
 /**
  * Evaluation.
@@ -134,7 +134,7 @@ define( "kCATEGORY_CHAR",			':CATEGORY:CHAR' );				// Characterisation.
  * This tag represents the evaluation category, it collects all descriptors comprising
  * evaluation datasets.
  */
-define( "kCATEGORY_EVAL",			':CATEGORY:EVAL' );				// Evaluation.
+define( "kCATEGORY_EVAL",			':CATEGORY:3' );				// Evaluation.
 
 /**
  * Administrative.
@@ -142,7 +142,7 @@ define( "kCATEGORY_EVAL",			':CATEGORY:EVAL' );				// Evaluation.
  * This tag represents the administrative units category, it collects all descriptors
  * comprising administrative units.
  */
-define( "kCATEGORY_ADMIN",			':CATEGORY:ADMIN' );			// Administrative units.
+define( "kCATEGORY_ADMIN",			':CATEGORY:4' );				// Administrative units.
 
 /**
  * Geographic units.
@@ -150,7 +150,7 @@ define( "kCATEGORY_ADMIN",			':CATEGORY:ADMIN' );			// Administrative units.
  * This tag represents the geographic units category, it collects all descriptors
  * comprising geographic units.
  */
-define( "kCATEGORY_GEO",			':CATEGORY:GEOG' );				// Geographic units.
+define( "kCATEGORY_GEO",			':CATEGORY:5' );				// Geographic units.
 
 /**
  * Epithet.
@@ -158,7 +158,7 @@ define( "kCATEGORY_GEO",			':CATEGORY:GEOG' );				// Geographic units.
  * This tag represents the epithet category, it collects all descriptors related to
  * epithets.
  */
-define( "kCATEGORY_EPITHET",		':CATEGORY:EPITH' );			// Epithet.
+define( "kCATEGORY_EPITHET",		':CATEGORY:6' );				// Epithet.
 
 /**
  * Authority.
@@ -166,7 +166,7 @@ define( "kCATEGORY_EPITHET",		':CATEGORY:EPITH' );			// Epithet.
  * This tag represents the authority category, it collects all descriptors related to
  * authorities.
  */
-define( "kCATEGORY_AUTH",			':CATEGORY:AUTH' );				// Authority.
+define( "kCATEGORY_AUTH",			':CATEGORY:7' );				// Authority.
 
 
 ?>

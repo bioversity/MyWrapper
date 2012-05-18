@@ -145,7 +145,6 @@ try
 	// Load Standards.
 	//
 	LoadDefaultDomains( $_SESSION[ kSESSION_CONTAINER ], TRUE );
-exit;
 	LoadDefaultCategories( $_SESSION[ kSESSION_CONTAINER ], TRUE );
 	LoadCropGroupDescriptors( $_SESSION[ kSESSION_CONTAINER ], TRUE );
 	LoadUnStatsRegions( $_SESSION[ kSESSION_CONTAINER ], TRUE );
@@ -2214,7 +2213,7 @@ exit( "Done!\n" );
 				$term->Type( kTYPE_ENUM );
 				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
 				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
-				$term->Synonym( $component[ 'id' ], kTYPE_EXACT, TRUE );
+				$term->Synonym( $component[ 'syn' ], kTYPE_EXACT, TRUE );
 				$term->Commit( $theContainer );
 			}
 			else
@@ -2254,17 +2253,11 @@ exit( "Done!\n" );
 			// Display.
 			//
 			if( $doDisplay )
-				echo( "[$term] (kDEF_DOMAIN) "
+				echo( "[$term] (".$component[ 'syn' ].") "
 					 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
 					 .$node->Node()->getId()."}"
 					 ."\n" );
 		}
-		
-		//
-		// Change namespace.
-		//
-		$ns = $_SESSION[ 'TERMS' ][ kDOMAIN_GERMPLASM ];
-		$len = strlen( (string) $ns ) + 1;
 		
 		//
 		// Init local storage.
@@ -2315,7 +2308,7 @@ exit( "Done!\n" );
 				$term->Type( kTYPE_ENUM );
 				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
 				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
-				$term->Synonym( $component[ 'id' ], kTYPE_EXACT, TRUE );
+				$term->Synonym( $component[ 'syn' ], kTYPE_EXACT, TRUE );
 				$term->Commit( $theContainer );
 			}
 			else
@@ -2355,7 +2348,7 @@ exit( "Done!\n" );
 			// Display.
 			//
 			if( $doDisplay )
-				echo( "[$term] (kDEF_DOMAIN) "
+				echo( "[$term] (".$component[ 'syn' ].") "
 					 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
 					 .$node->Node()->getId()."}"
 					 ."\n" );
@@ -2407,336 +2400,169 @@ exit( "Done!\n" );
 		$node_index->save();
 		
 		//
-		// Get default namespace.
-		//
-		$ns
-			= CPersistentUnitObject::NewObject
-				( $theContainer, COntologyTermObject::HashIndex( '' ),
-				  kFLAG_STATE_ENCODED );
-		if( ! $ns )
-			throw new Exception
-				( 'Unable to find default namsepace [].' );						// !@! ==>
-		
-		//
 		// ENUM-OF.
 		//
-		$enum_of
-			= CPersistentUnitObject::NewObject
-				( $theContainer, COntologyTermObject::HashIndex( kPRED_ENUM_OF ),
-				  kFLAG_STATE_ENCODED );
-		if( ! $enum_of )
-			throw new Exception
-				( 'Unable to find enumeration predicate.' );					// !@! ==>
+		$enum_of = $_SESSION[ 'TERMS' ][ kPRED_ENUM_OF ];
 		
 		//
-		// Init local storage.
+		// Get default namespace.
 		//
+		$ns = $_SESSION[ 'TERMS' ][ '' ];
 		$len = strlen( (string) $ns ) + 1;
 		
 		//
-		// Categories.
+		// Handle kDEF_CATEGORY term.
 		//
-		$root_term = new COntologyTerm();
-		$root_term->NS( $ns );
-		$root_term->Code( substr( kDEF_CATEGORY, $len ) );
-		$root_term->Kind( kTYPE_NAMESPACE, TRUE );
-		$root_term->Kind( kTYPE_ROOT, TRUE );
-		$root_term->Name( 'Categories', kDEFAULT_LANGUAGE );
-		$root_term->Definition
-		( 'Default categories.', kDEFAULT_LANGUAGE );
-		$root_term->Commit( $theContainer );
-		$root_node = $term_index->findOne( kTAG_TERM, (string) $root_term );
-		if( $root_node === NULL )
+		if( ! array_key_exists( kDEF_CATEGORY, $_SESSION[ 'TERMS' ] ) )
 		{
-			$root_node = new COntologyNode( $container );
-			$root_node->Term( $root_term );
-			$root_node->Kind( kTYPE_ROOT, TRUE );
-			$root_node->Kind( kTYPE_MEASURE, TRUE );
-			$root_node->Commit( $container );
+			$term = $_SESSION[ 'TERMS' ][ kDEF_CATEGORY ] = new COntologyTerm();
+			$term->NS( $ns );
+			$term->Code( substr( kDEF_CATEGORY, $len ) );
+			$term->Kind( kTYPE_ROOT, TRUE );
+			$term->Kind( kTYPE_NAMESPACE, TRUE );
+			$term->Name( 'Categories', kDEFAULT_LANGUAGE );
+			$term->Definition( 'Default categories.', kDEFAULT_LANGUAGE );
+			$term->Synonym( kDEF_CATEGORY, kTYPE_EXACT, TRUE );
+			$term->Commit( $theContainer );
 		}
 		else
-			$root_node = new COntologyNode( $container, $root_node );
+			$term = $_SESSION[ 'TERMS' ][ kDEF_CATEGORY ];
+		//
+		// Handle node.
+		//
+		$node = $term_index->findOne( kTAG_TERM, (string) $term );
+		if( $node === NULL )
+		{
+			$node = new COntologyNode( $container );
+			$node->Term( $term );
+			$node->Kind( kTYPE_ROOT, TRUE );
+			$node->Kind( kTYPE_MEASURE, TRUE );
+			$node->Commit( $container );
+		}
+		else
+			$node = new COntologyNode( $container, $node );
+		$_SESSION[ 'NODES' ][ kDEF_CATEGORY ] = $node;
+		//
+		// Display.
+		//
 		if( $doDisplay )
-			echo( $root_term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$root_term] [".$root_node->Node()->getId()."]\n" );
+			echo( "[$term] (kDEF_CATEGORY) "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+		
+		//
+		// Change namespace.
+		//
+		$ns = $_SESSION[ 'TERMS' ][ kDEF_CATEGORY ];
+		$len = strlen( (string) $ns ) + 1;
 		
 		//
 		// Init local storage.
 		//
-		$len = strlen( (string) $root_term ) + 1;
+		$components = array
+		(
+			array( 'id'	=> kCATEGORY_PASSPORT,
+				   'syn' => 'kCATEGORY_PASSPORT',
+				   'nam' => 'Passport',
+				   'def' => 'Passport category, it is a generalised category comprising '
+				   		   .'all descriptors related to germplasm passport datasets.' ),
+			array( 'id'	=> kCATEGORY_CHAR,
+				   'syn' => 'kCATEGORY_CHAR',
+				   'nam' => 'Characterisation',
+				   'def' => 'Characterisation category, it is a generalised category '
+				   		   .'comprising all descriptors related to germplasm '
+				   		   .'characterisation datasets.' ),
+			array( 'id'	=> kCATEGORY_EVAL,
+				   'syn' => 'kCATEGORY_EVAL',
+				   'nam' => 'Evaluation',
+				   'def' => 'Evaluation category, it is a generalised category '
+				   		   .'comprising all descriptors related to germplasm evaluation '
+				   		   .'trial datasets.' ),
+			array( 'id'	=> kCATEGORY_ADMIN,
+				   'syn' => 'kCATEGORY_ADMIN',
+				   'nam' => 'Administrative units',
+				   'def' => 'Administrative units category, it is a generalised '
+				   		   .'category comprising all descriptors related to '
+				   		   .'administrative units.' ),
+			array( 'id'	=> kCATEGORY_GEO,
+				   'syn' => 'kCATEGORY_GEO',
+				   'nam' => 'Geographic units',
+				   'def' => 'Geographic units category, it is a generalised category '
+				   		   .'comprising all descriptors related to geographic units.' ),
+			array( 'id'	=> kCATEGORY_EPITHET,
+				   'syn' => 'kCATEGORY_EPITHET',
+				   'nam' => 'Epithet',
+				   'def' => 'Epithet category, it is a generalised category comprising all '
+						   .'descriptors related to epithets.' ),
+			array( 'id'	=> kCATEGORY_AUTH,
+				   'syn' => 'kCATEGORY_AUTH',
+				   'nam' => 'Authority',
+				   'def' => 'Authority category, it is a generalised category comprising '
+				   		   .'all descriptors related to authorities.' )
+		);
 		
 		//
-		// Passport.
+		// Load data.
 		//
-		$term = new COntologyTerm();
-		$term->NS( $root_term );
-		$term->Code( substr( kCATEGORY_PASSPORT, $len ) );
-		$term->Type( kTYPE_ENUM );
-		$term->Name( 'Passport', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'Passport category, it is a generalised category comprising all descriptors '
-		 .'related to germplasm passport datasets.',
-		  kDEFAULT_LANGUAGE );
-		$term->Commit( $theContainer );
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
+		foreach( $components as $component )
 		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_ENUMERATION, TRUE );
-			$node->Domain( $root_term, TRUE );
-			$node->Commit( $container );
+			//
+			// Handle term.
+			//
+			if( ! array_key_exists( $component[ 'id' ], $_SESSION[ 'TERMS' ] ) )
+			{
+				$term = $_SESSION[ 'TERMS' ][ $component[ 'id' ] ] = new COntologyTerm();
+				$term->NS( $ns );
+				$term->Code( substr( $component[ 'id' ], $len ) );
+				$term->Type( kTYPE_ENUM );
+				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
+				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
+				$term->Synonym( $component[ 'syn' ], kTYPE_EXACT, TRUE );
+				$term->Commit( $theContainer );
+			}
+			else
+				$term = $_SESSION[ 'TERMS' ][ $component[ 'id' ] ];
+			//
+			// Handle node.
+			//
+			$node = $term_index->findOne( kTAG_TERM, (string) $term );
+			if( $node === NULL )
+			{
+				$node = new COntologyNode( $container );
+				$node->Term( $term );
+				$node->Kind( kTYPE_ENUMERATION, TRUE );
+				$node->Domain( $_SESSION[ 'TERMS' ][ kDEF_DOMAIN ], TRUE );
+				$node->Commit( $container );
+			}
+			else
+				$node = new COntologyNode( $container, $node );
+			$_SESSION[ 'NODES' ][ $component[ 'id' ] ] = $node;
+			//
+			// Handle edge.
+			//
+			$id = Array();
+			$id[] = $_SESSION[ 'NODES' ][ $component[ 'id' ] ]->Node()->getId();
+			$id[] = (string) $enum_of;
+			$id[] = $_SESSION[ 'NODES' ][ kDEF_CATEGORY ]->Node()->getId();
+			$id = implode( '/', $id );
+			$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
+			if( $edge === NULL )
+			{
+				$edge = $_SESSION[ 'NODES' ][ $component[ 'id' ] ]
+					->RelateTo( $container, $enum_of,
+											$_SESSION[ 'NODES' ][ kDEF_CATEGORY ] );
+				$edge->Commit( $container );
+			}
+			//
+			// Display.
+			//
+			if( $doDisplay )
+				echo( "[$term] (".$component[ 'syn' ].") "
+					 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+					 .$node->Node()->getId()."}"
+					 ."\n" );
 		}
-		else
-			$node = new COntologyNode( $container, $node );
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $enum_of;
-		$id[] = $root_node->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $enum_of, $root_node );
-			$edge->Commit( $container );
-		}
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$root_node->Node()->getId()."]\n" );
-		
-		//
-		// Characterisation.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $root_term );
-		$term->Code( substr( kCATEGORY_CHAR, $len ) );
-		$term->Type( kTYPE_ENUM );
-		$term->Name( 'Characterisation', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'Characterisation category, it is a generalised category comprising all '
-		 .'descriptors related to germplasm characterisation datasets.',
-		  kDEFAULT_LANGUAGE );
-		$term->Commit( $theContainer );
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_ENUMERATION, TRUE );
-			$node->Domain( $root_term, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $enum_of;
-		$id[] = $root_node->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $enum_of, $root_node );
-			$edge->Commit( $container );
-		}
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$root_node->Node()->getId()."]\n" );
-		
-		//
-		// Evaluation.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $root_term );
-		$term->Code( substr( kCATEGORY_EVAL, $len ) );
-		$term->Type( kTYPE_ENUM );
-		$term->Name( 'Evaluation', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'Evaluation category, it is a generalised category comprising all '
-		 .'descriptors related to germplasm evaluation trial datasets.',
-		  kDEFAULT_LANGUAGE );
-		$term->Commit( $theContainer );
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_ENUMERATION, TRUE );
-			$node->Domain( $root_term, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $enum_of;
-		$id[] = $root_node->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $enum_of, $root_node );
-			$edge->Commit( $container );
-		}
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$root_node->Node()->getId()."]\n" );
-		
-		//
-		// Administrative units.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $root_term );
-		$term->Code( substr( kCATEGORY_ADMIN, $len ) );
-		$term->Type( kTYPE_ENUM );
-		$term->Name( 'Administrative units', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'Administrative units category, it is a generalised category comprising all '
-		 .'descriptors related to administrative units.',
-		  kDEFAULT_LANGUAGE );
-		$term->Commit( $theContainer );
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_ENUMERATION, TRUE );
-			$node->Domain( $root_term, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $enum_of;
-		$id[] = $root_node->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $enum_of, $root_node );
-			$edge->Commit( $container );
-		}
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$root_node->Node()->getId()."]\n" );
-		
-		//
-		// Geographic units.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $root_term );
-		$term->Code( substr( kCATEGORY_GEO, $len ) );
-		$term->Type( kTYPE_ENUM );
-		$term->Name( 'Geographic units', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'Geographic units category, it is a generalised category comprising all '
-		 .'descriptors related to geographic units.',
-		  kDEFAULT_LANGUAGE );
-		$term->Commit( $theContainer );
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_ENUMERATION, TRUE );
-			$node->Domain( $root_term, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $enum_of;
-		$id[] = $root_node->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $enum_of, $root_node );
-			$edge->Commit( $container );
-		}
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$root_node->Node()->getId()."]\n" );
-		
-		//
-		// Epithet.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $root_term );
-		$term->Code( substr( kCATEGORY_EPITHET, $len ) );
-		$term->Type( kTYPE_ENUM );
-		$term->Name( 'Epithet', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'Epithet category, it is a generalised category comprising all '
-		 .'descriptors related to epithets.',
-		  kDEFAULT_LANGUAGE );
-		$term->Commit( $theContainer );
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_ENUMERATION, TRUE );
-			$node->Domain( $root_term, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $enum_of;
-		$id[] = $root_node->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $enum_of, $root_node );
-			$edge->Commit( $container );
-		}
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$root_node->Node()->getId()."]\n" );
-		
-		//
-		// Authority.
-		//
-		$term = new COntologyTerm();
-		$term->NS( $root_term );
-		$term->Code( substr( kCATEGORY_AUTH, $len ) );
-		$term->Type( kTYPE_ENUM );
-		$term->Name( 'Authority', kDEFAULT_LANGUAGE );
-		$term->Definition
-		( 'Authority category, it is a generalised category comprising all '
-		 .'descriptors related to authorities.',
-		  kDEFAULT_LANGUAGE );
-		$term->Commit( $theContainer );
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_ENUMERATION, TRUE );
-			$node->Domain( $root_term, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $enum_of;
-		$id[] = $root_node->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $enum_of, $root_node );
-			$edge->Commit( $container );
-		}
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$root_node->Node()->getId()."]\n" );
 		
 	} // LoadDefaultCategories.
 
@@ -2855,7 +2681,7 @@ exit( "Done!\n" );
 				 ." [$ns] [".$root->Node()->getId()."]\n" );
 		
 		//
-		// CROP - Crop group codes.
+		// GROUP - Crop group codes.
 		//
 		$group_term = new COntologyTerm();
 		$group_term->NS( $ns );
@@ -3025,6 +2851,134 @@ EOT;
 			//
 			if( $doDisplay )
 				echo( "[$child_term] ==> [$parent_term]\n" );
+		
+		} $rs->Close();
+		
+		//
+		// CROP - Crop codes.
+		//
+		$crop_term = new COntologyTerm();
+		$crop_term->NS( $ns );
+		$crop_term->Code( 'ANNEX1-CROP' );
+		$crop_term->Name( 'Crop code', kDEFAULT_LANGUAGE );
+		$crop_term->Definition
+		( 'Annex 1 crop code.', kDEFAULT_LANGUAGE );
+		$crop_term->Type( kTYPE_ENUM );
+		$crop_term->Pattern( '[0-9]{1,2}', TRUE );
+		$crop_term->Commit( $theContainer );
+		$crop_node = $term_index->findOne( kTAG_TERM, (string) $crop_term );
+		if( $crop_node === NULL )
+		{
+			$crop_node = new COntologyNode( $container );
+			$crop_node->Term( $crop_term );
+			$crop_node->Type( kTYPE_ENUM, TRUE );
+			$crop_node->Kind( kTYPE_MEASURE, TRUE );
+			$crop_node->Commit( $container );
+		}
+		else
+			$crop_node = new COntologyNode( $container, $crop_node );
+		$id = Array();
+		$id[] = $crop_node->Node()->getId();
+		$id[] = (string) $is_a;
+		$id[] = $root->Node()->getId();
+		$id = implode( '/', $id );
+		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
+		if( $edge === NULL )
+		{
+			$edge = $crop_node->RelateTo( $container, $is_a, $root );
+			$edge->Commit( $container );
+		}
+		if( $doDisplay )
+			echo( $crop_term->Name( NULL, kDEFAULT_LANGUAGE )
+				 ." [$crop_term] [".$root->Node()->getId()."]\n" );
+		
+		//
+		// Load crop codes.
+		//
+		$query = <<<EOT
+SELECT
+	`Code_Annex1_Crops`.`Code`,
+	`Code_Annex1_Crops`.`Group`,
+	`Code_Annex1_Crops`.`Label`
+FROM
+	`Code_Annex1_Crops`
+ORDER BY
+	`Code_Annex1_Crops`.`Code`
+EOT;
+		$rs = $mysql->Execute( $query );
+		foreach( $rs as $record )
+		{
+			//
+			// Create region term.
+			//
+			$term = new COntologyTerm();
+			$term->NS( $crop_term );
+			$term->Code( $record[ 'Code' ] );
+			$term->Name( $record[ 'Label' ], kDEFAULT_LANGUAGE );
+			$term->Kind( kTYPE_ENUMERATION, TRUE );
+			$term->Type( kTYPE_ENUM );
+			$term->Commit( $theContainer );
+			$node = $term_index->findOne( kTAG_TERM, (string) $term );
+			if( $node === NULL )
+			{
+				$node = new COntologyNode( $container );
+				$node->Term( $term );
+				$node->Kind( kTYPE_ENUMERATION, TRUE );
+				$node->Commit( $container );
+			}
+			else
+				$node = new COntologyNode( $container, $node );
+			$id = Array();
+			$id[] = $node->Node()->getId();
+			$id[] = (string) $enum_of;
+			$id[] = $crop_node->Node()->getId();
+			$id = implode( '/', $id );
+			$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
+			if( $edge === NULL )
+			{
+				$edge = $node->RelateTo( $container, $enum_of, $crop_node );
+				$edge->Commit( $container );
+			}
+			
+			//
+			// Get group.
+			//
+			if( $record[ 'Group' ] !== NULL )
+			{
+				//
+				// Get parent term.
+				//
+				$parent_term
+					= new COntologyTerm
+						( $theContainer,
+						  COntologyTerm::HashIndex( $group_term
+												   .kTOKEN_NAMESPACE_SEPARATOR
+												   .$record[ 'Group' ] ) );
+				$parent_node = $term_index->findOne( kTAG_TERM, (string) $parent_term );
+				$parent_node = new COntologyNode( $container, $parent_node );
+												   
+				//
+				// Create child/parent edge.
+				//
+				$id = Array();
+				$id[] = $node->Node()->getId();
+				$id[] = (string) $part_of;
+				$id[] = $parent_node->Node()->getId();
+				$id = implode( '/', $id );
+				$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
+				if( $edge === NULL )
+				{
+					$edge = $node->RelateTo( $container, $part_of, $parent_node );
+					$edge->Commit( $container );
+				}
+			}
+			
+			//
+			// Display.
+			//
+			if( $doDisplay )
+				echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
+					 ." [$term] [".$node->Node()->getId()."]\n" );
 		
 		} $rs->Close();
 		
