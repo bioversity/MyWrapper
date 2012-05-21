@@ -2719,6 +2719,57 @@ exit( "Done!\n" );
 				 ." [$group_term] [".$root->Node()->getId()."]\n" );
 		
 		//
+		// Genus - Included genus in crop.
+		//
+		$genus_term = new COntologyTerm();
+		$genus_term->NS( $group_term );
+		$genus_term->Code( 'IncludedGenus' );
+		$genus_term->Kind( kTYPE_ATTRIBUTE, TRUE );
+		$genus_term->Cardinality( kCARD_ANY );
+		$genus_term->Name( 'Included genera', kDEFAULT_LANGUAGE );
+		$genus_term->Definition
+		( 'Genera included in crop definition.', kDEFAULT_LANGUAGE );
+		$genus_term->Type( kTYPE_STRING );
+		$genus_term->Commit( $theContainer );
+		if( $doDisplay )
+			echo( $genus_term->Name( NULL, kDEFAULT_LANGUAGE )
+				 ." [$genus_term]\n" );
+
+		//
+		// Species - Included species in crop.
+		//
+		$species_term = new COntologyTerm();
+		$species_term->NS( $group_term );
+		$species_term->Code( 'IncludedSpecies' );
+		$species_term->Kind( kTYPE_ATTRIBUTE, TRUE );
+		$species_term->Cardinality( kCARD_ANY );
+		$species_term->Name( 'Included species', kDEFAULT_LANGUAGE );
+		$species_term->Definition
+		( 'Species included in crop definition.', kDEFAULT_LANGUAGE );
+		$species_term->Type( kTYPE_STRING );
+		$species_term->Commit( $theContainer );
+		if( $doDisplay )
+			echo( $species_term->Name( NULL, kDEFAULT_LANGUAGE )
+				 ." [$species_term]\n" );
+
+		//
+		// Excluded species - Excluded species in crop.
+		//
+		$ex_species_term = new COntologyTerm();
+		$ex_species_term->NS( $group_term );
+		$ex_species_term->Code( 'ExcludedSpecies' );
+		$ex_species_term->Kind( kTYPE_ATTRIBUTE, TRUE );
+		$ex_species_term->Cardinality( kCARD_ANY );
+		$ex_species_term->Name( 'Excluded species', kDEFAULT_LANGUAGE );
+		$ex_species_term->Definition
+		( 'Species excluded in crop definition.', kDEFAULT_LANGUAGE );
+		$ex_species_term->Type( kTYPE_STRING );
+		$ex_species_term->Commit( $theContainer );
+		if( $doDisplay )
+			echo( $ex_species_term->Name( NULL, kDEFAULT_LANGUAGE )
+				 ." [$ex_species_term]\n" );
+
+		//
 		// Load crop group codes.
 		//
 		$query = <<<EOT
@@ -2899,10 +2950,17 @@ echo( "Need to add the genus and species to the terms!\n" );
 		$query = <<<EOT
 SELECT
 	`Code_Annex1_Crops`.`Code`,
+	`Code_Annex1_Crops`.`Label`,
 	`Code_Annex1_Crops`.`Group`,
-	`Code_Annex1_Crops`.`Label`
+	`Code_Annex1_Species`.`Genus`,
+	`Code_Annex1_Species`.`Species`,
+	`Code_Annex1_Species`.`ExcludedSpecies`,
+	`Code_Annex1_Species`.`Observations`,
+	`Code_Annex1_Species`.`Subgroup`
 FROM
 	`Code_Annex1_Crops`
+		LEFT JOIN `Code_Annex1_Species`
+			ON( `Code_Annex1_Species`.`Code` = `Code_Annex1_Crops`.`Code` )
 ORDER BY
 	`Code_Annex1_Crops`.`Code`
 EOT;
@@ -2910,14 +2968,40 @@ EOT;
 		foreach( $rs as $record )
 		{
 			//
-			// Create region term.
+			// Create crop term.
 			//
 			$term = new COntologyTerm();
 			$term->NS( $crop_term );
 			$term->Code( $record[ 'Code' ] );
 			$term->Name( $record[ 'Label' ], kDEFAULT_LANGUAGE );
+			if( $record[ 'Observations' ] !== NULL )
+				$term->Description( $record[ 'Observations' ], kDEFAULT_LANGUAGE );
 			$term->Kind( kTYPE_ENUMERATION, TRUE );
 			$term->Type( kTYPE_ENUM );
+			if( $record[ 'Genus' ] !== NULL )
+			{
+				$list = Array();
+				$tmp = explode( ',', $record[ 'Genus' ] );
+				foreach( $tmp as $element )
+					$list[] = trim( $element );
+				$term[ $genus_term->GID() ] = $list;
+			}
+			if( $record[ 'Species' ] !== NULL )
+			{
+				$list = Array();
+				$tmp = explode( ',', $record[ 'Species' ] );
+				foreach( $tmp as $element )
+					$list[] = trim( $element );
+				$term[ $species_term->GID() ] = $list;
+			}
+			if( $record[ 'ExcludedSpecies' ] !== NULL )
+			{
+				$list = Array();
+				$tmp = explode( ',', $record[ 'ExcludedSpecies' ] );
+				foreach( $tmp as $element )
+					$list[] = trim( $element );
+				$term[ $ex_species_term->GID() ] = $list;
+			}
 			$term->Commit( $theContainer );
 			$node = $term_index->findOne( kTAG_TERM, (string) $term );
 			if( $node === NULL )
