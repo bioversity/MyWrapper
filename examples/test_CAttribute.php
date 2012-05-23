@@ -87,6 +87,9 @@ try
 	echo( '<i>$result = CAttribute::ManageArrayOffset( $test, \'ManageArrayOffset\', 2, FALSE );</i><br>' );
 	$result = CAttribute::ManageArrayOffset( $test, 'ManageArrayOffset', 2, FALSE );
 	echo( "[$result] <pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$result = CAttribute::ManageArrayOffset( $test, \'ManageArrayOffset\', array( 3, 4 ), FALSE );</i><br>' );
+	$result = CAttribute::ManageArrayOffset( $test, 'ManageArrayOffset', array( 3, 4 ), FALSE );
+	echo( "[$result] <pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 
 	echo( '<i>$test = Array();</i><br>' );
@@ -105,6 +108,9 @@ try
 	echo( "[$result] <pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<i>$result = CAttribute::ManageArrayOffset( $test, \'ManageArrayOffset\', 2, FALSE );</i><br>' );
 	$result = CAttribute::ManageArrayOffset( $test, 'ManageArrayOffset', 2, FALSE );
+	echo( "[$result] <pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$result = CAttribute::ManageArrayOffset( $test, \'ManageArrayOffset\', array( 3, 4 ), FALSE );</i><br>' );
+	$result = CAttribute::ManageArrayOffset( $test, 'ManageArrayOffset', array( 3, 4 ), FALSE );
 	echo( "[$result] <pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	echo( '<hr>' );

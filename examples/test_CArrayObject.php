@@ -50,8 +50,8 @@ class MyTest extends CArrayObject
 														   $theOperation = NULL,
 														   $getOld = FALSE )
 	{
-		return $this->_ManageKindArrayOffset
-					( 'TEST2', kTAG_KIND, $theType, $theValue, $theOperation, $getOld );
+		return $this->_ManageTypedOffset
+					( 'TEST2', kTAG_KIND, kTAG_DATA, $theType, $theValue, $theOperation, $getOld );
 	}
 	public function test_ManageTypedArrayListOffset( $theIndex, $theType, $theData,
 													 $theOperation = NULL,

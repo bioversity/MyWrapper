@@ -174,12 +174,6 @@
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">mixed</span>
-										<a href="#_ManageKindArrayOffset" title="details" class="method-name">_ManageKindArrayOffset</a>
-											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIndex</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theData</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
-									</div>
-																<div class="method-definition">
-					<img src="../../media/images/Method.png" alt=" "/>
-											<span class="method-result">mixed</span>
 										<a href="#_ManageOffset" title="details" class="method-name">_ManageOffset</a>
 											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
 									</div>
@@ -194,6 +188,12 @@
 											<span class="method-result">mixed</span>
 										<a href="#_ManageTypedArrayOffset" title="details" class="method-name">_ManageTypedArrayOffset</a>
 											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theKind</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theType</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theData</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#_ManageTypedOffset" title="details" class="method-name">_ManageTypedOffset</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theMainOffset</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theTypeOffset</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theDataOffset</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theData</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
 									</div>
 											</div>
 		</div>
@@ -262,7 +262,7 @@
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedArrayOffset">CArrayObject::_ManageTypedArrayOffset()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageKindArrayOffset">CArrayObject::_ManageKindArrayOffset()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedOffset">CArrayObject::_ManageTypedOffset()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -317,7 +317,7 @@
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedArrayOffset">CArrayObject::_ManageTypedArrayOffset()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedArrayListOffset">CArrayObject::_ManageTypedArrayListOffset()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageKindArrayOffset">CArrayObject::_ManageKindArrayOffset()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedOffset">CArrayObject::_ManageTypedOffset()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetUnset">CArrayObject::offsetUnset()</a></li>
@@ -398,7 +398,7 @@
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedArrayOffset">CArrayObject::_ManageTypedArrayOffset()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedArrayListOffset">CArrayObject::_ManageTypedArrayListOffset()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageKindArrayOffset">CArrayObject::_ManageKindArrayOffset()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedOffset">CArrayObject::_ManageTypedOffset()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetSet">CArrayObject::offsetSet()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
@@ -500,27 +500,27 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ManageArrayOffset</span> (line <span class="line-number">333</span>)
+		<span class="method-title">_ManageArrayOffset</span> (line <span class="line-number">361</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage an array offset.</p>
-<p class="description"><p>This library implements a standard interface for managing object properties using  methods, this method extends the approach to offset members that are in the form of  arrays, in which it should be possible to cast the values to strings and these  strings should be unique within the list:</p><p><ul><li><strong>$theOffset</strong>: The offset to manage.</li><li><strong>$theValue</strong>: This parameter represents either the value to add, or the
-		index of the element to operate on:
-	 <ul><li><em>NULL</em>: This value indicates that we want to operate on all elements,
-			which means that we are either retrieving the full list or deleting it.</li><li><em>array</em>: This value indicates that we want to replace the whole list,
-			this will only be tested if the next parameter evaluates to <em>TRUE</em>.</li><li><em>other</em>: Any other type represents either the new value to be added or
-			the index to the value to be returned or deleted. <em>It must be possible to
-			cast this value to a string, this is what will be used to compare
-			elements</em>.</li></ul></li><li><strong>$theOperation</strong>: This parameter represents the operation to be performed,
-		it will be evaluated as a boolean and its scope depends on the value of the
-		previous parameter:
-	 <ul><li><em>NULL</em>: Return the element or list.</li><li><em>FALSE</em>: Delete the element or list.</li><li><em>TRUE</em>: Add the element or list. Note that with this value, if you
-			provide <em>NULL</em> in the previous parameter, it will be equivalent to
-			deleting the whole list.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
-	 <ul><li><em>TRUE</em>: Return the element or list <em>before</em> it was eventually
-			modified.</li><li><em>FALSE</em>: Return the element or list <em>after</em> it was eventually
-			modified.</li></ul></li></ul></p></p>
+<p class="description"><p>This method can be used to manage an array offset, this options involves setting,  retrieving and deleting elements of an offset which contains an array of values, this  method concentrates in managing the offset's elements, rather than  <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">managing</a> the offset itself.</p><p>The offset's array should be composed by elements that <em>must</em> be convertable to  strings: the string value represents the index of the element, which means that no  two elements can have the same string value.</p><p>When deleting elements, if the list becomes empty, the whole offset will be deleted.</p><p>The method accepts the following parameters:</p><p><ul><li><strong>$theOffset</strong>: The offset to manage.</li><li><strong>$theValue</strong>: This parameter represents the data element to be set, or the
+        index to the data element to be deleted or retrieved:
+     <ul><li><em>NULL</em>: This value is relevant only when retrieving and deleting: it
+            means that we want to retrieve or delete the whole list.</li><li><em>array</em>: This value indicates that we want to operate on a list of
+            values: the method will be recursed with these values using the other
+            provided parameters. An ArrayObject is not considered an array.</li><li><em>other</em>: Any other type represents either the new value to be added or
+            the index to the value to be returned or deleted. <em>It must be possible to
+            cast this value to a string, this is what will be used to compare
+            elements</em>.</li></ul></li><li><strong>$theOperation</strong>: This parameter represents the operation to be performed,
+        it will be evaluated as a boolean and its scope depends on the value of the
+        previous parameter:
+     <ul><li><em>NULL</em>: Return the element or list.</li><li><em>FALSE</em>: Delete the element or list.</li><li><em>TRUE</em>: Add the element or list. If you provided <em>NULL</em> as value,
+            the operation will do nothing.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
+     <ul><li><em>TRUE</em>: Return the element or list <em>before</em> it was eventually
+            modified.</li><li><em>FALSE</em>: Return the element or list <em>after</em> it was eventually
+            modified.</li></ul></li><li><strong>$useArray</strong>: If <em>TRUE</em> and the</li></ul></p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTerm.html#methodNode">COntologyTerm::Node()</a></li>
@@ -562,89 +562,17 @@
 		
 			
 	</div>
-<a name="method_ManageKindArrayOffset" id="_ManageKindArrayOffset"><!-- --></a>
+<a name="method_ManageOffset" id="_ManageOffset"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ManageKindArrayOffset</span> (line <span class="line-number">580</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Manage a kind array offset.</p>
-<p class="description"><p>This library implements a standard interface for managing object properties using  methods, this method extends the approach to offset members that are in the form of  arrays, in which each element is itself an array of two items:</p><p><ul><li><em>Kind</em>: This element represents the qualifier of the item, it provides a
-		type or qualification for the next element. It must be possible to cast this
-		value to a string. This element is defined by the second method parameter.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: This element represents the element data.</li></ul></p><p>No two elements of the list can share the same index. You may have one element  without index, this one may be considered the default element.</p><p>This method is intended for managing list elements rather than the list itself, for  the latter purpose use the offset management methods.</p><p>The parameters to this method are:</p><p><ul><li><strong>$theOffset</strong>: The main offset to manage.</li><li><strong>$theIndex</strong>: The offset representing the type of the element.</li><li><strong>$theType</strong>: This parameter represents the value of the index element of the
-        item, depending on the next parameter this value will be used for matching
-        items in the list:
-     <ul><li><em>NULL</em>: An empty type means that we are looking for the item lacking
-            the index element.</li><li><em>array</em>: If you provide an array, it means that you are operating on a
-            list of items: depending on the next parameter this will mean either
-            retrieving the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">data</a> elements of the items matching the
-            array, deleting these items, or adding/replacing the items; in this last
-            case, this means that the next parameter must also be an array and that each
-            of its elements will be associated to the corresponding index element.</li><li><em>other</em>: Any other value will be considered as the index to retrieve,
-            remove or add/replace. You <em>MUST</em> be able to cast this value to a
-            string.</li></ul></li><li><strong>$theData</strong>: This parameter represents the item's <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">data</a>
-        element, or the operation to be performed:
-     <ul><li><em>NULL</em>: This indicates that we want to retrieve the data of the item
-            with index matching the previous parameter.</li><li><em>FALSE</em>: This indicates that we want to remove the item matching the
-            index provided in the previous parameter.</li><li><em>other</em>: Any other value indicates that we want to add or replace the
-            <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">data</a> element of the item matching the previous parameter.
-            Note that if the previous parameter is an array, this one must also be an
-            array matching the latter's count.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
-     <ul><li><em>TRUE</em>: Return the element or list <em>before</em> it was eventually
-            modified.</li><li><em>FALSE</em>: Return the element or list <em>after</em> it was eventually
-            modified.</li></ul></li></ul></p></p>
-	<ul class="tags">
-				<li><span class="field">access:</span> protected</li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/CTerm.html#methodDefinition">CTerm::Definition()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/CTerm.html#methodDescription">CTerm::Description()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/CTerm.html#methodName">CTerm::Name()</a></li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetGet">CArrayObject::offsetGet()</a></li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetUnset">CArrayObject::offsetUnset()</a></li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetSet">CArrayObject::offsetSet()</a></li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">mixed</span>
-		<span class="method-name">
-			_ManageKindArrayOffset
-		</span>
-					(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIndex</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theData</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$theOffset</span><span class="var-description">: Offset.</span>			</li>
-					<li>
-				<span class="var-type">mixed</span>
-				<span class="var-name">$theIndex</span><span class="var-description">: Index offset.</span>			</li>
-					<li>
-				<span class="var-type">mixed</span>
-				<span class="var-name">$theType</span><span class="var-description">: Element type.</span>			</li>
-					<li>
-				<span class="var-type">mixed</span>
-				<span class="var-name">$theData</span><span class="var-description">: Element value.</span>			</li>
-					<li>
-				<span class="var-type">boolean</span>
-				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="method_ManageOffset" id="_ManageOffset"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ManageOffset</span> (line <span class="line-number">245</span>)
+		<span class="method-title">_ManageOffset</span> (line <span class="line-number">247</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage an offset.</p>
-<p class="description"><p>This library implements a standard interface for managing object properties using  methods, this method extends the approach to offset members:</p><p><ul><li><strong>$theOffset</strong>: The offset to manage.</li><li><strong>$theValue</strong>: The value or operation:
+<p class="description"><p>This method can be used as the framework for managing scalar attributes, it can be  used to add, retrieve and delete object attributes considered as scalars.</p><p>The method expects the following parameters:</p><p><ul><li><strong>$theOffset</strong>: The offset to manage.</li><li><strong>$theValue</strong>: The value or operation:
 	 <ul><li><em>NULL</em>: Return the offset's current value.</li><li><em>FALSE</em>: Delete the offset.</li><li><em>other</em>: Any other type represents the offset's new value.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
 	 <ul><li><em>TRUE</em>: Return the value of the offset <em>before</em> it was eventually
 			modified.</li><li><em>FALSE</em>: Return the value of the offset <em>after</em> it was eventually
@@ -731,11 +659,11 @@
 			
 	</div>
 <a name="method_ManageTypedArrayListOffset" id="_ManageTypedArrayListOffset"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ManageTypedArrayListOffset</span> (line <span class="line-number">1085</span>)
+		<span class="method-title">_ManageTypedArrayListOffset</span> (line <span class="line-number">1058</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -786,11 +714,11 @@
 			
 	</div>
 <a name="method_ManageTypedArrayOffset" id="_ManageTypedArrayOffset"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ManageTypedArrayOffset</span> (line <span class="line-number">898</span>)
+		<span class="method-title">_ManageTypedArrayOffset</span> (line <span class="line-number">871</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -838,6 +766,81 @@
 					<li>
 				<span class="var-type">mixed</span>
 				<span class="var-name">$theData</span><span class="var-description">: Item value.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_ManageTypedOffset" id="_ManageTypedOffset"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_ManageTypedOffset</span> (line <span class="line-number">607</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage a typed offset.</p>
+<p class="description"><p>A typed offset is structured as follows:</p><p><ul><li><em>Type</em>: This offset contains a scalar which determines the type or category
+		of the element. This offset may be omitted.</li><li><em>Data</em>: This offset contains the element data, in this method we treat it
+		as a scalar. This offset may not be omitted.</li></ul></p><p>No two elements of the list can share the same type or category. You may have only  one element without type or category, this one may be considered the default element.</p><p>The method accepts the following parameters:</p><p><ul><li><strong>$theMainOffset</strong>: The offset to manage.</li><li><strong>$theTypeOffset</strong>: The element's offset of the type or category.</li><li><strong>$theDataOffset</strong>: The element's offset of the data.</li><li><strong>$theType</strong>: This parameter represents the value of the index element of the
+		item, depending on the next parameter this value will be used for matching
+		items in the list:
+	 <ul><li><em>NULL</em>: An empty type means that we are looking for the item lacking
+			the index element.</li><li><em>array</em>: If you provide an array, it means that you are operating on a
+			list of items: depending on the next parameter this will mean either
+			retrieving the data elements of the items matching the array, deleting these
+			items, or adding/replacing the items; in this last case, this means that the
+			next parameter must also be an array and that each of its elements will be
+			associated to the corresponding index element.</li><li><em>other</em>: Any other value will be considered as the index to retrieve,
+			remove or add/replace. You <em>MUST</em> be able to cast this value to a
+			string.</li></ul></li><li><strong>$theData</strong>: This parameter represents the item's data element, or the
+		operation to be performed:
+	 <ul><li><em>NULL</em>: This indicates that we want to retrieve the data of the item
+			with index matching the previous parameter.</li><li><em>FALSE</em>: This indicates that we want to remove the item matching the
+			index provided in the previous parameter.</li><li><em>other</em>: Any other value indicates that we want to add or replace the
+			data element of the item matching the previous parameter. Note that if the
+			previous parameter is an array, this one must also be an array matching the
+			latter's count.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
+	 <ul><li><em>TRUE</em>: Return the element or list <em>before</em> it was eventually
+			modified.</li><li><em>FALSE</em>: Return the element or list <em>after</em> it was eventually
+			modified.</li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/CTerm.html#methodDefinition">CTerm::Definition()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/CTerm.html#methodDescription">CTerm::Description()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/CTerm.html#methodName">CTerm::Name()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetGet">CArrayObject::offsetGet()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetUnset">CArrayObject::offsetUnset()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetSet">CArrayObject::offsetSet()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			_ManageTypedOffset
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$theMainOffset</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theTypeOffset</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theDataOffset</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theData</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theMainOffset</span><span class="var-description">: Main offset.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theTypeOffset</span><span class="var-description">: Type offset.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theDataOffset</span><span class="var-description">: Data offset.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theType</span><span class="var-description">: Element type.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theData</span><span class="var-description">: Element value.</span>			</li>
 					<li>
 				<span class="var-type">boolean</span>
 				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
@@ -931,7 +934,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Tue, 22 May 2012 19:02:39 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Wed, 23 May 2012 20:24:13 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

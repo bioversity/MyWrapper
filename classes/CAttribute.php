@@ -20,6 +20,13 @@
  *======================================================================================*/
 
 /**
+ * Exceptions.
+ *
+ * This include file contains all exception class definitions.
+ */
+require_once( kPATH_LIBRARY_SOURCE."CException.php" );
+
+/**
  *	Attribute class.
  *
  * This class is a static methods holder that manage {@link ArrayObject ArrayObject} derived
@@ -50,7 +57,7 @@ class CAttribute
 
 /*=======================================================================================
  *																						*
- *								STATIC ATTRIBUTES INTERFACE								*
+ *							STATIC LOW-LEVEL ATTRIBUTES INTERFACE						*
  *																						*
  *======================================================================================*/
 
@@ -176,22 +183,28 @@ class CAttribute
 	 * method concentrates in managing the offset's elements, rather than
 	 * {@link ManageOffset() managing} the offset itself.
 	 *
-	 * Note that the elements of the array must be scalars and must be convertable to a
-	 * string.
+	 * The offset's array should be composed by elements that <i>must</i> be convertable to
+	 * strings: the string value represents the index of the element, which means that no
+	 * two elements can have the same string value.
+	 *
+	 * When deleting elements, if the list becomes empty, the whole offset will be deleted.
 	 *
 	 * The method accepts the following parameters:
 	 *
 	 * <ul>
 	 *	<li><b>&$theReference</b>: Reference to an array or ArrayObject derived instance.
 	 *	<li><b>$theOffset</b>: The offset to manage.
-	 *	<li><b>$theValue</b>: This parameter represents either the value to add, or the
-	 *		index of the element to retrieve or delete:
+	 *	<li><b>$theValue</b>: This parameter represents the data element to be set, or the
+	 *		index to the data element to be deleted or retrieved:
 	 *	 <ul>
 	 *		<li><i>NULL</i>: This value indicates that we want to operate on all elements,
 	 *			which means, depending on the next parameter, that we are either retrieving
-	 *			or deleting the full list.
-	 *		<li><i>array</i>: This value indicates that we want to replace the whole list,
-	 *			this will only be tested if the next parameter evaluates to <i>TRUE</i>.
+	 *			or deleting the full list. If the operation parameter is <i>TRUE</i>, no
+	 *			element will be added.
+	 *		<li><i>array</i>: This value indicates that we want to operate on a list of
+	 *			values: each of these values will be handled according to the operation
+	 *			parameter. Note that an ArrayObject is not considered in this scenario, so
+	 *			in that case you would have to convert it to an array.
 	 *		<li><i>other</i>: Any other type represents either the new value to be added or
 	 *			the index to the value to be returned or deleted. <i>It must be possible to
 	 *			cast this value to a string, this is what will be used to compare
@@ -203,7 +216,8 @@ class CAttribute
 	 *	 <ul>
 	 *		<li><i>NULL</i>: Return the element or list.
 	 *		<li><i>FALSE</i>: Delete the element or list.
-	 *		<li><i>TRUE</i>: Add the element or list.
+	 *		<li><i>TRUE</i>: Add the element or list. If you provided <i>NULL</i> as value,
+	 *			the operation will do nothing.
 	 *	 </ul>
 	 *	<li><b>$getOld</b>: Determines what the method will return:
 	 *	 <ul>
@@ -232,9 +246,26 @@ class CAttribute
 		 || ($theReference instanceof ArrayObject) )
 		{
 			//
-			// Normalise offset.
+			// Handle multiple parameters:
 			//
-			$theOffset = (string) $theOffset;
+			if( is_array( $theValue ) )
+			{
+				//
+				// Init local storage.
+				//
+				$result = Array();
+				
+				//
+				// Iterate values.
+				//
+				foreach( $theValue as $value )
+					$result[]
+						= self::ManageArrayOffset
+							( $theReference, $theOffset, $value, $theOperation, $getOld );
+				
+				return $result;														// ==>
+			
+			} // Multiple parameters.
 			
 			//
 			// Save current list.
@@ -252,7 +283,6 @@ class CAttribute
 			// Index list.
 			//
 			if( ($list !== NULL)			// Has data
-			 && (! is_array( $theValue ))	// and not adding list
 			 && ($theValue !== NULL) )		// and not deleting list.
 			{
 				//
@@ -285,11 +315,11 @@ class CAttribute
 				//
 				// Handle list.
 				//
-				if( is_array( $theValue ) )
+				if( $theValue === NULL )
 					return $list;													// ==>
 				
 				//
-				// Handle data.
+				// Handle element.
 				//
 				if( $list !== NULL )
 					return $save;													// ==>
@@ -299,7 +329,7 @@ class CAttribute
 			} // Return value.
 			
 			//
-			// Delete element or list.
+			// Delete data.
 			//
 			if( $theOperation === FALSE )
 			{
@@ -368,22 +398,17 @@ class CAttribute
 				
 				return NULL;														// ==>
 			
-			} // Delete list or element.
+			} // Delete data.
 			
 			//
-			// Replace list.
+			// Skip operation.
 			//
-			if( is_array( $theValue ) )
+			if( $theValue === NULL )
 			{
-				//
-				// Set list.
-				//
-				$theReference[ $theOffset ] = $theValue;
-				
 				if( $getOld )
 					return $list;													// ==>
 				
-				return $theValue;													// ==>
+				return NULL;														// ==>
 			
 			} // Replace list.
 			

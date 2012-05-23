@@ -164,14 +164,15 @@ class CTerm extends CCodedUnitObject
 	 * @access public
 	 * @return string
 	 *
-	 * @uses _ManageKindArrayOffset
+	 * @uses _ManageTypedOffset
 	 *
 	 * @see kTAG_NAME kTAG_LANGUAGE
 	 */
 	public function Name( $theValue = NULL, $theLanguage = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageKindArrayOffset
-			( kTAG_NAME, kTAG_LANGUAGE, $theLanguage, $theValue, $getOld );			// ==>
+		return $this->_ManageTypedOffset
+			( kTAG_NAME, kTAG_LANGUAGE, kTAG_DATA,
+			  $theLanguage, $theValue, $getOld );									// ==>
 
 	} // Name.
 
@@ -222,14 +223,15 @@ class CTerm extends CCodedUnitObject
 	 * @access public
 	 * @return string
 	 *
-	 * @uses _ManageKindArrayOffset
+	 * @uses _ManageTypedOffset
 	 *
 	 * @see kTAG_DEFINITION kTAG_LANGUAGE
 	 */
 	public function Definition( $theValue = NULL, $theLanguage = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageKindArrayOffset
-			( kTAG_DEFINITION, kTAG_LANGUAGE, $theLanguage, $theValue, $getOld );	// ==>
+		return $this->_ManageTypedOffset
+			( kTAG_DEFINITION, kTAG_LANGUAGE, kTAG_DATA,
+			  $theLanguage, $theValue, $getOld );									// ==>
 
 	} // Definition.
 
@@ -280,14 +282,15 @@ class CTerm extends CCodedUnitObject
 	 * @access public
 	 * @return string
 	 *
-	 * @uses _ManageKindArrayOffset
+	 * @uses _ManageTypedOffset
 	 *
 	 * @see kTAG_DESCRIPTION kTAG_LANGUAGE
 	 */
 	public function Description( $theValue = NULL, $theLanguage = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageKindArrayOffset
-			( kTAG_DESCRIPTION, kTAG_LANGUAGE, $theLanguage, $theValue, $getOld );	// ==>
+		return $this->_ManageTypedOffset
+			( kTAG_DESCRIPTION, kTAG_LANGUAGE, kTAG_DATA,
+			  $theLanguage, $theValue, $getOld );									// ==>
 
 	} // Description.
 
@@ -663,8 +666,8 @@ class CTerm extends CCodedUnitObject
 	 */
 	public function Source( $theValue = NULL, $theType = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageKindArrayOffset
-			( kTAG_SOURCE, kTAG_KIND, $theType, $theValue, $getOld );				// ==>
+		return $this->_ManageTypedOffset
+			( kTAG_SOURCE, kTAG_KIND, kTAG_DATA, $theType, $theValue, $getOld );	// ==>
 
 	} // Source.
 
