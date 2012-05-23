@@ -750,7 +750,9 @@ class CAttribute
 	 *	<li><b>$theTypeOffset</b>: The element's offset of the type or category.
 	 *	<li><b>$theDataOffset</b>: The element's offset of the data.
 	 *	<li><b>$theType</b>: This parameter represents the index to the offset's elements.
-	 *	<li><b>$theData</b>: This parameter represents the element's data element.
+	 *	<li><b>$theData</b>: This parameter represents the element's data element, if
+	 *		<i>NULL</i> or omitted, it implieas that the operation applies to the whole list
+	 *		of data elements.
 	 *	<li><b>$theOperation</b>: This parameter represents the operation to be performed,
 	 *		it will be evaluated as a boolean and its scope depends on the value of the
 	 *		previous parameter:
@@ -784,7 +786,7 @@ class CAttribute
 	 */
 	static function ManageTypedArrayOffset( &$theReference,
 											 $theMainOffset, $theTypeOffset, $theDataOffset,
-											 $theType, $theData,
+											 $theType, $theData = NULL,
 											 $theOperation = NULL, $getOld = FALSE )
 	{
 		//
@@ -851,9 +853,18 @@ class CAttribute
 				// Handle data.
 				//
 				if( $save !== NULL )
-					return ManageArrayOffset
+				{
+					//
+					// Return list.
+					//
+					if( $theData === NULL )
+						return $save[ $theDataOffset ];								// ==>
+
+					return CAttribute::ManageArrayOffset
 						( $save, $theDataOffset, $theData,
 						  $theOperation, $getOld );									// ==>
+				
+				} // Has data.
 				
 				return NULL;														// ==>
 			
@@ -872,43 +883,86 @@ class CAttribute
 					//
 					// Remove element.
 					//
-					$result= ManageArrayOffset( $save, $theDataOffset, $theData,
-												$theOperation, $getOld );
+					if( $theData !== NULL )
+					{
+						//
+						// Remove data element.
+						//
+						$result= CAttribute::ManageArrayOffset
+							( $save, $theDataOffset, $theData, $theOperation, $getOld );
+						
+						//
+						// Update category.
+						//
+						if( ( is_array( $save )
+						   && array_key_exists( $theDataOffset, $save ) )
+						 || ( ($save instanceof ArrayObject)
+						   && $save->offsetExists( $theDataOffset ) ) )
+							$theReference[ $theMainOffset ][ $idx ] = $save;
+						
+						//
+						// Delete category.
+						//
+						else
+						{
+							//
+							// Remove from list.
+							//
+							unset( $list[ $idx ] );
+							
+							//
+							// Update offset.
+							//
+							if( count( $list ) )
+								$theReference[ $theMainOffset ] = array_values( $list );
+							
+							//
+							// Delete offset.
+							//
+							else
+							{
+								if( is_array( $theReference ) )
+									unset( $theReference[ $theMainOffset ] );
+								else
+									$theReference->offsetUnset( $theMainOffset );
+							
+							} // No elements left.
+						
+						} // No more data elements.
+						
+						return $result;												// ==>
+					
+					} // Provided data element.
 					
 					//
-					// Replace category.
+					// Remove from list.
 					//
-					if( ( is_array( $save )
-					   && array_key_exists( $theDataOffset, $save ) )
-					 || ( ($save instanceof ArrayObject)
-					   && $save->offsetExists( $theDataOffset ) ) )
-						$theReference[ $theMainOffset ][ $theDataOffset ] = $save;
+					unset( $list[ $idx ] );
 					
 					//
-					// Remove category.
+					// Update offset.
+					//
+					if( count( $list ) )
+						$theReference[ $theMainOffset ] = array_values( $list );
+					
+					//
+					// Delete offset.
 					//
 					else
 					{
-						//
-						// Remove category.
-						//
-						unset( $theReference[ $theMainOffset ][ $idx ] );
-						
-						//
-						// Delete offset.
-						//
-						if( ! count( $theReference[ $theMainOffset ] ) )
-						{
-							if( is_array( $theReference ) )
-								unset( $theReference[ $theMainOffset ] );
-							else
-								$theReference->offsetUnset( $theMainOffset );
-						
-						} // No elements left.
+						if( is_array( $theReference ) )
+							unset( $theReference[ $theMainOffset ] );
+						else
+							$theReference->offsetUnset( $theMainOffset );
 					
-					} // Empty category.
+					} // No elements left.
+					
+					if( $getOld )
+						return $save;												// ==>
 				
-				} // Matched 
+				} // Matched.
+				
+				return NULL;														// ==>
 			
 			} // Delete matched element.
 			
@@ -923,7 +977,7 @@ class CAttribute
 				$save = Array();
 				if( $theType !== NULL )
 					$save[ $theTypeOffset ] = $theType;
-				$result= ManageArrayOffset
+				$result= CAttribute::ManageArrayOffset
 							( $save, $theDataOffset, $theData, $theOperation, $getOld );
 				
 				//
@@ -946,7 +1000,7 @@ class CAttribute
 				$save = Array();
 				if( $theType !== NULL )
 					$save[ $theTypeOffset ] = $theType;
-				$result= ManageArrayOffset
+				$result= CAttribute::ManageArrayOffset
 							( $save, $theDataOffset, $theData, $theOperation, $getOld );
 				
 				//
@@ -971,7 +1025,7 @@ class CAttribute
 				//
 				// Update element.
 				//
-				$result= ManageArrayOffset
+				$result= CAttribute::ManageArrayOffset
 							( $save, $theDataOffset, $theData, $theOperation, $getOld );
 				
 				//

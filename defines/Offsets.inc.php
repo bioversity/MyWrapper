@@ -608,5 +608,37 @@ define( "kCARD_1",								':1' );
  */
 define( "kCARD_ANY",							':ANY' );
 
+/*=======================================================================================
+ *	DEFAULT TAXON ATTRIBUTES															*
+ *======================================================================================*/
+
+/**
+ * Rank.
+ *
+ * This is the tag that defines a taxon rank.
+ */
+define( "kTAXON_RANK",							':RANK' );
+
+/**
+ * Epithet.
+ *
+ * This is the tag that defines a taxon epithet.
+ */
+define( "kTAXON_EPITHET",						':EPITH' );
+
+/**
+ * Authority.
+ *
+ * This is the tag that defines a taxon authority.
+ */
+define( "kTAXON_AUTHORITY",						':AUTH' );
+
+/**
+ * Taxon.
+ *
+ * This is the tag that defines a full taxon epithet.
+ */
+define( "kTAXON_NAME",							':TAXON' );
+
 
 ?>

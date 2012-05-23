@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class CAttribute</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name"><img src="../../media/images/Class_logo.png"
+														alt=" Class"
+														title=" Class"
+														style="vertical-align: middle"> CAttribute</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Attribute class.</p>
+<p class="description"><p>This class is a static methods holder that manage ArrayObject derived  class attributes.</p><p>The main function of this class is to concentrate all attribute management methods in a  static class which can be used for managing the attributes of any class derived from an  ArrayObject.</p><p>The class features the following methods:</p><p><ul><li><em><a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">ManageOffset</a></em>: Manage a scalar offset.</li><li><em><a href="../../MyWrapper/Framework/CAttribute.html#methodManageArrayOffset">ManageArrayOffset</a></em>: Manage elements of an array
+        offset.</li><li><em><a href="../../MyWrapper/Framework/CAttribute.html#methodManageTypedOffset">ManageTypedOffset</a></em>: Manage elements of an array
+        offset by category or type.</li><li><em><a href="../../MyWrapper/Framework/CAttribute.html#methodManageTypedArrayOffset">ManageTypedArrayOffset</a></em>: Manage elements of
+        an array offset by category or type and data element value.</li></ul></p></p>
+		<p class="notes">
+			Located in <a class="field" href="_classes---CAttribute.php.html">/classes/CAttribute.php</a> (line <span class="field">47</span>)
+		</p>
+		
+				
+		<pre></pre>
+	
+			</div>
+</div>
+
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+												<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+												<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">mixed</span>
+										<a href="#ManageArrayOffset" title="details" class="method-name">ManageArrayOffset</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theReference</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theOperation</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">mixed</span>
+										<a href="#ManageOffset" title="details" class="method-name">ManageOffset</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theReference</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">mixed</span>
+										<a href="#ManageTypedArrayOffset" title="details" class="method-name">ManageTypedArrayOffset</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theReference</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theMainOffset</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theTypeOffset</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theDataOffset</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theType</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theData</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theOperation</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">mixed</span>
+										<a href="#ManageTypedOffset" title="details" class="method-name">ManageTypedOffset</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theReference</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theMainOffset</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theTypeOffset</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theDataOffset</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theData</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																																															</div>
+		</div>
+	</div>		
+
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+													<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+<a name="methodManageArrayOffset" id="ManageArrayOffset"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static ManageArrayOffset</span> (line <span class="line-number">224</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage an array offset.</p>
+<p class="description"><p>This method can be used to manage an array offset, this options involves setting,  retrieving and deleting elements of an offset which contains an array of values, this  method concentrates in managing the offset's elements, rather than  <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">managing</a> the offset itself.</p><p>Note that the elements of the array must be scalars and must be convertable to a  string.</p><p>The method accepts the following parameters:</p><p><ul><li><strong>&amp;$theReference</strong>: Reference to an array or ArrayObject derived instance.</li><li><strong>$theOffset</strong>: The offset to manage.</li><li><strong>$theValue</strong>: This parameter represents either the value to add, or the
+        index of the element to retrieve or delete:
+     <ul><li><em>NULL</em>: This value indicates that we want to operate on all elements,
+            which means, depending on the next parameter, that we are either retrieving
+            or deleting the full list.</li><li><em>array</em>: This value indicates that we want to replace the whole list,
+            this will only be tested if the next parameter evaluates to <em>TRUE</em>.</li><li><em>other</em>: Any other type represents either the new value to be added or
+            the index to the value to be returned or deleted. <em>It must be possible to
+            cast this value to a string, this is what will be used to compare
+            elements</em>.</li></ul></li><li><strong>$theOperation</strong>: This parameter represents the operation to be performed,
+        it will be evaluated as a boolean and its scope depends on the value of the
+        previous parameter:
+     <ul><li><em>NULL</em>: Return the element or list.</li><li><em>FALSE</em>: Delete the element or list.</li><li><em>TRUE</em>: Add the element or list.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
+     <ul><li><em>TRUE</em>: Return the value <em>before</em> it was eventually modified.</li><li><em>FALSE</em>: Return the value <em>after</em> it was eventually modified.</li></ul></li></ul></p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			ManageArrayOffset
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theReference</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theOperation</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theReference</span><span class="var-description">: Object reference.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theOffset</span><span class="var-description">: Offset.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Value to manage.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theOperation</span><span class="var-description">: Operation to perform.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodManageOffset" id="ManageOffset"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static ManageOffset</span> (line <span class="line-number">97</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage a scalar offset.</p>
+<p class="description"><p>This method can be used to manage a scalar offset, this options involves setting,  retrieving and deleting an offset of the provided array or ArrayObject.</p><p>The method accepts the following parameters:</p><p><ul><li><strong>&amp;$theReference</strong>: Reference to an array or ArrayObject derived instance.</li><li><strong>$theOffset</strong>: The offset to manage.</li><li><strong>$theValue</strong>: The value or operation:
+	 <ul><li><em>NULL</em>: Return the offset's current value.</li><li><em>FALSE</em>: Delete the offset.</li><li><em>other</em>: Any other type represents the offset's new value.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
+	 <ul><li><em>TRUE</em>: Return the value of the offset <em>before</em> it was eventually
+			modified.</li><li><em>FALSE</em>: Return the value of the offset <em>after</em> it was eventually
+			modified.</li></ul></li></ul></p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			ManageOffset
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theReference</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theReference</span><span class="var-description">: Object reference.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theOffset</span><span class="var-description">: Offset.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Value or operation.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodManageTypedArrayOffset" id="ManageTypedArrayOffset"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static ManageTypedArrayOffset</span> (line <span class="line-number">785</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage a typed array offset.</p>
+<p class="description"><p>A typed array offset is structured as follows:</p><p><ul><li><em>Type</em>: This offset contains a scalar which determined the type or category
+		of the element. This offset may be omitted.</li><li><em>Data</em>: This offset contains the element data as an array of data elements,
+		these elements are handled by the <a href="../../MyWrapper/Framework/CAttribute.html#methodManageArrayOffset">ManageArrayOffset</a>
+        method.</li></ul></p><p>No two elements may share the same type or category and all data elements within a  category must be unique.</p><p>The method accepts the following parameters:</p><p><ul><li><strong>&amp;$theReference</strong>: Reference to an array or ArrayObject derived instance.</li><li><strong>$theMainOffset</strong>: The offset to manage.</li><li><strong>$theTypeOffset</strong>: The element's offset of the type or category.</li><li><strong>$theDataOffset</strong>: The element's offset of the data.</li><li><strong>$theType</strong>: This parameter represents the index to the offset's elements.</li><li><strong>$theData</strong>: This parameter represents the element's data element.</li><li><strong>$theOperation</strong>: This parameter represents the operation to be performed,
+        it will be evaluated as a boolean and its scope depends on the value of the
+        previous parameter:
+     <ul><li><em>NULL</em>: Return the element or list.</li><li><em>FALSE</em>: Delete the element or list.</li><li><em>TRUE</em>: Add the element or list.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
+     <ul><li><em>TRUE</em>: Return the value of the offset <em>before</em> it was eventually
+            modified.</li><li><em>FALSE</em>: Return the value of the offset <em>after</em> it was eventually
+            modified.</li></ul></li></ul></p><p>The method will return the matched element's value of the data offset.</p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			ManageTypedArrayOffset
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theReference</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theMainOffset</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theTypeOffset</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theDataOffset</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theType</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theData</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theOperation</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theReference</span><span class="var-description">: Object reference.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theMainOffset</span><span class="var-description">: Main offset.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theTypeOffset</span><span class="var-description">: Type offset.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theDataOffset</span><span class="var-description">: Data offset.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theType</span><span class="var-description">: Type.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theData</span><span class="var-description">: Data or operation.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theOperation</span><span class="var-description">: Operation to perform.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodManageTypedOffset" id="ManageTypedOffset"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static ManageTypedOffset</span> (line <span class="line-number">504</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage a typed offset.</p>
+<p class="description"><p>A typed offset is structured as follows:</p><p><ul><li><em>Type</em>: This offset contains a scalar which determined the type or category
+		of the element. This offset may be omitted.</li><li><em>Data</em>: This offset contains the element data, in this method we treat it
+		as a scalar. This offset may not be omitted.</li></ul></p><p>No two elements may share the same type or category.</p><p>The method accepts the following parameters:</p><p><ul><li><strong>&amp;$theReference</strong>: Reference to an array or ArrayObject derived instance.</li><li><strong>$theMainOffset</strong>: The offset to manage.</li><li><strong>$theTypeOffset</strong>: The element's offset of the type or category.</li><li><strong>$theDataOffset</strong>: The element's offset of the data.</li><li><strong>$theType</strong>: This parameter represents the value of the index element of the
+		item, depending on the next parameter this value will be used for matching
+		items in the list:
+	 <ul><li><em>NULL</em>: An empty type means that we are looking for the item lacking
+			the index element.</li><li><em>array</em>: If you provide an array, it means that you are operating on a
+			list of items: depending on the next parameter this will mean either
+			retrieving the data elements of the items matching the array, deleting these
+			items, or adding/replacing the items; in this lastcase, this means that the
+			next parameter must also be an array and that each of its elements will be
+			associated to the corresponding index element.</li><li><em>other</em>: Any other value will be considered as the index to retrieve,
+			remove or add/replace. You <em>MUST</em> be able to cast this value to a
+			string.</li></ul></li><li><strong>$theData</strong>: This parameter represents the item's data element, or the
+		operation to be performed:
+	 <ul><li><em>NULL</em>: This indicates that we want to retrieve the data of the item
+			with index matching the previous parameter.</li><li><em>FALSE</em>: This indicates that we want to remove the item matching the
+			index provided in the previous parameter.</li><li><em>other</em>: Any other value indicates that we want to add or replace the
+			data element of the item matching the previous parameter. Note that if the
+			previous parameter is an array, this one must also be an array matching the
+			latter's count.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
+	 <ul><li><em>TRUE</em>: Return the value of the offset <em>before</em> it was eventually
+			modified.</li><li><em>FALSE</em>: Return the value of the offset <em>after</em> it was eventually
+			modified.</li></ul></li></ul></p><p>The method will return the matched element's value of the data offset.</p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			ManageTypedOffset
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theReference</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theMainOffset</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theTypeOffset</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theDataOffset</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theData</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theReference</span><span class="var-description">: Object reference.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theMainOffset</span><span class="var-description">: Main offset.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theTypeOffset</span><span class="var-description">: Type offset.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theDataOffset</span><span class="var-description">: Data offset.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theType</span><span class="var-description">: Type.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theData</span><span class="var-description">: Data or operation.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+						
+		</div>
+	</div>
+
+	
+	<p class="notes" id="credit">
+		Documentation generated on Tue, 22 May 2012 19:02:39 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

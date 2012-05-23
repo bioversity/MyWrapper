@@ -1758,7 +1758,31 @@ exit( "Done!\n" );
 				   'def' => 'This term represents a reference to the valid object, there '
 				   		   .'are cases in which deleting an object is not an option, in '
 				   		   .'such cases the invalid or obsolete object points to the valid '
-				   		   .'object through this term.' )
+				   		   .'object through this term.' ),
+			array( 'id'	=> kTAXON_RANK,
+				   'syn' => 'kTAXON_RANK',
+				   'car' => 'kCARD_1',
+				   'typ' => 'kTYPE_ENUM',
+				   'nam' => 'Rank',
+				   'def' => 'This term represents a taxonomic rank.' ),
+			array( 'id'	=> kTAXON_EPITHET,
+				   'syn' => 'kTAXON_EPITHET',
+				   'car' => 'kCARD_1',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'Epithet',
+				   'def' => 'This term represents a taxon epithet.' ),
+			array( 'id'	=> kTAXON_AUTHORITY,
+				   'syn' => 'kTAXON_AUTHORITY',
+				   'car' => 'kCARD_1',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'Authority',
+				   'def' => 'This term represents a taxon name authority.' ),
+			array( 'id'	=> kTAXON_NAME,
+				   'syn' => 'kTAXON_NAME',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'Taxon',
+				   'def' => 'This term represents a full taxon epithet.' )
 		);
 		
 		//
