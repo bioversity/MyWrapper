@@ -186,7 +186,7 @@
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">mixed</span>
-										<a href="#_ManageTypedArrayOffset" title="details" class="method-name">_ManageTypedArrayOffset</a>
+										<a href="#_ManageTypedKindArrayOffset" title="details" class="method-name">_ManageTypedKindArrayOffset</a>
 											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theKind</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theType</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theData</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
 									</div>
 																<div class="method-definition">
@@ -259,7 +259,7 @@
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedArrayListOffset">CArrayObject::_ManageTypedArrayListOffset()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedArrayOffset">CArrayObject::_ManageTypedArrayOffset()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedKindArrayOffset">CArrayObject::_ManageTypedKindArrayOffset()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedOffset">CArrayObject::_ManageTypedOffset()</a></li>
@@ -315,7 +315,7 @@
 <p class="description"><p>This method should set the provided value corresponding to the provided offset.</p><p>This method is overloaded to prevent setting <em>NULL</em> values: if this is the case,  the method will <a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetUnset">delete</a> the offset.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedArrayOffset">CArrayObject::_ManageTypedArrayOffset()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedKindArrayOffset">CArrayObject::_ManageTypedKindArrayOffset()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedArrayListOffset">CArrayObject::_ManageTypedArrayListOffset()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedOffset">CArrayObject::_ManageTypedOffset()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></li>
@@ -396,7 +396,7 @@
 <p class="description"><p>This method should reset the value corresponding to the provided offset.</p><p>We overload this method to prevent notices on non-existing offsets.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedArrayOffset">CArrayObject::_ManageTypedArrayOffset()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedKindArrayOffset">CArrayObject::_ManageTypedKindArrayOffset()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedArrayListOffset">CArrayObject::_ManageTypedArrayListOffset()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedOffset">CArrayObject::_ManageTypedOffset()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></li>
@@ -713,12 +713,12 @@
 		
 			
 	</div>
-<a name="method_ManageTypedArrayOffset" id="_ManageTypedArrayOffset"><!-- --></a>
+<a name="method_ManageTypedKindArrayOffset" id="_ManageTypedKindArrayOffset"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ManageTypedArrayOffset</span> (line <span class="line-number">871</span>)
+		<span class="method-title">_ManageTypedKindArrayOffset</span> (line <span class="line-number">871</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -748,7 +748,7 @@
 	<div class="method-signature">
 		<span class="method-result">mixed</span>
 		<span class="method-name">
-			_ManageTypedArrayOffset
+			_ManageTypedKindArrayOffset
 		</span>
 					(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theKind</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theType</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theData</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
 			</div>
@@ -934,7 +934,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Wed, 23 May 2012 20:24:13 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 24 May 2012 19:38:43 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

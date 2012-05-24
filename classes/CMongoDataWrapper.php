@@ -332,8 +332,34 @@ class CMongoDataWrapper extends CDataWrapper
 		// Get query object.
 		//
 		if( array_key_exists( kAPI_DATA_QUERY, $_REQUEST ) )
-			$_REQUEST[ kAPI_DATA_QUERY ]
-				= new CMongoQuery( $_REQUEST[ kAPI_DATA_QUERY ] );
+		{
+			//
+			// Handle match.
+			//
+			if( $_REQUEST[ kAPI_OPERATION ] == kAPI_OP_MATCH )
+			{
+				//
+				// Create query array.
+				//
+				$list = Array();
+				foreach( $_REQUEST[ kAPI_DATA_QUERY ] as $query )
+					$list[] = new CMongoQuery( array( kOPERATOR_AND => array( $query ) ) );
+				
+				//
+				// Replace in request.
+				//
+				$_REQUEST[ kAPI_DATA_QUERY ] = $list;
+			
+			} // Match.
+			
+			//
+			// Handle other.
+			//
+			else
+				$_REQUEST[ kAPI_DATA_QUERY ]
+					= new CMongoQuery( $_REQUEST[ kAPI_DATA_QUERY ] );
+		
+		} // Has query.
 	
 	} // _FormatQuery.
 
@@ -631,53 +657,77 @@ class CMongoDataWrapper extends CDataWrapper
 		 && count( $_REQUEST[ kAPI_DATA_QUERY ] ) )
 		{
 			//
-			// Validate query.
+			// Handle match.
 			//
-			$_REQUEST[ kAPI_DATA_QUERY ]->Validate();
-
-			//
-			// Format query.
-			//
-			if( array_key_exists( kAPI_DATA_QUERY, $_REQUEST ) )
+			if( $_REQUEST[ kAPI_OPERATION ] == kAPI_OP_MATCH )
 			{
 				//
-				// Check container.
+				// Iterate queries.
 				//
-				if( array_key_exists( kAPI_CONTAINER, $_REQUEST ) )
+				foreach( $_REQUEST[ kAPI_DATA_QUERY ] as $query )
+					$query->Validate();
+			
+			} // Match query.
+			
+			//
+			// Other queries.
+			//
+			else
+				$_REQUEST[ kAPI_DATA_QUERY ]->Validate();
+			
+			//
+			// Check container.
+			//
+			if( array_key_exists( kAPI_CONTAINER, $_REQUEST ) )
+			{
+				//
+				// Correct container type.
+				//
+				if( $_REQUEST[ kAPI_CONTAINER ] instanceof MongoCollection )
 				{
 					//
-					// Correct container type.
+					// Convert match queries.
 					//
-					if( $_REQUEST[ kAPI_CONTAINER ] instanceof MongoCollection )
+					if( $_REQUEST[ kAPI_OPERATION ] == kAPI_OP_MATCH )
 					{
 						//
-						// Convert query.
+						// Iterate queries.
 						//
+						foreach( $_REQUEST[ kAPI_DATA_QUERY ] as $key => $value )
+							$_REQUEST[ kAPI_DATA_QUERY ][ $key ]
+								= $_REQUEST[ kAPI_DATA_QUERY ][ $key ]
+									->Export( new CMongoContainer
+										( $_REQUEST[ kAPI_CONTAINER ] ) );
+					
+					} // Match query.
+					
+					//
+					// Convert non-match query.
+					//
+					else
 						$_REQUEST[ kAPI_DATA_QUERY ]
 							= $_REQUEST[ kAPI_DATA_QUERY ]
 								->Export( new CMongoContainer
 									( $_REQUEST[ kAPI_CONTAINER ] ) );
-					
-					} // Supported container.
-					
-					else
-						throw new CException
-							( "Unsupported container type",
-							  kERROR_UNSUPPORTED,
-							  kMESSAGE_TYPE_ERROR,
-							  array( 'Container'
-							  	=> $_REQUEST[ kAPI_CONTAINER ] ) );				// !@! ==>
 				
-				} // Provided container.
+				} // Supported container.
 				
 				else
 					throw new CException
-						( "Missing container reference",
-						  kERROR_OPTION_MISSING,
+						( "Unsupported container type",
+						  kERROR_UNSUPPORTED,
 						  kMESSAGE_TYPE_ERROR,
-						  array( 'Parameter' => kAPI_CONTAINER ) );				// !@! ==>
-				
-			} // Still there.
+						  array( 'Container'
+							=> $_REQUEST[ kAPI_CONTAINER ] ) );					// !@! ==>
+			
+			} // Provided container.
+			
+			else
+				throw new CException
+					( "Missing container reference",
+					  kERROR_OPTION_MISSING,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Parameter' => kAPI_CONTAINER ) );					// !@! ==>
 		
 		} // Provided query.
 	
@@ -725,6 +775,10 @@ class CMongoDataWrapper extends CDataWrapper
 
 			case kAPI_OP_GET:
 				$this->_Handle_Get();
+				break;
+
+			case kAPI_OP_MATCH:
+				$this->_Handle_Match();
 				break;
 
 			case kAPI_OP_SET:
@@ -1113,36 +1167,188 @@ class CMongoDataWrapper extends CDataWrapper
 				} // No response option not set.
 				
 			} // Has results.
-			
-			//
-			// Handle not found.
-			//
-			else
-			{
-				//
-				// Set severity.
-				//
-				$this->_OffsetManage( kAPI_DATA_STATUS, kTAG_STATUS,
-									  kMESSAGE_TYPE_WARNING );
-				
-				//
-				// Set code.
-				//
-				$this->_OffsetManage( kAPI_DATA_STATUS, kTAG_CODE,
-									  kERROR_NOT_FOUND );
-				
-				//
-				// Set message.
-				//
-				$this->_OffsetManage( kAPI_DATA_STATUS, kTAG_DESCRIPTION,
-									  array( kTAG_TYPE => kTYPE_STRING,
-											 kTAG_LANGUAGE => 'en',
-											 kTAG_DATA => 'No objects found.' ) );
-			}
 		
 		} // Not COUNT option.
 	
 	} // _Handle_Get.
+
+	 
+	/*===================================================================================
+	 *	_Handle_Match																	*
+	 *==================================================================================*/
+
+	/**
+	 * Handle {@link kAPI_OP_GET Get} request.
+	 *
+	 * This method will handle the {@link kAPI_OP_GET kAPI_OP_GET} request, which
+	 * corresponds to the find Mongo query.
+	 *
+	 * @access protected
+	 */
+	protected function _Handle_Match()
+	{
+		//
+		// Handle query.
+		//
+		$queries = ( array_key_exists( kAPI_DATA_QUERY, $_REQUEST ) )
+				 ? $_REQUEST[ kAPI_DATA_QUERY ]
+				 : Array();
+		
+		//
+		// Handle fields.
+		//
+		$fields = ( array_key_exists( kAPI_DATA_FIELD, $_REQUEST ) )
+				? $_REQUEST[ kAPI_DATA_FIELD ]
+				: Array();
+		
+		//
+		// Handle sort.
+		//
+		$sort = ( array_key_exists( kAPI_DATA_SORT, $_REQUEST ) )
+			  ? $_REQUEST[ kAPI_DATA_SORT ]
+			  : Array();
+		
+		//
+		// Init affected count.
+		//
+		$this->_OffsetManage( kAPI_DATA_STATUS, kAPI_AFFECTED_COUNT, 0 );
+		
+		//
+		// Iterate queries.
+		//
+		foreach( $queries as $query )
+		{
+			//
+			// Get cursor.
+			//
+			$cursor = $_REQUEST[ kAPI_CONTAINER ]->find( $query, $fields );
+			
+			//
+			// Get total count.
+			//
+			$count = $cursor->count( FALSE );
+			if( $count )
+			{
+				//
+				// Set total count.
+				//
+				$this->_OffsetManage( kAPI_DATA_STATUS, kAPI_AFFECTED_COUNT, $count );
+				
+				//
+				// Continue if count option is not there.
+				//
+				if( (! array_key_exists( kAPI_DATA_OPTIONS, $_REQUEST ))
+				 || (! array_key_exists( kAPI_OPT_COUNT, $_REQUEST[ kAPI_DATA_OPTIONS ] ))
+				 || (! $_REQUEST[ kAPI_DATA_OPTIONS ][ kAPI_OPT_COUNT ]) )
+				{
+					//
+					// Set sort.
+					//
+					if( $sort )
+						$cursor->sort( $sort );
+					
+					//
+					// Set paging.
+					//
+					if( $this->offsetExists( kAPI_DATA_PAGING ) )
+					{
+						//
+						// Set paging.
+						//
+						$paging = $this->offsetGet( kAPI_DATA_PAGING );
+						$start = ( array_key_exists( kAPI_PAGE_START, $paging ) )
+							   ? (int) $paging[ kAPI_PAGE_START ]
+							   : 0;
+						$limit = ( array_key_exists( kAPI_PAGE_LIMIT, $paging ) )
+							   ? (int) $paging[ kAPI_PAGE_LIMIT ]
+							   : 0;
+						
+						//
+						// Position at start.
+						//
+						if( $start )
+							$cursor->skip( $start );
+						
+						//
+						// Set limit.
+						//
+						if( $limit )
+							$cursor->limit( $limit );
+						
+						//
+						// Set page count.
+						//
+						$pcount = $cursor->count( TRUE );
+						
+						//
+						// Update parameters.
+						//
+						$this->_OffsetManage( kAPI_DATA_PAGING, kAPI_PAGE_START, $start );
+						$this->_OffsetManage( kAPI_DATA_PAGING, kAPI_PAGE_LIMIT, $limit );
+						$this->_OffsetManage( kAPI_DATA_PAGING, kAPI_PAGE_COUNT, $pcount );
+					
+					} // Provided paging options.
+					
+					//
+					// Handle response.
+					//
+					if( (! array_key_exists( kAPI_OPT_NO_RESP, $_REQUEST ))
+					 || (! $_REQUEST[ kAPI_OPT_NO_RESP ]) )
+					{
+						//
+						// Handle excluded identifier.
+						// By default the returned array is indexed by ID...
+						//
+						if( array_key_exists( kTAG_LID, $fields )
+						 && (! $fields[ kTAG_LID ]) )
+						{
+							//
+							// Collect results.
+							//
+							$result = Array();
+							foreach( $cursor as $data )
+								$result[] = $data;
+						
+						} // Excluded identifier.
+						
+						//
+						// Result has identifier.
+						//
+						else
+//							$result = iterator_to_array( $cursor );
+						{
+							$result = Array();
+							foreach( $cursor as $element )
+								$result[] = $element;
+						}
+						
+						//
+						// Handle options.
+						//
+						if( array_key_exists( kAPI_DATA_OPTIONS, $_REQUEST ) )
+							$this->_HandleOptions( $result );
+			
+						//
+						// Serialise response.
+						//
+						CDataType::SerialiseObject( $result );
+						
+						//
+						// Copy to response.
+						//
+						$this->offsetSet( kAPI_DATA_RESPONSE, $result );
+					
+					} // No response option not set.
+				
+				} // Not COUNT option.
+				
+				break;														// =>
+			
+			} // Matched.
+		
+		} // Iterating queries.
+	
+	} // _Handle_Match.
 
 	 
 	/*===================================================================================

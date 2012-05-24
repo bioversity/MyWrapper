@@ -98,6 +98,9 @@ class CDataWrapperClient extends CWrapperClient
 	 * <ul>
 	 *	<li><i>{@link kAPI_OP_COUNT kAPI_OP_COUNT}</i>: COUNT web-service operation, used to
 	 *		return the total number of elements satisfying a query.
+	 *	<li><i>{@link kAPI_OP_MATCH kAPI_OP_MATCH}</i>: This operation is equivalent to a
+	 *		read query, except that it will try to match one {@link kAPI_DATA_QUERY query}
+	 *		clause at the time and will return a result on the first match.
 	 *	<li><i>{@link kAPI_OP_GET kAPI_OP_GET}</i>: GET web-service operation, used to
 	 *		retrieve objects from the data store.
 	 *	<li><i>{@link kAPI_OP_SET kAPI_OP_SET}</i>: SET web-service operation, used to
@@ -139,6 +142,7 @@ class CDataWrapperClient extends CWrapperClient
 			switch( $theValue )
 			{
 				case kAPI_OP_COUNT:
+				case kAPI_OP_MATCH:
 				case kAPI_OP_GET:
 				case kAPI_OP_SET:
 				case kAPI_OP_UPDATE:

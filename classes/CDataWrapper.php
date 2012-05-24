@@ -133,6 +133,9 @@ require_once( kPATH_LIBRARY_SOURCE."CDataWrapper.inc.php" );
  *		is an integer indicating the total number of elements satisfying the provided
  *		{@link kAPI_DATA_QUERY query}. This number is not to be confused with the page
  *		element {@link kAPI_PAGE_COUNT count} described further.
+ *	<li><i>{@link kAPI_OP_MATCH kAPI_OP_MATCH}</i>: This operation is equivalent to a read
+ *		query, except that it will try to match one {@link kAPI_DATA_QUERY query} clause at
+ *		the time and will return a result on the first match.
  *	<li><i>{@link kAPI_OP_GET kAPI_OP_GET}</i>: This operation is equivalent to a read
  *		query, it requests a list of objects satisfying the provided
  *		{@link kAPI_DATA_QUERY query}.
@@ -324,7 +327,7 @@ class CDataWrapper extends CWrapper
 	 * @uses _FormatObject()
 	 * @uses _FormatOptions()
 	 */
-	protected function _FormatRequest()	
+	protected function _FormatRequest()
 	{
 		//
 		// Call parent method.
@@ -835,6 +838,7 @@ class CDataWrapper extends CWrapper
 				break;
 
 			case kAPI_OP_GET:
+			case kAPI_OP_MATCH:
 			case kAPI_OP_COUNT:
 				
 				//
@@ -1125,6 +1129,16 @@ class CDataWrapper extends CWrapper
 			 .'number of elements satisfying the provided query ['
 			.kAPI_DATA_QUERY
 			.'].';
+		
+		//
+		// Add kAPI_OP_MATCH.
+		//
+		$theList[ kAPI_OP_MATCH ]
+			= 'This operation is equivalent to a read query, it requests a list of objects '
+			.'satisfying the provided query ['
+			.kAPI_DATA_QUERY
+			.'], except that in this case each query clause is executed separately until '
+			.'there is the first match.';
 		
 		//
 		// Add kAPI_OP_GET.

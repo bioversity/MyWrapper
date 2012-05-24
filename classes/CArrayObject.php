@@ -802,7 +802,7 @@ class CArrayObject extends ArrayObject
 
 	 
 	/*===================================================================================
-	 *	_ManageTypedArrayOffset															*
+	 *	_ManageTypedKindArrayOffset															*
 	 *==================================================================================*/
 
 	/**
@@ -868,7 +868,7 @@ class CArrayObject extends ArrayObject
 	 * @uses offsetSet()
 	 * @uses offsetUnset()
 	 */
-	protected function _ManageTypedArrayOffset( $theOffset,
+	protected function _ManageTypedKindArrayOffset( $theOffset,
 												$theKind, $theType,
 												$theData = NULL, $getOld = FALSE )
 	{
@@ -999,7 +999,7 @@ class CArrayObject extends ArrayObject
 		
 		return $theData;															// ==>
 	
-	} // _ManageTypedArrayOffset.
+	} // _ManageTypedKindArrayOffset.
 
 	 
 	/*===================================================================================

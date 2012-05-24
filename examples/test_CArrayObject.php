@@ -39,11 +39,27 @@ require_once( kPATH_LIBRARY_SOURCE."CArrayObject.php" );
 //
 class MyTest extends CArrayObject
 {
-	public function test_ManageArrayOffset( $theValue = NULL,
-											$theOperation = NULL,
-											$getOld = FALSE )
+	public function test_ManageOffset( $theOffset, $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageArrayOffset( 'TEST1', $theValue, $theOperation, $getOld );
+		return $this->_ManageOffset( $theOffset, $theValue, $getOld );
+	}
+
+	public function test_ManageArrayOffset( $theOffset, $theValue = NULL,
+													    $theOperation = NULL,
+													    $getOld = FALSE )
+	{
+		return $this->_ManageArrayOffset( $theOffset, $theValue,
+													  $theOperation,
+													  $getOld );
+	}
+	
+	public function test_ManageTypedOffset( $theMainOffset, $theTypeOffset, $theDataOffset,
+											 $theType = NULL, $theData = NULL,
+											 $getOld = FALSE )
+	{
+		return $this->_ManageTypedOffset( $theMainOffset, $theTypeOffset, $theDataOffset,
+										  $theType, $theData,
+										  $getOld );
 	}
 
 	public function test_ManageTypedArrayOffset( $theType, $theValue = NULL,
@@ -227,77 +243,71 @@ try
 	echo( '<h3>Array management function</h3>' );
 	
 	$test = new MyTest();
-	echo( '<i>$test = new MyTest();</i><br>' );
-	$found = $test->test_ManageArrayOffset( 1, TRUE );
-	echo( '<i>$found = $test->test_ManageArrayOffset( 1, TRUE );</i><br>' );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
+
+	echo( '<h4>_ManageOffset</i></h4>' );
+	echo( '<i>$result = $test->test_ManageOffset( \'ManageOffset\', 3, FALSE );</i><br>' );
+	$result = $test->test_ManageOffset( 'ManageOffset', 3, FALSE );
+	echo( "[$result] <pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$result = $test->test_ManageOffset( \'ManageOffset\', 4, TRUE );</i><br>' );
+	$result = $test->test_ManageOffset( 'ManageOffset', 4, TRUE );
+	echo( "[$result] <pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$result = $test->test_ManageOffset( \'ManageOffset\' );</i><br>' );
+	$result = $test->test_ManageOffset( 'ManageOffset' );
+	echo( "<pre>" ); print_r( $result ); echo( '</pre>' );
+	echo( '<i>$result = $test->test_ManageOffset( \'ManageOffset\', FALSE );</i><br>' );
+	$result = $test->test_ManageOffset( 'ManageOffset', FALSE );
+	echo( "[$result] <pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
-	
-	$found = $test->test_ManageArrayOffset( 2, TRUE, TRUE );
-	echo( '<i>$found = $test->test_ManageArrayOffset( 2, TRUE, TRUE );</i><br>' );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
+
+	echo( '<h4>_ManageArrayOffset</i></h4>' );
+	echo( '<i>$result = $test->test_ManageArrayOffset( \'ManageArrayOffset\', 3, TRUE, FALSE );</i><br>' );
+	$result = $test->test_ManageArrayOffset( 'ManageArrayOffset', 3, TRUE, FALSE );
+	echo( "[$result] <pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$result = $test->test_ManageArrayOffset( \'ManageArrayOffset\', 4, TRUE, TRUE );</i><br>' );
+	$result = $test->test_ManageArrayOffset( 'ManageArrayOffset', 4, TRUE, TRUE );
+	echo( "[$result] <pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$result = $test->test_ManageArrayOffset( \'ManageArrayOffset\', array( 1, 2 ), TRUE );</i><br>' );
+	$result = $test->test_ManageArrayOffset( 'ManageArrayOffset', array( 1, 2 ), TRUE );
+	echo( "[$result] <pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$result = $test->test_ManageArrayOffset( \'ManageArrayOffset\', 1, FALSE );</i><br>' );
+	$result = $test->test_ManageArrayOffset( 'ManageArrayOffset', 1, FALSE );
+	echo( "[$result] <pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$result = $test->test_ManageArrayOffset( \'ManageArrayOffset\', 2, FALSE );</i><br>' );
+	$result = $test->test_ManageArrayOffset( 'ManageArrayOffset', 2, FALSE );
+	echo( "[$result] <pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$result = $test->test_ManageArrayOffset( \'ManageArrayOffset\', array( 3, 4 ), FALSE );</i><br>' );
+	$result = $test->test_ManageArrayOffset( 'ManageArrayOffset', array( 3, 4 ), FALSE );
+	echo( "[$result] <pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
-	
-	$found = $test->test_ManageArrayOffset( '1', TRUE, TRUE );
-	echo( '<i>$found = $test->test_ManageArrayOffset( \'1\', TRUE, TRUE );</i><br>' );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	$found = $test->test_ManageArrayOffset( '2', FALSE, TRUE );
-	echo( '<i>$found = $test->test_ManageArrayOffset( \'2\', FALSE, TRUE );</i><br>' );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	$found = $test->test_ManageArrayOffset();
-	echo( '<i>$found = $test->test_ManageArrayOffset();</i><br>' );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	$found = $test->test_ManageArrayOffset( 1 );
-	echo( '<i>$found = $test->test_ManageArrayOffset( 1 );</i><br>' );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	$found = $test->test_ManageArrayOffset( 'Uno', TRUE );
-	echo( '<i>$found = $test->test_ManageArrayOffset( \'Uno\', TRUE );</i><br>' );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	$found = $test->test_ManageArrayOffset( 'Due', TRUE );
-	echo( '<i>$found = $test->test_ManageArrayOffset( \'Due\', TRUE );</i><br>' );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	$found = $test->test_ManageArrayOffset( 'Due', TRUE );
-	echo( '<i>$found = $test->test_ManageArrayOffset( \'Due\', TRUE );</i><br>' );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	$found = $test->test_ManageArrayOffset( 'Uno', FALSE, TRUE );
-	echo( '<i>$found = $test->test_ManageArrayOffset( \'Uno\', FALSE, TRUE );</i><br>' );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	$found = $test->test_ManageArrayOffset( 'Due', FALSE, TRUE );
-	echo( '<i>$found = $test->test_ManageArrayOffset( \'Due\', FALSE, TRUE );</i><br>' );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	$found = $test->test_ManageArrayOffset( '1', FALSE, TRUE );
-	echo( '<i>$found = $test->test_ManageArrayOffset( \'1\', FALSE, TRUE );</i><br>' );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( 'Found<pre>' ); print_r( $found ); echo( '</pre>' );
+
+	echo( '<h4>_ManageTypedOffset</i></h4>' );
+	echo( '<i>$result = $test->test_ManageTypedOffset( \'ManageTypedOffset\', \'TYPE\', \'DATA\', \'type1\', \'data1\' );</i><br>' );
+	$result = $test->test_ManageTypedOffset( 'ManageTypedOffset', 'TYPE', 'DATA', 'type1', 'data1' );
+	echo( "[$result] <pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$result = $test->test_ManageTypedOffset( \'ManageTypedOffset\', \'TYPE\', \'DATA\', \'type2\', \'data2\' );</i><br>' );
+	$result = $test->test_ManageTypedOffset( 'ManageTypedOffset', 'TYPE', 'DATA', 'type2', 'data2' );
+	echo( "[$result] <pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$result = $test->test_ManageTypedOffset( \'ManageTypedOffset\', \'TYPE\', \'DATA\', NULL, \'data3\' );</i><br>' );
+	$result = $test->test_ManageTypedOffset( 'ManageTypedOffset', 'TYPE', 'DATA', NULL, 'data3' );
+	echo( "[$result] <pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$result = $test->test_ManageTypedOffset( \'ManageTypedOffset\', \'TYPE\', \'DATA\', NULL, \'NEW3\' );</i><br>' );
+	$result = $test->test_ManageTypedOffset( 'ManageTypedOffset', 'TYPE', 'DATA', NULL, 'NEW3' );
+	echo( "[$result] <pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$result = $test->test_ManageTypedOffset( \'ManageTypedOffset\', \'TYPE\', \'DATA\', NULL, FALSE );</i><br>' );
+	$result = $test->test_ManageTypedOffset( 'ManageTypedOffset', 'TYPE', 'DATA', NULL, FALSE );
+	echo( "[$result] <pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$result = $test->test_ManageTypedOffset( \'ManageTypedOffset\', \'TYPE\', \'DATA\', \'type1\', FALSE );</i><br>' );
+	$result = $test->test_ManageTypedOffset( 'ManageTypedOffset', 'TYPE', 'DATA', 'type1', FALSE );
+	echo( "[$result] <pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$result = $test->test_ManageTypedOffset( \'ManageTypedOffset\', \'TYPE\', \'DATA\', \'type2\', FALSE );</i><br>' );
+	$result = $test->test_ManageTypedOffset( 'ManageTypedOffset', 'TYPE', 'DATA', 'type2', FALSE );
+	echo( "[$result] <pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$result = $test->test_ManageTypedOffset( \'ManageTypedOffset\', \'TYPE\', \'DATA\', array( \'type1\', \'type2\' ), array( \'data1\', \'$data2\' ) );</i><br>' );
+	$result = $test->test_ManageTypedOffset( 'ManageTypedOffset', 'TYPE', 'DATA', array( 'type1', 'type2' ), array( 'data1', '$data2' ) );
+	echo( "[$result] <pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$result = $test->test_ManageTypedOffset( \'ManageTypedOffset\', \'TYPE\', \'DATA\', array( \'type1\', \'type2\' ), array( FALSE, FALSE ) );</i><br>' );
+	$result = $test->test_ManageTypedOffset( 'ManageTypedOffset', 'TYPE', 'DATA', array( 'type1', 'type2' ), array( FALSE, FALSE ) );
+	echo( "[$result] <pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
 	//

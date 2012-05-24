@@ -81,7 +81,9 @@
                 if <em>OFF</em> all selected elements will be deleted.</li><li><em><a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OPT_SINGLE">kAPI_OPT_SINGLE</a></em>: First element, this option</li></ul></li></ul></li></ul></p><p>The new operations declared in this class are:</p><p><ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OP_COUNT">kAPI_OP_COUNT</a></em>: This operation requests a count, which
         is an integer indicating the total number of elements satisfying the provided
         <a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_QUERY">query</a>. This number is not to be confused with the page
-        element <a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_PAGE_COUNT">count</a> described further.</li><li><em><a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OP_GET">kAPI_OP_GET</a></em>: This operation is equivalent to a read
+        element <a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_PAGE_COUNT">count</a> described further.</li><li><em><a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OP_MATCH">kAPI_OP_MATCH</a></em>: This operation is equivalent to a read
+        query, except that it will try to match one <a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_QUERY">query</a> clause at
+        the time and will return a result on the first match.</li><li><em><a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OP_GET">kAPI_OP_GET</a></em>: This operation is equivalent to a read
         query, it requests a list of objects satisfying the provided
         <a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_QUERY">query</a>.</li><li><em><a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OP_SET">kAPI_OP_SET</a></em>: This operation is equivalent to an insert
         for new objects or an update for existing objects, the operation will replace the
@@ -106,7 +108,7 @@
             actual number of returned objects, this number will be either equal or smaller
             than the provided <a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_PAGE_LIMIT">limit</a> parameter.</li></ul></li></ul></p></p>
 		<p class="notes">
-			Located in <a class="field" href="_classes---CDataWrapper.php.html">/classes/CDataWrapper.php</a> (line <span class="field">180</span>)
+			Located in <a class="field" href="_classes---CDataWrapper.php.html">/classes/CDataWrapper.php</a> (line <span class="field">183</span>)
 		</p>
 		
 				
@@ -366,11 +368,11 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="method_DecodeParameter" id="_DecodeParameter"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_DecodeParameter</span> (line <span class="line-number">1223</span>)
+		<span class="method-title">_DecodeParameter</span> (line <span class="line-number">1237</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -407,11 +409,11 @@
 			
 	</div>
 <a name="method_FormatFields" id="_FormatFields"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FormatFields</span> (line <span class="line-number">712</span>)
+		<span class="method-title">_FormatFields</span> (line <span class="line-number">715</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -436,11 +438,11 @@
 			
 	</div>
 <a name="method_FormatObject" id="_FormatObject"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FormatObject</span> (line <span class="line-number">748</span>)
+		<span class="method-title">_FormatObject</span> (line <span class="line-number">751</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -473,11 +475,11 @@
 				</ul>
 	</div>
 <a name="method_FormatOptions" id="_FormatOptions"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FormatOptions</span> (line <span class="line-number">766</span>)
+		<span class="method-title">_FormatOptions</span> (line <span class="line-number">769</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -502,11 +504,11 @@
 			
 	</div>
 <a name="method_FormatQuery" id="_FormatQuery"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FormatQuery</span> (line <span class="line-number">694</span>)
+		<span class="method-title">_FormatQuery</span> (line <span class="line-number">697</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -539,11 +541,11 @@
 				</ul>
 	</div>
 <a name="method_FormatRequest" id="_FormatRequest"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FormatRequest</span> (line <span class="line-number">327</span>)
+		<span class="method-title">_FormatRequest</span> (line <span class="line-number">330</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -588,11 +590,11 @@
 				</ul>
 	</div>
 <a name="method_FormatSort" id="_FormatSort"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FormatSort</span> (line <span class="line-number">730</span>)
+		<span class="method-title">_FormatSort</span> (line <span class="line-number">733</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -617,11 +619,11 @@
 			
 	</div>
 <a name="method_Handle_ListOp" id="_Handle_ListOp"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_ListOp</span> (line <span class="line-number">1113</span>)
+		<span class="method-title">_Handle_ListOp</span> (line <span class="line-number">1117</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -669,11 +671,11 @@
 				</ul>
 	</div>
 <a name="method_InitOptions" id="_InitOptions"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_InitOptions</span> (line <span class="line-number">205</span>)
+		<span class="method-title">_InitOptions</span> (line <span class="line-number">208</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -710,11 +712,11 @@
 				</ul>
 	</div>
 <a name="method_ParseContainer" id="_ParseContainer"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseContainer</span> (line <span class="line-number">505</span>)
+		<span class="method-title">_ParseContainer</span> (line <span class="line-number">508</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -739,11 +741,11 @@
 			
 	</div>
 <a name="method_ParseDatabase" id="_ParseDatabase"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseDatabase</span> (line <span class="line-number">475</span>)
+		<span class="method-title">_ParseDatabase</span> (line <span class="line-number">478</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -768,11 +770,11 @@
 			
 	</div>
 <a name="method_ParseFields" id="_ParseFields"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseFields</span> (line <span class="line-number">565</span>)
+		<span class="method-title">_ParseFields</span> (line <span class="line-number">568</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -797,11 +799,11 @@
 			
 	</div>
 <a name="method_ParseObject" id="_ParseObject"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseObject</span> (line <span class="line-number">625</span>)
+		<span class="method-title">_ParseObject</span> (line <span class="line-number">628</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -826,11 +828,11 @@
 			
 	</div>
 <a name="method_ParseOptions" id="_ParseOptions"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseOptions</span> (line <span class="line-number">655</span>)
+		<span class="method-title">_ParseOptions</span> (line <span class="line-number">658</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -855,11 +857,11 @@
 			
 	</div>
 <a name="method_ParsePaging" id="_ParsePaging"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParsePaging</span> (line <span class="line-number">408</span>)
+		<span class="method-title">_ParsePaging</span> (line <span class="line-number">411</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -884,11 +886,11 @@
 			
 	</div>
 <a name="method_ParseQuery" id="_ParseQuery"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseQuery</span> (line <span class="line-number">535</span>)
+		<span class="method-title">_ParseQuery</span> (line <span class="line-number">538</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -913,11 +915,11 @@
 			
 	</div>
 <a name="method_ParseRequest" id="_ParseRequest"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseRequest</span> (line <span class="line-number">286</span>)
+		<span class="method-title">_ParseRequest</span> (line <span class="line-number">289</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -967,11 +969,11 @@
 				</ul>
 	</div>
 <a name="method_ParseSort" id="_ParseSort"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseSort</span> (line <span class="line-number">595</span>)
+		<span class="method-title">_ParseSort</span> (line <span class="line-number">598</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -996,11 +998,11 @@
 			
 	</div>
 <a name="method_ValidateFields" id="_ValidateFields"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateFields</span> (line <span class="line-number">972</span>)
+		<span class="method-title">_ValidateFields</span> (line <span class="line-number">976</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1024,11 +1026,11 @@
 			
 	</div>
 <a name="method_ValidateOperation" id="_ValidateOperation"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateOperation</span> (line <span class="line-number">793</span>)
+		<span class="method-title">_ValidateOperation</span> (line <span class="line-number">796</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1070,11 +1072,11 @@
 				</ul>
 	</div>
 <a name="method_ValidateOptions" id="_ValidateOptions"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateOptions</span> (line <span class="line-number">1061</span>)
+		<span class="method-title">_ValidateOptions</span> (line <span class="line-number">1065</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1098,11 +1100,11 @@
 			
 	</div>
 <a name="method_ValidateRequest" id="_ValidateRequest"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateRequest</span> (line <span class="line-number">367</span>)
+		<span class="method-title">_ValidateRequest</span> (line <span class="line-number">370</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1143,11 +1145,11 @@
 				</ul>
 	</div>
 <a name="method_ValidateSort" id="_ValidateSort"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateSort</span> (line <span class="line-number">1016</span>)
+		<span class="method-title">_ValidateSort</span> (line <span class="line-number">1020</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1250,7 +1252,7 @@
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedArrayListOffset">CArrayObject::_ManageTypedArrayListOffset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedArrayOffset">CArrayObject::_ManageTypedArrayOffset()</a></span><br>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedKindArrayOffset">CArrayObject::_ManageTypedKindArrayOffset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedOffset">CArrayObject::_ManageTypedOffset()</a></span><br>
 											</blockquote>
@@ -1339,7 +1341,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Wed, 23 May 2012 20:24:17 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 24 May 2012 19:38:47 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

@@ -227,7 +227,7 @@ try
 	//
 	// Instantiate empty object.
 	//
-	echo( '<i>$test = new CQuery();</i><br>' );
+	echo( '<i>$test = new CQuery();</i><br>' ); 
 	$test = new CQuery();
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );

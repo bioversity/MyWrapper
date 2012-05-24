@@ -118,14 +118,14 @@ class CCodedUnitObject extends CRelatedUnitObject
 	 * Manage code.
 	 *
 	 * This method can be used to handle the object's {@link kTAG_CODE code}, it uses the
-	 * standard accessor {@link _ManageOffset() method} to manage the
+	 * standard accessor {@link CAttribute::ManageOffset() method} to manage the
 	 * {@link kTAG_CODE offset}.
 	 *
 	 * The code represents the object's {@link _index() identifier}.
 	 *
 	 * For a more in-depth reference of this method, please consult the
-	 * {@link _ManageOffset() _ManageOffset} method, in which the first parameter will be
-	 * the constant {@link kTAG_CODE kTAG_CODE}.
+	 * {@link CAttribute::ManageOffset() ManageOffset} method, in which the first parameter
+	 * will be the constant {@link kTAG_CODE kTAG_CODE}.
 	 *
 	 * @param mixed					$theValue			Value.
 	 * @param boolean				$getOld				TRUE get old value.

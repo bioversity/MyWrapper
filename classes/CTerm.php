@@ -561,7 +561,7 @@ class CTerm extends CCodedUnitObject
 	 *	 </ul>
 	 * </ul>
 	 *
-	 * The method makes use of a protected {@link _ManageTypedArrayOffset() method}, please
+	 * The method makes use of a protected {@link _ManageTypedKindArrayOffset() method}, please
 	 * consult its reference for more information.
 	 *
 	 * @param mixed					$theKind			Image kind.
@@ -574,7 +574,7 @@ class CTerm extends CCodedUnitObject
 	 */
 	public function Image( $theKind, $theType, $theData = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageTypedArrayOffset
+		return $this->_ManageTypedKindArrayOffset
 			( kOFFSET_IMAGE, $theKind, $theType, $theData, $getOld );				// ==>
 
 	} // Image.

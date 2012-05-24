@@ -33,6 +33,14 @@
 define( "kAPI_OP_COUNT",			'@COUNT' );
 
 /**
+ * MATCH web-service.
+ *
+ * This is the tag that represents the MATCH web-service operation, used to retrieve objects
+ * based on a list of possible matches.
+ */
+define( "kAPI_OP_MATCH",			'@MATCH' );
+
+/**
  * GET web-service.
  *
  * This is the tag that represents the GET web-service operation, used to retrieve objects

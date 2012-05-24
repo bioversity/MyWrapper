@@ -927,8 +927,7 @@ try
 	 *	BATCH INSERT																	*
 	 *==================================================================================*/
 	echo( '<h4>Batch insert</h4>' );
-	echo( '<i>The last <b>Found</b> section shows what we set '
-		 .'in the database.</i><br>' );
+	echo( '<i>The response section shows what we set in the database.</i><br>' );
 	//
 	// Select objects.
 	//
@@ -2070,6 +2069,276 @@ try
 		$params[] = kAPI_DATA_SORT.'='.urlencode( $sort_enc );		// Sort.
 		$params[] = kAPI_PAGE_START.'='.'0';						// Page start.
 		$params[] = kAPI_PAGE_LIMIT.'='.'3';						// Page limits.
+		//
+		// Build request.
+		//
+		$request = $url.'?'.implode( '&', $params );
+		//
+		// Get response.
+		//
+		$response = file_get_contents( $request );
+		//
+		// Decode response.
+		//
+		$decoded = json_decode( $response, TRUE );
+	}
+	//
+	// Display.
+	//
+	echo( kSTYLE_TABLE_PRE );
+	if( ! kUSE_CLIENT )
+	{
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'Query:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $query ); echo( '</pre>'.kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+	}
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	if( ! kUSE_CLIENT )
+	{
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.htmlspecialchars( $response ).kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+	}
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	/*===================================================================================
+	 *	MATCH																			*
+	 *==================================================================================*/
+	echo( '<h4>Match</h4>' );
+	echo( '<i>Should return Milko record by matching name.</i><br>' );
+	//
+	// Build query.
+	//
+	$query = array
+	(
+		array
+		(
+			kAPI_QUERY_SUBJECT => 'Name',
+			kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
+			kAPI_QUERY_TYPE => kTYPE_STRING,
+			kAPI_QUERY_DATA => 'Montezuma'
+		),
+		array
+		(
+			kAPI_QUERY_SUBJECT => 'Name',
+			kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
+			kAPI_QUERY_TYPE => kTYPE_STRING,
+			kAPI_QUERY_DATA => 'Milko'
+		),
+		array
+		(
+			kAPI_QUERY_SUBJECT => 'Name',
+			kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
+			kAPI_QUERY_TYPE => kTYPE_STRING,
+			kAPI_QUERY_DATA => 'Elisabeth'
+		)
+	);
+	//
+	// Build fields.
+	//
+	$fields = array( 'Name' => TRUE, 'Surname' => TRUE );
+	//
+	// Build sort.
+	//
+	$sort = array( 'Surname' => 1 );
+	//
+	// Use wrapper client.
+	//
+	if( kUSE_CLIENT )
+	{
+		//
+		// Build parameters.
+		//
+		$params = new CMongoDataWrapperClient( $url );
+		$params->Format( kTYPE_JSON );
+		$params->Operation( kAPI_OP_MATCH );
+		$params->Database( 'TEST' );
+		$params->Container( 'CMongoDataWrapper' );
+		$params->Query( $query );
+		$params->Fields( $fields );
+		$params->Sort( $sort );
+		//
+		// Get response.
+		//
+		$decoded = $params->Execute();
+	}
+	//
+	// Use raw parameters.
+	//
+	else
+	{
+		//
+		// Prepare query.
+		//
+		$query_enc = json_encode( $query );
+		//
+		// Prepare fields.
+		//
+		$fields_enc = json_encode( $fields );
+		//
+		// Prepare sort.
+		//
+		$sort_enc = json_encode( $sort );
+		//
+		// Build parameters.
+		//
+		$params = Array();
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_MATCH;				// Command.
+		$params[] = kAPI_DATABASE.'='.'TEST';						// Database.
+		$params[] = kAPI_CONTAINER.'='.'CMongoDataWrapper';			// Container.
+		$params[] = kAPI_DATA_QUERY.'='.urlencode( $query_enc );	// Query.
+		$params[] = kAPI_DATA_FIELD.'='.urlencode( $fields_enc );	// Fields.
+		$params[] = kAPI_DATA_SORT.'='.urlencode( $sort_enc );		// Sort.
+		//
+		// Build request.
+		//
+		$request = $url.'?'.implode( '&', $params );
+		//
+		// Get response.
+		//
+		$response = file_get_contents( $request );
+		//
+		// Decode response.
+		//
+		$decoded = json_decode( $response, TRUE );
+	}
+	//
+	// Display.
+	//
+	echo( kSTYLE_TABLE_PRE );
+	if( ! kUSE_CLIENT )
+	{
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'Query:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $query ); echo( '</pre>'.kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+	}
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	if( ! kUSE_CLIENT )
+	{
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.htmlspecialchars( $response ).kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+	}
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	/*===================================================================================
+	 *	MATCH																			*
+	 *==================================================================================*/
+	echo( '<h4>Match</h4>' );
+	echo( '<i>Should return Luca Matteis record by matching number.</i><br>' );
+	//
+	// Build query.
+	//
+	$query = array
+	(
+		array
+		(
+			kAPI_QUERY_SUBJECT => 'Name',
+			kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
+			kAPI_QUERY_TYPE => kTYPE_INT64,
+			kAPI_QUERY_DATA => new CDataTypeInt64( '123456789123457' )
+		),
+		array
+		(
+			kAPI_QUERY_SUBJECT => 'Surname',
+			kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
+			kAPI_QUERY_TYPE => kTYPE_INT64,
+			kAPI_QUERY_DATA => new CDataTypeInt64( '123456789123457' )
+		),
+		array
+		(
+			kAPI_QUERY_SUBJECT => 'Number',
+			kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
+			kAPI_QUERY_TYPE => kTYPE_INT64,
+			kAPI_QUERY_DATA => new CDataTypeInt64( '123456789123457' )
+		)
+	);
+	//
+	// Build fields.
+	//
+	$fields = array( 'Name' => TRUE, 'Surname' => TRUE );
+	//
+	// Build sort.
+	//
+	$sort = array( 'Surname' => 1 );
+	//
+	// Use wrapper client.
+	//
+	if( kUSE_CLIENT )
+	{
+		//
+		// Build parameters.
+		//
+		$params = new CMongoDataWrapperClient( $url );
+		$params->Format( kTYPE_JSON );
+		$params->Operation( kAPI_OP_MATCH );
+		$params->Database( 'TEST' );
+		$params->Container( 'CMongoDataWrapper' );
+		$params->Query( $query );
+		$params->Fields( $fields );
+		$params->Sort( $sort );
+		//
+		// Get response.
+		//
+		$decoded = $params->Execute();
+	}
+	//
+	// Use raw parameters.
+	//
+	else
+	{
+		//
+		// Prepare query.
+		//
+		$query_enc = json_encode( $query );
+		//
+		// Prepare fields.
+		//
+		$fields_enc = json_encode( $fields );
+		//
+		// Prepare sort.
+		//
+		$sort_enc = json_encode( $sort );
+		//
+		// Build parameters.
+		//
+		$params = Array();
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_MATCH;				// Command.
+		$params[] = kAPI_DATABASE.'='.'TEST';						// Database.
+		$params[] = kAPI_CONTAINER.'='.'CMongoDataWrapper';			// Container.
+		$params[] = kAPI_DATA_QUERY.'='.urlencode( $query_enc );	// Query.
+		$params[] = kAPI_DATA_FIELD.'='.urlencode( $fields_enc );	// Fields.
+		$params[] = kAPI_DATA_SORT.'='.urlencode( $sort_enc );		// Sort.
 		//
 		// Build request.
 		//
