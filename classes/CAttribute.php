@@ -1002,15 +1002,13 @@ class CAttribute
 				$save = Array();
 				if( $theType !== NULL )
 					$save[ $theTypeOffset ] = $theType;
-				$result= CAttribute::ManageArrayOffset
+				$result = CAttribute::ManageArrayOffset
 							( $save, $theDataOffset, $theData, $theOperation, $getOld );
 				
 				//
 				// Set offset.
 				//
 				$theReference[ $theMainOffset ] = array( $save );
-				
-				return $result;														// ==>
 			
 			} // Missing main offset.
 			
@@ -1025,7 +1023,7 @@ class CAttribute
 				$save = Array();
 				if( $theType !== NULL )
 					$save[ $theTypeOffset ] = $theType;
-				$result= CAttribute::ManageArrayOffset
+				$result = CAttribute::ManageArrayOffset
 							( $save, $theDataOffset, $theData, $theOperation, $getOld );
 				
 				//
@@ -1037,11 +1035,9 @@ class CAttribute
 				// Set offset.
 				//
 				$theReference[ $theMainOffset ] = $list;
-				
-				return $result;														// ==>
 			
 			} // New category.
-			
+				
 			//
 			// Update category.
 			//
@@ -1057,10 +1053,10 @@ class CAttribute
 				// Set offset.
 				//
 				$theReference[ $theMainOffset ][ $idx ] = $save;
-				
-				return $result;														// ==>
 			
 			} // Matched category.
+			
+			return $result;															// ==>
 		
 		} // Supported reference.
 

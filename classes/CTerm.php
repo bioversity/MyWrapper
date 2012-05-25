@@ -424,7 +424,7 @@ class CTerm extends CCodedUnitObject
 	 *	 </ul>
 	 * </ul>
 	 *
-	 * The method makes use of a protected {@link _ManageTypedArrayListOffset() method},
+	 * The method makes use of a protected {@link _ManageTypedArrayOffset() method},
 	 * please consult its reference for more information.
 	 *
 	 * @param string				$theValue			Synonym.
@@ -437,7 +437,7 @@ class CTerm extends CCodedUnitObject
 	 */
 	public function Synonym( $theValue, $theType, $theOperation = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageTypedArrayListOffset
+		return $this->_ManageTypedArrayOffset
 			( kTAG_REFERENCE_SYNONYM, kTAG_KIND,
 			  $theType, $theValue,
 			  $theOperation, $getOld );												// ==>
@@ -484,7 +484,7 @@ class CTerm extends CCodedUnitObject
 	 *	 </ul>
 	 * </ul>
 	 *
-	 * The method makes use of a protected {@link _ManageTypedArrayListOffset() method},
+	 * The method makes use of a protected {@link _ManageTypedArrayOffset() method},
 	 * please consult its reference for more information.
 	 *
 	 * @param string				$theValue			URL or operation.
@@ -496,7 +496,7 @@ class CTerm extends CCodedUnitObject
 	 */
 	public function Xref( $theValue, $theType, $theOperation = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageTypedArrayListOffset
+		return $this->_ManageTypedArrayOffset
 			( kTAG_REFERENCE_XREF, kTAG_KIND,
 			  $theType, $theValue,
 			  $theOperation, $getOld );												// ==>

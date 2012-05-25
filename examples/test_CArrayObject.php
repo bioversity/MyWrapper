@@ -73,7 +73,7 @@ class MyTest extends CArrayObject
 													 $theOperation = NULL,
 													 $getOld = FALSE )
 	{
-		return $this->_ManageTypedArrayListOffset
+		return $this->_ManageTypedArrayOffset
 					( 'TEST2', $theIndex, $theType, $theData, $theOperation, $getOld );
 	}
 }

@@ -802,6 +802,295 @@ class CArrayObject extends ArrayObject
 
 	 
 	/*===================================================================================
+	 *	_ManageTypedArrayOffset															*
+	 *==================================================================================*/
+
+	/**
+	 * Manage a typed array offset.
+	 *
+	 * A typed array offset is structured as follows:
+	 *
+	 * <ul>
+	 *	<li><i>Type</i>: This offset contains a scalar which determined the type or category
+	 *		of the element. This offset may be omitted.
+	 *	<li><i>Data</i>: This offset contains the element data as an array of data elements,
+	 *		these elements are handled by the {@link ManageArrayOffset() ManageArrayOffset}
+	 *		method.
+	 * </ul>
+	 *
+	 * No two elements may share the same type or category and all data elements within a
+	 * category must be unique.
+	 *
+	 * The method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theMainOffset</b>: The offset to manage.
+	 *	<li><b>$theTypeOffset</b>: The element's offset of the type or category.
+	 *	<li><b>$theDataOffset</b>: The element's offset of the data.
+	 *	<li><b>$theType</b>: This parameter represents the index to the offset's elements.
+	 *	<li><b>$theData</b>: This parameter represents the element's data element, if
+	 *		<i>NULL</i> or omitted, it implieas that the operation applies to the whole list
+	 *		of data elements.
+	 *	<li><b>$theOperation</b>: This parameter represents the operation to be performed,
+	 *		it will be evaluated as a boolean and its scope depends on the value of the
+	 *		previous parameter:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Return the element or list.
+	 *		<li><i>FALSE</i>: Delete the element or list.
+	 *		<li><i>TRUE</i>: Add the element or list.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the value of the offset <i>before</i> it was eventually
+	 *			modified.
+	 *		<li><i>FALSE</i>: Return the value of the offset <i>after</i> it was eventually
+	 *			modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * @param string				$theMainOffset		Offset.
+	 * @param mixed					$theTypeOffset		Index offset.
+	 * @param string				$theDataOffset		Data offset.
+	 * @param mixed					$theType			Element type.
+	 * @param mixed					$theData			Element value.
+	 * @param mixed					$theOperation		Operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access protected
+	 * @return mixed
+	 *
+	 * @uses offsetGet()
+	 * @uses offsetSet()
+	 * @uses offsetUnset()
+	 */
+	protected function _ManageTypedArrayOffset( $theMainOffset,
+												$theTypeOffset, $theDataOffset,
+												$theType, $theData = NULL,
+												$theOperation = NULL,
+												$getOld = FALSE )
+	{
+		//
+		// Save offset.
+		//
+		$list = ( $theReference->offsetExists( $theMainOffset ) )
+				? $theReference[ $theMainOffset ]
+				: NULL;
+		
+		//
+		// Handle categories.
+		//
+		$save = $idx = NULL;
+		if( $list !== NULL )
+		{
+			//
+			// Locate category.
+			//
+			foreach( $list as $key => $element )
+			{
+				//
+				// Match category.
+				//
+				if( ( ($theType !== NULL)
+				   && $element->offsetExists( $theTypeOffset )
+				   && ($element->offsetGet( $theTypeOffset ) == (string) $theType) )
+				 || ( ($theType === NULL)
+				   && (! $element->offsetExists( $theTypeOffset )) ) )
+				{
+					$idx = $key;
+					$save = $element;
+					break;													// =>
+				
+				} // Matched.
+			
+			} // Iterating offset elements.
+		
+		} // Has data.
+		
+		//
+		// Return current value.
+		//
+		if( $theOperation === NULL )
+		{
+			//
+			// Handle data.
+			//
+			if( $save !== NULL )
+			{
+				//
+				// Return list.
+				//
+				if( $theData === NULL )
+					return $save[ $theDataOffset ];									// ==>
+
+				return $this->_ManageArrayOffset
+					( $save, $theDataOffset, $theData, $theOperation, $getOld );	// ==>
+			
+			} // Has data.
+			
+			return NULL;															// ==>
+		
+		} // Return current element.
+		
+		//
+		// Delete matched value.
+		//
+		if( $theOperation === FALSE )
+		{
+			//
+			// Handle data.
+			//
+			if( $save !== NULL )
+			{
+				//
+				// Remove element.
+				//
+				if( $theData !== NULL )
+				{
+					//
+					// Remove data element.
+					//
+					$result= $this->_ManageArrayOffset
+						( $save, $theDataOffset, $theData, $theOperation, $getOld );
+					
+					//
+					// Update category.
+					//
+					if( $save->offsetExists( $theDataOffset ) )
+					{
+						//
+						// Update offset.
+						//
+						$list[ $idx ] = $save;
+						$this->offsetSet( $theMainOffset, $list );
+					
+					} // Has data elements left.
+					
+					//
+					// Delete category.
+					//
+					else
+					{
+						//
+						// Remove from list.
+						//
+						unset( $list[ $idx ] );
+						
+						//
+						// Update offset.
+						//
+						if( count( $list ) )
+							$this->offsetSet( $theMainOffset, array_values( $list ) );
+						
+						//
+						// Delete offset.
+						//
+						else
+							$this->offsetUnset( $theMainOffset );
+					
+					} // Has no data elements left.
+					
+					return $result;													// ==>
+				
+				} // Provided data element.
+				
+				//
+				// Remove from list.
+				//
+				unset( $list[ $idx ] );
+				
+				//
+				// Update offset.
+				//
+				if( count( $list ) )
+					$this->offsetSet( $theMainOffset, array_values( $list ) );
+				
+				//
+				// Delete offset.
+				//
+				else
+					$this->offsetUnset( $theMainOffset );
+				
+				if( $getOld )
+					return $save;													// ==>
+			
+			} // Matched.
+			
+			return NULL;															// ==>
+		
+		} // Delete matched element.
+		
+		//
+		// Create first category.
+		//
+		if( $list === NULL )
+		{
+			//
+			// Create element.
+			//
+			$save = Array();
+			if( $theType !== NULL )
+				$save[ $theTypeOffset ] = $theType;
+			$result = $this->_ManageArrayOffset
+						( $save, $theDataOffset, $theData, $theOperation, $getOld );
+			
+			//
+			// Set offset.
+			//
+			$this->offsetSet( $theMainOffset, array( $save ) );
+		
+		} // No categories.
+		
+		//
+		// Add new category.
+		//
+		elseif( $save === NULL )
+		{
+			//
+			// Create element.
+			//
+			$save = Array();
+			if( $theType !== NULL )
+				$save[ $theTypeOffset ] = $theType;
+			$result = $this->_ManageArrayOffset
+						( $save, $theDataOffset, $theData, $theOperation, $getOld );
+			
+			//
+			// Add to list.
+			//
+			$list[] = $save;
+			
+			//
+			// Set offset.
+			//
+			$this->offsetSet( $theMainOffset, $list );
+		
+		} // New category.
+			
+		//
+		// Update category.
+		//
+		else
+		{
+			//
+			// Update element.
+			//
+			$result = $this->_ManageArrayOffset
+						( $save, $theDataOffset, $theData, $theOperation, $getOld );
+			
+			//
+			// Set offset.
+			//
+			$list[ $idx ] = $save;
+			$this->offsetSet( $theMainOffset, $list );
+		
+		} // Matched category.
+		
+		return $result;																// ==>
+	
+	} // _ManageTypedArrayOffset.
+
+	 
+	/*===================================================================================
 	 *	_ManageTypedKindArrayOffset															*
 	 *==================================================================================*/
 
@@ -1000,259 +1289,6 @@ class CArrayObject extends ArrayObject
 		return $theData;															// ==>
 	
 	} // _ManageTypedKindArrayOffset.
-
-	 
-	/*===================================================================================
-	 *	_ManageTypedArrayListOffset														*
-	 *==================================================================================*/
-
-	/**
-	 * Manage a typed array list offset.
-	 *
-	 * This method handles a property structured as a list of items structured as a pair of
-	 * elements:
-	 *
-	 * <ul>
-	 *	<li><i>Type</i>: The element that holds the item's type.
-	 *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The element that holds the list of values
-	 *		for the type, this element has the {@link kTAG_DATA kTAG_DATA} offset by
-	 *		default.
-	 * </ul>
-	 *
-	 * The parameters to this method are:
-	 *
-	 * <ul>
-	 *	<li><b>$theOffset</b>: The property offset.
-	 *	<li><b>$theType</b>: The item type offset, it must be a string.
-	 *	<li><b>$theIndex</b>: The item type value, it must be a string.
-	 *	<li><b>$theData</b>: The data element upon which we want to operate.
-	 *	<li><b>$theOperation</b>: The operation to be performed:
-	 *	 <ul>
-	 *		<li><i>NULL</i>: Retrieve the data element matching the previous parameters, or
-	 *			<i>NULL</i> if not found.
-	 *		<li><i>FALSE</i>: Delete the data element matching the previous parameters.
-	 *		<li><i>other</i>: Add or replace the data element matching the previous
-	 *			parameters.
-	 *	 </ul>
-	 *	<li><b>$getOld</b>: Determines what the method will return:
-	 *	 <ul>
-	 *		<li><i>TRUE</i>: Return the element <i>before</i> it was eventually modified.
-	 *		<li><i>FALSE</i>: Return the element <i>after</i> it was eventually modified.
-	 *	 </ul>
-	 * </ul>
-	 *
-	 * @param string				$theOffset			Offset.
-	 * @param mixed					$theIndex			Index offset.
-	 * @param mixed					$theType			Element type.
-	 * @param mixed					$theData			Element value.
-	 * @param mixed					$theOperation		Operation.
-	 * @param boolean				$getOld				TRUE get old value.
-	 *
-	 * @access protected
-	 * @return mixed
-	 *
-	 * @uses offsetGet()
-	 * @uses offsetSet()
-	 * @uses offsetUnset()
-	 */
-	protected function _ManageTypedArrayListOffset( $theOffset, $theIndex,
-													$theType, $theData,
-													$theOperation = NULL,
-													$getOld = FALSE )
-	{
-		//
-		// Init local storage.
-		//
-		$offset = $this->offsetGet( $theOffset );
-		$element = $list = NULL;
-		if( $offset !== NULL )
-		{
-			//
-			// Locate data list.
-			//
-			foreach( $offset as $key => $item )
-			{
-				if( array_key_exists( $theIndex, $item ) )
-				{
-					if( $item[ $theIndex ] == $theType )
-					{
-						$element = $key;
-						if( array_key_exists( kTAG_DATA, $offset[ $key ] ) )
-						{
-							$list = $offset[ $key ][ kTAG_DATA ];
-							break;												// =>
-						}
-						
-						else
-							throw new CException
-									( "Missing data item offset",
-									  kERROR_INVALID_PARAMETER,
-									  kMESSAGE_TYPE_ERROR,
-									  array( 'Item' => $offset[ $key ],
-											 'offset' => kTAG_DATA ) );			// !@! ==>
-					}
-				}
-			}
-		}
-		
-		//
-		// Return value.
-		//
-		if( $theOperation === NULL )
-		{
-			//
-			// Locate element.
-			//
-			if( $list !== NULL )
-			{
-				//
-				// Get list.
-				//
-				if( in_array( $theData, $list ) )
-					return $theData;												// ==>
-			}
-			
-			return NULL;															// ==>
-		}
-		
-		//
-		// Delete value.
-		//
-		if( $theOperation === FALSE )
-		{
-			//
-			// Locate element.
-			//
-			if( $list !== NULL )
-			{
-				//
-				// Get element.
-				//
-				$found = FALSE;
-				foreach( $list as $key => $tmp )
-				{
-					if( (string) $theData == (string) $tmp )
-					{
-						$found = $key;
-						break;												// =>
-					}
-				}
-				
-				//
-				// Handle found element.
-				//
-				if( $found !== FALSE )
-				{
-					//
-					// Remove element.
-					//
-					unset( $list[ $key ] );
-					if( count( $list ) )
-					{
-						//
-						// Update list.
-						//
-						$offset[ $element ][ kTAG_DATA ] = array_values( $list );
-						
-						//
-						// Update offset.
-						//
-						$this->offsetSet( $theOffset, $offset );
-					}
-					
-					//
-					// No elements left.
-					//
-					else
-					{
-						//
-						// Remove item.
-						//
-						unset( $offset[ $element ] );
-						if( count( $offset ) )
-							$this->offsetSet( $theOffset, array_values( $offset ) );
-						
-						//
-						// No items left.
-						//
-						else
-							$this->offsetUnset( $theOffset );
-					}
-					
-					if( $getOld )
-						return $theData;											// ==>
-				}
-			}
-			
-			return NULL;															// ==>
-		}
-
-		//
-		// Locate element.
-		//
-		if( $list !== NULL )
-		{
-			//
-			// Match element.
-			//
-			$found = FALSE;
-			foreach( $list as $key => $tmp )
-			{
-				if( (string) $theData == (string) $tmp )
-				{
-					$found = $key;
-					break;													// =>
-				}
-			}
-			
-			//
-			// Matched element.
-			//
-			if( $found !== FALSE )
-				return $theData;													// ==>
-			
-			//
-			// Add element.
-			//
-			$offset[ $element ][ kTAG_DATA ][] = $theData;
-			
-			//
-			// Upate offset.
-			//
-			$this->offsetSet( $theOffset, $offset );
-
-			if( $getOld )
-				return NULL;														// ==>
-			
-			return $theData;														// ==>
-		}
-		
-		//
-		// Create element.
-		//
-		$element = array( $theIndex => $theType, kTAG_DATA => array( $theData ) );
-		
-		//
-		// Create offset.
-		//
-		if( $offset !== NULL )
-		{
-			$offset[] = $element;
-			$this->offsetSet( $theOffset, $offset );
-		}
-		
-		//
-		// Add item.
-		//
-		else
-			$this->offsetSet( $theOffset, array( $element ) );
-
-		if( $getOld )
-			return NULL;															// ==>
-		
-		return $theData;															// ==>
-	
-	} // _ManageTypedArrayListOffset.
 
 	 
 
