@@ -580,7 +580,10 @@ class CFAOInstitute extends CInstitute
 								
 									case 'V_INSTCODE':
 										if( strlen( $tmp = trim( $row[ $index ] ) ) )
-											$inst->Valid( $tmp );
+										{
+											if( $tmp != $inst->Code() )
+												$inst->Valid( $tmp );
+										}
 										break;
 								
 								} // Parsed field.

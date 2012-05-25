@@ -68,6 +68,13 @@ require_once( kPATH_LIBRARY_DEFINES."Session.inc.php" );
  */
 require_once( kPATH_LIBRARY_SOURCE."COntologyTerm.php" );
 
+/**
+ * FAO Institutes.
+ *
+ * This include file contains the ontology terms class definitions.
+ */
+require_once( kPATH_LIBRARY_SOURCE."CFAOInstitute.php" );
+
 //
 // Class includes.
 //
@@ -150,6 +157,16 @@ try
 	LoadUnStatsRegions( $_SESSION[ kSESSION_CONTAINER ], TRUE );
 	LoadISO( $_SESSION[ kSESSION_CONTAINER ], TRUE );
 	LoadMCPD( $_SESSION[ kSESSION_CONTAINER ], TRUE );
+
+	//
+	// Connect.
+	//
+	Connect( kDEFAULT_DATABASE, kENTITY_CONTAINER, FALSE );
+	
+	//
+	// Load FAO institutes.
+	//
+	LoadFAOInstitutes( $_SESSION[ kSESSION_CONTAINER ], TRUE );
 
 } // TRY BLOCK.
 
@@ -8209,6 +8226,48 @@ EOT;
 				 ." [$term] [".$node->Node()->getId()."]\n" );
 		
 	} // LoadMCPD.
+
+	 
+	/*===================================================================================
+	 *	LoadFAOInstitutes																*
+	 *==================================================================================*/
+
+	/**
+	 * Load FAO institutes.
+	 *
+	 * This function will load the current FAO institutes.
+	 *
+	 * If the last parameter is <i>TRUE</i>, the function will display the name of the
+	 * created terms.
+	 *
+	 * @param CContainer			$theContainer		Collection.
+	 * @param boolean				$doDisplay			Display created terms.
+	 *
+	 * @access protected
+	 */
+	function LoadFAOInstitutes( CContainer $theContainer, $doDisplay = TRUE )
+	{
+		//
+		// Inform.
+		//
+		if( $doDisplay )
+		{
+			echo( "\n".__FUNCTION__."\n" );
+			echo( "------------------\n" );
+		}
+		
+		//
+		// Import FAO institutes.
+		//
+		$count = CFAOInstitute::Import( $theContainer );
+		
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "Imported [$count] FAO institutes.\n" );
+		
+	} // LoadFAOInstitutes.
 
 
 ?>
