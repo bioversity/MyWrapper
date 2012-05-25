@@ -365,7 +365,6 @@ while( count( $cache ) )
 						  'Predicate' => $edge->getType(),
 						  'Object' => $edge->getEndNode() );
 }
-*/
 
 //
 // Test empty string index.
@@ -388,5 +387,29 @@ echo( '</pre>' );
 echo( '$test[ 1 ] ('.$test[ 1 ].')<br>' );
 echo( '$test[ \'Due\' ] ('.$test[ 'Due' ].')<br>' );
 echo( '$test[ \'\' ] ('.$test[ '' ].')<br>' );
+*/
+
+//
+// Collection selection.
+//
+$mongo = New Mongo();
+$db = $mongo->selectDB( 'WAREHOUSE' );
+$collection = $db->selectCollection( 'DICTIONARY' );
+
+//
+// Build query.
+//
+$query = array( ':NAME.:DATA' => new MongoRegex( '/italian/i' ) );
+
+//
+// Execute.
+//
+$cursor = $collection->find( $query );
+foreach( $cursor as $element )
+{
+	echo( '<pre>' );
+	print_r( $element );
+	echo( '</pre>' );
+}
 
 ?>

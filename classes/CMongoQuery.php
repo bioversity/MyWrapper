@@ -401,7 +401,11 @@ class CMongoQuery extends CQuery
 						break;
 						
 					case kOPERATOR_PREFIX:
+					case kOPERATOR_PREFIX_NOCASE:
 						$tmp = '/^'.$data.'/';
+						if( $theStatement[ kAPI_QUERY_OPERATOR ]
+							== kOPERATOR_PREFIX_NOCASE )
+							$tmp .= 'i';
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:
@@ -419,24 +423,33 @@ class CMongoQuery extends CQuery
 						break;
 						
 					case kOPERATOR_CONTAINS:
-						$tmp = new MongoRegex( '/'.$data.'/' );
+					case kOPERATOR_CONTAINS_NOCASE:
+						$tmp = '/'.$data.'/';
+						if( $theStatement[ kAPI_QUERY_OPERATOR ]
+							== kOPERATOR_CONTAINS_NOCASE )
+							$tmp .= 'i';
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:
 							case kOPERATOR_OR:
-								$statement[ $theStatement[ kAPI_QUERY_SUBJECT ] ] = $tmp;
+								$statement[ $theStatement[ kAPI_QUERY_SUBJECT ] ]
+									= new MongoRegex( $tmp );
 								break;
 							
 							case kOPERATOR_NAND:
 							case kOPERATOR_NOR:
 								$statement[ $theStatement[ kAPI_QUERY_SUBJECT ] ]
-									= array( '$not' => $tmp );
+									= array( '$not' => new MongoRegex( $tmp ) );
 								break;
 						}
 						break;
 						
 					case kOPERATOR_SUFFIX:
+					case kOPERATOR_SUFFIX_NOCASE:
 						$tmp = '/'.$data.'$/';
+						if( $theStatement[ kAPI_QUERY_OPERATOR ]
+							== kOPERATOR_SUFFIX_NOCASE )
+							$tmp .= 'i';
 						switch( $theCondition )
 						{
 							case kOPERATOR_AND:

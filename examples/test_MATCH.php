@@ -87,9 +87,9 @@ try
 		array
 		(
 			kAPI_QUERY_SUBJECT => kTAG_NAME.':'.kTAG_DATA,
-			kAPI_QUERY_OPERATOR => kOPERATOR_REGEX,
+			kAPI_QUERY_OPERATOR => kOPERATOR_CONTAINS_NOCASE,
 			kAPI_QUERY_TYPE => kTYPE_STRING,
-			kAPI_QUERY_DATA => new CDataTypeRegex( '/sampstat/i' )
+			kAPI_QUERY_DATA => 'sampstat'
 		)
 	);
 	//
@@ -222,9 +222,9 @@ try
 		array
 		(
 			kAPI_QUERY_SUBJECT => kTAG_NAME.':'.kTAG_DATA,
-			kAPI_QUERY_OPERATOR => kOPERATOR_REGEX,
+			kAPI_QUERY_OPERATOR => kOPERATOR_CONTAINS_NOCASE,
 			kAPI_QUERY_TYPE => kTYPE_STRING,
-			kAPI_QUERY_DATA => new CDataTypeRegex( '/MCPD:SAMPSTAT:100/i' )
+			kAPI_QUERY_DATA => 'MCPD:SAMPSTAT:100'
 		)
 	);
 	//
@@ -357,9 +357,9 @@ try
 		array
 		(
 			kAPI_QUERY_SUBJECT => kTAG_NAME.'.'.kTAG_DATA,
-			kAPI_QUERY_OPERATOR => kOPERATOR_CONTAINS,
+			kAPI_QUERY_OPERATOR => kOPERATOR_CONTAINS_NOCASE,
 			kAPI_QUERY_TYPE => kTYPE_STRING,
-			kAPI_QUERY_DATA => 'Italian'
+			kAPI_QUERY_DATA => 'italian'
 		)
 	);
 	//

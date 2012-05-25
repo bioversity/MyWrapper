@@ -66,6 +66,14 @@ define( "kOPERATOR_LIKE_NOT",			'$NS' );			// Not like.
 define( "kOPERATOR_PREFIX",				'$PX' );			// Starts with.
 
 /**
+ * Prefix case-insensitive.
+ *
+ * This enumeration represents prefix comparaison: <i>starts with</i> (for strings) with
+ * case and accent insensitive matching.
+ */
+define( "kOPERATOR_PREFIX_NOCASE",		'$PXi' );			// Starts with no-case.
+
+/**
  * Contains.
  *
  * This enumeration represents content comparaison: <i>contains</i> (for strings).
@@ -73,11 +81,27 @@ define( "kOPERATOR_PREFIX",				'$PX' );			// Starts with.
 define( "kOPERATOR_CONTAINS",			'$CX' );			// Contains.
 
 /**
+ * Contains case-insensitive.
+ *
+ * This enumeration represents content comparaison: <i>contains</i> (for strings) with
+ * case and accent insensitive matching.
+ */
+define( "kOPERATOR_CONTAINS_NOCASE",	'$CXi' );			// Contains with no-case.
+
+/**
  * Suffix.
  *
  * This enumeration represents suffix comparaison: <i>ends with</i> (for strings).
  */
 define( "kOPERATOR_SUFFIX",				'$SX' );			// Ends with.
+
+/**
+ * Suffix case-insensitive.
+ *
+ * This enumeration represents suffix comparaison: <i>ends with</i> (for strings) with
+ * case and accent insensitive matching.
+ */
+define( "kOPERATOR_SUFFIX_NOCASE",		'$SXi' );			// Ends with with no-case.
 
 /**
  * Regular expression.

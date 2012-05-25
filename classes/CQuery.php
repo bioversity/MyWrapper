@@ -687,8 +687,11 @@ class CQuery extends CStatusObject
 						case kOPERATOR_LIKE:
 						case kOPERATOR_LIKE_NOT:
 						case kOPERATOR_PREFIX:
+						case kOPERATOR_PREFIX_NOCASE:
 						case kOPERATOR_CONTAINS:
+						case kOPERATOR_CONTAINS_NOCASE:
 						case kOPERATOR_SUFFIX:
+						case kOPERATOR_SUFFIX_NOCASE:
 						case kOPERATOR_REGEX:
 						case kOPERATOR_LESS:
 						case kOPERATOR_LESS_EQUAL:
