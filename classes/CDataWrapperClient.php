@@ -126,7 +126,7 @@ class CDataWrapperClient extends CWrapperClient
 	 *
 	 * @throws {@link CException CException}
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kAPI_OPERATION
 	 * @see kAPI_OP_HELP kAPI_OP_PING
@@ -157,7 +157,8 @@ class CDataWrapperClient extends CWrapperClient
 			}
 		}
 		
-		return $this->_ManageOffset( kAPI_OPERATION, $theValue, $getOld );			// ==>
+		return CAttribute::ManageOffset
+				( $this, kAPI_OPERATION, $theValue, $getOld );						// ==>
 
 	} // Operation.
 
@@ -188,13 +189,14 @@ class CDataWrapperClient extends CWrapperClient
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kAPI_DATABASE
 	 */
 	public function Database( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kAPI_DATABASE, $theValue, $getOld );			// ==>
+		return CAttribute::ManageOffset
+				( $this, kAPI_DATABASE, $theValue, $getOld );						// ==>
 
 	} // Database.
 
@@ -225,13 +227,14 @@ class CDataWrapperClient extends CWrapperClient
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kAPI_CONTAINER
 	 */
 	public function Container( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kAPI_CONTAINER, $theValue, $getOld );			// ==>
+		return CAttribute::ManageOffset
+				( $this, kAPI_CONTAINER, $theValue, $getOld );						// ==>
 
 	} // Container.
 
@@ -262,13 +265,14 @@ class CDataWrapperClient extends CWrapperClient
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kAPI_PAGE_START
 	 */
 	public function Start( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kAPI_PAGE_START, $theValue, $getOld );			// ==>
+		return CAttribute::ManageOffset
+				( $this, kAPI_PAGE_START, $theValue, $getOld );						// ==>
 
 	} // Start.
 
@@ -299,13 +303,14 @@ class CDataWrapperClient extends CWrapperClient
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kAPI_PAGE_LIMIT
 	 */
 	public function Limit( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kAPI_PAGE_LIMIT, $theValue, $getOld );			// ==>
+		return CAttribute::ManageOffset
+				( $this, kAPI_PAGE_LIMIT, $theValue, $getOld );						// ==>
 
 	} // Limit.
 
@@ -341,7 +346,7 @@ class CDataWrapperClient extends CWrapperClient
 	 *
 	 * @throws {@link CException CException}
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kAPI_DATA_QUERY
 	 */
@@ -359,7 +364,8 @@ class CDataWrapperClient extends CWrapperClient
 								  kMESSAGE_TYPE_ERROR,
 								  array( 'Query' => $theValue ) );				// !@! ==>
 		
-		return $this->_ManageOffset( kAPI_DATA_QUERY, $theValue, $getOld );			// ==>
+		return CAttribute::ManageOffset
+				( $this, kAPI_DATA_QUERY, $theValue, $getOld );						// ==>
 
 	} // Query.
 
@@ -395,7 +401,7 @@ class CDataWrapperClient extends CWrapperClient
 	 *
 	 * @throws {@link CException CException}
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kAPI_DATA_FIELD
 	 */
@@ -413,7 +419,8 @@ class CDataWrapperClient extends CWrapperClient
 								  kMESSAGE_TYPE_ERROR,
 								  array( 'Fields' => $theValue ) );				// !@! ==>
 		
-		return $this->_ManageOffset( kAPI_DATA_FIELD, $theValue, $getOld );			// ==>
+		return CAttribute::ManageOffset
+				( $this, kAPI_DATA_FIELD, $theValue, $getOld );						// ==>
 
 	} // Fields.
 
@@ -450,7 +457,7 @@ class CDataWrapperClient extends CWrapperClient
 	 *
 	 * @throws {@link CException CException}
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kAPI_DATA_SORT
 	 */
@@ -468,7 +475,8 @@ class CDataWrapperClient extends CWrapperClient
 								  kMESSAGE_TYPE_ERROR,
 								  array( 'Sort' => $theValue ) );				// !@! ==>
 		
-		return $this->_ManageOffset( kAPI_DATA_SORT, $theValue, $getOld );			// ==>
+		return CAttribute::ManageOffset
+				( $this, kAPI_DATA_SORT, $theValue, $getOld );						// ==>
 
 	} // Sort.
 
@@ -505,7 +513,7 @@ class CDataWrapperClient extends CWrapperClient
 	 *
 	 * @throws {@link CException CException}
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kAPI_DATA_OBJECT
 	 */
@@ -523,7 +531,8 @@ class CDataWrapperClient extends CWrapperClient
 								  kMESSAGE_TYPE_ERROR,
 								  array( 'Object' => $theValue ) );				// !@! ==>
 		
-		return $this->_ManageOffset( kAPI_DATA_OBJECT, $theValue, $getOld );		// ==>
+		return CAttribute::ManageOffset
+				( $this, kAPI_DATA_OBJECT, $theValue, $getOld );					// ==>
 
 	} // Object.
 

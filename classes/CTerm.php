@@ -82,7 +82,7 @@ class CTerm extends CCodedUnitObject
 	 * Manage term namespace.
 	 *
 	 * This method can be used to handle the term {@link kTAG_NAMESPACE namespace}, it uses
-	 * the standard accessor {@link _ManageOffset() method} to manage the
+	 * the standard accessor {@link CAttribute::ManageOffset() method} to manage the
 	 * {@link kTAG_NAMESPACE offset}.
 	 *
 	 * The namespace collects a series of terms under a common group in which each term
@@ -90,8 +90,8 @@ class CTerm extends CCodedUnitObject
 	 * reference.
 	 *
 	 * For a more in-depth reference of this method, please consult the
-	 * {@link _ManageOffset() _ManageOffset} method, in which the first parameter will be
-	 * the constant {@link kTAG_NAMESPACE kTAG_NAMESPACE}.
+	 * {@link CAttribute::ManageOffset() CAttribute::ManageOffset} method, in which the
+	 * second parameter will be the constant {@link kTAG_NAMESPACE kTAG_NAMESPACE}.
 	 *
 	 * @param mixed					$theValue			Value.
 	 * @param boolean				$getOld				TRUE get old value.
@@ -99,13 +99,14 @@ class CTerm extends CCodedUnitObject
 	 * @access public
 	 * @return string
 	 *
-	 * @uses _ManageOffset
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kTAG_NAMESPACE
 	 */
 	public function NS( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kTAG_NAMESPACE, $theValue, $getOld );			// ==>
+		return CAttribute::ManageOffset
+				( $this, kTAG_NAMESPACE, $theValue, $getOld );						// ==>
 
 	} // NS.
 
@@ -164,15 +165,15 @@ class CTerm extends CCodedUnitObject
 	 * @access public
 	 * @return string
 	 *
-	 * @uses _ManageTypedOffset
+	 * @uses CAttribute::ManageTypedOffset()
 	 *
 	 * @see kTAG_NAME kTAG_LANGUAGE
 	 */
 	public function Name( $theValue = NULL, $theLanguage = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageTypedOffset
-			( kTAG_NAME, kTAG_LANGUAGE, kTAG_DATA,
-			  $theLanguage, $theValue, $getOld );									// ==>
+		return CAttribute::ManageTypedOffset( $this,
+											  kTAG_NAME, kTAG_LANGUAGE, kTAG_DATA,
+											  $theLanguage, $theValue, $getOld );	// ==>
 
 	} // Name.
 
@@ -223,15 +224,15 @@ class CTerm extends CCodedUnitObject
 	 * @access public
 	 * @return string
 	 *
-	 * @uses _ManageTypedOffset
+	 * @uses CAttribute::ManageTypedOffset()
 	 *
 	 * @see kTAG_DEFINITION kTAG_LANGUAGE
 	 */
 	public function Definition( $theValue = NULL, $theLanguage = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageTypedOffset
-			( kTAG_DEFINITION, kTAG_LANGUAGE, kTAG_DATA,
-			  $theLanguage, $theValue, $getOld );									// ==>
+		return CAttribute::ManageTypedOffset( $this,
+											  kTAG_DEFINITION, kTAG_LANGUAGE, kTAG_DATA,
+											  $theLanguage, $theValue, $getOld );	// ==>
 
 	} // Definition.
 
@@ -282,15 +283,15 @@ class CTerm extends CCodedUnitObject
 	 * @access public
 	 * @return string
 	 *
-	 * @uses _ManageTypedOffset
+	 * @uses CAttribute::ManageTypedOffset()
 	 *
 	 * @see kTAG_DESCRIPTION kTAG_LANGUAGE
 	 */
 	public function Description( $theValue = NULL, $theLanguage = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageTypedOffset
-			( kTAG_DESCRIPTION, kTAG_LANGUAGE, kTAG_DATA,
-			  $theLanguage, $theValue, $getOld );									// ==>
+		return CAttribute::ManageTypedOffset( $this,
+											  kTAG_DESCRIPTION, kTAG_LANGUAGE, kTAG_DATA,
+											  $theLanguage, $theValue, $getOld );	// ==>
 
 	} // Description.
 
@@ -312,15 +313,15 @@ class CTerm extends CCodedUnitObject
 	 * Manage domains.
 	 *
 	 * This method can be used to handle the object's {@link kTAG_DOMAIN domains}, it uses
-	 * the standard accessor {@link _ManageArrayOffset() method} to manage the list of
-	 * domains.
+	 * the standard accessor {@link CAttribute::ManageArrayOffset() method} to manage the
+	 * list of domains.
 	 *
 	 * Each element of this list should indicate a domain to which the current object
 	 * belongs to.
 	 *
 	 * For a more thorough reference of how this method works, please consult the
-	 * {@link _ManageArrayOffset() _ManageArrayOffset} method, in which the first parameter
-	 * will be the constant {@link kTAG_CATEGORY kTAG_CATEGORY}.
+	 * {@link CAttribute::ManageArrayOffset() CAttribute::ManageArrayOffset} method, in
+	 * which the second parameter will be the constant {@link kTAG_CATEGORY kTAG_CATEGORY}.
 	 *
 	 * @param mixed					$theValue			Value or index.
 	 * @param mixed					$theOperation		Operation.
@@ -329,14 +330,14 @@ class CTerm extends CCodedUnitObject
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageArrayOffset
+	 * @uses CAttribute::ManageArrayOffset()
 	 *
 	 * @see kTAG_DOMAIN
 	 */
 	public function Domain( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageArrayOffset
-					( kTAG_DOMAIN, $theValue, $theOperation, $getOld );				// ==>
+		return CAttribute::ManageArrayOffset
+					( $this, kTAG_DOMAIN, $theValue, $theOperation, $getOld );		// ==>
 
 	} // Domain.
 
@@ -349,15 +350,15 @@ class CTerm extends CCodedUnitObject
 	 * Manage categories.
 	 *
 	 * This method can be used to handle the object's {@link kTAG_CATEGORY categories}, it
-	 * uses the standard accessor {@link _ManageArrayOffset() method} to manage the list of
-	 * categories.
+	 * uses the standard accessor {@link CAttribute::ManageArrayOffset() method} to manage
+	 * the list of categories.
 	 *
 	 * Each element of this list should indicate a category to which the current object
 	 * belongs to.
 	 *
 	 * For a more thorough reference of how this method works, please consult the
-	 * {@link _ManageArrayOffset() _ManageArrayOffset} method, in which the first parameter
-	 * will be the constant {@link kTAG_CATEGORY kTAG_CATEGORY}.
+	 * {@link CAttribute::ManageArrayOffset() CAttribute::ManageArrayOffset} method, in
+	 * which the second parameter will be the constant {@link kTAG_CATEGORY kTAG_CATEGORY}.
 	 *
 	 * @param mixed					$theValue			Value or index.
 	 * @param mixed					$theOperation		Operation.
@@ -366,14 +367,14 @@ class CTerm extends CCodedUnitObject
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageArrayOffset
+	 * @uses CAttribute::ManageArrayOffset()
 	 *
 	 * @see kTAG_CATEGORY
 	 */
 	public function Category( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageArrayOffset
-					( kTAG_CATEGORY, $theValue, $theOperation, $getOld );			// ==>
+		return CAttribute::ManageArrayOffset
+					( $this, kTAG_CATEGORY, $theValue, $theOperation, $getOld );	// ==>
 
 	} // Category.
 
@@ -424,8 +425,9 @@ class CTerm extends CCodedUnitObject
 	 *	 </ul>
 	 * </ul>
 	 *
-	 * The method makes use of a protected {@link _ManageTypedArrayOffset() method},
-	 * please consult its reference for more information.
+	 * The method makes use of a static
+	 * {@link CAttribute::ManageTypedArrayOffset() method}, please consult its reference for
+	 * more information.
 	 *
 	 * @param string				$theValue			Synonym.
 	 * @param mixed					$theType			Synonym type.
@@ -437,8 +439,8 @@ class CTerm extends CCodedUnitObject
 	 */
 	public function Synonym( $theValue, $theType, $theOperation = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageTypedArrayOffset
-			( kTAG_REFERENCE_SYNONYM, kTAG_KIND,
+		return CAttribute::ManageTypedArrayOffset
+			( $this, kTAG_REFERENCE_SYNONYM, kTAG_KIND, kTAG_DATA,
 			  $theType, $theValue,
 			  $theOperation, $getOld );												// ==>
 
@@ -484,8 +486,9 @@ class CTerm extends CCodedUnitObject
 	 *	 </ul>
 	 * </ul>
 	 *
-	 * The method makes use of a protected {@link _ManageTypedArrayOffset() method},
-	 * please consult its reference for more information.
+	 * The method makes use of a static
+	 * {@link CAttribute::ManageTypedArrayOffset() method}, please consult its reference for
+	 * more information.
 	 *
 	 * @param string				$theValue			URL or operation.
 	 * @param mixed					$theType			Mailing address kind or index.
@@ -496,8 +499,8 @@ class CTerm extends CCodedUnitObject
 	 */
 	public function Xref( $theValue, $theType, $theOperation = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageTypedArrayOffset
-			( kTAG_REFERENCE_XREF, kTAG_KIND,
+		return CAttribute::ManageTypedArrayOffset
+			( $this, kTAG_REFERENCE_XREF, kTAG_KIND, kTAG_DATA,
 			  $theType, $theValue,
 			  $theOperation, $getOld );												// ==>
 
@@ -561,8 +564,8 @@ class CTerm extends CCodedUnitObject
 	 *	 </ul>
 	 * </ul>
 	 *
-	 * The method makes use of a protected {@link _ManageTypedKindArrayOffset() method}, please
-	 * consult its reference for more information.
+	 * The method makes use of a static {@link CAttribute::ManageTypedKindOffset() method},
+	 * please consult its reference for more information.
 	 *
 	 * @param mixed					$theKind			Image kind.
 	 * @param mixed					$theType			Image type.
@@ -574,8 +577,11 @@ class CTerm extends CCodedUnitObject
 	 */
 	public function Image( $theKind, $theType, $theData = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageTypedKindArrayOffset
-			( kOFFSET_IMAGE, $theKind, $theType, $theData, $getOld );				// ==>
+		return CAttribute::ManageTypedKindOffset
+				( $this,
+				  kOFFSET_IMAGE, kTAG_KIND, kTAG_TYPE, kTAG_DATA,
+				  $theKind, $theType, $theData,
+				  $getOld );														// ==>
 
 	} // Image.
 
@@ -588,7 +594,7 @@ class CTerm extends CCodedUnitObject
 	 * Manage term namespace name.
 	 *
 	 * This method can be used to handle the term {@link kOFFSET_NAMESPACE namespace}, it
-	 * uses the standard accessor {@link _ManageOffset() method} to manage the
+	 * uses the standard accessor {@link CAttribute::ManageOffset() method} to manage the
 	 * {@link kOFFSET_NAMESPACE offset}.
 	 *
 	 * This property represents the term's namespace name or acronym; not to be confused
@@ -596,8 +602,8 @@ class CTerm extends CCodedUnitObject
 	 * term reference.
 	 *
 	 * For a more in-depth reference of this method, please consult the
-	 * {@link _ManageOffset() _ManageOffset} method, in which the first parameter will be
-	 * the constant {@link kOFFSET_NAMESPACE kOFFSET_NAMESPACE}.
+	 * {@link CAttribute::ManageOffset() CAttribute::ManageOffset} method, in which the
+	 * second parameter will be the constant {@link kOFFSET_NAMESPACE kOFFSET_NAMESPACE}.
 	 *
 	 * @param mixed					$theValue			Value.
 	 * @param boolean				$getOld				TRUE get old value.
@@ -605,13 +611,14 @@ class CTerm extends CCodedUnitObject
 	 * @access public
 	 * @return string
 	 *
-	 * @uses _ManageOffset
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kOFFSET_NAMESPACE
 	 */
 	public function NamespaceName( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kOFFSET_NAMESPACE, $theValue, $getOld );		// ==>
+		return CAttribute::ManageOffset
+				( $this, kOFFSET_NAMESPACE, $theValue, $getOld );					// ==>
 
 	} // NamespaceName.
 
@@ -666,8 +673,9 @@ class CTerm extends CCodedUnitObject
 	 */
 	public function Source( $theValue = NULL, $theType = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageTypedOffset
-			( kTAG_SOURCE, kTAG_KIND, kTAG_DATA, $theType, $theValue, $getOld );	// ==>
+		return CAttribute::ManageTypedOffset( $this,
+											  kTAG_SOURCE, kTAG_KIND, kTAG_DATA,
+											  $theType, $theValue, $getOld );		// ==>
 
 	} // Source.
 
@@ -680,7 +688,7 @@ class CTerm extends CCodedUnitObject
 	 * Manage version.
 	 *
 	 * This method can be used to manage the term public {@link kOFFSET_VERSION version}, it
-	 * uses the standard accessor {@link _ManageOffset() method} to manage the
+	 * uses the standard accessor {@link CAttribute::ManageOffset() method} to manage the
 	 * {@link kOFFSET_VERSION offset}:
 	 *
 	 * <ul>
@@ -711,7 +719,8 @@ class CTerm extends CCodedUnitObject
 	 */
 	public function Version( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kOFFSET_VERSION, $theValue, $getOld );			// ==>
+		return CAttribute::ManageOffset
+				( $this, kOFFSET_VERSION, $theValue, $getOld );						// ==>
 
 	} // Version.
 

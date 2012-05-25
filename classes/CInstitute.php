@@ -152,16 +152,17 @@ class CInstitute extends CContact
 	 * Manage entity acronyms.
 	 *
 	 * This method can be used to handle the institute {@link kOFFSET_ACRONYM acronyms}
-	 * list, it uses the standard accessor {@link _ManageArrayOffset() method} to manage the
-	 * list of acronyms.
+	 * list, it uses the standard accessor {@link CAttribute::ManageArrayOffset() method} to
+	 * manage the list of acronyms.
 	 *
 	 * Each element of this list should indicate an acronym by which one refers to the
 	 * current institute, the nature and specifics of these elements is the responsibility
 	 * of concrete classes.
 	 *
 	 * For a more thorough reference of how this method works, please consult the
-	 * {@link _ManageArrayOffset() _ManageArrayOffset} method, in which the first parameter
-	 * will be the constant {@link kOFFSET_ACRONYM kOFFSET_ACRONYM}.
+	 * {@link CAttribute::ManageArrayOffset() CAttribute::ManageArrayOffset} method, in
+	 * which the second parameter will be the constant
+	 * {@link kOFFSET_ACRONYM kOFFSET_ACRONYM}.
 	 *
 	 * @param mixed					$theValue			Value or index.
 	 * @param mixed					$theOperation		Operation.
@@ -170,14 +171,14 @@ class CInstitute extends CContact
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageArrayOffset
+	 * @uses CAttribute::ManageArrayOffset()
 	 *
 	 * @see kOFFSET_ACRONYM
 	 */
 	public function Acronym( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageArrayOffset
-					( kOFFSET_ACRONYM, $theValue, $theOperation, $getOld );			// ==>
+		return CAttribute::ManageArrayOffset
+					( $this, kOFFSET_ACRONYM, $theValue, $theOperation, $getOld );	// ==>
 
 	} // Acronym.
 
@@ -222,8 +223,9 @@ class CInstitute extends CContact
 	 */
 	public function URL( $theValue = NULL, $theType = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageTypedOffset
-			( kOFFSET_URL, kTAG_KIND, kTAG_DATA, $theType, $theValue, $getOld );	// ==>
+		return CAttribute::ManageTypedOffset( $this,
+											  kOFFSET_URL, kTAG_KIND, kTAG_DATA,
+											  $theType, $theValue, $getOld );		// ==>
 
 	} // URL.
 

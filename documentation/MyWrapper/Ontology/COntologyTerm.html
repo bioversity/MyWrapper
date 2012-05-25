@@ -251,12 +251,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Cardinality</span> (line <span class="line-number">351</span>)
+		<span class="method-title">Cardinality</span> (line <span class="line-number">352</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage data cardinality.</p>
-<p class="description"><p>This method can be used to manage the measure data <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CARDINALITY">type</a>, it  uses the standard accessor <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">method</a> to manage the  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">offset</a>:</p><p><ul><li><strong>$theValue</strong>: The value or operation:
+<p class="description"><p>This method can be used to manage the measure data <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CARDINALITY">type</a>, it  uses the standard accessor <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">method</a> to manage the  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">offset</a>:</p><p><ul><li><strong>$theValue</strong>: The value or operation:
      <ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the value.</li><li><em>string</em>: String values represent the cardinality enumeration:
          <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekCARD_0_1">kCARD_0_1</a></em>: Zero or one, a scalar or none.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekCARD_1">kCARD_1</a></em>: Exactly one, a required scalar.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekCARD_ANY">kCARD_ANY</a></em>: Any, this implies that we either
                 have an array or no data.</li></ul></li><li><em>integer</em>: An integer represents the exact cardinality, in that case
@@ -290,16 +290,16 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Enumeration</span> (line <span class="line-number">229</span>)
+		<span class="method-title">Enumeration</span> (line <span class="line-number">230</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage enumerations.</p>
-<p class="description"><p>This method can be used to handle the object's <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ENUM">enumerations</a>, it  uses the standard accessor <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">method</a> to manage the list of  enumerations.</p><p>Each element of this list should indicate a code or acronym defining the current  object</p><p>For a more thorough reference of how this method works, please consult the  <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">_ManageArrayOffset</a> method, in which the first parameter  will be the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ENUM">kTAG_ENUM</a>.</p></p>
+<p class="description"><p>This method can be used to handle the object's <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ENUM">enumerations</a>, it  uses the standard accessor <a href="../../MyWrapper/Framework/CAttribute.html#methodManageArrayOffset">method</a> to manage  the list of enumerations.</p><p>Each element of this list should indicate a code or acronym defining the current  object</p><p>For a more thorough reference of how this method works, please consult the  <a href="../../MyWrapper/Framework/CAttribute.html#methodManageArrayOffset">CAttribute::ManageArrayOffset</a> method, in  which the second parameter will be the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ENUM">kTAG_ENUM</a>.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ENUM">kTAG_ENUM</a></li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageArrayOffset">CAttribute::ManageArrayOffset()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -329,16 +329,16 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Examples</span> (line <span class="line-number">434</span>)
+		<span class="method-title">Examples</span> (line <span class="line-number">437</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage data examples.</p>
-<p class="description"><p>This method can be used to handle data <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_EXAMPLES">examples</a>, it is a list  of strings handles by the standard accessor <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">method</a> in  the examples <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_EXAMPLES">offset</a>.</p><p>The provided value should be an example of how the current term could be represented,  an extensive set of examples should be included in order to provide enough  information to handle correctly any kind of output referenced data elements could  represent.</p><p>For a more in-depth reference of this method, please consult the  <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">_ManageOffset</a> method, in which the first parameter will be  the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_VALID">kTAG_VALID</a>.</p></p>
+<p class="description"><p>This method can be used to handle data <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_EXAMPLES">examples</a>, it is a list  of strings handles by the standard accessor  <a href="../../MyWrapper/Framework/CAttribute.html#methodManageArrayOffset">method</a> in the examples  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_EXAMPLES">offset</a>.</p><p>The provided value should be an example of how the current term could be represented,  an extensive set of examples should be included in order to provide enough  information to handle correctly any kind of output referenced data elements could  represent.</p><p>For a more in-depth reference of this method, please consult the  <a href="../../MyWrapper/Framework/CAttribute.html#methodManageArrayOffset">CAttribute::ManageArrayOffset</a> method, in  which the second parameter will be the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_VALID">kTAG_VALID</a>.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_EXAMPLES">kTAG_EXAMPLES</a></li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageArrayOffset">CAttribute::ManageArrayOffset()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -373,11 +373,11 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage node references.</p>
-<p class="description"><p>This method can be used to handle the object's <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NODE">node</a> references, it  uses the standard accessor <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">method</a> to manage the list of  nodes that point to this term.</p><p>Each element of this list represents the ID of a node in the ontology: each time a  node references this term, its identifier will be aded to this offset.</p><p>For a more thorough reference of how this method works, please consult the  <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">_ManageArrayOffset</a> method, in which the first parameter  will be the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kTAG_KIND</a>.</p><p>Note that you should only use this method for retrieving information, since  <a href="../../MyWrapper/Ontology/COntologyNode.html">nodes</a> store automatically this information when  <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">saved</a>.</p></p>
+<p class="description"><p>This method can be used to handle the object's <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NODE">node</a> references, it  uses the standard accessor <a href="../../MyWrapper/Framework/CAttribute.html#methodManageArrayOffset">method</a> to manage  the list of nodes that point to this term.</p><p>Each element of this list represents the ID of a node in the ontology: each time a  node references this term, its identifier will be aded to this offset.</p><p>For a more thorough reference of how this method works, please consult the  <a href="../../MyWrapper/Framework/CAttribute.html#methodManageArrayOffset">CAttribute::ManageArrayOffset</a> method, in  which the second parameter will be the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kTAG_KIND</a>.</p><p>Note that you should only use this method for retrieving information, since  <a href="../../MyWrapper/Ontology/COntologyNode.html">nodes</a> store automatically this information when  <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">saved</a>.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NODE">kTAG_NODE</a></li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageArrayOffset">CAttribute::ManageArrayOffset()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -407,7 +407,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetSet</span> (line <span class="line-number">467</span>)
+		<span class="method-title">offsetSet</span> (line <span class="line-number">470</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -447,7 +447,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetUnset</span> (line <span class="line-number">498</span>)
+		<span class="method-title">offsetUnset</span> (line <span class="line-number">501</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -484,16 +484,16 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Pattern</span> (line <span class="line-number">304</span>)
+		<span class="method-title">Pattern</span> (line <span class="line-number">305</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage patterns.</p>
-<p class="description"><p>This method can be used to handle the object's <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_PATTERN">patterns</a>, it  uses the standard accessor <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">method</a> to manage the list of  patterns.</p><p>This term usually describes a <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_STRING">string</a> data element that is  restricted by a series of string patterns, use the standard XML format.</p><p>For a more thorough reference of how this method works, please consult the  <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">_ManageArrayOffset</a> method, in which the first parameter  will be the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_PATTERN">kTAG_PATTERN</a>.</p></p>
+<p class="description"><p>This method can be used to handle the object's <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_PATTERN">patterns</a>, it  uses the standard accessor <a href="../../MyWrapper/Framework/CAttribute.html#methodManageArrayOffset">method</a> to manage  the list of patterns.</p><p>This term usually describes a <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_STRING">string</a> data element that is  restricted by a series of string patterns, use the standard XML format.</p><p>For a more thorough reference of how this method works, please consult the  <a href="../../MyWrapper/Framework/CAttribute.html#methodManageArrayOffset">CAttribute::ManageArrayOffset</a> method, in  which the second parameter will be the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_PATTERN">kTAG_PATTERN</a>.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_PATTERN">kTAG_PATTERN</a></li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageArrayOffset">CAttribute::ManageArrayOffset()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -523,16 +523,16 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Predicate</span> (line <span class="line-number">192</span>)
+		<span class="method-title">Predicate</span> (line <span class="line-number">193</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage predicate node references.</p>
-<p class="description"><p>This method can be used to handle the object's predicate <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_EDGE">node</a>  references, it uses the standard accessor <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">method</a> to  manage the list of predicate nodes that point to this term.</p><p>Each element of this list represents the ID of an edge node in the ontology: each  time an edge node references this term, its identifier will be aded to this offset.</p><p>For a more thorough reference of how this method works, please consult the  <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">_ManageArrayOffset</a> method, in which the first parameter  will be the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kTAG_KIND</a>.</p><p>Note that you should only use this method for retrieving information, since  <a href="../../MyWrapper/Ontology/COntologyNode.html">nodes</a> store automatically this information when  <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">saved</a>.</p></p>
+<p class="description"><p>This method can be used to handle the object's predicate <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_EDGE">node</a>  references, it uses the standard accessor  <a href="../../MyWrapper/Framework/CAttribute.html#methodManageArrayOffset">method</a> to  manage the list of predicate nodes that point to this term.</p><p>Each element of this list represents the ID of an edge node in the ontology: each  time an edge node references this term, its identifier will be aded to this offset.</p><p>For a more thorough reference of how this method works, please consult the  <a href="../../MyWrapper/Framework/CAttribute.html#methodManageArrayOffset">CAttribute::ManageArrayOffset</a> method, in  which the second parameter will be the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kTAG_KIND</a>.</p><p>Note that you should only use this method for retrieving information, since  <a href="../../MyWrapper/Ontology/COntologyNode.html">nodes</a> store automatically this information when  <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">saved</a>.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_EDGE">kTAG_EDGE</a></li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageArrayOffset">CAttribute::ManageArrayOffset()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -562,12 +562,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Type</span> (line <span class="line-number">268</span>)
+		<span class="method-title">Type</span> (line <span class="line-number">269</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage data type.</p>
-<p class="description"><p>This method can be used to manage the measure data <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">type</a>, it uses  the standard accessor <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">method</a> to manage the  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">offset</a>:</p><p><ul><li><strong>$theValue</strong>: The value or operation:
+<p class="description"><p>This method can be used to manage the measure data <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">type</a>, it uses  the standard accessor <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">method</a> to manage the  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">offset</a>:</p><p><ul><li><strong>$theValue</strong>: The value or operation:
      <ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the value.</li><li><em>other</em>: Set value.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
      <ul><li><em>TRUE</em>: Return the value <em>before</em> it was eventually modified.</li><li><em>FALSE</em>: Return the value <em>after</em> it was eventually modified.</li></ul></li></ul></p></p>
 	<ul class="tags">
@@ -598,16 +598,16 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Unit</span> (line <span class="line-number">389</span>)
+		<span class="method-title">Unit</span> (line <span class="line-number">391</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage data unit.</p>
-<p class="description"><p>This method can be used to handle the measure <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_UNIT">unit</a>, it uses the  standard accessor <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">method</a> to manage the  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_UNIT">offset</a>.</p><p>The value provided to this property should be the <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_id">identifier</a> of a term  hat defines a unit.</p><p>For a more in-depth reference of this method, please consult the  <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">_ManageOffset</a> method, in which the first parameter will be  the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_VALID">kTAG_VALID</a>.</p><p>In this class we feed the value to the<a href="../../MyWrapper/Ontology/COntologyTermObject.html#method_CheckReference">_CheckReference</a>  method that will take care of handling object references.</p></p>
+<p class="description"><p>This method can be used to handle the measure <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_UNIT">unit</a>, it uses the  standard accessor <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">method</a> to manage the  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_UNIT">offset</a>.</p><p>The value provided to this property should be the <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_id">identifier</a> of a term  hat defines a unit.</p><p>For a more in-depth reference of this method, please consult the  <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">CAttribute::ManageOffset</a> method, in which the  second parameter will be the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_VALID">kTAG_VALID</a>.</p><p>In this class we feed the value to the<a href="../../MyWrapper/Ontology/COntologyTermObject.html#method_CheckReference">_CheckReference</a>  method that will take care of handling object references.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_UNIT">kTAG_UNIT</a></li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">CAttribute::ManageOffset()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -634,7 +634,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Inited</span> (line <span class="line-number">623</span>)
+		<span class="method-title">_Inited</span> (line <span class="line-number">626</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -666,7 +666,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">557</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">560</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -905,16 +905,6 @@
 							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetUnset">CArrayObject::offsetUnset()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodvalues">CArrayObject::values()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageArrayOffset">CArrayObject::_ManageArrayOffset()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageOffset">CArrayObject::_ManageOffset()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedArrayListOffset">CArrayObject::_ManageTypedArrayListOffset()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedKindArrayOffset">CArrayObject::_ManageTypedKindArrayOffset()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#method_ManageTypedOffset">CArrayObject::_ManageTypedOffset()</a></span><br>
 											</blockquote>
 									<!-- =========== Summary =========== -->
 					<p>Inherited From <span class="classname">ArrayObject (Internal Class)</span></p>
@@ -1000,7 +990,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Thu, 24 May 2012 19:38:55 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 25 May 2012 19:13:12 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

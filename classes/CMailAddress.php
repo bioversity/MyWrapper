@@ -194,13 +194,14 @@ class CMailAddress extends CArrayObject
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kOFFSET_PLACE
 	 */
 	public function Place( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kOFFSET_PLACE, $theValue, $getOld );		// ==>
+		return CAttribute::ManageOffset
+				( $this, kOFFSET_PLACE, $theValue, $getOld );						// ==>
 
 	} // Place.
 
@@ -231,13 +232,14 @@ class CMailAddress extends CArrayObject
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kOFFSET_CARE
 	 */
 	public function Care( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kOFFSET_CARE, $theValue, $getOld );		// ==>
+		return CAttribute::ManageOffset
+				( $this, kOFFSET_CARE, $theValue, $getOld );						// ==>
 
 	} // Care.
 
@@ -268,13 +270,14 @@ class CMailAddress extends CArrayObject
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kOFFSET_STREET
 	 */
 	public function Street( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kOFFSET_STREET, $theValue, $getOld );		// ==>
+		return CAttribute::ManageOffset
+				( $this, kOFFSET_STREET, $theValue, $getOld );						// ==>
 
 	} // Street.
 
@@ -305,13 +308,14 @@ class CMailAddress extends CArrayObject
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kOFFSET_ZIP_CODE
 	 */
 	public function Zip( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kOFFSET_ZIP_CODE, $theValue, $getOld );		// ==>
+		return CAttribute::ManageOffset
+				( $this, kOFFSET_ZIP_CODE, $theValue, $getOld );					// ==>
 
 	} // Zip.
 
@@ -342,13 +346,14 @@ class CMailAddress extends CArrayObject
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kOFFSET_CITY
 	 */
 	public function City( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kOFFSET_CITY, $theValue, $getOld );		// ==>
+		return CAttribute::ManageOffset
+				( $this, kOFFSET_CITY, $theValue, $getOld );						// ==>
 
 	} // City.
 
@@ -379,13 +384,14 @@ class CMailAddress extends CArrayObject
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kOFFSET_PROVINCE
 	 */
 	public function Province( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kOFFSET_PROVINCE, $theValue, $getOld );	// ==>
+		return CAttribute::ManageOffset
+				( $this, kOFFSET_PROVINCE, $theValue, $getOld );					// ==>
 
 	} // Province.
 
@@ -416,13 +422,14 @@ class CMailAddress extends CArrayObject
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kOFFSET_COUNTRY
 	 */
 	public function Country( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kOFFSET_COUNTRY, $theValue, $getOld );	// ==>
+		return CAttribute::ManageOffset
+				( $this, kOFFSET_COUNTRY, $theValue, $getOld );	// ==>
 
 	} // Country.
 
@@ -456,7 +463,7 @@ class CMailAddress extends CArrayObject
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kOFFSET_FULL
 	 */
@@ -494,7 +501,7 @@ class CMailAddress extends CArrayObject
 		
 		} // Retrieve and value missing.
 		
-		return $this->_ManageOffset( kOFFSET_FULL, $theValue, $getOld );			// ==>
+		return CAttribute::ManageOffset( $this, kOFFSET_FULL, $theValue, $getOld );	// ==>
 
 	} // Full.
 

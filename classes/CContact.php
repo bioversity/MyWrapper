@@ -123,8 +123,9 @@ class CContact extends CEntity
 	 */
 	public function Mail( $theValue = NULL, $theType = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageTypedOffset
-			( kOFFSET_MAIL, kTAG_KIND, kTAG_DATA, $theType, $theValue, $getOld );	// ==>
+		return CAttribute::ManageTypedOffset( $this,
+											  kOFFSET_MAIL, kTAG_KIND, kTAG_DATA,
+											  $theType, $theValue, $getOld );		// ==>
 
 	} // Mail.
 
@@ -180,8 +181,9 @@ class CContact extends CEntity
 	 */
 	public function Phone( $theValue = NULL, $theType = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageTypedOffset
-			( kOFFSET_PHONE, kTAG_KIND, kTAG_DATA, $theType, $theValue, $getOld );	// ==>
+		return CAttribute::ManageTypedOffset( $this,
+											  kOFFSET_PHONE, kTAG_KIND, kTAG_DATA,
+											  $theType, $theValue, $getOld );		// ==>
 
 	} // Phone.
 
@@ -237,8 +239,9 @@ class CContact extends CEntity
 	 */
 	public function Fax( $theValue = NULL, $theType = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageTypedOffset
-			( kOFFSET_FAX, kTAG_KIND, kTAG_DATA, $theType, $theValue, $getOld );	// ==>
+		return CAttribute::ManageTypedOffset( $this,
+											  kOFFSET_FAX, kTAG_KIND, kTAG_DATA,
+											  $theType, $theValue, $getOld );		// ==>
 
 	} // Fax.
 

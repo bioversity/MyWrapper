@@ -123,15 +123,15 @@ class COntologyTerm extends COntologyTermObject
 	 * Manage node references.
 	 *
 	 * This method can be used to handle the object's {@link kTAG_NODE node} references, it
-	 * uses the standard accessor {@link _ManageArrayOffset() method} to manage the list of
-	 * nodes that point to this term.
+	 * uses the standard accessor {@link CAttribute::ManageArrayOffset() method} to manage
+	 * the list of nodes that point to this term.
 	 *
 	 * Each element of this list represents the ID of a node in the ontology: each time a
 	 * node references this term, its identifier will be aded to this offset.
 	 *
 	 * For a more thorough reference of how this method works, please consult the
-	 * {@link _ManageArrayOffset() _ManageArrayOffset} method, in which the first parameter
-	 * will be the constant {@link kTAG_KIND kTAG_KIND}.
+	 * {@link CAttribute::ManageArrayOffset() CAttribute::ManageArrayOffset} method, in
+	 * which the second parameter will be the constant {@link kTAG_KIND kTAG_KIND}.
 	 *
 	 * Note that you should only use this method for retrieving information, since
 	 * {@link COntologyNode nodes} store automatically this information when
@@ -144,14 +144,14 @@ class COntologyTerm extends COntologyTermObject
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageArrayOffset
+	 * @uses CAttribute::ManageArrayOffset()
 	 *
 	 * @see kTAG_NODE
 	 */
 	public function Node( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageArrayOffset
-					( kTAG_NODE, $theValue, $theOperation, $getOld );				// ==>
+		return CAttribute::ManageArrayOffset
+					( $this, kTAG_NODE, $theValue, $theOperation, $getOld );		// ==>
 
 	} // Node.
 
@@ -164,15 +164,16 @@ class COntologyTerm extends COntologyTermObject
 	 * Manage predicate node references.
 	 *
 	 * This method can be used to handle the object's predicate {@link kTAG_EDGE node}
-	 * references, it uses the standard accessor {@link _ManageArrayOffset() method} to
+	 * references, it uses the standard accessor
+	 * {@link CAttribute::ManageArrayOffset() method} to
 	 * manage the list of predicate nodes that point to this term.
 	 *
 	 * Each element of this list represents the ID of an edge node in the ontology: each
 	 * time an edge node references this term, its identifier will be aded to this offset.
 	 *
 	 * For a more thorough reference of how this method works, please consult the
-	 * {@link _ManageArrayOffset() _ManageArrayOffset} method, in which the first parameter
-	 * will be the constant {@link kTAG_KIND kTAG_KIND}.
+	 * {@link CAttribute::ManageArrayOffset() CAttribute::ManageArrayOffset} method, in
+	 * which the second parameter will be the constant {@link kTAG_KIND kTAG_KIND}.
 	 *
 	 * Note that you should only use this method for retrieving information, since
 	 * {@link COntologyNode nodes} store automatically this information when
@@ -185,14 +186,14 @@ class COntologyTerm extends COntologyTermObject
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageArrayOffset
+	 * @uses CAttribute::ManageArrayOffset()
 	 *
 	 * @see kTAG_EDGE
 	 */
 	public function Predicate( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageArrayOffset
-					( kTAG_EDGE, $theValue, $theOperation, $getOld );				// ==>
+		return CAttribute::ManageArrayOffset
+					( $this, kTAG_EDGE, $theValue, $theOperation, $getOld );		// ==>
 
 	} // Predicate.
 
@@ -205,15 +206,15 @@ class COntologyTerm extends COntologyTermObject
 	 * Manage enumerations.
 	 *
 	 * This method can be used to handle the object's {@link kTAG_ENUM enumerations}, it
-	 * uses the standard accessor {@link _ManageArrayOffset() method} to manage the list of
-	 * enumerations.
+	 * uses the standard accessor {@link CAttribute::ManageArrayOffset() method} to manage
+	 * the list of enumerations.
 	 *
 	 * Each element of this list should indicate a code or acronym defining the current
 	 * object
 	 *
 	 * For a more thorough reference of how this method works, please consult the
-	 * {@link _ManageArrayOffset() _ManageArrayOffset} method, in which the first parameter
-	 * will be the constant {@link kTAG_ENUM kTAG_ENUM}.
+	 * {@link CAttribute::ManageArrayOffset() CAttribute::ManageArrayOffset} method, in
+	 * which the second parameter will be the constant {@link kTAG_ENUM kTAG_ENUM}.
 	 *
 	 * @param mixed					$theValue			Value or index.
 	 * @param mixed					$theOperation		Operation.
@@ -222,14 +223,14 @@ class COntologyTerm extends COntologyTermObject
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageArrayOffset
+	 * @uses CAttribute::ManageArrayOffset()
 	 *
 	 * @see kTAG_ENUM
 	 */
 	public function Enumeration( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageArrayOffset
-					( kTAG_ENUM, $theValue, $theOperation, $getOld );				// ==>
+		return CAttribute::ManageArrayOffset
+					( $this, kTAG_ENUM, $theValue, $theOperation, $getOld );		// ==>
 
 	} // Enumeration.
 
@@ -242,7 +243,7 @@ class COntologyTerm extends COntologyTermObject
 	 * Manage data type.
 	 *
 	 * This method can be used to manage the measure data {@link kTAG_TYPE type}, it uses
-	 * the standard accessor {@link _ManageOffset() method} to manage the
+	 * the standard accessor {@link CAttribute::ManageOffset() method} to manage the
 	 * {@link kTAG_TYPE offset}:
 	 *
 	 * <ul>
@@ -267,7 +268,7 @@ class COntologyTerm extends COntologyTermObject
 	 */
 	public function Type( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kTAG_TYPE, $theValue, $getOld );				// ==>
+		return CAttribute::ManageOffset( $this, kTAG_TYPE, $theValue, $getOld );	// ==>
 
 	} // Type.
 
@@ -280,15 +281,15 @@ class COntologyTerm extends COntologyTermObject
 	 * Manage patterns.
 	 *
 	 * This method can be used to handle the object's {@link kTAG_PATTERN patterns}, it
-	 * uses the standard accessor {@link _ManageArrayOffset() method} to manage the list of
-	 * patterns.
+	 * uses the standard accessor {@link CAttribute::ManageArrayOffset() method} to manage
+	 * the list of patterns.
 	 *
 	 * This term usually describes a {@link kTYPE_STRING string} data element that is
 	 * restricted by a series of string patterns, use the standard XML format.
 	 *
 	 * For a more thorough reference of how this method works, please consult the
-	 * {@link _ManageArrayOffset() _ManageArrayOffset} method, in which the first parameter
-	 * will be the constant {@link kTAG_PATTERN kTAG_PATTERN}.
+	 * {@link CAttribute::ManageArrayOffset() CAttribute::ManageArrayOffset} method, in
+	 * which the second parameter will be the constant {@link kTAG_PATTERN kTAG_PATTERN}.
 	 *
 	 * @param mixed					$theValue			Value or index.
 	 * @param mixed					$theOperation		Operation.
@@ -297,14 +298,14 @@ class COntologyTerm extends COntologyTermObject
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageArrayOffset
+	 * @uses CAttribute::ManageArrayOffset()
 	 *
 	 * @see kTAG_PATTERN
 	 */
 	public function Pattern( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageArrayOffset
-					( kTAG_PATTERN, $theValue, $theOperation, $getOld );			// ==>
+		return CAttribute::ManageArrayOffset
+					( $this, kTAG_PATTERN, $theValue, $theOperation, $getOld );		// ==>
 
 	} // Pattern.
 
@@ -317,7 +318,7 @@ class COntologyTerm extends COntologyTermObject
 	 * Manage data cardinality.
 	 *
 	 * This method can be used to manage the measure data {@link kTAG_CARDINALITY type}, it
-	 * uses the standard accessor {@link _ManageOffset() method} to manage the
+	 * uses the standard accessor {@link CAttribute::ManageOffset() method} to manage the
 	 * {@link kTAG_TYPE offset}:
 	 *
 	 * <ul>
@@ -350,7 +351,8 @@ class COntologyTerm extends COntologyTermObject
 	 */
 	public function Cardinality( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kTAG_CARDINALITY, $theValue, $getOld );		// ==>
+		return CAttribute::ManageOffset
+				( $this, kTAG_CARDINALITY, $theValue, $getOld );					// ==>
 
 	} // Cardinality.
 
@@ -363,15 +365,15 @@ class COntologyTerm extends COntologyTermObject
 	 * Manage data unit.
 	 *
 	 * This method can be used to handle the measure {@link kTAG_UNIT unit}, it uses the
-	 * standard accessor {@link _ManageOffset() method} to manage the
+	 * standard accessor {@link CAttribute::ManageOffset() method} to manage the
 	 * {@link kTAG_UNIT offset}.
 	 *
 	 * The value provided to this property should be the {@link _id() identifier} of a term
 	 * hat defines a unit.
 	 *
 	 * For a more in-depth reference of this method, please consult the
-	 * {@link _ManageOffset() _ManageOffset} method, in which the first parameter will be
-	 * the constant {@link kTAG_VALID kTAG_VALID}.
+	 * {@link CAttribute::ManageOffset() CAttribute::ManageOffset} method, in which the
+	 * second parameter will be the constant {@link kTAG_VALID kTAG_VALID}.
 	 *
 	 * In this class we feed the value to the{@link _CheckReference() _CheckReference}
 	 * method that will take care of handling object references.
@@ -382,7 +384,7 @@ class COntologyTerm extends COntologyTermObject
 	 * @access public
 	 * @return string
 	 *
-	 * @uses _ManageOffset
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kTAG_UNIT
 	 */
@@ -395,7 +397,7 @@ class COntologyTerm extends COntologyTermObject
 		 && ($theValue !== FALSE) )
 			$theValue = $this->_CheckReference( $theValue );
 		
-		return $this->_ManageOffset( kTAG_UNIT, $theValue, $getOld );				// ==>
+		return CAttribute::ManageOffset( $this, kTAG_UNIT, $theValue, $getOld );	// ==>
 
 	} // Unit.
 
@@ -408,8 +410,9 @@ class COntologyTerm extends COntologyTermObject
 	 * Manage data examples.
 	 *
 	 * This method can be used to handle data {@link kTAG_EXAMPLES examples}, it is a list
-	 * of strings handles by the standard accessor {@link _ManageArrayOffset() method} in
-	 * the examples {@link kTAG_EXAMPLES offset}.
+	 * of strings handles by the standard accessor
+	 * {@link CAttribute::ManageArrayOffset() method} in the examples
+	 * {@link kTAG_EXAMPLES offset}.
 	 *
 	 * The provided value should be an example of how the current term could be represented,
 	 * an extensive set of examples should be included in order to provide enough
@@ -417,8 +420,8 @@ class COntologyTerm extends COntologyTermObject
 	 * represent.
 	 *
 	 * For a more in-depth reference of this method, please consult the
-	 * {@link _ManageOffset() _ManageOffset} method, in which the first parameter will be
-	 * the constant {@link kTAG_VALID kTAG_VALID}.
+	 * {@link CAttribute::ManageArrayOffset() CAttribute::ManageArrayOffset} method, in
+	 * which the second parameter will be the constant {@link kTAG_VALID kTAG_VALID}.
 	 *
 	 * @param mixed					$theValue			Value or index.
 	 * @param mixed					$theOperation		Operation.
@@ -427,14 +430,14 @@ class COntologyTerm extends COntologyTermObject
 	 * @access public
 	 * @return string
 	 *
-	 * @uses _ManageOffset
+	 * @uses CAttribute::ManageArrayOffset()
 	 *
 	 * @see kTAG_EXAMPLES
 	 */
 	public function Examples( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageArrayOffset
-					( kTAG_EXAMPLES, $theValue, $theOperation, $getOld );			// ==>
+		return CAttribute::ManageArrayOffset
+					( $this, kTAG_EXAMPLES, $theValue, $theOperation, $getOld );	// ==>
 
 	} // Examples.
 

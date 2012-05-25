@@ -101,8 +101,8 @@ class CAttribute
 	 * @static
 	 * @return mixed
 	 */
-	static function ManageOffset( &$theReference, $theOffset, $theValue = NULL,
-														$getOld = FALSE )
+	static function ManageOffset( &$theReference,
+								   $theOffset, $theValue = NULL, $getOld = FALSE )
 	{
 		//
 		// Check reference.
@@ -720,16 +720,28 @@ class CAttribute
 				$theReference[ $theMainOffset ] = array( $element );
 			
 			//
-			// Replace category.
-			//
-			elseif( $idx !== NULL )
-				$theReference[ $theMainOffset ][ $idx ] = $element;
-				
-			//
-			// Add category.
+			// Has data.
 			//
 			else
-				$theReference[ $theMainOffset ][] = $element;
+			{
+				//
+				// Replace category.
+				//
+				if( $idx !== NULL )
+					$list[ $idx ] = $element;
+					
+				//
+				// Add category.
+				//
+				else
+					$list[] = $element;
+				
+				//
+				// Update offset.
+				//
+				$theReference[ $theMainOffset ] = $list;
+			
+			} // Has data.
 			
 			if( $getOld )
 				return $save;														// ==>
@@ -1009,13 +1021,15 @@ class CAttribute
 				// Set offset.
 				//
 				$theReference[ $theMainOffset ] = array( $save );
+				
+				return $result;														// ==>
 			
 			} // Missing main offset.
 			
 			//
 			// Create new category.
 			//
-			elseif( $save === NULL )
+			if( $save === NULL )
 			{
 				//
 				// Create element.
@@ -1030,11 +1044,6 @@ class CAttribute
 				// Add to list.
 				//
 				$list[] = $save;
-				
-				//
-				// Set offset.
-				//
-				$theReference[ $theMainOffset ] = $list;
 			
 			} // New category.
 				
@@ -1050,11 +1059,16 @@ class CAttribute
 							( $save, $theDataOffset, $theData, $theOperation, $getOld );
 				
 				//
-				// Set offset.
+				// Update list.
 				//
-				$theReference[ $theMainOffset ][ $idx ] = $save;
+				$list[ $idx ] = $save;
 			
 			} // Matched category.
+			
+			//
+			// Set offset.
+			//
+			$theReference[ $theMainOffset ] = $list;
 			
 			return $result;															// ==>
 		
@@ -1067,6 +1081,250 @@ class CAttribute
 				  array( 'Reference' => $theReference ) );						// !@! ==>
 	
 	} // ManageTypedArrayOffset.
+
+	 
+	/*===================================================================================
+	 *	ManageTypedKindOffset															*
+	 *==================================================================================*/
+
+	/**
+	 * Manage a category and type offset.
+	 *
+	 * A typed kind offset is structured as follows:
+	 *
+	 * <ul>
+	 *	<li><i>Kind</i>: This offset contains a scalar which determined the kind or category
+	 *		of the element, this element may be omitted.
+	 *	<li><i>Type</i>: This element represents the type of the next item, this element is
+	 *		required.
+	 *	<li><i>Data</i>: This offset contains the element data, in this method we treat it
+	 *		as a scalar, this element is required.
+	 * </ul>
+	 *
+	 * No two elements of the list can share the same kind and type, these represent the
+	 * index of the array.
+	 *
+	 * The parameters to this method are:
+	 *
+	 * <ul>
+	 *	<li><b>&$theReference</b>: Reference to an array or ArrayObject derived instance.
+	 *	<li><b>$theMainOffset</b>: The offset to manage.
+	 *	<li><b>$theKindOffset</b>: The element's offset of the kind.
+	 *	<li><b>$theTypeOffset</b>: The element's offset of the type.
+	 *	<li><b>$theDataOffset</b>: The element's offset of the data.
+	 *	<li><b>$theKind</b>: The item kind value; this value may be <i>NULL</i>, or one
+	 *		should be able to cast it to a string.
+	 *	<li><b>$theType</b>: The item type value; one should be able to cast the value to a
+	 *		string.
+	 *	<li><b>$theData</b>: This parameter represents the item's data element, or the
+	 *		operation to be performed:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: This indicates that we want to retrieve the data of the item
+	 *			with index matching the kind and type parameters.
+	 *		<li><i>FALSE</i>: This indicates that we want to remove the item matching the
+	 *			kind and type parameters.
+	 *		<li><i>other</i>: Any other value indicates that we want to add or replace the
+	 *			data element of the item matching the kind and type parameters.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the element or list <i>before</i> it was eventually
+	 *			modified.
+	 *		<li><i>FALSE</i>: Return the element or list <i>after</i> it was eventually
+	 *			modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * @param reference			   &$theReference		Object reference.
+	 * @param string				$theMainOffset		Main offset.
+	 * @param string				$theKindOffset		Type offset.
+	 * @param string				$theTypeOffset		Type offset.
+	 * @param string				$theDataOffset		Data offset.
+	 * @param mixed					$theKind			Item kind.
+	 * @param mixed					$theType			Item type.
+	 * @param mixed					$theData			Item value.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @static
+	 * @return mixed
+	 *
+	 * @uses offsetGet()
+	 * @uses offsetSet()
+	 * @uses offsetUnset()
+	 */
+	static function ManageTypedKindOffset( &$theReference,
+											$theMainOffset,
+											$theKindOffset, $theTypeOffset, $theDataOffset,
+											$theKind, $theType, $theData = NULL,
+											$getOld = FALSE )
+	{
+		//
+		// Check reference.
+		//
+		if( is_array( $theReference )
+		 || ($theReference instanceof ArrayObject) )
+		{
+			//
+			// Save offset.
+			//
+			if( is_array( $theReference ) )
+				$list = ( array_key_exists( $theMainOffset, $theReference ) )
+						? $theReference[ $theMainOffset ]
+						: NULL;
+			else
+				$list = ( $theReference->offsetExists( $theMainOffset ) )
+						? $theReference[ $theMainOffset ]
+						: NULL;
+			
+			//
+			// Handle categories.
+			//
+			$save = $idx = NULL;
+			if( $list !== NULL )
+			{
+				//
+				// Locate category.
+				//
+				foreach( $list as $key => $element )
+				{
+					//
+					// Match kind and type.
+					//
+					if( ( is_array( $element )
+					   && ( ( array_key_exists( $theKindOffset, $element )
+						   && ($element[ $theKindOffset ] == (string) $theKind)
+						   && array_key_exists( $theTypeOffset, $element )
+						   && ($element[ $theTypeOffset ] == (string) $theType) )
+						 || ( (! array_key_exists( $theKindOffset, $element ))
+						   && ($theKind === NULL)
+						   && array_key_exists( $theTypeOffset, $element )
+						   && ($element[ $theTypeOffset ]
+						   		== (string) $theType) ) ) )
+					 || ( ($element instanceof ArrayObject)
+					   && ( ( $element->offsetExists( $theKindOffset )
+						   && ($element->offsetGet( $theKindOffset ) == (string) $theKind)
+						   && $element->offsetExists( $theTypeOffset )
+						   && ($element->offsetGet( $theTypeOffset ) == (string) $theType) )
+						 || ( (! $element->offsetExists( $theKindOffset ))
+						   && ($theKind === NULL)
+						   && $element->offsetExists( $theTypeOffset )
+						   && ($element->offsetGet( $theTypeOffset )
+						   		== (string) $theType) ) ) ) )
+					{
+						$idx = $key;
+						$save = $element[ $theDataOffset ];
+						break;												// =>
+					
+					} // Matched.
+				
+				} // Iterating offset elements.
+			
+			} // Has data.
+	
+			//
+			// Retrieve.
+			//
+			if( $theData === NULL )
+				return $save;														// ==>
+			
+			//
+			// Delete.
+			//
+			if( $theData === FALSE )
+			{
+				//
+				// Handle existing list.
+				//
+				if( $idx !== NULL )
+				{
+					//
+					// Delete item.
+					//
+					unset( $list[ $idx ] );
+					
+					//
+					// Replace offset.
+					//
+					if( count( $list ) )
+						$theReference[ $theMainOffset ] = array_values( $list );
+					
+					//
+					// Delete offset.
+					//
+					else
+					{
+						if( is_array( $theReference ) )
+							unset( $theReference[ $theMainOffset ] );
+						else
+							$theReference->offsetUnset( $theMainOffset );
+					
+					} // No elements left.
+					
+					if( $getOld )
+						return $save;												// ==>
+				}
+				
+				return NULL;														// ==>
+			
+			} // Delete.
+			
+			//
+			// Create element.
+			//
+			$element = Array();
+			if( $theKind !== NULL )
+				$element[ $theKindOffset ] = $theKind;
+			$element[ $theTypeOffset ] = $theType;
+			$element[ $theDataOffset ] = $theData;
+			
+			//
+			// Create first category.
+			//
+			if( $list === NULL )
+			{
+				//
+				// Set offset.
+				//
+				$theReference[ $theMainOffset ] = array( $element );
+				
+				if( $getOld )
+					return $save;													// ==>
+				
+				return $theData;													// ==>
+			
+			} // Missing main offset.
+			
+			//
+			// Add new element.
+			//
+			if( $save === NULL )
+				$list[] = $element;
+			
+			//
+			// Update element.
+			//
+			else
+				$list[ $idx ][ $theDataOffset ] = $theData;
+			
+			//
+			// Set offset.
+			//
+			$theReference[ $theMainOffset ] = $list;
+			
+			if( $getOld )
+				return $save;														// ==>
+			
+			return $theData;														// ==>
+		
+		} // Supported reference.
+
+		throw new CException
+				( "Unsupported object reference",
+				  kERROR_UNSUPPORTED,
+				  kMESSAGE_TYPE_ERROR,
+				  array( 'Reference' => $theReference ) );						// !@! ==>
+	
+	} // ManageTypedKindOffset.
 
 	 
 

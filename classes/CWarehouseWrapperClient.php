@@ -98,7 +98,7 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 	 *
 	 * @throws {@link CException CException}
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kAPI_OPERATION
 	 * @see kAPI_OP_GET_ONE kAPI_OP_GET_OBJECT_REF
@@ -126,7 +126,8 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 			}
 		}
 		
-		return $this->_ManageOffset( kAPI_OPERATION, $theValue, $getOld );			// ==>
+		return CAttribute::ManageOffset
+				( $this, kAPI_OPERATION, $theValue, $getOld );						// ==>
 
 	} // Operation.
 
@@ -156,13 +157,14 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kAPI_OPT_USER_CODE
 	 */
 	public function UserCode( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kAPI_OPT_USER_CODE, $theValue, $getOld );		// ==>
+		return CAttribute::ManageOffset
+				( $this, kAPI_OPT_USER_CODE, $theValue, $getOld );					// ==>
 
 	} // UserCode.
 
@@ -193,13 +195,14 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kAPI_OPT_USER_PASS
 	 */
 	public function UserPass( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kAPI_OPT_USER_PASS, $theValue, $getOld );		// ==>
+		return CAttribute::ManageOffset
+				( $this, kAPI_OPT_USER_PASS, $theValue, $getOld );					// ==>
 
 	} // UserPass.
 
@@ -212,12 +215,13 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 	 * Manage identifiers list.
 	 *
 	 * This method can be used to manage the {@link kAPI_OPT_IDENTIFIERS identifiers}, it
-	 * uses the standard accessor {@link _ManageArrayOffset() method} to manage the list of
-	 * identifiers.
+	 * uses the standard accessor {@link CAttribute::ManageArrayOffset() method} to manage
+	 * the list of identifiers.
 	 *
 	 * For a more thorough reference of how this method works, please consult the
-	 * {@link _ManageArrayOffset() _ManageArrayOffset} method, in which the first parameter
-	 * will be the constant {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS}.
+	 * {@link CAttribute::ManageArrayOffset() CAttribute::ManageArrayOffset} method, in
+	 * which the second parameter will be the constant
+	 * {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS}.
 	 *
 	 * @param mixed					$theValue			Value or index.
 	 * @param mixed					$theOperation		Operation.
@@ -226,14 +230,15 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageArrayOffset()
 	 *
 	 * @see kAPI_OPT_IDENTIFIERS
 	 */
 	public function Identifiers( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageArrayOffset
-					( kAPI_OPT_IDENTIFIERS, $theValue, $theOperation, $getOld );	// ==>
+		return CAttribute::ManageArrayOffset
+					( $this, kAPI_OPT_IDENTIFIERS,
+					  $theValue, $theOperation, $getOld );							// ==>
 
 	} // Identifiers.
 
@@ -246,12 +251,13 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 	 * Manage predicates list.
 	 *
 	 * This method can be used to manage the {@link kAPI_OPT_PREDICATES predicates}, it
-	 * uses the standard accessor {@link _ManageArrayOffset() method} to manage the list of
-	 * predicates.
+	 * uses the standard accessor {@link CAttribute::ManageArrayOffset() method} to manage
+	 * the list of predicates.
 	 *
 	 * For a more thorough reference of how this method works, please consult the
-	 * {@link _ManageArrayOffset() _ManageArrayOffset} method, in which the first parameter
-	 * will be the constant {@link kAPI_OPT_PREDICATES kAPI_OPT_PREDICATES}.
+	 * {@link CAttribute::ManageArrayOffset() CAttribute::ManageArrayOffset} method, in
+	 * which the second parameter will be the constant
+	 * {@link kAPI_OPT_PREDICATES kAPI_OPT_PREDICATES}.
 	 *
 	 * @param mixed					$theValue			Value or index.
 	 * @param mixed					$theOperation		Operation.
@@ -260,14 +266,15 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageArrayOffset()
 	 *
 	 * @see kAPI_OPT_PREDICATES
 	 */
 	public function Predicates( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageArrayOffset
-					( kAPI_OPT_PREDICATES, $theValue, $theOperation, $getOld );		// ==>
+		return CAttribute::ManageArrayOffset
+					( $this, kAPI_OPT_PREDICATES,
+					  $theValue, $theOperation, $getOld );							// ==>
 
 	} // Predicates.
 
@@ -487,7 +494,7 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kAPI_OPT_DIRECTION
 	 */
@@ -515,7 +522,8 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 			}
 		}
 		
-		return $this->_ManageOffset( kAPI_OPT_DIRECTION, $theValue, $getOld );		// ==>
+		return CAttribute::ManageOffset
+				( $this, kAPI_OPT_DIRECTION, $theValue, $getOld );					// ==>
 
 	} // Direction.
 
@@ -547,7 +555,7 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kAPI_OPT_LEVELS
 	 */
@@ -560,7 +568,8 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 		 && ($theValue !== FALSE) )
 			$theValue = (integer) $theValue;
 		
-		return $this->_ManageOffset( kAPI_OPT_LEVELS, $theValue, $getOld );			// ==>
+		return CAttribute::ManageOffset
+				( $this, kAPI_OPT_LEVELS, $theValue, $getOld );						// ==>
 
 	} // Levels.
 

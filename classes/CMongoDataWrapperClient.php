@@ -106,7 +106,7 @@ class CMongoDataWrapperClient extends CDataWrapperClient
 	 *
 	 * @throws {@link CException CException}
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kAPI_OPERATION
 	 * @see kAPI_OP_GET_ONE kAPI_OP_GET_OBJECT_REF
@@ -130,7 +130,8 @@ class CMongoDataWrapperClient extends CDataWrapperClient
 			}
 		}
 		
-		return $this->_ManageOffset( kAPI_OPERATION, $theValue, $getOld );			// ==>
+		return CAttribute::ManageOffset
+				( $this, kAPI_OPERATION, $theValue, $getOld );						// ==>
 
 	} // Operation.
 
@@ -161,13 +162,14 @@ class CMongoDataWrapperClient extends CDataWrapperClient
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kAPI_OPT_NO_RESP
 	 */
 	public function NoResponse( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kAPI_OPT_NO_RESP, $theValue, $getOld );		// ==>
+		return CAttribute::ManageOffset
+				( $this, kAPI_OPT_NO_RESP, $theValue, $getOld );					// ==>
 
 	} // NoResponse.
 

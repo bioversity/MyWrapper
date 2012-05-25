@@ -2721,8 +2721,8 @@ exit( "Done!\n" );
 		{
 			$group_node = new COntologyNode( $container );
 			$group_node->Term( $group_term );
-			$group_node->Type( kTYPE_ENUM, TRUE );
 			$group_node->Kind( kTYPE_MEASURE, TRUE );
+			$group_node->Type( kTYPE_ENUM, TRUE );
 			$group_node->Commit( $container );
 		}
 		else

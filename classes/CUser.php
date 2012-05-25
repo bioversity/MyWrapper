@@ -159,7 +159,7 @@ class CUser extends CEntity
 	 * Manage user password.
 	 *
 	 * This method can be used to manage the user {@link kOFFSET_PASSWORD password}, it uses
-	 * the standard accessor {@link _ManageOffset() method} to manage the
+	 * the standard accessor {@link CAttribute::ManageOffset() method} to manage the
 	 * {@link kOFFSET_PASSWORD offset}:
 	 *
 	 * <ul>
@@ -184,7 +184,8 @@ class CUser extends CEntity
 	 */
 	public function Password( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kOFFSET_PASSWORD, $theValue, $getOld );		// ==>
+		return CAttribute::ManageOffset
+				( $this, kOFFSET_PASSWORD, $theValue, $getOld );					// ==>
 
 	} // Password.
 

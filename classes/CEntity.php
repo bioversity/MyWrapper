@@ -101,7 +101,7 @@ class CEntity extends CCodedUnitObject
 	 * Manage entity name.
 	 *
 	 * This method can be used to handle the entity {@link kTAG_NAME name}, it uses the
-	 * standard accessor {@link _ManageOffset() method} to manage the
+	 * standard accessor {@link CAttribute::ManageOffset() method} to manage the
 	 * {@link kTAG_NAME offset}.
 	 *
 	 * This value should be a string that can be used as a label or as a short definition
@@ -109,8 +109,8 @@ class CEntity extends CCodedUnitObject
 	 * offset is the responsibility of concrete classes.
 	 *
 	 * For a more in-depth reference of this method, please consult the
-	 * {@link _ManageOffset() _ManageOffset} method, in which the first parameter
-	 * will be the constant {@link kTAG_NAME kTAG_NAME}.
+	 * {@link CAttribute::ManageOffset() CAttribute::ManageOffset} method, in which the
+	 * second parameter will be the constant {@link kTAG_NAME kTAG_NAME}.
 	 *
 	 * @param mixed					$theValue			Value.
 	 * @param boolean				$getOld				TRUE get old value.
@@ -118,13 +118,13 @@ class CEntity extends CCodedUnitObject
 	 * @access public
 	 * @return string
 	 *
-	 * @uses _ManageOffset
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kTAG_NAME
 	 */
 	public function Name( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kTAG_NAME, $theValue, $getOld );				// ==>
+		return CAttribute::ManageOffset( $this, kTAG_NAME, $theValue, $getOld );	// ==>
 
 	} // Name.
 
@@ -137,7 +137,7 @@ class CEntity extends CCodedUnitObject
 	 * Manage entity e-mail.
 	 *
 	 * This method can be used to manage the entity {@link kOFFSET_EMAIL e-mail}, it uses
-	 * the standard accessor {@link _ManageOffset() method} to manage the
+	 * the standard accessor {@link CAttribute::ManageOffset() method} to manage the
 	 * {@link kOFFSET_EMAIL offset}:
 	 *
 	 * <ul>
@@ -162,7 +162,8 @@ class CEntity extends CCodedUnitObject
 	 */
 	public function Email( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kOFFSET_EMAIL, $theValue, $getOld );			// ==>
+		return CAttribute::ManageOffset
+				( $this, kOFFSET_EMAIL, $theValue, $getOld );						// ==>
 
 	} // Email.
 

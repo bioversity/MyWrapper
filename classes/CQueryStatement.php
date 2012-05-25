@@ -388,13 +388,14 @@ class CQueryStatement extends CArrayObject
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kAPI_QUERY_SUBJECT
 	 */
 	public function Subject( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kAPI_QUERY_SUBJECT, $theValue, $getOld );		// ==>
+		return CAttribute::ManageOffset
+				( $this, kAPI_QUERY_SUBJECT, $theValue, $getOld );					// ==>
 
 	} // Subject.
 
@@ -425,7 +426,7 @@ class CQueryStatement extends CArrayObject
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kAPI_QUERY_DATA
 	 */
@@ -438,7 +439,8 @@ class CQueryStatement extends CArrayObject
 		 && ($theValue !== FALSE) )
 			CDataType::SerialiseObject( $theValue );
 		
-		return $this->_ManageOffset( kAPI_QUERY_DATA, $theValue, $getOld );			// ==>
+		return CAttribute::ManageOffset
+				( $this, kAPI_QUERY_DATA, $theValue, $getOld );						// ==>
 
 	} // Object.
 
@@ -512,7 +514,7 @@ class CQueryStatement extends CArrayObject
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kAPI_QUERY_OPERATOR
 	 */
@@ -559,7 +561,8 @@ class CQueryStatement extends CArrayObject
 			}
 		}
 		
-		return $this->_ManageOffset( kAPI_QUERY_OPERATOR, $theValue, $getOld );		// ==>
+		return CAttribute::ManageOffset
+				( $this, kAPI_QUERY_OPERATOR, $theValue, $getOld );					// ==>
 
 	} // Predicate.
 
@@ -609,7 +612,7 @@ class CQueryStatement extends CArrayObject
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kAPI_QUERY_TYPE
 	 */
@@ -643,7 +646,8 @@ class CQueryStatement extends CArrayObject
 			}
 		}
 		
-		return $this->_ManageOffset( kAPI_QUERY_TYPE, $theValue, $getOld );			// ==>
+		return CAttribute::ManageOffset
+				( $this, kAPI_QUERY_TYPE, $theValue, $getOld );						// ==>
 
 	} // Type.
 
@@ -675,7 +679,7 @@ class CQueryStatement extends CArrayObject
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageOffset()
+	 * @uses Object()
 	 *
 	 * @see kAPI_QUERY_DATA
 	 */

@@ -87,14 +87,15 @@ class CFAOInstitute extends CInstitute
 	 *
 	 * This method can be used to handle the institute ECPGR
 	 * {@link kENTITY_INST_FAO_EPACRONYM acronym}, it uses the standard accessor
-	 * {@link _ManageOffset() method} to manage the
+	 * {@link CAttribute::ManageOffset() method} to manage the
 	 * {@link kENTITY_INST_FAO_EPACRONYM offset}.
 	 *
 	 * This value should be a string.
 	 *
 	 * For a more in-depth reference of this method, please consult the
-	 * {@link _ManageOffset() _ManageOffset} method, in which the first parameter
-	 * will be the constant {@link kENTITY_INST_FAO_EPACRONYM kENTITY_INST_FAO_EPACRONYM}.
+	 * {@link CAttribute::ManageOffset() CAttribute::ManageOffset} method, in which the
+	 * second parameter will be the constant
+	 * {@link kENTITY_INST_FAO_EPACRONYM kENTITY_INST_FAO_EPACRONYM}.
 	 *
 	 * @param mixed					$theValue			Value.
 	 * @param boolean				$getOld				TRUE get old value.
@@ -102,14 +103,14 @@ class CFAOInstitute extends CInstitute
 	 * @access public
 	 * @return string
 	 *
-	 * @uses _ManageOffset
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kENTITY_INST_FAO_EPACRONYM
 	 */
 	public function EAcronym( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset
-			( kENTITY_INST_FAO_EPACRONYM, $theValue, $getOld );						// ==>
+		return CAttribute::ManageOffset
+			( $this, kENTITY_INST_FAO_EPACRONYM, $theValue, $getOld );				// ==>
 
 	} // EAcronym.
 
@@ -123,7 +124,7 @@ class CFAOInstitute extends CInstitute
 	 *
 	 * This method can be used to handle the institute FAO/WIEWS
 	 * {@link kENTITY_INST_FAO_TYPE types} list, it uses the standard accessor
-	 * {@link _ManageArrayOffset() method} to manage the
+	 * {@link CAttribute::ManageArrayOffset() method} to manage the
 	 * list of acronyms.
 	 *
 	 * Each element of this list should indicate an acronym by which one refers to the
@@ -131,8 +132,9 @@ class CFAOInstitute extends CInstitute
 	 * of concrete classes.
 	 *
 	 * For a more thorough reference of how this method works, please consult the
-	 * {@link _ManageArrayOffset() _ManageArrayOffset} method, in which the first parameter
-	 * will be the constant {@link kENTITY_INST_FAO_TYPE kENTITY_INST_FAO_TYPE}.
+	 * {@link CAttribute::ManageArrayOffset() CAttribute::ManageArrayOffset} method, in
+	 * which the second parameter will be the constant
+	 * {@link kENTITY_INST_FAO_TYPE kENTITY_INST_FAO_TYPE}.
 	 *
 	 * @param mixed					$theValue			Value or index.
 	 * @param mixed					$theOperation		Operation.
@@ -141,14 +143,15 @@ class CFAOInstitute extends CInstitute
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageArrayOffset
+	 * @uses CAttribute::ManageArrayOffset()
 	 *
 	 * @see kENTITY_INST_FAO_TYPE
 	 */
 	public function FAOType( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageArrayOffset
-					( kENTITY_INST_FAO_TYPE, $theValue, $theOperation, $getOld );	// ==>
+		return CAttribute::ManageArrayOffset
+					( $this, kENTITY_INST_FAO_TYPE,
+					  $theValue, $theOperation, $getOld );							// ==>
 
 	} // FAOType.
 
@@ -162,13 +165,15 @@ class CFAOInstitute extends CInstitute
 	 *
 	 * This method can be used to handle the institute
 	 * {@link kENTITY_INST_FAO_LAT latitude}, it uses the standard accessor
-	 * {@link _ManageOffset() method} to manage the {@link kENTITY_INST_FAO_LAT offset}.
+	 * {@link CAttribute::ManageOffset() method} to manage the
+	 * {@link kENTITY_INST_FAO_LAT offset}.
 	 *
 	 * This value is provided as an integer, specialised classes may convert it.
 	 *
 	 * For a more in-depth reference of this method, please consult the
-	 * {@link _ManageOffset() _ManageOffset} method, in which the first parameter
-	 * will be the constant {@link kENTITY_INST_FAO_LAT kENTITY_INST_FAO_LAT}.
+	 * {@link CAttribute::ManageOffset() CAttribute::ManageOffset} method, in which the
+	 * second parameter will be the constant
+	 * {@link kENTITY_INST_FAO_LAT kENTITY_INST_FAO_LAT}.
 	 *
 	 * @param mixed					$theValue			Value.
 	 * @param boolean				$getOld				TRUE get old value.
@@ -176,13 +181,14 @@ class CFAOInstitute extends CInstitute
 	 * @access public
 	 * @return string
 	 *
-	 * @uses _ManageOffset
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kENTITY_INST_FAO_LAT
 	 */
 	public function Latitude( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kENTITY_INST_FAO_LAT, $theValue, $getOld );	// ==>
+		return CAttribute::ManageOffset
+				( $this, kENTITY_INST_FAO_LAT, $theValue, $getOld );	// ==>
 
 	} // Latitude.
 
@@ -196,13 +202,15 @@ class CFAOInstitute extends CInstitute
 	 *
 	 * This method can be used to handle the institute
 	 * {@link kENTITY_INST_FAO_LON longitude}, it uses the standard accessor
-	 * {@link _ManageOffset() method} to manage the {@link kENTITY_INST_FAO_LON offset}.
+	 * {@link CAttribute::ManageOffset() method} to manage the
+	 * {@link kENTITY_INST_FAO_LON offset}.
 	 *
 	 * This value is provided as an integer, specialised classes may convert it.
 	 *
 	 * For a more in-depth reference of this method, please consult the
-	 * {@link _ManageOffset() _ManageOffset} method, in which the first parameter
-	 * will be the constant {@link kENTITY_INST_FAO_LON kENTITY_INST_FAO_LON}.
+	 * {@link CAttribute::ManageOffset() CAttribute::ManageOffset} method, in which the
+	 * second parameter will be the constant
+	 * {@link kENTITY_INST_FAO_LON kENTITY_INST_FAO_LON}.
 	 *
 	 * @param mixed					$theValue			Value.
 	 * @param boolean				$getOld				TRUE get old value.
@@ -210,13 +218,14 @@ class CFAOInstitute extends CInstitute
 	 * @access public
 	 * @return string
 	 *
-	 * @uses _ManageOffset
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kENTITY_INST_FAO_LON
 	 */
 	public function Longitude( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kENTITY_INST_FAO_LON, $theValue, $getOld );	// ==>
+		return CAttribute::ManageOffset
+				( $this, kENTITY_INST_FAO_LON, $theValue, $getOld );				// ==>
 
 	} // Longitude.
 
@@ -230,13 +239,15 @@ class CFAOInstitute extends CInstitute
 	 *
 	 * This method can be used to handle the institute
 	 * {@link kENTITY_INST_FAO_ALT altitude}, it uses the standard accessor
-	 * {@link _ManageOffset() method} to manage the {@link kENTITY_INST_FAO_ALT offset}.
+	 * {@link CAttribute::ManageOffset() method} to manage the
+	 * {@link kENTITY_INST_FAO_ALT offset}.
 	 *
 	 * This value is provided as an integer, specialised classes may convert it.
 	 *
 	 * For a more in-depth reference of this method, please consult the
-	 * {@link _ManageOffset() _ManageOffset} method, in which the first parameter
-	 * will be the constant {@link kENTITY_INST_FAO_ALT kENTITY_INST_FAO_ALT}.
+	 * {@link CAttribute::ManageOffset() CAttribute::ManageOffset} method, in which the
+	 * second parameter will be the constant
+	 * {@link kENTITY_INST_FAO_ALT kENTITY_INST_FAO_ALT}.
 	 *
 	 * @param mixed					$theValue			Value.
 	 * @param boolean				$getOld				TRUE get old value.
@@ -244,13 +255,14 @@ class CFAOInstitute extends CInstitute
 	 * @access public
 	 * @return string
 	 *
-	 * @uses _ManageOffset
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kENTITY_INST_FAO_ALT
 	 */
 	public function Altitude( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kENTITY_INST_FAO_ALT, $theValue, $getOld );	// ==>
+		return CAttribute::ManageOffset
+				( $this, kENTITY_INST_FAO_ALT, $theValue, $getOld );				// ==>
 
 	} // Altitude.
 

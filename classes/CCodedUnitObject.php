@@ -133,13 +133,13 @@ class CCodedUnitObject extends CRelatedUnitObject
 	 * @access public
 	 * @return string
 	 *
-	 * @uses _ManageOffset
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kTAG_CODE
 	 */
 	public function Code( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kTAG_CODE, $theValue, $getOld );				// ==>
+		return CAttribute::ManageOffset( $this, kTAG_CODE, $theValue, $getOld );	// ==>
 
 	} // Code.
 
@@ -152,14 +152,15 @@ class CCodedUnitObject extends CRelatedUnitObject
 	 * Manage kind.
 	 *
 	 * This method can be used to handle the object's {@link kTAG_KIND kinds}, it uses the
-	 * standard accessor {@link _ManageArrayOffset() method} to manage the list of kinds.
+	 * standard accessor {@link CAttribute::ManageArrayOffset() method} to manage the list of
+	 * kinds.
 	 *
 	 * Each element of this list should indicate a function or quality of the current
 	 * object
 	 *
 	 * For a more thorough reference of how this method works, please consult the
-	 * {@link _ManageArrayOffset() _ManageArrayOffset} method, in which the first parameter
-	 * will be the constant {@link kTAG_KIND kTAG_KIND}.
+	 * {@link CAttribute::ManageArrayOffset() CAttribute::ManageArrayOffset} method, in
+	 * which the second parameter will be the constant {@link kTAG_KIND kTAG_KIND}.
 	 *
 	 * @param mixed					$theValue			Value or index.
 	 * @param mixed					$theOperation		Operation.
@@ -168,14 +169,14 @@ class CCodedUnitObject extends CRelatedUnitObject
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageArrayOffset
+	 * @uses CAttribute::ManageArrayOffset()
 	 *
 	 * @see kTAG_KIND
 	 */
 	public function Kind( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageArrayOffset
-					( kTAG_KIND, $theValue, $theOperation, $getOld );				// ==>
+		return CAttribute::ManageArrayOffset
+					( $this, kTAG_KIND, $theValue, $theOperation, $getOld );		// ==>
 
 	} // Kind.
 
@@ -188,8 +189,8 @@ class CCodedUnitObject extends CRelatedUnitObject
 	 * Manage object creation time stamp.
 	 *
 	 * This method can be used to manage the object {@link kTAG_CREATED creation}
-	 * time-stamp, it uses the standard accessor {@link _ManageOffset() method} to manage
-	 * the {@link kTAG_MODIFIED offset}:
+	 * time-stamp, it uses the standard accessor {@link CAttribute::ManageOffset() method}
+	 * to manage the {@link kTAG_MODIFIED offset}:
 	 *
 	 * <ul>
 	 *	<li><b>$theValue</b>: The value or operation:
@@ -211,19 +212,19 @@ class CCodedUnitObject extends CRelatedUnitObject
 	 * @access public
 	 * @return string
 	 *
-	 * @uses _ManageOffset
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kTAG_CREATED
 	 */
 	public function Created( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kTAG_CREATED, $theValue, $getOld );			// ==>
+		return CAttribute::ManageOffset( $this, kTAG_CREATED, $theValue, $getOld );	// ==>
 
 	} // Created.
 
 	 
 	/*===================================================================================
-	 *	Modified																			*
+	 *	Modified																		*
 	 *==================================================================================*/
 
 	/**
@@ -231,7 +232,7 @@ class CCodedUnitObject extends CRelatedUnitObject
 	 *
 	 * This method can be used to manage the object last {@link kTAG_MODIFIED modification}
 	 * time-stamp, or the date in which the last modification was made on the object, it
-	 * uses the standard accessor {@link _ManageOffset() method} to manage the
+	 * uses the standard accessor {@link CAttribute::ManageOffset() method} to manage the
 	 * {@link kTAG_MODIFIED offset}:
 	 *
 	 * <ul>
@@ -254,13 +255,14 @@ class CCodedUnitObject extends CRelatedUnitObject
 	 * @access public
 	 * @return string
 	 *
-	 * @uses _ManageOffset
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kTAG_MODIFIED
 	 */
 	public function Modified( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kTAG_MODIFIED, $theValue, $getOld );			// ==>
+		return CAttribute::ManageOffset
+					( $this, kTAG_MODIFIED, $theValue, $getOld );					// ==>
 
 	} // Modified.
 

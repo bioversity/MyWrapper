@@ -199,15 +199,15 @@ abstract class CRelatedUnitObject extends CPersistentUnitObject
 	 * Manage preferred reference.
 	 *
 	 * This method can be used to handle the object's preferred reference, it uses the
-	 * standard accessor {@link _ManageOffset() method} to manage the
+	 * standard accessor {@link CAttribute::ManageOffset() method} to manage the
 	 * {@link kTAG_PREFERRED offset}.
 	 *
 	 * Objects may become obsolete, but still represent valid entries: in this case we use
 	 * this attribute to point to the preferred object.
 	 *
 	 * For a more in-depth reference of this method, please consult the
-	 * {@link _ManageOffset() _ManageOffset} method, in which the first parameter will be
-	 * the constant {@link kTAG_PREFERRED kTAG_PREFERRED}.
+	 * {@link CAttribute::ManageOffset() CAttribute::ManageOffset} method, in which the
+	 * second parameter will be the constant {@link kTAG_PREFERRED kTAG_PREFERRED}.
 	 *
 	 * In this class we feed the value to the
 	 * {@link _CheckRelationObject() _CheckRelationObject} method that will take care of
@@ -219,7 +219,7 @@ abstract class CRelatedUnitObject extends CPersistentUnitObject
 	 * @access public
 	 * @return string
 	 *
-	 * @uses _ManageOffset
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kTAG_PREFERRED
 	 */
@@ -232,7 +232,8 @@ abstract class CRelatedUnitObject extends CPersistentUnitObject
 		 && ($theValue !== FALSE) )
 			$theValue = $this->_CheckRelationObject( $theValue );
 		
-		return $this->_ManageOffset( kTAG_PREFERRED, $theValue, $getOld );			// ==>
+		return CAttribute::ManageOffset
+				( $this, kTAG_PREFERRED, $theValue, $getOld );						// ==>
 
 	} // Preferred.
 
@@ -246,15 +247,15 @@ abstract class CRelatedUnitObject extends CPersistentUnitObject
 	 *
 	 * This method can be used to handle the valid object's
 	 * {@link kTAG_LID identifier}, it uses the standard accessor
-	 * {@link _ManageOffset() method} to manage the {@link kTAG_VALID offset}.
+	 * {@link CAttribute::ManageOffset() method} to manage the {@link kTAG_VALID offset}.
 	 *
 	 * Objects derived from this class should be persistent, in other words, it is not an
 	 * option to delete such objects: by creating a new object and referencing it from the
 	 * old one, we maintain the original reference and point to the valid object.
 	 *
 	 * For a more in-depth reference of this method, please consult the
-	 * {@link _ManageOffset() _ManageOffset} method, in which the first parameter will be
-	 * the constant {@link kTAG_VALID kTAG_VALID}.
+	 * {@link CAttribute::ManageOffset() CAttribute::ManageOffset} method, in which the
+	 * second parameter will be the constant {@link kTAG_VALID kTAG_VALID}.
 	 *
 	 * In this class we feed the value to the
 	 * {@link _CheckRelationObject() _CheckRelationObject} method that will take care of
@@ -266,7 +267,7 @@ abstract class CRelatedUnitObject extends CPersistentUnitObject
 	 * @access public
 	 * @return string
 	 *
-	 * @uses _ManageOffset
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kTAG_VALID
 	 */
@@ -279,7 +280,8 @@ abstract class CRelatedUnitObject extends CPersistentUnitObject
 		 && ($theValue !== FALSE) )
 			$theValue = $this->_CheckRelationObject( $theValue );
 		
-		return $this->_ManageOffset( kTAG_VALID, $theValue, $getOld );				// ==>
+		return CAttribute::ManageOffset
+				( $this, kTAG_VALID, $theValue, $getOld );							// ==>
 
 	} // Valid.
 

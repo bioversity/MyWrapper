@@ -403,7 +403,8 @@ abstract class COntologyTermObject extends CTerm
 	 * @access public
 	 * @return string
 	 *
-	 * @uses _ManageOffset
+	 * @uses _CheckReference()
+	 * @uses Valid()
 	 *
 	 * @see kTAG_VALID
 	 */

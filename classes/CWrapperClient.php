@@ -157,13 +157,14 @@ class CWrapperClient extends CStatusObject
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kOFFSET_URL
 	 */
 	public function Url( $theValue = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageOffset( kOFFSET_URL, $theValue, $getOld );				// ==>
+		return CAttribute::ManageOffset
+				( $this, kOFFSET_URL, $theValue, $getOld );							// ==>
 
 	} // Url.
 
@@ -208,7 +209,7 @@ class CWrapperClient extends CStatusObject
 	 *
 	 * @throws {@link CException CException}
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kAPI_OPERATION
 	 * @see kAPI_OP_HELP kAPI_OP_PING
@@ -235,7 +236,8 @@ class CWrapperClient extends CStatusObject
 			}
 		}
 		
-		return $this->_ManageOffset( kAPI_OPERATION, $theValue, $getOld );			// ==>
+		return CAttribute::ManageOffset
+				( $this, kAPI_OPERATION, $theValue, $getOld );						// ==>
 
 	} // Operation.
 
@@ -286,7 +288,7 @@ class CWrapperClient extends CStatusObject
 	 *
 	 * @throws {@link CException CException}
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kAPI_FORMAT
 	 * @see kAPI_OP_HELP kAPI_OP_PING
@@ -315,7 +317,8 @@ class CWrapperClient extends CStatusObject
 			}
 		}
 		
-		return $this->_ManageOffset( kAPI_FORMAT, $theValue, $getOld );				// ==>
+		return CAttribute::ManageOffset
+				( $this, kAPI_FORMAT, $theValue, $getOld );							// ==>
 
 	} // Format.
 
@@ -340,7 +343,7 @@ class CWrapperClient extends CStatusObject
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kAPI_REQ_STAMP
 	 */
@@ -351,7 +354,8 @@ class CWrapperClient extends CStatusObject
 		//
 		$theValue = ( $theValue ) ? TRUE : FALSE;
 		
-		return $this->_ManageOffset( kAPI_REQ_STAMP, $theValue, $getOld );			// ==>
+		return CAttribute::ManageOffset
+				( $this, kAPI_REQ_STAMP, $theValue, $getOld );						// ==>
 
 	} // Stamp.
 
@@ -376,7 +380,7 @@ class CWrapperClient extends CStatusObject
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kAPI_OPT_LOG_REQUEST
 	 */
@@ -387,7 +391,8 @@ class CWrapperClient extends CStatusObject
 		//
 		$theValue = ( $theValue ) ? TRUE : FALSE;
 		
-		return $this->_ManageOffset( kAPI_OPT_LOG_REQUEST, $theValue, $getOld );	// ==>
+		return CAttribute::ManageOffset
+				( $this, kAPI_OPT_LOG_REQUEST, $theValue, $getOld );				// ==>
 
 	} // LogRequest.
 
@@ -412,7 +417,7 @@ class CWrapperClient extends CStatusObject
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _ManageOffset()
+	 * @uses CAttribute::ManageOffset()
 	 *
 	 * @see kAPI_OPT_LOG_TRACE
 	 */
@@ -423,7 +428,8 @@ class CWrapperClient extends CStatusObject
 		//
 		$theValue = ( $theValue ) ? TRUE : FALSE;
 		
-		return $this->_ManageOffset( kAPI_OPT_LOG_TRACE, $theValue, $getOld );		// ==>
+		return CAttribute::ManageOffset
+				( $this, kAPI_OPT_LOG_TRACE, $theValue, $getOld );					// ==>
 
 	} // LogTrace.
 
