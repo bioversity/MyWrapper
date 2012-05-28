@@ -1,0 +1,432 @@
+\hypertarget{class_c_ontology_term_object}{\section{C\-Ontology\-Term\-Object Class Reference}
+\label{class_c_ontology_term_object}\index{C\-Ontology\-Term\-Object@{C\-Ontology\-Term\-Object}}
+}
+Inheritance diagram for C\-Ontology\-Term\-Object\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=9.000000cm]{class_c_ontology_term_object}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_c_ontology_term_object_af1fb502088538ad7372719c20f73bc5c}{\-\_\-\-\_\-construct} (\$the\-Container=N\-U\-L\-L, \$the\-Identifier=N\-U\-L\-L, \$the\-Modifiers=k\-F\-L\-A\-G\-\_\-\-D\-E\-F\-A\-U\-L\-T)
+\item 
+\hyperlink{class_c_ontology_term_object_a109414a9abe98e3997be238addfda6cf}{N\-S} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_ontology_term_object_ab1a4d21bb56a8a6cf3f77f595d776267}{G\-I\-D} ()
+\item 
+\hyperlink{class_c_ontology_term_object_a96f637a86e1823dc61b2135a00ddfe26}{Synonym} (\$the\-Value, \$the\-Type, \$the\-Operation=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_ontology_term_object_a32bb224840f965d3c2680895b52847c4}{Xref} (\$the\-Value, \$the\-Type, \$the\-Operation=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_ontology_term_object_ab023a6d801c93d939683da4fe823e0fb}{Relate} (\$the\-Object, \$the\-Predicate=N\-U\-L\-L, \$the\-Operation=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_ontology_term_object_a41c7f8fbe4e561b744277fc62ba18912}{Valid} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_c_ontology_term_object_a97ba6103f14e03000996ea6314de6444}{Valid\-Object} (\$the\-Container, \$the\-Identifier, \$the\-Modifiers=k\-F\-L\-A\-G\-\_\-\-D\-E\-F\-A\-U\-L\-T)
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_c_ontology_term_object_a7e785a79bf4c20b094450e688e3e73cf}{\-\_\-\-Prepare\-Create} (\&\$the\-Container, \&\$the\-Identifier, \&\$the\-Modifiers)
+\item 
+\hyperlink{class_c_ontology_term_object_aca3572974abb180f507fc63264a9ba15}{\-\_\-\-Prepare\-Commit} (\&\$the\-Container, \&\$the\-Identifier, \&\$the\-Modifiers)
+\item 
+\hyperlink{class_c_ontology_term_object_a294971c8d6e1181b0b9ec98ab998d6a0}{\-\_\-\-Check\-Reference} (\$the\-Reference)
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_c_ontology_term_object_af1fb502088538ad7372719c20f73bc5c}{\index{C\-Ontology\-Term\-Object@{C\-Ontology\-Term\-Object}!\-\_\-\-\_\-construct@{\-\_\-\-\_\-construct}}
+\index{\-\_\-\-\_\-construct@{\-\_\-\-\_\-construct}!COntologyTermObject@{C\-Ontology\-Term\-Object}}
+\subsubsection[{\-\_\-\-\_\-construct}]{\setlength{\rightskip}{0pt plus 5cm}C\-Ontology\-Term\-Object\-::\-\_\-\-\_\-construct (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Container = {\ttfamily NULL}, }
+\item[{}]{\$the\-Identifier = {\ttfamily NULL}, }
+\item[{}]{\$the\-Modifiers = {\ttfamily kFLAG\-\_\-DEFAULT}}
+\end{DoxyParamCaption}
+)}}\label{class_c_ontology_term_object_af1fb502088538ad7372719c20f73bc5c}
+Instantiate class.
+
+We \hyperlink{class_c_coded_unit_object_a314fc62af62314f5ac5acca2ac809900}{overload} the constructor to \hyperlink{class_c_ontology_term_object_a294971c8d6e1181b0b9ec98ab998d6a0}{normalise} the provided identifier.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Container} & Persistent container. \\
+\hline
+mixed & {\em \$the\-Identifier} & Object identifier. \\
+\hline
+bitfield & {\em \$the\-Modifiers} & Create modifiers.\\
+\hline
+\end{DoxyParams}
+public
+
+\-\_\-\-Is\-Inited
+
+\begin{DoxySeeAlso}{See also}
+k\-T\-A\-G\-\_\-\-C\-O\-D\-E k\-T\-A\-G\-\_\-\-N\-A\-M\-E 
+\end{DoxySeeAlso}
+
+
+Reimplemented from \hyperlink{class_c_coded_unit_object_a314fc62af62314f5ac5acca2ac809900}{C\-Coded\-Unit\-Object}.
+
+
+
+Reimplemented in \hyperlink{class_c_ontology_term_a33679101b2a63044f0084918a8df123e}{C\-Ontology\-Term}.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_c_ontology_term_object_a294971c8d6e1181b0b9ec98ab998d6a0}{\index{C\-Ontology\-Term\-Object@{C\-Ontology\-Term\-Object}!\-\_\-\-Check\-Reference@{\-\_\-\-Check\-Reference}}
+\index{\-\_\-\-Check\-Reference@{\-\_\-\-Check\-Reference}!COntologyTermObject@{C\-Ontology\-Term\-Object}}
+\subsubsection[{\-\_\-\-Check\-Reference}]{\setlength{\rightskip}{0pt plus 5cm}C\-Ontology\-Term\-Object\-::\-\_\-\-Check\-Reference (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Reference}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_ontology_term_object_a294971c8d6e1181b0b9ec98ab998d6a0}
+Normalise reference parameter.
+
+This method can be used to normalise a parameter that is supposed to be a reference to another term, that is, a binary string hash of the term's \hyperlink{class_c_term_a7524effdc0db8f5ca045f306e3b6b50e}{identifier} converted to a \hyperlink{class_c_data_type_binary}{binary} standard type.
+
+The method will perform the following conversions\-:
+
+
+\begin{DoxyItemize}
+\item {\itshape \hyperlink{class_c_data_type_binary}{C\-Data\-Type\-Binary}}\-: This is the default data type for the identifier. 
+\item {\itshape \hyperlink{}{Mongo\-Bin\-Data}}\-: This type will be converted to the standard \hyperlink{class_c_data_type_binary}{C\-Data\-Type\-Binary} type. 
+\item {\itshape \hyperlink{class_c_ontology_term_object}{C\-Ontology\-Term\-Object}}\-: Objects of the same class will have their \hyperlink{class_c_persistent_unit_object_ad1ca0920cf0df3c24351402f9afbf34b}{identifier} extracted. 
+\item {\itshape N\-U\-L\-L}\-: N\-U\-L\-L data will simply be passed. 
+\item {\itshape other}\-: Any other data type is assumed to be the term's \hyperlink{class_c_term_a7524effdc0db8f5ca045f306e3b6b50e}{identifier}, so it will be hashed into a binary string and converted to the standard \hyperlink{class_c_data_type_binary}{C\-Data\-Type\-Binary} type. 
+\item {\itshape array}\-: Arrays cannot be converted to string, so the method will raise an exception. 
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Reference} & Object reference.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+\hyperlink{class_c_data_type_binary}{C\-Data\-Type\-Binary}
+\end{DoxyReturn}
+\hyperlink{class_c_persistent_object_aa8dc7db66e2af3d28c2035161a2aabf9}{\-\_\-\-Is\-Encoded()}
+
+\begin{DoxySeeAlso}{See also}
+k\-F\-L\-A\-G\-\_\-\-S\-T\-A\-T\-E\-\_\-\-E\-N\-C\-O\-D\-E\-D 
+\end{DoxySeeAlso}
+\hypertarget{class_c_ontology_term_object_aca3572974abb180f507fc63264a9ba15}{\index{C\-Ontology\-Term\-Object@{C\-Ontology\-Term\-Object}!\-\_\-\-Prepare\-Commit@{\-\_\-\-Prepare\-Commit}}
+\index{\-\_\-\-Prepare\-Commit@{\-\_\-\-Prepare\-Commit}!COntologyTermObject@{C\-Ontology\-Term\-Object}}
+\subsubsection[{\-\_\-\-Prepare\-Commit}]{\setlength{\rightskip}{0pt plus 5cm}C\-Ontology\-Term\-Object\-::\-\_\-\-Prepare\-Commit (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Container, }
+\item[{\&}]{\$the\-Identifier, }
+\item[{\&}]{\$the\-Modifiers}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_ontology_term_object_aca3572974abb180f507fc63264a9ba15}
+Normalise before a store.
+
+We overload this method to enforce the \hyperlink{}{encoded} modifier.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \&\$the\-Container} & Object container. \\
+\hline
+reference & {\em \&\$the\-Identifier} & Object identifier. \\
+\hline
+reference & {\em \&\$the\-Modifiers} & Commit modifiers.\\
+\hline
+\end{DoxyParams}
+protected
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \{@link} & \hyperlink{class_c_exception}{C\-Exception} \hyperlink{class_c_exception}{C\-Exception}\}\\
+\hline
+\end{DoxyExceptions}
+\hyperlink{class_c_status_object_a8429102e4f52f7558649b64f4e673a69}{\-\_\-\-Is\-Inited()}
+
+\begin{DoxySeeAlso}{See also}
+k\-F\-L\-A\-G\-\_\-\-S\-T\-A\-T\-E\-\_\-\-E\-N\-C\-O\-D\-E\-D 
+\end{DoxySeeAlso}
+
+
+Reimplemented from \hyperlink{class_c_related_unit_object_a577c73999830641e07440126a3252286}{C\-Related\-Unit\-Object}.
+
+
+
+Reimplemented in \hyperlink{class_c_ontology_term_a5d10f6baf1e484591d1d99b325e22d89}{C\-Ontology\-Term}.
+
+\hypertarget{class_c_ontology_term_object_a7e785a79bf4c20b094450e688e3e73cf}{\index{C\-Ontology\-Term\-Object@{C\-Ontology\-Term\-Object}!\-\_\-\-Prepare\-Create@{\-\_\-\-Prepare\-Create}}
+\index{\-\_\-\-Prepare\-Create@{\-\_\-\-Prepare\-Create}!COntologyTermObject@{C\-Ontology\-Term\-Object}}
+\subsubsection[{\-\_\-\-Prepare\-Create}]{\setlength{\rightskip}{0pt plus 5cm}C\-Ontology\-Term\-Object\-::\-\_\-\-Prepare\-Create (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Container, }
+\item[{\&}]{\$the\-Identifier, }
+\item[{\&}]{\$the\-Modifiers}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_ontology_term_object_a7e785a79bf4c20b094450e688e3e73cf}
+Normalise parameters of a create.
+
+We overload this method to enforce the \hyperlink{}{encoded} modifier.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \&\$the\-Container} & Object container. \\
+\hline
+reference & {\em \&\$the\-Identifier} & Object identifier. \\
+\hline
+reference & {\em \&\$the\-Modifiers} & Create modifiers.\\
+\hline
+\end{DoxyParams}
+protected
+
+\hyperlink{class_c_persistent_object_aa8dc7db66e2af3d28c2035161a2aabf9}{\-\_\-\-Is\-Encoded()}
+
+\begin{DoxySeeAlso}{See also}
+k\-F\-L\-A\-G\-\_\-\-S\-T\-A\-T\-E\-\_\-\-E\-N\-C\-O\-D\-E\-D 
+\end{DoxySeeAlso}
+
+
+Reimplemented from \hyperlink{class_c_persistent_object_a2e5dd4f8a92c0ada964ade712c9579b0}{C\-Persistent\-Object}.
+
+\hypertarget{class_c_ontology_term_object_ab1a4d21bb56a8a6cf3f77f595d776267}{\index{C\-Ontology\-Term\-Object@{C\-Ontology\-Term\-Object}!G\-I\-D@{G\-I\-D}}
+\index{G\-I\-D@{G\-I\-D}!COntologyTermObject@{C\-Ontology\-Term\-Object}}
+\subsubsection[{G\-I\-D}]{\setlength{\rightskip}{0pt plus 5cm}C\-Ontology\-Term\-Object\-::\-G\-I\-D (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_c_ontology_term_object_ab1a4d21bb56a8a6cf3f77f595d776267}
+Manage term global identifier.
+
+The term global \hyperlink{}{identifier} represents the un-\/hashed version of the term local \hyperlink{}{identifier}.
+
+This value is set automatically by methods, so this method is read-\/only.
+
+public \begin{DoxyReturn}{Returns}
+string
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+k\-T\-A\-G\-\_\-\-G\-I\-D 
+\end{DoxySeeAlso}
+\hypertarget{class_c_ontology_term_object_a109414a9abe98e3997be238addfda6cf}{\index{C\-Ontology\-Term\-Object@{C\-Ontology\-Term\-Object}!N\-S@{N\-S}}
+\index{N\-S@{N\-S}!COntologyTermObject@{C\-Ontology\-Term\-Object}}
+\subsubsection[{N\-S}]{\setlength{\rightskip}{0pt plus 5cm}C\-Ontology\-Term\-Object\-::\-N\-S (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_ontology_term_object_a109414a9abe98e3997be238addfda6cf}
+Manage term namespace.
+
+We \hyperlink{class_c_term_a59a271c34a9f579bcf3177b392b6e31a}{overload} this method in order to normalise the namespace\-: it must be provided as a string, so if you provide an object, it must be derived from this class and this method will use the provided object's \hyperlink{class_c_term_a7524effdc0db8f5ca045f306e3b6b50e}{index}.
+
+In this class we do not support instances as namespaces.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Value} & Value. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+string
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+k\-T\-A\-G\-\_\-\-N\-A\-M\-E\-S\-P\-A\-C\-E 
+\end{DoxySeeAlso}
+
+
+Reimplemented from \hyperlink{class_c_term_a59a271c34a9f579bcf3177b392b6e31a}{C\-Term}.
+
+\hypertarget{class_c_ontology_term_object_ab023a6d801c93d939683da4fe823e0fb}{\index{C\-Ontology\-Term\-Object@{C\-Ontology\-Term\-Object}!Relate@{Relate}}
+\index{Relate@{Relate}!COntologyTermObject@{C\-Ontology\-Term\-Object}}
+\subsubsection[{Relate}]{\setlength{\rightskip}{0pt plus 5cm}C\-Ontology\-Term\-Object\-::\-Relate (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Object, }
+\item[{}]{\$the\-Predicate = {\ttfamily NULL}, }
+\item[{}]{\$the\-Operation = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_ontology_term_object_ab023a6d801c93d939683da4fe823e0fb}
+Manage object references.
+
+We \hyperlink{class_c_related_unit_object_a46a7033129ae23ecda7f879f3fabdd5c}{override} this method to handle references structured as follows\-:
+
+
+\begin{DoxyItemize}
+\item {\itshape \hyperlink{}{k\-T\-A\-G\-\_\-\-K\-I\-N\-D}}\-: This offset represents the reference predicate, it may be omitted if the reference has no type or when we want to define a default reference. By default we expect here a term \hyperlink{class_c_ontology_term_object_a294971c8d6e1181b0b9ec98ab998d6a0}{reference}. 
+\item {\itshape \hyperlink{}{k\-T\-A\-G\-\_\-\-D\-A\-T\-A}}\-: This offset represents the referenced term, it should be in the form of an object \hyperlink{class_c_ontology_term_object_a294971c8d6e1181b0b9ec98ab998d6a0}{reference}. 
+\end{DoxyItemize}
+
+The main reason to override the method is to ensure references are standard \hyperlink{class_c_data_type_binary}{binary} strings.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Object} & Reference object. \\
+\hline
+mixed & {\em \$the\-Predicate} & Reference predicate. \\
+\hline
+mixed & {\em \$the\-Operation} & Operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+string
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+k\-T\-A\-G\-\_\-\-L\-I\-N\-K\-\_\-\-O\-U\-T k\-T\-A\-G\-\_\-\-K\-I\-N\-D k\-T\-A\-G\-\_\-\-D\-A\-T\-A 
+\end{DoxySeeAlso}
+
+
+Reimplemented from \hyperlink{class_c_related_unit_object_a46a7033129ae23ecda7f879f3fabdd5c}{C\-Related\-Unit\-Object}.
+
+\hypertarget{class_c_ontology_term_object_a96f637a86e1823dc61b2135a00ddfe26}{\index{C\-Ontology\-Term\-Object@{C\-Ontology\-Term\-Object}!Synonym@{Synonym}}
+\index{Synonym@{Synonym}!COntologyTermObject@{C\-Ontology\-Term\-Object}}
+\subsubsection[{Synonym}]{\setlength{\rightskip}{0pt plus 5cm}C\-Ontology\-Term\-Object\-::\-Synonym (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value, }
+\item[{}]{\$the\-Type, }
+\item[{}]{\$the\-Operation = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_ontology_term_object_a96f637a86e1823dc61b2135a00ddfe26}
+Manage synonyms.
+
+We \hyperlink{class_c_term_adcaa8d79afde98b3d8bb76fbc894903f}{overload} this method to restrict the synonym \hyperlink{}{kind}\-: the {\itshape \$the\-Type} parameter must take one of the following values\-:
+
+
+\begin{DoxyItemize}
+\item {\itshape \hyperlink{}{k\-T\-Y\-P\-E\-\_\-\-E\-X\-A\-C\-T}}\-: Exact synonym. 
+\item {\itshape \hyperlink{}{k\-T\-Y\-P\-E\-\_\-\-B\-R\-O\-A\-D}}\-: Broad synonym. 
+\item {\itshape \hyperlink{}{k\-T\-Y\-P\-E\-\_\-\-N\-A\-R\-R\-O\-W}}\-: Narrow synonym. 
+\item {\itshape \hyperlink{}{k\-T\-Y\-P\-E\-\_\-\-R\-E\-L\-A\-T\-E\-D}}\-: Related synonym. 
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Value} & Synonym. \\
+\hline
+mixed & {\em \$the\-Type} & Synonym type. \\
+\hline
+mixed & {\em \$the\-Operation} & Operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_c_term_adcaa8d79afde98b3d8bb76fbc894903f}{C\-Term}.
+
+\hypertarget{class_c_ontology_term_object_a41c7f8fbe4e561b744277fc62ba18912}{\index{C\-Ontology\-Term\-Object@{C\-Ontology\-Term\-Object}!Valid@{Valid}}
+\index{Valid@{Valid}!COntologyTermObject@{C\-Ontology\-Term\-Object}}
+\subsubsection[{Valid}]{\setlength{\rightskip}{0pt plus 5cm}C\-Ontology\-Term\-Object\-::\-Valid (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_ontology_term_object_a41c7f8fbe4e561b744277fc62ba18912}
+Manage valid reference.
+
+We \hyperlink{class_c_related_unit_object_aea51a443754ab8c86a23ece7a2b18b1f}{overload} this method to \hyperlink{class_c_ontology_term_object_a294971c8d6e1181b0b9ec98ab998d6a0}{ensure} that references are provided in the correct manner, that is, as a \hyperlink{class_c_data_type_binary}{binary} standard type.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Value} & Value. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+string
+\end{DoxyReturn}
+\hyperlink{class_c_ontology_term_object_a294971c8d6e1181b0b9ec98ab998d6a0}{\-\_\-\-Check\-Reference()}  \hyperlink{class_c_ontology_term_object_a41c7f8fbe4e561b744277fc62ba18912}{Valid()}
+
+\begin{DoxySeeAlso}{See also}
+k\-T\-A\-G\-\_\-\-V\-A\-L\-I\-D 
+\end{DoxySeeAlso}
+
+
+Reimplemented from \hyperlink{class_c_related_unit_object_aea51a443754ab8c86a23ece7a2b18b1f}{C\-Related\-Unit\-Object}.
+
+\hypertarget{class_c_ontology_term_object_a97ba6103f14e03000996ea6314de6444}{\index{C\-Ontology\-Term\-Object@{C\-Ontology\-Term\-Object}!Valid\-Object@{Valid\-Object}}
+\index{Valid\-Object@{Valid\-Object}!COntologyTermObject@{C\-Ontology\-Term\-Object}}
+\subsubsection[{Valid\-Object}]{\setlength{\rightskip}{0pt plus 5cm}static C\-Ontology\-Term\-Object\-::\-Valid\-Object (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Container, }
+\item[{}]{\$the\-Identifier, }
+\item[{}]{\$the\-Modifiers = {\ttfamily kFLAG\-\_\-DEFAULT}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{class_c_ontology_term_object_a97ba6103f14e03000996ea6314de6444}
+Return a valid object.
+
+We \hyperlink{class_c_related_unit_object_ac170015e2540be0c038a4cb2821add8c}{overload} this method to enforce the \hyperlink{class_c_persistent_object_aa8dc7db66e2af3d28c2035161a2aabf9}{encoded} \hyperlink{}{flag}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Container} & Persistent container. \\
+\hline
+mixed & {\em \$the\-Identifier} & Object identifier. \\
+\hline
+bitfield & {\em \$the\-Modifiers} & Load modifiers.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{class_c_coded_unit_object}{C\-Coded\-Unit\-Object} 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_c_related_unit_object_ac170015e2540be0c038a4cb2821add8c}{C\-Related\-Unit\-Object}.
+
+\hypertarget{class_c_ontology_term_object_a32bb224840f965d3c2680895b52847c4}{\index{C\-Ontology\-Term\-Object@{C\-Ontology\-Term\-Object}!Xref@{Xref}}
+\index{Xref@{Xref}!COntologyTermObject@{C\-Ontology\-Term\-Object}}
+\subsubsection[{Xref}]{\setlength{\rightskip}{0pt plus 5cm}C\-Ontology\-Term\-Object\-::\-Xref (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value, }
+\item[{}]{\$the\-Type, }
+\item[{}]{\$the\-Operation = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_ontology_term_object_a32bb224840f965d3c2680895b52847c4}
+Manage cross-\/references.
+
+We \hyperlink{class_c_term_a0bbae7d5db15ba2b8aa94a17b441e366}{overload} this method to restrict the cross-\/reference \hyperlink{}{kind}\-: the {\itshape \$the\-Type} parameter must take one of the following values\-:
+
+
+\begin{DoxyItemize}
+\item {\itshape \hyperlink{}{k\-T\-Y\-P\-E\-\_\-\-E\-X\-A\-C\-T}}\-: Exact cross-\/reference. 
+\item {\itshape \hyperlink{}{k\-T\-Y\-P\-E\-\_\-\-B\-R\-O\-A\-D}}\-: Broad cross-\/reference. 
+\item {\itshape \hyperlink{}{k\-T\-Y\-P\-E\-\_\-\-N\-A\-R\-R\-O\-W}}\-: Narrow cross-\/reference. 
+\item {\itshape \hyperlink{}{k\-T\-Y\-P\-E\-\_\-\-R\-E\-L\-A\-T\-E\-D}}\-: Related cross-\/reference. 
+\end{DoxyItemize}
+
+We also \hyperlink{class_c_ontology_term_object_a294971c8d6e1181b0b9ec98ab998d6a0}{filter} the provided value to extract the object identifier.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Value} & Reference or operation. \\
+\hline
+mixed & {\em \$the\-Type} & Reference type. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_c_term_a0bbae7d5db15ba2b8aa94a17b441e366}{C\-Term}.
+
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/\-Library/\-Web\-Server/\-Library/wrapper/classes/C\-Ontology\-Term\-Object.\-php\end{DoxyCompactItemize}

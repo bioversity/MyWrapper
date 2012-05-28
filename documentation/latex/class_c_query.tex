@@ -1,0 +1,181 @@
+\hypertarget{class_c_query}{\section{C\-Query Class Reference}
+\label{class_c_query}\index{C\-Query@{C\-Query}}
+}
+Inheritance diagram for C\-Query\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{class_c_query}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_c_query_a5f622c663cffb67955a528cac46502f9}{\-\_\-\-\_\-construct} (\$the\-Query=N\-U\-L\-L)
+\item 
+\hyperlink{class_c_query_a6cd7ba8e153fc299ba87b614ccb56486}{Append\-Statement} (\$the\-Statement, \$the\-Condition=k\-O\-P\-E\-R\-A\-T\-O\-R\-\_\-\-A\-N\-D)
+\item 
+\hyperlink{class_c_query_a715ac553707078841213f7b874cbc48e}{Validate} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_c_query_a1a01d39eedd2951f704dc75c58fb477c}{\-\_\-\-Append\-Statement} (\&\$the\-Query, \$the\-Condition, \$the\-Statement)
+\item 
+\hyperlink{class_c_query_a5fbde46df4bb30cb252647f0e47cbbde}{\-\_\-\-Validate\-Condition} (\$the\-Condition, \$the\-Statements, \$the\-Level)
+\item 
+\hyperlink{class_c_query_afe96707c9ed84ee197dae56c9f05f2a4}{\-\_\-\-Validate\-Statement} (\$the\-Statement, \$the\-Level)
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_c_query_a5f622c663cffb67955a528cac46502f9}{\index{C\-Query@{C\-Query}!\-\_\-\-\_\-construct@{\-\_\-\-\_\-construct}}
+\index{\-\_\-\-\_\-construct@{\-\_\-\-\_\-construct}!CQuery@{C\-Query}}
+\subsubsection[{\-\_\-\-\_\-construct}]{\setlength{\rightskip}{0pt plus 5cm}C\-Query\-::\-\_\-\-\_\-construct (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Query = {\ttfamily NULL}}
+\end{DoxyParamCaption}
+)}}\label{class_c_query_a5f622c663cffb67955a528cac46502f9}
+Instantiate class.
+
+If you omit the parameter the method will instantiate an empty query, if you provide an array or Array\-Object it will assume the structure to be a query and will instantiate the object with it; any other data type will raise an exception.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Query} & Query data.\\
+\hline
+\end{DoxyParams}
+public 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_c_query_a1a01d39eedd2951f704dc75c58fb477c}{\index{C\-Query@{C\-Query}!\-\_\-\-Append\-Statement@{\-\_\-\-Append\-Statement}}
+\index{\-\_\-\-Append\-Statement@{\-\_\-\-Append\-Statement}!CQuery@{C\-Query}}
+\subsubsection[{\-\_\-\-Append\-Statement}]{\setlength{\rightskip}{0pt plus 5cm}C\-Query\-::\-\_\-\-Append\-Statement (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Query, }
+\item[{}]{\$the\-Condition, }
+\item[{}]{\$the\-Statement}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_query_a1a01d39eedd2951f704dc75c58fb477c}
+Append statement.
+
+This method will append the provided statement to the current query.
+
+Statements of the same type, \hyperlink{}{A\-N\-D} and \hyperlink{}{N\-A\-N\-D}, or \hyperlink{}{O\-R} and \hyperlink{}{N\-O\-R}, will be added at the same level. If the top level is an \hyperlink{}{O\-R} or \hyperlink{}{N\-O\-R} and the provided statement is an \hyperlink{}{A\-N\-D} or \hyperlink{}{N\-A\-N\-D}, the latter will be promoted to the top level.
+
+The parameters to this method are\-:
+
+
+\begin{DoxyItemize}
+\item {\bfseries \&\$the\-Query}\-: Query receiving statement. 
+\item {\bfseries \$the\-Statement}\-: Statement to be added. 
+\item {\bfseries \$the\-Condition}\-: Boolean statement condition code. 
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \&\$the\-Query} & Query. \\
+\hline
+array & {\em \$the\-Statements} & Statement. \\
+\hline
+string & {\em \$the\-Condition} & Statement condition.\\
+\hline
+\end{DoxyParams}
+protected \hypertarget{class_c_query_a5fbde46df4bb30cb252647f0e47cbbde}{\index{C\-Query@{C\-Query}!\-\_\-\-Validate\-Condition@{\-\_\-\-Validate\-Condition}}
+\index{\-\_\-\-Validate\-Condition@{\-\_\-\-Validate\-Condition}!CQuery@{C\-Query}}
+\subsubsection[{\-\_\-\-Validate\-Condition}]{\setlength{\rightskip}{0pt plus 5cm}C\-Query\-::\-\_\-\-Validate\-Condition (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Condition, }
+\item[{}]{\$the\-Statements, }
+\item[{}]{\$the\-Level}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_query_a5fbde46df4bb30cb252647f0e47cbbde}
+Validate condition.
+
+This method expects a condition as its argument, it will check if it is a valid condition, then it will \hyperlink{class_c_query_afe96707c9ed84ee197dae56c9f05f2a4}{validate} all condition statements.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Condition} & Boolean condition. \\
+\hline
+array & {\em \$the\-Statements} & Statements list. \\
+\hline
+integer & {\em \$the\-Level} & \mbox{[}P\-R\-I\-V\-A\-T\-E\mbox{]} condition level.\\
+\hline
+\end{DoxyParams}
+protected 
+
+Reimplemented in \hyperlink{class_c_mongo_query_a651af70656cb9894ef1885a711a0c141}{C\-Mongo\-Query}.
+
+\hypertarget{class_c_query_afe96707c9ed84ee197dae56c9f05f2a4}{\index{C\-Query@{C\-Query}!\-\_\-\-Validate\-Statement@{\-\_\-\-Validate\-Statement}}
+\index{\-\_\-\-Validate\-Statement@{\-\_\-\-Validate\-Statement}!CQuery@{C\-Query}}
+\subsubsection[{\-\_\-\-Validate\-Statement}]{\setlength{\rightskip}{0pt plus 5cm}C\-Query\-::\-\_\-\-Validate\-Statement (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Statement, }
+\item[{}]{\$the\-Level}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_query_afe96707c9ed84ee197dae56c9f05f2a4}
+Validate statement.
+
+This method expects a statement as its argument, it will check if it is a valid statement and check if all required elements are there.
+
+
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$the\-Statement} & Statement. \\
+\hline
+integer & {\em \$the\-Level} & \mbox{[}P\-R\-I\-V\-A\-T\-E\mbox{]} condition level.\\
+\hline
+\end{DoxyParams}
+protected \hypertarget{class_c_query_a6cd7ba8e153fc299ba87b614ccb56486}{\index{C\-Query@{C\-Query}!Append\-Statement@{Append\-Statement}}
+\index{Append\-Statement@{Append\-Statement}!CQuery@{C\-Query}}
+\subsubsection[{Append\-Statement}]{\setlength{\rightskip}{0pt plus 5cm}C\-Query\-::\-Append\-Statement (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Statement, }
+\item[{}]{\$the\-Condition = {\ttfamily kOPERATOR\-\_\-AND}}
+\end{DoxyParamCaption}
+)}}\label{class_c_query_a6cd7ba8e153fc299ba87b614ccb56486}
+Append statement.
+
+This method will append the provided statement to the query, the second parameter represents the condition.
+
+Appended statements are merged at the condition level\-: if the condition exists at any level, the statement is appended to that condition; if the condition does not exist, it is created. Obviously, \hyperlink{}{A\-N\-D} and \hyperlink{}{N\-A\-N\-D} are treated as equivalent, as well as \hyperlink{}{O\-R} and \hyperlink{}{N\-O\-R}.
+
+If you provide an object derived from \hyperlink{class_c_query}{C\-Query} as the statement, the method will ignore the condition parameter and append the provided query to the current object.
+
+
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$the\-Statement} & Statement. \\
+\hline
+string & {\em \$the\-Condition} & Statement condition.\\
+\hline
+\end{DoxyParams}
+public
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{class_c_query_a715ac553707078841213f7b874cbc48e}{\index{C\-Query@{C\-Query}!Validate@{Validate}}
+\index{Validate@{Validate}!CQuery@{C\-Query}}
+\subsubsection[{Validate}]{\setlength{\rightskip}{0pt plus 5cm}C\-Query\-::\-Validate (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_c_query_a715ac553707078841213f7b874cbc48e}
+Validate query.
+
+This method will check whether the query structure is valid.
+
+public
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/\-Library/\-Web\-Server/\-Library/wrapper/classes/C\-Query.\-php\end{DoxyCompactItemize}

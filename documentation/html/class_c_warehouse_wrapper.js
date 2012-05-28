@@ -1,0 +1,27 @@
+var class_c_warehouse_wrapper =
+[
+    [ "_EdgeParser", "class_c_warehouse_wrapper.html#a07ece9ec1b80bcba3acb40079e0a27d2", null ],
+    [ "_EscapeLucene", "class_c_warehouse_wrapper.html#a6cd98a621a9cfc942cb192e1bd2ab392", null ],
+    [ "_FormatIdentifiers", "class_c_warehouse_wrapper.html#a728b298fc1f647792efb5bee38194a8a", null ],
+    [ "_FormatPredicates", "class_c_warehouse_wrapper.html#aa8f737fd107082e69ba1d82c228a9864", null ],
+    [ "_FormatRequest", "class_c_warehouse_wrapper.html#a4bd0282949f52ce148b60218c48ddde5", null ],
+    [ "_FormatSelectors", "class_c_warehouse_wrapper.html#a948c44e335f8a89d50e09d430169533d", null ],
+    [ "_Handle_GetEdges", "class_c_warehouse_wrapper.html#a3c430fa7beda3d719cf75c21f4e1593d", null ],
+    [ "_Handle_GetNodes", "class_c_warehouse_wrapper.html#a547daf93a0bac707159ce50b6f429d7b", null ],
+    [ "_Handle_ListOp", "class_c_warehouse_wrapper.html#a9800cf5ca4bb22cd96a94ef542010adf", null ],
+    [ "_Handle_Login", "class_c_warehouse_wrapper.html#a1153f34202b1b0ddc32690c1c04c0bf7", null ],
+    [ "_Handle_QueryOntologies", "class_c_warehouse_wrapper.html#acd8bbcad5d84122935a1a0f9868b2c5e", null ],
+    [ "_HandleRequest", "class_c_warehouse_wrapper.html#a4b909b5b4aba967200ff72e3e6924b5e", null ],
+    [ "_InitOptions", "class_c_warehouse_wrapper.html#a8dd1de1d5595647b0999ffa6b658c605", null ],
+    [ "_InitResources", "class_c_warehouse_wrapper.html#ad1b028512dfbd4031ea443fd953bf178", null ],
+    [ "_ParseDirection", "class_c_warehouse_wrapper.html#a675e18a0cae0a2050159b608c81e69b1", null ],
+    [ "_ParseIdentifiers", "class_c_warehouse_wrapper.html#a1a4497011e288b0134b1d43b6029914b", null ],
+    [ "_ParseLevels", "class_c_warehouse_wrapper.html#a687876da8f0dd0d0abb839b2b135ccbe", null ],
+    [ "_ParsePredicates", "class_c_warehouse_wrapper.html#a77a135708bb63dad7b6f43b93f38b655", null ],
+    [ "_ParseRequest", "class_c_warehouse_wrapper.html#aab6f377ec08fc5f868a5ad65691964f6", null ],
+    [ "_ParseSelectors", "class_c_warehouse_wrapper.html#aea03fa2eb06da1201acbab5becfccdd2", null ],
+    [ "_ParseUserCode", "class_c_warehouse_wrapper.html#aeb1488dd1ab1e8494caff8f920b32ad7", null ],
+    [ "_ParseUserPass", "class_c_warehouse_wrapper.html#a31f33bdb468cf377df7ac4c6d5496a95", null ],
+    [ "_Traverse", "class_c_warehouse_wrapper.html#ab02604dd2c241b5fdf4e64c83914d6b5", null ],
+    [ "_ValidateOperation", "class_c_warehouse_wrapper.html#ab9506f24cc7dd6b001991f83bd2b5d55", null ]
+];

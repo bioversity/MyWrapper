@@ -490,8 +490,8 @@ class CTerm extends CCodedUnitObject
 	 * {@link CAttribute::ManageTypedArrayOffset() method}, please consult its reference for
 	 * more information.
 	 *
-	 * @param string				$theValue			URL or operation.
-	 * @param mixed					$theType			Mailing address kind or index.
+	 * @param string				$theValue			Object or operation.
+	 * @param mixed					$theType			Cross-reference type.
 	 * @param boolean				$getOld				TRUE get old value.
 	 *
 	 * @access public

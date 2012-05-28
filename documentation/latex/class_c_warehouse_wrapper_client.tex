@@ -1,0 +1,355 @@
+\hypertarget{class_c_warehouse_wrapper_client}{\section{C\-Warehouse\-Wrapper\-Client Class Reference}
+\label{class_c_warehouse_wrapper_client}\index{C\-Warehouse\-Wrapper\-Client@{C\-Warehouse\-Wrapper\-Client}}
+}
+Inheritance diagram for C\-Warehouse\-Wrapper\-Client\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=5.000000cm]{class_c_warehouse_wrapper_client}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_c_warehouse_wrapper_client_a099ef5aef1883aa5b394c7086a818496}{Operation} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_warehouse_wrapper_client_ac953bbdc9dd6ccffa7ddfb8f59bbaf26}{User\-Code} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_warehouse_wrapper_client_a60e22139d7af5c828dcac8098e16ec6a}{User\-Pass} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_warehouse_wrapper_client_a39a624769f7cd1aebca73e7ba2c042e2}{Identifiers} (\$the\-Value=N\-U\-L\-L, \$the\-Operation=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_warehouse_wrapper_client_a13557a813d85e638d97b729a27631af7}{Predicates} (\$the\-Value=N\-U\-L\-L, \$the\-Operation=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_warehouse_wrapper_client_a5550bc094adb0dda32ce32979d4b70b7}{Attributes} (\$the\-Key, \$the\-Value=N\-U\-L\-L, \$the\-Operation=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_warehouse_wrapper_client_a74a9e226190002542c67c64e766b91cd}{Direction} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_warehouse_wrapper_client_a858974f6dedaa731da4fe26664a21ab7}{Levels} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_c_warehouse_wrapper_client_a5550bc094adb0dda32ce32979d4b70b7}{\index{C\-Warehouse\-Wrapper\-Client@{C\-Warehouse\-Wrapper\-Client}!Attributes@{Attributes}}
+\index{Attributes@{Attributes}!CWarehouseWrapperClient@{C\-Warehouse\-Wrapper\-Client}}
+\subsubsection[{Attributes}]{\setlength{\rightskip}{0pt plus 5cm}C\-Warehouse\-Wrapper\-Client\-::\-Attributes (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Key, }
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$the\-Operation = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_warehouse_wrapper_client_a5550bc094adb0dda32ce32979d4b70b7}
+Manage selectors list.
+
+This method can be used to manage the \hyperlink{}{attribute} selectors, it manages the following array structure\-:
+
+
+\begin{DoxyItemize}
+\item {\itshape Key}\-: The array key should correspond to the node attribute you want to match\-: 
+\begin{DoxyItemize}
+\item {\itshape \hyperlink{}{k\-T\-A\-G\-\_\-\-T\-Y\-P\-E}}\-: The ontology node type. 
+\item {\itshape \hyperlink{}{k\-T\-A\-G\-\_\-\-K\-I\-N\-D}}\-: The ontology node kind. 
+\item {\itshape \hyperlink{}{k\-T\-A\-G\-\_\-\-D\-O\-M\-A\-I\-N}}\-: The domain of the ontology. 
+\item {\itshape \hyperlink{}{k\-T\-A\-G\-\_\-\-C\-A\-T\-E\-G\-O\-R\-Y}}\-: The category of the ontology. 
+\end{DoxyItemize}
+\item {\itshape Value}\-: An array of values to be matched. 
+\end{DoxyItemize}
+
+The elements of these key/value pairs will be compared in {\itshape A\-N\-D}.
+
+The parameters to this method are\-:
+
+
+\begin{DoxyItemize}
+\item {\bfseries \$the\-Key}\-: The attribute key. 
+\item {\bfseries \$the\-Value}\-: The attribute value\-: 
+\begin{DoxyItemize}
+\item {\itshape N\-U\-L\-L}\-: Apply operation to all values. 
+\item {\itshape other}\-: The attribute value. 
+\end{DoxyItemize}
+\item {\bfseries \$the\-Operation}\-: The operation\-: 
+\begin{DoxyItemize}
+\item {\itshape N\-U\-L\-L}\-: Return the attribute value matched by the first and second parameters, or return all values matching the first parameter if the second is {\itshape N\-U\-L\-L}. 
+\item {\itshape F\-A\-L\-S\-E}\-: Delete the attribute value matched by the first and second parameters, or delete all values matching the first parameter if the second is {\itshape N\-U\-L\-L}. 
+\item {\itshape T\-R\-U\-E}\-: Add the value in the second parameter to the attributes matching the first parameter, or replace all values matching the first parameter with the value in the second parameter. 
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Key} & Attribute key. \\
+\hline
+mixed & {\em \$the\-Value} & Value or index. \\
+\hline
+mixed & {\em \$the\-Operation} & Operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+k\-A\-P\-I\-\_\-\-O\-P\-T\-\_\-\-A\-T\-T\-R\-I\-B\-U\-T\-E\-S 
+\end{DoxySeeAlso}
+\hypertarget{class_c_warehouse_wrapper_client_a74a9e226190002542c67c64e766b91cd}{\index{C\-Warehouse\-Wrapper\-Client@{C\-Warehouse\-Wrapper\-Client}!Direction@{Direction}}
+\index{Direction@{Direction}!CWarehouseWrapperClient@{C\-Warehouse\-Wrapper\-Client}}
+\subsubsection[{Direction}]{\setlength{\rightskip}{0pt plus 5cm}C\-Warehouse\-Wrapper\-Client\-::\-Direction (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_warehouse_wrapper_client_a74a9e226190002542c67c64e766b91cd}
+Manage edges direction.
+
+This method can be used to manage the \hyperlink{}{edges} direction, it accepts a string which represents either the relationship \hyperlink{}{direction}, or the requested operation\-:
+
+
+\begin{DoxyItemize}
+\item {\itshape N\-U\-L\-L}\-: Return the current value. 
+\item {\itshape F\-A\-L\-S\-E}\-: Delete the current value. 
+\item {\itshape other}\-: Set the value with the provided parameter\-: 
+\begin{DoxyItemize}
+\item {\itshape \hyperlink{}{k\-A\-P\-I\-\_\-\-D\-I\-R\-E\-C\-T\-I\-O\-N\-\_\-\-I\-N}}\-: Incoming relationships. 
+\item {\itshape \hyperlink{}{k\-A\-P\-I\-\_\-\-D\-I\-R\-E\-C\-T\-I\-O\-N\-\_\-\-O\-U\-T}}\-: Outgoing relationships. 
+\item {\itshape \hyperlink{}{k\-A\-P\-I\-\_\-\-D\-I\-R\-E\-C\-T\-I\-O\-N\-\_\-\-A\-L\-L}}\-: Both incoming and outgoing relationships. 
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+The second parameter is a boolean which if {\itshape T\-R\-U\-E} will return the {\itshape old} value when replacing values; if {\itshape F\-A\-L\-S\-E}, it will return the currently set value.
+
+
+\begin{DoxyParams}[1]{Parameters}
+integer & {\em \$the\-Value} & Value or operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+\hyperlink{class_c_attribute_a9d231a47718719fcd6c33f3d0ac91675}{C\-Attribute\-::\-Manage\-Offset()}
+
+\begin{DoxySeeAlso}{See also}
+k\-A\-P\-I\-\_\-\-O\-P\-T\-\_\-\-D\-I\-R\-E\-C\-T\-I\-O\-N 
+\end{DoxySeeAlso}
+\hypertarget{class_c_warehouse_wrapper_client_a39a624769f7cd1aebca73e7ba2c042e2}{\index{C\-Warehouse\-Wrapper\-Client@{C\-Warehouse\-Wrapper\-Client}!Identifiers@{Identifiers}}
+\index{Identifiers@{Identifiers}!CWarehouseWrapperClient@{C\-Warehouse\-Wrapper\-Client}}
+\subsubsection[{Identifiers}]{\setlength{\rightskip}{0pt plus 5cm}C\-Warehouse\-Wrapper\-Client\-::\-Identifiers (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$the\-Operation = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_warehouse_wrapper_client_a39a624769f7cd1aebca73e7ba2c042e2}
+Manage identifiers list.
+
+This method can be used to manage the \hyperlink{}{identifiers}, it uses the standard accessor \hyperlink{class_c_attribute_a7d2e35b120eaa55529f78253f77dab48}{method} to manage the list of identifiers.
+
+For a more thorough reference of how this method works, please consult the \hyperlink{class_c_attribute_a7d2e35b120eaa55529f78253f77dab48}{C\-Attribute\-::\-Manage\-Array\-Offset} method, in which the second parameter will be the constant \hyperlink{}{k\-A\-P\-I\-\_\-\-O\-P\-T\-\_\-\-I\-D\-E\-N\-T\-I\-F\-I\-E\-R\-S}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Value} & Value or index. \\
+\hline
+mixed & {\em \$the\-Operation} & Operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+\hyperlink{class_c_attribute_a7d2e35b120eaa55529f78253f77dab48}{C\-Attribute\-::\-Manage\-Array\-Offset()}
+
+\begin{DoxySeeAlso}{See also}
+k\-A\-P\-I\-\_\-\-O\-P\-T\-\_\-\-I\-D\-E\-N\-T\-I\-F\-I\-E\-R\-S 
+\end{DoxySeeAlso}
+\hypertarget{class_c_warehouse_wrapper_client_a858974f6dedaa731da4fe26664a21ab7}{\index{C\-Warehouse\-Wrapper\-Client@{C\-Warehouse\-Wrapper\-Client}!Levels@{Levels}}
+\index{Levels@{Levels}!CWarehouseWrapperClient@{C\-Warehouse\-Wrapper\-Client}}
+\subsubsection[{Levels}]{\setlength{\rightskip}{0pt plus 5cm}C\-Warehouse\-Wrapper\-Client\-::\-Levels (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_warehouse_wrapper_client_a858974f6dedaa731da4fe26664a21ab7}
+Manage traversal depts level.
+
+This method can be used to manage the \hyperlink{}{levels} of depth in graph \hyperlink{}{traversals}, it accepts an integer which represents the number of levels to traverse; if the value is negative, all levels will be traversed.
+
+
+\begin{DoxyItemize}
+\item {\itshape N\-U\-L\-L}\-: Return the current value. 
+\item {\itshape F\-A\-L\-S\-E}\-: Delete the current value. 
+\item {\itshape other}\-: Set the value with the provided parameter. 
+\end{DoxyItemize}
+
+The second parameter is a boolean which if {\itshape T\-R\-U\-E} will return the {\itshape old} value when replacing values; if {\itshape F\-A\-L\-S\-E}, it will return the currently set value.
+
+
+\begin{DoxyParams}[1]{Parameters}
+integer & {\em \$the\-Value} & Value or operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+\hyperlink{class_c_attribute_a9d231a47718719fcd6c33f3d0ac91675}{C\-Attribute\-::\-Manage\-Offset()}
+
+\begin{DoxySeeAlso}{See also}
+k\-A\-P\-I\-\_\-\-O\-P\-T\-\_\-\-L\-E\-V\-E\-L\-S 
+\end{DoxySeeAlso}
+\hypertarget{class_c_warehouse_wrapper_client_a099ef5aef1883aa5b394c7086a818496}{\index{C\-Warehouse\-Wrapper\-Client@{C\-Warehouse\-Wrapper\-Client}!Operation@{Operation}}
+\index{Operation@{Operation}!CWarehouseWrapperClient@{C\-Warehouse\-Wrapper\-Client}}
+\subsubsection[{Operation}]{\setlength{\rightskip}{0pt plus 5cm}C\-Warehouse\-Wrapper\-Client\-::\-Operation (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_warehouse_wrapper_client_a099ef5aef1883aa5b394c7086a818496}
+Manage operation.
+
+We \hyperlink{class_c_data_wrapper_client_ae7cad4809c20d8f2871cfe00da909d67}{overload} this method to add the following allowed operations\-:
+
+
+\begin{DoxyItemize}
+\item {\itshape \hyperlink{}{k\-A\-P\-I\-\_\-\-O\-P\-\_\-\-L\-O\-G\-I\-N}}\-: This is the tag that represents the user login operation, it will return the \hyperlink{class_c_user}{user} matching the provided user \hyperlink{class_c_warehouse_wrapper_client_ac953bbdc9dd6ccffa7ddfb8f59bbaf26}{code} and \hyperlink{class_c_warehouse_wrapper_client_a60e22139d7af5c828dcac8098e16ec6a}{password}. 
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Value} & Value or operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \{@link} & \hyperlink{class_c_exception}{C\-Exception} \hyperlink{class_c_exception}{C\-Exception}\}\\
+\hline
+\end{DoxyExceptions}
+\hyperlink{class_c_attribute_a9d231a47718719fcd6c33f3d0ac91675}{C\-Attribute\-::\-Manage\-Offset()}
+
+\begin{DoxySeeAlso}{See also}
+k\-A\-P\-I\-\_\-\-O\-P\-E\-R\-A\-T\-I\-O\-N 
+
+k\-A\-P\-I\-\_\-\-O\-P\-\_\-\-G\-E\-T\-\_\-\-O\-N\-E k\-A\-P\-I\-\_\-\-O\-P\-\_\-\-G\-E\-T\-\_\-\-O\-B\-J\-E\-C\-T\-\_\-\-R\-E\-F 
+\end{DoxySeeAlso}
+
+
+Reimplemented from \hyperlink{class_c_data_wrapper_client_ae7cad4809c20d8f2871cfe00da909d67}{C\-Data\-Wrapper\-Client}.
+
+\hypertarget{class_c_warehouse_wrapper_client_a13557a813d85e638d97b729a27631af7}{\index{C\-Warehouse\-Wrapper\-Client@{C\-Warehouse\-Wrapper\-Client}!Predicates@{Predicates}}
+\index{Predicates@{Predicates}!CWarehouseWrapperClient@{C\-Warehouse\-Wrapper\-Client}}
+\subsubsection[{Predicates}]{\setlength{\rightskip}{0pt plus 5cm}C\-Warehouse\-Wrapper\-Client\-::\-Predicates (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$the\-Operation = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_warehouse_wrapper_client_a13557a813d85e638d97b729a27631af7}
+Manage predicates list.
+
+This method can be used to manage the \hyperlink{}{predicates}, it uses the standard accessor \hyperlink{class_c_attribute_a7d2e35b120eaa55529f78253f77dab48}{method} to manage the list of predicates.
+
+For a more thorough reference of how this method works, please consult the \hyperlink{class_c_attribute_a7d2e35b120eaa55529f78253f77dab48}{C\-Attribute\-::\-Manage\-Array\-Offset} method, in which the second parameter will be the constant \hyperlink{}{k\-A\-P\-I\-\_\-\-O\-P\-T\-\_\-\-P\-R\-E\-D\-I\-C\-A\-T\-E\-S}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Value} & Value or index. \\
+\hline
+mixed & {\em \$the\-Operation} & Operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+\hyperlink{class_c_attribute_a7d2e35b120eaa55529f78253f77dab48}{C\-Attribute\-::\-Manage\-Array\-Offset()}
+
+\begin{DoxySeeAlso}{See also}
+k\-A\-P\-I\-\_\-\-O\-P\-T\-\_\-\-P\-R\-E\-D\-I\-C\-A\-T\-E\-S 
+\end{DoxySeeAlso}
+\hypertarget{class_c_warehouse_wrapper_client_ac953bbdc9dd6ccffa7ddfb8f59bbaf26}{\index{C\-Warehouse\-Wrapper\-Client@{C\-Warehouse\-Wrapper\-Client}!User\-Code@{User\-Code}}
+\index{User\-Code@{User\-Code}!CWarehouseWrapperClient@{C\-Warehouse\-Wrapper\-Client}}
+\subsubsection[{User\-Code}]{\setlength{\rightskip}{0pt plus 5cm}C\-Warehouse\-Wrapper\-Client\-::\-User\-Code (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_warehouse_wrapper_client_ac953bbdc9dd6ccffa7ddfb8f59bbaf26}
+Manage user code.
+
+This method can be used to manage the user \hyperlink{}{code}, it accepts a string which represents either the user code, or the requested operation\-:
+
+
+\begin{DoxyItemize}
+\item {\itshape N\-U\-L\-L}\-: Return the current value. 
+\item {\itshape F\-A\-L\-S\-E}\-: Delete the current value. 
+\item {\itshape other}\-: Set the value with the provided parameter. 
+\end{DoxyItemize}
+
+The second parameter is a boolean which if {\itshape T\-R\-U\-E} will return the {\itshape old} value when replacing values; if {\itshape F\-A\-L\-S\-E}, it will return the currently set value.
+
+
+\begin{DoxyParams}[1]{Parameters}
+integer & {\em \$the\-Value} & Value or operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+\hyperlink{class_c_attribute_a9d231a47718719fcd6c33f3d0ac91675}{C\-Attribute\-::\-Manage\-Offset()}
+
+\begin{DoxySeeAlso}{See also}
+k\-A\-P\-I\-\_\-\-O\-P\-T\-\_\-\-U\-S\-E\-R\-\_\-\-C\-O\-D\-E 
+\end{DoxySeeAlso}
+\hypertarget{class_c_warehouse_wrapper_client_a60e22139d7af5c828dcac8098e16ec6a}{\index{C\-Warehouse\-Wrapper\-Client@{C\-Warehouse\-Wrapper\-Client}!User\-Pass@{User\-Pass}}
+\index{User\-Pass@{User\-Pass}!CWarehouseWrapperClient@{C\-Warehouse\-Wrapper\-Client}}
+\subsubsection[{User\-Pass}]{\setlength{\rightskip}{0pt plus 5cm}C\-Warehouse\-Wrapper\-Client\-::\-User\-Pass (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_warehouse_wrapper_client_a60e22139d7af5c828dcac8098e16ec6a}
+Manage user password.
+
+This method can be used to manage the user \hyperlink{}{password}, it accepts a string which represents either the user password, or the requested operation\-:
+
+
+\begin{DoxyItemize}
+\item {\itshape N\-U\-L\-L}\-: Return the current value. 
+\item {\itshape F\-A\-L\-S\-E}\-: Delete the current value. 
+\item {\itshape other}\-: Set the value with the provided parameter. 
+\end{DoxyItemize}
+
+The second parameter is a boolean which if {\itshape T\-R\-U\-E} will return the {\itshape old} value when replacing values; if {\itshape F\-A\-L\-S\-E}, it will return the currently set value.
+
+
+\begin{DoxyParams}[1]{Parameters}
+integer & {\em \$the\-Value} & Value or operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+\hyperlink{class_c_attribute_a9d231a47718719fcd6c33f3d0ac91675}{C\-Attribute\-::\-Manage\-Offset()}
+
+\begin{DoxySeeAlso}{See also}
+k\-A\-P\-I\-\_\-\-O\-P\-T\-\_\-\-U\-S\-E\-R\-\_\-\-P\-A\-S\-S 
+\end{DoxySeeAlso}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/\-Library/\-Web\-Server/\-Library/wrapper/classes/C\-Warehouse\-Wrapper\-Client.\-php\end{DoxyCompactItemize}

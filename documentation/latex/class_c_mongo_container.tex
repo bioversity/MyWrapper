@@ -1,0 +1,277 @@
+\hypertarget{class_c_mongo_container}{\section{C\-Mongo\-Container Class Reference}
+\label{class_c_mongo_container}\index{C\-Mongo\-Container@{C\-Mongo\-Container}}
+}
+Inheritance diagram for C\-Mongo\-Container\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_c_mongo_container}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_c_mongo_container_abc325eae251667da577efdb45a7d3c17}{\-\_\-\-\_\-to\-String} ()
+\item 
+\hyperlink{class_c_mongo_container_a253978bb8e4d1e2613665d308de83e1e}{Container} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_mongo_container_a27a99b6ea891b226729bc6cb8426cac0}{Database} ()
+\item 
+\hyperlink{class_c_mongo_container_a077bdbf148dfa01f3798015906e4e70a}{Unserialise\-Data} (\&\$the\-Element)
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_c_mongo_container_a92cbcdba4f2b0bda2ae3eeb7a08d7ba2}{\-\_\-\-Commit} (\&\$the\-Object, \&\$the\-Identifier, \&\$the\-Modifiers)
+\item 
+\hyperlink{class_c_mongo_container_a61f469d1975834b22665392542620317}{\-\_\-\-Load} (\&\$the\-Identifier, \&\$the\-Modifiers)
+\item 
+\hyperlink{class_c_mongo_container_aa516a049efe0c9083e2f8c5b9f9076a4}{\-\_\-\-Delete} (\&\$the\-Identifier, \&\$the\-Modifiers)
+\item 
+\hyperlink{class_c_mongo_container_af592e4500a640190f374c18683af3b83}{\-\_\-\-Prepare\-Commit} (\&\$the\-Object, \&\$the\-Identifier, \&\$the\-Modifiers)
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_c_mongo_container_abc325eae251667da577efdb45a7d3c17}{\index{C\-Mongo\-Container@{C\-Mongo\-Container}!\-\_\-\-\_\-to\-String@{\-\_\-\-\_\-to\-String}}
+\index{\-\_\-\-\_\-to\-String@{\-\_\-\-\_\-to\-String}!CMongoContainer@{C\-Mongo\-Container}}
+\subsubsection[{\-\_\-\-\_\-to\-String}]{\setlength{\rightskip}{0pt plus 5cm}C\-Mongo\-Container\-::\-\_\-\-\_\-to\-String (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_c_mongo_container_abc325eae251667da577efdb45a7d3c17}
+Return container name.
+
+This method should return the current container's name.
+
+In this class we return the collection name.
+
+public \begin{DoxyReturn}{Returns}
+string
+\end{DoxyReturn}
+\hyperlink{class_c_mongo_container_a253978bb8e4d1e2613665d308de83e1e}{Container()} 
+
+Reimplemented from \hyperlink{class_c_container_aa1d6ed5052f55cdffcf6445968f203ed}{C\-Container}.
+
+\hypertarget{class_c_mongo_container_a92cbcdba4f2b0bda2ae3eeb7a08d7ba2}{\index{C\-Mongo\-Container@{C\-Mongo\-Container}!\-\_\-\-Commit@{\-\_\-\-Commit}}
+\index{\-\_\-\-Commit@{\-\_\-\-Commit}!CMongoContainer@{C\-Mongo\-Container}}
+\subsubsection[{\-\_\-\-Commit}]{\setlength{\rightskip}{0pt plus 5cm}C\-Mongo\-Container\-::\-\_\-\-Commit (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Object, }
+\item[{\&}]{\$the\-Identifier, }
+\item[{\&}]{\$the\-Modifiers}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_mongo_container_a92cbcdba4f2b0bda2ae3eeb7a08d7ba2}
+Commit provided object.
+
+We implement this method to handle Mongo\-Collection object stores, this method will store the object in the current container.
+
+The method will check if the current container is a Mongo\-Collection, if this is not the case, it will raise an \hyperlink{}{exception}.
+
+If the provided modifiers indicate a \hyperlink{}{modify} operation, the method will return the modified object, in all other cases the method will return the object identifier.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \&\$the\-Object} & Object to commit. \\
+\hline
+reference & {\em \&\$the\-Identifier} & Object identifier. \\
+\hline
+reference & {\em \&\$the\-Modifiers} & Commit modifiers.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+\hyperlink{class_c_mongo_container_a253978bb8e4d1e2613665d308de83e1e}{Container()}
+
+\begin{DoxySeeAlso}{See also}
+k\-F\-L\-A\-G\-\_\-\-P\-E\-R\-S\-I\-S\-T\-\_\-\-I\-N\-S\-E\-R\-T k\-F\-L\-A\-G\-\_\-\-P\-E\-R\-S\-I\-S\-T\-\_\-\-M\-O\-D\-I\-F\-Y 
+
+k\-F\-L\-A\-G\-\_\-\-P\-E\-R\-S\-I\-S\-T\-\_\-\-R\-E\-P\-L\-A\-C\-E k\-F\-L\-A\-G\-\_\-\-P\-E\-R\-S\-I\-S\-T\-\_\-\-U\-P\-D\-A\-T\-E 
+\end{DoxySeeAlso}
+
+
+Reimplemented from \hyperlink{class_c_container_acbc85dd164615b31c9edfec93bcf27f9}{C\-Container}.
+
+\hypertarget{class_c_mongo_container_aa516a049efe0c9083e2f8c5b9f9076a4}{\index{C\-Mongo\-Container@{C\-Mongo\-Container}!\-\_\-\-Delete@{\-\_\-\-Delete}}
+\index{\-\_\-\-Delete@{\-\_\-\-Delete}!CMongoContainer@{C\-Mongo\-Container}}
+\subsubsection[{\-\_\-\-Delete}]{\setlength{\rightskip}{0pt plus 5cm}C\-Mongo\-Container\-::\-\_\-\-Delete (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Identifier, }
+\item[{\&}]{\$the\-Modifiers}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_mongo_container_aa516a049efe0c9083e2f8c5b9f9076a4}
+Delete object.
+
+We implement this method to handle Mongo\-Collection object stores, this method will remove the object from the current container.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \&\$the\-Identifier} & Object identifier. \\
+\hline
+reference & {\em \&\$the\-Modifiers} & Load modifiers.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+mixed 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_c_container_a20aac3eec154c2122f2c602bf5ce35fe}{C\-Container}.
+
+\hypertarget{class_c_mongo_container_a61f469d1975834b22665392542620317}{\index{C\-Mongo\-Container@{C\-Mongo\-Container}!\-\_\-\-Load@{\-\_\-\-Load}}
+\index{\-\_\-\-Load@{\-\_\-\-Load}!CMongoContainer@{C\-Mongo\-Container}}
+\subsubsection[{\-\_\-\-Load}]{\setlength{\rightskip}{0pt plus 5cm}C\-Mongo\-Container\-::\-\_\-\-Load (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Identifier, }
+\item[{\&}]{\$the\-Modifiers}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_mongo_container_a61f469d1975834b22665392542620317}
+Load object.
+
+We implement this method to handle Mongo\-Collection object stores, this method will retrieve the object from the current container.
+
+The \hyperlink{class_c_container_a48db96aa6bbf15d0bfc15725616b7154}{caller} will have resolved references andeventually extracted the identifier from the provided parameter.
+
+This method will check if the current container is a Mongo\-Collection, if this is not the case, it will raise an \hyperlink{}{exception}.
+
+The method will use the {\itshape find\-One} method to retrieve the object.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \&\$the\-Identifier} & Object identifier. \\
+\hline
+reference & {\em \&\$the\-Modifiers} & Load modifiers.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+mixed 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_c_container_a865f140560991fa21a88b7fc8ff8f1f5}{C\-Container}.
+
+\hypertarget{class_c_mongo_container_af592e4500a640190f374c18683af3b83}{\index{C\-Mongo\-Container@{C\-Mongo\-Container}!\-\_\-\-Prepare\-Commit@{\-\_\-\-Prepare\-Commit}}
+\index{\-\_\-\-Prepare\-Commit@{\-\_\-\-Prepare\-Commit}!CMongoContainer@{C\-Mongo\-Container}}
+\subsubsection[{\-\_\-\-Prepare\-Commit}]{\setlength{\rightskip}{0pt plus 5cm}C\-Mongo\-Container\-::\-\_\-\-Prepare\-Commit (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Object, }
+\item[{\&}]{\$the\-Identifier, }
+\item[{\&}]{\$the\-Modifiers}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_mongo_container_af592e4500a640190f374c18683af3b83}
+Prepare before a \hyperlink{class_c_mongo_container_a92cbcdba4f2b0bda2ae3eeb7a08d7ba2}{commit}.
+
+We \hyperlink{}{overload} this method to handle the identifier\-: if provided, it means that that is to become the object's unique \hyperlink{}{identifier}; if not provided and the object has an \hyperlink{}{identifier}, we use that one.
+
+We also raise an exception if the provided object is not either an array or an Array\-Object.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \&\$the\-Object} & Object or data. \\
+\hline
+reference & {\em \&\$the\-Identifier} & Object identifier. \\
+\hline
+reference & {\em \&\$the\-Modifiers} & Commit modifiers.\\
+\hline
+\end{DoxyParams}
+protected
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \{@link} & \hyperlink{class_c_exception}{C\-Exception} \hyperlink{class_c_exception}{C\-Exception}\}\\
+\hline
+\end{DoxyExceptions}
+\hyperlink{class_c_mongo_container_a253978bb8e4d1e2613665d308de83e1e}{Container()}
+
+\begin{DoxySeeAlso}{See also}
+k\-F\-L\-A\-G\-\_\-\-S\-T\-A\-T\-E\-\_\-\-E\-N\-C\-O\-D\-E\-D 
+
+k\-E\-R\-R\-O\-R\-\_\-\-O\-P\-T\-I\-O\-N\-\_\-\-M\-I\-S\-S\-I\-N\-G k\-E\-R\-R\-O\-R\-\_\-\-I\-N\-V\-A\-L\-I\-D\-\_\-\-P\-A\-R\-A\-M\-E\-T\-E\-R k\-E\-R\-R\-O\-R\-\_\-\-I\-N\-V\-A\-L\-I\-D\-\_\-\-S\-T\-A\-T\-E 
+\end{DoxySeeAlso}
+
+
+Reimplemented from \hyperlink{class_c_container_a0dc47e54abc533cedf1c2c0f915d96b2}{C\-Container}.
+
+\hypertarget{class_c_mongo_container_a253978bb8e4d1e2613665d308de83e1e}{\index{C\-Mongo\-Container@{C\-Mongo\-Container}!Container@{Container}}
+\index{Container@{Container}!CMongoContainer@{C\-Mongo\-Container}}
+\subsubsection[{Container}]{\setlength{\rightskip}{0pt plus 5cm}C\-Mongo\-Container\-::\-Container (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_mongo_container_a253978bb8e4d1e2613665d308de83e1e}
+Manage persistent container.
+
+We \hyperlink{class_c_container_a7d10fa70dfa381cb95e66c265e2ca113}{overload} this method to ensure that the provided container is a Mongo\-Collection object.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Value} & Persistent container or operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_c_container_a7d10fa70dfa381cb95e66c265e2ca113}{C\-Container}.
+
+\hypertarget{class_c_mongo_container_a27a99b6ea891b226729bc6cb8426cac0}{\index{C\-Mongo\-Container@{C\-Mongo\-Container}!Database@{Database}}
+\index{Database@{Database}!CMongoContainer@{C\-Mongo\-Container}}
+\subsubsection[{Database}]{\setlength{\rightskip}{0pt plus 5cm}C\-Mongo\-Container\-::\-Database (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_c_mongo_container_a27a99b6ea891b226729bc6cb8426cac0}
+Return database.
+
+In this class we return the collection's database.
+
+public \begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+\hyperlink{class_c_mongo_container_a253978bb8e4d1e2613665d308de83e1e}{Container()} 
+
+Reimplemented from \hyperlink{class_c_container_a0d691b62d9b70b924e24a332931ce9d1}{C\-Container}.
+
+\hypertarget{class_c_mongo_container_a077bdbf148dfa01f3798015906e4e70a}{\index{C\-Mongo\-Container@{C\-Mongo\-Container}!Unserialise\-Data@{Unserialise\-Data}}
+\index{Unserialise\-Data@{Unserialise\-Data}!CMongoContainer@{C\-Mongo\-Container}}
+\subsubsection[{Unserialise\-Data}]{\setlength{\rightskip}{0pt plus 5cm}C\-Mongo\-Container\-::\-Unserialise\-Data (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Element}
+\end{DoxyParamCaption}
+)}}\label{class_c_mongo_container_a077bdbf148dfa01f3798015906e4e70a}
+Unserialise provided data element.
+
+We \hyperlink{class_c_container_a09d585e2a9809221a42d52d7520c9cbf}{implement} this method to convert all standard \hyperlink{class_c_data_type}{types} into custom Mongo data types.
+
+In this class we parse the following types and \hyperlink{}{offsets}\-:
+
+
+\begin{DoxyItemize}
+\item {\itshape \hyperlink{class_c_data_type_mongo_id}{C\-Data\-Type\-Mongo\-Id} object or \hyperlink{}{k\-T\-Y\-P\-E\-\_\-\-Mongo\-Id} offset}\-: We return a Mongo\-Id object. 
+\item {\itshape \hyperlink{class_c_data_type_mongo_code}{C\-Data\-Type\-Mongo\-Code} object or \hyperlink{}{k\-T\-Y\-P\-E\-\_\-\-Mongo\-Code} offset}\-: We return a Mongo\-Code object. 
+\item {\itshape \hyperlink{class_c_data_type_stamp}{C\-Data\-Type\-Stamp} object or \hyperlink{}{k\-T\-Y\-P\-E\-\_\-\-S\-T\-A\-M\-P} offset}\-: We return a Mongo\-Date object. 
+\item {\itshape \hyperlink{class_c_data_type_regex}{C\-Data\-Type\-Regex} object or \hyperlink{}{k\-T\-Y\-P\-E\-\_\-\-R\-E\-G\-E\-X} offset}\-: We return a Mongo\-Regex object. 
+\item {\itshape \hyperlink{class_c_data_type_int32}{C\-Data\-Type\-Int32} object or \hyperlink{}{k\-T\-Y\-P\-E\-\_\-\-I\-N\-T32} offset}\-: We return a Mongo\-Int32 object. 
+\item {\itshape \hyperlink{class_c_data_type_int64}{C\-Data\-Type\-Int64} object or \hyperlink{}{k\-T\-Y\-P\-E\-\_\-\-I\-N\-T64} offset}\-: We return a Mongo\-Int64 object. 
+\item {\itshape \hyperlink{class_c_data_type_binary}{C\-Data\-Type\-Binary} object or \hyperlink{}{k\-T\-Y\-P\-E\-\_\-\-B\-I\-N\-A\-R\-Y} offset}\-: We return a Mongo\-Bin\-Data object. 
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \&\$the\-Element} & Element to encode.\\
+\hline
+\end{DoxyParams}
+public 
+
+Reimplemented from \hyperlink{class_c_container_a09d585e2a9809221a42d52d7520c9cbf}{C\-Container}.
+
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/\-Library/\-Web\-Server/\-Library/wrapper/classes/C\-Mongo\-Container.\-php\end{DoxyCompactItemize}

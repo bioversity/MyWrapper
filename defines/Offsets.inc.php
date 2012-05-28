@@ -372,6 +372,15 @@ define( "kTAG_EDGE_TERM",						':TEDGE' );
 define( "kTAG_EDGE_NODE",						':NEDGE' );
 
 /**
+ * Default tag.
+ *
+ * This is the tag that represents the default entry related to the current one. There may be
+ * cases in which an object is interchangeable with many others, in enumerations, for
+ * instance: in this case we can use this tag to point to the default or used instance.
+ */
+define( "kTAG_DEFAULT",							':DEFAULT' );
+
+/**
  * Preferred tag.
  *
  * This is the tag that represents the preferred entry related to the current one. There may

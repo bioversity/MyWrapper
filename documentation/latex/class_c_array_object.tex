@@ -1,0 +1,142 @@
+\hypertarget{class_c_array_object}{\section{C\-Array\-Object Class Reference}
+\label{class_c_array_object}\index{C\-Array\-Object@{C\-Array\-Object}}
+}
+Inheritance diagram for C\-Array\-Object\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=6.631579cm]{class_c_array_object}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_c_array_object_ac9929feeb67c76a0e055696abffe2fb6}{offset\-Get} (\$the\-Offset)
+\item 
+\hyperlink{class_c_array_object_a41815b543b14d373f68ed34ca53dc9f6}{offset\-Set} (\$the\-Offset, \$the\-Value)
+\item 
+\hyperlink{class_c_array_object_a2852b78f58379e507b5e7d7cb8e5326b}{offset\-Unset} (\$the\-Offset)
+\item 
+\hyperlink{class_c_array_object_a350d95184af98e75868f27ea170270ce}{keys} ()
+\item 
+\hyperlink{class_c_array_object_a1f29fcc343a624354f6096fd6a4621e6}{values} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_c_array_object_a350d95184af98e75868f27ea170270ce}{\index{C\-Array\-Object@{C\-Array\-Object}!keys@{keys}}
+\index{keys@{keys}!CArrayObject@{C\-Array\-Object}}
+\subsubsection[{keys}]{\setlength{\rightskip}{0pt plus 5cm}C\-Array\-Object\-::keys (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_c_array_object_a350d95184af98e75868f27ea170270ce}
+Return object's keys.
+
+This method has the same function as array's {\itshape array\-\_\-keys()}, it will return an array comprised of all object's offsets.
+
+public \begin{DoxyReturn}{Returns}
+array 
+\end{DoxyReturn}
+
+
+Reimplemented in \hyperlink{class_c_graph_node_ae68945960073b8bddf5dcfc1869e4144}{C\-Graph\-Node}.
+
+\hypertarget{class_c_array_object_ac9929feeb67c76a0e055696abffe2fb6}{\index{C\-Array\-Object@{C\-Array\-Object}!offset\-Get@{offset\-Get}}
+\index{offset\-Get@{offset\-Get}!CArrayObject@{C\-Array\-Object}}
+\subsubsection[{offset\-Get}]{\setlength{\rightskip}{0pt plus 5cm}C\-Array\-Object\-::offset\-Get (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Offset}
+\end{DoxyParamCaption}
+)}}\label{class_c_array_object_ac9929feeb67c76a0e055696abffe2fb6}
+Return a value at a given offset.
+
+This method should return the value corresponding to the provided offset.
+
+This method is overloaded to prevent notices from being triggered when seeking non-\/existing offsets.
+
+In this class no offset may have a {\itshape N\-U\-L\-L} value, if this method returns a {\itshape N\-U\-L\-L} value, it means that the offset doesn't exist.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Offset} & Offset.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed 
+\end{DoxyReturn}
+
+
+Reimplemented in \hyperlink{class_c_ontology_node_a73a49b503182510cd7451465ee41c6f2}{C\-Ontology\-Node}, \hyperlink{class_c_ontology_edge_a371744cd3e3bb699c12dad85c6ea3e54}{C\-Ontology\-Edge}, and \hyperlink{class_c_graph_node_a0a00e251025e4f7b10beae2248f03d77}{C\-Graph\-Node}.
+
+\hypertarget{class_c_array_object_a41815b543b14d373f68ed34ca53dc9f6}{\index{C\-Array\-Object@{C\-Array\-Object}!offset\-Set@{offset\-Set}}
+\index{offset\-Set@{offset\-Set}!CArrayObject@{C\-Array\-Object}}
+\subsubsection[{offset\-Set}]{\setlength{\rightskip}{0pt plus 5cm}C\-Array\-Object\-::offset\-Set (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Offset, }
+\item[{}]{\$the\-Value}
+\end{DoxyParamCaption}
+)}}\label{class_c_array_object_a41815b543b14d373f68ed34ca53dc9f6}
+Set a value for a given offset.
+
+This method should set the provided value corresponding to the provided offset.
+
+This method is overloaded to prevent setting {\itshape N\-U\-L\-L} values\-: if this is the case, the method will \hyperlink{class_c_array_object_a2852b78f58379e507b5e7d7cb8e5326b}{delete} the offset.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Offset} & Offset. \\
+\hline
+string | N\-U\-L\-L & {\em \$the\-Value} & Value to set at offset.\\
+\hline
+\end{DoxyParams}
+public
+
+\hyperlink{class_c_array_object_a2852b78f58379e507b5e7d7cb8e5326b}{offset\-Unset()} 
+
+Reimplemented in \hyperlink{class_c_ontology_term_aba486e72f54e61651a75da75215aaa7c}{C\-Ontology\-Term}, \hyperlink{class_c_wrapper_client_ac37ea353c211b696d11e103a069e8633}{C\-Wrapper\-Client}, \hyperlink{class_c_graph_node_acf4f4240a7807ff16d81378aa282595c}{C\-Graph\-Node}, \hyperlink{class_c_institute_a16c349e22775161c89dbf73850b24cd7}{C\-Institute}, \hyperlink{class_c_f_a_o_institute_ac819c5bfa381ffa0f78b34442d2ea3c2}{C\-F\-A\-O\-Institute}, \hyperlink{class_c_coded_unit_object_a49bb8f2956cb0551ba827b222778f295}{C\-Coded\-Unit\-Object}, \hyperlink{class_c_user_aace3446b9cacfe28cc1937c608fcc999}{C\-User}, and \hyperlink{class_c_status_object_a140ef140d4fa1c4a6180e843bd5ec969}{C\-Status\-Object}.
+
+\hypertarget{class_c_array_object_a2852b78f58379e507b5e7d7cb8e5326b}{\index{C\-Array\-Object@{C\-Array\-Object}!offset\-Unset@{offset\-Unset}}
+\index{offset\-Unset@{offset\-Unset}!CArrayObject@{C\-Array\-Object}}
+\subsubsection[{offset\-Unset}]{\setlength{\rightskip}{0pt plus 5cm}C\-Array\-Object\-::offset\-Unset (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Offset}
+\end{DoxyParamCaption}
+)}}\label{class_c_array_object_a2852b78f58379e507b5e7d7cb8e5326b}
+Reset a value for a given offset.
+
+This method should reset the value corresponding to the provided offset.
+
+We overload this method to prevent notices on non-\/existing offsets.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Offset} & Offset.\\
+\hline
+\end{DoxyParams}
+public 
+
+Reimplemented in \hyperlink{class_c_graph_node_aab1d86d6dda1fffa9dd515b23851588a}{C\-Graph\-Node}, \hyperlink{class_c_ontology_term_a622c31b9466e49a1413d38fda9ef9bb1}{C\-Ontology\-Term}, \hyperlink{class_c_wrapper_client_af4a349c007923b1229f3099592660d97}{C\-Wrapper\-Client}, \hyperlink{class_c_institute_a8f82ded3b52a6fb609c67e45669e1454}{C\-Institute}, \hyperlink{class_c_coded_unit_object_a5072e0f72c19260df212a4cf93c9f1cb}{C\-Coded\-Unit\-Object}, \hyperlink{class_c_f_a_o_institute_a3bd7c59a3da53ba8c3cd1d9d0ff5ae0a}{C\-F\-A\-O\-Institute}, \hyperlink{class_c_user_aed8557e18a89d868cedf5a48328b33b2}{C\-User}, and \hyperlink{class_c_status_object_ae733db1bbfffcbe894ea405765ab4150}{C\-Status\-Object}.
+
+\hypertarget{class_c_array_object_a1f29fcc343a624354f6096fd6a4621e6}{\index{C\-Array\-Object@{C\-Array\-Object}!values@{values}}
+\index{values@{values}!CArrayObject@{C\-Array\-Object}}
+\subsubsection[{values}]{\setlength{\rightskip}{0pt plus 5cm}C\-Array\-Object\-::values (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_c_array_object_a1f29fcc343a624354f6096fd6a4621e6}
+Return object's values.
+
+This method has the same function as array's {\itshape array\-\_\-values()}, it will return an array comprised of all object's values.
+
+public \begin{DoxyReturn}{Returns}
+array 
+\end{DoxyReturn}
+
+
+Reimplemented in \hyperlink{class_c_graph_node_a4505b68f38ea66b3236226531aca23ea}{C\-Graph\-Node}.
+
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/\-Library/\-Web\-Server/\-Library/wrapper/classes/C\-Array\-Object.\-php\end{DoxyCompactItemize}

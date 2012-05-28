@@ -1,0 +1,214 @@
+\hypertarget{class_c_entity}{\section{C\-Entity Class Reference}
+\label{class_c_entity}\index{C\-Entity@{C\-Entity}}
+}
+Inheritance diagram for C\-Entity\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=10.000000cm]{class_c_entity}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_c_entity_a92cac9118e8d52f5f659dead5fc652a2}{G\-I\-D} ()
+\item 
+\hyperlink{class_c_entity_ace5878c009baf09d85c8ca115c48dbb0}{Name} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_entity_acf65b6fb2f4195f6c649b4ca506c7899}{Email} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_c_entity_a260a4c309aff31a42d0e23b372f9b209}{Default\-Container} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_c_entity_a4fdef5f86472b284c53a876d72ba8b07}{\-\_\-\-Prepare\-Create} (\&\$the\-Container, \&\$the\-Identifier, \&\$the\-Modifiers)
+\item 
+\hyperlink{class_c_entity_ac306808f0f8404fa405674cbe14fd441}{\-\_\-\-Prepare\-Commit} (\&\$the\-Container, \&\$the\-Identifier, \&\$the\-Modifiers)
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_c_entity_ac306808f0f8404fa405674cbe14fd441}{\index{C\-Entity@{C\-Entity}!\-\_\-\-Prepare\-Commit@{\-\_\-\-Prepare\-Commit}}
+\index{\-\_\-\-Prepare\-Commit@{\-\_\-\-Prepare\-Commit}!CEntity@{C\-Entity}}
+\subsubsection[{\-\_\-\-Prepare\-Commit}]{\setlength{\rightskip}{0pt plus 5cm}C\-Entity\-::\-\_\-\-Prepare\-Commit (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Container, }
+\item[{\&}]{\$the\-Identifier, }
+\item[{\&}]{\$the\-Modifiers}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_entity_ac306808f0f8404fa405674cbe14fd441}
+Normalise before a store.
+
+We overload this method to enforce the \hyperlink{}{encoded} modifier, and we set automatically the global \hyperlink{}{identifier}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \&\$the\-Container} & Object container. \\
+\hline
+reference & {\em \&\$the\-Identifier} & Object identifier. \\
+\hline
+reference & {\em \&\$the\-Modifiers} & Commit modifiers.\\
+\hline
+\end{DoxyParams}
+protected
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \{@link} & \hyperlink{class_c_exception}{C\-Exception} \hyperlink{class_c_exception}{C\-Exception}\}\\
+\hline
+\end{DoxyExceptions}
+\hyperlink{class_c_status_object_a8429102e4f52f7558649b64f4e673a69}{\-\_\-\-Is\-Inited()}
+
+\begin{DoxySeeAlso}{See also}
+k\-F\-L\-A\-G\-\_\-\-S\-T\-A\-T\-E\-\_\-\-E\-N\-C\-O\-D\-E\-D 
+\end{DoxySeeAlso}
+
+
+Reimplemented from \hyperlink{class_c_related_unit_object_a577c73999830641e07440126a3252286}{C\-Related\-Unit\-Object}.
+
+
+
+Reimplemented in \hyperlink{class_c_f_a_o_institute_a9917150b0e31b741aa10c9443e880746}{C\-F\-A\-O\-Institute}, \hyperlink{class_c_institute_a096aa38309ae2f88250700d5755a18a6}{C\-Institute}, and \hyperlink{class_c_user_aacdc43c5a38cb6b013ee9ce686b186e9}{C\-User}.
+
+\hypertarget{class_c_entity_a4fdef5f86472b284c53a876d72ba8b07}{\index{C\-Entity@{C\-Entity}!\-\_\-\-Prepare\-Create@{\-\_\-\-Prepare\-Create}}
+\index{\-\_\-\-Prepare\-Create@{\-\_\-\-Prepare\-Create}!CEntity@{C\-Entity}}
+\subsubsection[{\-\_\-\-Prepare\-Create}]{\setlength{\rightskip}{0pt plus 5cm}C\-Entity\-::\-\_\-\-Prepare\-Create (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Container, }
+\item[{\&}]{\$the\-Identifier, }
+\item[{\&}]{\$the\-Modifiers}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_entity_a4fdef5f86472b284c53a876d72ba8b07}
+Normalise parameters of a create.
+
+We overload this method to enforce the \hyperlink{}{encoded} modifier.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \&\$the\-Container} & Object container. \\
+\hline
+reference & {\em \&\$the\-Identifier} & Object identifier. \\
+\hline
+reference & {\em \&\$the\-Modifiers} & Create modifiers.\\
+\hline
+\end{DoxyParams}
+protected
+
+\hyperlink{class_c_persistent_object_aa8dc7db66e2af3d28c2035161a2aabf9}{\-\_\-\-Is\-Encoded()}
+
+\begin{DoxySeeAlso}{See also}
+k\-F\-L\-A\-G\-\_\-\-S\-T\-A\-T\-E\-\_\-\-E\-N\-C\-O\-D\-E\-D 
+\end{DoxySeeAlso}
+
+
+Reimplemented from \hyperlink{class_c_persistent_object_a2e5dd4f8a92c0ada964ade712c9579b0}{C\-Persistent\-Object}.
+
+\hypertarget{class_c_entity_a260a4c309aff31a42d0e23b372f9b209}{\index{C\-Entity@{C\-Entity}!Default\-Container@{Default\-Container}}
+\index{Default\-Container@{Default\-Container}!CEntity@{C\-Entity}}
+\subsubsection[{Default\-Container}]{\setlength{\rightskip}{0pt plus 5cm}static C\-Entity\-::\-Default\-Container (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{class_c_entity_a260a4c309aff31a42d0e23b372f9b209}
+Return the default container.
+
+This method can be used to retrieve the default container name.
+
+\begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+\hypertarget{class_c_entity_acf65b6fb2f4195f6c649b4ca506c7899}{\index{C\-Entity@{C\-Entity}!Email@{Email}}
+\index{Email@{Email}!CEntity@{C\-Entity}}
+\subsubsection[{Email}]{\setlength{\rightskip}{0pt plus 5cm}C\-Entity\-::\-Email (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_entity_acf65b6fb2f4195f6c649b4ca506c7899}
+Manage entity e-\/mail.
+
+This method can be used to manage the entity \hyperlink{}{e-\/mail}, it uses the standard accessor \hyperlink{class_c_attribute_a9d231a47718719fcd6c33f3d0ac91675}{method} to manage the \hyperlink{}{offset}\-:
+
+
+\begin{DoxyItemize}
+\item {\bfseries \$the\-Value}\-: The value or operation\-: 
+\begin{DoxyItemize}
+\item {\itshape N\-U\-L\-L}\-: Return the current value. 
+\item {\itshape F\-A\-L\-S\-E}\-: Delete the value. 
+\item {\itshape other}\-: Set value. 
+\end{DoxyItemize}
+\item {\bfseries \$get\-Old}\-: Determines what the method will return\-: 
+\begin{DoxyItemize}
+\item {\itshape T\-R\-U\-E}\-: Return the value {\itshape before} it was eventually modified. 
+\item {\itshape F\-A\-L\-S\-E}\-: Return the value {\itshape after} it was eventually modified. 
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+N\-U\-L\-L | F\-A\-L\-S\-E | string & {\em \$the\-Value} & Entity e-\/mail or operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+\hypertarget{class_c_entity_a92cac9118e8d52f5f659dead5fc652a2}{\index{C\-Entity@{C\-Entity}!G\-I\-D@{G\-I\-D}}
+\index{G\-I\-D@{G\-I\-D}!CEntity@{C\-Entity}}
+\subsubsection[{G\-I\-D}]{\setlength{\rightskip}{0pt plus 5cm}C\-Entity\-::\-G\-I\-D (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_c_entity_a92cac9118e8d52f5f659dead5fc652a2}
+Manage entity global identifier.
+
+The term global \hyperlink{}{identifier} represents the un-\/hashed version of the term local \hyperlink{}{identifier}.
+
+This value is set automatically by a protected \hyperlink{class_c_entity_ac306808f0f8404fa405674cbe14fd441}{method}, so this method is read-\/only.
+
+public \begin{DoxyReturn}{Returns}
+string
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+k\-T\-A\-G\-\_\-\-G\-I\-D 
+\end{DoxySeeAlso}
+\hypertarget{class_c_entity_ace5878c009baf09d85c8ca115c48dbb0}{\index{C\-Entity@{C\-Entity}!Name@{Name}}
+\index{Name@{Name}!CEntity@{C\-Entity}}
+\subsubsection[{Name}]{\setlength{\rightskip}{0pt plus 5cm}C\-Entity\-::\-Name (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_entity_ace5878c009baf09d85c8ca115c48dbb0}
+Manage entity name.
+
+This method can be used to handle the entity \hyperlink{}{name}, it uses the standard accessor \hyperlink{class_c_attribute_a9d231a47718719fcd6c33f3d0ac91675}{method} to manage the \hyperlink{}{offset}.
+
+This value should be a string that can be used as a label or as a short definition of the entity. The name may be language dependent, so the type of data stored in this offset is the responsibility of concrete classes.
+
+For a more in-\/depth reference of this method, please consult the \hyperlink{class_c_attribute_a9d231a47718719fcd6c33f3d0ac91675}{C\-Attribute\-::\-Manage\-Offset} method, in which the second parameter will be the constant \hyperlink{}{k\-T\-A\-G\-\_\-\-N\-A\-M\-E}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Value} & Value. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+string
+\end{DoxyReturn}
+\hyperlink{class_c_attribute_a9d231a47718719fcd6c33f3d0ac91675}{C\-Attribute\-::\-Manage\-Offset()}
+
+\begin{DoxySeeAlso}{See also}
+k\-T\-A\-G\-\_\-\-N\-A\-M\-E 
+\end{DoxySeeAlso}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/\-Library/\-Web\-Server/\-Library/wrapper/classes/C\-Entity.\-php\end{DoxyCompactItemize}

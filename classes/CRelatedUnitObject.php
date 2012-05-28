@@ -193,11 +193,59 @@ abstract class CRelatedUnitObject extends CPersistentUnitObject
 
 	 
 	/*===================================================================================
+	 *	Default																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage default reference.
+	 *
+	 * This method can be used to handle the object's default reference, it uses the
+	 * standard accessor {@link CAttribute::ManageOffset() method} to manage the
+	 * {@link kTAG_DEFAULT offset}.
+	 *
+	 * In enumerations, for instance, there may be several entries that refer to a single
+	 * entity: this tag should be used to point to the instance that represents the used or
+	 * default choice.
+	 *
+	 * For a more in-depth reference of this method, please consult the
+	 * {@link CAttribute::ManageOffset() CAttribute::ManageOffset} method, in which the
+	 * second parameter will be the constant {@link kTAG_DEFAULT kTAG_DEFAULT}.
+	 *
+	 * In this class we feed the value to the
+	 * {@link CPersistentUnitObject::NormaliseRelatedObject() NormaliseRelatedObject} method
+	 * that will take care of handling object references.
+	 *
+	 * @param mixed					$theValue			Value.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 *
+	 * @uses CAttribute::ManageOffset()
+	 *
+	 * @see kTAG_DEFAULT
+	 */
+	public function Used( $theValue = NULL, $getOld = FALSE )
+	{
+		//
+		// Check identifier.
+		//
+		if( ($theValue !== NULL)
+		 && ($theValue !== FALSE) )
+			$theValue = CPersistentUnitObject::NormaliseRelatedObject( $theValue );
+		
+		return CAttribute::ManageOffset
+				( $this, kTAG_DEFAULT, $theValue, $getOld );						// ==>
+
+	} // Used.
+
+	 
+	/*===================================================================================
 	 *	Preferred																		*
 	 *==================================================================================*/
 
 	/**
-	 * Manage preferred reference.
+	 * Manage used reference.
 	 *
 	 * This method can be used to handle the object's preferred reference, it uses the
 	 * standard accessor {@link CAttribute::ManageOffset() method} to manage the

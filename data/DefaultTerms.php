@@ -1758,6 +1758,16 @@ exit( "Done!\n" );
 				   		   .'the subject and object elements are represented by the '
 				   		   .'respective node identifiers, and the predicate element '
 		 				   .'is represented by the edge term identifier.' ),
+			array( 'id'	=> kTAG_DEFAULT,
+				   'syn' => 'kTAG_DEFAULT',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_REF',
+				   'nam' => 'Default',
+				   'def' => 'This term represents a reference to the default object, '
+				   		   .'there are cases in which an object is interchangeable '
+				   		   .'with many others, such as in equivalent enumerations: '
+				   		   .'in this case we can use this tag to point to the default '
+				   		   .'or in-use instance.' ),
 			array( 'id'	=> kTAG_PREFERRED,
 				   'syn' => 'kTAG_PREFERRED',
 				   'car' => 'kCARD_0_1',
@@ -4252,15 +4262,15 @@ EOT;
 				 .$special_type_node->Node()->getId()."]\n" );
 		
 		//
-		// ISO 3166-1.
+		// ISO 3166.
 		//
 		$ns_3166 = new COntologyTerm();
 		$ns_3166->NS( $iso_term );
-		$ns_3166->Code( '3166-1' );
-        $ns_3166->Name( 'Country code', kDEFAULT_LANGUAGE );
+		$ns_3166->Code( '3166' );
+        $ns_3166->Name( 'Geographical codes and names', kDEFAULT_LANGUAGE );
 		$ns_3166->Definition
 		( 'Codes for the representation of names of countries and their '
-		 .'subdivisions – Part 1: Country codes.', kDEFAULT_LANGUAGE );
+		 .'subdivisions.', kDEFAULT_LANGUAGE );
 		$ns_3166->Kind( kTYPE_NAMESPACE, TRUE );
 		$ns_3166->Domain( kDOMAIN_GEOGRAPHY, TRUE );
 		$ns_3166->Category( kCATEGORY_ADMIN, TRUE );
@@ -4292,10 +4302,50 @@ EOT;
 				 ." [$ns_3166] [".$root_3166->Node()->getId()."]\n" );
 		
 		//
+		// ISO 3166-1.
+		//
+		$ns_3166_1 = new COntologyTerm();
+		$ns_3166_1->NS( $ns_3166 );
+		$ns_3166_1->Code( '1' );
+        $ns_3166_1->Name( 'Country code', kDEFAULT_LANGUAGE );
+		$ns_3166_1->Definition
+		( 'Codes for the representation of names of countries and their '
+		 .'subdivisions – Part 1: Country codes.', kDEFAULT_LANGUAGE );
+		$ns_3166_1->Kind( kTYPE_NAMESPACE, TRUE );
+		$ns_3166_1->Domain( kDOMAIN_GEOGRAPHY, TRUE );
+		$ns_3166_1->Category( kCATEGORY_ADMIN, TRUE );
+		$ns_3166_1->Commit( $theContainer );
+		$root_3166_1 = $term_index->findOne( kTAG_TERM, (string) $ns_3166_1 );
+		if( $root_3166_1 === NULL )
+		{
+			$root_3166_1 = new COntologyNode( $container );
+			$root_3166_1->Term( $ns_3166_1 );
+			$root_3166_1->Domain( kDOMAIN_GEOGRAPHY, TRUE );
+			$root_3166_1->Category( kCATEGORY_ADMIN, TRUE );
+			$root_3166_1->Commit( $container );
+		}
+		else
+			$root_3166_1 = new COntologyNode( $container, $ns_3166_1 );
+		$id = Array();
+		$id[] = $root_3166_1->Node()->getId();
+		$id[] = (string) $is_a;
+		$id[] = $root_3166->Node()->getId();
+		$id = implode( '/', $id );
+		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
+		if( $edge === NULL )
+		{
+			$edge = $root_3166_1->RelateTo( $container, $is_a, $root_3166 );
+			$edge->Commit( $container );
+		}
+		if( $doDisplay )
+			echo( $ns_3166_1->Name( NULL, kDEFAULT_LANGUAGE )
+				 ." [$ns_3166_1] [".$root_3166_1->Node()->getId()."]\n" );
+		
+		//
 		// ISO 3166-1 - Numeric 3 codes.
 		//
 		$numeric3_term = new COntologyTerm();
-		$numeric3_term->NS( $ns_3166 );
+		$numeric3_term->NS( $ns_3166_1 );
 		$numeric3_term->Code( 'NUMERIC-3' );
 		$numeric3_term->Name( '3-digit country code', kDEFAULT_LANGUAGE );
 		$numeric3_term->Definition
@@ -4325,12 +4375,12 @@ EOT;
 		$id = Array();
 		$id[] = $numeric3_node->Node()->getId();
 		$id[] = (string) $is_a;
-		$id[] = $root_3166->Node()->getId();
+		$id[] = $root_3166_1->Node()->getId();
 		$id = implode( '/', $id );
 		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
 		if( $edge === NULL )
 		{
-			$edge = $numeric3_node->RelateTo( $container, $is_a, $root_3166 );
+			$edge = $numeric3_node->RelateTo( $container, $is_a, $root_3166_1 );
 			$edge->Commit( $container );
 		}
 		if( $doDisplay )
@@ -4341,7 +4391,7 @@ EOT;
 		// ISO 3166-1 - Alpha 2 codes.
 		//
 		$alpha2_term = new COntologyTerm();
-		$alpha2_term->NS( $ns_3166 );
+		$alpha2_term->NS( $ns_3166_1 );
 		$alpha2_term->Code( 'ALPHA-2' );
 		$alpha2_term->Name( '2-character country code', kDEFAULT_LANGUAGE );
 		$alpha2_term->Definition
@@ -4371,12 +4421,12 @@ EOT;
 		$id = Array();
 		$id[] = $alpha2_node->Node()->getId();
 		$id[] = (string) $is_a;
-		$id[] = $root_3166->Node()->getId();
+		$id[] = $root_3166_1->Node()->getId();
 		$id = implode( '/', $id );
 		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
 		if( $edge === NULL )
 		{
-			$edge = $alpha2_node->RelateTo( $container, $is_a, $root_3166 );
+			$edge = $alpha2_node->RelateTo( $container, $is_a, $root_3166_1 );
 			$edge->Commit( $container );
 		}
 		if( $doDisplay )
@@ -4387,7 +4437,7 @@ EOT;
 		// ISO 3166-1 - Alpha 3 codes.
 		//
 		$alpha3_term = new COntologyTerm();
-		$alpha3_term->NS( $ns_3166 );
+		$alpha3_term->NS( $ns_3166_1 );
 		$alpha3_term->Code( 'ALPHA-3' );
 		$alpha3_term->Name( '3-character country code', kDEFAULT_LANGUAGE );
 		$alpha3_term->Definition
@@ -4417,12 +4467,12 @@ EOT;
 		$id = Array();
 		$id[] = $alpha3_node->Node()->getId();
 		$id[] = (string) $is_a;
-		$id[] = $root_3166->Node()->getId();
+		$id[] = $root_3166_1->Node()->getId();
 		$id = implode( '/', $id );
 		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
 		if( $edge === NULL )
 		{
-			$edge = $alpha3_node->RelateTo( $container, $is_a, $root_3166 );
+			$edge = $alpha3_node->RelateTo( $container, $is_a, $root_3166_1 );
 			$edge->Commit( $container );
 		}
 		if( $doDisplay )
@@ -4519,6 +4569,10 @@ EOT;
 					break;
 			}
 			$term->Commit( $theContainer );
+			//
+			// Save main term.
+			//
+			$term_main = $term;
 			
 			//
 			// Create Code3 node.
@@ -4533,6 +4587,10 @@ EOT;
 			}
 			else
 				$node = new COntologyNode( $container, $node );
+			//
+			// Save main node.
+			//
+			$node_main = $node;
 			
 			//
 			// Create Code3 edge.
@@ -4622,6 +4680,10 @@ EOT;
 						break;
 				}
 				$term->Commit( $theContainer );
+				//
+				// Save alternate term 1.
+				//
+				$term_alt1 = $term;
 				
 				//
 				// Create Part2B node.
@@ -4636,6 +4698,10 @@ EOT;
 				}
 				else
 					$node = new COntologyNode( $container, $node );
+				//
+				// Save alternate node 1.
+				//
+				$node_alt1 = $node;
 				
 				//
 				// Create Part2B edge.
@@ -4659,6 +4725,8 @@ EOT;
 					echo( $term->Name()
 						 ." [$term] [".$node->Node()->getId()."]\n" );
 			}
+			else
+				$term_alt1 = NULL;
 		
 			//
 			// Handle Part2T code.
@@ -4726,6 +4794,10 @@ EOT;
 						break;
 				}
 				$term->Commit( $theContainer );
+				//
+				// Save alternate term 2.
+				//
+				$term_alt2 = $term;
 				
 				//
 				// Create Part2T node.
@@ -4740,6 +4812,10 @@ EOT;
 				}
 				else
 					$node = new COntologyNode( $container, $node );
+				//
+				// Save alternate node 2.
+				//
+				$node_alt2 = $node;
 				
 				//
 				// Create Part2T edge.
@@ -4763,6 +4839,8 @@ EOT;
 					echo( $term->Name()
 						 ." [$term] [".$node->Node()->getId()."]\n" );
 			}
+			else
+				$term_alt2 = NULL;
 		
 			//
 			// Handle Part1 code.
@@ -4830,6 +4908,10 @@ EOT;
 						break;
 				}
 				$term->Commit( $theContainer );
+				//
+				// Save alternate term 3.
+				//
+				$term_alt3 = $term;
 				
 				//
 				// Create Part1 node.
@@ -4844,6 +4926,10 @@ EOT;
 				}
 				else
 					$node = new COntologyNode( $container, $node );
+				//
+				// Save alternate node 3.
+				//
+				$node_alt3 = $node;
 				
 				//
 				// Create Part1 edge.
@@ -4866,6 +4952,86 @@ EOT;
 				if( $doDisplay )
 					echo( $term->Name()
 						 ." [$term] [".$node->Node()->getId()."]\n" );
+			}
+			else
+				$term_alt3 = NULL;
+			
+			//
+			// Handle exact cross-references.
+			//
+			$terms = array( $term_main, ( ( $term_alt1 !== NULL ) ? $term_alt1 : NULL ),
+										( ( $term_alt2 !== NULL ) ? $term_alt2 : NULL ),
+										( ( $term_alt3 !== NULL ) ? $term_alt3 : NULL ) );
+			$nodes = array( $node_main, ( ( $term_alt1 !== NULL ) ? $node_alt1 : NULL ),
+										( ( $term_alt2 !== NULL ) ? $node_alt2 : NULL ),
+										( ( $term_alt3 !== NULL ) ? $node_alt3 : NULL ) );
+			for( $i = 0; $i < count( $terms ); $i++ )
+			{
+				for( $j = 0; $j < count( $terms ); $j++ )
+				{
+					//
+					// Skip same.
+					//
+					if( $i != $j )
+					{
+						//
+						// Skip missing.
+						//
+						if( ($terms[ $i ] !== NULL)
+						 && ($terms[ $j ] !== NULL) )
+						{
+							//
+							// Relate terms.
+							//
+							$terms[ $i ]->Xref( $terms[ $j ], kTYPE_EXACT, TRUE );
+							//
+							// Set used.
+							//
+							if( $i == 0 )
+							{
+								//
+								// Set in term.
+								//
+								$terms[ $j ]->Used( $terms[ $j ] );
+								//
+								// Set in node.
+								//
+								$id = Array();
+								$id[] = $nodes[ $j ]->Node()->getId();
+								$id[] = kTAG_DEFAULT;
+								$id[] = $nodes[ $i ]->Node()->getId();
+								$id = implode( '/', $id );
+								$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
+								if( $edge === NULL )
+								{
+									$edge = $nodes[ $j ]->RelateTo
+											( $container, kTAG_DEFAULT, $nodes[ $i ] );
+									$edge->Commit( $container );
+								}
+							}
+							//
+							// Relate nodes.
+							//
+							$id = Array();
+							$id[] = $nodes[ $i ]->Node()->getId();
+							$id[] = kTAG_REFERENCE_XREF;
+							$id[] = $nodes[ $j ]->Node()->getId();
+							$id = implode( '/', $id );
+							$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
+							if( $edge === NULL )
+							{
+								$edge = $nodes[ $i ]->RelateTo
+										( $container, kTAG_REFERENCE_XREF, $nodes[ $j ] );
+								$edge->Node()->setProperty( kTAG_KIND, kTYPE_EXACT );
+								$edge->Commit( $container );
+							}
+							//
+							// Commit term.
+							//
+							$terms[ $i ]->Commit( $theContainer );
+						}
+					}
+				}
 			}
 		
 		} $rs->Close();
@@ -4964,7 +5130,7 @@ EOT;
 			// Create alpha 3 term.
 			//
 			$term = new COntologyTerm();
-			$term->NS( $ns_3166 );
+			$term->NS( $ns_3166_1 );
 			$term->Code( $record[ 'ISO3' ] );
 			$term->Name( $record[ 'Name' ], kDEFAULT_LANGUAGE );
 			$term->Kind( kTYPE_ENUMERATION, TRUE );
@@ -4992,6 +5158,10 @@ EOT;
 				$term->Image( 'Vector flag', kTYPE_SVG, $record[ 'FlagVector' ] );
 			$term->Commit( $theContainer );
 			$preferred = $term[ kTAG_LID ];
+			//
+			// Save main term.
+			//
+			$term_main = $term;
 			
 			//
 			// Create alpha 3 node.
@@ -5006,6 +5176,10 @@ EOT;
 			}
 			else
 				$node = new COntologyNode( $container, $node );
+			//
+			// Save main node.
+			//
+			$node_main = $node;
 			
 			//
 			// Create alpha3 edge.
@@ -5064,7 +5238,7 @@ EOT;
 					// Create alpha 2 term.
 					//
 					$term = new COntologyTerm();
-					$term->NS( $ns_3166 );
+					$term->NS( $ns_3166_1 );
 					$term->Code( $record[ 'Code2' ] );
 					$term->Name( $record[ 'Name' ], kDEFAULT_LANGUAGE );
 					$term->Kind( kTYPE_ENUMERATION, TRUE );
@@ -5077,8 +5251,11 @@ EOT;
 						$term->Enumeration( $record[ 'CodeNum' ], TRUE );
 						$term->Synonym( $record[ 'CodeNum' ], kTYPE_EXACT, TRUE );
 					}
-					$term->Xref( $preferred, kTYPE_EXACT );
 					$term->Commit( $theContainer );
+					//
+					// Save alternate term 1.
+					//
+					$term_alt1 = $term;
 					
 					//
 					// Create alpha 2 node.
@@ -5093,6 +5270,10 @@ EOT;
 					}
 					else
 						$node = new COntologyNode( $container, $node );
+					//
+					// Save alternate node 1.
+					//
+					$node_alt1 = $node;
 					
 					//
 					// Create alpha2 edge.
@@ -5147,7 +5328,7 @@ EOT;
 					// Create numeric 3 term.
 					//
 					$term = new COntologyTerm();
-					$term->NS( $ns_3166 );
+					$term->NS( $ns_3166_1 );
 					$term->Code( $record[ 'CodeNum' ] );
 					$term->Name( $record[ 'Name' ], kDEFAULT_LANGUAGE );
 					$term->Kind( kTYPE_ENUMERATION, TRUE );
@@ -5160,8 +5341,11 @@ EOT;
 						$term->Enumeration( $record[ 'Code2' ], TRUE );
 						$term->Synonym( $record[ 'Code2' ], kTYPE_EXACT, TRUE );
 					}
-					$term->Xref( $preferred, kTYPE_EXACT );
 					$term->Commit( $theContainer );
+					//
+					// Save alternate term 2.
+					//
+					$term_alt2 = $term;
 					
 					//
 					// Create numeric 3 node.
@@ -5176,6 +5360,10 @@ EOT;
 					}
 					else
 						$node = new COntologyNode( $container, $node );
+					//
+					// Save alternate node 2.
+					//
+					$node_alt2 = $node;
 					
 					//
 					// Create numeric3 edge.
@@ -5220,6 +5408,84 @@ EOT;
 					if( $doDisplay )
 						echo( " [$term] [".$node->Node()->getId()."]" );
 				}
+			
+				//
+				// Handle exact cross-references.
+				//
+				$terms
+					= array( $term_main, ( ( $term_alt1 !== NULL ) ? $term_alt1 : NULL ),
+										 ( ( $term_alt2 !== NULL ) ? $term_alt2 : NULL ) );
+				$nodes
+					= array( $node_main, ( ( $term_alt1 !== NULL ) ? $node_alt1 : NULL ),
+										 ( ( $term_alt2 !== NULL ) ? $node_alt2 : NULL ) );
+				for( $i = 0; $i < count( $terms ); $i++ )
+				{
+					for( $j = 0; $j < count( $terms ); $j++ )
+					{
+						//
+						// Skip same.
+						//
+						if( $i != $j )
+						{
+							//
+							// Skip missing.
+							//
+							if( ($terms[ $i ] !== NULL)
+							 && ($terms[ $j ] !== NULL) )
+							{
+								//
+								// Relate terms.
+								//
+								$terms[ $i ]->Xref( $terms[ $j ], kTYPE_EXACT, TRUE );
+								//
+								// Set used.
+								//
+								if( $i == 0 )
+								{
+									//
+									// Set in term.
+									//
+									$terms[ $j ]->Used( $terms[ $j ] );
+									//
+									// Set in node.
+									//
+									$id = Array();
+									$id[] = $nodes[ $j ]->Node()->getId();
+									$id[] = kTAG_DEFAULT;
+									$id[] = $nodes[ $i ]->Node()->getId();
+									$id = implode( '/', $id );
+									$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
+									if( $edge === NULL )
+									{
+										$edge = $nodes[ $j ]->RelateTo
+												( $container, kTAG_DEFAULT, $nodes[ $i ] );
+										$edge->Commit( $container );
+									}
+								}
+								//
+								// Relate nodes.
+								//
+								$id = Array();
+								$id[] = $nodes[ $i ]->Node()->getId();
+								$id[] = kTAG_REFERENCE_XREF;
+								$id[] = $nodes[ $j ]->Node()->getId();
+								$id = implode( '/', $id );
+								$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
+								if( $edge === NULL )
+								{
+									$edge = $nodes[ $i ]->RelateTo
+											( $container, kTAG_REFERENCE_XREF, $nodes[ $j ] );
+									$edge->Node()->setProperty( kTAG_KIND, kTYPE_EXACT );
+									$edge->Commit( $container );
+								}
+								//
+								// Commit term.
+								//
+								$terms[ $i ]->Commit( $theContainer );
+							}
+						}
+					}
+				}
 			}
 			
 			//
@@ -5256,13 +5522,13 @@ EOT;
 			$obsolete
 				= new COntologyTerm
 					( $theContainer,
-					  COntologyTerm::HashIndex( (string) $ns_3166
+					  COntologyTerm::HashIndex( (string) $ns_3166_1
 					  						   .kTOKEN_NAMESPACE_SEPARATOR
 					  						   .$record[ 'ISO3' ] ) );
 			$valid
 				= new COntologyTerm
 					( $theContainer,
-					  COntologyTerm::HashIndex( (string) $ns_3166
+					  COntologyTerm::HashIndex( (string) $ns_3166_1
 					  						   .kTOKEN_NAMESPACE_SEPARATOR
 					  						   .$record[ 'ValidCode' ] ) );
 			
