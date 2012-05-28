@@ -30,6 +30,14 @@
 require_once( kPATH_LIBRARY_SOURCE."CObject.php" );
 
 /**
+ * Attributes.
+ *
+ * This include file contains the definitions of the {@link CAttribute CAttribute} class
+ * which can be used to manage the object's attributes.
+ */
+require_once( kPATH_LIBRARY_SOURCE."CObject.php" );
+
+/**
  * Offsets.
  *
  * This include file contains all default offset definitions.

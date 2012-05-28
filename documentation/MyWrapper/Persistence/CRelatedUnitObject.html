@@ -181,11 +181,11 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="methodValidObject" id="ValidObject"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static ValidObject</span> (line <span class="line-number">323</span>)
+		<span class="method-title">static ValidObject</span> (line <span class="line-number">324</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -223,16 +223,16 @@
 				</ul>
 	</div>
 <a name="methodPreferred" id="Preferred"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Preferred</span> (line <span class="line-number">226</span>)
+		<span class="method-title">Preferred</span> (line <span class="line-number">227</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage preferred reference.</p>
-<p class="description"><p>This method can be used to handle the object's preferred reference, it uses the  standard accessor <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">method</a> to manage the  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_PREFERRED">offset</a>.</p><p>Objects may become obsolete, but still represent valid entries: in this case we use  this attribute to point to the preferred object.</p><p>For a more in-depth reference of this method, please consult the  <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">CAttribute::ManageOffset</a> method, in which the  second parameter will be the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_PREFERRED">kTAG_PREFERRED</a>.</p><p>In this class we feed the value to the  <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_CheckRelationObject">_CheckRelationObject</a> method that will take care of  handling object references.</p></p>
+<p class="description"><p>This method can be used to handle the object's preferred reference, it uses the  standard accessor <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">method</a> to manage the  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_PREFERRED">offset</a>.</p><p>Objects may become obsolete, but still represent valid entries: in this case we use  this attribute to point to the preferred object.</p><p>For a more in-depth reference of this method, please consult the  <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">CAttribute::ManageOffset</a> method, in which the  second parameter will be the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_PREFERRED">kTAG_PREFERRED</a>.</p><p>In this class we feed the value to the  <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodNormaliseRelatedObject">NormaliseRelatedObject</a> method  that will take care of handling object references.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_PREFERRED">kTAG_PREFERRED</a></li>
 				<li><span class="field">access:</span> public</li>
@@ -259,7 +259,7 @@
 			
 	</div>
 <a name="methodRelate" id="Relate"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -274,8 +274,8 @@
         from the <a href="../../MyWrapper/Persistence/CRelatedUnitObject.html">CRelatedUnitObject</a> class will also be
         <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_ParseReferences">committed</a> and converted to object references.
         This parameter is passed through a protected
-        <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_CheckRelationObject">method</a> that derived classes can use to validate
-        and normalise relation objects.</li><li><strong>$thePredicate</strong>: Relation predicate, this parameter represents the kind or
+        <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodNormaliseRelatedObject">method</a> that derived
+        classes can use to validate and normalise relation objects.</li><li><strong>$thePredicate</strong>: Relation predicate, this parameter represents the kind or
         predicate of the relation, depending on whether it is provided or not, each
         element of the relations list will take the following form:
      <ul><li><em>NULL</em>: If the predicate is omitted, the element of the relation will
@@ -285,8 +285,8 @@
                 predicate, it will hold the value of this parameter.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: This offset represents the reference
                 object, it will hold the value of the first parameter.</li></ul>
             This parameter is passed through a protected
-        <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_CheckRelationPredicate">method</a> that derived classes can use to
-        validate and normalise relation predicates.</li></ul></li><li><strong>$theOperation</strong>: The operation to perform:
+        <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodNormaliseRelatedPredicate">method</a> that derived
+        classes can use to validate and normalise relation predicates.</li></ul></li><li><strong>$theOperation</strong>: The operation to perform:
      <ul><li><em>NULL</em>: Return the element matched by the previous parameters.</li><li><em>FALSE</em>: Delete the element matched by the previous parameters and
             return it.</li><li><em>other</em>: Any other value means that we want to add to the list the
             element provided in the previous parameters, either appending it if there
@@ -297,9 +297,9 @@
 	<ul class="tags">
 				<li><span class="field">see:</span> kTAG_REFS kTAG_KIND kTAG_DATA</li>
 				<li><span class="field">access:</span> public</li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_ManageObjectList">CPersistentUnitObject::_ManageObjectList()</a></li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_CheckRelationPredicate">CPersistentUnitObject::_CheckRelationPredicate()</a></li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_CheckRelationObject">CPersistentUnitObject::_CheckRelationObject()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodNormaliseRelatedPredicate">CPersistentUnitObject::NormaliseRelatedPredicate()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodNormaliseRelatedObject">CPersistentUnitObject::NormaliseRelatedObject()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageObjectList">CAttribute::ManageObjectList()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -336,16 +336,16 @@
 				</ul>
 	</div>
 <a name="methodValid" id="Valid"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Valid</span> (line <span class="line-number">274</span>)
+		<span class="method-title">Valid</span> (line <span class="line-number">275</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage valid reference.</p>
-<p class="description"><p>This method can be used to handle the valid object's  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LID">identifier</a>, it uses the standard accessor  <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">method</a> to manage the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_VALID">offset</a>.</p><p>Objects derived from this class should be persistent, in other words, it is not an  option to delete such objects: by creating a new object and referencing it from the  old one, we maintain the original reference and point to the valid object.</p><p>For a more in-depth reference of this method, please consult the  <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">CAttribute::ManageOffset</a> method, in which the  second parameter will be the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_VALID">kTAG_VALID</a>.</p><p>In this class we feed the value to the  <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_CheckRelationObject">_CheckRelationObject</a> method that will take care of  handling object references.</p></p>
+<p class="description"><p>This method can be used to handle the valid object's  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LID">identifier</a>, it uses the standard accessor  <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">method</a> to manage the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_VALID">offset</a>.</p><p>Objects derived from this class should be persistent, in other words, it is not an  option to delete such objects: by creating a new object and referencing it from the  old one, we maintain the original reference and point to the valid object.</p><p>For a more in-depth reference of this method, please consult the  <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">CAttribute::ManageOffset</a> method, in which the  second parameter will be the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_VALID">kTAG_VALID</a>.</p><p>In this class we feed the value to the  <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodNormaliseRelatedObject">NormaliseRelatedObject</a> method  that will take care of handling object references.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_VALID">kTAG_VALID</a></li>
 				<li><span class="field">access:</span> public</li>
@@ -380,11 +380,11 @@
 				</ul>
 	</div>
 <a name="method_PrepareCommit" id="_PrepareCommit"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">422</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">423</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -462,13 +462,15 @@
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodNewObject">CPersistentUnitObject::NewObject()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodNormaliseRelatedObject">CPersistentUnitObject::NormaliseRelatedObject()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodNormaliseRelatedPredicate">CPersistentUnitObject::NormaliseRelatedPredicate()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodObjectIdentifier">CPersistentUnitObject::ObjectIdentifier()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodPersistent">CPersistentUnitObject::Persistent()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodReference">CPersistentUnitObject::Reference()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_CheckRelationObject">CPersistentUnitObject::_CheckRelationObject()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_CheckRelationPredicate">CPersistentUnitObject::_CheckRelationPredicate()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_Commit">CPersistentUnitObject::_Commit()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
@@ -479,10 +481,6 @@
 							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_id">CPersistentUnitObject::_id()</a></span><br>
 													<img src="../../media/images/AbstractMethod.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_index">CPersistentUnitObject::_index()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_ManageObjectList">CPersistentUnitObject::_ManageObjectList()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_ObjectIndex">CPersistentUnitObject::_ObjectIndex()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_ParseReferences">CPersistentUnitObject::_ParseReferences()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
@@ -643,7 +641,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 25 May 2012 19:13:16 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Mon, 28 May 2012 15:27:04 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

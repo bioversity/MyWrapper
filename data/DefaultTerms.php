@@ -2251,6 +2251,7 @@ exit( "Done!\n" );
 				$term = $_SESSION[ 'TERMS' ][ $component[ 'id' ] ] = new COntologyTerm();
 				$term->NS( $ns );
 				$term->Code( substr( $component[ 'id' ], $len ) );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
 				$term->Type( kTYPE_ENUM );
 				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
 				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
@@ -2346,6 +2347,7 @@ exit( "Done!\n" );
 				$term = $_SESSION[ 'TERMS' ][ $component[ 'id' ] ] = new COntologyTerm();
 				$term->NS( $ns );
 				$term->Code( substr( $component[ 'id' ], $len ) );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
 				$term->Type( kTYPE_ENUM );
 				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
 				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
@@ -2556,6 +2558,7 @@ exit( "Done!\n" );
 				$term = $_SESSION[ 'TERMS' ][ $component[ 'id' ] ] = new COntologyTerm();
 				$term->NS( $ns );
 				$term->Code( substr( $component[ 'id' ], $len ) );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
 				$term->Type( kTYPE_ENUM );
 				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
 				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
@@ -5484,6 +5487,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
+			$node->Kind( kTYPE_TRAIT, TRUE );
 			$node->Kind( kTYPE_MEASURE, TRUE );
 			$node->Commit( $container );
 		}
@@ -5547,6 +5551,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
+			$node->Kind( kTYPE_TRAIT, TRUE );
 			$node->Kind( kTYPE_MEASURE, TRUE );
 			$node->Commit( $container );
 		}
@@ -5611,6 +5616,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
+			$node->Kind( kTYPE_TRAIT, TRUE );
 			$node->Kind( kTYPE_MEASURE, TRUE );
 			$node->Commit( $container );
 		}
@@ -5677,6 +5683,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
+			$node->Kind( kTYPE_TRAIT, TRUE );
 			$node->Kind( kTYPE_MEASURE, TRUE );
 			$node->Commit( $container );
 		}
@@ -5738,6 +5745,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
+			$node->Kind( kTYPE_TRAIT, TRUE );
 			$node->Kind( kTYPE_MEASURE, TRUE );
 			$node->Domain( kDOMAIN_TAXONOMY, TRUE );
 			$node->Category( kCATEGORY_EPITHET, TRUE );
@@ -5802,6 +5810,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
+			$node->Kind( kTYPE_TRAIT, TRUE );
 			$node->Kind( kTYPE_MEASURE, TRUE );
 			$node->Domain( kDOMAIN_TAXONOMY, TRUE );
 			$node->Category( kCATEGORY_EPITHET, TRUE );
@@ -5866,6 +5875,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
+			$node->Kind( kTYPE_TRAIT, TRUE );
 			$node->Kind( kTYPE_MEASURE, TRUE );
 			$node->Domain( kDOMAIN_TAXONOMY, TRUE );
 			$node->Category( kCATEGORY_AUTH, TRUE );
@@ -5931,6 +5941,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
+			$node->Kind( kTYPE_TRAIT, TRUE );
 			$node->Kind( kTYPE_MEASURE, TRUE );
 			$node->Domain( kDOMAIN_TAXONOMY, TRUE );
 			$node->Category( kCATEGORY_EPITHET, TRUE );
@@ -5994,6 +6005,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
+			$node->Kind( kTYPE_TRAIT, TRUE );
 			$node->Kind( kTYPE_MEASURE, TRUE );
 			$node->Domain( kDOMAIN_TAXONOMY, TRUE );
 			$node->Category( kCATEGORY_AUTH, TRUE );
@@ -6057,6 +6069,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
+			$node->Kind( kTYPE_TRAIT, TRUE );
 			$node->Kind( kTYPE_MEASURE, TRUE );
 			$node->Commit( $container );
 		}
@@ -6118,6 +6131,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
+			$node->Kind( kTYPE_TRAIT, TRUE );
 			$node->Kind( kTYPE_MEASURE, TRUE );
 			$node->Commit( $container );
 		}
@@ -6181,6 +6195,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
+			$node->Kind( kTYPE_TRAIT, TRUE );
 			$node->Kind( kTYPE_MEASURE, TRUE );
 			$node->Commit( $container );
 		}
@@ -6240,6 +6255,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
+			$node->Kind( kTYPE_TRAIT, TRUE );
 			$node->Domain( kDOMAIN_GEOGRAPHY, TRUE );
 			$node->Category( kCATEGORY_ADMIN, TRUE );
 			$node->Commit( $container );
@@ -6345,6 +6361,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
+			$node->Kind( kTYPE_TRAIT, TRUE );
 			$node->Kind( kTYPE_MEASURE, TRUE );
 			$node->Domain( kDOMAIN_GEOGRAPHY, TRUE );
 			$node->Category( kCATEGORY_ADMIN, TRUE );
@@ -6412,6 +6429,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
+			$node->Kind( kTYPE_TRAIT, TRUE );
 			$node->Kind( kTYPE_MEASURE, TRUE );
 			$node->Domain( kDOMAIN_GEOGRAPHY, TRUE );
 			$node->Category( kCATEGORY_GEO, TRUE );
@@ -6478,6 +6496,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
+			$node->Kind( kTYPE_TRAIT, TRUE );
 			$node->Kind( kTYPE_MEASURE, TRUE );
 			$node->Domain( kDOMAIN_GEOGRAPHY, TRUE );
 			$node->Category( kCATEGORY_GEO, TRUE );
@@ -6543,6 +6562,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
+			$node->Kind( kTYPE_TRAIT, TRUE );
 			$node->Kind( kTYPE_MEASURE, TRUE );
 			$node->Domain( kDOMAIN_GEOGRAPHY, TRUE );
 			$node->Category( kCATEGORY_GEO, TRUE );
@@ -6607,6 +6627,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
+			$node->Kind( kTYPE_TRAIT, TRUE );
 			$node->Kind( kTYPE_MEASURE, TRUE );
 			$node->Commit( $container );
 		}
@@ -6671,6 +6692,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
+			$node->Kind( kTYPE_TRAIT, TRUE );
 			$node->Kind( kTYPE_MEASURE, TRUE );
 			$node->Commit( $container );
 		}
@@ -6732,6 +6754,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
+			$node->Kind( kTYPE_TRAIT, TRUE );
 			$node->Kind( kTYPE_MEASURE, TRUE );
 			$node->Commit( $container );
 		}
@@ -6996,6 +7019,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
+			$node->Kind( kTYPE_TRAIT, TRUE );
 			$node->Kind( kTYPE_MEASURE, TRUE );
 			$node->Commit( $container );
 		}
@@ -7057,6 +7081,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
+			$node->Kind( kTYPE_TRAIT, TRUE );
 			$node->Kind( kTYPE_MEASURE, TRUE );
 			$node->Commit( $container );
 		}
@@ -7280,6 +7305,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
+			$node->Kind( kTYPE_TRAIT, TRUE );
 			$node->Kind( kTYPE_MEASURE, TRUE );
 			$node->Commit( $container );
 		}
@@ -7340,6 +7366,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
+			$node->Kind( kTYPE_TRAIT, TRUE );
 			$node->Kind( kTYPE_MEASURE, TRUE );
 			$node->Commit( $container );
 		}
@@ -7411,6 +7438,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
+			$node->Kind( kTYPE_TRAIT, TRUE );
 			$node->Kind( kTYPE_MEASURE, TRUE );
 			$node->Commit( $container );
 		}
@@ -7476,6 +7504,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
+			$node->Kind( kTYPE_TRAIT, TRUE );
 			$node->Kind( kTYPE_MEASURE, TRUE );
 			$node->Commit( $container );
 		}
@@ -7537,6 +7566,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
+			$node->Kind( kTYPE_TRAIT, TRUE );
 			$node->Kind( kTYPE_MEASURE, TRUE );
 			$node->Commit( $container );
 		}
@@ -7758,6 +7788,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
+			$node->Kind( kTYPE_TRAIT, TRUE );
 			$node->Kind( kTYPE_MEASURE, TRUE );
 			$node->Commit( $container );
 		}
@@ -7821,6 +7852,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
+			$node->Kind( kTYPE_TRAIT, TRUE );
 			$node->Kind( kTYPE_MEASURE, TRUE );
 			$node->Commit( $container );
 		}
@@ -7883,6 +7915,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
+			$node->Kind( kTYPE_TRAIT, TRUE );
 			$node->Kind( kTYPE_MEASURE, TRUE );
 			$node->Commit( $container );
 		}
@@ -7945,6 +7978,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
+			$node->Kind( kTYPE_TRAIT, TRUE );
 			$node->Kind( kTYPE_MEASURE, TRUE );
 			$node->Commit( $container );
 		}
@@ -8007,6 +8041,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
+			$node->Kind( kTYPE_TRAIT, TRUE );
 			$node->Kind( kTYPE_MEASURE, TRUE );
 			$node->Commit( $container );
 		}
@@ -8068,6 +8103,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
+			$node->Kind( kTYPE_TRAIT, TRUE );
 			$node->Kind( kTYPE_MEASURE, TRUE );
 			$node->Commit( $container );
 		}
@@ -8133,6 +8169,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
+			$node->Kind( kTYPE_TRAIT, TRUE );
 			$node->Kind( kTYPE_MEASURE, TRUE );
 			$node->Commit( $container );
 		}
@@ -8197,6 +8234,7 @@ EOT;
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
+			$node->Kind( kTYPE_TRAIT, TRUE );
 			$node->Kind( kTYPE_MEASURE, TRUE );
 			$node->Commit( $container );
 		}

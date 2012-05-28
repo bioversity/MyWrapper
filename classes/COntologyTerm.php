@@ -562,12 +562,12 @@ class COntologyTerm extends COntologyTermObject
 		//
 		// Set default kinds.
 		//
-		if( $this->Cardinality() !== NULL )
-			$this->Kind( kTYPE_ATTRIBUTE, TRUE );
-		if( $this->Type() !== NULL )
-			$this->Kind( kTYPE_MEASURE, TRUE );
-		if( $this->Enumeration() !== NULL )
-			$this->Kind( kTYPE_ENUMERATION, TRUE );
+//		if( $this->Cardinality() !== NULL )
+//			$this->Kind( kTYPE_ATTRIBUTE, TRUE );
+//		if( $this->Type() !== NULL )
+//			$this->Kind( kTYPE_MEASURE, TRUE );
+//		if( $this->Enumeration() !== NULL )
+//			$this->Kind( kTYPE_ENUMERATION, TRUE );
 		
 		//
 		// Set default enumeration.

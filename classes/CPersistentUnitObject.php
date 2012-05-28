@@ -69,15 +69,16 @@ require_once( kPATH_LIBRARY_SOURCE."CPersistentObject.php" );
  *		properties one is also allowed to add the actual instance, at
  *		{@link Commit() commit} time, these objects must also be committed before committing
  *		the object that references them: this method will handle this.
- *	<li><i>{@link _ManageObjectList() _ManageObjectList}</i>: This method can be used as a
- *		base for handling properties that consist of object references lists. It handles a
- *		list of scalar object reference elements or a list of predicate/object pairs.
- *	<li><i>{@link _CheckRelationObject() _CheckRelationObject}</i>: This method can be used
- *		to normalise parameters that expect object references, these can be overloaded by
- *		derived classes to implement a custom framework.
- *	<li><i>{@link _CheckRelationPredicate() _CheckRelationPredicate}</i>: This method can be
- *		used to normalise parameters that expect predicate object references, these can be
- *		overloaded by derived classes to implement a custom framework.
+ *	<li><i>{@link CAttribute::ManageObjectList() ManageObjectList}</i>: This method can be 
+ *		used as a base for handling properties that consist of object references lists. It
+ *		handles a list of scalar object reference elements or a list of predicate/object
+ *		pairs.
+ *	<li><i>{@link NormaliseRelatedObject() NormaliseRelatedObject}</i>: This method can be
+ *		used to normalise parameters that expect object references, these can be overloaded
+ *		by derived classes to implement a custom framework.
+ *	<li><i>{@link NormaliseRelatedPredicate() NormaliseRelatedPredicate}</i>: This method
+ *		can be used to normalise parameters that expect predicate object references, these
+ *		can be overloaded by derived classes to implement a custom framework.
  * </ul>
  *
  * The above protected interface is not used in this class, but it is made available to
@@ -456,6 +457,223 @@ abstract class CPersistentUnitObject extends CPersistentObject
 //		return $theValue;															// ==>
 	
 	} // HashIndex.
+
+	 
+	/*===================================================================================
+	 *	NormaliseRelatedObject															*
+	 *==================================================================================*/
+
+	/**
+	 * Normalise object reference property.
+	 *
+	 * This method can be used to normalise a property that is supposed to be a reference
+	 * to another object, the method will perform the following conversions:
+	 *
+	 * <ul>
+	 *	<li><i>CPersistentUnitObject</i>: Objects derived from this class will be handled as
+	 *		follows:
+	 *	 <ul>
+	 *		<li><i>{@link _IsCommitted() Committed}</i>: If the provided object has a
+	 *			{@link _IsCommitted() committed} {@link kFLAG_STATE_COMMITTED status}, the
+	 *			method will return the object's {@link kTAG_LID identifier}.
+	 *		<li><i>Not {@link _IsCommitted() committed}</i>: The parameter will not be
+	 *			converted.
+	 *	 </ul>
+	 *	<li><i>{@link CDataType CDataType}</i>: When providing a complex data type, we
+	 *		assume the value corresponds to the {@link kTAG_LID identifier}, in which case
+	 *		we leave it untouched.
+	 *	<li><i>Array</i> or <i>ArrayObject</i>: In this case the method will assume the
+	 *		provided structure is an object reference and it will check if the
+	 *		{@link kTAG_REFERENCE_ID kTAG_REFERENCE_ID} offset is there, if this is
+	 *		not the case the method will raise an exception.
+	 *	<li><i>other</i>: Any other type will be converted to a string.
+	 * </ul>
+	 *
+	 * The method will return the converted value.
+	 *
+	 * @param mixed					$theValue			Object or reference.
+	 *
+	 * @static
+	 * @return mixed
+	 *
+	 * @see kTAG_LID kTAG_REFERENCE_ID
+	 */
+	static function NormaliseRelatedObject( $theValue )
+	{
+		//
+		// Handle object's derived from this class.
+		//
+		if( $theValue instanceof self )
+		{
+			//
+			// Reference committed objects.
+			//
+			if( $theValue->_IsCommitted() )
+				return $theValue[ kTAG_LID ];										// ==>
+			
+			return $theValue;														// ==>
+		
+		} // Object derived from this class.
+		
+		//
+		// Handle complex data types.
+		//
+		if( $theValue instanceof CDataType )
+			return $theValue;														// ==>
+		
+		//
+		// Check object reference.
+		//
+		if( is_array( $theValue )
+		 || ($theValue instanceof ArrayObject) )
+		{
+			//
+			// Check identifier.
+			//
+			if( array_key_exists( kTAG_REFERENCE_ID, (array) $theValue ) )
+				return $theValue;													// ==>
+
+			throw new CException( "Invalid object reference: missing identifier",
+								  kERROR_INVALID_PARAMETER,
+								  kMESSAGE_TYPE_ERROR,
+								  array( 'Reference' => $theValue ) );			// !@! ==>
+		
+		} // Object reference?
+		
+		return (string) $theValue;													// ==>
+	
+	} // NormaliseRelatedObject.
+
+	 
+	/*===================================================================================
+	 *	NormaliseRelatedPredicate														*
+	 *==================================================================================*/
+
+	/**
+	 * Normalise predicate reference property.
+	 *
+	 * This method can be used to normalise a property that is supposed to be a relation
+	 * predicate, the method will perform the following conversions:
+	 *
+	 * <ul>
+	 *	<li><i>NULL</i>: No conversion.
+	 *	<li><i>FALSE</i>: No conversion.
+	 *	<li><i>CGraphNodeObject</i>: The method will pass the parameter to the
+	 *		{@link NormaliseRelatedObject() NormaliseRelatedObject} method.
+	 *	<li><i>{@link CDataType CDataType}</i>: The method will pass the parameter to the
+	 *		{@link NormaliseRelatedObject() NormaliseRelatedObject} method.
+	 *	<li><i>Array</i> or <i>ArrayObject</i>: The method will pass the parameter to the
+	 *		{@link NormaliseRelatedObject() NormaliseRelatedObject} method.
+	 *	<li><i>other</i>: Any other type will be converted to a string.
+	 * </ul>
+	 *
+	 * The method will return the converted value, derived classes should first handle
+	 * custom types and pass other types to the parent method.
+	 *
+	 * @param mixed					$theValue			Relation predicate.
+	 *
+	 * @access protected
+	 * @return mixed
+	 *
+	 * @uses _IsCommitted()
+	 *
+	 * @see kTAG_LID kTAG_REFERENCE_ID
+	 */
+	protected function NormaliseRelatedPredicate( $theValue )
+	{
+		//
+		// Handle missing or empty predicate.
+		//
+		if( ($theValue === NULL)
+		 || ($theValue === FALSE) )
+			return $theValue;														// ==>
+		
+		//
+		// Handle object.
+		//
+		if( is_array( $theValue )
+		 || ($theValue instanceof self)
+		 || ($theValue instanceof CDataType)
+		 || ($theValue instanceof ArrayObject) )
+			return self::NormaliseRelatedObject( $theValue );						// ==>
+		
+		return (string) $theValue;													// ==>
+	
+	} // NormaliseRelatedPredicate.
+
+	 
+	/*===================================================================================
+	 *	ObjectIdentifier																*
+	 *==================================================================================*/
+
+	/**
+	 * Return object identifier.
+	 *
+	 * This method is a utility that can be used to extract an object identifier from a
+	 * value, it is used when adding objects or object references to a list that is not
+	 * organised by object {@link kTAG_LID ID}.
+	 *
+	 * This method will attempt to infer the object identifier by performing the following
+	 * steps:
+	 *
+	 * <ul>
+	 *	<li><i>Array</i> or <i>ArrayObject</i>: In this case we interpret the parameter to
+	 *		be either an instance of the object itself, or a reference to the object, we
+	 *		check in order if any of the following can be found:
+	 *	 <ul>
+	 *		<li><i>{@link kTAG_LID kTAG_LID}</i>: We first check whether the
+	 *			object has that offset and use it is so.
+	 *		<li><i>{@link kTAG_REFERENCE_ID kTAG_REFERENCE_ID}</i>: We then check
+	 *			whether the structure contains a reference identifier.
+	 *		<li><i>{@link _id() _id}</i>: If the parameter is an object derived from this
+	 *			class, we try to call this method and use its result.
+	 *	 </ul>
+	 *	<li><i>other</i>: If all of the above fails we simply return the provided value.
+	 * </ul>
+	 *
+	 * Note that the method assumes that the returned value must be convertable to a string,
+	 * if that is not the case you may get into trouble.
+	 *
+	 * @param mixed					$theValue			Object or identifier.
+	 *
+	 * @static
+	 * @return string|NULL
+	 */
+	static function ObjectIdentifier( $theValue )
+	{
+		//
+		// Return empty.
+		//
+		if( $theValue === NULL )
+			return NULL;															// ==>
+		
+		//
+		// Try identifier.
+		//
+		if( ( is_array( $theValue )
+		   && array_key_exists( kTAG_LID, $theValue ) )
+		 || ( ($theValue instanceof ArrayObject)
+		   && $theValue->offsetExists( kTAG_LID ) ) )
+			return $theValue[ kTAG_LID ];											// ==>
+
+		//
+		// Try reference identifier.
+		//
+		if( ( is_array( $theValue )
+		   && array_key_exists( kTAG_REFERENCE_ID, $theValue ) )
+		 || ( ($theValue instanceof ArrayObject)
+		   && $theValue->offsetExists( kTAG_REFERENCE_ID ) ) )
+			return $theValue[ kTAG_REFERENCE_ID ];									// ==>
+		
+		//
+		// Try identifier value.
+		//
+		if( $theValue instanceof self )
+			return (string) $theValue;
+		
+		return $theValue;															// ==>
+	
+	} // ObjectIdentifier.
 
 		
 
@@ -1119,762 +1337,6 @@ abstract class CPersistentUnitObject extends CPersistentObject
 		return array_values( $tags );												// ==>
 	
 	} // _SetTags.
-
-		
-
-/*=======================================================================================
- *																						*
- *							PROTECTED MEMBER ACCESSOR INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	_ManageObjectList																*
-	 *==================================================================================*/
-
-	/**
-	 * Manage a list of object references.
-	 *
-	 * This method can be used to manage a list of object references, in which each element
-	 * is either:
-	 *
-	 * <ul>
-	 *	<li><i>Scalar</i>: A scalar or object representing:
-	 *	 <ul>
-	 *		<li><i>The object</i>: The actual referenced object.
-	 *		<li><i>The object reference</i>: An object reference structure or a scalar
-	 *			representing the object {@link kTAG_LID identifier}.
-	 *	 </ul>
-	 *		or:
-	 *	<li><i>Array</i>: A structure composed of two items:
-	 *	 <ul>
-	 *		<li><i>{@link kTAG_KIND kTAG_KIND}</i>: This offset represents the type or
-	 *			predicate of the reference.
-	 *		<li><i>{@link kTAG_DATA kTAG_DATA}</i>: This offset represents the actual object
-	 *			or object reference.
-	 *	 </ul>
-	 * </ul>
-	 *
-	 * The reference list is numerically indexed array and this method will ensure it
-	 * remains so.
-	 *
-	 * The method accepts the following parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theOffset</b>: This parameter represents the offset in the current object
-	 *		that holds the list of references. This value may not be empty.
-	 *	<li><b>$theValue</b>: This parameter represents either the search key in the list
-	 *		when retrieving or deleting, or the reference when replacing or adding. If you
-	 *		provide an array, it means that the elements may have a
-	 *		{@link kTAG_KIND kTAG_KIND} offset and that the reference or object must be
-	 *		found in the {@link kTAG_DATA kTAG_DATA} offset. When matching, if the
-	 *		{@link kTAG_KIND kTAG_KIND} offset is not provided, it means that only those
-	 *		elements that do not have a {@link kTAG_KIND kTAG_KIND} offset will be selected
-	 *		for matching. If the types match, the method will use the
-	 *		{@link _ObjectIndex() _ObjectIndex} method to match the references, please refer
-	 *		to its documentation for more information. If the provided value is not an
-	 *		array, it means that the reference list does not feature types, so matches will
-	 *		only be performed on the reference.
-	 *	<li><b>$theOperation</b>: The operation to perform:
-	 *	 <ul>
-	 *		<li><i>NULL</i>: Return the element matched by the previous parameter.
-	 *		<li><i>FALSE</i>: Delete the element matched by the previous parameter and
-	 *			return it.
-	 *		<li><i>other</i>: Any other value means that we want to add to the list the
-	 *			element provided in the previous parameter, either appending it if there
-	 *			was no matching element, or by replacing a matching element. The method will
-	 *			return either the replaced element or the new one.
-	 *	 </ul>
-	 *	<li><b>$getOld</b>: Determines what the method will return when deleting or
-	 *		replacing:
-	 *	 <ul>
-	 *		<li><i>TRUE</i>: Return the deleted or replaced element.
-	 *		<li><i>FALSE</i>: Return the replacing element or <i>NULL</i> when deleting.
-	 *	 </ul>
-	 * </ul>
-	 *
-	 * The {@link _ObjectIndex() method} used to match the list elements expects
-	 * {@link kTAG_LID identifiers} in the references or objects, if these are not
-	 * there, there is no way to discern duplicates.
-	 *
-	 * @param string				$theOffset			Offset.
-	 * @param mixed					$theValue			Reference or instance.
-	 * @param mixed					$theOperation		Operation.
-	 * @param boolean				$getOld				TRUE get old value.
-	 *
-	 * @access protected
-	 * @return mixed
-	 */
-	protected function _ManageObjectList( $theOffset, $theValue, $theOperation = NULL,
-																 $getOld = FALSE )
-	{
-		//
-		// Check offset.
-		//
-		if( $theOffset === NULL )
-			throw new CException
-					( "Invalid offset",
-					  kERROR_INVALID_PARAMETER,
-					  kMESSAGE_TYPE_ERROR,
-					  array( 'Offset' => $theOffset ) );						// !@! ==>
-		
-		//
-		// Check reference or instance.
-		//
-		if( $theValue === NULL )
-			throw new CException
-					( "Invalid reference or instance",
-					  kERROR_INVALID_PARAMETER,
-					  kMESSAGE_TYPE_ERROR,
-					  array( 'Reference' => $theValue ) );						// !@! ==>
-		
-		//
-		// Generate recursive calls.
-		//
-		if( is_array( $theValue )
-		 && (! array_key_exists( kTAG_DATA, $theValue )) )
-		{
-			//
-			// Iterate arguments.
-			//
-			$result = Array();
-			foreach( $theValue as $value )
-				$result[]
-					= $this->_ManageObjectList
-						( $theOffset, $theValue, $theOperation, $getOld );
-			
-			return $result;															// ==>
-		
-		} // Execute list.
-		
-		//
-		// Get typed reference matchers.
-		//
-		if( ( is_array( $theValue )
-		   || ($theValue instanceof ArrayObject) )
-		 && array_key_exists( kTAG_DATA, (array) $theValue ) )
-		{
-			//
-			// Set match type.
-			//
-			$type = ( array_key_exists( kTAG_KIND, (array) $theValue ) )
-				  ? $this->_ObjectIndex( $theValue[ kTAG_KIND ] )
-				  : NULL;
-			
-			//
-			// Set identifier.
-			//
-			$ident = $this->_ObjectIndex( $theValue[ kTAG_DATA ] );
-		
-		} // Typed reference.
-		
-		//
-		// Get untyped reference matchers.
-		//
-		else
-		{
-			//
-			// Reset type.
-			//
-			$type = FALSE;
-			
-			//
-			// Set reference identifier.
-			//
-			$ident = $this->_ObjectIndex( $theValue );
-		
-		} // Reference matcher.
-		
-		//
-		// RETRIEVE.
-		//
-		if( $theOperation === NULL )
-		{
-			//
-			// Check list.
-			//
-			if( ($save = $this->offsetGet( $theOffset )) !== NULL )
-			{
-				//
-				// Iterate list.
-				//
-				foreach( $save as $value )
-				{
-					//
-					// Untyped match.
-					//
-					if( $type === FALSE )
-					{
-						//
-						// Match identifier.
-						//
-						if( $ident == $this->_ObjectIndex( $value ) )
-							return $value;											// ==>
-					
-					} // Untyped match.
-					
-					//
-					// Typed match.
-					//
-					else
-					{
-						//
-						// Select matching structures.
-						//
-						if( ( is_array( $value )
-						   || ($value instanceof ArrayObject) )
-						 && array_key_exists( kTAG_DATA, (array) $value ) )
-						{
-							//
-							// Match type.
-							//
-							if( ($type !== NULL)
-							 && array_key_exists( kTAG_KIND, (array) $value )
-							 && ($type == $this->_ObjectIndex( $value[ kTAG_KIND ] )) )
-							{
-								//
-								// Match identifier.
-								//
-								if( $ident == $this->_ObjectIndex( $value[ kTAG_DATA ] ) )
-									return $value;									// ==>
-							
-							} // Matched type.
-							
-							//
-							// Match missing type.
-							//
-							elseif( ($type === NULL)
-								 && (! array_key_exists( kTAG_KIND, (array) $value )) )
-							{
-								//
-								// Match identifier.
-								//
-								if( $ident == $this->_ObjectIndex( $value[ kTAG_DATA ] ) )
-									return $value;									// ==>
-							
-							} // Matched missing type.
-						
-						} // Matched structure.
-					
-					} // Typed match.
-				
-				} // Iterating list.
-			
-			} // Have list.
-			
-			return NULL;															// ==>
-		
-		} // Retrieve.
-		
-		//
-		// Handle delete.
-		//
-		if( $theOperation === FALSE )
-		{
-			//
-			// Check list.
-			//
-			if( ($save = $this->offsetGet( $theOffset )) !== NULL )
-			{
-				//
-				// Iterate list.
-				//
-				$found = NULL;
-				$new = Array();
-				foreach( $save as $value )
-				{
-					//
-					// Untyped match.
-					//
-					if( $type === FALSE )
-					{
-						//
-						// Match identifier.
-						//
-						if( $ident == $this->_ObjectIndex( $value ) )
-						{
-							//
-							// Save match.
-							//
-							$found = $value;
-							
-							//
-							// Iterate.
-							//
-							continue;										// =>
-						
-						} // matched identifier.
-					
-					} // Untyped match.
-					
-					//
-					// Typed match.
-					//
-					else
-					{
-						//
-						// Select matching structures.
-						//
-						if( ( is_array( $value )
-						   || ($value instanceof ArrayObject) )
-						 && array_key_exists( kTAG_DATA, (array) $value ) )
-						{
-							//
-							// Match type.
-							//
-							if( ($type !== NULL)
-							 && array_key_exists( kTAG_KIND, (array) $value )
-							 && ($type == $this->_ObjectIndex( $value[ kTAG_KIND ] )) )
-							{
-								//
-								// Match identifier.
-								//
-								if( $ident == $this->_ObjectIndex( $value[ kTAG_DATA ] ) )
-								{
-									//
-									// Save match.
-									//
-									$found = $value;
-									
-									//
-									// Iterate.
-									//
-									continue;								// =>
-								
-								} // matched identifier.
-							
-							} // Matched type.
-							
-							//
-							// Match missing type.
-							//
-							elseif( ($type === NULL)
-								 && (! array_key_exists( kTAG_KIND, (array) $value )) )
-							{
-								//
-								// Match identifier.
-								//
-								if( $ident == $this->_ObjectIndex( $value[ kTAG_DATA ] ) )
-								{
-									//
-									// Save match.
-									//
-									$found = $value;
-									
-									//
-									// Iterate.
-									//
-									continue;								// =>
-								
-								} // matched identifier.
-							
-							} // Matched missing type.
-						
-						} // Matched structure.
-					
-					} // Typed match.
-					
-					//
-					// Save noon-matching elements.
-					//
-					$new[] = $value;
-				
-				} // Iterating list.
-				
-				//
-				// Replace list.
-				//
-				if( $found !== NULL )
-				{
-					//
-					// Remove offset.
-					//
-					if( ! count( $new ) )
-						$this->offsetUnset( $theOffset );
-					
-					//
-					// Replace offset.
-					//
-					else
-						$this->offsetSet( $theOffset, $new );
-				
-				} // Matched.
-				
-				if( $getOld )
-					return $found;													// ==>
-			
-			} // Have list.
-			
-			return NULL;															// ==>
-		
-		} // Delete.
-		
-		//
-		// Replace value.
-		//
-		$found = NULL;
-		if( ($save = $this->offsetGet( $theOffset )) !== NULL )
-		{
-			//
-			// Iterate list.
-			//
-			foreach( $save as $key => $value )
-			{
-				//
-				// Untyped match.
-				//
-				if( $type === FALSE )
-				{
-					//
-					// Match identifier.
-					//
-					if( $ident == $this->_ObjectIndex( $value ) )
-					{
-						//
-						// Save replaced.
-						//
-						$found = $value;
-						
-						//
-						// Replace.
-						//
-						$save[ $key ] = $theValue;
-						
-						break;												// =>
-						
-					} // Matched.
-				
-				} // Untyped match.
-				
-				//
-				// Typed match.
-				//
-				else
-				{
-					//
-					// Select matching structures.
-					//
-					if( ( is_array( $value )
-					   || ($value instanceof ArrayObject) )
-					 && array_key_exists( kTAG_DATA, (array) $value ) )
-					{
-						//
-						// Match type.
-						//
-						if( ($type !== NULL)
-						 && array_key_exists( kTAG_KIND, (array) $value )
-						 && ($type == $this->_ObjectIndex( $value[ kTAG_KIND ] )) )
-						{
-							//
-							// Match identifier.
-							//
-							if( $ident == $this->_ObjectIndex( $value[ kTAG_DATA ] ) )
-							{
-								//
-								// Save replaced.
-								//
-								$found = $value;
-								
-								//
-								// Replace.
-								//
-								$save[ $key ] = $theValue;
-								
-								break;										// =>
-								
-							} // Matched.
-						
-						} // Matched type.
-						
-						//
-						// Match missing type.
-						//
-						elseif( ($type === NULL)
-							 && (! array_key_exists( kTAG_KIND, (array) $value )) )
-						{
-							//
-							// Match identifier.
-							//
-							if( $ident == $this->_ObjectIndex( $value[ kTAG_DATA ] ) )
-							{
-								//
-								// Save replaced.
-								//
-								$found = $value;
-								
-								//
-								// Replace.
-								//
-								$save[ $key ] = $theValue;
-								
-								break;										// =>
-								
-							} // Matched.
-						
-						} // Matched missing type.
-					
-					} // Matched structure.
-				
-				} // Typed match.
-			
-			} // Iterating list.
-			
-			//
-			// Append new element.
-			//
-			if( $found === NULL )
-				$save[] = $theValue;
-		
-		} // List exists.
-		
-		//
-		// Build list.
-		//
-		else
-			$save = array( $theValue );
-		
-		//
-		// Create list.
-		//
-		$this->offsetSet( $theOffset, $save );
-		
-		if( $getOld )
-			return $found;															// ==>
-		
-		return $theValue;															// ==>
-	
-	} // _ManageObjectList.
-
-		
-
-/*=======================================================================================
- *																						*
- *							PROTECTED REFERENCING UTILITIES								*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	_CheckRelationObject															*
-	 *==================================================================================*/
-
-	/**
-	 * Normalise object reference parameter.
-	 *
-	 * This method can be used to normalise a parameter that is supposed to be a reference
-	 * to another object, the method will perform the following conversions:
-	 *
-	 * <ul>
-	 *	<li><i>CGraphNodeObject</i>: Objects derived from this class will be handled as
-	 *		follows:
-	 *	 <ul>
-	 *		<li><i>{@link _IsCommitted() Committed}</i>: If the provided object has a
-	 *			{@link _IsCommitted() committed} {@link kFLAG_STATE_COMMITTED status}, the
-	 *			method will return the object's {@link kTAG_LID identifier}.
-	 *		<li><i>Not {@link _IsCommitted() committed}</i>: The parameter will not be
-	 *			converted.
-	 *	 </ul>
-	 *	<li><i>{@link CDataType CDataType}</i>: When providing a complex data type, we
-	 *		assume the value corresponds to the {@link kTAG_LID identifier}, in which case
-	 *		we leave it untouched.
-	 *	<li><i>Array</i> or <i>ArrayObject</i>: In this case the method will assume the
-	 *		provided structure is an object reference and it will check if the
-	 *		{@link kTAG_REFERENCE_ID kTAG_REFERENCE_ID} offset is there, if this is
-	 *		not the case the method will raise an exception.
-	 *	<li><i>other</i>: Any other type will be converted to a string.
-	 * </ul>
-	 *
-	 * The method will return the converted value, derived classes should first handle
-	 * custom types and pass other types to the parent method.
-	 *
-	 * @param mixed					$theValue			Object or reference.
-	 *
-	 * @access protected
-	 * @return mixed
-	 *
-	 * @uses _IsCommitted()
-	 *
-	 * @see kTAG_LID kTAG_REFERENCE_ID
-	 */
-	protected function _CheckRelationObject( $theValue )
-	{
-		//
-		// Handle object's derived from this class.
-		//
-		if( $theValue instanceof self )
-		{
-			//
-			// Reference committed objects.
-			//
-			if( $theValue->_IsCommitted() )
-				return $theValue[ kTAG_LID ];										// ==>
-			
-			return $theValue;														// ==>
-		
-		} // Object derived from this class.
-		
-		//
-		// Handle complex data types.
-		//
-		if( $theValue instanceof CDataType )
-			return $theValue;														// ==>
-		
-		//
-		// Check object reference.
-		//
-		if( is_array( $theValue )
-		 || ($theValue instanceof ArrayObject) )
-		{
-			//
-			// Check identifier.
-			//
-			if( array_key_exists( kTAG_REFERENCE_ID, (array) $theValue ) )
-				return $theValue;													// ==>
-
-			throw new CException( "Invalid object reference: missing identifier",
-								  kERROR_INVALID_PARAMETER,
-								  kMESSAGE_TYPE_ERROR,
-								  array( 'Reference' => $theValue ) );			// !@! ==>
-		
-		} // Object reference?
-		
-		return (string) $theValue;													// ==>
-	
-	} // _CheckRelationObject.
-
-	 
-	/*===================================================================================
-	 *	_CheckRelationPredicate															*
-	 *==================================================================================*/
-
-	/**
-	 * Normalise predicate reference parameter.
-	 *
-	 * This method can be used to normalise a parameter that is supposed to be a relation
-	 * predicate, the method will perform the following conversions:
-	 *
-	 * <ul>
-	 *	<li><i>NULL</i>: No conversion.
-	 *	<li><i>FALSE</i>: No conversion.
-	 *	<li><i>CGraphNodeObject</i>: The method will pass the parameter to the
-	 *		{@link _CheckRelationObject() _CheckRelationObject} method.
-	 *	<li><i>{@link CDataType CDataType}</i>: The method will pass the parameter to the
-	 *		{@link _CheckRelationObject() _CheckRelationObject} method.
-	 *	<li><i>Array</i> or <i>ArrayObject</i>: The method will pass the parameter to the
-	 *		{@link _CheckRelationObject() _CheckRelationObject} method.
-	 *	<li><i>other</i>: Any other type will be converted to a string.
-	 * </ul>
-	 *
-	 * The method will return the converted value, derived classes should first handle
-	 * custom types and pass other types to the parent method.
-	 *
-	 * @param mixed					$theValue			Relation predicate.
-	 *
-	 * @access protected
-	 * @return mixed
-	 *
-	 * @uses _IsCommitted()
-	 *
-	 * @see kTAG_LID kTAG_REFERENCE_ID
-	 */
-	protected function _CheckRelationPredicate( $theValue )
-	{
-		//
-		// Handle missing or empty predicate.
-		//
-		if( ($theValue === NULL)
-		 || ($theValue === FALSE) )
-			return $theValue;														// ==>
-		
-		//
-		// Handle object.
-		//
-		if( is_array( $theValue )
-		 || ($theValue instanceof self)
-		 || ($theValue instanceof CDataType)
-		 || ($theValue instanceof ArrayObject) )
-			return $this->_CheckRelationObject( $theValue );						// ==>
-		
-		return (string) $theValue;													// ==>
-	
-	} // _CheckRelationPredicate.
-
-	 
-	/*===================================================================================
-	 *	_ObjectIndex																	*
-	 *==================================================================================*/
-
-	/**
-	 * Return object index.
-	 *
-	 * This method is a utility that can be used to extract an object identifier from a
-	 * value, it is used when adding objects or object references to a list that is not
-	 * organised by object {@link kTAG_LID ID}.
-	 *
-	 * This method will attempt to infer the object identifier by performing the following
-	 * steps:
-	 *
-	 * <ul>
-	 *	<li><i>Array</i> or <i>ArrayObject</i>: In this case we interpret the parameter to
-	 *		be either an instance of the object itself, or a reference to the object, we
-	 *		check in order if any of the following can be found:
-	 *	 <ul>
-	 *		<li><i>{@link kTAG_LID kTAG_LID}</i>: We first check whether the
-	 *			object has that offset and use it is so.
-	 *		<li><i>{@link kTAG_REFERENCE_ID kTAG_REFERENCE_ID}</i>: We then check
-	 *			whether the structure contains a reference identifier.
-	 *		<li><i>{@link _id() _id}</i>: If the parameter is an object derived from this
-	 *			class, we try to call this method and use its result.
-	 *	 </ul>
-	 *	<li><i>other</i>: If all of the above fails we simply return the provided value.
-	 * </ul>
-	 *
-	 * Note that the method assumes that the returned value must be convertable to a string,
-	 * if that is not the case you may get into trouble.
-	 *
-	 * @param mixed					$theValue			Object or identifier.
-	 *
-	 * @access protected
-	 * @return string|NULL
-	 */
-	protected function _ObjectIndex( $theValue )
-	{
-		//
-		// Return empty.
-		//
-		if( $theValue === NULL )
-			return NULL;															// ==>
-		
-		//
-		// Try identifier.
-		//
-		if( ( is_array( $theValue )
-		   && array_key_exists( kTAG_LID, $theValue ) )
-		 || ( ($theValue instanceof ArrayObject)
-		   && $theValue->offsetExists( kTAG_LID ) ) )
-			return $theValue[ kTAG_LID ];											// ==>
-
-		//
-		// Try reference identifier.
-		//
-		if( ( is_array( $theValue )
-		   && array_key_exists( kTAG_REFERENCE_ID, $theValue ) )
-		 || ( ($theValue instanceof ArrayObject)
-		   && $theValue->offsetExists( kTAG_REFERENCE_ID ) ) )
-			return $theValue[ kTAG_REFERENCE_ID ];									// ==>
-		
-		//
-		// Try identifier value.
-		//
-		if( $theValue instanceof self )
-			return (string) $theValue;
-		
-		return $theValue;															// ==>
-	
-	} // _ObjectIndex.
 
 	 
 

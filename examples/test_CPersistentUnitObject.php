@@ -41,8 +41,10 @@ class MyClass extends CPersistentUnitObject
 {
 	public function Relation( $theValue, $theOperation = NULL, $getOld = FALSE )
 	{
-		return $this->_ManageObjectList
-				( 'REFERENCE', $theValue, $theOperation, $getOld );
+		return CAttribute::ManageObjectList( $this,
+											 'REFERENCE', kTAG_KIND, kTAG_DATA,
+											 $theValue, $theOperation,
+											 $getOld );
 	}
 	
 	protected function _PrepareCommit( &$theContainer, &$theIdentifier, &$theModifiers )
@@ -56,6 +58,10 @@ class MyClass extends CPersistentUnitObject
 		$this->_SetTags();
 		return parent::_Commit( $theContainer, $theIdentifier, $theModifiers );
 	}
+	protected function _index()
+	{
+		return $this->offsetGet( 'NAME' )."\t".$this->offsetGet( 'SURNAME' );
+	}
 }
 
 
@@ -66,7 +72,7 @@ class MyClass extends CPersistentUnitObject
 //
 // Instantiate test class.
 //
-$test = new CPersistentUnitObject();
+$test = new MyClass();
 
 //
 // Test class.
@@ -99,24 +105,24 @@ try
 	echo( '<h3>Object content</h3>' );
 	
 	echo( '<i>Empty object</i><br>' );
-	echo( '<i>$test = new CPersistentUnitObject();</i><br>' );
-	$test = new CPersistentUnitObject();
+	echo( '<i>$test = new MyClass();</i><br>' );
+	$test = new MyClass();
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
 	echo( '<i>From array</i><br>' );
 	echo( '<i>$content = array( \'Name\' => \'Milko\' );</i><br>' );
 	$content = array( 'Name' => 'Milko' );
-	echo( '<i>$test = new CPersistentUnitObject( $content ) );</i><br>' );
-	$test = new CPersistentUnitObject( $content );
+	echo( '<i>$test = new MyClass( $content ) );</i><br>' );
+	$test = new MyClass( $content );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
 	echo( '<i>From ArrayObject</i><br>' );
 	echo( '<i>$content = new ArrayObject( array( \'Name\' => \'Milko\' ) );</i><br>' );
 	$content = new ArrayObject( array( 'Name' => 'Milko' ) );
-	echo( '<i>$test = new CPersistentUnitObject( $content ) );</i><br>' );
-	$test = new CPersistentUnitObject( $content );
+	echo( '<i>$test = new MyClass( $content ) );</i><br>' );
+	$test = new MyClass( $content );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
@@ -125,8 +131,8 @@ try
 		echo( '<i>From any other type</i><br>' );
 		echo( '<i>$content = 10;</i><br>' );
 		$content = 10;
-		echo( '<i>$test = new CPersistentUnitObject( $content ) );</i><br>' );
-		$test = new CPersistentUnitObject( $content );
+		echo( '<i>$test = new MyClass( $content ) );</i><br>' );
+		$test = new MyClass( $content );
 		echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	}
 	catch( Exception $error )
@@ -147,8 +153,8 @@ try
 		echo( '<i>Load from ArrayObject container</i><br>' );
 		$container = new ArrayObject( array( array( 'NAME' => 'Milko', 'SURNAME' => 'Skofic' ) ) );
 		echo( 'Container:<pre>' ); print_r( $container ); echo( '</pre>' );
-		echo( '<i>$test = new CPersistentUnitObject( $container, 0 );</i><br>' );
-		$test = new CPersistentUnitObject( $container, 0 );
+		echo( '<i>$test = new MyClass( $container, 0 );</i><br>' );
+		$test = new MyClass( $container, 0 );
 		echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 		echo( '<hr>' );
 	}
@@ -162,14 +168,14 @@ try
 	echo( '<i>Load from CArrayContainer</i><br>' );
 	echo( '<i>$acontainer = new CArrayContainer( $container );</i><br>' );
 	$acontainer = new CArrayContainer( $container );
-	echo( '<i>$test = new CPersistentUnitObject( $acontainer, 0 );</i><br>' );
-	$test = new CPersistentUnitObject( $acontainer, 0 );
+	echo( '<i>$test = new MyClass( $acontainer, 0 );</i><br>' );
+	$test = new MyClass( $acontainer, 0 );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
 	echo( '<i>Not found</i><br>' );
-	echo( '<i>$test = new CPersistentUnitObject( $acontainer, 1 );</i><br>' );
-	$test = new CPersistentUnitObject( $acontainer, 1 );
+	echo( '<i>$test = new MyClass( $acontainer, 1 );</i><br>' );
+	$test = new MyClass( $acontainer, 1 );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	echo( '<hr>' );

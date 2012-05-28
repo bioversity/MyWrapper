@@ -88,8 +88,8 @@ abstract class CRelatedUnitObject extends CPersistentUnitObject
 	 *		from the {@link CRelatedUnitObject CRelatedUnitObject} class will also be
 	 *		{@link _ParseReferences() committed} and converted to object references.
 	 *		This parameter is passed through a protected
-	 *		{@link _CheckRelationObject() method} that derived classes can use to validate
-	 *		and normalise relation objects.
+	 *		{@link CPersistentUnitObject::NormaliseRelatedObject() method} that derived
+	 *		classes can use to validate and normalise relation objects.
 	 *	<li><b>$thePredicate</b>: Relation predicate, this parameter represents the kind or
 	 *		predicate of the relation, depending on whether it is provided or not, each
 	 *		element of the relations list will take the following form:
@@ -106,8 +106,8 @@ abstract class CRelatedUnitObject extends CPersistentUnitObject
 	 *				object, it will hold the value of the first parameter.
 	 *		 </ul>
 	 *			This parameter is passed through a protected
-	 *		{@link _CheckRelationPredicate() method} that derived classes can use to
-	 *		validate and normalise relation predicates.
+	 *		{@link CPersistentUnitObject::NormaliseRelatedPredicate() method} that derived
+	 *		classes can use to validate and normalise relation predicates.
 	 *	 </ul>
 	 *	<li><b>$theOperation</b>: The operation to perform:
 	 *	 <ul>
@@ -135,9 +135,9 @@ abstract class CRelatedUnitObject extends CPersistentUnitObject
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses _CheckRelationObject()
-	 * @uses _CheckRelationPredicate()
-	 * @uses _ManageObjectList()
+	 * @uses CPersistentUnitObject::NormaliseRelatedObject()
+	 * @uses CPersistentUnitObject::NormaliseRelatedPredicate()
+	 * @uses CAttribute::ManageObjectList()
 	 *
 	 * @see kTAG_REFS kTAG_KIND kTAG_DATA
 	 */
@@ -148,12 +148,12 @@ abstract class CRelatedUnitObject extends CPersistentUnitObject
 		//
 		// Normalise relation object.
 		//
-		$theObject = $this->_CheckRelationObject( $theObject );
+		$theObject = CPersistentUnitObject::NormaliseRelatedObject( $theObject );
 		
 		//
 		// Normalise relation predicate.
 		//
-		$thePredicate = $this->_CheckRelationPredicate( $thePredicate );
+		$thePredicate = CPersistentUnitObject::NormaliseRelatedPredicate( $thePredicate );
 		
 		//
 		// Create predicate relation.
@@ -184,9 +184,10 @@ abstract class CRelatedUnitObject extends CPersistentUnitObject
 		else
 			$relation = $theObject;
 		
-		return $this->_ManageObjectList( kTAG_REFS, $relation,
-													$theOperation,
-													$getOld );						// ==>
+		return CAttribute::ManageObjectList( $this,
+											 kTAG_REFS, kTAG_KIND, kTAG_DATA,
+											 $relation, $theOperation,
+											 $getOld );								// ==>
 
 	} // Relate.
 
@@ -210,8 +211,8 @@ abstract class CRelatedUnitObject extends CPersistentUnitObject
 	 * second parameter will be the constant {@link kTAG_PREFERRED kTAG_PREFERRED}.
 	 *
 	 * In this class we feed the value to the
-	 * {@link _CheckRelationObject() _CheckRelationObject} method that will take care of
-	 * handling object references.
+	 * {@link CPersistentUnitObject::NormaliseRelatedObject() NormaliseRelatedObject} method
+	 * that will take care of handling object references.
 	 *
 	 * @param mixed					$theValue			Value.
 	 * @param boolean				$getOld				TRUE get old value.
@@ -230,7 +231,7 @@ abstract class CRelatedUnitObject extends CPersistentUnitObject
 		//
 		if( ($theValue !== NULL)
 		 && ($theValue !== FALSE) )
-			$theValue = $this->_CheckRelationObject( $theValue );
+			$theValue = CPersistentUnitObject::NormaliseRelatedObject( $theValue );
 		
 		return CAttribute::ManageOffset
 				( $this, kTAG_PREFERRED, $theValue, $getOld );						// ==>
@@ -258,8 +259,8 @@ abstract class CRelatedUnitObject extends CPersistentUnitObject
 	 * second parameter will be the constant {@link kTAG_VALID kTAG_VALID}.
 	 *
 	 * In this class we feed the value to the
-	 * {@link _CheckRelationObject() _CheckRelationObject} method that will take care of
-	 * handling object references.
+	 * {@link CPersistentUnitObject::NormaliseRelatedObject() NormaliseRelatedObject} method
+	 * that will take care of handling object references.
 	 *
 	 * @param mixed					$theValue			Value.
 	 * @param boolean				$getOld				TRUE get old value.
@@ -278,7 +279,7 @@ abstract class CRelatedUnitObject extends CPersistentUnitObject
 		//
 		if( ($theValue !== NULL)
 		 && ($theValue !== FALSE) )
-			$theValue = $this->_CheckRelationObject( $theValue );
+			$theValue = CPersistentUnitObject::NormaliseRelatedObject( $theValue );
 		
 		return CAttribute::ManageOffset
 				( $this, kTAG_VALID, $theValue, $getOld );							// ==>

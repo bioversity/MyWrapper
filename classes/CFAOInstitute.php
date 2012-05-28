@@ -484,7 +484,7 @@ class CFAOInstitute extends CInstitute
 								
 									case 'ACRONYM':
 										if( strlen( $tmp = trim( $row[ $index ] ) ) )
-											$inst->Acronym( $tmp );
+											$inst->Acronym( $tmp, TRUE );
 										break;
 								
 									case 'ECPACRONYM':

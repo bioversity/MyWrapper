@@ -379,9 +379,10 @@ abstract class COntologyTermObject extends CTerm
 				   ? array( kTAG_KIND => $thePredicate, kTAG_DATA => $theObject )
 				   : $theObject;
 		
-		return $this->_ManageObjectList( kTAG_REFS, $reference,
-													$theOperation,
-													$getOld );						// ==>
+		return CAttribute::ManageObjectList( $this,
+											 kTAG_REFS, kTAG_KIND, kTAG_DATA,
+											 $reference, $theOperation,
+											 $getOld );								// ==>
 
 	} // Relate.
 
