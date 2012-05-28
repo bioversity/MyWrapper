@@ -65,4 +65,24 @@ define( "kINDEX_NODE_TERM",						'TERMS' );
  */
 define( "kINDEX_NODE_NODE",						'NODES' );
 
+/*=======================================================================================
+ *	DEFAULT COLLECTION NAMES															*
+ *======================================================================================*/
+
+/**
+ * Nodes collection name.
+ *
+ * This tag defines the nodes collection name, when nodes are created, a copy of their
+ * properties is saved in the Mongo collection named after this tag.
+ */
+define( "kCOLL_NODES",							'NODES' );
+
+/**
+ * Edges collection name.
+ *
+ * This tag defines the edges collection name, when edges are created, a copy of their
+ * properties is saved in the Mongo collection named after this tag.
+ */
+define( "kCOLL_EDGES",							'EDGES' );
+
 ?>

@@ -5318,6 +5318,8 @@ EOT;
 					if( $doDisplay )
 						echo( " [$term] [".$node->Node()->getId()."]" );
 				}
+				else
+					$term_alt1 = NULL;
 			
 				//
 				// Handle numeric 3 code.
@@ -5408,6 +5410,8 @@ EOT;
 					if( $doDisplay )
 						echo( " [$term] [".$node->Node()->getId()."]" );
 				}
+				else
+					$term_alt2 = NULL;
 			
 				//
 				// Handle exact cross-references.
@@ -5537,6 +5541,23 @@ EOT;
 			//
 			$obsolete->Valid( $valid );
 			$obsolete->Commit( $theContainer );
+			
+			//
+			// Handle nodes.
+			//
+			$id = Array();
+			$id[] = $obsolete[ kTAG_NODE ][ 0 ];
+			$id[] = kTAG_VALID;
+			$id[] = $valid[ kTAG_NODE ][ 0 ];
+			$id = implode( '/', $id );
+			$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
+			if( $edge === NULL )
+			{
+				$node = $term_index->findOne( kTAG_TERM, (string) $obsolete );
+				$node = new COntologyNode( $container, $node );
+				$edge = $node->RelateTo( $container, kTAG_VALID, $valid[ kTAG_NODE ][ 0 ] );
+				$edge->Commit( $container );
+			}
 			
 			//
 			// Display.
@@ -6560,7 +6581,7 @@ EOT;
 		//
 		$scale_term
 			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( 'ISO:3166-1:ALPHA-3' ) );
+				( $theContainer, COntologyTerm::HashIndex( 'ISO:3166:1:ALPHA-3' ) );
 		
 		//
 		// Node.

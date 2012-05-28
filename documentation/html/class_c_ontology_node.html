@@ -257,6 +257,7 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Store object in container.</p>
 <p>We <a class="el" href="class_c_graph_node.html#a7af17771eaba24551f8c9a465f391c23">overload</a> this method to provide the correct container to the <a class="el" href="class_c_graph_node.html">parent</a> <a class="el" href="class_c_graph_node.html#a7af17771eaba24551f8c9a465f391c23">method</a>.</p>
+<p>We also overload this method to store the node properties into a Mongo collection named <a class="el" href="">kCOLL_NODES</a>, the record will be indexed by node ID as a 64 bit integer.</p>
 <dl class="params"><dt>Parameters:</dt><dd>
   <table class="params">
     <tr><td class="paramtype">reference</td><td class="paramname">&amp;$theContainer</td><td>Object container. </td></tr>
@@ -1460,7 +1461,7 @@ Protected Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="class_c_ontology_node.html">COntologyNode</a></li>
-    <li class="footer">Generated on Mon May 28 2012 17:48:48 for Wrapper by
+    <li class="footer">Generated on Mon May 28 2012 20:33:51 for Wrapper by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.1 </li>
   </ul>

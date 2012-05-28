@@ -663,12 +663,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Commit</span> (line <span class="line-number">620</span>)
+		<span class="method-title">_Commit</span> (line <span class="line-number">626</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Store object in container.</p>
-<p class="description"><p>We <a href="../../MyWrapper/Persistence/CGraphEdge.html#method_Commit">overload</a> this method to provide the correct  container to the <a href="../../MyWrapper/Persistence/CGraphEdge.html">parent</a> <a href="../../MyWrapper/Persistence/CGraphEdge.html#method_Commit">method</a>.</p><p>We also COntologyTerm::Commit() the <a href="../../MyWrapper/Ontology/COntologyEdge.html#methodSubjectTerm">subject</a> and  <a href="../../MyWrapper/Ontology/COntologyEdge.html#methodObjectTerm">object</a> <a href="../../MyWrapper/Ontology/COntologyTerm.html">terms</a>, setting or removing  <a href="../../MyWrapper/Ontology/COntologyTerm.html">their</a> kTAG_NODEnode reference.</p></p>
+<p class="description"><p>We <a href="../../MyWrapper/Persistence/CGraphEdge.html#method_Commit">overload</a> this method to provide the correct  container to the <a href="../../MyWrapper/Persistence/CGraphEdge.html">parent</a> <a href="../../MyWrapper/Persistence/CGraphEdge.html#method_Commit">method</a>.</p><p>We also COntologyTerm::Commit() the <a href="../../MyWrapper/Ontology/COntologyEdge.html#methodSubjectTerm">subject</a> and  <a href="../../MyWrapper/Ontology/COntologyEdge.html#methodObjectTerm">object</a> <a href="../../MyWrapper/Ontology/COntologyTerm.html">terms</a>, setting or removing  <a href="../../MyWrapper/Ontology/COntologyTerm.html">their</a> kTAG_NODEnode reference.</p><p>We also overload this method to store the node properties into a Mongo collection  named <a href="../../MyWrapper/Ontology/_classes---COntologyNode.inc.php.html#definekCOLL_EDGES">kCOLL_EDGES</a>, the record will be indexed by the combination  of subject and node IDs interleaved with the predicate term  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a> and divided by the  <a href="../../MyWrapper/Definitions/_defines---Tokens.inc.php.html#definekTOKEN_INDEX_SEPARATOR">kTOKEN_INDEX_SEPARATOR</a> token.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CGraphEdge.html#methodNode">CGraphEdge::Node()</a></li>
@@ -707,7 +707,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishCreate</span> (line <span class="line-number">1170</span>)
+		<span class="method-title">_FinishCreate</span> (line <span class="line-number">1189</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -744,7 +744,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishLoad</span> (line <span class="line-number">1224</span>)
+		<span class="method-title">_FinishLoad</span> (line <span class="line-number">1243</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -787,7 +787,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_GetNodeIndex</span> (line <span class="line-number">1459</span>)
+		<span class="method-title">_GetNodeIndex</span> (line <span class="line-number">1478</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -827,7 +827,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_IndexTerms</span> (line <span class="line-number">1402</span>)
+		<span class="method-title">_IndexTerms</span> (line <span class="line-number">1421</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -875,7 +875,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Load</span> (line <span class="line-number">778</span>)
+		<span class="method-title">_Load</span> (line <span class="line-number">797</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -918,7 +918,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">1069</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">1088</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -962,7 +962,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCreate</span> (line <span class="line-number">827</span>)
+		<span class="method-title">_PrepareCreate</span> (line <span class="line-number">846</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1009,7 +1009,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">996</span>)
+		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">1015</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1280,7 +1280,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Mon, 28 May 2012 17:41:02 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Mon, 28 May 2012 20:32:17 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

@@ -608,6 +608,12 @@ class COntologyEdge extends CGraphEdge
 	 * {@link ObjectTerm() object} {@link COntologyTerm terms}, setting or removing
 	 * {@link COntologyTerm their} {@link kTAG_NODEnode} reference.
 	 *
+	 * We also overload this method to store the node properties into a Mongo collection
+	 * named {@link kCOLL_EDGES kCOLL_EDGES}, the record will be indexed by the combination
+	 * of subject and node IDs interleaved with the predicate term
+	 * {@link kTAG_GID identifier} and divided by the
+	 * {@link kTOKEN_INDEX_SEPARATOR kTOKEN_INDEX_SEPARATOR} token.
+	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
 	 * @param reference			   &$theModifiers		Commit modifiers.
@@ -748,6 +754,19 @@ class COntologyEdge extends CGraphEdge
 			// Add indexes.
 			//
 			$this->_IndexTerms( $theContainer[ kTAG_NODE ] );
+			
+			//
+			// Save node reference.
+			//
+			$collection
+				= $theContainer[ kTAG_TERM ]->Database()
+											->selectCollection( kCOLL_EDGES );
+			$data = $this->mNode->getProperties();
+			$data[ kTAG_LID ] = implode( kTOKEN_INDEX_SEPARATOR, 
+										 array( $this->Subject()->getId(),
+												$this->mPredicateTerm[ kTAG_GID ],
+												$this->Object()->getId() ) );
+			$collection->save( $data, array( kAPI_OPT_SAFE => TRUE ) );
 			
 			return $this->Node()->getId();											// ==>
 		

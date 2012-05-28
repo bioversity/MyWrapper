@@ -27,6 +27,13 @@
 require_once( kPATH_LIBRARY_SOURCE."CGraphNode.php" );
 
 /**
+ * Wrapper defines.
+ *
+ * This include file contains the data wrapper definitions.
+ */
+require_once( kPATH_LIBRARY_SOURCE."CDataWrapper.inc.php" );
+
+/**
  * Local defines.
  *
  * This include file contains the local class definitions.
@@ -998,6 +1005,10 @@ class COntologyNode extends CGraphNode
 	 * We {@link CGraphNode::_Commit() overload} this method to provide the correct
 	 * container to the {@link CGraphNode parent} {@link CGraphNode::_Commit() method}.
 	 *
+	 * We also overload this method to store the node properties into a Mongo collection
+	 * named {@link kCOLL_NODES kCOLL_NODES}, the record will be indexed by node ID as a
+	 * 64 bit integer.
+	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
 	 * @param reference			   &$theModifiers		Commit modifiers.
@@ -1044,6 +1055,16 @@ class COntologyNode extends CGraphNode
 			// Add node indexes.
 			//
 			$this->_IndexNodes( $theContainer[ kTAG_NODE ] );
+			
+			//
+			// Save node reference.
+			//
+			$collection
+				= $theContainer[ kTAG_TERM ]->Database()
+											->selectCollection( kCOLL_NODES );
+			$data = $this->mNode->getProperties();
+			$data[ kTAG_LID ] = new MongoInt64( $this->mNode->getId() );
+			$collection->save( $data, array( kAPI_OPT_SAFE => TRUE ) );
 		
 		} // Saving.
 		

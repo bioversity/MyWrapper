@@ -79,6 +79,8 @@ We \hyperlink{class_c_graph_edge_a73dd2ced3103285f8ad4ea212c0e918e}{overload} th
 
 We also \hyperlink{class_c_persistent_object_a88b1f2b11d3d60e0b3d33d8b0649b68a}{commit} the \hyperlink{class_c_ontology_edge_a3196d6612dbbbbbe18643b1af06378b4}{subject} and \hyperlink{class_c_ontology_edge_a83ac612393cc615101992972b419faa5}{object} \hyperlink{class_c_ontology_term}{terms}, setting or removing \hyperlink{class_c_ontology_term}{their} \hyperlink{}{k\-T\-A\-G\-\_\-\-N\-O\-D\-Enode} reference.
 
+We also overload this method to store the node properties into a Mongo collection named \hyperlink{}{k\-C\-O\-L\-L\-\_\-\-E\-D\-G\-E\-S}, the record will be indexed by the combination of subject and node I\-Ds interleaved with the predicate term \hyperlink{}{identifier} and divided by the \hyperlink{}{k\-T\-O\-K\-E\-N\-\_\-\-I\-N\-D\-E\-X\-\_\-\-S\-E\-P\-A\-R\-A\-T\-O\-R} token.
+
 
 \begin{DoxyParams}[1]{Parameters}
 reference & {\em \&\$the\-Container} & Object container. \\
