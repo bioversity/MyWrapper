@@ -307,6 +307,9 @@ class CAttribute
 			
 			} // Has data and operates on list.
 			
+			else
+				$save = NULL;
+			
 			//
 			// Return current value.
 			//

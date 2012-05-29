@@ -226,7 +226,7 @@ Protected Attributes</h2></td></tr>
 <p>Store object in container.</p>
 <p>We <a class="el" href="class_c_graph_edge.html#a73dd2ced3103285f8ad4ea212c0e918e">overload</a> this method to provide the correct container to the <a class="el" href="class_c_graph_edge.html">parent</a> <a class="el" href="class_c_graph_edge.html#a73dd2ced3103285f8ad4ea212c0e918e">method</a>.</p>
 <p>We also <a class="el" href="class_c_persistent_object.html#a88b1f2b11d3d60e0b3d33d8b0649b68a">commit</a> the <a class="el" href="class_c_ontology_edge.html#a3196d6612dbbbbbe18643b1af06378b4">subject</a> and <a class="el" href="class_c_ontology_edge.html#a83ac612393cc615101992972b419faa5">object</a> <a class="el" href="class_c_ontology_term.html">terms</a>, setting or removing <a class="el" href="class_c_ontology_term.html">their</a> <a class="el" href="">kTAG_NODEnode</a> reference.</p>
-<p>We also overload this method to store the node properties into a Mongo collection named <a class="el" href="">kCOLL_EDGES</a>, the record will be indexed by the combination of subject and node IDs interleaved with the predicate term <a class="el" href="">identifier</a> and divided by the <a class="el" href="">kTOKEN_INDEX_SEPARATOR</a> token.</p>
+<p>We also overload this method to store the node properties into a Mongo collection named <a class="el" href="">kDEFAULT_CNT_EDGES</a>, the record will be indexed by the combination of subject and node IDs interleaved with the predicate term <a class="el" href="">identifier</a> and divided by the <a class="el" href="">kTOKEN_INDEX_SEPARATOR</a> token.</p>
 <dl class="params"><dt>Parameters:</dt><dd>
   <table class="params">
     <tr><td class="paramtype">reference</td><td class="paramname">&amp;$theContainer</td><td>Object container. </td></tr>
@@ -1031,7 +1031,7 @@ Protected Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="class_c_ontology_edge.html">COntologyEdge</a></li>
-    <li class="footer">Generated on Mon May 28 2012 20:33:51 for Wrapper by
+    <li class="footer">Generated on Tue May 29 2012 09:45:14 for Wrapper by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.1 </li>
   </ul>

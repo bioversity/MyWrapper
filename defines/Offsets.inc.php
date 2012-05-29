@@ -259,6 +259,41 @@ define( "kTAG_NODE",							':NODE' );
 define( "kTAG_EDGE",							':EDGE' );
 
 /**
+ * Subject term offset.
+ *
+ * This tag is used as the default offset for indicating the subject term.
+ */
+define( "kTAG_SUB_TERM",						':STERM' );
+
+/**
+ * Subject node offset.
+ *
+ * This tag is used as the default offset for indicating the subject node.
+ */
+define( "kTAG_SUB_NODE",						':SNODE' );
+
+/**
+ * Predicate term offset.
+ *
+ * This tag is used as the default offset for indicating the predicate term.
+ */
+define( "kTAG_PRE_TERM",						':PTERM' );
+
+/**
+ * Object term offset.
+ *
+ * This tag is used as the default offset for indicating the object term.
+ */
+define( "kTAG_OBJ_TERM",						':OTERM' );
+
+/**
+ * Object node offset.
+ *
+ * This tag is used as the default offset for indicating the object node.
+ */
+define( "kTAG_OBJ_NODE",						':ONODE' );
+
+/**
  * Term offset.
  *
  * This tag is used as the default offset for indicating a graph node term.

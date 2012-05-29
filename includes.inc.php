@@ -97,11 +97,25 @@ define( "kDEFAULT_LIMITS",				'50' );				// 50 by default.
 define( "kDEFAULT_MEMBER",				'___TMP___' );		// Temporary data member name.
 
 /**
- * Default dictionary container name.
+ * Default terms container name.
  *
- * This value defines the default dictionary container name.
+ * This value defines the default terms container name.
  */
-define( "kDEFAULT_DICTIONARY",			"DICTIONARY" );
+define( "kDEFAULT_CNT_TERMS",			"TERMS" );
+
+/**
+ * Default nodes container name.
+ *
+ * This value defines the default nodes container name.
+ */
+define( "kDEFAULT_CNT_NODES",			"NODES" );
+
+/**
+ * Default edges container name.
+ *
+ * This value defines the default edges container name.
+ */
+define( "kDEFAULT_CNT_EDGES",			"EDGES" );
 
 /*=======================================================================================
  *	CLASS AUTOLOADER																	*

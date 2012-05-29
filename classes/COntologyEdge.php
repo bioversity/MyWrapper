@@ -609,8 +609,8 @@ class COntologyEdge extends CGraphEdge
 	 * {@link COntologyTerm their} {@link kTAG_NODEnode} reference.
 	 *
 	 * We also overload this method to store the node properties into a Mongo collection
-	 * named {@link kCOLL_EDGES kCOLL_EDGES}, the record will be indexed by the combination
-	 * of subject and node IDs interleaved with the predicate term
+	 * named {@link kDEFAULT_CNT_EDGES kDEFAULT_CNT_EDGES}, the record will be indexed by
+	 * the combination of subject and node IDs interleaved with the predicate term
 	 * {@link kTAG_GID identifier} and divided by the
 	 * {@link kTOKEN_INDEX_SEPARATOR kTOKEN_INDEX_SEPARATOR} token.
 	 *
@@ -626,35 +626,32 @@ class COntologyEdge extends CGraphEdge
 	protected function _Commit( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
+		// Get edge ID.
+		//
+		$id = $this->mNode->getId();
+		
+		//
+		// Set edge identifier.
+		//
+		$edgeId = implode( kTOKEN_INDEX_SEPARATOR, array( $this->Subject()->getId(),
+														  $this->mPredicateTerm->GID(),
+														  $this->Object()->getId() ) );
+		
+		//
+		// Set edge reference.
+		//
+		$collection
+			= $theContainer[ kTAG_TERM ]->Database()
+										->selectCollection( kDEFAULT_CNT_EDGES );
+		
+		//
 		// Handle delete.
 		//
 		if( $theModifiers & kFLAG_PERSIST_DELETE )
 		{
 			//
-			// Unrelate terms.
-			//
-		/*
-			$this->mSubjectTerm->Relate( $this->mObjectTerm, $this->mPredicateTerm, FALSE );
-		*/
-			
-			//
 			// Reset predicate term.
 			//
-		/*
-			$id = $this->Node()->getId();
-			$this->mPredicateTerm->Predicate( $id, FALSE );
-			if( count( $this->mPredicateTerm->Predicate() ) )
-			{
-				$mod = array( kTAG_EDGE => $id );
-				$theContainer[ kTAG_TERM ]->Commit( $mod,
-													$this->mPredicateTerm[ kTAG_LID ],
-													kFLAG_PERSIST_MODIFY +
-													kFLAG_MODIFY_PULL +
-													kFLAG_STATE_ENCODED );
-			}
-			else
-				$this->mPredicateTerm->Commit( $theContainer[ kTAG_TERM ] );
-		*/
 			$this->Term( new COntologyTerm() );
 			
 			//
@@ -692,6 +689,12 @@ class COntologyEdge extends CGraphEdge
 			else
 				$this->mObjectTerm->Commit( $theContainer[ kTAG_TERM ] );
 			$this->ObjectTerm( new COntologyTerm() );
+			
+			//
+			// Remove edge reference.
+			//
+			$data = array( kTAG_LID => new MongoBinData( $edgeId ) );
+			$collection->remove( $data, array( kAPI_OPT_SAFE => TRUE ) );
 		
 		} // Delete.
 		
@@ -705,20 +708,6 @@ class COntologyEdge extends CGraphEdge
 		//
 		if( ! ($theModifiers & kFLAG_PERSIST_DELETE) )
 		{
-			//
-			// Commit predicate term.
-			//
-		/*
-			$id = $this->Node()->getId();
-			$this->mPredicateTerm->Predicate( $id, TRUE );
-			$mod = array( kTAG_EDGE => $id );
-			$theContainer[ kTAG_TERM ]->Commit( $mod,
-												$this->mPredicateTerm[ kTAG_LID ],
-												kFLAG_PERSIST_MODIFY +
-												kFLAG_MODIFY_ADDSET +
-												kFLAG_STATE_ENCODED );
-		*/
-			
 			//
 			// Commit subject term.
 			//
@@ -743,29 +732,23 @@ class COntologyEdge extends CGraphEdge
 												kFLAG_MODIFY_ADDSET +
 												kFLAG_STATE_ENCODED );
 		
-		/*	
-			//
-			// Relate terms.
-			//
-			$this->mSubjectTerm->Relate( $this->mObjectTerm, $this->mPredicateTerm, TRUE );
-		*/
-		
 			//
 			// Add indexes.
 			//
 			$this->_IndexTerms( $theContainer[ kTAG_NODE ] );
 			
 			//
-			// Save node reference.
+			// Save edge reference.
 			//
-			$collection
-				= $theContainer[ kTAG_TERM ]->Database()
-											->selectCollection( kCOLL_EDGES );
-			$data = $this->mNode->getProperties();
-			$data[ kTAG_LID ] = implode( kTOKEN_INDEX_SEPARATOR, 
-										 array( $this->Subject()->getId(),
-												$this->mPredicateTerm[ kTAG_GID ],
-												$this->Object()->getId() ) );
+			$data = Array();
+			$data[ kTAG_LID ] = new MongoBinData( $edgeId );
+			$data[ kTAG_EDGE ] = new MongoInt64( $this->mNode->getId() );
+			$data[ kTAG_SUB_TERM ] = $this->mSubjectTerm->GID();
+			$data[ kTAG_SUB_NODE ] = $this->Subject()->getId();
+			$data[ kTAG_PRE_TERM ] = $this->mPredicateTerm->GID();
+			$data[ kTAG_OBJ_TERM ] = $this->mObjectTerm->GID();
+			$data[ kTAG_OBJ_NODE ] = $this->Object()->getId();
+			$data[ kTAG_DATA ] = $this->mNode->getProperties();
 			$collection->save( $data, array( kAPI_OPT_SAFE => TRUE ) );
 			
 			return $this->Node()->getId();											// ==>

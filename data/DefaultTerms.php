@@ -119,7 +119,7 @@ try
 	//
 	// Connect.
 	//
-	Connect( kDEFAULT_DATABASE, kDEFAULT_DICTIONARY, FALSE );
+	Connect( kDEFAULT_DATABASE, kDEFAULT_CNT_TERMS, FALSE );
 	
 	//
 	// Load types.
@@ -208,7 +208,7 @@ exit( "Done!\n" );
 	 * @access protected
 	 */
 	function Connect( $theDatabase = kDEFAULT_DATABASE,
-					  $theContainer = kDEFAULT_DICTIONARY,
+					  $theContainer = kDEFAULT_CNT_TERMS,
 					  $doErase = FALSE )
 	{
 		//
@@ -1679,6 +1679,36 @@ exit( "Done!\n" );
 				   'typ' => 'kTYPE_INT32',
 				   'nam' => 'Edge',
 				   'def' => 'This term is used to indicate an edge node.' ),
+			array( 'id'	=> kTAG_SUB_TERM,
+				   'syn' => 'kTAG_SUB_TERM',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'Subject term',
+				   'def' => 'This refers to the subject term in an edge node.' ),
+			array( 'id'	=> kTAG_SUB_NODE,
+				   'syn' => 'kTAG_SUB_NODE',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_INT64',
+				   'nam' => 'Subject node',
+				   'def' => 'This refers to the subject node identifier in an edge node.' ),
+			array( 'id'	=> kTAG_PRE_TERM,
+				   'syn' => 'kTAG_PRE_TERM',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'Predicate term',
+				   'def' => 'This refers to the predicate term in an edge node.' ),
+			array( 'id'	=> kTAG_OBJ_TERM,
+				   'syn' => 'kTAG_OBJ_TERM',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'Object term',
+				   'def' => 'This refers to the object term in an edge node.' ),
+			array( 'id'	=> kTAG_OBJ_NODE,
+				   'syn' => 'kTAG_OBJ_NODE',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_INT64',
+				   'nam' => 'Object node',
+				   'def' => 'This refers to the object node identifier in an edge node.' ),
 			array( 'id'	=> kTAG_TERM,
 				   'syn' => 'kTAG_TERM',
 				   'car' => 'kCARD_1',

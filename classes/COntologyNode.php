@@ -1006,8 +1006,8 @@ class COntologyNode extends CGraphNode
 	 * container to the {@link CGraphNode parent} {@link CGraphNode::_Commit() method}.
 	 *
 	 * We also overload this method to store the node properties into a Mongo collection
-	 * named {@link kCOLL_NODES kCOLL_NODES}, the record will be indexed by node ID as a
-	 * 64 bit integer.
+	 * named {@link kDEFAULT_CNT_NODES kDEFAULT_CNT_NODES}, the record will be indexed by
+	 * node ID as a 64 bit integer.
 	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
@@ -1026,6 +1026,13 @@ class COntologyNode extends CGraphNode
 		$id = parent::_Commit( $theContainer[ kTAG_NODE ], $theIdentifier, $theModifiers );
 		
 		//
+		// Save node collection.
+		//
+		$collection
+			= $theContainer[ kTAG_TERM ]->Database()
+										->selectCollection( kDEFAULT_CNT_NODES );
+		
+		//
 		// Handle save.
 		//
 		if( ! ($theModifiers & kFLAG_PERSIST_DELETE) )
@@ -1033,10 +1040,6 @@ class COntologyNode extends CGraphNode
 			//
 			// Set node in term.
 			//
-/*
-			$this->mTerm->Node( $id, TRUE );
-			$this->mTerm->Commit( $theContainer[ kTAG_TERM ] );
-*/
 			$id = $this->mNode->getId();
 			$this->mTerm->Node( $id, TRUE );
 			$mod = array( kTAG_NODE => $id );
@@ -1059,10 +1062,8 @@ class COntologyNode extends CGraphNode
 			//
 			// Save node reference.
 			//
-			$collection
-				= $theContainer[ kTAG_TERM ]->Database()
-											->selectCollection( kCOLL_NODES );
-			$data = $this->mNode->getProperties();
+			$data = Array();
+			$data[ kTAG_DATA ] = $this->mNode->getProperties();
 			$data[ kTAG_LID ] = new MongoInt64( $this->mNode->getId() );
 			$collection->save( $data, array( kAPI_OPT_SAFE => TRUE ) );
 		
@@ -1076,10 +1077,6 @@ class COntologyNode extends CGraphNode
 			//
 			// Remove node from term.
 			//
-/*
-			$this->mTerm->Node( $id, FALSE );
-			$this->mTerm->Commit( $theContainer[ kTAG_TERM ] );
-*/
 			$this->mTerm->Node( $id, FALSE );
 			$mod = array( kTAG_NODE => $id );
 			$theContainer[ kTAG_TERM ]->Commit( $mod,
@@ -1092,6 +1089,12 @@ class COntologyNode extends CGraphNode
 			// Reset term
 			//
 			$this->Term( new COntologyTerm() );
+			
+			//
+			// Remove node reference.
+			//
+			$data = array( kTAG_LID => new MongoInt64( $id ) );
+			$collection->remove( $data, array( kAPI_OPT_SAFE => TRUE ) );
 			
 			return $id;																// ==>
 		
