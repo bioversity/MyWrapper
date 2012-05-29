@@ -742,12 +742,16 @@ class COntologyEdge extends CGraphEdge
 			//
 			$data = Array();
 			$data[ kTAG_LID ] = new MongoBinData( $edgeId );
-			$data[ kTAG_EDGE ] = new MongoInt64( $this->mNode->getId() );
-			$data[ kTAG_SUB_TERM ] = $this->mSubjectTerm->GID();
-			$data[ kTAG_SUB_NODE ] = $this->Subject()->getId();
-			$data[ kTAG_PRE_TERM ] = $this->mPredicateTerm->GID();
-			$data[ kTAG_OBJ_TERM ] = $this->mObjectTerm->GID();
-			$data[ kTAG_OBJ_NODE ] = $this->Object()->getId();
+			$data[ kTAG_PATH ] = $edgeId;
+			$data[ kTAG_SUBJECT ]
+				= array( kTAG_TERM => $this->mSubjectTerm->GID(),
+						 kTAG_NODE => $this->Subject()->getId() );
+			$data[ kTAG_PREDICATE ]
+				= array( kTAG_TERM => $this->mPredicateTerm->GID(),
+						 kTAG_NODE => $this->mNode->getId() );
+			$data[ kTAG_OBJECT ]
+				= array( kTAG_TERM => $this->mObjectTerm->GID(),
+						 kTAG_NODE => $this->Object()->getId() );
 			$data[ kTAG_DATA ] = $this->mNode->getProperties();
 			$collection->save( $data, array( kAPI_OPT_SAFE => TRUE ) );
 			

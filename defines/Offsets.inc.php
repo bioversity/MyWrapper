@@ -245,6 +245,13 @@ define( "kTAG_ENUM",							':ENUM' );
 define( "kTAG_NAMESPACE",						':NS' );
 
 /**
+ * Term offset.
+ *
+ * This tag is used as the default offset for indicating a graph node term.
+ */
+define( "kTAG_TERM",							':TERM' );
+
+/**
  * Graph node offset.
  *
  * This tag is used as the default offset for indicating a graph node.
@@ -259,46 +266,32 @@ define( "kTAG_NODE",							':NODE' );
 define( "kTAG_EDGE",							':EDGE' );
 
 /**
- * Subject term offset.
+ * Subject offset.
  *
- * This tag is used as the default offset for indicating the subject term.
+ * This tag is used as the default offset for indicating a subject term or node.
  */
-define( "kTAG_SUB_TERM",						':STERM' );
+define( "kTAG_SUBJECT",							':SUBJECT' );
 
 /**
- * Subject node offset.
+ * Predicate offset.
  *
- * This tag is used as the default offset for indicating the subject node.
+ * This tag is used as the default offset for indicating a predicate term or node.
  */
-define( "kTAG_SUB_NODE",						':SNODE' );
+define( "kTAG_PREDICATE",						':PREDICATE' );
 
 /**
- * Predicate term offset.
+ * Object offset.
  *
- * This tag is used as the default offset for indicating the predicate term.
+ * This tag is used as the default offset for indicating an object term or node.
  */
-define( "kTAG_PRE_TERM",						':PTERM' );
+define( "kTAG_OBJECT",							':OBJECT' );
 
 /**
- * Object term offset.
+ * Path offset.
  *
- * This tag is used as the default offset for indicating the object term.
+ * This tag is used as the default offset for indicating a path.
  */
-define( "kTAG_OBJ_TERM",						':OTERM' );
-
-/**
- * Object node offset.
- *
- * This tag is used as the default offset for indicating the object node.
- */
-define( "kTAG_OBJ_NODE",						':ONODE' );
-
-/**
- * Term offset.
- *
- * This tag is used as the default offset for indicating a graph node term.
- */
-define( "kTAG_TERM",							':TERM' );
+define( "kTAG_PATH",							':PATH' );
 
 /**
  * Name offset.

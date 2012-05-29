@@ -1064,7 +1064,7 @@ class COntologyNode extends CGraphNode
 			//
 			$data = Array();
 			$data[ kTAG_DATA ] = $this->mNode->getProperties();
-			$data[ kTAG_LID ] = new MongoInt64( $this->mNode->getId() );
+			$data[ kTAG_LID ] = $this->mNode->getId();
 			$collection->save( $data, array( kAPI_OPT_SAFE => TRUE ) );
 		
 		} // Saving.
@@ -1093,7 +1093,7 @@ class COntologyNode extends CGraphNode
 			//
 			// Remove node reference.
 			//
-			$data = array( kTAG_LID => new MongoInt64( $id ) );
+			$data = array( kTAG_LID => $id );
 			$collection->remove( $data, array( kAPI_OPT_SAFE => TRUE ) );
 			
 			return $id;																// ==>
