@@ -164,13 +164,22 @@ class CGraphNode extends CPersistentObject
 		// Check provided value.
 		//
 		if( ($theValue !== NULL)
-		 && ($theValue !== FALSE)
-		 && (! $theValue instanceof Everyman\Neo4j\PropertyContainer) )
-			throw new CException
-					( "Unsupported node type",
-					  kERROR_UNSUPPORTED,
-					  kMESSAGE_TYPE_ERROR,
-					  array( 'Node' => $theValue ) );							// !@! ==>
+		 && ($theValue !== FALSE) )
+		{
+			//
+			// Load node properties.
+			//
+			if( $theValue instanceof Everyman\Neo4j\PropertyContainer )
+				$theValue->load();
+			
+			else
+				throw new CException
+						( "Unsupported node type",
+						  kERROR_UNSUPPORTED,
+						  kMESSAGE_TYPE_ERROR,
+						  array( 'Node' => $theValue ) );						// !@! ==>
+		
+		} // Not retrieving or deleting.
 		
 		//
 		// Handle data.

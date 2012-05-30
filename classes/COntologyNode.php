@@ -1021,16 +1021,15 @@ class COntologyNode extends CGraphNode
 	protected function _Commit( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
+		// Save node index if deleting.
+		//
+		if( $theModifiers & kFLAG_PERSIST_DELETE )
+			$index = new COntologyNodeIndex( $this->mNode );
+		
+		//
 		// Call parent method.
 		//
 		$id = parent::_Commit( $theContainer[ kTAG_NODE ], $theIdentifier, $theModifiers );
-		
-		//
-		// Save node collection.
-		//
-		$collection
-			= $theContainer[ kTAG_TERM ]->Database()
-										->selectCollection( kDEFAULT_CNT_NODES );
 		
 		//
 		// Handle save.
@@ -1052,20 +1051,26 @@ class COntologyNode extends CGraphNode
 			//
 			// Add term indexes.
 			//
-			$this->_IndexTerms( $theContainer[ kTAG_NODE ] );
+			// We currently store nodes and edges in Mongo,
+			// so we do not use Lucene for searching on node
+			// and edge properties.
+			//
+		//	$this->_IndexTerms( $theContainer[ kTAG_NODE ] );
 			
 			//
 			// Add node indexes.
 			//
-			$this->_IndexNodes( $theContainer[ kTAG_NODE ] );
+			// We currently store nodes and edges in Mongo,
+			// so we do not use Lucene for searching on node
+			// and edge properties.
+			//
+		//	$this->_IndexNodes( $theContainer[ kTAG_NODE ] );
 			
 			//
-			// Save node reference.
+			// Add Mongo node index.
 			//
-			$data = Array();
-			$data[ kTAG_DATA ] = $this->mNode->getProperties();
-			$data[ kTAG_LID ] = $this->mNode->getId();
-			$collection->save( $data, array( kAPI_OPT_SAFE => TRUE ) );
+			$index = new COntologyNodeIndex( $this->mNode );
+			$index->Commit( $theContainer[ kTAG_TERM ]->Database() );
 		
 		} // Saving.
 		
@@ -1093,8 +1098,7 @@ class COntologyNode extends CGraphNode
 			//
 			// Remove node reference.
 			//
-			$data = array( kTAG_LID => $id );
-			$collection->remove( $data, array( kAPI_OPT_SAFE => TRUE ) );
+			$index->Commit( $theContainer[ kTAG_TERM ]->Database(), kFLAG_PERSIST_DELETE );
 			
 			return $id;																// ==>
 		

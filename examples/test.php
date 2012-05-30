@@ -387,14 +387,13 @@ echo( '</pre>' );
 echo( '$test[ 1 ] ('.$test[ 1 ].')<br>' );
 echo( '$test[ \'Due\' ] ('.$test[ 'Due' ].')<br>' );
 echo( '$test[ \'\' ] ('.$test[ '' ].')<br>' );
-*/
 
 //
 // Collection selection.
 //
 $mongo = New Mongo();
 $db = $mongo->selectDB( 'WAREHOUSE' );
-$collection = $db->selectCollection( 'DICTIONARY' );
+$collection = $db->selectCollection( kDEFAULT_CNT_TERMS );
 
 //
 // Build query.
@@ -411,5 +410,7 @@ foreach( $cursor as $element )
 	print_r( $element );
 	echo( '</pre>' );
 }
+*/
+
 
 ?>

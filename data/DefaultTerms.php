@@ -177,6 +177,9 @@ catch( Exception $error )
 {
 //	echo( CException::AsHTML( $error ) );
 	echo( (string) $error );
+echo( "\n" );
+print_r( $error->Reference( 'Object' ) );
+echo( "\n" );
 }
 
 exit( "Done!\n" );
@@ -2168,6 +2171,7 @@ exit( "Done!\n" );
 		//
 		// Init local storage.
 		//
+		$fields = array( kTAG_LID => TRUE );
 		$container = array( kTAG_TERM => $theContainer,
 							kTAG_NODE => $_SESSION[ kSESSION_NEO4J ] );
 		
@@ -2219,8 +2223,12 @@ exit( "Done!\n" );
 		//
 		// Handle node.
 		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
+		$query = array( kTAG_DATA.'.'.kTAG_TERM => (string) $term );
+print_r( $query );
+exit;
+
+		$record = $container[ kTAG_TERM ]->Container()->findOne( $query, $fields );
+		if( $record === NULL )
 		{
 			$node = new COntologyNode( $container );
 			$node->Term( $term );
@@ -2229,7 +2237,11 @@ exit( "Done!\n" );
 			$node->Commit( $container );
 		}
 		else
-			$node = new COntologyNode( $container, $node );
+		{
+print_r( $record );
+exit;
+			$node = new COntologyNode( $container, $record[ kTAG_LID ] );
+		}
 		$_SESSION[ 'NODES' ][ kDEF_DOMAIN ] = $node;
 		//
 		// Display.
@@ -3025,7 +3037,6 @@ EOT;
 		//
 		// Load crop codes.
 		//
-echo( "Need to add the genus and species to the terms!\n" );
 		$query = <<<EOT
 SELECT
 	`Code_Annex1_Crops`.`Code`,

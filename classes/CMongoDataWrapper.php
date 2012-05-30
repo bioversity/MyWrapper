@@ -924,7 +924,9 @@ class CMongoDataWrapper extends CDataWrapper
 		//
 		// Query database.
 		//
-		$cursor = $_REQUEST[ kAPI_CONTAINER ]->find( $_REQUEST[ kAPI_DATA_QUERY ] );
+		$cursor = ( array_key_exists( kAPI_DATA_QUERY, $_REQUEST ) )
+				? $_REQUEST[ kAPI_CONTAINER ]->find( $_REQUEST[ kAPI_DATA_QUERY ] )
+				: $_REQUEST[ kAPI_CONTAINER ]->find();
 		
 		//
 		// Set count.
@@ -1160,7 +1162,7 @@ class CMongoDataWrapper extends CDataWrapper
 					CDataType::SerialiseObject( $result );
 					
 					//
-					// Copy to response.
+					// Set response.
 					//
 					$this->offsetSet( kAPI_DATA_RESPONSE, $result );
 				

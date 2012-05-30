@@ -137,9 +137,11 @@ class CWarehouseWrapper extends CMongoDataWrapper
 			switch( $_REQUEST[ kAPI_OPERATION ] )
 			{
 				//
-				// Handle terms list.
+				// Enforce paging.
 				//
 				case kAPI_OP_GET_TERMS:
+				case kAPI_OP_GET_NODES:
+				case kAPI_OP_GET_EDGES:
 					//
 					// Check if identifiers are missig.
 					//
@@ -158,6 +160,32 @@ class CWarehouseWrapper extends CMongoDataWrapper
 					
 					} // Missing identifiers.
 
+					//
+					// Init container name.
+					//
+					if( ! array_key_exists( kAPI_CONTAINER, $_REQUEST ) )
+					{
+						//
+						// Reparse operation.
+						//
+						switch( $_REQUEST[ kAPI_OPERATION ] )
+						{
+							case kAPI_OP_GET_TERMS:
+								$_REQUEST[ kAPI_CONTAINER ] = kDEFAULT_CNT_TERMS;
+								break;
+						
+							case kAPI_OP_GET_NODES:
+								$_REQUEST[ kAPI_CONTAINER ] = kDEFAULT_CNT_NODES;
+								break;
+						
+							case kAPI_OP_GET_EDGES:
+								$_REQUEST[ kAPI_CONTAINER ] = kDEFAULT_CNT_EDGES;
+								break;
+						
+						} // Reparsing operation.
+					
+					} // Missing container reference.
+					
 					break;
 			
 			} // Parsed operation.
@@ -561,7 +589,6 @@ class CWarehouseWrapper extends CMongoDataWrapper
 					// Handle term references.
 					//
 					case kAPI_OP_GET_TERMS:
-					case kAPI_OP_GET_TERMS_COUNT:
 						//
 						// Hash identifiers.
 						//
@@ -584,6 +611,36 @@ class CWarehouseWrapper extends CMongoDataWrapper
 															kTAG_LID,
 															$identifiers,
 															kTYPE_BINARY ),
+														kOPERATOR_AND );
+						break;
+				
+					//
+					// Handle node references.
+					//
+					case kAPI_OP_GET_NODES:
+					case kAPI_OP_GET_EDGES:
+						//
+						// Hash identifiers.
+						//
+						$identifiers = Array();
+						foreach( $_REQUEST[ kAPI_OPT_IDENTIFIERS ] as $identifier )
+						{
+							//
+							// Add only if not an array.
+							//
+							if( ! is_array( $identifier ) )
+								$identifiers[] = $identifier;
+						}
+			
+						//
+						// Convert to query.
+						//
+						$_REQUEST[ kAPI_DATA_QUERY ] = new CMongoQuery();
+						$_REQUEST[ kAPI_DATA_QUERY ]->AppendStatement(
+														CQueryStatement::Member(
+															kTAG_LID,
+															$identifiers,
+															kTYPE_INT64 ),
 														kOPERATOR_AND );
 						break;
 				
@@ -775,7 +832,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				
 				break;
 				
-			case kAPI_OP_GET_EDGES:
+			case kAPI_OP_GET_RELS:
 				//
 				// Check relations level.
 				//
@@ -804,11 +861,6 @@ class CWarehouseWrapper extends CMongoDataWrapper
 					}
 				}
 				
-			case kAPI_OP_GET_TERMS:
-			case kAPI_OP_GET_TERMS_COUNT:
-			case kAPI_OP_GET_NODES:
-			case kAPI_OP_QUERY_ROOTS:
-				
 				//
 				// Check for database.
 				//
@@ -825,8 +877,34 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				//
 				if( (! array_key_exists( kAPI_CONTAINER, $_REQUEST ))
 				 || (! strlen( $_REQUEST[ kAPI_CONTAINER ] )) )
+					$_REQUEST[ kAPI_CONTAINER ] = kDEFAULT_CNT_TERMS;
+				
+				break;
+				
+			case kAPI_OP_QUERY_ROOTS:
+				
+				//
+				// Check for container.
+				//
+				if( (! array_key_exists( kAPI_CONTAINER, $_REQUEST ))
+				 || (! strlen( $_REQUEST[ kAPI_CONTAINER ] )) )
 					throw new CException
 						( "Missing container reference",
+						  kERROR_OPTION_MISSING,
+						  kMESSAGE_TYPE_ERROR,
+						  array( 'Operation' => $parameter ) );					// !@! ==>
+
+			case kAPI_OP_GET_TERMS:
+			case kAPI_OP_GET_NODES:
+			case kAPI_OP_GET_EDGES:
+				
+				//
+				// Check for database.
+				//
+				if( (! array_key_exists( kAPI_DATABASE, $_REQUEST ))
+				 || (! strlen( $_REQUEST[ kAPI_DATABASE ] )) )
+					throw new CException
+						( "Missing database reference",
 						  kERROR_OPTION_MISSING,
 						  kMESSAGE_TYPE_ERROR,
 						  array( 'Operation' => $parameter ) );					// !@! ==>
@@ -877,11 +955,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				break;
 
 			case kAPI_OP_GET_TERMS:
-				$this->_Handle_Get();
-				break;
-
-			case kAPI_OP_GET_TERMS_COUNT:
-				$this->_Handle_Count();
+				$this->_Handle_GetTerms();
 				break;
 
 			case kAPI_OP_GET_NODES:
@@ -890,6 +964,10 @@ class CWarehouseWrapper extends CMongoDataWrapper
 
 			case kAPI_OP_GET_EDGES:
 				$this->_Handle_GetEdges();
+				break;
+
+			case kAPI_OP_GET_RELS:
+				$this->_Handle_GetRelations();
 				break;
 
 			case kAPI_OP_QUERY_ROOTS:
@@ -990,33 +1068,209 @@ class CWarehouseWrapper extends CMongoDataWrapper
 
 	 
 	/*===================================================================================
+	 *	_Handle_GetTerms																*
+	 *==================================================================================*/
+
+	/**
+	 * Handle {@link kAPI_OP_GET_TERMS Get-terms} request.
+	 *
+	 * This method will handle the {@link kAPI_OP_GET_TERMS kAPI_OP_GET_TERMS} request,
+	 * which is equivalent to the {@link _Handle_Get() _Handle_Get} method, wit the only
+	 * difference being that each found element is here indexed by the term global
+	 * {@link kTAG_GID identifier}.
+	 *
+	 * The only reason to re-develop this method is to provide a consistent view of terms in
+	 * all calls.
+	 *
+	 * @access protected
+	 */
+	protected function _Handle_GetTerms()
+	{
+		//
+		// Handle query.
+		//
+		$query = ( array_key_exists( kAPI_DATA_QUERY, $_REQUEST ) )
+				? $_REQUEST[ kAPI_DATA_QUERY ]
+				: Array();
+		
+		//
+		// Handle fields.
+		//
+		$fields = ( array_key_exists( kAPI_DATA_FIELD, $_REQUEST ) )
+				? $_REQUEST[ kAPI_DATA_FIELD ]
+				: Array();
+		
+		//
+		// Handle sort.
+		//
+		$sort = ( array_key_exists( kAPI_DATA_SORT, $_REQUEST ) )
+			  ? $_REQUEST[ kAPI_DATA_SORT ]
+			  : Array();
+		
+		//
+		// Fix fields.
+		// Need to add GID, or we will not be able to index results array.
+		//
+		$added = FALSE;
+		if( count( $fields )
+		 && (! array_key_exists( kTAG_GID, $fields )) )
+		{
+			$fields[ kTAG_GID ] = TRUE;
+			$added = TRUE;
+		}
+		
+		//
+		// Get cursor.
+		//
+		$cursor = $_REQUEST[ kAPI_CONTAINER ]->find( $query, $fields );
+		
+		//
+		// Set total count.
+		//
+		$count = $cursor->count( FALSE );
+		$this->_OffsetManage( kAPI_DATA_STATUS, kAPI_AFFECTED_COUNT, $count );
+		
+		//
+		// Continue if count option is not there.
+		//
+		if( (! array_key_exists( kAPI_DATA_OPTIONS, $_REQUEST ))
+		 || (! array_key_exists( kAPI_OPT_COUNT, $_REQUEST[ kAPI_DATA_OPTIONS ] ))
+		 || (! $_REQUEST[ kAPI_DATA_OPTIONS ][ kAPI_OPT_COUNT ]) )
+		{
+			//
+			// Handle results.
+			//
+			if( $count )
+			{
+				//
+				// Set sort.
+				//
+				if( $sort )
+					$cursor->sort( $sort );
+				
+				//
+				// Set paging.
+				//
+				if( $this->offsetExists( kAPI_DATA_PAGING ) )
+				{
+					//
+					// Set paging.
+					//
+					$paging = $this->offsetGet( kAPI_DATA_PAGING );
+					$start = ( array_key_exists( kAPI_PAGE_START, $paging ) )
+						   ? (int) $paging[ kAPI_PAGE_START ]
+						   : 0;
+					$limit = ( array_key_exists( kAPI_PAGE_LIMIT, $paging ) )
+						   ? (int) $paging[ kAPI_PAGE_LIMIT ]
+						   : 0;
+					
+					//
+					// Position at start.
+					//
+					if( $start )
+						$cursor->skip( $start );
+					
+					//
+					// Set limit.
+					//
+					if( $limit )
+						$cursor->limit( $limit );
+					
+					//
+					// Set page count.
+					//
+					$pcount = $cursor->count( TRUE );
+					
+					//
+					// Update parameters.
+					//
+					$this->_OffsetManage( kAPI_DATA_PAGING, kAPI_PAGE_START, $start );
+					$this->_OffsetManage( kAPI_DATA_PAGING, kAPI_PAGE_LIMIT, $limit );
+					$this->_OffsetManage( kAPI_DATA_PAGING, kAPI_PAGE_COUNT, $pcount );
+				
+				} // Provided paging options.
+				
+				//
+				// Handle response.
+				//
+				if( (! array_key_exists( kAPI_OPT_NO_RESP, $_REQUEST ))
+				 || (! $_REQUEST[ kAPI_OPT_NO_RESP ]) )
+				{
+					//
+					// Collect result.
+					//
+					$result = Array();
+					foreach( $cursor as $element )
+					{
+						//
+						// Save index.
+						//
+						$idx = $element[ kTAG_GID ];
+						
+						//
+						// Remove GID if necessary.
+						//
+						if( $added )
+							unset( $element[ kTAG_GID ] );
+						
+						//
+						// Add element.
+						//
+						$result[ $idx ] = $element;
+					
+					} // Loading results.
+					
+					//
+					// Handle options.
+					//
+					if( array_key_exists( kAPI_DATA_OPTIONS, $_REQUEST ) )
+						$this->_HandleOptions( $result );
+		
+					//
+					// Serialise response.
+					//
+					CDataType::SerialiseObject( $result );
+					
+					//
+					// Set response.
+					//
+					$this->offsetSet( kAPI_DATA_RESPONSE, $result );
+				
+				} // No response option not set.
+				
+			} // Has results.
+		
+		} // Not COUNT option.
+	
+	} // _Handle_GetTerms.
+
+	 
+	/*===================================================================================
 	 *	_Handle_GetNodes																*
 	 *==================================================================================*/
 
 	/**
-	 * Handle {@link kAPI_OP_GET_NODES get-nodes} request.
+	 * Handle get nodes request.
 	 *
-	 * This method expects the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter
-	 * to hold a list of node IDs, the method will query these nodes and return the
-	 * following structure:
+	 * This method will process the query provided in the
+	 * {@link kAPI_DATA_QUERY kAPI_DATA_QUERY} parameter and return a result structured as
+	 * follows:
 	 *
 	 * <ul>
-	 *	<li><i>{@link kAPI_RESPONSE_TERMS kAPI_RESPONSE_TERMS}</i>: The list of terms
-	 *		related to the list of nodes as follows:
+	 *	<li><i>{@link kAPI_RESPONSE_NODES kAPI_RESPONSE_NODES}</i>: The list of found nodes
+	 *		as follows:
 	 *	 <ul>
-	 *		<li><i>Index</i>: The term {@link kTAG_GID identifier}.
-	 *		<li><i>Value</i>: The term properties.
-	 *	 </ul>
-	 *	<li><i>{@link kAPI_RESPONSE_NODES kAPI_RESPONSE_NODES}</i>: The list of nodes as
-	 *		follows:
-	 *	 <ul>
-	 *		<li><i>Index</i>: The node ID.
+	 *		<li><i>Key</i>: The node ID.
 	 *		<li><i>Value</i>: The node properties.
 	 *	 </ul>
+	 *	<li><i>{@link kAPI_RESPONSE_TERMS kAPI_RESPONSE_TERMS}</i>: The list of terms
+	 *		related to the list of found nodes as follows:
+	 *	 <ul>
+	 *		<li><i>Key</i>: The {@link COntologyTerm term} global
+	 *			{@link kTAG_GID identifier}.
+	 *		<li><i>Value</i>: The contents of the {@link COntologyTerm term}.
+	 *	 </ul>
 	 * </ul>
-	 *
-	 * If the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter was not provided,
-	 * the method will return the above structure with no content.
 	 *
 	 * @access protected
 	 */
@@ -1025,123 +1279,214 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		//
 		// Init local storage.
 		//
-		$count = 0;
-		$container = array( kTAG_TERM => new CMongoContainer( $_REQUEST[ kAPI_CONTAINER ] ),
-							kTAG_NODE => $_SESSION[ kSESSION_NEO4J ] );
-		$response = array( kAPI_RESPONSE_TERMS => Array(),
-						   kAPI_RESPONSE_NODES => Array() );
+		$container[ kTAG_NODE ]
+			= new CMongoContainer
+					( $_REQUEST[ kAPI_DATABASE ]->
+						selectCollection( kDEFAULT_CNT_NODES ) );
+		$container[ kTAG_TERM ]
+			= new CMongoContainer
+					( $_REQUEST[ kAPI_DATABASE ]->
+						selectCollection( kDEFAULT_CNT_TERMS ) );
 		
 		//
-		// Get fields.
+		// Handle query.
+		//
+		$query = ( array_key_exists( kAPI_DATA_QUERY, $_REQUEST ) )
+				? $_REQUEST[ kAPI_DATA_QUERY ]
+				: Array();
+		
+		//
+		// Handle fields.
 		//
 		$fields = ( array_key_exists( kAPI_DATA_FIELD, $_REQUEST ) )
 				? $_REQUEST[ kAPI_DATA_FIELD ]
 				: Array();
 		
 		//
-		// Handle identifiers.
+		// Handle sort.
 		//
-		if( array_key_exists( kAPI_OPT_IDENTIFIERS, $_REQUEST ) )
+		$sort = ( array_key_exists( kAPI_DATA_SORT, $_REQUEST ) )
+			  ? $_REQUEST[ kAPI_DATA_SORT ]
+			  : Array();
+		
+		//
+		// Get nodes cursor.
+		// Note that we do not use fields on nodes, but on terms yes.
+		//
+		$cursor = $container[ kTAG_NODE ]->Container()->find( $query );
+		
+		//
+		// Set total count.
+		//
+		$count = $cursor->count( FALSE );
+		$this->_OffsetManage( kAPI_DATA_STATUS, kAPI_AFFECTED_COUNT, $count );
+		
+		//
+		// Continue if count option is not there.
+		//
+		if( (! array_key_exists( kAPI_DATA_OPTIONS, $_REQUEST ))
+		 || (! array_key_exists( kAPI_OPT_COUNT, $_REQUEST[ kAPI_DATA_OPTIONS ] ))
+		 || (! $_REQUEST[ kAPI_DATA_OPTIONS ][ kAPI_OPT_COUNT ]) )
 		{
 			//
-			// Init local storage.
+			// Handle results.
 			//
-			$terms = Array();
-			$ref_term = & $response[ kAPI_RESPONSE_TERMS ];
-			$ref_node = & $response[ kAPI_RESPONSE_NODES ];
-			
-			//
-			// Iterate identifiers.
-			//
-			foreach( $_REQUEST[ kAPI_OPT_IDENTIFIERS ] as $id )
+			if( $count )
 			{
 				//
-				// Instantiate node.
+				// Set sort.
 				//
-				$node = $_SESSION[ kSESSION_NEO4J ]->getNode( $id );
-				if( $node !== NULL )
-				{
-					//
-					// Get node properties.
-					//
-					$ref_node[ $id ] = $node->getProperties();
-					
-					//
-					// Get term identifier.
-					//
-					$term = $node->getProperty( kTAG_TERM );
-					if( ($term !== NULL)
-					 && (! in_array( $term, $terms )) )
-						$terms[] = $term;
-					
-					//
-					// Count.
-					//
-					$count++;
-				
-				} // Found node.
+				if( $sort )
+					$cursor->sort( $sort );
 				
 				//
-				// Handle missing node.
+				// Set paging.
 				//
-				else
-					$ref_node[ $id ] = Array();
-			
-			} // Iterating identifiers.
-			
-			//
-			// Normalise identifiers.
-			//
-			foreach( $terms as $key => $value )
-			{
-				$value = COntologyTerm::HashIndex( $value );
-				$container[ kTAG_TERM ]->UnserialiseData( $value );
-				$terms[ $key ] = $value;
-			}
-			
-			//
-			// Fix fields.
-			//
-			$added = FALSE;
-			if( count( $fields )
-			 && (! array_key_exists( kTAG_GID, $fields )) )
-			{
-				$fields[ kTAG_GID ] = TRUE;
-				$added = TRUE;
-			}
-			
-			//
-			// Load terms.
-			//
-			$query = array( kTAG_LID => array( '$in' => $terms ) );
-			$cursor = $container[ kTAG_TERM ]->Container()->find( $query, $fields );
-			
-			//
-			// Save terms.
-			//
-			foreach( $cursor as $record )
-			{
-				CDataType::SerialiseObject( $record );
-				if( array_key_exists( kTAG_GID, $record ) )
+				if( $this->offsetExists( kAPI_DATA_PAGING ) )
 				{
-					$id = $record[ kTAG_GID ];
-					if( $added )
-						unset( $record[ kTAG_GID ] );
-					$ref_term[ $id ] = $record;
-				}
-			}
+					//
+					// Set paging.
+					//
+					$paging = $this->offsetGet( kAPI_DATA_PAGING );
+					$start = ( array_key_exists( kAPI_PAGE_START, $paging ) )
+						   ? (int) $paging[ kAPI_PAGE_START ]
+						   : 0;
+					$limit = ( array_key_exists( kAPI_PAGE_LIMIT, $paging ) )
+						   ? (int) $paging[ kAPI_PAGE_LIMIT ]
+						   : 0;
+					
+					//
+					// Position at start.
+					//
+					if( $start )
+						$cursor->skip( $start );
+					
+					//
+					// Set limit.
+					//
+					if( $limit )
+						$cursor->limit( $limit );
+					
+					//
+					// Set page count.
+					//
+					$pcount = $cursor->count( TRUE );
+					
+					//
+					// Update parameters.
+					//
+					$this->_OffsetManage( kAPI_DATA_PAGING, kAPI_PAGE_START, $start );
+					$this->_OffsetManage( kAPI_DATA_PAGING, kAPI_PAGE_LIMIT, $limit );
+					$this->_OffsetManage( kAPI_DATA_PAGING, kAPI_PAGE_COUNT, $pcount );
+				
+				} // Provided paging options.
+				
+				//
+				// Handle response.
+				//
+				if( (! array_key_exists( kAPI_OPT_NO_RESP, $_REQUEST ))
+				 || (! $_REQUEST[ kAPI_OPT_NO_RESP ]) )
+				{
+					//
+					// Init local storage.
+					//
+					$terms = Array();
+					$response = array( kAPI_RESPONSE_TERMS => Array(),
+									   kAPI_RESPONSE_NODES => Array() );
+					$ref_term = & $response[ kAPI_RESPONSE_TERMS ];
+					$ref_node = & $response[ kAPI_RESPONSE_NODES ];
+					
+					//
+					// Load nodes.
+					//
+					foreach( $cursor as $record )
+					{
+						//
+						// Load node.
+						//
+						$ref_node[ $record[ kTAG_LID ] ] = $record[ kTAG_DATA ];
+						
+						//
+						// Load term.
+						//
+						if( array_key_exists( kTAG_TERM, $record[ kTAG_DATA ] ) )
+						{
+							//
+							// Normalise identifier.
+							//
+							$key = $record[ kTAG_DATA ][ kTAG_TERM ];
+							if( ! array_key_exists( $key, $terms ) )
+							{
+								//
+								// Hash index.
+								//
+								$value = COntologyTerm::HashIndex( $key );
+								
+								//
+								// Normalise for Mongo.
+								//
+								$container[ kTAG_TERM ]->UnserialiseData( $value );
+								
+								//
+								// Add to set.
+								//
+								$terms[ $key ] = $value;
+							
+							} // New term.
+						
+						} // Has term reference.
+					
+					} // Loading nodes.
+					
+					//
+					// Fix fields.
+					// Need to add GID, or we will not be able to index results array.
+					//
+					$added = FALSE;
+					if( count( $fields )
+					 && (! array_key_exists( kTAG_GID, $fields )) )
+					{
+						$fields[ kTAG_GID ] = TRUE;
+						$added = TRUE;
+					}
+					
+					//
+					// Load terms.
+					//
+					$query = array( kTAG_LID => array( '$in' => array_values( $terms ) ) );
+					$cursor = $container[ kTAG_TERM ]->Container()->find( $query, $fields );
+					foreach( $cursor as $record )
+					{
+						if( array_key_exists( kTAG_GID, $record ) )
+						{
+							$id = $record[ kTAG_GID ];
+							if( $added )
+								unset( $record[ kTAG_GID ] );
+							$ref_term[ $id ] = $record;
+						}
+					}
+					
+					//
+					// Handle options.
+					//
+					if( array_key_exists( kAPI_DATA_OPTIONS, $_REQUEST ) )
+						$this->_HandleOptions( $result );
 		
-		} // Has identifiers.
+					//
+					// Serialise response.
+					//
+					CDataType::SerialiseObject( $response );
+					
+					//
+					// Set response.
+					//
+					$this->offsetSet( kAPI_DATA_RESPONSE, $response );
+				
+				} // No response option not set.
+				
+			} // Has results.
 		
-		//
-		// Set count.
-		//
-		$this->_OffsetManage( kAPI_DATA_STATUS, kAPI_AFFECTED_COUNT, $count );
-
-		//
-		// Copy response.
-		//
-		$this->offsetSet( kAPI_DATA_RESPONSE, $response );
+		} // Not COUNT option.
 	
 	} // _Handle_GetNodes.
 
@@ -1151,28 +1496,17 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	 *==================================================================================*/
 
 	/**
-	 * Handle {@link kAPI_OP_GET_EDGES get-edges} request.
+	 * Handle get edges request.
 	 *
-	 * This method will return the following structure:
+	 * This method will process the query provided in the
+	 * {@link kAPI_DATA_QUERY kAPI_DATA_QUERY} parameter and return a result structured as
+	 * follows:
 	 *
 	 * <ul>
-	 *	<li><i>{@link kAPI_RESPONSE_TERMS kAPI_RESPONSE_TERMS}</i>: The list of terms
-	 *		related to the list of subject and object nodes and the list of predicate terms
-	 *		as follows:
-	 *	 <ul>
-	 *		<li><i>Index</i>: The term {@link kTAG_GID identifier}.
-	 *		<li><i>Value</i>: The term properties.
-	 *	 </ul>
-	 *	<li><i>{@link kAPI_RESPONSE_NODES kAPI_RESPONSE_NODES}</i>: The list of subject and
-	 *		object nodes as follows:
-	 *	 <ul>
-	 *		<li><i>Index</i>: The node ID.
-	 *		<li><i>Value</i>: The node properties.
-	 *	 </ul>
 	 *	<li><i>{@link kAPI_RESPONSE_EDGES kAPI_RESPONSE_EDGES}</i>: The list of edges as an
 	 *		array structured as follows:
 	 *	 <ul>
-	 *		<li><i>Index</i>: The edge identifier.
+	 *		<li><i>key</i>: The edge identifier.
 	 *		<li><i>Value</i>: An array structured as follows:
 	 *		 <ul>
 	 *			<li><i>{@link kAPI_RESPONSE_SUBJECT kAPI_RESPONSE_SUBJECT}</i>: The subject
@@ -1183,44 +1517,21 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	 *				{@link COntologyNode node} ID.
 	 *		 </ul>
 	 *	 </ul>
-	 * </ul>
-	 *
-	 * The method will interpret the contents of the
-	 * {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter depending on whether the
-	 * {@link kAPI_OPT_DIRECTION kAPI_OPT_DIRECTION} parameter was provided or not:
-	 *
-	 * <ul>
-	 *	<li><i>{@link kAPI_OPT_DIRECTION kAPI_OPT_DIRECTION} not provided</i>: In this case
-	 *		the method will treat the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS}
-	 *		parameter elements as a list of {@link COntologyEdge edge} identifiers to be
-	 *		matched.
-	 *	<li><i>{@link kAPI_OPT_DIRECTION kAPI_OPT_DIRECTION} provided</i>: In this case the
-	 *		method will treat the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS}
-	 *		parameter elements as a list of {@link COntologyNode node} identifiers for which
-	 *		we want to retrieve connected {@link COntologyEdge edges} in the direction
-	 *		provided in the {@link kAPI_OPT_DIRECTION kAPI_OPT_DIRECTION} parameter:
+	 *	<li><i>{@link kAPI_RESPONSE_NODES kAPI_RESPONSE_NODES}</i>: The list of
+	 *		{@link kAPI_RESPONSE_SUBJECT subject} and {@link kAPI_RESPONSE_OBJECT object}
+	 *		found nodes as follows:
 	 *	 <ul>
-	 *		<li><i>{@link kAPI_DIRECTION_IN kAPI_DIRECTION_IN}</i>: The service will return
-	 *			all {@link COntologyEdge edges} that point to the
-	 *			{@link COntologyNode nodes} provided in the
-	 *			{@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter.
-	 *		<li><i>{@link kAPI_DIRECTION_OUT kAPI_DIRECTION_OUT}</i>: The service will
-	 *			return all {@link COntologyEdge edges} pointing from the
-	 *			{@link COntologyNode nodes} provided in the
-	 *			{@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter.
-	 *		<li><i>{@link kAPI_DIRECTION_ALL kAPI_DIRECTION_ALL}</i>: The service will
-	 *			return all {@link COntologyEdge edges} connected in any way to the
-	 *			{@link COntologyNode nodes} provided in the
-	 *			{@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter.
+	 *		<li><i>Key</i>: The node ID.
+	 *		<li><i>Value</i>: The node properties.
+	 *	 </ul>
+	 *	<li><i>{@link kAPI_RESPONSE_TERMS kAPI_RESPONSE_TERMS}</i>: The list of terms
+	 *		related to the list of found nodes and to the edge predicate as follows:
+	 *	 <ul>
+	 *		<li><i>Key</i>: The {@link COntologyTerm term} global
+	 *			{@link kTAG_GID identifier}.
+	 *		<li><i>Value</i>: The contents of the {@link COntologyTerm term}.
 	 *	 </ul>
 	 * </ul>
-	 *
-	 * If the {@link kAPI_OPT_PREDICATES kAPI_OPT_PREDICATES} parameter was provided, only
-	 * those {@link COntologyEdge edges} whose type matches any of the predicate
-	 * {@link COntologyTerm term} identifiers provided in that parameter will be selected.
-	 *
-	 * If the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter was not provided,
-	 * the method will return the above structure with no content.
 	 *
 	 * @access protected
 	 */
@@ -1229,12 +1540,451 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		//
 		// Init local storage.
 		//
+		$container = Array();
+		$container[ kTAG_EDGE ]
+			= new CMongoContainer
+					( $_REQUEST[ kAPI_DATABASE ]->
+						selectCollection( kDEFAULT_CNT_EDGES ) );
+		$container[ kTAG_NODE ]
+			= new CMongoContainer
+					( $_REQUEST[ kAPI_DATABASE ]->
+						selectCollection( kDEFAULT_CNT_NODES ) );
+		$container[ kTAG_TERM ]
+			= new CMongoContainer
+					( $_REQUEST[ kAPI_DATABASE ]->
+						selectCollection( kDEFAULT_CNT_TERMS ) );
+		
+		//
+		// Handle query.
+		//
+		$query = ( array_key_exists( kAPI_DATA_QUERY, $_REQUEST ) )
+				? $_REQUEST[ kAPI_DATA_QUERY ]
+				: Array();
+		
+		//
+		// Handle fields.
+		//
+		$fields = ( array_key_exists( kAPI_DATA_FIELD, $_REQUEST ) )
+				? $_REQUEST[ kAPI_DATA_FIELD ]
+				: Array();
+		
+		//
+		// Get predicates.
+		//
+		$predicates = ( array_key_exists( kAPI_OPT_PREDICATES, $_REQUEST ) )
+					? $_REQUEST[ kAPI_OPT_PREDICATES ]
+					: Array();
+		
+		//
+		// Handle sort.
+		//
+		$sort = ( array_key_exists( kAPI_DATA_SORT, $_REQUEST ) )
+			  ? $_REQUEST[ kAPI_DATA_SORT ]
+			  : Array();
+		
+		//
+		// Get edges cursor.
+		// Note that we do not use fields on edges, but on terms yes.
+		//
+		$cursor = $container[ kTAG_EDGE ]->Container()->find( $query );
+		
+		//
+		// Set total count.
+		//
+		$count = $cursor->count( FALSE );
+		$this->_OffsetManage( kAPI_DATA_STATUS, kAPI_AFFECTED_COUNT, $count );
+		
+		//
+		// Continue if count option is not there.
+		//
+		if( (! array_key_exists( kAPI_DATA_OPTIONS, $_REQUEST ))
+		 || (! array_key_exists( kAPI_OPT_COUNT, $_REQUEST[ kAPI_DATA_OPTIONS ] ))
+		 || (! $_REQUEST[ kAPI_DATA_OPTIONS ][ kAPI_OPT_COUNT ]) )
+		{
+			//
+			// Handle results.
+			//
+			if( $count )
+			{
+				//
+				// Set sort.
+				//
+				if( $sort )
+					$cursor->sort( $sort );
+				
+				//
+				// Set paging.
+				//
+				if( $this->offsetExists( kAPI_DATA_PAGING ) )
+				{
+					//
+					// Set paging.
+					//
+					$paging = $this->offsetGet( kAPI_DATA_PAGING );
+					$start = ( array_key_exists( kAPI_PAGE_START, $paging ) )
+						   ? (int) $paging[ kAPI_PAGE_START ]
+						   : 0;
+					$limit = ( array_key_exists( kAPI_PAGE_LIMIT, $paging ) )
+						   ? (int) $paging[ kAPI_PAGE_LIMIT ]
+						   : 0;
+					
+					//
+					// Position at start.
+					//
+					if( $start )
+						$cursor->skip( $start );
+					
+					//
+					// Set limit.
+					//
+					if( $limit )
+						$cursor->limit( $limit );
+					
+					//
+					// Set page count.
+					//
+					$pcount = $cursor->count( TRUE );
+					
+					//
+					// Update parameters.
+					//
+					$this->_OffsetManage( kAPI_DATA_PAGING, kAPI_PAGE_START, $start );
+					$this->_OffsetManage( kAPI_DATA_PAGING, kAPI_PAGE_LIMIT, $limit );
+					$this->_OffsetManage( kAPI_DATA_PAGING, kAPI_PAGE_COUNT, $pcount );
+				
+				} // Provided paging options.
+				
+				//
+				// Handle response.
+				//
+				if( (! array_key_exists( kAPI_OPT_NO_RESP, $_REQUEST ))
+				 || (! $_REQUEST[ kAPI_OPT_NO_RESP ]) )
+				{
+					//
+					// Init local storage.
+					//
+					$terms = $nodes = Array();
+					$response = array( kAPI_RESPONSE_TERMS => Array(),
+									   kAPI_RESPONSE_NODES => Array(),
+									   kAPI_RESPONSE_EDGES => Array() );
+					
+					//
+					// Init local references.
+					//
+					$ref_term = & $response[ kAPI_RESPONSE_TERMS ];
+					$ref_node = & $response[ kAPI_RESPONSE_NODES ];
+					$ref_edge = & $response[ kAPI_RESPONSE_EDGES ];
+					
+					//
+					// Load edges.
+					//
+					foreach( $cursor as $record )
+					{
+						//
+						// Filter predicates.
+						//
+						if( (! count( $predicates ))
+						 || in_array( $theEdge->getType(), $predicates ) )
+						{
+							//
+							// Get edge elements.
+							//
+							$subject = $record[ kTAG_SUBJECT ][ kTAG_NODE ];
+							$predicate = $record[ kTAG_PREDICATE ][ kTAG_TERM ];
+							$object = $record[ kTAG_OBJECT ][ kTAG_NODE ];
+							if( array_key_exists( kTAG_DATA, $record ) )
+								$data = $record[ kTAG_DATA ];
+							
+							//
+							// Load edge.
+							//
+							$ref_edge[ $record[ kTAG_PREDICATE ][ kTAG_NODE ] ]
+								= array( kAPI_RESPONSE_SUBJECT => $subject,
+										 kAPI_RESPONSE_PREDICATE => $predicate,
+										 kAPI_RESPONSE_OBJECT => $object,
+										 kTAG_DATA => $data );
+							
+							//
+							// Load subject.
+							//
+							$term = $record[ kTAG_SUBJECT ][ kTAG_TERM ];
+							$nodes[ $subject ] = $subject;
+							if( ! array_key_exists( $term, $terms ) )
+							{
+								//
+								// Hash index.
+								//
+								$value = COntologyTerm::HashIndex( $term );
+								
+								//
+								// Normalise for Mongo.
+								//
+								$container[ kTAG_TERM ]->UnserialiseData( $value );
+								
+								//
+								// Add to set.
+								//
+								$terms[ $term ] = $value;
+							
+							} // New subject term.
+							
+							//
+							// Load predicate.
+							//
+							if( ! array_key_exists( $predicate, $terms ) )
+							{
+								//
+								// Hash index.
+								//
+								$value = COntologyTerm::HashIndex( $predicate );
+								
+								//
+								// Normalise for Mongo.
+								//
+								$container[ kTAG_TERM ]->UnserialiseData( $value );
+								
+								//
+								// Add to set.
+								//
+								$terms[ $predicate ] = $value;
+							
+							} // New predicate term.
+							
+							//
+							// Load object.
+							//
+							$term = $record[ kTAG_OBJECT ][ kTAG_TERM ];
+							$nodes[ $object ] = $object;
+							if( ! array_key_exists( $term, $terms ) )
+							{
+								//
+								// Hash index.
+								//
+								$value = COntologyTerm::HashIndex( $term );
+								
+								//
+								// Normalise for Mongo.
+								//
+								$container[ kTAG_TERM ]->UnserialiseData( $value );
+								
+								//
+								// Add to set.
+								//
+								$terms[ $term ] = $value;
+							
+							} // New object term.
+							
+							//
+							// Load term.
+							//
+							if( array_key_exists( kTAG_TERM, $record[ kTAG_DATA ] ) )
+							{
+								//
+								// Normalise identifier.
+								//
+								$key = $record[ kTAG_DATA ][ kTAG_TERM ];
+								if( ! array_key_exists( $key, $terms ) )
+								{
+									//
+									// Hash index.
+									//
+									$value = COntologyTerm::HashIndex( $key );
+									
+									//
+									// Normalise for Mongo.
+									//
+									$container[ kTAG_TERM ]->UnserialiseData( $value );
+									
+									//
+									// Add to set.
+									//
+									$terms[ $key ] = $value;
+								
+								} // New term.
+							
+							} // Has term reference.
+						
+						} // Missing or matched predicates.
+					
+					} // Loading edges.
+					
+					//
+					// Load nodes.
+					//
+					if( count( $nodes ) )
+					{
+						//
+						// Set query.
+						//
+						$query = Array();
+						$query[ kTAG_LID ] = array( '$in' => array_values( $nodes ) );
+						
+						//
+						// Make query.
+						//
+						$cursor = $container[ kTAG_NODE ]->Container()->find( $query );
+						
+						//
+						// Load found nodes.
+						//
+						foreach( $cursor as $record )
+							$ref_node[ $record[ kTAG_LID ] ] = $record[ kTAG_DATA ];					
+					
+					} // Found nodes.
+					
+					//
+					// Load terms.
+					//
+					if( count( $terms ) )
+					{
+						//
+						// Fix fields.
+						// Need to add GID, or we will not be able to index results array.
+						//
+						$added = FALSE;
+						if( count( $fields )
+						 && (! array_key_exists( kTAG_GID, $fields )) )
+						{
+							$fields[ kTAG_GID ] = TRUE;
+							$added = TRUE;
+						}
+						
+						//
+						// Set query.
+						//
+						$query = Array();
+						$query[ kTAG_LID ] = array( '$in' => array_values( $terms ) );
+						
+						//
+						// Make query.
+						//
+						$cursor = $container[ kTAG_TERM ]->Container()
+															->find( $query, $fields );
+						
+						//
+						// Load terms.
+						//
+						foreach( $cursor as $record )
+						{
+							if( array_key_exists( kTAG_GID, $record ) )
+							{
+								$id = $record[ kTAG_GID ];
+								if( $added )
+									unset( $record[ kTAG_GID ] );
+								$ref_term[ $id ] = $record;
+							}
+						}
+					
+					} // Found terms.
+					
+					//
+					// Handle options.
+					//
+					if( array_key_exists( kAPI_DATA_OPTIONS, $_REQUEST ) )
+						$this->_HandleOptions( $result );
+		
+					//
+					// Serialise response.
+					//
+					CDataType::SerialiseObject( $response );
+					
+					//
+					// Set response.
+					//
+					$this->offsetSet( kAPI_DATA_RESPONSE, $response );
+				
+				} // No response option not set.
+				
+			} // Has results.
+		
+		} // Not COUNT option.
+	
+	} // _Handle_GetEdges.
+
+	 
+	/*===================================================================================
+	 *	_Handle_GetRelations															*
+	 *==================================================================================*/
+
+	/**
+	 * Handle {@link kAPI_OP_GET_RELS get-relations} request.
+	 *
+	 * This method will return the same structure as the
+	 * {@link kAPI_OP_GET_EDGES kAPI_OP_GET_EDGES} service:
+	 *
+	 * <ul>
+	 *	<li><i>{@link kAPI_RESPONSE_EDGES kAPI_RESPONSE_EDGES}</i>: The list of edges as an
+	 *		array structured as follows:
+	 *	 <ul>
+	 *		<li><i>key</i>: The edge identifier.
+	 *		<li><i>Value</i>: An array structured as follows:
+	 *		 <ul>
+	 *			<li><i>{@link kAPI_RESPONSE_SUBJECT kAPI_RESPONSE_SUBJECT}</i>: The subject
+	 *				{@link COntologyNode node} ID.
+	 *			<li><i>{@link kAPI_RESPONSE_PREDICATE kAPI_RESPONSE_PREDICATE}</i>: The
+	 *				predicate {@link COntologyTerm term} {@link kTAG_GID identifier}.
+	 *			<li><i>{@link kAPI_RESPONSE_OBJECT kAPI_RESPONSE_OBJECT}</i>: The object
+	 *				{@link COntologyNode node} ID.
+	 *		 </ul>
+	 *	 </ul>
+	 *	<li><i>{@link kAPI_RESPONSE_NODES kAPI_RESPONSE_NODES}</i>: The list of
+	 *		{@link kAPI_RESPONSE_SUBJECT subject} and {@link kAPI_RESPONSE_OBJECT object}
+	 *		found nodes as follows:
+	 *	 <ul>
+	 *		<li><i>Key</i>: The node ID.
+	 *		<li><i>Value</i>: The node properties.
+	 *	 </ul>
+	 *	<li><i>{@link kAPI_RESPONSE_TERMS kAPI_RESPONSE_TERMS}</i>: The list of terms
+	 *		related to the list of found nodes and to the edge predicate as follows:
+	 *	 <ul>
+	 *		<li><i>Key</i>: The {@link COntologyTerm term} global
+	 *			{@link kTAG_GID identifier}.
+	 *		<li><i>Value</i>: The contents of the {@link COntologyTerm term}.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * Depending on the value of the {@link kAPI_OPT_DIRECTION kAPI_OPT_DIRECTION}
+	 * parameter:
+	 *
+	 * <ul>
+	 *	<li><i>{@link kAPI_DIRECTION_IN kAPI_DIRECTION_IN}</i>: The service will return all
+	 *		{@link COntologyEdge edges} that point to the {@link COntologyNode nodes}
+	 *		provided in the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter.
+	 *	<li><i>{@link kAPI_DIRECTION_OUT kAPI_DIRECTION_OUT}</i>: The service will return
+	 *		all {@link COntologyEdge edges} pointing from the {@link COntologyNode nodes}
+	 *		provided in the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter.
+	 *	<li><i>{@link kAPI_DIRECTION_ALL kAPI_DIRECTION_ALL}</i>: The service will return
+	 *		all {@link COntologyEdge edges} connected in any way to the
+	 *		{@link COntologyNode nodes} provided in the
+	 *		{@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter.
+	 * </ul>
+	 *
+	 * The service also expects a {@link kAPI_OPT_LEVELS kAPI_OPT_LEVELS}parameter, a signed
+	 * integer, that indicates how many levels to recurse the graph traversal, if this parameter
+	 * is not provided, it will default to 1 level; to traverse all levels this parameter should
+	 * be set to a negative number; a level of 0 will only return the list of involved nodes and
+	 * terms.
+	 *
+	 * If the {@link kAPI_OPT_PREDICATES kAPI_OPT_PREDICATES} parameter was provided, only
+	 * those {@link COntologyEdge edges} whose type matches any of the predicate
+	 * {@link COntologyTerm term} identifiers provided in that parameter will be selected.
+	 *
+	 * If the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter was not provided,
+	 * the method will return the above structure with no content.
+	 *
+	 * <b><i>Note: this method handles the case in which the
+	 * {@link kAPI_OPT_DIRECTION direction} is not provided: in that case it will treat the
+	 * list of {@link kAPI_OPT_IDENTIFIERS identifiers} as a list of edge node IDs and will
+	 * work as the {@link kAPI_OP_GET_EDGES kAPI_OP_GET_EDGES} service</i></b>.
+	 *
+	 * @access protected
+	 */
+	protected function _Handle_GetRelations()
+	{
+		//
+		// Init local storage.
+		//
 		$count = 0;
-		$container = array( kTAG_TERM => new CMongoContainer( $_REQUEST[ kAPI_CONTAINER ] ),
-							kTAG_NODE => $_SESSION[ kSESSION_NEO4J ] );
-		$response = array( kAPI_RESPONSE_TERMS => Array(),
-						   kAPI_RESPONSE_NODES => Array(),
-						   kAPI_RESPONSE_EDGES => Array() );
 		
 		//
 		// Handle identifiers.
@@ -1242,12 +1992,32 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		if( array_key_exists( kAPI_OPT_IDENTIFIERS, $_REQUEST ) )
 		{
 			//
-			// Init local storage.
+			// Init container.
 			//
-			$terms = Array();
+			$container = array
+			(
+				kTAG_TERM => new CMongoContainer( $_REQUEST[ kAPI_CONTAINER ] ),
+				kTAG_NODE => $_SESSION[ kSESSION_NEO4J ]
+			);
+			
+			//
+			// Init response.
+			//
+			$response = array( kAPI_RESPONSE_TERMS => Array(),
+							   kAPI_RESPONSE_NODES => Array(),
+							   kAPI_RESPONSE_EDGES => Array() );
+			
+			//
+			// Init response references.
+			//
 			$ref_term = & $response[ kAPI_RESPONSE_TERMS ];
 			$ref_node = & $response[ kAPI_RESPONSE_NODES ];
 			$ref_edge = & $response[ kAPI_RESPONSE_EDGES ];
+			
+			//
+			// Init local storage.
+			//
+			$terms = Array();
 			
 			//
 			// Get predicates.
@@ -1262,7 +2032,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 			$fields = ( array_key_exists( kAPI_DATA_FIELD, $_REQUEST ) )
 					? $_REQUEST[ kAPI_DATA_FIELD ]
 					: Array();
-			
+
 			//
 			// Handle node relationships.
 			//
@@ -1286,7 +2056,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 								  array( 'Tag'
 								  		=> $_REQUEST[ kAPI_OPT_DIRECTION ] ) );	// !@! ==>
 				}
-
+				
 				//
 				// Iterate node identifiers.
 				//
@@ -1305,7 +2075,10 @@ class CWarehouseWrapper extends CMongoDataWrapper
 						$stack = array( $id => $node );
 						$count
 							+= $this->_Traverse
-								( $stack, $terms, $ref_node, $ref_edge, $level );
+								( $stack,
+								  $terms, $ref_node, $ref_edge,
+								  $predicates,
+								  $level );
 					
 					} // Found node.
 				
@@ -1337,46 +2110,64 @@ class CWarehouseWrapper extends CMongoDataWrapper
 			} // Direction not provided.
 			
 			//
-			// Normalise identifiers.
+			// Handle terms.
 			//
-			foreach( $terms as $key => $value )
+			if( count( $terms ) )
 			{
-				$value = COntologyTerm::HashIndex( $value );
-				$container[ kTAG_TERM ]->UnserialiseData( $value );
-				$terms[ $key ] = $value;
-			}
-			
-			//
-			// Fix fields.
-			//
-			$added = FALSE;
-			if( count( $fields )
-			 && (! array_key_exists( kTAG_GID, $fields )) )
-			{
-				$fields[ kTAG_GID ] = TRUE;
-				$added = TRUE;
-			}
-			
-			//
-			// Load terms.
-			//
-			$query = array( kTAG_LID => array( '$in' => $terms ) );
-			$cursor = $container[ kTAG_TERM ]->Container()->find( $query, $fields );
-			
-			//
-			// Save terms.
-			//
-			foreach( $cursor as $record )
-			{
-				CDataType::SerialiseObject( $record );
-				if( array_key_exists( kTAG_GID, $record ) )
+				//
+				// Normalise identifiers.
+				//
+				foreach( $terms as $key => $value )
 				{
-					$id = $record[ kTAG_GID ];
-					if( $added )
-						unset( $record[ kTAG_GID ] );
-					$ref_term[ $id ] = $record;
+					$value = COntologyTerm::HashIndex( $value );
+					$container[ kTAG_TERM ]->UnserialiseData( $value );
+					$terms[ $key ] = $value;
 				}
-			}
+				
+				//
+				// Fix fields.
+				//
+				$added = FALSE;
+				if( count( $fields )
+				 && (! array_key_exists( kTAG_GID, $fields )) )
+				{
+					$fields[ kTAG_GID ] = TRUE;
+					$added = TRUE;
+				}
+			
+				//
+				// Set query.
+				//
+				$query = Array();
+				$query[ kTAG_LID ] = array( '$in' => array_values( $terms ) );
+				
+				//
+				// Make query.
+				//
+				$cursor = $container[ kTAG_TERM ]->Container()->find( $query, $fields );
+				
+				//
+				// Save terms.
+				//
+				foreach( $cursor as $record )
+				{
+					CDataType::SerialiseObject( $record );
+					if( array_key_exists( kTAG_GID, $record ) )
+					{
+						$id = $record[ kTAG_GID ];
+						if( $added )
+							unset( $record[ kTAG_GID ] );
+						$ref_term[ $id ] = $record;
+					}
+				
+				} // Loading found terms.
+				
+			} // Found terms.
+	
+			//
+			// Copy response.
+			//
+			$this->offsetSet( kAPI_DATA_RESPONSE, $response );
 		
 		} // Provided identifiers list.
 		
@@ -1384,13 +2175,8 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		// Set count.
 		//
 		$this->_OffsetManage( kAPI_DATA_STATUS, kAPI_AFFECTED_COUNT, $count );
-
-		//
-		// Copy response.
-		//
-		$this->offsetSet( kAPI_DATA_RESPONSE, $response );
 	
-	} // _Handle_GetEdges.
+	} // _Handle_GetRelations.
 
 	 
 	/*===================================================================================
@@ -1537,16 +2323,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		//
 		$theList[ kAPI_OP_GET_TERMS ]
 			= 'This operation will return the list of ontology terms matching the provided '
-			.'list of term ['
-			.kAPI_OPT_IDENTIFIERS
-			.'] identifiers.';
-		
-		//
-		// Add kAPI_OP_GET_TERMS_COUNT.
-		//
-		$theList[ kAPI_OP_GET_TERMS_COUNT ]
-			= 'This operation will return the count of ontology terms matching the provided '
-			.'list of term ['
+			.'list of ['
 			.kAPI_OPT_IDENTIFIERS
 			.'] identifiers.';
 		
@@ -1564,7 +2341,16 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		//
 		$theList[ kAPI_OP_GET_EDGES ]
 			= 'This operation will return the list of ontology edge nodes matching the '
-			.'provided list of edge node ['
+			 .'provided list of edge node ['
+			.kAPI_OPT_IDENTIFIERS
+			.'] identifiers.';
+		
+		//
+		// Add kAPI_OP_GET_RELS.
+		//
+		$theList[ kAPI_OP_GET_RELS ]
+			= 'This operation will return the list of ontology edges related to the '
+			.'provided list of nodes ['
 			.kAPI_OPT_IDENTIFIERS
 			.'] identifiers.';
 		
@@ -1635,120 +2421,6 @@ class CWarehouseWrapper extends CMongoDataWrapper
 
 	 
 	/*===================================================================================
-	 *	_EdgeParser																		*
-	 *==================================================================================*/
-
-	/**
-	 * Collect edge elements.
-	 *
-	 * This method will collect the provided edge elements and set them into the provided
-	 * parameters.
-	 *
-	 * The parameters to this method are:
-	 *
-	 * <ul>
-	 *	<li><b>$theEdge</b>: Edge node to handle.
-	 *	<li><b>&$theTerms</b>: Reference to the list of term identifiers.
-	 *	<li><b>&$theNodes</b>: Reference to the list of nodes.
-	 *	<li><b>&$theEdges</b>: Reference to the list of edge elements.
-	 * </ul>
-	 *
-	 * The method will return 1 if the edge was handled, 0 if not.
-	 *
-	 * @param Relationship			$theEdge			Edge node to handle.
-	 * @param reference			   &$theTerms			List of term identifiers.
-	 * @param reference			   &$theNodes			List of nodes.
-	 * @param reference			   &$theEdges			List of edge references.
-	 *
-	 * @access protected
-	 */
-	protected function _EdgeParser( $theEdge,
-								   &$theTerms, &$theNodes, &$theEdges )
-	{
-		//
-		// Filter predicates.
-		//
-		if( (! array_key_exists( kAPI_OPT_PREDICATES, $_REQUEST ))
-		 || in_array( $theEdge->getType(), $_REQUEST[ kAPI_OPT_PREDICATES ] ) )
-		{
-			//
-			// Check if new.
-			//
-			if( ! array_key_exists( $theEdge->getId(), $theEdges ) )
-			{
-				//
-				// Save elements.
-				//
-				$subject = $theEdge->getStartNode();
-				$predicate = $theEdge->getType();
-				$object = $theEdge->getEndNode();
-				
-				//
-				// Add edge element.
-				//
-				$theEdges[ $theEdge->getId() ]
-					= array( kAPI_RESPONSE_SUBJECT => $subject->getId(),
-							 kAPI_RESPONSE_PREDICATE => $predicate,
-							 kAPI_RESPONSE_OBJECT => $object->getId() );
-				
-				//
-				// Add predicate term.
-				//
-				if( ! in_array( $predicate, $theTerms ) )
-					$theTerms[] = $predicate;
-				
-				//
-				// Add subject node.
-				//
-				if( ! array_key_exists( $subject->getId(), $theNodes ) )
-				{
-					//
-					// Set node.
-					//
-					$theNodes[ $subject->getId() ] = $subject->getProperties();
-					
-					//
-					// Set term.
-					//
-					$predicate = $subject->getProperty( kTAG_TERM );
-					if( ($predicate !== NULL)
-					 && (! in_array( $predicate, $theTerms )) )
-						$theTerms[] = $predicate;
-				
-				} // New subject.
-				
-				//
-				// Add object node.
-				//
-				if( ! array_key_exists( $object->getId(), $theNodes ) )
-				{
-					//
-					// Set node.
-					//
-					$theNodes[ $object->getId() ] = $object->getProperties();
-					
-					//
-					// Set term.
-					//
-					$predicate = $object->getProperty( kTAG_TERM );
-					if( ($predicate !== NULL)
-					 && (! in_array( $predicate, $theTerms )) )
-						$theTerms[] = $predicate;
-				
-				} // New object.
-				
-				return 1;															// ==>
-			
-			} // New edge.
-		
-		} // Predicate not filtered.
-		
-		return 0;																	// ==>
-	
-	} // _EdgeParser.
-
-	 
-	/*===================================================================================
 	 *	_Traverse																		*
 	 *==================================================================================*/
 
@@ -1766,6 +2438,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	 *	<li><b>&$theTerms</b>: Reference to the list of term identifiers.
 	 *	<li><b>&$theNodes</b>: Reference to the list of nodes.
 	 *	<li><b>&$theEdges</b>: Reference to the list of edge elements.
+	 *	<li><b>&$thePredicates</b>: Reference to the list of predicates to be considered.
 	 *	<li><b>$theLevel</b>: Current traversal depth level, 0 means the lowest.
 	 * </ul>
 	 *
@@ -1775,11 +2448,15 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	 * @param reference			   &$theTerms			List of term identifiers.
 	 * @param reference			   &$theNodes			List of nodes.
 	 * @param reference			   &$theEdges			List of edge references.
+	 * @param reference			   &$thePredicates		List of predicate filter references.
 	 * @param integer				$theLevel			Depth level.
 	 *
 	 * @access protected
 	 */
-	protected function _Traverse( &$theList, &$theTerms, &$theNodes, &$theEdges, $theLevel )
+	protected function _Traverse( &$theList,
+								  &$theTerms, &$theNodes, &$theEdges,
+								  &$thePredicates,
+								  $theLevel )
 	{
 		//
 		// Init local storage.
@@ -1791,13 +2468,6 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		//
 		if( $theLevel )
 		{
-			//
-			// Get predicates.
-			//
-			$predicates = ( array_key_exists( kAPI_OPT_PREDICATES, $_REQUEST ) )
-						? $_REQUEST[ kAPI_OPT_PREDICATES ]
-						: Array();
-	
 			//
 			// Get direction.
 			//
@@ -1833,7 +2503,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				// Get relations.
 				//
 				$node = array_shift( $theList );
-				$edges = $node->getRelationships( $predicates, $direction );
+				$edges = $node->getRelationships( $thePredicates, $direction );
 				foreach( $edges as $edge )
 				{
 					//
@@ -1896,7 +2566,10 @@ class CWarehouseWrapper extends CMongoDataWrapper
 						//
 						$count
 							+= $this->_Traverse
-								( $nodes, $theTerms, $theNodes, $theEdges, $theLevel - 1 );
+								( $nodes,
+								  $theTerms, $theNodes, $theEdges,
+								  $thePredicates,
+								  $theLevel - 1 );
 					
 					} // New edge.
 				
@@ -1909,6 +2582,128 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		return $count;																// ==>
 	
 	} // _Traverse.
+
+	 
+	/*===================================================================================
+	 *	_EdgeParser																		*
+	 *==================================================================================*/
+
+	/**
+	 * Collect edge elements.
+	 *
+	 * This method will collect the provided edge elements and set them into the provided
+	 * parameters.
+	 *
+	 * The parameters to this method are:
+	 *
+	 * <ul>
+	 *	<li><b>$theEdge</b>: Edge node to handle.
+	 *	<li><b>&$theTerms</b>: Reference to the list of term identifiers.
+	 *	<li><b>&$theNodes</b>: Reference to the list of nodes.
+	 *	<li><b>&$theEdges</b>: Reference to the list of edge elements.
+	 * </ul>
+	 *
+	 * The method will return 1 if the edge was handled, 0 if not.
+	 *
+	 * @param Relationship			$theEdge			Edge node to handle.
+	 * @param reference			   &$theTerms			List of term identifiers.
+	 * @param reference			   &$theNodes			List of nodes.
+	 * @param reference			   &$theEdges			List of edge references.
+	 *
+	 * @access protected
+	 */
+	protected function _EdgeParser( $theEdge,
+								   &$theTerms, &$theNodes, &$theEdges )
+	{
+		//
+		// Filter predicates.
+		//
+		if( (! array_key_exists( kAPI_OPT_PREDICATES, $_REQUEST ))
+		 || in_array( $theEdge->getType(), $_REQUEST[ kAPI_OPT_PREDICATES ] ) )
+		{
+			//
+			// Check if new.
+			//
+			if( ! array_key_exists( $theEdge->getId(), $theEdges ) )
+			{
+				//
+				// Load edge properties.
+				//
+				$theEdge->load();
+				
+				//
+				// Save elements.
+				//
+				$subject = $theEdge->getStartNode();
+				$subject->load();
+				$predicate = $theEdge->getType();
+				$object = $theEdge->getEndNode();
+				$object->load();
+				
+				//
+				// Add edge element.
+				//
+				$theEdges[ $theEdge->getId() ]
+					= array( kAPI_RESPONSE_SUBJECT => $subject->getId(),
+							 kAPI_RESPONSE_PREDICATE => $predicate,
+							 kAPI_RESPONSE_OBJECT => $object->getId(),
+							 kTAG_DATA => $theEdge->getProperties() );
+				
+				//
+				// Add predicate term.
+				//
+				if( ! in_array( $predicate, $theTerms ) )
+					$theTerms[] = $predicate;
+				
+				//
+				// Add subject node.
+				//
+				if( ! array_key_exists( $subject->getId(), $theNodes ) )
+				{
+					//
+					// Set node.
+					//
+					$theNodes[ $subject->getId() ] = $subject->getProperties();
+					
+					//
+					// Set term.
+					//
+					$term = $subject->getProperty( kTAG_TERM );
+					if( ($term !== NULL)
+					 && (! in_array( $term, $theTerms )) )
+						$theTerms[] = $term;
+				
+				} // New subject.
+				
+				//
+				// Add object node.
+				//
+				if( ! array_key_exists( $object->getId(), $theNodes ) )
+				{
+					//
+					// Set node.
+					//
+					$theNodes[ $object->getId() ] = $object->getProperties();
+					
+					//
+					// Set term.
+					//
+					$term = $object->getProperty( kTAG_TERM );
+					if( ($term !== NULL)
+					 && (! in_array( $term, $theTerms )) )
+						$theTerms[] = $term;
+				
+				} // New object.
+				
+				return 1;															// ==>
+			
+			} // New edge.
+		
+		} // Predicate not filtered.
+		
+		return 0;																	// ==>
+	
+	} // _EdgeParser.
 
 	 
 

@@ -341,7 +341,8 @@ class CMongoQuery extends CQuery
 				//
 				// Save query data.
 				//
-				$data = $theStatement[ kAPI_QUERY_DATA ];
+				if( array_key_exists( kAPI_QUERY_DATA, $theStatement ) )
+					$data = $theStatement[ kAPI_QUERY_DATA ];
 				
 				//
 				// Parse by operator.

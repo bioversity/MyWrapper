@@ -115,9 +115,8 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 			{
 				case kAPI_OP_LOGIN:
 				case kAPI_OP_GET_TERMS:
-				case kAPI_OP_GET_TERMS_COUNT:
 				case kAPI_OP_GET_NODES:
-				case kAPI_OP_GET_EDGES:
+				case kAPI_OP_GET_RELS:
 				case kAPI_OP_QUERY_ROOTS:
 					break;
 				
@@ -468,7 +467,7 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 	/**
 	 * Manage edges direction.
 	 *
-	 * This method can be used to manage the {@link kAPI_OP_GET_EDGES edges} direction, it
+	 * This method can be used to manage the {@link kAPI_OP_GET_RELS edges} direction, it
 	 * accepts a string which represents either the relationship
 	 * {@link kAPI_OPT_DIRECTION direction}, or the requested operation:
 	 *
@@ -536,7 +535,7 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 	 * Manage traversal depts level.
 	 *
 	 * This method can be used to manage the {@link kAPI_OPT_LEVELS levels} of depth in
-	 * graph {@link kAPI_OP_GET_EDGES traversals}, it accepts an integer which represents
+	 * graph {@link kAPI_OP_GET_RELS traversals}, it accepts an integer which represents
 	 * the number of levels to traverse; if the value is negative, all levels will be
 	 * traversed.
 	 *

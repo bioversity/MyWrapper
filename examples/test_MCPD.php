@@ -87,7 +87,7 @@ try
 		$params->Operation( kAPI_OP_QUERY_ROOTS );
 		$params->Format( kTYPE_JSON );
 		$params->Database( 'WAREHOUSE' );
-		$params->Container( 'DICTIONARY' );
+		$params->Container( kDEFAULT_CNT_TERMS );
 		$params->Attributes( kTAG_DOMAIN, kDOMAIN_ACCESSION, TRUE );
 		$params->Attributes( kTAG_CATEGORY, kCATEGORY_PASSPORT, TRUE );
 		//
@@ -109,10 +109,10 @@ try
 		// Build parameters.
 		//
 		$params = Array();
-		$params[] = kAPI_OPERATION.'='.kAPI_OP_QUERY_ROOTS;	// Command.
-		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
-		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
-		$params[] = kAPI_CONTAINER.'='.'DICTIONARY';				// Container.
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_QUERY_ROOTS;		// Command.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;					// Format.
+		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';				// Database.
+		$params[] = kAPI_CONTAINER.'='.kDEFAULT_CNT_TERMS;		// Container.
 		$params[] = kAPI_OPT_ATTRIBUTES.'='.$list;				// Attributes.
 		//
 		// Build request.
@@ -159,10 +159,10 @@ try
 		// Build parameters.
 		//
 		$params = new CWarehouseWrapperClient( $url );
-		$params->Operation( kAPI_OP_GET_EDGES );
+		$params->Operation( kAPI_OP_GET_RELS );
 		$params->Format( kTYPE_JSON );
 		$params->Database( 'WAREHOUSE' );
-		$params->Container( 'DICTIONARY' );
+		$params->Container( kDEFAULT_CNT_TERMS );
 		$params->Identifiers( $node, TRUE );
 		$params->Direction( kAPI_DIRECTION_IN );
 		//
@@ -183,10 +183,10 @@ try
 		// Build parameters.
 		//
 		$params = Array();
-		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_EDGES;			// Command.
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_RELS;			// Command.
 		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
 		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
-		$params[] = kAPI_CONTAINER.'='.'DICTIONARY';				// Container.
+		$params[] = kAPI_CONTAINER.'='.kDEFAULT_CNT_TERMS;				// Container.
 		$params[] = kAPI_OPT_IDENTIFIERS.'='.$list;					// Identifiers.
 		$params[] = kAPI_OPT_DIRECTION.'='.kAPI_DIRECTION_IN;		// Direction.
 		//
@@ -240,10 +240,10 @@ try
 		// Build parameters.
 		//
 		$params = new CWarehouseWrapperClient( $url );
-		$params->Operation( kAPI_OP_GET_EDGES );
+		$params->Operation( kAPI_OP_GET_RELS );
 		$params->Format( kTYPE_JSON );
 		$params->Database( 'WAREHOUSE' );
-		$params->Container( 'DICTIONARY' );
+		$params->Container( kDEFAULT_CNT_TERMS );
 		$params->Identifiers( $node, TRUE );
 		$params->Direction( kAPI_DIRECTION_IN );
 		//
@@ -264,10 +264,10 @@ try
 		// Build parameters.
 		//
 		$params = Array();
-		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_EDGES;			// Command.
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_RELS;			// Command.
 		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
 		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
-		$params[] = kAPI_CONTAINER.'='.'DICTIONARY';				// Container.
+		$params[] = kAPI_CONTAINER.'='.kDEFAULT_CNT_TERMS;				// Container.
 		$params[] = kAPI_OPT_IDENTIFIERS.'='.$list;					// Identifiers.
 		$params[] = kAPI_OPT_DIRECTION.'='.kAPI_DIRECTION_IN;		// Direction.
 		//
@@ -321,10 +321,10 @@ try
 		// Build parameters.
 		//
 		$params = new CWarehouseWrapperClient( $url );
-		$params->Operation( kAPI_OP_GET_EDGES );
+		$params->Operation( kAPI_OP_GET_RELS );
 		$params->Format( kTYPE_JSON );
 		$params->Database( 'WAREHOUSE' );
-		$params->Container( 'DICTIONARY' );
+		$params->Container( kDEFAULT_CNT_TERMS );
 		$params->Identifiers( $node, TRUE );
 		$params->Direction( kAPI_DIRECTION_IN );
 		//
@@ -345,10 +345,10 @@ try
 		// Build parameters.
 		//
 		$params = Array();
-		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_EDGES;			// Command.
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_RELS;			// Command.
 		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
 		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
-		$params[] = kAPI_CONTAINER.'='.'DICTIONARY';				// Container.
+		$params[] = kAPI_CONTAINER.'='.kDEFAULT_CNT_TERMS;				// Container.
 		$params[] = kAPI_OPT_IDENTIFIERS.'='.$list;					// Identifiers.
 		$params[] = kAPI_OPT_DIRECTION.'='.kAPI_DIRECTION_IN;		// Direction.
 		//
@@ -402,10 +402,10 @@ try
 		// Build parameters.
 		//
 		$params = new CWarehouseWrapperClient( $url );
-		$params->Operation( kAPI_OP_GET_EDGES );
+		$params->Operation( kAPI_OP_GET_RELS );
 		$params->Format( kTYPE_JSON );
 		$params->Database( 'WAREHOUSE' );
-		$params->Container( 'DICTIONARY' );
+		$params->Container( kDEFAULT_CNT_TERMS );
 		$params->Identifiers( $node, TRUE );
 		$params->Direction( kAPI_DIRECTION_IN );
 		//
@@ -426,10 +426,10 @@ try
 		// Build parameters.
 		//
 		$params = Array();
-		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_EDGES;			// Command.
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_RELS;			// Command.
 		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
 		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
-		$params[] = kAPI_CONTAINER.'='.'DICTIONARY';				// Container.
+		$params[] = kAPI_CONTAINER.'='.kDEFAULT_CNT_TERMS;				// Container.
 		$params[] = kAPI_OPT_IDENTIFIERS.'='.$list;					// Identifiers.
 		$params[] = kAPI_OPT_DIRECTION.'='.kAPI_DIRECTION_IN;		// Direction.
 		//

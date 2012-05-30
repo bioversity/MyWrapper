@@ -72,24 +72,41 @@ try
 	(
 		array
 		(
-			kAPI_QUERY_SUBJECT => kTAG_GID,
-			kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-			kAPI_QUERY_TYPE => kTYPE_STRING,
-			kAPI_QUERY_DATA => 'SAMPSTAT'
+			kOPERATOR_AND => array
+			(
+				array
+				(
+					kAPI_QUERY_SUBJECT => kTAG_LID,
+					kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
+					kAPI_QUERY_TYPE => kTYPE_BINARY,
+					kAPI_QUERY_DATA => new CDataTypeBinary( md5( 'ITPGRFA:ANNEX1-CROP', TRUE ) )
+				),
+				array
+				(
+					kAPI_QUERY_SUBJECT => kTAG_NODE,
+					kAPI_QUERY_OPERATOR => kOPERATOR_NOT_NULL
+				)
+			)
 		),
 		array
 		(
-			kAPI_QUERY_SUBJECT => kTAG_CODE,
-			kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-			kAPI_QUERY_TYPE => kTYPE_STRING,
-			kAPI_QUERY_DATA => 'SAMPSTAT'
+			kOPERATOR_AND => array
+			(
+				kAPI_QUERY_SUBJECT => kTAG_CODE,
+				kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
+				kAPI_QUERY_TYPE => kTYPE_STRING,
+				kAPI_QUERY_DATA => 'SAMPSTAT'
+			)
 		),
 		array
 		(
-			kAPI_QUERY_SUBJECT => kTAG_NAME.':'.kTAG_DATA,
-			kAPI_QUERY_OPERATOR => kOPERATOR_CONTAINS_NOCASE,
-			kAPI_QUERY_TYPE => kTYPE_STRING,
-			kAPI_QUERY_DATA => 'sampstat'
+			kOPERATOR_AND => array
+			(
+				kAPI_QUERY_SUBJECT => kTAG_NAME.':'.kTAG_DATA,
+				kAPI_QUERY_OPERATOR => kOPERATOR_CONTAINS_NOCASE,
+				kAPI_QUERY_TYPE => kTYPE_STRING,
+				kAPI_QUERY_DATA => 'sampstat'
+			)
 		)
 	);
 	//
@@ -112,7 +129,7 @@ try
 		$params->Format( kTYPE_JSON );
 		$params->Operation( kAPI_OP_MATCH );
 		$params->Database( 'WAREHOUSE' );
-		$params->Container( 'DICTIONARY' );
+		$params->Container( kDEFAULT_CNT_TERMS );
 		$params->Query( $query );
 		$params->Fields( $fields );
 		$params->Sort( $sort );
@@ -145,7 +162,7 @@ try
 		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_MATCH;				// Command.
 		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
-		$params[] = kAPI_CONTAINER.'='.'DICTIONARY';				// Container.
+		$params[] = kAPI_CONTAINER.'='.kDEFAULT_CNT_TERMS;				// Container.
 		$params[] = kAPI_DATA_QUERY.'='.urlencode( $query_enc );	// Query.
 		$params[] = kAPI_DATA_FIELD.'='.urlencode( $fields_enc );	// Fields.
 		$params[] = kAPI_DATA_SORT.'='.urlencode( $sort_enc );		// Sort.
@@ -247,7 +264,7 @@ try
 		$params->Format( kTYPE_JSON );
 		$params->Operation( kAPI_OP_MATCH );
 		$params->Database( 'WAREHOUSE' );
-		$params->Container( 'DICTIONARY' );
+		$params->Container( kDEFAULT_CNT_TERMS );
 		$params->Query( $query );
 		$params->Fields( $fields );
 		$params->Sort( $sort );
@@ -280,7 +297,7 @@ try
 		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_MATCH;				// Command.
 		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
-		$params[] = kAPI_CONTAINER.'='.'DICTIONARY';				// Container.
+		$params[] = kAPI_CONTAINER.'='.kDEFAULT_CNT_TERMS;				// Container.
 		$params[] = kAPI_DATA_QUERY.'='.urlencode( $query_enc );	// Query.
 		$params[] = kAPI_DATA_FIELD.'='.urlencode( $fields_enc );	// Fields.
 		$params[] = kAPI_DATA_SORT.'='.urlencode( $sort_enc );		// Sort.
@@ -382,7 +399,7 @@ try
 		$params->Format( kTYPE_JSON );
 		$params->Operation( kAPI_OP_MATCH );
 		$params->Database( 'WAREHOUSE' );
-		$params->Container( 'DICTIONARY' );
+		$params->Container( kDEFAULT_CNT_TERMS );
 		$params->Query( $query );
 		$params->Fields( $fields );
 		$params->Sort( $sort );
@@ -415,7 +432,7 @@ try
 		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_MATCH;				// Command.
 		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
-		$params[] = kAPI_CONTAINER.'='.'DICTIONARY';				// Container.
+		$params[] = kAPI_CONTAINER.'='.kDEFAULT_CNT_TERMS;				// Container.
 		$params[] = kAPI_DATA_QUERY.'='.urlencode( $query_enc );	// Query.
 		$params[] = kAPI_DATA_FIELD.'='.urlencode( $fields_enc );	// Fields.
 		$params[] = kAPI_DATA_SORT.'='.urlencode( $sort_enc );		// Sort.

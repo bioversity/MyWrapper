@@ -127,12 +127,6 @@ try
 	//
 	echo( '<h3>Properties</h3>' );
 	
-	echo( '<i>Empty node</i><br>' );
-	echo( '<i>$test = new CGraphNode( $container );</i><br>' );
-	$test = new CGraphNode( $container );
-	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( '<hr>' );
-	
 	echo( '<i>Load property</i><br>' );
 	echo( '<i>$test[ kTAG_NAME ] = \'The name\' );</i><br>' );
 	$test[ kTAG_NAME ] = 'The name';

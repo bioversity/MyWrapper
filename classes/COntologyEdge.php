@@ -735,13 +735,17 @@ class COntologyEdge extends CGraphEdge
 			//
 			// Add indexes.
 			//
-			$this->_IndexTerms( $theContainer[ kTAG_NODE ] );
+			// We currently store nodes and edges in Mongo,
+			// so we do not use Lucene for searching on node
+			// and edge properties.
+			//
+		//	$this->_IndexTerms( $theContainer[ kTAG_NODE ] );
 			
 			//
 			// Save edge reference.
 			//
 			$data = Array();
-			$data[ kTAG_LID ] = new MongoBinData( $edgeId );
+			$data[ kTAG_LID ] = $this->mNode->getId();
 			$data[ kTAG_PATH ] = $edgeId;
 			$data[ kTAG_SUBJECT ]
 				= array( kTAG_TERM => $this->mSubjectTerm->GID(),
@@ -1284,6 +1288,12 @@ class COntologyEdge extends CGraphEdge
 						( "Predicate node is missing term reference",
 						  kERROR_OPTION_MISSING,
 						  kMESSAGE_TYPE_ERROR );								// !@! ==>
+			
+			//
+			// Load subject and object term properties.
+			//
+			$this->Subject()->load();
+			$this->Object()->load();
 		
 			//
 			// Find subject node and load subject term.
