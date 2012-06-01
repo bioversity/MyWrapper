@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class COntologyEdgeIndex</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name"><img src="../../media/images/Class_logo.png"
+														alt=" Class"
+														title=" Class"
+														style="vertical-align: middle"> COntologyEdgeIndex</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+													<a href="#sec-vars">Vars</a>
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+											<a href="#sec-consts">Constants</a>
+						
+			</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Edge index.</p>
+<p class="description"><p>This class implements a graph edge node index, it can be used to replicate a Neo4j edge  node to a MongoDB collection.</p><p>Neo4j uses Lucene as its standard indexing tool, in this library we use MongoDB as the  standard database, so it is a logical choice to use Mongo as the indexing mechanism for  Neo4j. Also, by storing nodes in Mongo, by dumping the database contents we also have the  graph structure with it.</p><p>The class features a single data member, the <a href="../../MyWrapper/Persistence/COntologyEdgeIndex.html#methodNode">node</a> which contains a Neo4j  edge node reference. When <a href="../../MyWrapper/Persistence/COntologyNodeIndex.html#method__construct">instantiating</a> this class you are required to  provide a persistent instance of a node.</p><p>The contents of the object will be the node properties as will be stored in the Mongo  <a href="../../MyWrapper/Definitions/_includes.inc.php.html#definekDEFAULT_CNT_EDGES">default</a> collection for edges:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LID">kTAG_LID</a></em>: This offset will hold the edge node ID.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_PATH">kTAG_PATH</a></em>: This offset will hold the edge node path, that
+        is, the source node ID, the predicate term <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a> and the
+        object node ID, all three separated by the
+        <a href="../../MyWrapper/Definitions/_defines---Tokens.inc.php.html#definekTOKEN_INDEX_SEPARATOR">kTOKEN_INDEX_SEPARATOR</a> token.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_SUBJECT">kTAG_SUBJECT</a></em>: This offset will hold the subject node
+        information:
+     <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM">kTAG_TERM</a></em>: The subject node term
+            <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a>.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NODE">kTAG_NODE</a></em>: The subject node ID.</li></ul></li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_PREDICATE">kTAG_PREDICATE</a></em>: This offset will hold the predicate
+        information:
+     <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM">kTAG_TERM</a></em>: The predicate term
+            <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a>, which corresponds to the edge node type.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NODE">kTAG_NODE</a></em>: The edge node ID.</li></ul></li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_OBJECT">kTAG_OBJECT</a></em>: This offset will hold the object node
+        information:
+     <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM">kTAG_TERM</a></em>: The object node term
+            <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a>.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NODE">kTAG_NODE</a></em>: The object node ID.</li></ul></li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: This offset will hold the edge node properties.</li></ul></p><p>The class provides a single member accessor method: <a href="../../MyWrapper/Persistence/COntologyEdgeIndex.html#methodNode">Node</a>, which can be  used to set the referenced edge node.</p><p><em>Note that the class will not cast to an array correctly, you must use the
+ getArrayCopy() method to get an array, if you know how to solve
+ this, please do it!</em></p></p>
+		<p class="notes">
+			Located in <a class="field" href="_classes---COntologyEdgeIndex.php.html">/classes/COntologyEdgeIndex.php</a> (line <span class="field">94</span>)
+		</p>
+		
+				
+		<pre>ArrayObject
+   |
+   --<a href="../../MyWrapper/Framework/CArrayObject.html">CArrayObject</a>
+      |
+      --<a href="../../MyWrapper/Persistence/COntologyNodeIndex.html">COntologyNodeIndex</a>
+         |
+         --COntologyEdgeIndex</pre>
+	
+			</div>
+</div>
+
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+															<a href="#sec-consts">Constants</a>
+							
+															<a href="#sec-vars">Vars</a>
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+												<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">string</span>
+										<a href="#EdgeNodePath" title="details" class="method-name">EdgeNodePath</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$thePredicate</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">string</span>
+										<a href="#EdgeTermPath" title="details" class="method-name">EdgeTermPath</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$thePredicate</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>)
+									</div>
+																																																																				<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#Node" title="details" class="method-name">Node</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_LoadNodeProperties" title="details" class="method-name">_LoadNodeProperties</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">Everyman\Neo4j\Node|NULL</span>
+										<a href="#_LocateNode" title="details" class="method-name">_LocateNode</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theNode</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">MongoCollection</span>
+										<a href="#_ResolveIndexContainer" title="details" class="method-name">_ResolveIndexContainer</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span>)
+									</div>
+											</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+												<a href="#sec-consts">Constants</a>
+							
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			
+							<h4>Inherited Variables</h4>
+				<A NAME='inherited_vars'><!-- --></A>
+									<p>Inherited from <span class="classname"><a href="../../MyWrapper/Persistence/COntologyNodeIndex.html">COntologyNodeIndex</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Variable.png" />
+							<span class="var-title">
+								<span class="var-name"><a href="../../MyWrapper/Persistence/COntologyNodeIndex.html#var$mNode">COntologyNodeIndex::$mNode</a></span><br>
+							</span>
+											</blockquote> 
+										
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+															<a href="#sec-vars">Vars</a>
+														<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+<a name="methodEdgeNodePath" id="EdgeNodePath"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static EdgeNodePath</span> (line <span class="line-number">197</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Build an edge node path.</p>
+<p class="description"><p>The edge path represents the unique identifier of an edge node using the relationship  node identifiers, it is composed by the subject and object node IDs and the predicate  term identifier.</p><p>This method will return the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_PATH">path</a> according to the provided  parameters:</p><p><ul><li><strong>$theSubject</strong>: The relation subject node reference:
+     <ul><li><em><a href="../../MyWrapper/Ontology/COntologyNode.html">COntologyNode</a></em>: The node ID will be used.</li><li><em>Neo4j node</em>: The node ID will be used.</li><li><em>other</em>: Other types will be cast to a string.</li></ul></li><li><strong>$thePredicate</strong>: The relation predicate term reference, the value will be
+        cast to a string and is expected to represent the <a href="../../MyWrapper/Ontology/COntologyTerm.html">term</a>
+        <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">global</a> identifier.</li><li><strong>$theObject</strong>: The relation object node reference:
+     <ul><li><em><a href="../../MyWrapper/Ontology/COntologyNode.html">COntologyNode</a></em>: The node ID will be used.</li><li><em>Neo4j node</em>: The node ID will be used.</li><li><em>other</em>: Other types will be cast to a string.</li></ul></li></ul></p><p>The method will check if all three parameters are not empty, if this is not the case,  the method will raise an exception.</p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			EdgeNodePath
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$thePredicate</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theSubject</span><span class="var-description">: Subject node reference.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$thePredicate</span><span class="var-description">: Predicate term reference.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theObject</span><span class="var-description">: Object node reference.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodEdgeTermPath" id="EdgeTermPath"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static EdgeTermPath</span> (line <span class="line-number">293</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Build an edge term path.</p>
+<p class="description"><p>This edge path represents an identifier of an edge node using the relationship term  identifiers, it is composed by the subject, predicate and object term  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifiers</a>.</p><p>This method will return the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_EDGE_TERM">path</a> according to the provided  parameters:</p><p><ul><li><strong>$theSubject</strong>: The relation subject term reference, the value will be
+        cast to a string and is expected to represent the <a href="../../MyWrapper/Ontology/COntologyTerm.html">term</a>
+        <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">global</a> identifier.</li><li><strong>$thePredicate</strong>: The relation predicate term reference, the value will be
+        cast to a string and is expected to represent the <a href="../../MyWrapper/Ontology/COntologyTerm.html">term</a>
+        <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">global</a> identifier.</li><li><strong>$theObject</strong>: The relation object node reference, the value will be
+        cast to a string and is expected to represent the <a href="../../MyWrapper/Ontology/COntologyTerm.html">term</a>
+        <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">global</a> identifier.</li></ul></p><p>The method will check if all three parameters are not empty, if this is not the case,  the method will raise an exception.</p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			EdgeTermPath
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$thePredicate</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theSubject</span><span class="var-description">: Subject term reference.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$thePredicate</span><span class="var-description">: Predicate term reference.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theObject</span><span class="var-description">: Object term reference.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodNode" id="Node"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Node</span> (line <span class="line-number">122</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage native node.</p>
+<p class="description"><p>We <a href="../../MyWrapper/Persistence/COntologyNodeIndex.html#methodNode">overload</a> this method to ensure that the  provided node is an edge node.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/COntologyEdgeIndex.html#method_LoadNodeProperties">COntologyEdgeIndex::_LoadNodeProperties()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			Node
+		</span>
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Node or operation.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Persistence/COntologyNodeIndex.html#methodNode">COntologyNodeIndex::Node()</a></dt>
+						<dd>Manage native node.</dd>
+					</dl>
+			
+	</div>
+<a name="method_LoadNodeProperties" id="_LoadNodeProperties"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_LoadNodeProperties</span> (line <span class="line-number">477</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Copy node properties to object.</p>
+<p class="description"><p>We <a href="../../MyWrapper/Persistence/COntologyNodeIndex.html#method_LocateNode">overload</a> this method to load the edge  node properties along with the subject, predicate and object information as follows:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LID">kTAG_LID</a></em>: This offset will hold the edge node ID.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_PATH">kTAG_PATH</a></em>: This offset will hold the edge node path,
+        that is, the source node ID, the predicate term <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a> and
+        the object node ID, all three separated by the
+        <a href="../../MyWrapper/Definitions/_defines---Tokens.inc.php.html#definekTOKEN_INDEX_SEPARATOR">kTOKEN_INDEX_SEPARATOR</a> token.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_SUBJECT">kTAG_SUBJECT</a></em>: This offset will hold the subject node
+        information:
+     <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM">kTAG_TERM</a></em>: The subject node term
+            <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a>.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NODE">kTAG_NODE</a></em>: The subject node ID.</li></ul></li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_PREDICATE">kTAG_PREDICATE</a></em>: This offset will hold the
+        predicate information:
+     <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM">kTAG_TERM</a></em>: The predicate term
+            <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a>, which corresponds to the edge node type.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NODE">kTAG_NODE</a></em>: The edge node ID.</li></ul></li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_OBJECT">kTAG_OBJECT</a></em>: This offset will hold the object node
+        information:
+     <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM">kTAG_TERM</a></em>: The object node term
+            <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a>.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NODE">kTAG_NODE</a></em>: The object node ID.</li></ul></li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: This offset will hold the edge node
+        properties.</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/COntologyEdgeIndex.html#methodNode">COntologyEdgeIndex::Node()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_LoadNodeProperties
+		</span>
+				()
+			</div>
+	
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Persistence/COntologyNodeIndex.html#method_LoadNodeProperties">COntologyNodeIndex::_LoadNodeProperties()</a></dt>
+						<dd>Copy node properties to object.</dd>
+					</dl>
+			
+	</div>
+<a name="method_LocateNode" id="_LocateNode"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_LocateNode</span> (line <span class="line-number">402</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Locate node in container.</p>
+<p class="description"><p>We <a href="../../MyWrapper/Persistence/COntologyNodeIndex.html#method_LocateNode">overload</a> this method to locate  relationships in place of nodes.</p><p>We also override the rule of raising an exception on zero node IDs, because the first  relationship will have an ID of zero, here we check if the identifier is numeric.</p><p>Finally, we handle arrays in the node parameter: in this case we assume the array  holds the subject node ID, the predicate term <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a> and the  object node ID, these elements will be used to select the edge node whose  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_PATH">kTAG_PATH</a> offset corresponds to this combination. In this case the  provided container must be an array structured as follows:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NODE">kTAG_NODE</a></em>: The graph container.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM">kTAG_TERM</a></em>: The index container.</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> <a href="../../MyWrapper/Framework/CException.html">CException</a></li>
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/COntologyEdgeIndex.html#method_ResolveIndexContainer">COntologyEdgeIndex::_ResolveIndexContainer()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Everyman\Neo4j\Node|NULL</span>
+		<span class="method-name">
+			_LocateNode
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theNode</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theNode</span><span class="var-description">: Graph node identifier.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theContainer</span><span class="var-description">: Graph container.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Persistence/COntologyNodeIndex.html#method_LocateNode">COntologyNodeIndex::_LocateNode()</a></dt>
+						<dd>Locate node in graph.</dd>
+					</dl>
+			
+	</div>
+<a name="method_ResolveIndexContainer" id="_ResolveIndexContainer"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_ResolveIndexContainer</span> (line <span class="line-number">354</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Resolve index container.</p>
+<p class="description"><p>We <a href="../../MyWrapper/Persistence/COntologyNodeIndex.html#method_ResolveIndexContainer">overload</a> this class to use  the correct <a href="../../MyWrapper/Definitions/_includes.inc.php.html#definekDEFAULT_CNT_EDGES">default</a> collection when providing a MongoDB.</p></p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> <a href="../../MyWrapper/Framework/CException.html">CException</a></li>
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/COntologyEdgeIndex.html#method_LocateNode">COntologyEdgeIndex::_LocateNode()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">MongoCollection</span>
+		<span class="method-name">
+			_ResolveIndexContainer
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theContainer</span><span class="var-description">: Index container.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Persistence/COntologyNodeIndex.html#method_ResolveIndexContainer">COntologyNodeIndex::_ResolveIndexContainer()</a></dt>
+						<dd>Resolve index container.</dd>
+					</dl>
+			
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Persistence/COntologyNodeIndex.html">COntologyNodeIndex</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Constructor.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/COntologyNodeIndex.html#method__construct">COntologyNodeIndex::__construct()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/COntologyNodeIndex.html#methodCommit">COntologyNodeIndex::Commit()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/COntologyNodeIndex.html#methodNode">COntologyNodeIndex::Node()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/COntologyNodeIndex.html#method_LoadNodeProperties">COntologyNodeIndex::_LoadNodeProperties()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/COntologyNodeIndex.html#method_LocateNode">COntologyNodeIndex::_LocateNode()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/COntologyNodeIndex.html#method_QueryNode">COntologyNodeIndex::_QueryNode()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/COntologyNodeIndex.html#method_ResolveIndexContainer">COntologyNodeIndex::_ResolveIndexContainer()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Framework/CArrayObject.html">CArrayObject</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodkeys">CArrayObject::keys()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetGet">CArrayObject::offsetGet()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetSet">CArrayObject::offsetSet()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetUnset">CArrayObject::offsetUnset()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodvalues">CArrayObject::values()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname">ArrayObject (Internal Class)</span></p>
+					<blockquote>
+													<img src="../../media/images/Constructor.png" alt=" "/>
+							<span class="method-name">constructor __construct ( $array )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">append ( $value )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">asort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">count (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">exchangeArray ( $array )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getArrayCopy (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getFlags (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getIterator (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getIteratorClass (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">ksort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">natcasesort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">natsort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetExists ( $index )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetGet ( $index )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetSet ( $index, $newval )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetUnset ( $index )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">serialize (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">setFlags ( $flags )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">setIteratorClass ( $iteratorClass )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">uasort ( $cmp_function )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">uksort ( $cmp_function )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">unserialize ( $serialized )</span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+	<a name="sec-consts"></a>
+	<div class="info-box">
+		<div class="info-box-title">Class Constants</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+										<a href="#sec-var-summary">Constants</a> (<span class="disabled">details</span>)
+						
+			
+												<a href="#sec-vars">Vars</a>
+														| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+										<h4>Inherited Constants</h4>
+				<A NAME='inherited_consts'><!-- --></A>
+									<p>Inherited from <span class="classname">ArrayObject (Internal Class)</span></p>
+					<blockquote>
+													<img src="../../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name">ARRAY_AS_PROPS = 2</span><br>
+							</span>
+													<img src="../../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name">STD_PROP_LIST = 1</span><br>
+							</span>
+											</blockquote> 
+										
+		</div>
+	</div>
+	
+	<p class="notes" id="credit">
+		Documentation generated on Fri, 01 Jun 2012 15:15:51 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

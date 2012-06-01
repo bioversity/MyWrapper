@@ -160,9 +160,9 @@ try
 	// Load Standards.
 	//
 	LoadDefaultDomains( $_SESSION[ kSESSION_CONTAINER ], TRUE );
+exit;
 	LoadDefaultCategories( $_SESSION[ kSESSION_CONTAINER ], TRUE );
 	LoadCropGroupDescriptors( $_SESSION[ kSESSION_CONTAINER ], TRUE );
-exit;
 	LoadUnStatsRegions( $_SESSION[ kSESSION_CONTAINER ], TRUE );
 	LoadISO( $_SESSION[ kSESSION_CONTAINER ], TRUE );
 	LoadMCPD( $_SESSION[ kSESSION_CONTAINER ], TRUE );
@@ -2598,7 +2598,6 @@ exit( "Done!\n" );
 		//
 		// Init local storage.
 		//
-		$nodes = Array();
 		$container = array( kTAG_TERM => $theContainer,
 							kTAG_NODE => $_SESSION[ kSESSION_NEO4J ] );
 		
@@ -2641,21 +2640,18 @@ exit( "Done!\n" );
 		//
 		// Handle node.
 		//
-		$node = new COntologyNode( $container );
-		$node->Term( $term );
-		$node->Kind( kTYPE_ROOT, TRUE );
-		$node->Commit( $container );
-		//
-		// Save node.
-		//
-		$nodes[ kDEF_CATEGORY ] = $node;
+		$root = new COntologyNode( $container );
+		$root->Term( $term );
+		$root->Kind( kTYPE_ROOT, TRUE );
+		$root->Kind( kTYPE_MEASURE, TRUE );
+		$root->Commit( $container );
 		//
 		// Display.
 		//
 		if( $doDisplay )
 			echo( "[$term] (kDEF_CATEGORY) "
 				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
-				 .$node->Node()->getId()."}"
+				 .$root->Node()->getId()."}"
 				 ."\n" );
 		
 		//
@@ -2712,6 +2708,7 @@ exit( "Done!\n" );
 		//
 		// Load data.
 		//
+		$nodes = Array();
 		foreach( $components as $component )
 		{
 			//
@@ -2746,8 +2743,19 @@ exit( "Done!\n" );
 			//
 			// Handle edge.
 			//
-			$edge = $node->RelateTo( $container, $enum_of, $nodes[ kDEF_CATEGORY ] );
-			$edge->Commit( $container );
+			$id = Array();
+			$id[] = $_SESSION[ 'NODES' ][ $component[ 'id' ] ]->Node()->getId();
+			$id[] = (string) $enum_of;
+			$id[] = $_SESSION[ 'NODES' ][ kDEF_CATEGORY ]->Node()->getId();
+			$id = implode( '/', $id );
+			$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
+			if( $edge === NULL )
+			{
+				$edge = $_SESSION[ 'NODES' ][ $component[ 'id' ] ]
+					->RelateTo( $container, $enum_of,
+											$_SESSION[ 'NODES' ][ kDEF_CATEGORY ] );
+				$edge->Commit( $container );
+			}
 			//
 			// Display.
 			//
@@ -2761,6 +2769,24 @@ exit( "Done!\n" );
 	} // LoadDefaultCategories.
 
 	 
+	/*===================================================================================
+	 *	LoadCropGroupDescriptors														*
+	 *==================================================================================*/
+
+	/**
+	 * Load crop codes.
+	 *
+	 * This function will load the International Treaty on Plant Genetic Resources
+	 * standards.
+	 *
+	 * If the last parameter is <i>TRUE</i>, the function will display the name of the
+	 * created terms.
+	 *
+	 * @param CContainer			$theContainer		Collection.
+	 * @param boolean				$doDisplay			Display created terms.
+	 *
+	 * @access protected
+	 */
 	function LoadCropGroupDescriptors( CContainer $theContainer, $doDisplay = TRUE )
 	{
 		//

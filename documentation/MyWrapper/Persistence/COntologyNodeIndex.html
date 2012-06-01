@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class COntologyNodeIndex</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name"><img src="../../media/images/Class_logo.png"
+														alt=" Class"
+														title=" Class"
+														style="vertical-align: middle"> COntologyNodeIndex</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+							<a href="#sec-descendents">Descendents</a>
+			|											<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Node index.</p>
+<p class="description"><p>This class implements a graph node index, it can be used to replicate a Neo4j node to  a MongoDB collection.</p><p>Neo4j uses Lucene as its standard indexing tool, in this library we use MongoDB as the  standard database, so it is a logical choice to use Mongo as the indexing mechanism for  Neo4j. Also, by storing nodes in Mongo, by dumping the database contents we also have the  graph structure with it.</p><p>The class features a single data member, the <a href="../../MyWrapper/Persistence/COntologyNodeIndex.html#methodNode">node</a> which contains a Neo4j  node reference. When <a href="../../MyWrapper/Persistence/COntologyNodeIndex.html#method__construct">instantiating</a> this class you are required to  provide a persistent instance of a node.</p><p>The contents of the object will be the node properties as will be stored in the Mongo  <a href="../../MyWrapper/Definitions/_includes.inc.php.html#definekDEFAULT_CNT_NODES">default</a> collection for nodes:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LID">kTAG_LID</a></em>: This offset will hold the node ID.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: This offset will hold the node properties.</li></ul></p><p>The class provides a single member accessor method: <a href="../../MyWrapper/Persistence/COntologyNodeIndex.html#methodNode">Node</a>, which can be  used to set the referenced node.</p><p><em>Note that the class will not cast to an array correctly, you must use the
+ getArrayCopy() method to get an array, if you know how to solve
+ this, please do it!</em></p></p>
+		<p class="notes">
+			Located in <a class="field" href="_classes---COntologyNodeIndex.php.html">/classes/COntologyNodeIndex.php</a> (line <span class="field">69</span>)
+		</p>
+		
+				
+		<pre>ArrayObject
+   |
+   --<a href="../../MyWrapper/Framework/CArrayObject.html">CArrayObject</a>
+      |
+      --COntologyNodeIndex</pre>
+	
+			</div>
+</div>
+
+	<a name="sec-descendents"></a>
+	<div class="info-box">
+		<div class="info-box-title">Direct descendents</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+			<span class="disabled">Descendents</span>
+			|												<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+								|															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<table cellpadding="2" cellspacing="0" class="class-table">
+				<tr>
+					<th class="class-table-header">Class</th>
+					<th class="class-table-header">Description</th>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; white-space: nowrap">
+						<img src="../../media/images/Class.png"
+								 alt=" class"
+								 title=" class"
+								 style="vertical-align: center"/>
+						<a href="../../MyWrapper/Persistence/COntologyEdgeIndex.html">COntologyEdgeIndex</a>
+					</td>
+					<td>
+											Edge index.
+										</td>
+				</tr>
+							</table>
+		</div>
+	</div>
+
+
+	<a name="sec-var-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variable Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendants</a> |
+						<span class="disabled">Vars</span> (<a href="#sec-vars">details</a>)
+							| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<div class="var-summary">
+																								<div class="var-title">
+					<img src="../../media/images/Variable.png" alt=" " />
+					<span class="var-type">Everyman\Neo4j\PropertyContainer</span>
+					<a href="#$mNode" title="details" class="var-name">$mNode</a>
+				</div>
+											</div>
+		</div>
+	</div>
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendants</a> |
+																		<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																																								<div class="method-definition">
+					<img src="../../media/images/Constructor.png" alt=" "/>
+											<span class="method-result">COntologyNodeIndex</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theNode</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span> = <span class="var-default">NULL</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#Commit" title="details" class="method-name">Commit</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span>, [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_PERSIST_REPLACE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#Node" title="details" class="method-name">Node</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_LoadNodeProperties" title="details" class="method-name">_LoadNodeProperties</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">Everyman\Neo4j\Node|NULL</span>
+										<a href="#_LocateNode" title="details" class="method-name">_LocateNode</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theNode</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">Everyman\Neo4j\Node|NULL</span>
+										<a href="#_QueryNode" title="details" class="method-name">_QueryNode</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theNode</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result"><a href="../../MyWrapper/Persistence/CMongoContainer.html">CMongoContainer</a></span>
+										<a href="#_ResolveIndexContainer" title="details" class="method-name">_ResolveIndexContainer</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span>)
+									</div>
+											</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			
+<a name="var$mNode" id="$mNode"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<img src="../../media/images/Variable.png" />
+		<span class="var-title">
+			<span class="var-type">Everyman\Neo4j\PropertyContainer</span>
+			<span class="var-name">$mNode</span>
+			 = <span class="var-default"> NULL</span>			(line <span class="line-number">78</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Node.</p>
+<p class="description"><p>This data member holds the Neo4j node.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+						
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+															<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+														<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Constructor.png" />
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">151</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Instantiate class.</p>
+<p class="description"><p>The constructor can be used to instantiate an object with a node, there is no  provision for instantiating an empty object.</p><p>The method expects the following parameters:</p><p><ul><li><strong>$theNode</strong>: The referenced node, this data can come in three flavours:
+	 <ul><li><em>Neo4j node</em>: This is the expected format, the node must be persistent,
+			that is, it must have an ID. In this case the second parameter is ignored.</li><li><em>integer</em> or <em>numeric string</em>: The value refers to the node ID, in
+			this case the node will have to be loaded from a Neo4j client, which must be
+			provided in the next parameter.</li><li><em><a href="../../MyWrapper/Persistence/CMongoQuery.html">query</a></em>: In this case we assume the value
+            represents a <a href="../../MyWrapper/Persistence/CMongoQuery.html">query</a> that will be sent to the index, only
+            the first matching record will be used.</li></ul></li><li><strong>$theContainer</strong>: The nodes container, depending on the first parameter:
+     <ul><li><em>Neo4j node</em>: The parameter will be ignored.</li><li><em>integer</em> or <em>numeric string</em>: The parameter is expected to be an
+            instance of a Neo4j client, it will be used to locate the node in the graph.</li><li><em>array</em>: The parameter is expected to have two elements:
+         <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NODE">kTAG_NODE</a></em>: The Neo4j client (graph container).</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM">kTAG_TERM</a></em>: The Mongo container (index container),
+                which can take the following types:
+             <ul><li><em>MongoDB</em>: The database will be used to instantiate a
+                    MongoCollection named as the
+                    <a href="../../MyWrapper/Definitions/_includes.inc.php.html#definekDEFAULT_CNT_NODES">kDEFAULT_CNT_NODES</a> tag.</li><li><em>MongoCollection</em>: The provided collection will be used.</li><li><em><a href="../../MyWrapper/Persistence/CMongoContainer.html">CMongoContainer</a></em>: The referenced Mongo
+                    <a href="../../MyWrapper/Persistence/CContainer.html#methodContainer">collection</a> will be used (be careful not
+                    to send the terms collection).</li></ul></li></ul></li></ul></li></ul></p><p>If any of the above conditions is not met, or if the node was not found, an exception  will be raised.</p></p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> <a href="../../MyWrapper/Framework/CException.html">CException</a></li>
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/COntologyNodeIndex.html#methodNode">COntologyNodeIndex::Node()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/COntologyNodeIndex.html#method_LocateNode">COntologyNodeIndex::_LocateNode()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">COntologyNodeIndex</span>
+		<span class="method-name">
+			__construct
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theNode</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span> = <span class="var-default">NULL</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theNode</span><span class="var-description">: Graph node.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theContainer</span><span class="var-description">: Graph container.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodCommit" id="Commit"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Commit</span> (line <span class="line-number">337</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Commit the object into a container.</p>
+<p class="description"><p>This method should be used to commit the object to a container, the method accepts  two parameters:</p><p><ul><li><strong>$theContainer</strong>: This parameter represents the index container, the value
+		will be fed to the <a href="../../MyWrapper/Persistence/COntologyNodeIndex.html#method_ResolveIndexContainer">_ResolveIndexContainer</a>
+        protected method which should return a <a href="../../MyWrapper/Persistence/CMongoContainer.html">CMongoContainer</a>.</li><li><strong>$theModifiers</strong>: This parameter represents the commit operation options,
+        only the following options are considered:
+     <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_REPLACE">kFLAG_PERSIST_REPLACE</a></em>: The provided
+            object will be <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_INSERT">inserted</a>, if the identifier
+            doesn't match any container elements, or it will
+            <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_UPDATE">replace</a> the existing object. As with
+            <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_UPDATE">update</a>, it is assumed that the provided
+            object's attributes will replace all the existing object's ones.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_DELETE">kFLAG_PERSIST_DELETE</a></em>: This option
+            assumes you want to remove the object from the container, although the
+            container features a specific <a href="../../MyWrapper/Persistence/CContainer.html#methodDelete">method</a> for this
+            purpose, this option may be used to implement a <em>deleted state</em>, rather
+            than actually removing the object from the container.</li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> <a href="../../MyWrapper/Framework/CException.html">CException</a></li>
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/COntologyNodeIndex.html#method_LoadNodeProperties">COntologyNodeIndex::_LoadNodeProperties()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/COntologyNodeIndex.html#method_ResolveIndexContainer">COntologyNodeIndex::_ResolveIndexContainer()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			Commit
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span>, [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_PERSIST_REPLACE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theContainer</span><span class="var-description">: Persistent container.</span>			</li>
+					<li>
+				<span class="var-type">bitfield</span>
+				<span class="var-name">$theModifiers</span><span class="var-description">: Commit modifiers.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodNode" id="Node"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Node</span> (line <span class="line-number">227</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage native node.</p>
+<p class="description"><p>This method can be used to manage the native node reference, it uses the standard  accessor <a href="../../MyWrapper/Framework/CObject.html#methodManageMember">method</a> to manage the property:</p><p><ul><li><strong>$theValue</strong>: The value or operation:
+     <ul><li><em>NULL</em>: Return the current value.</li><li><em>Everyman\Neo4j\PropertyContainer</em>: Set value.</li><li><em>other</em>: Raise exception.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
+     <ul><li><em>TRUE</em>: Return the value <em>before</em> it was eventually modified.</li><li><em>FALSE</em>: Return the value <em>after</em> it was eventually modified.</li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> <a href="../../MyWrapper/Framework/CException.html">CException</a></li>
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/COntologyNodeIndex.html#method_LoadNodeProperties">COntologyNodeIndex::_LoadNodeProperties()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/COntologyNodeIndex.html#method__construct">COntologyNodeIndex::__construct()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/COntologyNodeIndex.html#method_LoadNodeProperties">COntologyNodeIndex::_LoadNodeProperties()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			Node
+		</span>
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Node or operation.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Persistence/COntologyEdgeIndex.html#methodNode">COntologyEdgeIndex::Node()</a>
+								: Manage native node.
+							</li>
+				</ul>
+	</div>
+<a name="method_LoadNodeProperties" id="_LoadNodeProperties"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_LoadNodeProperties</span> (line <span class="line-number">699</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Copy node properties to object.</p>
+<p class="description"><p>This method will set the current object's <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LID">kTAG_LID</a> offset to the  current <a href="../../MyWrapper/Persistence/COntologyNodeIndex.html#methodNode">node</a>'s ID and the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a> offset to the  <a href="../../MyWrapper/Persistence/COntologyNodeIndex.html#methodNode">node</a>'s properties.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/COntologyNodeIndex.html#methodCommit">COntologyNodeIndex::Commit()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/COntologyNodeIndex.html#methodNode">COntologyNodeIndex::Node()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/COntologyNodeIndex.html#methodNode">COntologyNodeIndex::Node()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_LoadNodeProperties
+		</span>
+				()
+			</div>
+	
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Persistence/COntologyEdgeIndex.html#method_LoadNodeProperties">COntologyEdgeIndex::_LoadNodeProperties()</a>
+								: Copy node properties to object.
+							</li>
+				</ul>
+	</div>
+<a name="method_LocateNode" id="_LocateNode"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_LocateNode</span> (line <span class="line-number">642</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Locate node in graph.</p>
+<p class="description"><p>This method can be used to locate a node in the provided graph container, it accepts  two parameters:</p><p><ul><li><strong>$theNode</strong>: The node reference, it can be either an integer or a numeric
+		string referring to the seeked node ID.</li><li><strong>$theContainer</strong>: The graph container, it must be a Neo4j client.</li></ul></p><p>The method will return the located node or <em>NULL</em> if not found.</p><p>If the located node has an ID of zero, meaning that it is the default Neo4j node, the  method will raise an exception, because most likely the node parameter was a string  that resolved to zero.</p><p>If any of the provided parameters is incorrect, the method will raise an exception.</p></p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> <a href="../../MyWrapper/Framework/CException.html">CException</a></li>
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/COntologyNodeIndex.html#method__construct">COntologyNodeIndex::__construct()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Everyman\Neo4j\Node|NULL</span>
+		<span class="method-name">
+			_LocateNode
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theNode</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theNode</span><span class="var-description">: Node reference.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theContainer</span><span class="var-description">: Node container.</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Persistence/COntologyEdgeIndex.html#method_LocateNode">COntologyEdgeIndex::_LocateNode()</a>
+								: Locate node in container.
+							</li>
+				</ul>
+	</div>
+<a name="method_QueryNode" id="_QueryNode"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_QueryNode</span> (line <span class="line-number">535</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Query node.</p>
+<p class="description"><p>This method can be used to locate a node in the provided container, it accepts two  parameters:</p><p><ul><li><strong>$theNode</strong>: The node reference:
+	 <ul><li><em>integer</em> or <em>numeric string</em>: The value refers to the node ID, in
+			this case the node will have to be loaded from a Neo4j client, which must be
+			provided in the next parameter.</li><li><em><a href="../../MyWrapper/Persistence/CMongoQuery.html">query</a></em>: In this case we assume the value
+            represents a <a href="../../MyWrapper/Persistence/CMongoQuery.html">query</a> that will be sent to the index, only
+            the first matching record will be used.</li></ul></li><li><strong>$theContainer</strong>: The nodes container:
+     <ul><li><em>Neo4j client</em>: The first parameter is interpreted as the node ID.</li><li><em>array</em>: The parameter is expected to have two elements:
+         <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NODE">kTAG_NODE</a></em>: The Neo4j client (graph container).</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TERM">kTAG_TERM</a></em>: The Mongo container (index container),
+                which can take the following types:
+             <ul><li><em>MongoDB</em>: The database will be used to instantiate a
+                    MongoCollection named as the
+                    <a href="../../MyWrapper/Definitions/_includes.inc.php.html#definekDEFAULT_CNT_NODES">kDEFAULT_CNT_NODES</a> tag.</li><li><em>MongoCollection</em>: The provided collection will be used.</li><li><em><a href="../../MyWrapper/Persistence/CMongoContainer.html">CMongoContainer</a></em>: The referenced Mongo
+                    <a href="../../MyWrapper/Persistence/CContainer.html#methodContainer">collection</a> will be used (be careful not
+                    to send the terms collection).</li></ul></li></ul></li></ul></li></ul></p><p>The method will return the located node or <em>NULL</em> if not found.</p><p>If the located node has an ID of zero, meaning that it is the default Neo4j node, the  method will raise an exception, because most likely the node parameter was a string  that resolved to zero.</p><p>If any of the provided parameters is incorrect, the method will raise an exception.</p></p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> <a href="../../MyWrapper/Framework/CException.html">CException</a></li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">Everyman\Neo4j\Node|NULL</span>
+		<span class="method-name">
+			_QueryNode
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theNode</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theNode</span><span class="var-description">: Node reference.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theContainer</span><span class="var-description">: Node container.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_ResolveIndexContainer" id="_ResolveIndexContainer"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_ResolveIndexContainer</span> (line <span class="line-number">448</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Resolve index container.</p>
+<p class="description"><p>This method can be used to resolve the provided parameter to the index container, the  method will return a <a href="../../MyWrapper/Persistence/CMongoContainer.html">CMongoContainer</a> which points to the  index collection; the provided parameter can take the following types:</p><p><ul><li><em>MongoDB</em>: The method will return a <a href="../../MyWrapper/Persistence/CMongoContainer.html">container</a> using
+        a MongoCollection named after the value of the
+        <a href="../../MyWrapper/Definitions/_includes.inc.php.html#definekDEFAULT_CNT_NODES">kDEFAULT_CNT_NODES</a> tag.</li><li><em>MongoCollection</em>: The method will return a
+        <a href="../../MyWrapper/Persistence/CMongoContainer.html">container</a> instantiated with the collection.</li><li><em><a href="../../MyWrapper/Persistence/CMongoContainer.html">CMongoContainer</a></em>: The method will use that value.</li></ul></p><p>If the provided parameter is of any other type, the method will raise an exception.</p></p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> <a href="../../MyWrapper/Framework/CException.html">CException</a></li>
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/COntologyNodeIndex.html#methodCommit">COntologyNodeIndex::Commit()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../../MyWrapper/Persistence/CMongoContainer.html">CMongoContainer</a></span>
+		<span class="method-name">
+			_ResolveIndexContainer
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theContainer</span><span class="var-description">: Index container.</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Persistence/COntologyEdgeIndex.html#method_ResolveIndexContainer">COntologyEdgeIndex::_ResolveIndexContainer()</a>
+								: Resolve index container.
+							</li>
+				</ul>
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Framework/CArrayObject.html">CArrayObject</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodkeys">CArrayObject::keys()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetGet">CArrayObject::offsetGet()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetSet">CArrayObject::offsetSet()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetUnset">CArrayObject::offsetUnset()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodvalues">CArrayObject::values()</a></span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+	
+	<p class="notes" id="credit">
+		Documentation generated on Fri, 01 Jun 2012 15:15:52 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

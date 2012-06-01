@@ -1097,6 +1097,19 @@ class COntologyNode extends CGraphNode
 			$this->mTerm->Node( $id, TRUE );
 			
 			//
+			// Create term.
+			//
+			// Note that you should always attempt to locate the term
+			// before passing it to this class, because if the term is
+			// not persistent, we commit it here.
+			//
+			// The better workflow is to explicitly commit the term,
+			// before committing the node.
+			//
+			if( ! $this->mTerm->_IsCommitted() )
+				$this->mTerm->Commit( $theContainer[ kTAG_TERM ] );
+			
+			//
 			// Ask container to modify persistent term.
 			//
 			// We do this in order to ensure that new versions of the term
@@ -1106,11 +1119,14 @@ class COntologyNode extends CGraphNode
 			// since the commit method has no parameters for providing
 			// the modification matrix: that's why we ask the container to do it.
 			//
-			$mod = array( kTAG_NODE => $id );
-			$theContainer[ kTAG_TERM ]->Commit
-				( $mod, $this->mTerm[ kTAG_LID ], kFLAG_PERSIST_MODIFY +
-												  kFLAG_MODIFY_ADDSET +
-												  kFLAG_STATE_ENCODED );
+			else
+			{
+				$mod = array( kTAG_NODE => $id );
+				$theContainer[ kTAG_TERM ]->Commit
+					( $mod, $this->mTerm[ kTAG_LID ], kFLAG_PERSIST_MODIFY +
+													  kFLAG_MODIFY_ADDSET +
+													  kFLAG_STATE_ENCODED );
+			}
 			
 			//
 			// Add term indexes.
@@ -1487,36 +1503,12 @@ class COntologyNode extends CGraphNode
 			//
 			// Commit term.
 			//
-			$id = $this->mTerm->Commit( $term_cont );
+			$this->mTerm->Commit( $term_cont );
 		
 			//
 			// Set term reference.
 			//
 			$this->offsetSet( kTAG_TERM, $this->mTerm[ kTAG_GID ] );
-			
-			//
-			// Copy term type.
-			//
-			if( $this->Type() === NULL )
-				$this->Type( $this->Term()->Type() );
-			
-			//
-			// Copy term kinds.
-			//
-			if( $this->Kind() === NULL )
-				$this->Kind( $this->Term()->Kind(), TRUE );
-			
-			//
-			// Copy term domains.
-			//
-			if( $this->Domain() === NULL )
-				$this->Domain( $this->Term()->Domain(), TRUE );
-			
-			//
-			// Copy term categories.
-			//
-			if( $this->Category() === NULL )
-				$this->Category( $this->Term()->Category(), TRUE );
 		
 		} // Not deleting.
 		
