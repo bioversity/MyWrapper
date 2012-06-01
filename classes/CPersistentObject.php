@@ -385,7 +385,7 @@ class CPersistentObject extends CStatusObject
 		//
 		if( $this->_IsDirty()
 		 || (! $this->_IsCommitted())
-		 | ($theModifiers & kFLAG_PERSIST_DELETE) )
+		 || ($theModifiers & kFLAG_PERSIST_DELETE) )
 		{
 			//
 			// Prepare.

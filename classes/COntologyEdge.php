@@ -574,13 +574,19 @@ class COntologyEdge extends CGraphEdge
 	public function getArrayCopy()
 	{
 		//
-		// Require term.
+		// Init array.
 		//
-		if( $this->mPredicateTerm !== NULL )
-			return array_merge( $this->mPredicateTerm->getArrayCopy(),
-								parent::getArrayCopy() );							// ==>
+		$array = ( $this->mPredicateTerm !== NULL )
+			   ? array_merge( $this->mPredicateTerm->getArrayCopy(),
+			   				  parent::getArrayCopy() )
+			   : parent::getArrayCopy();
 		
-		return parent::getArrayCopy();												// ==>
+		//
+		// Set ID to edge node ID.
+		//
+		$array[ kTAG_LID ] = $this->Node()->getId();
+		
+		return $array;																// ==>
 	
 	} // getArrayCopy.
 
@@ -626,80 +632,20 @@ class COntologyEdge extends CGraphEdge
 	protected function _Commit( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
-		// Get edge ID.
-		//
-		$id = $this->mNode->getId();
-		
-		//
-		// Set edge identifier.
-		//
-		$edgeId = implode( kTOKEN_INDEX_SEPARATOR, array( $this->Subject()->getId(),
-														  $this->mPredicateTerm->GID(),
-														  $this->Object()->getId() ) );
-		
-		//
-		// Set edge reference.
-		//
-		$collection
-			= $theContainer[ kTAG_TERM ]->Database()
-										->selectCollection( kDEFAULT_CNT_EDGES );
-		
-		//
-		// Handle delete.
+		// Instantiate node index before deleting node.
 		//
 		if( $theModifiers & kFLAG_PERSIST_DELETE )
 		{
 			//
-			// Reset predicate term.
+			// Only if persistent.
 			//
-			$this->Term( new COntologyTerm() );
-			
-			//
-			// Reset subject term.
-			//
-			$id = $this->Subject()->getId();
-			$this->mSubjectTerm->Node( $id, FALSE );
-			if( count( $this->mSubjectTerm->Node() ) )
-			{
-				$mod = array( kTAG_NODE => $id );
-				$theContainer[ kTAG_TERM ]->Commit( $mod,
-													$term[ kTAG_LID ],
-													kFLAG_PERSIST_MODIFY +
-													kFLAG_MODIFY_PULL +
-													kFLAG_STATE_ENCODED );
-			}
-			else
-				$this->mSubjectTerm->Commit( $theContainer[ kTAG_TERM ] );
-			$this->SubjectTerm( new COntologyTerm() );
-			
-			//
-			// Reset object term.
-			//
-			$id = $this->Object()->getId();
-			$this->mObjectTerm->Node( $id, FALSE );
-			if( count( $this->mObjectTerm->Node() ) )
-			{
-				$mod = array( kTAG_NODE => $id );
-				$theContainer[ kTAG_TERM ]->Commit( $mod,
-													$term[ kTAG_LID ],
-													kFLAG_PERSIST_MODIFY +
-													kFLAG_MODIFY_PULL +
-													kFLAG_STATE_ENCODED );
-			}
-			else
-				$this->mObjectTerm->Commit( $theContainer[ kTAG_TERM ] );
-			$this->ObjectTerm( new COntologyTerm() );
-			
-			//
-			// Remove edge reference.
-			//
-			$data = array( kTAG_LID => new MongoBinData( $edgeId ) );
-			$collection->remove( $data, array( kAPI_OPT_SAFE => TRUE ) );
-		
-		} // Delete.
+			if( $this->mNode->hasId() )
+				$index = new COntologyEdgeIndex( $this->mNode );
+		}
 		
 		//
 		// Call parent method.
+		// The parent will take care of saving or deleting the node.
 		//
 		$id = parent::_Commit( $theContainer[ kTAG_NODE ], $theIdentifier, $theModifiers );
 		
@@ -708,30 +654,6 @@ class COntologyEdge extends CGraphEdge
 		//
 		if( ! ($theModifiers & kFLAG_PERSIST_DELETE) )
 		{
-			//
-			// Commit subject term.
-			//
-			$id = $this->Subject()->getId();
-			$this->mSubjectTerm->Node( $id, TRUE );
-			$mod = array( kTAG_NODE => $id );
-			$theContainer[ kTAG_TERM ]->Commit( $mod,
-												$this->mSubjectTerm[ kTAG_LID ],
-												kFLAG_PERSIST_MODIFY +
-												kFLAG_MODIFY_ADDSET +
-												kFLAG_STATE_ENCODED );
-			
-			//
-			// Commit object term.
-			//
-			$id = $this->Object()->getId();
-			$this->mObjectTerm->Node( $id, TRUE );
-			$mod = array( kTAG_NODE => $id );
-			$theContainer[ kTAG_TERM ]->Commit( $mod,
-												$this->mObjectTerm[ kTAG_LID ],
-												kFLAG_PERSIST_MODIFY +
-												kFLAG_MODIFY_ADDSET +
-												kFLAG_STATE_ENCODED );
-		
 			//
 			// Add indexes.
 			//
@@ -742,26 +664,47 @@ class COntologyEdge extends CGraphEdge
 		//	$this->_IndexTerms( $theContainer[ kTAG_NODE ] );
 			
 			//
-			// Save edge reference.
+			// Add Mongo edge index.
 			//
-			$data = Array();
-			$data[ kTAG_LID ] = $this->mNode->getId();
-			$data[ kTAG_PATH ] = $edgeId;
-			$data[ kTAG_SUBJECT ]
-				= array( kTAG_TERM => $this->mSubjectTerm->GID(),
-						 kTAG_NODE => $this->Subject()->getId() );
-			$data[ kTAG_PREDICATE ]
-				= array( kTAG_TERM => $this->mPredicateTerm->GID(),
-						 kTAG_NODE => $this->mNode->getId() );
-			$data[ kTAG_OBJECT ]
-				= array( kTAG_TERM => $this->mObjectTerm->GID(),
-						 kTAG_NODE => $this->Object()->getId() );
-			$data[ kTAG_DATA ] = $this->mNode->getProperties();
-			$collection->save( $data, array( kAPI_OPT_SAFE => TRUE ) );
-			
-			return $this->Node()->getId();											// ==>
+			$index = new COntologyEdgeIndex( $this->mNode );
+			$index->Commit( $theContainer[ kTAG_TERM ]->Database() );
 		
 		} // Saving.
+		
+		//
+		// Handle delete.
+		//
+		else
+		{
+			//
+			// Check if node is valid.
+			//
+			if( isset( $index ) )
+			{
+				//
+				// Reset predicate term.
+				//
+				$this->Term( new COntologyTerm() );
+				
+				//
+				// Reset subject term.
+				//
+				$this->SubjectTerm( new COntologyTerm() );
+				
+				//
+				// Reset object term.
+				//
+				$this->ObjectTerm( new COntologyTerm() );
+				
+				//
+				// Remove edge reference.
+				//
+				$index->Commit( $theContainer[ kTAG_TERM ]->Database(),
+								kFLAG_PERSIST_DELETE );
+			
+			} // Set index from persistent node.
+		
+		} // Deleting.
 		
 		return $id;																	// ==>
 	
@@ -1153,11 +1096,11 @@ class COntologyEdge extends CGraphEdge
 		//
 		// Set term relations index.
 		//
-		$this->Node()->setProperty
-			( kTAG_EDGE_TERM, implode( kTOKEN_INDEX_SEPARATOR,
-										array( $this->mSubjectTerm[ kTAG_GID ],
-											   $this->mPredicateTerm[ kTAG_GID ],
-											   $this->mObjectTerm[ kTAG_GID ] ) ) );
+		$this->offsetSet(
+			 kTAG_EDGE_TERM, COntologyEdgeIndex::EdgeTermPath
+			 					( $this->mSubjectTerm,
+			 					  $this->mPredicateTerm,
+			 					  $this->mObjectTerm ) );
 		
 	} // _PrepareCommit.
 
@@ -1288,12 +1231,6 @@ class COntologyEdge extends CGraphEdge
 						( "Predicate node is missing term reference",
 						  kERROR_OPTION_MISSING,
 						  kMESSAGE_TYPE_ERROR );								// !@! ==>
-			
-			//
-			// Load subject and object term properties.
-			//
-			$this->Subject()->load();
-			$this->Object()->load();
 		
 			//
 			// Find subject node and load subject term.
@@ -1447,11 +1384,9 @@ class COntologyEdge extends CGraphEdge
 		//
 		// Add node relations key.
 		//
-		$idx->add
-			( $node, kTAG_EDGE_NODE, implode( kTOKEN_INDEX_SEPARATOR,
-											   array( $this->Subject()->getId(),
-													  $this->mPredicateTerm[ kTAG_GID ],
-													  $this->Object()->getId() ) ) );
+		$idx->add(
+			$node, kTAG_EDGE_NODE, COntologyEdgeIndex::EdgeNodePath(
+				$this->Subject(), $this->mPredicateTerm, $this->Object() ) );
 	
 	} // _IndexTerms.
 

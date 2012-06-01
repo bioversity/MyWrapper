@@ -2627,18 +2627,11 @@ class CWarehouseWrapper extends CMongoDataWrapper
 			if( ! array_key_exists( $theEdge->getId(), $theEdges ) )
 			{
 				//
-				// Load edge properties.
-				//
-				$theEdge->load();
-				
-				//
 				// Save elements.
 				//
 				$subject = $theEdge->getStartNode();
-				$subject->load();
 				$predicate = $theEdge->getType();
 				$object = $theEdge->getEndNode();
-				$object->load();
 				
 				//
 				// Add edge element.

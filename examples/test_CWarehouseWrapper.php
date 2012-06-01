@@ -900,10 +900,10 @@ try
 		(
 			array
 			(
-				kAPI_QUERY_SUBJECT => kTAG_LID,
+				kAPI_QUERY_SUBJECT => kTAG_CODE,
 				kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-				kAPI_QUERY_TYPE => kTYPE_BINARY,
-				kAPI_QUERY_DATA => new CDataTypeBinary( md5( ':DOMAIN:200', TRUE ) )
+				kAPI_QUERY_TYPE => kTYPE_STRING,
+				kAPI_QUERY_DATA => '200'
 			),
 			array
 			(
@@ -911,18 +911,6 @@ try
 				kAPI_QUERY_OPERATOR => kOPERATOR_NOT_NULL
 			)
 		)
-/*
-		kOPERATOR_AND => array
-		(
-			array
-			(
-				kAPI_QUERY_SUBJECT => kTAG_NAME.'.'.kTAG_DATA,
-				kAPI_QUERY_OPERATOR => kOPERATOR_CONTAINS_NOCASE,
-				kAPI_QUERY_TYPE => kTYPE_STRING,
-				kAPI_QUERY_DATA => 'italian'
-			)
-		)
-*/
 	);
 	//
 	// Build fields list.
@@ -1015,7 +1003,6 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
-exit;
 	
 	/*===================================================================================
 	 *	LIST NODES (EMPTY)																*
@@ -1298,6 +1285,7 @@ exit;
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
+exit;
 	
 	/*===================================================================================
 	 *	LIST EDGES (EMPTY)																*

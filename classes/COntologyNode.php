@@ -425,12 +425,10 @@ class COntologyNode extends CGraphNode
 	 * Create a graph edge.
 	 *
 	 * This method can be used to create a graph edge or relation between the current node
-	 * and an object node using a predicate node. This method will not duplicate
-	 * relationships between the same nodes and the predicate term: it uses the
-	 * {@link kINDEX_NODE_TERM kINDEX_NODE_TERM} relationship index and its
-	 * {@link kTAG_EDGE_NODE kTAG_EDGE_NODE} key to locate existing relationships. For that
-	 * reason the subject and object terms of the relationship must relate to
-	 * {@link _IsCommitted() committed} nodes.
+	 * and an object node using a predicate node. This method consideres the triplet subject
+	 * node/predicate term/object node as the relationship identifier when considering
+	 * duplicate relationships. For that reason the subject and object terms of the
+	 * relationship must relate to {@link _IsCommitted() committed} nodes.
 	 *
 	 * The method accepts the following parameters:
 	 *
@@ -464,6 +462,10 @@ class COntologyNode extends CGraphNode
 	 *			exception.
 	 *		<li><i>other</i>: Any other type will raise an exception.
 	 *	 </ul>
+	 *	<li><b>$doDuplicate</b>: This flag determines whether cuplicate relationships are
+	 *		allowed: if <i>FALSE</i>, if a relationship with the same subject and object
+	 *		nodes, along with the same predicate term are found, it will be considered a
+	 *		duplicate, and this method will actually return that relationship.
 	 * </ul>
 	 *
 	 * The method will return a {@link COntologyEdge COntologyEdge} object, or raise an
@@ -472,11 +474,13 @@ class COntologyNode extends CGraphNode
 	 * @param reference				$theContainer		Object container.
 	 * @param mixed					$thePredicate		Predicate.
 	 * @param mixed					$theObject			Object.
+	 * @param boolean				$doDuplicate		TRUE means duplicate relationship.
 	 *
 	 * @access public
 	 * @return COntologyEdge
 	 */
-	public function RelateTo( $theContainer, $thePredicate, $theObject = NULL )
+	public function RelateTo( $theContainer, $thePredicate, $theObject = NULL,
+															$doDuplicate = FALSE )
 	{
 		//
 		// Verify container.
@@ -631,17 +635,51 @@ class COntologyNode extends CGraphNode
 					  array( 'Object' => $theObject ) );						// !@! ==>
 		
 		//
-		// Check relation.
+		// Check duplicate relation.
 		//
-		$index = new RelationshipIndex( $theContainer[ kTAG_NODE ], kINDEX_NODE_TERM );
-		$index->save();
-		$found = $index->findOne( kTAG_EDGE_NODE,
-								  implode( kTOKEN_INDEX_SEPARATOR,
-								  		   array( $subject->getId(),
-												  $predicate,
-												  $object->getId() ) ) );
-		if( $found )
-			return new COntologyEdge( $theContainer, $found->getId() );				// ==>
+		if( ! $doDuplicate )
+		{
+			//
+			// Build composite container.
+			//
+			$composite = array( kTAG_NODE => $theContainer[ kTAG_NODE ],
+								kTAG_TERM => $theContainer[ kTAG_TERM ]->Database() );
+			
+			//
+			// Check for duplicate.
+			//
+			try
+			{
+				//
+				// Build query.
+				//
+				$query = new CMongoQuery();
+				$query->AppendStatement(
+					CQueryStatement::Equals(
+						kTAG_PATH,
+						COntologyEdgeIndex::EdgeNodePath(
+							$subject,
+							$predicate,
+							$object ) ),
+					kOPERATOR_AND );
+				
+				//
+				// Instantiate index.
+				//
+				$index = new COntologyEdgeIndex( $query, $composite );
+				
+				return new COntologyEdge( $theContainer, $index->Node() );			// ==>
+			}
+			catch( CException $error )
+			{
+				//
+				// Handle errors.
+				//
+				if( $error->getCode() != kERROR_NOT_FOUND )
+					throw $error;												// !@! ==>
+			}
+		
+		} // Don't allow duplicate relationships.
 		
 		//
 		// Create edge node.
@@ -975,13 +1013,19 @@ class COntologyNode extends CGraphNode
 	public function getArrayCopy()
 	{
 		//
-		// Require term.
+		// Init array.
 		//
-		if( $this->mTerm !== NULL )
-			return array_merge( $this->mTerm->getArrayCopy(),
-								parent::getArrayCopy() );							// ==>
+		$array = ( $this->mTerm !== NULL )
+			   ? array_merge( $this->mTerm->getArrayCopy(),
+			   				  parent::getArrayCopy() )
+			   : parent::getArrayCopy();
 		
-		return parent::getArrayCopy();												// ==>
+		//
+		// Set ID to edge node ID.
+		//
+		$array[ kTAG_LID ] = $this->Node()->getId();
+		
+		return $array;																// ==>
 	
 	} // getArrayCopy.
 
@@ -1021,13 +1065,20 @@ class COntologyNode extends CGraphNode
 	protected function _Commit( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
-		// Save node index if deleting.
+		// Instantiate node index before deleting node.
 		//
 		if( $theModifiers & kFLAG_PERSIST_DELETE )
-			$index = new COntologyNodeIndex( $this->mNode );
+		{
+			//
+			// Only if persistent.
+			//
+			if( $this->mNode->hasId() )
+				$index = new COntologyNodeIndex( $this->mNode );
+		}
 		
 		//
 		// Call parent method.
+		// The parent will take care of saving or deleting the node.
 		//
 		$id = parent::_Commit( $theContainer[ kTAG_NODE ], $theIdentifier, $theModifiers );
 		
@@ -1039,14 +1090,27 @@ class COntologyNode extends CGraphNode
 			//
 			// Set node in term.
 			//
-			$id = $this->mNode->getId();
+			// This is only done to the local copy,
+			// because we use the modification protocol in order
+			// not to have to re-load the term.
+			//
 			$this->mTerm->Node( $id, TRUE );
+			
+			//
+			// Ask container to modify persistent term.
+			//
+			// We do this in order to ensure that new versions of the term
+			// will not be overwritten by old versions.
+			//
+			// Note that the term itself is not able to perform this operation,
+			// since the commit method has no parameters for providing
+			// the modification matrix: that's why we ask the container to do it.
+			//
 			$mod = array( kTAG_NODE => $id );
-			$theContainer[ kTAG_TERM ]->Commit( $mod,
-												$this->mTerm[ kTAG_LID ],
-												kFLAG_PERSIST_MODIFY +
-												kFLAG_MODIFY_ADDSET +
-												kFLAG_STATE_ENCODED );
+			$theContainer[ kTAG_TERM ]->Commit
+				( $mod, $this->mTerm[ kTAG_LID ], kFLAG_PERSIST_MODIFY +
+												  kFLAG_MODIFY_ADDSET +
+												  kFLAG_STATE_ENCODED );
 			
 			//
 			// Add term indexes.
@@ -1080,31 +1144,42 @@ class COntologyNode extends CGraphNode
 		else
 		{
 			//
-			// Remove node from term.
+			// Check if node is valid.
 			//
-			$this->mTerm->Node( $id, FALSE );
-			$mod = array( kTAG_NODE => $id );
-			$theContainer[ kTAG_TERM ]->Commit( $mod,
-												$this->mTerm[ kTAG_LID ],
-												kFLAG_PERSIST_MODIFY +
-												kFLAG_MODIFY_PULL +
-												kFLAG_STATE_ENCODED );
+			if( isset( $index ) )
+			{
+				//
+				// Ask container to modify persistent term.
+				//
+				// We do this in order to ensure that new versions of the term
+				// will not be overwritten by old versions.
+				//
+				// Note that the term itself is not able to perform this operation,
+				// since the commit method has no parameters for providing
+				// the modification matrix: that's why we ask the container to do it.
+				//
+				$mod = array( kTAG_NODE => $id );
+				$theContainer[ kTAG_TERM ]->Commit
+					( $mod, $this->mTerm[ kTAG_LID ], kFLAG_PERSIST_MODIFY +
+													  kFLAG_MODIFY_PULL +
+													  kFLAG_STATE_ENCODED );
+				
+				//
+				// Reset term
+				//
+				$this->Term( new COntologyTerm() );
+				
+				//
+				// Remove node reference.
+				//
+				$index->Commit( $theContainer[ kTAG_TERM ]->Database(),
+								kFLAG_PERSIST_DELETE );
 			
-			//
-			// Reset term
-			//
-			$this->Term( new COntologyTerm() );
-			
-			//
-			// Remove node reference.
-			//
-			$index->Commit( $theContainer[ kTAG_TERM ]->Database(), kFLAG_PERSIST_DELETE );
-			
-			return $id;																// ==>
+			} // Set index from persistent node.
 		
 		} // Deleting.
 		
-		return $this->mNode->getId();												// ==>
+		return $id;																	// ==>
 	
 	} // _Commit.
 
@@ -1232,11 +1307,14 @@ class COntologyNode extends CGraphNode
 		
 		//
 		// Handle provided node.
+		// Note that $node_cont will have become a node
+		// if a node was provided in the $theIdentifier
+		// and $theIdentifier will have been set to NULL.
 		//
 		if( $node_cont instanceof Everyman\Neo4j\PropertyContainer )
 		{
 			//
-			// Load term.
+			// Load term from node.
 			//
 			$term = $node_cont->getProperty( kTAG_TERM );
 			if( $term !== NULL )
@@ -1252,6 +1330,13 @@ class COntologyNode extends CGraphNode
 			$theContainer = $node_cont;
 		
 		} // Provided node.
+		
+		//
+		// Handle empty identifier:
+		// set container to graph client.
+		//
+		elseif( $theIdentifier === NULL )
+			$theContainer = $node_cont;
 	
 	} // _PrepareCreate.
 
@@ -1395,38 +1480,45 @@ class COntologyNode extends CGraphNode
 					  array( 'Container' => $theContainer ) );					// !@! ==>
 		
 		//
-		// Commit term.
+		// Handle save.
 		//
-		$id = $this->mTerm->Commit( $term_cont );
-	
-		//
-		// Set term reference.
-		//
-		$this->offsetSet( kTAG_TERM, $this->mTerm[ kTAG_GID ] );
+		if( ! ($theModifiers & kFLAG_PERSIST_DELETE) )
+		{
+			//
+			// Commit term.
+			//
+			$id = $this->mTerm->Commit( $term_cont );
 		
-		//
-		// Copy term type.
-		//
-		if( $this->Type() === NULL )
-			$this->Type( $this->Term()->Type() );
+			//
+			// Set term reference.
+			//
+			$this->offsetSet( kTAG_TERM, $this->mTerm[ kTAG_GID ] );
+			
+			//
+			// Copy term type.
+			//
+			if( $this->Type() === NULL )
+				$this->Type( $this->Term()->Type() );
+			
+			//
+			// Copy term kinds.
+			//
+			if( $this->Kind() === NULL )
+				$this->Kind( $this->Term()->Kind(), TRUE );
+			
+			//
+			// Copy term domains.
+			//
+			if( $this->Domain() === NULL )
+				$this->Domain( $this->Term()->Domain(), TRUE );
+			
+			//
+			// Copy term categories.
+			//
+			if( $this->Category() === NULL )
+				$this->Category( $this->Term()->Category(), TRUE );
 		
-		//
-		// Copy term kinds.
-		//
-		if( $this->Kind() === NULL )
-			$this->Kind( $this->Term()->Kind(), TRUE );
-		
-		//
-		// Copy term domains.
-		//
-		if( $this->Domain() === NULL )
-			$this->Domain( $this->Term()->Domain(), TRUE );
-		
-		//
-		// Copy term categories.
-		//
-		if( $this->Category() === NULL )
-			$this->Category( $this->Term()->Category(), TRUE );
+		} // Not deleting.
 		
 	} // _PrepareCommit.
 
@@ -1505,6 +1597,12 @@ class COntologyNode extends CGraphNode
 						  array( 'Term' => $ref ) );							// !@! ==>
 		
 		} // Has term reference
+		
+		//
+		// Init term.
+		//
+		else
+			$this->Term( new COntologyTerm() );
 	
 		//
 		// Initialise empty nodes.

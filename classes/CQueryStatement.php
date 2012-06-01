@@ -947,6 +947,46 @@ class CQueryStatement extends CArrayObject
 
 	 
 	/*===================================================================================
+	 *	PrefixNoCase																	*
+	 *==================================================================================*/
+
+	/**
+	 * Create a {@link kOPERATOR_PREFIX_NOCASE case-insensitive} prefix statement.
+	 *
+	 * This method can be used to instantiate a query statement that will select all
+	 * elements whose contents beginning matches the test data in a case and accent
+	 * insensitive way.
+	 *
+	 * The statement uses the {@link kOPERATOR_PREFIX_NOCASE kOPERATOR_PREFIX_NOCASE}
+	 * operator and this method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theSubject</b>: Statement {@link Subject() subject}.
+	 *	<li><b>$theObject</b>: Statement {@link Object() object} prefix string.
+	 * </ul>
+	 *
+	 * Note that the data type is implicitly a {@link kTYPE_STRING string}
+	 *
+	 * The method will return an instance of this class or raise an exception on errors.
+	 *
+	 * @param mixed					$theSubject			Statement subject.
+	 * @param mixed					$theObject			Statement object.
+	 *
+	 * @static
+	 *
+	 * @see kOPERATOR_PREFIX_NOCASE kTYPE_STRING
+	 */
+	static function PrefixNoCase( $theSubject, $theObject )
+	{
+		return new self( (string) $theSubject,
+						  kOPERATOR_PREFIX_NOCASE,
+						  kTYPE_STRING,
+						  (string) $theObject );									// ==>
+
+	} // PrefixNoCase.
+
+	 
+	/*===================================================================================
 	 *	Contains																		*
 	 *==================================================================================*/
 
@@ -986,6 +1026,46 @@ class CQueryStatement extends CArrayObject
 
 	 
 	/*===================================================================================
+	 *	ContainsNoCase																	*
+	 *==================================================================================*/
+
+	/**
+	 * Create a {@link kOPERATOR_CONTAINS_NOCASE case-insensitive} contains statement.
+	 *
+	 * This method can be used to instantiate a query statement that will select all
+	 * elements whose contents matches the test data in any position in a case and accent
+	 * insensitive way.
+	 *
+	 * The statement uses the {@link kOPERATOR_CONTAINS_NOCASE kOPERATOR_CONTAINS_NOCASE}
+	 * operator and this method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theSubject</b>: Statement {@link Subject() subject}.
+	 *	<li><b>$theObject</b>: Statement {@link Object() object} match sub-string.
+	 * </ul>
+	 *
+	 * Note that the data type is implicitly a {@link kTYPE_STRING string}
+	 *
+	 * The method will return an instance of this class or raise an exception on errors.
+	 *
+	 * @param mixed					$theSubject			Statement subject.
+	 * @param mixed					$theObject			Statement object.
+	 *
+	 * @static
+	 *
+	 * @see kOPERATOR_CONTAINS_NOCASE kTYPE_STRING
+	 */
+	static function ContainsNoCase( $theSubject, $theObject )
+	{
+		return new self( (string) $theSubject,
+						  kOPERATOR_CONTAINS_NOCASE,
+						  kTYPE_STRING,
+						  (string) $theObject );									// ==>
+
+	} // ContainsNoCase.
+
+	 
+	/*===================================================================================
 	 *	Suffix																			*
 	 *==================================================================================*/
 
@@ -1022,6 +1102,46 @@ class CQueryStatement extends CArrayObject
 						  (string) $theObject );									// ==>
 
 	} // Suffix.
+
+	 
+	/*===================================================================================
+	 *	SuffixNoCase																	*
+	 *==================================================================================*/
+
+	/**
+	 * Create a {@link kOPERATOR_SUFFIX_NOCASE case-insensitive} suffix statement.
+	 *
+	 * This method can be used to instantiate a query statement that will select all
+	 * elements whose contents end matches the test data in a case and accent insensitive
+	 * way.
+	 *
+	 * The statement uses the {@link kOPERATOR_SUFFIX_NOCASE kOPERATOR_SUFFIX_NOCASE}
+	 * operator and this method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theSubject</b>: Statement {@link Subject() subject}.
+	 *	<li><b>$theObject</b>: Statement {@link Object() object} suffix string.
+	 * </ul>
+	 *
+	 * Note that the data type is implicitly a {@link kTYPE_STRING string}
+	 *
+	 * The method will return an instance of this class or raise an exception on errors.
+	 *
+	 * @param mixed					$theSubject			Statement subject.
+	 * @param mixed					$theObject			Statement object.
+	 *
+	 * @static
+	 *
+	 * @see kOPERATOR_SUFFIX_NOCASE kTYPE_STRING
+	 */
+	static function SuffixNoCase( $theSubject, $theObject )
+	{
+		return new self( (string) $theSubject,
+						  kOPERATOR_SUFFIX_NOCASE,
+						  kTYPE_STRING,
+						  (string) $theObject );									// ==>
+
+	} // SuffixNoCase.
 
 	 
 	/*===================================================================================

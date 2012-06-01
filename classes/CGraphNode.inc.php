@@ -45,6 +45,7 @@ use Everyman\Neo4j\Transport,
 	Everyman\Neo4j\Index\RelationshipIndex,
 	Everyman\Neo4j\Index\NodeFulltextIndex,
 	Everyman\Neo4j\Node,
+	Everyman\Neo4j\Relationship,
 	Everyman\Neo4j\Batch;
 
 ?>

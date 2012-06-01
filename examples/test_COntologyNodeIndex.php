@@ -28,15 +28,6 @@ require_once( '/Library/WebServer/Library/wrapper/includes.inc.php' );
 // Class includes.
 //
 require_once( kPATH_LIBRARY_SOURCE."COntologyNodeIndex.php" );
-/*
-use Everyman\Neo4j\Transport,
-	Everyman\Neo4j\Client,
-	Everyman\Neo4j\Index\NodeIndex,
-	Everyman\Neo4j\Index\RelationshipIndex,
-	Everyman\Neo4j\Index\NodeFulltextIndex,
-	Everyman\Neo4j\Node,
-	Everyman\Neo4j\Batch;
-*/
 
 /*=======================================================================================
  *	TEST ONTOLOGY NODE INDEXES															*
@@ -55,7 +46,7 @@ try
 	//
 	// Instantiate Neo4j client.
 	//
-	$client = new Everyman\Neo4j\Client( 'localhost', 7474 );
+	$container[ kTAG_NODE ] = $client = new Everyman\Neo4j\Client( 'localhost', 7474 );
 
 	//
 	// Instantiate Mongo database.
@@ -73,14 +64,23 @@ try
 	$db->drop();
 	
 	//
-	// Instantiate CMongoContainer.
+	// Instantiate index database.
 	//
-	$container = new CMongoContainer( $db->selectCollection( kDEFAULT_CNT_NODES ) );
+	$container[ kTAG_TERM ] = $db;
 	
 	//
 	// Save collection.
 	//
-	$collection = $container->Container();
+	$collection = $db->selectCollection( kDEFAULT_CNT_NODES );
+	 
+	//
+	// Create node.
+	//
+	echo( '<i>$node = $client->makeNode();</i><br>' );
+	$node = $client->makeNode();
+	echo( '<i>$node->setProperty( kTAG_TERM, \'SUBJECT\' )->save();</i><br>' );
+	$node->setProperty( kTAG_TERM, 'SUBJECT' )->save();
+	$id = $node->getId();
 	 
 	//
 	// Test content.
@@ -114,22 +114,50 @@ try
 	} echo( '<hr>' );
 	 
 	echo( '<i>From a node</i><br>' );
-	echo( '<i>$node = $client->getNode( 1 );</i><br>' );
-	$node = $client->getNode( 1 );
 	echo( '<i>$test = new COntologyNodeIndex( $node ) );</i><br>' );
 	$test = new COntologyNodeIndex( $node );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 
 	echo( '<i>From an ID</i><br>' );
-	echo( '<i>$test = new COntologyNodeIndex( 1, $client ) );</i><br>' );
-	$test = new COntologyNodeIndex( 1, $client );
+	echo( '<i>$test = new COntologyNodeIndex( $id, $client ) );</i><br>' );
+	$test = new COntologyNodeIndex( $id, $client );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 
 	echo( '<i>From a string</i><br>' );
-	echo( '<i>$test = new COntologyNodeIndex( \'2\', $client ) );</i><br>' );
-	$test = new COntologyNodeIndex( '2', $client );
+	echo( '<i>$test = new COntologyNodeIndex( (string) $id, $client ) );</i><br>' );
+	$test = new COntologyNodeIndex( (string) $id, $client );
+	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
+	echo( '<hr>' );
+
+	//
+	// Test store.
+	//
+	echo( '<h3>Commit</h3>' );
+
+	echo( '<i>Commit to search</i><br>' );
+	echo( '<i>$ok = $test->Commit( $collection );</i><br>' );
+	$ok = $test->Commit( $collection );
+	echo( "<pre>" ); print_r( $ok ); echo( '</pre>' );
+	echo( "<pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
+	echo( '<hr>' );
+
+	//
+	// Test query.
+	//
+	echo( '<h3>Query</h3>' );
+
+	echo( '<i>From a query</i><br>' );
+	echo( '<i>$query = new CMongoQuery();</i><br>' );
+	$query = new CMongoQuery();
+	echo( '<i>$query->AppendStatement( CQueryStatement::Equals( kTAG_DATA.\'.\'.kTAG_TERM, \'SUBJECT\' ), kOPERATOR_AND );</i><br>' );
+	$query->AppendStatement( CQueryStatement::Equals( kTAG_DATA.'.'.kTAG_TERM, 'SUBJECT' ), kOPERATOR_AND );
+	echo( '<pre>' ); print_r( $query ); echo( '</pre>' );
+	echo( '<i>$test = new COntologyNodeIndex( $query, $container ) );</i><br>' );
+	$test = new COntologyNodeIndex( $query, $container );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	echo( '<hr>' );
@@ -152,8 +180,8 @@ try
 	echo( '<hr>' );
 
 	echo( '<i>From a CMongoContainer</i><br>' );
-	echo( '<i>$status = $test->Commit( $container );</i><br>' );
-	$status = $test->Commit( $container );
+	echo( '<i>$status = $test->Commit( new CMongoContainer( $collection ) );</i><br>' );
+	$status = $test->Commit( new CMongoContainer( $collection ) );
 	echo( '<pre>' ); print_r( $status ); echo( '</pre>' );
 	echo( '<hr>' );
 
@@ -183,11 +211,16 @@ try
 	echo( '<hr>' );
 
 	echo( '<i>From a CMongoContainer</i><br>' );
-	echo( '<i>$status = $test->Commit( $container, kFLAG_PERSIST_DELETE );</i><br>' );
-	$status = $test->Commit( $container, kFLAG_PERSIST_DELETE );
+	echo( '<i>$status = $test->Commit( $db, kFLAG_PERSIST_DELETE );</i><br>' );
+	$status = $test->Commit( $db, kFLAG_PERSIST_DELETE );
 	echo( '<pre>' ); print_r( $status ); echo( '</pre>' );
 	echo( '<hr>' );
 	echo( '<hr>' );
+	
+	//
+	// Cleanup.
+	//
+	$client->deleteNode( $node );
 }
 
 //

@@ -80,6 +80,40 @@ try
 			( $db->selectCollection( 'COntologyEdge' ) );
 	 
 	//
+	// Create terms.
+	//
+	echo( '<h3>Create terms</h3>' );
+
+	echo( '<i>$subject_term = new COntologyTerm();</i><br>' );
+	$subject_term = new COntologyTerm();
+	echo( '<i>$subject_term->Code( \'SUBJECT\' );</i><br>' );
+	$subject_term->Code( 'SUBJECT' );
+	echo( '<i>$subject_term->Name( \'Subject term\', \'en\' );</i><br>' );
+	$subject_term->Name( 'Subject term', 'en' );
+	echo( '<i>$subject_term->Commit( $container[ kTAG_TERM ] );</i><br>' );
+	$subject_term->Commit( $container[ kTAG_TERM ] );
+	
+	echo( '<i>$predicate_term = new COntologyTerm();</i><br>' );
+	$predicate_term = new COntologyTerm();
+	echo( '<i>$predicate_term->Code( \'PREDICATE\' );</i><br>' );
+	$predicate_term->Code( 'PREDICATE' );
+	echo( '<i>$predicate_term->Name( \'Predicate term\', \'en\' );</i><br>' );
+	$predicate_term->Name( 'Predicate term', 'en' );
+	echo( '<i>$predicate_term->Commit( $container[ kTAG_TERM ] );</i><br>' );
+	$predicate_term->Commit( $container[ kTAG_TERM ] );
+	
+	echo( '<i>$object_term = new COntologyTerm();</i><br>' );
+	$object_term = new COntologyTerm();
+	echo( '<i>$object_term->Code( \'OBJECT\' );</i><br>' );
+	$object_term->Code( 'OBJECT' );
+	echo( '<i>$object_term->Name( \'Object term\', \'en\' );</i><br>' );
+	$object_term->Name( 'Object term', 'en' );
+	echo( '<i>$object_term->Commit( $container[ kTAG_TERM ] );</i><br>' );
+	$object_term->Commit( $container[ kTAG_TERM ] );
+	echo( '<hr>' );
+	echo( '<hr>' );
+
+	//
 	// Test content.
 	//
 	echo( '<h3>Content</h3>' );
@@ -145,138 +179,67 @@ try
 		echo( '<br>' );
 	}
 	echo( '<hr>' );
-
-	echo( '<i>$subject_term = new COntologyTerm();</i><br>' );
-	$subject_term = new COntologyTerm();
-	echo( '<i>$subject_term->Code( \'SUBJECT\' );</i><br>' );
-	$subject_term->Code( 'SUBJECT' );
-	echo( '<i>$subject_term->Name( \'Subject term\', \'en\' );</i><br>' );
-	$subject_term->Name( 'Subject term', 'en' );
-	echo( '<i>$subject_term->Commit( $container[ kTAG_TERM ] );</i><br>' );
-	$subject_term->Commit( $container[ kTAG_TERM ] );
-	
-	echo( '<i>$predicate_term = new COntologyTerm();</i><br>' );
-	$predicate_term = new COntologyTerm();
-	echo( '<i>$predicate_term->Code( \'PREDICATE\' );</i><br>' );
-	$predicate_term->Code( 'PREDICATE' );
-	echo( '<i>$predicate_term->Name( \'Predicate term\', \'en\' );</i><br>' );
-	$predicate_term->Name( 'Predicate term', 'en' );
-	echo( '<i>$predicate_term->Commit( $container[ kTAG_TERM ] );</i><br>' );
-	$predicate_term->Commit( $container[ kTAG_TERM ] );
-	
-	echo( '<i>$object_term = new COntologyTerm();</i><br>' );
-	$object_term = new COntologyTerm();
-	echo( '<i>$object_term->Code( \'OBJECT\' );</i><br>' );
-	$object_term->Code( 'OBJECT' );
-	echo( '<i>$object_term->Name( \'Object term\', \'en\' );</i><br>' );
-	$object_term->Name( 'Object term', 'en' );
-	echo( '<i>$object_term->Commit( $container[ kTAG_TERM ] );</i><br>' );
-	$object_term->Commit( $container[ kTAG_TERM ] );
-
 	echo( '<hr>' );
 
-	echo( '<i>$subject = $container[ kTAG_NODE ]->makeNode();</i><br>' );
-	$subject = $container[ kTAG_NODE ]->makeNode();
-	echo( '<i>$subject->setProperty( kTAG_TERM, \'SUBJECT\' )->setProperty( \'Name\', \'Subject node\' )->save();</i><br>' );
-	$subject->setProperty( kTAG_TERM, 'SUBJECT' )->setProperty( 'Name', 'Subject node' )->save();
-	
-	echo( '<i>$object = $container[ kTAG_NODE ]->makeNode();</i><br>' );
-	$object = $container[ kTAG_NODE ]->makeNode();
-	echo( '<i>$object->setProperty( kTAG_TERM, \'OBJECT\' )->setProperty( \'Name\', \'Object node\' )->save();</i><br>' );
-	$object->setProperty( kTAG_TERM, 'OBJECT' )->setProperty( 'Name', 'Object node' )->save();
+	//
+	// Create nodes.
+	//
+	echo( '<h3>Create nodes</h3>' );
 
+	echo( '<i>$subject = new COntologyNode( $container );</i><br>' );
+	$subject = new COntologyNode( $container );
+	echo( '<i>$subject->Term( $subject_term );</i><br>' );
+	$subject->Term( $subject_term );
+	echo( '<i>$id = $subject->Commit( $container );</i><br>' );
+	$id = $subject->Commit( $container );
+	echo( '<pre>' ); print_r( $id ); echo( '</pre>' );
 	echo( '<hr>' );
 
-	echo( '<i>$edge = $subject->relateTo( $object, \'PREDICATE\' );</i><br>' );
-	$edge = $subject->relateTo( $object, 'PREDICATE' );
-	echo( '<i>$edge->setProperty( \'Name\', \'Predicate node\' )->save();</i><br>' );
-	$edge->setProperty( 'Name', 'Predicate node' )->save();
+	echo( '<i>$object = new COntologyNode( $container );</i><br>' );
+	$object = new COntologyNode( $container );
+	echo( '<i>$object->Term( $object_term );</i><br>' );
+	$object->Term( $object_term );
+	echo( '<i>$id = $object->Commit( $container );</i><br>' );
+	$id = $object->Commit( $container );
+	echo( '<pre>' ); print_r( $id ); echo( '</pre>' );
+	echo( '<hr>' );
 	echo( '<hr>' );
 
-	echo( '<i>From an edge</i><br>' );
-	echo( '<i>$test = new COntologyEdge( $container, $edge ) );</i><br>' );
-	$test = new COntologyEdge( $container, $edge );
+	//
+	// Create relationship.
+	//
+	echo( '<h3>Create relationship</h3>' );
+
+	echo( '<i><b>Let node create a relationship</b></i><br>' );
+	echo( '<i><b>Note that you must create the edge from this class, or you will not get the indexes...</b></i><br>' );
+	echo( '<i>$test = $subject->RelateTo( $container, $predicate_term, $object );</i><br>' );
+	$test = $subject->RelateTo( $container, $predicate_term, $object );
+	echo( '<i>$test[ \'Property\' ] = \'This is a property\';</i><br>' );
+	$test[ 'Property' ] = 'This is a property';
+	echo( '<i>$ok = $test->Commit( $container );</i><br>' );
+	$ok = $test->Commit( $container );
+	echo( "$ok<pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
+
+	echo( '<i><b>Create a relationship from an edge node</b></i><br>' );
+	echo( '<i>$test = new COntologyEdge( $container, $test->Node() );</i><br>' );
+	$test = new COntologyEdge( $container, $test->Node() );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 
-	echo( '<i>From an ontology edge</i><br>' );
-	echo( '<i>$test = new COntologyEdge( $container, $test ) );</i><br>' );
-	$test = new COntologyEdge( $container, $test );
+	echo( '<i><b>Create a relationship from an edge node identifier</b></i><br>' );
+	echo( '<i>$test = new COntologyEdge( $container, $test->Node()->getId() );</i><br>' );
+	$test = new COntologyEdge( $container, $test->Node()->getId() );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	echo( '<hr>' );
-	
-	//
-	// Cleanup.
-	//
-	$test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );
-	$container[ kTAG_NODE ]->deleteNode( $subject );
-	$container[ kTAG_NODE ]->deleteNode( $object );
 	
 	//
 	// Test properties.
 	//
 	echo( '<h3>Properties</h3>' );
 	
-	echo( '<i>Empty node</i><br>' );
-	echo( '<i>$test = new COntologyEdge( $container );</i><br>' );
-	$test = new COntologyEdge( $container );
-	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	echo( '<i>Load predicate term properties</i><br>' );
-	echo( '<i>$test->Term()->Code( \'IS-A\' );</i><br>' );
-	$test->Term()->Code( 'IS-A' );
-	echo( '<i>$test->Term()->Name( \'Is-a\', kDEFAULT_LANGUAGE );</i><br>' );
-	$test->Term()->Name( 'Is-a', kDEFAULT_LANGUAGE );
-	echo( '<i>$test->Term()->Definition( \'Subclass predicate\', kDEFAULT_LANGUAGE );</i><br>' );
-	$test->Term()->Definition( 'Subclass predicate', kDEFAULT_LANGUAGE );
-	echo( '$test->Term():<pre>' ); print_r( $test->Term() ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	echo( '<i>Load subject term properties</i><br>' );
-	echo( '<i>$test->SubjectTerm()->Code( \'SUBJECT\' );</i><br>' );
-	$test->SubjectTerm()->Code( 'SUBJECT' );
-	echo( '<i>$test->SubjectTerm()->Name( \'Subject\', kDEFAULT_LANGUAGE );</i><br>' );
-	$test->SubjectTerm()->Name( 'Subject', kDEFAULT_LANGUAGE );
-	echo( '<i>$test->SubjectTerm()->Definition( \'Subject term\', kDEFAULT_LANGUAGE );</i><br>' );
-	$test->SubjectTerm()->Definition( 'Subject term', kDEFAULT_LANGUAGE );
-	echo( '$test->SubjectTerm():<pre>' ); print_r( $test->SubjectTerm() ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	echo( '<i>Load object term properties</i><br>' );
-	echo( '<i>$test->ObjectTerm()->Code( \'OBJECT\' );</i><br>' );
-	$test->ObjectTerm()->Code( 'OBJECT' );
-	echo( '<i>$test->ObjectTerm()->Name( \'Object\', kDEFAULT_LANGUAGE );</i><br>' );
-	$test->ObjectTerm()->Name( 'Object', kDEFAULT_LANGUAGE );
-	echo( '<i>$test->ObjectTerm()->Definition( \'Object term\', kDEFAULT_LANGUAGE );</i><br>' );
-	$test->ObjectTerm()->Definition( 'Object term', kDEFAULT_LANGUAGE );
-	echo( '$test->ObjectTerm():<pre>' ); print_r( $test->ObjectTerm() ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	echo( '<i>Load predicate node properties</i><br>' );
-	echo( '<i>$test[ \'Name\' ] = \'Predicate node\' );</i><br>' );
-	$test[ 'Name' ] = 'Predicate node';
-	echo( '<i>$test[ \'Description\' ] = \'This is a predicate node\' );</i><br>' );
-	$test[ 'Description' ] = 'This is a predicate node';
-	echo( '$test->Node()->getProperties():<pre>' ); print_r( $test->Node()->getProperties() ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	echo( '<i>Load subject node properties</i><br>' );
-	echo( '<i>$test->Subject()->setProperty( \'Name\', \'Subject node\' );</i><br>' );
-	$test->Subject()->setProperty( 'Name', 'Subject node' );
-	echo( '$test->Subject()->getProperties():<pre>' ); print_r( $test->Subject()->getProperties() ); echo( '</pre>' );
-	echo( '<hr>' );
-	
-	echo( '<i>Load object node properties</i><br>' );
-	echo( '<i>$test->Object()->setProperty( \'Name\', \'Object node\' );</i><br>' );
-	$test->Object()->setProperty( 'Name', 'Object node' );
-	echo( '$test->Object()->getProperties():<pre>' ); print_r( $test->Object()->getProperties() ); echo( '</pre>' );
-	echo( '<hr>' );
-
 	echo( '<i>List properties</i><br>' );
-	foreach( $test as $key => $value )
-		echo( "[$key] $value<br>" );
 	echo( '<i>$prop = $test->getArrayCopy();</i><br>' );
 	$prop = $test->getArrayCopy();
 	echo( 'Property:<pre>' ); print_r( $prop ); echo( '</pre>' );
@@ -294,8 +257,8 @@ try
 	echo( '<hr>' );
 	
 	echo( '<i>Delete property (will work: it\'s a node property)</i><br>' );
-	echo( '<i>$test->offsetUnset( \'Description\' );</i><br>' );
-	$test->offsetUnset( 'Description' );
+	echo( '<i>$test->offsetUnset( \'Property\' );</i><br>' );
+	$test->offsetUnset( 'Property' );
 	$props = $test->getArrayCopy();
 	echo( 'Properties:<pre>' ); print_r( $props ); echo( '</pre>' );
 	echo( '<hr>' );
@@ -371,44 +334,62 @@ try
 	$object_id = $object_node->getId();
 	echo( '<hr>' );
 	
-	echo( '<i>Delete edge</i><br>' );
+	echo( '<i><b>Delete edge</b></i><br>' );
+	echo( '<i>The data elements should be empty.</i><br>' );
 	echo( '<i>$ok = $test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );</i><br>' );
 	$ok = $test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );
 	echo( "$ok:<pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 
+	echo( '<i><b>Create relationship with object ontology node</b></i><br>' );
 	echo( '<i>$test = $subject_onto->RelateTo( $container, $predicate_term, $object_onto );</i><br>' );
 	$test = $subject_onto->RelateTo( $container, $predicate_term, $object_onto );
+	echo( '<i>Object type</i>: '.get_class( $object_onto ).'<br>' );
+	echo( '<i>Relationship ID</i>: ['.$test->Node()->getId().']<br>' );
 	echo( "<pre>" ); print_r( $test ); echo( '</pre>' );
 
+	echo( '<i><b>Create relationship with object node</b></i><br>' );
 	echo( '<i>$test = $subject_onto->RelateTo( $container, $predicate_gid, $object_node );</i><br>' );
 	$test = $subject_onto->RelateTo( $container, $predicate_gid, $object_node );
+	echo( '<i>Object type</i>: '.get_class( $object_node ).'<br>' );
+	echo( '<i>Relationship ID</i>: ['.$test->Node()->getId().']<br>' );
 	echo( "<pre>" ); print_r( $test ); echo( '</pre>' );
 
+	echo( '<i><b>Create relationship with object node ID</b></i><br>' );
 	echo( '<i>$test = $subject_onto->RelateTo( $container, $predicate_term, $object_id );</i><br>' );
 	$test = $subject_onto->RelateTo( $container, $predicate_gid, $object_id );
+	echo( '<i>Object type</i>: '.gettype( $object_id ).'<br>' );
+	echo( '<i>Relationship ID</i>: ['.$test->Node()->getId().']<br>' );
 	echo( "<pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 
 	echo( '<i>Commit relation</i><br>' );
 	echo( '<i>$id = $test->Commit( $container );</i><br>' );
 	$id = $test->Commit( $container );
-	echo( "$id<pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>Relationship ID</i>: ['.$test->Node()->getId().']<br>' );
+	echo( "<pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 
 	echo( '<i>Try relating the same nodes</i><br>' );
-	echo( '<i>$rel = $subject_onto->RelateTo( $container, $predicate_term, $object_node );</i><br>' );
-	$rel = $subject_onto->RelateTo( $container, $predicate_term, $object_node );
-	echo( '<i>$id = $rel->Commit( $container );</i><br>' );
-	$id = $rel->Commit( $container );
-	echo( "$id<pre>" ); print_r( $rel ); echo( '</pre>' );
+	echo( '<i>$test = $subject_onto->RelateTo( $container, $predicate_term, $object_id );</i><br>' );
+	$test = $subject_onto->RelateTo( $container, $predicate_gid, $object_id );
+	echo( '<i>Object type</i>: '.gettype( $object_id ).'<br>' );
+	echo( '<i>Relationship ID</i>: ['.$test->Node()->getId().']<br>' );
+	echo( "<pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
+
+	echo( '<i>Commit the same relationship</i><br>' );
+	echo( '<i>$id = $test->Commit( $container );</i><br>' );
+	$id = $test->Commit( $container );
+	echo( '<i>Relationship ID</i>: ['.$test->Node()->getId().']<br>' );
+	echo( "<pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
+/*	
 	//
 	// Indexes.
 	//
 	echo( '<h3>Indexes</h3>' );
-	
 	echo( '<i>Test indexes</i><br>' );
 	echo( '<i>$index = new RelationshipIndex( $container[ kTAG_NODE ], kINDEX_NODE_TERM );</i><br>' );
 	$index = new RelationshipIndex( $container[ kTAG_NODE ], kINDEX_NODE_TERM );
@@ -432,24 +413,40 @@ try
 	$found = $index->findOne( kTAG_EDGE_NODE, $id );
 	echo( "$id<pre>" ); print_r( $found ); echo( '</pre>' );
 	echo( '<hr>' );
-	
+*/	
 	//
 	// Cleanup.
 	//
 	echo( '<h3>Cleanup</h3>' );
+	echo( '<i><b>Note that we first need to delete edges before being able to delete nodes.</b></i><br>' );
 	
-	echo( '<i>Cleanup</i><br>' );
-	echo( '<i>$subject = $test->Subject();</i>' );
-	$subject = $test->Subject();
-	echo( '<i>$object = $test->Object();</i>' );
-	$object = $test->Object();
-	echo( '<i>$ok = $test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );</i>' );
+	echo( '<i>Save subject</i><br>' );
+	echo( '<i>$subject = new COntologyNode( $container, $test->Subject() );</i><br>' );
+	$subject = new COntologyNode( $container, $test->Subject() );
+	
+	echo( '<i>Save object</i><br>' );
+	echo( '<i>$object = new COntologyNode( $container, $test->Object() );</i><br>' );
+	$object = new COntologyNode( $container, $test->Object() );
+
+	echo( '<hr>' );
+	
+	echo( '<i>Delete edge</i><br>' );
+	echo( '<i>$ok = $test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );</i><br>' );
 	$ok = $test->Commit( $container, NULL, kFLAG_PERSIST_DELETE );
-	echo( " ==> $ok<br>" );
-	echo( '<i>$container[ kTAG_NODE ]->deleteNode( $subject );</i><br>' );
-	$container[ kTAG_NODE ]->deleteNode( $subject );
-	echo( '<i>$container[ kTAG_NODE ]->deleteNode( $object );</i><br>' );
-	$container[ kTAG_NODE ]->deleteNode( $object );
+	echo( " ==> [$ok]<br>" );
+	echo( '<hr>' );
+	
+	echo( '<i>Delete subject</i><br>' );
+	echo( '<i>$ok = $subject->Commit( $container, NULL, kFLAG_PERSIST_DELETE );</i><br>' );
+	$ok = $subject->Commit( $container, NULL, kFLAG_PERSIST_DELETE );
+	echo( " ==> [$ok]<br>" );
+	echo( '<hr>' );
+	
+	echo( '<i>Delete object</i><br>' );
+	echo( '<i>$ok = $object->Commit( $container, NULL, kFLAG_PERSIST_DELETE );</i><br>' );
+	$ok = $object->Commit( $container, NULL, kFLAG_PERSIST_DELETE );
+	echo( " ==> [$ok]<br>" );
+	echo( '<hr>' );
 	echo( '<hr>' );
 }
 

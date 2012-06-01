@@ -194,7 +194,7 @@ class CGraphEdge extends CGraphNode
 		// Call parent method.
 		//
 		$save = parent::Node( $theValue, $getOld );
-				
+		
 		//
 		// Set status.
 		//
@@ -654,12 +654,12 @@ class CGraphEdge extends CGraphNode
 			//
 			// Set committed status.
 			//
-			$this->_IsCommitted( $this->Node()->hasId() );
+			$this->_IsCommitted( $ok = $this->Node()->hasId() );
 			
 			//
 			// Set clean if committed.
 			//
-			$this->_IsDirty( ! $this->Node()->hasId() );
+			$this->_IsDirty( ! $ok );
 		}
 		
 		//

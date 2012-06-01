@@ -412,5 +412,108 @@ foreach( $cursor as $element )
 }
 */
 
+//
+// Neo4j tests.
+//
+
+//
+// Includes.
+//
+require_once( "/Library/WebServer/Library/wrapper/includes.inc.php" );
+require_once( "/Library/WebServer/Library/wrapper/classes/CGraphNode.inc.php" );
+
+use Everyman\Neo4j\Transport,
+	Everyman\Neo4j\Client,
+	Everyman\Neo4j\Index\NodeIndex,
+	Everyman\Neo4j\Index\RelationshipIndex,
+	Everyman\Neo4j\Index\NodeFulltextIndex,
+	Everyman\Neo4j\Node,
+	Everyman\Neo4j\Relationship,
+	Everyman\Neo4j\Batch;
+
+//
+// Get connected.
+//
+$db = new Everyman\Neo4j\Client( 'localhost', 7474 );
+
+//
+// Create node.
+//
+echo( '<i>$start = $db->makeNode()->setProperty( \'NAME\', \'Start\' )->save();</i><br>' );
+$start = $db->makeNode()->setProperty( 'NAME', 'Start' )->save();
+$id = $start->getId();
+echo( '<pre>' );
+print_r( $start );
+echo( '</pre><hr>' );
+
+//
+// Get node.
+//
+echo( '<i>$start = $db->getNode( $id );</i><br>' );
+$start = $db->getNode( $id );
+echo( '<pre>' );
+print_r( $start );
+echo( '</pre><hr>' );
+
+//
+// Test load.
+//
+echo( '<i>$start->load();</i><br>' );
+$start->load();
+echo( '<pre>' );
+print_r( $start );
+echo( '</pre><hr>' );
+
+//
+// Create node.
+//
+$end = $db->makeNode()->setProperty( 'NAME', 'End' )->save();
+
+//
+// Create edge.
+//
+echo( '<i>$edge = $start->relateTo( $end, \'RELATES\' )->setProperty( \'NAME\', \'Relationshit\' )->save();</i><br>' );
+$edge = $start->relateTo( $end, 'RELATES' )->setProperty( 'NAME', 'Relationshit' )->save();
+$id = $edge->getId();
+echo( '<pre>' );
+print_r( $edge );
+echo( '</pre><hr>' );
+
+//
+// Get relationship.
+//
+echo( '<i>$edge = $db->getRelationship( $id );</i><br>' );
+$edge = $db->getRelationship( $id );
+echo( '<pre>' );
+print_r( $edge );
+echo( '</pre><hr>' );
+
+//
+// Check start node properties.
+//
+echo( '<i>$edge->getStartNode()->getProperties();</i><br>' );
+echo( '<pre>' );
+print_r( $edge->getStartNode()->getProperties() );
+echo( '</pre><hr>' );
+
+//
+// Test load.
+//
+echo( '<i>$edge->load();</i><br>' );
+$edge->load();
+echo( '<pre>' );
+print_r( $edge );
+echo( '</pre><hr>' );
+
+//
+// Test load nodes.
+//
+echo( '<i>$edge->getStartNode()->load();</i><br>' );
+$edge->getStartNode()->load();
+echo( '<i>$edge->getEndNode()->load();</i><br>' );
+$edge->getEndNode()->load();
+echo( '<pre>' );
+print_r( $edge );
+echo( '</pre><hr>' );
 
 ?>

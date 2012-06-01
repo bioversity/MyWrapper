@@ -157,8 +157,8 @@ define( "kAPI_OP_GET_EDGES",		'@GET_EDGES' );
  *		{@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter.
  *	<li><i>{@link kAPI_OPT_DIRECTION kAPI_OPT_DIRECTION} parameter not provided</i>: In this
  *		case the service will assume that the identifiers provided in the
- *		@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter are edge node IDs, and it
- *		will simply return the matching edges.
+ *		{@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter are edge node IDs, and
+ *		it will simply return the matching edges.
  * </ul>
  *
  * The service also expects a {@link kAPI_OPT_LEVELS kAPI_OPT_LEVELS}parameter, a signed

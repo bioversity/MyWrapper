@@ -4,7 +4,7 @@
  * <i>COntologyNodeIndex</i> class definition.
  *
  * This file contains the class definition of <b>COntologyNodeIndex</b> which represents a
- * Neo4jNode index.
+ * Neo4j node index.
  *
  *	@package	MyWrapper
  *	@subpackage	Persistence
@@ -101,20 +101,42 @@ class COntologyNodeIndex extends CArrayObject
 	 * The method expects the following parameters:
 	 *
 	 * <ul>
-	 *	<li><b>$theNode</b>: The referenced node, this data can come in two flavours:
+	 *	<li><b>$theNode</b>: The referenced node, this data can come in three flavours:
 	 *	 <ul>
 	 *		<li><i>Neo4j node</i>: This is the expected format, the node must be persistent,
 	 *			that is, it must have an ID. In this case the second parameter is ignored.
-	 *		<li><i>integer</i>: The number refers to the node ID, in this case the node will
-	 *			have to be loaded from a Neo4j client, which must be provided in the next
-	 *			parameter.
+	 *		<li><i>integer</i> or <i>numeric string</i>: The value refers to the node ID, in
+	 *			this case the node will have to be loaded from a Neo4j client, which must be
+	 *			provided in the next parameter.
+	 *		<li><i>{@link CMongoQuery query}</i>: In this case we assume the value
+	 *			represents a {@link CMongoQuery query} that will be sent to the index, only
+	 *			the first matching record will be used.
 	 *	 </ul>
-	 *	<li><b>$theContainer</b>: The nodes container, it must be an instance of a Neo4j
-	 *		client; this parameter is only considered if the first parameter is an integer.
-	 *		If the node is not found, the method will raise an exception.
+	 *	<li><b>$theContainer</b>: The nodes container, depending on the first parameter:
+	 *	 <ul>
+	 *		<li><i>Neo4j node</i>: The parameter will be ignored.
+	 *		<li><i>integer</i> or <i>numeric string</i>: The parameter is expected to be an
+	 *			instance of a Neo4j client, it will be used to locate the node in the graph.
+	 *		<li><i>array</i>: The parameter is expected to have two elements:
+	 *		 <ul>
+	 *			<li><i>{@link kTAG_NODE kTAG_NODE}</i>: The Neo4j client (graph container).
+	 *			<li><i>{@link kTAG_TERM kTAG_TERM}</i>: The Mongo container (index container),
+	 *				which can take the following types:
+	 *			 <ul>
+	 *				<li><i>MongoDB</i>: The database will be used to instantiate a
+	 *					MongoCollection named as the
+	 *					{@link kDEFAULT_CNT_NODES kDEFAULT_CNT_NODES} tag.
+	 *				<li><i>MongoCollection</i>: The provided collection will be used.
+	 *				<li><i>{@link CMongoContainer CMongoContainer}</i>: The referenced Mongo
+	 *					{@link CContainer::Container() collection} will be used (be careful not
+	 *					to send the terms collection).
+	 *			 </ul>
+	 *		 </ul>
+	 *	 </ul>
 	 * </ul>
 	 *
-	 * If any of the above conditions is not met, an exception will be raised.
+	 * If any of the above conditions is not met, or if the node was not found, an exception
+	 * will be raised.
 	 *
 	 * @param mixed					$theNode			Graph node.
 	 * @param mixed					$theContainer		Graph container.
@@ -122,60 +144,39 @@ class COntologyNodeIndex extends CArrayObject
 	 * @access public
 	 *
 	 * @throws {@link CException CException}
+	 *
+	 * @uses Node()
+	 * @uses _LocateNode()
 	 */
 	public function __construct( $theNode, $theContainer = NULL )
 	{
 		//
-		// Get node.
+		// Handle node.
 		//
 		if( $theContainer === NULL )
 			$this->Node( $theNode );
 		
 		//
-		// Get from graph.
+		// Locate node.
 		//
-		elseif( $theContainer instanceof Everyman\Neo4j\Client )
+		else
 		{
 			//
-			// Get node.
+			// Locate node.
 			//
-			$node = $theContainer->getNode( $theNode );
-			
-			//
-			// Found node.
-			//
+			$node = $this->_QueryNode( $theNode, $theContainer );
 			if( $node !== NULL )
-			{
-				//
-				// Set node.
-				//
-				if( $node->getId() )
-					$this->Node( $node );
-				
-				else
-					throw new CException
-							( "Invalid node identifier",
-							  kERROR_INVALID_PARAMETER,
-							  kMESSAGE_TYPE_ERROR,
-							  array( 'Node' => $theNode ) );					// !@! ==>
-			
-			} // Found node.
+				$this->Node( $node );
 			
 			else
 				throw new CException
 						( "Node not found",
 						  kERROR_NOT_FOUND,
 						  kMESSAGE_TYPE_ERROR,
-						  array( 'Node' => $theNode ) );						// !@! ==>
+						  array( 'Node' => $theNode,
+						  		 'Container' => $theContainer ) );				// !@! ==>
 		
-		} // Supported graph.
-		
-		else
-			throw new CException
-					( "Unsupported graph type",
-					  kERROR_UNSUPPORTED,
-					  kMESSAGE_TYPE_ERROR,
-					  array( 'Graph' => $theContainer ) );						// !@! ==>
+		} // Provided container.
 	
 	} // Constructor.
 
@@ -218,6 +219,10 @@ class COntologyNodeIndex extends CArrayObject
 	 *
 	 * @access public
 	 * @return mixed
+	 *
+	 * @throws {@link CException CException}
+	 *
+	 * @uses _LoadNodeProperties()
 	 */
 	public function Node( $theValue = NULL, $getOld = FALSE )
 	{
@@ -298,15 +303,9 @@ class COntologyNodeIndex extends CArrayObject
 	 * two parameters:
 	 *
 	 * <ul>
-	 *	<li><b>$theContainer</b>: This parameter represents the <i>container</i> in which
-	 *		the object is to be stored, by default we expect:
-	 *	 <ul>
-	 *		<li><i>MongoDB</i>: A collection named after the
-	 *			{@link kDEFAULT_CNT_NODES kDEFAULT_CNT_NODES} tag will be used.
-	 *		<li><i>MongoCollection</i>: The provided collection will be used.
-	 *		<li><i>{@link CMongoContainer CMongoContainer}</i>: The referenced Mongo
-	 *			{@link CContainer::Container() collection} will be used.
-	 *	 </ul>
+	 *	<li><b>$theContainer</b>: This parameter represents the index container, the value
+	 *		will be fed to the {@link _ResolveIndexContainer() _ResolveIndexContainer}
+	 *		protected method which should return a {@link CMongoContainer CMongoContainer}.
 	 *	<li><b>$theModifiers</b>: This parameter represents the commit operation options,
 	 *		only the following options are considered:
 	 *	 <ul>
@@ -329,28 +328,18 @@ class COntologyNodeIndex extends CArrayObject
 	 *
 	 * @access public
 	 * @return mixed
+	 *
+	 * @throws {@link CException CException}
+	 *
+	 * @uses _ResolveIndexContainer()
+	 * @uses _LoadNodeProperties()
 	 */
 	public function Commit( $theContainer, $theModifiers = kFLAG_PERSIST_REPLACE )
 	{
 		//
-		// Resolve MongoDB.
-		//
-		if( $theContainer instanceof MongoDB )
-			$theContainer
-				= $theContainer->selectCollection( kDEFAULT_CNT_NODES );
-		
-		//
 		// Resolve container.
 		//
-		elseif( $theContainer instanceof CMongoContainer )
-			$theContainer = $theContainer->Container();
-		
-		elseif( ! $theContainer instanceof MongoCollection )
-			throw new CException
-					( "Unsupported container type",
-					  kERROR_UNSUPPORTED,
-					  kMESSAGE_TYPE_ERROR,
-					  array( 'Container' => $theContainer ) );					// !@! ==>
+		$theContainer = $this->_ResolveIndexContainer( $theContainer );
 		
 		//
 		// Set options.
@@ -370,7 +359,7 @@ class COntologyNodeIndex extends CArrayObject
 			//
 			// Replace.
 			//
-			$status = $theContainer->save( $this->getArrayCopy(), $options );
+			$status = $theContainer->Container()->save( $this->getArrayCopy(), $options );
 		
 		} // Save.
 
@@ -392,7 +381,7 @@ class COntologyNodeIndex extends CArrayObject
 			//
 			// Delete.
 			//
-			$status = $theContainer->remove( $criteria, $options );
+			$status = $theContainer->Container()->remove( $criteria, $options );
 		
 		} // Delete.
 		
@@ -421,10 +410,275 @@ class COntologyNodeIndex extends CArrayObject
 
 /*=======================================================================================
  *																						*
- *								PROTECTED PERSISTENCE UTILITIES							*
+ *									PROTECTED UTILITIES									*
  *																						*
  *======================================================================================*/
 
+
+	 
+	/*===================================================================================
+	 *	_ResolveIndexContainer															*
+	 *==================================================================================*/
+
+	/**
+	 * Resolve index container.
+	 *
+	 * This method can be used to resolve the provided parameter to the index container, the
+	 * method will return a {@link CMongoContainer CMongoContainer} which points to the
+	 * index collection; the provided parameter can take the following types:
+	 *
+	 * <ul>
+	 *	<li><i>MongoDB</i>: The method will return a {@link CMongoContainer container} using
+	 *		a MongoCollection named after the value of the
+	 *		{@link kDEFAULT_CNT_NODES kDEFAULT_CNT_NODES} tag.
+	 *	<li><i>MongoCollection</i>: The method will return a
+	 *		{@link CMongoContainer container} instantiated with the collection.
+	 *	<li><i>{@link CMongoContainer CMongoContainer}</i>: The method will use that value.
+	 * </ul>
+	 *
+	 * If the provided parameter is of any other type, the method will raise an exception.
+	 *
+	 * @param mixed					$theContainer		Index container.
+	 *
+	 * @access protected
+	 * @return CMongoContainer
+	 *
+	 * @throws {@link CException CException}
+	 */
+	protected function _ResolveIndexContainer( $theContainer )
+	{
+		//
+		// Resolve CMongoContainer.
+		//
+		if( $theContainer instanceof CMongoContainer )
+			return $theContainer;													// ==>
+		
+		//
+		// Handle MongoCollection.
+		//
+		if( $theContainer instanceof MongoCollection )
+			return new CMongoContainer( $theContainer );							// ==>
+		
+		//
+		// Resolve MongoDB.
+		//
+		if( $theContainer instanceof MongoDB )
+			return new CMongoContainer
+				( $theContainer->selectCollection( kDEFAULT_CNT_NODES ) );			// ==>
+		
+		throw new CException
+				( "Unsupported index container type",
+				  kERROR_UNSUPPORTED,
+				  kMESSAGE_TYPE_ERROR,
+				  array( 'Container' => $theContainer ) );						// !@! ==>
+	
+	} // _ResolveIndexContainer.
+
+	 
+	/*===================================================================================
+	 *	_QueryNode																		*
+	 *==================================================================================*/
+
+	/**
+	 * Query node.
+	 *
+	 * This method can be used to locate a node in the provided container, it accepts two
+	 * parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theNode</b>: The node reference:
+	 *	 <ul>
+	 *		<li><i>integer</i> or <i>numeric string</i>: The value refers to the node ID, in
+	 *			this case the node will have to be loaded from a Neo4j client, which must be
+	 *			provided in the next parameter.
+	 *		<li><i>{@link CMongoQuery query}</i>: In this case we assume the value
+	 *			represents a {@link CMongoQuery query} that will be sent to the index, only
+	 *			the first matching record will be used.
+	 *	 </ul>
+	 *	<li><b>$theContainer</b>: The nodes container:
+	 *	 <ul>
+	 *		<li><i>Neo4j client</i>: The first parameter is interpreted as the node ID.
+	 *		<li><i>array</i>: The parameter is expected to have two elements:
+	 *		 <ul>
+	 *			<li><i>{@link kTAG_NODE kTAG_NODE}</i>: The Neo4j client (graph container).
+	 *			<li><i>{@link kTAG_TERM kTAG_TERM}</i>: The Mongo container (index container),
+	 *				which can take the following types:
+	 *			 <ul>
+	 *				<li><i>MongoDB</i>: The database will be used to instantiate a
+	 *					MongoCollection named as the
+	 *					{@link kDEFAULT_CNT_NODES kDEFAULT_CNT_NODES} tag.
+	 *				<li><i>MongoCollection</i>: The provided collection will be used.
+	 *				<li><i>{@link CMongoContainer CMongoContainer}</i>: The referenced Mongo
+	 *					{@link CContainer::Container() collection} will be used (be careful not
+	 *					to send the terms collection).
+	 *			 </ul>
+	 *		 </ul>
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * The method will return the located node or <i>NULL</i> if not found.
+	 *
+	 * If the located node has an ID of zero, meaning that it is the default Neo4j node, the
+	 * method will raise an exception, because most likely the node parameter was a string
+	 * that resolved to zero.
+	 *
+	 * If any of the provided parameters is incorrect, the method will raise an exception.
+	 *
+	 * @param mixed					$theNode			Node reference.
+	 * @param mixed					$theContainer		Node container.
+	 *
+	 * @access protected
+	 * @return Everyman\Neo4j\Node|NULL
+	 *
+	 * @throws {@link CException CException}
+	 */
+	protected function _QueryNode( $theNode, $theContainer )
+	{
+		//
+		// Handle graph container.
+		//
+		if( $theContainer instanceof Everyman\Neo4j\Client )
+			return $this->_locateNode( $theNode, $theContainer );					// ==>
+		
+		//
+		// Handle index query.
+		//
+		if( is_array( $theContainer ) )
+		{
+			//
+			// Check index container.
+			//
+			if( array_key_exists( kTAG_TERM, $theContainer ) )
+			{
+				//
+				// Resolve containers.
+				//
+				$container = $this->_ResolveIndexContainer( $theContainer[ kTAG_TERM ] );
+				
+				//
+				// Check query.
+				//
+				if( $theNode instanceof CMongoQuery )
+				{
+					//
+					// Convert to Mongo query.
+					//
+					$theNode = $theNode->Export( $container );
+					
+					//
+					// Set fields.
+					//
+					$fields = array( kTAG_LID => TRUE );
+					
+					//
+					// Find.
+					//
+					$record = $container->Container()->findOne( $theNode, $fields );
+					if( $record )
+						return $this->_LocateNode( $record[ kTAG_LID ],
+												   $theContainer[ kTAG_NODE ] );	// ==>
+					
+					return NULL;													// ==>
+				
+				} // Provided query.
+				
+				throw new CException
+						( "Unsupported index query type",
+						  kERROR_UNSUPPORTED,
+						  kMESSAGE_TYPE_ERROR,
+						  array( 'Query' => $theNode ) );						// !@! ==>
+			
+			} // Has index container.
+			
+			throw new CException
+					( "Missing index container",
+					  kERROR_UNSUPPORTED,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Container' => $theContainer ) );					// !@! ==>
+		
+		} // Composite container.
+		
+		throw new CException
+				( "Unsupported container type",
+				  kERROR_UNSUPPORTED,
+				  kMESSAGE_TYPE_ERROR,
+				  array( 'Container' => $theContainer ) );						// !@! ==>
+	
+	} // _QueryNode.
+
+	 
+	/*===================================================================================
+	 *	_LocateNode																		*
+	 *==================================================================================*/
+
+	/**
+	 * Locate node in graph.
+	 *
+	 * This method can be used to locate a node in the provided graph container, it accepts
+	 * two parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theNode</b>: The node reference, it can be either an integer or a numeric
+	 *		string referring to the seeked node ID.
+	 *	<li><b>$theContainer</b>: The graph container, it must be a Neo4j client.
+	 * </ul>
+	 *
+	 * The method will return the located node or <i>NULL</i> if not found.
+	 *
+	 * If the located node has an ID of zero, meaning that it is the default Neo4j node, the
+	 * method will raise an exception, because most likely the node parameter was a string
+	 * that resolved to zero.
+	 *
+	 * If any of the provided parameters is incorrect, the method will raise an exception.
+	 *
+	 * @param mixed					$theNode			Node reference.
+	 * @param mixed					$theContainer		Node container.
+	 *
+	 * @access protected
+	 * @return Everyman\Neo4j\Node|NULL
+	 *
+	 * @throws {@link CException CException}
+	 */
+	protected function _LocateNode( $theNode, $theContainer )
+	{
+		//
+		// Handle graph container.
+		//
+		if( $theContainer instanceof Everyman\Neo4j\Client )
+		{
+			//
+			// Get node.
+			//
+			$node = $theContainer->getNode( $theNode );
+			
+			//
+			// Found node.
+			//
+			if( $node !== NULL )
+			{
+				//
+				// Check node identifier.
+				//
+				if( ! $node->getId() )
+					throw new CException
+							( "Zero node ID: node identifier possibly wrong",
+							  kERROR_INVALID_PARAMETER,
+							  kMESSAGE_TYPE_WARNING,
+							  array( 'Node' => $theNode ) );					// !@! ==>
+			
+			} // Found node.
+			
+			return $node;															// ==>
+		
+		} // Search in graph.
+		
+		throw new CException
+				( "Unsupported container type",
+				  kERROR_UNSUPPORTED,
+				  kMESSAGE_TYPE_ERROR,
+				  array( 'Container' => $theContainer ) );						// !@! ==>
+	
+	} // _LocateNode.
 
 	 
 	/*===================================================================================
@@ -439,6 +693,8 @@ class COntologyNodeIndex extends CArrayObject
 	 * {@link Node() node}'s properties.
 	 *
 	 * @access protected
+	 *
+	 * @uses Node()
 	 */
 	protected function _LoadNodeProperties()
 	{
@@ -448,16 +704,11 @@ class COntologyNodeIndex extends CArrayObject
 		$this->offsetSet( kTAG_LID, $this->Node()->getId() );
 		
 		//
-		// Load properties.
-		//
-		$this->Node()->load();
-		
-		//
 		// Set object properties.
 		//
 		$this->offsetSet( kTAG_DATA, $this->Node()->getProperties() );
 	
-	} // _PrepareCreate.
+	} // _LoadNodeProperties.
 
 	 
 
