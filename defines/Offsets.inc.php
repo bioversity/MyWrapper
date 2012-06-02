@@ -677,5 +677,33 @@ define( "kTAXON_AUTHORITY",						':AUTH' );
  */
 define( "kTAXON_NAME",							':TAXON' );
 
+/*=======================================================================================
+ *	DEFAULT IMAGE ATTRIBUTES															*
+ *======================================================================================*/
+
+/**
+ * Thumbnail flag.
+ *
+ * A flag is the image of a flag or an icon symbol representing an object, the thumbnail
+ * flag is a small sized version of this image.
+ */
+define( "kIMAGE_THUMB_FLAG",					':IMG-THMB-FLAG' );
+
+/**
+ * Medium flag.
+ *
+ * A flag is the image of a flag or an icon symbol representing an object, the medium
+ * flag is a medium sized version of this image.
+ */
+define( "kIMAGE_MED_FLAG",						':IMG-MED-FLAG' );
+
+/**
+ * Vector flag.
+ *
+ * A flag is the image of a flag or an icon symbol representing an object, the vector
+ * flag is a vector version of this image which can be resized at will.
+ */
+define( "kIMAGE_VECT_FLAG",						':IMG-VECT-FLAG' );
+
 
 ?>

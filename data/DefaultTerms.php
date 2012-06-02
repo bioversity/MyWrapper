@@ -162,7 +162,6 @@ try
 	LoadDefaultDomains( $_SESSION[ kSESSION_CONTAINER ], TRUE );
 	LoadDefaultCategories( $_SESSION[ kSESSION_CONTAINER ], TRUE );
 	LoadCropGroupDescriptors( $_SESSION[ kSESSION_CONTAINER ], TRUE );
-exit;
 	LoadUnStatsRegions( $_SESSION[ kSESSION_CONTAINER ], TRUE );
 	LoadISO( $_SESSION[ kSESSION_CONTAINER ], TRUE );
 	LoadMCPD( $_SESSION[ kSESSION_CONTAINER ], TRUE );
@@ -2024,7 +2023,31 @@ exit( "Done!\n" );
 				   'car' => 'kCARD_0_1',
 				   'typ' => 'kTYPE_STRING',
 				   'nam' => 'Taxon',
-				   'def' => 'This term represents a full taxon epithet.' )
+				   'def' => 'This term represents a full taxon epithet.' ),
+			array( 'id'	=> kIMAGE_THUMB_FLAG,
+				   'syn' => 'kIMAGE_THUMB_FLAG',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_PNG',
+				   'nam' => 'Flag thumbnail',
+				   'def' => 'A flag is the image of a flag or an icon symbol representing '
+				   		   .'an object, the thumbnail flag is a small sized version of '
+				   		   .'this image.' ),
+			array( 'id'	=> kIMAGE_MED_FLAG,
+				   'syn' => 'kIMAGE_MED_FLAG',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_PNG',
+				   'nam' => 'Flag image',
+				   'def' => 'A flag is the image of a flag or an icon symbol representing '
+				   		   .'an object, the medium flag is a medium sized version of '
+				   		   .'this image.' ),
+			array( 'id'	=> kIMAGE_VECT_FLAG,
+				   'syn' => 'kIMAGE_VECT_FLAG',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_SVG',
+				   'nam' => 'Flag vector image',
+				   'def' => 'A flag is the image of a flag or an icon symbol representing '
+				   		   .'an object, the vector flag is a vector version of this image '
+				   		   .'which can be resized at will.' )
 		);
 		
 		//
@@ -2397,7 +2420,6 @@ exit( "Done!\n" );
 		//
 		$node = new COntologyNode( $container );
 		$node->Term( $term );
-		$node->Kind( kTYPE_ROOT, TRUE );
 		$node->Kind( kTYPE_MEASURE, TRUE );
 		$node->Commit( $container );
 		//
@@ -2643,7 +2665,6 @@ exit( "Done!\n" );
 		//
 		$node = new COntologyNode( $container );
 		$node->Term( $term );
-		$node->Kind( kTYPE_ROOT, TRUE );
 		$node->Commit( $container );
 		//
 		// Save node.
@@ -2761,8 +2782,32 @@ exit( "Done!\n" );
 	} // LoadDefaultCategories.
 
 	 
+	/*===================================================================================
+	 *	LoadCropGroupDescriptors															*
+	 *==================================================================================*/
+
+	/**
+	 * Load crop groups and codes.
+	 *
+	 * This function will load the default Annex 1 crop groups and codes.
+	 *
+	 * If the last parameter is <i>TRUE</i>, the function will display the name of the
+	 * created terms.
+	 *
+	 * @param CContainer			$theContainer		Collection.
+	 * @param boolean				$doDisplay			Display created terms.
+	 *
+	 * @access protected
+	 */
 	function LoadCropGroupDescriptors( CContainer $theContainer, $doDisplay = TRUE )
 	{
+		//
+		// Init local storage.
+		//
+		$nodes = Array();
+		$container = array( kTAG_TERM => $theContainer,
+							kTAG_NODE => $_SESSION[ kSESSION_NEO4J ] );
+		
 		//
 		// Open MySQL connection.
 		//
@@ -2788,162 +2833,157 @@ exit( "Done!\n" );
 		}
 		
 		//
-		// Get node term index.
-		//
-		$term_index = new NodeIndex( $container[ kTAG_NODE ], kINDEX_NODE_TERM );
-		$term_index->save();
-		$node_index = new RelationshipIndex( $container[ kTAG_NODE ], kINDEX_NODE_TERM );
-		$node_index->save();
-		
-		//
 		// IS-A.
 		//
 		$is_a
-			= CPersistentUnitObject::NewObject
-				( $theContainer, COntologyTermObject::HashIndex( kPRED_IS_A ),
-				  kFLAG_STATE_ENCODED );
-		if( ! $is_a )
-			throw new Exception
-				( 'Unable to find subclass of predicate.' );					// !@! ==>
+			= new COntologyTerm
+						( $theContainer, COntologyTerm::HashIndex( kPRED_IS_A ) );
 		
 		//
 		// ENUM-OF.
 		//
 		$enum_of
-			= CPersistentUnitObject::NewObject
-				( $theContainer, COntologyTermObject::HashIndex( kPRED_ENUM_OF ),
-				  kFLAG_STATE_ENCODED );
-		if( ! $enum_of )
-			throw new Exception
-				( 'Unable to find enumeration predicate.' );					// !@! ==>
+			= new COntologyTerm
+						( $theContainer, COntologyTerm::HashIndex( kPRED_ENUM_OF ) );
 		
 		//
 		// PART-OF.
 		//
 		$part_of
-			= CPersistentUnitObject::NewObject
-				( $theContainer, COntologyTermObject::HashIndex( kPRED_PART_OF ),
-				  kFLAG_STATE_ENCODED );
-		if( ! $part_of )
-			throw new Exception
-				( 'Unable to find part-of predicate.' );						// !@! ==>
+			= new COntologyTerm
+						( $theContainer, COntologyTerm::HashIndex( kPRED_PART_OF ) );
 		
 		//
 		// International Treaty on Plant Genetic Resources for Food and Agriculture.
 		//
-		$ns = new COntologyTerm();
-		$ns->Code( 'ITPGRFA' );
-        $ns->Name( 'International Treaty on Plant Genetic Resources descriptor',
-        		   kDEFAULT_LANGUAGE );
-		$ns->Definition
-		( 'International Treaty on Plant Genetic Resources for Food and Agriculture '
-		 .'descriptor.', kDEFAULT_LANGUAGE );
-		$ns->Kind( kTYPE_NAMESPACE, TRUE );
-		$ns->Kind( kTYPE_ROOT, TRUE );
-		$ns->Commit( $theContainer );
-		$root = $term_index->findOne( kTAG_TERM, (string) $ns );
-		if( $root === NULL )
+		$term = new COntologyTerm( $theContainer, 
+								   COntologyTerm::HashIndex( 'ITPGRFA' ) );
+		if( ! $term->Persistent() )
 		{
-			$root = new COntologyNode( $container );
-			$root->Term( $ns );
-			$root->Kind( kTYPE_ROOT, TRUE );
-			$root->Commit( $container );
+			$term->Code( 'ITPGRFA' );
+			$term->Kind( kTYPE_NAMESPACE, TRUE );
+			$term->Name
+			( 'International Treaty on Plant Genetic Resources descriptor',
+			  kDEFAULT_LANGUAGE );
+			$term->Definition
+			( 'International Treaty on Plant Genetic Resources for Food and Agriculture '
+			 .'descriptor.',
+			  kDEFAULT_LANGUAGE );
+			$term->Commit( $theContainer );
 		}
-		else
-			$root = new COntologyNode( $container, $root );
-		$namespace = $ns[ kTAG_GID ].kTOKEN_NAMESPACE_SEPARATOR;
+		//
+		// Handle node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_ROOT, TRUE );
+		$node->Commit( $container );
+		//
+		// Save node.
+		//
+		$nodes[ 'ITPGRFA' ] = $node;
+		//
+		// Display.
+		//
 		if( $doDisplay )
-			echo( $ns->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$ns] [".$root->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 		
 		//
 		// GROUP - Crop group codes.
 		//
-		$group_term = new COntologyTerm();
-		$group_term->NS( $ns );
-		$group_term->Code( 'ANNEX1-CROP-GROUP' );
-		$group_term->Name( 'Crop group code', kDEFAULT_LANGUAGE );
-		$group_term->Definition
-		( 'Annex 1 crop group code.', kDEFAULT_LANGUAGE );
-		$group_term->Type( kTYPE_ENUM );
-		$group_term->Pattern( '[0-9]{3}', TRUE );
-		$group_term->Commit( $theContainer );
-		$group_node = $term_index->findOne( kTAG_TERM, (string) $group_term );
-		if( $group_node === NULL )
+		$term
+			= new COntologyTerm(
+					$theContainer, 
+					COntologyTerm::HashIndex(
+						'ITPGRFA'.kTOKEN_NAMESPACE_SEPARATOR.'ANNEX1-CROP-GROUP' ) );
+		if( ! $term->Persistent() )
 		{
-			$group_node = new COntologyNode( $container );
-			$group_node->Term( $group_term );
-			$group_node->Kind( kTYPE_MEASURE, TRUE );
-			$group_node->Type( kTYPE_ENUM, TRUE );
-			$group_node->Commit( $container );
+			$term->NS( $nodes[ 'ITPGRFA' ]->Term() );
+			$term->Code( 'ANNEX1-CROP-GROUP' );
+			$term->Type( kTYPE_ENUM );
+			$term->Pattern( '[0-9]{3}', TRUE );
+			$term->Name
+			( 'Crop group code',
+			  kDEFAULT_LANGUAGE );
+			$term->Definition
+			( 'Annex 1 crop group code.',
+			  kDEFAULT_LANGUAGE );
+			$term->Commit( $theContainer );
 		}
-		else
-			$group_node = new COntologyNode( $container, $group_node );
-		$id = Array();
-		$id[] = $group_node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $root->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $group_node->RelateTo( $container, $is_a, $root );
-			$edge->Commit( $container );
-		}
+		//
+		// Handle node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Type( kTYPE_ENUM, TRUE );
+		$node->Commit( $container );
+		//
+		// Save node.
+		//
+		$nodes[ 'ANNEX1-CROP-GROUP' ] = $node;
+		//
+		// Handle edge.
+		//
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'ITPGRFA' ] );
+		$edge->Commit( $container );
+		//
+		// Display.
+		//
 		if( $doDisplay )
-			echo( $group_term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$group_term] [".$root->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 		
 		//
-		// Genus - Included genus in crop.
+		// Init local storage.
 		//
-		$genus_term = new COntologyTerm();
-		$genus_term->NS( $group_term );
-		$genus_term->Code( 'IncludedGenus' );
-		$genus_term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$genus_term->Cardinality( kCARD_ANY );
-		$genus_term->Name( 'Included genera', kDEFAULT_LANGUAGE );
-		$genus_term->Definition
-		( 'Genera included in crop definition.', kDEFAULT_LANGUAGE );
-		$genus_term->Type( kTYPE_STRING );
-		$genus_term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $genus_term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$genus_term]\n" );
-
+		$components = array
+		(
+			array( 'id'	=> 'IncludedGenus',
+				   'nam' => 'Included genera',
+				   'def' => 'Genera included in crop definition.' ),
+			array( 'id'	=> 'IncludedSpecies',
+				   'nam' => 'Included species',
+				   'def' => 'Species included in crop definition.' ),
+			array( 'id'	=> 'ExcludedSpecies',
+				   'nam' => 'Excluded species',
+				   'def' => 'Species excluded in crop definition.' )
+		);
+		
 		//
-		// Species - Included species in crop.
+		// Load data.
 		//
-		$species_term = new COntologyTerm();
-		$species_term->NS( $group_term );
-		$species_term->Code( 'IncludedSpecies' );
-		$species_term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$species_term->Cardinality( kCARD_ANY );
-		$species_term->Name( 'Included species', kDEFAULT_LANGUAGE );
-		$species_term->Definition
-		( 'Species included in crop definition.', kDEFAULT_LANGUAGE );
-		$species_term->Type( kTYPE_STRING );
-		$species_term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $species_term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$species_term]\n" );
-
-		//
-		// Excluded species - Excluded species in crop.
-		//
-		$ex_species_term = new COntologyTerm();
-		$ex_species_term->NS( $group_term );
-		$ex_species_term->Code( 'ExcludedSpecies' );
-		$ex_species_term->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$ex_species_term->Cardinality( kCARD_ANY );
-		$ex_species_term->Name( 'Excluded species', kDEFAULT_LANGUAGE );
-		$ex_species_term->Definition
-		( 'Species excluded in crop definition.', kDEFAULT_LANGUAGE );
-		$ex_species_term->Type( kTYPE_STRING );
-		$ex_species_term->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $ex_species_term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$ex_species_term]\n" );
+		foreach( $components as $component )
+		{
+			//
+			// Handle term.
+			//
+			$term = new COntologyTerm( $theContainer, 
+									   COntologyTerm::HashIndex( $component[ 'id' ] ) );
+			if( ! $term->Persistent() )
+			{
+				$term->NS( $nodes[ 'ITPGRFA' ]->Term() );
+				$term->Code( $component[ 'id' ] );
+				$term->Kind( kTYPE_ATTRIBUTE, TRUE );
+				$term->Type( kTYPE_STRING );
+				$term->Cardinality( kCARD_ANY );
+				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
+				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
+				$term->Commit( $theContainer );
+			}
+			
+			//
+			// Display.
+			//
+			if( $doDisplay )
+				echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
+					 ." [$term]\n" );
+		}
 
 		//
 		// Load crop group codes.
@@ -2961,26 +3001,36 @@ EOT;
 		foreach( $rs as $record )
 		{
 			//
-			// Create region term.
+			// Create crop groups.
 			//
-			$term = new COntologyTerm();
-			$term->NS( $group_term );
-			$term->Code( $record[ 'Code' ] );
-			$term->Name( $record[ 'Label' ], kDEFAULT_LANGUAGE );
-			$term->Kind( kTYPE_ENUMERATION, TRUE );
-			$term->Type( kTYPE_ENUM );
-			$term->Commit( $theContainer );
-			$node = $term_index->findOne( kTAG_TERM, (string) $term );
-			if( $node === NULL )
+			$term
+				= new COntologyTerm(
+						$theContainer, 
+						COntologyTerm::HashIndex(
+							$nodes[ 'ANNEX1-CROP-GROUP' ]->Term()->GID()
+						   .kTOKEN_NAMESPACE_SEPARATOR
+						   .$record[ 'Code' ] ) );
+			if( ! $term->Persistent() )
 			{
-				$node = new COntologyNode( $container );
-				$node->Term( $term );
-				$node->Kind( kTYPE_ENUMERATION, TRUE );
-				$node->Commit( $container );
+				$term->NS( $nodes[ 'ANNEX1-CROP-GROUP' ]->Term() );
+				$term->Code( $record[ 'Code' ] );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
+				$term->Type( kTYPE_ENUM );
+				$term->Name( $record[ 'Label' ], kDEFAULT_LANGUAGE );
+				$term->Commit( $theContainer );
 			}
-			else
-				$node = new COntologyNode( $container, $node );
-			
+			//
+			// Handle node.
+			//
+			$node = new COntologyNode( $container );
+			$node->Term( $term );
+			$node->Kind( kTYPE_ENUMERATION, TRUE );
+			$node->Type( kTYPE_ENUM );
+			$node->Commit( $container );
+			//
+			// Save node.
+			//
+			$nodes[ $record[ 'Code' ] ] = $node;
 			//
 			// Display.
 			//
@@ -3010,68 +3060,42 @@ EOT;
 			// Get parent and child terms.
 			//
 			$child_term
-				= new COntologyTerm
-					( $theContainer,
-					  COntologyTerm::HashIndex( $group_term
-					  						   .kTOKEN_NAMESPACE_SEPARATOR
-					  						   .$record[ 'Code' ] ) );
+				= new COntologyTerm(
+						$theContainer, 
+						COntologyTerm::HashIndex(
+							$nodes[ 'ANNEX1-CROP-GROUP' ]->Term()->GID()
+						   .kTOKEN_NAMESPACE_SEPARATOR
+						   .$record[ 'Code' ] ) );
 			if( $record[ 'Parent' ] !== NULL )
 				$parent_term
-					= new COntologyTerm
-						( $theContainer,
-						  COntologyTerm::HashIndex( $group_term
-												   .kTOKEN_NAMESPACE_SEPARATOR
-												   .$record[ 'Parent' ] ) );
+					= new COntologyTerm(
+							$theContainer, 
+							COntologyTerm::HashIndex(
+								$nodes[ 'ANNEX1-CROP-GROUP' ]->Term()->GID()
+							   .kTOKEN_NAMESPACE_SEPARATOR
+							   .$record[ 'Parent' ] ) );
 			else
-				$parent_term = $group_term;
+				$parent_term
+					= $nodes[ 'ANNEX1-CROP-GROUP' ]->Term();
 			
 			//
-			// Get/create parent node.
+			// Get parent node.
 			//
 			if( $record[ 'Parent' ] !== NULL )
-			{
-				$parent_node = $term_index->findOne( kTAG_TERM, (string) $parent_term );
-				if( $parent_node === NULL )
-				{
-					$parent_node = new COntologyNode( $container );
-					$parent_node->Term( $parent_term );
-					$parent_node->Kind( kTYPE_ENUMERATION, TRUE );
-					$parent_node->Commit( $container );
-				}
-				else
-					$parent_node = new COntologyNode( $container, $parent_node );
-			}
+				$parent_node = $nodes[ $record[ 'Parent' ] ];
 			else
-				$parent_node = $group_node;
+				$parent_node = $nodes[ 'ANNEX1-CROP-GROUP' ];
 			
 			//
-			// Get/create child node.
+			// Get child node.
 			//
-			$child_node = $term_index->findOne( kTAG_TERM, (string) $child_term );
-			if( $child_node === NULL )
-			{
-				$child_node = new COntologyNode( $container );
-				$child_node->Term( $child_term );
-				$child_node->Kind( kTYPE_ENUMERATION, TRUE );
-				$child_node->Commit( $container );
-			}
-			else
-				$child_node = new COntologyNode( $container, $child_node );
+			$child_node = $nodes[ $record[ 'Code' ] ];
 			
 			//
-			// Create child/parent edge.
+			// Handle edge.
 			//
-			$id = Array();
-			$id[] = $child_node->Node()->getId();
-			$id[] = (string) $enum_of;
-			$id[] = $parent_node->Node()->getId();
-			$id = implode( '/', $id );
-			$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-			if( $edge === NULL )
-			{
-				$edge = $child_node->RelateTo( $container, $enum_of, $parent_node );
-				$edge->Commit( $container );
-			}
+			$edge = $child_node->RelateTo( $container, $enum_of, $parent_node );
+			$edge->Commit( $container );
 			
 			//
 			// Display.
@@ -3084,40 +3108,50 @@ EOT;
 		//
 		// CROP - Crop codes.
 		//
-		$crop_term = new COntologyTerm();
-		$crop_term->NS( $ns );
-		$crop_term->Code( 'ANNEX1-CROP' );
-		$crop_term->Name( 'Crop code', kDEFAULT_LANGUAGE );
-		$crop_term->Definition
-		( 'Annex 1 crop code.', kDEFAULT_LANGUAGE );
-		$crop_term->Type( kTYPE_ENUM );
-		$crop_term->Pattern( '[0-9]{1,2}', TRUE );
-		$crop_term->Commit( $theContainer );
-		$crop_node = $term_index->findOne( kTAG_TERM, (string) $crop_term );
-		if( $crop_node === NULL )
+		$term
+			= new COntologyTerm(
+					$theContainer, 
+					COntologyTerm::HashIndex(
+						'ITPGRFA'.kTOKEN_NAMESPACE_SEPARATOR.'ANNEX1-CROP' ) );
+		if( ! $term->Persistent() )
 		{
-			$crop_node = new COntologyNode( $container );
-			$crop_node->Term( $crop_term );
-			$crop_node->Type( kTYPE_ENUM, TRUE );
-			$crop_node->Kind( kTYPE_MEASURE, TRUE );
-			$crop_node->Commit( $container );
+			$term->NS( $nodes[ 'ITPGRFA' ]->Term() );
+			$term->Code( 'ANNEX1-CROP' );
+			$term->Type( kTYPE_ENUM );
+			$term->Pattern( '[0-9]{1,2}', TRUE );
+			$term->Name
+			( 'Crop code',
+			  kDEFAULT_LANGUAGE );
+			$term->Definition
+			( 'Annex 1 crop code.',
+			  kDEFAULT_LANGUAGE );
+			$term->Commit( $theContainer );
 		}
-		else
-			$crop_node = new COntologyNode( $container, $crop_node );
-		$id = Array();
-		$id[] = $crop_node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $root->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $crop_node->RelateTo( $container, $is_a, $root );
-			$edge->Commit( $container );
-		}
+		//
+		// Handle node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Type( kTYPE_ENUM, TRUE );
+		$node->Commit( $container );
+		//
+		// Save node.
+		//
+		$nodes[ 'ANNEX1-CROP' ] = $node;
+		//
+		// Handle edge.
+		//
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'ITPGRFA' ] );
+		$edge->Commit( $container );
+		//
+		// Display.
+		//
 		if( $doDisplay )
-			echo( $crop_term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$crop_term] [".$root->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 		
 		//
 		// Load crop codes.
@@ -3145,92 +3179,86 @@ EOT;
 			//
 			// Create crop term.
 			//
-			$term = new COntologyTerm();
-			$term->NS( $crop_term );
-			$term->Code( $record[ 'Code' ] );
-			$term->Name( $record[ 'Label' ], kDEFAULT_LANGUAGE );
-			if( $record[ 'Observations' ] !== NULL )
-				$term->Description( $record[ 'Observations' ], kDEFAULT_LANGUAGE );
-			$term->Kind( kTYPE_ENUMERATION, TRUE );
-			$term->Type( kTYPE_ENUM );
-			if( $record[ 'Genus' ] !== NULL )
+			$term
+				= new COntologyTerm(
+						$theContainer, 
+						COntologyTerm::HashIndex(
+							$nodes[ 'ANNEX1-CROP' ]->Term()->GID()
+						   .kTOKEN_NAMESPACE_SEPARATOR
+						   .$record[ 'Code' ] ) );
+			if( ! $term->Persistent() )
 			{
-				$list = Array();
-				$tmp = explode( ',', $record[ 'Genus' ] );
-				foreach( $tmp as $element )
-					$list[] = trim( $element );
-				$term[ $genus_term->GID() ] = $list;
+				$term->NS( $nodes[ 'ANNEX1-CROP' ]->Term() );
+				$term->Code( $record[ 'Code' ] );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
+				$term->Type( kTYPE_ENUM );
+				$term->Name( $record[ 'Label' ], kDEFAULT_LANGUAGE );
+				if( $record[ 'Observations' ] !== NULL )
+					$term->Description( $record[ 'Observations' ], kDEFAULT_LANGUAGE );
+				if( $record[ 'Genus' ] !== NULL )
+				{
+					$list = Array();
+					$tmp = explode( ',', $record[ 'Genus' ] );
+					foreach( $tmp as $element )
+					{
+						if( strlen( $string = trim( $element ) ) )
+							$list[] = $string;
+					}
+					$term[ 'ITPGRFA'
+						  .kTOKEN_NAMESPACE_SEPARATOR
+						  .'IncludedGenus' ] = $list;
+				}
+				if( $record[ 'Species' ] !== NULL )
+				{
+					$list = Array();
+					$tmp = explode( ',', $record[ 'Species' ] );
+					foreach( $tmp as $element )
+					{
+						if( strlen( $string = trim( $element ) ) )
+							$list[] = $string;
+					}
+					$term[ 'ITPGRFA'
+						  .kTOKEN_NAMESPACE_SEPARATOR
+						  .'IncludedSpecies' ] = $list;
+				}
+				if( $record[ 'ExcludedSpecies' ] !== NULL )
+				{
+					$list = Array();
+					$tmp = explode( ',', $record[ 'ExcludedSpecies' ] );
+					foreach( $tmp as $element )
+					{
+						if( strlen( $string = trim( $element ) ) )
+							$list[] = $string;
+					}
+					$term[ 'ITPGRFA'
+						  .kTOKEN_NAMESPACE_SEPARATOR
+						  .'ExcludedSpecies' ] = $list;
+				}
+				$term->Commit( $theContainer );
 			}
-			if( $record[ 'Species' ] !== NULL )
-			{
-				$list = Array();
-				$tmp = explode( ',', $record[ 'Species' ] );
-				foreach( $tmp as $element )
-					$list[] = trim( $element );
-				$term[ $species_term->GID() ] = $list;
-			}
-			if( $record[ 'ExcludedSpecies' ] !== NULL )
-			{
-				$list = Array();
-				$tmp = explode( ',', $record[ 'ExcludedSpecies' ] );
-				foreach( $tmp as $element )
-					$list[] = trim( $element );
-				$term[ $ex_species_term->GID() ] = $list;
-			}
-			$term->Commit( $theContainer );
-			$node = $term_index->findOne( kTAG_TERM, (string) $term );
-			if( $node === NULL )
-			{
-				$node = new COntologyNode( $container );
-				$node->Term( $term );
-				$node->Kind( kTYPE_ENUMERATION, TRUE );
-				$node->Commit( $container );
-			}
-			else
-				$node = new COntologyNode( $container, $node );
-			$id = Array();
-			$id[] = $node->Node()->getId();
-			$id[] = (string) $enum_of;
-			$id[] = $crop_node->Node()->getId();
-			$id = implode( '/', $id );
-			$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-			if( $edge === NULL )
-			{
-				$edge = $node->RelateTo( $container, $enum_of, $crop_node );
-				$edge->Commit( $container );
-			}
+			//
+			// Handle node.
+			//
+			$node = new COntologyNode( $container );
+			$node->Term( $term );
+			$node->Kind( kTYPE_ENUMERATION, TRUE );
+			$node->Type( kTYPE_ENUM );
+			$node->Commit( $container );
+			//
+			// Handle edge.
+			//
+			$edge = $node->RelateTo( $container, $enum_of, $nodes[ 'ANNEX1-CROP' ] );
+			$edge->Commit( $container );
 			
 			//
-			// Get group.
+			// Relate group.
 			//
 			if( $record[ 'Group' ] !== NULL )
 			{
-				//
-				// Get parent term.
-				//
-				$parent_term
-					= new COntologyTerm
-						( $theContainer,
-						  COntologyTerm::HashIndex( $group_term
-												   .kTOKEN_NAMESPACE_SEPARATOR
-												   .$record[ 'Group' ] ) );
-				$parent_node = $term_index->findOne( kTAG_TERM, (string) $parent_term );
-				$parent_node = new COntologyNode( $container, $parent_node );
-												   
-				//
-				// Create child/parent edge.
-				//
-				$id = Array();
-				$id[] = $node->Node()->getId();
-				$id[] = (string) $part_of;
-				$id[] = $parent_node->Node()->getId();
-				$id = implode( '/', $id );
-				$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-				if( $edge === NULL )
-				{
-					$edge = $node->RelateTo( $container, $part_of, $parent_node );
-					$edge->Commit( $container );
-				}
+				$edge
+					= $node->RelateTo(
+						$container, $part_of, $nodes[ $record[ 'Group' ] ] );
+				$edge->Commit( $container );
 			}
 			
 			//
@@ -3268,7 +3296,9 @@ EOT;
 		//
 		// Init local storage.
 		//
-		$_SESSION[ 'REGIONS' ] = Array();
+		$nodes = $_SESSION[ 'REGIONS' ] = Array();
+		$container = array( kTAG_TERM => $theContainer,
+							kTAG_NODE => $_SESSION[ kSESSION_NEO4J ] );
 		
 		//
 		// Open MySQL connection.
@@ -3280,12 +3310,6 @@ EOT;
 		$mysql->setFetchMode( ADODB_FETCH_ASSOC );
 		
 		//
-		// Init local storage.
-		//
-		$container = array( kTAG_TERM => $theContainer,
-							kTAG_NODE => $_SESSION[ kSESSION_NEO4J ] );
-		
-		//
 		// Inform.
 		//
 		if( $doDisplay )
@@ -3295,104 +3319,109 @@ EOT;
 		}
 		
 		//
-		// Get node term index.
-		//
-		$term_index = new NodeIndex( $container[ kTAG_NODE ], kINDEX_NODE_TERM );
-		$term_index->save();
-		$node_index = new RelationshipIndex( $container[ kTAG_NODE ], kINDEX_NODE_TERM );
-		$node_index->save();
-		
-		//
 		// IS-A.
 		//
 		$is_a
-			= CPersistentUnitObject::NewObject
-				( $theContainer, COntologyTermObject::HashIndex( kPRED_IS_A ),
-				  kFLAG_STATE_ENCODED );
-		if( ! $is_a )
-			throw new Exception
-				( 'Unable to find subclass of predicate.' );					// !@! ==>
+			= new COntologyTerm
+						( $theContainer, COntologyTerm::HashIndex( kPRED_IS_A ) );
 		
 		//
 		// ENUM-OF.
 		//
 		$enum_of
-			= CPersistentUnitObject::NewObject
-				( $theContainer, COntologyTermObject::HashIndex( kPRED_ENUM_OF ),
-				  kFLAG_STATE_ENCODED );
-		if( ! $enum_of )
-			throw new Exception
-				( 'Unable to find enumeration predicate.' );					// !@! ==>
+			= new COntologyTerm
+						( $theContainer, COntologyTerm::HashIndex( kPRED_ENUM_OF ) );
 		
 		//
 		// United Nations Statistics Division.
 		//
-		$ns = new COntologyTerm();
-		$ns->Code( 'UNSTATS' );
-        $ns->Name( 'UN Statistics Division', kDEFAULT_LANGUAGE );
-		$ns->Definition
-		( 'United Nations Statistics Division.', kDEFAULT_LANGUAGE );
-		$ns->Kind( kTYPE_NAMESPACE, TRUE );
-		$ns->Kind( kTYPE_ROOT, TRUE );
-		$ns->Commit( $theContainer );
-		$root = $term_index->findOne( kTAG_TERM, (string) $ns );
-		if( $root === NULL )
+		$term = new COntologyTerm( $theContainer, 
+								   COntologyTerm::HashIndex( 'UNSTATS' ) );
+		if( ! $term->Persistent() )
 		{
-			$root = new COntologyNode( $container );
-			$root->Term( $ns );
-			$root->Kind( kTYPE_ROOT, TRUE );
-			$root->Commit( $container );
+			$term->Code( 'UNSTATS' );
+			$term->Kind( kTYPE_NAMESPACE, TRUE );
+			$term->Name
+			( 'UN Statistics Division',
+			  kDEFAULT_LANGUAGE );
+			$term->Definition
+			( 'United Nations Statistics Division.',
+			  kDEFAULT_LANGUAGE );
+			$term->Commit( $theContainer );
 		}
-		else
-			$root = new COntologyNode( $container, $root );
-		$namespace = $ns[ kTAG_GID ].kTOKEN_NAMESPACE_SEPARATOR;
+		//
+		// Handle node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_ROOT, TRUE );
+		$node->Commit( $container );
+		//
+		// Save node.
+		//
+		$nodes[ 'UNSTATS' ] = $node;
+		//
+		// Display.
+		//
 		if( $doDisplay )
-			echo( $ns->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$ns] [".$root->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 		
 		//
 		// UNSTATS - Region codes.
 		//
-		$region_term = new COntologyTerm();
-		$region_term->NS( $ns );
-		$region_term->Code( 'REGIONS' );
-		$region_term->Name( 'Region codes', kDEFAULT_LANGUAGE );
-		$region_term->Definition
-		( 'United Nations Statistics Division composition of macro geographical '
-		 .'(continental) regions, geographical sub-regions, and selected economic '
-		 .'and other groupings.', kDEFAULT_LANGUAGE );
-		$region_term->Type( kTYPE_ENUM );
-		$region_term->Pattern( '[0-9]{3}', TRUE );
-		$region_term->Domain( kDOMAIN_GEOGRAPHY, TRUE );
-		$region_term->Category( kCATEGORY_ADMIN, TRUE );
-		$region_term->Commit( $theContainer );
-		$region_node = $term_index->findOne( kTAG_TERM, (string) $region_term );
-		if( $region_node === NULL )
+		$term
+			= new COntologyTerm(
+					$theContainer, 
+					COntologyTerm::HashIndex(
+						'UNSTATS'.kTOKEN_NAMESPACE_SEPARATOR.'REGIONS' ) );
+		if( ! $term->Persistent() )
 		{
-			$region_node = new COntologyNode( $container );
-			$region_node->Term( $region_term );
-			$region_node->Type( kTYPE_ENUM, TRUE );
-			$region_node->Kind( kTYPE_MEASURE, TRUE );
-			$region_node->Domain( kDOMAIN_GEOGRAPHY, TRUE );
-			$region_node->Category( kCATEGORY_ADMIN, TRUE );
-			$region_node->Commit( $container );
+			$term->NS( $nodes[ 'UNSTATS' ]->Term() );
+			$term->Code( 'REGIONS' );
+			$term->Type( kTYPE_ENUM );
+			$term->Pattern( '[0-9]{3}', TRUE );
+			$term->Domain( kDOMAIN_GEOGRAPHY, TRUE );
+			$term->Category( kCATEGORY_ADMIN, TRUE );
+			$term->Name
+			( 'Region codes',
+			  kDEFAULT_LANGUAGE );
+			$term->Definition
+			( 'United Nations Statistics Division composition of macro geographical '
+			 .'(continental) regions, geographical sub-regions, and selected economic '
+			 .'and other groupings.',
+			  kDEFAULT_LANGUAGE );
+			$term->Commit( $theContainer );
 		}
-		else
-			$region_node = new COntologyNode( $container, $region_node );
-		$id = Array();
-		$id[] = $region_node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $root->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $region_node->RelateTo( $container, $is_a, $root );
-			$edge->Commit( $container );
-		}
+		//
+		// Handle node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Type( kTYPE_ENUM, TRUE );
+		$node->Domain( kDOMAIN_GEOGRAPHY, TRUE );
+		$node->Category( kCATEGORY_ADMIN, TRUE );
+		$node->Commit( $container );
+		//
+		// Save node.
+		//
+		$nodes[ 'REGIONS' ] = $node;
+		//
+		// Handle edge.
+		//
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'UNSTATS' ] );
+		$edge->Commit( $container );
+		//
+		// Display.
+		//
 		if( $doDisplay )
-			echo( $region_term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$region_term] [".$root->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 		
 		//
 		// Load region terms.
@@ -3400,7 +3429,6 @@ EOT;
 		$query = <<<EOT
 SELECT
 	`Code_ISO_3166_Regions`.`Code`,
-	`Code_ISO_3166_Regions`.`Parent`,
 	`Code_ISO_3166_Regions`.`Name`
 FROM
 	`Code_ISO_3166_Regions`
@@ -3413,20 +3441,41 @@ EOT;
 			//
 			// Create region term.
 			//
-			$term = new COntologyTerm();
-			$term->NS( $ns );
-			$term->Code( $record[ 'Code' ] );
-			$term->Name( $record[ 'Name' ], kDEFAULT_LANGUAGE );
-			$term->Kind( kTYPE_ENUMERATION, TRUE );
-			$term->Type( kTYPE_ENUM );
-			$term->Commit( $theContainer );
-			
+			$term
+				= new COntologyTerm(
+						$theContainer, 
+						COntologyTerm::HashIndex(
+							$nodes[ 'REGIONS' ]->Term()->GID()
+						   .kTOKEN_NAMESPACE_SEPARATOR
+						   .$record[ 'Code' ] ) );
+			if( ! $term->Persistent() )
+			{
+				$term->NS( $nodes[ 'REGIONS' ]->Term() );
+				$term->Code( $record[ 'Code' ] );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
+				$term->Type( kTYPE_ENUM );
+				$term->Name( $record[ 'Name' ], kDEFAULT_LANGUAGE );
+				$term->Commit( $theContainer );
+			}
+			//
+			// Handle node.
+			//
+			$node = new COntologyNode( $container );
+			$node->Term( $term );
+			$node->Kind( kTYPE_ENUMERATION, TRUE );
+			$node->Type( kTYPE_ENUM );
+			$node->Commit( $container );
+			//
+			// Save node.
+			//
+			$nodes[ $record[ 'Code' ] ] = $node;
+			$_SESSION[ 'REGIONS' ][ $term->Code() ] = $node;
 			//
 			// Display.
 			//
 			if( $doDisplay )
 				echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-					 ." [$term]\n" );
+					 ." [$term] [".$node->Node()->getId()."]\n" );
 		
 		} $rs->Close();
 		
@@ -3450,70 +3499,42 @@ EOT;
 			// Get parent and child terms.
 			//
 			$child_term
-				= new COntologyTerm
-					( $theContainer,
-					  COntologyTerm::HashIndex( $namespace.$record[ 'Code' ] ) );
+				= new COntologyTerm(
+						$theContainer, 
+						COntologyTerm::HashIndex(
+							$nodes[ 'REGIONS' ]->Term()->GID()
+						   .kTOKEN_NAMESPACE_SEPARATOR
+						   .$record[ 'Code' ] ) );
 			if( $record[ 'Parent' ] !== NULL )
 				$parent_term
-					= new COntologyTerm
-						( $theContainer,
-						  COntologyTerm::HashIndex( $namespace.$record[ 'Parent' ] ) );
+					= new COntologyTerm(
+							$theContainer, 
+							COntologyTerm::HashIndex(
+								$nodes[ 'REGIONS' ]->Term()->GID()
+							   .kTOKEN_NAMESPACE_SEPARATOR
+							   .$record[ 'Parent' ] ) );
 			else
-				$parent_term = $region_term;
+				$parent_term
+					= $nodes[ 'REGIONS' ]->Term();
 			
 			//
-			// Get/create parent node.
+			// Get parent node.
 			//
 			if( $record[ 'Parent' ] !== NULL )
-			{
-				$parent_node = $term_index->findOne( kTAG_TERM, (string) $parent_term );
-				if( $parent_node === NULL )
-				{
-					$parent_node = new COntologyNode( $container );
-					$parent_node->Term( $parent_term );
-					$parent_node->Kind( kTYPE_ENUMERATION, TRUE );
-					$parent_node->Commit( $container );
-				}
-				else
-					$parent_node = new COntologyNode( $container, $parent_node );
-				
-				$_SESSION[ 'REGIONS' ][ $parent_term->Code() ]
-					= $parent_node->Node()->getId();
-			}
+				$parent_node = $nodes[ $record[ 'Parent' ] ];
 			else
-				$parent_node = $region_node;
+				$parent_node = $nodes[ 'REGIONS' ];
 			
 			//
-			// Get/create child node.
+			// Get child node.
 			//
-			$child_node = $term_index->findOne( kTAG_TERM, (string) $child_term );
-			if( $child_node === NULL )
-			{
-				$child_node = new COntologyNode( $container );
-				$child_node->Term( $child_term );
-				$child_node->Kind( kTYPE_ENUMERATION, TRUE );
-				$child_node->Commit( $container );
-			}
-			else
-				$child_node = new COntologyNode( $container, $child_node );
-			
-			$_SESSION[ 'REGIONS' ][ $child_term->Code() ]
-				= $child_node->Node()->getId();
+			$child_node = $nodes[ $record[ 'Code' ] ];
 			
 			//
-			// Create child/parent edge.
+			// Handle edge.
 			//
-			$id = Array();
-			$id[] = $child_node->Node()->getId();
-			$id[] = (string) $enum_of;
-			$id[] = $parent_node->Node()->getId();
-			$id = implode( '/', $id );
-			$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-			if( $edge === NULL )
-			{
-				$edge = $child_node->RelateTo( $container, $enum_of, $parent_node );
-				$edge->Commit( $container );
-			}
+			$edge = $child_node->RelateTo( $container, $enum_of, $parent_node );
+			$edge->Commit( $container );
 			
 			//
 			// Display.
@@ -3546,6 +3567,13 @@ EOT;
 	function LoadISO( CContainer $theContainer, $doDisplay = TRUE )
 	{
 		//
+		// Init local storage.
+		//
+		$nodes = Array();
+		$container = array( kTAG_TERM => $theContainer,
+							kTAG_NODE => $_SESSION[ kSESSION_NEO4J ] );
+		
+		//
 		// Open MySQL connection.
 		//
 		$mysql = NewADOConnection( DEFAULT_ANCILLARY_HOST );
@@ -3553,12 +3581,6 @@ EOT;
 			throw new Exception( 'Unable to connect to MySQL.' );				// !@! ==>
 		$mysql->Execute( "SET CHARACTER SET 'utf8'" );
 		$mysql->setFetchMode( ADODB_FETCH_ASSOC );
-		
-		//
-		// Init local storage.
-		//
-		$container = array( kTAG_TERM => $theContainer,
-							kTAG_NODE => $_SESSION[ kSESSION_NEO4J ] );
 		
 		//
 		// Inform.
@@ -3570,1039 +3592,580 @@ EOT;
 		}
 		
 		//
-		// Get node term index.
-		//
-		$term_index = new NodeIndex( $container[ kTAG_NODE ], kINDEX_NODE_TERM );
-		$term_index->save();
-		$node_index = new RelationshipIndex( $container[ kTAG_NODE ], kINDEX_NODE_TERM );
-		$node_index->save();
-		
-		//
 		// IS-A.
 		//
 		$is_a
-			= CPersistentUnitObject::NewObject
-				( $theContainer, COntologyTermObject::HashIndex( kPRED_IS_A ),
-				  kFLAG_STATE_ENCODED );
-		if( ! $is_a )
-			throw new Exception
-				( 'Unable to find subclass of predicate.' );					// !@! ==>
+			= new COntologyTerm
+						( $theContainer, COntologyTerm::HashIndex( kPRED_IS_A ) );
 		
 		//
 		// ENUM-OF.
 		//
 		$enum_of
-			= CPersistentUnitObject::NewObject
-				( $theContainer, COntologyTermObject::HashIndex( kPRED_ENUM_OF ),
-				  kFLAG_STATE_ENCODED );
-		if( ! $enum_of )
-			throw new Exception
-				( 'Unable to find enumeration predicate.' );					// !@! ==>
+			= new COntologyTerm
+						( $theContainer, COntologyTerm::HashIndex( kPRED_ENUM_OF ) );
 		
 		//
 		// PART-OF.
 		//
 		$part_of
-			= CPersistentUnitObject::NewObject
-				( $theContainer, COntologyTermObject::HashIndex( kPRED_PART_OF ),
-				  kFLAG_STATE_ENCODED );
-		if( ! $enum_of )
-			throw new Exception
-				( 'Unable to find part-of predicate.' );						// !@! ==>
+			= new COntologyTerm
+						( $theContainer, COntologyTerm::HashIndex( kPRED_PART_OF ) );
 		
 		//
 		// ISO.
 		//
-		$iso_term = new COntologyTerm();
-		$iso_term->Code( 'ISO' );
-        $iso_term->Name( 'International Organization for Standardization', kDEFAULT_LANGUAGE );
-        $iso_term->Name( 'Organisation internationale de normalisation', 'fr' );
-        $iso_term->Name( 'Международная организация по стандартизации', 'ru' );
-		$iso_term->Definition
-		( 'Collection of industrial and commercial standards and codes.',
-		  kDEFAULT_LANGUAGE );
-		$iso_term->Kind( kTYPE_NAMESPACE, TRUE );
-		$iso_term->Kind( kTYPE_ROOT, TRUE );
-		$iso_term->Domain( kDOMAIN_LANGUAGE, TRUE );
-		$iso_term->Domain( kDOMAIN_GEOGRAPHY, TRUE );
-		$iso_term->Commit( $theContainer );
-		$iso_node = $term_index->findOne( kTAG_TERM, (string) $iso_term );
-		if( $iso_node === NULL )
+		$term = new COntologyTerm( $theContainer, 
+								   COntologyTerm::HashIndex( 'ISO' ) );
+		if( ! $term->Persistent() )
 		{
-			$iso_node = new COntologyNode( $container );
-			$iso_node->Term( $iso_term );
-			$iso_node->Kind( kTYPE_ROOT, TRUE );
-			$iso_node->Commit( $container );
+			$term->Code( 'ISO' );
+			$term->Kind( kTYPE_NAMESPACE, TRUE );
+			$term->Domain( kDOMAIN_LANGUAGE, TRUE );
+			$term->Domain( kDOMAIN_GEOGRAPHY, TRUE );
+			$term->Name
+			( 'International Organization for Standardization',
+			  kDEFAULT_LANGUAGE );
+			$term->Name
+			( 'Organisation internationale de normalisation',
+			  'fr' );
+			$term->Name
+			( 'Международная организация по стандартизации',
+			  'ru' );
+			$term->Definition
+			( 'Collection of industrial and commercial standards and codes.',
+			  kDEFAULT_LANGUAGE );
+			$term->Commit( $theContainer );
 		}
-		else
-			$iso_node = new COntologyNode( $container, $iso_node );
+		//
+		// Handle node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_ROOT, TRUE );
+		$node->Commit( $container );
+		//
+		// Save node.
+		//
+		$nodes[ 'ISO' ] = $node;
+		//
+		// Display.
+		//
 		if( $doDisplay )
-			echo( $iso_term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$iso_term] [".$iso_node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 		
 		//
 		// ISO 639.
 		//
-		$ns_639 = new COntologyTerm();
-		$ns_639->NS( $iso_term );
-		$ns_639->Code( '639' );
-        $ns_639->Name( 'ISO 639',
-        			   kDEFAULT_LANGUAGE );
-		$ns_639->Definition
-		( 'ISO 639 is a set of standards by the International Organization for '
-		 .'Standardization that is concerned with representation of names for '
-		 .'language and language groups.',
-		  kDEFAULT_LANGUAGE );
-		$ns_639->Kind( kTYPE_NAMESPACE, TRUE );
-		$ns_639->Domain( kDOMAIN_LANGUAGE, TRUE );
-		$ns_639->Commit( $theContainer );
-		$root_639 = $term_index->findOne( kTAG_TERM, (string) $ns_639 );
-		if( $root_639 === NULL )
+		$term
+			= new COntologyTerm(
+					$theContainer, 
+					COntologyTerm::HashIndex(
+						'ISO'.kTOKEN_NAMESPACE_SEPARATOR.'639' ) );
+		if( ! $term->Persistent() )
 		{
-			$root_639 = new COntologyNode( $container );
-			$root_639->Term( $ns_639 );
-			$root_639->Domain( kDOMAIN_LANGUAGE, TRUE );
-			$root_639->Commit( $container );
+			$term->NS( $nodes[ 'ISO' ]->Term() );
+			$term->Code( '639' );
+			$term->Kind( kTYPE_NAMESPACE, TRUE );
+			$term->Domain( kDOMAIN_LANGUAGE, TRUE );
+			$term->Name
+			( 'ISO 639',
+			  kDEFAULT_LANGUAGE );
+			$term->Definition
+			( 'ISO 639 is a set of standards by the International Organization for '
+			 .'Standardization that is concerned with representation of names for '
+			 .'language and language groups.',
+			  kDEFAULT_LANGUAGE );
+			$term->Commit( $theContainer );
 		}
-		else
-			$root_639 = new COntologyNode( $container, $root_639 );
-		$id = Array();
-		$id[] = $root_639->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $iso_node->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $root_639->RelateTo( $container, $is_a, $iso_node );
-			$edge->Commit( $container );
-		}
+		//
+		// Handle node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Domain( kDOMAIN_LANGUAGE, TRUE );
+		$node->Commit( $container );
+		//
+		// Save node.
+		//
+		$nodes[ $nodes[ 'ISO' ]->Term()->GID()
+			   .kTOKEN_NAMESPACE_SEPARATOR
+			   .'639' ] = $node;
+		//
+		// Handle edge.
+		//
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'ISO' ] );
+		$edge->Commit( $container );
+		//
+		// Display.
+		//
 		if( $doDisplay )
-			echo( $ns_639->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$ns_639] [".$root_639->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 		
 		//
-		// Print name.
+		// Init local storage.
 		//
-		$term_print_name = new COntologyTerm();
-		$term_print_name->NS( $ns_639 );
-		$term_print_name->Code( 'PrintName' );
-        $term_print_name->Name
-        ( 'Name associated with the language',
-          kDEFAULT_LANGUAGE );
-        $term_print_name->Definition
-        ( 'One of the names associated with the language',
-		  kDEFAULT_LANGUAGE );
-		$term_print_name->Type( kTYPE_STRING );
-		$term_print_name->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term_print_name->Cardinality( kCARD_0_1 );
-		$term_print_name->Domain( kDOMAIN_LANGUAGE, TRUE );
-		$term_print_name->Commit( $theContainer );
-		if( $doDisplay )
-			echo( $term_print_name->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term_print_name]\n" );
+		$components = array
+		(
+			array( 'id'	=> 'PrintName',
+				   'nam' => 'Name associated with the language',
+				   'def' => 'One of the names associated with the language.' ),
+			array( 'id'	=> 'InvertedName',
+				   'nam' => 'Name associated with the language',
+				   'def' => 'One of the names associated with the language.' )
+		);
 		
 		//
-		// Inverted name.
+		// Load data.
 		//
-		$term_inverted_name = new COntologyTerm();
-		$term_inverted_name->NS( $ns_639 );
-		$term_inverted_name->Code( 'InvertedName' );
-        $term_inverted_name->Name
-        ( 'Name associated with the language',
-          kDEFAULT_LANGUAGE );
-        $term_inverted_name->Definition
-        ( 'One of the names associated with the language',
-		  kDEFAULT_LANGUAGE );
-		$term_inverted_name->Kind( kTYPE_ATTRIBUTE, TRUE );
-		$term_inverted_name->Cardinality( kCARD_0_1 );
-		$term_inverted_name->Domain( kDOMAIN_LANGUAGE, TRUE );
-		$term_inverted_name->Commit( $theContainer );
-		$root_inverted_name = $term_index->findOne( kTAG_TERM, (string) $term_inverted_name );
-		if( $doDisplay )
-			echo( $term_inverted_name->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term_inverted_name]\n" );
+		foreach( $components as $component )
+		{
+			//
+			// Handle term.
+			//
+			$term
+				= new COntologyTerm(
+						$theContainer, 
+						COntologyTerm::HashIndex(
+							$nodes[ 'ISO:639' ]->Term()->GID()
+						   .kTOKEN_NAMESPACE_SEPARATOR
+						   .$component[ 'id' ] ) );
+			if( ! $term->Persistent() )
+			{
+				$term->NS( $nodes[ 'ISO:639' ]->Term() );
+				$term->Code( $component[ 'id' ] );
+				$term->Kind( kTYPE_ATTRIBUTE, TRUE );
+				$term->Type( kTYPE_STRING );
+				$term->Cardinality( kCARD_0_1 );
+				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
+				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
+				$term->Commit( $theContainer );
+			}
+			
+			//
+			// Display.
+			//
+			if( $doDisplay )
+				echo( "[$term] ".$term->Name( NULL, kDEFAULT_LANGUAGE )."\n" );
+		}
 		
 		//
 		// ISO 639-3.
 		//
-		$ns_639_3 = new COntologyTerm();
-		$ns_639_3->NS( $ns_639 );
-		$ns_639_3->Code( '3' );
-        $ns_639_3->Name( 'Part 3 alpha-3 codes',
-        			   kDEFAULT_LANGUAGE );
-		$ns_639_3->Definition
-		( 'The standard describes three‐letter codes for identifying languages. '
-		 .'It extends the ISO 639-2 alpha-3 codes with an aim to cover all known '
-		 .'natural languages. The standard was published by ISO on 2007-02-05.',
-		  kDEFAULT_LANGUAGE );
-		$ns_639_3->Kind( kTYPE_NAMESPACE, TRUE );
-		$ns_639_3->Domain( kDOMAIN_LANGUAGE, TRUE );
-		$ns_639_3->Commit( $theContainer );
-		$root_639_3 = $term_index->findOne( kTAG_TERM, (string) $ns_639_3 );
-		if( $root_639_3 === NULL )
+		$term
+			= new COntologyTerm(
+					$theContainer, 
+					COntologyTerm::HashIndex(
+						$nodes[ 'ISO:639' ]->Term()->GID()
+					   .kTOKEN_NAMESPACE_SEPARATOR
+					   .'3' ) );
+		if( ! $term->Persistent() )
 		{
-			$root_639_3 = new COntologyNode( $container );
-			$root_639_3->Term( $ns_639_3 );
-			$root_639_3->Domain( kDOMAIN_LANGUAGE, TRUE );
-			$root_639_3->Commit( $container );
+			$term->NS( $nodes[ 'ISO:639' ]->Term() );
+			$term->Code( '3' );
+			$term->Kind( kTYPE_NAMESPACE, TRUE );
+			$term->Domain( kDOMAIN_LANGUAGE, TRUE );
+			$term->Name
+			( 'Part 3 alpha-3 codes',
+			  kDEFAULT_LANGUAGE );
+			$term->Definition
+			( 'The standard describes three‐letter codes for identifying languages. '
+			 .'It extends the ISO 639-2 alpha-3 codes with an aim to cover all known '
+			 .'natural languages. The standard was published by ISO on 2007-02-05.',
+			  kDEFAULT_LANGUAGE );
+			$term->Commit( $theContainer );
 		}
-		else
-			$root_639_3 = new COntologyNode( $container, $root_639_3 );
-		$id = Array();
-		$id[] = $root_639_3->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $root_639->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $root_639_3->RelateTo( $container, $is_a, $root_639 );
-			$edge->Commit( $container );
-		}
+		//
+		// Handle node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Domain( kDOMAIN_LANGUAGE, TRUE );
+		$node->Commit( $container );
+		//
+		// Save node.
+		//
+		$nodes[ $nodes[ 'ISO:639' ]->Term()->GID()
+			   .kTOKEN_NAMESPACE_SEPARATOR
+			   .'3' ] = $node;
+		//
+		// Handle edge.
+		//
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'ISO:639' ] );
+		$edge->Commit( $container );
+		//
+		// Display.
+		//
 		if( $doDisplay )
-			echo( $ns_639_3->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$ns_639_3] [".$root_639_3->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 		
 		//
-		// ISO 639-3 - Code3 codes.
+		// Init local storage.
 		//
-		$code3_term = new COntologyTerm();
-		$code3_term->NS( $ns_639_3 );
-		$code3_term->Code( 'Part3' );
-		$code3_term->Name( '3-letter ISO 639-3 identifier', kDEFAULT_LANGUAGE );
-		$code3_term->Definition
-		( 'ISO 639-3 3 character code identifying a language.', kDEFAULT_LANGUAGE );
-		$code3_term->Type( kTYPE_ENUM );
-		$code3_term->Pattern( '[A-Z]{3}', TRUE );
-		$code3_term->Domain( kDOMAIN_LANGUAGE, TRUE );
-		$code3_term->Commit( $theContainer );
-		$code3_node = $term_index->findOne( kTAG_TERM, (string) $code3_term );
-		if( $code3_node === NULL )
-		{
-			$code3_node = new COntologyNode( $container );
-			$code3_node->Term( $code3_term );
-			$code3_node->Type( kTYPE_ENUM, TRUE );
-			$code3_node->Kind( kTYPE_MEASURE, TRUE );
-			$code3_node->Domain( kDOMAIN_LANGUAGE, TRUE );
-			$code3_node->Commit( $container );
-		}
-		else
-			$code3_node = new COntologyNode( $container, $code3_node );
-		$id = Array();
-		$id[] = $code3_node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $root_639_3->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $code3_node->RelateTo( $container, $is_a, $root_639_3 );
-			$edge->Commit( $container );
-		}
-		if( $doDisplay )
-			echo( $code3_term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$code3_term] [".$code3_node->Node()->getId()."]\n" );
+		$components = array
+		(
+			array( 'id'	=> 'Part3',
+				   'pat' => '[A-Z]{3}',
+				   'nam' => '3-letter ISO 639-3 identifier',
+				   'def' => 'ISO 639-3 3 character code identifying a language.' ),
+			array( 'id'	=> 'Part2B',
+				   'pat' => '[0-9]{3}',
+				   'nam' => 'Bibliographic applications 639-2 identifier',
+				   'def' => 'ISO 639-2 identifier of the bibliographic applications '
+				   		   .'code set.' ),
+			array( 'id'	=> 'Part2T',
+				   'pat' => '[0-9]{3}',
+				   'nam' => 'Terminology applications 639-2 identifier',
+				   'def' => 'ISO 639-2 identifier of the terminology applications '
+				   		   .'code set.' ),
+			array( 'id'	=> 'Part1',
+				   'pat' => '[0-9]{2}',
+				   'nam' => '639-1 identifier',
+				   'def' => 'ISO 639-1 identifier.' )
+		);
 		
 		//
-		// ISO 639-3 - Part2B.
+		// Load data.
 		//
-		$part2b_term = new COntologyTerm();
-		$part2b_term->NS( $ns_639_3 );
-		$part2b_term->Code( 'Part2B' );
-		$part2b_term->Name( 'Bibliographic applications 639-2 identifier',
-							kDEFAULT_LANGUAGE );
-		$part2b_term->Definition
-		( 'ISO 639-2 identifier of the bibliographic applications code set.',
-		  kDEFAULT_LANGUAGE );
-		$part2b_term->Type( kTYPE_ENUM );
-		$part2b_term->Pattern( '[0-9]{3}', TRUE );
-		$part2b_term->Domain( kDOMAIN_LANGUAGE, TRUE );
-		$part2b_term->Commit( $theContainer );
-		$part2b_node = $term_index->findOne( kTAG_TERM, (string) $part2b_term );
-		if( $part2b_node === NULL )
+		foreach( $components as $component )
 		{
-			$part2b_node = new COntologyNode( $container );
-			$part2b_node->Term( $part2b_term );
-			$part2b_node->Type( kTYPE_ENUM, TRUE );
-			$part2b_node->Kind( kTYPE_MEASURE, TRUE );
-			$part2b_node->Domain( kDOMAIN_LANGUAGE, TRUE );
-			$part2b_node->Commit( $container );
-		}
-		else
-			$part2b_node = new COntologyNode( $container, $part2b_node );
-		$id = Array();
-		$id[] = $part2b_node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $root_639_3->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $part2b_node->RelateTo( $container, $is_a, $root_639_3 );
+			//
+			// Handle term.
+			//
+			$term
+				= new COntologyTerm(
+						$theContainer, 
+						COntologyTerm::HashIndex(
+							$nodes[ 'ISO:639:3' ]->Term()->GID()
+						   .kTOKEN_NAMESPACE_SEPARATOR
+						   .$component[ 'id' ] ) );
+			if( ! $term->Persistent() )
+			{
+				$term->NS( $nodes[ 'ISO:639:3' ]->Term() );
+				$term->Code( $component[ 'id' ] );
+				$term->Type( kTYPE_ENUM );
+				$term->Pattern( $component[ 'pat' ], TRUE );
+				$term->Domain( kDOMAIN_LANGUAGE, TRUE );
+				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
+				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
+				$term->Commit( $theContainer );
+			}
+			
+			//
+			// Handle node.
+			//
+			$node = new COntologyNode( $container );
+			$node->Term( $term );
+			$node->Kind( kTYPE_MEASURE, TRUE );
+			$node->Type( kTYPE_ENUM, TRUE );
+			$node->Domain( kDOMAIN_LANGUAGE, TRUE );
+			$node->Commit( $container );
+			
+			//
+			// Save node.
+			//
+			$nodes[ $nodes[ 'ISO:639:3' ]->Term()->GID()
+				   .kTOKEN_NAMESPACE_SEPARATOR
+				   .$component[ 'id' ] ] = $node;
+			
+			//
+			// Handle edge.
+			//
+			$edge = $node->RelateTo( $container, $is_a, $nodes[ 'ISO:639:3' ] );
 			$edge->Commit( $container );
+			
+			//
+			// Display.
+			//
+			if( $doDisplay )
+				echo( "[$term] "
+					 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+					 .$node->Node()->getId()."}"
+					 ."\n" );
 		}
-		if( $doDisplay )
-			echo( $part2b_term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$part2b_term] [".$part2b_node->Node()->getId()."]\n" );
-		
-		//
-		// ISO 639-3 - Part2T.
-		//
-		$part2t_term = new COntologyTerm();
-		$part2t_term->NS( $ns_639_3 );
-		$part2t_term->Code( 'Part2T' );
-		$part2t_term->Name( 'Terminology applications 639-2 identifier',
-							kDEFAULT_LANGUAGE );
-		$part2t_term->Definition
-		( 'ISO 639-2 identifier of the terminology applications code set.',
-		  kDEFAULT_LANGUAGE );
-		$part2t_term->Type( kTYPE_ENUM );
-		$part2t_term->Pattern( '[0-9]{3}', TRUE );
-		$part2t_term->Domain( kDOMAIN_LANGUAGE, TRUE );
-		$part2t_term->Commit( $theContainer );
-		$part2t_node = $term_index->findOne( kTAG_TERM, (string) $part2t_term );
-		if( $part2t_node === NULL )
-		{
-			$part2t_node = new COntologyNode( $container );
-			$part2t_node->Term( $part2t_term );
-			$part2t_node->Type( kTYPE_ENUM, TRUE );
-			$part2t_node->Kind( kTYPE_MEASURE, TRUE );
-			$part2t_node->Domain( kDOMAIN_LANGUAGE, TRUE );
-			$part2t_node->Commit( $container );
-		}
-		else
-			$part2t_node = new COntologyNode( $container, $part2t_node );
-		$id = Array();
-		$id[] = $part2t_node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $root_639_3->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $part2t_node->RelateTo( $container, $is_a, $root_639_3 );
-			$edge->Commit( $container );
-		}
-		if( $doDisplay )
-			echo( $part2t_term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$part2t_term] [".$part2t_node->Node()->getId()."]\n" );
-		
-		//
-		// ISO 639-3 - Part1.
-		//
-		$part1_term = new COntologyTerm();
-		$part1_term->NS( $ns_639_3 );
-		$part1_term->Code( 'Part1' );
-		$part1_term->Name( '639-1 identifier',
-							kDEFAULT_LANGUAGE );
-		$part1_term->Definition
-		( 'ISO 639-1 identifier.',
-		  kDEFAULT_LANGUAGE );
-		$part1_term->Type( kTYPE_ENUM );
-		$part1_term->Pattern( '[0-9]{2}', TRUE );
-		$part1_term->Domain( kDOMAIN_LANGUAGE, TRUE );
-		$part1_term->Commit( $theContainer );
-		$part1_node = $term_index->findOne( kTAG_TERM, (string) $part1_term );
-		if( $part1_node === NULL )
-		{
-			$part1_node = new COntologyNode( $container );
-			$part1_node->Term( $part1_term );
-			$part1_node->Type( kTYPE_ENUM, TRUE );
-			$part1_node->Kind( kTYPE_MEASURE, TRUE );
-			$part1_node->Domain( kDOMAIN_LANGUAGE, TRUE );
-			$part1_node->Commit( $container );
-		}
-		else
-			$part1_node = new COntologyNode( $container, $part1_node );
-		$id = Array();
-		$id[] = $part1_node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $root_639_3->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $part1_node->RelateTo( $container, $is_a, $root_639_3 );
-			$edge->Commit( $container );
-		}
-		if( $doDisplay )
-			echo( $part1_term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$part1_term] [".$part1_node->Node()->getId()."]\n" );
 
 		//
 		// ISO 639-3 - Scope.
 		//
-		$scope_term = new COntologyTerm();
-		$scope_term->NS( $ns_639_3 );
-		$scope_term->Code( 'Scope' );
-		$scope_term->Name( 'Language scope', kDEFAULT_LANGUAGE );
-		$scope_term->Definition( 'ISO 639-3 language scope.', kDEFAULT_LANGUAGE );
-		$scope_term->Type( kTYPE_ENUM );
-		$scope_term->Domain( kDOMAIN_LANGUAGE, TRUE );
-		$scope_term->Commit( $theContainer );
-		$scope_node = $term_index->findOne( kTAG_TERM, (string) $scope_term );
-		if( $scope_node === NULL )
+		$term
+			= new COntologyTerm(
+					$theContainer, 
+					COntologyTerm::HashIndex(
+						$nodes[ 'ISO:639:3' ]->Term()->GID()
+					   .kTOKEN_NAMESPACE_SEPARATOR
+					   .'Scope' ) );
+		if( ! $term->Persistent() )
 		{
-			$scope_node = new COntologyNode( $container );
-			$scope_node->Term( $scope_term );
-			$scope_node->Type( kTYPE_ENUM, TRUE );
-			$scope_node->Kind( kTYPE_MEASURE, TRUE );
-			$scope_node->Domain( kDOMAIN_LANGUAGE, TRUE );
-			$scope_node->Commit( $container );
+			$term->NS( $nodes[ 'ISO:639:3' ]->Term() );
+			$term->Code( 'Scope' );
+			$term->Kind( kTYPE_NAMESPACE, TRUE );
+			$term->Domain( kDOMAIN_LANGUAGE, TRUE );
+			$term->Name
+			( 'Language scope',
+			  kDEFAULT_LANGUAGE );
+			$term->Definition
+			( 'ISO 639-3 language scope.',
+			  kDEFAULT_LANGUAGE );
+			$term->Commit( $theContainer );
 		}
-		else
-			$scope_node = new COntologyNode( $container, $scope_node );
-		$id = Array();
-		$id[] = $scope_node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $root_639_3->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $scope_node->RelateTo( $container, $enum_of, $root_639_3 );
-			$edge->Commit( $container );
-		}
+		//
+		// Handle node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Type( kTYPE_ENUM, TRUE );
+		$node->Domain( kDOMAIN_LANGUAGE, TRUE );
+		$node->Commit( $container );
+		//
+		// Save node.
+		//
+		$nodes[ $nodes[ 'ISO:639:3' ]->Term()->GID()
+			   .kTOKEN_NAMESPACE_SEPARATOR
+			   .'Scope' ] = $node;
+		//
+		// Handle edge.
+		//
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'ISO:639:3' ] );
+		$edge->Commit( $container );
+		//
+		// Display.
+		//
 		if( $doDisplay )
-			echo( $scope_term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$scope_term] [".$scope_node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 		
 		//
-		// ISO 639-3 - Scope - Individual
+		// Init local storage.
 		//
-		$individual_scope_term = new COntologyTerm();
-		$individual_scope_term->NS( $scope_term );
-		$individual_scope_term->Code( 'I' );
-		$individual_scope_term->Name( 'Individual', kDEFAULT_LANGUAGE );
-		$individual_scope_term->Definition( 'Individual language scope.', kDEFAULT_LANGUAGE );
-		$individual_scope_term->Kind( kTYPE_ENUMERATION, TRUE );
-		$individual_scope_term->Type( kTYPE_ENUM );
-		$individual_scope_term->Enumeration( $individual_scope_term->Code(), TRUE );
-		$individual_scope_term->Commit( $theContainer );
-		$individual_scope_node = $term_index->findOne( kTAG_TERM,
-													   (string) $individual_scope_term );
-		if( $individual_scope_node === NULL )
-		{
-			$individual_scope_node = new COntologyNode( $container );
-			$individual_scope_node->Term( $individual_scope_term );
-			$individual_scope_node->Type( kTYPE_ENUM, TRUE );
-			$individual_scope_node->Kind( kTYPE_ENUMERATION, TRUE );
-			$individual_scope_node->Domain( kDOMAIN_LANGUAGE, TRUE );
-			$individual_scope_node->Commit( $container );
-		}
-		else
-			$individual_scope_node = new COntologyNode( $container, $individual_scope_node );
-		$id = Array();
-		$id[] = $individual_scope_node->Node()->getId();
-		$id[] = (string) $enum_of;
-		$id[] = $scope_node->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $individual_scope_node->RelateTo( $container, $enum_of, $scope_node );
-			$edge->Commit( $container );
-		}
-		if( $doDisplay )
-			echo( $individual_scope_term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$individual_scope_term] ["
-				 .$individual_scope_node->Node()->getId()."]\n" );
+		$components = array
+		(
+			array( 'id'	=> 'I',
+				   'nam' => 'Individual',
+				   'def' => 'Individual language scope.' ),
+			array( 'id'	=> 'M',
+				   'nam' => 'Macrolanguage',
+				   'def' => 'Macro-language scope.' ),
+			array( 'id'	=> 'S',
+				   'nam' => 'Special',
+				   'def' => 'Special language scope.' )
+		);
 		
 		//
-		// ISO 639-3 - Scope - Macrolanguage
+		// Load data.
 		//
-		$macrolanguage_scope_term = new COntologyTerm();
-		$macrolanguage_scope_term->NS( $scope_term );
-		$macrolanguage_scope_term->Code( 'M' );
-		$macrolanguage_scope_term->Name( 'Macrolanguage', kDEFAULT_LANGUAGE );
-		$macrolanguage_scope_term->Definition( 'Macro-language scope.', kDEFAULT_LANGUAGE );
-		$macrolanguage_scope_term->Kind( kTYPE_PREDICATE, TRUE );
-		$macrolanguage_scope_term->Kind( kTYPE_ENUMERATION, TRUE );
-		$macrolanguage_scope_term->Type( kTYPE_ENUM );
-		$macrolanguage_scope_term->Enumeration( $macrolanguage_scope_term->Code(), TRUE );
-		$macrolanguage_scope_term->Commit( $theContainer );
-		$macrolanguage_scope_node
-			= $term_index->findOne( kTAG_TERM, (string) $macrolanguage_scope_term );
-		if( $macrolanguage_scope_node === NULL )
+		foreach( $components as $component )
 		{
-			$macrolanguage_scope_node = new COntologyNode( $container );
-			$macrolanguage_scope_node->Term( $macrolanguage_scope_term );
-			$macrolanguage_scope_node->Type( kTYPE_ENUM, TRUE );
-			$macrolanguage_scope_node->Kind( kTYPE_PREDICATE, TRUE );
-			$macrolanguage_scope_node->Kind( kTYPE_ENUMERATION, TRUE );
-			$macrolanguage_scope_node->Domain( kDOMAIN_LANGUAGE, TRUE );
-			$macrolanguage_scope_node->Commit( $container );
-		}
-		else
-			$macrolanguage_scope_node
-				= new COntologyNode( $container, $macrolanguage_scope_node );
-		$id = Array();
-		$id[] = $macrolanguage_scope_node->Node()->getId();
-		$id[] = (string) $enum_of;
-		$id[] = $scope_node->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $macrolanguage_scope_node->RelateTo( $container, $enum_of, $scope_node );
+			//
+			// Handle term.
+			//
+			$term
+				= new COntologyTerm(
+						$theContainer, 
+						COntologyTerm::HashIndex(
+							$nodes[ 'ISO:639:3:Scope' ]->Term()->GID()
+						   .kTOKEN_NAMESPACE_SEPARATOR
+						   .$component[ 'id' ] ) );
+			if( ! $term->Persistent() )
+			{
+				$term->NS( $nodes[ 'ISO:639:3:Scope' ]->Term() );
+				$term->Code( $component[ 'id' ] );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
+				$term->Type( kTYPE_ENUM );
+				$term->Enumeration( $term->Code(), TRUE );
+				$term->Domain( kDOMAIN_LANGUAGE, TRUE );
+				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
+				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
+				$term->Commit( $theContainer );
+			}
+			
+			//
+			// Handle node.
+			//
+			$node = new COntologyNode( $container );
+			$node->Term( $term );
+			$node->Kind( kTYPE_ENUMERATION, TRUE );
+			$node->Type( kTYPE_ENUM, TRUE );
+			$node->Domain( kDOMAIN_LANGUAGE, TRUE );
+			$node->Commit( $container );
+			
+			//
+			// Save node.
+			//
+			$nodes[ 'ISO:639:3:Scope'
+				   .kTOKEN_NAMESPACE_SEPARATOR
+				   .$component[ 'id' ] ] = $node;
+			
+			//
+			// Handle edge.
+			//
+			$edge = $node->RelateTo( $container, $enum_of, $nodes[ 'ISO:639:3:Scope' ] );
 			$edge->Commit( $container );
+			
+			//
+			// Display.
+			//
+			if( $doDisplay )
+				echo( "[$term] "
+					 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+					 .$node->Node()->getId()."}"
+					 ."\n" );
 		}
-		if( $doDisplay )
-			echo( $macrolanguage_scope_term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$macrolanguage_scope_term] ["
-				 .$macrolanguage_scope_node->Node()->getId()."]\n" );
-		
-		//
-		// ISO 639-3 - Scope - Special
-		//
-		$special_scope_term = new COntologyTerm();
-		$special_scope_term->NS( $scope_term );
-		$special_scope_term->Code( 'S' );
-		$special_scope_term->Name( 'Special', kDEFAULT_LANGUAGE );
-		$special_scope_term->Definition( 'Special language scope.', kDEFAULT_LANGUAGE );
-		$special_scope_term->Kind( kTYPE_ENUMERATION, TRUE );
-		$special_scope_term->Type( kTYPE_ENUM );
-		$special_scope_term->Enumeration( $special_scope_term->Code(), TRUE );
-		$special_scope_term->Commit( $theContainer );
-		$special_scope_node
-			= $term_index->findOne( kTAG_TERM, (string) $special_scope_term );
-		if( $special_scope_node === NULL )
-		{
-			$special_scope_node = new COntologyNode( $container );
-			$special_scope_node->Term( $special_scope_term );
-			$special_scope_node->Type( kTYPE_ENUM, TRUE );
-			$special_scope_node->Kind( kTYPE_ENUMERATION, TRUE );
-			$special_scope_node->Domain( kDOMAIN_LANGUAGE, TRUE );
-			$special_scope_node->Commit( $container );
-		}
-		else
-			$special_scope_node = new COntologyNode( $container, $special_scope_node );
-		$id = Array();
-		$id[] = $special_scope_node->Node()->getId();
-		$id[] = (string) $enum_of;
-		$id[] = $scope_node->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $special_scope_node->RelateTo( $container, $enum_of, $scope_node );
-			$edge->Commit( $container );
-		}
-		if( $doDisplay )
-			echo( $special_scope_term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$special_scope_term] ["
-				 .$special_scope_node->Node()->getId()."]\n" );
 
 		//
 		// ISO 639-3 - Type.
 		//
-		$type_term = new COntologyTerm();
-		$type_term->NS( $ns_639_3 );
-		$type_term->Code( 'Type' );
-		$type_term->Name( 'Language type',
-							kDEFAULT_LANGUAGE );
-		$type_term->Definition
-		( 'ISO 639-3 language type.',
-		  kDEFAULT_LANGUAGE );
-		$type_term->Type( kTYPE_ENUM );
-		$type_term->Domain( kDOMAIN_LANGUAGE, TRUE );
-		$type_term->Commit( $theContainer );
-		$type_node = $term_index->findOne( kTAG_TERM, (string) $type_term );
-		if( $type_node === NULL )
+		$term
+			= new COntologyTerm(
+					$theContainer, 
+					COntologyTerm::HashIndex(
+						$nodes[ 'ISO:639:3' ]->Term()->GID()
+					   .kTOKEN_NAMESPACE_SEPARATOR
+					   .'Type' ) );
+		if( ! $term->Persistent() )
 		{
-			$type_node = new COntologyNode( $container );
-			$type_node->Term( $type_term );
-			$type_node->Type( kTYPE_ENUM, TRUE );
-			$type_node->Kind( kTYPE_MEASURE, TRUE );
-			$type_node->Domain( kDOMAIN_LANGUAGE, TRUE );
-			$type_node->Commit( $container );
+			$term->NS( $nodes[ 'ISO:639:3' ]->Term() );
+			$term->Code( 'Type' );
+			$term->Kind( kTYPE_NAMESPACE, TRUE );
+			$term->Domain( kDOMAIN_LANGUAGE, TRUE );
+			$term->Name
+			( 'Language type',
+			  kDEFAULT_LANGUAGE );
+			$term->Definition
+			( 'ISO 639-3 language type.',
+			  kDEFAULT_LANGUAGE );
+			$term->Commit( $theContainer );
 		}
-		else
-			$type_node = new COntologyNode( $container, $type_node );
-		$id = Array();
-		$id[] = $type_node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $root_639_3->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $type_node->RelateTo( $container, $is_a, $root_639_3 );
-			$edge->Commit( $container );
-		}
+		//
+		// Handle node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Type( kTYPE_ENUM, TRUE );
+		$node->Domain( kDOMAIN_LANGUAGE, TRUE );
+		$node->Commit( $container );
+		//
+		// Save node.
+		//
+		$nodes[ $nodes[ 'ISO:639:3' ]->Term()->GID()
+			   .kTOKEN_NAMESPACE_SEPARATOR
+			   .'Type' ] = $node;
+		//
+		// Handle edge.
+		//
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'ISO:639:3' ] );
+		$edge->Commit( $container );
+		//
+		// Display.
+		//
 		if( $doDisplay )
-			echo( $type_term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$type_term] [".$type_node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+
+		//
+		// Init local storage.
+		//
+		$components = array
+		(
+			array( 'id'	=> 'A',
+				   'nam' => 'Ancient',
+				   'def' => 'Ancient language type.' ),
+			array( 'id'	=> 'C',
+				   'nam' => 'Constructed',
+				   'def' => 'Constructed language type.' ),
+			array( 'id'	=> 'E',
+				   'nam' => 'Extinct',
+				   'def' => 'Extinct language type.' ),
+			array( 'id'	=> 'H',
+				   'nam' => 'Historical',
+				   'def' => 'Historical language type.' ),
+			array( 'id'	=> 'L',
+				   'nam' => 'Living',
+				   'def' => 'Living language type.' ),
+			array( 'id'	=> 'S',
+				   'nam' => 'Special',
+				   'def' => 'Special language type.' )
+		);
 		
 		//
-		// ISO 639-3 - Type - Ancient
+		// Load data.
 		//
-		$ancient_type_term = new COntologyTerm();
-		$ancient_type_term->NS( $type_term );
-		$ancient_type_term->Code( 'A' );
-		$ancient_type_term->Name( 'Ancient', kDEFAULT_LANGUAGE );
-		$ancient_type_term->Definition( 'Ancient language type.', kDEFAULT_LANGUAGE );
-		$ancient_type_term->Kind( kTYPE_ENUMERATION, TRUE );
-		$ancient_type_term->Type( kTYPE_ENUM );
-		$ancient_type_term->Enumeration( $ancient_type_term->Code(), TRUE );
-		$ancient_type_term->Commit( $theContainer );
-		$ancient_type_node
-			= $term_index->findOne( kTAG_TERM, (string) $ancient_type_term );
-		if( $ancient_type_node === NULL )
+		foreach( $components as $component )
 		{
-			$ancient_type_node = new COntologyNode( $container );
-			$ancient_type_node->Term( $ancient_type_term );
-			$ancient_type_node->Type( kTYPE_ENUM, TRUE );
-			$ancient_type_node->Kind( kTYPE_ENUMERATION, TRUE );
-			$ancient_type_node->Domain( kDOMAIN_LANGUAGE, TRUE );
-			$ancient_type_node->Commit( $container );
-		}
-		else
-			$ancient_type_node = new COntologyNode( $container, $ancient_type_node );
-		$id = Array();
-		$id[] = $ancient_type_node->Node()->getId();
-		$id[] = (string) $enum_of;
-		$id[] = $type_node->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $ancient_type_node->RelateTo( $container, $enum_of, $type_node );
+			//
+			// Handle term.
+			//
+			$term
+				= new COntologyTerm(
+						$theContainer, 
+						COntologyTerm::HashIndex(
+							$nodes[ 'ISO:639:3:Type' ]->Term()->GID()
+						   .kTOKEN_NAMESPACE_SEPARATOR
+						   .$component[ 'id' ] ) );
+			if( ! $term->Persistent() )
+			{
+				$term->NS( $nodes[ 'ISO:639:3:Type' ]->Term() );
+				$term->Code( $component[ 'id' ] );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
+				$term->Type( kTYPE_ENUM );
+				$term->Enumeration( $term->Code(), TRUE );
+				$term->Domain( kDOMAIN_LANGUAGE, TRUE );
+				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
+				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
+				$term->Commit( $theContainer );
+			}
+			
+			//
+			// Handle node.
+			//
+			$node = new COntologyNode( $container );
+			$node->Term( $term );
+			$node->Kind( kTYPE_ENUMERATION, TRUE );
+			$node->Type( kTYPE_ENUM, TRUE );
+			$node->Domain( kDOMAIN_LANGUAGE, TRUE );
+			$node->Commit( $container );
+			
+			//
+			// Save node.
+			//
+			$nodes[ 'ISO:639:3:Type'
+				   .kTOKEN_NAMESPACE_SEPARATOR
+				   .$component[ 'id' ] ] = $node;
+			
+			//
+			// Handle edge.
+			//
+			$edge = $node->RelateTo( $container, $enum_of, $nodes[ 'ISO:639:3:Type' ] );
 			$edge->Commit( $container );
+			
+			//
+			// Display.
+			//
+			if( $doDisplay )
+				echo( "[$term] "
+					 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+					 .$node->Node()->getId()."}"
+					 ."\n" );
 		}
-		if( $doDisplay )
-			echo( $ancient_type_term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$ancient_type_term] ["
-				 .$ancient_type_node->Node()->getId()."]\n" );
-		
-		//
-		// ISO 639-3 - Type - Constructed
-		//
-		$constructed_type_term = new COntologyTerm();
-		$constructed_type_term->NS( $type_term );
-		$constructed_type_term->Code( 'C' );
-		$constructed_type_term->Name( 'Constructed', kDEFAULT_LANGUAGE );
-		$constructed_type_term->Definition( 'Constructed language type.', kDEFAULT_LANGUAGE );
-		$constructed_type_term->Kind( kTYPE_ENUMERATION, TRUE );
-		$constructed_type_term->Type( kTYPE_ENUM );
-		$constructed_type_term->Enumeration( $constructed_type_term->Code(), TRUE );
-		$constructed_type_term->Commit( $theContainer );
-		$constructed_type_node
-			= $term_index->findOne( kTAG_TERM, (string) $constructed_type_term );
-		if( $constructed_type_node === NULL )
-		{
-			$constructed_type_node = new COntologyNode( $container );
-			$constructed_type_node->Term( $constructed_type_term );
-			$constructed_type_node->Type( kTYPE_ENUM, TRUE );
-			$constructed_type_node->Kind( kTYPE_ENUMERATION, TRUE );
-			$constructed_type_node->Domain( kDOMAIN_LANGUAGE, TRUE );
-			$constructed_type_node->Commit( $container );
-		}
-		else
-			$constructed_type_node
-				= new COntologyNode( $container, $constructed_type_node );
-		$id = Array();
-		$id[] = $constructed_type_node->Node()->getId();
-		$id[] = (string) $enum_of;
-		$id[] = $type_node->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $constructed_type_node->RelateTo( $container, $enum_of, $type_node );
-			$edge->Commit( $container );
-		}
-		if( $doDisplay )
-			echo( $constructed_type_term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$constructed_type_term] ["
-				 .$constructed_type_node->Node()->getId()."]\n" );
-		
-		//
-		// ISO 639-3 - Type - Extinct
-		//
-		$extinct_type_term = new COntologyTerm();
-		$extinct_type_term->NS( $type_term );
-		$extinct_type_term->Code( 'E' );
-		$extinct_type_term->Name( 'Extinct', kDEFAULT_LANGUAGE );
-		$extinct_type_term->Definition( 'Extinct language type.', kDEFAULT_LANGUAGE );
-		$extinct_type_term->Kind( kTYPE_ENUMERATION, TRUE );
-		$extinct_type_term->Type( kTYPE_ENUM );
-		$extinct_type_term->Enumeration( $extinct_type_term->Code(), TRUE );
-		$extinct_type_term->Commit( $theContainer );
-		$extinct_type_node
-			= $term_index->findOne( kTAG_TERM, (string) $extinct_type_term );
-		if( $extinct_type_node === NULL )
-		{
-			$extinct_type_node = new COntologyNode( $container );
-			$extinct_type_node->Term( $extinct_type_term );
-			$extinct_type_node->Type( kTYPE_ENUM, TRUE );
-			$extinct_type_node->Kind( kTYPE_ENUMERATION, TRUE );
-			$extinct_type_node->Domain( kDOMAIN_LANGUAGE, TRUE );
-			$extinct_type_node->Commit( $container );
-		}
-		else
-			$extinct_type_node = new COntologyNode( $container, $extinct_type_node );
-		$id = Array();
-		$id[] = $extinct_type_node->Node()->getId();
-		$id[] = (string) $enum_of;
-		$id[] = $type_node->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $extinct_type_node->RelateTo( $container, $enum_of, $type_node );
-			$edge->Commit( $container );
-		}
-		if( $doDisplay )
-			echo( $extinct_type_term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$extinct_type_term] ["
-				 .$extinct_type_node->Node()->getId()."]\n" );
-		
-		//
-		// ISO 639-3 - Type - Historical
-		//
-		$historical_type_term = new COntologyTerm();
-		$historical_type_term->NS( $type_term );
-		$historical_type_term->Code( 'H' );
-		$historical_type_term->Name( 'Historical', kDEFAULT_LANGUAGE );
-		$historical_type_term->Definition( 'Historical language type.', kDEFAULT_LANGUAGE );
-		$historical_type_term->Kind( kTYPE_ENUMERATION, TRUE );
-		$historical_type_term->Type( kTYPE_ENUM );
-		$historical_type_term->Enumeration( $historical_type_term->Code(), TRUE );
-		$historical_type_term->Commit( $theContainer );
-		$historical_type_node
-			= $term_index->findOne( kTAG_TERM, (string) $historical_type_term );
-		if( $historical_type_node === NULL )
-		{
-			$historical_type_node = new COntologyNode( $container );
-			$historical_type_node->Term( $historical_type_term );
-			$historical_type_node->Type( kTYPE_ENUM, TRUE );
-			$historical_type_node->Kind( kTYPE_ENUMERATION, TRUE );
-			$historical_type_node->Domain( kDOMAIN_LANGUAGE, TRUE );
-			$historical_type_node->Commit( $container );
-		}
-		else
-			$historical_type_node = new COntologyNode( $container, $historical_type_node );
-		$id = Array();
-		$id[] = $historical_type_node->Node()->getId();
-		$id[] = (string) $enum_of;
-		$id[] = $type_node->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $historical_type_node->RelateTo( $container, $enum_of, $type_node );
-			$edge->Commit( $container );
-		}
-		if( $doDisplay )
-			echo( $historical_type_term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$historical_type_term] ["
-				 .$historical_type_node->Node()->getId()."]\n" );
-		
-		//
-		// ISO 639-3 - Type - Living
-		//
-		$living_type_term = new COntologyTerm();
-		$living_type_term->NS( $type_term );
-		$living_type_term->Code( 'L' );
-		$living_type_term->Name( 'Living', kDEFAULT_LANGUAGE );
-		$living_type_term->Definition( 'Living language type.', kDEFAULT_LANGUAGE );
-		$living_type_term->Kind( kTYPE_ENUMERATION, TRUE );
-		$living_type_term->Type( kTYPE_ENUM );
-		$living_type_term->Enumeration( $living_type_term->Code(), TRUE );
-		$living_type_term->Commit( $theContainer );
-		$living_type_node
-			= $term_index->findOne( kTAG_TERM, (string) $living_type_term );
-		if( $living_type_node === NULL )
-		{
-			$living_type_node = new COntologyNode( $container );
-			$living_type_node->Term( $living_type_term );
-			$living_type_node->Type( kTYPE_ENUM, TRUE );
-			$living_type_node->Kind( kTYPE_ENUMERATION, TRUE );
-			$living_type_node->Domain( kDOMAIN_LANGUAGE, TRUE );
-			$living_type_node->Commit( $container );
-		}
-		else
-			$living_type_node = new COntologyNode( $container, $living_type_node );
-		$id = Array();
-		$id[] = $living_type_node->Node()->getId();
-		$id[] = (string) $enum_of;
-		$id[] = $type_node->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $living_type_node->RelateTo( $container, $enum_of, $type_node );
-			$edge->Commit( $container );
-		}
-		if( $doDisplay )
-			echo( $living_type_term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$living_type_term] ["
-				 .$living_type_node->Node()->getId()."]\n" );
-		
-		//
-		// ISO 639-3 - Type - Special
-		//
-		$special_type_term = new COntologyTerm();
-		$special_type_term->NS( $type_term );
-		$special_type_term->Code( 'S' );
-		$special_type_term->Name( 'Special', kDEFAULT_LANGUAGE );
-		$special_type_term->Definition( 'Special language type.', kDEFAULT_LANGUAGE );
-		$special_type_term->Kind( kTYPE_ENUMERATION, TRUE );
-		$special_type_term->Type( kTYPE_ENUM );
-		$special_type_term->Enumeration( $special_type_term->Code(), TRUE );
-		$special_type_term->Commit( $theContainer );
-		$special_type_node
-			= $term_index->findOne( kTAG_TERM, (string) $special_type_term );
-		if( $special_type_node === NULL )
-		{
-			$special_type_node = new COntologyNode( $container );
-			$special_type_node->Term( $special_type_term );
-			$special_type_node->Type( kTYPE_ENUM, TRUE );
-			$special_type_node->Kind( kTYPE_ENUMERATION, TRUE );
-			$special_type_node->Domain( kDOMAIN_LANGUAGE, TRUE );
-			$special_type_node->Commit( $container );
-		}
-		else
-			$special_type_node = new COntologyNode( $container, $special_type_node );
-		$id = Array();
-		$id[] = $special_type_node->Node()->getId();
-		$id[] = (string) $enum_of;
-		$id[] = $type_node->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $special_type_node->RelateTo( $container, $enum_of, $type_node );
-			$edge->Commit( $container );
-		}
-		if( $doDisplay )
-			echo( $special_type_term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$special_type_term] ["
-				 .$special_type_node->Node()->getId()."]\n" );
-		
-		//
-		// ISO 3166.
-		//
-		$ns_3166 = new COntologyTerm();
-		$ns_3166->NS( $iso_term );
-		$ns_3166->Code( '3166' );
-        $ns_3166->Name( 'Geographical codes and names', kDEFAULT_LANGUAGE );
-		$ns_3166->Definition
-		( 'Codes for the representation of names of countries and their '
-		 .'subdivisions.', kDEFAULT_LANGUAGE );
-		$ns_3166->Kind( kTYPE_NAMESPACE, TRUE );
-		$ns_3166->Domain( kDOMAIN_GEOGRAPHY, TRUE );
-		$ns_3166->Category( kCATEGORY_ADMIN, TRUE );
-		$ns_3166->Commit( $theContainer );
-		$root_3166 = $term_index->findOne( kTAG_TERM, (string) $ns_3166 );
-		if( $root_3166 === NULL )
-		{
-			$root_3166 = new COntologyNode( $container );
-			$root_3166->Term( $ns_3166 );
-			$root_3166->Domain( kDOMAIN_GEOGRAPHY, TRUE );
-			$root_3166->Category( kCATEGORY_ADMIN, TRUE );
-			$root_3166->Commit( $container );
-		}
-		else
-			$root_3166 = new COntologyNode( $container, $root_3166 );
-		$id = Array();
-		$id[] = $root_3166->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $iso_node->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $root_3166->RelateTo( $container, $is_a, $iso_node );
-			$edge->Commit( $container );
-		}
-		if( $doDisplay )
-			echo( $ns_3166->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$ns_3166] [".$root_3166->Node()->getId()."]\n" );
-		
-		//
-		// ISO 3166-1.
-		//
-		$ns_3166_1 = new COntologyTerm();
-		$ns_3166_1->NS( $ns_3166 );
-		$ns_3166_1->Code( '1' );
-        $ns_3166_1->Name( 'Country code', kDEFAULT_LANGUAGE );
-		$ns_3166_1->Definition
-		( 'Codes for the representation of names of countries and their '
-		 .'subdivisions – Part 1: Country codes.', kDEFAULT_LANGUAGE );
-		$ns_3166_1->Kind( kTYPE_NAMESPACE, TRUE );
-		$ns_3166_1->Domain( kDOMAIN_GEOGRAPHY, TRUE );
-		$ns_3166_1->Category( kCATEGORY_ADMIN, TRUE );
-		$ns_3166_1->Commit( $theContainer );
-		$root_3166_1 = $term_index->findOne( kTAG_TERM, (string) $ns_3166_1 );
-		if( $root_3166_1 === NULL )
-		{
-			$root_3166_1 = new COntologyNode( $container );
-			$root_3166_1->Term( $ns_3166_1 );
-			$root_3166_1->Domain( kDOMAIN_GEOGRAPHY, TRUE );
-			$root_3166_1->Category( kCATEGORY_ADMIN, TRUE );
-			$root_3166_1->Commit( $container );
-		}
-		else
-			$root_3166_1 = new COntologyNode( $container, $ns_3166_1 );
-		$id = Array();
-		$id[] = $root_3166_1->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $root_3166->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $root_3166_1->RelateTo( $container, $is_a, $root_3166 );
-			$edge->Commit( $container );
-		}
-		if( $doDisplay )
-			echo( $ns_3166_1->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$ns_3166_1] [".$root_3166_1->Node()->getId()."]\n" );
-		
-		//
-		// ISO 3166-1 - Numeric 3 codes.
-		//
-		$numeric3_term = new COntologyTerm();
-		$numeric3_term->NS( $ns_3166_1 );
-		$numeric3_term->Code( 'NUMERIC-3' );
-		$numeric3_term->Name( '3-digit country code', kDEFAULT_LANGUAGE );
-		$numeric3_term->Definition
-		( 'ISO 3166-1 numeric (or numeric-3) codes are three-digit country codes '
-		 .'defined in ISO 3166-1, part of the ISO 3166 standard published by the '
-		 .'International Organization for Standardization (ISO), to represent countries, '
-		 .'dependent territories, and special areas of '
-		 .'geographical interest.', kDEFAULT_LANGUAGE );
-		$numeric3_term->Type( kTYPE_ENUM );
-		$numeric3_term->Pattern( '[0-9]{3}', TRUE );
-		$numeric3_term->Domain( kDOMAIN_GEOGRAPHY, TRUE );
-		$numeric3_term->Category( kCATEGORY_ADMIN, TRUE );
-		$numeric3_term->Commit( $theContainer );
-		$numeric3_node = $term_index->findOne( kTAG_TERM, (string) $numeric3_term );
-		if( $numeric3_node === NULL )
-		{
-			$numeric3_node = new COntologyNode( $container );
-			$numeric3_node->Term( $numeric3_term );
-			$numeric3_node->Type( kTYPE_ENUM, TRUE );
-			$numeric3_node->Kind( kTYPE_MEASURE, TRUE );
-			$numeric3_node->Domain( kDOMAIN_GEOGRAPHY, TRUE );
-			$numeric3_node->Category( kCATEGORY_ADMIN, TRUE );
-			$numeric3_node->Commit( $container );
-		}
-		else
-			$numeric3_node = new COntologyNode( $container, $numeric3_node );
-		$id = Array();
-		$id[] = $numeric3_node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $root_3166_1->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $numeric3_node->RelateTo( $container, $is_a, $root_3166_1 );
-			$edge->Commit( $container );
-		}
-		if( $doDisplay )
-			echo( $numeric3_term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$numeric3_term] [".$numeric3_node->Node()->getId()."]\n" );
-		
-		//
-		// ISO 3166-1 - Alpha 2 codes.
-		//
-		$alpha2_term = new COntologyTerm();
-		$alpha2_term->NS( $ns_3166_1 );
-		$alpha2_term->Code( 'ALPHA-2' );
-		$alpha2_term->Name( '2-character country code', kDEFAULT_LANGUAGE );
-		$alpha2_term->Definition
-		( 'ISO 3166-1 alpha-2 codes are two-letter country codes defined in '
-		 .'ISO 3166-1, part of the ISO 3166 standard published by the International '
-		 .'Organization for Standardization (ISO), to represent countries, '
-		 .'dependent territories, and special areas of '
-		 .'geographical interest.', kDEFAULT_LANGUAGE );
-		$alpha2_term->Type( kTYPE_ENUM );
-		$alpha2_term->Pattern( '[A-Z]{2}', TRUE );
-		$alpha2_term->Domain( kDOMAIN_GEOGRAPHY, TRUE );
-		$alpha2_term->Category( kCATEGORY_ADMIN, TRUE );
-		$alpha2_term->Commit( $theContainer );
-		$alpha2_node = $term_index->findOne( kTAG_TERM, (string) $alpha2_term );
-		if( $alpha2_node === NULL )
-		{
-			$alpha2_node = new COntologyNode( $container );
-			$alpha2_node->Term( $alpha2_term );
-			$alpha2_node->Type( kTYPE_ENUM, TRUE );
-			$alpha2_node->Kind( kTYPE_MEASURE, TRUE );
-			$alpha2_node->Domain( kDOMAIN_GEOGRAPHY, TRUE );
-			$alpha2_node->Category( kCATEGORY_ADMIN, TRUE );
-			$alpha2_node->Commit( $container );
-		}
-		else
-			$alpha2_node = new COntologyNode( $container, $alpha2_node );
-		$id = Array();
-		$id[] = $alpha2_node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $root_3166_1->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $alpha2_node->RelateTo( $container, $is_a, $root_3166_1 );
-			$edge->Commit( $container );
-		}
-		if( $doDisplay )
-			echo( $alpha2_term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$alpha2_term] [".$alpha2_node->Node()->getId()."]\n" );
-		
-		//
-		// ISO 3166-1 - Alpha 3 codes.
-		//
-		$alpha3_term = new COntologyTerm();
-		$alpha3_term->NS( $ns_3166_1 );
-		$alpha3_term->Code( 'ALPHA-3' );
-		$alpha3_term->Name( '3-character country code', kDEFAULT_LANGUAGE );
-		$alpha3_term->Definition
-		( 'ISO 3166-1 alpha-3 codes are three-letter country codes defined in '
-		 .'ISO 3166-1, part of the ISO 3166 standard published by the International '
-		 .'Organization for Standardization (ISO), to represent countries, '
-		 .'dependent territories, and special areas of '
-		 .'geographical interest.', kDEFAULT_LANGUAGE );
-		$alpha3_term->Type( kTYPE_ENUM );
-		$alpha3_term->Pattern( '[A-Z]{3}', TRUE );
-		$alpha3_term->Domain( kDOMAIN_GEOGRAPHY, TRUE );
-		$alpha3_term->Category( kCATEGORY_ADMIN, TRUE );
-		$alpha3_term->Commit( $theContainer );
-		$alpha3_node = $term_index->findOne( kTAG_TERM, (string) $alpha3_term );
-		if( $alpha3_node === NULL )
-		{
-			$alpha3_node = new COntologyNode( $container );
-			$alpha3_node->Term( $alpha3_term );
-			$alpha3_node->Type( kTYPE_ENUM, TRUE );
-			$alpha3_node->Kind( kTYPE_MEASURE, TRUE );
-			$alpha3_node->Domain( kDOMAIN_GEOGRAPHY, TRUE );
-			$alpha3_node->Category( kCATEGORY_ADMIN, TRUE );
-			$alpha3_node->Commit( $container );
-		}
-		else
-			$alpha3_node = new COntologyNode( $container, $alpha3_node );
-		$id = Array();
-		$id[] = $alpha3_node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $root_3166_1->Node()->getId();
-		$id = implode( '/', $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $alpha3_node->RelateTo( $container, $is_a, $root_3166_1 );
-			$edge->Commit( $container );
-		}
-		if( $doDisplay )
-			echo( $alpha3_term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$alpha3_term] [".$alpha3_node->Node()->getId()."]\n" );
 
 		//
 		// Load language codes.
 		//
+		$language_nodes = Array();
 		$query = <<<EOT
 SELECT
 	`Code_ISO_639_3`.`Code3`,
@@ -4628,112 +4191,77 @@ EOT;
 			//
 			// Create Code3 term.
 			//
-			$term = new COntologyTerm();
-			$term->NS( $code3_term );
-			$term->Code( $record[ 'Code3' ] );
-			$term->Name( $record[ 'ReferenceName' ] );
-			if( $record[ 'PrintName' ] !== NULL )
-				$term[ $term_print_name->GID() ] = $record[ 'PrintName' ];
-			if( $record[ 'InvertedName' ] !== NULL )
-				$term[ $term_inverted_name->GID() ] = $record[ 'InvertedName' ];
-			if( $record[ 'Comment' ] !== NULL )
-				$term->Description( $record[ 'Comment' ], kDEFAULT_LANGUAGE );
-			$term->Kind( kTYPE_ENUMERATION, TRUE );
-			$term->Type( kTYPE_ENUM );
-			$term->Enumeration( $term->Code(), TRUE );
-			if( $record[ 'Part2B' ] !== NULL )
+			$term
+				= new COntologyTerm(
+						$theContainer, 
+						COntologyTerm::HashIndex(
+							$nodes[ 'ISO:639:3:Part3' ]->Term()->GID()
+						   .kTOKEN_NAMESPACE_SEPARATOR
+						   .$record[ 'Code3' ] ) );
+			if( ! $term->Persistent() )
 			{
-				$term->Enumeration( $record[ 'Part2B' ], TRUE );
-				$term->Synonym( $record[ 'Part2B' ], kTYPE_EXACT, TRUE );
+				$term->NS( $nodes[ 'ISO:639:3:Part3' ]->Term() );
+				$term->Code( $record[ 'Code3' ] );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
+				$term->Type( kTYPE_ENUM );
+				$term->Enumeration( $term->Code(), TRUE );
+				if( $record[ 'Part2B' ] !== NULL )
+					$term->Synonym( $record[ 'Part2B' ], kTYPE_EXACT, TRUE );
+				if( $record[ 'Part2T' ] !== NULL )
+					$term->Synonym( $record[ 'Part2T' ], kTYPE_EXACT, TRUE );
+				if( $record[ 'Part1' ] !== NULL )
+					$term->Synonym( $record[ 'Part1' ], kTYPE_EXACT, TRUE );
+				if( $record[ 'Scope' ] !== NULL )
+					$term->Domain( 'ISO:639:3:Scope:'.$record[ 'Scope' ], TRUE );
+				if( $record[ 'Type' ] !== NULL )
+					$term->Domain( 'ISO:639:3:Type:'.$record[ 'Type' ], TRUE );
+				$term->Name( $record[ 'ReferenceName' ], kDEFAULT_LANGUAGE );
+				if( $record[ 'PrintName' ] !== NULL )
+					$term[ 'ISO:639:PrintName' ] = $record[ 'PrintName' ];
+				if( $record[ 'InvertedName' ] !== NULL )
+					$term[ 'ISO:639:InvertedName' ] = $record[ 'InvertedName' ];
+				if( $record[ 'Comment' ] !== NULL )
+					$term->Description( $record[ 'Comment' ], kDEFAULT_LANGUAGE );
+				$term->Commit( $theContainer );
 			}
-			if( $record[ 'Part2T' ] !== NULL )
-			{
-				$term->Enumeration( $record[ 'Part2T' ], TRUE );
-				$term->Synonym( $record[ 'Part2T' ], kTYPE_EXACT, TRUE );
-			}
-			if( $record[ 'Part1' ] !== NULL )
-			{
-				$term->Enumeration( $record[ 'Part1' ], TRUE );
-				$term->Synonym( $record[ 'Part1' ], kTYPE_EXACT, TRUE );
-			}
-			switch( $record[ 'Scope' ] )
-			{
-				case 'I':
-					$term->Domain( $individual_scope_term->GID(), TRUE );
-					break;
-				case 'M':
-					$term->Domain( $macrolanguage_scope_term->GID(), TRUE );
-					break;
-				case 'S':
-					$term->Domain( $special_scope_term->GID(), TRUE );
-					break;
-			}
-			switch( $record[ 'Type' ] )
-			{
-				case 'A':
-					$term->Category( $ancient_type_term->GID(), TRUE );
-					break;
-				case 'C':
-					$term->Category( $constructed_type_term->GID(), TRUE );
-					break;
-				case 'E':
-					$term->Category( $extinct_type_term->GID(), TRUE );
-					break;
-				case 'H':
-					$term->Category( $historical_type_term->GID(), TRUE );
-					break;
-				case 'L':
-					$term->Category( $living_type_term->GID(), TRUE );
-					break;
-				case 'S':
-					$term->Category( $special_type_term->GID(), TRUE );
-					break;
-			}
-			$term->Commit( $theContainer );
+
 			//
 			// Save main term.
 			//
 			$term_main = $term;
+			$idx_main = $term->Code();
+
+			//
+			// Handle node.
+			//
+			$node = new COntologyNode( $container );
+			$node->Term( $term );
+			$node->Kind( kTYPE_ENUMERATION, TRUE );
+			$node->Type( kTYPE_ENUM, TRUE );
+			$node->Domain( kDOMAIN_LANGUAGE, TRUE );
+			$node->Commit( $container );
 			
-			//
-			// Create Code3 node.
-			//
-			$node = $term_index->findOne( kTAG_TERM, (string) $term );
-			if( $node === NULL )
-			{
-				$node = new COntologyNode( $container );
-				$node->Term( $term );
-				$node->Kind( kTYPE_ENUMERATION, TRUE );
-				$node->Commit( $container );
-			}
-			else
-				$node = new COntologyNode( $container, $node );
 			//
 			// Save main node.
 			//
 			$node_main = $node;
+			$language_nodes[ $idx_main ] = array( 'Part3' => $node );
 			
 			//
-			// Create Code3 edge.
+			// Handle edge.
 			//
-			$id = Array();
-			$id[] = $node->Node()->getId();
-			$id[] = (string) $enum_of;
-			$id[] = $code3_node->Node()->getId();
-			$id = implode( '/', $id );
-			$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-			if( $edge === NULL )
-			{
-				$edge = $node->RelateTo( $container, $enum_of, $code3_node );
-				$edge->Commit( $container );
-			}
+			$edge = $node->RelateTo( $container, $enum_of, $nodes[ 'ISO:639:3:Part3' ] );
+			$edge->Commit( $container );
 			
 			//
 			// Display.
 			//
 			if( $doDisplay )
-				echo( $term->Name()
-					 ." [$term] [".$node->Node()->getId()."]\n" );
+				echo( "[$term] "
+					 .$term->Name( NULL, kDEFAULT_LANGUAGE )
+					 ." ["
+					 .$node->Node()->getId()
+					 ."]\n" );
 		
 			//
 			// Handle Part2B code.
@@ -4741,110 +4269,77 @@ EOT;
 			if( $record[ 'Part2B' ] !== NULL )
 			{
 				//
-				// Create Code3 term.
+				// Create Part2B term.
 				//
-				$term = new COntologyTerm();
-				$term->NS( $part2b_term );
-				$term->Code( $record[ 'Part2B' ] );
-				$term->Name( $record[ 'ReferenceName' ] );
-				if( $record[ 'PrintName' ] !== NULL )
-					$term[ $term_print_name->GID() ] = $record[ 'PrintName' ];
-				if( $record[ 'InvertedName' ] !== NULL )
-					$term[ $term_inverted_name->GID() ] = $record[ 'InvertedName' ];
-				if( $record[ 'Comment' ] !== NULL )
-					$term->Description( $record[ 'Comment' ], kDEFAULT_LANGUAGE );
-				$term->Kind( kTYPE_ENUMERATION, TRUE );
-				$term->Type( kTYPE_ENUM );
-				$term->Enumeration( $term->Code(), TRUE );
-				$term->Enumeration( $record[ 'Code3' ], TRUE );
-				if( $record[ 'Part2T' ] !== NULL )
+				$term
+					= new COntologyTerm(
+							$theContainer, 
+							COntologyTerm::HashIndex(
+								$nodes[ 'ISO:639:3:Part2B' ]->Term()->GID()
+							   .kTOKEN_NAMESPACE_SEPARATOR
+							   .$record[ 'Code3' ] ) );
+				if( ! $term->Persistent() )
 				{
-					$term->Enumeration( $record[ 'Part2T' ], TRUE );
-					$term->Synonym( $record[ 'Part2T' ], kTYPE_EXACT, TRUE );
+					$term->NS( $nodes[ 'ISO:639:3:Part2B' ]->Term() );
+					$term->Code( $record[ 'Part2B' ] );
+					$term->Kind( kTYPE_ENUMERATION, TRUE );
+					$term->Type( kTYPE_ENUM );
+					$term->Enumeration( $term->Code(), TRUE );
+					$term->Enumeration( $record[ 'Code3' ], TRUE );
+					if( $record[ 'Scope' ] !== NULL )
+						$term->Domain( 'ISO:639:3:Scope:'.$record[ 'Scope' ], TRUE );
+					if( $record[ 'Type' ] !== NULL )
+						$term->Domain( 'ISO:639:3:Type:'.$record[ 'Type' ], TRUE );
+					$term->Name( $record[ 'ReferenceName' ], kDEFAULT_LANGUAGE );
+					if( $record[ 'Part2T' ] !== NULL )
+						$term->Synonym( $record[ 'Part2T' ], kTYPE_EXACT, TRUE );
+					if( $record[ 'Part1' ] !== NULL )
+						$term->Synonym( $record[ 'Part1' ], kTYPE_EXACT, TRUE );
+					if( $record[ 'PrintName' ] !== NULL )
+						$term[ 'ISO:639:PrintName' ] = $record[ 'PrintName' ];
+					if( $record[ 'InvertedName' ] !== NULL )
+						$term[ 'ISO:639:InvertedName' ] = $record[ 'InvertedName' ];
+					if( $record[ 'Comment' ] !== NULL )
+						$term->Description( $record[ 'Comment' ], kDEFAULT_LANGUAGE );
+					$term->Commit( $theContainer );
 				}
-				if( $record[ 'Part1' ] !== NULL )
-				{
-					$term->Enumeration( $record[ 'Part1' ], TRUE );
-					$term->Synonym( $record[ 'Part1' ], kTYPE_EXACT, TRUE );
-				}
-				switch( $record[ 'Scope' ] )
-				{
-					case 'I':
-						$term->Domain( $individual_scope_term->GID(), TRUE );
-						break;
-					case 'M':
-						$term->Domain( $macrolanguage_scope_term->GID(), TRUE );
-						break;
-					case 'S':
-						$term->Domain( $special_scope_term->GID(), TRUE );
-						break;
-				}
-				switch( $record[ 'Type' ] )
-				{
-					case 'A':
-						$term->Category( $ancient_type_term->GID(), TRUE );
-						break;
-					case 'C':
-						$term->Category( $constructed_type_term->GID(), TRUE );
-						break;
-					case 'E':
-						$term->Category( $extinct_type_term->GID(), TRUE );
-						break;
-					case 'H':
-						$term->Category( $historical_type_term->GID(), TRUE );
-						break;
-					case 'L':
-						$term->Category( $living_type_term->GID(), TRUE );
-						break;
-					case 'S':
-						$term->Category( $special_type_term->GID(), TRUE );
-						break;
-				}
-				$term->Commit( $theContainer );
+	
 				//
-				// Save alternate term 1.
+				// Save term.
 				//
 				$term_alt1 = $term;
+	
+				//
+				// Handle node.
+				//
+				$node = new COntologyNode( $container );
+				$node->Term( $term );
+				$node->Kind( kTYPE_ENUMERATION, TRUE );
+				$node->Type( kTYPE_ENUM, TRUE );
+				$node->Domain( kDOMAIN_LANGUAGE, TRUE );
+				$node->Commit( $container );
 				
 				//
-				// Create Part2B node.
-				//
-				$node = $term_index->findOne( kTAG_TERM, (string) $term );
-				if( $node === NULL )
-				{
-					$node = new COntologyNode( $container );
-					$node->Term( $term );
-					$node->Kind( kTYPE_ENUMERATION, TRUE );
-					$node->Commit( $container );
-				}
-				else
-					$node = new COntologyNode( $container, $node );
-				//
-				// Save alternate node 1.
+				// Save node.
 				//
 				$node_alt1 = $node;
+				$language_nodes[ $idx_main ][ 'Part2B' ] = $node;
 				
 				//
-				// Create Part2B edge.
+				// Handle edge.
 				//
-				$id = Array();
-				$id[] = $node->Node()->getId();
-				$id[] = (string) $enum_of;
-				$id[] = $part2b_node->Node()->getId();
-				$id = implode( '/', $id );
-				$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-				if( $edge === NULL )
-				{
-					$edge = $node->RelateTo( $container, $enum_of, $part2b_node );
-					$edge->Commit( $container );
-				}
+				$edge = $node->RelateTo( $container, $enum_of, $nodes[ 'ISO:639:3:Part2B' ] );
+				$edge->Commit( $container );
 				
 				//
 				// Display.
 				//
 				if( $doDisplay )
-					echo( $term->Name()
-						 ." [$term] [".$node->Node()->getId()."]\n" );
+					echo( "[$term] "
+						 .$term->Name( NULL, kDEFAULT_LANGUAGE )
+						 ." ["
+						 .$node->Node()->getId()
+						 ."]\n" );
 			}
 			else
 				$term_alt1 = NULL;
@@ -4857,108 +4352,76 @@ EOT;
 				//
 				// Create Code3 term.
 				//
-				$term = new COntologyTerm();
-				$term->NS( $part2t_term );
-				$term->Code( $record[ 'Part2T' ] );
-				$term->Name( $record[ 'ReferenceName' ] );
-				if( $record[ 'PrintName' ] !== NULL )
-					$term[ $term_print_name->GID() ] = $record[ 'PrintName' ];
-				if( $record[ 'InvertedName' ] !== NULL )
-					$term[ $term_inverted_name->GID() ] = $record[ 'InvertedName' ];
-				if( $record[ 'Comment' ] !== NULL )
-					$term->Description( $record[ 'Comment' ], kDEFAULT_LANGUAGE );
-				$term->Kind( kTYPE_ENUMERATION, TRUE );
-				$term->Type( kTYPE_ENUM );
-				$term->Enumeration( $term->Code(), TRUE );
-				$term->Enumeration( $record[ 'Code3' ], TRUE );
-				if( $record[ 'Part2B' ] !== NULL )
+				$term
+					= new COntologyTerm(
+							$theContainer, 
+							COntologyTerm::HashIndex(
+								$nodes[ 'ISO:639:3:Part2T' ]->Term()->GID()
+							   .kTOKEN_NAMESPACE_SEPARATOR
+							   .$record[ 'Part2T' ] ) );
+				if( ! $term->Persistent() )
 				{
-					$term->Enumeration( $record[ 'Part2B' ], TRUE );
-					$term->Synonym( $record[ 'Part2B' ], kTYPE_EXACT, TRUE );
+					$term->NS( $nodes[ 'ISO:639:3:Part2T' ]->Term() );
+					$term->Code( $record[ 'Part2T' ] );
+					$term->Kind( kTYPE_ENUMERATION, TRUE );
+					$term->Type( kTYPE_ENUM );
+					$term->Enumeration( $term->Code(), TRUE );
+					$term->Enumeration( $record[ 'Code3' ], TRUE );
+					if( $record[ 'Scope' ] !== NULL )
+						$term->Domain( 'ISO:639:3:Scope:'.$record[ 'Scope' ], TRUE );
+					if( $record[ 'Type' ] !== NULL )
+						$term->Domain( 'ISO:639:3:Type:'.$record[ 'Type' ], TRUE );
+					$term->Name( $record[ 'ReferenceName' ], kDEFAULT_LANGUAGE );
+					if( $record[ 'Part2B' ] !== NULL )
+						$term->Synonym( $record[ 'Part2B' ], kTYPE_EXACT, TRUE );
+					if( $record[ 'Part1' ] !== NULL )
+						$term->Synonym( $record[ 'Part1' ], kTYPE_EXACT, TRUE );
+					if( $record[ 'PrintName' ] !== NULL )
+						$term[ 'ISO:639:PrintName' ] = $record[ 'PrintName' ];
+					if( $record[ 'InvertedName' ] !== NULL )
+						$term[ 'ISO:639:InvertedName' ] = $record[ 'InvertedName' ];
+					if( $record[ 'Comment' ] !== NULL )
+						$term->Description( $record[ 'Comment' ], kDEFAULT_LANGUAGE );
+					$term->Commit( $theContainer );
 				}
-				if( $record[ 'Part1' ] !== NULL )
-				{
-					$term->Enumeration( $record[ 'Part1' ], TRUE );
-					$term->Synonym( $record[ 'Part1' ], kTYPE_EXACT, TRUE );
-				}
-				switch( $record[ 'Scope' ] )
-				{
-					case 'I':
-						$term->Domain( $individual_scope_term->GID(), TRUE );
-						break;
-					case 'M':
-						$term->Domain( $macrolanguage_scope_term->GID(), TRUE );
-						break;
-					case 'S':
-						$term->Domain( $special_scope_term->GID(), TRUE );
-						break;
-				}
-				switch( $record[ 'Type' ] )
-				{
-					case 'A':
-						$term->Category( $ancient_type_term->GID(), TRUE );
-						break;
-					case 'C':
-						$term->Category( $constructed_type_term->GID(), TRUE );
-						break;
-					case 'E':
-						$term->Category( $extinct_type_term->GID(), TRUE );
-						break;
-					case 'H':
-						$term->Category( $historical_type_term->GID(), TRUE );
-						break;
-					case 'L':
-						$term->Category( $living_type_term->GID(), TRUE );
-						break;
-					case 'S':
-						$term->Category( $special_type_term->GID(), TRUE );
-						break;
-				}
-				$term->Commit( $theContainer );
+	
 				//
-				// Save alternate term 2.
+				// Save term.
 				//
 				$term_alt2 = $term;
+	
+				//
+				// Handle node.
+				//
+				$node = new COntologyNode( $container );
+				$node->Term( $term );
+				$node->Kind( kTYPE_ENUMERATION, TRUE );
+				$node->Type( kTYPE_ENUM, TRUE );
+				$node->Domain( kDOMAIN_LANGUAGE, TRUE );
+				$node->Commit( $container );
 				
 				//
-				// Create Part2T node.
-				//
-				$node = $term_index->findOne( kTAG_TERM, (string) $term );
-				if( $node === NULL )
-				{
-					$node = new COntologyNode( $container );
-					$node->Term( $term );
-					$node->Kind( kTYPE_ENUMERATION, TRUE );
-					$node->Commit( $container );
-				}
-				else
-					$node = new COntologyNode( $container, $node );
-				//
-				// Save alternate node 2.
+				// Save main node.
 				//
 				$node_alt2 = $node;
+				$language_nodes[ $idx_main ][ 'Part2T' ] = $node;
 				
 				//
-				// Create Part2T edge.
+				// Handle edge.
 				//
-				$id = Array();
-				$id[] = $node->Node()->getId();
-				$id[] = (string) $enum_of;
-				$id[] = $part2t_node->Node()->getId();
-				$id = implode( '/', $id );
-				$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-				if( $edge === NULL )
-				{
-					$edge = $node->RelateTo( $container, $enum_of, $part2t_node );
-					$edge->Commit( $container );
-				}
+				$edge = $node->RelateTo( $container, $enum_of, $nodes[ 'ISO:639:3:Part2T' ] );
+				$edge->Commit( $container );
 				
 				//
 				// Display.
 				//
 				if( $doDisplay )
-					echo( $term->Name()
-						 ." [$term] [".$node->Node()->getId()."]\n" );
+					echo( "[$term] "
+						 .$term->Name( NULL, kDEFAULT_LANGUAGE )
+						 ." ["
+						 .$node->Node()->getId()
+						 ."]
+" );
 			}
 			else
 				$term_alt2 = NULL;
@@ -4969,110 +4432,77 @@ EOT;
 			if( $record[ 'Part1' ] !== NULL )
 			{
 				//
-				// Create Code3 term.
+				// Create Part2B term.
 				//
-				$term = new COntologyTerm();
-				$term->NS( $part1_term );
-				$term->Code( $record[ 'Part1' ] );
-				$term->Name( $record[ 'ReferenceName' ] );
-				if( $record[ 'PrintName' ] !== NULL )
-					$term[ $term_print_name->GID() ] = $record[ 'PrintName' ];
-				if( $record[ 'InvertedName' ] !== NULL )
-					$term[ $term_inverted_name->GID() ] = $record[ 'InvertedName' ];
-				if( $record[ 'Comment' ] !== NULL )
-					$term->Description( $record[ 'Comment' ], kDEFAULT_LANGUAGE );
-				$term->Kind( kTYPE_ENUMERATION, TRUE );
-				$term->Type( kTYPE_ENUM );
-				$term->Enumeration( $term->Code(), TRUE );
-				$term->Enumeration( $record[ 'Code3' ], TRUE );
-				if( $record[ 'Part2B' ] !== NULL )
+				$term
+					= new COntologyTerm(
+							$theContainer, 
+							COntologyTerm::HashIndex(
+								$nodes[ 'ISO:639:3:Part1' ]->Term()->GID()
+							   .kTOKEN_NAMESPACE_SEPARATOR
+							   .$record[ 'Part1' ] ) );
+				if( ! $term->Persistent() )
 				{
-					$term->Enumeration( $record[ 'Part2B' ], TRUE );
-					$term->Synonym( $record[ 'Part2B' ], kTYPE_EXACT, TRUE );
+					$term->NS( $nodes[ 'ISO:639:3:Part1' ]->Term() );
+					$term->Code( $record[ 'Part1' ] );
+					$term->Kind( kTYPE_ENUMERATION, TRUE );
+					$term->Type( kTYPE_ENUM );
+					$term->Enumeration( $term->Code(), TRUE );
+					$term->Enumeration( $record[ 'Code3' ], TRUE );
+					if( $record[ 'Scope' ] !== NULL )
+						$term->Domain( 'ISO:639:3:Scope:'.$record[ 'Scope' ], TRUE );
+					if( $record[ 'Type' ] !== NULL )
+						$term->Domain( 'ISO:639:3:Type:'.$record[ 'Type' ], TRUE );
+					$term->Name( $record[ 'ReferenceName' ], kDEFAULT_LANGUAGE );
+					if( $record[ 'Part2T' ] !== NULL )
+						$term->Synonym( $record[ 'Part2T' ], kTYPE_EXACT, TRUE );
+					if( $record[ 'Part2B' ] !== NULL )
+						$term->Synonym( $record[ 'Part2B' ], kTYPE_EXACT, TRUE );
+					if( $record[ 'PrintName' ] !== NULL )
+						$term[ 'ISO:639:PrintName' ] = $record[ 'PrintName' ];
+					if( $record[ 'InvertedName' ] !== NULL )
+						$term[ 'ISO:639:InvertedName' ] = $record[ 'InvertedName' ];
+					if( $record[ 'Comment' ] !== NULL )
+						$term->Description( $record[ 'Comment' ], kDEFAULT_LANGUAGE );
+					$term->Commit( $theContainer );
 				}
-				if( $record[ 'Part2T' ] !== NULL )
-				{
-					$term->Enumeration( $record[ 'Part2T' ], TRUE );
-					$term->Synonym( $record[ 'Part2T' ], kTYPE_EXACT, TRUE );
-				}
-				switch( $record[ 'Scope' ] )
-				{
-					case 'I':
-						$term->Domain( $individual_scope_term->GID(), TRUE );
-						break;
-					case 'M':
-						$term->Domain( $macrolanguage_scope_term->GID(), TRUE );
-						break;
-					case 'S':
-						$term->Domain( $special_scope_term->GID(), TRUE );
-						break;
-				}
-				switch( $record[ 'Type' ] )
-				{
-					case 'A':
-						$term->Category( $ancient_type_term->GID(), TRUE );
-						break;
-					case 'C':
-						$term->Category( $constructed_type_term->GID(), TRUE );
-						break;
-					case 'E':
-						$term->Category( $extinct_type_term->GID(), TRUE );
-						break;
-					case 'H':
-						$term->Category( $historical_type_term->GID(), TRUE );
-						break;
-					case 'L':
-						$term->Category( $living_type_term->GID(), TRUE );
-						break;
-					case 'S':
-						$term->Category( $special_type_term->GID(), TRUE );
-						break;
-				}
-				$term->Commit( $theContainer );
+	
 				//
-				// Save alternate term 3.
+				// Save main term.
 				//
 				$term_alt3 = $term;
+	
+				//
+				// Handle node.
+				//
+				$node = new COntologyNode( $container );
+				$node->Term( $term );
+				$node->Kind( kTYPE_ENUMERATION, TRUE );
+				$node->Type( kTYPE_ENUM, TRUE );
+				$node->Domain( kDOMAIN_LANGUAGE, TRUE );
+				$node->Commit( $container );
 				
 				//
-				// Create Part1 node.
-				//
-				$node = $term_index->findOne( kTAG_TERM, (string) $term );
-				if( $node === NULL )
-				{
-					$node = new COntologyNode( $container );
-					$node->Term( $term );
-					$node->Kind( kTYPE_ENUMERATION, TRUE );
-					$node->Commit( $container );
-				}
-				else
-					$node = new COntologyNode( $container, $node );
-				//
-				// Save alternate node 3.
+				// Save node.
 				//
 				$node_alt3 = $node;
+				$language_nodes[ $idx_main ][ 'Part1' ] = $node;
 				
 				//
-				// Create Part1 edge.
+				// Handle edge.
 				//
-				$id = Array();
-				$id[] = $node->Node()->getId();
-				$id[] = (string) $enum_of;
-				$id[] = $part1_node->Node()->getId();
-				$id = implode( '/', $id );
-				$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-				if( $edge === NULL )
-				{
-					$edge = $node->RelateTo( $container, $enum_of, $part1_node );
-					$edge->Commit( $container );
-				}
+				$edge = $node->RelateTo( $container, $enum_of, $nodes[ 'ISO:639:3:Part1' ] );
+				$edge->Commit( $container );
 				
 				//
 				// Display.
 				//
 				if( $doDisplay )
-					echo( $term->Name()
-						 ." [$term] [".$node->Node()->getId()."]\n" );
+					echo( "[$term] "
+						 .$term->Name( NULL, kDEFAULT_LANGUAGE )
+						 ." ["
+						 .$node->Node()->getId()
+						 ."]\n" );
 			}
 			else
 				$term_alt3 = NULL;
@@ -5080,15 +4510,15 @@ EOT;
 			//
 			// Handle exact cross-references.
 			//
-			$terms = array( $term_main, ( ( $term_alt1 !== NULL ) ? $term_alt1 : NULL ),
-										( ( $term_alt2 !== NULL ) ? $term_alt2 : NULL ),
-										( ( $term_alt3 !== NULL ) ? $term_alt3 : NULL ) );
-			$nodes = array( $node_main, ( ( $term_alt1 !== NULL ) ? $node_alt1 : NULL ),
-										( ( $term_alt2 !== NULL ) ? $node_alt2 : NULL ),
-										( ( $term_alt3 !== NULL ) ? $node_alt3 : NULL ) );
-			for( $i = 0; $i < count( $terms ); $i++ )
+			$trms = array( $term_main, ( ( $term_alt1 !== NULL ) ? $term_alt1 : NULL ),
+									   ( ( $term_alt2 !== NULL ) ? $term_alt2 : NULL ),
+									   ( ( $term_alt3 !== NULL ) ? $term_alt3 : NULL ) );
+			$nods = array( $node_main, ( ( $term_alt1 !== NULL ) ? $node_alt1 : NULL ),
+									   ( ( $term_alt2 !== NULL ) ? $node_alt2 : NULL ),
+									   ( ( $term_alt3 !== NULL ) ? $node_alt3 : NULL ) );
+			for( $i = 0; $i < count( $trms ); $i++ )
 			{
-				for( $j = 0; $j < count( $terms ); $j++ )
+				for( $j = 0; $j < count( $trms ); $j++ )
 				{
 					//
 					// Skip same.
@@ -5098,13 +4528,13 @@ EOT;
 						//
 						// Skip missing.
 						//
-						if( ($terms[ $i ] !== NULL)
-						 && ($terms[ $j ] !== NULL) )
+						if( ($trms[ $i ] !== NULL)
+						 && ($trms[ $j ] !== NULL) )
 						{
 							//
 							// Relate terms.
 							//
-							$terms[ $i ]->Xref( $terms[ $j ], kTYPE_EXACT, TRUE );
+							$trms[ $i ]->Xref( $trms[ $j ], kTYPE_EXACT, TRUE );
 							//
 							// Set used.
 							//
@@ -5113,43 +4543,27 @@ EOT;
 								//
 								// Set in term.
 								//
-								$terms[ $j ]->Used( $terms[ $j ] );
+								$trms[ $j ]->Used( $trms[ $i ] );
 								//
 								// Set in node.
 								//
-								$id = Array();
-								$id[] = $nodes[ $j ]->Node()->getId();
-								$id[] = kTAG_DEFAULT;
-								$id[] = $nodes[ $i ]->Node()->getId();
-								$id = implode( '/', $id );
-								$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-								if( $edge === NULL )
-								{
-									$edge = $nodes[ $j ]->RelateTo
-											( $container, kTAG_DEFAULT, $nodes[ $i ] );
-									$edge->Commit( $container );
-								}
+								$edge
+									= $nods[ $j ]->RelateTo(
+										$container, kTAG_DEFAULT, $nods[ $i ] );
+								$edge->Commit( $container );
 							}
 							//
 							// Relate nodes.
 							//
-							$id = Array();
-							$id[] = $nodes[ $i ]->Node()->getId();
-							$id[] = kTAG_REFERENCE_XREF;
-							$id[] = $nodes[ $j ]->Node()->getId();
-							$id = implode( '/', $id );
-							$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-							if( $edge === NULL )
-							{
-								$edge = $nodes[ $i ]->RelateTo
-										( $container, kTAG_REFERENCE_XREF, $nodes[ $j ] );
-								$edge->Node()->setProperty( kTAG_KIND, kTYPE_EXACT );
-								$edge->Commit( $container );
-							}
+							$edge
+								= $nods[ $i ]->RelateTo(
+									$container, kTAG_REFERENCE_XREF, $nods[ $j ] );
+							$edge->Node()->setProperty( kTAG_KIND, kTYPE_EXACT );
+							$edge->Commit( $container );
 							//
 							// Commit term.
 							//
-							$terms[ $i ]->Commit( $theContainer );
+							$trms[ $i ]->Commit( $theContainer );
 						}
 					}
 				}
@@ -5167,62 +4581,258 @@ SELECT
 FROM
 	`Code_ISO_639_3_Macrolanguages`
 ORDER BY
-	`Code_ISO_639_3_Macrolanguages`.`Language`
+	`Code_ISO_639_3_Macrolanguages`.`MacroLanguage`
 EOT;
+		$macro_predicate
+			= $nodes[ 'ISO:639:3:Scope'
+					 .kTOKEN_NAMESPACE_SEPARATOR
+					 .'M' ]->Term();
 		$rs = $mysql->Execute( $query );
 		foreach( $rs as $record )
 		{
 			//
-			// Locate language node.
-			//
-			$id = $code3_term->GID().kTOKEN_NAMESPACE_SEPARATOR.$record[ 'Language' ];
-			$language_node = $term_index->findOne( kTAG_TERM, $id );
-			if( $language_node === NULL )
-				throw new Exception( "Unable to find [$id] node." );			// !@! ==>
-			$language_node = new COntologyNode( $container, $language_node );
-			
-			//
 			// Locate macrolanguage node.
 			//
-			$id = $code3_term->GID().kTOKEN_NAMESPACE_SEPARATOR.$record[ 'MacroLanguage' ];
-			$macro_node = $term_index->findOne( kTAG_TERM, $id );
-			if( $macro_node === NULL )
+			$id = $record[ 'MacroLanguage' ];
+			if( ! array_key_exists( $id, $language_nodes ) )
 				throw new Exception( "Unable to find [$id] node." );			// !@! ==>
-			$macro_node = new COntologyNode( $container, $macro_node );
+			$macro = $language_nodes[ $id ];
 			
 			//
-			// Create Macrolanguage edge.
+			// Locate language node.
 			//
-			$id = Array();
-			$id[] = $macro_node->Node()->getId();
-			$id[] = $macrolanguage_scope_term;
-			$id[] = $language_node->Node()->getId();
-			$id = implode( '/', $id );
-			$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-			if( $edge === NULL )
+			$id = $record[ 'Language' ];
+			if( ! array_key_exists( $id, $language_nodes ) )
+				throw new Exception( "Unable to find [$id] node." );			// !@! ==>
+			$language = $language_nodes[ $id ];
+			
+			//
+			// Iterate macro-language code groups.
+			//
+			foreach( $macro as $group => $macro_node )
 			{
-				$edge = $macro_node->RelateTo( $container,
-											   $macrolanguage_scope_term,
-											   $language_node );
-				$edge->Commit( $container );
+				if( array_key_exists( $group, $language ) )
+				{
+					$edge
+						= $macro_node->RelateTo(
+							$container, $macro_predicate, $language[ $group ] );
+					$edge->Commit( $container );
+					
+					//
+					// Display.
+					//
+					if( $doDisplay )
+						echo( '['.$macro_node->Term().'] => ['
+							 .$language[ $group ]->Term().'] ['
+							 .$edge->Node()->getId()
+							 ."]\n" );
+				}
 			}
+		
+		} $rs->Close();
+		unset( $language_nodes );
+		
+		//
+		// ISO 3166.
+		//
+		$term
+			= new COntologyTerm(
+					$theContainer, 
+					COntologyTerm::HashIndex(
+						'ISO'.kTOKEN_NAMESPACE_SEPARATOR.'3166' ) );
+		if( ! $term->Persistent() )
+		{
+			$term->NS( $nodes[ 'ISO' ]->Term() );
+			$term->Code( '3166' );
+			$term->Kind( kTYPE_NAMESPACE, TRUE );
+			$term->Domain( kDOMAIN_GEOGRAPHY, TRUE );
+			$term->Category( kCATEGORY_ADMIN, TRUE );
+			$term->Name
+			( 'Geographical codes and names',
+			  kDEFAULT_LANGUAGE );
+			$term->Definition
+			( 'Codes for the representation of names of countries and their subdivisions.',
+			  kDEFAULT_LANGUAGE );
+			$term->Commit( $theContainer );
+		}
+		//
+		// Handle node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Domain( kDOMAIN_GEOGRAPHY, TRUE );
+		$node->Commit( $container );
+		//
+		// Save node.
+		//
+		$nodes[ $nodes[ 'ISO' ]->Term()->GID()
+			   .kTOKEN_NAMESPACE_SEPARATOR
+			   .'3166' ] = $node;
+		//
+		// Handle edge.
+		//
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'ISO' ] );
+		$edge->Commit( $container );
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+		
+		//
+		// ISO 3166-1.
+		//
+		$term
+			= new COntologyTerm(
+					$theContainer, 
+					COntologyTerm::HashIndex(
+						$nodes[ 'ISO:3166' ]->Term()->GID()
+					   .kTOKEN_NAMESPACE_SEPARATOR
+					   .'1' ) );
+		if( ! $term->Persistent() )
+		{
+			$term->NS( $nodes[ 'ISO:3166' ]->Term() );
+			$term->Code( '1' );
+			$term->Kind( kTYPE_NAMESPACE, TRUE );
+			$term->Domain( kDOMAIN_GEOGRAPHY, TRUE );
+			$term->Category( kCATEGORY_ADMIN, TRUE );
+			$term->Name
+			( 'Country code',
+			  kDEFAULT_LANGUAGE );
+			$term->Definition
+			( 'Codes for the representation of names of countries and their '
+			 .'subdivisions – Part 1: Country codes.',
+			  kDEFAULT_LANGUAGE );
+			$term->Commit( $theContainer );
+		}
+		//
+		// Handle node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Domain( kDOMAIN_GEOGRAPHY, TRUE );
+		$node->Category( kCATEGORY_ADMIN, TRUE );
+		$node->Commit( $container );
+		//
+		// Save node.
+		//
+		$nodes[ $nodes[ 'ISO:3166' ]->Term()->GID()
+			   .kTOKEN_NAMESPACE_SEPARATOR
+			   .'1' ] = $node;
+		//
+		// Handle edge.
+		//
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'ISO:3166' ] );
+		$edge->Commit( $container );
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+		
+		//
+		// Init local storage.
+		//
+		$components = array
+		(
+			array( 'id'	=> 'NUMERIC-3',
+				   'pat' => '[0-9]{3}',
+				   'nam' => '3-digit country code',
+				   'def' => 'ISO 3166-1 numeric (or numeric-3) codes are three-digit '
+				   		   .'country codes defined in ISO 3166-1, part of the ISO 3166 '
+				   		   .'standard published by the International Organization for '
+				   		   .'Standardization (ISO), to represent countries, dependent '
+				   		   .'territories, and special areas of geographical interest.' ),
+			array( 'id'	=> 'ALPHA-2',
+				   'pat' => '[A-Z]{2}',
+				   'nam' => '2-character country code',
+				   'def' => 'ISO 3166-1 alpha-2 codes are two-letter country codes '
+				   		   .'defined in ISO 3166-1, part of the ISO 3166 standard '
+				   		   .'published by the International Organization for '
+				   		   .'Standardization (ISO), to represent countries, dependent '
+				   		   .'territories, and special areas of geographical interest.' ),
+			array( 'id'	=> 'ALPHA-3',
+				   'pat' => '[A-Z]{3}',
+				   'nam' => '3-character country code',
+				   'def' => 'ISO 3166-1 alpha-3 codes are three-letter country codes '
+				   		   .'defined in ISO 3166-1, part of the ISO 3166 standard '
+				   		   .'published by the International Organization for '
+				   		   .'Standardization (ISO), to represent countries, dependent '
+				   		   .'territories, and special areas of geographical interest.' )
+		);
+		
+		//
+		// Load data.
+		//
+		foreach( $components as $component )
+		{
+			//
+			// Handle term.
+			//
+			$term
+				= new COntologyTerm(
+						$theContainer, 
+						COntologyTerm::HashIndex(
+							$nodes[ 'ISO:3166:1' ]->Term()->GID()
+						   .kTOKEN_NAMESPACE_SEPARATOR
+						   .$component[ 'id' ] ) );
+			if( ! $term->Persistent() )
+			{
+				$term->NS( $nodes[ 'ISO:3166:1' ]->Term() );
+				$term->Code( $component[ 'id' ] );
+				$term->Type( kTYPE_ENUM );
+				$term->Pattern( $component[ 'pat' ], TRUE );
+				$term->Domain( kDOMAIN_GEOGRAPHY, TRUE );
+				$term->Category( kCATEGORY_ADMIN, TRUE );
+				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
+				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
+				$term->Commit( $theContainer );
+			}
+			
+			//
+			// Handle node.
+			//
+			$node = new COntologyNode( $container );
+			$node->Term( $term );
+			$node->Kind( kTYPE_MEASURE, TRUE );
+			$node->Type( kTYPE_ENUM, TRUE );
+			$node->Domain( kDOMAIN_GEOGRAPHY, TRUE );
+			$node->Category( kCATEGORY_ADMIN, TRUE );
+			$node->Commit( $container );
+			
+			//
+			// Save node.
+			//
+			$nodes[ $nodes[ 'ISO:3166:1' ]->Term()->GID()
+				   .kTOKEN_NAMESPACE_SEPARATOR
+				   .$component[ 'id' ] ] = $node;
+			
+			//
+			// Handle edge.
+			//
+			$edge = $node->RelateTo( $container, $is_a, $nodes[ 'ISO:3166:1' ] );
+			$edge->Commit( $container );
 			
 			//
 			// Display.
 			//
 			if( $doDisplay )
-				echo( $macro_node->Term()->Name()
-					 .' => '
-					 .$language_node->Term()->Name()
-					 .' ['
-					 .$node->Node()->getId()
-					 ."]\n" );
-		
-		} $rs->Close();
+				echo( "[$term] "
+					 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+					 .$node->Node()->getId()."}"
+					 ."\n" );
+		}
 				
 		//
 		// Iterate country codes.
 		//
+		$countries = Array();
 		$query = <<<EOT
 SELECT
 	`Code_ISO_3166`.`ISO3`,
@@ -5249,93 +4859,82 @@ EOT;
 		{
 			//
 			// Create alpha 3 term.
+			// Note that the country code namespace is ISO-3166-1,
+			// not its parent: this is because all codes are univoque.
 			//
-			$term = new COntologyTerm();
-			$term->NS( $ns_3166_1 );
-			$term->Code( $record[ 'ISO3' ] );
-			$term->Name( $record[ 'Name' ], kDEFAULT_LANGUAGE );
-			$term->Kind( kTYPE_ENUMERATION, TRUE );
-			$term->Type( kTYPE_ENUM );
-			$term->Enumeration( $term->Code(), TRUE );
-			if( $record[ 'CodeNum' ] !== NULL )
+			$term
+				= new COntologyTerm(
+						$theContainer, 
+						COntologyTerm::HashIndex(
+							$nodes[ 'ISO:3166:1' ]->Term()->GID()
+						   .kTOKEN_NAMESPACE_SEPARATOR
+						   .$record[ 'ISO3' ] ) );
+			if( ! $term->Persistent() )
 			{
-				$term->Enumeration( $record[ 'CodeNum' ], TRUE );
-				$term->Synonym( $record[ 'CodeNum' ], kTYPE_EXACT, TRUE );
+				$term->NS( $nodes[ 'ISO:3166:1' ]->Term() );
+				$term->Code( $record[ 'ISO3' ] );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
+				$term->Type( kTYPE_ENUM );
+				$term->Enumeration( $term->Code(), TRUE );
+				if( $record[ 'CodeNum' ] !== NULL )
+					$term->Synonym( $record[ 'CodeNum' ], kTYPE_EXACT, TRUE );
+				if( $record[ 'Code2' ] !== NULL )
+					$term->Synonym( $record[ 'Code2' ], kTYPE_EXACT, TRUE );
+				$term->Domain( kDOMAIN_GEOGRAPHY, TRUE );
+				$term->Category( kCATEGORY_ADMIN, TRUE );
+				$term->Name( $record[ 'Name' ], kDEFAULT_LANGUAGE );
+				if( $record[ 'FlagThumb' ] !== NULL )
+					$term->Image( kIMAGE_THUMB_FLAG,
+								  kTYPE_PNG,
+								  bin2hex( $record[ 'FlagThumb' ] ) );
+				if( $record[ 'FlagImage' ] !== NULL )
+					$term->Image( kIMAGE_MED_FLAG,
+								  kTYPE_PNG,
+								  bin2hex( $record[ 'FlagImage' ] ) );
+				if( $record[ 'FlagVector' ] !== NULL )
+					$term->Image( kIMAGE_VECT_FLAG,
+								  kTYPE_SVG,
+								  $record[ 'FlagVector' ] );
+				$term->Commit( $theContainer );
 			}
-			if( $record[ 'Code2' ] !== NULL )
-			{
-				$term->Enumeration( $record[ 'Code2' ], TRUE );
-				$term->Synonym( $record[ 'Code2' ], kTYPE_EXACT, TRUE );
-			}
-			if( $record[ 'FlagThumb' ] !== NULL )
-				$term->Image( 'Thumbnail flag',
-							  kTYPE_PNG,
-							  bin2hex( $record[ 'FlagThumb' ] ) );
-			if( $record[ 'FlagImage' ] !== NULL )
-				$term->Image( 'Image flag',
-							  kTYPE_PNG,
-							  bin2hex( $record[ 'FlagImage' ] ) );
-			if( $record[ 'FlagVector' ] !== NULL )
-				$term->Image( 'Vector flag', kTYPE_SVG, $record[ 'FlagVector' ] );
-			$term->Commit( $theContainer );
-			$preferred = $term[ kTAG_LID ];
+
 			//
 			// Save main term.
 			//
 			$term_main = $term;
+
+			//
+			// Handle node.
+			//
+			$node = new COntologyNode( $container );
+			$node->Term( $term );
+			$node->Kind( kTYPE_ENUMERATION, TRUE );
+			$node->Type( kTYPE_ENUM, TRUE );
+			$node->Domain( kDOMAIN_GEOGRAPHY, TRUE );
+			$node->Category( kCATEGORY_ADMIN, TRUE );
+			$node->Commit( $container );
 			
-			//
-			// Create alpha 3 node.
-			//
-			$node = $term_index->findOne( kTAG_TERM, (string) $term );
-			if( $node === NULL )
-			{
-				$node = new COntologyNode( $container );
-				$node->Term( $term );
-				$node->Kind( kTYPE_ENUMERATION, TRUE );
-				$node->Commit( $container );
-			}
-			else
-				$node = new COntologyNode( $container, $node );
 			//
 			// Save main node.
 			//
 			$node_main = $node;
+			$countries[ $record[ 'ISO3' ] ] = $node;
 			
 			//
-			// Create alpha3 edge.
+			// Handle edge.
 			//
-			$id = Array();
-			$id[] = $node->Node()->getId();
-			$id[] = (string) $enum_of;
-			$id[] = $alpha3_node->Node()->getId();
-			$id = implode( '/', $id );
-			$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-			if( $edge === NULL )
-			{
-				$edge = $node->RelateTo( $container, $enum_of, $alpha3_node );
-				$edge->Commit( $container );
-			}
+			$parent = $nodes[ 'ISO:3166:1:ALPHA-3' ];
+			$edge = $node->RelateTo( $container, $enum_of, $parent );
+			$edge->Commit( $container );
 			
 			//
 			// Create region edge.
 			//
 			if( $record[ 'Region' ] !== NULL )
 			{
-				$region
-					= new COntologyNode( $container,
-										 $_SESSION[ 'REGIONS' ][ $record[ 'Region' ] ] );
-				$id = Array();
-				$id[] = $node->Node()->getId();
-				$id[] = (string) $part_of;
-				$id[] =  $_SESSION[ 'REGIONS' ][ $record[ 'Region' ] ];
-				$id = implode( '/', $id );
-				$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-				if( $edge === NULL )
-				{
-					$edge = $node->RelateTo( $container, $part_of, $region );
-					$edge->Commit( $container );
-				}
+				$region = $_SESSION[ 'REGIONS' ][ $record[ 'Region' ] ];
+				$edge = $node->RelateTo( $container, $part_of, $region );
+				$edge->Commit( $container );
 			}
 			
 			//
@@ -5358,86 +4957,73 @@ EOT;
 					//
 					// Create alpha 2 term.
 					//
-					$term = new COntologyTerm();
-					$term->NS( $ns_3166_1 );
-					$term->Code( $record[ 'Code2' ] );
-					$term->Name( $record[ 'Name' ], kDEFAULT_LANGUAGE );
-					$term->Kind( kTYPE_ENUMERATION, TRUE );
-					$term->Type( kTYPE_ENUM );
-					$term->Enumeration( $term->Code(), TRUE );
-					$term->Enumeration( $record[ 'ISO3' ], TRUE );
-					$term->Synonym( $record[ 'ISO3' ], kTYPE_EXACT, TRUE );
-					if( $record[ 'CodeNum' ] !== NULL )
+					$term
+						= new COntologyTerm(
+								$theContainer, 
+								COntologyTerm::HashIndex(
+									$nodes[ 'ISO:3166:1' ]->Term()->GID()
+								   .kTOKEN_NAMESPACE_SEPARATOR
+								   .$record[ 'Code2' ] ) );
+					if( ! $term->Persistent() )
 					{
-						$term->Enumeration( $record[ 'CodeNum' ], TRUE );
-						$term->Synonym( $record[ 'CodeNum' ], kTYPE_EXACT, TRUE );
+						$term->NS( $nodes[ 'ISO:3166:1' ]->Term() );
+						$term->Code( $record[ 'Code2' ] );
+						$term->Kind( kTYPE_ENUMERATION, TRUE );
+						$term->Type( kTYPE_ENUM );
+						$term->Enumeration( $term->Code(), TRUE );
+						$term->Synonym( $record[ 'ISO3' ], kTYPE_EXACT, TRUE );
+						if( $record[ 'CodeNum' ] !== NULL )
+							$term->Synonym( $record[ 'CodeNum' ], kTYPE_EXACT, TRUE );
+						$term->Domain( kDOMAIN_GEOGRAPHY, TRUE );
+						$term->Category( kCATEGORY_ADMIN, TRUE );
+						$term->Name( $record[ 'Name' ], kDEFAULT_LANGUAGE );
+						$term->Commit( $theContainer );
 					}
-					$term->Commit( $theContainer );
+		
 					//
-					// Save alternate term 1.
+					// Save term.
 					//
 					$term_alt1 = $term;
+		
+					//
+					// Handle node.
+					//
+					$node = new COntologyNode( $container );
+					$node->Term( $term );
+					$node->Kind( kTYPE_ENUMERATION, TRUE );
+					$node->Type( kTYPE_ENUM, TRUE );
+					$node->Domain( kDOMAIN_GEOGRAPHY, TRUE );
+					$node->Category( kCATEGORY_ADMIN, TRUE );
+					$node->Commit( $container );
 					
 					//
-					// Create alpha 2 node.
-					//
-					$node = $term_index->findOne( kTAG_TERM, (string) $term );
-					if( $node === NULL )
-					{
-						$node = new COntologyNode( $container );
-						$node->Term( $term );
-						$node->Kind( kTYPE_ENUMERATION, TRUE );
-						$node->Commit( $container );
-					}
-					else
-						$node = new COntologyNode( $container, $node );
-					//
-					// Save alternate node 1.
+					// Save node.
 					//
 					$node_alt1 = $node;
 					
 					//
-					// Create alpha2 edge.
+					// Handle edge.
 					//
-					$id = Array();
-					$id[] = $node->Node()->getId();
-					$id[] = (string) $enum_of;
-					$id[] = $alpha2_node->Node()->getId();
-					$id = implode( '/', $id );
-					$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-					if( $edge === NULL )
-					{
-						$edge = $node->RelateTo( $container, $enum_of, $alpha2_node );
-						$edge->Commit( $container );
-					}
+					$parent = $nodes[ 'ISO:3166:1:ALPHA-2' ];
+					$edge = $node->RelateTo( $container, $enum_of, $parent );
+					$edge->Commit( $container );
 					
 					//
 					// Create region edge.
 					//
 					if( $record[ 'Region' ] !== NULL )
 					{
-						$region
-							= new COntologyNode( $container,
-												 $_SESSION[ 'REGIONS' ]
-												 		  [ $record[ 'Region' ] ] );
-						$id = Array();
-						$id[] = $node->Node()->getId();
-						$id[] = (string) $part_of;
-						$id[] =  $_SESSION[ 'REGIONS' ][ $record[ 'Region' ] ];
-						$id = implode( '/', $id );
-						$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-						if( $edge === NULL )
-						{
-							$edge = $node->RelateTo( $container, $part_of, $region );
-							$edge->Commit( $container );
-						}
+						$region = $_SESSION[ 'REGIONS' ][ $record[ 'Region' ] ];
+						$edge = $node->RelateTo( $container, $part_of, $region );
+						$edge->Commit( $container );
 					}
 					
 					//
 					// Display.
 					//
 					if( $doDisplay )
-						echo( " [$term] [".$node->Node()->getId()."]" );
+						echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
+							 ." [$term] [".$node->Node()->getId()."]" );
 				}
 				else
 					$term_alt1 = NULL;
@@ -5450,102 +5036,87 @@ EOT;
 					//
 					// Create numeric 3 term.
 					//
-					$term = new COntologyTerm();
-					$term->NS( $ns_3166_1 );
-					$term->Code( $record[ 'CodeNum' ] );
-					$term->Name( $record[ 'Name' ], kDEFAULT_LANGUAGE );
-					$term->Kind( kTYPE_ENUMERATION, TRUE );
-					$term->Type( kTYPE_ENUM );
-					$term->Enumeration( $term->Code(), TRUE );
-					$term->Enumeration( $record[ 'ISO3' ], TRUE );
-					$term->Synonym( $record[ 'ISO3' ], kTYPE_EXACT, TRUE );
-					if( $record[ 'Code2' ] !== NULL )
+					$term
+						= new COntologyTerm(
+								$theContainer, 
+								COntologyTerm::HashIndex(
+									$nodes[ 'ISO:3166:1' ]->Term()->GID()
+								   .kTOKEN_NAMESPACE_SEPARATOR
+								   .$record[ 'CodeNum' ] ) );
+					if( ! $term->Persistent() )
 					{
-						$term->Enumeration( $record[ 'Code2' ], TRUE );
-						$term->Synonym( $record[ 'Code2' ], kTYPE_EXACT, TRUE );
+						$term->NS( $nodes[ 'ISO:3166:1' ]->Term() );
+						$term->Code( $record[ 'CodeNum' ] );
+						$term->Kind( kTYPE_ENUMERATION, TRUE );
+						$term->Type( kTYPE_ENUM );
+						$term->Enumeration( $term->Code(), TRUE );
+						$term->Synonym( $record[ 'ISO3' ], kTYPE_EXACT, TRUE );
+						if( $record[ 'Code2' ] !== NULL )
+							$term->Synonym( $record[ 'Code2' ], kTYPE_EXACT, TRUE );
+						$term->Domain( kDOMAIN_GEOGRAPHY, TRUE );
+						$term->Category( kCATEGORY_ADMIN, TRUE );
+						$term->Name( $record[ 'Name' ], kDEFAULT_LANGUAGE );
+						$term->Commit( $theContainer );
 					}
-					$term->Commit( $theContainer );
+		
 					//
-					// Save alternate term 2.
+					// Save term.
 					//
 					$term_alt2 = $term;
+		
+					//
+					// Handle node.
+					//
+					$node = new COntologyNode( $container );
+					$node->Term( $term );
+					$node->Kind( kTYPE_ENUMERATION, TRUE );
+					$node->Type( kTYPE_ENUM, TRUE );
+					$node->Domain( kDOMAIN_GEOGRAPHY, TRUE );
+					$node->Category( kCATEGORY_ADMIN, TRUE );
+					$node->Commit( $container );
 					
 					//
-					// Create numeric 3 node.
-					//
-					$node = $term_index->findOne( kTAG_TERM, (string) $term );
-					if( $node === NULL )
-					{
-						$node = new COntologyNode( $container );
-						$node->Term( $term );
-						$node->Kind( kTYPE_ENUMERATION, TRUE );
-						$node->Commit( $container );
-					}
-					else
-						$node = new COntologyNode( $container, $node );
-					//
-					// Save alternate node 2.
+					// Save node.
 					//
 					$node_alt2 = $node;
 					
 					//
-					// Create numeric3 edge.
+					// Handle edge.
 					//
-					$id = Array();
-					$id[] = $node->Node()->getId();
-					$id[] = (string) $enum_of;
-					$id[] = $numeric3_node->Node()->getId();
-					$id = implode( '/', $id );
-					$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-					if( $edge === NULL )
-					{
-						$edge = $node->RelateTo( $container, $enum_of, $numeric3_node );
-						$edge->Commit( $container );
-					}
+					$parent = $nodes[ 'ISO:3166:1:NUMERIC-3' ];
+					$edge = $node->RelateTo( $container, $enum_of, $parent );
+					$edge->Commit( $container );
 					
 					//
 					// Create region edge.
 					//
 					if( $record[ 'Region' ] !== NULL )
 					{
-						$region
-							= new COntologyNode
-								( $container, $_SESSION[ 'REGIONS' ]
-													   [ $record[ 'Region' ] ] );
-						$id = Array();
-						$id[] = $node->Node()->getId();
-						$id[] = (string) $part_of;
-						$id[] =  $_SESSION[ 'REGIONS' ][ $record[ 'Region' ] ];
-						$id = implode( '/', $id );
-						$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-						if( $edge === NULL )
-						{
-							$edge = $node->RelateTo( $container, $part_of, $region );
-							$edge->Commit( $container );
-						}
+						$region = $_SESSION[ 'REGIONS' ][ $record[ 'Region' ] ];
+						$edge = $node->RelateTo( $container, $part_of, $region );
+						$edge->Commit( $container );
 					}
 					
 					//
 					// Display.
 					//
 					if( $doDisplay )
-						echo( " [$term] [".$node->Node()->getId()."]" );
+						echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
+							 ." [$term] [".$node->Node()->getId()."]" );
 				}
 				else
 					$term_alt2 = NULL;
-			
+				
 				//
 				// Handle exact cross-references.
 				//
-				$terms
-					= array( $term_main, ( ( $term_alt1 !== NULL ) ? $term_alt1 : NULL ),
-										 ( ( $term_alt2 !== NULL ) ? $term_alt2 : NULL ) );
-				$nodes
-					= array( $node_main, ( ( $term_alt1 !== NULL ) ? $node_alt1 : NULL ),
-										 ( ( $term_alt2 !== NULL ) ? $node_alt2 : NULL ) );
-				for( $i = 0; $i < count( $terms ); $i++ )
+				$trms = array( $term_main, ( ( $term_alt1 !== NULL ) ? $term_alt1 : NULL ),
+										   ( ( $term_alt2 !== NULL ) ? $term_alt2 : NULL ) );
+				$nods = array( $node_main, ( ( $term_alt1 !== NULL ) ? $node_alt1 : NULL ),
+										   ( ( $term_alt2 !== NULL ) ? $node_alt2 : NULL ) );
+				for( $i = 0; $i < count( $trms ); $i++ )
 				{
-					for( $j = 0; $j < count( $terms ); $j++ )
+					for( $j = 0; $j < count( $trms ); $j++ )
 					{
 						//
 						// Skip same.
@@ -5555,13 +5126,13 @@ EOT;
 							//
 							// Skip missing.
 							//
-							if( ($terms[ $i ] !== NULL)
-							 && ($terms[ $j ] !== NULL) )
+							if( ($trms[ $i ] !== NULL)
+							 && ($trms[ $j ] !== NULL) )
 							{
 								//
 								// Relate terms.
 								//
-								$terms[ $i ]->Xref( $terms[ $j ], kTYPE_EXACT, TRUE );
+								$trms[ $i ]->Xref( $trms[ $j ], kTYPE_EXACT, TRUE );
 								//
 								// Set used.
 								//
@@ -5570,43 +5141,27 @@ EOT;
 									//
 									// Set in term.
 									//
-									$terms[ $j ]->Used( $terms[ $j ] );
+									$trms[ $j ]->Used( $trms[ $i ] );
 									//
 									// Set in node.
 									//
-									$id = Array();
-									$id[] = $nodes[ $j ]->Node()->getId();
-									$id[] = kTAG_DEFAULT;
-									$id[] = $nodes[ $i ]->Node()->getId();
-									$id = implode( '/', $id );
-									$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-									if( $edge === NULL )
-									{
-										$edge = $nodes[ $j ]->RelateTo
-												( $container, kTAG_DEFAULT, $nodes[ $i ] );
-										$edge->Commit( $container );
-									}
+									$edge
+										= $nods[ $j ]->RelateTo(
+											$container, kTAG_DEFAULT, $nods[ $i ] );
+									$edge->Commit( $container );
 								}
 								//
 								// Relate nodes.
 								//
-								$id = Array();
-								$id[] = $nodes[ $i ]->Node()->getId();
-								$id[] = kTAG_REFERENCE_XREF;
-								$id[] = $nodes[ $j ]->Node()->getId();
-								$id = implode( '/', $id );
-								$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-								if( $edge === NULL )
-								{
-									$edge = $nodes[ $i ]->RelateTo
-											( $container, kTAG_REFERENCE_XREF, $nodes[ $j ] );
-									$edge->Node()->setProperty( kTAG_KIND, kTYPE_EXACT );
-									$edge->Commit( $container );
-								}
+								$edge
+									= $nods[ $i ]->RelateTo(
+										$container, kTAG_REFERENCE_XREF, $nods[ $j ] );
+								$edge->Node()->setProperty( kTAG_KIND, kTYPE_EXACT );
+								$edge->Commit( $container );
 								//
 								// Commit term.
 								//
-								$terms[ $i ]->Commit( $theContainer );
+								$trms[ $i ]->Commit( $theContainer );
 							}
 						}
 					}
@@ -5642,49 +5197,34 @@ EOT;
 		foreach( $rs as $record )
 		{
 			//
+			// Get obsolete and valid nodes.
+			//
+			$obsolete_node = $countries[ $record[ 'ISO3' ] ];
+			$valid_node = $countries[ $record[ 'ValidCode' ] ];
+			
+			//
 			// Get obsolete and valid terms.
 			//
-			$obsolete
-				= new COntologyTerm
-					( $theContainer,
-					  COntologyTerm::HashIndex( (string) $ns_3166_1
-					  						   .kTOKEN_NAMESPACE_SEPARATOR
-					  						   .$record[ 'ISO3' ] ) );
-			$valid
-				= new COntologyTerm
-					( $theContainer,
-					  COntologyTerm::HashIndex( (string) $ns_3166_1
-					  						   .kTOKEN_NAMESPACE_SEPARATOR
-					  						   .$record[ 'ValidCode' ] ) );
+			$obsolete_term = $obsolete_node->Term();
+			$valid_term = $valid_node->Term();
 			
 			//
 			// Set valid reference.
 			//
-			$obsolete->Valid( $valid );
-			$obsolete->Commit( $theContainer );
+			$obsolete_term->Valid( $valid_term );
+			$obsolete_term->Commit( $theContainer );
 			
 			//
-			// Handle nodes.
+			// Handle edges.
 			//
-			$id = Array();
-			$id[] = $obsolete[ kTAG_NODE ][ 0 ];
-			$id[] = kTAG_VALID;
-			$id[] = $valid[ kTAG_NODE ][ 0 ];
-			$id = implode( '/', $id );
-			$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-			if( $edge === NULL )
-			{
-				$node = $term_index->findOne( kTAG_TERM, (string) $obsolete );
-				$node = new COntologyNode( $container, $node );
-				$edge = $node->RelateTo( $container, kTAG_VALID, $valid[ kTAG_NODE ][ 0 ] );
-				$edge->Commit( $container );
-			}
+			$edge = $obsolete_node->RelateTo( $container, kTAG_VALID, $valid_node );
+			$edge->Commit( $container );
 			
 			//
 			// Display.
 			//
 			if( $doDisplay )
-				echo( "[$obsolete] ==> [$valid]\n" );
+				echo( "[$obsolete_term] ==> [$valid_term]\n" );
 		
 		} $rs->Close();
 		
@@ -5711,6 +5251,13 @@ EOT;
 	function LoadMCPD( CContainer $theContainer, $doDisplay = TRUE )
 	{
 		//
+		// Init local storage.
+		//
+		$nodes = Array();
+		$container = array( kTAG_TERM => $theContainer,
+							kTAG_NODE => $_SESSION[ kSESSION_NEO4J ] );
+		
+		//
 		// Open MySQL connection.
 		//
 		$mysql = NewADOConnection( DEFAULT_ANCILLARY_HOST );
@@ -5718,12 +5265,6 @@ EOT;
 			throw new Exception( 'Unable to connect to MySQL.' );				// !@! ==>
 		$mysql->Execute( "SET CHARACTER SET 'utf8'" );
 		$mysql->setFetchMode( ADODB_FETCH_ASSOC );
-		
-		//
-		// Init local storage.
-		//
-		$container = array( kTAG_TERM => $theContainer,
-							kTAG_NODE => $_SESSION[ kSESSION_NEO4J ] );
 		
 		//
 		// Inform.
@@ -5735,126 +5276,101 @@ EOT;
 		}
 		
 		//
-		// Get node term index.
-		//
-		$term_index = new NodeIndex( $container[ kTAG_NODE ], kINDEX_NODE_TERM );
-		$term_index->save();
-		$node_index = new RelationshipIndex( $container[ kTAG_NODE ], kINDEX_NODE_TERM );
-		$node_index->save();
-		
-		//
 		// IS-A.
 		//
 		$is_a
-			= CPersistentUnitObject::NewObject
-				( $theContainer, COntologyTermObject::HashIndex( kPRED_IS_A ),
-				  kFLAG_STATE_ENCODED );
-		if( ! $is_a )
-			throw new Exception
-				( 'Unable to find subclass predicate ['.kPRED_IS_A.'].' );		// !@! ==>
+			= new COntologyTerm
+						( $theContainer, COntologyTerm::HashIndex( kPRED_IS_A ) );
 		
 		//
 		// ENUM-OF.
 		//
 		$enum_of
-			= CPersistentUnitObject::NewObject
-				( $theContainer, COntologyTermObject::HashIndex( kPRED_ENUM_OF ),
-				  kFLAG_STATE_ENCODED );
-		if( ! $enum_of )
-			throw new Exception
-				( 'Unable to find enumeration predicate ['.kPRED_ENUM_OF.'].' );// !@! ==>
+			= new COntologyTerm
+						( $theContainer, COntologyTerm::HashIndex( kPRED_ENUM_OF ) );
 		
 		//
 		// SCALE-OF.
 		//
 		$scale_of
-			= CPersistentUnitObject::NewObject
-				( $theContainer, COntologyTermObject::HashIndex( kPRED_SCALE_OF ),
-				  kFLAG_STATE_ENCODED );
-		if( ! $scale_of )
-			throw new Exception
-				( 'Unable to find scale predicate ['.kPRED_SCALE_OF.'].' );		// !@! ==>
+			= new COntologyTerm
+						( $theContainer, COntologyTerm::HashIndex( kPRED_SCALE_OF ) );
 		
 		//
 		// Get MCPD term.
 		//
-		$mcpd_term
+		$term
 			= new COntologyTerm
 				( $theContainer, COntologyTerm::HashIndex( 'MCPD' ) );
-		if( ! $mcpd_term->Persistent() )
+		if( ! $term->Persistent() )
 		{
-			$mcpd_term->Code( 'MCPD' );
-			$mcpd_term->Name( 'FAO/IPGRI Multi-Crop Passport Descriptor',
-							  kDEFAULT_LANGUAGE );
-			$mcpd_term->Definition
+			$term->Code( 'MCPD' );
+			$term->Name
+			( 'FAO/IPGRI Multi-Crop Passport Descriptor',
+			  kDEFAULT_LANGUAGE );
+			$term->Definition
 			( 'The list of multi-crop passport descriptors (MCPD) is developed jointly '
 			 .'by IPGRI and FAO to provide international standards to facilitate germplasm '
 			 .'passport information exchange. These descriptors aim to be compatible with '
 			 .'IPGRI crop descriptor lists and with the descriptors used for the FAO '
 			 .'World Information and Early Warning System (WIEWS) on plant genetic '
 			 .'resources (PGR).', kDEFAULT_LANGUAGE );
-			$mcpd_term->Kind( kTYPE_NAMESPACE, TRUE );
-			$mcpd_term->Kind( kTYPE_ROOT, TRUE );
-			$mcpd_term->Domain( kDOMAIN_ACCESSION, TRUE );
-			$mcpd_term->Category( kCATEGORY_PASSPORT, TRUE );
-			$mcpd_term->Version( 'December 2001' );
-			$mcpd_term->Commit( $theContainer );
-
-		} $ns_mcpd = $mcpd_term[ kTAG_GID ].kTOKEN_NAMESPACE_SEPARATOR;
+			$term->Kind( kTYPE_NAMESPACE, TRUE );
+			$term->Domain( kDOMAIN_ACCESSION, TRUE );
+			$term->Category( kCATEGORY_PASSPORT, TRUE );
+			$term->Version( 'December 2001' );
+			$term->Commit( $theContainer );
+		}
 		
 		//
-		// Get MCPD node.
+		// Handle node.
 		//
-		$mcpd_node = $term_index->findOne( kTAG_TERM, (string) $mcpd_term );
-		if( $mcpd_node === NULL )
-		{
-			$mcpd_node = new COntologyNode( $container );
-			$mcpd_node->Term( $mcpd_term );
-			$mcpd_node->Kind( kTYPE_ROOT, TRUE );
-			$mcpd_node->Domain( kDOMAIN_ACCESSION, TRUE );
-			$mcpd_node->Category( kCATEGORY_PASSPORT, TRUE );
-			$mcpd_node->Commit( $container );
-		}
-		else
-			$mcpd_node = new COntologyNode( $container, $mcpd_node );
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_ROOT, TRUE );
+		$node->Domain( kDOMAIN_ACCESSION, TRUE );
+		$node->Category( kCATEGORY_PASSPORT, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'MCPD' ] = $node;
 
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $mcpd_term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$mcpd_term] [".$mcpd_node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 		
 		//
 		// Get EURISCO MCPD term.
 		//
-		$mcpd_eurisco_term
+		$term
 			= new COntologyTerm
 				( $theContainer, COntologyTerm::HashIndex( 'MCPD:EURISCO' ) );
-		if( ! $mcpd_eurisco_term->Persistent() )
+		if( ! $term->Persistent() )
 		{
-			$mcpd_eurisco_term->NS( $mcpd_term );
-			$mcpd_eurisco_term->Code( 'EURISCO' );
-			$mcpd_eurisco_term->Name
+			$term->NS( $nodes[ 'MCPD' ] );
+			$term->Code( 'EURISCO' );
+			$term->Name
 			( 'EURISCO extension to the FAO/IPGRI Multi-Crop Passport Descriptor',
 			  kDEFAULT_LANGUAGE );
-			$mcpd_eurisco_term->Definition
-			( 'Extensions to the FAO/IPGRI list of multi-crop passport descriptors (MCPD).',
-			  kDEFAULT_LANGUAGE );
-			$mcpd_eurisco_term->Kind( kTYPE_NAMESPACE, TRUE );
-			$mcpd_eurisco_term->Domain( kDOMAIN_GEOGRAPHY, TRUE );
-			$mcpd_eurisco_term->Category( kCATEGORY_ADMIN, TRUE );
-			$mcpd_eurisco_term->Version( 'March 2011' );
-			$mcpd_eurisco_term->Commit( $theContainer );
-
-		} $ns_eurisco_mcpd = $mcpd_eurisco_term[ kTAG_GID ].kTOKEN_NAMESPACE_SEPARATOR;
+			$term->Definition
+			( 'Extensions to the FAO/IPGRI list of multi-crop passport descriptors (MCPD).', kDEFAULT_LANGUAGE );
+			$term->Kind( kTYPE_NAMESPACE, TRUE );
+			$term->Domain( kDOMAIN_ACCESSION, TRUE );
+			$term->Category( kCATEGORY_PASSPORT, TRUE );
+			$term->Version( 'March 2011' );
+			$term->Commit( $theContainer );
+		}
 
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $mcpd_eurisco_term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$mcpd_eurisco_term]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )
+				 ."\n" );
 	 
 		/*================================================================================
 		 *	INSTCODE																	 *
@@ -5865,10 +5381,10 @@ EOT;
 		//
 		$term
 			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( $ns_mcpd.'INSTCODE' ) );
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:INSTCODE' ) );
 		if( ! $term->Persistent() )
 		{
-			$term->NS( $mcpd_term );
+			$term->NS( 'MCPD' );
 			$term->Code( 'INSTCODE' );
 			$term->Name( 'Holding institute code', kDEFAULT_LANGUAGE );
 			$term->Definition
@@ -5884,45 +5400,32 @@ EOT;
 			$term->Examples( 'COL002', TRUE );
 			$term->Examples( 'USA1001', TRUE );
 			$term->Commit( $theContainer );
-		
-		} $instcode = $term;
+		}
 		
 		//
 		// Node.
 		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_TRAIT, TRUE );
-			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'INSTCODE' ] = $node;
 		
 		//
 		// Edge.
 		//
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $mcpd_node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $is_a, $mcpd_node );
-			$edge->Commit( $container );
-		}
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
 		
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 	 
 		/*================================================================================
 		 *	ACCENUMB																	 *
@@ -5933,10 +5436,10 @@ EOT;
 		//
 		$term
 			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( $ns_mcpd.'ACCENUMB' ) );
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:ACCENUMB' ) );
 		if( ! $term->Persistent() )
 		{
-			$term->NS( $mcpd_term );
+			$term->NS( 'MCPD' );
 			$term->Code( 'ACCENUMB' );
 			$term->Name( 'Accession number', kDEFAULT_LANGUAGE );
 			$term->Definition
@@ -5948,45 +5451,32 @@ EOT;
 			$term->Examples( 'WAB0026873', TRUE );
 			$term->Examples( 'CGN16587', TRUE );
 			$term->Commit( $theContainer );
-		
-		} $accenumb = $term;
+		}
 		
 		//
 		// Node.
 		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_TRAIT, TRUE );
-			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'ACCENUMB' ] = $node;
 		
 		//
 		// Edge.
 		//
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $mcpd_node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $is_a, $mcpd_node );
-			$edge->Commit( $container );
-		}
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
 		
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 	 
 		/*================================================================================
 		 *	COLLNUMB																	 *
@@ -5997,10 +5487,10 @@ EOT;
 		//
 		$term
 			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( $ns_mcpd.'COLLNUMB' ) );
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:COLLNUMB' ) );
 		if( ! $term->Persistent() )
 		{
-			$term->NS( $mcpd_term );
+			$term->NS( 'MCPD' );
 			$term->Code( 'COLLNUMB' );
 			$term->Name( 'Collecting number', kDEFAULT_LANGUAGE );
 			$term->Definition
@@ -6019,39 +5509,27 @@ EOT;
 		//
 		// Node.
 		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_TRAIT, TRUE );
-			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'COLLNUMB' ] = $node;
 		
 		//
 		// Edge.
 		//
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $mcpd_node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $is_a, $mcpd_node );
-			$edge->Commit( $container );
-		}
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
 		
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 	 
 		/*================================================================================
 		 *	COLLCODE																	 *
@@ -6062,10 +5540,10 @@ EOT;
 		//
 		$term
 			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( $ns_mcpd.'COLLCODE' ) );
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:COLLCODE' ) );
 		if( ! $term->Persistent() )
 		{
-			$term->NS( $mcpd_term );
+			$term->NS( 'MCPD' );
 			$term->Code( 'COLLCODE' );
 			$term->Name( 'Collecting institute code', kDEFAULT_LANGUAGE );
 			$term->Definition
@@ -6078,47 +5556,34 @@ EOT;
 			$term->Pattern( '[A-Z]{3}[0-9]{3,4}' );
 			$term->Examples( 'COL002', TRUE );
 			$term->Examples( 'USA1001', TRUE );
-			$term->Xref( $instcode, kTYPE_RELATED, TRUE );
+			$term->Xref( $nodes[ 'INSTCODE' ], kTYPE_RELATED, TRUE );
 			$term->Commit( $theContainer );
-		
-		} $collcode = $term;
+		}
 		
 		//
 		// Node.
 		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_TRAIT, TRUE );
-			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'COLLCODE' ] = $node;
 		
 		//
 		// Edge.
 		//
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $mcpd_node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $is_a, $mcpd_node );
-			$edge->Commit( $container );
-		}
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
 		
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 	 
 		/*================================================================================
 		 *	GENUS																		 *
@@ -6129,10 +5594,10 @@ EOT;
 		//
 		$term
 			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( $ns_mcpd.'GENUS' ) );
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:GENUS' ) );
 		if( ! $term->Persistent() )
 		{
-			$term->NS( $mcpd_term );
+			$term->NS( 'MCPD' );
 			$term->Code( 'GENUS' );
 			$term->Name( 'Genus', kDEFAULT_LANGUAGE );
 			$term->Definition
@@ -6148,41 +5613,29 @@ EOT;
 		//
 		// Node.
 		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_TRAIT, TRUE );
-			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_TAXONOMY, TRUE );
-			$node->Category( kCATEGORY_EPITHET, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Domain( kDOMAIN_TAXONOMY, TRUE );
+		$node->Category( kCATEGORY_EPITHET, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'GENUS' ] = $node;
 		
 		//
 		// Edge.
 		//
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $mcpd_node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $is_a, $mcpd_node );
-			$edge->Commit( $container );
-		}
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
 		
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 	 
 		/*================================================================================
 		 *	SPECIES																		 *
@@ -6193,10 +5646,10 @@ EOT;
 		//
 		$term
 			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( $ns_mcpd.'SPECIES' ) );
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:SPECIES' ) );
 		if( ! $term->Persistent() )
 		{
-			$term->NS( $mcpd_term );
+			$term->NS( 'MCPD' );
 			$term->Code( 'SPECIES' );
 			$term->Name( 'Species', kDEFAULT_LANGUAGE );
 			$term->Definition
@@ -6213,41 +5666,29 @@ EOT;
 		//
 		// Node.
 		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_TRAIT, TRUE );
-			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_TAXONOMY, TRUE );
-			$node->Category( kCATEGORY_EPITHET, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Domain( kDOMAIN_TAXONOMY, TRUE );
+		$node->Category( kCATEGORY_EPITHET, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'SPECIES' ] = $node;
 		
 		//
 		// Edge.
 		//
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $mcpd_node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $is_a, $mcpd_node );
-			$edge->Commit( $container );
-		}
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
 		
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 	 
 		/*================================================================================
 		 *	SPAUTHOR																	 *
@@ -6258,10 +5699,10 @@ EOT;
 		//
 		$term
 			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( $ns_mcpd.'SPAUTHOR' ) );
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:SPAUTHOR' ) );
 		if( ! $term->Persistent() )
 		{
-			$term->NS( $mcpd_term );
+			$term->NS( 'MCPD' );
 			$term->Code( 'SPAUTHOR' );
 			$term->Name( 'Species authority', kDEFAULT_LANGUAGE );
 			$term->Definition
@@ -6278,41 +5719,29 @@ EOT;
 		//
 		// Node.
 		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_TRAIT, TRUE );
-			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_TAXONOMY, TRUE );
-			$node->Category( kCATEGORY_AUTH, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Domain( kDOMAIN_TAXONOMY, TRUE );
+		$node->Category( kCATEGORY_AUTH, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'SPAUTHOR' ] = $node;
 		
 		//
 		// Edge.
 		//
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $mcpd_node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $is_a, $mcpd_node );
-			$edge->Commit( $container );
-		}
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
 		
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 	 
 		/*================================================================================
 		 *	SUBTAXA																		 *
@@ -6323,10 +5752,10 @@ EOT;
 		//
 		$term
 			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( $ns_mcpd.'SUBTAXA' ) );
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:SUBTAXA' ) );
 		if( ! $term->Persistent() )
 		{
-			$term->NS( $mcpd_term );
+			$term->NS( 'MCPD' );
 			$term->Code( 'SUBTAXA' );
 			$term->Name( 'Subtaxa', kDEFAULT_LANGUAGE );
 			$term->Definition
@@ -6344,41 +5773,29 @@ EOT;
 		//
 		// Node.
 		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_TRAIT, TRUE );
-			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_TAXONOMY, TRUE );
-			$node->Category( kCATEGORY_EPITHET, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Domain( kDOMAIN_TAXONOMY, TRUE );
+		$node->Category( kCATEGORY_EPITHET, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'SUBTAXA' ] = $node;
 		
 		//
 		// Edge.
 		//
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $mcpd_node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $is_a, $mcpd_node );
-			$edge->Commit( $container );
-		}
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
 		
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 	 
 		/*================================================================================
 		 *	SUBTAUTHOR																	 *
@@ -6389,10 +5806,10 @@ EOT;
 		//
 		$term
 			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( $ns_mcpd.'SUBTAUTHOR' ) );
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:SUBTAUTHOR' ) );
 		if( ! $term->Persistent() )
 		{
-			$term->NS( $mcpd_term );
+			$term->NS( 'MCPD' );
 			$term->Code( 'SUBTAUTHOR' );
 			$term->Name( 'Subtaxa authority', kDEFAULT_LANGUAGE );
 			$term->Definition
@@ -6408,41 +5825,29 @@ EOT;
 		//
 		// Node.
 		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_TRAIT, TRUE );
-			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_TAXONOMY, TRUE );
-			$node->Category( kCATEGORY_AUTH, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Domain( kDOMAIN_TAXONOMY, TRUE );
+		$node->Category( kCATEGORY_AUTH, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'SUBTAUTHOR' ] = $node;
 		
 		//
 		// Edge.
 		//
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $mcpd_node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $is_a, $mcpd_node );
-			$edge->Commit( $container );
-		}
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
 		
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 	 
 		/*================================================================================
 		 *	CROPNAME																	 *
@@ -6453,10 +5858,10 @@ EOT;
 		//
 		$term
 			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( $ns_mcpd.'CROPNAME' ) );
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:CROPNAME' ) );
 		if( ! $term->Persistent() )
 		{
-			$term->NS( $mcpd_term );
+			$term->NS( 'MCPD' );
 			$term->Code( 'CROPNAME' );
 			$term->Name( 'Common crop name', kDEFAULT_LANGUAGE );
 			$term->Definition
@@ -6472,39 +5877,27 @@ EOT;
 		//
 		// Node.
 		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_TRAIT, TRUE );
-			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'CROPNAME' ] = $node;
 		
 		//
 		// Edge.
 		//
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $mcpd_node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $is_a, $mcpd_node );
-			$edge->Commit( $container );
-		}
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
 		
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 	 
 		/*================================================================================
 		 *	ACCENAME																	 *
@@ -6515,10 +5908,10 @@ EOT;
 		//
 		$term
 			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( $ns_mcpd.'ACCENAME' ) );
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:ACCENAME' ) );
 		if( ! $term->Persistent() )
 		{
-			$term->NS( $mcpd_term );
+			$term->NS( 'MCPD' );
 			$term->Code( 'ACCENAME' );
 			$term->Name( 'Accession name', kDEFAULT_LANGUAGE );
 			$term->Definition
@@ -6534,39 +5927,27 @@ EOT;
 		//
 		// Node.
 		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_TRAIT, TRUE );
-			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'ACCENAME' ] = $node;
 		
 		//
 		// Edge.
 		//
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $mcpd_node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $is_a, $mcpd_node );
-			$edge->Commit( $container );
-		}
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
 		
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 	 
 		/*================================================================================
 		 *	ACQDATE																		 *
@@ -6577,10 +5958,10 @@ EOT;
 		//
 		$term
 			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( $ns_mcpd.'ACQDATE' ) );
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:ACQDATE' ) );
 		if( ! $term->Persistent() )
 		{
-			$term->NS( $mcpd_term );
+			$term->NS( 'MCPD' );
 			$term->Code( 'ACQDATE' );
 			$term->Name( 'Acquisition date', kDEFAULT_LANGUAGE );
 			$term->Definition
@@ -6598,39 +5979,27 @@ EOT;
 		//
 		// Node.
 		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_TRAIT, TRUE );
-			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'ACQDATE' ] = $node;
 		
 		//
 		// Edge.
 		//
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $mcpd_node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $is_a, $mcpd_node );
-			$edge->Commit( $container );
-		}
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
 		
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 	 
 		/*================================================================================
 		 *	ORIGCTY																		 *
@@ -6641,10 +6010,10 @@ EOT;
 		//
 		$term
 			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( $ns_mcpd.'ORIGCTY' ) );
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:ORIGCTY' ) );
 		if( ! $term->Persistent() )
 		{
-			$term->NS( $mcpd_term );
+			$term->NS( 'MCPD' );
 			$term->Code( 'ORIGCTY' );
 			$term->Name( 'Country of origin', kDEFAULT_LANGUAGE );
 			$term->Definition
@@ -6652,87 +6021,79 @@ EOT;
 			  kDEFAULT_LANGUAGE );
 			$term->Domain( kDOMAIN_GEOGRAPHY, TRUE );
 			$term->Category( kCATEGORY_ADMIN, TRUE );
+			$term->Examples( 'ITA', TRUE );
+			$term->Examples( 'FRA', TRUE );
 			$term->Commit( $theContainer );
 		}
 		
 		//
 		// Node.
 		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_TRAIT, TRUE );
-			$node->Domain( kDOMAIN_GEOGRAPHY, TRUE );
-			$node->Category( kCATEGORY_ADMIN, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Domain( kDOMAIN_GEOGRAPHY, TRUE );
+		$node->Category( kCATEGORY_ADMIN, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'ORIGCTY' ] = $node;
 		
 		//
 		// Edge.
 		//
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $mcpd_node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $is_a, $mcpd_node );
-			$edge->Commit( $container );
-		}
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
 		
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 	 
 		/*================================================================================
 		 *	ISO 3166-1 ALPHA-3															 *
 		 *===============================================================================*/
 
 		//
-		// Term.
+		// Prepare container.
 		//
-		$scale_term
-			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( 'ISO:3166:1:ALPHA-3' ) );
+		$temp_container = array( kTAG_NODE => $_SESSION[ kSESSION_NEO4J ],
+								 kTAG_TERM => $theContainer->Database() );
+
+		//
+		// Prepare query.
+		//
+		$query = new CMongoQuery();
+		$query->AppendStatement(
+			CQueryStatement::Equals(
+				kTAG_DATA.'.'.kTAG_TERM, 'ISO:3166:1:ALPHA-3' ),
+			kOPERATOR_AND );
+
+		//
+		// Get index.
+		//
+		$index = new COntologyNodeIndex( $query, $temp_container );
 		
 		//
-		// Node.
+		// Get node.
 		//
-		$scale_node = $term_index->findOne( kTAG_TERM, (string) $scale_term );
-		if( $scale_node === NULL )
-			throw new Exception( "Term [$scale_term] node not found." );
-		$scale_node = new COntologyNode( $container, $scale_node );
+		$scale_node = new COntologyNode( $container, $index->Node() );
 		
 		//
 		// Edge.
 		//
-		$id = Array();
-		$id[] = $scale_node->Node()->getId();
-		$id[] = (string) $scale_of;
-		$id[] = $node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $scale_node->RelateTo( $container, $scale_of, $node );
-			$edge->Commit( $container );
-		}
+		$edge = $scale_node->RelateTo( $container, $scale_of, $node );
+		$edge->Commit( $container );
 		
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
+			echo( "[$term] => [ISO:3166:1:ALPHA-3] ["
+				 .$edge->Node()->getId()
+				 ."]\n" );
 	 
 		/*================================================================================
 		 *	COLLSITE																	 *
@@ -6743,10 +6104,10 @@ EOT;
 		//
 		$term
 			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( $ns_mcpd.'COLLSITE' ) );
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:COLLSITE' ) );
 		if( ! $term->Persistent() )
 		{
-			$term->NS( $mcpd_term );
+			$term->NS( 'MCPD' );
 			$term->Code( 'COLLSITE' );
 			$term->Name( 'Location of collecting site', kDEFAULT_LANGUAGE );
 			$term->Definition
@@ -6764,41 +6125,29 @@ EOT;
 		//
 		// Node.
 		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_TRAIT, TRUE );
-			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_GEOGRAPHY, TRUE );
-			$node->Category( kCATEGORY_ADMIN, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Domain( kDOMAIN_GEOGRAPHY, TRUE );
+		$node->Category( kCATEGORY_ADMIN, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'COLLSITE' ] = $node;
 		
 		//
 		// Edge.
 		//
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $mcpd_node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $is_a, $mcpd_node );
-			$edge->Commit( $container );
-		}
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
 		
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 	 
 		/*================================================================================
 		 *	LATITUDE																	 *
@@ -6809,10 +6158,10 @@ EOT;
 		//
 		$term
 			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( $ns_mcpd.'LATITUDE' ) );
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:LATITUDE' ) );
 		if( ! $term->Persistent() )
 		{
-			$term->NS( $mcpd_term );
+			$term->NS( 'MCPD' );
 			$term->Code( 'LATITUDE' );
 			$term->Name( 'Latitude of collecting site', kDEFAULT_LANGUAGE );
 			$term->Definition
@@ -6832,41 +6181,29 @@ EOT;
 		//
 		// Node.
 		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_TRAIT, TRUE );
-			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_GEOGRAPHY, TRUE );
-			$node->Category( kCATEGORY_GEO, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Domain( kDOMAIN_GEOGRAPHY, TRUE );
+		$node->Category( kCATEGORY_GEO, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'LATITUDE' ] = $node;
 		
 		//
 		// Edge.
 		//
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $mcpd_node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $is_a, $mcpd_node );
-			$edge->Commit( $container );
-		}
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
 		
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 	 
 		/*================================================================================
 		 *	LONGITUDE																	 *
@@ -6877,10 +6214,10 @@ EOT;
 		//
 		$term
 			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( $ns_mcpd.'LONGITUDE' ) );
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:LONGITUDE' ) );
 		if( ! $term->Persistent() )
 		{
-			$term->NS( $mcpd_term );
+			$term->NS( 'MCPD' );
 			$term->Code( 'LONGITUDE' );
 			$term->Name( 'Longitude of collecting site', kDEFAULT_LANGUAGE );
 			$term->Definition
@@ -6899,41 +6236,29 @@ EOT;
 		//
 		// Node.
 		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_TRAIT, TRUE );
-			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_GEOGRAPHY, TRUE );
-			$node->Category( kCATEGORY_GEO, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Domain( kDOMAIN_GEOGRAPHY, TRUE );
+		$node->Category( kCATEGORY_GEO, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'LONGITUDE' ] = $node;
 		
 		//
 		// Edge.
 		//
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $mcpd_node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $is_a, $mcpd_node );
-			$edge->Commit( $container );
-		}
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
 		
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 	 
 		/*================================================================================
 		 *	ELEVATION																	 *
@@ -6944,10 +6269,10 @@ EOT;
 		//
 		$term
 			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( $ns_mcpd.'ELEVATION' ) );
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:ELEVATION' ) );
 		if( ! $term->Persistent() )
 		{
-			$term->NS( $mcpd_term );
+			$term->NS( 'MCPD' );
 			$term->Code( 'ELEVATION' );
 			$term->Name( 'Elevation of collecting site', kDEFAULT_LANGUAGE );
 			$term->Definition
@@ -6965,41 +6290,29 @@ EOT;
 		//
 		// Node.
 		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_TRAIT, TRUE );
-			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Domain( kDOMAIN_GEOGRAPHY, TRUE );
-			$node->Category( kCATEGORY_GEO, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Domain( kDOMAIN_GEOGRAPHY, TRUE );
+		$node->Category( kCATEGORY_GEO, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'ELEVATION' ] = $node;
 		
 		//
 		// Edge.
 		//
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $mcpd_node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $is_a, $mcpd_node );
-			$edge->Commit( $container );
-		}
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
 		
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 	 
 		/*================================================================================
 		 *	COLLDATE																	 *
@@ -7010,10 +6323,10 @@ EOT;
 		//
 		$term
 			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( $ns_mcpd.'COLLDATE' ) );
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:COLLDATE' ) );
 		if( ! $term->Persistent() )
 		{
-			$term->NS( $mcpd_term );
+			$term->NS( 'MCPD' );
 			$term->Code( 'COLLDATE' );
 			$term->Name( 'Collecting date of sample', kDEFAULT_LANGUAGE );
 			$term->Definition
@@ -7030,39 +6343,27 @@ EOT;
 		//
 		// Node.
 		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_TRAIT, TRUE );
-			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'COLLDATE' ] = $node;
 		
 		//
 		// Edge.
 		//
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $mcpd_node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $is_a, $mcpd_node );
-			$edge->Commit( $container );
-		}
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
 		
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 	 
 		/*================================================================================
 		 *	BREDCODE																	 *
@@ -7073,10 +6374,10 @@ EOT;
 		//
 		$term
 			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( $ns_mcpd.'BREDCODE' ) );
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:BREDCODE' ) );
 		if( ! $term->Persistent() )
 		{
-			$term->NS( $mcpd_term );
+			$term->NS( 'MCPD' );
 			$term->Code( 'BREDCODE' );
 			$term->Name( 'Breeding institute code', kDEFAULT_LANGUAGE );
 			$term->Definition
@@ -7087,47 +6388,34 @@ EOT;
 			$term->Pattern( '[A-Z]{3}[0-9]{3,4}' );
 			$term->Examples( 'COL002', TRUE );
 			$term->Examples( 'USA1001', TRUE );
-			$term->Xref( $instcode, kTYPE_RELATED, TRUE );
+			$term->Xref( $nodes[ 'INSTCODE' ], kTYPE_RELATED, TRUE );
 			$term->Commit( $theContainer );
-		
-		} $bredcode = $term;
+		}
 		
 		//
 		// Node.
 		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_TRAIT, TRUE );
-			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'BREDCODE' ] = $node;
 		
 		//
 		// Edge.
 		//
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $mcpd_node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $is_a, $mcpd_node );
-			$edge->Commit( $container );
-		}
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
 		
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 	 
 		/*================================================================================
 		 *	SAMPSTAT																	 *
@@ -7138,10 +6426,10 @@ EOT;
 		//
 		$term
 			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( $ns_mcpd.'SAMPSTAT' ) );
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:SAMPSTAT' ) );
 		if( ! $term->Persistent() )
 		{
-			$term->NS( $mcpd_term );
+			$term->NS( 'MCPD' );
 			$term->Code( 'SAMPSTAT' );
 			$term->Name( 'Biological status of accession', kDEFAULT_LANGUAGE );
 			$term->Definition
@@ -7157,39 +6445,27 @@ EOT;
 		//
 		// Node.
 		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_TRAIT, TRUE );
-			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'SAMPSTAT' ] = $node;
 		
 		//
 		// Edge.
 		//
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $mcpd_node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $is_a, $mcpd_node );
-			$edge->Commit( $container );
-		}
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
 		
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 		
 		//
 		// Load biological status codes.
@@ -7205,333 +6481,7 @@ FROM
 ORDER BY
 	`Code_BiologicalStatus`.`Code`
 EOT;
-		$rs = $mysql->Execute( $query );
-		foreach( $rs as $record )
-		{
-			//
-			// Create status term.
-			//
-			$enum_term
-				= new COntologyTerm
-					( $theContainer,
-					  COntologyTerm::HashIndex
-						( $term.kTOKEN_INDEX_SEPARATOR.$record[ 'Code' ] ) );
-			if( ! $enum_term->Persistent() )
-			{
-				switch( $record[ 'Code' ] )
-				{
-					case '130':
-						$enum_term->NS( $mcpd_eurisco_term
-									   .kTOKEN_NAMESPACE_SEPARATOR
-									   .$term->Code() );
-						break;
-					default:
-						$enum_term->NS( $term );
-						break;
-				}
-				$enum_term->Code( $record[ 'Code' ] );
-				$enum_term->Name( $record[ 'Label' ], kDEFAULT_LANGUAGE );
-				$enum_term->Name( $record[ 'Description' ], kDEFAULT_LANGUAGE );
-				$enum_term->Kind( kTYPE_ENUMERATION, TRUE );
-				$enum_term->Type( kTYPE_ENUM );
-				$enum_term->Enumeration( $enum_term->Code(), TRUE );
-				$enum_term->Commit( $theContainer );
-			}
-			
-			//
-			// Create status node.
-			//
-			$enum_node = $term_index->findOne( kTAG_TERM, (string) $enum_term );
-			if( $enum_node === NULL )
-			{
-				$enum_node = new COntologyNode( $container );
-				$enum_node->Term( $enum_term );
-				$enum_node->Kind( kTYPE_ENUMERATION, TRUE );
-				$enum_node->Commit( $container );
-			}
-			else
-				$enum_node = new COntologyNode( $container, $enum_node );
-			
-			//
-			// Handle first level status.
-			//
-			if( $record[ 'Parent' ] === NULL )
-			{
-				//
-				// Create status edge.
-				//
-				$id = Array();
-				$id[] = $enum_node->Node()->getId();
-				$id[] = (string) $enum_of;
-				$id[] = $node->Node()->getId();
-				$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-				$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-				if( $edge === NULL )
-				{
-					$edge = $enum_node->RelateTo( $container, $enum_of, $node );
-					$edge->Commit( $container );
-				}
-			}
-			
-			//
-			// Display.
-			//
-			if( $doDisplay )
-				echo( $enum_term->Name( NULL, kDEFAULT_LANGUAGE )
-					 ." [$enum_term]\n" );
-		
-		} $rs->Close();
-		
-		//
-		// Relate biological status codes.
-		//
-		$query = <<<EOT
-SELECT
-	`Code_BiologicalStatus`.`Code`,
-	`Code_BiologicalStatus`.`Parent`
-FROM
-	`Code_BiologicalStatus`
-WHERE
-	`Code_BiologicalStatus`.`Parent` IS NOT NULL
-ORDER BY
-	`Code_BiologicalStatus`.`Code`
-EOT;
-		$rs = $mysql->Execute( $query );
-		foreach( $rs as $record )
-		{
-			//
-			// Get child term.
-			//
-			switch( $record[ 'Code' ] )
-			{
-				case '130':
-					$child_term
-						= new COntologyTerm
-							( $theContainer,
-							  COntologyTerm::HashIndex
-								( $mcpd_eurisco_term
-								 .kTOKEN_NAMESPACE_SEPARATOR
-								 .$term->Code()
-								 .kTOKEN_NAMESPACE_SEPARATOR
-								 .$record[ 'Code' ] ) );
-					break;
-				default:
-					$child_term
-						= new COntologyTerm
-							( $theContainer,
-							  COntologyTerm::HashIndex
-								( $term
-								 .kTOKEN_NAMESPACE_SEPARATOR
-								 .$record[ 'Code' ] ) );
-					break;
-			}
-
-			//
-			// Get child node.
-			//
-			$child_node = $term_index->findOne( kTAG_TERM, (string) $child_term );
-			if( $child_node === NULL )
-				throw new Exception( "Term [$child_term] node not found." );
-			$child_node = new COntologyNode( $container, $child_node );
-			
-			//
-			// Get parent term.
-			//
-			switch( $record[ 'Parent' ] )
-			{
-				case '130':
-					$parent_term
-						= new COntologyTerm
-							( $theContainer,
-							  COntologyTerm::HashIndex
-								( $mcpd_eurisco_term
-								 .kTOKEN_NAMESPACE_SEPARATOR
-								 .$term->Code()
-								 .kTOKEN_NAMESPACE_SEPARATOR
-								 .$record[ 'Parent' ] ) );
-					break;
-				default:
-					$parent_term
-						= new COntologyTerm
-							( $theContainer,
-							  COntologyTerm::HashIndex
-								( $term
-								 .kTOKEN_NAMESPACE_SEPARATOR
-								 .$record[ 'Parent' ] ) );
-					break;
-			}
-
-			//
-			// Get parent node.
-			//
-			$parent_node = $term_index->findOne( kTAG_TERM, (string) $parent_term );
-			if( $parent_node === NULL )
-				throw new Exception( "Term [$parent_term] node not found." );
-			$parent_node = new COntologyNode( $container, $parent_node );
-			
-			//
-			// Get status edge.
-			//
-			$id = Array();
-			$id[] = $child_node->Node()->getId();
-			$id[] = (string) $enum_of;
-			$id[] = $parent_node->Node()->getId();
-			$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-			$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-			if( $edge === NULL )
-			{
-				$edge = $child_node->RelateTo( $container, $enum_of, $parent_node );
-				$edge->Commit( $container );
-			}
-			
-			//
-			// Display.
-			//
-			if( $doDisplay )
-				echo( "[$child_term] ==> [$parent_term]\n" );
-		
-		} $rs->Close();
-	 
-		/*================================================================================
-		 *	ANCEST																		 *
-		 *===============================================================================*/
-
-		//
-		// Term.
-		//
-		$term
-			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( $ns_mcpd.'ANCEST' ) );
-		if( ! $term->Persistent() )
-		{
-			$term->NS( $mcpd_term );
-			$term->Code( 'ANCEST' );
-			$term->Name( 'Ancestral data', kDEFAULT_LANGUAGE );
-			$term->Definition
-			( 'Information about either pedigree or other description of ancestral '
-			 .'information (i.e. parent variety in case of mutant or selection).',
-			  kDEFAULT_LANGUAGE );
-			$term->Type( kTYPE_STRING );
-			$term->Examples( 'Hanna/7*Atlas//Turk/8*Atlas', TRUE );
-			$term->Examples( 'mutation found in Hanna', TRUE );
-			$term->Examples( 'selection from Irene', TRUE );
-			$term->Examples( 'cross involving amongst others Hanna and Irene', TRUE );
-			$term->Commit( $theContainer );
-		}
-		
-		//
-		// Node.
-		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_TRAIT, TRUE );
-			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
-		
-		//
-		// Edge.
-		//
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $mcpd_node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $is_a, $mcpd_node );
-			$edge->Commit( $container );
-		}
-		
-		//
-		// Display.
-		//
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
-	 
-		/*================================================================================
-		 *	COLLSRC																		 *
-		 *===============================================================================*/
-
-		//
-		// Term.
-		//
-		$term
-			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( $ns_mcpd.'COLLSRC' ) );
-		if( ! $term->Persistent() )
-		{
-			$term->NS( $mcpd_term );
-			$term->Code( 'COLLSRC' );
-			$term->Name( 'Collecting/acquisition source', kDEFAULT_LANGUAGE );
-			$term->Definition
-			( 'The coding scheme proposed can be used at 2 different levels of detail: '
-			 .'either by using the general codes (in boldface) such as 10, 20, 30, 40 '
-			 .'or by using the more specific codes such as 11, 12 etc.',
-			  kDEFAULT_LANGUAGE );
-			$term->Type( kTYPE_ENUM );
-			$term->Pattern( '[0-9]{2}' );
-			$term->Commit( $theContainer );
-		}
-		
-		//
-		// Node.
-		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_TRAIT, TRUE );
-			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
-		
-		//
-		// Edge.
-		//
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $mcpd_node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $is_a, $mcpd_node );
-			$edge->Commit( $container );
-		}
-		
-		//
-		// Display.
-		//
-		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
-		
-		//
-		// Load biological status codes.
-		//
-		$query = <<<EOT
-SELECT
-	`Code_AcquisitionSource`.`Code`,
-	`Code_AcquisitionSource`.`Parent`,
-	`Code_AcquisitionSource`.`Label`,
-	`Code_AcquisitionSource`.`Description`
-FROM
-	`Code_AcquisitionSource`
-ORDER BY
-	`Code_AcquisitionSource`.`Code`
-EOT;
+		$enums = Array();
 		$rs = $mysql->Execute( $query );
 		foreach( $rs as $record )
 		{
@@ -7558,44 +6508,247 @@ EOT;
 			//
 			// Create status node.
 			//
-			$enum_node = $term_index->findOne( kTAG_TERM, (string) $enum_term );
-			if( $enum_node === NULL )
-			{
-				$enum_node = new COntologyNode( $container );
-				$enum_node->Term( $enum_term );
-				$enum_node->Kind( kTYPE_ENUMERATION, TRUE );
-				$enum_node->Commit( $container );
-			}
-			else
-				$enum_node = new COntologyNode( $container, $enum_node );
+			$enum_node = new COntologyNode( $container );
+			$enum_node->Term( $enum_term );
+			$enum_node->Kind( kTYPE_ENUMERATION, TRUE );
+			$enum_node->Commit( $container );
+			$enums[ $record[ 'Code' ] ] = $enum_node;
 			
 			//
 			// Handle first level status.
 			//
 			if( $record[ 'Parent' ] === NULL )
 			{
-				//
-				// Create status edge.
-				//
-				$id = Array();
-				$id[] = $enum_node->Node()->getId();
-				$id[] = (string) $enum_of;
-				$id[] = $node->Node()->getId();
-				$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-				$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-				if( $edge === NULL )
-				{
-					$edge = $enum_node->RelateTo( $container, $enum_of, $node );
-					$edge->Commit( $container );
-				}
+				$edge = $enum_node->RelateTo( $container, $enum_of, $node );
+				$edge->Commit( $container );
 			}
 			
 			//
 			// Display.
 			//
 			if( $doDisplay )
-				echo( $enum_term->Name( NULL, kDEFAULT_LANGUAGE )
-					 ." [$enum_term]\n" );
+				echo( "[$enum_term] "
+					 .$enum_term->Name( NULL, kDEFAULT_LANGUAGE )
+					 ."\n" );
+		
+		} $rs->Close();
+		
+		//
+		// Relate biological status codes.
+		//
+		$query = <<<EOT
+SELECT
+	`Code_BiologicalStatus`.`Code`,
+	`Code_BiologicalStatus`.`Parent`
+FROM
+	`Code_BiologicalStatus`
+WHERE
+	`Code_BiologicalStatus`.`Parent` IS NOT NULL
+ORDER BY
+	`Code_BiologicalStatus`.`Code`
+EOT;
+		$rs = $mysql->Execute( $query );
+		foreach( $rs as $record )
+		{
+			//
+			// Get child term.
+			//
+			$child_term = $enums[ $record[ 'Code' ] ]->Term();
+
+			//
+			// Get child node.
+			//
+			$child_node = $enums[ $record[ 'Code' ] ];
+			
+			//
+			// Get parent term.
+			//
+			$parent_term = $enums[ $record[ 'Parent' ] ]->Term();
+
+			//
+			// Get parent node.
+			//
+			$parent_node = $enums[ $record[ 'Parent' ] ];
+			
+			//
+			// Get status edge.
+			//
+			$edge = $child_node->RelateTo( $container, $enum_of, $parent_node );
+			$edge->Commit( $container );
+			
+			//
+			// Display.
+			//
+			if( $doDisplay )
+				echo( "[$child_term] ==> [$parent_term]\n" );
+		
+		} $rs->Close();
+	 
+		/*================================================================================
+		 *	ANCEST																		 *
+		 *===============================================================================*/
+
+		//
+		// Term.
+		//
+		$term
+			= new COntologyTerm
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:ANCEST' ) );
+		if( ! $term->Persistent() )
+		{
+			$term->NS( 'MCPD' );
+			$term->Code( 'ANCEST' );
+			$term->Name( 'Ancestral data', kDEFAULT_LANGUAGE );
+			$term->Definition
+			( 'Information about either pedigree or other description of ancestral '
+			 .'information (i.e. parent variety in case of mutant or selection).',
+			  kDEFAULT_LANGUAGE );
+			$term->Type( kTYPE_STRING );
+			$term->Examples( 'Hanna/7*Atlas//Turk/8*Atlas', TRUE );
+			$term->Examples( 'mutation found in Hanna', TRUE );
+			$term->Examples( 'selection from Irene', TRUE );
+			$term->Examples( 'cross involving amongst others Hanna and Irene', TRUE );
+			$term->Commit( $theContainer );
+		}
+		
+		//
+		// Node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'ANCEST' ] = $node;
+		
+		//
+		// Edge.
+		//
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
+		
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+	 
+		/*================================================================================
+		 *	COLLSRC																		 *
+		 *===============================================================================*/
+
+		//
+		// Term.
+		//
+		$term
+			= new COntologyTerm
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:COLLSRC' ) );
+		if( ! $term->Persistent() )
+		{
+			$term->NS( 'MCPD' );
+			$term->Code( 'COLLSRC' );
+			$term->Name( 'Collecting/acquisition source', kDEFAULT_LANGUAGE );
+			$term->Definition
+			( 'The coding scheme proposed can be used at 2 different levels of detail: '
+			 .'either by using the general codes (in boldface) such as 10, 20, 30, 40 '
+			 .'or by using the more specific codes such as 11, 12 etc.',
+			  kDEFAULT_LANGUAGE );
+			$term->Type( kTYPE_ENUM );
+			$term->Pattern( '[0-9]{2}' );
+			$term->Commit( $theContainer );
+		}
+		
+		//
+		// Node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'COLLSRC' ] = $node;
+		
+		//
+		// Edge.
+		//
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
+		
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+		
+		//
+		// Load biological status codes.
+		//
+		$query = <<<EOT
+SELECT
+	`Code_AcquisitionSource`.`Code`,
+	`Code_AcquisitionSource`.`Parent`,
+	`Code_AcquisitionSource`.`Label`,
+	`Code_AcquisitionSource`.`Description`
+FROM
+	`Code_AcquisitionSource`
+ORDER BY
+	`Code_AcquisitionSource`.`Code`
+EOT;
+		$enums = Array();
+		$rs = $mysql->Execute( $query );
+		foreach( $rs as $record )
+		{
+			//
+			// Create status term.
+			//
+			$enum_term
+				= new COntologyTerm
+					( $theContainer,
+					  COntologyTerm::HashIndex
+						( $term.kTOKEN_INDEX_SEPARATOR.$record[ 'Code' ] ) );
+			if( ! $enum_term->Persistent() )
+			{
+				$enum_term->NS( $term );
+				$enum_term->Code( $record[ 'Code' ] );
+				$enum_term->Name( $record[ 'Label' ], kDEFAULT_LANGUAGE );
+				$enum_term->Name( $record[ 'Description' ], kDEFAULT_LANGUAGE );
+				$enum_term->Kind( kTYPE_ENUMERATION, TRUE );
+				$enum_term->Type( kTYPE_ENUM );
+				$enum_term->Enumeration( $enum_term->Code(), TRUE );
+				$enum_term->Commit( $theContainer );
+			}
+			
+			//
+			// Create status node.
+			//
+			$enum_node = new COntologyNode( $container );
+			$enum_node->Term( $enum_term );
+			$enum_node->Kind( kTYPE_ENUMERATION, TRUE );
+			$enum_node->Commit( $container );
+			$enums[ $record[ 'Code' ] ] = $enum_node;
+			
+			//
+			// Handle first level status.
+			//
+			if( $record[ 'Parent' ] === NULL )
+			{
+				$edge = $enum_node->RelateTo( $container, $enum_of, $node );
+				$edge->Commit( $container );
+			}
+			
+			//
+			// Display.
+			//
+			if( $doDisplay )
+				echo( "[$enum_term] "
+					 .$enum_term->Name( NULL, kDEFAULT_LANGUAGE )
+					 ."\n" );
 		
 		} $rs->Close();
 		
@@ -7619,55 +6772,28 @@ EOT;
 			//
 			// Get child term.
 			//
-			$child_term
-				= new COntologyTerm
-					( $theContainer,
-					  COntologyTerm::HashIndex
-						( $term
-						 .kTOKEN_NAMESPACE_SEPARATOR
-						 .$record[ 'Code' ] ) );
+			$child_term = $enums[ $record[ 'Code' ] ]->Term();
 
 			//
 			// Get child node.
 			//
-			$child_node = $term_index->findOne( kTAG_TERM, (string) $child_term );
-			if( $child_node === NULL )
-				throw new Exception( "Term [$child_term] node not found." );
-			$child_node = new COntologyNode( $container, $child_node );
+			$child_node = $enums[ $record[ 'Code' ] ];
 			
 			//
 			// Get parent term.
 			//
-			$parent_term
-				= new COntologyTerm
-					( $theContainer,
-					  COntologyTerm::HashIndex
-						( $term
-						 .kTOKEN_NAMESPACE_SEPARATOR
-						 .$record[ 'Parent' ] ) );
+			$parent_term = $enums[ $record[ 'Parent' ] ]->Term();
 
 			//
 			// Get parent node.
 			//
-			$parent_node = $term_index->findOne( kTAG_TERM, (string) $parent_term );
-			if( $parent_node === NULL )
-				throw new Exception( "Term [$parent_term] node not found." );
-			$parent_node = new COntologyNode( $container, $parent_node );
+			$parent_node = $enums[ $record[ 'Parent' ] ];
 			
 			//
 			// Get status edge.
 			//
-			$id = Array();
-			$id[] = $child_node->Node()->getId();
-			$id[] = (string) $enum_of;
-			$id[] = $parent_node->Node()->getId();
-			$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-			$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-			if( $edge === NULL )
-			{
-				$edge = $child_node->RelateTo( $container, $enum_of, $parent_node );
-				$edge->Commit( $container );
-			}
+			$edge = $child_node->RelateTo( $container, $enum_of, $parent_node );
+			$edge->Commit( $container );
 			
 			//
 			// Display.
@@ -7686,10 +6812,10 @@ EOT;
 		//
 		$term
 			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( $ns_mcpd.'DONORCODE' ) );
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:DONORCODE' ) );
 		if( ! $term->Persistent() )
 		{
-			$term->NS( $mcpd_term );
+			$term->NS( 'MCPD' );
 			$term->Code( 'DONORCODE' );
 			$term->Name( 'Donor institute code', kDEFAULT_LANGUAGE );
 			$term->Definition
@@ -7700,47 +6826,34 @@ EOT;
 			$term->Pattern( '[A-Z]{3}[0-9]{3,4}' );
 			$term->Examples( 'COL002', TRUE );
 			$term->Examples( 'USA1001', TRUE );
-			$term->Xref( $instcode, kTYPE_RELATED, TRUE );
+			$term->Xref( $nodes[ 'INSTCODE' ], kTYPE_RELATED, TRUE );
 			$term->Commit( $theContainer );
-		
-		} $donorcode = $term;
+		}
 		
 		//
 		// Node.
 		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_TRAIT, TRUE );
-			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'DONORCODE' ] = $node;
 		
 		//
 		// Edge.
 		//
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $mcpd_node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $is_a, $mcpd_node );
-			$edge->Commit( $container );
-		}
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
 		
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 	 
 		/*================================================================================
 		 *	DONORNUMB																	 *
@@ -7751,10 +6864,10 @@ EOT;
 		//
 		$term
 			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( $ns_mcpd.'DONORNUMB' ) );
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:DONORNUMB' ) );
 		if( ! $term->Persistent() )
 		{
-			$term->NS( $mcpd_term );
+			$term->NS( 'MCPD' );
 			$term->Code( 'DONORNUMB' );
 			$term->Name( 'Donor accession number', kDEFAULT_LANGUAGE );
 			$term->Definition
@@ -7762,46 +6875,34 @@ EOT;
 			  kDEFAULT_LANGUAGE );
 			$term->Type( kTYPE_STRING );
 			$term->Examples( 'NGB1912', TRUE );
-			$term->Xref( $accenumb, kTYPE_RELATED, TRUE );
+			$term->Xref( $nodes[ 'ACCENUMB' ], kTYPE_RELATED, TRUE );
 			$term->Commit( $theContainer );
 		}
 		
 		//
 		// Node.
 		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_TRAIT, TRUE );
-			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'DONORNUMB' ] = $node;
 		
 		//
 		// Edge.
 		//
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $mcpd_node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $is_a, $mcpd_node );
-			$edge->Commit( $container );
-		}
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
 		
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 	 
 		/*================================================================================
 		 *	OTHERNUMB																	 *
@@ -7812,10 +6913,10 @@ EOT;
 		//
 		$term
 			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( $ns_mcpd.'OTHERNUMB' ) );
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:OTHERNUMB' ) );
 		if( ! $term->Persistent() )
 		{
-			$term->NS( $mcpd_term );
+			$term->NS( 'MCPD' );
 			$term->Code( 'OTHERNUMB' );
 			$term->Name
 			( 'Other identification (numbers) associated with the accession',
@@ -7833,47 +6934,35 @@ EOT;
 			$term->Examples( ':WAB001', TRUE );
 			$term->Examples( 'SWE002:NGB1912;NLD037:CGN00254', TRUE );
 			$term->Examples( 'SWE002:NGB1912;:Bra2343', TRUE );
-			$term->Xref( $instcode, kTYPE_RELATED, TRUE );
-			$term->Xref( $accenumb, kTYPE_RELATED, TRUE );
+			$term->Xref( $nodes[ 'INSTCODE' ], kTYPE_RELATED, TRUE );
+			$term->Xref( $nodes[ 'ACCENUMB' ], kTYPE_RELATED, TRUE );
 			$term->Commit( $theContainer );
 		}
 		
 		//
 		// Node.
 		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_TRAIT, TRUE );
-			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'OTHERNUMB' ] = $node;
 		
 		//
 		// Edge.
 		//
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $mcpd_node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $is_a, $mcpd_node );
-			$edge->Commit( $container );
-		}
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
 		
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 	 
 		/*================================================================================
 		 *	DUPLSITE																	 *
@@ -7884,10 +6973,10 @@ EOT;
 		//
 		$term
 			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( $ns_mcpd.'DUPLSITE' ) );
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:DUPLSITE' ) );
 		if( ! $term->Persistent() )
 		{
-			$term->NS( $mcpd_term );
+			$term->NS( 'MCPD' );
 			$term->Code( 'DUPLSITE' );
 			$term->Name( 'Location of safety duplicates', kDEFAULT_LANGUAGE );
 			$term->Definition
@@ -7899,47 +6988,34 @@ EOT;
 			$term->Pattern( '[A-Z]{3}[0-9]{3,4}' );
 			$term->Examples( 'COL002', TRUE );
 			$term->Examples( 'USA1001', TRUE );
-			$term->Xref( $instcode, kTYPE_RELATED, TRUE );
+			$term->Xref( $nodes[ 'INSTCODE' ], kTYPE_RELATED, TRUE );
 			$term->Commit( $theContainer );
-		
-		} $duplsite = $term;
+		}
 		
 		//
 		// Node.
 		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_TRAIT, TRUE );
-			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'DUPLSITE' ] = $node;
 		
 		//
 		// Edge.
 		//
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $mcpd_node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $is_a, $mcpd_node );
-			$edge->Commit( $container );
-		}
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
 		
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 	 
 		/*================================================================================
 		 *	STORAGE																		 *
@@ -7950,10 +7026,10 @@ EOT;
 		//
 		$term
 			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( $ns_mcpd.'STORAGE' ) );
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:STORAGE' ) );
 		if( ! $term->Persistent() )
 		{
-			$term->NS( $mcpd_term );
+			$term->NS( 'MCPD' );
 			$term->Code( 'STORAGE' );
 			$term->Name( 'Type of germplasm storage', kDEFAULT_LANGUAGE );
 			$term->Definition
@@ -7969,39 +7045,27 @@ EOT;
 		//
 		// Node.
 		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_TRAIT, TRUE );
-			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'STORAGE' ] = $node;
 		
 		//
 		// Edge.
 		//
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $mcpd_node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $is_a, $mcpd_node );
-			$edge->Commit( $container );
-		}
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
 		
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 		
 		//
 		// Load storage codes.
@@ -8017,6 +7081,7 @@ FROM
 ORDER BY
 	`Code_GermplasmStorage`.`Code`
 EOT;
+		$enums = Array();
 		$rs = $mysql->Execute( $query );
 		foreach( $rs as $record )
 		{
@@ -8043,44 +7108,28 @@ EOT;
 			//
 			// Create storage node.
 			//
-			$enum_node = $term_index->findOne( kTAG_TERM, (string) $enum_term );
-			if( $enum_node === NULL )
-			{
-				$enum_node = new COntologyNode( $container );
-				$enum_node->Term( $enum_term );
-				$enum_node->Kind( kTYPE_ENUMERATION, TRUE );
-				$enum_node->Commit( $container );
-			}
-			else
-				$enum_node = new COntologyNode( $container, $enum_node );
+			$enum_node = new COntologyNode( $container );
+			$enum_node->Term( $enum_term );
+			$enum_node->Kind( kTYPE_ENUMERATION, TRUE );
+			$enum_node->Commit( $container );
+			$enums[ $record[ 'Code' ] ] = $enum_node;
 			
 			//
 			// Handle first level storage.
 			//
 			if( $record[ 'Parent' ] === NULL )
 			{
-				//
-				// Create status edge.
-				//
-				$id = Array();
-				$id[] = $enum_node->Node()->getId();
-				$id[] = (string) $enum_of;
-				$id[] = $node->Node()->getId();
-				$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-				$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-				if( $edge === NULL )
-				{
-					$edge = $enum_node->RelateTo( $container, $enum_of, $node );
-					$edge->Commit( $container );
-				}
+				$edge = $enum_node->RelateTo( $container, $enum_of, $node );
+				$edge->Commit( $container );
 			}
 			
 			//
 			// Display.
 			//
 			if( $doDisplay )
-				echo( $enum_term->Name( NULL, kDEFAULT_LANGUAGE )
-					 ." [$enum_term]\n" );
+				echo( "[$enum_term] "
+					 .$enum_term->Name( NULL, kDEFAULT_LANGUAGE )
+					 ."\n" );
 		
 		} $rs->Close();
 		
@@ -8104,55 +7153,28 @@ EOT;
 			//
 			// Get child term.
 			//
-			$child_term
-				= new COntologyTerm
-					( $theContainer,
-					  COntologyTerm::HashIndex
-						( $term
-						 .kTOKEN_NAMESPACE_SEPARATOR
-						 .$record[ 'Code' ] ) );
+			$child_term = $enums[ $record[ 'Code' ] ]->Term();
 
 			//
 			// Get child node.
 			//
-			$child_node = $term_index->findOne( kTAG_TERM, (string) $child_term );
-			if( $child_node === NULL )
-				throw new Exception( "Term [$child_term] node not found." );
-			$child_node = new COntologyNode( $container, $child_node );
+			$child_node = $enums[ $record[ 'Code' ] ];
 			
 			//
 			// Get parent term.
 			//
-			$parent_term
-				= new COntologyTerm
-					( $theContainer,
-					  COntologyTerm::HashIndex
-						( $term
-						 .kTOKEN_NAMESPACE_SEPARATOR
-						 .$record[ 'Parent' ] ) );
+			$parent_term = $enums[ $record[ 'Parent' ] ]->Term();
 
 			//
 			// Get parent node.
 			//
-			$parent_node = $term_index->findOne( kTAG_TERM, (string) $parent_term );
-			if( $parent_node === NULL )
-				throw new Exception( "Term [$parent_term] node not found." );
-			$parent_node = new COntologyNode( $container, $parent_node );
+			$parent_node = $enums[ $record[ 'Parent' ] ];
 			
 			//
-			// Get storage edge.
+			// Get status edge.
 			//
-			$id = Array();
-			$id[] = $child_node->Node()->getId();
-			$id[] = (string) $enum_of;
-			$id[] = $parent_node->Node()->getId();
-			$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-			$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-			if( $edge === NULL )
-			{
-				$edge = $child_node->RelateTo( $container, $enum_of, $parent_node );
-				$edge->Commit( $container );
-			}
+			$edge = $child_node->RelateTo( $container, $enum_of, $parent_node );
+			$edge->Commit( $container );
 			
 			//
 			// Display.
@@ -8171,10 +7193,10 @@ EOT;
 		//
 		$term
 			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( $ns_mcpd.'REMARKS' ) );
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:REMARKS' ) );
 		if( ! $term->Persistent() )
 		{
-			$term->NS( $mcpd_term );
+			$term->NS( 'MCPD' );
 			$term->Code( 'REMARKS' );
 			$term->Name( 'Remarks', kDEFAULT_LANGUAGE );
 			$term->Definition
@@ -8187,44 +7209,59 @@ EOT;
 			$term->Examples( 'COLLSRC:roadside', TRUE );
 			$term->Commit( $theContainer );
 		}
+	 
+		/*================================================================================
+		 *	NICODE																		 *
+		 *===============================================================================*/
+
+		//
+		// Term.
+		//
+		$term
+			= new COntologyTerm
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:EURISCO:NICODE' ) );
+		if( ! $term->Persistent() )
+		{
+			$term->NS( 'MCPD:EURISCO' );
+			$term->Code( 'NICODE' );
+			$term->Name( 'National Inventory code', kDEFAULT_LANGUAGE );
+			$term->Definition
+			( 'Code identifying the National Inventory; the code of the country '
+			 .'preparing the National Inventory. Exceptions are possible, if agreed '
+			 .'with EURISCO such as NGB.',
+			  kDEFAULT_LANGUAGE );
+			$term->Type( kTYPE_STRING );
+			$term->Pattern( '[A-Z]{3}' );
+			$term->Examples( 'NGB', TRUE );
+			$term->Examples( 'NLD', TRUE );
+			$term->Commit( $theContainer );
+		}
 		
 		//
 		// Node.
 		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_TRAIT, TRUE );
-			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'NICODE' ] = $node;
 		
 		//
 		// Edge.
 		//
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $mcpd_node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $is_a, $mcpd_node );
-			$edge->Commit( $container );
-		}
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
 		
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
-	 
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+
 		/*================================================================================
 		 *	COLLDESCR																	 *
 		 *===============================================================================*/
@@ -8234,10 +7271,10 @@ EOT;
 		//
 		$term
 			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( $ns_mcpd.'COLLDESCR' ) );
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:EURISCO:COLLDESCR' ) );
 		if( ! $term->Persistent() )
 		{
-			$term->NS( $mcpd_eurisco_term );
+			$term->NS( 'MCPD:EURISCO' );
 			$term->Code( 'COLLDESCR' );
 			$term->Name( 'Decoded collecting institute', kDEFAULT_LANGUAGE );
 			$term->Definition
@@ -8248,46 +7285,34 @@ EOT;
 			$term->Type( kTYPE_STRING );
 			$term->Examples( 'Tuinartikelen Jan van Zomeren, Arnhem, The Netherlands',
 							 TRUE );
-			$term->Xref( $collcode, kTYPE_RELATED, TRUE );
+			$term->Xref( $nodes[ 'COLLCODE' ], kTYPE_RELATED, TRUE );
 			$term->Commit( $theContainer );
 		}
 		
 		//
 		// Node.
 		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_TRAIT, TRUE );
-			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'COLLDESCR' ] = $node;
 		
 		//
 		// Edge.
 		//
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $mcpd_node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $is_a, $mcpd_node );
-			$edge->Commit( $container );
-		}
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
 		
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 	 
 		/*================================================================================
 		 *	BREDDESCR																	 *
@@ -8298,10 +7323,10 @@ EOT;
 		//
 		$term
 			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( $ns_mcpd.'BREDDESCR' ) );
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:EURISCO:BREDDESCR' ) );
 		if( ! $term->Persistent() )
 		{
-			$term->NS( $mcpd_eurisco_term );
+			$term->NS( 'MCPD:EURISCO' );
 			$term->Code( 'BREDDESCR' );
 			$term->Name( 'Decoded breeding institute', kDEFAULT_LANGUAGE );
 			$term->Definition
@@ -8311,46 +7336,34 @@ EOT;
 			  kDEFAULT_LANGUAGE );
 			$term->Type( kTYPE_STRING );
 			$term->Examples( 'CFFR from Chile', TRUE );
-			$term->Xref( $bredcode, kTYPE_RELATED, TRUE );
+			$term->Xref( $nodes[ 'BREDCODE' ], kTYPE_RELATED, TRUE );
 			$term->Commit( $theContainer );
 		}
 		
 		//
 		// Node.
 		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_TRAIT, TRUE );
-			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'BREDDESCR' ] = $node;
 		
 		//
 		// Edge.
 		//
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $mcpd_node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $is_a, $mcpd_node );
-			$edge->Commit( $container );
-		}
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
 		
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 	 
 		/*================================================================================
 		 *	DONORDESCR																	 *
@@ -8361,10 +7374,10 @@ EOT;
 		//
 		$term
 			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( $ns_mcpd.'DONORDESCR' ) );
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:EURISCO:DONORDESCR' ) );
 		if( ! $term->Persistent() )
 		{
-			$term->NS( $mcpd_eurisco_term );
+			$term->NS( 'MCPD:EURISCO' );
 			$term->Code( 'DONORDESCR' );
 			$term->Name( 'Decoded donor institute', kDEFAULT_LANGUAGE );
 			$term->Definition
@@ -8374,46 +7387,34 @@ EOT;
 			  kDEFAULT_LANGUAGE );
 			$term->Type( kTYPE_STRING );
 			$term->Examples( 'Nelly Goudwaard, Groningen, The Netherlands', TRUE );
-			$term->Xref( $donorcode, kTYPE_RELATED, TRUE );
+			$term->Xref( $nodes[ 'DONORCODE' ], kTYPE_RELATED, TRUE );
 			$term->Commit( $theContainer );
 		}
 		
 		//
 		// Node.
 		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_TRAIT, TRUE );
-			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'DONORDESCR' ] = $node;
 		
 		//
 		// Edge.
 		//
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $mcpd_node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $is_a, $mcpd_node );
-			$edge->Commit( $container );
-		}
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
 		
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 	 
 		/*================================================================================
 		 *	DUPLDESCR																	 *
@@ -8424,10 +7425,10 @@ EOT;
 		//
 		$term
 			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( $ns_mcpd.'DUPLDESCR' ) );
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:EURISCO:DUPLDESCR' ) );
 		if( ! $term->Persistent() )
 		{
-			$term->NS( $mcpd_eurisco_term );
+			$term->NS( 'MCPD:EURISCO' );
 			$term->Code( 'DUPLDESCR' );
 			$term->Name( 'Decoded safety duplication location', kDEFAULT_LANGUAGE );
 			$term->Definition
@@ -8437,46 +7438,34 @@ EOT;
 			  kDEFAULT_LANGUAGE );
 			$term->Type( kTYPE_STRING );
 			$term->Examples( 'Pakhoed Freezers inc., Paramaribo, Surinam', TRUE );
-			$term->Xref( $duplsite, kTYPE_RELATED, TRUE );
+			$term->Xref( $nodes[ 'DUPLSITE' ], kTYPE_RELATED, TRUE );
 			$term->Commit( $theContainer );
 		}
 		
 		//
 		// Node.
 		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_TRAIT, TRUE );
-			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'DUPLDESCR' ] = $node;
 		
 		//
 		// Edge.
 		//
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $mcpd_node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $is_a, $mcpd_node );
-			$edge->Commit( $container );
-		}
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
 		
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 	 
 		/*================================================================================
 		 *	ACCEURL																		 *
@@ -8487,10 +7476,10 @@ EOT;
 		//
 		$term
 			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( $ns_mcpd.'ACCEURL' ) );
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:EURISCO:ACCEURL' ) );
 		if( ! $term->Persistent() )
 		{
-			$term->NS( $mcpd_eurisco_term );
+			$term->NS( 'MCPD:EURISCO' );
 			$term->Code( 'ACCEURL' );
 			$term->Name( 'Accession URL', kDEFAULT_LANGUAGE );
 			$term->Definition
@@ -8506,39 +7495,27 @@ EOT;
 		//
 		// Node.
 		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_TRAIT, TRUE );
-			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'ACCEURL' ] = $node;
 		
 		//
 		// Edge.
 		//
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $mcpd_node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $is_a, $mcpd_node );
-			$edge->Commit( $container );
-		}
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
 		
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 	 
 		/*================================================================================
 		 *	MLSSTAT																		 *
@@ -8549,10 +7526,10 @@ EOT;
 		//
 		$term
 			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( $ns_mcpd.'MLSSTAT' ) );
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:EURISCO:MLSSTAT' ) );
 		if( ! $term->Persistent() )
 		{
-			$term->NS( $mcpd_eurisco_term );
+			$term->NS( 'MCPD:EURISCO' );
 			$term->Code( 'MLSSTAT' );
 			$term->Name( 'MLS Status', kDEFAULT_LANGUAGE );
 			$term->Definition
@@ -8572,39 +7549,27 @@ EOT;
 		//
 		// Node.
 		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_TRAIT, TRUE );
-			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'MLSSTAT' ] = $node;
 		
 		//
 		// Edge.
 		//
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $mcpd_node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $is_a, $mcpd_node );
-			$edge->Commit( $container );
-		}
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
 		
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 	 
 		/*================================================================================
 		 *	AEGISSTAT																	 *
@@ -8615,10 +7580,10 @@ EOT;
 		//
 		$term
 			= new COntologyTerm
-				( $theContainer, COntologyTerm::HashIndex( $ns_mcpd.'MLSSTAT' ) );
+				( $theContainer, COntologyTerm::HashIndex( 'MCPD:EURISCO:AEGISSTAT' ) );
 		if( ! $term->Persistent() )
 		{
-			$term->NS( $mcpd_eurisco_term );
+			$term->NS( 'MCPD:EURISCO' );
 			$term->Code( 'AEGISSTAT' );
 			$term->Name( 'AEGIS Status', kDEFAULT_LANGUAGE );
 			$term->Definition
@@ -8637,39 +7602,27 @@ EOT;
 		//
 		// Node.
 		//
-		$node = $term_index->findOne( kTAG_TERM, (string) $term );
-		if( $node === NULL )
-		{
-			$node = new COntologyNode( $container );
-			$node->Term( $term );
-			$node->Kind( kTYPE_TRAIT, TRUE );
-			$node->Kind( kTYPE_MEASURE, TRUE );
-			$node->Commit( $container );
-		}
-		else
-			$node = new COntologyNode( $container, $node );
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'AEGISSTAT' ] = $node;
 		
 		//
 		// Edge.
 		//
-		$id = Array();
-		$id[] = $node->Node()->getId();
-		$id[] = (string) $is_a;
-		$id[] = $mcpd_node->Node()->getId();
-		$id = implode( kTOKEN_INDEX_SEPARATOR, $id );
-		$edge = $node_index->findOne( kTAG_EDGE_NODE, $id );
-		if( $edge === NULL )
-		{
-			$edge = $node->RelateTo( $container, $is_a, $mcpd_node );
-			$edge->Commit( $container );
-		}
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
 		
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( $term->Name( NULL, kDEFAULT_LANGUAGE )
-				 ." [$term] [".$node->Node()->getId()."]\n" );
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 		
 	} // LoadMCPD.
 

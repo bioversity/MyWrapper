@@ -1285,7 +1285,6 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
-exit;
 	
 	/*===================================================================================
 	 *	LIST EDGES (EMPTY)																*
@@ -1474,7 +1473,6 @@ exit;
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
-exit;
 	
 	/*===================================================================================
 	 *	LIST EDGES (QUERY)																*
@@ -1493,6 +1491,13 @@ exit;
 				kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
 				kAPI_QUERY_TYPE => kTYPE_STRING,
 				kAPI_QUERY_DATA => 'ISO:3166:1:ITA'
+			),
+			array
+			(
+				kAPI_QUERY_SUBJECT => kTAG_PREDICATE.'.'.kTAG_TERM,
+				kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
+				kAPI_QUERY_TYPE => kTYPE_STRING,
+				kAPI_QUERY_DATA => kTAG_REFERENCE_XREF
 			),
 			array
 			(
@@ -1665,6 +1670,7 @@ exit;
 	 *	GET EDGES LIST (LIST WITH PREDICATES - NO DIRECTION)							*
 	 *==================================================================================*/
 	echo( '<h4>Get edges list ('.kAPI_OP_GET_RELS.') list with predicate and no direction</h4>' );
+	echo( '<i>Need to check this, it apparently doesn\'t work as wanted...<br></i>' );
 	//
 	// Use wrapper client.
 	//
@@ -1678,9 +1684,9 @@ exit;
 		$params->Format( kTYPE_JSON );
 		$params->Database( 'WAREHOUSE' );
 		$params->Identifiers( 0, TRUE );
-		$params->Identifiers( 9990, TRUE );
-		$params->Identifiers( 9991, TRUE );
+		$params->Identifiers( 10, TRUE );
 		$params->Identifiers( 51, TRUE );
+		$params->Identifiers( 1000, TRUE );
 		$params->Identifiers( 99999, TRUE );
 		$params->Fields( array( kTAG_NAME => TRUE ) );
 		$params->Predicates( kPRED_PART_OF, TRUE );
@@ -1699,7 +1705,7 @@ exit;
 		//
 		// Build identifiers list.
 		//
-		$list = json_encode( array( 0, 9990, 9991, 51, 99999 ) );
+		$list = json_encode( array( 0, 10, 51, 1000, 99999 ) );
 		//
 		// Build fields list.
 		//
@@ -1715,7 +1721,7 @@ exit;
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_RELS;			// Command.
 		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
 		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
-		$params[] = kAPI_CONTAINER.'='.kDEFAULT_CNT_TERMS;				// Container.
+		$params[] = kAPI_CONTAINER.'='.kDEFAULT_CNT_TERMS;			// Container.
 		$params[] = kAPI_OPT_IDENTIFIERS.'='.$list;					// Identifiers.
 		$params[] = kAPI_DATA_FIELD.'='.$fields;					// Fields.
 		$params[] = kAPI_OPT_PREDICATES.'='.$predicates;			// Predicates.
@@ -1759,7 +1765,6 @@ exit;
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
-exit;
 	
 	/*===================================================================================
 	 *	GET DIRECTED EDGES (IN)															*
