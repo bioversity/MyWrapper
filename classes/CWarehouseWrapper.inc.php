@@ -214,33 +214,36 @@ define( "kAPI_OP_GET_EDGES",		'@GET_EDGES' );
 define( "kAPI_OP_GET_RELS",			'@GET_RELS' );
 
 /**
- * Query roots web-service.
+ * Get roots web-service.
  *
- * This is the tag that represents the query roots web service, it will locate all
+ * This is the tag that represents the get roots web service, it will locate all
  * {@link kTYPE_ROOT root} {@link COntologyNode nodes} matching the provided
- * attributes in the {@link kAPI_OPT_ATTRIBUTES kAPI_OPT_ATTRIBUTES} parameter and
- * return the following structure:
+ * {@link kAPI_DATA_QUERY query}.
+ *
+ * A node is a root if it has among its {@link COntologyNode::Kind() kinds} the
+ * {@link kTYPE_ROOT kTYPE_ROOT} tag.
+ *
+ * The method will return the following structure:
  *
  * <ul>
- *	<li><i>{@link kAPI_RESPONSE_TERMS kAPI_RESPONSE_TERMS}</i>: The list of terms related to
- *		the list of root nodes as follows:
- *	 <ul>
- *		<li><i>Index</i>: The term {@link kTAG_GID identifier}.
- *		<li><i>Value</i>: The term properties.
- *	 </ul>
- *	<li><i>{@link kAPI_RESPONSE_NODES kAPI_RESPONSE_NODES}</i>: The list of root nodes as
+ *	<li><i>{@link kAPI_RESPONSE_NODES kAPI_RESPONSE_NODES}</i>: The list of found nodes as
  *		follows:
  *	 <ul>
- *		<li><i>Index</i>: The node ID.
+ *		<li><i>Key</i>: The node ID.
  *		<li><i>Value</i>: The node properties.
+ *	 </ul>
+ *	<li><i>{@link kAPI_RESPONSE_TERMS kAPI_RESPONSE_TERMS}</i>: The list of terms related to
+ *		the list of found nodes as follows:
+ *	 <ul>
+ *		<li><i>Key</i>: The {@link COntologyTerm term} global {@link kTAG_GID identifier}.
+ *		<li><i>Value</i>: The contents of the {@link COntologyTerm term}.
  *	 </ul>
  * </ul>
  *
- * If you omit the {@link kAPI_OPT_ATTRIBUTES kAPI_OPT_ATTRIBUTES} parameter, all
- * {@link COntologyNode nodes} with {@link kTYPE_ROOT root}
- * {@link COntologyNode::Kind() kind} will be returned.
+ * If you omit the {@link kAPI_DATA_QUERY kAPI_DATA_QUERY} parameter, all
+ * {@link kTYPE_ROOT root} {@link COntologyNode nodes} will be selected.
  */
-define( "kAPI_OP_QUERY_ROOTS",		'@QUERY_ROOTS' );
+define( "kAPI_OP_GET_ROOTS",		'@GET_ROOTS' );
 
 /*=======================================================================================
  *	DEFAULT OPTION ENUMERATIONS															*
@@ -280,21 +283,6 @@ define( "kAPI_OPT_IDENTIFIERS",		':@identifiers' );
  * {@link COntologyTerm term} identifiers will be selected.
  */
 define( "kAPI_OPT_PREDICATES",		':@predicates' );
-
-/**
- * Attribute selectors option.
- *
- * This option is used by operations that query {@link COntologyNode nodes}, its content is
- * an array structured as follows:
- *
- * <ul>
- *	<li><i>Index</i>: The array element index is the attribute key.
- *	<li><i>Value</i>: The value is an array of attribute values to be matched.
- * </ul>
- *
- * The resulting query will be composed in <i>AND</i> mode.
- */
-define( "kAPI_OPT_ATTRIBUTES",		':@attributes' );
 
 /**
  * Relationship direction.

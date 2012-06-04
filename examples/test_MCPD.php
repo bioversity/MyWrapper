@@ -84,7 +84,7 @@ try
 		// Load parameters.
 		//
 		$params = new CWarehouseWrapperClient( $url );
-		$params->Operation( kAPI_OP_QUERY_ROOTS );
+		$params->Operation( kAPI_OP_GET_ROOTS );
 		$params->Format( kTYPE_JSON );
 		$params->Database( 'WAREHOUSE' );
 		$params->Container( kDEFAULT_CNT_TERMS );
@@ -109,7 +109,7 @@ try
 		// Build parameters.
 		//
 		$params = Array();
-		$params[] = kAPI_OPERATION.'='.kAPI_OP_QUERY_ROOTS;		// Command.
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_ROOTS;		// Command.
 		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;					// Format.
 		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';				// Database.
 		$params[] = kAPI_CONTAINER.'='.kDEFAULT_CNT_TERMS;		// Container.

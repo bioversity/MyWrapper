@@ -2420,6 +2420,7 @@ exit( "Done!\n" );
 		//
 		$node = new COntologyNode( $container );
 		$node->Term( $term );
+		$node->Kind( kTYPE_ROOT, TRUE );
 		$node->Kind( kTYPE_MEASURE, TRUE );
 		$node->Commit( $container );
 		//
@@ -2665,6 +2666,8 @@ exit( "Done!\n" );
 		//
 		$node = new COntologyNode( $container );
 		$node->Term( $term );
+		$node->Kind( kTYPE_ROOT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
 		$node->Commit( $container );
 		//
 		// Save node.

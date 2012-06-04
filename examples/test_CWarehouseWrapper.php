@@ -609,12 +609,13 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
+	echo( '<hr>' );
 	
 	/*===================================================================================
 	 *	LIST TERMS (EMPTY)																*
 	 *==================================================================================*/
 	echo( '<h4>List terms ('.kAPI_OP_GET_TERMS.') empty</h4>' );
-	echo( '<i>Return first 10 records.</i>' );
+	echo( '<i>Return first 5 records.</i>' );
 	//
 	// Build fields list.
 	//
@@ -633,7 +634,7 @@ try
 		$params->Database( 'WAREHOUSE' );
 		$params->Fields( $fields );
 		$params->Start( 0 );
-		$params->Limit( 10 );
+		$params->Limit( 5 );
 		$params->LogTrace( TRUE );
 		$params->LogRequest( TRUE );
 		//
@@ -657,9 +658,9 @@ try
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_TERMS;			// Command.
 		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
 		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
-		$params[] = kAPI_DATA_FIELD.'='.$fields;					// Fields.
+		$params[] = kAPI_DATA_FIELD.'='.urlencode( $fields );		// Fields.
 		$params[] = kAPI_PAGE_START.'='.'0';						// Page start.
-		$params[] = kAPI_PAGE_LIMIT.'='.'10';						// Page limits.
+		$params[] = kAPI_PAGE_LIMIT.'='.'5';						// Page limits.
 		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
 		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
 		//
@@ -710,6 +711,10 @@ try
 	//
 	$list = array( 'ISO:3166:1:IT', 'MCPD:SAMPSTAT:100', ':TERM', 'XXX' );
 	//
+	// Init fields list.
+	//
+	$fields = array( kTAG_NAME => TRUE );
+	//
 	// Use wrapper client.
 	//
 	if( kUSE_CLIENT )
@@ -721,6 +726,7 @@ try
 		$params->Operation( kAPI_OP_GET_TERMS );
 		$params->Format( kTYPE_JSON );
 		$params->Database( 'WAREHOUSE' );
+		$params->Fields( $fields );
 		foreach( $list as $element )
 			$params->Identifiers( $element, TRUE );
 		$params->LogTrace( TRUE );
@@ -740,12 +746,17 @@ try
 		//
 		$list_enc = json_encode( $list );
 		//
+		// Build fields list.
+		//
+		$fields = json_encode( $fields );
+		//
 		// Build parameters.
 		//
 		$params = Array();
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_TERMS;			// Command.
 		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
 		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
+		$params[] = kAPI_DATA_FIELD.'='.urlencode( $fields );		// Fields.
 		$params[] = kAPI_OPT_IDENTIFIERS.'='.$list_enc;				// Identifiers.
 		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
 		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
@@ -891,6 +902,7 @@ try
 	 *	GET TERMS LIST (QUERY)															*
 	 *==================================================================================*/
 	echo( '<h4>Get terms list ('.kAPI_OP_GET_TERMS.') query</h4>' );
+	echo( '<i>Get all terms with code 200 that have nodes, return only name and node fields.</i>' );
 	//
 	// Build query.
 	//
@@ -1003,12 +1015,14 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
+	echo( '<hr>' );
 	
 	/*===================================================================================
 	 *	LIST NODES (EMPTY)																*
 	 *==================================================================================*/
 	echo( '<h4>Get nodes list ('.kAPI_OP_GET_NODES.') empty</h4>' );
-	echo( '<i>Return first 10 records.</i>' );
+	echo( '<i>Return first 5 records.</i><br>' );
+	echo( '<i>Note that fields selection works only for terms.</i><br>' );
 	//
 	// Use wrapper client.
 	//
@@ -1023,7 +1037,7 @@ try
 		$params->Database( 'WAREHOUSE' );
 		$params->Fields( array( kTAG_NAME => TRUE ) );
 		$params->Start( 0 );
-		$params->Limit( 10 );
+		$params->Limit( 5 );
 		$params->LogTrace( TRUE );
 		$params->LogRequest( TRUE );
 		//
@@ -1047,9 +1061,9 @@ try
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_NODES;			// Command.
 		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
 		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
-		$params[] = kAPI_DATA_FIELD.'='.$fields;					// Fields.
+		$params[] = kAPI_DATA_FIELD.'='.urlencode( $fields );		// Fields.
 		$params[] = kAPI_PAGE_START.'='.'0';						// Page start.
-		$params[] = kAPI_PAGE_LIMIT.'='.'10';						// Page limits.
+		$params[] = kAPI_PAGE_LIMIT.'='.'5';						// Page limits.
 		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
 		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
 		//
@@ -1111,6 +1125,7 @@ try
 		$params->Operation( kAPI_OP_GET_NODES );
 		$params->Format( kTYPE_JSON );
 		$params->Database( 'WAREHOUSE' );
+		$params->Fields( array( kTAG_NAME => TRUE ) );
 		$params->Container( kDEFAULT_CNT_NODES );
 		foreach( $list as $element )
 			$params->Identifiers( $element, TRUE );
@@ -1131,12 +1146,17 @@ try
 		//
 		$list_enc = json_encode( $list );
 		//
+		// Build fields list.
+		//
+		$fields = json_encode( array( kTAG_NAME => TRUE ) );
+		//
 		// Build parameters.
 		//
 		$params = Array();
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_NODES;			// Command.
 		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
 		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
+		$params[] = kAPI_DATA_FIELD.'='.urlencode( $fields );		// Fields.
 		$params[] = kAPI_CONTAINER.'='.kDEFAULT_CNT_NODES;			// Container.
 		$params[] = kAPI_OPT_IDENTIFIERS.'='.$list_enc;				// Identifiers.
 		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
@@ -1188,6 +1208,7 @@ try
 	 *	LIST NODES (QUERY)																*
 	 *==================================================================================*/
 	echo( '<h4>Get nodes list ('.kAPI_OP_GET_NODES.') query</h4>' );
+	echo( '<i>Get all nodes of kind root.</i><br>' );
 	//
 	// Build query.
 	//
@@ -1216,6 +1237,7 @@ try
 		$params->Operation( kAPI_OP_GET_NODES );
 		$params->Format( kTYPE_JSON );
 		$params->Database( 'WAREHOUSE' );
+		$params->Fields( array( kTAG_NAME => TRUE ) );
 		$params->Query( $query );
 		$params->LogTrace( TRUE );
 		$params->LogRequest( TRUE );
@@ -1234,12 +1256,17 @@ try
 		//
 		$query_enc = json_encode( $query );
 		//
+		// Build fields list.
+		//
+		$fields = json_encode( array( kTAG_NAME => TRUE ) );
+		//
 		// Build parameters.
 		//
 		$params = Array();
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_NODES;			// Command.
 		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
 		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
+		$params[] = kAPI_DATA_FIELD.'='.urlencode( $fields );		// Fields.
 		$params[] = kAPI_DATA_QUERY.'='.urlencode( $query_enc );	// Query.
 		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
 		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
@@ -1290,7 +1317,7 @@ try
 	 *	LIST EDGES (EMPTY)																*
 	 *==================================================================================*/
 	echo( '<h4>Get edges list ('.kAPI_OP_GET_EDGES.') empty</h4>' );
-	echo( '<i>Return first 10 records.</i>' );
+	echo( '<i>Return first 5 records and only the name field for terms.</i>' );
 	//
 	// Use wrapper client.
 	//
@@ -1305,7 +1332,7 @@ try
 		$params->Database( 'WAREHOUSE' );
 		$params->Fields( array( kTAG_NAME => TRUE ) );
 		$params->Start( 0 );
-		$params->Limit( 10 );
+		$params->Limit( 5 );
 		$params->LogTrace( TRUE );
 		$params->LogRequest( TRUE );
 		//
@@ -1329,9 +1356,9 @@ try
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_EDGES;			// Command.
 		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
 		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
-		$params[] = kAPI_DATA_FIELD.'='.$fields;					// Fields.
+		$params[] = kAPI_DATA_FIELD.'='.urlencode( $fields );		// Fields.
 		$params[] = kAPI_PAGE_START.'='.'0';						// Page start.
-		$params[] = kAPI_PAGE_LIMIT.'='.'10';						// Page limits.
+		$params[] = kAPI_PAGE_LIMIT.'='.'5';						// Page limits.
 		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
 		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
 		//
@@ -1478,6 +1505,7 @@ try
 	 *	LIST EDGES (QUERY)																*
 	 *==================================================================================*/
 	echo( '<h4>Get edges list ('.kAPI_OP_GET_EDGES.') query</h4>' );
+	echo( '<i>Return all exact cross references pointing to all <code>ISO:3166:1:ITA</code> term nodes.</i>' );
 	//
 	// Build query.
 	//
@@ -1534,7 +1562,7 @@ try
 	else
 	{
 		//
-		// Build identifiers list.
+		// Encode query.
 		//
 		$query_enc = json_encode( $query );
 		//
@@ -1594,6 +1622,7 @@ try
 	 *	GET RELATED (EMPTY)																*
 	 *==================================================================================*/
 	echo( '<h4>Get related ('.kAPI_OP_GET_RELS.') empty</h4>' );
+	echo( '<i>Should return an empty response: no node identifiers provided.</i>' );
 	//
 	// Use wrapper client.
 	//
@@ -1625,6 +1654,100 @@ try
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_RELS;			// Command.
 		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
 		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
+		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
+		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
+		//
+		// Build request.
+		//
+		$request = $url.'?'.implode( '&', $params );
+		//
+		// Get response.
+		//
+		$response = file_get_contents( $request );
+		//
+		// Decode response.
+		//
+		$decoded = json_decode( $response, TRUE );
+	}
+	//
+	// Display.
+	//
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	if( ! kUSE_CLIENT )
+	{
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.$response.kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+	}
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	/*===================================================================================
+	 *	GET EDGES LIST (NO DIRECTION)													*
+	 *==================================================================================*/
+	echo( '<h4>Get edges list ('.kAPI_OP_GET_RELS.') list - no direction</h4>' );
+	echo( '<i>Without direction the identifiers represent edge node IDs; show just name.<br></i>' );
+	//
+	// Use wrapper client.
+	//
+	if( kUSE_CLIENT )
+	{
+		//
+		// Build parameters.
+		//
+		$params = new CWarehouseWrapperClient( $url );
+		$params->Operation( kAPI_OP_GET_RELS );
+		$params->Format( kTYPE_JSON );
+		$params->Database( 'WAREHOUSE' );
+		$params->Identifiers( 0, TRUE );
+		$params->Identifiers( 10, TRUE );
+		$params->Identifiers( 51, TRUE );
+		$params->Identifiers( 1000, TRUE );
+		$params->Identifiers( 99999, TRUE );
+		$params->Fields( array( kTAG_NAME => TRUE ) );
+		$params->LogTrace( TRUE );
+		$params->LogRequest( TRUE );
+		//
+		// Get response.
+		//
+		$decoded = $params->Execute();
+	}
+	//
+	// Use raw parameters.
+	//
+	else
+	{
+		//
+		// Build identifiers list.
+		//
+		$list = json_encode( array( 0, 10, 51, 1000, 99999 ) );
+		//
+		// Build fields list.
+		//
+		$fields = json_encode( array( kTAG_NAME => TRUE ) );
+		//
+		// Build parameters.
+		//
+		$params = Array();
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_RELS;			// Command.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
+		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
+		$params[] = kAPI_CONTAINER.'='.kDEFAULT_CNT_TERMS;			// Container.
+		$params[] = kAPI_OPT_IDENTIFIERS.'='.$list;					// Identifiers.
+		$params[] = kAPI_DATA_FIELD.'='.urlencode( $fields );		// Fields.
 		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
 		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
 		//
@@ -1670,7 +1793,7 @@ try
 	 *	GET EDGES LIST (LIST WITH PREDICATES - NO DIRECTION)							*
 	 *==================================================================================*/
 	echo( '<h4>Get edges list ('.kAPI_OP_GET_RELS.') list with predicate and no direction</h4>' );
-	echo( '<i>Need to check this, it apparently doesn\'t work as wanted...<br></i>' );
+	echo( '<i>Limit selected edges to the provided list of predicates (part-of and cross-reference).<br></i>' );
 	//
 	// Use wrapper client.
 	//
@@ -1690,6 +1813,7 @@ try
 		$params->Identifiers( 99999, TRUE );
 		$params->Fields( array( kTAG_NAME => TRUE ) );
 		$params->Predicates( kPRED_PART_OF, TRUE );
+		$params->Predicates( kTAG_REFERENCE_XREF, TRUE );
 		$params->LogTrace( TRUE );
 		$params->LogRequest( TRUE );
 		//
@@ -1713,20 +1837,20 @@ try
 		//
 		// Build identifiers list.
 		//
-		$predicates = json_encode( array( kPRED_PART_OF ) );
+		$predicates = json_encode( array( kPRED_PART_OF, kTAG_REFERENCE_XREF ) );
 		//
 		// Build parameters.
 		//
 		$params = Array();
-		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_RELS;			// Command.
-		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
-		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
-		$params[] = kAPI_CONTAINER.'='.kDEFAULT_CNT_TERMS;			// Container.
-		$params[] = kAPI_OPT_IDENTIFIERS.'='.$list;					// Identifiers.
-		$params[] = kAPI_DATA_FIELD.'='.$fields;					// Fields.
-		$params[] = kAPI_OPT_PREDICATES.'='.$predicates;			// Predicates.
-		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
-		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_RELS;				// Command.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;							// Format.
+		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';						// Database.
+		$params[] = kAPI_CONTAINER.'='.kDEFAULT_CNT_TERMS;				// Container.
+		$params[] = kAPI_OPT_IDENTIFIERS.'='.$list;						// Identifiers.
+		$params[] = kAPI_DATA_FIELD.'='.urlencode( $fields );			// Fields.
+		$params[] = kAPI_OPT_PREDICATES.'='.urlencode( $predicates );	// Predicates.
+		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';							// Trace exceptions.
+		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';						// Log request.
 		//
 		// Build request.
 		//
@@ -1770,7 +1894,7 @@ try
 	 *	GET DIRECTED EDGES (IN)															*
 	 *==================================================================================*/
 	echo( '<h4>Get directed edges ('.kAPI_OP_GET_RELS.') IN</h4>' );
-	echo( '<i>Get all nodes that point to node 2.</i>' );
+	echo( '<i>Get all adges pointing to node 2, show only name.</i>' );
 	//
 	// Use wrapper client.
 	//
@@ -1817,7 +1941,7 @@ try
 		$params[] = kAPI_CONTAINER.'='.kDEFAULT_CNT_TERMS;				// Container.
 		$params[] = kAPI_OPT_IDENTIFIERS.'='.$list;					// Identifiers.
 		$params[] = kAPI_OPT_DIRECTION.'='.kAPI_DIRECTION_IN;		// Direction.
-		$params[] = kAPI_DATA_FIELD.'='.$fields;					// Fields.
+		$params[] = kAPI_DATA_FIELD.'='.urlencode( $fields );		// Fields.
 		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
 		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
 		//
@@ -1860,10 +1984,10 @@ try
 	echo( '<hr>' );
 	
 	/*===================================================================================
-	 *	GET DIRECTED EDGES (IN) 3 LEVELS												*
+	 *	GET DIRECTED EDGES (IN) 2 LEVELS												*
 	 *==================================================================================*/
-	echo( '<h4>Get directed edges ('.kAPI_OP_GET_RELS.') IN 3 LEVELS</h4>' );
-	echo( '<i>Get all nodes that point to node 1.</i>' );
+	echo( '<h4>Get directed edges ('.kAPI_OP_GET_RELS.') IN 2 LEVELS</h4>' );
+	echo( '<i>Get all nodes that point to node 1 traversing 2 levels.</i>' );
 	//
 	// Use wrapper client.
 	//
@@ -1880,7 +2004,7 @@ try
 		$params->Identifiers( 1, TRUE );
 		$params->Fields( array( kTAG_NAME => TRUE ) );
 		$params->Direction( kAPI_DIRECTION_IN );
-		$params->Levels( 3 );
+		$params->Levels( 2 );
 		$params->LogTrace( TRUE );
 		$params->LogRequest( TRUE );
 		//
@@ -1908,11 +2032,11 @@ try
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_RELS;			// Command.
 		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
 		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
-		$params[] = kAPI_CONTAINER.'='.kDEFAULT_CNT_TERMS;				// Container.
+		$params[] = kAPI_CONTAINER.'='.kDEFAULT_CNT_TERMS;			// Container.
 		$params[] = kAPI_OPT_IDENTIFIERS.'='.$list;					// Identifiers.
 		$params[] = kAPI_OPT_DIRECTION.'='.kAPI_DIRECTION_IN;		// Direction.
-		$params[] = kAPI_OPT_LEVELS.'='.'3';						// Levels.
-		$params[] = kAPI_DATA_FIELD.'='.$fields;					// Fields.
+		$params[] = kAPI_OPT_LEVELS.'='.'2';						// Levels.
+		$params[] = kAPI_DATA_FIELD.'='.urlencode( $fields );		// Fields.
 		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
 		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
 		//
@@ -1957,8 +2081,8 @@ try
 	/*===================================================================================
 	 *	GET DIRECTED EDGES (OUT)														*
 	 *==================================================================================*/
-	echo( '<h4>Get directed edges ('.kAPI_OP_GET_RELS.') list</h4>' );
-	echo( '<i>Get all nodes that node 2 points to.</i>' );
+	echo( '<h4>Get directed edges ('.kAPI_OP_GET_RELS.') OUT</h4>' );
+	echo( '<i>Get all adges stemming from node 2, show only name.</i>' );
 	//
 	// Use wrapper client.
 	//
@@ -2005,7 +2129,7 @@ try
 		$params[] = kAPI_CONTAINER.'='.kDEFAULT_CNT_TERMS;				// Container.
 		$params[] = kAPI_OPT_IDENTIFIERS.'='.$list;					// Identifiers.
 		$params[] = kAPI_OPT_DIRECTION.'='.kAPI_DIRECTION_OUT;		// Direction.
-		$params[] = kAPI_DATA_FIELD.'='.$fields;					// Fields.
+		$params[] = kAPI_DATA_FIELD.'='.urlencode( $fields );		// Fields.
 		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
 		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
 		//
@@ -2051,7 +2175,7 @@ try
 	 *	GET DIRECTED EDGES (ALL)														*
 	 *==================================================================================*/
 	echo( '<h4>Get directed edges ('.kAPI_OP_GET_RELS.') list</h4>' );
-	echo( '<i>Get all nodes related to node 2.</i>' );
+	echo( '<i>Get all edges attached to node 2.</i>' );
 	//
 	// Use wrapper client.
 	//
@@ -2098,7 +2222,7 @@ try
 		$params[] = kAPI_CONTAINER.'='.kDEFAULT_CNT_TERMS;				// Container.
 		$params[] = kAPI_OPT_IDENTIFIERS.'='.$list;					// Identifiers.
 		$params[] = kAPI_OPT_DIRECTION.'='.kAPI_DIRECTION_ALL;		// Direction.
-		$params[] = kAPI_DATA_FIELD.'='.$fields;					// Fields.
+		$params[] = kAPI_DATA_FIELD.'='.urlencode( $fields );		// Fields.
 		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
 		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
 		//
@@ -2141,9 +2265,9 @@ try
 	echo( '<hr>' );
 	
 	/*===================================================================================
-	 *	GET ONTOLOGIES (EMPTY)															*
+	 *	GET ROOTS (EMPTY)																*
 	 *==================================================================================*/
-	echo( '<h4>Get ontologies list ('.kAPI_OP_QUERY_ROOTS.') empty</h4>' );
+	echo( '<h4>Get roots list ('.kAPI_OP_GET_ROOTS.') empty</h4>' );
 	//
 	// Use wrapper client.
 	//
@@ -2153,7 +2277,7 @@ try
 		// Build parameters.
 		//
 		$params = new CWarehouseWrapperClient( $url );
-		$params->Operation( kAPI_OP_QUERY_ROOTS );
+		$params->Operation( kAPI_OP_GET_ROOTS );
 		$params->Format( kTYPE_JSON );
 		$params->Database( 'WAREHOUSE' );
 		$params->Container( kDEFAULT_CNT_TERMS );
@@ -2173,7 +2297,7 @@ try
 		// Build parameters.
 		//
 		$params = Array();
-		$params[] = kAPI_OPERATION.'='.kAPI_OP_QUERY_ROOTS;	// Command.
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_ROOTS;	// Command.
 		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
 		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
 		$params[] = kAPI_CONTAINER.'='.kDEFAULT_CNT_TERMS;				// Container.
@@ -2219,9 +2343,29 @@ try
 	echo( '<hr>' );
 	
 	/*===================================================================================
-	 *	GET ONTOLOGIES (GEOGRAPHY)															*
+	 *	GET ROOTS (PASSPORT)															*
 	 *==================================================================================*/
-	echo( '<h4>Get ontologies list ('.kAPI_OP_QUERY_ROOTS.') Geography domain</h4>' );
+	echo( '<h4>Get roots list ('.kAPI_OP_GET_ROOTS.') Accessions Passport</h4>' );
+	$query = array
+	(
+		kOPERATOR_OR => array
+		(
+			array
+			(
+				kAPI_QUERY_SUBJECT => kTAG_DOMAIN,
+				kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
+				kAPI_QUERY_TYPE => kTYPE_STRING,
+				kAPI_QUERY_DATA => kDOMAIN_ACCESSION
+			),
+			array
+			(
+				kAPI_QUERY_SUBJECT => kTAG_CATEGORY,
+				kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
+				kAPI_QUERY_TYPE => kTYPE_STRING,
+				kAPI_QUERY_DATA => kCATEGORY_PASSPORT
+			)
+		)
+	);
 	//
 	// Use wrapper client.
 	//
@@ -2231,11 +2375,10 @@ try
 		// Build parameters.
 		//
 		$params = new CWarehouseWrapperClient( $url );
-		$params->Operation( kAPI_OP_QUERY_ROOTS );
+		$params->Operation( kAPI_OP_GET_ROOTS );
 		$params->Format( kTYPE_JSON );
 		$params->Database( 'WAREHOUSE' );
-		$params->Container( kDEFAULT_CNT_TERMS );
-		$params->Attributes( kTAG_DOMAIN, kDOMAIN_GEOGRAPHY, TRUE );
+		$params->Query( $query );
 		$params->LogTrace( TRUE );
 		$params->LogRequest( TRUE );
 		//
@@ -2249,105 +2392,17 @@ try
 	else
 	{
 		//
-		// Build identifiers list.
+		// Encode query.
 		//
-		$list = json_encode( array( kTAG_DOMAIN => array( kDOMAIN_GEOGRAPHY ) ) );
-		//
-		// Build parameters.
-		//
-		$params = Array();
-		$params[] = kAPI_OPERATION.'='.kAPI_OP_QUERY_ROOTS;	// Command.
-		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
-		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
-		$params[] = kAPI_CONTAINER.'='.kDEFAULT_CNT_TERMS;				// Container.
-		$params[] = kAPI_OPT_ATTRIBUTES.'='.$list;				// Attributes.
-		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
-		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
-		//
-		// Build request.
-		//
-		$request = $url.'?'.implode( '&', $params );
-		//
-		// Get response.
-		//
-		$response = file_get_contents( $request );
-		//
-		// Decode response.
-		//
-		$decoded = json_decode( $response, TRUE );
-	}
-	//
-	// Display.
-	//
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	if( ! kUSE_CLIENT )
-	{
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
-		echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-		echo( kSTYLE_ROW_PRE );
-		echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
-		echo( kSTYLE_DATA_PRE.$response.kSTYLE_DATA_POS );
-		echo( kSTYLE_ROW_POS );
-	}
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-	
-	/*===================================================================================
-	 *	GET ONTOLOGIES (PASSPORT)														*
-	 *==================================================================================*/
-	echo( '<h4>Get ontologies list ('.kAPI_OP_QUERY_ROOTS.') Accessions Passport</h4>' );
-	//
-	// Use wrapper client.
-	//
-	if( kUSE_CLIENT )
-	{
-		//
-		// Build parameters.
-		//
-		$params = new CWarehouseWrapperClient( $url );
-		$params->Operation( kAPI_OP_QUERY_ROOTS );
-		$params->Format( kTYPE_JSON );
-		$params->Database( 'WAREHOUSE' );
-		$params->Container( kDEFAULT_CNT_TERMS );
-		$params->Attributes( kTAG_DOMAIN, kDOMAIN_ACCESSION, TRUE );
-		$params->Attributes( kTAG_CATEGORY, kCATEGORY_PASSPORT, TRUE );
-		$params->LogTrace( TRUE );
-		$params->LogRequest( TRUE );
-		//
-		// Get response.
-		//
-		$decoded = $params->Execute();
-	}
-	//
-	// Use raw parameters.
-	//
-	else
-	{
-		//
-		// Build identifiers list.
-		//
-		$list = array( kTAG_DOMAIN => array( kDOMAIN_ACCESSION ),
-					   kTAG_CATEGORY => array( kCATEGORY_PASSPORT ) );
-		$list = json_encode( $list );
+		$query_enc = json_encode( $query );
 		//
 		// Build parameters.
 		//
 		$params = Array();
-		$params[] = kAPI_OPERATION.'='.kAPI_OP_QUERY_ROOTS;	// Command.
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_ROOTS;			// Command.
 		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
 		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
-		$params[] = kAPI_CONTAINER.'='.kDEFAULT_CNT_TERMS;				// Container.
-		$params[] = kAPI_OPT_ATTRIBUTES.'='.$list;				// Attributes.
+		$params[] = kAPI_DATA_QUERY.'='.urlencode( $query_enc );	// Query.
 		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
 		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
 		//

@@ -187,6 +187,16 @@ class CWarehouseWrapper extends CMongoDataWrapper
 					} // Missing container reference.
 					
 					break;
+				
+				case kAPI_OP_GET_ROOTS:
+					//
+					// Check for container.
+					//
+					if( (! array_key_exists( kAPI_CONTAINER, $_REQUEST ))
+					 || (! strlen( $_REQUEST[ kAPI_CONTAINER ] )) )
+						$_REQUEST[ kAPI_CONTAINER ] = kDEFAULT_CNT_NODES;
+					
+					break;
 			
 			} // Parsed operation.
 		
@@ -259,7 +269,6 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		//
 		$this->_ParseIdentifiers();
 		$this->_ParsePredicates();
-		$this->_ParseSelectors();
 		$this->_ParseDirection();
 		$this->_ParseUserCode();
 		$this->_ParseUserPass();
@@ -300,7 +309,6 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		//
 		$this->_FormatIdentifiers();
 		$this->_FormatPredicates();
-		$this->_FormatSelectors();
 	
 	} // _FormatRequest.
 
@@ -378,39 +386,6 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		} // Has predicates list.
 	
 	} // _ParsePredicates.
-
-	 
-	/*===================================================================================
-	 *	_ParseSelectors																	*
-	 *==================================================================================*/
-
-	/**
-	 * Parse identifiers.
-	 *
-	 * This method will parse the attribute {@link kAPI_OPT_ATTRIBUTES selectors} parameter.
-	 *
-	 * @access protected
-	 *
-	 * @see kAPI_DATA_REQUEST kAPI_OPT_ATTRIBUTES
-	 */
-	protected function _ParseSelectors()
-	{
-		//
-		// Handle selectors.
-		//
-		if( array_key_exists( kAPI_OPT_ATTRIBUTES, $_REQUEST ) )
-		{
-			//
-			// Add to request.
-			//
-			if( $this->offsetExists( kAPI_DATA_REQUEST ) )
-				$this->_OffsetManage
-					( kAPI_DATA_REQUEST, kAPI_OPT_ATTRIBUTES,
-					  $_REQUEST[ kAPI_OPT_ATTRIBUTES ] );
-		
-		} // Has selectors list.
-	
-	} // _ParseSelectors.
 
 	 
 	/*===================================================================================
@@ -547,6 +522,52 @@ class CWarehouseWrapper extends CMongoDataWrapper
 
 	 
 	/*===================================================================================
+	 *	_FormatQuery																	*
+	 *==================================================================================*/
+
+	/**
+	 * Format query.
+	 *
+	 * This method will format the request query.
+	 *
+	 * In this class we enforce the root selector for the
+	 * {@link kAPI_OP_GET_ROOTS kAPI_OP_GET_ROOTS} service.
+	 *
+	 * @access protected
+	 */
+	protected function _FormatQuery()
+	{
+		//
+		// Call parent method.
+		//
+		parent::_FormatQuery();
+		
+		//
+		// Handle get roots workflow.
+		//
+		if( $_REQUEST[ kAPI_OPERATION ] == kAPI_OP_GET_ROOTS )
+		{
+			//
+			// Init query.
+			//
+			if( ! array_key_exists( kAPI_DATA_QUERY, $_REQUEST ) )
+				$_REQUEST[ kAPI_DATA_QUERY ] = new CMongoQuery();
+			
+			//
+			// Add root selector.
+			//
+			$_REQUEST[ kAPI_DATA_QUERY ]
+				->AppendStatement(
+					CQueryStatement::Equals(
+						kTAG_DATA.'.'.kTAG_KIND, kTYPE_ROOT ),
+					kOPERATOR_AND );
+		
+		} // Get roots service.
+	
+	} // _FormatQuery.
+
+	 
+	/*===================================================================================
 	 *	_FormatIdentifiers																*
 	 *==================================================================================*/
 
@@ -677,79 +698,6 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	
 	} // _FormatPredicates.
 
-	 
-	/*===================================================================================
-	 *	_FormatSelectors																*
-	 *==================================================================================*/
-
-	/**
-	 * This method will format the request selectors list.
-	 *
-	 * This method will convert the attribute/value pairs provided in the
-	 * {@link kAPI_OPT_ATTRIBUTES kAPI_OPT_ATTRIBUTES} parameter into a Lucene
-	 * compatible query, connecting all clauses in <i>AND</i>.
-	 *
-	 * Note that the method will enforce the
-	 * {@link kAPI_OPT_ATTRIBUTES kAPI_OPT_ATTRIBUTES} parameter by initialising it
-	 * with the {@link kTYPE_ROOT root} {@link kTAG_KIND kind} selection.
-	 *
-	 * @access protected
-	 *
-	 * @uses _DecodeParameter()
-	 *
-	 * @see kAPI_OPT_ATTRIBUTES
-	 */
-	protected function _FormatSelectors()
-	{
-		//
-		// Init local storage.
-		//
-		$query = array( $this->_EscapeLucene( kTAG_KIND )
-					   .':'
-					   .$this->_EscapeLucene( kTYPE_ROOT ) );
-		
-		//
-		// Add clauses.
-		//
-		if( array_key_exists( kAPI_OPT_ATTRIBUTES, $_REQUEST ) )
-		{
-			//
-			// Decode parameter.
-			//
-			$this->_DecodeParameter( kAPI_OPT_ATTRIBUTES );
-			
-			//
-			// Iterate attributes.
-			//
-			foreach( $_REQUEST[ kAPI_OPT_ATTRIBUTES ] as $key => $value )
-			{
-				//
-				// Convert key.
-				//
-				$attribute = $this->_EscapeLucene( $key );
-				
-				//
-				// Normalise values.
-				//
-				if( ! is_array( $value ) )
-					$value = array( $value );
-				
-				//
-				// Iterate values.
-				//
-				foreach( $value as $clause )
-					$query[] = "$attribute:".$this->_EscapeLucene( $clause );
-			
-			} // Iterating attributes.
-		}
-		
-		//
-		// Build query.
-		//
-		$_REQUEST[ kAPI_OPT_ATTRIBUTES ] = implode( ' AND ', $query );
-	
-	} // _FormatSelectors.
-
 		
 
 /*=======================================================================================
@@ -862,6 +810,13 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				}
 				
 				//
+				// Check for container.
+				//
+				if( (! array_key_exists( kAPI_CONTAINER, $_REQUEST ))
+				 || (! strlen( $_REQUEST[ kAPI_CONTAINER ] )) )
+					$_REQUEST[ kAPI_CONTAINER ] = kDEFAULT_CNT_TERMS;
+				
+				//
 				// Check for database.
 				//
 				if( (! array_key_exists( kAPI_DATABASE, $_REQUEST ))
@@ -872,16 +827,9 @@ class CWarehouseWrapper extends CMongoDataWrapper
 						  kMESSAGE_TYPE_ERROR,
 						  array( 'Operation' => $parameter ) );					// !@! ==>
 				
-				//
-				// Check for container.
-				//
-				if( (! array_key_exists( kAPI_CONTAINER, $_REQUEST ))
-				 || (! strlen( $_REQUEST[ kAPI_CONTAINER ] )) )
-					$_REQUEST[ kAPI_CONTAINER ] = kDEFAULT_CNT_TERMS;
-				
 				break;
 				
-			case kAPI_OP_QUERY_ROOTS:
+			case kAPI_OP_GET_ROOTS:
 				
 				//
 				// Check for container.
@@ -970,8 +918,8 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				$this->_Handle_GetRelations();
 				break;
 
-			case kAPI_OP_QUERY_ROOTS:
-				$this->_Handle_QueryOntologies();
+			case kAPI_OP_GET_ROOTS:
+				$this->_Handle_GetNodes();
 				break;
 
 			default:
@@ -2180,114 +2128,6 @@ class CWarehouseWrapper extends CMongoDataWrapper
 
 	 
 	/*===================================================================================
-	 *	_Handle_QueryOntologies															*
-	 *==================================================================================*/
-
-	/**
-	 * Handle {@link kAPI_OP_QUERY_ROOTS query-nodes} request.
-	 *
-	 * This method expects the {@link kAPI_OPT_ATTRIBUTES kAPI_OPT_ATTRIBUTES}
-	 * parameter to hold a list of key/value pairs filter that will be added to the
-	 * default {@link kTYPE_ROOT root} {@link kTAG_KIND kind} query; if the
-	 * parameter was omitted, the method will select all ontologies.
-	 *
-	 * This method will return the following structure:
-	 *
-	 * <ul>
-	 *	<li><i>{@link kAPI_RESPONSE_TERMS kAPI_RESPONSE_TERMS}</i>: The list of
-	 *		{@link COntologyTerm terms} related to the
-	 *		{@link COntologyNode::Node() ontologies} as follows:
-	 *	 <ul>
-	 *		<li><i>Index</i>: The term {@link kTAG_GID identifier}.
-	 *		<li><i>Value</i>: The term properties.
-	 *	 </ul>
-	 *	<li><i>{@link kAPI_RESPONSE_NODES kAPI_RESPONSE_NODES}</i>: The list of
-	 *		{@link COntologyNode::Node() ontologies} as follows:
-	 *	 <ul>
-	 *		<li><i>Index</i>: The {@link COntologyNode::Node() node} ID.
-	 *		<li><i>Value</i>: The {@link COntologyNode::Node() node} properties.
-	 *	 </ul>
-	 * </ul>
-	 *
-	 * @access protected
-	 */
-	protected function _Handle_QueryOntologies()
-	{
-		//
-		// Init local storage.
-		//
-		$count = 0;
-		$container = array( kTAG_TERM => new CMongoContainer( $_REQUEST[ kAPI_CONTAINER ] ),
-							kTAG_NODE => $_SESSION[ kSESSION_NEO4J ] );
-		$response = array( kAPI_RESPONSE_TERMS => Array(),
-						   kAPI_RESPONSE_NODES => Array() );
-		
-		//
-		// Handle selectors.
-		//
-		if( array_key_exists( kAPI_OPT_ATTRIBUTES, $_REQUEST ) )
-		{
-			//
-			// Init local storage.
-			//
-			$ref_term = & $response[ kAPI_RESPONSE_TERMS ];
-			$ref_node = & $response[ kAPI_RESPONSE_NODES ];
-			
-			//
-			// Instantiate node index.
-			//
-			$idx = new NodeIndex( $_SESSION[ kSESSION_NEO4J ], kINDEX_NODE_NODE );
-			$idx->save();
-			
-			//
-			// Execute query.
-			//
-			$results = $idx->query( $_REQUEST[ kAPI_OPT_ATTRIBUTES ] );
-			foreach( $results as $object )
-			{
-				//
-				// Instantiate node.
-				//
-				$node = new COntologyNode( $container, $object );
-				if( $node->Persistent() )
-				{
-					//
-					// Set node properties.
-					//
-					$id = $node->Node()->getId();
-					if( ! array_key_exists( $id, $ref_node ) )
-						$ref_node[ $id ] = $node->Node()->getProperties();
-					
-					//
-					// Set term properties.
-					//
-					$id = $node->Term()->GID();
-					if( ! array_key_exists( $id, $ref_term ) )
-						$ref_term[ $id ] = $node->Term()->getArrayCopy();
-					
-					//
-					// Count.
-					//
-					$count++;
-				}
-			
-			} // Iterating found ontology nodes.
-		}
-		
-		//
-		// Set count.
-		//
-		$this->_OffsetManage( kAPI_DATA_STATUS, kAPI_AFFECTED_COUNT, $count );
-
-		//
-		// Copy response.
-		//
-		$this->offsetSet( kAPI_DATA_RESPONSE, $response );
-	
-	} // _Handle_QueryOntologies.
-
-	 
-	/*===================================================================================
 	 *	_Handle_ListOp																	*
 	 *==================================================================================*/
 
@@ -2355,13 +2195,13 @@ class CWarehouseWrapper extends CMongoDataWrapper
 			.'] identifiers.';
 		
 		//
-		// Add kAPI_OP_QUERY_ROOTS.
+		// Add kAPI_OP_GET_ROOTS.
 		//
-		$theList[ kAPI_OP_QUERY_ROOTS ]
-			= 'This operation will return the list of ontology nodes matching the provided '
-			.'attribute/value pairs in ['
-			.kAPI_OPT_ATTRIBUTES
-			.'] selectors.';
+		$theList[ kAPI_OP_GET_ROOTS ]
+			= 'This operation will return the list of ontology root nodes matching the provided '
+			.'query in the ['
+			.kAPI_DATA_QUERY
+			.'] parameter.';
 	
 	} // _Handle_ListOp.
 
