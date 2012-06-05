@@ -410,7 +410,6 @@ foreach( $cursor as $element )
 	print_r( $element );
 	echo( '</pre>' );
 }
-*/
 
 //
 // Neo4j tests.
@@ -515,5 +514,29 @@ $edge->getEndNode()->load();
 echo( '<pre>' );
 print_r( $edge );
 echo( '</pre><hr>' );
+*/
+
+//
+// Collection selection.
+//
+$mongo = New Mongo();
+$db = $mongo->selectDB( 'TEST' );
+$collection = $db->selectCollection( 'NODES' );
+
+//
+// Build query.
+//
+$criteria = array( '_id' => 42 );
+$modification = array( '$inc' => array( ':IN.:PREDICATE' => 1 ) );
+$options = array( 'multiple' => false, 'safe' => true );
+
+//
+// Execute.
+//
+$ok = $collection->update( $criteria, $modification, $options );
+
+echo( '<pre>' );
+print_r( $ok );
+echo( '</pre>' );
 
 ?>

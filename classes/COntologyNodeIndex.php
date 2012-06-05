@@ -340,6 +340,7 @@ class COntologyNodeIndex extends CArrayObject
 		// Resolve container.
 		//
 		$theContainer = $this->_ResolveIndexContainer( $theContainer );
+		$container = $theContainer->Container();
 		
 		//
 		// Set options.
@@ -359,7 +360,7 @@ class COntologyNodeIndex extends CArrayObject
 			//
 			// Replace.
 			//
-			$status = $theContainer->Container()->save( $this->getArrayCopy(), $options );
+			$status = $container->save( $this->getArrayCopy(), $options );
 		
 		} // Save.
 
@@ -381,7 +382,7 @@ class COntologyNodeIndex extends CArrayObject
 			//
 			// Delete.
 			//
-			$status = $theContainer->Container()->remove( $criteria, $options );
+			$status = $container->remove( $criteria, $options );
 		
 		} // Delete.
 		
@@ -401,6 +402,13 @@ class COntologyNodeIndex extends CArrayObject
 					  kERROR_INVALID_STATE,
 					  kMESSAGE_TYPE_ERROR,
 					  array( 'Status' => $status ) );							// !@! ==>
+		
+		//
+		// Handle relationship.
+		// OK, this can give you identity problems...
+		//
+		if( $this instanceof COntologyEdgeIndex )
+			$this->_UpdateRelationshipCounts( $theContainer, $theModifiers );
 		
 		return $status;																// ==>
 		

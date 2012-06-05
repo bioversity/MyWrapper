@@ -318,7 +318,6 @@ try
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	echo( '<hr>' );
-exit;
 /*	
 	echo( '<i>Test indexes</i><br>' );
 	echo( '<i>$test->Term( $term );</i><br>' );

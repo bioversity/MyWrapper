@@ -519,6 +519,287 @@ class COntologyEdgeIndex extends COntologyNodeIndex
 	} // _LoadNodeProperties.
 
 	 
+	/*===================================================================================
+	 *	_UpdateRelationshipCounts														*
+	 *==================================================================================*/
+
+	/**
+	 * Update relationship counts.
+	 *
+	 * This method will increment or decrement the relationships count in the subject and
+	 * object {node indexes.
+	 *
+	 * The method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theContainer</b>: The index Mongo container, we use the
+	 *		{@link CMongoContainer::Database() database} element and force the
+	 *		{@link kDEFAULT_CNT_NODES default} node collection name, since it apparently
+	 *		gives this class personality disorder problems to use the parent version of the
+	 *		{@link _ResolveIndexContainer() _ResolveIndexContainer} method.
+	 *	<li><b>$theModifiers</b>: This parameter represents the commit operation options,
+	 *		these will have been passed by the {@link Commit() commit} method.
+	 * </ul>
+	 *
+	 * These counts are stored in the {@link COntologyNodeIndex indexes} in the following
+	 * structure:
+	 *
+	 * <ul>
+	 *	<li><i>{@link kTAG_IN kTAG_IN}</i>: This element represents incoming relationships,
+	 *		it is an array structured as follows:
+	 *	 <ul>
+	 *		<li><i>Key</i>: The term {@link kTAG_GID identifier} of the relationship
+	 *			predicate.
+	 *		<li><i>Value</i>: The number of incoming relationships for the given predicate.
+	 *	 </ul>
+	 *	<li><i>{@link kTAG_OUT kTAG_OUT}</i>: This element represents outgoing
+	 *		relationships, it is an array structured as follows:
+	 *	 <ul>
+	 *		<li><i>Key</i>: The term {@link kTAG_GID identifier} of the relationship
+	 *			predicate.
+	 *		<li><i>Value</i>: The number of outgoing relationships for the given predicate.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * @param MongoContainer		$theContainer		Mongo container.
+	 * @param bitfield				$theModifiers		Commit modifiers.
+	 *
+	 * @access protected
+	 */
+	protected function _UpdateRelationshipCounts( $theContainer, $theModifiers )
+	{
+		//
+		// Resolve container.
+		//
+		$container = $theContainer->Database()->selectCollection( kDEFAULT_CNT_NODES );
+
+		//
+		// Init local storage.
+		//
+		$options = array( 'safe' => TRUE );
+		$subject_id = $this->Node()->getStartNode()->getId();
+		$predicate = $this->Node()->getType();
+		$object_id = $this->Node()->getEndNode()->getId();
+		
+		//
+		// Load subject.
+		//
+		$subject = $container->findOne( array( kTAG_LID => $subject_id ) );
+		if( ! $subject )
+			throw new CException
+					( "Relationship subject index is missing",
+					  kERROR_INVALID_STATE,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Subject' => $subject_id ) );						// !@! ==>
+		
+		//
+		// Load object.
+		//
+		$object = $container->findOne( array( kTAG_LID => $object_id ) );
+		if( ! $object )
+			throw new CException
+					( "Relationship object index is missing",
+					  kERROR_INVALID_STATE,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Object' => $object_id ) );						// !@! ==>
+		
+		//
+		// Increment counters.
+		//
+		if( ($theModifiers & kFLAG_PERSIST_REPLACE) == kFLAG_PERSIST_REPLACE )
+		{
+			//
+			// Create first outgoing.
+			//
+			if( ! array_key_exists( kTAG_OUT, $subject ) )
+				$subject[ kTAG_OUT ] = array( $predicate => 1 );
+			
+			//
+			// Update existing outgoing.
+			//
+			else
+			{
+				//
+				// Reference counters.
+				//
+				$counters = & $subject[ kTAG_OUT ];
+				
+				//
+				// Increment.
+				//
+				if( array_key_exists( $predicate, $counters ) )
+					$counters[ $predicate ]++;
+				
+				//
+				// Create.
+				//
+				else
+					$counters[ $predicate ] = 1;
+			
+			} // Subject has outgoing relationships.
+			
+			//
+			// Commit subject.
+			//
+			$ok = $container->save( $subject, $options );
+			if( ! $ok[ 'ok' ] )
+				throw new CException
+						( "Unable to save subject node index",
+						  kERROR_INVALID_STATE,
+						  kMESSAGE_TYPE_ERROR,
+						  array( 'Status' => $ok ) );							// !@! ==>
+				
+			//
+			// Create first incoming.
+			//
+			if( ! array_key_exists( kTAG_IN, $object ) )
+				$object[ kTAG_IN ] = array( $predicate => 1 );
+			
+			//
+			// Update existing incoming.
+			//
+			else
+			{
+				//
+				// Reference counters.
+				//
+				$counters = & $object[ kTAG_IN ];
+				
+				//
+				// Increment.
+				//
+				if( array_key_exists( $predicate, $counters ) )
+					$counters[ $predicate ]++;
+				
+				//
+				// Create.
+				//
+				else
+					$counters[ $predicate ] = 1;
+			
+			} // Object has incoming relationships.
+			
+			//
+			// Commit object.
+			//
+			$ok = $container->save( $object, $options );
+			if( ! $ok[ 'ok' ] )
+				throw new CException
+						( "Unable to save object node index",
+						  kERROR_INVALID_STATE,
+						  kMESSAGE_TYPE_ERROR,
+						  array( 'Status' => $ok ) );							// !@! ==>
+		
+		} // Created relationship.
+		
+		//
+		// Decrement counters.
+		//
+		elseif( $theModifiers & kFLAG_PERSIST_DELETE )
+		{
+			//
+			// Handle existing outgoing.
+			//
+			if( array_key_exists( kTAG_OUT, $subject ) )
+			{
+				//
+				// Reference counters.
+				//
+				$counters = & $subject[ kTAG_OUT ];
+				
+				//
+				// Decrement existing predicate.
+				//
+				if( array_key_exists( $predicate, $counters ) )
+				{
+					//
+					// Decrement.
+					//
+					$counters[ $predicate ]--;
+					if( ! $counters[ $predicate ] )
+					{
+						//
+						// Delete predicate.
+						//
+						unset( $counters[ $predicate ] );
+						
+						//
+						// Delete all counters.
+						//
+						if( ! count( $counters ) )
+							unset( $subject[ kTAG_OUT ] );
+					
+					} // Deleted last predicate count.
+					
+					//
+					// Commit subject.
+					//
+					$ok = $container->save( $subject, $options );
+					if( ! $ok[ 'ok' ] )
+						throw new CException
+								( "Unable to save subject node index",
+								  kERROR_INVALID_STATE,
+								  kMESSAGE_TYPE_ERROR,
+								  array( 'Status' => $ok ) );					// !@! ==>
+				
+				} // Has predicate.
+			
+			} // Has outgoing.
+		
+			//
+			// Handle existing incoming.
+			//
+			if( array_key_exists( kTAG_IN, $object ) )
+			{
+				//
+				// Reference counters.
+				//
+				$counters = & $object[ kTAG_IN ];
+				
+				//
+				// Decrement existing predicate.
+				//
+				if( array_key_exists( $predicate, $counters ) )
+				{
+					//
+					// Decrement.
+					//
+					$counters[ $predicate ]--;
+					if( ! $counters[ $predicate ] )
+					{
+						//
+						// Delete predicate.
+						//
+						unset( $counters[ $predicate ] );
+						
+						//
+						// Delete all counters.
+						//
+						if( ! count( $counters ) )
+							unset( $object[ kTAG_IN ] );
+					
+					} // Deleted last predicate count.
+					
+					//
+					// Commit object.
+					//
+					$ok = $container->save( $object, $options );
+					if( ! $ok[ 'ok' ] )
+						throw new CException
+								( "Unable to save object node index",
+								  kERROR_INVALID_STATE,
+								  kMESSAGE_TYPE_ERROR,
+								  array( 'Status' => $ok ) );					// !@! ==>
+				
+				} // Has predicate.
+			
+			} // Has incoming.
+		
+		} // Deleted relationship.
+	
+	} // _UpdateRelationshipCounts.
+
+	 
 
 } // class COntologyEdgeIndex.
 

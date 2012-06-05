@@ -665,6 +665,9 @@ class COntologyNode extends CGraphNode
 				
 				//
 				// Instantiate index.
+				// This should raise a kERROR_NOT_FOUND exception
+				// if the edge index does not exist: in that case
+				// it means that we are creating a new relationship.
 				//
 				$index = new COntologyEdgeIndex( $query, $composite );
 				

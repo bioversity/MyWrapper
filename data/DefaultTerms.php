@@ -2000,6 +2000,20 @@ exit( "Done!\n" );
 				   		   .'are cases in which deleting an object is not an option, in '
 				   		   .'such cases the invalid or obsolete object points to the valid '
 				   		   .'object through this term.' ),
+			array( 'id'	=> kTAG_IN,
+				   'syn' => 'kTAG_IN',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_REF',
+				   'nam' => 'Incoming',
+				   'def' => 'This term represents the incoming direction, it can be used '
+				   		   .'for tagging items that point to the current object.' ),
+			array( 'id'	=> kTAG_OUT,
+				   'syn' => 'kTAG_OUT',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_REF',
+				   'nam' => 'Outgoing',
+				   'def' => 'This term represents the outgoing direction, it can be used '
+				   		   .'for tagging items to which the current object points to.' ),
 			array( 'id'	=> kTAXON_RANK,
 				   'syn' => 'kTAXON_RANK',
 				   'car' => 'kCARD_1',

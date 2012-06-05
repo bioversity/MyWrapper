@@ -428,6 +428,22 @@ define( "kTAG_PREFERRED",						':PREFERRED' );
  */
 define( "kTAG_VALID",							':VALID' );
 
+/**
+ * Incoming tag.
+ *
+ * This is the tag that represents the incoming direction, it can be used for tagging items
+ * that point to the current object.
+ */
+define( "kTAG_IN",								':IN' );
+
+/**
+ * Outgoing tag.
+ *
+ * This is the tag that represents the outgoing direction, it can be used for tagging items
+ * that the current object points to.
+ */
+define( "kTAG_OUT",								':OUT' );
+
 /*=======================================================================================
  *	DEFAULT PROPERTY OFFSETS															*
  *======================================================================================*/
