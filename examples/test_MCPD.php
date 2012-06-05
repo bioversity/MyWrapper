@@ -76,6 +76,29 @@ try
 		 .' and that belong to the passport category: among the results we should '
 		 .'get the MCPD root node.</i>' );
 	//
+	// Set query.
+	//
+	$query = array
+	(
+		kOPERATOR_OR => array
+		(
+			array
+			(
+				kAPI_QUERY_SUBJECT => kTAG_DATA.'.'.kTAG_DOMAIN,
+				kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
+				kAPI_QUERY_TYPE => kTYPE_STRING,
+				kAPI_QUERY_DATA => kDOMAIN_ACCESSION
+			),
+			array
+			(
+				kAPI_QUERY_SUBJECT => kTAG_DATA.'.'.kTAG_CATEGORY,
+				kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
+				kAPI_QUERY_TYPE => kTYPE_STRING,
+				kAPI_QUERY_DATA => kCATEGORY_PASSPORT
+			)
+		)
+	);
+	//
 	// Use wrapper client.
 	//
 	if( kUSE_CLIENT )
@@ -88,8 +111,7 @@ try
 		$params->Format( kTYPE_JSON );
 		$params->Database( 'WAREHOUSE' );
 		$params->Container( kDEFAULT_CNT_TERMS );
-		$params->Attributes( kTAG_DOMAIN, kDOMAIN_ACCESSION, TRUE );
-		$params->Attributes( kTAG_CATEGORY, kCATEGORY_PASSPORT, TRUE );
+		$params->Query( $query );
 		//
 		// Get response.
 		//
@@ -101,19 +123,18 @@ try
 	else
 	{
 		//
-		// Build attributes list.
+		// Encode query.
 		//
-		$list = json_encode( array( kTAG_DOMAIN => array( kDOMAIN_ACCESSION ),
-									kTAG_CATEGORY => array( kCATEGORY_PASSPORT ) ) );
+		$query_enc = json_encode( $query );
 		//
 		// Build parameters.
 		//
 		$params = Array();
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_ROOTS;		// Command.
-		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;					// Format.
-		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';				// Database.
-		$params[] = kAPI_CONTAINER.'='.kDEFAULT_CNT_TERMS;		// Container.
-		$params[] = kAPI_OPT_ATTRIBUTES.'='.$list;				// Attributes.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
+		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
+		$params[] = kAPI_CONTAINER.'='.kDEFAULT_CNT_TERMS;			// Container.
+		$params[] = kAPI_DATA_QUERY.'='.urlencode( $query_enc );	// Query.
 		//
 		// Build request.
 		//

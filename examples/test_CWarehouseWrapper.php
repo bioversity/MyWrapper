@@ -2346,6 +2346,9 @@ try
 	 *	GET ROOTS (PASSPORT)															*
 	 *==================================================================================*/
 	echo( '<h4>Get roots list ('.kAPI_OP_GET_ROOTS.') Accessions Passport</h4>' );
+	//
+	// Set query.
+	//
 	$query = array
 	(
 		kOPERATOR_OR => array
