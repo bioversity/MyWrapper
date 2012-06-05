@@ -55,6 +55,30 @@ define( "kAPI_OP_LOGIN",			'@LOGIN' );
 define( "kAPI_OP_GET_TERMS",		'@GET_TERMS' );
 
 /**
+ * Match terms web-service.
+ *
+ * This is the tag that represents the match terms web-service operation, it is equivalent
+ * to the inherited {@link kAPI_OP_MATCH kAPI_OP_MATCH} operation, except that it applies
+ * to terms and will return the matching combination of terms and nodes.
+ *
+ * <ul>
+ *	<li><i>{@link kAPI_RESPONSE_TERMS kAPI_RESPONSE_TERMS}</i>: The list of terms matched
+ *		by the {@link kAPI_OP_MATCH match} service as follows:
+ *	 <ul>
+ *		<li><i>Key</i>: The {@link COntologyTerm term} global {@link kTAG_GID identifier}.
+ *		<li><i>Value</i>: The contents of the {@link COntologyTerm term}.
+ *	 </ul>
+ *	<li><i>{@link kAPI_RESPONSE_NODES kAPI_RESPONSE_NODES}</i>: The list of found nodes
+ *		related to the matched terms as follows:
+ *	 <ul>
+ *		<li><i>Key</i>: The node ID.
+ *		<li><i>Value</i>: The node properties.
+ *	 </ul>
+ * </ul>
+ */
+define( "kAPI_OP_MATCH_TERMS",		'@MATCH_TERMS' );
+
+/**
  * List nodes web-service.
  *
  * This is the tag that represents the list nodes web service, it will locate all

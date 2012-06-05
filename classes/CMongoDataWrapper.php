@@ -1298,31 +1298,12 @@ class CMongoDataWrapper extends CDataWrapper
 					 || (! $_REQUEST[ kAPI_OPT_NO_RESP ]) )
 					{
 						//
-						// Handle excluded identifier.
-						// By default the returned array is indexed by ID...
+						// Collect results.
 						//
-						if( array_key_exists( kTAG_LID, $fields )
-						 && (! $fields[ kTAG_LID ]) )
-						{
-							//
-							// Collect results.
-							//
-							$result = Array();
-							foreach( $cursor as $data )
-								$result[] = $data;
-						
-						} // Excluded identifier.
-						
-						//
-						// Result has identifier.
-						//
-						else
-//							$result = iterator_to_array( $cursor );
-						{
-							$result = Array();
-							foreach( $cursor as $element )
-								$result[] = $element;
-						}
+//						$result = iterator_to_array( $cursor );
+						$result = Array();
+						foreach( $cursor as $record )
+							$result[] = $record;
 						
 						//
 						// Handle options.

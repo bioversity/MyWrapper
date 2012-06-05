@@ -1018,6 +1018,159 @@ try
 	echo( '<hr>' );
 	
 	/*===================================================================================
+	 *	MATCH TERMS																		*
+	 *==================================================================================*/
+	echo( '<h4>Match terms ('.kAPI_OP_MATCH_TERMS.') query list</h4>' );
+	echo( '<i>Match all terms and their nodes who contain "Italian" in their GID, code '
+		 .'and names and that have related nodes; return the first three terms</i>' );
+	//
+	// Build query.
+	//
+	$query = array
+	(
+		array
+		(
+			kOPERATOR_AND => array
+			(
+				array
+				(
+					kAPI_QUERY_SUBJECT => kTAG_GID,
+					kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
+					kAPI_QUERY_TYPE => kTYPE_STRING,
+					kAPI_QUERY_DATA => 'Italian'
+				),
+				array
+				(
+					kAPI_QUERY_SUBJECT => kTAG_NODE,
+					kAPI_QUERY_OPERATOR => kOPERATOR_NOT_NULL
+				)
+			)
+		),
+		array
+		(
+			kOPERATOR_AND => array
+			(
+				array
+				(
+					kAPI_QUERY_SUBJECT => kTAG_CODE,
+					kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
+					kAPI_QUERY_TYPE => kTYPE_STRING,
+					kAPI_QUERY_DATA => 'Italian'
+				),
+				array
+				(
+					kAPI_QUERY_SUBJECT => kTAG_NODE,
+					kAPI_QUERY_OPERATOR => kOPERATOR_NOT_NULL
+				)
+			)
+		),
+		array
+		(
+			kOPERATOR_AND => array
+			(
+				array
+				(
+					kAPI_QUERY_SUBJECT => kTAG_NAME.'.'.kTAG_DATA,
+					kAPI_QUERY_OPERATOR => kOPERATOR_CONTAINS_NOCASE,
+					kAPI_QUERY_TYPE => kTYPE_STRING,
+					kAPI_QUERY_DATA => 'Italian'
+				),
+				array
+				(
+					kAPI_QUERY_SUBJECT => kTAG_NODE,
+					kAPI_QUERY_OPERATOR => kOPERATOR_NOT_NULL
+				)
+			)
+		)
+	);
+	//
+	// Use wrapper client.
+	//
+	if( kUSE_CLIENT )
+	{
+		//
+		// Build parameters.
+		//
+		$params = new CWarehouseWrapperClient( $url );
+		$params->Operation( kAPI_OP_MATCH_TERMS );
+		$params->Format( kTYPE_JSON );
+		$params->Database( 'WAREHOUSE' );
+		$params->Query( $query );
+		$params->Start( 0 );
+		$params->Limit( 3 );
+		$params->LogTrace( TRUE );
+		$params->LogRequest( TRUE );
+		//
+		// Get response.
+		//
+		$decoded = $params->Execute();
+	}
+	//
+	// Use raw parameters.
+	//
+	else
+	{
+		//
+		// Build identifiers list.
+		//
+		$query_enc = json_encode( $query );
+		//
+		// Build parameters.
+		//
+		$params = Array();
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_MATCH_TERMS;			// Command.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
+		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
+		$params[] = kAPI_DATA_QUERY.'='.urlencode( $query_enc );	// Query.
+		$params[] = kAPI_PAGE_START.'='.'0';						// Page start.
+		$params[] = kAPI_PAGE_LIMIT.'='.'3';						// Page limits.
+		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
+		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
+		//
+		// Build request.
+		//
+		$request = $url.'?'.implode( '&', $params );
+		//
+		// Get response.
+		//
+		$response = file_get_contents( $request );
+		//
+		// Decode response.
+		//
+		$decoded = json_decode( $response, TRUE );
+	}
+	//
+	// Display.
+	//
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Query:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $query ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	if( ! kUSE_CLIENT )
+	{
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.$response.kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+	}
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+	
+	/*===================================================================================
 	 *	LIST NODES (EMPTY)																*
 	 *==================================================================================*/
 	echo( '<h4>Get nodes list ('.kAPI_OP_GET_NODES.') empty</h4>' );

@@ -140,6 +140,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				// Enforce paging.
 				//
 				case kAPI_OP_GET_TERMS:
+				case kAPI_OP_MATCH_TERMS:
 				case kAPI_OP_GET_NODES:
 				case kAPI_OP_GET_EDGES:
 					//
@@ -171,6 +172,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 						switch( $_REQUEST[ kAPI_OPERATION ] )
 						{
 							case kAPI_OP_GET_TERMS:
+							case kAPI_OP_MATCH_TERMS:
 								$_REQUEST[ kAPI_CONTAINER ] = kDEFAULT_CNT_TERMS;
 								break;
 						
@@ -538,31 +540,72 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	protected function _FormatQuery()
 	{
 		//
-		// Call parent method.
+		// Parse by operation.
 		//
-		parent::_FormatQuery();
-		
-		//
-		// Handle get roots workflow.
-		//
-		if( $_REQUEST[ kAPI_OPERATION ] == kAPI_OP_GET_ROOTS )
+		switch( $_REQUEST[ kAPI_OPERATION ] )
 		{
 			//
-			// Init query.
+			// Handle match terms.
 			//
-			if( ! array_key_exists( kAPI_DATA_QUERY, $_REQUEST ) )
-				$_REQUEST[ kAPI_DATA_QUERY ] = new CMongoQuery();
+			case kAPI_OP_MATCH_TERMS:
+				//
+				// Call grandpa method.
+				//
+				CDataWrapper::_FormatQuery();
+
+				//
+				// Get query object.
+				//
+				if( array_key_exists( kAPI_DATA_QUERY, $_REQUEST ) )
+				{
+					//
+					// Create query array.
+					//
+					$list = Array();
+					foreach( $_REQUEST[ kAPI_DATA_QUERY ] as $query )
+						$list[] = new CMongoQuery( $query );
+					
+					//
+					// Replace in request.
+					//
+					$_REQUEST[ kAPI_DATA_QUERY ] = $list;
+				
+				} // Has query.
+				
+				break;
 			
 			//
-			// Add root selector.
+			// Handle get roots workflow.
 			//
-			$_REQUEST[ kAPI_DATA_QUERY ]
-				->AppendStatement(
-					CQueryStatement::Equals(
-						kTAG_DATA.'.'.kTAG_KIND, kTYPE_ROOT ),
-					kOPERATOR_AND );
-		
-		} // Get roots service.
+			case kAPI_OP_GET_ROOTS:
+				//
+				// Call parent method.
+				//
+				parent::_FormatQuery();
+				
+				//
+				// Init query.
+				//
+				if( ! array_key_exists( kAPI_DATA_QUERY, $_REQUEST ) )
+					$_REQUEST[ kAPI_DATA_QUERY ] = new CMongoQuery();
+				
+				//
+				// Add root selector.
+				//
+				$_REQUEST[ kAPI_DATA_QUERY ]
+					->AppendStatement(
+						CQueryStatement::Equals(
+							kTAG_DATA.'.'.kTAG_KIND, kTYPE_ROOT ),
+						kOPERATOR_AND );
+				break;
+			
+			//
+			// Call parent method.
+			//
+			default:
+				parent::_FormatQuery();
+				break;
+		}
 	
 	} // _FormatQuery.
 
@@ -843,6 +886,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 						  array( 'Operation' => $parameter ) );					// !@! ==>
 
 			case kAPI_OP_GET_TERMS:
+			case kAPI_OP_MATCH_TERMS:
 			case kAPI_OP_GET_NODES:
 			case kAPI_OP_GET_EDGES:
 				
@@ -869,6 +913,88 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		} // Parsing parameter.
 	
 	} // _ValidateOperation.
+
+	 
+	/*===================================================================================
+	 *	_ValidateQuery																	*
+	 *==================================================================================*/
+
+	/**
+	 * Validate query reference.
+	 *
+	 * We overload this method for handling the
+	 * {@link kAPI_OP_MATCH_TERMS kAPI_OP_MATCH_TERMS} service.
+	 *
+	 * @access protected
+	 */
+	protected function _ValidateQuery()
+	{
+		//
+		// Parse by operation.
+		//
+		if( $_REQUEST[ kAPI_OPERATION ] == kAPI_OP_MATCH_TERMS )
+		{
+			//
+			// Handle query.
+			//
+			if( array_key_exists( kAPI_DATA_QUERY, $_REQUEST )
+			 && count( $_REQUEST[ kAPI_DATA_QUERY ] ) )
+			{
+				//
+				// Iterate queries.
+				//
+				foreach( $_REQUEST[ kAPI_DATA_QUERY ] as $query )
+					$query->Validate();
+				
+				//
+				// Check container.
+				//
+				if( array_key_exists( kAPI_CONTAINER, $_REQUEST ) )
+				{
+					//
+					// Correct container type.
+					//
+					if( $_REQUEST[ kAPI_CONTAINER ] instanceof MongoCollection )
+					{
+						//
+						// Iterate queries.
+						//
+						foreach( $_REQUEST[ kAPI_DATA_QUERY ] as $key => $value )
+							$_REQUEST[ kAPI_DATA_QUERY ][ $key ]
+								= $_REQUEST[ kAPI_DATA_QUERY ][ $key ]
+									->Export( new CMongoContainer
+										( $_REQUEST[ kAPI_CONTAINER ] ) );
+					
+					} // Supported container.
+					
+					else
+						throw new CException
+							( "Unsupported container type",
+							  kERROR_UNSUPPORTED,
+							  kMESSAGE_TYPE_ERROR,
+							  array( 'Container'
+								=> $_REQUEST[ kAPI_CONTAINER ] ) );					// !@! ==>
+				
+				} // Provided container.
+				
+				else
+					throw new CException
+						( "Missing container reference",
+						  kERROR_OPTION_MISSING,
+						  kMESSAGE_TYPE_ERROR,
+						  array( 'Parameter' => kAPI_CONTAINER ) );					// !@! ==>
+			
+			} // Provided query.
+		
+		} // Matching terms.
+		
+		//
+		// Other operations.
+		//
+		else
+			parent::_ValidateQuery();
+	
+	} // _ValidateQuery.
 
 		
 
@@ -904,6 +1030,10 @@ class CWarehouseWrapper extends CMongoDataWrapper
 
 			case kAPI_OP_GET_TERMS:
 				$this->_Handle_GetTerms();
+				break;
+
+			case kAPI_OP_MATCH_TERMS:
+				$this->_Handle_MatchTerms();
 				break;
 
 			case kAPI_OP_GET_NODES:
@@ -1191,8 +1321,254 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		} // Not COUNT option.
 	
 	} // _Handle_GetTerms.
+	
+	
+	/*===================================================================================
+	 *	_Handle_MatchTerms																*
+	 *==================================================================================*/
 
-	 
+	/**
+	 * Handle {@link kAPI_OP_GET Get} request.
+	 *
+	 * This method will handle the {@link kAPI_OP_GET kAPI_OP_GET} request, which
+	 * corresponds to the find Mongo query.
+	 *
+	 * @access protected
+	 */
+	protected function _Handle_MatchTerms()
+	{
+		//
+		// Init local storage.
+		//
+		$response = array( kAPI_RESPONSE_TERMS => Array(),
+						   kAPI_RESPONSE_NODES => Array() );
+		
+		//
+		// Handle query.
+		//
+		$queries = ( array_key_exists( kAPI_DATA_QUERY, $_REQUEST ) )
+				 ? $_REQUEST[ kAPI_DATA_QUERY ]
+				 : Array();
+		
+		//
+		// Handle fields.
+		//
+		$fields = ( array_key_exists( kAPI_DATA_FIELD, $_REQUEST ) )
+				? $_REQUEST[ kAPI_DATA_FIELD ]
+				: Array();
+		
+		//
+		// Handle sort.
+		//
+		$sort = ( array_key_exists( kAPI_DATA_SORT, $_REQUEST ) )
+			  ? $_REQUEST[ kAPI_DATA_SORT ]
+			  : Array();
+		
+		//
+		// Fix fields.
+		// Need to add NODE, or we will not be able to get the node references.
+		//
+		$added1 = $added2 = FALSE;
+		if( count( $fields ) )
+		{
+			if( ! array_key_exists( kTAG_GID, $fields ) )
+			{
+				$fields[ kTAG_GID ] = TRUE;
+				$added1 = TRUE;
+			}
+			if( ! array_key_exists( kTAG_NODE, $fields ) )
+			{
+				$fields[ kTAG_NODE ] = TRUE;
+				$added2 = TRUE;
+			}
+		}
+		
+		//
+		// Init affected count.
+		//
+		$this->_OffsetManage( kAPI_DATA_STATUS, kAPI_AFFECTED_COUNT, 0 );
+		
+		//
+		// Iterate queries.
+		//
+		foreach( $queries as $query )
+		{
+			//
+			// Get cursor.
+			//
+			$cursor = $_REQUEST[ kAPI_CONTAINER ]->find( $query, $fields );
+			
+			//
+			// Get total count.
+			//
+			$count = $cursor->count( FALSE );
+			if( $count )
+			{
+				//
+				// Set total count.
+				//
+				$this->_OffsetManage( kAPI_DATA_STATUS, kAPI_AFFECTED_COUNT, $count );
+				
+				//
+				// Continue if count option is not there.
+				//
+				if( (! array_key_exists( kAPI_DATA_OPTIONS, $_REQUEST ))
+				 || (! array_key_exists( kAPI_OPT_COUNT, $_REQUEST[ kAPI_DATA_OPTIONS ] ))
+				 || (! $_REQUEST[ kAPI_DATA_OPTIONS ][ kAPI_OPT_COUNT ]) )
+				{
+					//
+					// Set sort.
+					//
+					if( $sort )
+						$cursor->sort( $sort );
+					
+					//
+					// Set paging.
+					//
+					if( $this->offsetExists( kAPI_DATA_PAGING ) )
+					{
+						//
+						// Set paging.
+						//
+						$paging = $this->offsetGet( kAPI_DATA_PAGING );
+						$start = ( array_key_exists( kAPI_PAGE_START, $paging ) )
+							   ? (int) $paging[ kAPI_PAGE_START ]
+							   : 0;
+						$limit = ( array_key_exists( kAPI_PAGE_LIMIT, $paging ) )
+							   ? (int) $paging[ kAPI_PAGE_LIMIT ]
+							   : 0;
+						
+						//
+						// Position at start.
+						//
+						if( $start )
+							$cursor->skip( $start );
+						
+						//
+						// Set limit.
+						//
+						if( $limit )
+							$cursor->limit( $limit );
+						
+						//
+						// Set page count.
+						//
+						$pcount = $cursor->count( TRUE );
+						
+						//
+						// Update parameters.
+						//
+						$this->_OffsetManage( kAPI_DATA_PAGING, kAPI_PAGE_START, $start );
+						$this->_OffsetManage( kAPI_DATA_PAGING, kAPI_PAGE_LIMIT, $limit );
+						$this->_OffsetManage( kAPI_DATA_PAGING, kAPI_PAGE_COUNT, $pcount );
+					
+					} // Provided paging options.
+					
+					//
+					// Handle response.
+					//
+					if( (! array_key_exists( kAPI_OPT_NO_RESP, $_REQUEST ))
+					 || (! $_REQUEST[ kAPI_OPT_NO_RESP ]) )
+					{
+						//
+						// Iterate results.
+						//
+						foreach( $cursor as $record )
+						{
+							//
+							// Handle term identifier.
+							//
+							$id = $record[ kTAG_GID ];
+							if( $added1 )
+								unset( $record[ kTAG_GID ] );
+							
+							//
+							// Add nodes.
+							//
+							if( array_key_exists( kTAG_NODE, $record ) )
+							{
+								foreach( $record[ kTAG_NODE ] as $node )
+									$response[ kAPI_RESPONSE_NODES ][ $node ] = $node;
+							}
+							
+							//
+							// Handle node identifiers.
+							//
+							if( $added2 )
+								unset( $record[ kTAG_NODE ] );
+							
+							//
+							// Add to terms.
+							//
+							$response[ kAPI_RESPONSE_TERMS ]
+									 [ $record[ kTAG_GID ] ] = $record;
+						
+						} // Iterating results.
+					
+					} // No response option not set.
+				
+				} // Not COUNT option.
+				
+				//
+				// Handle nodes.
+				//
+				if( count( $response[ kAPI_RESPONSE_NODES ] ) )
+				{
+					//
+					// Get nodes container.
+					//
+					$container
+						= $_REQUEST[ kAPI_CONTAINER ]->
+							db->selectCollection( kDEFAULT_CNT_NODES );
+					
+					//
+					// Create nodes query.
+					//
+					$query
+						= array(
+							kTAG_LID => array(
+								'$in' => array_values(
+									$response[ kAPI_RESPONSE_NODES ] ) ) );
+					
+					//
+					// Reset nodes list.
+					//
+					$response[ kAPI_RESPONSE_NODES ]  = Array();
+					
+					//
+					// Get nodes.
+					//
+					$cursor = $container->find( $query );
+					foreach( $cursor as $record )
+						$response[ kAPI_RESPONSE_NODES ][ $record[ kTAG_LID ] ] = $record;
+				
+				} // Found nodes.
+				
+				//
+				// Handle options.
+				//
+				if( array_key_exists( kAPI_DATA_OPTIONS, $_REQUEST ) )
+					$this->_HandleOptions( $response );
+	
+				//
+				// Serialise response.
+				//
+				CDataType::SerialiseObject( $response );
+				
+				//
+				// Set response.
+				//
+				$this->offsetSet( kAPI_DATA_RESPONSE, $response );
+				
+				break;														// =>
+			
+			} // Matched.
+		
+		} // Iterating queries.
+	
+	} // _Handle_MatchTerms.
+	
+
 	/*===================================================================================
 	 *	_Handle_GetNodes																*
 	 *==================================================================================*/
@@ -1418,7 +1794,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 					// Handle options.
 					//
 					if( array_key_exists( kAPI_DATA_OPTIONS, $_REQUEST ) )
-						$this->_HandleOptions( $result );
+						$this->_HandleOptions( $response );
 		
 					//
 					// Serialise response.
@@ -2166,6 +2542,15 @@ class CWarehouseWrapper extends CMongoDataWrapper
 			.'list of ['
 			.kAPI_OPT_IDENTIFIERS
 			.'] identifiers.';
+		
+		//
+		// Add kAPI_OP_MATCH_TERMS.
+		//
+		$theList[ kAPI_OP_MATCH_TERMS ]
+			= 'This operation will apply the provided list of ['
+			 .kAPI_DATA_QUERY
+			 .'] queries to the terms collection and return the first query match terms '
+			 .'and their related nodes.';
 		
 		//
 		// Add kAPI_OP_GET_NODES.

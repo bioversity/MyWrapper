@@ -2123,30 +2123,23 @@ try
 	//
 	// Build query.
 	//
-	$query = array
-	(
-		array
-		(
-			kAPI_QUERY_SUBJECT => 'Name',
-			kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-			kAPI_QUERY_TYPE => kTYPE_STRING,
-			kAPI_QUERY_DATA => 'Montezuma'
-		),
-		array
-		(
-			kAPI_QUERY_SUBJECT => 'Name',
-			kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-			kAPI_QUERY_TYPE => kTYPE_STRING,
-			kAPI_QUERY_DATA => 'Milko'
-		),
-		array
-		(
-			kAPI_QUERY_SUBJECT => 'Name',
-			kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-			kAPI_QUERY_TYPE => kTYPE_STRING,
-			kAPI_QUERY_DATA => 'Elisabeth'
-		)
-	);
+	$query = Array();
+	$q = new CMongoQuery();
+	$q->AppendStatement( CQueryStatement::Equals( 'Name', 'Luca', kTYPE_STRING ),
+						 kOPERATOR_AND );
+	$query[] = $q->getArrayCopy();
+	$q = new CMongoQuery();
+	$q->AppendStatement( CQueryStatement::Equals( 'Name', 'Montezuma', kTYPE_STRING ),
+						 kOPERATOR_AND );
+	$query[] = $q->getArrayCopy();
+	$q = new CMongoQuery();
+	$q->AppendStatement( CQueryStatement::Equals( 'Name', 'Milko', kTYPE_STRING ),
+						 kOPERATOR_AND );
+	$query[] = $q->getArrayCopy();
+	$q = new CMongoQuery();
+	$q->AppendStatement( CQueryStatement::Equals( 'Name', 'Elisabeth', kTYPE_STRING ),
+						 kOPERATOR_AND );
+	$query[] = $q->getArrayCopy();
 	//
 	// Build fields.
 	//
@@ -2262,24 +2255,55 @@ try
 	(
 		array
 		(
-			kAPI_QUERY_SUBJECT => 'Name',
-			kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-			kAPI_QUERY_TYPE => kTYPE_INT64,
-			kAPI_QUERY_DATA => new CDataTypeInt64( '123456789123457' )
+			kOPERATOR_AND => array
+			(
+				array
+				(
+					kAPI_QUERY_SUBJECT => 'Name',
+					kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
+					kAPI_QUERY_TYPE => kTYPE_INT64,
+					kAPI_QUERY_DATA => new CDataTypeInt64( '123456789123457' )
+				)
+			)
 		),
 		array
 		(
-			kAPI_QUERY_SUBJECT => 'Surname',
-			kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-			kAPI_QUERY_TYPE => kTYPE_INT64,
-			kAPI_QUERY_DATA => new CDataTypeInt64( '123456789123457' )
+			kOPERATOR_AND => array
+			(
+				array
+				(
+					kAPI_QUERY_SUBJECT => 'Name',
+					kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
+					kAPI_QUERY_TYPE => kTYPE_INT64,
+					kAPI_QUERY_DATA => new CDataTypeInt64( '123456789123457' )
+				)
+			)
 		),
 		array
 		(
-			kAPI_QUERY_SUBJECT => 'Number',
-			kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-			kAPI_QUERY_TYPE => kTYPE_INT64,
-			kAPI_QUERY_DATA => new CDataTypeInt64( '123456789123457' )
+			kOPERATOR_AND => array
+			(
+				array
+				(
+					kAPI_QUERY_SUBJECT => 'Surname',
+					kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
+					kAPI_QUERY_TYPE => kTYPE_INT64,
+					kAPI_QUERY_DATA => new CDataTypeInt64( '123456789123457' )
+				)
+			)
+		),
+		array
+		(
+			kOPERATOR_AND => array
+			(
+				array
+				(
+					kAPI_QUERY_SUBJECT => 'Number',
+					kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
+					kAPI_QUERY_TYPE => kTYPE_INT64,
+					kAPI_QUERY_DATA => new CDataTypeInt64( '123456789123457' )
+				)
+			)
 		)
 	);
 	//
