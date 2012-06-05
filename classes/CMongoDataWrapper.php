@@ -343,7 +343,7 @@ class CMongoDataWrapper extends CDataWrapper
 				//
 				$list = Array();
 				foreach( $_REQUEST[ kAPI_DATA_QUERY ] as $query )
-					$list[] = new CMongoQuery( array( kOPERATOR_AND => array( $query ) ) );
+					$list[] = new CMongoQuery( $query );
 				
 				//
 				// Replace in request.

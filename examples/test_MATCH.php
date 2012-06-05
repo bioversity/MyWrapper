@@ -64,51 +64,29 @@ try
 	 *	MATCH																			*
 	 *==================================================================================*/
 	echo( '<h4>Match</h4>' );
-	echo( '<i>Should return the SAMPSTAT term by matching code.</i><br>' );
 	//
 	// Build query.
 	//
-	$query = array
-	(
-		array
-		(
-			kOPERATOR_AND => array
-			(
-				array
-				(
-					kAPI_QUERY_SUBJECT => kTAG_LID,
-					kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-					kAPI_QUERY_TYPE => kTYPE_BINARY,
-					kAPI_QUERY_DATA => new CDataTypeBinary( md5( 'ITPGRFA:ANNEX1-CROP', TRUE ) )
-				),
-				array
-				(
-					kAPI_QUERY_SUBJECT => kTAG_NODE,
-					kAPI_QUERY_OPERATOR => kOPERATOR_NOT_NULL
-				)
-			)
-		),
-		array
-		(
-			kOPERATOR_AND => array
-			(
-				kAPI_QUERY_SUBJECT => kTAG_CODE,
-				kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-				kAPI_QUERY_TYPE => kTYPE_STRING,
-				kAPI_QUERY_DATA => 'SAMPSTAT'
-			)
-		),
-		array
-		(
-			kOPERATOR_AND => array
-			(
-				kAPI_QUERY_SUBJECT => kTAG_NAME.':'.kTAG_DATA,
-				kAPI_QUERY_OPERATOR => kOPERATOR_CONTAINS_NOCASE,
-				kAPI_QUERY_TYPE => kTYPE_STRING,
-				kAPI_QUERY_DATA => 'sampstat'
-			)
-		)
-	);
+	$query = Array();
+	$q = new CMongoQuery();
+	$q->AppendStatement(
+			CQueryStatement::Equals(
+				kTAG_LID,
+				new CDataTypeBinary( md5( 'ITPGRFA:ANNEX1-CROP', TRUE ) ),
+				kTYPE_BINARY ),
+			kOPERATOR_AND );
+	$query[] = $q->getArrayCopy();
+	$q->AppendStatement( CQueryStatement::Exists( kTAG_NODE ) );
+	$query[] = $q->getArrayCopy();
+
+	$q = new CMongoQuery();
+	$q->AppendStatement( CQueryStatement::Equals( kTAG_CODE, 'SAMPSTAT' ), kOPERATOR_AND );
+	$query[] = $q->getArrayCopy();
+	$q = new CMongoQuery();
+	$q->AppendStatement(
+			CQueryStatement::ContainsNoCase(
+				kTAG_NAME.':'.kTAG_DATA, 'sampstat' ), kOPERATOR_AND );
+	$query[] = $q->getArrayCopy();
 	//
 	// Build fields.
 	//
@@ -220,30 +198,33 @@ try
 	//
 	// Build query.
 	//
-	$query = array
-	(
-		array
-		(
-			kAPI_QUERY_SUBJECT => kTAG_GID,
-			kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-			kAPI_QUERY_TYPE => kTYPE_STRING,
-			kAPI_QUERY_DATA => 'MCPD:SAMPSTAT:100'
-		),
-		array
-		(
-			kAPI_QUERY_SUBJECT => kTAG_CODE,
-			kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-			kAPI_QUERY_TYPE => kTYPE_STRING,
-			kAPI_QUERY_DATA => 'MCPD:SAMPSTAT:100'
-		),
-		array
-		(
-			kAPI_QUERY_SUBJECT => kTAG_NAME.':'.kTAG_DATA,
-			kAPI_QUERY_OPERATOR => kOPERATOR_CONTAINS_NOCASE,
-			kAPI_QUERY_TYPE => kTYPE_STRING,
-			kAPI_QUERY_DATA => 'MCPD:SAMPSTAT:100'
-		)
-	);
+	$query = Array();
+	$q = new CMongoQuery();
+	$q->AppendStatement(
+			CQueryStatement::Equals(
+				kTAG_GID,
+				'MCPD:SAMPSTAT:100',
+				kTYPE_STRING ),
+			kOPERATOR_AND );
+	$query[] = $q->getArrayCopy();
+
+	$q = new CMongoQuery();
+	$q->AppendStatement(
+			CQueryStatement::Equals(
+				kTAG_CODE,
+				'MCPD:SAMPSTAT:100',
+				kTYPE_STRING ),
+			kOPERATOR_AND );
+	$query[] = $q->getArrayCopy();
+
+	$q = new CMongoQuery();
+	$q->AppendStatement(
+			CQueryStatement::Equals(
+				kTAG_NAME.':'.kTAG_DATA,
+				'MCPD:SAMPSTAT:100',
+				kTYPE_STRING ),
+			kOPERATOR_AND );
+	$query[] = $q->getArrayCopy();
 	//
 	// Build fields.
 	//
@@ -355,30 +336,30 @@ try
 	//
 	// Build query.
 	//
-	$query = array
-	(
-		array
-		(
-			kAPI_QUERY_SUBJECT => kTAG_GID,
-			kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-			kAPI_QUERY_TYPE => kTYPE_STRING,
-			kAPI_QUERY_DATA => 'Italian'
-		),
-		array
-		(
-			kAPI_QUERY_SUBJECT => kTAG_CODE,
-			kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
-			kAPI_QUERY_TYPE => kTYPE_STRING,
-			kAPI_QUERY_DATA => 'Italian'
-		),
-		array
-		(
-			kAPI_QUERY_SUBJECT => kTAG_NAME.'.'.kTAG_DATA,
-			kAPI_QUERY_OPERATOR => kOPERATOR_CONTAINS_NOCASE,
-			kAPI_QUERY_TYPE => kTYPE_STRING,
-			kAPI_QUERY_DATA => 'italian'
-		)
-	);
+	$query = Array();
+	$q = new CMongoQuery();
+	$q->AppendStatement(
+			CQueryStatement::Contains(
+				kTAG_GID,
+				'Italian' ),
+			kOPERATOR_AND );
+	$query[] = $q->getArrayCopy();
+
+	$q = new CMongoQuery();
+	$q->AppendStatement(
+			CQueryStatement::Contains(
+				kTAG_CODE,
+				'Italian' ),
+			kOPERATOR_AND );
+	$query[] = $q->getArrayCopy();
+
+	$q = new CMongoQuery();
+	$q->AppendStatement(
+			CQueryStatement::ContainsNoCase(
+				kTAG_NAME.'.'.kTAG_DATA,
+				'italian' ),
+			kOPERATOR_AND );
+	$query[] = $q->getArrayCopy();
 	//
 	// Build fields.
 	//
