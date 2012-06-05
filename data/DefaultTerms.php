@@ -4437,8 +4437,7 @@ EOT;
 						 .$term->Name( NULL, kDEFAULT_LANGUAGE )
 						 ." ["
 						 .$node->Node()->getId()
-						 ."]
-" );
+						 ."]\n" );
 			}
 			else
 				$term_alt2 = NULL;
@@ -6049,6 +6048,7 @@ EOT;
 		$node = new COntologyNode( $container );
 		$node->Term( $term );
 		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
 		$node->Domain( kDOMAIN_GEOGRAPHY, TRUE );
 		$node->Category( kCATEGORY_ADMIN, TRUE );
 		$node->Commit( $container );
@@ -6070,47 +6070,47 @@ EOT;
 				 ."\n" );
 	 
 		/*================================================================================
-		 *	ISO 3166-1 ALPHA-3															 *
+		 *	ISO 3166-1 ALPHA-3 COUNTRY CODES											 *
 		 *===============================================================================*/
-
+		
 		//
 		// Prepare container.
 		//
 		$temp_container = array( kTAG_NODE => $_SESSION[ kSESSION_NEO4J ],
 								 kTAG_TERM => $theContainer->Database() );
+		$edge_container = $theContainer->Database()->selectCollection( kDEFAULT_CNT_EDGES );
 
 		//
 		// Prepare query.
 		//
-		$query = new CMongoQuery();
-		$query->AppendStatement(
-			CQueryStatement::Equals(
-				kTAG_DATA.'.'.kTAG_TERM, 'ISO:3166:1:ALPHA-3' ),
-			kOPERATOR_AND );
+		$query = array( kTAG_OBJECT.'.'.kTAG_TERM => 'ISO:3166:1:ALPHA-3',
+						kTAG_SUBJECT.'.'.kTAG_TERM => new MongoRegex( '/^ISO:3166:1:/' ),
+						kTAG_PREDICATE.'.'.kTAG_TERM => kPRED_ENUM_OF );
 
 		//
-		// Get index.
+		// Prepare fields.
 		//
-		$index = new COntologyNodeIndex( $query, $temp_container );
+		$fields = array( kTAG_SUBJECT => TRUE );
 		
 		//
-		// Get node.
+		// Get all ALPHA 3 children.
 		//
-		$scale_node = new COntologyNode( $container, $index->Node() );
-		
-		//
-		// Edge.
-		//
-		$edge = $scale_node->RelateTo( $container, $scale_of, $node );
-		$edge->Commit( $container );
-		
-		//
-		// Display.
-		//
-		if( $doDisplay )
-			echo( "[$term] => [ISO:3166:1:ALPHA-3] ["
-				 .$edge->Node()->getId()
-				 ."]\n" );
+		$found = $edge_container->find( $query, $fields );
+		foreach( $found as $element )
+		{
+			//
+			// Get country node.
+			//
+			$country
+				= new COntologyNode
+					( $container, $element[ kTAG_SUBJECT ][ kTAG_NODE ] );
+			
+			//
+			// Relate to MCPD.
+			//
+			$edge = $country->RelateTo( $container, $enum_of, $node );
+			$edge->Commit( $container );
+		}
 	 
 		/*================================================================================
 		 *	COLLSITE																	 *

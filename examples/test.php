@@ -514,14 +514,13 @@ $edge->getEndNode()->load();
 echo( '<pre>' );
 print_r( $edge );
 echo( '</pre><hr>' );
-*/
 
 //
 // Collection selection.
 //
 $mongo = New Mongo();
-$db = $mongo->selectDB( 'TEST' );
-$collection = $db->selectCollection( 'NODES' );
+$db = $mongo->selectDB( 'WAREHOUSE' );
+$collection = $db->selectCollection( 'EDGES' );
 
 //
 // Build query.
@@ -538,5 +537,25 @@ $ok = $collection->update( $criteria, $modification, $options );
 echo( '<pre>' );
 print_r( $ok );
 echo( '</pre>' );
+*/
+
+//
+// Collection selection.
+//
+$mongo = New Mongo();
+$db = $mongo->selectDB( 'WAREHOUSE' );
+$collection = $db->selectCollection( 'EDGES' );
+
+//
+// Build query.
+//
+$query = array( ':OBJECT.:TERM' => 'ISO:3166:1:ALPHA-3',
+				':SUBJECT.:TERM' => new MongoRegex( '/^ISO:3166:1:/' ),
+				':PREDICATE.:TERM' => ':ENUM-OF' );
+//
+// Execute.
+//
+$found = $collection->find( $query );
+echo( $found->count() );
 
 ?>
