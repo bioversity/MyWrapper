@@ -252,6 +252,13 @@ define( "kTAG_NAMESPACE",						':NS' );
 define( "kTAG_TERM",							':TERM' );
 
 /**
+ * Tag offset.
+ *
+ * This tag is used as the default offset for indicating a tag.
+ */
+define( "kTAG_TAG",								':TAG' );
+
+/**
  * Graph node offset.
  *
  * This tag is used as the default offset for indicating a graph node.
@@ -371,6 +378,15 @@ define( "kTAG_ANNOTATION",						':ANNOTATION' );
  * </ul>
  */
 define( "kTAG_REFS",							':REFS' );
+
+/**
+ * References count tag.
+ *
+ * This is the tag that represents the references count of an object, it is an integer
+ * representing the number of times the object was referenced. It is used in general to
+ * count the number of term data instances.
+ */
+define( "kTAG_REF_COUNT",						':REF-COUNT' );
 
 /**
  * Tags.

@@ -537,7 +537,6 @@ $ok = $collection->update( $criteria, $modification, $options );
 echo( '<pre>' );
 print_r( $ok );
 echo( '</pre>' );
-*/
 
 //
 // Collection selection.
@@ -557,5 +556,60 @@ $query = array( ':OBJECT.:TERM' => 'ISO:3166:1:ALPHA-3',
 //
 $found = $collection->find( $query );
 echo( $found->count() );
+*/
+
+//
+// Includes.
+//
+require_once( "/Library/WebServer/Library/wrapper/includes.inc.php" );
+require_once( "/Library/WebServer/Library/wrapper/classes/CGraphNode.inc.php" );
+
+use Everyman\Neo4j\Transport,
+	Everyman\Neo4j\Client,
+	Everyman\Neo4j\Index\NodeIndex,
+	Everyman\Neo4j\Index\RelationshipIndex,
+	Everyman\Neo4j\Index\NodeFulltextIndex,
+	Everyman\Neo4j\Node,
+	Everyman\Neo4j\Relationship,
+	Everyman\Neo4j\Batch;
+
+//
+// Get connected.
+//
+$db = new Everyman\Neo4j\Client( 'localhost', 7474 );
+
+//
+// Create node with ID.
+//
+echo( '<i>$node = $db->getNode( 10000, TRUE );</i><br>' );
+$node = $db->getNode( 10000, TRUE );
+echo( '<pre>' );
+print_r( $node );
+echo( '</pre><hr>' );
+
+//
+// Check ID.
+//
+echo( '<i>$id = $node->getId();</i><br>' );
+$id = $node->getId();
+echo( "ID: $id<br>" );
+
+//
+// Load node.
+//
+echo( '<i>$node->setProperties( array( \'Uno\' => 1, \'Due\' => 2 ) );</i><br>' );
+$node->setProperties( array( 'Uno' => 1, 'Due' => 2 ) );
+echo( '<pre>' );
+print_r( $node );
+echo( '</pre><hr>' );
+
+//
+// Save node.
+//
+echo( '<i>$node->save();</i><br>' );
+$node->save();
+echo( '<pre>' );
+print_r( $node );
+echo( '</pre><hr>' );
 
 ?>

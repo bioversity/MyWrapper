@@ -443,8 +443,11 @@ abstract class CPersistentUnitObject extends CPersistentObject
 	 *
 	 * This method can be used to format an identifier provided as a string, it will be
 	 * used by the {@link _id() _id} method to format the result of the
-	 * {@link _index() _index} method. One can consider this as the index hashing method for
-	 * all derived classes.
+	 * {@link _index() _index} method.
+	 *
+	 * All derived classes will call this method to format the object {@link kTAG_LID ID},
+	 * so you should overload this method in classes where the current behaviour is not
+	 * desirable.
 	 *
 	 * @param string				$theValue			Value to hash.
 	 *
@@ -454,7 +457,6 @@ abstract class CPersistentUnitObject extends CPersistentObject
 	static function HashIndex( $theValue )
 	{
 		return new CDataTypeBinary( md5( $theValue, TRUE ) );						// ==>
-//		return $theValue;															// ==>
 	
 	} // HashIndex.
 

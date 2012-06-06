@@ -135,7 +135,7 @@ define( "kTYPE_REGEX",						':RGEX' );				// Regular expression.
  *		univoque.
  * </ul>
  */
-define( "kTYPE_REF",						':REF' );				// Timestamp.
+define( "kTYPE_REF",						':REF' );				// Object reference.
 
 /**
  * Timestamp type.
@@ -350,6 +350,13 @@ define( "kTYPE_METHOD",						':METHOD' );
  * This is the tag that represents a measure term.
  */
 define( "kTYPE_MEASURE",					':MEASURE' );
+
+/**
+ * Annotation.
+ *
+ * This is the tag that represents an annotation term.
+ */
+define( "kTYPE_ANNOTATION",					':ANNOTATION' );
 
 /**
  * Enumeration.

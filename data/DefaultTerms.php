@@ -252,7 +252,7 @@ exit( "Done!\n" );
 		} // Erase database.
 		
 		//
-		// Select collection.
+		// Select terms collection.
 		//
 		$collection = $_SESSION[ kSESSION_DATABASE ]->selectCollection( $theContainer );
 		
@@ -1140,6 +1140,11 @@ exit( "Done!\n" );
 				   'syn' => 'kTYPE_ATTRIBUTE',
 				   'nam' => 'Attribute',
 				   'def' => 'This term represents a generic attribute.' ),
+			array( 'id'	=> kTYPE_ANNOTATION,
+				   'syn' => 'kTYPE_ANNOTATION',
+				   'nam' => 'Annotation',
+				   'def' => 'This term represents an annotation term, this type '
+						   .'of term is used to tag data elements.' ),
 			array( 'id'	=> kTYPE_ENUMERATION,
 				   'syn' => 'kTYPE_ENUMERATION',
 				   'nam' => 'Enumeration',
@@ -1862,6 +1867,12 @@ exit( "Done!\n" );
 				   'typ' => 'kTYPE_STRING',
 				   'nam' => 'Term',
 				   'def' => 'This term is used to indicate a graph node term.' ),
+			array( 'id'	=> kTAG_TAG,
+				   'syn' => 'kTAG_TAG',
+				   'car' => 'kCARD_1',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'Tag',
+				   'def' => 'This term is used to indicate a tag or an annotation term.' ),
 			array( 'id'	=> kTAG_NODE,
 				   'syn' => 'kTAG_NODE',
 				   'car' => 'kCARD_ANY',
@@ -1945,6 +1956,13 @@ exit( "Done!\n" );
 				   'nam' => 'References',
 				   'def' => 'This term represents the list of references of an object, '
 				   		   .'it describes a list of predicate/object pairs.' ),
+			array( 'id'	=> kTAG_REF_COUNT,
+				   'syn' => 'kTAG_REF_COUNT',
+				   'car' => 'kCARD_1',
+				   'typ' => 'kTYPE_INT64',
+				   'nam' => 'References count',
+				   'def' => 'This term represents the count of references of an object, '
+				   		   .'it indicates.' ),
 			array( 'id'	=> kTAG_TAGS,
 				   'syn' => 'kTAG_TAGS',
 				   'car' => 'kCARD_ANY',
@@ -6033,7 +6051,7 @@ EOT;
 			$term->Code( 'ORIGCTY' );
 			$term->Name( 'Country of origin', kDEFAULT_LANGUAGE );
 			$term->Definition
-			( 'ode of the country in which the sample was originally collected.',
+			( 'Code of the country in which the sample was originally collected.',
 			  kDEFAULT_LANGUAGE );
 			$term->Domain( kDOMAIN_GEOGRAPHY, TRUE );
 			$term->Category( kCATEGORY_ADMIN, TRUE );
@@ -7226,6 +7244,31 @@ EOT;
 			$term->Examples( 'COLLSRC:roadside', TRUE );
 			$term->Commit( $theContainer );
 		}
+		
+		//
+		// Node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'NICODE' ] = $node;
+		
+		//
+		// Edge.
+		//
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'MCPD' ] );
+		$edge->Commit( $container );
+		
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 	 
 		/*================================================================================
 		 *	NICODE																		 *
