@@ -82,6 +82,13 @@ require_once( kPATH_LIBRARY_SOURCE."COntologyTerm.php" );
  */
 require_once( kPATH_LIBRARY_SOURCE."CFAOInstitute.php" );
 
+/**
+ * Users.
+ *
+ * This include file contains the user terms class definitions.
+ */
+require_once( kPATH_LIBRARY_SOURCE."CUser.inc.php" );
+
 //
 // Class includes.
 //
@@ -141,6 +148,7 @@ try
 	LoadTermTypes( $_SESSION[ kSESSION_CONTAINER ], TRUE );
 	LoadCardinalityTypes( $_SESSION[ kSESSION_CONTAINER ], TRUE );
 	LoadOperatorTypes( $_SESSION[ kSESSION_CONTAINER ], TRUE );
+	LoadEntityTypes( $_SESSION[ kSESSION_CONTAINER ], TRUE );
 	LoadCustomTypes( $_SESSION[ kSESSION_CONTAINER ], TRUE );
 	
 	//
@@ -165,6 +173,7 @@ try
 	LoadUnStatsRegions( $_SESSION[ kSESSION_CONTAINER ], TRUE );
 	LoadISO( $_SESSION[ kSESSION_CONTAINER ], TRUE );
 	LoadMCPD( $_SESSION[ kSESSION_CONTAINER ], TRUE );
+	LoadFAOInstituteDDict( $_SESSION[ kSESSION_CONTAINER ], TRUE );
 
 	//
 	// Connect.
@@ -298,7 +307,7 @@ exit( "Done!\n" );
 		}
 		
 		//
-		// Init local storage.
+		// Set default namespaces.
 		//
 		$components = array
 		(
@@ -307,7 +316,74 @@ exit( "Done!\n" );
 				   'def' => 'The default namespace is used to qualify all attributes and '
 						   .'other terms that constitute the default vocabulary for the '
 						   .'ontology. Elements of this namespace will be used to build '
-						   .'ontologies.' )
+						   .'ontologies.' ),
+			array( 'id'	=> kTAG_ENTITY,
+				   'syn' => 'kTAG_ENTITY',
+				   'nam' => 'Entity',
+				   'def' => 'This term is used to indicate an entity.' )
+		);
+		
+		//
+		// Load terms.
+		//
+		$default = NULL;
+		foreach( $components as $component )
+		{
+			//
+			// Instantiate term.
+			//
+			$term = new COntologyTerm( $theContainer, 
+									   COntologyTerm::HashIndex( $component[ 'id' ] ) );
+			if( ! $term->Persistent() )
+			{
+				if( $default !== NULL )
+				{
+					$term->NS( $default );
+					$term->Code( substr( $component[ 'id' ], strlen( $default ) + 1 ) );
+				}
+				else
+					$term->Code( $component[ 'id' ] );
+				$term->Kind( kTYPE_NAMESPACE, TRUE );
+				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
+				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
+				if( array_key_exists( 'syn', $component ) )
+					$term->Synonym( $component[ 'syn' ], kTYPE_EXACT, TRUE );
+				$term->Commit( $theContainer );
+				if( $default === NULL )
+					$default = $term;
+				
+				//
+				// Display.
+				//
+				if( $doDisplay )
+					echo( "[$term] ".$term->Name( NULL, kDEFAULT_LANGUAGE )."\n" );
+			}
+		}
+		
+		//
+		// Set other namespaces.
+		//
+		$components = array
+		(
+			array( 'id'	=> 'ECPGR',
+				   'nam' => 'European Cooperative Programme for Plant Genetic Resources',
+				   'def' => 'The European Cooperative Programme for Plant Genetic '
+				   		   .'Resources (ECPGR) is a collaborative programme among most '
+				   		   .'European countries aimed at ensuring the long-term '
+				   		   .'conservation and facilitating the increased utilization '
+				   		   .'of plant genetic resources in Europe.',
+				   'url' => 'http://www.ecpgr.cgiar.org/' ),
+			array( 'id'	=> 'FAO',
+				   'nam' => 'Food and Agriculture Organization of the United Nations',
+				   'def' => 'Food and Agriculture Organization of the United Nations '
+				   		   .'(FAO).',
+				   'url' => 'http://www.fao.org/' ),
+			array( 'id'	=> 'FAO:INST',
+				   'ns' => 'FAO',
+				   'nam' => 'World Information and Early Warning System Institute',
+				   'def' => 'World Information and Early Warning System on PGRFA '
+				   		   .'institute database entry.',
+				   'url' => 'http://apps3.fao.org/wiews/institute_query.htm?i_l=EN' )
 		);
 		
 		//
@@ -322,10 +398,23 @@ exit( "Done!\n" );
 									   COntologyTerm::HashIndex( $component[ 'id' ] ) );
 			if( ! $term->Persistent() )
 			{
-				$term->Code( $component[ 'id' ] );
+				if( array_key_exists( 'ns', $component ) )
+				{
+					$ns = new COntologyTerm(
+							$theContainer, COntologyTerm::HashIndex(
+								$component[ 'ns' ] ) );
+					$term->NS( $ns );
+					$term->Code( substr( $component[ 'id' ], strlen( $ns ) + 1 ) );
+				}
+				else
+					$term->Code( $component[ 'id' ] );
 				$term->Kind( kTYPE_NAMESPACE, TRUE );
 				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
 				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
+				if( array_key_exists( 'syn', $component ) )
+					$term->Synonym( $component[ 'syn' ], kTYPE_EXACT, TRUE );
+				if( array_key_exists( 'url', $component ) )
+					$term[ kOFFSET_URL ] = $component[ 'url' ];
 				$term->Commit( $theContainer );
 				
 				//
@@ -1476,6 +1565,97 @@ exit( "Done!\n" );
 
 	 
 	/*===================================================================================
+	 *	LoadEntityTypes																	*
+	 *==================================================================================*/
+
+	/**
+	 * Load entity types.
+	 *
+	 * This function will load all default entity types.
+	 *
+	 * If the last parameter is <i>TRUE</i>, the function will display the name of the
+	 * created terms.
+	 *
+	 * @param CContainer			$theContainer		Collection.
+	 * @param boolean				$doDisplay			Display created terms.
+	 *
+	 * @access protected
+	 */
+	function LoadEntityTypes( CContainer $theContainer, $doDisplay = TRUE )
+	{
+		//
+		// Inform.
+		//
+		if( $doDisplay )
+		{
+			echo( "\n".__FUNCTION__."\n" );
+			echo( "------------------\n" );
+		}
+		
+		//
+		// Init local storage.
+		//
+		$components = array
+		(
+			array( 'id'	=> kENTITY_INST,
+				   'syn' => 'kENTITY_INST',
+				   'nam' => 'Institute',
+				   'def' => 'Institute, organisation or institution.' ),
+			array( 'id'	=> kENTITY_INST_FAO,
+				   'syn' => 'kENTITY_INST_FAO',
+				   'nam' => 'FAO/WIEWS institute',
+				   'def' => 'An institute listed in the FAO/WIEWS institutes database.' ),
+			array( 'id'	=> kENTITY_USER,
+				   'syn' => 'kENTITY_USER',
+				   'nam' => 'User',
+				   'def' => 'User or person.' )
+		);
+		
+		//
+		// Save common namespace.
+		//
+		$namespace = new COntologyTerm( $theContainer,
+										COntologyTerm::HashIndex( kTAG_ENTITY ) );
+		
+		//
+		// Get namespace length.
+		//
+		$len = strlen( $namespace ) + 1;
+		
+		//
+		// Load terms.
+		//
+		foreach( $components as $component )
+		{
+			//
+			// Create term.
+			//
+			$term = new COntologyTerm( $theContainer, 
+									   COntologyTerm::HashIndex( $component[ 'id' ] ) );
+			if( ! $term->Persistent() )
+			{
+				$term->NS( $namespace );
+				$term->Code( substr( $component[ 'id' ], $len ) );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
+				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
+				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
+				$term->Synonym( $component[ 'syn' ], kTYPE_EXACT, TRUE );
+				$term->Commit( $theContainer );
+				
+				//
+				// Display.
+				//
+				if( $doDisplay )
+					echo( "[$term] (".$component[ 'syn' ].") "
+						 .$term->Name( NULL, kDEFAULT_LANGUAGE )
+						 ."\n" );
+			}
+		}
+	
+	} // LoadEntityTypes.
+
+	 
+	/*===================================================================================
 	 *	LoadIdentifierTerms																*
 	 *==================================================================================*/
 
@@ -1956,6 +2136,12 @@ exit( "Done!\n" );
 				   'nam' => 'References',
 				   'def' => 'This term represents the list of references of an object, '
 				   		   .'it describes a list of predicate/object pairs.' ),
+			array( 'id'	=> kTAG_COUNT,
+				   'syn' => 'kTAG_COUNT',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_INT64',
+				   'nam' => 'Count',
+				   'def' => 'This term represents a generic count.' ),
 			array( 'id'	=> kTAG_REF_COUNT,
 				   'syn' => 'kTAG_REF_COUNT',
 				   'car' => 'kCARD_1',
@@ -2079,7 +2265,58 @@ exit( "Done!\n" );
 				   'nam' => 'Flag vector image',
 				   'def' => 'A flag is the image of a flag or an icon symbol representing '
 				   		   .'an object, the vector flag is a vector version of this image '
-				   		   .'which can be resized at will.' )
+				   		   .'which can be resized at will.' ),
+			array( 'id'	=> kENTITY_INST_FAO_EPACRONYM,
+				   'syn' => 'kENTITY_INST_FAO_EPACRONYM',
+				   'ns' => 'ECPGR',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'ECPGR institute acronym',
+				   'def' => 'ECPGR institute acronym.' ),
+			array( 'id'	=> kENTITY_INST_FAO_TYPE,
+				   'syn' => 'kENTITY_INST_FAO_TYPE',
+				   'ns' => 'FAO:INST',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'FAO/WIEWS institute types set',
+				   'def' => 'FAO/WIEWS institute types enumeration set.' ),
+			array( 'id'	=> kENTITY_INST_FAO_LAT,
+				   'syn' => 'kENTITY_INST_FAO_LAT',
+				   'ns' => 'FAO:INST',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_INT32',
+				   'nam' => 'FAO/WIEWS institute latitude',
+				   'def' => 'FAO/WIEWS institute latitude.' ),
+			array( 'id'	=> kENTITY_INST_FAO_LON,
+				   'syn' => 'kENTITY_INST_FAO_LON',
+				   'ns' => 'FAO:INST',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_INT32',
+				   'nam' => 'FAO/WIEWS institute longitude',
+				   'def' => 'FAO/WIEWS institute longitude.' ),
+			array( 'id'	=> kENTITY_INST_FAO_ALT,
+				   'syn' => 'kENTITY_INST_FAO_ALT',
+				   'ns' => 'FAO:INST',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_INT32',
+				   'nam' => 'FAO/WIEWS institute elevation',
+				   'def' => 'FAO/WIEWS institute elevation.' ),
+			array( 'id'	=> kENTITY_INST_FAO_ACT_PGR,
+				   'syn' => 'kENTITY_INST_FAO_ACT_PGR',
+				   'ns' => 'FAO:INST',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'FAO/WIEWS institute PGR activity enumeration',
+				   'def' => 'This enumeration indicates that the institute manages '
+						   .'plant genetic resources.' ),
+			array( 'id'	=> kENTITY_INST_FAO_ACT_COLL,
+				   'syn' => 'kENTITY_INST_FAO_ACT_COLL',
+				   'ns' => 'FAO:INST',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'FAO/WIEWS institute collection management enumeration',
+				   'def' => 'This enumeration indicates that the institute manages a '
+				   		   .'germplasm collection.' ),
 		);
 		
 		//
@@ -2104,8 +2341,19 @@ exit( "Done!\n" );
 									   COntologyTerm::HashIndex( $component[ 'id' ] ) );
 			if( ! $term->Persistent() )
 			{
-				$term->NS( $namespace );
-				$term->Code( substr( $component[ 'id' ], $len ) );
+				if( array_key_exists( 'ns', $component ) )
+				{
+					$ns = new COntologyTerm(
+							$theContainer, COntologyTerm::HashIndex(
+								$component[ 'ns' ] ) );
+					$term->NS( $ns );
+					$term->Code( substr( $component[ 'id' ], strlen( $ns ) + 1 ) );
+				}
+				else
+				{
+					$term->NS( $namespace );
+					$term->Code( substr( $component[ 'id' ], $len ) );
+				}
 				$term->Kind( kTYPE_ATTRIBUTE, TRUE );
 				$term->Cardinality( $component[ 'car' ] );
 				if( array_key_exists( 'typ', $component ) )
@@ -5444,7 +5692,7 @@ EOT;
 		$node->Kind( kTYPE_TRAIT, TRUE );
 		$node->Kind( kTYPE_MEASURE, TRUE );
 		$node->Commit( $container );
-		$nodes[ 'INSTCODE' ] = $node;
+		$_SESSION[ 'NODES' ][ 'INSTCODE' ] = $nodes[ 'INSTCODE' ] = $node;
 		
 		//
 		// Edge.
@@ -5590,7 +5838,7 @@ EOT;
 			$term->Pattern( '[A-Z]{3}[0-9]{3,4}' );
 			$term->Examples( 'COL002', TRUE );
 			$term->Examples( 'USA1001', TRUE );
-			$term->Xref( $nodes[ 'INSTCODE' ], kTYPE_RELATED, TRUE );
+			$term->Xref( $_SESSION[ 'NODES' ][ 'INSTCODE' ], kTYPE_RELATED, TRUE );
 			$term->Commit( $theContainer );
 		}
 		
@@ -6423,7 +6671,7 @@ EOT;
 			$term->Pattern( '[A-Z]{3}[0-9]{3,4}' );
 			$term->Examples( 'COL002', TRUE );
 			$term->Examples( 'USA1001', TRUE );
-			$term->Xref( $nodes[ 'INSTCODE' ], kTYPE_RELATED, TRUE );
+			$term->Xref( $_SESSION[ 'NODES' ][ 'INSTCODE' ], kTYPE_RELATED, TRUE );
 			$term->Commit( $theContainer );
 		}
 		
@@ -6861,7 +7109,7 @@ EOT;
 			$term->Pattern( '[A-Z]{3}[0-9]{3,4}' );
 			$term->Examples( 'COL002', TRUE );
 			$term->Examples( 'USA1001', TRUE );
-			$term->Xref( $nodes[ 'INSTCODE' ], kTYPE_RELATED, TRUE );
+			$term->Xref( $_SESSION[ 'NODES' ][ 'INSTCODE' ], kTYPE_RELATED, TRUE );
 			$term->Commit( $theContainer );
 		}
 		
@@ -6969,7 +7217,7 @@ EOT;
 			$term->Examples( ':WAB001', TRUE );
 			$term->Examples( 'SWE002:NGB1912;NLD037:CGN00254', TRUE );
 			$term->Examples( 'SWE002:NGB1912;:Bra2343', TRUE );
-			$term->Xref( $nodes[ 'INSTCODE' ], kTYPE_RELATED, TRUE );
+			$term->Xref( $_SESSION[ 'NODES' ][ 'INSTCODE' ], kTYPE_RELATED, TRUE );
 			$term->Xref( $nodes[ 'ACCENUMB' ], kTYPE_RELATED, TRUE );
 			$term->Commit( $theContainer );
 		}
@@ -7023,7 +7271,7 @@ EOT;
 			$term->Pattern( '[A-Z]{3}[0-9]{3,4}' );
 			$term->Examples( 'COL002', TRUE );
 			$term->Examples( 'USA1001', TRUE );
-			$term->Xref( $nodes[ 'INSTCODE' ], kTYPE_RELATED, TRUE );
+			$term->Xref( $_SESSION[ 'NODES' ][ 'INSTCODE' ], kTYPE_RELATED, TRUE );
 			$term->Commit( $theContainer );
 		}
 		
@@ -7685,6 +7933,968 @@ EOT;
 				 ."\n" );
 		
 	} // LoadMCPD.
+
+
+	/*===================================================================================
+	 *	LoadFAOInstituteDDict															*
+	 *==================================================================================*/
+
+	/**
+	 * Load MCPD.
+	 *
+	 * Load FAO/WIEWS institutes data sictionary.
+	 *
+	 * This function will load the FAO/WIEWS institutes ontology.
+	 *
+	 * If the last parameter is <i>TRUE</i>, the function will display the name of the
+	 * created terms.
+	 *
+	 * @param CContainer			$theContainer		Collection.
+	 * @param boolean				$doDisplay			Display created terms.
+	 *
+	 * @access protected
+	 */
+	function LoadFAOInstituteDDict( CContainer $theContainer, $doDisplay = TRUE )
+	{
+		//
+		// Init local storage.
+		//
+		$nodes = Array();
+		$container = array( kTAG_TERM => $theContainer,
+							kTAG_NODE => $_SESSION[ kSESSION_NEO4J ] );
+		
+		//
+		// Inform.
+		//
+		if( $doDisplay )
+		{
+			echo( "\n".__FUNCTION__."\n" );
+			echo( "------------------\n" );
+		}
+		
+		//
+		// IS-A.
+		//
+		$is_a = new COntologyTerm
+						( $theContainer, COntologyTerm::HashIndex( kPRED_IS_A ) );
+		
+		//
+		// Get FAO institutes namespace.
+		//
+		$ns = new COntologyTerm( $theContainer, COntologyTerm::HashIndex( 'FAO:INST' ) );
+		$len = strlen( (string) $ns ) + 1;
+		
+		//
+		// Create node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $ns );
+		$node->Kind( kTYPE_ROOT, TRUE );
+		$node->Commit( $container );
+		//
+		// Save node.
+		//
+		$nodes[ 'FAO:INST' ] = $node;
+	 
+		/*================================================================================
+		 *	INSTCODE																	 *
+		 *===============================================================================*/
+
+		//
+		// Node.
+		//
+		$node = $_SESSION[ 'NODES' ][ 'INSTCODE' ];
+		
+		//
+		// Edge.
+		//
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'FAO:INST' ] );
+		$edge->Commit( $container );
+		
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[".$node->Term()->GID()."] "
+				 .$node->Term()->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+	 
+		/*================================================================================
+		 *	ACRONYM																		 *
+		 *===============================================================================*/
+
+		//
+		// Term.
+		//
+		$term
+			= new COntologyTerm
+				( $theContainer, COntologyTerm::HashIndex( 'FAO:INST:ACRONYM' ) );
+		if( ! $term->Persistent() )
+		{
+			$term->NS( $ns );
+			$term->Code( 'ACRONYM' );
+			$term->Name( 'Collecting number', kDEFAULT_LANGUAGE );
+			$term->Definition
+			( 'Original number assigned by the collector(s) of the sample, normally '
+			 .'composed of the name or initials of the collector(s) followed by a number. '
+			 .'This number is essential for identifying duplicates held in different '
+			 .'collections.',
+			  kDEFAULT_LANGUAGE );
+			$term->Kind( kTYPE_ATTRIBUTE, TRUE );
+			$term->Cardinality( kCARD_0_1 );
+			$term->Type( kTYPE_STRING );
+			$term->Examples( 'USAID', TRUE );
+			$term->Examples( 'BMZ', TRUE );
+			$term->Commit( $theContainer );
+		}
+		
+		//
+		// Node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'ACRONYM' ] = $node;
+		
+		//
+		// Edge.
+		//
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'FAO:INST' ] );
+		$edge->Commit( $container );
+		
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+	 
+		/*================================================================================
+		 *	ECPACRONYM																	 *
+		 *===============================================================================*/
+
+		//
+		// Term.
+		//
+		$term
+			= new COntologyTerm
+				( $theContainer, COntologyTerm::HashIndex( kENTITY_INST_FAO_EPACRONYM ) );
+		if( ! $term->Persistent() )
+			throw new CException( 'Missing ECPACRONYM of FAO institutes.' );	// !@! ==>
+		
+		//
+		// Node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'ACRONYM' ] = $node;
+		
+		//
+		// Edge.
+		//
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'FAO:INST' ] );
+		$edge->Commit( $container );
+		
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+	 
+		/*================================================================================
+		 *	FULL_NAME																	 *
+		 *===============================================================================*/
+
+		//
+		// Term.
+		//
+		$term
+			= new COntologyTerm
+				( $theContainer, COntologyTerm::HashIndex( 'FAO:INST:FULL_NAME' ) );
+		if( ! $term->Persistent() )
+		{
+			$term->NS( $ns );
+			$term->Code( 'FULL_NAME' );
+			$term->Name( 'Full name', kDEFAULT_LANGUAGE );
+			$term->Definition
+			( 'Full institution name.',
+			  kDEFAULT_LANGUAGE );
+			$term->Kind( kTYPE_ATTRIBUTE, TRUE );
+			$term->Cardinality( kCARD_0_1 );
+			$term->Type( kTYPE_STRING );
+			$term->Examples( 'Pan American Development Foundation', TRUE );
+			$term->Examples( 'Department of agricultural Extension/Education', TRUE );
+			$term->Commit( $theContainer );
+		}
+		
+		//
+		// Node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'FULL_NAME' ] = $node;
+		
+		//
+		// Edge.
+		//
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'FAO:INST' ] );
+		$edge->Commit( $container );
+		
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+	 
+		/*================================================================================
+		 *	TYPE																		 *
+		 *===============================================================================*/
+
+		//
+		// Term.
+		//
+		$term
+			= new COntologyTerm
+				( $theContainer, COntologyTerm::HashIndex( kENTITY_INST_FAO_TYPE ) );
+		if( ! $term->Persistent() )
+			throw new CException( 'Missing TYPE of FAO institutes.' );	// !@! ==>
+		
+		//
+		// Node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'TYPE' ] = $node;
+		
+		//
+		// Edge.
+		//
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'FAO:INST' ] );
+		$edge->Commit( $container );
+		
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+	 
+		/*================================================================================
+		 *	PGR_ACTIVITY																 *
+		 *===============================================================================*/
+
+		//
+		// Term.
+		//
+		$term
+			= new COntologyTerm
+				( $theContainer, COntologyTerm::HashIndex( kENTITY_INST_FAO_ACT_PGR ) );
+		if( ! $term->Persistent() )
+			throw new CException( 'Missing PGR_ACTIVITY of FAO institutes.' );	// !@! ==>
+		
+		//
+		// Node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'PGR_ACTIVITY' ] = $node;
+		
+		//
+		// Edge.
+		//
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'FAO:INST' ] );
+		$edge->Commit( $container );
+		
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+	 
+		/*================================================================================
+		 *	MAINTCOLL																	 *
+		 *===============================================================================*/
+
+		//
+		// Term.
+		//
+		$term
+			= new COntologyTerm
+				( $theContainer, COntologyTerm::HashIndex( kENTITY_INST_FAO_ACT_COLL ) );
+		if( ! $term->Persistent() )
+			throw new CException( 'Missing MAINTCOLL of FAO institutes.' );	// !@! ==>
+		
+		//
+		// Node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'MAINTCOLL' ] = $node;
+		
+		//
+		// Edge.
+		//
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'FAO:INST' ] );
+		$edge->Commit( $container );
+		
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+	 
+		/*================================================================================
+		 *	STREET_POB																	 *
+		 *===============================================================================*/
+
+		//
+		// Term.
+		//
+		$term
+			= new COntologyTerm
+				( $theContainer, COntologyTerm::HashIndex( 'FAO:INST:STREET_POB' ) );
+		if( ! $term->Persistent() )
+		{
+			$term->NS( $ns );
+			$term->Code( 'STREET_POB' );
+			$term->Name( 'Street or post office box number', kDEFAULT_LANGUAGE );
+			$term->Definition
+			( 'Street or post office box number.',
+			  kDEFAULT_LANGUAGE );
+			$term->Kind( kTYPE_ATTRIBUTE, TRUE );
+			$term->Cardinality( kCARD_0_1 );
+			$term->Type( kTYPE_STRING );
+			$term->Examples( '1301 West Gregory Drive', TRUE );
+			$term->Examples( 'Apartado 4661', TRUE );
+			$term->Examples( 'PO Box 3214', TRUE );
+			$term->Commit( $theContainer );
+		}
+		
+		//
+		// Node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'STREET_POB' ] = $node;
+		
+		//
+		// Edge.
+		//
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'FAO:INST' ] );
+		$edge->Commit( $container );
+		
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+	 
+		/*================================================================================
+		 *	CITY_STATE																	 *
+		 *===============================================================================*/
+
+		//
+		// Term.
+		//
+		$term
+			= new COntologyTerm
+				( $theContainer, COntologyTerm::HashIndex( 'FAO:INST:CITY_STATE' ) );
+		if( ! $term->Persistent() )
+		{
+			$term->NS( $ns );
+			$term->Code( 'CITY_STATE' );
+			$term->Name( 'City and state', kDEFAULT_LANGUAGE );
+			$term->Definition
+			( 'City and state.',
+			  kDEFAULT_LANGUAGE );
+			$term->Kind( kTYPE_ATTRIBUTE, TRUE );
+			$term->Cardinality( kCARD_0_1 );
+			$term->Type( kTYPE_STRING );
+			$term->Examples( 'Roma (RM)', TRUE );
+			$term->Examples( 'Wuhan, Hubei Province', TRUE );
+			$term->Commit( $theContainer );
+		}
+		
+		//
+		// Node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'CITY_STATE' ] = $node;
+		
+		//
+		// Edge.
+		//
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'FAO:INST' ] );
+		$edge->Commit( $container );
+		
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+	 
+		/*================================================================================
+		 *	ZIP_CODE																	 *
+		 *===============================================================================*/
+
+		//
+		// Term.
+		//
+		$term
+			= new COntologyTerm
+				( $theContainer, COntologyTerm::HashIndex( 'FAO:INST:ZIP_CODE' ) );
+		if( ! $term->Persistent() )
+		{
+			$term->NS( $ns );
+			$term->Code( 'ZIP_CODE' );
+			$term->Name( 'Zip code', kDEFAULT_LANGUAGE );
+			$term->Definition
+			( 'Zip code.',
+			  kDEFAULT_LANGUAGE );
+			$term->Kind( kTYPE_ATTRIBUTE, TRUE );
+			$term->Cardinality( kCARD_0_1 );
+			$term->Type( kTYPE_STRING );
+			$term->Examples( 'Roma (RM)', TRUE );
+			$term->Examples( 'Wuhan, Hubei Province', TRUE );
+			$term->Commit( $theContainer );
+		}
+		
+		//
+		// Node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'CITY_STATE' ] = $node;
+		
+		//
+		// Edge.
+		//
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'FAO:INST' ] );
+		$edge->Commit( $container );
+		
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+	 
+		/*================================================================================
+		 *	PHONE																		 *
+		 *===============================================================================*/
+
+		//
+		// Term.
+		//
+		$term
+			= new COntologyTerm
+				( $theContainer, COntologyTerm::HashIndex( 'FAO:INST:PHONE' ) );
+		if( ! $term->Persistent() )
+		{
+			$term->NS( $ns );
+			$term->Code( 'PHONE' );
+			$term->Name( 'Phone', kDEFAULT_LANGUAGE );
+			$term->Definition
+			( 'Telephone number.',
+			  kDEFAULT_LANGUAGE );
+			$term->Kind( kTYPE_ATTRIBUTE, TRUE );
+			$term->Cardinality( kCARD_0_1 );
+			$term->Type( kTYPE_STRING );
+			$term->Examples( '870126', TRUE );
+			$term->Examples( '(+58-243) 2831932', TRUE );
+			$term->Commit( $theContainer );
+		}
+		
+		//
+		// Node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'PHONE' ] = $node;
+		
+		//
+		// Edge.
+		//
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'FAO:INST' ] );
+		$edge->Commit( $container );
+		
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+	 
+		/*================================================================================
+		 *	FAX																			 *
+		 *===============================================================================*/
+
+		//
+		// Term.
+		//
+		$term
+			= new COntologyTerm
+				( $theContainer, COntologyTerm::HashIndex( 'FAO:INST:FAX' ) );
+		if( ! $term->Persistent() )
+		{
+			$term->NS( $ns );
+			$term->Code( 'FAX' );
+			$term->Name( 'Phone', kDEFAULT_LANGUAGE );
+			$term->Definition
+			( 'Telefax number.',
+			  kDEFAULT_LANGUAGE );
+			$term->Kind( kTYPE_ATTRIBUTE, TRUE );
+			$term->Cardinality( kCARD_0_1 );
+			$term->Type( kTYPE_STRING );
+			$term->Examples( '870126', TRUE );
+			$term->Examples( '(+58-243) 2831932', TRUE );
+			$term->Commit( $theContainer );
+		}
+		
+		//
+		// Node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'FAX' ] = $node;
+		
+		//
+		// Edge.
+		//
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'FAO:INST' ] );
+		$edge->Commit( $container );
+		
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+	 
+		/*================================================================================
+		 *	EMAIL																		 *
+		 *===============================================================================*/
+
+		//
+		// Term.
+		//
+		$term
+			= new COntologyTerm
+				( $theContainer, COntologyTerm::HashIndex( 'FAO:INST:EMAIL' ) );
+		if( ! $term->Persistent() )
+		{
+			$term->NS( $ns );
+			$term->Code( 'EMAIL' );
+			$term->Name( 'E-mail', kDEFAULT_LANGUAGE );
+			$term->Definition
+			( 'E-mail address.',
+			  kDEFAULT_LANGUAGE );
+			$term->Kind( kTYPE_ATTRIBUTE, TRUE );
+			$term->Cardinality( kCARD_0_1 );
+			$term->Type( kTYPE_STRING );
+			$term->Examples( 'recfitog@reacciun.ve', TRUE );
+			$term->Examples( 'ntaylor@ca.uky.edu', TRUE );
+			$term->Commit( $theContainer );
+		}
+		
+		//
+		// Node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'EMAIL' ] = $node;
+		
+		//
+		// Edge.
+		//
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'FAO:INST' ] );
+		$edge->Commit( $container );
+		
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+	 
+		/*================================================================================
+		 *	URL																			 *
+		 *===============================================================================*/
+
+		//
+		// Term.
+		//
+		$term
+			= new COntologyTerm
+				( $theContainer, COntologyTerm::HashIndex( 'FAO:INST:URL' ) );
+		if( ! $term->Persistent() )
+		{
+			$term->NS( $ns );
+			$term->Code( 'URL' );
+			$term->Name( 'URL', kDEFAULT_LANGUAGE );
+			$term->Definition
+			( 'Institution web page.',
+			  kDEFAULT_LANGUAGE );
+			$term->Kind( kTYPE_ATTRIBUTE, TRUE );
+			$term->Cardinality( kCARD_0_1 );
+			$term->Type( kTYPE_STRING );
+			$term->Examples( 'http://www.uky.edu/Ag/Agronomy/Department/CloverGC', TRUE );
+			$term->Commit( $theContainer );
+		}
+		
+		//
+		// Node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'URL' ] = $node;
+		
+		//
+		// Edge.
+		//
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'FAO:INST' ] );
+		$edge->Commit( $container );
+		
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+	 
+		/*================================================================================
+		 *	LATITUDE																	 *
+		 *===============================================================================*/
+
+		//
+		// Term.
+		//
+		$term
+			= new COntologyTerm
+				( $theContainer, COntologyTerm::HashIndex( 'FAO:INST:LATITUDE' ) );
+		if( ! $term->Persistent() )
+		{
+			$term->NS( $ns );
+			$term->Code( 'LATITUDE' );
+			$term->Name( 'Latitude', kDEFAULT_LANGUAGE );
+			$term->Definition
+			( 'Institution location latitude.',
+			  kDEFAULT_LANGUAGE );
+			$term->Kind( kTYPE_ATTRIBUTE, TRUE );
+			$term->Cardinality( kCARD_0_1 );
+			$term->Type( kTYPE_INT32 );
+			$term->Examples( '5007', TRUE );
+			$term->Examples( '1019', TRUE );
+			$term->Commit( $theContainer );
+		}
+		
+		//
+		// Node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'LATITUDE' ] = $node;
+		
+		//
+		// Edge.
+		//
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'FAO:INST' ] );
+		$edge->Commit( $container );
+		
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+	 
+		/*================================================================================
+		 *	LONGITUDE																	 *
+		 *===============================================================================*/
+
+		//
+		// Term.
+		//
+		$term
+			= new COntologyTerm
+				( $theContainer, COntologyTerm::HashIndex( 'FAO:INST:LONGITUDE' ) );
+		if( ! $term->Persistent() )
+		{
+			$term->NS( $ns );
+			$term->Code( 'LONGITUDE' );
+			$term->Name( 'Longitude', kDEFAULT_LANGUAGE );
+			$term->Definition
+			( 'Institution location longitude.',
+			  kDEFAULT_LANGUAGE );
+			$term->Kind( kTYPE_ATTRIBUTE, TRUE );
+			$term->Cardinality( kCARD_0_1 );
+			$term->Type( kTYPE_INT32 );
+			$term->Examples( '-6739', TRUE );
+			$term->Examples( '2430', TRUE );
+			$term->Commit( $theContainer );
+		}
+		
+		//
+		// Node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'LONGITUDE' ] = $node;
+		
+		//
+		// Edge.
+		//
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'FAO:INST' ] );
+		$edge->Commit( $container );
+		
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+	 
+		/*================================================================================
+		 *	ALTITUDE																	 *
+		 *===============================================================================*/
+
+		//
+		// Term.
+		//
+		$term
+			= new COntologyTerm
+				( $theContainer, COntologyTerm::HashIndex( 'FAO:INST:ALTITUDE' ) );
+		if( ! $term->Persistent() )
+		{
+			$term->NS( $ns );
+			$term->Code( 'ALTITUDE' );
+			$term->Name( 'Altitude', kDEFAULT_LANGUAGE );
+			$term->Definition
+			( 'Institution elevation.',
+			  kDEFAULT_LANGUAGE );
+			$term->Kind( kTYPE_ATTRIBUTE, TRUE );
+			$term->Cardinality( kCARD_0_1 );
+			$term->Type( kTYPE_INT32 );
+			$term->Examples( '480', TRUE );
+			$term->Examples( '0', TRUE );
+			$term->Commit( $theContainer );
+		}
+		
+		//
+		// Node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'ALTITUDE' ] = $node;
+		
+		//
+		// Edge.
+		//
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'FAO:INST' ] );
+		$edge->Commit( $container );
+		
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+	 
+		/*================================================================================
+		 *	UPDATED_ON																	 *
+		 *===============================================================================*/
+
+		//
+		// Term.
+		//
+		$term
+			= new COntologyTerm
+				( $theContainer, COntologyTerm::HashIndex( 'FAO:INST:UPDATED_ON' ) );
+		if( ! $term->Persistent() )
+		{
+			$term->NS( $ns );
+			$term->Code( 'UPDATED_ON' );
+			$term->Name( 'Last updated', kDEFAULT_LANGUAGE );
+			$term->Definition
+			( 'Last record update date.',
+			  kDEFAULT_LANGUAGE );
+			$term->Kind( kTYPE_ATTRIBUTE, TRUE );
+			$term->Cardinality( kCARD_1 );
+			$term->Type( kTYPE_STRING );
+			$term->Pattern( 'YYYY-MM-DD', TRUE );
+			$term->Examples( '2008-10-12', TRUE );
+			$term->Examples( '2002-06-14', TRUE );
+			$term->Commit( $theContainer );
+		}
+		
+		//
+		// Node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'UPDATED_ON' ] = $node;
+		
+		//
+		// Edge.
+		//
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'FAO:INST' ] );
+		$edge->Commit( $container );
+		
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+	 
+		/*================================================================================
+		 *	V_INSTCODE																	 *
+		 *===============================================================================*/
+
+		//
+		// Term.
+		//
+		$term
+			= new COntologyTerm
+				( $theContainer, COntologyTerm::HashIndex( 'FAO:INST:V_INSTCODE' ) );
+		if( ! $term->Persistent() )
+		{
+			$term->NS( $ns );
+			$term->Code( 'V_INSTCODE' );
+			$term->Name( 'Valid institute', kDEFAULT_LANGUAGE );
+			$term->Definition
+			( 'Institute records cannot be deleted, they can only be set as obsolete '
+			 .'by indicating in this field which is the new institution that takes the '
+			 .'place of the obsolete one.',
+			  kDEFAULT_LANGUAGE );
+			$term->Kind( kTYPE_ATTRIBUTE, TRUE );
+			$term->Cardinality( kCARD_0_1 );
+			$term->Type( kTYPE_STRING );
+			$term->Pattern( '[A-Z]{3}[0-9]{3,4}' );
+			$term->Examples( 'COL002', TRUE );
+			$term->Examples( 'USA1001', TRUE );
+			$term->Xref( $_SESSION[ 'NODES' ][ 'INSTCODE' ], kTYPE_EXACT, TRUE );
+			$term->Commit( $theContainer );
+		}
+		
+		//
+		// Node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Commit( $container );
+		$nodes[ 'V_INSTCODE' ] = $node;
+		
+		//
+		// Edge.
+		//
+		$edge = $node->RelateTo( $container, $is_a, $nodes[ 'FAO:INST' ] );
+		$edge->Commit( $container );
+		
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+		
+	} // LoadFAOInstituteDDict.
 
 	 
 	/*===================================================================================

@@ -136,12 +136,13 @@
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWarehouseWrapperClient.html#methodPredicates">CWarehouseWrapperClient::Predicates()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWarehouseWrapperClient.html#methodIdentifiers">CWarehouseWrapperClient::Identifiers()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTerm.html#methodPredicate">COntologyTerm::Predicate()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTerm.html#methodNode">COntologyTerm::Node()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/CTerm.html#methodCategory">CTerm::Category()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodKind">CCodedUnitObject::Kind()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyPath.html#methodTerm">COntologyPath::Term()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Entities/CInstitute.html#methodAcronym">CInstitute::Acronym()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Entities/CFAOInstitute.html#methodFAOType">CFAOInstitute::FAOType()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/CTerm.html#methodDomain">CTerm::Domain()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/CTerm.html#methodCategory">CTerm::Category()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTerm.html#methodNode">COntologyTerm::Node()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -184,7 +185,7 @@
 <p class="short-description">Manage a list of object references.</p>
 <p class="description"><p>This method can be used to manage a list of object references, in which each element  is either:</p><p><ul><li><em>Scalar</em>: A scalar or object representing:
 	 <ul><li><em>The object</em>: The actual referenced object.</li><li><em>The object reference</em>: An object reference structure or a scalar
-			representing the object <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LID">identifier</a>.</li></ul>
+			representing the object's <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LID">identifier</a>.</li></ul>
         or:</li><li><em>Array</em>: A structure composed of two items:
      <ul><li><em>Kind</em>: This offset represents the type or predicate of the reference.</li><li><em>Data</em>: This offset represents the actual object or object reference.</li></ul></li></ul></p><p>The reference list is numerically indexed array and this method will ensure it  remains so.</p><p>The method accepts the following parameters:</p><p><ul><li><strong>&amp;$theReference</strong>: Reference to an array or ArrayObject derived instance.</li><li><strong>$theMainOffset</strong>: The offset to manage.</li><li><strong>$theTypeOffset</strong>: The element's offset of the type or predicate.</li><li><strong>$theDataOffset</strong>: The element's offset of the data.</li><li><strong>$theValue</strong>: This parameter represents either the search key in the list
         when retrieving or deleting, or the reference when replacing or adding. If you
@@ -543,7 +544,7 @@
 
 	
 	<p class="notes" id="credit">
-		Documentation generated on Tue, 05 Jun 2012 18:42:27 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 07 Jun 2012 19:53:02 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

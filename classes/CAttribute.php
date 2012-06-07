@@ -1345,7 +1345,7 @@ class CAttribute
 	 *	 <ul>
 	 *		<li><i>The object</i>: The actual referenced object.
 	 *		<li><i>The object reference</i>: An object reference structure or a scalar
-	 *			representing the object {@link kTAG_LID identifier}.
+	 *			representing the object's {@link kTAG_LID identifier}.
 	 *	 </ul>
 	 *		or:
 	 *	<li><i>Array</i>: A structure composed of two items:

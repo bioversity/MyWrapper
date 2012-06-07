@@ -92,14 +92,14 @@ define( "kENTITY_INST_FAO_ALT",					'FAO:INST:ALT' );
  *
  * This enumeration indicates that the institute manages plant genetic resources.
  */
-define( "kENTITY_INST_FAO_ACT_PGR",				':ACTIVITY:PGR' );
+define( "kENTITY_INST_FAO_ACT_PGR",				'FAO:INST:PGR' );
 
 /**
  * FAO/WIEWS institute collection management enumeration.
  *
  * This enumeration indicates that the institute manages a germplasm collection.
  */
-define( "kENTITY_INST_FAO_ACT_COLL",			':ACTIVITY:COLL' );
+define( "kENTITY_INST_FAO_ACT_COLL",			'FAO:INST:COLL' );
 
 
 /*=======================================================================================

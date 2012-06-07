@@ -338,6 +338,13 @@ define( "kTAG_EXAMPLES",						':EXAMPLE' );
 define( "kTAG_LANGUAGE",						':LANGUAGE' );
 
 /**
+ * Entity.
+ *
+ * This tag is used as the namespace and default offset for entities.
+ */
+define( "kTAG_ENTITY",							':ENTITY' );
+
+/**
  * Status.
  *
  * This tag is used as the default offset for indicating an attribute's status or state, it
@@ -378,6 +385,13 @@ define( "kTAG_ANNOTATION",						':ANNOTATION' );
  * </ul>
  */
 define( "kTAG_REFS",							':REFS' );
+
+/**
+ * Generic count tag.
+ *
+ * This is the tag that represents a generic count.
+ */
+define( "kTAG_COUNT",							':COUNT' );
 
 /**
  * References count tag.

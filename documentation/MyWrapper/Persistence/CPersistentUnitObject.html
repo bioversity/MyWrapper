@@ -89,6 +89,18 @@
 				</tr>
 								<tr>
 					<td style="padding-right: 2em; white-space: nowrap">
+						<img src="../../media/images/Class.png"
+								 alt=" class"
+								 title=" class"
+								 style="vertical-align: center"/>
+						<a href="../../MyWrapper/Ontology/COntologyPath.html">COntologyPath</a>
+					</td>
+					<td>
+											Ontology path.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; white-space: nowrap">
 						<img src="../../media/images/AbstractClass.png"
 								 alt="Abstract class"
 								 title="Abstract class"
@@ -267,12 +279,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static HashIndex</span> (line <span class="line-number">454</span>)
+		<span class="method-title">static HashIndex</span> (line <span class="line-number">457</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Hash index.</p>
-<p class="description"><p>This method can be used to format an identifier provided as a string, it will be  used by the <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_id">_id</a> method to format the result of the  <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_index">_index</a> method. One can consider this as the index hashing method for  all derived classes.</p></p>
+<p class="description"><p>This method can be used to format an identifier provided as a string, it will be  used by the <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_id">_id</a> method to format the result of the  <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_index">_index</a> method.</p><p>All derived classes will call this method to format the object <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LID">ID</a>,  so you should overload this method in classes where the current behaviour is not  desirable.</p></p>
 	
 	<div class="method-signature">
 		<span class="method-result">string</span>
@@ -345,7 +357,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static NormaliseRelatedObject</span> (line <span class="line-number">501</span>)
+		<span class="method-title">static NormaliseRelatedObject</span> (line <span class="line-number">503</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -387,7 +399,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static ObjectIdentifier</span> (line <span class="line-number">642</span>)
+		<span class="method-title">static ObjectIdentifier</span> (line <span class="line-number">644</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -473,7 +485,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">NormaliseRelatedPredicate</span> (line <span class="line-number">582</span>)
+		<span class="method-title">NormaliseRelatedPredicate</span> (line <span class="line-number">584</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -536,7 +548,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Commit</span> (line <span class="line-number">762</span>)
+		<span class="method-title">_Commit</span> (line <span class="line-number">764</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -573,13 +585,21 @@
 						<dd>Store object in container.</dd>
 					</dl>
 			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyPath.html#method_Commit">COntologyPath::_Commit()</a>
+								: Store object in container.
+							</li>
+				</ul>
 	</div>
 <a name="method_CommitReferences" id="_CommitReferences"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_CommitReferences</span> (line <span class="line-number">1161</span>)
+		<span class="method-title">_CommitReferences</span> (line <span class="line-number">1163</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -634,7 +654,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_GetTags</span> (line <span class="line-number">1320</span>)
+		<span class="method-title">_GetTags</span> (line <span class="line-number">1322</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -666,7 +686,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_id</span> (line <span class="line-number">711</span>)
+		<span class="method-title">_id</span> (line <span class="line-number">713</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -692,7 +712,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/AbstractMethod.png" />
-		<span class="method-title">_index</span> (line <span class="line-number">733</span>)
+		<span class="method-title">_index</span> (line <span class="line-number">735</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -718,6 +738,10 @@
 		<div class="notes">Redefined in descendants as:</div>
 		<ul class="redefinitions">
 					<li>
+				<a href="../../MyWrapper/Ontology/COntologyPath.html#method_index">COntologyPath::_index()</a>
+								: Return the object's unique index.
+							</li>
+					<li>
 				<a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_index">CCodedUnitObject::_index()</a>
 								: Return the object's unique index.
 							</li>
@@ -732,7 +756,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseReferences</span> (line <span class="line-number">1074</span>)
+		<span class="method-title">_ParseReferences</span> (line <span class="line-number">1076</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -803,7 +827,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">907</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">909</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -859,6 +883,10 @@
 		<div class="notes">Redefined in descendants as:</div>
 		<ul class="redefinitions">
 					<li>
+				<a href="../../MyWrapper/Ontology/COntologyPath.html#method_PrepareCommit">COntologyPath::_PrepareCommit()</a>
+								: Normalise before a store.
+							</li>
+					<li>
 				<a href="../../MyWrapper/Persistence/CRelatedUnitObject.html#method_PrepareCommit">CRelatedUnitObject::_PrepareCommit()</a>
 								: Normalise before a store.
 							</li>
@@ -893,7 +921,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">804</span>)
+		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">806</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1113,7 +1141,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Tue, 05 Jun 2012 18:42:40 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 07 Jun 2012 19:53:19 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

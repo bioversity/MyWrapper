@@ -117,6 +117,13 @@ define( "kDEFAULT_CNT_NODES",			"NODES" );
  */
 define( "kDEFAULT_CNT_EDGES",			"EDGES" );
 
+/**
+ * Default paths container name.
+ *
+ * This value defines the default paths container name.
+ */
+define( "kDEFAULT_CNT_PATHS",			"PATHS" );
+
 /*=======================================================================================
  *	CLASS AUTOLOADER																	*
  *======================================================================================*/
