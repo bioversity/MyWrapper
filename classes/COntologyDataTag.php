@@ -400,6 +400,8 @@ class COntologyDataTag extends COntologyTermObject
 					//
 					// Add predicate path.
 					//
+					if( strlen( $path ) )
+						$path .= kTOKEN_INDEX_SEPARATOR;
 					$path .= $tmp[ kTAG_GID ];
 				
 					//
@@ -415,6 +417,8 @@ class COntologyDataTag extends COntologyTermObject
 					//
 					// Add object path.
 					//
+					if( strlen( $path ) )
+						$path .= kTOKEN_INDEX_SEPARATOR;
 					$path .= $tmp[ kTAG_GID ];
 				
 				} // Provided edge.

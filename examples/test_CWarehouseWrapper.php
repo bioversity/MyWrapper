@@ -1182,7 +1182,7 @@ try
 	$list = array
 	(
 		array( 15604, 14030 ),
-		COntologyTerm::HashIndex( 'MCPD:ORIGCTY' )
+		'MCPD:ORIGCTY'
 	);
 	//
 	// Use wrapper client.
