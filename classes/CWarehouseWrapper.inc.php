@@ -79,6 +79,42 @@ define( "kAPI_OP_GET_TERMS",		'@GET_TERMS' );
 define( "kAPI_OP_MATCH_TERMS",		'@MATCH_TERMS' );
 
 /**
+ * List tags web-service.
+ *
+ * This is the tag that represents the list tags web service, it will locate all
+ * {@link COntologyTag tags} matching the provided identifiers in the
+ * {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter and return an array
+ * structured as follows:
+ *
+ * <ul>
+ *	<li><i>Key</i>: The {@link COntologyTag term} global {@link kTAG_GID identifier}.
+ *	<li><i>Value</i>: The contents of the {@link COntologyTag tag}.
+ * </ul>
+ *
+ * If you omit the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter it is assumed
+ * that you want all tags, in that case the service will enforce the use of
+ * {@link kAPI_DATA_PAGING paging} options.
+ *
+ * Note that the {@link kAPI_CONTAINER container} is not required, if omitted it will be
+ * initialised to the {@link kDEFAULT_CNT_TAGS kDEFAULT_CNT_TAGS} constant.
+ */
+define( "kAPI_OP_GET_TAGS",			'@GET_TAGS' );
+
+/**
+ * Set tags web-service.
+ *
+ * This is the tag that represents the set tags web service, it expects a term
+ * {@link COntologyTerm::GID() identifier} or a list of {@link COntologyEdge edges} provided
+ * in the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter, it will return a list
+ * of annotation {@link COntologyTag::GID() identifiers} that can be used to annotate data.
+ *
+ * Note that this service will instantiate term {@link COntologyTag paths}, so call
+ * this service only if you are sure you need to do it; if any error occurs, the operation
+ * will be aborted (but the eventual created annotations will not).
+ */
+define( "kAPI_OP_SET_TAGS",			'@SET_TAGS' );
+
+/**
  * List nodes web-service.
  *
  * This is the tag that represents the list nodes web service, it will locate all
@@ -268,20 +304,6 @@ define( "kAPI_OP_GET_RELS",			'@GET_RELS' );
  * {@link kTYPE_ROOT root} {@link COntologyNode nodes} will be selected.
  */
 define( "kAPI_OP_GET_ROOTS",		'@GET_ROOTS' );
-
-/**
- * Annotation tags web-service.
- *
- * This is the tag that represents the set annotations web service, it expects a term
- * {@link COntologyTerm::GID() identifier} or a list of {@link COntologyEdge edges} provided
- * in the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter, it will return a list
- * of annotation {@link COntologyDataTag::GID() identifiers} that can be used to tag data.
- *
- * Note that this service will instantiate term {@link COntologyDataTag paths}, so call
- * this service only if you are sure you need to do it; if any error occurs, the operation
- * will be aborted (but the eventual created annotations will not).
- */
-define( "kAPI_OP_DATA_TAG",			'@DATA_TAG' );
 
 /*=======================================================================================
  *	DEFAULT OPTION ENUMERATIONS															*

@@ -46,7 +46,7 @@ require_once( kPATH_LIBRARY_SOURCE."COntologyTerm.php" );
  *
  * This include file contains the ontology data tag class definitions.
  */
-require_once( kPATH_LIBRARY_SOURCE."COntologyDataTag.php" );
+require_once( kPATH_LIBRARY_SOURCE."COntologyTag.php" );
 
 /**
  * Ontology node definitions.
@@ -162,6 +162,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				//
 				case kAPI_OP_GET_TERMS:
 				case kAPI_OP_MATCH_TERMS:
+				case kAPI_OP_GET_TAGS:
 				case kAPI_OP_GET_NODES:
 				case kAPI_OP_GET_EDGES:
 					//
@@ -182,7 +183,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 					
 					} // Missing identifiers.
 
-				case kAPI_OP_DATA_TAG:
+				case kAPI_OP_SET_TAGS:
 
 					//
 					// Init container name.
@@ -196,8 +197,12 @@ class CWarehouseWrapper extends CMongoDataWrapper
 						{
 							case kAPI_OP_GET_TERMS:
 							case kAPI_OP_MATCH_TERMS:
-							case kAPI_OP_DATA_TAG:
 								$_REQUEST[ kAPI_CONTAINER ] = kDEFAULT_CNT_TERMS;
+								break;
+						
+							case kAPI_OP_GET_TAGS:
+							case kAPI_OP_SET_TAGS:
+								$_REQUEST[ kAPI_CONTAINER ] = kDEFAULT_CNT_TAGS;
 								break;
 						
 							case kAPI_OP_GET_NODES:
@@ -683,9 +688,6 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	 *		{@link kAPI_OP_GET_EDGES kAPI_OP_GET_EDGES}</i>: The same actions as the
 	 *		previous case, except that the resulting query will be treated as a list of
 	 *		numbers.
-	 *	<li><i>{@link kAPI_OP_DATA_TAG kAPI_OP_DATA_TAG}</i>: The same actions as the first
-	 *		operation, except that there will not be a resulting
-	 *		{@link kAPI_DATA_QUERY query}.
 	 * </ul>
 	 *
 	 * In this class we handle the terms list {@link kAPI_OP_GET_TERMS operation} by
@@ -721,24 +723,6 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				switch( $_REQUEST[ kAPI_OPERATION ] )
 				{
 					//
-					// Handle data annotations.
-					//
-					case kAPI_OP_DATA_TAG:
-						//
-						// Hash identifiers.
-						//
-						$identifiers = Array();
-						foreach( $_REQUEST[ kAPI_OPT_IDENTIFIERS ] as $identifier )
-						{
-							//
-							// Hash only if not an array.
-							//
-							if( ! is_array( $identifier ) )
-								$identifiers[] = COntologyTerm::HashIndex( $identifier );
-						}
-						break;
-			
-					//
 					// Handle term references.
 					//
 					case kAPI_OP_GET_TERMS:
@@ -764,6 +748,22 @@ class CWarehouseWrapper extends CMongoDataWrapper
 															kTAG_LID,
 															$identifiers,
 															kTYPE_BINARY ),
+														kOPERATOR_AND );
+						break;
+				
+					//
+					// Handle tag references.
+					//
+					case kAPI_OP_GET_TAGS:
+						//
+						// Convert to query.
+						//
+						$_REQUEST[ kAPI_DATA_QUERY ] = new CMongoQuery();
+						$_REQUEST[ kAPI_DATA_QUERY ]->AppendStatement(
+														CQueryStatement::Member(
+															kTAG_LID,
+															$_REQUEST[ kAPI_OPT_IDENTIFIERS ],
+															kTYPE_INT64 ),
 														kOPERATOR_AND );
 						break;
 				
@@ -976,7 +976,8 @@ class CWarehouseWrapper extends CMongoDataWrapper
 
 			case kAPI_OP_GET_TERMS:
 			case kAPI_OP_MATCH_TERMS:
-			case kAPI_OP_DATA_TAG:
+			case kAPI_OP_GET_TAGS:
+			case kAPI_OP_SET_TAGS:
 			case kAPI_OP_GET_NODES:
 			case kAPI_OP_GET_EDGES:
 				
@@ -1098,7 +1099,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	 * existing records, if this is not the case, the method will throw an exception.
 	 *
 	 * This operation will only be performed for the
-	 * {@link kAPI_OP_DATA_TAG kAPI_OP_DATA_TAG} operation.
+	 * {@link kAPI_OP_SET_TAGS kAPI_OP_SET_TAGS} operation.
 	 *
 	 * @access protected
 	 */
@@ -1119,16 +1120,18 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				//
 				switch( $_REQUEST[ kAPI_OPERATION ] )
 				{
-					case kAPI_OP_DATA_TAG:
+					//
+					// Set tags.
+					//
+					case kAPI_OP_SET_TAGS:
 						//
 						// Set containers.
 						//
-						$term_container
-							= new CMongoContainer
-								( $_REQUEST[ kAPI_CONTAINER ] );
-						$edge_container
-							= array( kTAG_TERM =>  $term_container,
-									kTAG_NODE => $_SESSION[ kSESSION_NEO4J ] );
+						$db = $_REQUEST[ kAPI_CONTAINER ]->db;
+						$term_cnt = new CMongoContainer(
+										$db->selectCollection( kDEFAULT_CNT_TERMS ) );
+						$edge_cnt = array( kTAG_TERM => $term_cnt,
+										   kTAG_NODE => $_SESSION[ kSESSION_NEO4J ] );
 						
 						//
 						// Iterate identifiers.
@@ -1137,37 +1140,9 @@ class CWarehouseWrapper extends CMongoDataWrapper
 						foreach( $ids as $id )
 						{
 							//
-							// Handle term identifier.
-							//
-							if( $_REQUEST[ kAPI_OPT_IDENTIFIERS ][ $id ]
-									instanceof
-										CDataTypeBinary )
-							{
-								//
-								// Instantiate term.
-								//
-								$element
-									= new COntologyTerm
-										( $term_container,
-										  $_REQUEST[ kAPI_OPT_IDENTIFIERS ][ $id ] );
-								if( $element->Persistent() )
-									$_REQUEST[ kAPI_OPT_IDENTIFIERS ][ $id ]
-										= $element;
-								else
-									throw new CException
-										( "Unknown term",
-										  kERROR_NOT_FOUND,
-										  kMESSAGE_TYPE_ERROR,
-										  array( 'Term'
-											=> $_REQUEST[ kAPI_OPT_IDENTIFIERS ]
-														[ $id ] ) );			// !@! ==>
-							
-							} // Is a term.
-							
-							//
 							// Handle edge identifier.
 							//
-							elseif( is_array( $_REQUEST[ kAPI_OPT_IDENTIFIERS ][ $id ] ) )
+							if( is_array( $_REQUEST[ kAPI_OPT_IDENTIFIERS ][ $id ] ) )
 							{
 								//
 								// Iterate edge identifiers.
@@ -1181,7 +1156,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 									//
 									$element
 										= new COntologyEdge
-											( $edge_container,
+											( $edge_cnt,
 											  $_REQUEST[ kAPI_OPT_IDENTIFIERS ]
 											  		   [ $id ]
 											  		   [ $edge ] );
@@ -1202,6 +1177,32 @@ class CWarehouseWrapper extends CMongoDataWrapper
 								}
 							
 							} // Is a list of edge identifiers.
+							
+							//
+							// Handle term identifier.
+							//
+							else
+							{
+								//
+								// Instantiate term.
+								//
+								$element
+									= new COntologyTerm
+										( $term_cnt,
+										  $_REQUEST[ kAPI_OPT_IDENTIFIERS ][ $id ] );
+								if( $element->Persistent() )
+									$_REQUEST[ kAPI_OPT_IDENTIFIERS ][ $id ]
+										= $element;
+								else
+									throw new CException
+										( "Unknown term",
+										  kERROR_NOT_FOUND,
+										  kMESSAGE_TYPE_ERROR,
+										  array( 'Term'
+											=> $_REQUEST[ kAPI_OPT_IDENTIFIERS ]
+														[ $id ] ) );			// !@! ==>
+							
+							} // Is a term.
 						}
 						
 						break;
@@ -1253,8 +1254,12 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				$this->_Handle_MatchTerms();
 				break;
 
-			case kAPI_OP_DATA_TAG:
-				$this->_Handle_DataTags();
+			case kAPI_OP_GET_TAGS:
+				$this->_Handle_GetTerms();
+				break;
+
+			case kAPI_OP_SET_TAGS:
+				$this->_Handle_SetTags();
 				break;
 
 			case kAPI_OP_GET_NODES:
@@ -1791,23 +1796,23 @@ class CWarehouseWrapper extends CMongoDataWrapper
 
 	 
 	/*===================================================================================
-	 *	_Handle_DataTags																*
+	 *	_Handle_SetTags																	*
 	 *==================================================================================*/
 
 	/**
-	 * Handle {@link kAPI_OP_DATA_TAG Data-tags} request.
+	 * Handle {@link kAPI_OP_SET_TAGS set-tags} request.
 	 *
-	 * This method will handle the {@link kAPI_OP_DATA_TAG kAPI_OP_DATA_TAG} request, which
+	 * This method will handle the {@link kAPI_OP_SET_TAGS kAPI_OP_SET_TAGS} request, which
 	 * expects a list of {@link COntologyTerm term} and {@link COntologyEdge edge}
 	 * identifiers in the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter, each
 	 * of those elements will either be a {@link CDataTypeBinary binary} object or an array
 	 * of {@link COntologyEdge edge} identifiers.
 	 *
-	 * This method will match/create data {@link COntologyDataTag tags} and return the list.
+	 * This method will match/create data {@link COntologyTag tags} and return the list.
 	 *
 	 * @access protected
 	 */
-	protected function _Handle_DataTags()
+	protected function _Handle_SetTags()
 	{
 		//
 		// Init local storage.
@@ -1829,10 +1834,15 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				//
 				// Instantiate tag.
 				//
-				$tag = new COntologyDataTag();
+				$tag = new COntologyTag();
 				$tag->Term( $term );
 				$tag->Commit( $container );
 				$result[] = $tag;
+				
+				//
+				// Count.
+				//
+				$count++;
 			}
 		
 		} // Provided identifiers.
@@ -1848,7 +1858,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		if( count( $result ) )
 			$this->offsetSet( kAPI_DATA_RESPONSE, $result );
 	
-	} // _Handle_DataTags.
+	} // _Handle_SetTags.
 	
 
 	/*===================================================================================
@@ -2835,6 +2845,23 @@ class CWarehouseWrapper extends CMongoDataWrapper
 			 .'and their related nodes.';
 		
 		//
+		// Add kAPI_OP_GET_TAGS.
+		//
+		$theList[ kAPI_OP_GET_TAGS ]
+			= 'This operation will return the list of ontology tags matching the provided '
+			.'list of ['
+			.kAPI_OPT_IDENTIFIERS
+			.'] identifiers.';
+		
+		//
+		// Add kAPI_OP_SET_TAGS.
+		//
+		$theList[ kAPI_OP_SET_TAGS ]
+			= 'This operation expects a list of terms or edges in the ['
+			.kAPI_OPT_IDENTIFIERS
+			.'] parameter and will return the corresponding matched or created data tags.';
+		
+		//
 		// Add kAPI_OP_GET_NODES.
 		//
 		$theList[ kAPI_OP_GET_NODES ]
@@ -2869,14 +2896,6 @@ class CWarehouseWrapper extends CMongoDataWrapper
 			 .'provided query in the ['
 			.kAPI_DATA_QUERY
 			.'] parameter.';
-		
-		//
-		// Add kAPI_OP_DATA_TAG.
-		//
-		$theList[ kAPI_OP_DATA_TAG ]
-			= 'This operation expects a list of terms or edges in the ['
-			.kAPI_OPT_IDENTIFIERS
-			.'] parameter and will return the corresponding matched or created data tags.';
 	
 	} // _Handle_ListOp.
 

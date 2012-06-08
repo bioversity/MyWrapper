@@ -97,6 +97,13 @@ define( "kDEFAULT_LIMITS",				'50' );				// 50 by default.
 define( "kDEFAULT_MEMBER",				'___TMP___' );		// Temporary data member name.
 
 /**
+ * Default tags container name.
+ *
+ * This value defines the default tags container name.
+ */
+define( "kDEFAULT_CNT_TAGS",			"TAGS" );
+
+/**
  * Default terms container name.
  *
  * This value defines the default terms container name.

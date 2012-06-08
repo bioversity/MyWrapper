@@ -1,10 +1,10 @@
 <?php
 
 /**
- * <i>COntologyDataTag</i> class definition.
+ * <i>COntologyTag</i> class definition.
  *
- * This file contains the class definition of <b>COntologyDataTag</b> which represents an
- * ontology term used to tag data.
+ * This file contains the class definition of <b>COntologyTag</b> which represents an
+ * ontology tag which is used to annotate data.
  *
  *	@package	MyWrapper
  *	@subpackage	Ontology
@@ -15,7 +15,7 @@
 
 /*=======================================================================================
  *																						*
- *									COntologyDataTag.php								*
+ *									COntologyTag.php									*
  *																						*
  *======================================================================================*/
 
@@ -27,12 +27,7 @@
 require_once( kPATH_LIBRARY_SOURCE."COntologyTerm.php" );
 
 /**
- * Ontology path.
- *
- * Datasets are stored by this library in documents managed by a document database, there
- * is no predefined structure, except that each document attribute, or data element, is
- * identified by a tag which is the {@link kTAG_LID identifier} of instances from this
- * class or the {@link COntologyTerm COntologyTerm} class.
+ * Ontology tag.
  *
  * A data element tagged by an instance of the {@link COntologyTerm COntologyTerm} class
  * will have all its metadata stored in that term, but there are cases in which one term is
@@ -43,7 +38,7 @@ require_once( kPATH_LIBRARY_SOURCE."COntologyTerm.php" );
  *
  * Instances of this class contain a list of ontology {@link COntologyTerm terms} whose
  * elements are related between each other by predicates, which are also
- * {@link COntologyTerm terms}.
+ * {@link COntologyTerm terms}, this {@link kTAG_TERM attribute} 
  *
  * This path or chain of {@link COntologyTerm terms} represents the unique identifier of
  * this class instances and the tags with which data elements can be described.
@@ -99,7 +94,7 @@ require_once( kPATH_LIBRARY_SOURCE."COntologyTerm.php" );
  *	@package	MyWrapper
  *	@subpackage	Ontology
  */
-class COntologyDataTag extends COntologyTermObject
+class COntologyTag extends COntologyTermObject
 {
 		
 
@@ -228,7 +223,7 @@ class COntologyDataTag extends COntologyTermObject
 	 *	<li><i>other</i>: Any other type will be analysed as follows:
 	 *	 <ul>
 	 *		<li><i>{@link COntologyTerm COntologyTerm}</i>: The term's
-	 *			{@link kTAG_LID identifier} will be used.
+	 *			{@link kTAG_GID identifier} will be used.
 	 *		<li><i>{@link COntologyEdge COntologyEdge}</i>: The edge elements will be
 	 *			handled as follows:
 	 *		 <ul>
@@ -241,15 +236,13 @@ class COntologyDataTag extends COntologyTermObject
 	 *		<li><i>{@link COntologyEdgeIndex COntologyEdgeIndex}</i>: The same treatment as
 	 *			for the {@link COntologyEdge COntologyEdge}.
 	 *		<li><i>other</i>: Any other type will be cast to a string and interpreted as the
-	 *			{@link COntologyTerm term}'s {@link kTAG_LID identifier}.
+	 *			{@link COntologyTerm term}'s {@link kTAG_GID identifier}.
 	 *	 </ul>
 	 * </ul>
 	 *
 	 * All elements will be appended to the list in the order they were provided, it must be
 	 * noted that the class expects this list to be a sequence of term/predicate/term
 	 * elements, this method is not responsible for checking this.
-	 *
-	 * This method will also update this object's {@link kTAG_PATH path} in the process.
 	 *
 	 * The method will prevent modifications if the object is
 	 * {@link _IsCommitted() committed}, because this would change the object's unique
@@ -284,17 +277,7 @@ class COntologyDataTag extends COntologyTermObject
 			// Delete list.
 			//
 			if( $theValue === FALSE )
-			{
-				//
-				// Remove terms.
-				//
 				$this->offsetUnset( kTAG_TERM );
-			
-				//
-				// Remove path.
-				//
-				$this->offsetUnset( kTAG_PATH );
-			}
 			
 			//
 			// Handle array.
@@ -322,29 +305,10 @@ class COntologyDataTag extends COntologyTermObject
 					$save = Array();
 	
 				//
-				// Save current path.
-				//
-				$path = $this->offsetGet( kTAG_PATH );
-				if( $path === NULL )
-					$path = '';
-	
-				//
 				// Resolve term.
 				//
 				if( $theValue instanceof COntologyTerm )
-				{
-					//
-					// Add term.
-					//
-					$save[] = $theValue->offsetGet( kTAG_LID );
-				
-					//
-					// Add to path.
-					//
-					if( strlen( $path ) )
-						$path .= kTOKEN_INDEX_SEPARATOR;
-					$path .= $theValue->GID();
-				}
+					$save[] = $theValue->offsetGet( kTAG_GID );
 				
 				//
 				// Resolve ontology edge.
@@ -360,66 +324,31 @@ class COntologyDataTag extends COntologyTermObject
 					// Handle empty list.
 					//
 					if( ! count( $save ) )
-					{
-						//
-						// Add subject.
-						//
-						$save[] = $subject[ kTAG_LID ];
-						
-						//
-						// Add subject path.
-						//
-						if( strlen( $path ) )
-							$path .= kTOKEN_INDEX_SEPARATOR;
-						$path .= $subject[ kTAG_GID ];
-					
-					} // Empty list.
+						$save[] = $subject[ kTAG_GID ];
 					
 					//
 					// Match subject.
 					//
-					elseif( ! ($subject[ kTAG_LID ]
+					elseif( ! ($subject[ kTAG_GID ]
 								== ($last = $save[ count( $save ) - 1 ])) )
 						throw new CException
 							( "Non-matching relationship",
 							  kERROR_INVALID_PARAMETER,
 							  kMESSAGE_TYPE_WARNING,
 							  array( 'Object' => $last,
-									 'Subject' => $tmp[ kTAG_LID ] ) );			// !@! ==>
+									 'Subject' => $tmp[ kTAG_GID ] ) );			// !@! ==>
 				
 					//
 					// Get predicate.
 					//
 					$tmp = $theValue->Term();
-	
-					//
-					// Add predicate.
-					//
-					$save[] = $tmp[ kTAG_LID ];
-					
-					//
-					// Add predicate path.
-					//
-					if( strlen( $path ) )
-						$path .= kTOKEN_INDEX_SEPARATOR;
-					$path .= $tmp[ kTAG_GID ];
+					$save[] = $tmp[ kTAG_GID ];
 				
 					//
 					// Get object.
 					//
 					$tmp = $theValue->ObjectTerm();
-	
-					//
-					// Add object.
-					//
-					$save[] = $tmp[ kTAG_LID ];
-					
-					//
-					// Add object path.
-					//
-					if( strlen( $path ) )
-						$path .= kTOKEN_INDEX_SEPARATOR;
-					$path .= $tmp[ kTAG_GID ];
+					$save[] = $tmp[ kTAG_GID ];
 				
 				} // Provided edge.
 				
@@ -427,30 +356,12 @@ class COntologyDataTag extends COntologyTermObject
 				// Assume global identifier.
 				//
 				else
-				{
-					//
-					// Add term.
-					//
-					$save[] = COntologyTerm::HashIndex( (string) $theValue );
-					
-					//
-					// Add path.
-					//
-					if( strlen( $path ) )
-						$path .= kTOKEN_INDEX_SEPARATOR;
-					$path .= (string) $theValue;
-				
-				} // Provided global identifier.
+					$save[] = (string) $theValue;
 				
 				//
 				// Update terms.
 				//
 				$this->offsetSet( kTAG_TERM, $save );
-				
-				//
-				// Update path.
-				//
-				$this->offsetSet( kTAG_PATH, $path );
 			
 			} // Add elements.
 		
@@ -484,23 +395,39 @@ class COntologyDataTag extends COntologyTermObject
 	 * Hash index.
 	 *
 	 * We {@link CPersistentUnitObject::HashIndex() overload} this method to disable index
-	 * hashing: this is for two main reasons:
-	 *
-	 * <ul>
-	 *	<li><i>Size</i>: A hashed index will have 12 characters, {@link GID() identifiers}
-	 *		from this class would have to reach a sequence of 10 digits before becoming as
-	 *		large as the hash.
-	 *	<li><i>Uniqueness</i>: The type of the parent classe's {@link kTAG_LID identifier}
-	 *		will be different than the type of instances from this class, this makes it
-	 *		unlikely to generate a duplicate identifier.
-	 * </ul>
+	 * hashing.
 	 *
 	 * @param string				$theValue			Value to hash.
 	 *
 	 * @static
-	 * @return string
+	 * @return mixed
 	 */
 	static function HashIndex( $theValue )							{	return $theValue;	}
+
+
+	 
+/*=======================================================================================
+ *																						*
+ *							PROTECTED IDENTIFICATION INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	_index																			*
+	 *==================================================================================*/
+
+	/**
+	 * Return the object's unique index.
+	 *
+	 * In this class we use the term's {@link kTAG_CODE code} as the {@link kTAG_LID local}
+	 * identifier.
+	 *
+	 * @access protected
+	 * @return integer
+	 */
+	protected function _index()									{	return $this->Code();	}
 
 		
 
@@ -541,6 +468,11 @@ class COntologyDataTag extends COntologyTermObject
 		if( (! $this->offsetExists( kTAG_LID ))				// Assuming new
 		 && (! ($theModifiers & kFLAG_PERSIST_DELETE)) )	// and not deleting.
 		{
+			//
+			// Init path.
+			//
+			$this->offsetSet( kTAG_PATH, implode( kTOKEN_INDEX_SEPARATOR, $this->Term() ) );
+			
 			//
 			// Save unique key.
 			//
@@ -587,12 +519,7 @@ class COntologyDataTag extends COntologyTermObject
 				//
 				// Get sequence.
 				//
-				$sequence = $this->_NewSequence( $theContainer );
-				
-				//
-				// Set code.
-				//
-				$this->offsetSet( kTAG_CODE, $sequence );
+				$this->offsetSet( kTAG_CODE, $this->_NewSequence( $theContainer ) );
 				
 				//
 				// Set kind.
@@ -607,6 +534,13 @@ class COntologyDataTag extends COntologyTermObject
 		// Call parent method.
 		//
 		parent::_PrepareCommit( $theContainer, $theIdentifier, $theModifiers );
+		
+		//
+		// Set tag.
+		//
+		$this->offsetSet( kTAG_GID, $this->NS()
+								   .kTOKEN_NAMESPACE_SEPARATOR
+								   .$this->Code() );
 	
 	} // _PrepareCommit.
 
@@ -708,7 +642,7 @@ class COntologyDataTag extends COntologyTermObject
 
 	 
 
-} // class COntologyDataTag.
+} // class COntologyTag.
 
 
 ?>
