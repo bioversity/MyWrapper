@@ -293,6 +293,16 @@ try
 	$test = new MyClass( $mcontainer, $ref );
 	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
+	
+	echo( '<i>Load with query</i><br>' );
+	echo( '<i>$query = new CMongoQuery();</i><br>' );
+	$query = new CMongoQuery();
+	echo( '<i>$query->AppendStatement( CQueryStatement::Equals( \'SURNAME\', \'Skofic\' ), kOPERATOR_AND );</i><br>' );
+	$query->AppendStatement( CQueryStatement::Equals( 'SURNAME', 'Skofic' ), kOPERATOR_AND );
+	echo( '<i>$test = new MyClass( $mcontainer, $query );</i><br>' );
+	$test = new MyClass( $mcontainer, $query );
+	echo( 'Object:<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
 	echo( '<hr>' );
 	
 	//

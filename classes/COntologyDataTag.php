@@ -1,9 +1,9 @@
 <?php
 
 /**
- * <i>COntologyPath</i> class definition.
+ * <i>COntologyDataTag</i> class definition.
  *
- * This file contains the class definition of <b>COntologyPath</b> which represents an
+ * This file contains the class definition of <b>COntologyDataTag</b> which represents an
  * ontology term used to tag data.
  *
  *	@package	MyWrapper
@@ -15,7 +15,7 @@
 
 /*=======================================================================================
  *																						*
- *									COntologyPath.php									*
+ *									COntologyDataTag.php								*
  *																						*
  *======================================================================================*/
 
@@ -23,13 +23,6 @@
  * Ancestor.
  *
  * This include file contains the parent class definitions.
- */
-require_once( kPATH_LIBRARY_SOURCE."CPersistentUnitObject.php" );
-
-/**
- * Terms.
- *
- * This include file contains the terms class definitions.
  */
 require_once( kPATH_LIBRARY_SOURCE."COntologyTerm.php" );
 
@@ -39,7 +32,14 @@ require_once( kPATH_LIBRARY_SOURCE."COntologyTerm.php" );
  * Datasets are stored by this library in documents managed by a document database, there
  * is no predefined structure, except that each document attribute, or data element, is
  * identified by a tag which is the {@link kTAG_LID identifier} of instances from this
- * class.
+ * class or the {@link COntologyTerm COntologyTerm} class.
+ *
+ * A data element tagged by an instance of the {@link COntologyTerm COntologyTerm} class
+ * will have all its metadata stored in that term, but there are cases in which one term is
+ * not enough to describe the full metadata of a data element: for instance, a trait may be
+ * measured using different methods and workflows, and this data may also be measured in
+ * different units. For this reason this class extends the term
+ * {@link COntologyTermObject base} class to handle this case.
  *
  * Instances of this class contain a list of ontology {@link COntologyTerm terms} whose
  * elements are related between each other by predicates, which are also
@@ -58,22 +58,38 @@ require_once( kPATH_LIBRARY_SOURCE."COntologyTerm.php" );
  * this library and the container in which these objects are stored represents the data
  * dictionary.
  *
+ * No two objects may exist with the same {@link Path() path}.
+ *
+ * All instances of this class are uniquely {@link GID() identified} by a combination of two
+ * elements:
+ *
+ * <ul>
+ *	<li><i>{@link NS() Namespace}</i>: There is one instance of this class which represents
+ *		the default namespace of all objects derived from this class, its
+ *		{@link GID() identifier} is a '@' character (which is forbidden in other related
+ *		term classes).
+ *	<li><i>{@link Code() Code}</i>: The aforementioned namespace contains an integer field
+ *		which represents a sequence counter which will be used as the object's
+ *		{@link Code() code}.
+ * </ul>
+ *
  * The class features the following properties:
  *
  * <ul>
- *	<li><i>{@link kTAG_CODE kTAG_CODE}</i>: This {@link Code() attribute} represents the tag
- *		that will be used to mark the data elements.
  *	<li><i>{@link kTAG_PATH kTAG_PATH}</i>: This {@link Path() attribute} holds the list of
  *		{@link COntologyTerm term} {@link COntologyTerm::GID() identifiers} representing the
  *		tag path, the attribute is a string formed by the concatenation of all the
  *		{@link COntologyTerm term} {@link COntologyTerm::GID() identifiers} structured as
  *		follows: <i>TERM/PREDICATE/TERM/PREDICATE/.../TERM</i> where all items are
- *		{@link COntologyTerm term} {@link COntologyTerm::GID() identifiers}.
+ *		{@link COntologyTerm term} {@link COntologyTerm::GID() identifiers}. This property
+ *		represents the object's unique identifier, no two records can have this same value.
  *	<li><i>{@link kTAG_TERM kTAG_TERM}</i>: This {@link Term() attribute} holds the list of
  *		{@link COntologyTerm terms} featured in the {@link Path() path} as an array of
  *		{@link COntologyTerm term} {@link kTAG_LID identifiers} in which odd elements
  *		represent the subjects and objects of the relationships and the even elements the
  *		relationship predicates.
+ *	<li><i>{@link kTAG_UID kTAG_UID}</i>: This attribute holds the hashed value of the
+ *		{@link Path() path}: it will be used to detect duplicate records.
  *	<li><i>{@link kTAG_REF_COUNT kTAG_REF_COUNT}</i>: This {@link RefCount() attribute}
  *		holds the count of data instances that refer to the current tag, or the number of
  *		data instances tagged by the current path. This attribute is required and is
@@ -83,60 +99,8 @@ require_once( kPATH_LIBRARY_SOURCE."COntologyTerm.php" );
  *	@package	MyWrapper
  *	@subpackage	Ontology
  */
-class COntologyPath extends CPersistentUnitObject
+class COntologyDataTag extends COntologyTermObject
 {
-		
-
-/*=======================================================================================
- *																						*
- *											MAGIC										*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	__construct																		*
-	 *==================================================================================*/
-
-	/**
-	 * Instantiate class.
-	 *
-	 * We {@link CPersistentUnitObject::__construct() overload} the constructor to
-	 * initialise the {@link _IsInited() inited} {@link kFLAG_STATE_INITED flag} if the
-	 * {@link Path() code} attribute is set.
-	 *
-	 * @param mixed					$theContainer		Persistent container.
-	 * @param mixed					$theIdentifier		Object identifier.
-	 * @param bitfield				$theModifiers		Create modifiers.
-	 *
-	 * @access public
-	 *
-	 * @uses _IsInited
-	 *
-	 * @see kTAG_CODE
-	 */
-	public function __construct( $theContainer = NULL,
-								 $theIdentifier = NULL,
-								 $theModifiers = kFLAG_DEFAULT )
-	{
-		//
-		// Enforce encoded flag.
-		//
-		$theModifiers |= kFLAG_STATE_ENCODED;
-		
-		//
-		// Call parent method.
-		//
-		parent::__construct( $theContainer, $theIdentifier, $theModifiers );
-		
-		//
-		// Set inited status.
-		//
-		$this->_IsInited( $this->offsetExists( kTAG_PATH ) );
-		
-	} // Constructor.
-
 		
 
 /*=======================================================================================
@@ -148,22 +112,59 @@ class COntologyPath extends CPersistentUnitObject
 
 	 
 	/*===================================================================================
+	 *	NS																				*
+	 *==================================================================================*/
+
+	/**
+	 * Manage term namespace.
+	 *
+	 * We {@link COntologyTerm::NS() overload} this method to force a default namespace
+	 * with a '@' code, this namespace element is created programmatically.
+	 *
+	 * @param mixed					$theValue			Value.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 *
+	 * @see kTAG_NAMESPACE
+	 */
+	public function NS( $theValue = NULL, $getOld = FALSE )
+	{
+		//
+		// Set default namespace.
+		//
+		if( ! $this->offsetExists( kTAG_NAMESPACE ) )
+			$this->offsetSet( kTAG_NAMESPACE, '@' );
+		
+		return '@';																	// ==>
+
+	} // NS.
+
+	 
+	/*===================================================================================
 	 *	Code																			*
 	 *==================================================================================*/
 
 	/**
 	 * Get code.
 	 *
-	 * This {@link kTAG_CODE attribute} holds the tag that will be used to annotate data,
-	 * this string is generated at {@link Commit() commit} time, for this reason this method
-	 * is read-only.
+	 * We {@link COntologyTerm::Code() overload} this method to make this method read-only,
+	 * the code is generated programmatically.
+	 *
+	 * @param mixed					$theValue			Value.
+	 * @param boolean				$getOld				TRUE get old value.
 	 *
 	 * @access public
 	 * @return string
 	 *
 	 * @see kTAG_CODE
 	 */
-	public function Code()						{	return $this->offsetGet( kTAG_CODE );	}
+	public function Code( $theValue = NULL, $getOld = FALSE )
+	{
+		return $this->offsetGet( kTAG_CODE );										// ==>
+	
+	} // Code.
 
 	 
 	/*===================================================================================
@@ -228,7 +229,7 @@ class COntologyPath extends CPersistentUnitObject
 	 *	 <ul>
 	 *		<li><i>{@link COntologyTerm COntologyTerm}</i>: The term's
 	 *			{@link kTAG_LID identifier} will be used.
-	 *		<li><i>{@link COntologyEdge COntologyEdge}</i>: the edge elements will be
+	 *		<li><i>{@link COntologyEdge COntologyEdge}</i>: The edge elements will be
 	 *			handled as follows:
 	 *		 <ul>
 	 *			<li><i>The current list is empty</i>: The three terms will make the list.
@@ -237,6 +238,8 @@ class COntologyPath extends CPersistentUnitObject
 	 *				method will add the predicate and object terms; if not, it will raise an
 	 *				exception.
 	 *		 </ul>
+	 *		<li><i>{@link COntologyEdgeIndex COntologyEdgeIndex}</i>: The same treatment as
+	 *			for the {@link COntologyEdge COntologyEdge}.
 	 *		<li><i>other</i>: Any other type will be cast to a string and interpreted as the
 	 *			{@link COntologyTerm term}'s {@link kTAG_LID identifier}.
 	 *	 </ul>
@@ -247,6 +250,10 @@ class COntologyPath extends CPersistentUnitObject
 	 * elements, this method is not responsible for checking this.
 	 *
 	 * This method will also update this object's {@link kTAG_PATH path} in the process.
+	 *
+	 * The method will prevent modifications if the object is
+	 * {@link _IsCommitted() committed}, because this would change the object's unique
+	 * {@link kTAG_UID identifier}.
 	 *
 	 * The method will return the current full list.
 	 *
@@ -269,173 +276,187 @@ class COntologyPath extends CPersistentUnitObject
 			return $this->offsetGet( kTAG_TERM );									// ==>
 		
 		//
-		// Delete list.
+		// Modifications are only allowed if the object is not committed.
 		//
-		elseif( $theValue === FALSE )
+		if( ! $this->offsetExists( kTAG_LID ) )
 		{
 			//
-			// Remove terms.
+			// Delete list.
 			//
-			$this->offsetUnset( kTAG_TERM );
-		
-			//
-			// Remove path.
-			//
-			$this->offsetUnset( kTAG_PATH );
-		}
-		
-		//
-		// Handle array.
-		//
-		elseif( is_array( $theValue ) )
-		{
-			//
-			// Iterate list.
-			//
-			foreach( $theValue as $value )
-				$this->Term( $value );
-		
-		} // Provided an array.
-		
-		//
-		// Add elements.
-		//
-		else
-		{
-			//
-			// Save current terms list.
-			//
-			$save = $this->offsetGet( kTAG_TERM );
-			if( $save === NULL )
-				$save = Array();
-
-			//
-			// Save current path.
-			//
-			$path = $this->offsetGet( kTAG_PATH );
-			if( $path === NULL )
-				$path = '';
-
-			//
-			// Resolve term.
-			//
-			if( $theValue instanceof COntologyTerm )
+			if( $theValue === FALSE )
 			{
 				//
-				// Add term.
+				// Remove terms.
 				//
-				$save[] = $theValue->offsetGet( kTAG_LID );
+				$this->offsetUnset( kTAG_TERM );
 			
 				//
-				// Add to path.
+				// Remove path.
 				//
-				if( strlen( $path ) )
-					$path .= kTOKEN_INDEX_SEPARATOR;
-				$path .= $theValue->GID();
+				$this->offsetUnset( kTAG_PATH );
 			}
 			
 			//
-			// Resolve ontology edge.
+			// Handle array.
 			//
-			elseif( $theValue instanceof COntologyEdge )
+			elseif( is_array( $theValue ) )
 			{
 				//
-				// Get subject.
+				// Iterate list.
 				//
-				$subject = $theValue->SubjectTerm();
-
-				//
-				// Handle empty list.
-				//
-				if( ! count( $save ) )
-				{
-					//
-					// Add subject.
-					//
-					$save[] = $subject[ kTAG_LID ];
-					
-					//
-					// Add subject path.
-					//
-					if( strlen( $path ) )
-						$path .= kTOKEN_INDEX_SEPARATOR;
-					$path .= $subject[ kTAG_GID ];
-				
-				} // Empty list.
-				
-				//
-				// Match subject.
-				//
-				elseif( ! ($subject[ kTAG_LID ] == ($last = $save[ count( $save ) - 1 ])) )
-					throw new CException
-						( "Non-matching relationship",
-						  kERROR_INVALID_PARAMETER,
-						  kMESSAGE_TYPE_WARNING,
-						  array( 'Object' => $last,
-								 'Subject' => $tmp[ kTAG_LID ] ) );				// !@! ==>
+				foreach( $theValue as $value )
+					$this->Term( $value );
 			
-				//
-				// Get predicate.
-				//
-				$tmp = $theValue->Term();
-
-				//
-				// Add predicate.
-				//
-				$save[] = $tmp[ kTAG_LID ];
-				
-				//
-				// Add predicate path.
-				//
-				$path .= $tmp[ kTAG_GID ];
-			
-				//
-				// Get object.
-				//
-				$tmp = $theValue->ObjectTerm();
-
-				//
-				// Add object.
-				//
-				$save[] = $tmp[ kTAG_LID ];
-				
-				//
-				// Add object path.
-				//
-				$path .= $tmp[ kTAG_GID ];
-			
-			} // Provided edge.
+			} // Provided an array.
 			
 			//
-			// Assume global identifier.
+			// Add elements.
 			//
 			else
 			{
 				//
-				// Add term.
+				// Save current terms list.
 				//
-				$save[] = COntologyTerm::HashIndex( (string) $theValue );
+				$save = $this->offsetGet( kTAG_TERM );
+				if( $save === NULL )
+					$save = Array();
+	
+				//
+				// Save current path.
+				//
+				$path = $this->offsetGet( kTAG_PATH );
+				if( $path === NULL )
+					$path = '';
+	
+				//
+				// Resolve term.
+				//
+				if( $theValue instanceof COntologyTerm )
+				{
+					//
+					// Add term.
+					//
+					$save[] = $theValue->offsetGet( kTAG_LID );
+				
+					//
+					// Add to path.
+					//
+					if( strlen( $path ) )
+						$path .= kTOKEN_INDEX_SEPARATOR;
+					$path .= $theValue->GID();
+				}
 				
 				//
-				// Add path.
+				// Resolve ontology edge.
 				//
-				if( strlen( $path ) )
-					$path .= kTOKEN_INDEX_SEPARATOR;
-				$path .= (string) $theValue;
+				elseif( $theValue instanceof COntologyEdge )
+				{
+					//
+					// Get subject.
+					//
+					$subject = $theValue->SubjectTerm();
+	
+					//
+					// Handle empty list.
+					//
+					if( ! count( $save ) )
+					{
+						//
+						// Add subject.
+						//
+						$save[] = $subject[ kTAG_LID ];
+						
+						//
+						// Add subject path.
+						//
+						if( strlen( $path ) )
+							$path .= kTOKEN_INDEX_SEPARATOR;
+						$path .= $subject[ kTAG_GID ];
+					
+					} // Empty list.
+					
+					//
+					// Match subject.
+					//
+					elseif( ! ($subject[ kTAG_LID ]
+								== ($last = $save[ count( $save ) - 1 ])) )
+						throw new CException
+							( "Non-matching relationship",
+							  kERROR_INVALID_PARAMETER,
+							  kMESSAGE_TYPE_WARNING,
+							  array( 'Object' => $last,
+									 'Subject' => $tmp[ kTAG_LID ] ) );			// !@! ==>
+				
+					//
+					// Get predicate.
+					//
+					$tmp = $theValue->Term();
+	
+					//
+					// Add predicate.
+					//
+					$save[] = $tmp[ kTAG_LID ];
+					
+					//
+					// Add predicate path.
+					//
+					$path .= $tmp[ kTAG_GID ];
+				
+					//
+					// Get object.
+					//
+					$tmp = $theValue->ObjectTerm();
+	
+					//
+					// Add object.
+					//
+					$save[] = $tmp[ kTAG_LID ];
+					
+					//
+					// Add object path.
+					//
+					$path .= $tmp[ kTAG_GID ];
+				
+				} // Provided edge.
+				
+				//
+				// Assume global identifier.
+				//
+				else
+				{
+					//
+					// Add term.
+					//
+					$save[] = COntologyTerm::HashIndex( (string) $theValue );
+					
+					//
+					// Add path.
+					//
+					if( strlen( $path ) )
+						$path .= kTOKEN_INDEX_SEPARATOR;
+					$path .= (string) $theValue;
+				
+				} // Provided global identifier.
+				
+				//
+				// Update terms.
+				//
+				$this->offsetSet( kTAG_TERM, $save );
+				
+				//
+				// Update path.
+				//
+				$this->offsetSet( kTAG_PATH, $path );
 			
-			} // Provided global identifier.
-			
-			//
-			// Update terms.
-			//
-			$this->offsetSet( kTAG_TERM, $save );
-			
-			//
-			// Update path.
-			//
-			$this->offsetSet( kTAG_PATH, $path );
+			} // Add elements.
 		
-		} // Add elements.
+		} // New object.
+		
+		else
+			throw new CException
+				( "The object has an identifier, its elements cannot be changed",
+				  kERROR_PROTECTED,
+				  kMESSAGE_TYPE_WARNING );										// !@! ==>
 			
 		return $this->offsetGet( kTAG_TERM );										// ==>
 
@@ -445,157 +466,37 @@ class COntologyPath extends CPersistentUnitObject
 
 /*=======================================================================================
  *																						*
- *								PUBLIC ARRAY ACCESS INTERFACE							*
+ *								STATIC REFERENCE INTERFACE								*
  *																						*
  *======================================================================================*/
 
 
 	 
 	/*===================================================================================
-	 *	offsetSet																		*
+	 *	HashIndex																		*
 	 *==================================================================================*/
 
 	/**
-	 * Set a value for a given offset.
+	 * Hash index.
 	 *
-	 * We overload this method to manage the {@link _IsInited() inited}
-	 * {@link kFLAG_STATE_INITED status}: this is set if {@link kTAG_PATH code} property is
-	 * set.
+	 * We {@link CPersistentUnitObject::HashIndex() overload} this method to disable index
+	 * hashing: this is for two main reasons:
 	 *
-	 * @param string				$theOffset			Offset.
-	 * @param string|NULL			$theValue			Value to set at offset.
+	 * <ul>
+	 *	<li><i>Size</i>: A hashed index will have 12 characters, {@link GID() identifiers}
+	 *		from this class would have to reach a sequence of 10 digits before becoming as
+	 *		large as the hash.
+	 *	<li><i>Uniqueness</i>: The type of the parent classe's {@link kTAG_LID identifier}
+	 *		will be different than the type of instances from this class, this makes it
+	 *		unlikely to generate a duplicate identifier.
+	 * </ul>
 	 *
-	 * @access public
-	 */
-	public function offsetSet( $theOffset, $theValue )
-	{
-		//
-		// Call parent method.
-		//
-		parent::offsetSet( $theOffset, $theValue );
-		
-		//
-		// Set inited flag.
-		//
-		if( $theValue !== NULL )
-			$this->_IsInited( $this->offsetExists( kTAG_PATH ) );
-	
-	} // offsetSet.
-
-	 
-	/*===================================================================================
-	 *	offsetUnset																		*
-	 *==================================================================================*/
-
-	/**
-	 * Reset a value for a given offset.
+	 * @param string				$theValue			Value to hash.
 	 *
-	 * We overload this method to manage the {@link _IsInited() inited}
-	 * {@link kFLAG_STATE_INITED status}: this is set if {@link kTAG_PATH code} property is
-	 * set.
-	 *
-	 * @param string				$theOffset			Offset.
-	 *
-	 * @access public
-	 */
-	public function offsetUnset( $theOffset )
-	{
-		//
-		// Call parent method.
-		//
-		parent::offsetUnset( $theOffset );
-		
-		//
-		// Set inited flag.
-		//
-		$this->_IsInited( $this->offsetExists( kTAG_PATH ) );
-	
-	} // offsetUnset.
-
-		
-
-/*=======================================================================================
- *																						*
- *							PROTECTED IDENTIFICATION INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	_index																			*
-	 *==================================================================================*/
-
-	/**
-	 * Return the object's unique index.
-	 *
-	 * This method can be used to return a string value that represents the object's unique
-	 * identifier. This value should generally be extracted from the object's properties.
-	 *
-	 * In this class we use the object's {@link Path() path}.
-	 *
-	 * @access protected
+	 * @static
 	 * @return string
 	 */
-	protected function _index()									{	return $this->Path();	}
-
-		
-
-/*=======================================================================================
- *																						*
- *								PROTECTED PERSISTENCE INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	_Commit																			*
-	 *==================================================================================*/
-
-	/**
-	 * Store object in container.
-	 *
-	 * We overload this method to handle the check done {@link _PrepareCommit() before}:
-	 * if the object exists already in the database, it will not be committed again. This is
-	 * determined by the presence or not of the {@link Code() code}
-	 * {@link kTAG_CODE attribute}: if the latter is not there, it means the object must be
-	 * committed, if not, the inherited version of this method will not be executed.
-	 *
-	 * @param reference			   &$theContainer		Object container.
-	 * @param reference			   &$theIdentifier		Object identifier.
-	 * @param reference			   &$theModifiers		Commit modifiers.
-	 *
-	 * @access protected
-	 * @return mixed
-	 */
-	protected function _Commit( &$theContainer, &$theIdentifier, &$theModifiers )
-	{
-		//
-		// Check code.
-		//
-		if( ! $this->offsetExists( kTAG_CODE ) )
-		{
-			//
-			// Get sequence.
-			//
-			$sequence = $this->_NewSequence( $theContainer->Container() );
-			
-			//
-			// Set code.
-			//
-			$this->offsetSet( kTAG_CODE, '@'.$sequence );
-			
-			//
-			// Commit object.
-			//
-			$theContainer->Commit( $this, $theIdentifier, $theModifiers );
-		
-		} // New object.
-		
-		return $this->offsetGet( kTAG_CODE );										// ==>
-	
-	} // _Commit.
+	static function HashIndex( $theValue )							{	return $theValue;	}
 
 		
 
@@ -614,8 +515,9 @@ class COntologyPath extends CPersistentUnitObject
 	/**
 	 * Normalise before a store.
 	 *
-	 * We {@link CPersistentUnitObject::_PrepareCommit() overload} this method to generate
-	 * the object's {@link Code() code}.
+	 * We {@link COntologyTerm::_PrepareCommit() overload} this method to check whether
+	 * there is another record with the same {@link kTAG_UID unique} identifier, in that
+	 * case we load the current object with the contents of the found one.
 	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
@@ -630,42 +532,103 @@ class COntologyPath extends CPersistentUnitObject
 	protected function _PrepareCommit( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
-		// Call parent method.
-		//
-		parent::_PrepareCommit( $theContainer, $theIdentifier, $theModifiers );
-		
-		//
 		// Check if object exists already.
 		//
-		if( ! ($theModifiers & kFLAG_PERSIST_DELETE) )
+		if( (! $this->offsetExists( kTAG_LID ))				// Assuming new
+		 && (! ($theModifiers & kFLAG_PERSIST_DELETE)) )	// and not deleting.
 		{
 			//
-			// Try to find object.
+			// Save unique key.
 			//
-			$clone = new self( $theContainer, $theIdentifier, $theModifiers );
+			$uid = new CDataTypeBinary( md5( $this->offsetGet( kTAG_PATH ), TRUE ) );
+			
+			//
+			// Build query.
+			//
+			$query = new CMongoQuery();
+			$query->AppendStatement(
+						CQueryStatement::Equals( kTAG_UID, $uid, kTYPE_BINARY ),
+						kOPERATOR_AND );
+			
+			//
+			// Match object.
+			//
+			$clone = new self( $theContainer, $query );
 			if( $clone->_IsCommitted() )
 			{
 				//
-				// Copy code.
+				// Replace contents.
 				//
-				$this->offsetSet( kTAG_CODE, $clone[ kTAG_CODE ] );
+				$this->exchangeArray( $clone );
 				
 				//
-				// Copy reference count.
+				// Prevent committing.
 				//
-				$this->offsetSet( kTAG_REF_COUNT, $clone[ kTAG_REF_COUNT ] );
+				$theModifiers &= (~kFLAG_PERSIST_MASK);
+				
+				return;																// ==>
 			
-			} // Object exists already.
+			} // Matched.
 			
 			//
-			// Init reference count.
+			// Handle new object.
 			//
 			else
-				$this->offsetSet( kTAG_REF_COUNT, 0 );
+			{
+				//
+				// Init unique key.
+				//
+				$this->offsetSet( kTAG_UID, $uid );
+				
+				//
+				// Get sequence.
+				//
+				$sequence = $this->_NewSequence( $theContainer );
+				
+				//
+				// Set code.
+				//
+				$this->offsetSet( kTAG_CODE, $sequence );
+				
+			} // New object.
 		
-		} // Not deleting.
+		} // Not deleting
+		
+		//
+		// Call parent method.
+		//
+		parent::_PrepareCommit( $theContainer, $theIdentifier, $theModifiers );
 	
 	} // _PrepareCommit.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED STATUS UTILITIES								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	_Inited																			*
+	 *==================================================================================*/
+
+	/**
+	 * Return {@link _IsInited() initialised} status.
+	 *
+	 * We {@link COntologyTerm::_Inited() overload} this method to link the presence of the
+	 * {@link Term() term} {@link kTAG_TERM attribute} to the
+	 * {@link _IsInited() initialised} {@link kFLAG_STATE_INITED status} and disable all
+	 * other inherited requirements.
+	 *
+	 * @see kTAG_TERM
+	 *
+	 * @access protected
+	 * @return boolean
+	 */
+	protected function _Inited()			{	return $this->offsetExists( kTAG_TERM );	}
 
 		
 
@@ -692,14 +655,14 @@ class COntologyPath extends CPersistentUnitObject
 	 * When retrieving the sequence, if the main record does not exist, this method will
 	 * create one with a first value of 1.
 	 *
-	 * @param MongoCollection		$theContainer		Object container.
+	 * @param CMongoContainer		$theContainer		Object container.
 	 *
 	 * @access protected
 	 * @return integer
 	 *
 	 * @throws {@link CException CException}
 	 */
-	protected function _NewSequence( MongoCollection $theContainer )
+	protected function _NewSequence( CMongoContainer $theContainer )
 	{
 		//
 		// Init local storage.
@@ -711,7 +674,7 @@ class COntologyPath extends CPersistentUnitObject
 		//
 		// Get sequence.
 		//
-		$record = $theContainer->findOne( $criteria );
+		$record = $theContainer->Container()->findOne( $criteria );
 		if( $record )
 			$sequence = $record[ kTAG_COUNT ];
 		else
@@ -723,7 +686,7 @@ class COntologyPath extends CPersistentUnitObject
 		//
 		// Increment sequence.
 		//
-		$status = $theContainer->update( $criteria , $modified, $options );
+		$status = $theContainer->Container()->update( $criteria , $modified, $options );
 		if( ! $status[ 'ok' ] )
 			throw new CException( "Unable to save sequence",
 								  kERROR_INVALID_STATE,
@@ -736,7 +699,7 @@ class COntologyPath extends CPersistentUnitObject
 
 	 
 
-} // class COntologyPath.
+} // class COntologyDataTag.
 
 
 ?>

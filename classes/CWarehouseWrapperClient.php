@@ -115,9 +115,12 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 			{
 				case kAPI_OP_LOGIN:
 				case kAPI_OP_GET_TERMS:
+				case kAPI_OP_MATCH_TERMS:
 				case kAPI_OP_GET_NODES:
+				case kAPI_OP_GET_EDGES:
 				case kAPI_OP_GET_RELS:
 				case kAPI_OP_GET_ROOTS:
+				case kAPI_OP_DATA_TAG:
 					break;
 				
 				default:

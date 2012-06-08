@@ -328,7 +328,7 @@ class COntologyNode extends CGraphNode
 	 * Manage node kind.
 	 *
 	 * This method can be used to manage the node {@link kTAG_DOMAIN domains}, in general it
-	 * reflects the {@link Term() term} {@link CTerm::Domain() domains}.
+	 * reflects the {@link Term() term} {@link COntologyTermObject::Domain() domains}.
 	 *
 	 * For a more thorough reference of how this method works, please consult the
 	 * {@link _ManagePropertyArray() _ManagePropertyArray} method, in which the first
@@ -372,7 +372,8 @@ class COntologyNode extends CGraphNode
 	 * Manage node kind.
 	 *
 	 * This method can be used to manage the node {@link kTAG_CATEGORY categories}, in
-	 * general it reflects the {@link Term() term} {@link CTerm::Category() categories}.
+	 * general it reflects the {@link Term() term}
+	 * {@link COntologyTermObject::Category() categories}.
 	 *
 	 * For a more thorough reference of how this method works, please consult the
 	 * {@link _ManagePropertyArray() _ManagePropertyArray} method, in which the first
@@ -1444,7 +1445,8 @@ class COntologyNode extends CGraphNode
 	 * {@link Term() term}.
 	 *
 	 * We also copy the {@link CCodedUnitObject::Kind() kind},
-	 * {@link CTerm::Domain() domain}, {@link CTerm::Category() category} and
+	 * {@link COntologyTermObject::Domain() domain},
+	 * {@link COntologyTermObject::Category() category} and
 	 * {@link COntologyTerm::Type() type} elements, if not yet present, from the
 	 * {@link Term() term} to the current node.
 	 *

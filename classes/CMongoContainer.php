@@ -701,8 +701,9 @@ class CMongoContainer extends CContainer
 	 * The {@link Load() caller} will have resolved references andeventually extracted the
 	 * identifier from the provided parameter.
 	 *
-	 * This method will check if the current container is a MongoCollection, if this is not 
-	 * the case, it will raise an {@link kERROR_INVALID_STATE exception}.
+	 * If the provided parameter is an array, the method will assume it is a query; if not,
+	 * the method will assume it is the value to match against the {@link kTAG_LID local}
+	 * identifier.
 	 *
 	 * The method will use the <i>findOne</i> method to retrieve the object.
 	 *
@@ -717,7 +718,9 @@ class CMongoContainer extends CContainer
 		//
 		// Set criteria.
 		//
-		$criteria = array( kTAG_LID => $theIdentifier );
+		$criteria = ( is_array( $theIdentifier ) )
+				  ? $theIdentifier
+				  : array( kTAG_LID => $theIdentifier );
 		
 		return $this->Container()->findOne( $criteria );							// ==>
 	
@@ -844,6 +847,73 @@ class CMongoContainer extends CContainer
 			$theIdentifier = $theObject[ kTAG_LID ];
 	
 	} // _PrepareCommit.
+
+	 
+	/*===================================================================================
+	 *	_PrepareLoad																	*
+	 *==================================================================================*/
+
+	/**
+	 * Prepare before a {@link _Load() load}.
+	 *
+	 * The duty of this method is to ensure that the parameters provided to the
+	 * {@link _Load() find} operation are valid.
+	 *
+	 * In this class we {@link CContainer::_PrepareLoad() overload} this method to handle
+	 * identifiers provided as queries.
+	 *
+	 * @param reference			   &$theContainer		Object container.
+	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Create modifiers.
+	 *
+	 * @access protected
+	 *
+	 * @throws {@link CException CException}
+	 *
+	 * @uses Container()
+	 * @uses UnserialiseData()
+	 *
+	 * @see kFLAG_STATE_ENCODED
+	 */
+	protected function _PrepareLoad( &$theIdentifier, &$theModifiers )
+	{
+		//
+		// Handle queries.
+		//
+		if( $theIdentifier instanceof CMongoQuery )
+		{
+			//
+			// Check container.
+			//
+			if( $this->Container() === NULL )
+				throw new CException
+					( "Missing native container",
+					  kERROR_INVALID_STATE,
+					  kMESSAGE_TYPE_ERROR );									// !@! ==>
+		
+			//
+			// Check if identifier is there.
+			//
+			if( $theIdentifier === NULL )
+				throw new CException
+						( "Missing object identifier",
+						  kERROR_OPTION_MISSING,
+						  kMESSAGE_TYPE_ERROR );								// !@! ==>
+			
+			//
+			// Convert query.
+			//
+			$theIdentifier = $theIdentifier->Export( $this );
+		
+		} // Provided a query.
+		
+		//
+		// Handle identifier.
+		//
+		else
+			parent::_PrepareLoad( $theIdentifier, $theModifiers );
+		
+	} // _PrepareLoad.
 
 	 
 

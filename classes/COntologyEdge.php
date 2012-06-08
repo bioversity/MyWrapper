@@ -1209,7 +1209,7 @@ class COntologyEdge extends CGraphEdge
 			if( ($ref = $this->Type()) !== NULL )
 			{
 				//
-				// Load subject term.
+				// Load predicate term.
 				//
 				$term = CPersistentUnitObject::NewObject
 							( $theContainer[ kTAG_TERM ],
@@ -1324,7 +1324,7 @@ class COntologyEdge extends CGraphEdge
 	 *		{@link kTAG_GID global} identifier (RelationshipIndex).
 	 *		container, it must be a Everyman\Neo4j\Client instance.
 	 *	<li><i>{@link kINDEX_EDGE_NAME kINDEX_EDGE_NAME}</i>: The {@link Term() term}
-	 *		{@link CTerm::Name() names} in all languages (RelationshipIndex).
+	 *		{@link COntologyTermObject::Name() names} in all languages (RelationshipIndex).
 	 *	<li><i>{@link kINDEX_EDGE_TERMS kINDEX_EDGE_TERMS}</i>: The node relations, this
 	 *		index records the relation terms, that is, the combination of the subject
 	 *		{@link SubjectTerm() term}, predicate {@link Term() term} and the object

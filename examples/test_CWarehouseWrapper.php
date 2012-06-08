@@ -1171,6 +1171,104 @@ try
 	echo( '<hr>' );
 	
 	/*===================================================================================
+	 *	DATA TAGS																		*
+	 *==================================================================================*/
+	echo( '<h4>Data tags ('.kAPI_OP_DATA_TAG.')</h4>' );
+	echo( '<i>Match all terms and their nodes who contain "Italian" in their GID, code '
+		 .'and names and that have related nodes; return the first three terms</i>' );
+	//
+	// Build items list.
+	//
+	$list = array
+	(
+		array( 15604, 14030 ),
+		COntologyTerm::HashIndex( 'MCPD:ORIGCTY' )
+	);
+	//
+	// Use wrapper client.
+	//
+	if( kUSE_CLIENT )
+	{
+		//
+		// Build parameters.
+		//
+		$params = new CWarehouseWrapperClient( $url );
+		$params->Operation( kAPI_OP_DATA_TAG );
+		$params->Format( kTYPE_JSON );
+		$params->Database( 'WAREHOUSE' );
+		foreach( $list as $element )
+			$params->Identifiers( $element, TRUE );
+		$params->LogTrace( TRUE );
+		$params->LogRequest( TRUE );
+		//
+		// Get response.
+		//
+		$decoded = $params->Execute();
+	}
+	//
+	// Use raw parameters.
+	//
+	else
+	{
+		//
+		// Build identifiers list.
+		//
+		$list_enc = json_encode( $list );
+		//
+		// Build parameters.
+		//
+		$params = Array();
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_DATA_TAG;				// Command.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;							// Format.
+		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';						// Database.
+		$params[] = kAPI_OPT_IDENTIFIERS.'='.urlencode( $list_enc );	// Identifiers.
+		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';							// Trace exceptions.
+		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';						// Log request.
+		//
+		// Build request.
+		//
+		$request = $url.'?'.implode( '&', $params );
+		//
+		// Get response.
+		//
+		$response = file_get_contents( $request );
+		//
+		// Decode response.
+		//
+		$decoded = json_decode( $response, TRUE );
+	}
+	//
+	// Display.
+	//
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Identifiers:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $list ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	if( ! kUSE_CLIENT )
+	{
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.$response.kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+	}
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+	
+	/*===================================================================================
 	 *	LIST NODES (EMPTY)																*
 	 *==================================================================================*/
 	echo( '<h4>Get nodes list ('.kAPI_OP_GET_NODES.') empty</h4>' );

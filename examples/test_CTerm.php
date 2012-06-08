@@ -27,7 +27,17 @@ require_once( '/Library/WebServer/Library/wrapper/includes.inc.php' );
 //
 // Class includes.
 //
-require_once( kPATH_LIBRARY_SOURCE."CTerm.php" );
+require_once( kPATH_LIBRARY_SOURCE."COntologyTermObject.php" );
+
+
+/*=======================================================================================
+ *	DECLARE TEST CLASS																	*
+ *======================================================================================*/
+
+//
+// Test class.
+//
+class CTerm extends COntologyTermObject{}
 
 
 /*=======================================================================================

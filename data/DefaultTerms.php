@@ -483,7 +483,7 @@ exit( "Done!\n" );
 				   		   .'its trait term.' ),
 			array( 'id'	=> kPRED_ENUM_OF,
 				   'syn' => 'kPRED_ENUM_OF',
-				   'nam' => 'Method-of',
+				   'nam' => 'Enumeration-of',
 				   'def' => 'This predicate is used to relate enumerated terms, it will relate the enumerated value with '
 				   		   .'its measure term or with a superclass of the enumerated value, if in a hierarchy.' )
 		);
@@ -1709,7 +1709,16 @@ exit( "Done!\n" );
 				   		   .'containers, it represents a string that may only reference '
 				   		   .'that specific object. This should not be confused with the '
 						   .'local identifier, which represents the key to the object '
-						   .'within the local database.' )
+						   .'within the local database.' ),
+			array( 'id'	=> kTAG_UID,
+				   'ns' => '',
+				   'syn' => 'kTAG_UID',
+				   'car' => 'kCARD_0_1',
+				   'nam' => 'Unique identifier',
+				   'def' => 'This term represents the object\'s unique identifier when '
+				   		   .'the object\'s local identifier cannot be used to determine '
+				   		   .'the unique key, it is a unique key that will be used to '
+				   		   ,'query the database by content, rather than by key field.' )
 		);
 		
 		//

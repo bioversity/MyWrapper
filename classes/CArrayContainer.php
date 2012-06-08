@@ -407,13 +407,14 @@ class CArrayContainer extends CContainer
 	 *
 	 * @param reference			   &$theIdentifier		Object identifier.
 	 * @param reference			   &$theModifiers		Load modifiers.
+	 * @param mixed					$theOptions			Load options.
 	 *
 	 * @access protected
 	 * @return mixed
 	 *
 	 * @uses _Container()
 	 */
-	protected function _Load( &$theIdentifier, &$theModifiers )
+	protected function _Load( &$theIdentifier, &$theModifiers, $theOptions = NULL )
 	{
 		//
 		// Init local storage.

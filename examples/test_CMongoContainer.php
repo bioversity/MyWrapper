@@ -288,6 +288,15 @@ try
 	$found = $test->Load( $found );
 	echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
 	echo( '<hr>' );
+	
+	echo( '<i>$query = new CMongoQuery();</i><br>' );
+	$query = new CMongoQuery();
+	echo( '<i>$query->AppendStatement( CQueryStatement::Equals( \'Name\', \'Pippo\' ), kOPERATOR_AND );</i><br>' );
+	$query->AppendStatement( CQueryStatement::Equals( 'Name', 'Pippo' ), kOPERATOR_AND );
+	echo( '<i>$found = $test->Load( $query );</i><br>' );
+	$found = $test->Load( $query );
+	echo( 'Found:<pre>' ); print_r( $found ); echo( '</pre>' );
+	echo( '<hr>' );
 
 	//
 	// Delete.

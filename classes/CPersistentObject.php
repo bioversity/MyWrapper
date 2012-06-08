@@ -658,6 +658,10 @@ class CPersistentObject extends CStatusObject
 	 * {@link _PrepareCommit() checked}, its main duty is to perform the actual storage.
 	 * In derived classes you should intercept custom containers, or call the parent method.
 	 *
+	 * There might be cases in which you do not want the commit operation to occur: in those
+	 * cases you can clear all the persistence {@link kFLAG_PERSIST_MASK flags} in the
+	 * modifier parameter, in that case the operation will not occur.
+	 *
 	 * <i>Note: the duty of this method is to store only the array part of the object,
 	 * properties should be ignored.</i>
 	 *
@@ -670,7 +674,13 @@ class CPersistentObject extends CStatusObject
 	 */
 	protected function _Commit( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
-		return $theContainer->Commit( $this, $theIdentifier, $theModifiers );		// ==>
+		//
+		// Check persistence flags.
+		//
+		if( $theModifiers & kFLAG_PERSIST_MASK )
+			return $theContainer->Commit( $this, $theIdentifier, $theModifiers );	// ==>
+		
+		return $this->offsetGet( kTAG_LID );										// ==>
 	
 	} // _Commit.
 

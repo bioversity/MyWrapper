@@ -793,6 +793,9 @@ abstract class CPersistentUnitObject extends CPersistentObject
 	 * identifiers provided as structures containing either the {@link kTAG_LID native}
 	 * identifier or an object {@link kTAG_REFERENCE_ID reference}.
 	 *
+	 * We also handle queries provided in the identifier, in this case we only check whether
+	 * the container is supported.
+	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
 	 * @param reference			   &$theModifiers		Create modifiers.
@@ -808,8 +811,9 @@ abstract class CPersistentUnitObject extends CPersistentObject
 		//
 		// Handle identifier structures.
 		//
-		if( is_array( $theIdentifier )
-		 || ($theIdentifier instanceof ArrayObject) )
+		if( (! ($theIdentifier instanceof CQuery))
+		 && ( is_array( $theIdentifier )
+		   || ($theIdentifier instanceof ArrayObject) ) )
 		{
 			//
 			// Try object identifier.
@@ -1074,8 +1078,8 @@ abstract class CPersistentUnitObject extends CPersistentObject
 	 * @uses _CommitReference()
 	 */
 	protected function _ParseReferences( $theOffset,
-										  $theContainer,
-										  $theModifiers = kFLAG_DEFAULT )
+										 $theContainer,
+										 $theModifiers = kFLAG_DEFAULT )
 	{
 		//
 		// Check container.
@@ -1338,7 +1342,7 @@ abstract class CPersistentUnitObject extends CPersistentObject
 		
 		return array_values( $tags );												// ==>
 	
-	} // _SetTags.
+	} // _GetTags.
 
 	 
 

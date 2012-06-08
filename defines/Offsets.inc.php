@@ -52,6 +52,15 @@ define( "kTAG_LID",								'_id' );
  */
 define( "kTAG_GID",								':GID' );
 
+/**
+ * Unique identifier offset.
+ *
+ * This is the tag that represents the object's unique identifier, this offset is used when
+ * the {@link kTAG_LID local} identifier is not the actual value that determines the object
+ * unique key. This offset should generally be a unique index.
+ */
+define( "kTAG_UID",								':UID' );
+
 /*=======================================================================================
  *	DEFAULT REFERENCE TAGS																*
  *======================================================================================*/

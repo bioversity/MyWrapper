@@ -392,7 +392,7 @@ abstract class CContainer extends CObject
 		//
 		// Perform load.
 		//
-		$object = $this->_Load( $theIdentifier, $theModifiers  );
+		$object = $this->_Load( $theIdentifier, $theModifiers );
 		
 		//
 		// Finish.

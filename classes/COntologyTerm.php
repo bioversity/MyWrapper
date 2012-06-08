@@ -116,26 +116,6 @@ class COntologyTerm extends COntologyTermObject
 
 	 
 	/*===================================================================================
-	 *	GID																				*
-	 *==================================================================================*/
-
-	/**
-	 * Manage term global identifier.
-	 *
-	 * The term global {@link kTAG_GID identifier} represents the un-hashed version of the
-	 * term local {@link kTAG_LID identifier}.
-	 *
-	 * This value is set automatically by methods, so this method is read-only.
-	 *
-	 * @access public
-	 * @return string
-	 *
-	 * @see kTAG_GID
-	 */
-	public function GID()									{	return $this[ kTAG_GID ];	}
-
-	 
-	/*===================================================================================
 	 *	NS																				*
 	 *==================================================================================*/
 
@@ -198,21 +178,56 @@ class COntologyTerm extends COntologyTermObject
 
 	 
 	/*===================================================================================
+	 *	NamespaceName																	*
+	 *==================================================================================*/
+
+	/**
+	 * Manage term namespace name.
+	 *
+	 * This method can be used to handle the term {@link kOFFSET_NAMESPACE namespace}, it
+	 * uses the standard accessor {@link CAttribute::ManageOffset() method} to manage the
+	 * {@link kOFFSET_NAMESPACE offset}.
+	 *
+	 * This property represents the term's namespace name or acronym; not to be confused
+	 * with the {@link kTAG_NAMESPACE kTAG_NAMESPACE} offset which represents the namespace
+	 * term reference.
+	 *
+	 * For a more in-depth reference of this method, please consult the
+	 * {@link CAttribute::ManageOffset() CAttribute::ManageOffset} method, in which the
+	 * second parameter will be the constant {@link kOFFSET_NAMESPACE kOFFSET_NAMESPACE}.
+	 *
+	 * @param mixed					$theValue			Value.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 *
+	 * @uses CAttribute::ManageOffset()
+	 *
+	 * @see kOFFSET_NAMESPACE
+	 */
+	public function NamespaceName( $theValue = NULL, $getOld = FALSE )
+	{
+		return CAttribute::ManageOffset
+				( $this, kOFFSET_NAMESPACE, $theValue, $getOld );					// ==>
+
+	} // NamespaceName.
+
+	 
+	/*===================================================================================
 	 *	Code																			*
 	 *==================================================================================*/
 
 	/**
 	 * Manage code.
 	 *
-	 * We {@link CCodedUnitObject::Code() overload} this method to check the format of the
-	 * code, we perform the following checks:
+	 * We {@link COntologyTermObject::Code() overload} this method to check the format of
+	 * the code, we perform the following checks:
 	 *
 	 * <ul>
 	 *	<li><i>Characters</i>: There are a number of characters that are forbidden in
 	 *		codes, providing a code with such characters will trigger an exception:
 	 *	 <ul>
-	 *		<li><i>period (.)</i>: No periods can be embedded in codes, these conflict with
-	 *			the sub-fields character in Mongo.
 	 *		<li><i>at (@)</i>: No code may start with this character, this is reserved for
 	 *			identifying annotation terms.
 	 *	 </ul>
@@ -232,16 +247,6 @@ class COntologyTerm extends COntologyTermObject
 		if( ($theValue !== NULL)
 		 && ($theValue !== FALSE) )
 		{
-			//
-			// Check periods.
-			//
-			if( strpos( (string) $theValue, '.' ) !== FALSE )
-				throw new CException
-					( "Term codes may not have periods in their codes",
-					  kERROR_INVALID_PARAMETER,
-					  kMESSAGE_TYPE_ERROR,
-					  array( 'Code' => $theValue ) );							// !@! ==>
-
 			//
 			// Check ats.
 			//
@@ -584,6 +589,252 @@ class COntologyTerm extends COntologyTermObject
 
 	} // Examples.
 
+	 
+	/*===================================================================================
+	 *	Domain																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage domains.
+	 *
+	 * This method can be used to handle the object's {@link kTAG_DOMAIN domains}, it uses
+	 * the standard accessor {@link CAttribute::ManageArrayOffset() method} to manage the
+	 * list of domains.
+	 *
+	 * Each element of this list should indicate a domain to which the current object
+	 * belongs to.
+	 *
+	 * For a more thorough reference of how this method works, please consult the
+	 * {@link CAttribute::ManageArrayOffset() CAttribute::ManageArrayOffset} method, in
+	 * which the second parameter will be the constant {@link kTAG_CATEGORY kTAG_CATEGORY}.
+	 *
+	 * @param mixed					$theValue			Value or index.
+	 * @param mixed					$theOperation		Operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return mixed
+	 *
+	 * @uses CAttribute::ManageArrayOffset()
+	 *
+	 * @see kTAG_DOMAIN
+	 */
+	public function Domain( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
+	{
+		return CAttribute::ManageArrayOffset
+					( $this, kTAG_DOMAIN, $theValue, $theOperation, $getOld );		// ==>
+
+	} // Domain.
+
+	 
+	/*===================================================================================
+	 *	Category																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage categories.
+	 *
+	 * This method can be used to handle the object's {@link kTAG_CATEGORY categories}, it
+	 * uses the standard accessor {@link CAttribute::ManageArrayOffset() method} to manage
+	 * the list of categories.
+	 *
+	 * Each element of this list should indicate a category to which the current object
+	 * belongs to.
+	 *
+	 * For a more thorough reference of how this method works, please consult the
+	 * {@link CAttribute::ManageArrayOffset() CAttribute::ManageArrayOffset} method, in
+	 * which the second parameter will be the constant {@link kTAG_CATEGORY kTAG_CATEGORY}.
+	 *
+	 * @param mixed					$theValue			Value or index.
+	 * @param mixed					$theOperation		Operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return mixed
+	 *
+	 * @uses CAttribute::ManageArrayOffset()
+	 *
+	 * @see kTAG_CATEGORY
+	 */
+	public function Category( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
+	{
+		return CAttribute::ManageArrayOffset
+					( $this, kTAG_CATEGORY, $theValue, $theOperation, $getOld );	// ==>
+
+	} // Category.
+
+	 
+	/*===================================================================================
+	 *	Image																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage cross-references.
+	 *
+	 * This method can be used to manage the term's list of {@link kOFFSET_IMAGE images},
+	 * this {@link kOFFSET_IMAGE offset} is represented by an array of items holding three
+	 * elements:
+	 *
+	 * <ul>
+	 *	<li><i>{@link kTAG_KIND kTAG_KIND}</i>: This element represents the kind or
+	 *		qualifier of the image, the element is required.
+	 *	<li><i>{@link kTAG_TYPE kTAG_TYPE}</i>: This element represents the data type of the
+	 *		image, this element is required.
+	 *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: This element represents the image data which
+	 *		should be expressed in the data type declared in the {@link kTAG_TYPE kTAG_TYPE}
+	 *		element.
+	 * </ul>
+	 *
+	 * The method expects the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theOffset</b>: The main offset to manage.
+	 *	<li><b>$theKind</b>: The item {@link kTAG_KIND kind}; it should be able to cast this
+	 *		value to a string which represents an index.
+	 *	<li><b>$theType</b>: The item {@link kTAG_TYPE type}; it should be able to cast this
+	 *		value to a string which represents an index.
+	 *	<li><b>$theData</b>: This parameter represents the item's {@link kTAG_DATA data}
+	 *		element, or the operation to be performed:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: This indicates that we want to retrieve the data of the item
+	 *			with index matching the previous parameters.
+	 *		<li><i>FALSE</i>: This indicates that we want to remove the item matching the
+	 *			index provided in the previous parameters.
+	 *		<li><i>other</i>: Any other value indicates that we want to add or replace the
+	 *			{@link kTAG_DATA data} element of the item matching the previous parameters.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the element or list <i>before</i> it was eventually
+	 *			modified.
+	 *		<li><i>FALSE</i>: Return the element or list <i>after</i> it was eventually
+	 *			modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * The method makes use of a static {@link CAttribute::ManageTypedKindOffset() method},
+	 * please consult its reference for more information.
+	 *
+	 * @param mixed					$theKind			Image kind.
+	 * @param mixed					$theType			Image type.
+	 * @param mixed					$theData			Image value.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 */
+	public function Image( $theKind, $theType, $theData = NULL, $getOld = FALSE )
+	{
+		return CAttribute::ManageTypedKindOffset
+				( $this,
+				  kOFFSET_IMAGE, kTAG_KIND, kTAG_TYPE, kTAG_DATA,
+				  $theKind, $theType, $theData,
+				  $getOld );														// ==>
+
+	} // Image.
+
+	 
+	/*===================================================================================
+	 *	Source																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage term sources.
+	 *
+	 * This method can be used to manage the term {@link kTAG_SOURCE sources}, it manages an
+	 * array of strings with the following offsets:
+	 *
+	 * <ul>
+	 *	<li><i>{@link kTAG_KIND kTAG_KIND}</i>: The source kind, this string can be used to
+	 *		define the type of the source, this element represents the array key, although
+	 *		technically it is implemented as an element to allow searching on all values.
+	 *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The source, this element should hold the
+	 *		actual source reference, which should be convertable to a string.
+	 * </ul>
+	 *
+	 * The parameters to this method are:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: The value or operation:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Return the current value selected by the second parameter.
+	 *		<li><i>FALSE</i>: Delete the value selected by the second parameter.
+	 *		<li><i>other</i>: Set value selected by the second parameter.
+	 *	 </ul>
+	 *	<li><b>$theType</b>: The element type, kind or index:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: This value indicates that the phone has no type or kind, in
+	 *			general, when adding elements, this case applies to default elements.
+	 *		<li><i>other</i>: All other types will be interpreted as the kind or type of
+	 *			the phone number.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
+	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * @param string				$theValue			Source.
+	 * @param mixed					$theType			Source kind or index.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 */
+	public function Source( $theValue = NULL, $theType = NULL, $getOld = FALSE )
+	{
+		return CAttribute::ManageTypedOffset( $this,
+											  kTAG_SOURCE, kTAG_KIND, kTAG_DATA,
+											  $theType, $theValue, $getOld );		// ==>
+
+	} // Source.
+
+
+	/*===================================================================================
+	 *	Version																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage version.
+	 *
+	 * This method can be used to manage the term public {@link kOFFSET_VERSION version}, it
+	 * uses the standard accessor {@link CAttribute::ManageOffset() method} to manage the
+	 * {@link kOFFSET_VERSION offset}:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: The value or operation:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Return the current value.
+	 *		<li><i>FALSE</i>: Delete the value.
+	 *		<li><i>other</i>: Set value.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
+	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * Note that the object features another version {@link kTAG_VERSION offset} which is
+	 * automatically managed by the {@link CPersistentUnitObject ancestor}, the latter is an
+	 * internal value, this one can be considere the <i>public</i> version.
+	 *
+	 * @param NULL|FALSE|string		$theValue			Version or operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 *
+	 * @see kOFFSET_VERSION
+	 */
+	public function Version( $theValue = NULL, $getOld = FALSE )
+	{
+		return CAttribute::ManageOffset
+				( $this, kOFFSET_VERSION, $theValue, $getOld );						// ==>
+
+	} // Version.
+
 		
 
 /*=======================================================================================
@@ -601,9 +852,9 @@ class COntologyTerm extends COntologyTermObject
 	/**
 	 * Manage synonyms.
 	 *
-	 * We {@link CTerm::Synonym() overload} this method to restrict the synonym
-	 * {@link kTAG_KIND kind}: the <i>$theType</i> parameter must take one of the following
-	 * values:
+	 * We {@link COntologyTermObject::Synonym() overload} this method to restrict the
+	 * synonym {@link kTAG_KIND kind}: the <i>$theType</i> parameter must take one of the
+	 * following values:
 	 *
 	 * <ul>
 	 *	<li><i>{@link kTYPE_EXACT kTYPE_EXACT}</i>: Exact synonym.
@@ -660,9 +911,9 @@ class COntologyTerm extends COntologyTermObject
 	/**
 	 * Manage cross-references.
 	 *
-	 * We {@link CTerm::Xref() overload} this method to restrict the cross-reference
-	 * {@link kTAG_KIND kind}: the <i>$theType</i> parameter must take one of the following
-	 * values:
+	 * We {@link COntologyTermObject::Xref() overload} this method to restrict the
+	 * cross-reference {@link kTAG_KIND kind}: the <i>$theType</i> parameter must take one
+	 * of the following values:
 	 *
 	 * <ul>
 	 *	<li><i>{@link kTYPE_EXACT kTYPE_EXACT}</i>: Exact cross-reference.

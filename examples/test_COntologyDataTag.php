@@ -1,10 +1,10 @@
 <?php
 
 /**
- * {@link COntologyPath.php Base} term test suite.
+ * {@link COntologyDataTag.php Base} term test suite.
  *
  * This file contains routines to test and demonstrate the behaviour of the
- * base term {@link COntologyPath class}.
+ * base term {@link COntologyDataTag class}.
  *
  *	@package	Test
  *	@subpackage	Entities
@@ -27,7 +27,7 @@ require_once( '/Library/WebServer/Library/wrapper/includes.inc.php' );
 //
 // Class includes.
 //
-require_once( kPATH_LIBRARY_SOURCE."COntologyPath.php" );
+require_once( kPATH_LIBRARY_SOURCE."COntologyDataTag.php" );
 
 
 /*=======================================================================================
@@ -57,7 +57,7 @@ try
 	//
 	// Instantiate path container.
 	//
-	$collection = new CMongoContainer( $db->selectCollection( 'COntologyPath' ) );
+	$collection = new CMongoContainer( $db->selectCollection( 'COntologyDataTag' ) );
 	
 	//
 	// Instantiate path container.
@@ -88,8 +88,8 @@ try
 	echo( '<h3>Create terms</h3>' );
 	
 	echo( '<i><b>Create with list</b></i><br>' );
-	echo( '<i>$path = new COntologyPath();</i><br>' );
-	$path = new COntologyPath();
+	echo( '<i>$path = new COntologyDataTag();</i><br>' );
+	$path = new COntologyDataTag();
 	echo( '<i>$path->Term( $terms );</i><br>' );
 	$path->Term( $terms );
 	$id = $path->Commit( $collection );
@@ -97,8 +97,8 @@ try
 	echo( '<hr>' );
 	
 	echo( '<i><b>Create with elements</b></i><br>' );
-	echo( '<i>$path = new COntologyPath();</i><br>' );
-	$path = new COntologyPath();
+	echo( '<i>$path = new COntologyDataTag();</i><br>' );
+	$path = new COntologyDataTag();
 	echo( '<i>$path->Term( $term_trait );</i><br>' );
 	$path->Term( $term_trait );
 	echo( '<i>$path->Term( kPRED_SCALE_OF );</i><br>' );
@@ -110,11 +110,38 @@ try
 	echo( '<hr>' );
 	
 	echo( '<i><b>Try creating same</b></i><br>' );
-	echo( '<i>$path = new COntologyPath();</i><br>' );
-	$path = new COntologyPath();
+	echo( '<i>$path = new COntologyDataTag();</i><br>' );
+	$path = new COntologyDataTag();
 	echo( '<i>$path->Term( $terms );</i><br>' );
 	$path->Term( $terms );
 	$id = $path->Commit( $collection );
+	echo( "$path<pre>" ); print_r( $path ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	//
+	// Persistence.
+	//
+	echo( '<h3>Persistence</h3>' );
+	
+	echo( '<i><b>Load by ID</b></i><br>' );
+	echo( '<i>$path = new COntologyDataTag( $collection, COntologyDataTag::HashIndex( \'@:2\' ) );</i><br>' );
+	$path = new COntologyDataTag( $collection, COntologyDataTag::HashIndex( '@:2' ) );
+	echo( "$path<pre>" ); print_r( $path ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i><b>Load by ID (string)</b></i><br>' );
+	echo( '<i>$path = new COntologyDataTag( $collection, \'@:2\' );</i><br>' );
+	$path = new COntologyDataTag( $collection, '@:2' );
+	echo( "$path<pre>" ); print_r( $path ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i><b>Load by query</b></i><br>' );
+	echo( '<i>$query = new CMongoQuery();</i><br>' );
+	$query = new CMongoQuery();
+	echo( '<i>$query->AppendStatement( CQueryStatement::Equals( kTAG_UID, new CDataTypeBinary( md5( $path->Path(), TRUE ) ), kTYPE_BINARY ), kOPERATOR_AND );</i><br>' );
+	$query->AppendStatement( CQueryStatement::Equals( kTAG_UID, new CDataTypeBinary( md5( $path->Path(), TRUE ) ), kTYPE_BINARY ), kOPERATOR_AND );
+	echo( '<i>$path = new COntologyDataTag( $collection, $query );</i><br>' );
+	$path = new COntologyDataTag( $collection, $query );
 	echo( "$path<pre>" ); print_r( $path ); echo( '</pre>' );
 	echo( '<hr>' );
 }
