@@ -594,6 +594,11 @@ class COntologyDataTag extends COntologyTermObject
 				//
 				$this->offsetSet( kTAG_CODE, $sequence );
 				
+				//
+				// Set kind.
+				//
+				$this->Kind( kTYPE_ANNOTATION, TRUE );
+				
 			} // New object.
 		
 		} // Not deleting
