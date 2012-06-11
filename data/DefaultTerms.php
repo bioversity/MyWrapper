@@ -471,6 +471,11 @@ exit( "Done!\n" );
 				   'nam' => 'Part-of',
 				   'def' => 'This predicate indicates that the subject or origin of the relation is part of the object or '
 				   		   .'target of the relation.' ),
+			array( 'id'	=> kPRED_COMPONENT_OF,
+				   'syn' => 'kPRED_COMPONENT_OF',
+				   'nam' => 'Component-of',
+				   'def' => 'This predicate indicates that the subject or origin of the relation is a component of the object or '
+				   		   .'target of the relation.' ),
 			array( 'id'	=> kPRED_SCALE_OF,
 				   'syn' => 'kPRED_SCALE_OF',
 				   'nam' => 'Scale-of',
@@ -1229,6 +1234,10 @@ exit( "Done!\n" );
 				   'syn' => 'kTYPE_ATTRIBUTE',
 				   'nam' => 'Attribute',
 				   'def' => 'This term represents a generic attribute.' ),
+			array( 'id'	=> kTYPE_STRUCTURE,
+				   'syn' => 'kTYPE_STRUCTURE',
+				   'nam' => 'Structure',
+				   'def' => 'This term represents a data structure.' ),
 			array( 'id'	=> kTYPE_ANNOTATION,
 				   'syn' => 'kTYPE_ANNOTATION',
 				   'nam' => 'Annotation',
@@ -2165,6 +2174,13 @@ exit( "Done!\n" );
 				   'nam' => 'Tags',
 				   'def' => 'This term represents the list of attribute terms used '
 				   		   .'in the object.' ),
+			array( 'id'	=> kTAG_DTAGS,
+				   'syn' => 'kTAG_DTAGS',
+				   'car' => 'kCARD_ANY',
+				   'typ' => 'kTYPE_STRING',
+				   'nam' => 'Data tags',
+				   'def' => 'This term represents the list of data tags that reference '
+				   		   .'the current object.' ),
 			array( 'id'	=> kTAG_EDGE_TERM,
 				   'syn' => 'kTAG_EDGE_TERM',
 				   'car' => 'kCARD_1',

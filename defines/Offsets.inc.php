@@ -420,6 +420,14 @@ define( "kTAG_REF_COUNT",						':REF-COUNT' );
 define( "kTAG_TAGS",							':TAGS' );
 
 /**
+ * Data tags.
+ *
+ * This tag represents a list of data tags, it is generally used to collect the list of
+ * data tags that reference the current object.
+ */
+define( "kTAG_DTAGS",							':DTAGS' );
+
+/**
  * Edge terms path.
  *
  * This tag represents a graph edge node by using its related terms as a path in the form of
@@ -644,6 +652,15 @@ define( "kPRED_IS_A",							':IS-A' );
  * This predicate indicates that the subject is part of the object.
  */
 define( "kPRED_PART_OF",						':PART-OF' );
+
+/**
+ * COMPONENT-OF.
+ *
+ * This is the tag that defines the COMPONENT-OF predicate.
+ *
+ * This predicate indicates that the subject is a component of the object.
+ */
+define( "kPRED_COMPONENT_OF",					':COMPONENT-OF' );
 
 /**
  * SCALE-OF.

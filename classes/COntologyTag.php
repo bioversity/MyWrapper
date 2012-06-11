@@ -433,6 +433,74 @@ class COntologyTag extends COntologyTermObject
 
 /*=======================================================================================
  *																						*
+ *								PROTECTED PERSISTENCE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	_Commit																			*
+	 *==================================================================================*/
+
+	/**
+	 * Store object in container.
+	 *
+	 * We {@link CGraphNode::_Commit() overload} this method to provide the correct
+	 * container to the {@link CGraphNode parent} {@link CGraphNode::_Commit() method}.
+	 *
+	 * We also overload this method to store the node properties into a Mongo collection
+	 * named {@link kDEFAULT_CNT_NODES kDEFAULT_CNT_NODES}, the record will be indexed by
+	 * node ID as a 64 bit integer.
+	 *
+	 * @param reference			   &$theContainer		Object container.
+	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Commit modifiers.
+	 *
+	 * @access protected
+	 * @return mixed
+	 *
+	 * @uses Node()
+	 */
+	protected function _Commit( &$theContainer, &$theIdentifier, &$theModifiers )
+	{
+		//
+		// Call parent method.
+		//
+		$id = parent::_Commit( $theContainer, $theIdentifier, $theModifiers );
+
+		//
+		// Init local storage.
+		//
+		$mod = array( kTAG_DTAGS => $this->GID() );
+		$modifiers = kFLAG_PERSIST_MODIFY | kFLAG_STATE_ENCODED;
+		$modifiers |= ( ( $theModifiers & kFLAG_PERSIST_DELETE )
+					  ? kFLAG_MODIFY_PULL
+					  : kFLAG_MODIFY_ADDSET );
+		
+		//
+		// Set container.
+		//
+		$container
+			= new CMongoContainer
+				( $theContainer->Database()->selectCollection( kDEFAULT_CNT_TERMS ) );
+		
+		//
+		// Update references.
+		//
+		$terms = $this->Term();
+		for( $i = 0; $i < count( $terms ); $i += 2 )
+			$container->Commit
+				( $mod, COntologyTerm::HashIndex( $terms[ $i ] ), $modifiers );
+		
+		return $id;																	// ==>
+	
+	} // _Commit.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PROTECTED PERSISTENCE UTILITIES							*
  *																						*
  *======================================================================================*/

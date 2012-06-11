@@ -324,6 +324,13 @@ define( "kTYPE_NAMESPACE",					':NAMESPACE' );
 define( "kTYPE_ATTRIBUTE",					':ATTRIBUTE' );
 
 /**
+ * Structure.
+ *
+ * This is the tag that represents a term that rtepresents a structure.
+ */
+define( "kTYPE_STRUCTURE",					':STRUCTURE' );
+
+/**
  * Predicate.
  *
  * This is the tag that represents a predicate.

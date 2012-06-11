@@ -224,6 +224,51 @@ class COntologyNode extends CGraphNode
 
 	 
 	/*===================================================================================
+	 *	Kind																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage node kind.
+	 *
+	 * This method can be used to manage the node {@link kTAG_KIND kinds}, in general it
+	 * reflects the {@link Term() term} {@link CCodedUnitObject::Kind() kinds}.
+	 *
+	 * For a more thorough reference of how this method works, please consult the
+	 * {@link _ManagePropertyArray() _ManagePropertyArray} method, in which the first
+	 * parameter will be the constant {@link kTAG_KIND kTAG_KIND}.
+	 *
+	 * The method will also set the {@link _IsDirty() dirty}
+	 * {@link kFLAG_STATE_DIRTY status}.
+	 *
+	 * @param mixed					$theValue			Value or index.
+	 * @param mixed					$theOperation		Operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 *
+	 * @uses _ManagePropertyArray()
+	 *
+	 * @see kTAG_KIND
+	 */
+	public function Kind( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
+	{
+		//
+		// Normalise value.
+		//
+		if( ($theValue !== NULL)
+		 && ($theValue !== FALSE)
+		 && (! is_array( $theValue )) )
+			$theValue = (string) $theValue;
+		
+		return $this->_ManagePropertyArray( kTAG_KIND, $theValue,
+													   $theOperation,
+													   $getOld );					// ==>
+
+	} // Kind.
+
+	 
+	/*===================================================================================
 	 *	Type																			*
 	 *==================================================================================*/
 
@@ -276,48 +321,71 @@ class COntologyNode extends CGraphNode
 
 	 
 	/*===================================================================================
-	 *	Kind																			*
+	 *	Cardinality																		*
 	 *==================================================================================*/
 
 	/**
-	 * Manage node kind.
+	 * Manage data cardinality.
 	 *
-	 * This method can be used to manage the node {@link kTAG_KIND kinds}, in general it
-	 * reflects the {@link Term() term} {@link CCodedUnitObject::Kind() kinds}.
+	 * This method can be used to manage the measure data {@link kTAG_CARDINALITY type}, it
+	 * uses the standard accessor {@link CAttribute::ManageOffset() method} to manage the
+	 * {@link kTAG_TYPE offset}:
 	 *
-	 * For a more thorough reference of how this method works, please consult the
-	 * {@link _ManagePropertyArray() _ManagePropertyArray} method, in which the first
-	 * parameter will be the constant {@link kTAG_KIND kTAG_KIND}.
+	 * <ul>
+	 *	<li><b>$theValue</b>: The value or operation:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Return the current value.
+	 *		<li><i>FALSE</i>: Delete the value.
+	 *		<li><i>string</i>: String values represent the cardinality enumeration:
+	 *		 <ul>
+	 *			<li><i>{@link kCARD_0_1 kCARD_0_1}</i>: Zero or one, a scalar or none.
+	 *			<li><i>{@link kCARD_1 kCARD_1}</i>: Exactly one, a required scalar.
+	 *			<li><i>{@link kCARD_ANY kCARD_ANY}</i>: Any, this implies that we either
+	 *				have an array or no data.
+	 *		 </ul>
+	 *		<li><i>integer</i>: An integer represents the exact cardinality, in that case
+	 *			we assume the data is an array of at most that number of elements.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
+	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
+	 *	 </ul>
+	 * </ul>
 	 *
-	 * The method will also set the {@link _IsDirty() dirty}
-	 * {@link kFLAG_STATE_DIRTY status}.
-	 *
-	 * @param mixed					$theValue			Value or index.
-	 * @param mixed					$theOperation		Operation.
+	 * @param NULL|FALSE|string		$theValue			Data type tag.
 	 * @param boolean				$getOld				TRUE get old value.
 	 *
 	 * @access public
 	 * @return string
-	 *
-	 * @uses _ManagePropertyArray()
-	 *
-	 * @see kTAG_KIND
 	 */
-	public function Kind( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
+	public function Cardinality( $theValue = NULL, $getOld = FALSE )
 	{
 		//
 		// Normalise value.
 		//
 		if( ($theValue !== NULL)
-		 && ($theValue !== FALSE)
-		 && (! is_array( $theValue )) )
-			$theValue = (string) $theValue;
+		 && ($theValue !== FALSE) )
+		{
+			switch( $theValue )
+			{
+				case kCARD_1:
+				case kCARD_0_1:
+				case kCARD_ANY:
+					break;
+				
+				default:
+					throw new CException
+							( "Unsupported cardinality type",
+							  kERROR_UNSUPPORTED,
+							  kMESSAGE_TYPE_ERROR,
+							  array( 'Cardinality' => $theValue ) );			// !@! ==>
+			}
+		}
 		
-		return $this->_ManagePropertyArray( kTAG_KIND, $theValue,
-													   $theOperation,
-													   $getOld );					// ==>
+		return $this->_ManageProperty( kTAG_CARDINALITY, $theValue, $getOld );		// ==>
 
-	} // Kind.
+	} // Cardinality.
 
 	 
 	/*===================================================================================
