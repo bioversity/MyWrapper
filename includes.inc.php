@@ -48,6 +48,14 @@ define( "kPATH_LIBRARY_SOURCE",		"/Library/WebServer/Library/wrapper/classes/" )
  */
 define( "kPATH_LIBRARY_DEFINES",	"/Library/WebServer/Library/wrapper/defines/" );
 
+/**
+ * Batch library definitions.
+ *
+ * This value defines the <b><i>absolute</i></b> path to the batch library definitions
+ * directory.
+ */
+define( "kPATH_LIBRARY_BATCH",		"/Library/WebServer/Library/wrapper/batch/" );
+
 /*=======================================================================================
  *	ADODB LIBRARY PATHS																	*
  *======================================================================================*/
