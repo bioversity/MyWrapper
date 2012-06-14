@@ -300,6 +300,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		//
 		$this->_ParseIdentifiers();
 		$this->_ParsePredicates();
+		$this->_ParsePredicatesInclusion();
 		$this->_ParseDirection();
 		$this->_ParseUserCode();
 		$this->_ParseUserPass();
@@ -423,7 +424,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	/**
 	 * Parse predicates.
 	 *
-	 * This method will parse the user {@link kAPI_OPT_PREDICATES predicates} parameter.
+	 * This method will parse the {@link kAPI_OPT_PREDICATES predicates} parameter.
 	 *
 	 * @access protected
 	 *
@@ -447,6 +448,40 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		} // Has predicates list.
 	
 	} // _ParsePredicates.
+
+	 
+	/*===================================================================================
+	 *	_ParsePredicatesInclusion														*
+	 *==================================================================================*/
+
+	/**
+	 * Parse predicates inclusion flag.
+	 *
+	 * This method will parse the predicates {@link kAPI_OPT_PREDICATES_INC inclusion}
+	 * parameter.
+	 *
+	 * @access protected
+	 *
+	 * @see kAPI_DATA_REQUEST kAPI_OPT_PREDICATES_INC
+	 */
+	protected function _ParsePredicatesInclusion()
+	{
+		//
+		// Handle predicates inclusion flag.
+		//
+		if( array_key_exists( kAPI_OPT_PREDICATES_INC, $_REQUEST ) )
+		{
+			//
+			// Add to request.
+			//
+			if( $this->offsetExists( kAPI_DATA_REQUEST ) )
+				$this->_OffsetManage
+					( kAPI_DATA_REQUEST, kAPI_OPT_PREDICATES_INC,
+					  $_REQUEST[ kAPI_OPT_PREDICATES_INC ] );
+		
+		} // Has predicates inclusion flag.
+	
+	} // _ParsePredicatesInclusion.
 
 	 
 	/*===================================================================================
@@ -826,7 +861,19 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		// Handle identifiers.
 		//
 		if( array_key_exists( kAPI_OPT_PREDICATES, $_REQUEST ) )
+		{
+			//
+			// Decode predicates.
+			//
 			$this->_DecodeParameter( kAPI_OPT_PREDICATES );
+			
+			//
+			// Initialise inclusion flag.
+			//
+			if( ! array_key_exists( kAPI_OPT_PREDICATES_INC, $_REQUEST ) )
+				$_REQUEST[ kAPI_OPT_PREDICATES_INC ] = 1;
+		
+		} // Provided predicates list.
 	
 	} // _FormatPredicates.
 
@@ -2192,6 +2239,13 @@ class CWarehouseWrapper extends CMongoDataWrapper
 					: Array();
 		
 		//
+		// Get predicates inclusion.
+		//
+		$predicates_inc = ( array_key_exists( kAPI_OPT_PREDICATES_INC, $_REQUEST ) )
+						? (boolean) $_REQUEST[ kAPI_OPT_PREDICATES_INC ]
+						: TRUE;
+		
+		//
 		// Handle sort.
 		//
 		$sort = ( array_key_exists( kAPI_DATA_SORT, $_REQUEST ) )
@@ -2299,8 +2353,26 @@ class CWarehouseWrapper extends CMongoDataWrapper
 						//
 						// Filter predicates.
 						//
-						if( (! count( $predicates ))
-						 || in_array( $theEdge->getType(), $predicates ) )
+						$selected = TRUE;
+						if( count( $predicates ) )
+						{
+							//
+							// Inclusive.
+							//
+							if( ( $predicates_inc
+							   && (! in_array( $record[ kTAG_PREDICATE ][ kTAG_TERM ],
+							   				   $predicates )) )
+							 || ( (! $predicates_inc)
+							   && in_array( $record[ kTAG_PREDICATE ][ kTAG_TERM ],
+							   				$predicates ) ) )
+								$selected = FALSE;
+						
+						} // Provided predicates selection.
+						
+						//
+						// Filter predicates.
+						//
+						if( $selected )
 						{
 							//
 							// Get edge elements.

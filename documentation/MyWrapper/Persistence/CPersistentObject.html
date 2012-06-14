@@ -359,10 +359,6 @@
 		<div class="notes">Redefined in descendants as:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../MyWrapper/Ontology/COntologyPath.html#method__construct">COntologyPath::__construct()</a>
-								: Instantiate class.
-							</li>
-					<li>
 				<a href="../../MyWrapper/Framework/CCodedUnitObject.html#method__construct">CCodedUnitObject::__construct()</a>
 								: Instantiate class.
 							</li>
@@ -504,12 +500,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Commit</span> (line <span class="line-number">671</span>)
+		<span class="method-title">_Commit</span> (line <span class="line-number">675</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Store object in container.</p>
-<p class="description"><p>The duty of this method is to store the current object in the container provided in  the first parameter with as key the value provided in the second parameter with  options provided in the third parameter, please refer to <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">this</a>  documentation for a reference of these parameters. Note that in this method all three  parameters are passed by reference.</p><p>This class supports <a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a> derived instances and will delegate  the operation to the container. Note that by default we call the container's  <a href="../../MyWrapper/Persistence/CContainer.html#methodCommit">commit</a> method with the  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_REPLACE">kFLAG_PERSIST_REPLACE</a> option, which will  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_INSERT">insert</a> the object if new or  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_UPDATE">replace</a> the eventual existing object.</p><p>The method expects all parameters to have been previously  <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_PrepareCommit">checked</a>, its main duty is to perform the actual storage.  In derived classes you should intercept custom containers, or call the parent method.</p><p><em>Note: the duty of this method is to store only the array part of the object,
+<p class="description"><p>The duty of this method is to store the current object in the container provided in  the first parameter with as key the value provided in the second parameter with  options provided in the third parameter, please refer to <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">this</a>  documentation for a reference of these parameters. Note that in this method all three  parameters are passed by reference.</p><p>This class supports <a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a> derived instances and will delegate  the operation to the container. Note that by default we call the container's  <a href="../../MyWrapper/Persistence/CContainer.html#methodCommit">commit</a> method with the  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_REPLACE">kFLAG_PERSIST_REPLACE</a> option, which will  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_INSERT">insert</a> the object if new or  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_UPDATE">replace</a> the eventual existing object.</p><p>The method expects all parameters to have been previously  <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_PrepareCommit">checked</a>, its main duty is to perform the actual storage.  In derived classes you should intercept custom containers, or call the parent method.</p><p>There might be cases in which you do not want the commit operation to occur: in those  cases you can clear all the persistence <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_MASK">flags</a> in the  modifier parameter, in that case the operation will not occur.</p><p><em>Note: the duty of this method is to store only the array part of the object,
  properties should be ignored.</em></p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
@@ -561,7 +557,7 @@
 								: Store object in container.
 							</li>
 					<li>
-				<a href="../../MyWrapper/Ontology/COntologyPath.html#method_Commit">COntologyPath::_Commit()</a>
+				<a href="../../MyWrapper/Ontology/COntologyTag.html#method_Commit">COntologyTag::_Commit()</a>
 								: Store object in container.
 							</li>
 				</ul>
@@ -616,7 +612,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishCommit</span> (line <span class="line-number">954</span>)
+		<span class="method-title">_FinishCommit</span> (line <span class="line-number">964</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -654,7 +650,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishCreate</span> (line <span class="line-number">907</span>)
+		<span class="method-title">_FinishCreate</span> (line <span class="line-number">917</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -706,7 +702,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FinishLoad</span> (line <span class="line-number">929</span>)
+		<span class="method-title">_FinishLoad</span> (line <span class="line-number">939</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -764,7 +760,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_GetTags</span> (line <span class="line-number">1024</span>)
+		<span class="method-title">_GetTags</span> (line <span class="line-number">1034</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -881,7 +877,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Load</span> (line <span class="line-number">701</span>)
+		<span class="method-title">_Load</span> (line <span class="line-number">711</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -939,7 +935,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">852</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">862</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -994,10 +990,6 @@
 								: Normalise before a store.
 							</li>
 					<li>
-				<a href="../../MyWrapper/Ontology/COntologyPath.html#method_PrepareCommit">COntologyPath::_PrepareCommit()</a>
-								: Normalise before a store.
-							</li>
-					<li>
 				<a href="../../MyWrapper/Persistence/CRelatedUnitObject.html#method_PrepareCommit">CRelatedUnitObject::_PrepareCommit()</a>
 								: Normalise before a store.
 							</li>
@@ -1022,6 +1014,10 @@
 								: Normalise before a store.
 							</li>
 					<li>
+				<a href="../../MyWrapper/Ontology/COntologyTag.html#method_PrepareCommit">COntologyTag::_PrepareCommit()</a>
+								: Normalise before a store.
+							</li>
+					<li>
 				<a href="../../MyWrapper/Ontology/COntologyTerm.html#method_PrepareCommit">COntologyTerm::_PrepareCommit()</a>
 								: Normalise before a store.
 							</li>
@@ -1032,7 +1028,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCreate</span> (line <span class="line-number">743</span>)
+		<span class="method-title">_PrepareCreate</span> (line <span class="line-number">753</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1095,7 +1091,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">789</span>)
+		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">799</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1156,7 +1152,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_SetTags</span> (line <span class="line-number">996</span>)
+		<span class="method-title">_SetTags</span> (line <span class="line-number">1006</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1299,7 +1295,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 08 Jun 2012 12:40:50 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 14 Jun 2012 12:20:07 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

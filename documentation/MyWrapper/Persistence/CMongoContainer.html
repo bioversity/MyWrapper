@@ -56,7 +56,7 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																																																																																<div class="method-definition">
+																																																																																								<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">mixed</span>
 										<a href="#Container" title="details" class="method-name">Container</a>
@@ -97,6 +97,12 @@
 											<span class="method-result">void</span>
 										<a href="#_PrepareCommit" title="details" class="method-name">_PrepareCommit</a>
 											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theObject</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_PrepareLoad" title="details" class="method-name">_PrepareLoad</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>)
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -159,10 +165,11 @@
 <p class="description"><p>We <a href="../../MyWrapper/Persistence/CContainer.html#methodContainer">overload</a> this method to ensure that the  provided container is a MongoCollection object.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CMongoContainer.html#method_PrepareLoad">CMongoContainer::_PrepareLoad()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CMongoContainer.html#method_PrepareCommit">CMongoContainer::_PrepareCommit()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CMongoContainer.html#method_Commit">CMongoContainer::_Commit()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CMongoContainer.html#methodDatabase">CMongoContainer::Database()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CMongoContainer.html#method__toString">CMongoContainer::__toString()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CMongoContainer.html#method_Commit">CMongoContainer::_Commit()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -250,6 +257,7 @@
         object.</li></ul></p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CMongoContainer.html#method_PrepareLoad">CMongoContainer::_PrepareLoad()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -325,7 +333,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Delete</span> (line <span class="line-number">743</span>)
+		<span class="method-title">_Delete</span> (line <span class="line-number">746</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -365,12 +373,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Load</span> (line <span class="line-number">715</span>)
+		<span class="method-title">_Load</span> (line <span class="line-number">716</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Load object.</p>
-<p class="description"><p>We implement this method to handle MongoCollection object stores, this method will  retrieve the object from the current container.</p><p>The <a href="../../MyWrapper/Persistence/CContainer.html#methodLoad">caller</a> will have resolved references andeventually extracted the  identifier from the provided parameter.</p><p>This method will check if the current container is a MongoCollection, if this is not  the case, it will raise an <a href="../../MyWrapper/Definitions/_defines---Errors.inc.php.html#definekERROR_INVALID_STATE">exception</a>.</p><p>The method will use the <em>findOne</em> method to retrieve the object.</p></p>
+<p class="description"><p>We implement this method to handle MongoCollection object stores, this method will  retrieve the object from the current container.</p><p>The <a href="../../MyWrapper/Persistence/CContainer.html#methodLoad">caller</a> will have resolved references andeventually extracted the  identifier from the provided parameter.</p><p>If the provided parameter is an array, the method will assume it is a query; if not,  the method will assume it is the value to match against the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LID">local</a>  identifier.</p><p>The method will use the <em>findOne</em> method to retrieve the object.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
 			</ul>
@@ -405,7 +413,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">816</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">819</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -447,8 +455,55 @@
 					</dl>
 			
 	</div>
-<a name="method__toString" id="__toString"><!-- --></a>
+<a name="method_PrepareLoad" id="_PrepareLoad"><!-- --></a>
 <div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">878</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Prepare before a _Load().</p>
+<p class="description"><p>The duty of this method is to ensure that the parameters provided to the  <a href="../../MyWrapper/Persistence/CMongoContainer.html#method_Load">find</a> operation are valid.</p><p>In this class we <a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareLoad">overload</a> this method to handle  identifiers provided as queries.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a></li>
+				<li><span class="field">throws:</span> <a href="../../MyWrapper/Framework/CException.html">CException</a></li>
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CMongoContainer.html#methodUnserialiseData">CMongoContainer::UnserialiseData()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CMongoContainer.html#methodContainer">CMongoContainer::Container()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_PrepareLoad
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theContainer</span><span class="var-description">: Object container.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theModifiers</span><span class="var-description">: Create modifiers.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareLoad">CContainer::_PrepareLoad()</a></dt>
+						<dd>Prepare before a _Load().</dd>
+					</dl>
+			
+	</div>
+<a name="method__toString" id="__toString"><!-- --></a>
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -546,7 +601,7 @@
 
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 08 Jun 2012 12:40:44 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 14 Jun 2012 12:20:01 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

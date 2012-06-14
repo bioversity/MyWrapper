@@ -341,8 +341,22 @@ define( "kAPI_OPT_IDENTIFIERS",		':@identifiers' );
  * option is used by operations involving the selection of {@link COntologyEdge edge} nodes:
  * only those {@link COntologyEdge edge} nodes referring to any of the provided predicate
  * {@link COntologyTerm term} identifiers will be selected.
+ *
+ * Note that this parameter depends on the
+ * {@link kAPI_OPT_PREDICATES_INC kAPI_OPT_PREDICATES_INC} parameter: if the latter is 1, it
+ * means that only edges whose predicate is among this list will be selected; if the value
+ * is 0, only edges whose predicate is not among this list will be selected.
  */
 define( "kAPI_OPT_PREDICATES",		':@predicates' );
+
+/**
+ * Predicates inclusion option.
+ *
+ * This option refers to the list of {@link kAPI_OPT_PREDICATES predicates}: it is a boolean
+ * (1/0) flag that determines whether the {@link kAPI_OPT_PREDICATES predicates} list is to
+ * be considered as inclusive or exclusive. If omitted it defaults to 1 (inclusion).
+ */
+define( "kAPI_OPT_PREDICATES_INC",	':@predicates-inc' );
 
 /**
  * Relationship direction.

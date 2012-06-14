@@ -47,7 +47,7 @@
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_DIRECTION_ALL</span> = 'a'
-			(line <span class="line-number">423</span>)
+			(line <span class="line-number">473</span>)
 		</span>
 	</div>
 	
@@ -64,7 +64,7 @@
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_DIRECTION_IN</span> = 'i'
-			(line <span class="line-number">407</span>)
+			(line <span class="line-number">457</span>)
 		</span>
 	</div>
 	
@@ -81,7 +81,7 @@
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_DIRECTION_OUT</span> = 'o'
-			(line <span class="line-number">415</span>)
+			(line <span class="line-number">465</span>)
 		</span>
 	</div>
 	
@@ -98,7 +98,7 @@
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_OPT_DIRECTION</span> = ':@direction'
-			(line <span class="line-number">330</span>)
+			(line <span class="line-number">380</span>)
 		</span>
 	</div>
 	
@@ -121,7 +121,7 @@
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_OPT_IDENTIFIERS</span> = ':@identifiers'
-			(line <span class="line-number">299</span>)
+			(line <span class="line-number">335</span>)
 		</span>
 	</div>
 	
@@ -138,7 +138,7 @@
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_OPT_LEVELS</span> = ':@levels'
-			(line <span class="line-number">342</span>)
+			(line <span class="line-number">392</span>)
 		</span>
 	</div>
 	
@@ -155,24 +155,41 @@
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_OPT_PREDICATES</span> = ':@predicates'
-			(line <span class="line-number">309</span>)
+			(line <span class="line-number">350</span>)
 		</span>
 	</div>
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Predicates option.</p>
-<p class="description"><p>This option refers to a list of predicate <a href="../../MyWrapper/Ontology/COntologyTerm.html">term</a> identifiers, this  option is used by operations involving the selection of <a href="../../MyWrapper/Ontology/COntologyEdge.html">edge</a> nodes:  only those <a href="../../MyWrapper/Ontology/COntologyEdge.html">edge</a> nodes referring to any of the provided predicate  <a href="../../MyWrapper/Ontology/COntologyTerm.html">term</a> identifiers will be selected.</p></p>
+<p class="description"><p>This option refers to a list of predicate <a href="../../MyWrapper/Ontology/COntologyTerm.html">term</a> identifiers, this  option is used by operations involving the selection of <a href="../../MyWrapper/Ontology/COntologyEdge.html">edge</a> nodes:  only those <a href="../../MyWrapper/Ontology/COntologyEdge.html">edge</a> nodes referring to any of the provided predicate  <a href="../../MyWrapper/Ontology/COntologyTerm.html">term</a> identifiers will be selected.</p><p>Note that this parameter depends on the  <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_PREDICATES_INC">kAPI_OPT_PREDICATES_INC</a> parameter: if the latter is 1, it  means that only edges whose predicate is among this list will be selected; if the value  is 0, only edges whose predicate is not among this list will be selected.</p></p>
 	
 		
 </div>
-<a name="definekAPI_OPT_USER_CODE"><!-- --></a>
+<a name="definekAPI_OPT_PREDICATES_INC"><!-- --></a>
 <div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
+			<span class="const-name">kAPI_OPT_PREDICATES_INC</span> = ':@predicates-inc'
+			(line <span class="line-number">359</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Predicates inclusion option.</p>
+<p class="description"><p>This option refers to the list of <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_PREDICATES">predicates</a>: it is a boolean  (1/0) flag that determines whether the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_PREDICATES">predicates</a> list is to  be considered as inclusive or exclusive. If omitted it defaults to 1 (inclusion).</p></p>
+	
+		
+</div>
+<a name="definekAPI_OPT_USER_CODE"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
 			<span class="const-name">kAPI_OPT_USER_CODE</span> = ':@user-code'
-			(line <span class="line-number">282</span>)
+			(line <span class="line-number">318</span>)
 		</span>
 	</div>
 	
@@ -183,13 +200,13 @@
 		
 </div>
 <a name="definekAPI_OPT_USER_PASS"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_OPT_USER_PASS</span> = ':@user-pass'
-			(line <span class="line-number">290</span>)
+			(line <span class="line-number">326</span>)
 		</span>
 	</div>
 	
@@ -200,13 +217,13 @@
 		
 </div>
 <a name="definekAPI_OP_GET_EDGES"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_OP_GET_EDGES</span> = '@GET_EDGES'
-			(line <span class="line-number">159</span>)
+			(line <span class="line-number">195</span>)
 		</span>
 	</div>
 	
@@ -229,13 +246,13 @@
 		
 </div>
 <a name="definekAPI_OP_GET_NODES"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_OP_GET_NODES</span> = '@GET_NODES'
-			(line <span class="line-number">111</span>)
+			(line <span class="line-number">147</span>)
 		</span>
 	</div>
 	
@@ -250,13 +267,13 @@
 		
 </div>
 <a name="definekAPI_OP_GET_RELS"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_OP_GET_RELS</span> = '@GET_RELS'
-			(line <span class="line-number">238</span>)
+			(line <span class="line-number">274</span>)
 		</span>
 	</div>
 	
@@ -289,13 +306,13 @@
 		
 </div>
 <a name="definekAPI_OP_GET_ROOTS"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_OP_GET_ROOTS</span> = '@GET_ROOTS'
-			(line <span class="line-number">270</span>)
+			(line <span class="line-number">306</span>)
 		</span>
 	</div>
 	
@@ -306,6 +323,23 @@
      <ul><li><em>Key</em>: The node ID.</li><li><em>Value</em>: The node properties.</li></ul></li><li><em><a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_RESPONSE_TERMS">kAPI_RESPONSE_TERMS</a></em>: The list of terms related to
         the list of found nodes as follows:
      <ul><li><em>Key</em>: The <a href="../../MyWrapper/Ontology/COntologyTerm.html">term</a> global <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a>.</li><li><em>Value</em>: The contents of the <a href="../../MyWrapper/Ontology/COntologyTerm.html">term</a>.</li></ul></li></ul></p><p>If you omit the <a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_QUERY">kAPI_DATA_QUERY</a> parameter, all  <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ROOT">root</a> <a href="../../MyWrapper/Ontology/COntologyNode.html">nodes</a> will be selected.</p></p>
+	
+		
+</div>
+<a name="definekAPI_OP_GET_TAGS"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_OP_GET_TAGS</span> = '@GET_TAGS'
+			(line <span class="line-number">101</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">List tags web-service.</p>
+<p class="description"><p>This is the tag that represents the list tags web service, it will locate all  <a href="../../MyWrapper/Ontology/COntologyTag.html">tags</a> matching the provided identifiers in the  <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter and return an array  structured as follows:</p><p><ul><li><em>Key</em>: The <a href="../../MyWrapper/Ontology/COntologyTag.html">term</a> global <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a>.</li><li><em>Value</em>: The contents of the <a href="../../MyWrapper/Ontology/COntologyTag.html">tag</a>.</li></ul></p><p>If you omit the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter it is assumed  that you want all tags, in that case the service will enforce the use of  <a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_PAGING">paging</a> options.</p><p>Note that the <a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_CONTAINER">container</a> is not required, if omitted it will be  initialised to the <a href="../../MyWrapper/Definitions/_includes.inc.php.html#definekDEFAULT_CNT_TAGS">kDEFAULT_CNT_TAGS</a> constant.</p></p>
 	
 		
 </div>
@@ -364,14 +398,31 @@
 	
 		
 </div>
-<a name="definekAPI_RESPONSE_EDGES"><!-- --></a>
+<a name="definekAPI_OP_SET_TAGS"><!-- --></a>
 <div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
+			<span class="const-name">kAPI_OP_SET_TAGS</span> = '@SET_TAGS'
+			(line <span class="line-number">115</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set tags web-service.</p>
+<p class="description"><p>This is the tag that represents the set tags web service, it expects a term  COntologyTerm::GID() or a list of <a href="../../MyWrapper/Ontology/COntologyEdge.html">edges</a> provided  in the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter, it will return a list  of annotation COntologyTag::GID() that can be used to annotate data.</p><p>Note that this service will instantiate term <a href="../../MyWrapper/Ontology/COntologyTag.html">paths</a>, so call  this service only if you are sure you need to do it; if any error occurs, the operation  will be aborted (but the eventual created annotations will not).</p></p>
+	
+		
+</div>
+<a name="definekAPI_RESPONSE_EDGES"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
 			<span class="const-name">kAPI_RESPONSE_EDGES</span> = 'edges'
-			(line <span class="line-number">367</span>)
+			(line <span class="line-number">417</span>)
 		</span>
 	</div>
 	
@@ -382,13 +433,13 @@
 		
 </div>
 <a name="definekAPI_RESPONSE_NODES"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_RESPONSE_NODES</span> = 'nodes'
-			(line <span class="line-number">360</span>)
+			(line <span class="line-number">410</span>)
 		</span>
 	</div>
 	
@@ -399,13 +450,13 @@
 		
 </div>
 <a name="definekAPI_RESPONSE_OBJECT"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_RESPONSE_OBJECT</span> = 'o'
-			(line <span class="line-number">395</span>)
+			(line <span class="line-number">445</span>)
 		</span>
 	</div>
 	
@@ -416,13 +467,13 @@
 		
 </div>
 <a name="definekAPI_RESPONSE_PREDICATE"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_RESPONSE_PREDICATE</span> = 'p'
-			(line <span class="line-number">387</span>)
+			(line <span class="line-number">437</span>)
 		</span>
 	</div>
 	
@@ -433,13 +484,13 @@
 		
 </div>
 <a name="definekAPI_RESPONSE_SUBJECT"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_RESPONSE_SUBJECT</span> = 's'
-			(line <span class="line-number">379</span>)
+			(line <span class="line-number">429</span>)
 		</span>
 	</div>
 	
@@ -450,13 +501,13 @@
 		
 </div>
 <a name="definekAPI_RESPONSE_TERMS"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_RESPONSE_TERMS</span> = 'terms'
-			(line <span class="line-number">353</span>)
+			(line <span class="line-number">403</span>)
 		</span>
 	</div>
 	
@@ -472,7 +523,7 @@
 	
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 08 Jun 2012 12:40:53 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 14 Jun 2012 12:20:09 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

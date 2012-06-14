@@ -1879,6 +1879,10 @@ try
 		)
 	);
 	//
+	// Init fields.
+	//
+	$fields = array( kTAG_NAME => TRUE, kTAG_TERM => TRUE );
+	//
 	// Use wrapper client.
 	//
 	if( kUSE_CLIENT )
@@ -1891,6 +1895,7 @@ try
 		$params->Format( kTYPE_JSON );
 		$params->Database( 'WAREHOUSE' );
 		$params->Query( $query );
+		$params->Fields( $fields );
 		$params->LogTrace( TRUE );
 		$params->LogRequest( TRUE );
 		//
@@ -1908,6 +1913,10 @@ try
 		//
 		$query_enc = json_encode( $query );
 		//
+		// Build fields list.
+		//
+		$fields_enc = json_encode( $fields );
+		//
 		// Build parameters.
 		//
 		$params = Array();
@@ -1915,6 +1924,259 @@ try
 		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
 		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
 		$params[] = kAPI_DATA_QUERY.'='.urlencode( $query_enc );	// Query.
+		$params[] = kAPI_DATA_FIELD.'='.$fields_enc;				// Fields.
+		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
+		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
+		//
+		// Build request.
+		//
+		$request = $url.'?'.implode( '&', $params );
+		//
+		// Get response.
+		//
+		$response = file_get_contents( $request );
+		//
+		// Decode response.
+		//
+		$decoded = json_decode( $response, TRUE );
+	}
+	//
+	// Display.
+	//
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Query:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $query ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	if( ! kUSE_CLIENT )
+	{
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.$response.kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+	}
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	/*===================================================================================
+	 *	LIST EDGES (PREDICATES)															*
+	 *==================================================================================*/
+	echo( '<h4>Get edges list ('.kAPI_OP_GET_EDGES.') include predicates</h4>' );
+	echo( '<i>Return all cross references pointing to all <code>ISO:3166:1:ITA</code> term nodes.</i>' );
+	//
+	// Build query.
+	//
+	$query = array
+	(
+		kOPERATOR_AND => array
+		(
+			array
+			(
+				kAPI_QUERY_SUBJECT => kTAG_OBJECT.'.'.kTAG_TERM,
+				kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
+				kAPI_QUERY_TYPE => kTYPE_STRING,
+				kAPI_QUERY_DATA => 'ISO:3166:1:ITA'
+			)
+		)
+	);
+	//
+	// Predicates list.
+	//
+	$predicates = array( ':XREF' );
+	//
+	// Init fields.
+	//
+	$fields = array( kTAG_NAME => TRUE, kTAG_TERM => TRUE );
+	//
+	// Use wrapper client.
+	//
+	if( kUSE_CLIENT )
+	{
+		//
+		// Build parameters.
+		//
+		$params = new CWarehouseWrapperClient( $url );
+		$params->Operation( kAPI_OP_GET_EDGES );
+		$params->Format( kTYPE_JSON );
+		$params->Database( 'WAREHOUSE' );
+		$params->Query( $query );
+		$params->Fields( $fields );
+		foreach( $predicates as $predicate )
+			$params->Predicates( $predicate, TRUE );
+		$params->PredicatesSelector( 1 );
+		$params->LogTrace( TRUE );
+		$params->LogRequest( TRUE );
+		//
+		// Get response.
+		//
+		$decoded = $params->Execute();
+	}
+	//
+	// Use raw parameters.
+	//
+	else
+	{
+		//
+		// Encode query.
+		//
+		$query_enc = urlencode( json_encode( $query ) );
+		//
+		// Encode predicates.
+		//
+		$predicates_enc = urlencode( json_encode( $predicates ) );
+		//
+		// Build fields list.
+		//
+		$fields_enc = urlencode( json_encode( $fields ) );
+		//
+		// Build parameters.
+		//
+		$params = Array();
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_EDGES;			// Command.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
+		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
+		$params[] = kAPI_DATA_QUERY.'='.$query_enc;					// Query.
+		$params[] = kAPI_DATA_FIELD.'='.$fields_enc;				// Fields.
+		$params[] = kAPI_OPT_PREDICATES.'='.$predicates_enc;		// Predicates.
+		$params[] = kAPI_OPT_PREDICATES_INC.'='.'1';				// Predicates selector.
+		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
+		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
+		//
+		// Build request.
+		//
+		$request = $url.'?'.implode( '&', $params );
+		//
+		// Get response.
+		//
+		$response = file_get_contents( $request );
+		//
+		// Decode response.
+		//
+		$decoded = json_decode( $response, TRUE );
+	}
+	//
+	// Display.
+	//
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Query:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $query ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	if( ! kUSE_CLIENT )
+	{
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.$response.kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+	}
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	/*===================================================================================
+	 *	LIST EDGES (PREDICATES)															*
+	 *==================================================================================*/
+	echo( '<h4>Get edges list ('.kAPI_OP_GET_EDGES.') exclude predicates</h4>' );
+	echo( '<i>Return all predicates pointing to all <code>ISO:3166:1:ITA</code> term nodes, except for cross-references.</i>' );
+	//
+	// Build query.
+	//
+	$query = array
+	(
+		kOPERATOR_AND => array
+		(
+			array
+			(
+				kAPI_QUERY_SUBJECT => kTAG_OBJECT.'.'.kTAG_TERM,
+				kAPI_QUERY_OPERATOR => kOPERATOR_EQUAL,
+				kAPI_QUERY_TYPE => kTYPE_STRING,
+				kAPI_QUERY_DATA => 'ISO:3166:1:ITA'
+			)
+		)
+	);
+	//
+	// Predicates list.
+	//
+	$predicates = array( ':XREF' );
+	//
+	// Init fields.
+	//
+	$fields = array( kTAG_NAME => TRUE, kTAG_TERM => TRUE );
+	//
+	// Use wrapper client.
+	//
+	if( kUSE_CLIENT )
+	{
+		//
+		// Build parameters.
+		//
+		$params = new CWarehouseWrapperClient( $url );
+		$params->Operation( kAPI_OP_GET_EDGES );
+		$params->Format( kTYPE_JSON );
+		$params->Database( 'WAREHOUSE' );
+		$params->Query( $query );
+		$params->Fields( $fields );
+		foreach( $predicates as $predicate )
+			$params->Predicates( $predicate, TRUE );
+		$params->PredicatesSelector( 0 );
+		$params->LogTrace( TRUE );
+		$params->LogRequest( TRUE );
+		//
+		// Get response.
+		//
+		$decoded = $params->Execute();
+	}
+	//
+	// Use raw parameters.
+	//
+	else
+	{
+		//
+		// Encode query.
+		//
+		$query_enc = urlencode( json_encode( $query ) );
+		//
+		// Encode predicates.
+		//
+		$predicates_enc = urlencode( json_encode( $predicates ) );
+		//
+		// Build fields list.
+		//
+		$fields_enc = urlencode( json_encode( $fields ) );
+		//
+		// Build parameters.
+		//
+		$params = Array();
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_EDGES;			// Command.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
+		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
+		$params[] = kAPI_DATA_QUERY.'='.$query_enc;					// Query.
+		$params[] = kAPI_DATA_FIELD.'='.$fields_enc;				// Fields.
+		$params[] = kAPI_OPT_PREDICATES.'='.$predicates_enc;		// Predicates.
+		$params[] = kAPI_OPT_PREDICATES_INC.'='.'0';				// Predicates selector.
 		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
 		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
 		//

@@ -29,7 +29,7 @@
 	<div class="info-box-body">
         		<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Ontology term ancestor.</p>
-<p class="description"><p>An ontology term represents a concept identified by a pair of elements: the  <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodNS">namespace</a> and the <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a>. The <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodNS">namespace</a> groups all  <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">codes</a> belonging to a specific category, the <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a> identifies  the term within the <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodNS">namespace</a>.</p><p>The unique <a href="../../MyWrapper/Ontology/COntologyTermObject.html#method_index">identifier</a> of instances from this class are formed by the  combination of the <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodNS">namespace</a> and @link Code() code}, separated by a  <a href="../../MyWrapper/Definitions/_defines---Tokens.inc.php.html#definekTOKEN_NAMESPACE_SEPARATOR">separator</a> token; if the term has no namespace, the  token is omitted.</p><p>This class represents the ancestor of ontology terms, it adds to its  <a href="../../MyWrapper/Framework/CCodedUnitObject.html">parent</a> the following requirements and features:</p><p><ul><li><em><a href="../../MyWrapper/Ontology/COntologyTermObject.html#method_CheckReference">_CheckReference</a></em>: When instantiating the class, the
+<p class="description"><p>An ontology term represents a concept identified by a pair of elements: the  <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodNS">namespace</a> and the <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodCode">code</a>. The <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodNS">namespace</a> groups all  <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodCode">codes</a> belonging to a specific category, the <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodCode">code</a> identifies  the term within the <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodNS">namespace</a>.</p><p>The unique <a href="../../MyWrapper/Ontology/COntologyTermObject.html#method_index">identifier</a> of instances from this class are formed by the  combination of the <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodNS">namespace</a> and @link Code() code}, separated by a  <a href="../../MyWrapper/Definitions/_defines---Tokens.inc.php.html#definekTOKEN_NAMESPACE_SEPARATOR">separator</a> token; if the term has no namespace, the  token is omitted.</p><p>This class represents the ancestor of ontology terms, it adds to its  <a href="../../MyWrapper/Framework/CCodedUnitObject.html">parent</a> the following requirements and features:</p><p><ul><li><em><a href="../../MyWrapper/Ontology/COntologyTermObject.html#method_CheckReference">_CheckReference</a></em>: When instantiating the class, the
         parameter provided as the identifier is required to be an object reference.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a> flag</em>: This flag is enforced,
         which means that all derived classes must use the standard <a href="../../MyWrapper/Framework/CDataType.html">types</a>.</li></ul></p><p>We declare this class abstract to force the creation of specific ontology term types.</p></p>
 	<ul class="tags">
@@ -83,6 +83,18 @@
 								 alt=" class"
 								 title=" class"
 								 style="vertical-align: center"/>
+						<a href="../../MyWrapper/Ontology/COntologyTag.html">COntologyTag</a>
+					</td>
+					<td>
+											Ontology tag.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; white-space: nowrap">
+						<img src="../../media/images/Class.png"
+								 alt=" class"
+								 title=" class"
+								 style="vertical-align: center"/>
 						<a href="../../MyWrapper/Ontology/COntologyTerm.html">COntologyTerm</a>
 					</td>
 					<td>
@@ -110,7 +122,7 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																																																																																								<div class="method-definition">
+																																																																																																																								<div class="method-definition">
 					<img src="../../media/images/Constructor.png" alt=" "/>
 											<span class="method-result">COntologyTermObject</span>
 										<a href="#__construct" title="details" class="method-name">__construct</a>
@@ -119,8 +131,32 @@
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">string</span>
+										<a href="#Code" title="details" class="method-name">Code</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">string</span>
+										<a href="#Definition" title="details" class="method-name">Definition</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theLanguage</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">string</span>
+										<a href="#Description" title="details" class="method-name">Description</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theLanguage</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">string</span>
 										<a href="#GID" title="details" class="method-name">GID</a>
 										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">string</span>
+										<a href="#Name" title="details" class="method-name">Name</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theLanguage</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -263,12 +299,157 @@
 							</li>
 				</ul>
 	</div>
-<a name="methodGID" id="GID"><!-- --></a>
+<a name="methodCode" id="Code"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">GID</span> (line <span class="line-number">176</span>)
+		<span class="method-title">Code</span> (line <span class="line-number">184</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage code.</p>
+<p class="description"><p>We <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">overload</a> this method to check the format of the  code, we perform the following checks:</p><p><ul><li><em>Characters</em>: There are a number of characters that are forbidden in
+        codes, providing a code with such characters will trigger an exception:
+     <ul><li><em>period (.)</em>: No periods can be embedded in codes, these conflict with
+            the sub-fields character in Mongo.</li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			Code
+		</span>
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Value.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">CCodedUnitObject::Code()</a></dt>
+						<dd>Manage code.</dd>
+					</dl>
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyTag.html#methodCode">COntologyTag::Code()</a>
+								: Get code.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyTerm.html#methodCode">COntologyTerm::Code()</a>
+								: Manage code.
+							</li>
+				</ul>
+	</div>
+<a name="methodDefinition" id="Definition"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Definition</span> (line <span class="line-number">346</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage term definition.</p>
+<p class="description"><p>This method can be used to manage the term <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DEFINITION">definition</a>, it  manages an array of structures with the following offsets:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LANGUAGE">kTAG_LANGUAGE</a></em>: The definition's language, this
+        element represents the code of the language in which the next element is
+        expressed in.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: The term definition or description.</li></ul></p><p>The parameters to this method are:</p><p><ul><li><strong>$theValue</strong>: The definition or operation:
+     <ul><li><em>NULL</em>: Return the current value selected by the second parameter.</li><li><em>FALSE</em>: Delete the value selected by the second parameter.</li><li><em>other</em>: Set value selected by the second parameter.</li></ul></li><li><strong>$theLanguage</strong>: The definition's language code:
+     <ul><li><em>NULL</em>: This value indicates that the definition has no language, in
+            general, when adding elements, this case applies to default elements.</li><li><em>other</em>: All other types will be interpreted as the language code.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
+     <ul><li><em>TRUE</em>: Return the value <em>before</em> it was eventually modified.</li><li><em>FALSE</em>: Return the value <em>after</em> it was eventually modified.</li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> kTAG_DEFINITION kTAG_LANGUAGE</li>
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageTypedOffset">CAttribute::ManageTypedOffset()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			Definition
+		</span>
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theLanguage</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Term definition or operation.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theLanguage</span><span class="var-description">: Term definition language code.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodDescription" id="Description"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Description</span> (line <span class="line-number">406</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage term description.</p>
+<p class="description"><p>This method can be used to manage the term <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DESCRIPTION">description</a>, it  manages an array of structures with the following offsets:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LANGUAGE">kTAG_LANGUAGE</a></em>: The description's language, this
+        element represents the code of the language in which the next element is
+        expressed in.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: The term description or comment.</li></ul></p><p>The parameters to this method are:</p><p><ul><li><strong>$theValue</strong>: The description or operation:
+     <ul><li><em>NULL</em>: Return the current value selected by the second parameter.</li><li><em>FALSE</em>: Delete the value selected by the second parameter.</li><li><em>other</em>: Set value selected by the second parameter.</li></ul></li><li><strong>$theLanguage</strong>: The description's language code:
+     <ul><li><em>NULL</em>: This value indicates that the description has no language, in
+            general, when adding elements, this case applies to default elements.</li><li><em>other</em>: All other types will be interpreted as the language code.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
+     <ul><li><em>TRUE</em>: Return the value <em>before</em> it was eventually modified.</li><li><em>FALSE</em>: Return the value <em>after</em> it was eventually modified.</li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> kTAG_DESCRIPTION kTAG_LANGUAGE</li>
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageTypedOffset">CAttribute::ManageTypedOffset()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			Description
+		</span>
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theLanguage</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Term description or operation.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theLanguage</span><span class="var-description">: Term description language code.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodGID" id="GID"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">GID</span> (line <span class="line-number">225</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -290,6 +471,50 @@
 		
 			
 	</div>
+<a name="methodName" id="Name"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Name</span> (line <span class="line-number">286</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage term name.</p>
+<p class="description"><p>This method can be used to manage the term <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">name</a>, it manages an  array of structures with the following offsets:</p><p><ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LANGUAGE">kTAG_LANGUAGE</a></em>: The name's language, this element
+        represents the code of the language in which the next element is expressed in.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATA">kTAG_DATA</a></em>: The term name or label.</li></ul></p><p>The parameters to this method are:</p><p><ul><li><strong>$theValue</strong>: The name or operation:
+     <ul><li><em>NULL</em>: Return the current value selected by the second parameter.</li><li><em>FALSE</em>: Delete the value selected by the second parameter.</li><li><em>other</em>: Set value selected by the second parameter.</li></ul></li><li><strong>$theLanguage</strong>: The name's language code:
+     <ul><li><em>NULL</em>: This value indicates that the name has no language, in general,
+            when adding elements, this case applies to default elements.</li><li><em>other</em>: All other types will be interpreted as the language code.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
+     <ul><li><em>TRUE</em>: Return the value <em>before</em> it was eventually modified.</li><li><em>FALSE</em>: Return the value <em>after</em> it was eventually modified.</li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> kTAG_NAME kTAG_LANGUAGE</li>
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageTypedOffset">CAttribute::ManageTypedOffset()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			Name
+		</span>
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theLanguage</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Term name or operation.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theLanguage</span><span class="var-description">: Term name language code.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
 <a name="methodNS" id="NS"><!-- --></a>
 <div class="evenrow">
 	
@@ -300,7 +525,7 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Manage term namespace.</p>
-<p class="description"><p>This method can be used to handle the term <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAMESPACE">namespace</a>, it uses  the standard accessor <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">method</a> to manage the  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAMESPACE">offset</a>.</p><p>The namespace collects a series of terms under a common group in which each term  <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a> is unique, this <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAMESPACE">offset</a> represents a term  reference.</p><p>For a more in-depth reference of this method, please consult the  <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">CAttribute::ManageOffset</a> method, in which the  second parameter will be the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAMESPACE">kTAG_NAMESPACE</a>.</p></p>
+<p class="description"><p>This method can be used to handle the term <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAMESPACE">namespace</a>, it uses  the standard accessor <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">method</a> to manage the  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAMESPACE">offset</a>.</p><p>The namespace collects a series of terms under a common group in which each term  <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodCode">code</a> is unique, this <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAMESPACE">offset</a> represents a term  reference.</p><p>For a more in-depth reference of this method, please consult the  <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">CAttribute::ManageOffset</a> method, in which the  second parameter will be the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAMESPACE">kTAG_NAMESPACE</a>.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAMESPACE">kTAG_NAMESPACE</a></li>
 				<li><span class="field">access:</span> public</li>
@@ -329,6 +554,10 @@
 		<div class="notes">Redefined in descendants as:</div>
 		<ul class="redefinitions">
 					<li>
+				<a href="../../MyWrapper/Ontology/COntologyTag.html#methodNS">COntologyTag::NS()</a>
+								: Manage term namespace.
+							</li>
+					<li>
 				<a href="../../MyWrapper/Ontology/COntologyTerm.html#methodNS">COntologyTerm::NS()</a>
 								: Manage term namespace.
 							</li>
@@ -339,7 +568,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Synonym</span> (line <span class="line-number">237</span>)
+		<span class="method-title">Synonym</span> (line <span class="line-number">474</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -391,7 +620,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Xref</span> (line <span class="line-number">297</span>)
+		<span class="method-title">Xref</span> (line <span class="line-number">534</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -443,7 +672,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_CheckReference</span> (line <span class="line-number">477</span>)
+		<span class="method-title">_CheckReference</span> (line <span class="line-number">714</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -459,6 +688,7 @@
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a></li>
 				<li><span class="field">access:</span> protected</li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTerm.html#methodValid">COntologyTerm::Valid()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTag.html#methodTerm">COntologyTag::Term()</a></li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsEncoded">CPersistentObject::_IsEncoded()</a></li>
 			</ul>
 	
@@ -483,7 +713,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_index</span> (line <span class="line-number">333</span>)
+		<span class="method-title">_index</span> (line <span class="line-number">570</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -509,13 +739,21 @@
 						<dd>Return the object's unique index.</dd>
 					</dl>
 			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyTag.html#method_index">COntologyTag::_index()</a>
+								: Return the object's unique index.
+							</li>
+				</ul>
 	</div>
 <a name="method_PrepareCommit" id="_PrepareCommit"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">410</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">647</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -559,6 +797,10 @@
 		<div class="notes">Redefined in descendants as:</div>
 		<ul class="redefinitions">
 					<li>
+				<a href="../../MyWrapper/Ontology/COntologyTag.html#method_PrepareCommit">COntologyTag::_PrepareCommit()</a>
+								: Normalise before a store.
+							</li>
+					<li>
 				<a href="../../MyWrapper/Ontology/COntologyTerm.html#method_PrepareCommit">COntologyTerm::_PrepareCommit()</a>
 								: Normalise before a store.
 							</li>
@@ -569,7 +811,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCreate</span> (line <span class="line-number">374</span>)
+		<span class="method-title">_PrepareCreate</span> (line <span class="line-number">611</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -834,7 +1076,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 08 Jun 2012 12:40:49 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 14 Jun 2012 12:20:06 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

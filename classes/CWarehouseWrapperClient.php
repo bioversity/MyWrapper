@@ -282,6 +282,56 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 
 	 
 	/*===================================================================================
+	 *	PredicatesSelector																*
+	 *==================================================================================*/
+
+	/**
+	 * Manage predicates list.
+	 *
+	 * This method can be used to manage the predicates
+	 * {@link kAPI_OPT_PREDICATES_INC selector}, it uses the standard accessor
+	 * {@link CAttribute::ManageArrayOffset() method} to manage the predicates selector.
+	 *
+	 * Note that the only values that can be set are 1 or 0, boolean values are not
+	 * supported, this method will also handle Y/N y/n and string 1/0 values.
+	 *
+	 * For a more thorough reference of how this method works, please consult the
+	 * {@link CAttribute::ManageArrayOffset() CAttribute::ManageArrayOffset} method, in
+	 * which the second parameter will be the constant
+	 * {@link kAPI_OPT_PREDICATES kAPI_OPT_PREDICATES}.
+	 *
+	 * @param mixed					$theValue			Value or index.
+	 * @param mixed					$theOperation		Operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return mixed
+	 *
+	 * @uses CAttribute::ManageArrayOffset()
+	 *
+	 * @see kAPI_OPT_PREDICATES
+	 */
+	public function PredicatesSelector( $theValue = NULL, $getOld = FALSE )
+	{
+		//
+		// Normalise value.
+		//
+		if( ($theValue !== NULL)
+		 && ($theValue !== FALSE) )
+			$theValue = ( ($theValue == 'y')
+					   || ($theValue == 'Y')
+					   || ($theValue == '1')
+					   || ($theValue == 1) )
+					  ? 1
+					  : 0;
+		
+		return CAttribute::ManageOffset
+				( $this, kAPI_OPT_PREDICATES_INC, $theValue, $getOld );				// ==>
+
+	} // PredicatesSelector.
+
+	 
+	/*===================================================================================
 	 *	Direction																		*
 	 *==================================================================================*/
 

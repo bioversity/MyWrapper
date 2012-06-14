@@ -89,18 +89,6 @@
 				</tr>
 								<tr>
 					<td style="padding-right: 2em; white-space: nowrap">
-						<img src="../../media/images/Class.png"
-								 alt=" class"
-								 title=" class"
-								 style="vertical-align: center"/>
-						<a href="../../MyWrapper/Ontology/COntologyPath.html">COntologyPath</a>
-					</td>
-					<td>
-											Ontology path.
-										</td>
-				</tr>
-								<tr>
-					<td style="padding-right: 2em; white-space: nowrap">
 						<img src="../../media/images/AbstractClass.png"
 								 alt="Abstract class"
 								 title="Abstract class"
@@ -314,6 +302,10 @@
 							</li>
 					<li>
 				<a href="../../MyWrapper/Entities/CUser.html#methodHashIndex">CUser::HashIndex()</a>
+								: Hash index.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyTag.html#methodHashIndex">COntologyTag::HashIndex()</a>
 								: Hash index.
 							</li>
 				</ul>
@@ -589,7 +581,7 @@
 		<div class="notes">Redefined in descendants as:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../MyWrapper/Ontology/COntologyPath.html#method_Commit">COntologyPath::_Commit()</a>
+				<a href="../../MyWrapper/Ontology/COntologyTag.html#method_Commit">COntologyTag::_Commit()</a>
 								: Store object in container.
 							</li>
 				</ul>
@@ -599,7 +591,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_CommitReferences</span> (line <span class="line-number">1163</span>)
+		<span class="method-title">_CommitReferences</span> (line <span class="line-number">1167</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -654,7 +646,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_GetTags</span> (line <span class="line-number">1322</span>)
+		<span class="method-title">_GetTags</span> (line <span class="line-number">1326</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -738,15 +730,15 @@
 		<div class="notes">Redefined in descendants as:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../MyWrapper/Ontology/COntologyPath.html#method_index">COntologyPath::_index()</a>
-								: Return the object's unique index.
-							</li>
-					<li>
 				<a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_index">CCodedUnitObject::_index()</a>
 								: Return the object's unique index.
 							</li>
 					<li>
 				<a href="../../MyWrapper/Ontology/COntologyTermObject.html#method_index">COntologyTermObject::_index()</a>
+								: Return the object's unique index.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyTag.html#method_index">COntologyTag::_index()</a>
 								: Return the object's unique index.
 							</li>
 				</ul>
@@ -756,7 +748,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseReferences</span> (line <span class="line-number">1076</span>)
+		<span class="method-title">_ParseReferences</span> (line <span class="line-number">1080</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -827,7 +819,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">909</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">913</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -883,10 +875,6 @@
 		<div class="notes">Redefined in descendants as:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../MyWrapper/Ontology/COntologyPath.html#method_PrepareCommit">COntologyPath::_PrepareCommit()</a>
-								: Normalise before a store.
-							</li>
-					<li>
 				<a href="../../MyWrapper/Persistence/CRelatedUnitObject.html#method_PrepareCommit">CRelatedUnitObject::_PrepareCommit()</a>
 								: Normalise before a store.
 							</li>
@@ -911,6 +899,10 @@
 								: Normalise before a store.
 							</li>
 					<li>
+				<a href="../../MyWrapper/Ontology/COntologyTag.html#method_PrepareCommit">COntologyTag::_PrepareCommit()</a>
+								: Normalise before a store.
+							</li>
+					<li>
 				<a href="../../MyWrapper/Ontology/COntologyTerm.html#method_PrepareCommit">COntologyTerm::_PrepareCommit()</a>
 								: Normalise before a store.
 							</li>
@@ -921,12 +913,12 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">806</span>)
+		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">809</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Normalise parameters of a find.</p>
-<p class="description"><p>We <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_PrepareLoad">overload</a> this method to handle  identifiers provided as structures containing either the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LID">native</a>  identifier or an object <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_REFERENCE_ID">reference</a>.</p></p>
+<p class="description"><p>We <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_PrepareLoad">overload</a> this method to handle  identifiers provided as structures containing either the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LID">native</a>  identifier or an object <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_REFERENCE_ID">reference</a>.</p><p>We also handle queries provided in the identifier, in this case we only check whether  the container is supported.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> kERROR_OPTION_MISSING kERROR_UNSUPPORTED</li>
 				<li><span class="field">throws:</span> <a href="../../MyWrapper/Framework/CException.html">CException</a></li>
@@ -1141,7 +1133,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 08 Jun 2012 12:40:50 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 14 Jun 2012 12:20:07 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>
