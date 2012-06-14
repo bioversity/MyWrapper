@@ -112,6 +112,133 @@ class CGenesys
 	 */
 	 protected $mCrops = Array();
 
+	/**
+	 * Work record.
+	 *
+	 * This data member holds the work record.
+	 *
+	 * @var array
+	 */
+	 static $sWorkRecord = array
+	 (
+	 	'accessions' => array
+	 	(
+	 		'ALIS_Id' => 'NULL',
+	 		'Institute' => 'NULL',
+	 		'ACC_Numb_HI' => 'NULL',
+	 		'Taxon_Code' => 'NULL',
+	 		'Acquisition_Source' => 'NULL',
+	 		'Acquisition_Date' => 'NULL',
+	 		'Origin' => 'NULL',
+	 		'Dubl_Inst' => 'NULL',
+	 		'Sample_Status' => 'NULL',
+	 		'Storage' => 'NULL',
+	 		'In_Svalbard' => 'NULL',
+	 		'In_Trust' => 'NULL',
+	 		'Availability' => 'NULL',
+	 		'MLS_Status' => 'NULL',
+	 		'Genuss' => 'NULL'
+	 	),
+	 	'accnames' => array
+	 	(
+	 		'ALIS_Id' => 'NULL',
+	 		'AccNames' => 'NULL',
+	 		'OtherIds' => 'NULL'
+	 	),
+	 	'acq_breeding' => array
+	 	(
+	 		'ALIS_Id' => 'NULL',
+	 		'Breeder_Code' => 'NULL',
+	 		'Pedigree' => 'NULL'
+	 	),
+	 	'acq_collect' => array
+	 	(
+	 		'ALIS_Id' => 'NULL',
+	 		'Collect_Date' => 'NULL',
+	 		'Collectors_Numb' => 'NULL',
+	 		'Collecting_Institute' => 'NULL',
+	 		'Collect_Site' => 'NULL'
+	 	),
+	 	'acq_exchange' => array
+	 	(
+	 		'ALIS_Id' => 'NULL',
+	 		'Donor_Institute' => 'NULL',
+	 		'Acc_Numb_Donor' => 'NULL'
+	 	),
+	 	'environment' => array
+	 	(
+	 		'ALIS_Id' => 'NULL',
+	 		'T_Min_Jan' => 'NULL',
+	 		'T_Min_Feb' => 'NULL',
+	 		'T_Min_Mar' => 'NULL',
+	 		'T_Min_Apr' => 'NULL',
+	 		'T_Min_May' => 'NULL',
+	 		'T_Min_Jun' => 'NULL',
+	 		'T_Min_Jul' => 'NULL',
+	 		'T_Min_Aug' => 'NULL',
+	 		'T_Min_Sep' => 'NULL',
+	 		'T_Min_Oct' => 'NULL',
+	 		'T_Min_Nov' => 'NULL',
+	 		'T_Min_Dec' => 'NULL',
+	 		'T_Max_Jan' => 'NULL',
+	 		'T_Max_Feb' => 'NULL',
+	 		'T_Max_Mar' => 'NULL',
+	 		'T_Max_Apr' => 'NULL',
+	 		'T_Max_May' => 'NULL',
+	 		'T_Max_Jun' => 'NULL',
+	 		'T_Max_Jul' => 'NULL',
+	 		'T_Max_Aug' => 'NULL',
+	 		'T_Max_Sep' => 'NULL',
+	 		'T_Max_Oct' => 'NULL',
+	 		'T_Max_Nov' => 'NULL',
+	 		'T_Max_Dec' => 'NULL',
+	 		'P_Jan' => 'NULL',
+	 		'P_Feb' => 'NULL',
+	 		'P_Mar' => 'NULL',
+	 		'P_Apr' => 'NULL',
+	 		'P_May' => 'NULL',
+	 		'P_Jun' => 'NULL',
+	 		'P_Jul' => 'NULL',
+	 		'P_Aug' => 'NULL',
+	 		'P_Sep' => 'NULL',
+	 		'P_Oct' => 'NULL',
+	 		'P_Nov' => 'NULL',
+	 		'P_Dec' => 'NULL',
+	 		'T_Min_Annual' => 'NULL',
+	 		'T_Max_Annual' => 'NULL',
+	 		'P_Max_Annual' => 'NULL',
+	 		'Bio_1' => 'NULL',
+	 		'Bio_2' => 'NULL',
+	 		'Bio_3' => 'NULL',
+	 		'Bio_4' => 'NULL',
+	 		'Bio_5' => 'NULL',
+	 		'Bio_6' => 'NULL',
+	 		'Bio_7' => 'NULL',
+	 		'Bio_8' => 'NULL',
+	 		'Bio_9' => 'NULL',
+	 		'Bio_10' => 'NULL',
+	 		'Bio_11' => 'NULL',
+	 		'Bio_12' => 'NULL',
+	 		'Bio_13' => 'NULL',
+	 		'Bio_14' => 'NULL',
+	 		'Bio_15' => 'NULL',
+	 		'Bio_16' => 'NULL',
+	 		'Bio_17' => 'NULL',
+	 		'Bio_18' => 'NULL',
+	 		'Bio_19' => 'NULL',
+	 		'LongitudeD' => 'NULL',
+	 		'LatitudeD' => 'NULL',
+	 		'Altitude' => 'NULL'
+	 	),
+	 	'taxonomy' => array
+	 	(
+	 		'Taxon_Code' => 'NULL',
+	 		'Genus' => 'NULL',
+	 		'Species' => 'NULL',
+	 		'Taxon_Name' => 'NULL'
+	 	)
+	 );
+
 		
 
 /*=======================================================================================
@@ -495,6 +622,163 @@ class CGenesys
 
 	} // MarkCharacterized.
 
+	 
+	/*===================================================================================
+	 *	ImportPassport																	*
+	 *==================================================================================*/
+
+	/**
+	 * Import passport file.
+	 *
+	 * This method will import the passport CSV file indicated in the provided parameter,
+	 * the method will either insert or replace all matching records using the criteria:
+	 * <i>INSTCODE</i>, <i>ACCENUMB</i>, <i>GENUS</i> and <i>SPECIES</i>. If all these
+	 * fields match an entry in the <i>all_accessions</i>/<i>all_taxonomy</i> tables
+	 * combination.
+	 *
+	 * The method will return an array:
+	 *
+	 * <ul>
+	 *	<li><i>INSERTED</i>: The number of inserted records.
+	 *	<li><i>UPDATED</i>: The number of updated records.
+	 *	<li><i>TAXA</i>: The number of new taxa records.
+	 * </ul>
+	 *
+	 * If any error occurs, the method will raise an exception.
+	 *
+	 * @param string			$thePath		Path to CSV file.
+	 *
+	 * @access public
+	 */
+	public function ImportPassport( $thePath )
+	{
+		//
+		// Connect.
+		//
+		$db = $this->Connection();
+		
+		//
+		// Init local storage.
+		//
+		$result = array( 'INSERTED' => 0, 'UPDATED' => 0, 'SKIPPED' => 0, 'TAXA' => 0 );
+		
+		//
+		// Open file.
+		//
+		$file = new SplFileObject( $thePath, "r" );
+		
+		//
+		// Set file flags.
+		//
+		$file->setFlags( SplFileObject::READ_CSV
+					   | SplFileObject::SKIP_EMPTY
+					   | SplFileObject::DROP_NEW_LINE );
+		
+		//
+		// Iterate file.
+		//
+		$header = FALSE;
+		foreach( $file as $row )
+		{
+			//
+			// Get header.
+			//
+			if( ! $header )
+			{
+				//
+				// Check required.
+				//
+				if( in_array( 'INSTCODE', $row )
+				 && in_array( 'ACCENUMB', $row )
+				 && in_array( 'GENUS', $row )
+				 && in_array( 'SPECIES', $row ) )
+					$header = $row;
+				else
+					throw new CException
+						( "Unable to import: missing required descriptors",
+						  kERROR_OPTION_MISSING,
+						  kMESSAGE_TYPE_ERROR,
+						  array( 'Header' => $row ) );							// !@! ==>
+				
+				continue;													// =>
+			
+			} // First row.
+			
+			//
+			// Build record.
+			//
+			$record = Array();
+			for( $i = 0; $i < count( $row ); $i++ )
+				$record[ $header[ $i ] ] = $row[ $i ];
+			
+			//
+			// Check if it has all required fields.
+			//
+			if( strlen( $record[ 'INSTCODE' ] )
+			 && strlen( $record[ 'ACCENUMB' ] )
+			 && strlen( $record[ 'GENUS' ] )
+			 && strlen( $record[ 'SPECIES' ] ) )
+			{
+				//
+				// Init work records.
+				//
+				$records = self::$sWorkRecord;
+				
+				//
+				// Check if new.
+				//
+				$tmp1 = '0x'.bin2hex( $record[ 'INSTCODE' ] );
+				$tmp2 = '0x'.bin2hex( $record[ 'ACCENUMB' ] );
+				$tmp3 = '0x'.bin2hex( $record[ 'GENUS' ] );
+				$tmp4 = '0x'.bin2hex( $record[ 'SPECIES' ] );
+				$query = <<<EOT
+SELECT
+	`all_accessions`.`ALIS_Id`
+FROM
+	`all_accessions`
+		LEFT JOIN `all_taxonomy`
+			ON( `all_taxonomy`.`Taxon_Code` = `all_accessions`.`Taxon_Code` )
+WHERE
+(
+	(`all_accessions`.`Institute` = $tmp1) AND
+	(`all_accessions`.`ACC_Numb_HI` = $tmp2) AND
+	(`all_taxonomy`.`Genus` = $tmp3) AND
+	(`all_taxonomy`.`Species` = $tmp4)
+)
+EOT;
+				$id = $db->GetOne( $query );
+				if( ! $id )
+					$result[ 'INSERTED' ]++;
+				else
+					$result[ 'UPDATED' ]++;
+				
+				//
+				// Set taxon.
+				//
+				if( $this->_LoadTaxonTable( $record, $records, $taxon ) )
+					$result[ 'TAXA' ]++;
+				
+				//
+				// Update taxon reference.
+				//
+				$records[ 'accessions' ][ 'Taxon_Code' ] = $taxon;
+				
+				//
+				// Load accession table.
+				//
+				$id = $this->_LoadAccessionTable( $record, $records, $id );
+			
+			} // Record has all required fields.
+			
+			else
+				$result[ 'SKIPPED' ]++;
+			
+		} // Iterating file.
+		
+		return $result;																// ==>
+		
+	} // ImportPassport.
+
 		
 
 /*=======================================================================================
@@ -797,7 +1081,7 @@ class CGenesys
 
 /*=======================================================================================
  *																						*
- *									PROTECTED INTERFACE									*
+ *						PROTECTED RESOURCE INITIALISATION INTERFACE						*
  *																						*
  *======================================================================================*/
 
@@ -881,6 +1165,322 @@ class CGenesys
 		return count( $this->mCETables );											// ==>
 	
 	} // _LoadCETables.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED IMPORT INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	_LoadTaxonTable																	*
+	 *==================================================================================*/
+
+	/**
+	 * Load taxa table.
+	 *
+	 * This method will either retrieve the taxon identifier or create a taxon record
+	 * depending on the provided passport.
+	 *
+	 * The method will return <i>TRUE</i> if a new taxon record was created; <i>FALSE</i> if
+	 * not.
+	 *
+	 * @param reference			   &$theRecord			Record.
+	 * @param reference			   &$theRecords			Table records.
+	 * @param reference			   &$theTaxon			Receives taxon identifier.
+	 *
+	 * @access protected
+	 * @return integer
+	 */
+	protected function _LoadTaxonTable( &$theRecord, &$theRecords, &$theTaxon )
+	{
+		//
+		// Init local storage.
+		//
+		$command = 'INSERT';
+		$db = $this->Connection();
+		
+		//
+		// Relate table record.
+		//
+		$table = & $theRecords[ 'taxonomy' ];
+		
+		//
+		// Locate taxon.
+		//
+		$tmp1 = '0x'.bin2hex( $theRecord[ 'GENUS' ] );
+		$tmp2 = '0x'.bin2hex( $theRecord[ 'SPECIES' ] );
+		$query = <<<EOT
+SELECT
+	`Taxon_Code`
+FROM
+	`all_taxonomy`
+WHERE
+(
+	(`Genus` = $tmp1) AND
+	(`Species` = $tmp2)
+)
+EOT;
+		$theTaxon = $db->GetOne( $query );
+		if( ! $theTaxon )
+		{
+			//
+			// Get next identifier.
+			//
+			$query = <<<EOT
+SELECT
+	MAX( `Taxon_Code` )
+FROM
+	`all_taxonomy`
+EOT;
+			$theTaxon = $db->GetOne( $query ) + 1;
+			
+			//
+			// Build record.
+			//
+			$table[ 'Taxon_Code' ] = $theTaxon;
+			$table[ 'Genus' ] = $tmp1;
+			$table[ 'Species' ] = $tmp2;
+			$tmp = array( $theRecord[ 'GENUS' ], $theRecord[ 'SPECIES' ] );
+			$table[ 'Taxon_Name' ] = '0x'.bin2hex( implode( ' ', $tmp ) );
+			
+			//
+			// Build query.
+			//
+			$query = "INSERT INTO `all_taxonomy`( "
+					."`Taxon_Code`, `Genus`, `Species`, `Taxon_Name` ) "
+					."VALUES( "
+					.implode( ', ', $table )
+					." )";
+			
+			//
+			// Insert record.
+			//
+			$ok = $db->Execute( $query );
+			$ok->Close();
+			
+			return TRUE;															// ==>
+		
+		} // New taxon.
+		
+		return FALSE;																// ==>
+	
+	} // _LoadTaxonTable.
+
+	 
+	/*===================================================================================
+	 *	_LoadAccessionTable																*
+	 *==================================================================================*/
+
+	/**
+	 * Load accessions table.
+	 *
+	 * This method will write the provided record in the accessions table and return the
+	 * record ID.
+	 *
+	 * @param reference			   &$theRecord			Record.
+	 * @param reference			   &$theRecords			Table records.
+	 * @param mixed					$theIdentifier		Accession identifier.
+	 *
+	 * @access protected
+	 * @return integer
+	 */
+	protected function _LoadAccessionTable( &$theRecord, &$theRecords, $theIdentifier )
+	{
+		//
+		// Init local storage.
+		//
+		$command = 'INSERT';
+		$db = $this->Connection();
+		
+		//
+		// Relate table record.
+		//
+		$table = & $theRecords[ 'accessions' ];
+		
+		//
+		// Handle ALIS_Id.
+		//
+		if( ! $theIdentifier )
+			unset( $table[ 'ALIS_Id' ] );
+		else
+		{
+			$command = 'REPLACE';
+			$table[ 'ALIS_Id' ] = $theIdentifier;
+		}
+		
+		//
+		// Handle Institute.
+		//
+		$table[ 'Institute' ] = '0x'.bin2hex( $theRecord[ 'INSTCODE' ] );
+		
+		//
+		// Handle ACC_Numb_HI.
+		//
+		$table[ 'ACC_Numb_HI' ] = '0x'.bin2hex( $theRecord[ 'ACCENUMB' ] );
+		
+		//
+		// Handle Acquisition_Source.
+		//
+		if( strlen( $tmp = trim( $theRecord[ 'COLLSRC' ] ) ) )
+			$table[ 'Acquisition_Source' ]
+				= '0x'.bin2hex( $tmp );
+		else
+			unset( $table[ 'Acquisition_Source' ] );
+		
+		//
+		// Handle Acquisition_Date.
+		//
+		if( strlen( $tmp = trim( $theRecord[ 'ACQDATE' ] ) ) )
+			$table[ 'Acquisition_Date' ]
+				= '0x'.bin2hex( $tmp );
+		else
+			unset( $table[ 'Acquisition_Date' ] );
+		
+		//
+		// Handle Origin.
+		//
+		if( strlen( $tmp = trim( $theRecord[ 'ORIGCTY' ] ) ) )
+			$table[ 'Origin' ]
+				= '0x'.bin2hex( $tmp );
+		else
+			unset( $table[ 'Origin' ] );
+		
+		//
+		// Handle Dubl_Inst.
+		//
+		if( strlen( $tmp = trim( $theRecord[ 'DUPLSITE' ] ) ) )
+		{
+			$list = explode( ',', $tmp );
+			if( ($key = array_search( 'NOR051', $list )) !== FALSE )
+				unset( $list[ $key ] );
+			if( count( $list ) )
+				$table[ 'Dubl_Inst' ]
+					= '0x'.bin2hex( trim( $list[ 0 ] ) );
+			else
+				unset( $table[ 'Dubl_Inst' ] );
+		}
+		else
+			unset( $table[ 'Dubl_Inst' ] );
+		
+		//
+		// Handle Sample_Status.
+		//
+		if( strlen( $tmp = trim( $theRecord[ 'SAMPSTAT' ] ) ) )
+			$table[ 'Sample_Status' ]
+				= '0x'.bin2hex( $tmp );
+		else
+			unset( $table[ 'Sample_Status' ] );
+		
+		//
+		// Handle Storage.
+		//
+		if( strlen( $tmp = trim( $theRecord[ 'STORAGE' ] ) ) )
+			$table[ 'Storage' ]
+				= '0x'.bin2hex( $tmp );
+		else
+			unset( $table[ 'Storage' ] );
+		
+		//
+		// Handle In_Svalbard.
+		//
+		if( strlen( $tmp = trim( $theRecord[ 'InSvalbard' ] ) ) )
+			$table[ 'In_Svalbard' ]
+				= '0x'.bin2hex( $tmp );
+		else
+			unset( $table[ 'In_Svalbard' ] );
+		
+		//
+		// Handle In_Trust.
+		//
+		if( strlen( $tmp = trim( $theRecord[ 'InTrust' ] ) ) )
+			$table[ 'In_Trust' ]
+				= '0x'.bin2hex( $tmp );
+		else
+			unset( $table[ 'In_Trust' ] );
+		
+		//
+		// Handle Availability.
+		//
+		if( strlen( $tmp = trim( $theRecord[ 'Available' ] ) ) )
+			$table[ 'Availability' ]
+				= '0x'.bin2hex( $tmp );
+		else
+			unset( $table[ 'Availability' ] );
+		
+		//
+		// Handle MLS_Status.
+		//
+		if( strlen( $tmp = trim( $theRecord[ 'MLSSTAT' ] ) ) )
+			$table[ 'MLS_Status' ]
+				= '0x'.bin2hex( $tmp );
+		else
+			unset( $table[ 'MLS_Status' ] );
+		
+		//
+		// Handle Genuss.
+		//
+		$table[ 'Genuss' ]
+			= '0x'.bin2hex( trim( $theRecord[ 'GENUS' ] ) );
+		
+		//
+		// Normalise fields.
+		//
+		$fields = Array();
+		foreach( array_keys( $table ) as $tmp )
+			$fields[ '`'.$tmp.'`' ] = $table[ $tmp ];
+		
+		//
+		// Build query.
+		//
+		$query = "$command INTO `all_accessions`( "
+				.implode( ', ', array_keys( $fields ) )
+				." ) VALUES( "
+				.implode( ', ', $fields )
+				." )";
+		
+		//
+		// Insert record.
+		//
+		$ok = $db->Execute( $query );
+		$id = $db->Insert_ID();
+		$ok->Close();
+		
+		//
+		// Handle identifier;
+		//
+		if( ! $theIdentifier )
+		{
+			//
+			// Set identifier.
+			//
+			$theIdentifier = $id;
+			
+			//
+			// Add identifier to current table.
+			//
+			$table[ 'ALIS_Id' ] = $theIdentifier;
+		
+		} // New record.
+		
+		//
+		// Add identifier to all other tables.
+		// Note: don't use $table in the loop,
+		// because it will set the variable referenced by $table
+		// with the iterator's value!
+		//
+		$tables = array( 'accnames', 'acq_breeding',
+						'acq_collect', 'acq_exchange', 'environment' );
+		foreach( $tables as $item )
+			$theRecords[ $item ][ 'ALIS_Id' ] = $theIdentifier;
+		
+		return $theIdentifier;														// ==>
+	
+	} // _LoadAccessionTable.
 
 	 
 

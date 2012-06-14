@@ -556,7 +556,6 @@ $query = array( ':OBJECT.:TERM' => 'ISO:3166:1:ALPHA-3',
 //
 $found = $collection->find( $query );
 echo( $found->count() );
-*/
 
 //
 // Includes.
@@ -611,5 +610,11 @@ $node->save();
 echo( '<pre>' );
 print_r( $node );
 echo( '</pre><hr>' );
+*/
+
+//
+// Test open exceptions.
+//
+$x = new SplFileObject( 'pippo' );
 
 ?>

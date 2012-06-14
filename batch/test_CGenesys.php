@@ -39,6 +39,7 @@ require_once( "CGenesysOnce.php" );
 //
 try
 {
+/*
 	//
 	// Instantiate.
 	//
@@ -76,6 +77,18 @@ try
 	$test = new CGenesys( 'MySQLi://GENESYS-WRITER:genesyswriter@localhost/GENESYS?persist' );
 	echo( '<i>$count = $test->MarkCharacterized();</i><br>' );
 	$count = $test->MarkCharacterized();
+	echo( '<pre>' ); print_r( $count ); echo( '</pre>' );
+	echo( '<hr>' );
+*/
+	//
+	// Test import.
+	//
+	echo( '<h3>Test import</h3>' );
+	
+	echo( '<i>$test = new CGenesys( \'MySQLi://GENESYS-WRITER:genesyswriter@localhost/GENESYS?persist\');</i><br>' );
+	$test = new CGenesys( 'MySQLi://GENESYS-WRITER:genesyswriter@localhost/GENESYS?persist' );
+	echo( '<i>$count = $test->ImportPassport( \'/Library/WebServer/Library/wrapper/batch/test_mcpd.csv\');</i><br>' );
+	$count = $test->ImportPassport( '/Library/WebServer/Library/wrapper/batch/test_mcpd.csv' );
 	echo( '<pre>' ); print_r( $count ); echo( '</pre>' );
 	echo( '<hr>' );
 }
