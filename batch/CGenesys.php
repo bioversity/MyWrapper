@@ -767,6 +767,31 @@ EOT;
 				// Load accession table.
 				//
 				$id = $this->_LoadAccessionTable( $record, $records, $id );
+				
+				//
+				// Load accession names table.
+				//
+				$this->_LoadAccessionNamesTable( $record, $records, $id );
+				
+				//
+				// Load accession breeding table.
+				//
+				$this->_LoadAccessionBreedingTable( $record, $records, $id );
+				
+				//
+				// Load accession collecting table.
+				//
+				$this->_LoadAccessionCollectingTable( $record, $records, $id );
+				
+				//
+				// Load accession donor table.
+				//
+				$this->_LoadAccessionDonorTable( $record, $records, $id );
+				
+				//
+				// Load accession environment table.
+				//
+				$this->_LoadAccessionEnvironmentTable( $record, $records, $id );
 			
 			} // Record has all required fields.
 			
@@ -1481,6 +1506,552 @@ EOT;
 		return $theIdentifier;														// ==>
 	
 	} // _LoadAccessionTable.
+
+	 
+	/*===================================================================================
+	 *	_LoadAccessionNamesTable														*
+	 *==================================================================================*/
+
+	/**
+	 * Load accessions names table.
+	 *
+	 * This method will write the provided record in the accessions names table.
+	 *
+	 * If the provided record has none of the required fields for the table, the eventual
+	 * existing record will be deleted.
+	 *
+	 * @param reference			   &$theRecord			Record.
+	 * @param reference			   &$theRecords			Table records.
+	 * @param mixed					$theIdentifier		Accession identifier.
+	 *
+	 * @access protected
+	 */
+	protected function _LoadAccessionNamesTable( &$theRecord, &$theRecords, $theIdentifier )
+	{
+		//
+		// Check if needed.
+		//
+		if( ($theRecord[ 'ACCENAME' ] !== NULL)
+		 || ($theRecord[ 'OTHERNUMB' ] !== NULL) )
+		{
+			//
+			// Init local storage.
+			//
+			$db = $this->Connection();
+			
+			//
+			// Relate table record.
+			//
+			$table = & $theRecords[ 'accnames' ];
+			
+			//
+			// Handle ALIS_Id.
+			//
+			$table[ 'ALIS_Id' ] = $theIdentifier;
+			
+			//
+			// Handle AccNames.
+			//
+			if( strlen( $tmp = trim( $theRecord[ 'ACCENAME' ] ) ) )
+				$table[ 'AccNames' ]
+					= '0x'.bin2hex( $tmp );
+			else
+				unset( $table[ 'AccNames' ] );
+			
+			//
+			// Handle OtherIds.
+			//
+			if( strlen( $tmp = trim( $theRecord[ 'OTHERNUMB' ] ) ) )
+				$table[ 'OtherIds' ]
+					= '0x'.bin2hex( $tmp );
+			else
+				unset( $table[ 'OtherIds' ] );
+			
+			//
+			// Normalise fields.
+			//
+			$fields = Array();
+			foreach( array_keys( $table ) as $tmp )
+				$fields[ '`'.$tmp.'`' ] = $table[ $tmp ];
+			
+			//
+			// Build query.
+			//
+			$query = "REPLACE INTO `all_accnames`( "
+					.implode( ', ', array_keys( $fields ) )
+					." ) VALUES( "
+					.implode( ', ', $fields )
+					." )";
+			
+			//
+			// Insert record.
+			//
+			$ok = $db->Execute( $query );
+			$ok->Close();
+		
+		} // Has accession name or other identifiers.
+		
+		//
+		// Delete old record.
+		//
+		else
+		{
+			//
+			// Make query.
+			//
+			$query = "DELETE FROM 'all_accnames` WHERE( `ALIS_Id` = $theIdentifier )";
+			
+			//
+			// Delete record.
+			//
+			$ok = $db->Execute( $query );
+			$ok->Close();
+		
+		} // Has none of the required fields.
+	
+	} // _LoadAccessionNamesTable.
+
+	 
+	/*===================================================================================
+	 *	_LoadAccessionBreedingTable														*
+	 *==================================================================================*/
+
+	/**
+	 * Load accessions breeding table.
+	 *
+	 * This method will write the provided record in the accessions breeding table.
+	 *
+	 * If the provided record has none of the required fields for the table, the eventual
+	 * existing record will be deleted.
+	 *
+	 * @param reference			   &$theRecord			Record.
+	 * @param reference			   &$theRecords			Table records.
+	 * @param mixed					$theIdentifier		Accession identifier.
+	 *
+	 * @access protected
+	 */
+	protected function _LoadAccessionBreedingTable( &$theRecord,
+													&$theRecords,
+													 $theIdentifier )
+	{
+		//
+		// Check if needed.
+		//
+		if( ($theRecord[ 'ANCEST' ] !== NULL)
+		 || ($theRecord[ 'BREDCODE' ] !== NULL) )
+		{
+			//
+			// Init local storage.
+			//
+			$db = $this->Connection();
+			
+			//
+			// Relate table record.
+			//
+			$table = & $theRecords[ 'acq_breeding' ];
+			
+			//
+			// Handle ALIS_Id.
+			//
+			$table[ 'ALIS_Id' ] = $theIdentifier;
+			
+			//
+			// Handle Breeder_Code.
+			//
+			if( strlen( $tmp = trim( $theRecord[ 'BREDCODE' ] ) ) )
+				$table[ 'Breeder_Code' ]
+					= '0x'.bin2hex( $tmp );
+			else
+				unset( $table[ 'Breeder_Code' ] );
+			
+			//
+			// Handle Pedigree.
+			//
+			if( strlen( $tmp = trim( $theRecord[ 'ANCEST' ] ) ) )
+				$table[ 'Pedigree' ]
+					= '0x'.bin2hex( $tmp );
+			else
+				unset( $table[ 'Pedigree' ] );
+			
+			//
+			// Normalise fields.
+			//
+			$fields = Array();
+			foreach( array_keys( $table ) as $tmp )
+				$fields[ '`'.$tmp.'`' ] = $table[ $tmp ];
+			
+			//
+			// Build query.
+			//
+			$query = "REPLACE INTO `all_acq_breeding`( "
+					.implode( ', ', array_keys( $fields ) )
+					." ) VALUES( "
+					.implode( ', ', $fields )
+					." )";
+			
+			//
+			// Insert record.
+			//
+			$ok = $db->Execute( $query );
+			$ok->Close();
+		
+		} // Has accession name or other identifiers.
+		
+		//
+		// Delete old record.
+		//
+		else
+		{
+			//
+			// Make query.
+			//
+			$query = "DELETE FROM 'all_acq_breeding` WHERE( `ALIS_Id` = $theIdentifier )";
+			
+			//
+			// Delete record.
+			//
+			$ok = $db->Execute( $query );
+			$ok->Close();
+		
+		} // Has none of the required fields.
+	
+	} // _LoadAccessionBreedingTable.
+
+	 
+	/*===================================================================================
+	 *	_LoadAccessionCollectingTable													*
+	 *==================================================================================*/
+
+	/**
+	 * Load accessions collecting table.
+	 *
+	 * This method will write the provided record in the accessions collecting table.
+	 *
+	 * If the provided record has none of the required fields for the table, the eventual
+	 * existing record will be deleted.
+	 *
+	 * @param reference			   &$theRecord			Record.
+	 * @param reference			   &$theRecords			Table records.
+	 * @param mixed					$theIdentifier		Accession identifier.
+	 *
+	 * @access protected
+	 */
+	protected function _LoadAccessionCollectingTable( &$theRecord,
+													   &$theRecords,
+														$theIdentifier )
+	{
+		//
+		// Check if needed.
+		//
+		if( ($theRecord[ 'COLLDATE' ] !== NULL)
+		 || ($theRecord[ 'COLLNUMB' ] !== NULL)
+		 || ($theRecord[ 'COLLCODE' ] !== NULL)
+		 || ($theRecord[ 'COLLSITE' ] !== NULL) )
+		{
+			//
+			// Init local storage.
+			//
+			$db = $this->Connection();
+			
+			//
+			// Relate table record.
+			//
+			$table = & $theRecords[ 'acq_collect' ];
+			
+			//
+			// Handle ALIS_Id.
+			//
+			$table[ 'ALIS_Id' ] = $theIdentifier;
+			
+			//
+			// Handle Collect_Date.
+			//
+			if( strlen( $tmp = trim( $theRecord[ 'COLLDATE' ] ) ) )
+				$table[ 'Collect_Date' ]
+					= '0x'.bin2hex( $tmp );
+			else
+				unset( $table[ 'Collect_Date' ] );
+			
+			//
+			// Handle Collectors_Numb.
+			//
+			if( strlen( $tmp = trim( $theRecord[ 'COLLNUMB' ] ) ) )
+				$table[ 'Collectors_Numb' ]
+					= '0x'.bin2hex( $tmp );
+			else
+				unset( $table[ 'Collectors_Numb' ] );
+			
+			//
+			// Handle Collecting_Institute.
+			//
+			if( strlen( $tmp = trim( $theRecord[ 'COLLCODE' ] ) ) )
+				$table[ 'Collecting_Institute' ]
+					= '0x'.bin2hex( $tmp );
+			else
+				unset( $table[ 'Collecting_Institute' ] );
+			
+			//
+			// Handle Collect_Site.
+			//
+			if( strlen( $tmp = trim( $theRecord[ 'COLLSITE' ] ) ) )
+				$table[ 'Collect_Site' ]
+					= '0x'.bin2hex( $tmp );
+			else
+				unset( $table[ 'Collect_Site' ] );
+			
+			//
+			// Normalise fields.
+			//
+			$fields = Array();
+			foreach( array_keys( $table ) as $tmp )
+				$fields[ '`'.$tmp.'`' ] = $table[ $tmp ];
+			
+			//
+			// Build query.
+			//
+			$query = "REPLACE INTO `all_acq_collect`( "
+					.implode( ', ', array_keys( $fields ) )
+					." ) VALUES( "
+					.implode( ', ', $fields )
+					." )";
+			
+			//
+			// Insert record.
+			//
+			$ok = $db->Execute( $query );
+			$ok->Close();
+		
+		} // Has accession name or other identifiers.
+		
+		//
+		// Delete old record.
+		//
+		else
+		{
+			//
+			// Make query.
+			//
+			$query = "DELETE FROM 'all_acq_collect` WHERE( `ALIS_Id` = $theIdentifier )";
+			
+			//
+			// Delete record.
+			//
+			$ok = $db->Execute( $query );
+			$ok->Close();
+		
+		} // Has none of the required fields.
+	
+	} // _LoadAccessionCollectingTable.
+
+	 
+	/*===================================================================================
+	 *	_LoadAccessionDonorTable														*
+	 *==================================================================================*/
+
+	/**
+	 * Load accessions donors table.
+	 *
+	 * This method will write the provided record in the accessions donors table.
+	 *
+	 * If the provided record has none of the required fields for the table, the eventual
+	 * existing record will be deleted.
+	 *
+	 * @param reference			   &$theRecord			Record.
+	 * @param reference			   &$theRecords			Table records.
+	 * @param mixed					$theIdentifier		Accession identifier.
+	 *
+	 * @access protected
+	 */
+	protected function _LoadAccessionDonorTable( &$theRecord, &$theRecords, $theIdentifier )
+	{
+		//
+		// Check if needed.
+		//
+		if( ($theRecord[ 'DONORCODE' ] !== NULL)
+		 || ($theRecord[ 'DONORNUMB' ] !== NULL) )
+		{
+			//
+			// Init local storage.
+			//
+			$db = $this->Connection();
+			
+			//
+			// Relate table record.
+			//
+			$table = & $theRecords[ 'acq_exchange' ];
+			
+			//
+			// Handle ALIS_Id.
+			//
+			$table[ 'ALIS_Id' ] = $theIdentifier;
+			
+			//
+			// Handle Donor_Institute.
+			//
+			if( strlen( $tmp = trim( $theRecord[ 'DONORCODE' ] ) ) )
+				$table[ 'Donor_Institute' ]
+					= '0x'.bin2hex( $tmp );
+			else
+				unset( $table[ 'Donor_Institute' ] );
+			
+			//
+			// Handle Acc_Numb_Donor.
+			//
+			if( strlen( $tmp = trim( $theRecord[ 'DONORNUMB' ] ) ) )
+				$table[ 'Acc_Numb_Donor' ]
+					= '0x'.bin2hex( $tmp );
+			else
+				unset( $table[ 'Acc_Numb_Donor' ] );
+			
+			//
+			// Normalise fields.
+			//
+			$fields = Array();
+			foreach( array_keys( $table ) as $tmp )
+				$fields[ '`'.$tmp.'`' ] = $table[ $tmp ];
+			
+			//
+			// Build query.
+			//
+			$query = "REPLACE INTO `all_acq_exchange`( "
+					.implode( ', ', array_keys( $fields ) )
+					." ) VALUES( "
+					.implode( ', ', $fields )
+					." )";
+			
+			//
+			// Insert record.
+			//
+			$ok = $db->Execute( $query );
+			$ok->Close();
+		
+		} // Has accession name or other identifiers.
+		
+		//
+		// Delete old record.
+		//
+		else
+		{
+			//
+			// Make query.
+			//
+			$query = "DELETE FROM 'all_acq_exchange` WHERE( `ALIS_Id` = $theIdentifier )";
+			
+			//
+			// Delete record.
+			//
+			$ok = $db->Execute( $query );
+			$ok->Close();
+		
+		} // Has none of the required fields.
+	
+	} // _LoadAccessionDonorTable.
+
+	 
+	/*===================================================================================
+	 *	_LoadAccessionEnvironmentTable													*
+	 *==================================================================================*/
+
+	/**
+	 * Load accessions donors table.
+	 *
+	 * This method will write the provided record in the accessions donors table.
+	 *
+	 * If the provided record has none of the required fields for the table, the eventual
+	 * existing record will be deleted.
+	 *
+	 * @param reference			   &$theRecord			Record.
+	 * @param reference			   &$theRecords			Table records.
+	 * @param mixed					$theIdentifier		Accession identifier.
+	 *
+	 * @access protected
+	 */
+	protected function _LoadAccessionEnvironmentTable( &$theRecord,
+													   &$theRecords,
+														$theIdentifier )
+	{
+		//
+		// Check if needed.
+		//
+		if( ($theRecord[ 'LATITUDED' ] !== NULL)
+		 && ($theRecord[ 'LONGITUDED' ] !== NULL) )
+		{
+			//
+			// Init local storage.
+			//
+			$db = $this->Connection();
+			
+			//
+			// Relate table record.
+			//
+			$table = & $theRecords[ 'environment' ];
+			
+			//
+			// Handle ALIS_Id.
+			//
+			$table[ 'ALIS_Id' ] = $theIdentifier;
+			
+			//
+			// Handle Donor_Institute.
+			//
+			if( strlen( $tmp = trim( $theRecord[ 'DONORCODE' ] ) ) )
+				$table[ 'Donor_Institute' ]
+					= '0x'.bin2hex( $tmp );
+			else
+				unset( $table[ 'Donor_Institute' ] );
+			
+			//
+			// Handle Acc_Numb_Donor.
+			//
+			if( strlen( $tmp = trim( $theRecord[ 'DONORNUMB' ] ) ) )
+				$table[ 'Acc_Numb_Donor' ]
+					= '0x'.bin2hex( $tmp );
+			else
+				unset( $table[ 'Acc_Numb_Donor' ] );
+			
+			//
+			// Normalise fields.
+			//
+			$fields = Array();
+			foreach( array_keys( $table ) as $tmp )
+				$fields[ '`'.$tmp.'`' ] = $table[ $tmp ];
+			
+			//
+			// Build query.
+			//
+			$query = "REPLACE INTO `all_environment`( "
+					.implode( ', ', array_keys( $fields ) )
+					." ) VALUES( "
+					.implode( ', ', $fields )
+					." )";
+			
+			//
+			// Insert record.
+			//
+			$ok = $db->Execute( $query );
+			$ok->Close();
+		
+		} // Has accession name or other identifiers.
+		
+		//
+		// Delete old record.
+		//
+		else
+		{
+			//
+			// Make query.
+			//
+			$query = "DELETE FROM 'all_environment` WHERE( `ALIS_Id` = $theIdentifier )";
+			
+			//
+			// Delete record.
+			//
+			$ok = $db->Execute( $query );
+			$ok->Close();
+		
+		} // Has none of the required fields.
+	
+	} // _LoadAccessionEnvironmentTable.
 
 	 
 
