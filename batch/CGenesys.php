@@ -73,7 +73,7 @@ class CGenesys
 	 *
 	 * @var string
 	 */
-	 protected $mDSN = NULL;
+	protected $mDSN = NULL;
 
 	/**
 	 * Database connection.
@@ -82,7 +82,7 @@ class CGenesys
 	 *
 	 * @var ADOConnection
 	 */
-	 protected $mConnection = NULL;
+	protected $mConnection = NULL;
 
 	/**
 	 * Characterisation and evaluation tables.
@@ -91,7 +91,7 @@ class CGenesys
 	 *
 	 * @var array
 	 */
-	 protected $mCETables = Array();
+	protected $mCETables = Array();
 
 	/**
 	 * Characterisation and evaluation table references.
@@ -101,7 +101,17 @@ class CGenesys
 	 *
 	 * @var string
 	 */
-	 protected $mCharsed = NULL;
+	protected $mCharsed = NULL;
+
+	/**
+	 * Crop.
+	 *
+	 * This data member holds the current record's crop code.
+	 *
+	 * @var integer
+	 */
+	protected $mCrop = NULL;
+
 
 	/**
 	 * Crops.
@@ -110,7 +120,7 @@ class CGenesys
 	 *
 	 * @var array
 	 */
-	 protected $mCrops = Array();
+	protected $mCrops = Array();
 
 	/**
 	 * Work record.
@@ -119,8 +129,8 @@ class CGenesys
 	 *
 	 * @var array
 	 */
-	 static $sWorkRecord = array
-	 (
+	static $sWorkRecord = array
+	(
 	 	'accessions' => array
 	 	(
 	 		'ALIS_Id' => 'NULL',
@@ -237,7 +247,30 @@ class CGenesys
 	 		'Species' => 'NULL',
 	 		'Taxon_Name' => 'NULL'
 	 	)
-	 );
+	);
+
+	/**
+	 * Months.
+	 *
+	 * This data member holds the months.
+	 *
+	 * @var array
+	 */
+	static $sMonths = array
+	(
+		1	=>	'Jan',
+		2	=>	'Feb',
+		3	=>	'Mar',
+		4	=>	'Apr',
+		5	=>	'May',
+		6	=>	'Jun',
+		7	=>	'Jul',
+		8	=>	'Aug',
+		9	=>	'Sep',
+		10	=>	'Oct',
+		11	=>	'Nov',
+		12	=>	'Dec'
+	);
 
 		
 
@@ -792,6 +825,149 @@ EOT;
 				// Load accession environment table.
 				//
 				$this->_LoadAccessionEnvironmentTable( $record, $records, $id );
+				
+				//
+				// Delete taxon records.
+				//
+				foreach( array_keys( $this->mCrops ) as $crop )
+				{
+					//
+					// Skip other crops.
+					//
+					if( ($crop != 999)
+					 && ($crop != $this->mCrop) )
+					{
+						//
+						// Set crop name.
+						//
+						$crop_name = $this->mCrops[ $crop ];
+						
+						//
+						// Set table name.
+						//
+						$table_name = $crop_name.'_taxonomy';
+						
+						//
+						// Build query.
+						//
+						$query = "DELETE FROM `$table_name` WHERE( `Taxon_Code` = $taxon )";
+						
+						//
+						// Delete record.
+						//
+						$ok = $db->Execute( $query );
+						$ok->Close();
+						
+						//
+						// Iterate passport tables.
+						//
+						foreach( array_keys( self::$sWorkRecord ) as $table )
+						{
+							//
+							// Skip taxon table.
+							//
+							if( $table != 'taxonomy' )
+							{
+								//
+								// Build table name.
+								//
+								$table_name = $crop_name.'_'.$table;
+								
+								//
+								// Build query.
+								//
+								$query
+									= "DELETE FROM `$table_name` WHERE( `ALIS_Id` = $id )";
+								
+								//
+								// Delete record.
+								//
+								$ok = $db->Execute( $query );
+								$ok->Close();
+							
+							} // Not taxonomy table.
+						
+						} // Iterating passport tables.
+					
+					} // Supported crop.
+				
+				} // Iterating crops.
+				
+				//
+				// Load crop-specific tables.
+				//
+				if( $this->mCrop )
+				{
+					//
+					// Save crop prefix.
+					//
+					$crop = $this->mCrops[ $this->mCrop ];
+					
+					//
+					// Iterate passport tables.
+					//
+					foreach( array_keys( self::$sWorkRecord ) as $table )
+					{
+						//
+						// Build table name.
+						//
+						$table_name = $crop.'_'.$table;
+						
+						//
+						// Handle existing.
+						//
+						if( array_key_exists( $table, $records ) )
+						{
+							//
+							// Set table reference.
+							//
+							$table_ref = & $records[ $table ];
+			
+							//
+							// Normalise fields.
+							//
+							$fields = Array();
+							foreach( array_keys( $table_ref ) as $tmp )
+								$fields[ '`'.$tmp.'`' ] = $table_ref[ $tmp ];
+							
+							//
+							// Build query.
+							//
+							$query = "REPLACE INTO `$table_name`( "
+									.implode( ', ', array_keys( $fields ) )
+									." ) VALUES( "
+									.implode( ', ', $fields )
+									." )";
+							
+							//
+							// Insert record.
+							//
+							$ok = $db->Execute( $query );
+							$ok->Close();
+						
+						} // Update table.
+						
+						//
+						// Handle non-existing.
+						//
+						else
+						{
+							//
+							// Build query.
+							//
+							$query = "DELETE FROM `$table_name` WHERE( `ALIS_Id` = $id )";
+							
+							//
+							// Delete record.
+							//
+							$ok = $db->Execute( $query );
+							$ok->Close();
+						
+						} // Delete table.
+					
+					} // Iterating data tables.
+				
+				} // Supported crop.
 			
 			} // Record has all required fields.
 			
@@ -1237,11 +1413,12 @@ EOT;
 		//
 		// Locate taxon.
 		//
+		$genus = '%'.$theRecord[ 'GENUS' ].'%';
 		$tmp1 = '0x'.bin2hex( $theRecord[ 'GENUS' ] );
 		$tmp2 = '0x'.bin2hex( $theRecord[ 'SPECIES' ] );
 		$query = <<<EOT
 SELECT
-	`Taxon_Code`
+	*
 FROM
 	`all_taxonomy`
 WHERE
@@ -1250,8 +1427,8 @@ WHERE
 	(`Species` = $tmp2)
 )
 EOT;
-		$theTaxon = $db->GetOne( $query );
-		if( ! $theTaxon )
+		$taxon = $db->GetRow( $query );
+		if( ! $taxon )
 		{
 			//
 			// Get next identifier.
@@ -1288,9 +1465,61 @@ EOT;
 			$ok = $db->Execute( $query );
 			$ok->Close();
 			
+			//
+			// Determine crop.
+			//
+			$query = <<<EOT
+SELECT
+	`Crop_id`
+FROM
+	`crops`
+WHERE
+(
+	(`L_ID` = 1) AND
+	(`GenusList` LIKE '$genus')
+)
+EOT;
+			$this->mCrop = $db->GetOne( $query );
+			
 			return TRUE;															// ==>
 		
 		} // New taxon.
+		
+		//
+		// Handle existing.
+		//
+		else
+		{
+			//
+			// Set taxon code.
+			//
+			$theTaxon = $taxon[ 'Taxon_Code' ];
+			
+			//
+			// Set record.
+			//
+			$table[ 'Taxon_Code' ] = $theTaxon;
+			$table[ 'Genus' ] = '0x'.bin2hex( $taxon[ 'Genus' ] );
+			$table[ 'Species' ] = '0x'.bin2hex( $taxon[ 'Species' ] );
+			$table[ 'Taxon_Name' ] = '0x'.bin2hex( $taxon[ 'Taxon_Name' ] );
+		
+		} // Existing taxon.
+
+		//
+		// Determine crop.
+		//
+		$query = <<<EOT
+SELECT
+	`Crop_id`
+FROM
+	`crops`
+WHERE
+(
+	(`L_ID` = 1) AND
+	(`GenusList` LIKE '$genus')
+)
+EOT;
+		$this->mCrop = $db->GetOne( $query );
 		
 		return FALSE;																// ==>
 	
@@ -1529,16 +1758,16 @@ EOT;
 	protected function _LoadAccessionNamesTable( &$theRecord, &$theRecords, $theIdentifier )
 	{
 		//
+		// Init local storage.
+		//
+		$db = $this->Connection();
+		
+		//
 		// Check if needed.
 		//
-		if( ($theRecord[ 'ACCENAME' ] !== NULL)
-		 || ($theRecord[ 'OTHERNUMB' ] !== NULL) )
+		if( strlen( $theRecord[ 'ACCENAME' ] )
+		 || strlen( $theRecord[ 'OTHERNUMB' ] ) )
 		{
-			//
-			// Init local storage.
-			//
-			$db = $this->Connection();
-			
 			//
 			// Relate table record.
 			//
@@ -1599,13 +1828,18 @@ EOT;
 			//
 			// Make query.
 			//
-			$query = "DELETE FROM 'all_accnames` WHERE( `ALIS_Id` = $theIdentifier )";
+			$query = "DELETE FROM `all_accnames` WHERE( `ALIS_Id` = $theIdentifier )";
 			
 			//
 			// Delete record.
 			//
 			$ok = $db->Execute( $query );
 			$ok->Close();
+			
+			//
+			// Delete table reference.
+			//
+			unset( $theRecords[ 'accnames' ] );
 		
 		} // Has none of the required fields.
 	
@@ -1635,16 +1869,16 @@ EOT;
 													 $theIdentifier )
 	{
 		//
+		// Init local storage.
+		//
+		$db = $this->Connection();
+		
+		//
 		// Check if needed.
 		//
-		if( ($theRecord[ 'ANCEST' ] !== NULL)
-		 || ($theRecord[ 'BREDCODE' ] !== NULL) )
+		if( strlen( $theRecord[ 'ANCEST' ] )
+		 || strlen( $theRecord[ 'BREDCODE' ] ) )
 		{
-			//
-			// Init local storage.
-			//
-			$db = $this->Connection();
-			
 			//
 			// Relate table record.
 			//
@@ -1705,13 +1939,18 @@ EOT;
 			//
 			// Make query.
 			//
-			$query = "DELETE FROM 'all_acq_breeding` WHERE( `ALIS_Id` = $theIdentifier )";
+			$query = "DELETE FROM `all_acq_breeding` WHERE( `ALIS_Id` = $theIdentifier )";
 			
 			//
 			// Delete record.
 			//
 			$ok = $db->Execute( $query );
 			$ok->Close();
+			
+			//
+			// Delete table reference.
+			//
+			unset( $theRecords[ 'acq_breeding' ] );
 		
 		} // Has none of the required fields.
 	
@@ -1741,18 +1980,18 @@ EOT;
 														$theIdentifier )
 	{
 		//
+		// Init local storage.
+		//
+		$db = $this->Connection();
+		
+		//
 		// Check if needed.
 		//
-		if( ($theRecord[ 'COLLDATE' ] !== NULL)
-		 || ($theRecord[ 'COLLNUMB' ] !== NULL)
-		 || ($theRecord[ 'COLLCODE' ] !== NULL)
-		 || ($theRecord[ 'COLLSITE' ] !== NULL) )
+		if( strlen( $theRecord[ 'COLLDATE' ] )
+		 || strlen( $theRecord[ 'COLLNUMB' ] )
+		 || strlen( $theRecord[ 'COLLCODE' ] )
+		 || strlen( $theRecord[ 'COLLSITE' ] ) )
 		{
-			//
-			// Init local storage.
-			//
-			$db = $this->Connection();
-			
 			//
 			// Relate table record.
 			//
@@ -1831,13 +2070,18 @@ EOT;
 			//
 			// Make query.
 			//
-			$query = "DELETE FROM 'all_acq_collect` WHERE( `ALIS_Id` = $theIdentifier )";
+			$query = "DELETE FROM `all_acq_collect` WHERE( `ALIS_Id` = $theIdentifier )";
 			
 			//
 			// Delete record.
 			//
 			$ok = $db->Execute( $query );
 			$ok->Close();
+			
+			//
+			// Delete table reference.
+			//
+			unset( $theRecords[ 'acq_collect' ] );
 		
 		} // Has none of the required fields.
 	
@@ -1865,16 +2109,16 @@ EOT;
 	protected function _LoadAccessionDonorTable( &$theRecord, &$theRecords, $theIdentifier )
 	{
 		//
+		// Init local storage.
+		//
+		$db = $this->Connection();
+		
+		//
 		// Check if needed.
 		//
-		if( ($theRecord[ 'DONORCODE' ] !== NULL)
-		 || ($theRecord[ 'DONORNUMB' ] !== NULL) )
+		if( strlen( $theRecord[ 'DONORCODE' ] )
+		 || strlen( $theRecord[ 'DONORNUMB' ] ) )
 		{
-			//
-			// Init local storage.
-			//
-			$db = $this->Connection();
-			
 			//
 			// Relate table record.
 			//
@@ -1935,13 +2179,18 @@ EOT;
 			//
 			// Make query.
 			//
-			$query = "DELETE FROM 'all_acq_exchange` WHERE( `ALIS_Id` = $theIdentifier )";
+			$query = "DELETE FROM `all_acq_exchange` WHERE( `ALIS_Id` = $theIdentifier )";
 			
 			//
 			// Delete record.
 			//
 			$ok = $db->Execute( $query );
 			$ok->Close();
+			
+			//
+			// Delete table reference.
+			//
+			unset( $theRecords[ 'acq_exchange' ] );
 		
 		} // Has none of the required fields.
 	
@@ -1971,16 +2220,16 @@ EOT;
 														$theIdentifier )
 	{
 		//
+		// Init local storage.
+		//
+		$db = $this->Connection();
+		
+		//
 		// Check if needed.
 		//
-		if( ($theRecord[ 'LATITUDED' ] !== NULL)
-		 && ($theRecord[ 'LONGITUDED' ] !== NULL) )
+		if( strlen( $theRecord[ 'LATITUDED' ] )
+		 && strlen( $theRecord[ 'LONGITUDED' ] ) )
 		{
-			//
-			// Init local storage.
-			//
-			$db = $this->Connection();
-			
 			//
 			// Relate table record.
 			//
@@ -1992,22 +2241,164 @@ EOT;
 			$table[ 'ALIS_Id' ] = $theIdentifier;
 			
 			//
-			// Handle Donor_Institute.
+			// Handle LatitudeD.
 			//
-			if( strlen( $tmp = trim( $theRecord[ 'DONORCODE' ] ) ) )
-				$table[ 'Donor_Institute' ]
-					= '0x'.bin2hex( $tmp );
-			else
-				unset( $table[ 'Donor_Institute' ] );
+			$table[ 'LatitudeD' ] = $theRecord[ 'LATITUDED' ];
 			
 			//
-			// Handle Acc_Numb_Donor.
+			// Handle LongitudeD.
 			//
-			if( strlen( $tmp = trim( $theRecord[ 'DONORNUMB' ] ) ) )
-				$table[ 'Acc_Numb_Donor' ]
-					= '0x'.bin2hex( $tmp );
-			else
-				unset( $table[ 'Acc_Numb_Donor' ] );
+			$table[ 'LongitudeD' ] = $theRecord[ 'LONGITUDED' ];
+			
+			//
+			// Handle Altitude.
+			//
+			if( strlen( $tmp = trim( $theRecord[ 'ELEVATION' ] ) ) )
+				$table[ 'Altitude' ] = $tmp;
+			
+			//
+			// Get climate data.
+			//
+			$url = 'http://services.grinfo.net/WorldClim/WorldClim.php?'
+				  .'lat='.$theRecord[ 'LATITUDED' ].'&'
+				  .'lon='.$theRecord[ 'LONGITUDED' ];
+			$data = simplexml_load_file( $url );
+			
+			//
+			// Scan climate data.
+			//
+			$tmin_avg = $tmax_avg = $prec_avg = 0;
+			foreach( $data->Feature as $feature )
+			{
+				//
+				// Parse by predicate.
+				//
+				switch( (string) $feature[ 'Predicate' ] )
+				{
+					case 'tmin':
+						$ofst = 'T_Min_'.self::$sMonths[ (int) $feature[ 'Reference' ] ];
+						$tmp = ($feature / 10);
+						$tmin_avg =+ $tmp;
+						$table[ $ofst ] = $tmp;
+						break;
+					
+					case 'tmax':
+						$ofst = 'T_Max_'.self::$sMonths[ (int) $feature[ 'Reference' ] ];
+						$tmp = ($feature / 10);
+						$tmax_avg =+ $tmp;
+						$table[ $ofst ] = $tmp;
+						break;
+					
+					case 'prec':
+						$ofst = 'P_'.self::$sMonths[ (int) $feature[ 'Reference' ] ];
+						$tmp = (int) $feature;
+						$prec_avg =+ $tmp;
+						$table[ $ofst ] = $tmp;
+						break;
+					
+					case 'bio1':
+						$tmp = ($feature / 10);
+						$table[ 'Bio_1' ] = $tmp;
+						break;
+
+					case 'bio2':
+						$tmp = ($feature / 10);
+						$table[ 'Bio_2' ] = $tmp;
+						break;
+
+					case 'bio3':
+						$tmp = ($feature / 10);
+						$table[ 'Bio_3' ] = $tmp;
+						break;
+
+					case 'bio4':
+						$tmp = ($feature / 100);
+						$table[ 'Bio_4' ] = $tmp;
+						break;
+
+					case 'bio5':
+						$tmp = ($feature / 10);
+						$table[ 'Bio_5' ] = $tmp;
+						break;
+
+					case 'bio6':
+						$tmp = ($feature / 10);
+						$table[ 'Bio_6' ] = $tmp;
+						break;
+
+					case 'bio7':
+						$tmp = ($feature / 10);
+						$table[ 'Bio_7' ] = $tmp;
+						break;
+
+					case 'bio8':
+						$tmp = ($feature / 10);
+						$table[ 'Bio_8' ] = $tmp;
+						break;
+
+					case 'bio9':
+						$tmp = ($feature / 10);
+						$table[ 'Bio_9' ] = $tmp;
+						break;
+
+					case 'bio10':
+						$tmp = ($feature / 10);
+						$table[ 'Bio_10' ] = $tmp;
+						break;
+
+					case 'bio11':
+						$tmp = ($feature / 10);
+						$table[ 'Bio_11' ] = $tmp;
+						break;
+
+					case 'bio12':
+						$tmp = (int) $feature;
+						$table[ 'Bio_12' ] = $tmp;
+						break;
+
+					case 'bio13':
+						$tmp = (int) $feature;
+						$table[ 'Bio_13' ] = $tmp;
+						break;
+
+					case 'bio14':
+						$tmp = (int) $feature;
+						$table[ 'Bio_14' ] = $tmp;
+						break;
+
+					case 'bio15':
+						$tmp = (int) $feature;
+						$table[ 'Bio_15' ] = $tmp;
+						break;
+
+					case 'bio16':
+						$tmp = (int) $feature;
+						$table[ 'Bio_16' ] = $tmp;
+						break;
+
+					case 'bio17':
+						$tmp = (int) $feature;
+						$table[ 'Bio_17' ] = $tmp;
+						break;
+
+					case 'bio18':
+						$tmp = (int) $feature;
+						$table[ 'Bio_18' ] = $tmp;
+						break;
+
+					case 'bio19':
+						$tmp = (int) $feature;
+						$table[ 'Bio_19' ] = $tmp;
+						break;
+				}
+			}
+			
+			//
+			// Update averages.
+			//
+			$table[ 'T_Min_Annual' ] = ($tmin_avg / 12);
+			$table[ 'T_Max_Annual' ] = ($tmax_avg / 12);
+			$table[ 'P_Max_Annual' ] = ($prec_avg / 12);
 			
 			//
 			// Normalise fields.
@@ -2041,13 +2432,18 @@ EOT;
 			//
 			// Make query.
 			//
-			$query = "DELETE FROM 'all_environment` WHERE( `ALIS_Id` = $theIdentifier )";
+			$query = "DELETE FROM `all_environment` WHERE( `ALIS_Id` = $theIdentifier )";
 			
 			//
 			// Delete record.
 			//
 			$ok = $db->Execute( $query );
 			$ok->Close();
+			
+			//
+			// Delete table reference.
+			//
+			unset( $theRecords[ 'environment' ] );
 		
 		} // Has none of the required fields.
 	

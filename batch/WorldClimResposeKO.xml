@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WSLocationGeographicFeatures
+    xmlns="urn:bioversityinternational.org:schemas:standards"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="urn:bioversityinternational.org:schemas:standards
+                        http://schema.grinfo.net/elements/WSLocationGeographicFeatures.xsd"
+    LatMin="0" LatMax="0.00833333"
+    LonMin="0" LonMax="0.00833333">
+    <Coordinate>
+        <Latitude Degrees="0"/>
+        <Longitude Degrees="0"/>
+        <Elevation Collection="GTOPO-30 Ocean"/>
+    </Coordinate>
+    <Status Severity="WARNING">Coordinates are out of land</Status>
+</WSLocationGeographicFeatures>

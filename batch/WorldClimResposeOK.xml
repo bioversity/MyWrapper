@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WSLocationGeographicFeatures
+    xmlns="urn:bioversityinternational.org:schemas:standards"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="urn:bioversityinternational.org:schemas:standards
+                        http://schema.grinfo.net/elements/WSLocationGeographicFeatures.xsd"
+    LatMin="43.65" LatMax="43.6583"
+    LonMin="3.85833" LonMax="3.86667">
+    <Coordinate>
+        <Latitude Degrees="12.5333"/>
+        <Longitude Degrees="-2.13333"/>
+        <Elevation Collection="GTOPO-30 Digital Terrain Elevation Data">312</Elevation>
+    </Coordinate>
+    <!--
+        The Feature value contains the value.
+        
+        Predicate attribute:
+        alt		Shuttle Radar Topography Mission (SRTM) (30 sec.)
+        tmean	WORLDCLIM 30 sec. average monthly mean temperature [C° * 10]
+        tmin	WORLDCLIM 30 sec. average monthly minimum temperature [C° * 10]
+        tmax	WORLDCLIM 30 sec. average monthly maximum temperature [C° * 10]
+        prec	WORLDCLIM 30 sec. average monthly precipitation [mm.]
+        bio1	WORLDCLIM 30 sec. Annual Mean Temperature [C° * 10]
+        bio2	WORLDCLIM 30 sec. Mean Diurnal Range (Mean of monthly (max temp - min temp)) [C° * 10]
+        bio3	WORLDCLIM 30 sec. Isothermality (P2/P7) (* 100)
+        bio4	WORLDCLIM 30 sec. Temperature Seasonality (standard deviation *100)
+        bio5	WORLDCLIM 30 sec. Maximum Temperature of Warmest Month [C° * 10]
+        bio6	WORLDCLIM 30 sec. Minimum Temperature of Coldest Month [C° * 10]
+        bio7	WORLDCLIM 30 sec. Temperature Annual Range (P5-P6)
+        bio8	WORLDCLIM 30 sec. Mean Temperature of Wettest Quarter [C° * 10]
+        bio9	WORLDCLIM 30 sec. Mean Temperature of Driest Quarter [C° * 10]
+        bio10	WORLDCLIM 30 sec. Mean Temperature of Warmest Quarter [C° * 10]
+        bio11	WORLDCLIM 30 sec. Mean Temperature of Coldest Quarter [C° * 10]
+        bio12	WORLDCLIM 30 sec. Annual Precipitation
+        bio13	WORLDCLIM 30 sec. Precipitation of Wettest Month
+        bio14	WORLDCLIM 30 sec. Precipitation of Driest Month
+        bio15	WORLDCLIM 30 sec. Precipitation Seasonality (Coefficient of Variation)
+        bio16	WORLDCLIM 30 sec. Precipitation of Wettest Quarter
+        bio17	WORLDCLIM 30 sec. Precipitation of Driest Quarter
+        bio18	WORLDCLIM 30 sec. Precipitation of Warmest Quarter
+        bio19	WORLDCLIM 30 sec. Precipitation of Coldest Quarter
+        
+        Reference attribute:
+        Numeric month [1 - 12].
+        
+        The elevation in the Coordinate element is from GTOPO-30.
+    -->
+    <Feature Predicate="alt">315</Feature>
+    <Feature Predicate="tmean" Reference="1">248</Feature>
+    <Feature Predicate="tmean" Reference="2">273</Feature>
+    <Feature Predicate="tmean" Reference="3">304</Feature>
+    <Feature Predicate="tmean" Reference="4">317</Feature>
+    <Feature Predicate="tmean" Reference="5">308</Feature>
+    <Feature Predicate="tmean" Reference="6">286</Feature>
+    <Feature Predicate="tmean" Reference="7">267</Feature>
+    <Feature Predicate="tmean" Reference="8">261</Feature>
+    <Feature Predicate="tmean" Reference="9">266</Feature>
+    <Feature Predicate="tmean" Reference="10">284</Feature>
+    <Feature Predicate="tmean" Reference="11">270</Feature>
+    <Feature Predicate="tmean" Reference="12">248</Feature>
+    <Feature Predicate="tmin" Reference="1">163</Feature>
+    <Feature Predicate="tmin" Reference="2">185</Feature>
+    <Feature Predicate="tmin" Reference="3">225</Feature>
+    <Feature Predicate="tmin" Reference="4">248</Feature>
+    <Feature Predicate="tmin" Reference="5">248</Feature>
+    <Feature Predicate="tmin" Reference="6">232</Feature>
+    <Feature Predicate="tmin" Reference="7">220</Feature>
+    <Feature Predicate="tmin" Reference="8">215</Feature>
+    <Feature Predicate="tmin" Reference="9">214</Feature>
+    <Feature Predicate="tmin" Reference="10">216</Feature>
+    <Feature Predicate="tmin" Reference="11">184</Feature>
+    <Feature Predicate="tmin" Reference="12">161</Feature>
+    <Feature Predicate="tmax" Reference="1">334</Feature>
+    <Feature Predicate="tmax" Reference="2">361</Feature>
+    <Feature Predicate="tmax" Reference="3">383</Feature>
+    <Feature Predicate="tmax" Reference="4">387</Feature>
+    <Feature Predicate="tmax" Reference="5">369</Feature>
+    <Feature Predicate="tmax" Reference="6">341</Feature>
+    <Feature Predicate="tmax" Reference="7">315</Feature>
+    <Feature Predicate="tmax" Reference="8">307</Feature>
+    <Feature Predicate="tmax" Reference="9">319</Feature>
+    <Feature Predicate="tmax" Reference="10">353</Feature>
+    <Feature Predicate="tmax" Reference="11">357</Feature>
+    <Feature Predicate="tmax" Reference="12">335</Feature>
+    <Feature Predicate="prec" Reference="1">0</Feature>
+    <Feature Predicate="prec" Reference="2">1</Feature>
+    <Feature Predicate="prec" Reference="3">5</Feature>
+    <Feature Predicate="prec" Reference="4">21</Feature>
+    <Feature Predicate="prec" Reference="5">61</Feature>
+    <Feature Predicate="prec" Reference="6">99</Feature>
+    <Feature Predicate="prec" Reference="7">173</Feature>
+    <Feature Predicate="prec" Reference="8">209</Feature>
+    <Feature Predicate="prec" Reference="9">134</Feature>
+    <Feature Predicate="prec" Reference="10">28</Feature>
+    <Feature Predicate="prec" Reference="11">1</Feature>
+    <Feature Predicate="prec" Reference="12">1</Feature>
+    <Feature Predicate="bio1">278</Feature>
+    <Feature Predicate="bio2">138</Feature>
+    <Feature Predicate="bio3">61</Feature>
+    <Feature Predicate="bio4">2168</Feature>
+    <Feature Predicate="bio5">387</Feature>
+    <Feature Predicate="bio6">161</Feature>
+    <Feature Predicate="bio7">226</Feature>
+    <Feature Predicate="bio8">264</Feature>
+    <Feature Predicate="bio9">255</Feature>
+    <Feature Predicate="bio10">309</Feature>
+    <Feature Predicate="bio11">255</Feature>
+    <Feature Predicate="bio12">733</Feature>
+    <Feature Predicate="bio13">209</Feature>
+    <Feature Predicate="bio14">0</Feature>
+    <Feature Predicate="bio15">116</Feature>
+    <Feature Predicate="bio16">516</Feature>
+    <Feature Predicate="bio17">2</Feature>
+    <Feature Predicate="bio18">87</Feature>
+    <Feature Predicate="bio19">2</Feature>
+</WSLocationGeographicFeatures>

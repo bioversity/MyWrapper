@@ -1,0 +1,87 @@
+--
+-- VIEW: view_genesys
+--
+-- This view maps to the Genesys import descriptors.
+--
+SELECT
+	`EURISCO_ITW`.`accessions`.`HoldingInstituteCode` AS `INSTCODE`,
+	`EURISCO_ITW`.`accessions`.`AccessionNumber` AS "ACCENUMB",
+	`EURISCO_ITW`.`taxa`.`Genus` AS "GENUS",
+	`EURISCO_ITW`.`taxa`.`Species` AS "SPECIES",
+	IF( `EURISCO_ITW`.`accessions`.`AcquisitionSource` IS NOT NULL,
+		IF(	`EURISCO_ITW`.`accessions`.`AcquisitionSource` != '99',
+			`EURISCO_ITW`.`accessions`.`AcquisitionSource`,
+			NULL ),
+		NULL ) AS "COLLSRC",
+	IF(	`EURISCO_ITW`.`accessions`.`AcquisitionDate` IS NOT NULL,
+		IF(	SUBSTRING( `EURISCO_ITW`.`accessions`.`AcquisitionDate`, 5, 4 ) = '0000',
+			CONCAT( SUBSTRING( `EURISCO_ITW`.`accessions`.`AcquisitionDate`, 1, 4 ),
+					'----' ),
+			IF(	SUBSTRING( `EURISCO_ITW`.`accessions`.`AcquisitionDate`, 6, 2 ) = '00',
+				CONCAT( SUBSTRING( `EURISCO_ITW`.`accessions`.`AcquisitionDate`, 1, 6 ),
+						'--' ),
+				`EURISCO_ITW`.`accessions`.`AcquisitionDate` ) ),
+		NULL ) AS "ACQDATE",
+	`ANCILLARY`.`Code_ISO_3166`.`ISO3` AS "ORIGCTY",
+	`EURISCO_ITW`.`accessions`.`CollectingLongitude` AS "LONGITUDED",
+	`EURISCO_ITW`.`accessions`.`CollectingLatitude` AS "LATITUDED",
+	`EURISCO_ITW`.`accessions`.`CollectingElevation` AS "ELEVATION",
+	`EURISCO_ITW`.`accessions`.`DUPLSITE` AS "DUPLSITE",
+	IF( `EURISCO_ITW`.`accessions`.`BiologicalStatus` IS NOT NULL,
+		IF(	`EURISCO_ITW`.`accessions`.`BiologicalStatus` != '999',
+			`EURISCO_ITW`.`accessions`.`BiologicalStatus`,
+			NULL ),
+		NULL ) AS "SAMPSTAT",
+	GROUP_CONCAT( `EURISCO_ITW`.`accession_storage`.`Storage` SEPARATOR ',' ) AS "STORAGE",
+	IF(	`EURISCO_ITW`.`accessions`.`DUPLSITE` IS NOT NULL,
+		IF(	`EURISCO_ITW`.`accessions`.`DUPLSITE` LIKE '%NOR051%',
+			'1',
+			'0' ),
+		NULL ) AS "InSvalbard",
+	IF(	`EURISCO_ITW`.`accessions`.`MLSSTAT` IS NOT NULL,
+		IF(	`EURISCO_ITW`.`accessions`.`MLSSTAT` = '-',
+			NULL,
+			IF(	`EURISCO_ITW`.`accessions`.`MLSSTAT` = '1',
+				'Y',
+				'N' ) ),
+		NULL ) AS "MLSSTAT",
+	IF(	`EURISCO_ITW`.`accessions`.`CollectingDate` IS NOT NULL,
+		IF(	SUBSTRING( `EURISCO_ITW`.`accessions`.`CollectingDate`, 5, 4 ) = '0000',
+			CONCAT( SUBSTRING( `EURISCO_ITW`.`accessions`.`CollectingDate`, 1, 4 ),
+					'----' ),
+			IF(	SUBSTRING( `EURISCO_ITW`.`accessions`.`CollectingDate`, 6, 2 ) = '00',
+				CONCAT( SUBSTRING( `EURISCO_ITW`.`accessions`.`CollectingDate`, 1, 6 ),
+						'--' ),
+				`EURISCO_ITW`.`accessions`.`CollectingDate` ) ),
+		NULL ) AS "COLLDATE",
+	`EURISCO_ITW`.`accessions`.`CollectingNumber` AS "COLLNUMB",
+	`EURISCO_ITW`.`accessions`.`CollectingInstituteCode` AS "COLLCODE",
+	`EURISCO_ITW`.`accessions`.`CollectingLocality` AS "COLLSITE",
+	`DONOR`.`InstituteCode` AS "DONORCODE",
+	`DONOR`.`Number` AS "DONORNUMB",
+	`BREEDER`.`InstituteCode` AS "BREDCODE",
+	`EURISCO_ITW`.`accessions`.`Ancestors` AS "ANCEST",
+	`EURISCO_ITW`.`accessions`.`AccessionNames` AS "ACCENAME",
+	`EURISCO_ITW`.`accessions`.`OTHERNUMB` AS "OTHERNUMB"
+FROM
+	`EURISCO_ITW`.`accessions`
+		LEFT JOIN `EURISCO_ITW`.`holdings` `DONOR`
+			ON( `DONOR`.`ID`
+				= `EURISCO_ITW`.`accessions`.`DonorID` )
+		LEFT JOIN `EURISCO_ITW`.`holdings` `BREEDER`
+			ON( `BREEDER`.`ID`
+				= `EURISCO_ITW`.`accessions`.`BreederID` )
+		LEFT JOIN `EURISCO_ITW`.`taxa`
+			ON( `EURISCO_ITW`.`taxa`.`ID`
+				= `EURISCO_ITW`.`accessions`.`TaxonID` )
+		LEFT JOIN `ANCILLARY`.`Code_ISO_3166`
+			ON( `ANCILLARY`.`Code_ISO_3166`.`Code`
+				= `EURISCO_ITW`.`accessions`.`CountryOrigin` )
+		LEFT JOIN `EURISCO_ITW`.`accession_storage`
+			ON( `EURISCO_ITW`.`accession_storage`.`AccessionID`
+				= `EURISCO_ITW`.`accessions`.`ID` )
+		LEFT JOIN `EURISCO_ITW`.`accessions_climate`
+			ON( `EURISCO_ITW`.`accessions_climate`.`ID`
+				= `EURISCO_ITW`.`accessions`.`ID` )
+GROUP BY
+	`EURISCO_ITW`.`accessions`.`ID`
