@@ -48,11 +48,42 @@ try
 		throw new Exception( "USAGE: php -f <script> <file-path>\n" );			// !@! ==>
 	
 	//
+	// Open log file.
+	//
+	if( count( $argv ) > 2 )
+	{
+		//
+		// Open log file.
+		//
+		$log = new SplFileObject( $argv[ 2 ], "a" );
+		
+		//
+		// Write header.
+		//
+		$log->fwrite( "\n".date( "c" )."\n$file\n" );
+	}
+	
+	//
 	// Instantiate batch object.
 	//
 	$batch = new CGenesys( 'MySQLi://GENESYS-WRITER:genesyswriter@localhost/GENESYS?persist' );
 	$result = $batch->ImportPassport( $file );
-	print_r( $result );
+	
+	//
+	// Write results.
+	//
+	echo( $tmp = "Inserted: ".$result[ 'INSERTED' ]."\n" );
+	if( isset( $log ) )
+		$log->fwrite( $tmp );
+	echo( $tmp = "Updated: ".$result[ 'UPDATED' ]."\n" );
+	if( isset( $log ) )
+		$log->fwrite( $tmp );
+	echo( $tmp = "Skipped: ".$result[ 'SKIPPED' ]."\n" );
+	if( isset( $log ) )
+		$log->fwrite( $tmp );
+	echo( $tmp = "Taxa: ".$result[ 'TAXA' ]."\n" );
+	if( isset( $log ) )
+		$log->fwrite( $tmp );
 }
 
 //
@@ -60,11 +91,13 @@ try
 //
 catch( Exception $error )
 {
-//	echo( CException::AsHTML( $error ) );
-	echo( '<pre>'.(string) $error.'</pre>' );
-	echo( '<hr>' );
+	if( isset( $log ) )
+		$log->fwrite( (string) $error );
+	echo( (string) $error );
 }
 
-echo( "\nDone!\n" );
+echo( $tmp = "==> Done!\n" );
+if( isset( $log ) )
+	$log->fwrite( $tmp );
 
 ?>

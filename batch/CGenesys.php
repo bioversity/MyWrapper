@@ -35,20 +35,6 @@ require_once( kPATH_LIB_ADODB."adodb-iterator.inc.php" );
 require_once( kPATH_LIB_ADODB."adodb-exceptions.inc.php" );
 
 /**
- * Exceptions.
- *
- * This include file contains all exception class definitions.
- */
-require_once( kPATH_LIBRARY_SOURCE."CException.php" );
-
-/**
- * Flags.
- *
- * This include file contains all flags definitions.
- */
-require_once( kPATH_LIBRARY_DEFINES."Flags.inc.php" );
-
-/**
  * Local.
  *
  * This include file contains all local definitions.
@@ -111,7 +97,6 @@ class CGenesys
 	 * @var integer
 	 */
 	protected $mCrop = NULL;
-
 
 	/**
 	 * Crops.
@@ -535,11 +520,9 @@ class CGenesys
 				//
 				$this->mConnection = @NewADOConnection( $this->Datasource() );
 				if( ! $this->mConnection )
-					throw new CException
-						( "Unable to connect",
-						  kERROR_INVALID_PARAMETER,
-						  kMESSAGE_TYPE_ERROR,
-						  array( 'Datasource' => $this->Datasource() ) );		// !@! ==>
+					throw new Exception( "Unable to connect ["
+										.(string) $this->Datasource()
+										."]" );									// !@! ==>
 				
 				//
 				// Set character set.
@@ -567,10 +550,8 @@ class CGenesys
 			// Raise exception.
 			//
 			else
-				throw new CException
-					( "Unable to connect: missing data source name",
-					  kERROR_OPTION_MISSING,
-					  kMESSAGE_TYPE_ERROR );									// !@! ==>
+				throw new Exception( "Unable to connect: "
+									."missing data source name" );				// !@! ==>
 		
 		} // Need to connect.
 		
@@ -696,6 +677,22 @@ class CGenesys
 		$result = array( 'INSERTED' => 0, 'UPDATED' => 0, 'SKIPPED' => 0, 'TAXA' => 0 );
 		
 		//
+		// Open log file.
+		//
+		if( ($path = $this->LogFile()) !== NULL )
+		{
+			//
+			// Open file.
+			//
+			$this->mLogFile = new SplFileObject( $this->LogFile(), "a" );
+			
+			//
+			// Write header.
+			//
+			
+		}
+		
+		//
 		// Open file.
 		//
 		$file = new SplFileObject( $thePath, "r" );
@@ -727,11 +724,8 @@ class CGenesys
 				 && in_array( 'SPECIES', $row ) )
 					$header = $row;
 				else
-					throw new CException
-						( "Unable to import: missing required descriptors",
-						  kERROR_OPTION_MISSING,
-						  kMESSAGE_TYPE_ERROR,
-						  array( 'Header' => $row ) );							// !@! ==>
+					throw new Exception( "Unable to import: "
+										."missing required descriptors" );		// !@! ==>
 				
 				continue;													// =>
 			
@@ -2257,6 +2251,130 @@ EOT;
 				$table[ 'Altitude' ] = $tmp;
 			
 			//
+			// Load climate data.
+			//
+			if( strlen( $tmp = $theRecord[ 'T_Min_Jan' ] ) )
+				$table[ 'T_Min_Jan' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'T_Min_Feb' ] ) )
+				$table[ 'T_Min_Feb' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'T_Min_Mar' ] ) )
+				$table[ 'T_Min_Mar' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'T_Min_Apr' ] ) )
+				$table[ 'T_Min_Apr' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'T_Min_May' ] ) )
+				$table[ 'T_Min_May' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'T_Min_Jun' ] ) )
+				$table[ 'T_Min_Jun' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'T_Min_Jul' ] ) )
+				$table[ 'T_Min_Jul' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'T_Min_Aug' ] ) )
+				$table[ 'T_Min_Aug' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'T_Min_Sep' ] ) )
+				$table[ 'T_Min_Sep' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'T_Min_Oct' ] ) )
+				$table[ 'T_Min_Oct' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'T_Min_Nov' ] ) )
+				$table[ 'T_Min_Nov' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'T_Min_Dec' ] ) )
+				$table[ 'T_Min_Dec' ] = $tmp;
+
+			if( strlen( $tmp = $theRecord[ 'T_Max_Jan' ] ) )
+				$table[ 'T_Max_Jan' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'T_Max_Feb' ] ) )
+				$table[ 'T_Max_Feb' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'T_Max_Mar' ] ) )
+				$table[ 'T_Max_Mar' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'T_Max_Apr' ] ) )
+				$table[ 'T_Max_Apr' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'T_Max_May' ] ) )
+				$table[ 'T_Max_May' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'T_Max_Jun' ] ) )
+				$table[ 'T_Max_Jun' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'T_Max_Jul' ] ) )
+				$table[ 'T_Max_Jul' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'T_Max_Aug' ] ) )
+				$table[ 'T_Max_Aug' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'T_Max_Sep' ] ) )
+				$table[ 'T_Max_Sep' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'T_Max_Oct' ] ) )
+				$table[ 'T_Max_Oct' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'T_Max_Nov' ] ) )
+				$table[ 'T_Max_Nov' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'T_Max_Dec' ] ) )
+				$table[ 'T_Max_Dec' ] = $tmp;
+
+			if( strlen( $tmp = $theRecord[ 'P_Jan' ] ) )
+				$table[ 'P_Jan' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'P_Feb' ] ) )
+				$table[ 'P_Feb' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'P_Mar' ] ) )
+				$table[ 'P_Mar' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'P_Apr' ] ) )
+				$table[ 'P_Apr' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'P_May' ] ) )
+				$table[ 'P_May' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'P_Jun' ] ) )
+				$table[ 'P_Jun' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'P_Jul' ] ) )
+				$table[ 'P_Jul' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'P_Aug' ] ) )
+				$table[ 'P_Aug' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'P_Sep' ] ) )
+				$table[ 'P_Sep' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'P_Oct' ] ) )
+				$table[ 'P_Oct' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'P_Nov' ] ) )
+				$table[ 'P_Nov' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'P_Dec' ] ) )
+				$table[ 'P_Dec' ] = $tmp;
+
+			if( strlen( $tmp = $theRecord[ 'T_Min_Annual' ] ) )
+				$table[ 'T_Min_Annual' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'T_Max_Annual' ] ) )
+				$table[ 'T_Max_Annual' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'P_Max_Annual' ] ) )
+				$table[ 'P_Max_Annual' ] = $tmp;
+
+			if( strlen( $tmp = $theRecord[ 'Bio_1' ] ) )
+				$table[ 'Bio_1' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'Bio_2' ] ) )
+				$table[ 'Bio_2' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'Bio_3' ] ) )
+				$table[ 'Bio_3' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'Bio_4' ] ) )
+				$table[ 'Bio_4' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'Bio_5' ] ) )
+				$table[ 'Bio_5' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'Bio_6' ] ) )
+				$table[ 'Bio_6' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'Bio_7' ] ) )
+				$table[ 'Bio_7' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'Bio_8' ] ) )
+				$table[ 'Bio_8' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'Bio_9' ] ) )
+				$table[ 'Bio_9' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'Bio_10' ] ) )
+				$table[ 'Bio_10' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'Bio_11' ] ) )
+				$table[ 'Bio_11' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'Bio_12' ] ) )
+				$table[ 'Bio_12' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'Bio_13' ] ) )
+				$table[ 'Bio_13' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'Bio_14' ] ) )
+				$table[ 'Bio_14' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'Bio_15' ] ) )
+				$table[ 'Bio_15' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'Bio_16' ] ) )
+				$table[ 'Bio_16' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'Bio_17' ] ) )
+				$table[ 'Bio_17' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'Bio_18' ] ) )
+				$table[ 'Bio_18' ] = $tmp;
+			if( strlen( $tmp = $theRecord[ 'Bio_19' ] ) )
+				$table[ 'Bio_19' ] = $tmp;
+		/*
+			//
 			// Get climate data.
 			//
 			$url = 'http://services.grinfo.net/WorldClim/WorldClim.php?'
@@ -2399,7 +2517,7 @@ EOT;
 			$table[ 'T_Min_Annual' ] = ($tmin_avg / 12);
 			$table[ 'T_Max_Annual' ] = ($tmax_avg / 12);
 			$table[ 'P_Max_Annual' ] = ($prec_avg / 12);
-			
+		*/	
 			//
 			// Normalise fields.
 			//
