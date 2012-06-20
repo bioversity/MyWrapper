@@ -103,10 +103,31 @@ define( "kAPI_OP_GET_TAGS",			'@GET_TAGS' );
 /**
  * Set tags web-service.
  *
- * This is the tag that represents the set tags web service, it expects a term
- * {@link COntologyTerm::GID() identifier} or a list of {@link COntologyEdge edges} provided
- * in the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter, it will return a list
- * of annotation {@link COntologyTag::GID() identifiers} that can be used to annotate data.
+ * This is the tag that represents the set tags web service, it expects the
+ * {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter to hold a list of elements
+ * that can take the following forms:
+ *
+ * <ul>
+ *	<li><i>Scalar</i>: A scalar is expected if the annotation element is a single node
+ *		being both a {@link kTYPE_TRAIT trait} and a {@link kTYPE_MEASURE measure}, in this
+ *		case the scalar should be the term {@link COntologyTerm::GID() identifier}.
+ *	<li><i>Array</i>: An array is expected if the tag is comprised of a chain of terms.
+ *	 <ul>
+ *		<li><i>{@link COntologyTerm Terms}</i>: The list of terms must be represented by an
+ *			array of term {@link COntologyTerm::GID() identifiers} in which the number of
+ *			elements must be odd, the odd elements represent {@link COntologyNode node}
+ *			{@link COntologyTerm term} references and the even elements represent
+ *			{@link COntologyEdge edge} predicate {@link COntologyTerm terms}.
+ *		<li><i>{@link COntologyEdge Edges}</i>: The list of edges must be represented as an
+ *			array of integers representing {@link COntologyEdge edge} identifiers. This edge
+ *			sequence will ultimately be transformed in a chain of terms that will be matched
+ *			in the database.
+ *	 </ul>
+ * </ul>
+ *
+ * The service will check if the provided chain of {@link COntologyTerm terms} exists, in
+ * that case it will return the found {@link COntologyTag record}; if not, it will create a
+ * new {@link COntologyTag record}.
  *
  * Note that this service will instantiate term {@link COntologyTag paths}, so call
  * this service only if you are sure you need to do it; if any error occurs, the operation

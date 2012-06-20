@@ -336,7 +336,7 @@ class COntologyTag extends COntologyTermObject
 							  kERROR_INVALID_PARAMETER,
 							  kMESSAGE_TYPE_WARNING,
 							  array( 'Object' => $last,
-									 'Subject' => $tmp[ kTAG_GID ] ) );			// !@! ==>
+									 'Subject' => $subject[ kTAG_GID ] ) );		// !@! ==>
 				
 					//
 					// Get predicate.

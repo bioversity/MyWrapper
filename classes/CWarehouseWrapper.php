@@ -1199,29 +1199,61 @@ class CWarehouseWrapper extends CMongoDataWrapper
 								foreach( $edges as $edge )
 								{
 									//
-									// Instantiate edge.
+									// Save value.
 									//
-									$element
-										= new COntologyEdge
-											( $edge_cnt,
-											  $_REQUEST[ kAPI_OPT_IDENTIFIERS ]
-											  		   [ $id ]
-											  		   [ $edge ] );
-									if( $element->Persistent() )
-										$_REQUEST[ kAPI_OPT_IDENTIFIERS ]
-												 [ $id ]
-												 [ $edge ]
-											= $element;
+									$value = $_REQUEST[ kAPI_OPT_IDENTIFIERS ]
+													  [ $id ]
+													  [ $edge ];
+									
+									//
+									// Handle edges.
+									//
+									if( is_int( $value ) )
+									{
+										//
+										// Instantiate edge.
+										//
+										$element
+											= new COntologyEdge( $edge_cnt, $value );
+										if( $element->Persistent() )
+											$_REQUEST[ kAPI_OPT_IDENTIFIERS ]
+													 [ $id ]
+													 [ $edge ]
+												= $element;
+										else
+											throw new CException
+												( "Unknown edge",
+												  kERROR_NOT_FOUND,
+												  kMESSAGE_TYPE_ERROR,
+												  array( 'Edge' => $value ) );	// !@! ==>
+									
+									} // Element is an edge identifier.
+									
+									//
+									// Handle term.
+									//
 									else
-										throw new CException
-											( "Unknown edge",
-											  kERROR_NOT_FOUND,
-											  kMESSAGE_TYPE_ERROR,
-											  array( 'Term'
-												=> $_REQUEST[ kAPI_OPT_IDENTIFIERS ]
-															[ $id ]
-															[ $edge ] ) );		// !@! ==>
-								}
+									{
+										//
+										// Instantiate term.
+										//
+										$key = COntologyTerm::HashIndex( $value );
+										$element = new COntologyTerm( $term_cnt, $key );
+										if( $element->Persistent() )
+											$_REQUEST[ kAPI_OPT_IDENTIFIERS ]
+													 [ $id ]
+													 [ $edge ]
+												= $element;
+										else
+											throw new CException
+												( "Unknown term",
+												  kERROR_NOT_FOUND,
+												  kMESSAGE_TYPE_ERROR,
+												  array( 'Term'=> $value ) );	// !@! ==>
+									
+									} // Element is a term.
+								
+								} // Iterating array elements.
 							
 							} // Is a list of edge identifiers.
 							

@@ -1268,6 +1268,103 @@ try
 	echo( '<hr>' );
 	
 	/*===================================================================================
+	 *	SET-TAGS																		*
+	 *==================================================================================*/
+	echo( '<h4>Set tags ('.kAPI_OP_SET_TAGS.') with terms</h4>' );
+	echo( '<i>Set or get the <code>ISO:3166:1:ITA/:ENUM-OF/ISO:3166:1:ALPHA-3/:IS-A/ISO:3166:1</code> and <code>MCPD:ORIGCTY</code> sequences</i>' );
+	//
+	// Build items list.
+	//
+	$list = array
+	(
+		array( 'ISO:3166:1:ITA', ':ENUM-OF', 'ISO:3166:1:ALPHA-3', ':IS-A', 'ISO:3166:1' ),
+		'MCPD:ORIGCTY'
+	);
+	//
+	// Use wrapper client.
+	//
+	if( kUSE_CLIENT )
+	{
+		//
+		// Build parameters.
+		//
+		$params = new CWarehouseWrapperClient( $url );
+		$params->Operation( kAPI_OP_SET_TAGS );
+		$params->Format( kTYPE_JSON );
+		$params->Database( 'WAREHOUSE' );
+		foreach( $list as $element )
+			$params->Identifiers( $element, TRUE );
+		$params->LogTrace( TRUE );
+		$params->LogRequest( TRUE );
+		//
+		// Get response.
+		//
+		$decoded = $params->Execute();
+	}
+	//
+	// Use raw parameters.
+	//
+	else
+	{
+		//
+		// Build identifiers list.
+		//
+		$list_enc = json_encode( $list );
+		//
+		// Build parameters.
+		//
+		$params = Array();
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_SET_TAGS;				// Command.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;							// Format.
+		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';						// Database.
+		$params[] = kAPI_OPT_IDENTIFIERS.'='.urlencode( $list_enc );	// Identifiers.
+		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';							// Trace exceptions.
+		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';						// Log request.
+		//
+		// Build request.
+		//
+		$request = $url.'?'.implode( '&', $params );
+		//
+		// Get response.
+		//
+		$response = file_get_contents( $request );
+		//
+		// Decode response.
+		//
+		$decoded = json_decode( $response, TRUE );
+	}
+	//
+	// Display.
+	//
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Identifiers:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $list ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	if( ! kUSE_CLIENT )
+	{
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.$response.kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+	}
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	echo( '<hr>' );
+	
+	/*===================================================================================
 	 *	GET-TAGS																		*
 	 *==================================================================================*/
 	echo( '<h4>Get tags ('.kAPI_OP_GET_TAGS.') empty list</h4>' );
