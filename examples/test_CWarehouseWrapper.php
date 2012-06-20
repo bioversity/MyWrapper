@@ -1278,6 +1278,7 @@ try
 	$list = array
 	(
 		array( 'ISO:3166:1:ITA', ':ENUM-OF', 'ISO:3166:1:ALPHA-3', ':IS-A', 'ISO:3166:1' ),
+		'',
 		'MCPD:ORIGCTY'
 	);
 	//

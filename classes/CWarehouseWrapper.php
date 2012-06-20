@@ -1187,45 +1187,46 @@ class CWarehouseWrapper extends CMongoDataWrapper
 						foreach( $ids as $id )
 						{
 							//
+							// Save value.
+							//
+							$value = $_REQUEST[ kAPI_OPT_IDENTIFIERS ][ $id ];
+							
+							//
 							// Handle edge identifier.
 							//
-							if( is_array( $_REQUEST[ kAPI_OPT_IDENTIFIERS ][ $id ] ) )
+							if( is_array( $value ) )
 							{
 								//
 								// Iterate edge identifiers.
 								//
-								$edges = array_keys( $_REQUEST[ kAPI_OPT_IDENTIFIERS ]
-															  [ $id ] );
+								$edges = array_keys( $value );
 								foreach( $edges as $edge )
 								{
 									//
 									// Save value.
 									//
-									$value = $_REQUEST[ kAPI_OPT_IDENTIFIERS ]
-													  [ $id ]
-													  [ $edge ];
+									$element = $value[ $edge ];
 									
 									//
 									// Handle edges.
 									//
-									if( is_int( $value ) )
+									if( is_int( $element ) )
 									{
 										//
 										// Instantiate edge.
 										//
-										$element
-											= new COntologyEdge( $edge_cnt, $value );
-										if( $element->Persistent() )
+										$instance = new COntologyEdge( $edge_cnt, $element );
+										if( $instance->Persistent() )
 											$_REQUEST[ kAPI_OPT_IDENTIFIERS ]
 													 [ $id ]
 													 [ $edge ]
-												= $element;
+												= $instance;
 										else
 											throw new CException
 												( "Unknown edge",
 												  kERROR_NOT_FOUND,
 												  kMESSAGE_TYPE_ERROR,
-												  array( 'Edge' => $value ) );	// !@! ==>
+												  array( 'Edge' => $element ) );// !@! ==>
 									
 									} // Element is an edge identifier.
 									
@@ -1237,19 +1238,19 @@ class CWarehouseWrapper extends CMongoDataWrapper
 										//
 										// Instantiate term.
 										//
-										$key = COntologyTerm::HashIndex( $value );
-										$element = new COntologyTerm( $term_cnt, $key );
-										if( $element->Persistent() )
+										$key = COntologyTerm::HashIndex( $element );
+										$instance = new COntologyTerm( $term_cnt, $key );
+										if( $instance->Persistent() )
 											$_REQUEST[ kAPI_OPT_IDENTIFIERS ]
 													 [ $id ]
 													 [ $edge ]
-												= $element;
+												= $instance;
 										else
 											throw new CException
 												( "Unknown term",
 												  kERROR_NOT_FOUND,
 												  kMESSAGE_TYPE_ERROR,
-												  array( 'Term'=> $value ) );	// !@! ==>
+												  array( 'Term'=> $element ) );	// !@! ==>
 									
 									} // Element is a term.
 								
@@ -1260,28 +1261,29 @@ class CWarehouseWrapper extends CMongoDataWrapper
 							//
 							// Handle term identifier.
 							//
-							else
+							elseif( strlen( $value ) )
 							{
 								//
 								// Instantiate term.
 								//
-								$element
-									= new COntologyTerm
-										( $term_cnt,
-										  $_REQUEST[ kAPI_OPT_IDENTIFIERS ][ $id ] );
-								if( $element->Persistent() )
+								$instance = new COntologyTerm( $term_cnt, $value );
+								if( $instance->Persistent() )
 									$_REQUEST[ kAPI_OPT_IDENTIFIERS ][ $id ]
-										= $element;
+										= $instance;
 								else
 									throw new CException
 										( "Unknown term",
 										  kERROR_NOT_FOUND,
 										  kMESSAGE_TYPE_ERROR,
-										  array( 'Term'
-											=> $_REQUEST[ kAPI_OPT_IDENTIFIERS ]
-														[ $id ] ) );			// !@! ==>
+										  array( 'Term' => $value ) );			// !@! ==>
 							
 							} // Is a term.
+							
+							//
+							// Empty element.
+							//
+							else
+								$_REQUEST[ kAPI_OPT_IDENTIFIERS ][ $id ] = NULL;
 						}
 						
 						break;
@@ -1911,17 +1913,27 @@ class CWarehouseWrapper extends CMongoDataWrapper
 			foreach( $_REQUEST[ kAPI_OPT_IDENTIFIERS ] as $term )
 			{
 				//
-				// Instantiate tag.
+				// Skip empty elements.
 				//
-				$tag = new COntologyTag();
-				$tag->Term( $term );
-				$tag->Commit( $container );
-				$result[] = $tag;
+				if( $term !== NULL )
+				{
+					//
+					// Instantiate tag.
+					//
+					$tag = new COntologyTag();
+					$tag->Term( $term );
+					$tag->Commit( $container );
+					$result[] = $tag;
+					
+					//
+					// Count.
+					//
+					$count++;
 				
-				//
-				// Count.
-				//
-				$count++;
+				} // Provided something.
+				
+				else
+					$result[] = NULL;
 			}
 		
 		} // Provided identifiers.
