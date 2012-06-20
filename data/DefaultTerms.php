@@ -134,6 +134,7 @@ try
 	// Connect.
 	//
 	Connect( kDEFAULT_DATABASE, kDEFAULT_CNT_TERMS, FALSE );
+//	Index();
 	
 	//
 	// Load types.
@@ -276,6 +277,52 @@ exit( "Done!\n" );
 		$_SESSION[ kSESSION_NEO4J ] = new Everyman\Neo4j\Client( 'localhost', 7474 );
 	
 	} // Connect.
+
+	 
+	/*===================================================================================
+	 *	Index																			*
+	 *==================================================================================*/
+
+	/**
+	 * Index.
+	 *
+	 * This function will index the default collections.
+	 *
+	 * @access protected
+	 */
+	function Index()
+	{
+		//
+		// Index terms collection.
+		//
+		$collection
+			= $_SESSION[ kSESSION_DATABASE ]
+				->selectCollection( kDEFAULT_CNT_TERMS );
+		$collection->ensureIndex( array( kTAG_GID => 1 ), array( 'unique' => TRUE ) );
+		$collection->ensureIndex( kTAG_CODE );
+		$collection->ensureIndex( kTAG_NAME );
+		$collection->ensureIndex( kTAG_KIND );
+		$collection->ensureIndex( kTAG_NODE );
+	
+		//
+		// Index nodes collection.
+		//
+		$collection
+			= $_SESSION[ kSESSION_DATABASE ]
+				->selectCollection( kDEFAULT_CNT_NODES );
+		$collection->ensureIndex( kTAG_DATA );
+	
+		//
+		// Index edges collection.
+		//
+		$collection
+			= $_SESSION[ kSESSION_DATABASE ]
+				->selectCollection( kDEFAULT_CNT_EDGES );
+		$collection->ensureIndex( kTAG_SUBJECT );
+		$collection->ensureIndex( kTAG_PREDICATE );
+		$collection->ensureIndex( kTAG_OBJECT );
+	
+	} // Index.
 
 	 
 	/*===================================================================================
