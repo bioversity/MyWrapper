@@ -165,6 +165,14 @@ define( "kTYPE_ENUM",						':ENUM' );				// Enumeration.
  */
 define( "kTYPE_ENUM_SET",					':SET' );				// Set.
 
+/**
+ * List type.
+ *
+ * This value represents the list data type, it represents an array of elements that may be
+ * scalars or other lists, this specific data type is a generalised tag for list structures.
+ */
+define( "kTYPE_LIST",						':LIST' );				// List.
+
 /*=======================================================================================
  *	SUB-OBJECT TYPES																	*
  *======================================================================================*/
@@ -371,6 +379,13 @@ define( "kTYPE_ANNOTATION",					':ANNOTATION' );
  * This is the tag that represents an enumeration term.
  */
 define( "kTYPE_ENUMERATION",				':ENUMERATION' );
+
+/**
+ * Dictionary.
+ *
+ * This is the tag that represents a dictionary term.
+ */
+define( "kTYPE_DICTIONARY",					':DICTIONARY' );
 
 /*=======================================================================================
  *	MONGODB DATA TYPES																	*

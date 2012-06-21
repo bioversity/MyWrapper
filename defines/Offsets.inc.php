@@ -310,6 +310,13 @@ define( "kTAG_OBJECT",							':OBJECT' );
 define( "kTAG_PATH",							':PATH' );
 
 /**
+ * Title offset.
+ *
+ * This tag is used as the default offset for indicating a title.
+ */
+define( "kTAG_TITLE",							':TITLE' );
+
+/**
  * Name offset.
  *
  * This tag is used as the default offset for indicating an attribute's name.
@@ -369,6 +376,13 @@ define( "kTAG_STATUS",							':STATUS' );
  * it will contain a list of key/value pairs.
  */
 define( "kTAG_ANNOTATION",						':ANNOTATION' );
+
+/**
+ * Dataset.
+ *
+ * This tag is used as the default offset for indicating a dataset.
+ */
+define( "kTAG_DATASET",							':DATASET' );
 
 /**
  * References tag.
@@ -476,6 +490,20 @@ define( "kTAG_PREFERRED",						':PREFERRED' );
 define( "kTAG_VALID",							':VALID' );
 
 /**
+ * Provided tag.
+ *
+ * This tags provided elements as opposed to {@link kTAG_GENERATED generated} elements.
+ */
+define( "kTAG_PROVIDED",						':PROVIDED' );
+
+/**
+ * Generated tag.
+ *
+ * This tags generated elements as opposed to {@link kTAG_PROVIDED provided} elements.
+ */
+define( "kTAG_GENERATED",						':GENERATED' );
+
+/**
  * Incoming tag.
  *
  * This is the tag that represents the incoming direction, it can be used for tagging items
@@ -569,6 +597,27 @@ define( "kOFFSET_NAMESPACE",					':NAMESPACE' );
  * This tag is used as the default offset for indicating an images list.
  */
 define( "kOFFSET_IMAGE",						':IMAGE' );
+
+/**
+ * File offset.
+ *
+ * This tag is used as the default offset for indicating a file reference.
+ */
+define( "kOFFSET_FILE",							':FILE' );
+
+/**
+ * Files list offset.
+ *
+ * This tag is used as the default offset for indicating a list of files.
+ */
+define( "kOFFSET_FILES",						':FILES' );
+
+/**
+ * Columns list offset.
+ *
+ * This tag is used as the default offset for indicating a list of columns.
+ */
+define( "kOFFSET_COLS",							':COLS' );
 
 /*=======================================================================================
  *	DEFAULT MAIL PROPERTY OFFSETS														*
