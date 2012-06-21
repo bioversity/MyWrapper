@@ -463,7 +463,6 @@ try
 		$params->Format( kTYPE_JSON );
 		$params->Database( 'TEST' );
 		$params->Container( 'CWarehouseWrapper' );
-		$params->Options( kAPI_OPT_SAFE, TRUE );
 		$params->UserCode( 'LUCA' );
 		$params->UserPass( 'NOT VALID' );
 		$params->LogTrace( TRUE );
@@ -480,16 +479,18 @@ try
 	{
 		//
 		// Build parameters.
+		// Note the urlencode() on the password:
+		// you MUST encode strings with spaces!
 		//
 		$params = Array();
-		$params[] = kAPI_OPERATION.'='.kAPI_OP_LOGIN;				// Command.
-		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;				// Format.
-		$params[] = kAPI_OPT_USER_CODE.'='.'LUCA';					// User code.
-		$params[] = kAPI_OPT_USER_PASS.'='.'NOT VALID';				// User password.
-		$params[] = kAPI_DATABASE.'='.'TEST';						// Database.
-		$params[] = kAPI_CONTAINER.'='.'CWarehouseWrapper';			// Container.
-		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
-		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_LOGIN;					// Command.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;							// Format.
+		$params[] = kAPI_OPT_USER_CODE.'='.'LUCA';						// User code.
+		$params[] = kAPI_OPT_USER_PASS.'='.urlencode( 'NOT VALID') ;	// User password.
+		$params[] = kAPI_DATABASE.'='.'TEST';							// Database.
+		$params[] = kAPI_CONTAINER.'='.'CWarehouseWrapper';				// Container.
+		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';							// Trace exceptions.
+		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';						// Log request.
 		//
 		// Build request.
 		//
@@ -528,6 +529,7 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
+exit;
 
 	/*===================================================================================
 	 *	LOGIN (NONE)																	*
