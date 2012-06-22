@@ -8496,7 +8496,7 @@ EOT;
 		//
 		// METHOD-OF.
 		//
-		$component_of = new COntologyTerm
+		$method_of = new COntologyTerm
 						( $theContainer, COntologyTerm::HashIndex( kPRED_METHOD_OF ) );
 		
 		//
