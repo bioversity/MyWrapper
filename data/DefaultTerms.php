@@ -2136,6 +2136,12 @@ exit( "Done!\n" );
 				   'car' => 'kCARD_ANY',
 				   'nam' => 'Columns list',
 				   'def' => 'This term is used to indicate a list of columns.' ),
+			array( 'id'	=> kOFFSET_MANAGER,
+				   'syn' => 'kOFFSET_MANAGER',
+				   'car' => 'kCARD_0_1',
+				   'nam' => 'Manager',
+				   'def' => 'This term is used to indicate the manager or creator of '
+				   		   .'current object.' ),
 			array( 'id'	=> kTAG_TERM,
 				   'syn' => 'kTAG_TERM',
 				   'car' => 'kCARD_1',

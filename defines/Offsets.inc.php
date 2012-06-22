@@ -627,6 +627,13 @@ define( "kOFFSET_FILES",						':FILES' );
  */
 define( "kOFFSET_COLS",							':COLS' );
 
+/**
+ * Manager offset.
+ *
+ * This tag is used as the default offset for indicating the manager of the current object.
+ */
+define( "kOFFSET_MANAGER",						':MANAGER' );
+
 /*=======================================================================================
  *	DEFAULT MAIL PROPERTY OFFSETS														*
  *======================================================================================*/

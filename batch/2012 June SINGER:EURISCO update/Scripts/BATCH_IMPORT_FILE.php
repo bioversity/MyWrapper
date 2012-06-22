@@ -36,49 +36,40 @@ try
 	//
 	// Get file path.
 	//
-	if( count( $argv ) > 1 )
-		$file = $argv[ 1 ];
-	else
+	if( count( $argv ) <= 1 )
 		throw new Exception
-			( "USAGE: php -f BATCH_IMPORT_FILE.php <file-path>\n" );			// !@! ==>
-	
-	//
-	// Open log file.
-	//
-	if( count( $argv ) > 2 )
-	{
-		//
-		// Open log file.
-		//
-		$log = new SplFileObject( $argv[ 2 ], "a" );
-		
-		//
-		// Write header.
-		//
-		$log->fwrite( "\n".date( "c" )."\n[$file]\n" );
-	}
+			( "USAGE: php -f BATCH_IMPORT_FILE.php "
+			 ."<file-path> ...<file-path>\n" );									// !@! ==>
 	
 	//
 	// Instantiate batch object.
 	//
 	$batch = new CGenesys( kDSN_GENESYS );
-	$result = $batch->ImportPassport( $file );
 	
 	//
-	// Write results.
+	// Iterate files.
 	//
-	echo( $tmp = "Inserted: ".$result[ 'INSERTED' ]."\n" );
-	if( isset( $log ) )
-		$log->fwrite( $tmp );
-	echo( $tmp = "Updated: ".$result[ 'UPDATED' ]."\n" );
-	if( isset( $log ) )
-		$log->fwrite( $tmp );
-	echo( $tmp = "Skipped: ".$result[ 'SKIPPED' ]."\n" );
-	if( isset( $log ) )
-		$log->fwrite( $tmp );
-	echo( $tmp = "Taxa: ".$result[ 'TAXA' ]."\n" );
-	if( isset( $log ) )
-		$log->fwrite( $tmp );
+	for( $i = 1; $i < count( $argv ); $i++ )
+	{
+		//
+		// Display file.
+		//
+		echo( date( "c" )."\n" );
+		echo( ($file = $argv[ $i ])."\n" );
+		
+		//
+		// Import file.
+		//
+		$result = $batch->ImportPassport( $file );
+		
+		//
+		// Write results.
+		//
+		echo( "Inserted: ".$result[ 'INSERTED' ]."\n" );
+		echo( "Updated: ".$result[ 'UPDATED' ]."\n" );
+		echo( "Skipped: ".$result[ 'SKIPPED' ]."\n" );
+		echo( "Taxa: ".$result[ 'TAXA' ]."\n" );
+	}
 }
 
 //
@@ -86,13 +77,9 @@ try
 //
 catch( Exception $error )
 {
-	if( isset( $log ) )
-		$log->fwrite( (string) $error );
 	echo( (string) $error );
 }
 
-echo( $tmp = "==> Done!\n" );
-if( isset( $log ) )
-	$log->fwrite( $tmp );
+echo( "==> Done!\n" );
 
 ?>
