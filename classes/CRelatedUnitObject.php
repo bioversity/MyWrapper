@@ -193,11 +193,11 @@ abstract class CRelatedUnitObject extends CPersistentUnitObject
 
 	 
 	/*===================================================================================
-	 *	Default																			*
+	 *	Used																			*
 	 *==================================================================================*/
 
 	/**
-	 * Manage default reference.
+	 * Manage used reference.
 	 *
 	 * This method can be used to handle the object's default reference, it uses the
 	 * standard accessor {@link CAttribute::ManageOffset() method} to manage the

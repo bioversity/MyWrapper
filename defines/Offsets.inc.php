@@ -370,6 +370,14 @@ define( "kTAG_ENTITY",							':ENTITY' );
 define( "kTAG_STATUS",							':STATUS' );
 
 /**
+ * Role.
+ *
+ * This tag is used as the default offset for indicating a role or function, this is
+ * generally associated with the capabilities or permissions of users.
+ */
+define( "kTAG_ROLE",							':ROLE' );
+
+/**
  * Annotation.
  *
  * This tag is used as the default offset for indicating a list of annotations, in general

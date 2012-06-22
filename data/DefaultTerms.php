@@ -2225,6 +2225,14 @@ exit( "Done!\n" );
 				   'typ' => 'kTYPE_ENUM',
 				   'nam' => 'Status',
 				   'def' => 'This term is used to indicate a state or status.' ),
+			array( 'id'	=> kTAG_ROLE,
+				   'syn' => 'kTAG_ROLE',
+				   'car' => 'kCARD_ANY',
+				   'typ' => 'kTYPE_ENUM',
+				   'nam' => 'Role',
+				   'def' => 'This term is used to indicate a role, function or capability '
+				   		   .'it is generally a list of enumerations declaring which '
+				   		   .'functions a user is allowed to perform.' ),
 			array( 'id'	=> kTAG_ANNOTATION,
 				   'syn' => 'kTAG_ANNOTATION',
 				   'car' => 'kCARD_ANY',
@@ -8402,6 +8410,128 @@ EOT;
 		//
 		$edge = $nodes[ kTAG_DATA ]->RelateTo( $container, $component_of, $parent );
 		$edge->Commit( $container );
+	 
+		/*================================================================================
+		 *	kTAG_ROLE																	 *
+		 *===============================================================================*/
+
+		//
+		// Handle definition (kTAG_ROLE).
+		//
+		$term = new COntologyTerm( $theContainer, 
+								   COntologyTerm::HashIndex( kTAG_ROLE ) );
+		//
+		// Handle node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$term->Type( kTYPE_ENUM );
+		$node->Cardinality( kCARD_ANY );
+		$node->Commit( $container );
+		//
+		// Save node.
+		//
+		$parent = $_SESSION[ 'NODES' ][ kTAG_ROLE ] = $node;
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] (kTAG_ROLE) "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+		
+		//
+		// Set namespace.
+		//
+		$ns = $term;
+		$len = strlen( (string) $ns ) + 1;
+		
+		//
+		// Handle file import (kROLE_FILE_IMPORT).
+		//
+		$term = new COntologyTerm( $theContainer, 
+								   COntologyTerm::HashIndex( kROLE_FILE_IMPORT ) );
+		if( ! $term->Persistent() )
+		{
+			$term->NS( $ns );
+			$term->Code( substr( kROLE_FILE_IMPORT, $len ) );
+			$term->Kind( kTYPE_ENUMERATION, TRUE );
+			$term->Type( kTYPE_ENUM );
+			$term->Enumeration( $term->Code(), TRUE );
+			$term->Name(
+				"File import",
+				kDEFAULT_LANGUAGE );
+			$term->Definition(
+				"Dataset file importer.",
+				kDEFAULT_LANGUAGE );
+			$term->Commit( $theContainer );
+		}
+		//
+		// Handle node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_ENUMERATION, TRUE );
+		$node->Type( kTYPE_ENUM, TRUE );
+		$node->Commit( $container );
+		//
+		// Connect edge.
+		//
+		$edge = $node->RelateTo( $container, $enum_of, $parent );
+		$edge->Commit( $container );
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] (kROLE_FILE_IMPORT) "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+		
+		//
+		// Handle file import (kROLE_USER_MANAGE).
+		//
+		$term = new COntologyTerm( $theContainer, 
+								   COntologyTerm::HashIndex( kROLE_USER_MANAGE ) );
+		if( ! $term->Persistent() )
+		{
+			$term->NS( $ns );
+			$term->Code( substr( kROLE_USER_MANAGE, $len ) );
+			$term->Kind( kTYPE_ENUMERATION, TRUE );
+			$term->Type( kTYPE_ENUM );
+			$term->Enumeration( $term->Code(), TRUE );
+			$term->Name(
+				"User management",
+				kDEFAULT_LANGUAGE );
+			$term->Definition(
+				"Create, modify and delete users.",
+				kDEFAULT_LANGUAGE );
+			$term->Commit( $theContainer );
+		}
+		//
+		// Handle node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_ENUMERATION, TRUE );
+		$node->Type( kTYPE_ENUM, TRUE );
+		$node->Commit( $container );
+		//
+		// Connect edge.
+		//
+		$edge = $node->RelateTo( $container, $enum_of, $parent );
+		$edge->Commit( $container );
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] (kROLE_USER_MANAGE) "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 		
 	} // LoadDatadictStructs.
 

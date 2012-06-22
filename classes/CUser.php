@@ -75,7 +75,7 @@ require_once( kPATH_LIBRARY_SOURCE."CUser.inc.php" );
  * types</b></i>.
  *
  * The unique identifier of this class is composed by the default {@link _index() index} of
- * thew object, prefixed by the {@link kENTITY_USER kENTITY_USER} token and the
+ * the object, prefixed by the {@link kENTITY_USER kENTITY_USER} token and the
  * {@link kTOKEN_CLASS_SEPARATOR kTOKEN_CLASS_SEPARATOR} token, this allows users and other
  * types of {@link CEntity entities} to share the same {@link Code() code}; this is enforced
  * both in the {@link HashIndex() HashIndex} method, to which you only need to pass the user
@@ -188,6 +188,40 @@ class CUser extends CEntity
 				( $this, kOFFSET_PASSWORD, $theValue, $getOld );					// ==>
 
 	} // Password.
+
+	 
+	/*===================================================================================
+	 *	Role																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage user roles.
+	 *
+	 * This method can be used to manage the user {@link kTAG_ROLE roles}, it uses
+	 * the standard accessor {@link CAttribute::ManageArrayOffset() method} to manage the
+	 * {@link kTAG_ROLE roles}:
+	 *
+	 * For a more thorough reference of how this method works, please consult the
+	 * {@link CAttribute::ManageArrayOffset() CAttribute::ManageArrayOffset} method, in
+	 * which the second parameter will be the constant {@link kTAG_ROLE kTAG_ROLE}.
+	 *
+	 * @param mixed					$theValue			Value or index.
+	 * @param mixed					$theOperation		Operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return mixed
+	 *
+	 * @uses CAttribute::ManageArrayOffset()
+	 *
+	 * @see kTAG_ROLE
+	 */
+	public function Role( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
+	{
+		return CAttribute::ManageArrayOffset
+					( $this, kTAG_ROLE, $theValue, $theOperation, $getOld );		// ==>
+
+	} // Role.
 
 		
 

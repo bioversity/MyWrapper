@@ -77,15 +77,19 @@ try
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	
 	echo( '<i>$test = new CUser();</i><br>' );
-	echo( '<i>$test->Code( \'JOHN\' );</i><br>' );
-	echo( '<i>$test->Password( \'unknown\' );</i><br>' );
-	echo( '<i>$test->Name( \'John Smith\' );</i><br>' );
-	echo( '<i>$test->Email( \'m.skofic@cgiar.org\' );</i><br>' );
 	$test = new CUser();
+	echo( '<i>$test->Code( \'JOHN\' );</i><br>' );
 	$test->Code( 'JOHN' );
+	echo( '<i>$test->Password( \'unknown\' );</i><br>' );
 	$test->Password( 'unknown' );
+	echo( '<i>$test->Name( \'John Smith\' );</i><br>' );
 	$test->Name( 'John Smith' );
+	echo( '<i>$test->Email( \'m.skofic@cgiar.org\' );</i><br>' );
 	$test->Email( 'm.skofic@cgiar.org' );
+	echo( '<i>$test->Role( kROLE_FILE_IMPORT, TRUE );</i><br>' );
+	$test->Role( kROLE_FILE_IMPORT, TRUE );
+	echo( '<i>$test->Role( kROLE_USER_MANAGE, TRUE );</i><br>' );
+	$test->Role( kROLE_USER_MANAGE, TRUE );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	 
 	//
@@ -93,14 +97,21 @@ try
 	//
 	echo( '<h3>Persistence</h3>' );
 
-	$container = array( kTAG_CODE => 'Milko',
-						kOFFSET_PASSWORD => 'Secret',
-						kTAG_NAME => 'Milko A. Škofič',
-						kOFFSET_EMAIL => 'm.skofic@cgiar.org' );
-	echo( "Container<pre>" ); print_r( $container ); echo( '</pre>' );
-	echo( '<i>$test = new CUser( $container );</i><br>' );
+	echo( '<i>new CUser();</i><br>' );
+	$test = new CUser();
+	echo( '<i>$test->Code( \'Milko\' );</i><br>' );
+	$test->Code( 'Milko' );
+	echo( '<i>$test->Password( \'Secret\' );</i><br>' );
+	$test->Password( 'Secret' );
+	echo( '<i>$test->Name( \'Milko A. Škofič\' );</i><br>' );
+	$test->Name( 'Milko A. Škofič' );
+	echo( '<i>$test->Email( \'m.skofic@cgiar.org\' );</i><br>' );
+	$test->Email( 'm.skofic@cgiar.org' );
+	echo( '<i>$test->Role( kROLE_FILE_IMPORT, TRUE );</i><br>' );
+	$test->Role( kROLE_FILE_IMPORT, TRUE );
+	echo( '<i>$test->Role( kROLE_USER_MANAGE, TRUE );</i><br>' );
+	$test->Role( kROLE_USER_MANAGE, TRUE );
 	echo( '<i>$identifier = $test->Commit( $collection );</i><br>' );
-	$test = new CUser( $container );
 	$milko = $test->Commit( $collection );
 	echo( "$milko<pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );

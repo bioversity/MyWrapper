@@ -38,6 +38,8 @@ SELECT
 			'1',
 			'0' ),
 		NULL ) AS "InSvalbard",
+	NULL AS "InTrust",
+	NULL AS "Available",
 	IF(	`EURISCO_ITW`.`accessions`.`MLSSTAT` IS NOT NULL,
 		IF(	`EURISCO_ITW`.`accessions`.`MLSSTAT` = '-',
 			NULL,

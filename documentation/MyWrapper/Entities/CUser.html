@@ -34,7 +34,7 @@
         property.</li></ul></p><p>The object is considered <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">initialised</a> only if it has its  <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a>, as its <a href="../../MyWrapper/Entities/CEntity.html">ancestor</a>, its <a href="../../MyWrapper/Entities/CEntity.html#methodName">name</a>,  <a href="../../MyWrapper/Entities/CUser.html#methodPassword">password</a> and <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a> address.</p><p>If the <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a> has not been explicitly set, <a href="../../MyWrapper/Entities/CUser.html#method_PrepareCommit">before</a>  <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">committing</a> the object it will be set to the value of the  <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a>. Also in that phase, the <a href="../../MyWrapper/Entities/_classes---CUser.inc.php.html#definekENTITY_USER">kENTITY_USER</a> constant  will be set in the user Type().</p><p>The <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a> in this class is a scalar property, in other classes it will  probably be a list of different e-mail types. In this class we want to link a single  user with a single e-mail, possibly not shared by any other user, that is why we link by  default the user <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a> and <a href="../../MyWrapper/Entities/CEntity.html#methodEmail">e-mail</a>.</p><p><em>&lt;b&gt;Note: this class enforces the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsEncoded">encoded</a> <a href="../../MyWrapper/Framework/CStatusObject.html#methodStatus">status</a>
  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">flag</a>, because the object identifier is a binary string, so
  always use complex data type instances derived from the <a href="../../MyWrapper/Framework/CDataType.html">standard</a>
- types&lt;/b&gt;</em>.</p><p>The unique identifier of this class is composed by the default <a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_index">index</a> of  thew object, prefixed by the <a href="../../MyWrapper/Entities/_classes---CUser.inc.php.html#definekENTITY_USER">kENTITY_USER</a> token and the  <a href="../../MyWrapper/Definitions/_defines---Tokens.inc.php.html#definekTOKEN_CLASS_SEPARATOR">kTOKEN_CLASS_SEPARATOR</a> token, this allows users and other  types of <a href="../../MyWrapper/Entities/CEntity.html">entities</a> to share the same <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a>; this is enforced  both in the <a href="../../MyWrapper/Entities/CUser.html#methodHashIndex">HashIndex</a> method, to which you only need to pass the user  <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a>, and in the protected <a href="../../MyWrapper/Entities/CUser.html#method_PrepareCommit">_PrepareCommit</a> method  which will place the resulting string in the global <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a>.</p></p>
+ types&lt;/b&gt;</em>.</p><p>The unique identifier of this class is composed by the default <a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_index">index</a> of  the object, prefixed by the <a href="../../MyWrapper/Entities/_classes---CUser.inc.php.html#definekENTITY_USER">kENTITY_USER</a> token and the  <a href="../../MyWrapper/Definitions/_defines---Tokens.inc.php.html#definekTOKEN_CLASS_SEPARATOR">kTOKEN_CLASS_SEPARATOR</a> token, this allows users and other  types of <a href="../../MyWrapper/Entities/CEntity.html">entities</a> to share the same <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a>; this is enforced  both in the <a href="../../MyWrapper/Entities/CUser.html#methodHashIndex">HashIndex</a> method, to which you only need to pass the user  <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a>, and in the protected <a href="../../MyWrapper/Entities/CUser.html#method_PrepareCommit">_PrepareCommit</a> method  which will place the resulting string in the global <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a>.</p></p>
 		<p class="notes">
 			Located in <a class="field" href="_classes---CUser.php.html">/classes/CUser.php</a> (line <span class="field">88</span>)
 		</p>
@@ -84,7 +84,7 @@
 										<a href="#HashIndex" title="details" class="method-name">HashIndex</a>
 											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theValue</span>)
 									</div>
-																																																				<div class="method-definition">
+																																																												<div class="method-definition">
 					<img src="../../media/images/Constructor.png" alt=" "/>
 											<span class="method-result">CUser</span>
 										<a href="#__construct" title="details" class="method-name">__construct</a>
@@ -107,6 +107,12 @@
 											<span class="method-result">string</span>
 										<a href="#Password" title="details" class="method-name">Password</a>
 											([<span class="var-type">NULL|FALSE|string</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#Role" title="details" class="method-name">Role</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theOperation</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -163,7 +169,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static HashIndex</span> (line <span class="line-number">223</span>)
+		<span class="method-title">static HashIndex</span> (line <span class="line-number">257</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -240,7 +246,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetSet</span> (line <span class="line-number">261</span>)
+		<span class="method-title">offsetSet</span> (line <span class="line-number">295</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -282,7 +288,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetUnset</span> (line <span class="line-number">299</span>)
+		<span class="method-title">offsetUnset</span> (line <span class="line-number">333</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -352,12 +358,51 @@
 		
 			
 	</div>
-<a name="method_PrepareCommit" id="_PrepareCommit"><!-- --></a>
+<a name="methodRole" id="Role"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">347</span>)
+		<span class="method-title">Role</span> (line <span class="line-number">219</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage user roles.</p>
+<p class="description"><p>This method can be used to manage the user <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ROLE">roles</a>, it uses  the standard accessor <a href="../../MyWrapper/Framework/CAttribute.html#methodManageArrayOffset">method</a> to manage the  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ROLE">roles</a>:</p><p>For a more thorough reference of how this method works, please consult the  <a href="../../MyWrapper/Framework/CAttribute.html#methodManageArrayOffset">CAttribute::ManageArrayOffset</a> method, in  which the second parameter will be the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ROLE">kTAG_ROLE</a>.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_ROLE">kTAG_ROLE</a></li>
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageArrayOffset">CAttribute::ManageArrayOffset()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			Role
+		</span>
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theOperation</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Value or index.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theOperation</span><span class="var-description">: Operation.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_PrepareCommit" id="_PrepareCommit"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">381</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -637,7 +682,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Thu, 21 Jun 2012 20:03:22 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 22 Jun 2012 14:29:39 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>
