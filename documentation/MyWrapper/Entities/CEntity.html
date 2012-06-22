@@ -126,7 +126,7 @@
 										<a href="#DefaultContainer" title="details" class="method-name">DefaultContainer</a>
 										()
 									</div>
-																																																																				<div class="method-definition">
+																																																																												<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">string</span>
 										<a href="#Email" title="details" class="method-name">Email</a>
@@ -137,6 +137,12 @@
 											<span class="method-result">string</span>
 										<a href="#GID" title="details" class="method-name">GID</a>
 										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">string</span>
+										<a href="#Manager" title="details" class="method-name">Manager</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -207,7 +213,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static DefaultContainer</span> (line <span class="line-number">192</span>)
+		<span class="method-title">static DefaultContainer</span> (line <span class="line-number">239</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -288,8 +294,44 @@
 		
 			
 	</div>
-<a name="methodName" id="Name"><!-- --></a>
+<a name="methodManager" id="Manager"><!-- --></a>
 <div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Manager</span> (line <span class="line-number">203</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage manager reference.</p>
+<p class="description"><p>This method can be used to handle the object's manager reference, it uses the  standard accessor <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">method</a> to manage the  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MANAGER">offset</a>.</p><p>The object manager is an object of the same family, in general a <a href="../../MyWrapper/Entities/CUser.html">user</a>,  that has created the current object or that is in change of its maintenance.</p><p>For a more in-depth reference of this method, please consult the  <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">CAttribute::ManageOffset</a> method, in which the  second parameter will be the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MANAGER">kOFFSET_MANAGER</a>.</p><p>In this class we feed the value to the  <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodNormaliseRelatedObject">NormaliseRelatedObject</a> method  that will take care of handling object references.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_MANAGER">kOFFSET_MANAGER</a></li>
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">CAttribute::ManageOffset()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			Manager
+		</span>
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Value.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodName" id="Name"><!-- --></a>
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
@@ -325,11 +367,11 @@
 			
 	</div>
 <a name="method_PrepareCommit" id="_PrepareCommit"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">260</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">307</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -387,11 +429,11 @@
 				</ul>
 	</div>
 <a name="method_PrepareCreate" id="_PrepareCreate"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCreate</span> (line <span class="line-number">223</span>)
+		<span class="method-title">_PrepareCreate</span> (line <span class="line-number">270</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -656,7 +698,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 22 Jun 2012 14:29:28 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 22 Jun 2012 20:02:27 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

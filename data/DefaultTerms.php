@@ -179,6 +179,7 @@ try
 	// Load data dictionaries.
 	//
 	LoadDatadictStructs( $_SESSION[ kSESSION_CONTAINER ], TRUE );
+	LoadEntityDatadict( $_SESSION[ kSESSION_CONTAINER ], TRUE );
 	LoadDatasetDatadict( $_SESSION[ kSESSION_CONTAINER ], TRUE );
 	LoadFAOInstituteDDict( $_SESSION[ kSESSION_CONTAINER ], TRUE );
 
@@ -8416,13 +8417,547 @@ EOT;
 		//
 		$edge = $nodes[ kTAG_DATA ]->RelateTo( $container, $component_of, $parent );
 		$edge->Commit( $container );
+		
+	} // LoadDatadictStructs.
+
+	 
+	/*===================================================================================
+	 *	LoadEntityDatadict																*
+	 *==================================================================================*/
+
+	/**
+	 * Load entity data dictionary.
+	 *
+	 * This function will load the entity data dictionary.
+	 *
+	 * If the last parameter is <i>TRUE</i>, the function will display the name of the
+	 * created terms.
+	 *
+	 * @param CContainer			$theContainer		Collection.
+	 * @param boolean				$doDisplay			Display created terms.
+	 *
+	 * @access protected
+	 */
+	function LoadEntityDatadict( CContainer $theContainer, $doDisplay = TRUE )
+	{
+		//
+		//	[:ENTITY:USER]
+		//		Code()			[:CODE] (string)		*
+		//		Password()		[:PASS] (string)
+		//		Name()			[:NAME] (string)		*
+		//		Email()			[:EMAIL] (string)		*
+		//		Kind()			[:KIND] (array)			*
+		//		Relate()		[:REFS] (array)			*
+		//							[:KIND] (scalar)
+		//							[:DATA] (scalar)
+		//		Preferred()		[:PREFERRED] (scalar)	*
+		//		Used()			[:DEFAULT] (scalar)		*
+		//		Valid()			[:VALID] (scalar)		*
+		//		Manager()		[:MANAGER] (scalar)		*
+		//		Role()			[:ROLE] (array)
+		//		Created()		[:CREATED] (stamp)		*
+		//		Modified()		[:MODIFIED] (stamp)		*
+		//
+		
+		//
+		// Init local storage.
+		//
+		$nodes = Array();
+		$container = array( kTAG_TERM => $theContainer,
+							kTAG_NODE => $_SESSION[ kSESSION_NEO4J ] );
+		
+		//
+		// Inform.
+		//
+		if( $doDisplay )
+		{
+			echo( "\n".__FUNCTION__."\n" );
+			echo( "------------------\n" );
+		}
+		
+		//
+		// IS-A.
+		//
+		$is_a = new COntologyTerm
+						( $theContainer, COntologyTerm::HashIndex( kPRED_IS_A ) );
+		
+		//
+		// ENUM-OF.
+		//
+		$enum_of = new COntologyTerm
+						( $theContainer, COntologyTerm::HashIndex( kPRED_ENUM_OF ) );
+		
+		//
+		// COMPONENT-OF.
+		//
+		$component_of = new COntologyTerm
+						( $theContainer, COntologyTerm::HashIndex( kPRED_COMPONENT_OF ) );
+		
+		//
+		// METHOD-OF.
+		//
+		$component_of = new COntologyTerm
+						( $theContainer, COntologyTerm::HashIndex( kPRED_METHOD_OF ) );
+		
+		//
+		// Get default namespace.
+		//
+		$ns = new COntologyTerm( $theContainer, COntologyTerm::HashIndex( '' ) );
+		$len = strlen( (string) $ns ) + 1;
+	 
+		/*================================================================================
+		 *	kENTITY_USER																 *
+		 *===============================================================================*/
+
+		//
+		// Handle kENTITY_USER.
+		//
+		$term = new COntologyTerm( $theContainer, 
+								   COntologyTerm::HashIndex( kENTITY_USER ) );
+		//
+		// Handle node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Commit( $container );
+		//
+		// Save node.
+		//
+		$nodes[ kENTITY_USER ] = $node;
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] (kENTITY_USER) "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+	 
+		/*================================================================================
+		 *	kTAG_CODE																	 *
+		 *===============================================================================*/
+
+		//
+		// Handle user code (kTAG_CODE).
+		//
+		$term = new COntologyTerm( $theContainer, 
+								   COntologyTerm::HashIndex( kTAG_CODE ) );
+		//
+		// Handle node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Type( kTYPE_STRING );
+		$node->Cardinality( kCARD_1 );
+		$node->Commit( $container );
+		//
+		// Save node.
+		//
+		$_SESSION[ 'NODES' ][ kTAG_CODE ] = $nodes[ kTAG_CODE ] = $node;
+		//
+		// Handle edge.
+		//
+		$edge = $node->RelateTo( $container, $component_of, $nodes[ kENTITY_USER ] );
+		$edge->Commit( $container );
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] (kTAG_CODE) "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+	 
+		/*================================================================================
+		 *	kOFFSET_PASSWORD															 *
+		 *===============================================================================*/
+
+		//
+		// Handle user password (kOFFSET_PASSWORD).
+		//
+		$term = new COntologyTerm( $theContainer, 
+								   COntologyTerm::HashIndex( kOFFSET_PASSWORD ) );
+		//
+		// Handle node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Type( kTYPE_STRING );
+		$node->Cardinality( kCARD_1 );
+		$node->Commit( $container );
+		//
+		// Save node.
+		//
+		$nodes[ kOFFSET_PASSWORD ] = $node;
+		//
+		// Handle edge.
+		//
+		$edge = $node->RelateTo( $container, $component_of, $nodes[ kENTITY_USER ] );
+		$edge->Commit( $container );
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] (kOFFSET_PASSWORD) "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+	 
+		/*================================================================================
+		 *	kTAG_NAME (user)															 *
+		 *===============================================================================*/
+
+		//
+		// Handle user name (kTAG_NAME).
+		//
+		$term = new COntologyTerm( $theContainer, 
+								   COntologyTerm::HashIndex( kTAG_NAME ) );
+		//
+		// Handle node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Type( kTYPE_STRING );
+		$node->Cardinality( kCARD_1 );
+		$node->Commit( $container );
+		//
+		// Save node.
+		//
+		$nodes[ kTAG_NAME ] = $node;
+		//
+		// Handle edge.
+		//
+		$edge = $node->RelateTo( $container, $component_of, $nodes[ kENTITY_USER ] );
+		$edge->Commit( $container );
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] (kTAG_NAME) "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+	 
+		/*================================================================================
+		 *	kOFFSET_EMAIL (user)														 *
+		 *===============================================================================*/
+
+		//
+		// Handle user e-mail (kOFFSET_EMAIL).
+		//
+		$term = new COntologyTerm( $theContainer, 
+								   COntologyTerm::HashIndex( kOFFSET_EMAIL ) );
+		//
+		// Handle node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Type( kTYPE_STRING );
+		$node->Cardinality( kCARD_1 );
+		$node->Commit( $container );
+		//
+		// Save node.
+		//
+		$nodes[ kOFFSET_EMAIL ] = $node;
+		//
+		// Handle edge.
+		//
+		$edge = $node->RelateTo( $container, $component_of, $nodes[ kENTITY_USER ] );
+		$edge->Commit( $container );
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] (kOFFSET_EMAIL) "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+	 
+		/*================================================================================
+		 *	kTAG_KIND																	 *
+		 *===============================================================================*/
+
+		//
+		// Handle user kind (kTAG_KIND).
+		//
+		$term = new COntologyTerm( $theContainer, 
+								   COntologyTerm::HashIndex( kTAG_KIND ) );
+		//
+		// Handle node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Type( kTYPE_STRING );
+		$node->Cardinality( kCARD_ANY );
+		$node->Commit( $container );
+		//
+		// Save node.
+		//
+		$nodes[ kTAG_KIND ] = $node;
+		//
+		// Handle edge.
+		//
+		$edge = $node->RelateTo( $container, $component_of, $nodes[ kENTITY_USER ] );
+		$edge->Commit( $container );
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] (kTAG_KIND) "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+	 
+		/*================================================================================
+		 *	kTAG_REFS																	 *
+		 *===============================================================================*/
+
+		//
+		// Handle user references (kTAG_REFS).
+		//
+		$term = new COntologyTerm( $theContainer, 
+								   COntologyTerm::HashIndex( kTAG_REFS ) );
+		//
+		// Handle node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Type( kTYPE_LIST );
+		$node->Cardinality( kCARD_ANY );
+		$node->Commit( $container );
+		//
+		// Save node.
+		//
+		$parent = $nodes[ kTAG_REFS ] = $node;
+		//
+		// Handle edge.
+		//
+		$edge = $node->RelateTo( $container, $component_of, $nodes[ kENTITY_USER ] );
+		$edge->Commit( $container );
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] (kTAG_REFS) "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+		//
+		// Handle user reference kind (kTAG_KIND).
+		//
+		$term = new COntologyTerm( $theContainer, 
+								   COntologyTerm::HashIndex( kTAG_KIND ) );
+		//
+		// Handle node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Cardinality( kCARD_0_1 );
+		$node->Commit( $container );
+		//
+		// Handle edge.
+		//
+		$edge = $node->RelateTo( $container, $component_of, $parent );
+		$edge->Commit( $container );
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] (kTAG_KIND) "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+		//
+		// Handle user reference data (kTAG_DATA).
+		//
+		$term = new COntologyTerm( $theContainer, 
+								   COntologyTerm::HashIndex( kTAG_DATA ) );
+		//
+		// Handle node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Cardinality( kCARD_1 );
+		$node->Commit( $container );
+		//
+		// Handle edge.
+		//
+		$edge = $node->RelateTo( $container, $component_of, $parent );
+		$edge->Commit( $container );
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] (kTAG_DATA) "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+	 
+		/*================================================================================
+		 *	kTAG_PREFERRED																 *
+		 *===============================================================================*/
+
+		//
+		// Handle preferred user reference (kTAG_PREFERRED).
+		//
+		$term = new COntologyTerm( $theContainer, 
+								   COntologyTerm::HashIndex( kTAG_PREFERRED ) );
+		//
+		// Handle node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Cardinality( kCARD_0_1 );
+		$node->Commit( $container );
+		//
+		// Save node.
+		//
+		$nodes[ kTAG_PREFERRED ] = $node;
+		//
+		// Handle edge.
+		//
+		$edge = $node->RelateTo( $container, $component_of, $nodes[ kENTITY_USER ] );
+		$edge->Commit( $container );
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] (kTAG_PREFERRED) "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+	 
+		/*================================================================================
+		 *	kTAG_DEFAULT																 *
+		 *===============================================================================*/
+
+		//
+		// Handle default user reference (kTAG_DEFAULT).
+		//
+		$term = new COntologyTerm( $theContainer, 
+								   COntologyTerm::HashIndex( kTAG_DEFAULT ) );
+		//
+		// Handle node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Cardinality( kCARD_0_1 );
+		$node->Commit( $container );
+		//
+		// Save node.
+		//
+		$nodes[ kTAG_DEFAULT ] = $node;
+		//
+		// Handle edge.
+		//
+		$edge = $node->RelateTo( $container, $component_of, $nodes[ kENTITY_USER ] );
+		$edge->Commit( $container );
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] (kTAG_DEFAULT) "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+	 
+		/*================================================================================
+		 *	kTAG_VALID																	 *
+		 *===============================================================================*/
+
+		//
+		// Handle valid user reference (kTAG_VALID).
+		//
+		$term = new COntologyTerm( $theContainer, 
+								   COntologyTerm::HashIndex( kTAG_VALID ) );
+		//
+		// Handle node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Cardinality( kCARD_0_1 );
+		$node->Commit( $container );
+		//
+		// Save node.
+		//
+		$nodes[ kTAG_VALID ] = $node;
+		//
+		// Handle edge.
+		//
+		$edge = $node->RelateTo( $container, $component_of, $nodes[ kENTITY_USER ] );
+		$edge->Commit( $container );
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] (kTAG_VALID) "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+	 
+		/*================================================================================
+		 *	kOFFSET_MANAGER																 *
+		 *===============================================================================*/
+
+		//
+		// Handle user manager reference (kOFFSET_MANAGER).
+		//
+		$term = new COntologyTerm( $theContainer, 
+								   COntologyTerm::HashIndex( kOFFSET_MANAGER ) );
+		//
+		// Handle node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Cardinality( kCARD_0_1 );
+		$node->Commit( $container );
+		//
+		// Save node.
+		//
+		$nodes[ kOFFSET_MANAGER ] = $node;
+		//
+		// Handle edge.
+		//
+		$edge = $node->RelateTo( $container, $component_of, $nodes[ kENTITY_USER ] );
+		$edge->Commit( $container );
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] (kOFFSET_MANAGER) "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 	 
 		/*================================================================================
 		 *	kTAG_ROLE																	 *
 		 *===============================================================================*/
 
 		//
-		// Handle definition (kTAG_ROLE).
+		// Handle user roles (kTAG_ROLE).
 		//
 		$term = new COntologyTerm( $theContainer, 
 								   COntologyTerm::HashIndex( kTAG_ROLE ) );
@@ -8538,8 +9073,82 @@ EOT;
 				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
 				 .$node->Node()->getId()."}"
 				 ."\n" );
+	 
+		/*================================================================================
+		 *	kTAG_CREATED																 *
+		 *===============================================================================*/
+
+		//
+		// Handle user creation time-stamp (kTAG_CREATED).
+		//
+		$term = new COntologyTerm( $theContainer, 
+								   COntologyTerm::HashIndex( kTAG_CREATED ) );
+		//
+		// Handle node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Type( kTYPE_STAMP );
+		$node->Cardinality( kCARD_0_1 );
+		$node->Commit( $container );
+		//
+		// Save node.
+		//
+		$nodes[ kTAG_CREATED ] = $node;
+		//
+		// Handle edge.
+		//
+		$edge = $node->RelateTo( $container, $component_of, $nodes[ kENTITY_USER ] );
+		$edge->Commit( $container );
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] (kTAG_CREATED) "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
+	 
+		/*================================================================================
+		 *	kTAG_MODIFIED																 *
+		 *===============================================================================*/
+
+		//
+		// Handle user last modification time-stamp (kTAG_MODIFIED).
+		//
+		$term = new COntologyTerm( $theContainer, 
+								   COntologyTerm::HashIndex( kTAG_MODIFIED ) );
+		//
+		// Handle node.
+		//
+		$node = new COntologyNode( $container );
+		$node->Term( $term );
+		$node->Kind( kTYPE_TRAIT, TRUE );
+		$node->Kind( kTYPE_MEASURE, TRUE );
+		$node->Type( kTYPE_STAMP );
+		$node->Cardinality( kCARD_0_1 );
+		$node->Commit( $container );
+		//
+		// Save node.
+		//
+		$nodes[ kTAG_MODIFIED ] = $node;
+		//
+		// Handle edge.
+		//
+		$edge = $node->RelateTo( $container, $component_of, $nodes[ kENTITY_USER ] );
+		$edge->Commit( $container );
+		//
+		// Display.
+		//
+		if( $doDisplay )
+			echo( "[$term] (kTAG_MODIFIED) "
+				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
+				 .$node->Node()->getId()."}"
+				 ."\n" );
 		
-	} // LoadDatadictStructs.
+	} // LoadEntityDatadict.
 
 	 
 	/*===================================================================================
@@ -8573,13 +9182,9 @@ EOT;
 		//			[:DATA] (string) Dataset description string
 		//		[:DOMAIN] (array) Dataset domain
 		//		[:CATEGORY] (array) Dataset domain category
-		//		[:PROVIDED] (array)
+		//		[:FILES] (array)
 		//			[:FILE] (ObjectId) File reference
-		//			[:GENERATED] (array) Generated files references
-		//			[:STATUS] (array) File status
-		//		[:GENERATED] (array)
-		//			[:FILE] (ObjectId) File reference
-		//			[:PROVIDED] (integer) Provided file array index
+		//			[:REFERENCED] (array) Referenced files list
 		//			[:STATUS] (array) File status
 		//			[:KIND] (array) File kind
 		//			[:COLS] (array) Data dictionary
@@ -8626,7 +9231,11 @@ EOT;
 		//
 		$ns = new COntologyTerm( $theContainer, COntologyTerm::HashIndex( '' ) );
 		$len = strlen( (string) $ns ) + 1;
-		
+	 
+		/*================================================================================
+		 *	kTAG_DATASET																 *
+		 *===============================================================================*/
+
 		//
 		// Handle kTAG_DATASET.
 		//
@@ -8661,7 +9270,11 @@ EOT;
 				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
 				 .$node->Node()->getId()."}"
 				 ."\n" );
-		
+	 
+		/*================================================================================
+		 *	kTAG_TITLE																	 *
+		 *===============================================================================*/
+
 		//
 		// Handle dataset title (kTAG_TITLE).
 		//
@@ -8694,7 +9307,11 @@ EOT;
 				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
 				 .$node->Node()->getId()."}"
 				 ."\n" );
-		
+	 
+		/*================================================================================
+		 *	kENTITY_USER																 *
+		 *===============================================================================*/
+
 		//
 		// Handle dataset user (kENTITY_USER).
 		//
@@ -8727,7 +9344,11 @@ EOT;
 				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
 				 .$node->Node()->getId()."}"
 				 ."\n" );
-		
+	 
+		/*================================================================================
+		 *	kTAG_NAME																	 *
+		 *===============================================================================*/
+
 		//
 		// Handle dataset name (kTAG_NAME).
 		//
@@ -8750,7 +9371,11 @@ EOT;
 				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
 				 .$node->Node()->getId()."}"
 				 ."\n" );
-		
+	 
+		/*================================================================================
+		 *	kTAG_DESCRIPTION															 *
+		 *===============================================================================*/
+
 		//
 		// Handle dataset description (kTAG_DESCRIPTION).
 		//
@@ -8773,7 +9398,11 @@ EOT;
 				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
 				 .$node->Node()->getId()."}"
 				 ."\n" );
-		
+	 
+		/*================================================================================
+		 *	kTAG_DOMAIN																	 *
+		 *===============================================================================*/
+
 		//
 		// Handle dataset domain (kTAG_DOMAIN).
 		//
@@ -8800,7 +9429,11 @@ EOT;
 				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
 				 .$node->Node()->getId()."}"
 				 ."\n" );
-		
+	 
+		/*================================================================================
+		 *	kTAG_CATEGORY																 *
+		 *===============================================================================*/
+
 		//
 		// Handle dataset category (kTAG_CATEGORY).
 		//
@@ -8827,12 +9460,16 @@ EOT;
 				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
 				 .$node->Node()->getId()."}"
 				 ."\n" );
-		
+	 
+		/*================================================================================
+		 *	kOFFSET_FILES																 *
+		 *===============================================================================*/
+
 		//
-		// Handle dataset provided files (kTAG_PROVIDED).
+		// Handle dataset files (kOFFSET_FILES).
 		//
 		$term = new COntologyTerm( $theContainer, 
-								   COntologyTerm::HashIndex( kTAG_PROVIDED ) );
+								   COntologyTerm::HashIndex( kOFFSET_FILES ) );
 		//
 		// Handle node.
 		//
@@ -8845,7 +9482,7 @@ EOT;
 		//
 		// Save node.
 		//
-		$nodes[ kTAG_PROVIDED ] = $node;
+		$nodes[ kOFFSET_FILES ] = $node;
 		//
 		// Handle edge.
 		//
@@ -8855,11 +9492,15 @@ EOT;
 		// Display.
 		//
 		if( $doDisplay )
-			echo( "[$term] (kTAG_PROVIDED) "
+			echo( "[$term] (kOFFSET_FILES) "
 				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
 				 .$node->Node()->getId()."}"
 				 ."\n" );
-		
+	 
+		/*================================================================================
+		 *	kOFFSET_FILE																 *
+		 *===============================================================================*/
+
 		//
 		// Handle dataset provided file reference (kOFFSET_FILE).
 		//
@@ -8877,7 +9518,7 @@ EOT;
 		//
 		// Handle edge.
 		//
-		$edge = $node->RelateTo( $container, $component_of, $nodes[ kTAG_PROVIDED ] );
+		$edge = $node->RelateTo( $container, $component_of, $nodes[ kOFFSET_FILES ] );
 		$edge->Commit( $container );
 		//
 		// Display.
@@ -8887,12 +9528,16 @@ EOT;
 				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
 				 .$node->Node()->getId()."}"
 				 ."\n" );
-		
+	 
+		/*================================================================================
+		 *	kTAG_REFS																	 *
+		 *===============================================================================*/
+
 		//
-		// Handle dataset generated file references (kTAG_GENERATED).
+		// Handle dataset file references (kTAG_REFS).
 		//
 		$term = new COntologyTerm( $theContainer, 
-								   COntologyTerm::HashIndex( kTAG_GENERATED ) );
+								   COntologyTerm::HashIndex( kTAG_REFS ) );
 		//
 		// Handle node.
 		//
@@ -8905,17 +9550,21 @@ EOT;
 		//
 		// Handle edge.
 		//
-		$edge = $node->RelateTo( $container, $component_of, $nodes[ kTAG_PROVIDED ] );
+		$edge = $node->RelateTo( $container, $component_of, $nodes[ kOFFSET_FILES ] );
 		$edge->Commit( $container );
 		//
 		// Display.
 		//
 		if( $doDisplay )
-			echo( "[$term] (kTAG_GENERATED) "
+			echo( "[$term] (kTAG_REFS) "
 				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
 				 .$node->Node()->getId()."}"
 				 ."\n" );
-		
+	 
+		/*================================================================================
+		 *	kTAG_STATUS																	 *
+		 *===============================================================================*/
+
 		//
 		// Handle dataset provided file status (kTAG_STATUS).
 		//
@@ -8933,7 +9582,7 @@ EOT;
 		//
 		// Handle edge.
 		//
-		$edge = $node->RelateTo( $container, $component_of, $nodes[ kTAG_PROVIDED ] );
+		$edge = $node->RelateTo( $container, $component_of, $nodes[ kOFFSET_FILES ] );
 		$edge->Commit( $container );
 		//
 		// Display.
@@ -8943,125 +9592,13 @@ EOT;
 				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
 				 .$node->Node()->getId()."}"
 				 ."\n" );
-		
+	 
+		/*================================================================================
+		 *	kTAG_KIND																	 *
+		 *===============================================================================*/
+
 		//
-		// Handle dataset generated files (kTAG_GENERATED).
-		//
-		$term = new COntologyTerm( $theContainer, 
-								   COntologyTerm::HashIndex( kTAG_GENERATED ) );
-		//
-		// Handle node.
-		//
-		$node = new COntologyNode( $container );
-		$node->Term( $term );
-		$node->Kind( kTYPE_TRAIT, TRUE );
-		$node->Type( kTYPE_LIST );
-		$node->Cardinality( kCARD_ANY );
-		$node->Commit( $container );
-		//
-		// Save node.
-		//
-		$nodes[ kTAG_GENERATED ] = $node;
-		//
-		// Handle edge.
-		//
-		$edge = $node->RelateTo( $container, $component_of, $nodes[ kTAG_DATASET ] );
-		$edge->Commit( $container );
-		//
-		// Display.
-		//
-		if( $doDisplay )
-			echo( "[$term] (kTAG_GENERATED) "
-				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
-				 .$node->Node()->getId()."}"
-				 ."\n" );
-		
-		//
-		// Handle dataset generated file reference (kOFFSET_FILE).
-		//
-		$term = new COntologyTerm( $theContainer, 
-								   COntologyTerm::HashIndex( kOFFSET_FILE ) );
-		//
-		// Handle node.
-		//
-		$node = new COntologyNode( $container );
-		$node->Term( $term );
-		$node->Kind( kTYPE_MEASURE, TRUE );
-		$node->Type( kTYPE_MongoId );
-		$node->Cardinality( kCARD_1 );
-		$node->Commit( $container );
-		//
-		// Handle edge.
-		//
-		$edge = $node->RelateTo( $container, $component_of, $nodes[ kTAG_GENERATED ] );
-		$edge->Commit( $container );
-		//
-		// Display.
-		//
-		if( $doDisplay )
-			echo( "[$term] (kOFFSET_FILE) "
-				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
-				 .$node->Node()->getId()."}"
-				 ."\n" );
-		
-		//
-		// Handle dataset provided file references (kTAG_PROVIDED).
-		//
-		$term = new COntologyTerm( $theContainer, 
-								   COntologyTerm::HashIndex( kTAG_PROVIDED ) );
-		//
-		// Handle node.
-		//
-		$node = new COntologyNode( $container );
-		$node->Term( $term );
-		$node->Kind( kTYPE_MEASURE, TRUE );
-		$node->Type( kTYPE_MongoId );
-		$node->Cardinality( kCARD_ANY );
-		$node->Commit( $container );
-		//
-		// Handle edge.
-		//
-		$edge = $node->RelateTo( $container, $component_of, $nodes[ kTAG_GENERATED ] );
-		$edge->Commit( $container );
-		//
-		// Display.
-		//
-		if( $doDisplay )
-			echo( "[$term] (kTAG_GENERATED) "
-				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
-				 .$node->Node()->getId()."}"
-				 ."\n" );
-		
-		//
-		// Handle dataset generated file status (kTAG_STATUS).
-		//
-		$term = new COntologyTerm( $theContainer, 
-								   COntologyTerm::HashIndex( kTAG_STATUS ) );
-		//
-		// Handle node.
-		//
-		$node = new COntologyNode( $container );
-		$node->Term( $term );
-		$node->Kind( kTYPE_MEASURE, TRUE );
-		$node->Type( kTYPE_STRING );
-		$node->Cardinality( kCARD_ANY );
-		$node->Commit( $container );
-		//
-		// Handle edge.
-		//
-		$edge = $node->RelateTo( $container, $component_of, $nodes[ kTAG_GENERATED ] );
-		$edge->Commit( $container );
-		//
-		// Display.
-		//
-		if( $doDisplay )
-			echo( "[$term] (kTAG_STATUS) "
-				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
-				 .$node->Node()->getId()."}"
-				 ."\n" );
-		
-		//
-		// Handle dataset generated file kind (kTAG_KIND).
+		// Handle dataset file kind (kTAG_KIND).
 		//
 		$term = new COntologyTerm( $theContainer, 
 								   COntologyTerm::HashIndex( kTAG_KIND ) );
@@ -9077,7 +9614,7 @@ EOT;
 		//
 		// Handle edge.
 		//
-		$edge = $node->RelateTo( $container, $component_of, $nodes[ kTAG_GENERATED ] );
+		$edge = $node->RelateTo( $container, $component_of, $nodes[ kOFFSET_FILES ] );
 		$edge->Commit( $container );
 		//
 		// Display.
@@ -9087,9 +9624,13 @@ EOT;
 				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
 				 .$node->Node()->getId()."}"
 				 ."\n" );
-		
+	 
+		/*================================================================================
+		 *	kOFFSET_COLS																 *
+		 *===============================================================================*/
+
 		//
-		// Handle dataset generated file column metadata (kOFFSET_COLS).
+		// Handle dataset file column metadata (kOFFSET_COLS).
 		//
 		$term = new COntologyTerm( $theContainer, 
 								   COntologyTerm::HashIndex( kOFFSET_COLS ) );
@@ -9109,7 +9650,7 @@ EOT;
 		//
 		// Handle edge.
 		//
-		$edge = $node->RelateTo( $container, $component_of, $nodes[ kTAG_GENERATED ] );
+		$edge = $node->RelateTo( $container, $component_of, $nodes[ kOFFSET_FILES ] );
 		$edge->Commit( $container );
 		//
 		// Display.
@@ -9119,7 +9660,11 @@ EOT;
 				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
 				 .$node->Node()->getId()."}"
 				 ."\n" );
-		
+	 
+		/*================================================================================
+		 *	kTAG_TAG																	 *
+		 *===============================================================================*/
+
 		//
 		// Handle dataset generated file column metadata tag (kTAG_TAG).
 		//
@@ -9147,7 +9692,11 @@ EOT;
 				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
 				 .$node->Node()->getId()."}"
 				 ."\n" );
-		
+	 
+		/*================================================================================
+		 *	kTAG_TITLE																	 *
+		 *===============================================================================*/
+
 		//
 		// Handle dataset generated file column metadata title (kTAG_TITLE).
 		//

@@ -485,6 +485,11 @@ abstract class CRelatedUnitObject extends CPersistentUnitObject
 		//
 		$this->_ParseReferences( kTAG_VALID, $theContainer, $theModifiers );
 		
+		//
+		// Handle used reference.
+		//
+		$this->_ParseReferences( kTAG_DEFAULT, $theContainer, $theModifiers );
+		
 	} // _PrepareCommit.
 
 	 

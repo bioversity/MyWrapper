@@ -40,6 +40,6 @@ define( "kTABLE_CHARSED",			'TEMP_CHARACTERISED' );
  *
  * This tag represents the GENESYS data source name.
  */
-define( "kDSN_GENESYS",	'MySQLi://GENESYS-WRITER:genesyswriter@localhost/prsys_genesys?persist' );
+define( "kDSN_GENESYS",	'MySQLi://GENESYS-WRITER:genesyswriter@localhost/GENESYS?persist' );
 
 ?>

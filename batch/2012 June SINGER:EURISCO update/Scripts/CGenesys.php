@@ -769,8 +769,16 @@ class CGenesys
 			// Build record.
 			//
 			$record = Array();
-			for( $i = 0; $i < count( $row ); $i++ )
-				$record[ $header[ $i ] ] = $row[ $i ];
+			for( $i = 0; $i < count( $header ); $i++ )
+			{
+				if( count( $row ) != count( $header ) )
+					echo( "Row cols: [".count( $row )
+						 ."] Headers count: [".count( $header )
+						 ."]\n".implode( "\t", $row )
+						 ."\n" );
+				if( $i < count( $row ) )
+					$record[ $header[ $i ] ] = $row[ $i ];
+			}
 			
 			//
 			// Check if it has all required fields.

@@ -101,6 +101,10 @@ try
 	$entity3->Code( 'ENTITY3' );
 	echo( '<i>$entity3->Name( \'Luca Matteis\' );</i><br>' );
 	$entity3->Name( 'Luca Matteis' );
+	echo( '<i>$entity3->Created( new CDataTypeStamp( time() - 5000 ) );</i><br>' );
+	$entity3->Created( new CDataTypeStamp( time() - 5000 ) );
+	echo( '<i>$entity3->Modified( new CDataTypeStamp( microtime( TRUE ) ) );</i><br>' );
+	$entity3->Modified( new CDataTypeStamp( microtime( TRUE ) ) );
 	echo( '<pre>' ); print_r( $entity3 ); echo( '</pre>' );
 	echo( '<hr>' );
 	echo( '<hr>' );
@@ -239,6 +243,18 @@ try
 		echo( CException::AsHTML( $error ) );
 		echo( '<br>' );
 	}
+	echo( '<hr>' );
+	 
+	//
+	// Test preferred reference.
+	//
+	echo( '<h3>Test preferred reference</h3>' );
+
+	echo( '<i>$entity1->Preferred( $entity2 );</i><br>' );
+	$entity1->Preferred( $entity2 );
+	$entity1->Commit( $collection, NULL, kFLAG_PERSIST_UPDATE + kFLAG_STATE_ENCODED );
+	echo( '<pre>' ); print_r( $entity1 ); echo( '</pre>' );
+	echo( '<hr>' );
 	echo( '<hr>' );
 }
 
