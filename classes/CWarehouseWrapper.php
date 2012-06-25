@@ -160,6 +160,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				//
 				// Enforce paging.
 				//
+				case kAPI_OP_GET_USERS:
 				case kAPI_OP_GET_TERMS:
 				case kAPI_OP_MATCH_TERMS:
 				case kAPI_OP_GET_TAGS:
@@ -195,6 +196,10 @@ class CWarehouseWrapper extends CMongoDataWrapper
 						//
 						switch( $_REQUEST[ kAPI_OPERATION ] )
 						{
+							case kAPI_OP_GET_USERS:
+								$_REQUEST[ kAPI_CONTAINER ] = CEntity::DefaultContainer();
+								break;
+						
 							case kAPI_OP_GET_TERMS:
 							case kAPI_OP_MATCH_TERMS:
 								$_REQUEST[ kAPI_CONTAINER ] = kDEFAULT_CNT_TERMS;
@@ -226,6 +231,34 @@ class CWarehouseWrapper extends CMongoDataWrapper
 					if( (! array_key_exists( kAPI_CONTAINER, $_REQUEST ))
 					 || (! strlen( $_REQUEST[ kAPI_CONTAINER ] )) )
 						$_REQUEST[ kAPI_CONTAINER ] = kDEFAULT_CNT_NODES;
+					
+					break;
+				
+				case kAPI_OP_QUERY_USERS:
+					//
+					// Check for container.
+					//
+					if( (! array_key_exists( kAPI_CONTAINER, $_REQUEST ))
+					 || (! strlen( $_REQUEST[ kAPI_CONTAINER ] )) )
+						$_REQUEST[ kAPI_CONTAINER ] = CEntity::DefaultContainer();
+					
+					//
+					// Check if query is missig.
+					//
+					if( ! array_key_exists( kAPI_DATA_QUERY, $_REQUEST ) )
+					{
+						//
+						// Enforce start if missing.
+						//
+						if( ! array_key_exists( kAPI_PAGE_START, $_REQUEST ) )
+							$_REQUEST[ kAPI_PAGE_START ] = 0;
+						//
+						// Enforce limit if missing.
+						//
+						if( ! array_key_exists( kAPI_PAGE_LIMIT, $_REQUEST ) )
+							$_REQUEST[ kAPI_PAGE_LIMIT ] = kDEFAULT_LIMITS;
+					
+					} // Missing identifiers.
 					
 					break;
 			
@@ -669,6 +702,31 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				break;
 			
 			//
+			// Handle query users workflow.
+			//
+			case kAPI_OP_QUERY_USERS:
+				//
+				// Call parent method.
+				//
+				parent::_FormatQuery();
+				
+				//
+				// Init query.
+				//
+				if( ! array_key_exists( kAPI_DATA_QUERY, $_REQUEST ) )
+					$_REQUEST[ kAPI_DATA_QUERY ] = new CMongoQuery();
+				
+				//
+				// Add user selector.
+				//
+				$_REQUEST[ kAPI_DATA_QUERY ]
+					->AppendStatement(
+						CQueryStatement::Equals(
+							kTAG_KIND, kENTITY_USER, kTYPE_STRING ),
+						kOPERATOR_AND );
+				break;
+			
+			//
 			// Handle get roots workflow.
 			//
 			case kAPI_OP_GET_ROOTS:
@@ -758,6 +816,35 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				switch( $_REQUEST[ kAPI_OPERATION ] )
 				{
 					//
+					// Handle user codes.
+					//
+					case kAPI_OP_GET_USERS:
+						//
+						// Hash identifiers.
+						//
+						$identifiers = Array();
+						foreach( $_REQUEST[ kAPI_OPT_IDENTIFIERS ] as $identifier )
+						{
+							//
+							// Hash only if not an array.
+							//
+							if( ! is_array( $identifier ) )
+								$identifiers[] = CUser::HashIndex( $identifier );
+						}
+			
+						//
+						// Convert to query.
+						//
+						$_REQUEST[ kAPI_DATA_QUERY ] = new CMongoQuery();
+						$_REQUEST[ kAPI_DATA_QUERY ]->AppendStatement(
+														CQueryStatement::Member(
+															kTAG_LID,
+															$identifiers,
+															kTYPE_BINARY ),
+														kOPERATOR_AND );
+						break;
+				
+					//
 					// Handle term references.
 					//
 					case kAPI_OP_GET_TERMS:
@@ -835,7 +922,38 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				} // Parsed by request.
 			
 			} // Provided operation.
-		}
+		
+		} // Provided identifiers.
+		
+		//
+		// Handle default queries.
+		//
+		else
+		{
+			//
+			// Parse by operation.
+			//
+			switch( $_REQUEST[ kAPI_OPERATION ] )
+			{
+				//
+				// Handle users.
+				//
+				case kAPI_OP_GET_USERS:
+					//
+					// Add user kind selector.
+					//
+					$_REQUEST[ kAPI_DATA_QUERY ] = new CMongoQuery();
+					$_REQUEST[ kAPI_DATA_QUERY ]->AppendStatement(
+													CQueryStatement::Equals(
+														kTAG_KIND,
+														kENTITY_USER,
+														kTYPE_STRING ),
+													kOPERATOR_AND );
+					break;
+			
+			} // Parsed by request.
+		
+		} // Identifiers not provided.
 	
 	} // _FormatIdentifiers.
 
@@ -1008,25 +1126,15 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				
 				break;
 				
-			case kAPI_OP_GET_ROOTS:
-				
-				//
-				// Check for container.
-				//
-				if( (! array_key_exists( kAPI_CONTAINER, $_REQUEST ))
-				 || (! strlen( $_REQUEST[ kAPI_CONTAINER ] )) )
-					throw new CException
-						( "Missing container reference",
-						  kERROR_OPTION_MISSING,
-						  kMESSAGE_TYPE_ERROR,
-						  array( 'Operation' => $parameter ) );					// !@! ==>
-
+			case kAPI_OP_GET_USERS:
+			case kAPI_OP_QUERY_USERS:
 			case kAPI_OP_GET_TERMS:
 			case kAPI_OP_MATCH_TERMS:
 			case kAPI_OP_GET_TAGS:
 			case kAPI_OP_SET_TAGS:
 			case kAPI_OP_GET_NODES:
 			case kAPI_OP_GET_EDGES:
+			case kAPI_OP_GET_ROOTS:
 				
 				//
 				// Check for database.
@@ -1327,6 +1435,14 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				$this->_Handle_Login();
 				break;
 
+			case kAPI_OP_GET_USERS:
+				$this->_Handle_GetUsers();
+				break;
+
+			case kAPI_OP_QUERY_USERS:
+				$this->_Handle_GetUsers();
+				break;
+
 			case kAPI_OP_GET_TERMS:
 				$this->_Handle_GetTerms();
 				break;
@@ -1450,6 +1566,184 @@ class CWarehouseWrapper extends CMongoDataWrapper
 									 kTAG_DATA => 'User not found.' ) );
 	
 	} // _Handle_Login.
+
+	 
+	/*===================================================================================
+	 *	_Handle_GetUsers																*
+	 *==================================================================================*/
+
+	/**
+	 * Handle {@link kAPI_OP_GET_USERS Get-users} request.
+	 *
+	 * This method will handle the {@link kAPI_OP_GET_USERS kAPI_OP_GET_USERS} request,
+	 * which is equivalent to the {@link _Handle_Get() _Handle_Get} method, with the only
+	 * difference being that each found element is here indexed by the {@link CUser user}
+	 * {@link kTAG_CODE code}.
+	 *
+	 * The only reason to re-develop this method is to provide a consistent view of users in
+	 * all calls.
+	 *
+	 * @access protected
+	 */
+	protected function _Handle_GetUsers()
+	{
+		//
+		// Handle query.
+		//
+		$query = ( array_key_exists( kAPI_DATA_QUERY, $_REQUEST ) )
+				? $_REQUEST[ kAPI_DATA_QUERY ]
+				: Array();
+		
+		//
+		// Handle fields.
+		//
+		$fields = ( array_key_exists( kAPI_DATA_FIELD, $_REQUEST ) )
+				? $_REQUEST[ kAPI_DATA_FIELD ]
+				: Array();
+		
+		//
+		// Handle sort.
+		//
+		$sort = ( array_key_exists( kAPI_DATA_SORT, $_REQUEST ) )
+			  ? $_REQUEST[ kAPI_DATA_SORT ]
+			  : Array();
+		
+		//
+		// Fix fields.
+		// Need to add code, or we will not be able to index results array.
+		//
+		$added = FALSE;
+		if( count( $fields )
+		 && (! array_key_exists( kTAG_CODE, $fields )) )
+		{
+			$fields[ kTAG_CODE ] = TRUE;
+			$added = TRUE;
+		}
+		
+		//
+		// Get cursor.
+		//
+		$cursor = $_REQUEST[ kAPI_CONTAINER ]->find( $query, $fields );
+		
+		//
+		// Set total count.
+		//
+		$count = $cursor->count( FALSE );
+		$this->_OffsetManage( kAPI_DATA_STATUS, kAPI_AFFECTED_COUNT, $count );
+		
+		//
+		// Continue if count option is not there.
+		//
+		if( (! array_key_exists( kAPI_DATA_OPTIONS, $_REQUEST ))
+		 || (! array_key_exists( kAPI_OPT_COUNT, $_REQUEST[ kAPI_DATA_OPTIONS ] ))
+		 || (! $_REQUEST[ kAPI_DATA_OPTIONS ][ kAPI_OPT_COUNT ]) )
+		{
+			//
+			// Handle results.
+			//
+			if( $count )
+			{
+				//
+				// Set sort.
+				//
+				if( $sort )
+					$cursor->sort( $sort );
+				
+				//
+				// Set paging.
+				//
+				if( $this->offsetExists( kAPI_DATA_PAGING ) )
+				{
+					//
+					// Set paging.
+					//
+					$paging = $this->offsetGet( kAPI_DATA_PAGING );
+					$start = ( array_key_exists( kAPI_PAGE_START, $paging ) )
+						   ? (int) $paging[ kAPI_PAGE_START ]
+						   : 0;
+					$limit = ( array_key_exists( kAPI_PAGE_LIMIT, $paging ) )
+						   ? (int) $paging[ kAPI_PAGE_LIMIT ]
+						   : 0;
+					
+					//
+					// Position at start.
+					//
+					if( $start )
+						$cursor->skip( $start );
+					
+					//
+					// Set limit.
+					//
+					if( $limit )
+						$cursor->limit( $limit );
+					
+					//
+					// Set page count.
+					//
+					$pcount = $cursor->count( TRUE );
+					
+					//
+					// Update parameters.
+					//
+					$this->_OffsetManage( kAPI_DATA_PAGING, kAPI_PAGE_START, $start );
+					$this->_OffsetManage( kAPI_DATA_PAGING, kAPI_PAGE_LIMIT, $limit );
+					$this->_OffsetManage( kAPI_DATA_PAGING, kAPI_PAGE_COUNT, $pcount );
+				
+				} // Provided paging options.
+				
+				//
+				// Handle response.
+				//
+				if( (! array_key_exists( kAPI_OPT_NO_RESP, $_REQUEST ))
+				 || (! $_REQUEST[ kAPI_OPT_NO_RESP ]) )
+				{
+					//
+					// Collect result.
+					//
+					$result = Array();
+					foreach( $cursor as $element )
+					{
+						//
+						// Save index.
+						//
+						$idx = $element[ kTAG_CODE ];
+						
+						//
+						// Remove code if necessary.
+						//
+						if( $added )
+							unset( $element[ kTAG_CODE ] );
+						
+						//
+						// Add element.
+						//
+						$result[ $idx ] = $element;
+					
+					} // Loading results.
+					
+					//
+					// Handle options.
+					//
+					if( array_key_exists( kAPI_DATA_OPTIONS, $_REQUEST ) )
+						$this->_HandleOptions( $result );
+		
+					//
+					// Serialise response.
+					//
+					CDataType::SerialiseObject( $result );
+					
+					//
+					// Set response.
+					//
+					$this->offsetSet( kAPI_DATA_RESPONSE, $result );
+				
+				} // No response option not set.
+				
+			} // Has results.
+		
+		} // Not COUNT option.
+	
+	} // _Handle_GetUsers.
 
 	 
 	/*===================================================================================

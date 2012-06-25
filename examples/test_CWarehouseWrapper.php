@@ -529,7 +529,6 @@ try
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
-exit;
 
 	/*===================================================================================
 	 *	LOGIN (NONE)																	*
@@ -611,6 +610,484 @@ exit;
 	echo( kSTYLE_ROW_POS );
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
+	echo( '<hr>' );
+	
+	/*===================================================================================
+	 *	LIST USERS (EMPTY)																*
+	 *==================================================================================*/
+	echo( '<h4>List users ('.kAPI_OP_GET_USERS.') empty</h4>' );
+	echo( '<i>Return first 5 records.</i>' );
+	//
+	// Build fields list.
+	//
+	$fields = array( kTAG_NAME => TRUE );
+	//
+	// Use wrapper client.
+	//
+	if( kUSE_CLIENT )
+	{
+		//
+		// Build parameters.
+		//
+		$params = new CWarehouseWrapperClient( $url );
+		$params->Operation( kAPI_OP_GET_USERS );
+		$params->Format( kTYPE_JSON );
+		$params->Database( 'TEST' );
+		$params->Container( 'CWarehouseWrapper' );
+		$params->Fields( $fields );
+		$params->Start( 0 );
+		$params->Limit( 5 );
+		$params->LogTrace( TRUE );
+		$params->LogRequest( TRUE );
+		//
+		// Get response.
+		//
+		$decoded = $params->Execute();
+	}
+	//
+	// Use raw parameters.
+	//
+	else
+	{
+		//
+		// Build fields list.
+		//
+		$fields = json_encode( $fields );
+		//
+		// Build parameters.
+		//
+		$params = Array();
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_USERS;			// Command.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
+		$params[] = kAPI_DATABASE.'='.'TEST';					// Database.
+		$params[] = kAPI_CONTAINER.'='.'CWarehouseWrapper';			// Container.
+		$params[] = kAPI_DATA_FIELD.'='.urlencode( $fields );		// Fields.
+		$params[] = kAPI_PAGE_START.'='.'0';						// Page start.
+		$params[] = kAPI_PAGE_LIMIT.'='.'5';						// Page limits.
+		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
+		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
+		//
+		// Build request.
+		//
+		$request = $url.'?'.implode( '&', $params );
+		//
+		// Get response.
+		//
+		$response = file_get_contents( $request );
+		//
+		// Decode response.
+		//
+		$decoded = json_decode( $response, TRUE );
+	}
+	//
+	// Display.
+	//
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	if( ! kUSE_CLIENT )
+	{
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.$response.kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+	}
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	/*===================================================================================
+	 *	LIST USERS (LIST)																*
+	 *==================================================================================*/
+	echo( '<h4>List users ('.kAPI_OP_GET_USERS.') list</h4>' );
+	//
+	// Init identifiers.
+	//
+	$list = array( 'MILKO', 'LUCA', 'PIPPO' );
+	//
+	// Init fields list.
+	//
+	$fields = array( kTAG_NAME => TRUE );
+	//
+	// Use wrapper client.
+	//
+	if( kUSE_CLIENT )
+	{
+		//
+		// Build parameters.
+		//
+		$params = new CWarehouseWrapperClient( $url );
+		$params->Operation( kAPI_OP_GET_USERS );
+		$params->Format( kTYPE_JSON );
+		$params->Database( 'TEST' );
+		$params->Container( 'CWarehouseWrapper' );
+		$params->Fields( $fields );
+		foreach( $list as $element )
+			$params->Identifiers( $element, TRUE );
+		$params->LogTrace( TRUE );
+		$params->LogRequest( TRUE );
+		//
+		// Get response.
+		//
+		$decoded = $params->Execute();
+	}
+	//
+	// Use raw parameters.
+	//
+	else
+	{
+		//
+		// Build identifiers list.
+		//
+		$list_enc = json_encode( $list );
+		//
+		// Build fields list.
+		//
+		$fields = json_encode( $fields );
+		//
+		// Build parameters.
+		//
+		$params = Array();
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_USERS;			// Command.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
+		$params[] = kAPI_DATABASE.'='.'TEST';						// Database.
+		$params[] = kAPI_CONTAINER.'='.'CWarehouseWrapper';			// Container.
+		$params[] = kAPI_DATA_FIELD.'='.urlencode( $fields );		// Fields.
+		$params[] = kAPI_OPT_IDENTIFIERS.'='.$list_enc;				// Identifiers.
+		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
+		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
+		//
+		// Build request.
+		//
+		$request = $url.'?'.implode( '&', $params );
+		//
+		// Get response.
+		//
+		$response = file_get_contents( $request );
+		//
+		// Decode response.
+		//
+		$decoded = json_decode( $response, TRUE );
+	}
+	//
+	// Display.
+	//
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Identifiers:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $list ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	if( ! kUSE_CLIENT )
+	{
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.$response.kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+	}
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	/*===================================================================================
+	 *	GET USERS LIST (PAGING)															*
+	 *==================================================================================*/
+	echo( '<h4>Get users list ('.kAPI_OP_GET_USERS.') paging</h4>' );
+	//
+	// Init identifiers.
+	//
+	$list = array( 'MILKO', 'LUCA', 'MARCO', 'PIPPO' );
+	//
+	// Use wrapper client.
+	//
+	if( kUSE_CLIENT )
+	{
+		//
+		// Build parameters.
+		//
+		$params = new CWarehouseWrapperClient( $url );
+		$params->Operation( kAPI_OP_GET_USERS );
+		$params->Format( kTYPE_JSON );
+		$params->Database( 'TEST' );
+		$params->Container( 'CWarehouseWrapper' );
+		foreach( $list as $element )
+			$params->Identifiers( $element, TRUE );
+		$params->Start( 0 );
+		$params->Limit( 2 );
+		$params->LogTrace( TRUE );
+		$params->LogRequest( TRUE );
+		//
+		// Get response.
+		//
+		$decoded = $params->Execute();
+	}
+	//
+	// Use raw parameters.
+	//
+	else
+	{
+		//
+		// Build identifiers list.
+		//
+		$list_enc = json_encode( $list );
+		//
+		// Build parameters.
+		//
+		$params = Array();
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_USERS;			// Command.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
+		$params[] = kAPI_DATABASE.'='.'TEST';						// Database.
+		$params[] = kAPI_CONTAINER.'='.'CWarehouseWrapper';			// Container.
+		$params[] = kAPI_OPT_IDENTIFIERS.'='.$list_enc;				// Identifiers.
+		$params[] = kAPI_PAGE_START.'='.'0';						// Page start.
+		$params[] = kAPI_PAGE_LIMIT.'='.'2';						// Page limits.
+		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
+		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
+		//
+		// Build request.
+		//
+		$request = $url.'?'.implode( '&', $params );
+		//
+		// Get response.
+		//
+		$response = file_get_contents( $request );
+		//
+		// Decode response.
+		//
+		$decoded = json_decode( $response, TRUE );
+	}
+	//
+	// Display.
+	//
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Identifiers:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $list ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	if( ! kUSE_CLIENT )
+	{
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.$response.kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+	}
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	/*===================================================================================
+	 *	QUERY USERS (EMPTY)																*
+	 *==================================================================================*/
+	echo( '<h4>Query users list ('.kAPI_OP_QUERY_USERS.') empty</h4>' );
+	//
+	// Use wrapper client.
+	//
+	if( kUSE_CLIENT )
+	{
+		//
+		// Build parameters.
+		//
+		$params = new CWarehouseWrapperClient( $url );
+		$params->Operation( kAPI_OP_QUERY_USERS );
+		$params->Format( kTYPE_JSON );
+		$params->Database( 'TEST' );
+		$params->Container( 'CWarehouseWrapper' );
+		$params->LogTrace( TRUE );
+		$params->LogRequest( TRUE );
+		//
+		// Get response.
+		//
+		$decoded = $params->Execute();
+	}
+	//
+	// Use raw parameters.
+	//
+	else
+	{
+		//
+		// Build parameters.
+		//
+		$params = Array();
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_QUERY_USERS;		// Command.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;					// Format.
+		$params[] = kAPI_DATABASE.'='.'TEST';					// Database.
+		$params[] = kAPI_CONTAINER.'='.'CWarehouseWrapper';			// Container.
+		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';					// Trace exceptions.
+		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';				// Log request.
+		//
+		// Build request.
+		//
+		$request = $url.'?'.implode( '&', $params );
+		//
+		// Get response.
+		//
+		$response = file_get_contents( $request );
+		//
+		// Decode response.
+		//
+		$decoded = json_decode( $response, TRUE );
+	}
+	//
+	// Display.
+	//
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	if( ! kUSE_CLIENT )
+	{
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.$response.kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+	}
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	/*===================================================================================
+	 *	QUERY USERS (NAME)																*
+	 *==================================================================================*/
+	echo( '<h4>Query users list ('.kAPI_OP_QUERY_USERS.') by name</h4>' );
+	//
+	// Set query.
+	//
+	$query = array
+	(
+		kOPERATOR_OR => array
+		(
+			array
+			(
+				kAPI_QUERY_SUBJECT => kTAG_NAME,
+				kAPI_QUERY_OPERATOR => kOPERATOR_CONTAINS_NOCASE,
+				kAPI_QUERY_TYPE => kTYPE_STRING,
+				kAPI_QUERY_DATA => 'milko'
+			),
+			array
+			(
+				kAPI_QUERY_SUBJECT => kTAG_NAME,
+				kAPI_QUERY_OPERATOR => kOPERATOR_CONTAINS_NOCASE,
+				kAPI_QUERY_TYPE => kTYPE_STRING,
+				kAPI_QUERY_DATA => 'luca'
+			)
+		)
+	);
+	//
+	// Use wrapper client.
+	//
+	if( kUSE_CLIENT )
+	{
+		//
+		// Build parameters.
+		//
+		$params = new CWarehouseWrapperClient( $url );
+		$params->Operation( kAPI_OP_QUERY_USERS );
+		$params->Format( kTYPE_JSON );
+		$params->Database( 'TEST' );
+		$params->Container( 'CWarehouseWrapper' );
+		$params->Query( $query );
+		$params->LogTrace( TRUE );
+		$params->LogRequest( TRUE );
+		//
+		// Get response.
+		//
+		$decoded = $params->Execute();
+	}
+	//
+	// Use raw parameters.
+	//
+	else
+	{
+		//
+		// Encode query.
+		//
+		$query_enc = json_encode( $query );
+		//
+		// Build parameters.
+		//
+		$params = Array();
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_QUERY_USERS;			// Command.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
+		$params[] = kAPI_DATABASE.'='.'TEST';					// Database.
+		$params[] = kAPI_CONTAINER.'='.'CWarehouseWrapper';			// Container.
+		$params[] = kAPI_DATA_QUERY.'='.urlencode( $query_enc );	// Query.
+		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
+		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
+		//
+		// Build request.
+		//
+		$request = $url.'?'.implode( '&', $params );
+		//
+		// Get response.
+		//
+		$response = file_get_contents( $request );
+		//
+		// Decode response.
+		//
+		$decoded = json_decode( $response, TRUE );
+	}
+	//
+	// Display.
+	//
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	if( ! kUSE_CLIENT )
+	{
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.$response.kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+	}
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	
 	/*===================================================================================
@@ -2984,7 +3461,6 @@ exit;
 		$params->Operation( kAPI_OP_GET_ROOTS );
 		$params->Format( kTYPE_JSON );
 		$params->Database( 'WAREHOUSE' );
-		$params->Container( kDEFAULT_CNT_TERMS );
 		$params->LogTrace( TRUE );
 		$params->LogRequest( TRUE );
 		//
@@ -3004,7 +3480,6 @@ exit;
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_ROOTS;	// Command.
 		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
 		$params[] = kAPI_DATABASE.'='.'WAREHOUSE';					// Database.
-		$params[] = kAPI_CONTAINER.'='.kDEFAULT_CNT_TERMS;				// Container.
 		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
 		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
 		//

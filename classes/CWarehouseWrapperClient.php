@@ -114,6 +114,7 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 			switch( $theValue )
 			{
 				case kAPI_OP_LOGIN:
+				case kAPI_OP_GET_USERS:
 				case kAPI_OP_GET_TERMS:
 				case kAPI_OP_MATCH_TERMS:
 				case kAPI_OP_GET_NODES:

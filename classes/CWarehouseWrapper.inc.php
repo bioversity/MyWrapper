@@ -33,6 +33,53 @@
 define( "kAPI_OP_LOGIN",			'@LOGIN' );
 
 /**
+ * List uers web-service.
+ *
+ * This is the tag that represents the list users web service, it will locate all
+ * {@link CUser users} matching the provided {@link kTAG_CODE codes} in the
+ * {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter and return an array
+ * structured as follows:
+ *
+ * <ul>
+ *	<li><i>Key</i>: The {@link CUser user} {@link kTAG_CODE code}.
+ *	<li><i>Value</i>: The contents of the {@link CUser user} record.
+ * </ul>
+ *
+ * If you omit the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter it is assumed
+ * that you want all users, in that case the service will enforce the use of
+ * {@link kAPI_DATA_PAGING paging} options.
+ *
+ * The service will check the {@link kAPI_DATA_FIELD kAPI_DATA_FIELD} parameter to return
+ * the provided list of fields.
+ *
+ * Note that the {@link kAPI_CONTAINER container} is not required, if omitted it will be
+ * initialised to the {@link kENTITY_CONTAINER kENTITY_CONTAINER} constant.
+ */
+define( "kAPI_OP_GET_USERS",		'@GET_USERS' );
+
+/**
+ * Query users web-service.
+ *
+ * This is the tag that represents the get query users web service, it will locate all
+ * {@link kENTITY_USER user} {@link CEntity entities} matching the provided
+ * {@link kAPI_DATA_QUERY query}.
+ *
+ * An {@link CEntity entity} is a {@link CUser user} if its
+ * {@link CCodedUnitObject::Kind() kind} has the {@link kENTITY_USER kENTITY_USER} tag.
+ *
+ * The method will return an array structured as follows:
+ *
+ * <ul>
+ *	<li><i>Key</i>: The {@link CUser user} {@link kTAG_CODE code}.
+ *	<li><i>Value</i>: The contents of the {@link CUser user} record.
+ * </ul>
+ *
+ * If you omit the {@link kAPI_DATA_QUERY kAPI_DATA_QUERY} parameter, all
+ * {@link kENTITY_USER user} {@link CEntity entities} will be selected.
+ */
+define( "kAPI_OP_QUERY_USERS",		'@QUERY_USERS' );
+
+/**
  * List terms web-service.
  *
  * This is the tag that represents the list terms web service, it will locate all
@@ -48,6 +95,9 @@ define( "kAPI_OP_LOGIN",			'@LOGIN' );
  * If you omit the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter it is assumed
  * that you want all terms, in that case the service will enforce the use of
  * {@link kAPI_DATA_PAGING paging} options.
+ *
+ * The service will check the {@link kAPI_DATA_FIELD kAPI_DATA_FIELD} parameter to return
+ * the provided list of fields.
  *
  * Note that the {@link kAPI_CONTAINER container} is not required, if omitted it will be
  * initialised to the {@link kDEFAULT_CNT_TERMS kDEFAULT_CNT_TERMS} constant.
