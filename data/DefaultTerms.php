@@ -2137,12 +2137,6 @@ exit( "Done!\n" );
 				   'car' => 'kCARD_ANY',
 				   'nam' => 'Columns list',
 				   'def' => 'This term is used to indicate a list of columns.' ),
-			array( 'id'	=> kOFFSET_MANAGER,
-				   'syn' => 'kOFFSET_MANAGER',
-				   'car' => 'kCARD_0_1',
-				   'nam' => 'Manager',
-				   'def' => 'This term is used to indicate the manager or creator of '
-				   		   .'current object.' ),
 			array( 'id'	=> kTAG_TERM,
 				   'syn' => 'kTAG_TERM',
 				   'car' => 'kCARD_1',
@@ -2354,6 +2348,13 @@ exit( "Done!\n" );
 				   'nam' => 'Outgoing',
 				   'def' => 'This term represents the outgoing direction, it can be used '
 				   		   .'for tagging items to which the current object points to.' ),
+			array( 'id'	=> kTAG_MANAGER,
+				   'syn' => 'kTAG_MANAGER',
+				   'car' => 'kCARD_0_1',
+				   'typ' => 'kTYPE_REF',
+				   'nam' => 'Manager',
+				   'def' => 'This term is used to indicate the manager or creator of '
+				   		   .'current object.' ),
 			array( 'id'	=> kTAXON_RANK,
 				   'syn' => 'kTAXON_RANK',
 				   'car' => 'kCARD_1',
@@ -8912,42 +8913,6 @@ EOT;
 		//
 		if( $doDisplay )
 			echo( "[$term] (kTAG_VALID) "
-				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
-				 .$node->Node()->getId()."}"
-				 ."\n" );
-	 
-		/*================================================================================
-		 *	kOFFSET_MANAGER																 *
-		 *===============================================================================*/
-
-		//
-		// Handle user manager reference (kOFFSET_MANAGER).
-		//
-		$term = new COntologyTerm( $theContainer, 
-								   COntologyTerm::HashIndex( kOFFSET_MANAGER ) );
-		//
-		// Handle node.
-		//
-		$node = new COntologyNode( $container );
-		$node->Term( $term );
-		$node->Kind( kTYPE_TRAIT, TRUE );
-		$node->Kind( kTYPE_MEASURE, TRUE );
-		$node->Cardinality( kCARD_0_1 );
-		$node->Commit( $container );
-		//
-		// Save node.
-		//
-		$nodes[ kOFFSET_MANAGER ] = $node;
-		//
-		// Handle edge.
-		//
-		$edge = $node->RelateTo( $container, $component_of, $nodes[ kENTITY_USER ] );
-		$edge->Commit( $container );
-		//
-		// Display.
-		//
-		if( $doDisplay )
-			echo( "[$term] (kOFFSET_MANAGER) "
 				 .$term->Name( NULL, kDEFAULT_LANGUAGE )." {"
 				 .$node->Node()->getId()."}"
 				 ."\n" );

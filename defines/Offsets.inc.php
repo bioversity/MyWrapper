@@ -527,6 +527,13 @@ define( "kTAG_IN",								':IN' );
  */
 define( "kTAG_OUT",								':OUT' );
 
+/**
+ * Manager offset.
+ *
+ * This tag is used as the default offset for indicating the manager of the current object.
+ */
+define( "kTAG_MANAGER",							':MANAGER' );
+
 /*=======================================================================================
  *	DEFAULT PROPERTY OFFSETS															*
  *======================================================================================*/
@@ -626,13 +633,6 @@ define( "kOFFSET_FILES",						':FILES' );
  * This tag is used as the default offset for indicating a list of columns.
  */
 define( "kOFFSET_COLS",							':COLS' );
-
-/**
- * Manager offset.
- *
- * This tag is used as the default offset for indicating the manager of the current object.
- */
-define( "kOFFSET_MANAGER",						':MANAGER' );
 
 /*=======================================================================================
  *	DEFAULT MAIL PROPERTY OFFSETS														*

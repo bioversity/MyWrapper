@@ -167,53 +167,6 @@ class CEntity extends CCodedUnitObject
 
 	} // Email.
 
-	 
-	/*===================================================================================
-	 *	Manager																			*
-	 *==================================================================================*/
-
-	/**
-	 * Manage manager reference.
-	 *
-	 * This method can be used to handle the object's manager reference, it uses the
-	 * standard accessor {@link CAttribute::ManageOffset() method} to manage the
-	 * {@link kOFFSET_MANAGER offset}.
-	 *
-	 * The object manager is an object of the same family, in general a {@link CUser user},
-	 * that has created the current object or that is in change of its maintenance.
-	 *
-	 * For a more in-depth reference of this method, please consult the
-	 * {@link CAttribute::ManageOffset() CAttribute::ManageOffset} method, in which the
-	 * second parameter will be the constant {@link kOFFSET_MANAGER kOFFSET_MANAGER}.
-	 *
-	 * In this class we feed the value to the
-	 * {@link CPersistentUnitObject::NormaliseRelatedObject() NormaliseRelatedObject} method
-	 * that will take care of handling object references.
-	 *
-	 * @param mixed					$theValue			Value.
-	 * @param boolean				$getOld				TRUE get old value.
-	 *
-	 * @access public
-	 * @return string
-	 *
-	 * @uses CAttribute::ManageOffset()
-	 *
-	 * @see kOFFSET_MANAGER
-	 */
-	public function Manager( $theValue = NULL, $getOld = FALSE )
-	{
-		//
-		// Check identifier.
-		//
-		if( ($theValue !== NULL)
-		 && ($theValue !== FALSE) )
-			$theValue = CPersistentUnitObject::NormaliseRelatedObject( $theValue );
-		
-		return CAttribute::ManageOffset
-				( $this, kOFFSET_MANAGER, $theValue, $getOld );						// ==>
-
-	} // Manager.
-
 		
 
 /*=======================================================================================
@@ -321,11 +274,6 @@ class CEntity extends CCodedUnitObject
 		// Call parent method.
 		//
 		parent::_PrepareCommit( $theContainer, $theIdentifier, $theModifiers );
-		
-		//
-		// Resolve manager.
-		//
-		$this->_ParseReferences( kOFFSET_MANAGER, $theContainer, $theModifiers );
 	
 	} // _PrepareCommit.
 
