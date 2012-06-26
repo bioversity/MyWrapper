@@ -9149,7 +9149,7 @@ EOT;
 		//		[:CATEGORY] (array) Dataset domain category
 		//		[:FILES] (array)
 		//			[:FILE] (ObjectId) File reference
-		//			[:REFERENCED] (array) Referenced files list
+		//			[:REFS] (array) Referenced files list
 		//			[:STATUS] (array) File status
 		//			[:KIND] (array) File kind
 		//			[:COLS] (array) Data dictionary
