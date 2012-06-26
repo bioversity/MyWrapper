@@ -223,6 +223,48 @@ class CUser extends CEntity
 
 	} // Role.
 
+	 
+	/*===================================================================================
+	 *	Manager																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage user manager.
+	 *
+	 * This method can be used to manage the user {@link kTAG_MANAGER manager}, it uses
+	 * the standard accessor {@link CAttribute::ManageOffset() method} to manage the
+	 * {@link kTAG_MANAGER offset}:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: The value or operation:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Return the current value.
+	 *		<li><i>FALSE</i>: Delete the value.
+	 *		<li><i>other</i>: Set value.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
+	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * The manager is either the user that created the current user or the user that is in
+	 * charge of the current user.
+	 *
+	 * @param NULL|FALSE|string		$theValue			User password or operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 */
+	public function Manager( $theValue = NULL, $getOld = FALSE )
+	{
+		return CAttribute::ManageOffset
+				( $this, kTAG_MANAGER, $theValue, $getOld );						// ==>
+
+	} // Manager.
+
 		
 
 /*=======================================================================================
@@ -394,6 +436,11 @@ class CUser extends CEntity
 		// Set global identifier.
 		//
 		$this[ kTAG_GID ] = kENTITY_USER.kTOKEN_CLASS_SEPARATOR.$this->_index();
+		
+		//
+		// Handle manager.
+		//
+		$this->_ParseReferences( kTAG_MANAGER, $theContainer, $theModifiers );
 		
 	} // _PrepareCommit.
 

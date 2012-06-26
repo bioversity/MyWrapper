@@ -116,8 +116,8 @@ try
 	$test->Role( kROLE_FILE_IMPORT, TRUE );
 	echo( '<i>$test->Role( kROLE_USER_MANAGE, TRUE );</i><br>' );
 	$test->Role( kROLE_USER_MANAGE, TRUE );
-	echo( '<i>$test->Relate( $save, kTAG_MANAGER, TRUE );</i><br>' );
-	$test->Relate( $save, kTAG_MANAGER, TRUE );
+	echo( '<i>$test->Manager( $save );</i><br>' );
+	$test->Manager( $save );
 	echo( '<i>$identifier = $test->Commit( $collection );</i><br>' );
 	$milko = $test->Commit( $collection );
 	echo( "$milko<pre>" ); print_r( $test ); echo( '</pre>' );
