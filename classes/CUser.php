@@ -260,6 +260,13 @@ class CUser extends CEntity
 	 */
 	public function Manager( $theValue = NULL, $getOld = FALSE )
 	{
+		//
+		// Check identifier.
+		//
+		if( ($theValue !== NULL)
+		 && ($theValue !== FALSE) )
+			$theValue = CPersistentUnitObject::NormaliseRelatedObject( $theValue );
+		
 		return CAttribute::ManageOffset
 				( $this, kTAG_MANAGER, $theValue, $getOld );						// ==>
 

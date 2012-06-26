@@ -108,7 +108,6 @@ try
 	$milko->Name( 'Milko Škofič' );
 	$milko->Email( 'm.skofic@cgiar.org' );
 	$milko_id = $milko->Commit( $container );
-	
 
 	//
 	// Create user 2.
@@ -118,8 +117,9 @@ try
 	$luca->Password( 'LucaPass' );
 	$luca->Name( 'Luca Matteis' );
 	$luca->Email( 'l.matteis@cgiar.org' );
+	$luca->Manager( $milko );
 	$luca_id = $luca->Commit( $container );
-
+	
 	//
 	// Create user 3.
 	//
@@ -128,6 +128,7 @@ try
 	$marco->Password( 'MarcoPass' );
 	$marco->Name( 'Marco Frangella' );
 	$marco->Email( 'm.frangella@cgiar.org' );
+	$marco->Manager( $luca );
 	$marco_id = $marco->Commit( $container );
 	
 	echo( '<h4>Users</h4>' );
@@ -815,7 +816,7 @@ try
 	//
 	// Init identifiers.
 	//
-	$list = array( 'MILKO', 'LUCA', 'MARCO', 'PIPPO' );
+	$list = array( 'MILKO', CUser::HashIndex( 'LUCA' ), CUser::HashIndex( 'MARCO' ), 'PIPPO' );
 	//
 	// Use wrapper client.
 	//
@@ -1091,6 +1092,213 @@ try
 	echo( '<hr>' );
 	
 	/*===================================================================================
+	 *	LIST MANAGED USERS (SINGLE)														*
+	 *==================================================================================*/
+	echo( '<h4>List managed users ('.kAPI_OP_GET_MANAGED_USERS.') single</h4>' );
+	//
+	// Init identifiers.
+	//
+	$list = array( 'LUCA' );
+	//
+	// Init fields list.
+	//
+	$fields = array( kTAG_NAME => TRUE );
+	//
+	// Use wrapper client.
+	//
+	if( kUSE_CLIENT )
+	{
+		//
+		// Build parameters.
+		//
+		$params = new CWarehouseWrapperClient( $url );
+		$params->Operation( kAPI_OP_GET_MANAGED_USERS );
+		$params->Format( kTYPE_JSON );
+		$params->Database( 'TEST' );
+		$params->Container( 'CWarehouseWrapper' );
+		$params->Fields( $fields );
+		foreach( $list as $element )
+			$params->Identifiers( $element, TRUE );
+		$params->LogTrace( TRUE );
+		$params->LogRequest( TRUE );
+		//
+		// Get response.
+		//
+		$decoded = $params->Execute();
+	}
+	//
+	// Use raw parameters.
+	//
+	else
+	{
+		//
+		// Build identifiers list.
+		//
+		$list_enc = json_encode( $list );
+		//
+		// Build fields list.
+		//
+		$fields = json_encode( $fields );
+		//
+		// Build parameters.
+		//
+		$params = Array();
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_MANAGED_USERS;	// Command.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
+		$params[] = kAPI_DATABASE.'='.'TEST';						// Database.
+		$params[] = kAPI_CONTAINER.'='.'CWarehouseWrapper';			// Container.
+		$params[] = kAPI_DATA_FIELD.'='.urlencode( $fields );		// Fields.
+		$params[] = kAPI_OPT_IDENTIFIERS.'='.$list_enc;				// Identifiers.
+		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
+		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
+		//
+		// Build request.
+		//
+		$request = $url.'?'.implode( '&', $params );
+		//
+		// Get response.
+		//
+		$response = file_get_contents( $request );
+		//
+		// Decode response.
+		//
+		$decoded = json_decode( $response, TRUE );
+	}
+	//
+	// Display.
+	//
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Identifiers:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $list ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	if( ! kUSE_CLIENT )
+	{
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.$response.kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+	}
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+	
+	/*===================================================================================
+	 *	LIST MANAGED USERS (LIST)														*
+	 *==================================================================================*/
+	echo( '<h4>List managed users ('.kAPI_OP_GET_MANAGED_USERS.') list</h4>' );
+	//
+	// Init identifiers.
+	//
+	$list = array( 'MILKO', CUser::HashIndex( 'LUCA' ), 'MARCO' );
+	//
+	// Init fields list.
+	//
+	$fields = array( kTAG_NAME => TRUE );
+	//
+	// Use wrapper client.
+	//
+	if( kUSE_CLIENT )
+	{
+		//
+		// Build parameters.
+		//
+		$params = new CWarehouseWrapperClient( $url );
+		$params->Operation( kAPI_OP_GET_MANAGED_USERS );
+		$params->Format( kTYPE_JSON );
+		$params->Database( 'TEST' );
+		$params->Container( 'CWarehouseWrapper' );
+		$params->Fields( $fields );
+		foreach( $list as $element )
+			$params->Identifiers( $element, TRUE );
+		$params->LogTrace( TRUE );
+		$params->LogRequest( TRUE );
+		//
+		// Get response.
+		//
+		$decoded = $params->Execute();
+	}
+	//
+	// Use raw parameters.
+	//
+	else
+	{
+		//
+		// Build identifiers list.
+		//
+		$list_enc = json_encode( $list );
+		//
+		// Build fields list.
+		//
+		$fields = json_encode( $fields );
+		//
+		// Build parameters.
+		//
+		$params = Array();
+		$params[] = kAPI_OPERATION.'='.kAPI_OP_GET_MANAGED_USERS;	// Command.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
+		$params[] = kAPI_DATABASE.'='.'TEST';						// Database.
+		$params[] = kAPI_CONTAINER.'='.'CWarehouseWrapper';			// Container.
+		$params[] = kAPI_DATA_FIELD.'='.urlencode( $fields );		// Fields.
+		$params[] = kAPI_OPT_IDENTIFIERS.'='.$list_enc;				// Identifiers.
+		$params[] = kAPI_OPT_LOG_TRACE.'='.'1';						// Trace exceptions.
+		$params[] = kAPI_OPT_LOG_REQUEST.'='.'1';					// Log request.
+		//
+		// Build request.
+		//
+		$request = $url.'?'.implode( '&', $params );
+		//
+		// Get response.
+		//
+		$response = file_get_contents( $request );
+		//
+		// Decode response.
+		//
+		$decoded = json_decode( $response, TRUE );
+	}
+	//
+	// Display.
+	//
+	echo( kSTYLE_TABLE_PRE );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Identifiers:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $list ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	if( ! kUSE_CLIENT )
+	{
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+		echo( kSTYLE_ROW_PRE );
+		echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
+		echo( kSTYLE_DATA_PRE.$response.kSTYLE_DATA_POS );
+		echo( kSTYLE_ROW_POS );
+	}
+	echo( kSTYLE_ROW_PRE );
+	echo( kSTYLE_HEAD_PRE.'Decoded:'.kSTYLE_HEAD_POS );
+	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $decoded ); echo( '</pre>'.kSTYLE_DATA_POS );
+	echo( kSTYLE_ROW_POS );
+	echo( kSTYLE_TABLE_POS );
+	echo( '<hr>' );
+exit;
+	
+	/*===================================================================================
 	 *	LIST TERMS (EMPTY)																*
 	 *==================================================================================*/
 	echo( '<h4>List terms ('.kAPI_OP_GET_TERMS.') empty</h4>' );
@@ -1188,7 +1396,7 @@ try
 	//
 	// Init identifiers.
 	//
-	$list = array( 'ISO:3166:1:IT', 'MCPD:SAMPSTAT:100', ':TERM', 'XXX' );
+	$list = array( 'ISO:3166:1:IT', COntologyTerm::HashIndex( 'MCPD:SAMPSTAT:100' ), ':TERM', 'XXX' );
 	//
 	// Init fields list.
 	//

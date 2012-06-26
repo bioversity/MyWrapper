@@ -47,7 +47,7 @@
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_DIRECTION_ALL</span> = 'a'
-			(line <span class="line-number">544</span>)
+			(line <span class="line-number">569</span>)
 		</span>
 	</div>
 	
@@ -64,7 +64,7 @@
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_DIRECTION_IN</span> = 'i'
-			(line <span class="line-number">528</span>)
+			(line <span class="line-number">553</span>)
 		</span>
 	</div>
 	
@@ -81,7 +81,7 @@
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_DIRECTION_OUT</span> = 'o'
-			(line <span class="line-number">536</span>)
+			(line <span class="line-number">561</span>)
 		</span>
 	</div>
 	
@@ -98,7 +98,7 @@
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_OPT_DIRECTION</span> = ':@direction'
-			(line <span class="line-number">451</span>)
+			(line <span class="line-number">476</span>)
 		</span>
 	</div>
 	
@@ -121,7 +121,7 @@
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_OPT_IDENTIFIERS</span> = ':@identifiers'
-			(line <span class="line-number">406</span>)
+			(line <span class="line-number">431</span>)
 		</span>
 	</div>
 	
@@ -138,7 +138,7 @@
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_OPT_LEVELS</span> = ':@levels'
-			(line <span class="line-number">463</span>)
+			(line <span class="line-number">488</span>)
 		</span>
 	</div>
 	
@@ -155,7 +155,7 @@
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_OPT_PREDICATES</span> = ':@predicates'
-			(line <span class="line-number">421</span>)
+			(line <span class="line-number">446</span>)
 		</span>
 	</div>
 	
@@ -172,7 +172,7 @@
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_OPT_PREDICATES_INC</span> = ':@predicates-inc'
-			(line <span class="line-number">430</span>)
+			(line <span class="line-number">455</span>)
 		</span>
 	</div>
 	
@@ -189,7 +189,7 @@
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_OPT_USER_CODE</span> = ':@user-code'
-			(line <span class="line-number">389</span>)
+			(line <span class="line-number">414</span>)
 		</span>
 	</div>
 	
@@ -206,7 +206,7 @@
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_OPT_USER_PASS</span> = ':@user-pass'
-			(line <span class="line-number">397</span>)
+			(line <span class="line-number">422</span>)
 		</span>
 	</div>
 	
@@ -223,7 +223,7 @@
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_OP_GET_EDGES</span> = '@GET_EDGES'
-			(line <span class="line-number">266</span>)
+			(line <span class="line-number">291</span>)
 		</span>
 	</div>
 	
@@ -245,14 +245,31 @@
 	
 		
 </div>
-<a name="definekAPI_OP_GET_NODES"><!-- --></a>
+<a name="definekAPI_OP_GET_MANAGED_USERS"><!-- --></a>
 <div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
+			<span class="const-name">kAPI_OP_GET_MANAGED_USERS</span> = '@GET_MANAGED_USERS'
+			(line <span class="line-number">83</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">List managed users web-service.</p>
+<p class="description"><p>This is the tag that represents the list managed users web service, it will search for  all users that are <a href="../../MyWrapper/Entities/CUser.html#methodManager">managed</a> by the users provided in the  <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter.</p><p>The service will return the list of all managed users structured as follows:</p><p><ul><li><em>Key</em>: The <a href="../../MyWrapper/Entities/CUser.html">user</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a>.</li><li><em>Value</em>: The contents of the <a href="../../MyWrapper/Entities/CUser.html">user</a> record.</li></ul></p><p>If you omit the <a href="../../MyWrapper/Wrappers/_classes---CWarehouseWrapper.inc.php.html#definekAPI_OPT_IDENTIFIERS">kAPI_OPT_IDENTIFIERS</a> parameter the service  will return no records.</p><p>The service will check the <a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_DATA_FIELD">kAPI_DATA_FIELD</a> parameter to return  the provided list of fields.</p><p>Note that the <a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_CONTAINER">container</a> is not required, if omitted it will be  initialised to the <a href="../../MyWrapper/Entities/_classes---CEntity.inc.php.html#definekENTITY_CONTAINER">kENTITY_CONTAINER</a> constant.</p></p>
+	
+		
+</div>
+<a name="definekAPI_OP_GET_NODES"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
 			<span class="const-name">kAPI_OP_GET_NODES</span> = '@GET_NODES'
-			(line <span class="line-number">218</span>)
+			(line <span class="line-number">243</span>)
 		</span>
 	</div>
 	
@@ -267,13 +284,13 @@
 		
 </div>
 <a name="definekAPI_OP_GET_RELS"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_OP_GET_RELS</span> = '@GET_RELS'
-			(line <span class="line-number">345</span>)
+			(line <span class="line-number">370</span>)
 		</span>
 	</div>
 	
@@ -306,13 +323,13 @@
 		
 </div>
 <a name="definekAPI_OP_GET_ROOTS"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_OP_GET_ROOTS</span> = '@GET_ROOTS'
-			(line <span class="line-number">377</span>)
+			(line <span class="line-number">402</span>)
 		</span>
 	</div>
 	
@@ -327,13 +344,13 @@
 		
 </div>
 <a name="definekAPI_OP_GET_TAGS"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_OP_GET_TAGS</span> = '@GET_TAGS'
-			(line <span class="line-number">151</span>)
+			(line <span class="line-number">176</span>)
 		</span>
 	</div>
 	
@@ -344,13 +361,13 @@
 		
 </div>
 <a name="definekAPI_OP_GET_TERMS"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_OP_GET_TERMS</span> = '@GET_TERMS'
-			(line <span class="line-number">105</span>)
+			(line <span class="line-number">130</span>)
 		</span>
 	</div>
 	
@@ -361,7 +378,7 @@
 		
 </div>
 <a name="definekAPI_OP_GET_USERS"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
@@ -378,7 +395,7 @@
 		
 </div>
 <a name="definekAPI_OP_LOGIN"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
@@ -395,13 +412,13 @@
 		
 </div>
 <a name="definekAPI_OP_MATCH_TERMS"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_OP_MATCH_TERMS</span> = '@MATCH_TERMS'
-			(line <span class="line-number">129</span>)
+			(line <span class="line-number">154</span>)
 		</span>
 	</div>
 	
@@ -416,13 +433,13 @@
 		
 </div>
 <a name="definekAPI_OP_QUERY_USERS"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_OP_QUERY_USERS</span> = '@QUERY_USERS'
-			(line <span class="line-number">80</span>)
+			(line <span class="line-number">105</span>)
 		</span>
 	</div>
 	
@@ -433,13 +450,13 @@
 		
 </div>
 <a name="definekAPI_OP_SET_TAGS"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_OP_SET_TAGS</span> = '@SET_TAGS'
-			(line <span class="line-number">186</span>)
+			(line <span class="line-number">211</span>)
 		</span>
 	</div>
 	
@@ -460,13 +477,13 @@
 		
 </div>
 <a name="definekAPI_RESPONSE_EDGES"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_RESPONSE_EDGES</span> = 'edges'
-			(line <span class="line-number">488</span>)
+			(line <span class="line-number">513</span>)
 		</span>
 	</div>
 	
@@ -477,13 +494,13 @@
 		
 </div>
 <a name="definekAPI_RESPONSE_NODES"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_RESPONSE_NODES</span> = 'nodes'
-			(line <span class="line-number">481</span>)
+			(line <span class="line-number">506</span>)
 		</span>
 	</div>
 	
@@ -494,13 +511,13 @@
 		
 </div>
 <a name="definekAPI_RESPONSE_OBJECT"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_RESPONSE_OBJECT</span> = 'o'
-			(line <span class="line-number">516</span>)
+			(line <span class="line-number">541</span>)
 		</span>
 	</div>
 	
@@ -511,13 +528,13 @@
 		
 </div>
 <a name="definekAPI_RESPONSE_PREDICATE"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_RESPONSE_PREDICATE</span> = 'p'
-			(line <span class="line-number">508</span>)
+			(line <span class="line-number">533</span>)
 		</span>
 	</div>
 	
@@ -528,13 +545,13 @@
 		
 </div>
 <a name="definekAPI_RESPONSE_SUBJECT"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_RESPONSE_SUBJECT</span> = 's'
-			(line <span class="line-number">500</span>)
+			(line <span class="line-number">525</span>)
 		</span>
 	</div>
 	
@@ -545,13 +562,13 @@
 		
 </div>
 <a name="definekAPI_RESPONSE_TERMS"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div>
 		<img src="../../media/images/Constant.png" />
 		<span class="const-title">
 			<span class="const-name">kAPI_RESPONSE_TERMS</span> = 'terms'
-			(line <span class="line-number">474</span>)
+			(line <span class="line-number">499</span>)
 		</span>
 	</div>
 	
@@ -567,7 +584,7 @@
 	
 	
 	<p class="notes" id="credit">
-		Documentation generated on Mon, 25 Jun 2012 13:26:48 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Tue, 26 Jun 2012 12:30:30 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

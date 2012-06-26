@@ -197,6 +197,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 						switch( $_REQUEST[ kAPI_OPERATION ] )
 						{
 							case kAPI_OP_GET_USERS:
+							case kAPI_OP_GET_MANAGED_USERS:
 								$_REQUEST[ kAPI_CONTAINER ] = CEntity::DefaultContainer();
 								break;
 						
@@ -826,10 +827,17 @@ class CWarehouseWrapper extends CMongoDataWrapper
 						foreach( $_REQUEST[ kAPI_OPT_IDENTIFIERS ] as $identifier )
 						{
 							//
-							// Hash only if not an array.
+							// Handle code.
 							//
 							if( ! is_array( $identifier ) )
 								$identifiers[] = CUser::HashIndex( $identifier );
+							
+							//
+							// Assume identifier.
+							//
+							elseif( array_key_exists( kTAG_DATA, $identifier ) )
+								$identifiers[]
+									= CDataTypeBinary::FromHex( $identifier[ kTAG_DATA ] );
 						}
 			
 						//
@@ -839,6 +847,42 @@ class CWarehouseWrapper extends CMongoDataWrapper
 						$_REQUEST[ kAPI_DATA_QUERY ]->AppendStatement(
 														CQueryStatement::Member(
 															kTAG_LID,
+															$identifiers,
+															kTYPE_BINARY ),
+														kOPERATOR_AND );
+						break;
+				
+					//
+					// Handle managed users.
+					//
+					case kAPI_OP_GET_MANAGED_USERS:
+						//
+						// Hash identifiers.
+						//
+						$identifiers = Array();
+						foreach( $_REQUEST[ kAPI_OPT_IDENTIFIERS ] as $identifier )
+						{
+							//
+							// Handle code.
+							//
+							if( ! is_array( $identifier ) )
+								$identifiers[] = CUser::HashIndex( $identifier );
+							
+							//
+							// Assume identifier.
+							//
+							elseif( array_key_exists( kTAG_DATA, $identifier ) )
+								$identifiers[]
+									= CDataTypeBinary::FromHex( $identifier[ kTAG_DATA ] );
+						}
+			
+						//
+						// Convert to query.
+						//
+						$_REQUEST[ kAPI_DATA_QUERY ] = new CMongoQuery();
+						$_REQUEST[ kAPI_DATA_QUERY ]->AppendStatement(
+														CQueryStatement::Member(
+															kTAG_MANAGER,
 															$identifiers,
 															kTYPE_BINARY ),
 														kOPERATOR_AND );
@@ -855,10 +899,17 @@ class CWarehouseWrapper extends CMongoDataWrapper
 						foreach( $_REQUEST[ kAPI_OPT_IDENTIFIERS ] as $identifier )
 						{
 							//
-							// Hash only if not an array.
+							// Handle GID.
 							//
 							if( ! is_array( $identifier ) )
 								$identifiers[] = COntologyTerm::HashIndex( $identifier );
+							
+							//
+							// Assume identifier.
+							//
+							elseif( array_key_exists( kTAG_DATA, $identifier ) )
+								$identifiers[]
+									= CDataTypeBinary::FromHex( $identifier[ kTAG_DATA ] );
 						}
 			
 						//
@@ -1128,6 +1179,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				
 			case kAPI_OP_GET_USERS:
 			case kAPI_OP_QUERY_USERS:
+			case kAPI_OP_GET_MANAGED_USERS:
 			case kAPI_OP_GET_TERMS:
 			case kAPI_OP_MATCH_TERMS:
 			case kAPI_OP_GET_TAGS:
@@ -1440,6 +1492,10 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				break;
 
 			case kAPI_OP_QUERY_USERS:
+				$this->_Handle_GetUsers();
+				break;
+
+			case kAPI_OP_GET_MANAGED_USERS:
 				$this->_Handle_GetUsers();
 				break;
 

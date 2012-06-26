@@ -58,6 +58,31 @@ define( "kAPI_OP_LOGIN",			'@LOGIN' );
 define( "kAPI_OP_GET_USERS",		'@GET_USERS' );
 
 /**
+ * List managed users web-service.
+ *
+ * This is the tag that represents the list managed users web service, it will search for
+ * all users that are {@link CUser::Manager() managed} by the users provided in the
+ * {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter.
+ *
+ * The service will return the list of all managed users structured as follows:
+ *
+ * <ul>
+ *	<li><i>Key</i>: The {@link CUser user} {@link kTAG_CODE code}.
+ *	<li><i>Value</i>: The contents of the {@link CUser user} record.
+ * </ul>
+ *
+ * If you omit the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter the service
+ * will return no records.
+ *
+ * The service will check the {@link kAPI_DATA_FIELD kAPI_DATA_FIELD} parameter to return
+ * the provided list of fields.
+ *
+ * Note that the {@link kAPI_CONTAINER container} is not required, if omitted it will be
+ * initialised to the {@link kENTITY_CONTAINER kENTITY_CONTAINER} constant.
+ */
+define( "kAPI_OP_GET_MANAGED_USERS",	'@GET_MANAGED_USERS' );
+
+/**
  * Query users web-service.
  *
  * This is the tag that represents the get query users web service, it will locate all

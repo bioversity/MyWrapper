@@ -130,6 +130,43 @@ class CDataTypeBinary extends CDataType
 	
 	} // value.
 
+		
+
+/*=======================================================================================
+ *																						*
+ *									STATIC INTERFACE									*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	FromHex																			*
+	 *==================================================================================*/
+
+	/**
+	 * Create from hex.
+	 *
+	 * This method will return an object created from the provided hexadecimal value.
+	 *
+	 * @param string				$theHex				Binary hexadecimal value.
+	 *
+	 * @access public
+	 * @return CDataTypeBinary
+	 */
+	public function FromHex( $theHex )
+	{
+		//
+		// Convert to binary.
+		//
+		$data = ( function_exists( 'hex2bin' ) )
+			  ? hex2bin( $theHex )
+			  : pack( 'H*', $theHex );
+		
+		return new self( $data );													// ==>
+	
+	} // FromHex.
+
 	 
 
 } // class CDataTypeBinary.
