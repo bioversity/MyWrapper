@@ -795,7 +795,7 @@ class CMongoContainer extends CContainer
 	/**
 	 * Prepare before a {@link _Commit() commit}.
 	 *
-	 * We {@link CContaoiner::_PrepareCommit() overload} this method to handle the
+	 * We {@link CContainer::_PrepareCommit() overload} this method to handle the
 	 * identifier: if provided, it means that that is to become the object's unique
 	 * {@link kTAG_LID identifier}; if not provided and the object has an
 	 * {@link kTAG_LID identifier}, we use that one.

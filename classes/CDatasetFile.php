@@ -57,6 +57,10 @@ require_once( kPATH_LIBRARY_SOURCE."CArrayObject.php" );
  *	 </ul>
  * </ul>
  *
+ * You should always instantiate this class from the {@link CDataset dataset} by using its
+ * {@link CDataset::NewFile() static} method rather than instantiating the class on its own,
+ * this is because this way it is guaranteed that the record points to an existing file.
+ *
  *	@package	MyWrapper
  *	@subpackage	Traits
  */
@@ -99,47 +103,7 @@ class CDatasetFile extends CArrayObject
 		//
 		elseif( is_array( $theData )
 			 || ($theData instanceof ArrayObject) )
-		{
-			//
-			// Select properties.
-			//
-			foreach( $theData as $key => $value )
-			{
-				//
-				// Parse property.
-				//
-				switch( $key )
-				{
-					case kOFFSET_FILE:
-						$this->File( $value );
-						break;
-				
-					case kTAG_REFS:
-						foreach( $value as $element )
-							$this->Referenced( $element );
-						break;
-				
-					case kTAG_STATUS:
-						foreach( $value as $element )
-							$this->Status( $element );
-						break;
-				
-					case kTAG_KIND:
-						foreach( $value as $element )
-							$this->Kind( $element );
-						break;
-				
-					case kOFFSET_COLS:
-						foreach( $value as $col => $element )
-							$this->Column( $col, $element[ kTAG_TAG ],
-												 $element[ kTAG_TITLE ] );
-						break;
-				
-				} // Parsed property.
-			
-			} // Iterating properties.
-		
-		} // Provided structure.
+			parent::__construct( (array) $theData );
 
 	} // Constructor.
 
@@ -400,8 +364,10 @@ class CDatasetFile extends CArrayObject
 		//
 		// Reference column.
 		//
-		$column = ( array_key_exists( $theColumn, $save ) )
-				? $save[ $theColumn ]
+		$column = ( is_array( $save ) )
+				? ( ( array_key_exists( $theColumn, $save ) )
+				  ? $save[ $theColumn ]
+				  : NULL )
 				: NULL;
 		
 		//

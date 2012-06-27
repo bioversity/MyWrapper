@@ -27,6 +27,13 @@
 require_once( kPATH_LIBRARY_SOURCE."CRelatedUnitObject.php" );
 
 /**
+ * Grid container.
+ *
+ * This include file contains the file grid class definitions.
+ */
+require_once( kPATH_LIBRARY_SOURCE."CMongoGridContainer.php" );
+
+/**
  * Dataset object.
  *
  * Besides the inherited properties. datasets have the following attributes:
@@ -390,6 +397,235 @@ class CDataset extends CRelatedUnitObject
 
 	 
 	/*===================================================================================
+	 *	Files																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage files.
+	 *
+	 * This method can be used to handle the object's {@link kOFFSET_FILES files}, the
+	 * property is an array of elements representing the metadata of a file associated with
+	 * the dataset.
+	 *
+	 * Each element is a {@link CDatasetFile record} in which the
+	 * {@link CDatasetFile::File() file} {@link kOFFSET_FILE element} represents its unique
+	 * identifier.
+	 *
+	 * To modify items of each {@link CDatasetFile element} you should use
+	 * {@link CDatasetFile CDatasetFile} class instances, this method accepts these and
+	 * derived arrays.
+	 *
+	 * The method accepts three parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: This parameter represents either the metadata record to be
+	 *		added, or the {@link kOFFSET_FILE file} item that identifies the metadata
+	 *		record:
+	 *	 <ul>
+	 *		<li><i>{@link CDatasetFile CDatasetFile}</i>: Use the record for
+	 *			adding/replacing or use the record's {@link kOFFSET_FILE file} for
+	 *			retrieving  or deleting. When adding, the object will be converted to an
+	 *			array.
+	 *		<li><i>array</i>: Use the array for adding/replacing or use the
+	 *			{@link kOFFSET_FILE kOFFSET_FILE} element for retrieving  or deleting.
+	 *		<li><i>NULL</i>: This indicates that we are operating on the whole files list
+	 *			when deleting or retrieving; <i>if you indicate store in the operation, the
+	 *			method will simply assume retrieval</i>.
+	 *	 </ul>
+	 *	<li><b>$theOperation</b>: This parameter represents the operation to be performed:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Retrieve the record identified by the previous parameter.
+	 *		<li><i>FALSE</i>: Delete the record identified by the previous parameter.
+	 *		<li><i>other</i>: Add or replace the metadata record provided in the previous
+	 *			parameter.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
+	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * @param mixed					$theValue			Value or index.
+	 * @param mixed					$theOperation		Operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return mixed
+	 *
+	 * @see kOFFSET_FILES
+	 */
+	public function Files( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
+	{
+		//
+		// Save current list.
+		//
+		$list = $this->offsetGet( kOFFSET_FILES );
+		
+		//
+		// Handle whole list.
+		//
+		if( $theValue === NULL )
+		{
+			//
+			// Handle delete.
+			//
+			if( $theOperation === FALSE )
+			{
+				//
+				// Delete offset.
+				//
+				if( $list !== NULL )
+					$this->offsetUnset( kOFFSET_FILES );
+				
+				if( ! $getOld )
+					return NULL;													// ==>
+			
+			} // Delete.
+			
+			if( $getOld )
+				return $list;														// ==>
+			
+			return NULL;															// ==>
+		
+		} // Handle whole list.
+
+		//
+		// Normalise value.
+		//
+		if( $theValue instanceof CDatasetFile )
+			$theValue = $theValue->getArrayCopy();
+		
+		//
+		// Check file reference.
+		//
+		if( is_array( $theValue )
+		 && (! array_key_exists( kOFFSET_FILE, $theValue )) )
+			throw new CException
+					( "File metadata is missing the file reference",
+					  kERROR_INVALID_STATE,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Record' => $theValue ) );							// !@! ==>
+		
+		//
+		// Index list.
+		//
+		if( $list !== NULL )			// Has data.
+		{
+			//
+			// Index list.
+			//
+			$match = Array();
+			foreach( $list as $key => $value )
+			{
+				//
+				// Check file reference.
+				//
+				if( array_key_exists( kOFFSET_FILE, $value ) )
+					$match[ (string) $value[ kOFFSET_FILE ] ] = $value;
+				
+				else
+					throw new CException
+							( "An element of the list is missing the file reference",
+							  kERROR_INVALID_STATE,
+							  kMESSAGE_TYPE_ERROR,
+							  array( 'List' => $list ) );						// !@! ==>
+			
+			} // Indexing list.
+			
+			//
+			// Save index.
+			//
+			$idx = ( is_array( $theValue ) )
+				 ? (string) $theValue[ kOFFSET_FILE ]
+				 : (string) $theValue;
+			
+			//
+			// Save match.
+			//
+			$save = ( array_key_exists( $idx, $match ) )
+				  ? $match[ $idx ]
+				  : NULL;
+		
+		} // Indexed list.
+		
+		else
+			$save = NULL;
+		
+		//
+		// Return current value.
+		//
+		if( $theOperation === NULL )
+			return $save;															// ==>
+		
+		//
+		// Delete data.
+		//
+		if( $theOperation === FALSE )
+		{
+			//
+			// Delete element.
+			//
+			if( $save !== NULL )
+			{
+				//
+				// Remove element.
+				//
+				unset( $match[ $idx ] );
+				
+				//
+				// Update list.
+				//
+				if( count( $match ) )
+					$this->offsetSet( kOFFSET_FILES, array_values( $match ) );
+				
+				//
+				// Delete list.
+				//
+				else
+					$this->offsetUnset( kOFFSET_FILES );
+			
+			} // Element exists.
+			
+			if( $getOld )
+				return $save;														// ==>
+			
+			return NULL;															// ==>
+		
+		} // Delete data.
+		
+		//
+		// Add or replace element.
+		//
+		if( $list !== NULL )
+		{
+			//
+			// Set element.
+			//
+			$match[ $idx ] = $theValue;
+			
+			//
+			// Update offset.
+			//
+			$this->offsetSet( kOFFSET_FILES, array_values( $match ) );
+		
+		} // Had values.
+		
+		//
+		// Create list.
+		//
+		else
+			$this->offsetSet( kOFFSET_FILES, array( $theValue ) );
+		
+		if( $getOld )
+			return $save;															// ==>
+		
+		return $theValue;															// ==>
+	
+	} // Files.
+
+	 
+	/*===================================================================================
 	 *	Created																			*
 	 *==================================================================================*/
 
@@ -478,6 +714,92 @@ class CDataset extends CRelatedUnitObject
 
 /*=======================================================================================
  *																						*
+ *								PUBLIC OPERATIONS INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	NewFile																			*
+	 *==================================================================================*/
+
+	/**
+	 * Create file reference.
+	 *
+	 * This method can be used to create a new file reference, it will store the provided
+	 * file in the grid and return a file metadata {@link CDatasetFile record} with the file
+	 * reference.
+	 *
+	 * This method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theFile</b>: The file path.
+	 *	<li><b>$theContainer</b>: The grid container in the form of a CMongoGridContainer.
+	 *	<li><b>$theMetadata</b>: An array of custom data that will be added to the
+	 *		MongoGridFS record under the "metadata" label.
+	 *	<li><b>$theModifiers</b>: A bitfield containing the operation options, the only
+	 *		relevant flag is {@link kFLAG_STATE_ENCODED kFLAG_STATE_ENCODED} which
+	 *		determines whether custom data types are to be encoded.
+	 * </ul>
+	 *
+	 * The method will first attempt to store the file, then it will initialise a
+	 * {@link CDatasetFile record} with the file reference and return it.
+	 *
+	 * It is the responsibility of the caller to complete and store the
+	 * {@link CDatasetFile record} in a dataset.
+	 *
+	 * @param string				$theFile			File path.
+	 * @param CMongoGridContainer	$theContainer		File grid container.
+	 * @param mixed					$theMetadata		File metadata.
+	 * @param bitfield				$theModifiers		Operation modifiers.
+	 *
+	 * @static
+	 * @return CDatasetFile
+	 *
+	 * @uses CAttribute::ManageOffset()
+	 *
+	 * @see kTAG_TITLE
+	 */
+	static function NewFile( $theFile, $theContainer, $theMetadata = NULL,
+													  $theModifiers = kFLAG_DEFAULT )
+	{
+		//
+		// Check container.
+		//
+		if( $theContainer instanceof MongoGridFS )
+			$theContainer = new CMongoGridContainer( $theContainer );
+		elseif( ! ($theContainer instanceof CMongoGridContainer) )
+			throw new CException
+					( "Unsupported container type",
+					  kERROR_UNSUPPORTED,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Container' => $theContainer ) );					// !@! ==>
+		
+		//
+		// Convert file.
+		//
+		$theFile = new SplFileInfo( $theFile );
+		
+		//
+		// Commit file.
+		//
+		$id = $theContainer->Commit( $theFile, $theMetadata, $theModifiers );
+		
+		//
+		// Instantiate file metadata record.
+		//
+		$record = new CDatasetFile();
+		$record->File( $id );
+		
+		return $record;																// ==>
+
+	} // NewFile.
+
+		
+
+/*=======================================================================================
+ *																						*
  *								PUBLIC ARRAY ACCESS INTERFACE							*
  *																						*
  *======================================================================================*/
@@ -511,7 +833,8 @@ class CDataset extends CRelatedUnitObject
 		// Set inited flag.
 		//
 		if( $theValue !== NULL )
-			$this->_IsInited( $this->offsetExists( kTAG_CODE ) );
+			$this->_IsInited( $this->offsetExists( kTAG_TITLE )
+						   && $this->offsetExists( kENTITY_USER ) );
 	
 	} // offsetSet.
 
@@ -541,9 +864,94 @@ class CDataset extends CRelatedUnitObject
 		//
 		// Set inited flag.
 		//
-		$this->_IsInited( $this->offsetExists( kTAG_CODE ) );
+		$this->_IsInited( $this->offsetExists( kTAG_TITLE )
+					   && $this->offsetExists( kENTITY_USER ) );
 	
 	} // offsetUnset.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PROTECTED PERSISTENCE UTILITIES							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	_PrepareCreate																	*
+	 *==================================================================================*/
+
+	/**
+	 * Normalise parameters of a create.
+	 *
+	 * We overload this method to enforce the {@link kFLAG_STATE_ENCODED encoded} modifier.
+	 *
+	 * @param reference			   &$theContainer		Object container.
+	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Create modifiers.
+	 *
+	 * @access protected
+	 *
+	 * @uses _IsEncoded()
+	 *
+	 * @see kFLAG_STATE_ENCODED
+	 */
+	protected function _PrepareCreate( &$theContainer, &$theIdentifier, &$theModifiers )
+	{
+		//
+		// Set encoded flag.
+		//
+		$theModifiers |= kFLAG_STATE_ENCODED;
+		
+		//
+		// Call parent method.
+		//
+		parent::_PrepareCreate( $theContainer, $theIdentifier, $theModifiers );
+	
+	} // _PrepareCreate.
+
+	 
+	/*===================================================================================
+	 *	_PrepareCommit																	*
+	 *==================================================================================*/
+
+	/**
+	 * Normalise before a store.
+	 *
+	 * We {@link CPersistentUnitObject::_PrepareCommit() overload} this method to
+	 * {@link Commit() commit} eventual object references stored as instances. We scan the
+	 * {@link User() user} references and process all elements stored as instances.
+	 *
+	 * @param reference			   &$theContainer		Object container.
+	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Commit modifiers.
+	 *
+	 * @access protected
+	 *
+	 * @throws {@link CException CException}
+	 *
+	 * @see kERROR_OPTION_MISSING
+	 */
+	protected function _PrepareCommit( &$theContainer, &$theIdentifier, &$theModifiers )
+	{
+		//
+		// Set encoded flag.
+		//
+		$theModifiers |= kFLAG_STATE_ENCODED;
+		
+		//
+		// Call parent method.
+		//
+		parent::_PrepareCommit( $theContainer, $theIdentifier, $theModifiers );
+		
+		//
+		// Handle users.
+		//
+		$this->_ParseReferences( kENTITY_USER, $theContainer, $theModifiers );
+		
+	} // _PrepareCommit.
 
 		
 
@@ -562,13 +970,24 @@ class CDataset extends CRelatedUnitObject
 	/**
 	 * Return the object's unique index.
 	 *
-	 * In this class we consider the {@link kTAG_CODE code} to be the object's unique
-	 * {@link kTAG_LID identifier}.
+	 * In this class we build the object {@link kTAG_LID ID} by concatenating the dataset
+	 * dataset {@link User() creator} with the {@link Title() title} separated by the
+	 * {@link kTOKEN_INDEX_SEPARATOR kTOKEN_INDEX_SEPARATOR} token.
 	 *
 	 * @access protected
 	 * @return string
 	 */
-	protected function _index()									{	return $this->Code();	}
+	protected function _index()
+	{
+		//
+		// Get user identifier.
+		//
+		if( ($user = $this->User()) instanceof CUser )
+			$user = (string) $user->_id();
+			
+		return $user.kTOKEN_INDEX_SEPARATOR.$this->Title();							// ==>
+	
+	} // _index.
 
 	 
 

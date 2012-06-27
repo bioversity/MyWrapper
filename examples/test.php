@@ -610,11 +610,34 @@ $node->save();
 echo( '<pre>' );
 print_r( $node );
 echo( '</pre><hr>' );
-*/
 
 //
 // Test open exceptions.
 //
 $x = new SplFileObject( 'pippo' );
+*/
+
+//
+// GridFS test.
+//
+$mongo = New Mongo();
+$db = $mongo->selectDB( 'TEST' );
+$grid = $db->getGridFS( 'TEST' );
+
+echo( 'Name: '.$grid->getName().'<br>' );
+
+//
+// Store file.
+//
+$file = __FILE__;
+$id = $grid->storeFile( $file,
+						array( 'metadata' => array( 'DATE' => new MongoDate() ) ),
+						array( 'safe' => TRUE ) );
+echo( '<pre>' );
+print_r( $id );
+echo( '</pre>' );
+echo( '<pre>' );
+print_r( (string) $id );
+echo( '</pre>' );
 
 ?>

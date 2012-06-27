@@ -228,7 +228,7 @@ define( "kFLAG_MODIFY_MASK",			0x00000F00 );		// Modifications mask.
  *
  * This bitfield value indicates that we intend to include
  * {@link kTAG_REFERENCE_ID identifier} information to the reference, this is used when
- * {@link CConttainer::Reference() converting} a {@link CPersistentObject persistent} object
+ * {@link CContainer::Reference() converting} a {@link CPersistentObject persistent} object
  * to a reference.
  */
 define( "kFLAG_REFERENCE_IDENTIFIER",	0x00001000 );		// Identifier.
@@ -238,7 +238,7 @@ define( "kFLAG_REFERENCE_IDENTIFIER",	0x00001000 );		// Identifier.
  *
  * This bitfield value indicates that we intend to include
  * {@link kTAG_REFERENCE_CONTAINER container} information to the reference, this is used
- * when {@link CConttainer::Reference() converting} a {@link CPersistentObject persistent}
+ * when {@link CContainer::Reference() converting} a {@link CPersistentObject persistent}
  * object to a reference.
  */
 define( "kFLAG_REFERENCE_CONTAINER",	0x00002000 );		// Container.
@@ -248,7 +248,7 @@ define( "kFLAG_REFERENCE_CONTAINER",	0x00002000 );		// Container.
  *
  * This bitfield value indicates that we intend to include
  * {@link kTAG_REFERENCE_DATABASE database} information to the reference, this is used
- * when {@link CConttainer::Reference() converting} a {@link CPersistentObject persistent}
+ * when {@link CContainer::Reference() converting} a {@link CPersistentObject persistent}
  * object to a reference.
  */
 define( "kFLAG_REFERENCE_DATABASE",		0x00004000 );		// Database.
@@ -258,7 +258,7 @@ define( "kFLAG_REFERENCE_DATABASE",		0x00004000 );		// Database.
  *
  * This bitfield value indicates that we intend to include {@link kTAG_CLASS class}
  * information to the reference, this is used when
- * {@link CConttainer::Reference() converting} a {@link CPersistentObject persistent}
+ * {@link CContainer::Reference() converting} a {@link CPersistentObject persistent}
  * object to a reference.
  */
 define( "kFLAG_REFERENCE_CLASS",		0x00008000 );		// Class.

@@ -99,7 +99,11 @@ abstract class CContainer extends CObject
 	 */
 	public function __construct( $theContainer = NULL )
 	{
-		$this->Container( $theContainer );
+		//
+		// Handle native container.
+		//
+		if( $theContainer !== NULL )
+			$this->Container( $theContainer );
 		
 	} // Constructor.
 
