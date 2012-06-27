@@ -115,13 +115,17 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 			{
 				case kAPI_OP_LOGIN:
 				case kAPI_OP_GET_USERS:
+				case kAPI_OP_GET_MANAGED_USERS:
+				case kAPI_OP_QUERY_USERS:
 				case kAPI_OP_GET_TERMS:
 				case kAPI_OP_MATCH_TERMS:
+				case kAPI_OP_GET_TAGS:
+				case kAPI_OP_SET_TAGS:
 				case kAPI_OP_GET_NODES:
 				case kAPI_OP_GET_EDGES:
 				case kAPI_OP_GET_RELS:
 				case kAPI_OP_GET_ROOTS:
-				case kAPI_OP_SET_TAGS:
+				case kAPI_OP_GET_DATASETS:
 					break;
 				
 				default:
@@ -133,6 +137,80 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 				( $this, kAPI_OPERATION, $theValue, $getOld );						// ==>
 
 	} // Operation.
+
+	 
+	/*===================================================================================
+	 *	ObjectID																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage object ID.
+	 *
+	 * This method can be used to manage the object {@link kAPI_OPT_ID ID}, it accepts a
+	 * value which represents either the object identifier, or the requested operation:
+	 *
+	 * <ul>
+	 *	<li><i>NULL</i>: Return the current value.
+	 *	<li><i>FALSE</i>: Delete the current value.
+	 *	<li><i>other</i>: Set the value with the provided parameter.
+	 * </ul>
+	 *
+	 * The second parameter is a boolean which if <i>TRUE</i> will return the <i>old</i>
+	 * value when replacing values; if <i>FALSE</i>, it will return the currently set value.
+	 *
+	 * @param integer				$theValue			Value or operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return mixed
+	 *
+	 * @uses CAttribute::ManageOffset()
+	 *
+	 * @see kAPI_OPT_ID
+	 */
+	public function ObjectID( $theValue = NULL, $getOld = FALSE )
+	{
+		return CAttribute::ManageOffset
+				( $this, kAPI_OPT_ID, $theValue, $getOld );							// ==>
+
+	} // ObjectID.
+
+	 
+	/*===================================================================================
+	 *	ObjectTitle																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage object title.
+	 *
+	 * This method can be used to manage the object {@link kAPI_OPT_TITLE title}, it accepts
+	 * a value which represents either the object title, or the requested operation:
+	 *
+	 * <ul>
+	 *	<li><i>NULL</i>: Return the current value.
+	 *	<li><i>FALSE</i>: Delete the current value.
+	 *	<li><i>other</i>: Set the value with the provided parameter.
+	 * </ul>
+	 *
+	 * The second parameter is a boolean which if <i>TRUE</i> will return the <i>old</i>
+	 * value when replacing values; if <i>FALSE</i>, it will return the currently set value.
+	 *
+	 * @param integer				$theValue			Value or operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return mixed
+	 *
+	 * @uses CAttribute::ManageOffset()
+	 *
+	 * @see kAPI_OPT_TITLE
+	 */
+	public function ObjectTitle( $theValue = NULL, $getOld = FALSE )
+	{
+		return CAttribute::ManageOffset
+				( $this, kAPI_OPT_TITLE, $theValue, $getOld );						// ==>
+
+	} // ObjectTitle.
 
 	 
 	/*===================================================================================

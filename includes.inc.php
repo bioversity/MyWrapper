@@ -132,6 +132,13 @@ define( "kDEFAULT_CNT_NODES",			"NODES" );
  */
 define( "kDEFAULT_CNT_EDGES",			"EDGES" );
 
+/**
+ * Default datasets container name.
+ *
+ * This value defines the default datasets container name.
+ */
+define( "kDEFAULT_CNT_DATASET",			"DATASETS" );
+
 /*=======================================================================================
  *	CLASS AUTOLOADER																	*
  *======================================================================================*/

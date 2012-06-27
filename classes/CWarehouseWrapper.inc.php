@@ -401,6 +401,52 @@ define( "kAPI_OP_GET_RELS",			'@GET_RELS' );
  */
 define( "kAPI_OP_GET_ROOTS",		'@GET_ROOTS' );
 
+/**
+ * List datasets web-service.
+ *
+ * This is the tag that represents the list datasets web service, it will locate all
+ * {@link CDataset datasets} matching the provided identifiers in the
+ * {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter and return an array
+ * structured as follows:
+ *
+ * <ul>
+ *	<li><i>Key</i>: The {@link CDataset dataset} global {@link kTAG_GID identifier}.
+ *	<li><i>Value</i>: The contents of the {@link CDataset dataset}.
+ * </ul>
+ *
+ * If you omit the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter it is assumed
+ * that you want all datasets, in that case the service will enforce the use of
+ * {@link kAPI_DATA_PAGING paging} options.
+ *
+ * The service will check the {@link kAPI_DATA_FIELD kAPI_DATA_FIELD} parameter to return
+ * the provided list of fields.
+ *
+ * Note that the {@link kAPI_CONTAINER container} is not required, if omitted it will be
+ * initialised to the {@link kDEFAULT_CNT_DATASET kDEFAULT_CNT_DATASET} constant.
+ */
+define( "kAPI_OP_GET_DATASETS",		'@GET_DATASETS' );
+
+/*=======================================================================================
+ *	STANDARD OPTION ENUMERATIONS														*
+ *======================================================================================*/
+
+/**
+ * ID.
+ *
+ * This option refers to the current object {@link kTAG:LID identifier}, it will be used
+ * when retrieving, updating and deleting objects, its scope is dependent on the service
+ * {@link kAPI_OPERATION operation}.
+ */
+define( "kAPI_OPT_ID",				':@ID' );
+
+/**
+ * Title.
+ *
+ * This option is used for referring to generic {@link kTAG_TITLE title} object attributes, 
+ * its scope is dependent on the service {@link kAPI_OPERATION operation}.
+ */
+define( "kAPI_OPT_TITLE",			':@TITLE' );
+
 /*=======================================================================================
  *	DEFAULT OPTION ENUMERATIONS															*
  *======================================================================================*/

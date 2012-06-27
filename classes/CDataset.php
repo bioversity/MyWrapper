@@ -123,6 +123,27 @@ class CDataset extends CRelatedUnitObject
 
 	 
 	/*===================================================================================
+	 *	GID																				*
+	 *==================================================================================*/
+
+	/**
+	 * Manage dataset global identifier.
+	 *
+	 * The term global {@link kTAG_GID identifier} represents the un-hashed version of the
+	 * term local {@link kTAG_LID identifier}.
+	 *
+	 * This value is set automatically by a protected {@link _PrepareCommit() method}, so
+	 * this method is read-only.
+	 *
+	 * @access public
+	 * @return string
+	 *
+	 * @see kTAG_GID
+	 */
+	public function GID()									{	return $this[ kTAG_GID ];	}
+
+	 
+	/*===================================================================================
 	 *	Title																			*
 	 *==================================================================================*/
 
@@ -950,6 +971,11 @@ class CDataset extends CRelatedUnitObject
 		// Handle users.
 		//
 		$this->_ParseReferences( kENTITY_USER, $theContainer, $theModifiers );
+		
+		//
+		// Set global identifier.
+		//
+		$this[ kTAG_GID ] = $this->_index();
 		
 	} // _PrepareCommit.
 

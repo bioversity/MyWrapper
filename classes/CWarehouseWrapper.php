@@ -166,6 +166,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				case kAPI_OP_GET_TAGS:
 				case kAPI_OP_GET_NODES:
 				case kAPI_OP_GET_EDGES:
+				case kAPI_OP_GET_DATASETS:
 					//
 					// Check if identifiers are missig.
 					//
@@ -217,6 +218,10 @@ class CWarehouseWrapper extends CMongoDataWrapper
 						
 							case kAPI_OP_GET_EDGES:
 								$_REQUEST[ kAPI_CONTAINER ] = kDEFAULT_CNT_EDGES;
+								break;
+						
+							case kAPI_OP_GET_DATASETS:
+								$_REQUEST[ kAPI_CONTAINER ] = kDEFAULT_CNT_DATASET;
 								break;
 						
 						} // Reparsing operation.
@@ -332,6 +337,8 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		//
 		// Handle parameters.
 		//
+		$this->_ParseID();
+		$this->_ParseTitle();
 		$this->_ParseIdentifiers();
 		$this->_ParsePredicates();
 		$this->_ParsePredicatesInclusion();
@@ -416,6 +423,72 @@ class CWarehouseWrapper extends CMongoDataWrapper
  *																						*
  *======================================================================================*/
 
+
+	 
+	/*===================================================================================
+	 *	_ParseID																		*
+	 *==================================================================================*/
+
+	/**
+	 * Parse ID.
+	 *
+	 * This method will parse the {@link kAPI_OPT_ID ID} parameter.
+	 *
+	 * @access protected
+	 *
+	 * @see kAPI_DATA_REQUEST kAPI_OPT_ID
+	 */
+	protected function _ParseID()
+	{
+		//
+		// Handle ID.
+		//
+		if( array_key_exists( kAPI_OPT_ID, $_REQUEST ) )
+		{
+			//
+			// Add to request.
+			//
+			if( $this->offsetExists( kAPI_DATA_REQUEST ) )
+				$this->_OffsetManage
+					( kAPI_DATA_REQUEST, kAPI_OPT_ID,
+					  $_REQUEST[ kAPI_OPT_ID ] );
+		
+		} // Has ID.
+	
+	} // _ParseID.
+
+	 
+	/*===================================================================================
+	 *	_ParseTitle																		*
+	 *==================================================================================*/
+
+	/**
+	 * Parse title.
+	 *
+	 * This method will parse the {@link kAPI_OPT_TITLE title} parameter.
+	 *
+	 * @access protected
+	 *
+	 * @see kAPI_DATA_REQUEST kAPI_OPT_TITLE
+	 */
+	protected function _ParseTitle()
+	{
+		//
+		// Handle title.
+		//
+		if( array_key_exists( kAPI_OPT_TITLE, $_REQUEST ) )
+		{
+			//
+			// Add to request.
+			//
+			if( $this->offsetExists( kAPI_DATA_REQUEST ) )
+				$this->_OffsetManage
+					( kAPI_DATA_REQUEST, kAPI_OPT_TITLE,
+					  $_REQUEST[ kAPI_OPT_TITLE ] );
+		
+		} // Has title.
+	
+	} // _ParseTitle.
 
 	 
 	/*===================================================================================
@@ -970,6 +1043,42 @@ class CWarehouseWrapper extends CMongoDataWrapper
 														kOPERATOR_AND );
 						break;
 				
+					//
+					// Handle dataset references.
+					//
+					case kAPI_OP_GET_DATASETS:
+						//
+						// Hash identifiers.
+						//
+						$identifiers = Array();
+						foreach( $_REQUEST[ kAPI_OPT_IDENTIFIERS ] as $identifier )
+						{
+							//
+							// Handle GID.
+							//
+							if( ! is_array( $identifier ) )
+								$identifiers[] = CDataset::HashIndex( $identifier );
+							
+							//
+							// Assume identifier.
+							//
+							elseif( array_key_exists( kTAG_DATA, $identifier ) )
+								$identifiers[]
+									= CDataTypeBinary::FromHex( $identifier[ kTAG_DATA ] );
+						}
+			
+						//
+						// Convert to query.
+						//
+						$_REQUEST[ kAPI_DATA_QUERY ] = new CMongoQuery();
+						$_REQUEST[ kAPI_DATA_QUERY ]->AppendStatement(
+														CQueryStatement::Member(
+															kTAG_LID,
+															$identifiers,
+															kTYPE_BINARY ),
+														kOPERATOR_AND );
+						break;
+				
 				} // Parsed by request.
 			
 			} // Provided operation.
@@ -1187,6 +1296,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 			case kAPI_OP_GET_NODES:
 			case kAPI_OP_GET_EDGES:
 			case kAPI_OP_GET_ROOTS:
+			case kAPI_OP_GET_DATASETS:
 				
 				//
 				// Check for database.
@@ -1488,19 +1598,19 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				break;
 
 			case kAPI_OP_GET_USERS:
-				$this->_Handle_GetUsers();
+				$this->_Handle_ListCollection();
 				break;
 
 			case kAPI_OP_QUERY_USERS:
-				$this->_Handle_GetUsers();
+				$this->_Handle_ListCollection();
 				break;
 
 			case kAPI_OP_GET_MANAGED_USERS:
-				$this->_Handle_GetUsers();
+				$this->_Handle_ListCollection();
 				break;
 
 			case kAPI_OP_GET_TERMS:
-				$this->_Handle_GetTerms();
+				$this->_Handle_ListCollection();
 				break;
 
 			case kAPI_OP_MATCH_TERMS:
@@ -1508,7 +1618,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				break;
 
 			case kAPI_OP_GET_TAGS:
-				$this->_Handle_GetTerms();
+				$this->_Handle_ListCollection();
 				break;
 
 			case kAPI_OP_SET_TAGS:
@@ -1529,6 +1639,10 @@ class CWarehouseWrapper extends CMongoDataWrapper
 
 			case kAPI_OP_GET_ROOTS:
 				$this->_Handle_GetNodes();
+				break;
+
+			case kAPI_OP_GET_DATASETS:
+				$this->_Handle_ListCollection();
 				break;
 
 			default:
@@ -1625,201 +1739,22 @@ class CWarehouseWrapper extends CMongoDataWrapper
 
 	 
 	/*===================================================================================
-	 *	_Handle_GetUsers																*
+	 *	_Handle_ListCollection															*
 	 *==================================================================================*/
 
 	/**
-	 * Handle {@link kAPI_OP_GET_USERS Get-users} request.
+	 * Handle GET-XXX request.
 	 *
-	 * This method will handle the {@link kAPI_OP_GET_USERS kAPI_OP_GET_USERS} request,
-	 * which is equivalent to the {@link _Handle_Get() _Handle_Get} method, with the only
-	 * difference being that each found element is here indexed by the {@link CUser user}
-	 * {@link kTAG_CODE code}.
-	 *
-	 * The only reason to re-develop this method is to provide a consistent view of users in
-	 * all calls.
-	 *
-	 * @access protected
-	 */
-	protected function _Handle_GetUsers()
-	{
-		//
-		// Handle query.
-		//
-		$query = ( array_key_exists( kAPI_DATA_QUERY, $_REQUEST ) )
-				? $_REQUEST[ kAPI_DATA_QUERY ]
-				: Array();
-		
-		//
-		// Handle fields.
-		//
-		$fields = ( array_key_exists( kAPI_DATA_FIELD, $_REQUEST ) )
-				? $_REQUEST[ kAPI_DATA_FIELD ]
-				: Array();
-		
-		//
-		// Handle sort.
-		//
-		$sort = ( array_key_exists( kAPI_DATA_SORT, $_REQUEST ) )
-			  ? $_REQUEST[ kAPI_DATA_SORT ]
-			  : Array();
-		
-		//
-		// Fix fields.
-		// Need to add code, or we will not be able to index results array.
-		//
-		$added = FALSE;
-		if( count( $fields )
-		 && (! array_key_exists( kTAG_CODE, $fields )) )
-		{
-			$fields[ kTAG_CODE ] = TRUE;
-			$added = TRUE;
-		}
-		
-		//
-		// Get cursor.
-		//
-		$cursor = $_REQUEST[ kAPI_CONTAINER ]->find( $query, $fields );
-		
-		//
-		// Set total count.
-		//
-		$count = $cursor->count( FALSE );
-		$this->_OffsetManage( kAPI_DATA_STATUS, kAPI_AFFECTED_COUNT, $count );
-		
-		//
-		// Continue if count option is not there.
-		//
-		if( (! array_key_exists( kAPI_DATA_OPTIONS, $_REQUEST ))
-		 || (! array_key_exists( kAPI_OPT_COUNT, $_REQUEST[ kAPI_DATA_OPTIONS ] ))
-		 || (! $_REQUEST[ kAPI_DATA_OPTIONS ][ kAPI_OPT_COUNT ]) )
-		{
-			//
-			// Handle results.
-			//
-			if( $count )
-			{
-				//
-				// Set sort.
-				//
-				if( $sort )
-					$cursor->sort( $sort );
-				
-				//
-				// Set paging.
-				//
-				if( $this->offsetExists( kAPI_DATA_PAGING ) )
-				{
-					//
-					// Set paging.
-					//
-					$paging = $this->offsetGet( kAPI_DATA_PAGING );
-					$start = ( array_key_exists( kAPI_PAGE_START, $paging ) )
-						   ? (int) $paging[ kAPI_PAGE_START ]
-						   : 0;
-					$limit = ( array_key_exists( kAPI_PAGE_LIMIT, $paging ) )
-						   ? (int) $paging[ kAPI_PAGE_LIMIT ]
-						   : 0;
-					
-					//
-					// Position at start.
-					//
-					if( $start )
-						$cursor->skip( $start );
-					
-					//
-					// Set limit.
-					//
-					if( $limit )
-						$cursor->limit( $limit );
-					
-					//
-					// Set page count.
-					//
-					$pcount = $cursor->count( TRUE );
-					
-					//
-					// Update parameters.
-					//
-					$this->_OffsetManage( kAPI_DATA_PAGING, kAPI_PAGE_START, $start );
-					$this->_OffsetManage( kAPI_DATA_PAGING, kAPI_PAGE_LIMIT, $limit );
-					$this->_OffsetManage( kAPI_DATA_PAGING, kAPI_PAGE_COUNT, $pcount );
-				
-				} // Provided paging options.
-				
-				//
-				// Handle response.
-				//
-				if( (! array_key_exists( kAPI_OPT_NO_RESP, $_REQUEST ))
-				 || (! $_REQUEST[ kAPI_OPT_NO_RESP ]) )
-				{
-					//
-					// Collect result.
-					//
-					$result = Array();
-					foreach( $cursor as $element )
-					{
-						//
-						// Save index.
-						//
-						$idx = $element[ kTAG_CODE ];
-						
-						//
-						// Remove code if necessary.
-						//
-						if( $added )
-							unset( $element[ kTAG_CODE ] );
-						
-						//
-						// Add element.
-						//
-						$result[ $idx ] = $element;
-					
-					} // Loading results.
-					
-					//
-					// Handle options.
-					//
-					if( array_key_exists( kAPI_DATA_OPTIONS, $_REQUEST ) )
-						$this->_HandleOptions( $result );
-		
-					//
-					// Serialise response.
-					//
-					CDataType::SerialiseObject( $result );
-					
-					//
-					// Set response.
-					//
-					$this->offsetSet( kAPI_DATA_RESPONSE, $result );
-				
-				} // No response option not set.
-				
-			} // Has results.
-		
-		} // Not COUNT option.
-	
-	} // _Handle_GetUsers.
-
-	 
-	/*===================================================================================
-	 *	_Handle_GetTerms																*
-	 *==================================================================================*/
-
-	/**
-	 * Handle {@link kAPI_OP_GET_TERMS Get-terms} request.
-	 *
-	 * This method will handle the {@link kAPI_OP_GET_TERMS kAPI_OP_GET_TERMS} request,
-	 * which is equivalent to the {@link _Handle_Get() _Handle_Get} method, wit the only
-	 * difference being that each found element is here indexed by the term global
-	 * {@link kTAG_GID identifier}.
-	 *
-	 * The only reason to re-develop this method is to provide a consistent view of terms in
-	 * all calls.
+	 * This method will handle the {@link kAPI_OP_GET_USERS kAPI_OP_GET_USERS},
+	 * {@link kAPI_OP_GET_TERMS kAPI_OP_GET_TERMS},
+	 * {@link kAPI_OP_GET_TAGS kAPI_OP_GET_TAGS} and
+	 * {@link kAPI_OP_GET_DATASETS kAPI_OP_GET_DATASETS} requests, it is equivalent to the
+	 * {@link _Handle_Get() _Handle_Get} method, with the only difference being that each
+	 * found element is here indexed by the term global {@link kTAG_GID identifier}.
 	 *
 	 * @access protected
 	 */
-	protected function _Handle_GetTerms()
+	protected function _Handle_ListCollection()
 	{
 		//
 		// Handle query.
@@ -1977,7 +1912,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		
 		} // Not COUNT option.
 	
-	} // _Handle_GetTerms.
+	} // _Handle_ListCollection.
 	
 	
 	/*===================================================================================
@@ -3293,6 +3228,33 @@ class CWarehouseWrapper extends CMongoDataWrapper
 			 .'] password: if a batch occurs, the service will return the user record.';
 		
 		//
+		// Add kAPI_OP_GET_USERS.
+		//
+		$theList[ kAPI_OP_GET_USERS ]
+			= 'This operation will return the list of users matching the provided '
+			.'list of ['
+			.kAPI_OPT_IDENTIFIERS
+			.'] identifiers.';
+		
+		//
+		// Add kAPI_OP_GET_MANAGED_USERS.
+		//
+		$theList[ kAPI_OP_GET_MANAGED_USERS ]
+			= 'This operation will return the list of managed users matching the provided '
+			.'list of ['
+			.kAPI_OPT_IDENTIFIERS
+			.'] user manager identifiers.';
+		
+		//
+		// Add kAPI_OP_QUERY_USERS.
+		//
+		$theList[ kAPI_OP_QUERY_USERS ]
+			= 'This operation will return the list of users matching the provided '
+			.'query ['
+			.kAPI_DATA_QUERY
+			.'].';
+		
+		//
 		// Add kAPI_OP_GET_TERMS.
 		//
 		$theList[ kAPI_OP_GET_TERMS ]
@@ -3362,6 +3324,15 @@ class CWarehouseWrapper extends CMongoDataWrapper
 			 .'provided query in the ['
 			.kAPI_DATA_QUERY
 			.'] parameter.';
+		
+		//
+		// Add kAPI_OP_GET_DATASETS.
+		//
+		$theList[ kAPI_OP_GET_DATASETS ]
+			= 'This operation will return the list of datasets matching the provided '
+			.'list of ['
+			.kAPI_OPT_IDENTIFIERS
+			.'] identifiers.';
 	
 	} // _Handle_ListOp.
 
