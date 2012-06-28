@@ -118,15 +118,14 @@ class CDatasetFile extends CArrayObject
 
 	 
 	/*===================================================================================
-	 *	File																			*
+	 *	Dataset																			*
 	 *==================================================================================*/
 
 	/**
-	 * Manage file.
+	 * Manage dataset.
 	 *
-	 * This method can be used to manage the file GridFS identifier, it accepts a parameter
-	 * that represents the identifier returned by the MongoGridFS::storeFile() method, or
-	 * the requested operation, depending on its value:
+	 * This method can be used to manage the file's {@link CDataset dataset}
+	 * {@link kTAG_LID reference} or the operation to be performed:
 	 *
 	 * <ul>
 	 *	<li><i>NULL</i>: Return the current value.
@@ -145,14 +144,14 @@ class CDatasetFile extends CArrayObject
 	 *
 	 * @uses CAttribute::ManageOffset()
 	 *
-	 * @see kOFFSET_FILE
+	 * @see kTAG_DATASET
 	 */
-	public function File( $theValue = NULL, $getOld = FALSE )
+	public function Dataset( $theValue = NULL, $getOld = FALSE )
 	{
 		return CAttribute::ManageOffset
-				( $this, kOFFSET_FILE, $theValue, $getOld );						// ==>
+				( $this, kTAG_DATASET, $theValue, $getOld );						// ==>
 
-	} // File.
+	} // Dataset.
 
 	 
 	/*===================================================================================

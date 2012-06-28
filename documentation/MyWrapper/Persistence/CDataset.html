@@ -77,13 +77,7 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																																																																												<div class="method-definition">
-					<img src="../../media/images/StaticMethod.png" alt=" "/>
-											static <span class="method-result"><a href="../../MyWrapper/Traits/CDatasetFile.html">CDatasetFile</a></span>
-										<a href="#NewFile" title="details" class="method-name">NewFile</a>
-											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theFile</span>, <span class="var-type"><a href="../../MyWrapper/Persistence/CMongoGridContainer.html">CMongoGridContainer</a></span>&nbsp;<span class="var-name">$theContainer</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theMetadata</span> = <span class="var-default">NULL</span>], [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_DEFAULT</span>])
-									</div>
-																																																																												<div class="method-definition">
+																																																																																																																																																<div class="method-definition">
 					<img src="../../media/images/Constructor.png" alt=" "/>
 											<span class="method-result">CDataset</span>
 										<a href="#__construct" title="details" class="method-name">__construct</a>
@@ -115,9 +109,9 @@
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
-											<span class="method-result">mixed</span>
-										<a href="#Files" title="details" class="method-name">Files</a>
-											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theOperation</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+											<span class="method-result">string</span>
+										<a href="#GID" title="details" class="method-name">GID</a>
+										()
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -131,7 +125,7 @@
 										<a href="#Name" title="details" class="method-name">Name</a>
 											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theLanguage</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
 									</div>
-																								<div class="method-definition">
+																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">void</span>
 										<a href="#offsetSet" title="details" class="method-name">offsetSet</a>
@@ -142,6 +136,12 @@
 											<span class="method-result">void</span>
 										<a href="#offsetUnset" title="details" class="method-name">offsetUnset</a>
 											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result"><a href="../../MyWrapper/Traits/CDatasetFile.html">CDatasetFile</a></span>
+										<a href="#StoreFile" title="details" class="method-name">StoreFile</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theFile</span>, <span class="var-type"><a href="../../MyWrapper/Persistence/CMongoGridContainer.html">CMongoGridContainer</a></span>&nbsp;<span class="var-name">$theContainer</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theMetadata</span> = <span class="var-default">NULL</span>], [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_DEFAULT</span>])
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -217,52 +217,8 @@
 		</div>
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
-<a name="methodNewFile" id="NewFile"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static NewFile</span> (line <span class="line-number">764</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Create file reference.</p>
-<p class="description"><p>This method can be used to create a new file reference, it will store the provided  file in the grid and return a file metadata <a href="../../MyWrapper/Traits/CDatasetFile.html">record</a> with the file  reference.</p><p>This method accepts the following parameters:</p><p><ul><li><strong>$theFile</strong>: The file path.</li><li><strong>$theContainer</strong>: The grid container in the form of a CMongoGridContainer.</li><li><strong>$theMetadata</strong>: An array of custom data that will be added to the
-        MongoGridFS record under the &quot;metadata&quot; label.</li><li><strong>$theModifiers</strong>: A bitfield containing the operation options, the only
-        relevant flag is <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a> which
-        determines whether custom data types are to be encoded.</li></ul></p><p>The method will first attempt to store the file, then it will initialise a  <a href="../../MyWrapper/Traits/CDatasetFile.html">record</a> with the file reference and return it.</p><p>It is the responsibility of the caller to complete and store the  <a href="../../MyWrapper/Traits/CDatasetFile.html">record</a> in a dataset.</p></p>
-	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TITLE">kTAG_TITLE</a></li>
-				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">CAttribute::ManageOffset()</a></li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result"><a href="../../MyWrapper/Traits/CDatasetFile.html">CDatasetFile</a></span>
-		<span class="method-name">
-			NewFile
-		</span>
-					(<span class="var-type">string</span>&nbsp;<span class="var-name">$theFile</span>, <span class="var-type"><a href="../../MyWrapper/Persistence/CMongoGridContainer.html">CMongoGridContainer</a></span>&nbsp;<span class="var-name">$theContainer</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theMetadata</span> = <span class="var-default">NULL</span>], [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_DEFAULT</span>])
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$theFile</span><span class="var-description">: File path.</span>			</li>
-					<li>
-				<span class="var-type"><a href="../../MyWrapper/Persistence/CMongoGridContainer.html">CMongoGridContainer</a></span>
-				<span class="var-name">$theContainer</span><span class="var-description">: File grid container.</span>			</li>
-					<li>
-				<span class="var-type">mixed</span>
-				<span class="var-name">$theMetadata</span><span class="var-description">: File metadata.</span>			</li>
-					<li>
-				<span class="var-type">bitfield</span>
-				<span class="var-name">$theModifiers</span><span class="var-description">: Operation modifiers.</span>			</li>
-				</ul>
-		
-			
-	</div>
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Constructor.png" />
@@ -307,11 +263,11 @@
 			
 	</div>
 <a name="methodCategory" id="Category"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Category</span> (line <span class="line-number">391</span>)
+		<span class="method-title">Category</span> (line <span class="line-number">412</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -346,11 +302,11 @@
 			
 	</div>
 <a name="methodCreated" id="Created"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Created</span> (line <span class="line-number">663</span>)
+		<span class="method-title">Created</span> (line <span class="line-number">455</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -384,11 +340,11 @@
 			
 	</div>
 <a name="methodDescription" id="Description"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Description</span> (line <span class="line-number">315</span>)
+		<span class="method-title">Description</span> (line <span class="line-number">336</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -429,11 +385,11 @@
 			
 	</div>
 <a name="methodDomain" id="Domain"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Domain</span> (line <span class="line-number">354</span>)
+		<span class="method-title">Domain</span> (line <span class="line-number">375</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -467,62 +423,39 @@
 		
 			
 	</div>
-<a name="methodFiles" id="Files"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<img src="../../media/images/Method.png" />
-		<span class="method-title">Files</span> (line <span class="line-number">458</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Manage files.</p>
-<p class="description"><p>This method can be used to handle the object's <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_FILES">files</a>, the  property is an array of elements representing the metadata of a file associated with  the dataset.</p><p>Each element is a <a href="../../MyWrapper/Traits/CDatasetFile.html">record</a> in which the  <a href="../../MyWrapper/Traits/CDatasetFile.html#methodFile">file</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_FILE">element</a> represents its unique  identifier.</p><p>To modify items of each <a href="../../MyWrapper/Traits/CDatasetFile.html">element</a> you should use  <a href="../../MyWrapper/Traits/CDatasetFile.html">CDatasetFile</a> class instances, this method accepts these and  derived arrays.</p><p>The method accepts three parameters:</p><p><ul><li><strong>$theValue</strong>: This parameter represents either the metadata record to be
-        added, or the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_FILE">file</a> item that identifies the metadata
-        record:
-     <ul><li><em><a href="../../MyWrapper/Traits/CDatasetFile.html">CDatasetFile</a></em>: Use the record for
-            adding/replacing or use the record's <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_FILE">file</a> for
-            retrieving  or deleting. When adding, the object will be converted to an
-            array.</li><li><em>array</em>: Use the array for adding/replacing or use the
-            <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_FILE">kOFFSET_FILE</a> element for retrieving  or deleting.</li><li><em>NULL</em>: This indicates that we are operating on the whole files list
-            when deleting or retrieving; <em>if you indicate store in the operation, the
-            method will simply assume retrieval</em>.</li></ul></li><li><strong>$theOperation</strong>: This parameter represents the operation to be performed:
-     <ul><li><em>NULL</em>: Retrieve the record identified by the previous parameter.</li><li><em>FALSE</em>: Delete the record identified by the previous parameter.</li><li><em>other</em>: Add or replace the metadata record provided in the previous
-            parameter.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
-     <ul><li><em>TRUE</em>: Return the value <em>before</em> it was eventually modified.</li><li><em>FALSE</em>: Return the value <em>after</em> it was eventually modified.</li></ul></li></ul></p></p>
-	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_FILES">kOFFSET_FILES</a></li>
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">mixed</span>
-		<span class="method-name">
-			Files
-		</span>
-					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theOperation</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">mixed</span>
-				<span class="var-name">$theValue</span><span class="var-description">: Value or index.</span>			</li>
-					<li>
-				<span class="var-type">mixed</span>
-				<span class="var-name">$theOperation</span><span class="var-description">: Operation.</span>			</li>
-					<li>
-				<span class="var-type">boolean</span>
-				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodModified" id="Modified"><!-- --></a>
+<a name="methodGID" id="GID"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Modified</span> (line <span class="line-number">706</span>)
+		<span class="method-title">GID</span> (line <span class="line-number">143</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage dataset global identifier.</p>
+<p class="description"><p>The term global <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a> represents the un-hashed version of the  term local <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LID">identifier</a>.</p><p>This value is set automatically by a protected <a href="../../MyWrapper/Persistence/CDataset.html#method_PrepareCommit">method</a>, so  this method is read-only.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">kTAG_GID</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			GID
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodModified" id="Modified"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Modified</span> (line <span class="line-number">498</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -556,11 +489,11 @@
 			
 	</div>
 <a name="methodName" id="Name"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Name</span> (line <span class="line-number">255</span>)
+		<span class="method-title">Name</span> (line <span class="line-number">276</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -600,11 +533,11 @@
 			
 	</div>
 <a name="methodoffsetSet" id="offsetSet"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetSet</span> (line <span class="line-number">825</span>)
+		<span class="method-title">offsetSet</span> (line <span class="line-number">642</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -640,11 +573,11 @@
 			
 	</div>
 <a name="methodoffsetUnset" id="offsetUnset"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetUnset</span> (line <span class="line-number">857</span>)
+		<span class="method-title">offsetUnset</span> (line <span class="line-number">674</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -676,12 +609,65 @@
 					</dl>
 			
 	</div>
+<a name="methodStoreFile" id="StoreFile"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">StoreFile</span> (line <span class="line-number">563</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Store a file.</p>
+<p class="description"><p>This method can be used to store a file in a grid  <a href="../../MyWrapper/Persistence/CMongoGridContainer.html">container</a>, it will take care of adding a  <a href="../../MyWrapper/Traits/CDatasetFile.html#methodDataset">reference</a> to the current dataset in the provided file  metadata <a href="../../MyWrapper/Traits/CDatasetFile.html">record</a>.</p><p>This method accepts the following parameters:</p><p><ul><li><strong>$theFile</strong>: The file path or object (SplFileInfo).</li><li><strong>$theContainer</strong>: The grid container in the form of a
+        <a href="../../MyWrapper/Persistence/CMongoGridContainer.html">CMongoGridContainer</a> or a MongoGridFS; any other
+        type will raise an exception.</li><li><strong>$theMetadata</strong>: An array or preferably a <a href="../../MyWrapper/Traits/CDatasetFile.html">CDatasetFile</a>
+        record containing the file's metadata, which will be added to the MongoGridFS
+        record under the &quot;metadata&quot; label. If the parameter is omitted, a
+        <a href="../../MyWrapper/Traits/CDatasetFile.html">CDatasetFile</a> record will be initialised with a reference to
+        the current dataset.</li><li><strong>$theModifiers</strong>: A bitfield containing the operation options, the only
+        relevant flag is <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a> which
+        determines whether custom data types are to be encoded
+        (set by default in this class).</li></ul></p><p><strong>&lt;i&gt;The current dataset must have been <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">committed</a> before calling
+ this method, or an exception will be raised: no files can be saved from this class
+ without a valid dataset reference&lt;/i&gt;</strong>.</p><p>The mnethod will return the newly created file reference ID.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TITLE">kTAG_TITLE</a></li>
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">CAttribute::ManageOffset()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../../MyWrapper/Traits/CDatasetFile.html">CDatasetFile</a></span>
+		<span class="method-name">
+			StoreFile
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$theFile</span>, <span class="var-type"><a href="../../MyWrapper/Persistence/CMongoGridContainer.html">CMongoGridContainer</a></span>&nbsp;<span class="var-name">$theContainer</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theMetadata</span> = <span class="var-default">NULL</span>], [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_DEFAULT</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theFile</span><span class="var-description">: File path.</span>			</li>
+					<li>
+				<span class="var-type"><a href="../../MyWrapper/Persistence/CMongoGridContainer.html">CMongoGridContainer</a></span>
+				<span class="var-name">$theContainer</span><span class="var-description">: File grid container.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theMetadata</span><span class="var-description">: File metadata.</span>			</li>
+					<li>
+				<span class="var-type">bitfield</span>
+				<span class="var-name">$theModifiers</span><span class="var-description">: Operation modifiers.</span>			</li>
+				</ul>
+		
+			
+	</div>
 <a name="methodTitle" id="Title"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Title</span> (line <span class="line-number">153</span>)
+		<span class="method-title">Title</span> (line <span class="line-number">174</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -717,7 +703,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">User</span> (line <span class="line-number">192</span>)
+		<span class="method-title">User</span> (line <span class="line-number">213</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -753,7 +739,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_index</span> (line <span class="line-number">980</span>)
+		<span class="method-title">_index</span> (line <span class="line-number">802</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -785,7 +771,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">937</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">754</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -830,7 +816,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCreate</span> (line <span class="line-number">901</span>)
+		<span class="method-title">_PrepareCreate</span> (line <span class="line-number">718</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1074,7 +1060,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Wed, 27 Jun 2012 20:21:33 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 28 Jun 2012 19:43:06 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

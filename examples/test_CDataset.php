@@ -68,7 +68,7 @@ try
 	//
 	// Create user.
 	//
-	echo( '<h3>Load dataset</h3>' );
+	echo( '<h3>Create user</h3>' );
 	
 	echo( '<i>$user = new CUser();</i><br>' );
 	$user = new CUser();
@@ -126,12 +126,22 @@ try
 	echo( '<hr>' );
 
 	//
-	// Create file reference.
+	// Commit dataset.
 	//
+	echo( '<h3>Commit dataset</h3>' );
+	
+	echo( '<i>$id = $test->Commit( $collection );</i><br>' );
+	$id = $test->Commit( $collection );
+	echo( "$id<pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
+
+	//
+	// Create file metadata.
+	//
+	echo( '<h3>Create file metadata</h3>' );
+	
 	echo( '<i>$file = new CDatasetFile();</i><br>' );
 	$file = new CDatasetFile();
-	echo( '<i>$file->File( \'File 1\' );</i><br>' );
-	$file->File( 'File 1' );
 	echo( '<i>$file->Referenced( \'Ref 1\', TRUE );</i><br>' );
 	$file->Referenced( 'Ref 1', TRUE );
 	echo( '<i>$file->Referenced( \'Ref 2\', TRUE );</i><br>' );
@@ -154,19 +164,23 @@ try
 	echo( '<hr>' );
 
 	//
-	// Add file reference.
+	// Store file.
 	//
-	echo( '<i>$test->Files( $file, TRUE );</i><br>' );
-	$test->Files( $file, TRUE );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+	echo( '<h3>Store file</h3>' );
+	
+	echo( '<i>$file_id = $test->StoreFile( __FILE__, $grid, $file );</i><br>' );
+	$file_id = $test->StoreFile( __FILE__, $grid, $file );
+	echo( 'ID: <pre>' ); print_r( $file_id ); echo( '</pre>' );
 	echo( '<hr>' );
 
 	//
-	// Commit object.
+	// Retrieve file.
 	//
-	echo( '<i>$id_1 = $test->Commit( $collection );</i><br>' );
-	$id_1 = $test->Commit( $collection );
-	echo( "$id_1<pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<h3>Retrieve file</h3>' );
+	
+	echo( '<i$file = $grid->Load( $file_id );</i><br>' );
+	$file = $grid->Load( $file_id );
+	echo( 'FILE: <pre>' ); print_r( $file ); echo( '</pre>' );
 	echo( '<hr>' );
 
 	//
@@ -178,22 +192,8 @@ try
 	echo( '<i>$test = new CDataset( $collection, CDataset::HashIndex( $index ) );</i><br>' );
 	$test = new CDataset( $collection, CDataset::HashIndex( $index ) );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( '<i>$test = new CDataset( $collection, $id_1 );</i><br>' );
-	$test = new CDataset( $collection, $id_1 );
-	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-	echo( '<hr>' );
-
-	//
-	// Make file reference.
-	//
-	echo( '<i>$metadata = array( \'TYPE\' => \'FILE\', \'NUMBER\' => 2 );</i><br>' );
-	$metadata = array( 'TYPE' => 'FILE', 'NUMBER' => 2 );
-	echo( '<pre>' ); print_r( $metadata ); echo( '</pre>' );
-	echo( '<i>$ref = CDataset::NewFile( __FILE__, $grid, $metadata, kFLAG_STATE_ENCODED );</i><br>' );
-	$ref = CDataset::NewFile( __FILE__, $grid, $metadata, kFLAG_STATE_ENCODED );
-	echo( '<pre>' ); print_r( $ref ); echo( '</pre>' );
-	echo( '<i>$test->Files( $ref, TRUE );</i><br>' );
-	$test->Files( $ref, TRUE );
+	echo( '<i>$test = new CDataset( $collection, $id );</i><br>' );
+	$test = new CDataset( $collection, $id );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 }

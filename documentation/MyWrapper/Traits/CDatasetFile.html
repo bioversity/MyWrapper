@@ -25,9 +25,9 @@
 	<div class="info-box-body">
         		<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Dataset file.</p>
-<p class="description"><p>This class implements a dataset file, it wraps the <a href="../../MyWrapper/Framework/CArrayObject.html">parent</a> class  around a structure that records a dataset file's attributes.</p><p>In general instances of this class will be embedded in a <a href="../../MyWrapper/Persistence/CDataset.html">dataset</a> objects  to add lists of file references, the current class does not feature any persistence  functions, it only concentrates in managing a file reference as a set of properties:</p><p><ul><li><em><a href="../../MyWrapper/Traits/CDatasetFile.html#methodFile">File</a></em>: This <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_FILE">property</a> defines a file, it
+<p class="description"><p>This class implements a dataset file, it wraps the <a href="../../MyWrapper/Framework/CArrayObject.html">parent</a> class  around a structure that records a dataset file's attributes.</p><p>In general instances of this class will be embedded in a <a href="../../MyWrapper/Persistence/CDataset.html">dataset</a> objects  to add lists of file references, the current class does not feature any persistence  functions, it only concentrates in managing a file reference as a set of properties:</p><p><ul><li><em>File()</em>: This <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_FILE">property</a> defines a file, it
         represents the GridFS record identifier for the file.</li><li><em><a href="../../MyWrapper/Traits/CDatasetFile.html#methodReferenced">Referenced</a></em>: This <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_REFS">property</a> holds the
-        list of file <a href="../../MyWrapper/Traits/CDatasetFile.html#methodFile">references</a>, this attribute all files that were generated
+        list of file File(), this attribute all files that were generated
         taking the current file as a model. For instance, this list would contain all CSV
         files generated from all the workbooks of an Excel file.</li><li><em><a href="../../MyWrapper/Traits/CDatasetFile.html#methodStatus">Status</a></em>: This <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_STATUS">property</a> holds the list of
         states in which the current file is.</li><li><em><a href="../../MyWrapper/Traits/CDatasetFile.html#methodKind">Kind</a></em>: This <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">property</a> holds the list of kinds
@@ -35,7 +35,7 @@
         of column headers and associated metadata structured as follows:
      <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TAG">kTAG_TAG</a></em>: The <a href="../../MyWrapper/Ontology/COntologyTag.html">tag</a> associated with
             the data in the current column.</li><li><em>Title()</em>: The original header <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TITLE">title</a>
-            provided in the file and used for the annotation.</li></ul></li></ul></p><p>You should always instantiate this class from the <a href="../../MyWrapper/Persistence/CDataset.html">dataset</a> by using its  <a href="../../MyWrapper/Persistence/CDataset.html#methodNewFile">static</a> method rather than instantiating the class on its own,  this is because this way it is guaranteed that the record points to an existing file.</p></p>
+            provided in the file and used for the annotation.</li></ul></li></ul></p><p>You should always instantiate this class from the <a href="../../MyWrapper/Persistence/CDataset.html">dataset</a> by using its  CDataset::NewFile() method rather than instantiating the class on its own,  this is because this way it is guaranteed that the record points to an existing file.</p></p>
 		<p class="notes">
 			Located in <a class="field" href="_classes---CDatasetFile.php.html">/classes/CDatasetFile.php</a> (line <span class="field">67</span>)
 		</p>
@@ -77,7 +77,7 @@
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">mixed</span>
-										<a href="#File" title="details" class="method-name">File</a>
+										<a href="#Dataset" title="details" class="method-name">Dataset</a>
 											([<span class="var-type">string</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
 									</div>
 																<div class="method-definition">
@@ -149,7 +149,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Column</span> (line <span class="line-number">329</span>)
+		<span class="method-title">Column</span> (line <span class="line-number">328</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -196,19 +196,19 @@
 		
 			
 	</div>
-<a name="methodFile" id="File"><!-- --></a>
+<a name="methodDataset" id="Dataset"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">File</span> (line <span class="line-number">150</span>)
+		<span class="method-title">Dataset</span> (line <span class="line-number">149</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Manage file.</p>
-<p class="description"><p>This method can be used to manage the file GridFS identifier, it accepts a parameter  that represents the identifier returned by the MongoGridFS::storeFile() method, or  the requested operation, depending on its value:</p><p><ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the current value.</li><li><em>other</em>: Set the value with the provided parameter.</li></ul></p><p>The second parameter is a boolean which if <em>TRUE</em> will return the <em>old</em>  value when replacing values; if <em>FALSE</em>, it will return the currently set value.</p></p>
+<p class="short-description">Manage dataset.</p>
+<p class="description"><p>This method can be used to manage the file's <a href="../../MyWrapper/Persistence/CDataset.html">dataset</a>  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LID">reference</a> or the operation to be performed:</p><p><ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the current value.</li><li><em>other</em>: Set the value with the provided parameter.</li></ul></p><p>The second parameter is a boolean which if <em>TRUE</em> will return the <em>old</em>  value when replacing values; if <em>FALSE</em>, it will return the currently set value.</p></p>
 	<ul class="tags">
-				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_FILE">kOFFSET_FILE</a></li>
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_DATASET">kTAG_DATASET</a></li>
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">CAttribute::ManageOffset()</a></li>
 			</ul>
@@ -216,7 +216,7 @@
 	<div class="method-signature">
 		<span class="method-result">mixed</span>
 		<span class="method-name">
-			File
+			Dataset
 		</span>
 					([<span class="var-type">string</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
 			</div>
@@ -237,7 +237,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Kind</span> (line <span class="line-number">262</span>)
+		<span class="method-title">Kind</span> (line <span class="line-number">261</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -276,7 +276,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Referenced</span> (line <span class="line-number">188</span>)
+		<span class="method-title">Referenced</span> (line <span class="line-number">187</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -315,7 +315,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Status</span> (line <span class="line-number">225</span>)
+		<span class="method-title">Status</span> (line <span class="line-number">224</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -371,7 +371,7 @@
 
 	
 	<p class="notes" id="credit">
-		Documentation generated on Wed, 27 Jun 2012 20:21:33 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 28 Jun 2012 19:43:07 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

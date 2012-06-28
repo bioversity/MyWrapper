@@ -111,12 +111,14 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 		if( ($theValue !== NULL)
 		 && ($theValue !== FALSE) )
 		{
+			//
+			// Parse operation.
+			//
 			switch( $theValue )
 			{
 				case kAPI_OP_LOGIN:
 				case kAPI_OP_GET_USERS:
 				case kAPI_OP_GET_MANAGED_USERS:
-				case kAPI_OP_QUERY_USERS:
 				case kAPI_OP_GET_TERMS:
 				case kAPI_OP_MATCH_TERMS:
 				case kAPI_OP_GET_TAGS:

@@ -30,111 +30,118 @@
  * {@link kAPI_OPT_USER_CODE user} and {@link kAPI_OPT_USER_PASS password} and match both
  * with a user record.
  */
-define( "kAPI_OP_LOGIN",			'@LOGIN' );
+define( "kAPI_OP_LOGIN",				'@LOGIN' );
 
 /**
- * List uers web-service.
+ * Get users web-service.
  *
- * This is the tag that represents the list users web service, it will locate all
- * {@link CUser users} matching the provided {@link kTAG_CODE codes} in the
- * {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter and return an array
- * structured as follows:
+ * This command can be used to search for {@link CUser users} according to the parameters
+ * provided to the service:
  *
  * <ul>
- *	<li><i>Key</i>: The {@link CUser user} {@link kTAG_CODE code}.
- *	<li><i>Value</i>: The contents of the {@link CUser user} record.
+ *	<li><i>{@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS}</i>: This parameter represents
+ *		a list of user identifiers that can be expressed as:
+ *	 <ul>
+ *		<li><i>string</i>: In this case the value is interpreted as the user code.
+ *		<li><i>array</i>: In this case the value is interpreted as the user
+ *			{@link kTAG_LID identifier}.
+ *	 </ul>
+ *	<li><i>{@link kAPI_DATA_QUERY kAPI_DATA_QUERY}</i>: This parameter represents a
+ *		{@link CMongoQuery query}.
  * </ul>
  *
- * If you omit the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter it is assumed
- * that you want all users, in that case the service will enforce the use of
- * {@link kAPI_DATA_PAGING paging} options.
- *
- * The service will check the {@link kAPI_DATA_FIELD kAPI_DATA_FIELD} parameter to return
- * the provided list of fields.
- *
- * Note that the {@link kAPI_CONTAINER container} is not required, if omitted it will be
- * initialised to the {@link kENTITY_CONTAINER kENTITY_CONTAINER} constant.
- */
-define( "kAPI_OP_GET_USERS",		'@GET_USERS' );
-
-/**
- * List managed users web-service.
- *
- * This is the tag that represents the list managed users web service, it will search for
- * all users that are {@link CUser::Manager() managed} by the users provided in the
- * {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter.
- *
- * The service will return the list of all managed users structured as follows:
- *
- * <ul>
- *	<li><i>Key</i>: The {@link CUser user} {@link kTAG_CODE code}.
- *	<li><i>Value</i>: The contents of the {@link CUser user} record.
- * </ul>
+ * The two options are not exclusive and will be applied together with an
+ * {@link kOPERATOR_AND AND} operator.
  *
  * If you omit the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter the service
- * will return no records.
+ * will enforce the use of {@link kAPI_DATA_PAGING paging} options.
  *
- * The service will check the {@link kAPI_DATA_FIELD kAPI_DATA_FIELD} parameter to return
- * the provided list of fields.
+ * The service will check the {@link kAPI_DATA_SORT kAPI_DATA_SORT} parameter to order the
+ * returned records by the list of fields provided in that parameter.
  *
- * Note that the {@link kAPI_CONTAINER container} is not required, if omitted it will be
- * initialised to the {@link kENTITY_CONTAINER kENTITY_CONTAINER} constant.
+ * The service will also check the {@link kAPI_DATA_FIELD kAPI_DATA_FIELD} parameter to
+ * restrict the returned fields to the provided list.
+ *
+ * In this service the {@link kAPI_CONTAINER container} is not required, if omitted it will
+ * be initialised to the {@link kENTITY_CONTAINER kENTITY_CONTAINER} constant.
+ *
+ * If the service matches users, it will return an array structured as follows:
+ *
+ * <ul>
+ *	<li><i>Key</i>: The {@link CUser user} {@link kTAG_CODE code}.
+ *	<li><i>Value</i>: The contents of the {@link CUser user} record.
+ * </ul>
+ */
+define( "kAPI_OP_GET_USERS",			'@GET_USERS' );
+
+/**
+ * Get managed users web-service.
+ *
+ * This command is equivalent to the {@link kAPI_OP_GET_USERS kAPI_OP_GET_USERS} service,
+ * except that the identifiers provided in the
+ * {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter refer to the
+ * {@link CUser user} {@link CUser::Manager() managers}; in other words, you can use this
+ * service to retrieve the users managed by a set of other users.
+ *
+ * If you omit the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter, it is
+ * assumed that the eventual {@link kAPI_DATA_QUERY kAPI_DATA_QUERY} operates on all users
+ * that have a {@link kTAG_MANAGER kTAG_MANAGER} tag.
+ *
+ * All other parameters are handled as in the {@link kAPI_OP_GET_USERS kAPI_OP_GET_USERS}
+ * service.
  */
 define( "kAPI_OP_GET_MANAGED_USERS",	'@GET_MANAGED_USERS' );
 
 /**
- * Query users web-service.
+ * Get terms web-service.
  *
- * This is the tag that represents the get query users web service, it will locate all
- * {@link kENTITY_USER user} {@link CEntity entities} matching the provided
- * {@link kAPI_DATA_QUERY query}.
- *
- * An {@link CEntity entity} is a {@link CUser user} if its
- * {@link CCodedUnitObject::Kind() kind} has the {@link kENTITY_USER kENTITY_USER} tag.
- *
- * The method will return an array structured as follows:
+ * This command can be used to search for {@link COntologyTerm terms} according to the
+ * parameters provided to the service:
  *
  * <ul>
- *	<li><i>Key</i>: The {@link CUser user} {@link kTAG_CODE code}.
- *	<li><i>Value</i>: The contents of the {@link CUser user} record.
+ *	<li><i>{@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS}</i>: This parameter represents
+ *		a list of {@link COntologyTerm term} identifiers that can be expressed as:
+ *	 <ul>
+ *		<li><i>string</i>: In this case the value is interpreted as the term global
+ *			{@link kTAG_GID identifier}.
+ *		<li><i>array</i>: In this case the value is interpreted as the term local
+ *			{@link kTAG_LID identifier}.
+ *	 </ul>
+ *	<li><i>{@link kAPI_DATA_QUERY kAPI_DATA_QUERY}</i>: This parameter represents a
+ *		{@link CMongoQuery query}.
  * </ul>
  *
- * If you omit the {@link kAPI_DATA_QUERY kAPI_DATA_QUERY} parameter, all
- * {@link kENTITY_USER user} {@link CEntity entities} will be selected.
- */
-define( "kAPI_OP_QUERY_USERS",		'@QUERY_USERS' );
-
-/**
- * List terms web-service.
+ * The two options are not exclusive and will be applied together with an
+ * {@link kOPERATOR_AND AND} operator.
  *
- * This is the tag that represents the list terms web service, it will locate all
- * {@link COntologyTerm terms} matching the provided identifiers in the
- * {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter and return an array
- * structured as follows:
+ * If you omit the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter the service
+ * will enforce the use of {@link kAPI_DATA_PAGING paging} options.
+ *
+ * The service will check the {@link kAPI_DATA_SORT kAPI_DATA_SORT} parameter to order the
+ * returned records by the list of fields provided in that parameter.
+ *
+ * The service will also check the {@link kAPI_DATA_FIELD kAPI_DATA_FIELD} parameter to
+ * restrict the returned fields to the provided list.
+ *
+ * In this service the {@link kAPI_CONTAINER container} is not required, if omitted it will
+ * be initialised to the {@link kDEFAULT_CNT_TERMS kDEFAULT_CNT_TERMS} constant.
+ *
+ * If the service matches terms, it will return an array structured as follows:
  *
  * <ul>
  *	<li><i>Key</i>: The {@link COntologyTerm term} global {@link kTAG_GID identifier}.
- *	<li><i>Value</i>: The contents of the {@link COntologyTerm term}.
+ *	<li><i>Value</i>: The contents of the {@link COntologyTerm term} record.
  * </ul>
- *
- * If you omit the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter it is assumed
- * that you want all terms, in that case the service will enforce the use of
- * {@link kAPI_DATA_PAGING paging} options.
- *
- * The service will check the {@link kAPI_DATA_FIELD kAPI_DATA_FIELD} parameter to return
- * the provided list of fields.
- *
- * Note that the {@link kAPI_CONTAINER container} is not required, if omitted it will be
- * initialised to the {@link kDEFAULT_CNT_TERMS kDEFAULT_CNT_TERMS} constant.
  */
-define( "kAPI_OP_GET_TERMS",		'@GET_TERMS' );
+define( "kAPI_OP_GET_TERMS",			'@GET_TERMS' );
 
 /**
  * Match terms web-service.
  *
  * This is the tag that represents the match terms web-service operation, it is equivalent
  * to the inherited {@link kAPI_OP_MATCH kAPI_OP_MATCH} operation, except that it applies
- * to terms and will return the matching combination of terms and nodes.
+ * to {@link COntologyTerm terms} and will return the matching combination of terms and
+ * nodes.
  *
  * <ul>
  *	<li><i>{@link kAPI_RESPONSE_TERMS kAPI_RESPONSE_TERMS}</i>: The list of terms matched
@@ -151,29 +158,7 @@ define( "kAPI_OP_GET_TERMS",		'@GET_TERMS' );
  *	 </ul>
  * </ul>
  */
-define( "kAPI_OP_MATCH_TERMS",		'@MATCH_TERMS' );
-
-/**
- * List tags web-service.
- *
- * This is the tag that represents the list tags web service, it will locate all
- * {@link COntologyTag tags} matching the provided identifiers in the
- * {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter and return an array
- * structured as follows:
- *
- * <ul>
- *	<li><i>Key</i>: The {@link COntologyTag term} global {@link kTAG_GID identifier}.
- *	<li><i>Value</i>: The contents of the {@link COntologyTag tag}.
- * </ul>
- *
- * If you omit the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter it is assumed
- * that you want all tags, in that case the service will enforce the use of
- * {@link kAPI_DATA_PAGING paging} options.
- *
- * Note that the {@link kAPI_CONTAINER container} is not required, if omitted it will be
- * initialised to the {@link kDEFAULT_CNT_TAGS kDEFAULT_CNT_TAGS} constant.
- */
-define( "kAPI_OP_GET_TAGS",			'@GET_TAGS' );
+define( "kAPI_OP_MATCH_TERMS",			'@MATCH_TERMS' );
 
 /**
  * Set tags web-service.
@@ -207,16 +192,88 @@ define( "kAPI_OP_GET_TAGS",			'@GET_TAGS' );
  * Note that this service will instantiate term {@link COntologyTag paths}, so call
  * this service only if you are sure you need to do it; if any error occurs, the operation
  * will be aborted (but the eventual created annotations will not).
+ *
+ * The service will return the result in the same format as the
+ * {@link kAPI_OP_GET_TAGS kAPI_OP_GET_TAGS} service.
  */
 define( "kAPI_OP_SET_TAGS",			'@SET_TAGS' );
 
 /**
- * List nodes web-service.
+ * Get tags web-service.
  *
- * This is the tag that represents the list nodes web service, it will locate all
- * {@link COntologyNode nodes} matching the provided identifiers in the
- * {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter and return the following
- * structure:
+ * This command can be used to search for {@link COntologyTag tags} according to the
+ * parameters provided to the service:
+ *
+ * <ul>
+ *	<li><i>{@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS}</i>: This parameter represents
+ *		a list of {@link COntologyTag tag} identifiers that can be expressed as:
+ *	 <ul>
+ *		<li><i>string</i>: In this case the value is interpreted as the tag global
+ *			{@link kTAG_GID identifier}.
+ *		<li><i>integer</i>: In this case the value is interpreted as the tag local
+ *			{@link kTAG_LID identifier}.
+ *	 </ul>
+ *	<li><i>{@link kAPI_DATA_QUERY kAPI_DATA_QUERY}</i>: This parameter represents a
+ *		{@link CMongoQuery query}.
+ * </ul>
+ *
+ * The two options are not exclusive and will be applied together with an
+ * {@link kOPERATOR_AND AND} operator.
+ *
+ * If you omit the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter the service
+ * will enforce the use of {@link kAPI_DATA_PAGING paging} options.
+ *
+ * The service will check the {@link kAPI_DATA_SORT kAPI_DATA_SORT} parameter to order the
+ * returned records by the list of fields provided in that parameter.
+ *
+ * The service will also check the {@link kAPI_DATA_FIELD kAPI_DATA_FIELD} parameter to
+ * restrict the returned fields to the provided list.
+ *
+ * In this service the {@link kAPI_CONTAINER container} is not required, if omitted it will
+ * be initialised to the {@link kDEFAULT_CNT_TAGS kDEFAULT_CNT_TAGS} constant.
+ *
+ * If the service matches tags, it will return an array structured as follows:
+ *
+ * <ul>
+ *	<li><i>Key</i>: The {@link COntologyTag tag} global {@link kTAG_GID identifier}.
+ *	<li><i>Value</i>: The contents of the {@link COntologyTag tag} record.
+ * </ul>
+ */
+define( "kAPI_OP_GET_TAGS",				'@GET_TAGS' );
+
+/**
+ * Get nodes web-service.
+ *
+ * This command can be used to search for {@link COntologyNode nodes} according to the
+ * parameters provided to the service:
+ *
+ * <ul>
+ *	<li><i>{@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS}</i>: This parameter represents
+ *		a list of {@link COntologyNode node} identifiers that are be expressed as an
+ *		integer.
+ *	<li><i>{@link kAPI_DATA_QUERY kAPI_DATA_QUERY}</i>: This parameter represents a
+ *		{@link CMongoQuery query}.
+ * </ul>
+ *
+ * The two options are not exclusive and will be applied together with an
+ * {@link kOPERATOR_AND AND} operator.
+ *
+ * If you omit the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter the service
+ * will enforce the use of {@link kAPI_DATA_PAGING paging} options.
+ *
+ * The service will check the {@link kAPI_DATA_SORT kAPI_DATA_SORT} parameter to order the
+ * returned records by the list of fields provided in that parameter, this option applies
+ * only to the list of returned {@link COntologyNode nodes}.
+ *
+ * The service will also check the {@link kAPI_DATA_FIELD kAPI_DATA_FIELD} parameter to
+ * restrict the returned fields to the provided list, note that this option will only apply
+ * to the fields of the related {@link COntologyTerm terms}, the {@link COntologyNode node}
+ * records will be returned complete.
+ *
+ * In this service the {@link kAPI_CONTAINER container} is not required, if omitted it will
+ * be initialised to the {@link kDEFAULT_CNT_NODES kDEFAULT_CNT_NODES} constant.
+ *
+ * If the service matches nodes, it will return an array structured as follows:
  *
  * <ul>
  *	<li><i>{@link kAPI_RESPONSE_NODES kAPI_RESPONSE_NODES}</i>: The list of found nodes as
@@ -232,23 +289,65 @@ define( "kAPI_OP_SET_TAGS",			'@SET_TAGS' );
  *		<li><i>Value</i>: The contents of the {@link COntologyTerm term}.
  *	 </ul>
  * </ul>
- *
- * If you omit the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter it is assumed
- * that you want all nodes, in that case the service will enforce the use of
- * {@link kAPI_DATA_PAGING paging} options.
- *
- * Note that the {@link kAPI_CONTAINER container} is not required, if omitted it will be
- * initialised to the {@link kDEFAULT_CNT_NODES kDEFAULT_CNT_NODES} constant.
  */
 define( "kAPI_OP_GET_NODES",		'@GET_NODES' );
 
 /**
- * List edges web-service.
+ * Get roots web-service.
  *
- * This is the tag that represents the list edge nodes web service, it will locate all
- * {@link COntologyEdge edges} matching the provided identifiers in the
- * {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter and return the following
- * structure:
+ * This command can be used to search {@link kTYPE_ROOT root} {@link COntologyNode nodes}
+ * matching the same parameters as the {@link kAPI_OP_GET_NODES kAPI_OP_GET_NODES} service.
+ *
+ * This service is functionally equivalent to {@link kAPI_OP_GET_NODES kAPI_OP_GET_NODES}
+ * except that a condition is added by default in which the selected nodes must have the
+ * {@link kTYPE_ROOT root} {@link kTAG_KIND kid}.
+ */
+define( "kAPI_OP_GET_ROOTS",		'@GET_ROOTS' );
+
+/**
+ * Get edges web-service.
+ *
+ * This command can be used to search for {@link COntologyEdge edges} according to the
+ * parameters provided to the service:
+ *
+ * <ul>
+ *	<li><i>{@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS}</i>: This parameter represents
+ *		a list of {@link COntologyEdge edge} identifiers that are be expressed as an
+ *		integer.
+ *	<li><i>{@link kAPI_DATA_QUERY kAPI_DATA_QUERY}</i>: This parameter represents a
+ *		{@link CMongoQuery query}.
+ * </ul>
+ *
+ * The two options are not exclusive and will be applied together with an
+ * {@link kOPERATOR_AND AND} operator.
+ *
+ * If you omit the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter the service
+ * will enforce the use of {@link kAPI_DATA_PAGING paging} options.
+ *
+ * The service accepts a parameter, {@link kAPI_OPT_PREDICATES kAPI_OPT_PREDICATES}, which
+ * represents a list of predicates, provided as a list of {@link COntologyTerm term}
+ * identifiers, to take into consideration: if the provided
+ * {@link kAPI_OPT_PREDICATES_INC kAPI_OPT_PREDICATES_INC} parameter resolves to <i>TRUE</i>
+ * boolean the list of predicates will be considered as an inclusion, that is, only edges
+ * containing one of the predicates in the list will be selected; if the
+ * {@link kAPI_OPT_PREDICATES_INC kAPI_OPT_PREDICATES_INC} parameter resolves to
+ * <i>FALSE</i>, only edges whose type is not among the list will be selected. If the
+ * {@link kAPI_OPT_PREDICATES_INC kAPI_OPT_PREDICATES_INC} parameter is omitted, it will
+ * default to <i>TRUE</i>.
+ *
+ * The service will check the {@link kAPI_DATA_SORT kAPI_DATA_SORT} parameter to order the
+ * returned records by the list of fields provided in that parameter, this option applies
+ * only to the list of returned {@link COntologyEdge edges}.
+ *
+ * The service will also check the {@link kAPI_DATA_FIELD kAPI_DATA_FIELD} parameter to
+ * restrict the returned fields to the provided list, note that this option will only apply
+ * to the fields of the related {@link COntologyTerm terms}, the {@link COntologyEdge edge}
+ * and {@link COntologyNode node} records will be returned complete.
+ *
+ * In this service the {@link kAPI_CONTAINER container} is not required, if omitted it will
+ * be initialised to the {@link kDEFAULT_CNT_EDGES kDEFAULT_CNT_EDGES} constant.
+ *
+ * If the service matches edges, it will return an array structured as follows:
  *
  * <ul>
  *	<li><i>{@link kAPI_RESPONSE_EDGES kAPI_RESPONSE_EDGES}</i>: The list of edges as an
@@ -280,13 +379,6 @@ define( "kAPI_OP_GET_NODES",		'@GET_NODES' );
  *		<li><i>Value</i>: The contents of the {@link COntologyTerm term}.
  *	 </ul>
  * </ul>
- *
- * If you omit the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter it is assumed
- * that you want all edges, in that case the service will enforce the use of
- * {@link kAPI_DATA_PAGING paging} options.
- *
- * Note that the {@link kAPI_CONTAINER container} is not required, if omitted it will be
- * initialised to the {@link kDEFAULT_CNT_EDGES kDEFAULT_CNT_EDGES} constant.
  */
 define( "kAPI_OP_GET_EDGES",		'@GET_EDGES' );
 
@@ -317,7 +409,7 @@ define( "kAPI_OP_GET_EDGES",		'@GET_EDGES' );
  *		it will simply return the matching edges.
  * </ul>
  *
- * The service also expects a {@link kAPI_OPT_LEVELS kAPI_OPT_LEVELS}parameter, a signed
+ * The service also expects a {@link kAPI_OPT_LEVELS kAPI_OPT_LEVELS} parameter, a signed
  * integer, that indicates how many levels to recurse the graph traversal, if this parameter
  * is not provided, it will default to 1 level; to traverse all levels this parameter should
  * be set to a negative number; a level of 0 will only return the list of involved nodes and
@@ -364,88 +456,55 @@ define( "kAPI_OP_GET_EDGES",		'@GET_EDGES' );
  * If you omit the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter, no elements
  * will be returned. The service does not use {@link kAPI_DATA_PAGING paging} options.
  *
+ * The record {@link kAPI_AFFECTED_COUNT count} refers to the edges count.
+ *
  * Note that the {@link kAPI_CONTAINER container} is not required, if omitted it will be
  * initialised to the {@link kDEFAULT_CNT_TERMS kDEFAULT_CNT_TERMS} constant.
  */
 define( "kAPI_OP_GET_RELS",			'@GET_RELS' );
 
 /**
- * Get roots web-service.
- *
- * This is the tag that represents the get roots web service, it will locate all
- * {@link kTYPE_ROOT root} {@link COntologyNode nodes} matching the provided
- * {@link kAPI_DATA_QUERY query}.
- *
- * A node is a root if it has among its {@link COntologyNode::Kind() kinds} the
- * {@link kTYPE_ROOT kTYPE_ROOT} tag.
- *
- * The method will return the following structure:
- *
- * <ul>
- *	<li><i>{@link kAPI_RESPONSE_NODES kAPI_RESPONSE_NODES}</i>: The list of found nodes as
- *		follows:
- *	 <ul>
- *		<li><i>Key</i>: The node ID.
- *		<li><i>Value</i>: The node properties.
- *	 </ul>
- *	<li><i>{@link kAPI_RESPONSE_TERMS kAPI_RESPONSE_TERMS}</i>: The list of terms related to
- *		the list of found nodes as follows:
- *	 <ul>
- *		<li><i>Key</i>: The {@link COntologyTerm term} global {@link kTAG_GID identifier}.
- *		<li><i>Value</i>: The contents of the {@link COntologyTerm term}.
- *	 </ul>
- * </ul>
- *
- * If you omit the {@link kAPI_DATA_QUERY kAPI_DATA_QUERY} parameter, all
- * {@link kTYPE_ROOT root} {@link COntologyNode nodes} will be selected.
- */
-define( "kAPI_OP_GET_ROOTS",		'@GET_ROOTS' );
-
-/**
  * List datasets web-service.
  *
- * This is the tag that represents the list datasets web service, it will locate all
- * {@link CDataset datasets} matching the provided identifiers in the
- * {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter and return an array
- * structured as follows:
+ * This command can be used to search for {@link CDataset datasets} according to the
+ * parameters provided to the service:
+ *
+ * <ul>
+ *	<li><i>{@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS}</i>: This parameter represents
+ *		a list of {@link CDataset dataset} identifiers that can be expressed as:
+ *	 <ul>
+ *		<li><i>string</i>: In this case the value is interpreted as the dataset global
+ *			{@link kTAG_GID identifier}.
+ *		<li><i>array</i>: In this case the value is interpreted as the dataset local
+ *			{@link kTAG_LID identifier}.
+ *	 </ul>
+ *	<li><i>{@link kAPI_DATA_QUERY kAPI_DATA_QUERY}</i>: This parameter represents a
+ *		{@link CMongoQuery query}.
+ * </ul>
+ *
+ * The two options are not exclusive and will be applied together with an
+ * {@link kOPERATOR_AND AND} operator.
+ *
+ * If you omit the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter the service
+ * will enforce the use of {@link kAPI_DATA_PAGING paging} options.
+ *
+ * The service will check the {@link kAPI_DATA_SORT kAPI_DATA_SORT} parameter to order the
+ * returned records by the list of fields provided in that parameter.
+ *
+ * The service will also check the {@link kAPI_DATA_FIELD kAPI_DATA_FIELD} parameter to
+ * restrict the returned fields to the provided list.
+ *
+ * In this service the {@link kAPI_CONTAINER container} is not required, if omitted it will
+ * be initialised to the {@link kDEFAULT_CNT_DATASET kDEFAULT_CNT_DATASET} constant.
+ *
+ * If the service matches datasets, it will return an array structured as follows:
  *
  * <ul>
  *	<li><i>Key</i>: The {@link CDataset dataset} global {@link kTAG_GID identifier}.
  *	<li><i>Value</i>: The contents of the {@link CDataset dataset}.
  * </ul>
- *
- * If you omit the {@link kAPI_OPT_IDENTIFIERS kAPI_OPT_IDENTIFIERS} parameter it is assumed
- * that you want all datasets, in that case the service will enforce the use of
- * {@link kAPI_DATA_PAGING paging} options.
- *
- * The service will check the {@link kAPI_DATA_FIELD kAPI_DATA_FIELD} parameter to return
- * the provided list of fields.
- *
- * Note that the {@link kAPI_CONTAINER container} is not required, if omitted it will be
- * initialised to the {@link kDEFAULT_CNT_DATASET kDEFAULT_CNT_DATASET} constant.
  */
 define( "kAPI_OP_GET_DATASETS",		'@GET_DATASETS' );
-
-/*=======================================================================================
- *	STANDARD OPTION ENUMERATIONS														*
- *======================================================================================*/
-
-/**
- * ID.
- *
- * This option refers to the current object {@link kTAG:LID identifier}, it will be used
- * when retrieving, updating and deleting objects, its scope is dependent on the service
- * {@link kAPI_OPERATION operation}.
- */
-define( "kAPI_OPT_ID",				':@ID' );
-
-/**
- * Title.
- *
- * This option is used for referring to generic {@link kTAG_TITLE title} object attributes, 
- * its scope is dependent on the service {@link kAPI_OPERATION operation}.
- */
-define( "kAPI_OPT_TITLE",			':@TITLE' );
 
 /*=======================================================================================
  *	DEFAULT OPTION ENUMERATIONS															*

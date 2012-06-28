@@ -161,10 +161,12 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				// Enforce paging.
 				//
 				case kAPI_OP_GET_USERS:
+				case kAPI_OP_GET_MANAGED_USERS:
 				case kAPI_OP_GET_TERMS:
 				case kAPI_OP_MATCH_TERMS:
 				case kAPI_OP_GET_TAGS:
 				case kAPI_OP_GET_NODES:
+				case kAPI_OP_GET_ROOTS:
 				case kAPI_OP_GET_EDGES:
 				case kAPI_OP_GET_DATASETS:
 					//
@@ -213,6 +215,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 								break;
 						
 							case kAPI_OP_GET_NODES:
+							case kAPI_OP_GET_ROOTS:
 								$_REQUEST[ kAPI_CONTAINER ] = kDEFAULT_CNT_NODES;
 								break;
 						
@@ -227,44 +230,6 @@ class CWarehouseWrapper extends CMongoDataWrapper
 						} // Reparsing operation.
 					
 					} // Missing container reference.
-					
-					break;
-				
-				case kAPI_OP_GET_ROOTS:
-					//
-					// Check for container.
-					//
-					if( (! array_key_exists( kAPI_CONTAINER, $_REQUEST ))
-					 || (! strlen( $_REQUEST[ kAPI_CONTAINER ] )) )
-						$_REQUEST[ kAPI_CONTAINER ] = kDEFAULT_CNT_NODES;
-					
-					break;
-				
-				case kAPI_OP_QUERY_USERS:
-					//
-					// Check for container.
-					//
-					if( (! array_key_exists( kAPI_CONTAINER, $_REQUEST ))
-					 || (! strlen( $_REQUEST[ kAPI_CONTAINER ] )) )
-						$_REQUEST[ kAPI_CONTAINER ] = CEntity::DefaultContainer();
-					
-					//
-					// Check if query is missig.
-					//
-					if( ! array_key_exists( kAPI_DATA_QUERY, $_REQUEST ) )
-					{
-						//
-						// Enforce start if missing.
-						//
-						if( ! array_key_exists( kAPI_PAGE_START, $_REQUEST ) )
-							$_REQUEST[ kAPI_PAGE_START ] = 0;
-						//
-						// Enforce limit if missing.
-						//
-						if( ! array_key_exists( kAPI_PAGE_LIMIT, $_REQUEST ) )
-							$_REQUEST[ kAPI_PAGE_LIMIT ] = kDEFAULT_LIMITS;
-					
-					} // Missing identifiers.
 					
 					break;
 			
@@ -337,8 +302,6 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		//
 		// Handle parameters.
 		//
-		$this->_ParseID();
-		$this->_ParseTitle();
 		$this->_ParseIdentifiers();
 		$this->_ParsePredicates();
 		$this->_ParsePredicatesInclusion();
@@ -423,72 +386,6 @@ class CWarehouseWrapper extends CMongoDataWrapper
  *																						*
  *======================================================================================*/
 
-
-	 
-	/*===================================================================================
-	 *	_ParseID																		*
-	 *==================================================================================*/
-
-	/**
-	 * Parse ID.
-	 *
-	 * This method will parse the {@link kAPI_OPT_ID ID} parameter.
-	 *
-	 * @access protected
-	 *
-	 * @see kAPI_DATA_REQUEST kAPI_OPT_ID
-	 */
-	protected function _ParseID()
-	{
-		//
-		// Handle ID.
-		//
-		if( array_key_exists( kAPI_OPT_ID, $_REQUEST ) )
-		{
-			//
-			// Add to request.
-			//
-			if( $this->offsetExists( kAPI_DATA_REQUEST ) )
-				$this->_OffsetManage
-					( kAPI_DATA_REQUEST, kAPI_OPT_ID,
-					  $_REQUEST[ kAPI_OPT_ID ] );
-		
-		} // Has ID.
-	
-	} // _ParseID.
-
-	 
-	/*===================================================================================
-	 *	_ParseTitle																		*
-	 *==================================================================================*/
-
-	/**
-	 * Parse title.
-	 *
-	 * This method will parse the {@link kAPI_OPT_TITLE title} parameter.
-	 *
-	 * @access protected
-	 *
-	 * @see kAPI_DATA_REQUEST kAPI_OPT_TITLE
-	 */
-	protected function _ParseTitle()
-	{
-		//
-		// Handle title.
-		//
-		if( array_key_exists( kAPI_OPT_TITLE, $_REQUEST ) )
-		{
-			//
-			// Add to request.
-			//
-			if( $this->offsetExists( kAPI_DATA_REQUEST ) )
-				$this->_OffsetManage
-					( kAPI_DATA_REQUEST, kAPI_OPT_TITLE,
-					  $_REQUEST[ kAPI_OPT_TITLE ] );
-		
-		} // Has title.
-	
-	} // _ParseTitle.
 
 	 
 	/*===================================================================================
@@ -776,9 +673,10 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				break;
 			
 			//
-			// Handle query users workflow.
+			// Handle get users workflow.
 			//
-			case kAPI_OP_QUERY_USERS:
+			case kAPI_OP_GET_USERS:
+			case kAPI_OP_GET_MANAGED_USERS:
 				//
 				// Call parent method.
 				//
@@ -1002,13 +900,33 @@ class CWarehouseWrapper extends CMongoDataWrapper
 					//
 					case kAPI_OP_GET_TAGS:
 						//
+						// Hash identifiers.
+						//
+						$identifiers = Array();
+						$length = strlen( kTAG_SINGLETON_ID );
+						foreach( $_REQUEST[ kAPI_OPT_IDENTIFIERS ] as $identifier )
+						{
+							//
+							// Handle GID.
+							//
+							if( substr( $identifier, 0, $length ) == kTAG_SINGLETON_ID )
+								$identifiers[] = (integer) substr( $identifier, $length+1 );
+							
+							//
+							// Assume identifier.
+							//
+							else
+								$identifiers[] = (integer) $identifier;
+						}
+			
+						//
 						// Convert to query.
 						//
 						$_REQUEST[ kAPI_DATA_QUERY ] = new CMongoQuery();
 						$_REQUEST[ kAPI_DATA_QUERY ]->AppendStatement(
 														CQueryStatement::Member(
 															kTAG_LID,
-															$_REQUEST[ kAPI_OPT_IDENTIFIERS ],
+															$identifiers,
 															kTYPE_INT64 ),
 														kOPERATOR_AND );
 						break;
@@ -1016,6 +934,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 					//
 					// Handle node references.
 					//
+					case kAPI_OP_GET_ROOTS:
 					case kAPI_OP_GET_NODES:
 					case kAPI_OP_GET_EDGES:
 						//
@@ -1100,9 +1019,13 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				//
 				case kAPI_OP_GET_USERS:
 					//
+					// Create query.
+					//
+					if( ! array_key_exists( kAPI_DATA_QUERY, $_REQUEST ) )
+						$_REQUEST[ kAPI_DATA_QUERY ] = new CMongoQuery();
+ 					//
 					// Add user kind selector.
 					//
-					$_REQUEST[ kAPI_DATA_QUERY ] = new CMongoQuery();
 					$_REQUEST[ kAPI_DATA_QUERY ]->AppendStatement(
 													CQueryStatement::Equals(
 														kTAG_KIND,
@@ -1110,7 +1033,44 @@ class CWarehouseWrapper extends CMongoDataWrapper
 														kTYPE_STRING ),
 													kOPERATOR_AND );
 					break;
+				
+				//
+				// Handle managed users.
+				//
+				case kAPI_OP_GET_MANAGED_USERS:
+					//
+					// Create query.
+					//
+					if( ! array_key_exists( kAPI_DATA_QUERY, $_REQUEST ) )
+						$_REQUEST[ kAPI_DATA_QUERY ] = new CMongoQuery();
+					//
+					// Look for managed users.
+					//
+					$_REQUEST[ kAPI_DATA_QUERY ]
+						->AppendStatement( CQueryStatement::Exists( kTAG_MANAGER ),
+										   kOPERATOR_AND );
+					break;
 			
+				//
+				// Handle tags.
+				//
+				case kAPI_OP_GET_TAGS:
+					//
+					// Create query.
+					//
+					if( ! array_key_exists( kAPI_DATA_QUERY, $_REQUEST ) )
+						$_REQUEST[ kAPI_DATA_QUERY ] = new CMongoQuery();
+					//
+					// Exclude singleton record.
+					//
+					$_REQUEST[ kAPI_DATA_QUERY ]->AppendStatement(
+													CQueryStatement::NotEquals(
+														kTAG_LID,
+														kTAG_SINGLETON_ID,
+														kTYPE_STRING ),
+													kOPERATOR_AND );
+					break;
+				
 			} // Parsed by request.
 		
 		} // Identifiers not provided.
@@ -1287,7 +1247,6 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				break;
 				
 			case kAPI_OP_GET_USERS:
-			case kAPI_OP_QUERY_USERS:
 			case kAPI_OP_GET_MANAGED_USERS:
 			case kAPI_OP_GET_TERMS:
 			case kAPI_OP_MATCH_TERMS:
@@ -1598,35 +1557,24 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				break;
 
 			case kAPI_OP_GET_USERS:
-				$this->_Handle_ListCollection();
-				break;
-
-			case kAPI_OP_QUERY_USERS:
-				$this->_Handle_ListCollection();
-				break;
-
 			case kAPI_OP_GET_MANAGED_USERS:
-				$this->_Handle_ListCollection();
+			case kAPI_OP_GET_TERMS:
+			case kAPI_OP_GET_TAGS:
+			case kAPI_OP_GET_DATASETS:
+				$this->_Handle_GetScalar();
 				break;
 
-			case kAPI_OP_GET_TERMS:
-				$this->_Handle_ListCollection();
+			case kAPI_OP_GET_NODES:
+			case kAPI_OP_GET_ROOTS:
+				$this->_Handle_GetNodes();
 				break;
 
 			case kAPI_OP_MATCH_TERMS:
 				$this->_Handle_MatchTerms();
 				break;
 
-			case kAPI_OP_GET_TAGS:
-				$this->_Handle_ListCollection();
-				break;
-
 			case kAPI_OP_SET_TAGS:
 				$this->_Handle_SetTags();
-				break;
-
-			case kAPI_OP_GET_NODES:
-				$this->_Handle_GetNodes();
 				break;
 
 			case kAPI_OP_GET_EDGES:
@@ -1635,14 +1583,6 @@ class CWarehouseWrapper extends CMongoDataWrapper
 
 			case kAPI_OP_GET_RELS:
 				$this->_Handle_GetRelations();
-				break;
-
-			case kAPI_OP_GET_ROOTS:
-				$this->_Handle_GetNodes();
-				break;
-
-			case kAPI_OP_GET_DATASETS:
-				$this->_Handle_ListCollection();
 				break;
 
 			default:
@@ -1739,22 +1679,20 @@ class CWarehouseWrapper extends CMongoDataWrapper
 
 	 
 	/*===================================================================================
-	 *	_Handle_ListCollection															*
+	 *	_Handle_GetScalar																*
 	 *==================================================================================*/
 
 	/**
-	 * Handle GET-XXX request.
+	 * Handle list scalars request.
 	 *
-	 * This method will handle the {@link kAPI_OP_GET_USERS kAPI_OP_GET_USERS},
-	 * {@link kAPI_OP_GET_TERMS kAPI_OP_GET_TERMS},
-	 * {@link kAPI_OP_GET_TAGS kAPI_OP_GET_TAGS} and
-	 * {@link kAPI_OP_GET_DATASETS kAPI_OP_GET_DATASETS} requests, it is equivalent to the
-	 * {@link _Handle_Get() _Handle_Get} method, with the only difference being that each
-	 * found element is here indexed by the term global {@link kTAG_GID identifier}.
+	 * This method will handle all requests that result in a query returning a <i>single</i>
+	 * list of selected records, it is equivalent to the {@link _Handle_Get() _Handle_Get}
+	 * method, with the only difference being that each found element is here indexed by the
+	 * object global {@link kTAG_GID identifier}.
 	 *
 	 * @access protected
 	 */
-	protected function _Handle_ListCollection()
+	protected function _Handle_GetScalar()
 	{
 		//
 		// Handle query.
@@ -1912,7 +1850,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		
 		} // Not COUNT option.
 	
-	} // _Handle_ListCollection.
+	} // _Handle_GetScalar.
 	
 	
 	/*===================================================================================
@@ -2591,7 +2529,6 @@ class CWarehouseWrapper extends CMongoDataWrapper
 		// Set total count.
 		//
 		$count = $cursor->count( FALSE );
-		$this->_OffsetManage( kAPI_DATA_STATUS, kAPI_AFFECTED_COUNT, $count );
 		
 		//
 		// Continue if count option is not there.
@@ -2822,6 +2759,12 @@ class CWarehouseWrapper extends CMongoDataWrapper
 							} // Has term reference.
 						
 						} // Missing or matched predicates.
+						
+						//
+						// Update count for excluded predicates.
+						//
+						else
+							$count--;
 					
 					} // Loading edges.
 					
@@ -2913,6 +2856,11 @@ class CWarehouseWrapper extends CMongoDataWrapper
 				} // No response option not set.
 				
 			} // Has results.
+			
+			//
+			// Set total count.
+			//
+			$this->_OffsetManage( kAPI_DATA_STATUS, kAPI_AFFECTED_COUNT, $count );
 		
 		} // Not COUNT option.
 	
@@ -3244,15 +3192,6 @@ class CWarehouseWrapper extends CMongoDataWrapper
 			.'list of ['
 			.kAPI_OPT_IDENTIFIERS
 			.'] user manager identifiers.';
-		
-		//
-		// Add kAPI_OP_QUERY_USERS.
-		//
-		$theList[ kAPI_OP_QUERY_USERS ]
-			= 'This operation will return the list of users matching the provided '
-			.'query ['
-			.kAPI_DATA_QUERY
-			.'].';
 		
 		//
 		// Add kAPI_OP_GET_TERMS.

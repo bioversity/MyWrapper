@@ -27,6 +27,13 @@
 require_once( kPATH_LIBRARY_SOURCE."COntologyTerm.php" );
 
 /**
+ * Local defines.
+ *
+ * This include file contains all local definitions.
+ */
+require_once( kPATH_LIBRARY_SOURCE."COntologyTag.inc.php" );
+
+/**
  * Ontology tag.
  *
  * A data element tagged by an instance of the {@link COntologyTerm COntologyTerm} class
@@ -659,9 +666,9 @@ class COntologyTag extends COntologyTermObject
 	 * Get new sequence.
 	 *
 	 * This method will return the next sequence number and increment the existing one.
-	 * The sequence is stored in a singleton record identified by the '@' character, this
-	 * record contains a single {@link kTAG_COUNT attribute} which represents the next
-	 * available sequence number.
+	 * The sequence is stored in a singleton record identified by the
+	 * {@link kTAG_SINGLETON_ID kTAG_SINGLETON_ID} character, this record contains a single
+	 * {@link kTAG_COUNT attribute} which represents the next available sequence number.
 	 *
 	 * When retrieving the sequence, if the main record does not exist, this method will
 	 * create one with a first value of 1.
@@ -678,7 +685,7 @@ class COntologyTag extends COntologyTermObject
 		//
 		// Init local storage.
 		//
-		$criteria = array( kTAG_LID => '@' );
+		$criteria = array( kTAG_LID => kTAG_SINGLETON_ID );
 		$modified = array( '$inc' => array( kTAG_COUNT => 1 ) );
 		$options = array( 'upsert' => TRUE, 'multiple' => FALSE, 'safe' => TRUE );
 		
