@@ -230,11 +230,14 @@ class CPersistentObject extends CStatusObject
 			$this->_PrepareLoad( $theContainer, $theIdentifier, $theModifiers );
 			
 			//
-			// Find object in container, create it and set status.
+			// Find object.
 			//
-			$this->_IsCommitted(
-				$this->_Create(
-					$this->_Load( $theContainer, $theIdentifier, $theModifiers ) ) );
+			$found = $this->_Load( $theContainer, $theIdentifier, $theModifiers );
+			
+			//
+			// Create object and set status.
+			//
+			$this->_IsCommitted( $this->_Create( $found ) );
 			
 			//
 			// Finish.
