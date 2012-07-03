@@ -485,8 +485,8 @@ class CException extends Exception
 	 *	 </ul>
 	 * </ul>
 	 *
-	 * @param mixed				$theValue		NULL, FALSE, reference value or list.
 	 * @param mixed				$theIndex		Reference element index.
+	 * @param mixed				$theValue		NULL, FALSE, reference value or list.
 	 *
 	 * @access public
 	 * @return mixed	Exception reference.
@@ -963,6 +963,7 @@ class CException extends Exception
 	 *	 </ul>
 	 * </ul>
 	 *
+	 * @param DOMElement			$theTable		HTML table.
 	 * @param array					$theElement		Trace element.
 	 * @param NULL|TRUE|string		$theSource		Source file control.
 	 *

@@ -927,6 +927,7 @@ class COntologyTerm extends COntologyTermObject
 	 *
 	 * @param string				$theValue			Reference or operation.
 	 * @param mixed					$theType			Reference type.
+	 * @param mixed					$theOperation		Operation.
 	 * @param boolean				$getOld				TRUE get old value.
 	 *
 	 * @access public

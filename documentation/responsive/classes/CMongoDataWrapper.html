@@ -1,0 +1,534 @@
+<!DOCTYPE html><html xmlns:date="http://exslt.org/dates-and-times" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>My Wrapper Reference » \CMongoDataWrapper</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">My Wrapper Reference</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Packages</a></li>
+<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
+<li><a href="../packages/MyWrapper.html"><i class="icon-folder-open"></i> MyWrapper</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">0</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods</li>
+<li class="nav-header protected">» Protected</li>
+<li class="method protected "><a href="#_FormatContainer" title="_FormatContainer :: Format container."><span class="description">Format container.</span><pre>_FormatContainer()</pre></a></li>
+<li class="method protected "><a href="#_FormatDatabase" title="_FormatDatabase :: Format database."><span class="description">Format database.</span><pre>_FormatDatabase()</pre></a></li>
+<li class="method protected "><a href="#_FormatObject" title="_FormatObject :: Format object."><span class="description">Format object.</span><pre>_FormatObject()</pre></a></li>
+<li class="method protected "><a href="#_FormatQuery" title="_FormatQuery :: Format query."><span class="description">Format query.</span><pre>_FormatQuery()</pre></a></li>
+<li class="method protected "><a href="#_FormatRequest" title="_FormatRequest :: Format request."><span class="description">Format request.</span><pre>_FormatRequest()</pre></a></li>
+<li class="method protected "><a href="#_HandleOptions" title="_HandleOptions :: Handle options."><span class="description">Handle options.</span><pre>_HandleOptions()</pre></a></li>
+<li class="method protected "><a href="#_HandleRequest" title="_HandleRequest :: Handle request."><span class="description">Handle request.</span><pre>_HandleRequest()</pre></a></li>
+<li class="method protected "><a href="#_Handle_BatchInsert" title="_Handle_BatchInsert :: Handle {@link kAPI_OP_BATCH_INSERT batch} Insert request."><span class="description">Handle {@link kAPI_OP_BATCH_INSERT batch} Insert request.</span><pre>_Handle_BatchInsert()</pre></a></li>
+<li class="method protected "><a href="#_Handle_Count" title="_Handle_Count :: Handle {@link kAPI_OP_COUNT COUNT} request."><span class="description">Handle {@link kAPI_OP_COUNT COUNT} request.</span><pre>_Handle_Count()</pre></a></li>
+<li class="method protected "><a href="#_Handle_Delete" title="_Handle_Delete :: Handle {@link kAPI_OP_DEL Delete} request."><span class="description">Handle {@link kAPI_OP_DEL Delete} request.</span><pre>_Handle_Delete()</pre></a></li>
+<li class="method protected "><a href="#_Handle_Get" title="_Handle_Get :: Handle {@link kAPI_OP_GET Get} request."><span class="description">Handle {@link kAPI_OP_GET Get} request.</span><pre>_Handle_Get()</pre></a></li>
+<li class="method protected "><a href="#_Handle_GetObjectByReference" title="_Handle_GetObjectByReference :: Handle {@link kAPI_OP_GET_OBJECT_REF GetObjectByReference} request."><span class="description">Handle {@link kAPI_OP_GET_OBJECT_REF GetObjectByReference} request.</span><pre>_Handle_GetObjectByReference()</pre></a></li>
+<li class="method protected "><a href="#_Handle_GetOne" title="_Handle_GetOne :: Handle {@link kAPI_OP_GET_ONE GetOne} request."><span class="description">Handle {@link kAPI_OP_GET_ONE GetOne} request.</span><pre>_Handle_GetOne()</pre></a></li>
+<li class="method protected "><a href="#_Handle_Insert" title="_Handle_Insert :: Handle {@link kAPI_OP_INSERT Insert} request."><span class="description">Handle {@link kAPI_OP_INSERT Insert} request.</span><pre>_Handle_Insert()</pre></a></li>
+<li class="method protected "><a href="#_Handle_ListOp" title="_Handle_ListOp :: Handle {@link kAPI_OP_HELP list} operations request."><span class="description">Handle {@link kAPI_OP_HELP list} operations request.</span><pre>_Handle_ListOp()</pre></a></li>
+<li class="method protected "><a href="#_Handle_Match" title="_Handle_Match :: Handle {@link kAPI_OP_GET Get} request."><span class="description">Handle {@link kAPI_OP_GET Get} request.</span><pre>_Handle_Match()</pre></a></li>
+<li class="method protected "><a href="#_Handle_Modify" title="_Handle_Modify :: Handle {@link kAPI_OP_MODIFY Modify} request."><span class="description">Handle {@link kAPI_OP_MODIFY Modify} request.</span><pre>_Handle_Modify()</pre></a></li>
+<li class="method protected "><a href="#_Handle_Set" title="_Handle_Set :: Handle {@link kAPI_OP_SET Set} request."><span class="description">Handle {@link kAPI_OP_SET Set} request.</span><pre>_Handle_Set()</pre></a></li>
+<li class="method protected "><a href="#_Handle_Update" title="_Handle_Update :: Handle {@link kAPI_OP_UPDATE Update} request."><span class="description">Handle {@link kAPI_OP_UPDATE Update} request.</span><pre>_Handle_Update()</pre></a></li>
+<li class="method protected "><a href="#_InitResources" title="_InitResources :: Initialise resources."><span class="description">Initialise resources.</span><pre>_InitResources()</pre></a></li>
+<li class="method protected "><a href="#_ParseNoResponse" title="_ParseNoResponse :: Parse no response."><span class="description">Parse no response.</span><pre>_ParseNoResponse()</pre></a></li>
+<li class="method protected "><a href="#_ParseRequest" title="_ParseRequest :: Parse request."><span class="description">Parse request.</span><pre>_ParseRequest()</pre></a></li>
+<li class="method protected "><a href="#_ValidateObject" title="_ValidateObject :: Validate request object."><span class="description">Validate request object.</span><pre>_ValidateObject()</pre></a></li>
+<li class="method protected "><a href="#_ValidateOperation" title="_ValidateOperation :: Validate request operation."><span class="description">Validate request operation.</span><pre>_ValidateOperation()</pre></a></li>
+<li class="method protected "><a href="#_ValidateQuery" title="_ValidateQuery :: Validate query reference."><span class="description">Validate query reference.</span><pre>_ValidateQuery()</pre></a></li>
+<li class="method protected "><a href="#_ValidateRequest" title="_ValidateRequest :: Validate request."><span class="description">Validate request.</span><pre>_ValidateRequest()</pre></a></li>
+</ul>
+</div>
+<div class="span8">
+<a name="%5CCMongoDataWrapper" id="\CMongoDataWrapper"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/.html"></a></li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/CMongoDataWrapper.html">CMongoDataWrapper</a>
+</li>
+</ul>
+<div href="../classes/CMongoDataWrapper.html" class="element class">
+<p class="short_description">Mongo data wrapper.</p>
+<div class="details">
+<p class="long_description"><p>This class overloads its <a href="CDataWrapper">ancestor</a> to implement a web-service that
+uses a MongoDB data store to manage objects.</p>
+
+<p>This class implements the various elements declared in its <a href="CDataWrapper">ancestor</a>
+and adds the following options:</p>
+
+<ul>
+<li><i><a href="kAPI_OP_GET_ONE">kAPI_OP_GET_ONE</a></i>: This
+    <a href="kAPI_OPERATION">operation</a> is equivalent to the
+    <a href="kAPI_OP_GET">kAPI_OP_GET</a> operation, except that it will only return the first
+    found element. It is equivalent to the Mongo findOne() method.
+<li><i><a href="kAPI_OP_GET_OBJECT_REF">kAPI_OP_GET_OBJECT_REF</a></i>: This
+    <a href="kAPI_OPERATION">operation</a> will return an object referenced by an identifier
+    provided in the <a href="kAPI_DATA_OBJECT">kAPI_DATA_OBJECT</a> parameter. It is
+    equivalent to the <a href="kAPI_OP_GET_ONE">kAPI_OP_GET_ONE</a> operation, except that
+    instead of using the query provided in the <a href="kAPI_DATA_QUERY">kAPI_DATA_QUERY</a>
+    parameter, it will try to extract an identifier from the object provided in the
+    <a href="kAPI_DATA_OBJECT">kAPI_DATA_OBJECT</a> parameter. Remember to
+    <a href="CDataType::SerialiseObject()">serialise</a> the reference before providing it to
+    the wrapper.
+</ul>
+
+<p>This class also implements a static interface that can be used to
+<a href="UnserialiseObject()">unserialise</a> data
+flowing to and from the service parameters and the Mongo container.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>package</th>
+<td><a href="../packages/MyWrapper.Wrappers.html">MyWrapper</a></td>
+</tr>
+<tr>
+<th>subpackage</th>
+<td>Wrappers</td>
+</tr>
+</table>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a name="_FormatContainer" id="_FormatContainer"></a><div class="element clickable method protected _FormatContainer" data-toggle="collapse" data-target="._FormatContainer .collapse">
+<h2>Format container.</h2>
+<pre>_FormatContainer() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method will format the request container.</p>
+
+<p>In this class we set the request container to a MongoCollection object.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+</div></div>
+</div>
+<a name="_FormatDatabase" id="_FormatDatabase"></a><div class="element clickable method protected _FormatDatabase" data-toggle="collapse" data-target="._FormatDatabase .collapse">
+<h2>Format database.</h2>
+<pre>_FormatDatabase() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method will format the request database.</p>
+
+<p>In this class we set the database to a MongoDB object.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+</div></div>
+</div>
+<a name="_FormatObject" id="_FormatObject"></a><div class="element clickable method protected _FormatObject" data-toggle="collapse" data-target="._FormatObject .collapse">
+<h2>Format object.</h2>
+<pre>_FormatObject() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method will format the request object.</p>
+
+<p>In this class we resolve the Mongo native types.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+</div></div>
+</div>
+<a name="_FormatQuery" id="_FormatQuery"></a><div class="element clickable method protected _FormatQuery" data-toggle="collapse" data-target="._FormatQuery .collapse">
+<h2>Format query.</h2>
+<pre>_FormatQuery() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method will format the request query.</p>
+
+<p>In this class we set the query to a CMongoQuery object.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+</div></div>
+</div>
+<a name="_FormatRequest" id="_FormatRequest"></a><div class="element clickable method protected _FormatRequest" data-toggle="collapse" data-target="._FormatRequest .collapse">
+<h2>Format request.</h2>
+<pre>_FormatRequest() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method should perform any needed formatting before the request will be handled.</p>
+
+<p>In this class we handle the parameters to be decoded</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+</div></div>
+</div>
+<a name="_HandleOptions" id="_HandleOptions"></a><div class="element clickable method protected _HandleOptions" data-toggle="collapse" data-target="._HandleOptions .collapse">
+<h2>Handle options.</h2>
+<pre>_HandleOptions(\reference $theResult, array $theOptions) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method will be called before serialising the result if
+<a href="kAPI_DATA_OPTIONS">options</a> are provided in the request.</p>
+
+<p>In this class we don't do anything, derived classes should handle specific elements.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theResult</h4>
+<code>\reference</code><p>&$theResult Results list.</p>
+</div>
+<div class="subelement argument">
+<h4>$theOptions</h4>
+<code>array</code><p>Key/value options list.</p>
+</div>
+</div></div>
+</div>
+<a name="_HandleRequest" id="_HandleRequest"></a><div class="element clickable method protected _HandleRequest" data-toggle="collapse" data-target="._HandleRequest .collapse">
+<h2>Handle request.</h2>
+<pre>_HandleRequest() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method will handle the request.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+</div></div>
+</div>
+<a name="_Handle_BatchInsert" id="_Handle_BatchInsert"></a><div class="element clickable method protected _Handle_BatchInsert" data-toggle="collapse" data-target="._Handle_BatchInsert .collapse">
+<h2>Handle {@link kAPI_OP_BATCH_INSERT batch} Insert request.</h2>
+<pre>_Handle_BatchInsert() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method will handle the <a href="kAPI_OP_BATCH_INSERT">kAPI_OP_BATCH_INSERT</a>
+request, which will insert the provided list of objects.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+</div></div>
+</div>
+<a name="_Handle_Count" id="_Handle_Count"></a><div class="element clickable method protected _Handle_Count" data-toggle="collapse" data-target="._Handle_Count .collapse">
+<h2>Handle {@link kAPI_OP_COUNT COUNT} request.</h2>
+<pre>_Handle_Count() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method will handle the <a href="kAPI_OP_COUNT">kAPI_OP_COUNT</a> request, which
+returns the total count of a Mongo query.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+</div></div>
+</div>
+<a name="_Handle_Delete" id="_Handle_Delete"></a><div class="element clickable method protected _Handle_Delete" data-toggle="collapse" data-target="._Handle_Delete .collapse">
+<h2>Handle {@link kAPI_OP_DEL Delete} request.</h2>
+<pre>_Handle_Delete() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method will handle the <a href="kAPI_OP_DEL">kAPI_OP_DEL</a> request, whichwill delete
+all objects matching the provided filter.</p>
+
+<p>The method expects the <i>justOne</i> parameter in the provided
+<a href="kAPI_DATA_OPTIONS">options</a>, if not provided, it will default to <i>FALSE</i>.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+</div></div>
+</div>
+<a name="_Handle_Get" id="_Handle_Get"></a><div class="element clickable method protected _Handle_Get" data-toggle="collapse" data-target="._Handle_Get .collapse">
+<h2>Handle {@link kAPI_OP_GET Get} request.</h2>
+<pre>_Handle_Get() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method will handle the <a href="kAPI_OP_GET">kAPI_OP_GET</a> request, which
+corresponds to the find Mongo query.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+</div></div>
+</div>
+<a name="_Handle_GetObjectByReference" id="_Handle_GetObjectByReference"></a><div class="element clickable method protected _Handle_GetObjectByReference" data-toggle="collapse" data-target="._Handle_GetObjectByReference .collapse">
+<h2>Handle {@link kAPI_OP_GET_OBJECT_REF GetObjectByReference} request.</h2>
+<pre>_Handle_GetObjectByReference() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method will handle the
+<a href="kAPI_OP_GET_OBJECT_REF">kAPI_OP_GET_OBJECT_REF</a> request, which returns an
+object corresponding to the object <a href="CMongoObjectReference">reference</a> provided
+in the <a href="kAPI_DATA_OBJECT">object</a> parameter.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+</div></div>
+</div>
+<a name="_Handle_GetOne" id="_Handle_GetOne"></a><div class="element clickable method protected _Handle_GetOne" data-toggle="collapse" data-target="._Handle_GetOne .collapse">
+<h2>Handle {@link kAPI_OP_GET_ONE GetOne} request.</h2>
+<pre>_Handle_GetOne() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method will handle the <a href="kAPI_OP_GET_ONE">kAPI_OP_GET_ONE</a> request, which
+corresponds to the findOne Mongo query.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+</div></div>
+</div>
+<a name="_Handle_Insert" id="_Handle_Insert"></a><div class="element clickable method protected _Handle_Insert" data-toggle="collapse" data-target="._Handle_Insert .collapse">
+<h2>Handle {@link kAPI_OP_INSERT Insert} request.</h2>
+<pre>_Handle_Insert() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method will handle the <a href="kAPI_OP_INSERT">kAPI_OP_INSERT</a> request, which
+will insert the provided object.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+</div></div>
+</div>
+<a name="_Handle_ListOp" id="_Handle_ListOp"></a><div class="element clickable method protected _Handle_ListOp" data-toggle="collapse" data-target="._Handle_ListOp .collapse">
+<h2>Handle {@link kAPI_OP_HELP list} operations request.</h2>
+<pre>_Handle_ListOp(\reference $theList) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method will handle the <a href="kAPI_OP_HELP">kAPI_OP_HELP</a> request, which
+should return the list of supported operations.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theList</h4>
+<code>\reference</code><p>Receives operations list.</p></div>
+</div></div>
+</div>
+<a name="_Handle_Match" id="_Handle_Match"></a><div class="element clickable method protected _Handle_Match" data-toggle="collapse" data-target="._Handle_Match .collapse">
+<h2>Handle {@link kAPI_OP_GET Get} request.</h2>
+<pre>_Handle_Match() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method will handle the <a href="kAPI_OP_GET">kAPI_OP_GET</a> request, which
+corresponds to the find Mongo query.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+</div></div>
+</div>
+<a name="_Handle_Modify" id="_Handle_Modify"></a><div class="element clickable method protected _Handle_Modify" data-toggle="collapse" data-target="._Handle_Modify .collapse">
+<h2>Handle {@link kAPI_OP_MODIFY Modify} request.</h2>
+<pre>_Handle_Modify() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method will handle the <a href="kAPI_OP_MODIFY">kAPI_OP_MODIFY</a> request, which
+will update the provided object.</p>
+
+<p>The data provided in the <a href="kAPI_DATA_OBJECT">object</a> parameter will be scanned
+and all <i>NULL</i> values will be set in the <i>$unset</i> array and the non
+<i>NULL</i> values in the <i>$set</i> array.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+</div></div>
+</div>
+<a name="_Handle_Set" id="_Handle_Set"></a><div class="element clickable method protected _Handle_Set" data-toggle="collapse" data-target="._Handle_Set .collapse">
+<h2>Handle {@link kAPI_OP_SET Set} request.</h2>
+<pre>_Handle_Set() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method will handle the <a href="kAPI_OP_SET">kAPI_OP_SET</a> request, which
+will insert/update the provided object.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+</div></div>
+</div>
+<a name="_Handle_Update" id="_Handle_Update"></a><div class="element clickable method protected _Handle_Update" data-toggle="collapse" data-target="._Handle_Update .collapse">
+<h2>Handle {@link kAPI_OP_UPDATE Update} request.</h2>
+<pre>_Handle_Update() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method will handle the <a href="kAPI_OP_UPDATE">kAPI_OP_UPDATE</a> request, which
+will update the provided object.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+</div></div>
+</div>
+<a name="_InitResources" id="_InitResources"></a><div class="element clickable method protected _InitResources" data-toggle="collapse" data-target="._InitResources .collapse">
+<h2>Initialise resources.</h2>
+<pre>_InitResources() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>In this class we initialise the Mongo object into the
+<a href="kSESSION_MONGO">kSESSION_MONGO</a> offset of the $_SESSION variable.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+</div></div>
+</div>
+<a name="_ParseNoResponse" id="_ParseNoResponse"></a><div class="element clickable method protected _ParseNoResponse" data-toggle="collapse" data-target="._ParseNoResponse .collapse">
+<h2>Parse no response.</h2>
+<pre>_ParseNoResponse() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method will parse the no response operation.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>protected</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kAPI_DATA_REQUEST</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a name="_ParseRequest" id="_ParseRequest"></a><div class="element clickable method protected _ParseRequest" data-toggle="collapse" data-target="._ParseRequest .collapse">
+<h2>Parse request.</h2>
+<pre>_ParseRequest() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>We overload this method to parse the no <a href="kAPI_OPT_NO_RESP">response</a> tag.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>protected</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_ParseNoResponse()</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a name="_ValidateObject" id="_ValidateObject"></a><div class="element clickable method protected _ValidateObject" data-toggle="collapse" data-target="._ValidateObject .collapse">
+<h2>Validate request object.</h2>
+<pre>_ValidateObject() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to check whether the provided
+<a href="kAPI_DATA_OBJECT">object</a> contains the <a href="kTAG_REFERENCE_ID">identifier</a>
+when executing tree functions.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+</div></div>
+</div>
+<a name="_ValidateOperation" id="_ValidateOperation"></a><div class="element clickable method protected _ValidateOperation" data-toggle="collapse" data-target="._ValidateOperation .collapse">
+<h2>Validate request operation.</h2>
+<pre>_ValidateOperation() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to check whether the provided
+<a href="kAPI_OPERATION">operation</a> parameter is valid.</p>
+
+<p>In this class, if the query was omitted and an object reference was required, we
+check if the object <a href="kTAG_LID">native</a> identifier is there: in that case
+we compile the query with that value.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+</div></div>
+</div>
+<a name="_ValidateQuery" id="_ValidateQuery"></a><div class="element clickable method protected _ValidateQuery" data-toggle="collapse" data-target="._ValidateQuery .collapse">
+<h2>Validate query reference.</h2>
+<pre>_ValidateQuery() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to check whether the provided
+<a href="kAPI_DATA_QUERY">query</a> parameter is valid.</p>
+
+<p>In this class we convert the query to the native Mongo format.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+</div></div>
+</div>
+<a name="_ValidateRequest" id="_ValidateRequest"></a><div class="element clickable method protected _ValidateRequest" data-toggle="collapse" data-target="._ValidateRequest .collapse">
+<h2>Validate request.</h2>
+<pre>_ValidateRequest() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method should check that the request is valid and that all required parameters
+have been sent.</p>
+
+<p>In this class we check if the provided <a href="kAPI_DATA_OBJECT">object</a> contains the
+<a href="kTAG_REFERENCE_ID">identifier</a> when executing tree functions.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a6</a> and<br>
+            generated on 2012-07-03T16:30:36+02:00.<br></footer></div>
+</div>
+</body>
+</html>

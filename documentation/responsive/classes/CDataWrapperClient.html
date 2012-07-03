@@ -1,0 +1,658 @@
+<!DOCTYPE html><html xmlns:date="http://exslt.org/dates-and-times" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>My Wrapper Reference » \CDataWrapperClient</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">My Wrapper Reference</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Packages</a></li>
+<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
+<li><a href="../packages/MyWrapper.html"><i class="icon-folder-open"></i> MyWrapper</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">0</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods</li>
+<li class="method public "><a href="#Container" title="Container :: Manage container."><span class="description">Manage container.</span><pre>Container()</pre></a></li>
+<li class="method public "><a href="#Database" title="Database :: Manage database."><span class="description">Manage database.</span><pre>Database()</pre></a></li>
+<li class="method public "><a href="#Fields" title="Fields :: Manage query fields."><span class="description">Manage query fields.</span><pre>Fields()</pre></a></li>
+<li class="method public "><a href="#Limit" title="Limit :: Manage page limit."><span class="description">Manage page limit.</span><pre>Limit()</pre></a></li>
+<li class="method public "><a href="#Object" title="Object :: Manage query object."><span class="description">Manage query object.</span><pre>Object()</pre></a></li>
+<li class="method public "><a href="#Operation" title="Operation :: Manage operation."><span class="description">Manage operation.</span><pre>Operation()</pre></a></li>
+<li class="method public "><a href="#Options" title="Options :: Manage options."><span class="description">Manage options.</span><pre>Options()</pre></a></li>
+<li class="method public "><a href="#Query" title="Query :: Manage data query."><span class="description">Manage data query.</span><pre>Query()</pre></a></li>
+<li class="method public "><a href="#Sort" title="Sort :: Manage sort fields."><span class="description">Manage sort fields.</span><pre>Sort()</pre></a></li>
+<li class="method public "><a href="#Start" title="Start :: Manage page start."><span class="description">Manage page start.</span><pre>Start()</pre></a></li>
+</ul>
+</div>
+<div class="span8">
+<a name="%5CCDataWrapperClient" id="\CDataWrapperClient"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/.html"></a></li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/CDataWrapperClient.html">CDataWrapperClient</a>
+</li>
+</ul>
+<div href="../classes/CDataWrapperClient.html" class="element class">
+<p class="short_description">Data wrapper client.</p>
+<div class="details">
+<p class="long_description"><p>This class represents a web-services data wrapper client, it facilitates the job of
+requesting information from servers derived from the <a href="CDataWrapper">CDataWrapper</a>
+class.</p>
+
+<p>This class adds the following properties to its <a href="CWrapperClient">ancestor</a>:</p>
+
+<ul>
+<li><i><a href="Database()">Database</a></i>: This element represents the web-service
+    database, it is stored in the <a href="kAPI_DATABASE">kAPI_DATABASE</a> offset.
+<li><i><a href="Container()">Container</a></i>: This element represents the web-service
+    database container, it is stored in the <a href="kAPI_CONTAINER">kAPI_CONTAINER</a>
+    offset.
+<li><i>Page <a href="Start()">start</a></i>: This element represents the start page requested
+    from the web-service, it is stored in the <a href="kAPI_PAGE_START">kAPI_PAGE_START</a>
+    offset.
+<li><i>Page <a href="Limit()">limit</a></i>: This element represents the max page count
+    requested from the web-service, it is stored in the
+    <a href="kAPI_PAGE_LIMIT">kAPI_PAGE_LIMIT</a> offset.
+<li><i><a href="Query()">Query</a></i>: This element represents the <a href="CQuery">query</a> that
+    will be sent to the web-service, it is stored in the
+    <a href="kAPI_DATA_QUERY">kAPI_DATA_QUERY</a> offset.
+<li><i><a href="Fields()">Fields</a></i>: This element represents the list of fields that
+    should be returned by the web-service, it is stored in the
+    <a href="kAPI_DATA_FIELD">kAPI_DATA_FIELD</a> offset.
+<li><i><a href="Sort()">Sort</a></i>: This element represents the list of fields that will
+    be used to sort the reqults returned by the web-service, it is stored in the
+    <a href="kAPI_DATA_SORT">kAPI_DATA_SORT</a> offset.
+<li><i><a href="Object()">Object</a></i>: This element represents the object to be sent to the
+    web-service, it is stored in the <a href="kAPI_DATA_OBJECT">kAPI_DATA_OBJECT</a> offset.
+<li><i><a href="Options()">Options</a></i>: This element represents a list of options sent to
+    the web-service, it is stored in the <a href="kAPI_DATA_OPTIONS">kAPI_DATA_OPTIONS</a>
+    offset.
+</ul></p>
+<table class="table table-bordered">
+<tr>
+<th>package</th>
+<td><a href="../packages/MyWrapper.Wrappers.html">MyWrapper</a></td>
+</tr>
+<tr>
+<th>subpackage</th>
+<td>Wrappers</td>
+</tr>
+</table>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a name="Container" id="Container"></a><div class="element clickable method public Container" data-toggle="collapse" data-target=".Container .collapse">
+<h2>Manage container.</h2>
+<pre>Container(string $theValue, boolean $getOld) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to manage the database <a href="kAPI_CONTAINER">container</a>, it
+accepts a string which represents either the container name or the requested
+operation, depending on its value:</p>
+
+<ul>
+<li><i>NULL</i>: Return the current value.
+<li><i>FALSE</i>: Delete the current value.
+<li><i>other</i>: Set the value with the provided parameter.
+</ul>
+
+<p>The second parameter is a boolean which if <i>TRUE</i> will return the <i>old</i>
+value when replacing values; if <i>FALSE</i>, it will return the currently set value.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\CAttribute::ManageOffset()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kAPI_CONTAINER</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theValue</h4>
+<code>string</code><p>Value or operation.</p></div>
+<div class="subelement argument">
+<h4>$getOld</h4>
+<code>boolean</code><p>TRUE get old value.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="Database" id="Database"></a><div class="element clickable method public Database" data-toggle="collapse" data-target=".Database .collapse">
+<h2>Manage database.</h2>
+<pre>Database(string $theValue, boolean $getOld) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to manage the <a href="kAPI_DATABASE">database</a>, it accepts a
+string which represents either the database name or the requested operation,
+depending on its value:</p>
+
+<ul>
+<li><i>NULL</i>: Return the current value.
+<li><i>FALSE</i>: Delete the current value.
+<li><i>other</i>: Set the value with the provided parameter.
+</ul>
+
+<p>The second parameter is a boolean which if <i>TRUE</i> will return the <i>old</i>
+value when replacing values; if <i>FALSE</i>, it will return the currently set value.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\CAttribute::ManageOffset()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kAPI_DATABASE</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theValue</h4>
+<code>string</code><p>Value or operation.</p></div>
+<div class="subelement argument">
+<h4>$getOld</h4>
+<code>boolean</code><p>TRUE get old value.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="Fields" id="Fields"></a><div class="element clickable method public Fields" data-toggle="collapse" data-target=".Fields .collapse">
+<h2>Manage query fields.</h2>
+<pre>Fields(mixed $theValue, mixed $theOperation, boolean $getOld) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to manage the <a href="kAPI_DATA_FIELD">fields</a> list, it accepts
+an array or ArrayObject which represents either the list of fields to be returned, or
+the requested operation, depending on its value:</p>
+
+<ul>
+<li><i>NULL</i>: Return the current value.
+<li><i>FALSE</i>: Delete the current value.
+<li><i>other</i>: Set the value with the provided parameter.
+</ul>
+
+<p>The second parameter is a boolean which if <i>TRUE</i> will return the <i>old</i>
+value when replacing values; if <i>FALSE</i>, it will return the currently set value.</p>
+
+<p>If the provided value is not an array or an ArrayObject, the method will raise an
+exception.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\CAttribute::ManageOffset()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kAPI_DATA_FIELD</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theValue</h4>
+<code>mixed</code><p>Value or index.</p></div>
+<div class="subelement argument">
+<h4>$theOperation</h4>
+<code>mixed</code><p>Operation.</p></div>
+<div class="subelement argument">
+<h4>$getOld</h4>
+<code>boolean</code><p>TRUE get old value.</p></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code>\{@link</code></th>
+<td>CException CException}</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="Limit" id="Limit"></a><div class="element clickable method public Limit" data-toggle="collapse" data-target=".Limit .collapse">
+<h2>Manage page limit.</h2>
+<pre>Limit(integer $theValue, boolean $getOld) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to manage the page <a href="kAPI_PAGE_LIMIT">limit</a>, it accepts
+a number which represents either the page limit or the requested operation, depending
+on its value:</p>
+
+<ul>
+<li><i>NULL</i>: Return the current value.
+<li><i>FALSE</i>: Delete the current value.
+<li><i>other</i>: Set the value with the provided parameter.
+</ul>
+
+<p>The second parameter is a boolean which if <i>TRUE</i> will return the <i>old</i>
+value when replacing values; if <i>FALSE</i>, it will return the currently set value.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\CAttribute::ManageOffset()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kAPI_PAGE_LIMIT</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theValue</h4>
+<code>integer</code><p>Value or operation.</p></div>
+<div class="subelement argument">
+<h4>$getOld</h4>
+<code>boolean</code><p>TRUE get old value.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="Object" id="Object"></a><div class="element clickable method public Object" data-toggle="collapse" data-target=".Object .collapse">
+<h2>Manage query object.</h2>
+<pre>Object(mixed $theValue, boolean $getOld) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to manage the <a href="Query()">query</a>
+<a href="kAPI_DATA_OBJECT">object</a>, it accepts an array or ArrayObject which represents
+the object to be sent to the web-service, or the requested operation, depending on
+its value:</p>
+
+<ul>
+<li><i>NULL</i>: Return the current value.
+<li><i>FALSE</i>: Delete the current value.
+<li><i>other</i>: Set the value with the provided parameter.
+</ul>
+
+<p>The second parameter is a boolean which if <i>TRUE</i> will return the <i>old</i>
+value when replacing values; if <i>FALSE</i>, it will return the currently set value.</p>
+
+<p>If the provided value is not an array or an ArrayObject, the method will raise an
+exception.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\CAttribute::ManageOffset()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kAPI_DATA_OBJECT</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theValue</h4>
+<code>mixed</code><p>Value or operation.</p></div>
+<div class="subelement argument">
+<h4>$getOld</h4>
+<code>boolean</code><p>TRUE get old value.</p></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code>\{@link</code></th>
+<td>CException CException}</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="Operation" id="Operation"></a><div class="element clickable method public Operation" data-toggle="collapse" data-target=".Operation .collapse">
+<h2>Manage operation.</h2>
+<pre>Operation(string $theValue, boolean $getOld) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>We <a href="CWrapperClient::Operation()">overload</a> this method to add the following
+allowed operations:</p>
+
+<ul>
+<li><i><a href="kAPI_OP_COUNT">kAPI_OP_COUNT</a></i>: COUNT web-service operation, used to
+    return the total number of elements satisfying a query.
+<li><i><a href="kAPI_OP_MATCH">kAPI_OP_MATCH</a></i>: This operation is equivalent to a
+    read query, except that it will try to match one <a href="kAPI_DATA_QUERY">query</a>
+    clause at the time and will return a result on the first match.
+<li><i><a href="kAPI_OP_GET">kAPI_OP_GET</a></i>: GET web-service operation, used to
+    retrieve objects from the data store.
+<li><i><a href="kAPI_OP_SET">kAPI_OP_SET</a></i>: SET web-service operation, used to
+    insert or update objects in the data store.
+<li><i><a href="kAPI_OP_UPDATE">kAPI_OP_UPDATE</a></i>: UPDATE web-service operation, used
+    to update existing objects in the data store.
+<li><i><a href="kAPI_OP_INSERT">kAPI_OP_INSERT</a></i>: INSERT web-service operation, used
+    to insert new objects in the data store.
+<li><i><a href="kAPI_OP_BATCH_INSERT">kAPI_OP_BATCH_INSERT</a></i>: This service is
+    equivalent to the <a href="kAPI_OP_INSERT">kAPI_OP_INSERT</a> command, except that in
+    this case you provide a list ov objects to insert.
+<li><i><a href="kAPI_OP_MODIFY">kAPI_OP_MODIFY</a></i>: MODIFY web-service operation, used
+    to modify partial contents of objects in the data store.
+<li><i><a href="kAPI_OP_DEL">kAPI_OP_DEL</a></i>: DELETE web-service operation, used to
+    delete objects from the data store.
+</ul></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\CAttribute::ManageOffset()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kAPI_OPERATION</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kAPI_OP_HELP</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theValue</h4>
+<code>string</code><p>Value or operation.</p></div>
+<div class="subelement argument">
+<h4>$getOld</h4>
+<code>boolean</code><p>TRUE get old value.</p></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code>\{@link</code></th>
+<td>CException CException}</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="Options" id="Options"></a><div class="element clickable method public Options" data-toggle="collapse" data-target=".Options .collapse">
+<h2>Manage options.</h2>
+<pre>Options(mixed $theOption, mixed $theValue, boolean $getOld) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to manage the <a href="Query()">query</a> data
+<a href="kAPI_DATA_OPTIONS">options</a>, with it you can add, retrieve and delete elements
+of the options list, to operate on the whole list you should use its
+<a href="kAPI_DATA_OPTIONS">offset</a>.</p>
+
+<p>The method accepts the following parameters:</p>
+
+<ul>
+<li><b>$theOption</b>: This parameter represents the option, it can take the
+    following values:
+ <ul>
+    <li><i><a href="kAPI_OPT_SAFE">kAPI_OPT_SAFE</a></i>: Can be a boolean or integer,
+        defaults to FALSE. If FALSE, a database query will not wait for a response.
+        If TRUE, the program will wait for the database response and throw an
+        exception if the operation did not succeed.
+    <li><i><a href="kAPI_OPT_FSYNC">kAPI_OPT_FSYNC</a></i>: Boolean, defaults to FALSE.
+        Forces the update to be synced to disk before returning success. If TRUE, a
+        <a href="kAPI_OPT_SAFE">safe</a> update is implied and will override setting safe
+        to FALSE.
+    <li><i><a href="kAPI_OPT_TIMEOUT">kAPI_OPT_TIMEOUT</a></i>: Integer, if "safe" is set,
+        this sets how long (in milliseconds) for the client to wait for a database
+        response. If the database does not respond within the timeout period, an
+        exception will be thrown.
+    <li><i><a href="kAPI_OPT_SINGLE">kAPI_OPT_SINGLE</a></i>: Boolean, used in the
+        <a href="kAPI_OP_DEL">delete</a> or <a href="kAPI_OP_UPDATE">update</a> operatiosn: if
+        TRUE, only the first object will be affected; if not, all matching objects
+        will be considered.
+ </ul>
+<li><b>$theValue</b>: This parameter represents either the option value, or the
+    operation to perform:
+ <ul>
+    <li><i>NULL</i>: This value indicates that we want to retrieve the value of the
+        option provided in the previous parameter.
+    <li><i>FALSE</i>: This value indicates that we want to delete the option
+        provided in the previous parameter.
+    <li><i>other</i>: Any other value is interpreted as the value of the option
+        selected by the first parameter. Note that, in general, missing options are
+        equivalent to setting the option to <i>FALSE</i>, when the value is a
+        boolean, so turning off an option is the same as removing it.
+ </ul>
+<li><b>$getOld</b>: Determines what the method will return:
+ <ul>
+    <li><i>TRUE</i>: Return the element or list <i>before</i> it was eventually
+        modified.
+    <li><i>FALSE</i>: Return the element or list <i>after</i> it was eventually
+        modified.
+ </ul>
+</ul></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kAPI_DATA_OPTIONS</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theOption</h4>
+<code>mixed</code><p>Option selector.</p></div>
+<div class="subelement argument">
+<h4>$theValue</h4>
+<code>mixed</code><p>Option value or operation.</p></div>
+<div class="subelement argument">
+<h4>$getOld</h4>
+<code>boolean</code><p>TRUE get old value.</p></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code>\{@link</code></th>
+<td>CException CException}</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="Query" id="Query"></a><div class="element clickable method public Query" data-toggle="collapse" data-target=".Query .collapse">
+<h2>Manage data query.</h2>
+<pre>Query(mixed $theValue, boolean $getOld) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to manage the data <a href="kAPI_DATA_QUERY">query</a>, it accepts
+an array or ArrayObject which represents either the data query or the requested
+operation, depending on its value:</p>
+
+<ul>
+<li><i>NULL</i>: Return the current value.
+<li><i>FALSE</i>: Delete the current value.
+<li><i>other</i>: Set the value with the provided parameter.
+</ul>
+
+<p>The second parameter is a boolean which if <i>TRUE</i> will return the <i>old</i>
+value when replacing values; if <i>FALSE</i>, it will return the currently set value.</p>
+
+<p>If the provided value is not an array or an ArrayObject, the method will raise an
+exception.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\CAttribute::ManageOffset()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kAPI_DATA_QUERY</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theValue</h4>
+<code>mixed</code><p>Value or operation.</p></div>
+<div class="subelement argument">
+<h4>$getOld</h4>
+<code>boolean</code><p>TRUE get old value.</p></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code>\{@link</code></th>
+<td>CException CException}</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="Sort" id="Sort"></a><div class="element clickable method public Sort" data-toggle="collapse" data-target=".Sort .collapse">
+<h2>Manage sort fields.</h2>
+<pre>Sort(mixed $theValue, boolean $getOld) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to manage the <a href="Query()">query</a>
+<a href="kAPI_DATA_SORT">sort</a> fields, it accepts an array or ArrayObject which
+represents either the <a href="Query()">query</a> list of sort fields, or the requested
+operation, depending on its value:</p>
+
+<ul>
+<li><i>NULL</i>: Return the current value.
+<li><i>FALSE</i>: Delete the current value.
+<li><i>other</i>: Set the value with the provided parameter.
+</ul>
+
+<p>The second parameter is a boolean which if <i>TRUE</i> will return the <i>old</i>
+value when replacing values; if <i>FALSE</i>, it will return the currently set value.</p>
+
+<p>If the provided value is not an array or an ArrayObject, the method will raise an
+exception.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\CAttribute::ManageOffset()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kAPI_DATA_SORT</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theValue</h4>
+<code>mixed</code><p>Value or operation.</p></div>
+<div class="subelement argument">
+<h4>$getOld</h4>
+<code>boolean</code><p>TRUE get old value.</p></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code>\{@link</code></th>
+<td>CException CException}</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="Start" id="Start"></a><div class="element clickable method public Start" data-toggle="collapse" data-target=".Start .collapse">
+<h2>Manage page start.</h2>
+<pre>Start(integer $theValue, boolean $getOld) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to manage the page <a href="kAPI_PAGE_START">start</a>, it accepts
+a number which represents either the page start or the requested operation, depending
+on its value:</p>
+
+<ul>
+<li><i>NULL</i>: Return the current value.
+<li><i>FALSE</i>: Delete the current value.
+<li><i>other</i>: Set the value with the provided parameter.
+</ul>
+
+<p>The second parameter is a boolean which if <i>TRUE</i> will return the <i>old</i>
+value when replacing values; if <i>FALSE</i>, it will return the currently set value.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\CAttribute::ManageOffset()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kAPI_PAGE_START</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theValue</h4>
+<code>integer</code><p>Value or operation.</p></div>
+<div class="subelement argument">
+<h4>$getOld</h4>
+<code>boolean</code><p>TRUE get old value.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a6</a> and<br>
+            generated on 2012-07-03T16:30:36+02:00.<br></footer></div>
+</div>
+</body>
+</html>

@@ -23,7 +23,11 @@
  *======================================================================================*/
 
 /**
+ * Autoloader.
+ *
  * This section allows automatic inclusion of the library classes.
+ *
+ * @param string				$theClassName		name of class to load.
  */
 function Neo4jAutoload( $theClassName )
 {

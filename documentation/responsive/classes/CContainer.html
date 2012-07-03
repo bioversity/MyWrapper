@@ -1,0 +1,1122 @@
+<!DOCTYPE html><html xmlns:date="http://exslt.org/dates-and-times" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>My Wrapper Reference » \CContainer</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">My Wrapper Reference</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Packages</a></li>
+<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
+<li><a href="../packages/MyWrapper.html"><i class="icon-folder-open"></i> MyWrapper</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">0</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods</li>
+<li class="method public "><a href="#Commit" title="Commit :: Commit provided object."><span class="description">Commit provided object.</span><pre>Commit()</pre></a></li>
+<li class="method public "><a href="#Container" title="Container :: Manage persistent container."><span class="description">Manage persistent container.</span><pre>Container()</pre></a></li>
+<li class="method public "><a href="#Database" title="Database :: Return database."><span class="description">Return database.</span><pre>Database()</pre></a></li>
+<li class="method public "><a href="#Delete" title="Delete :: Delete object."><span class="description">Delete object.</span><pre>Delete()</pre></a></li>
+<li class="method public "><a href="#Load" title="Load :: Load object."><span class="description">Load object.</span><pre>Load()</pre></a></li>
+<li class="method public "><a href="#Reference" title="Reference :: Convert an object to a reference."><span class="description">Convert an object to a reference.</span><pre>Reference()</pre></a></li>
+<li class="method public "><a href="#UnserialiseData" title="UnserialiseData :: Unserialise provided data element."><span class="description">Unserialise provided data element.</span><pre>UnserialiseData()</pre></a></li>
+<li class="method public "><a href="#UnserialiseObject" title="UnserialiseObject :: Unserialise provided object."><span class="description">Unserialise provided object.</span><pre>UnserialiseObject()</pre></a></li>
+<li class="method public "><a href="#__construct" title="__construct :: Instantiate class."><span class="description">Instantiate class.</span><pre>__construct()</pre></a></li>
+<li class="method public "><a href="#__toString" title="__toString :: Return container name."><span class="description">Return container name.</span><pre>__toString()</pre></a></li>
+<li class="nav-header protected">» Protected</li>
+<li class="method protected "><a href="#_Commit" title="_Commit :: Commit provided object."><span class="description">Commit provided object.</span><pre>_Commit()</pre></a></li>
+<li class="method protected "><a href="#_Container" title="_Container :: Get container reference."><span class="description">Get container reference.</span><pre>_Container()</pre></a></li>
+<li class="method protected "><a href="#_Delete" title="_Delete :: Load object."><span class="description">Load object.</span><pre>_Delete()</pre></a></li>
+<li class="method protected "><a href="#_FinishCommit" title="_FinishCommit :: Normalise after a {@link _Commit() store}."><span class="description">Normalise after a {@link _Commit() store}.</span><pre>_FinishCommit()</pre></a></li>
+<li class="method protected "><a href="#_FinishDelete" title="_FinishDelete :: Normalise after a store."><span class="description">Normalise after a store.</span><pre>_FinishDelete()</pre></a></li>
+<li class="method protected "><a href="#_FinishLoad" title="_FinishLoad :: Normalise after a {@link _Load() load}."><span class="description">Normalise after a {@link _Load() load}.</span><pre>_FinishLoad()</pre></a></li>
+<li class="method protected "><a href="#_Load" title="_Load :: Load object."><span class="description">Load object.</span><pre>_Load()</pre></a></li>
+<li class="method protected "><a href="#_PrepareCommit" title="_PrepareCommit :: Prepare before a {@link _Commit() commit}."><span class="description">Prepare before a {@link _Commit() commit}.</span><pre>_PrepareCommit()</pre></a></li>
+<li class="method protected "><a href="#_PrepareDelete" title="_PrepareDelete :: Prepare before a {@link _Delete() delete}."><span class="description">Prepare before a {@link _Delete() delete}.</span><pre>_PrepareDelete()</pre></a></li>
+<li class="method protected "><a href="#_PrepareLoad" title="_PrepareLoad :: Prepare before a {@link _Load() load}."><span class="description">Prepare before a {@link _Load() load}.</span><pre>_PrepareLoad()</pre></a></li>
+<li class="nav-header">
+<i class="icon-custom icon-property"></i> Properties</li>
+<li class="nav-header protected">» Protected</li>
+<li class="property protected "><a href="#%24mContainer" title="$mContainer :: Persistent data store."><span class="description">Persistent data store.</span><pre>$mContainer</pre></a></li>
+</ul>
+</div>
+<div class="span8">
+<a name="%5CCContainer" id="\CContainer"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/.html"></a></li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/CContainer.html">CContainer</a>
+</li>
+</ul>
+<div href="../classes/CContainer.html" class="element class">
+<p class="short_description">Persistent objects data store ancestor.</p>
+<div class="details">
+<p class="long_description"><p>This <i>abstract</i> class is the ancestor of all container classes in this library, it
+implements the interface and workflow which all derived classes wrapping databases and
+other data stores will implement.</p>
+
+<p>The public interface declares three main operations:</p>
+
+<ul>
+<li><i><a href="Commit()">Commit</a></i>: This method will insert, replace or modify objects
+    in the current container.
+<li><i><a href="Load()">Load</a></i>: This method will retrieve objects from the current
+    container.
+<li><i><a href="Delete()">Delete</a></i>: This method will remove objects from the current
+    container.
+</ul>
+
+<p>The class features a <a href="Container()">member</a> that holds the native data store.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>package</th>
+<td><a href="../packages/MyWrapper.Persistence.html">MyWrapper</a></td>
+</tr>
+<tr>
+<th>subpackage</th>
+<td>Persistence</td>
+</tr>
+</table>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a name="Commit" id="Commit"></a><div class="element clickable method public Commit" data-toggle="collapse" data-target=".Commit .collapse">
+<h2>Commit provided object.</h2>
+<pre>Commit(\reference $theObject, mixed $theIdentifier, \bitfield $theModifiers) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to commit the provided object to the current data store, it
+expects three parameters:</p>
+
+<ul>
+<li><b>$theObject</b>: The object or data to be committed.
+<li><b>$theIdentifier</b>: This parameter is expected to be the object's unique
+    identifier within the container, it will be the <a href="Load()">access</a> key to the
+    object once committed. If the value is <i>NULL</i>, it means that it is the duty
+    of the current container to set it, this will generally be the case when
+    inserting objects; in all other cases the parameter is required.
+<li><b>$theModifiers</b>: This parameter represents the commit operation options, by
+    default we assume it is a bitfield where the following values apply:
+ <ul>
+    <li><i><a href="kFLAG_PERSIST_INSERT">kFLAG_PERSIST_INSERT</a></i>: The provided
+        object will be inserted in the container, it is assumed that no other
+        element in the container shares the same identifier, in that case the method
+        must raise an <a href="kERROR_DUPLICATE">exception</a>.
+    <li><i><a href="kFLAG_PERSIST_UPDATE">kFLAG_PERSIST_UPDATE</a></i>: The provided
+        object will replace the existing object. In this case the method expects
+        the container to have an entry with the same key as the provided identifier,
+        if this is not the case the method must raise an
+        <a href="kERROR_NOT_FOUND">exception</a>. With this option it is assumed that the
+        provided object's attributes will replace all the existing object's ones.
+    <li><i><a href="kFLAG_PERSIST_MODIFY">kFLAG_PERSIST_MODIFY</a></i>: This option can be
+        used to apply modifications to a subset of the object. In this case, the
+        provided object contains a series of key/value pairs in which the key
+        represents the field to operate on, and the value represents the modifier.
+        A series of other flags determine what are the exact operations:
+     <ul>
+        <li><i><a href="kFLAG_MODIFY_MASK">kFLAG_MODIFY_MASK</a> off</i>: If none of
+             flags in this mask are set, it means that the provided key/value pairs
+            represent a list of elements to add or to remove from the object: if the
+            value is <i>NULL</i>, the field corresponding to the key will be
+            removed; if the value is not <i>NULL</i>, the field value will be set or
+            replaced.
+        <li><i><a href="kFLAG_MODIFY_INCREMENT">kFLAG_MODIFY_INCREMENT</a></i>: This
+            option represents an increment or decrement operation, depending on the
+            provided value. The provided values will increment the fields
+            corresponding to the provided keys, if the fields do not exist, these
+            will be set with the provided values.
+        <li><i><a href="kFLAG_MODIFY_APPEND">kFLAG_MODIFY_APPEND</a></i>: This option will
+            append the provided values to the arrays of the corresponding fields. If
+            the field does not exist, it will be created with an array composed of
+            the provided value. If the field exists and its value is not an array,
+            an error should occur.
+        <li><i><a href="kFLAG_MODIFY_ADDSET">kFLAG_MODIFY_ADDSET</a></i>: This option is
+            equivalent to the <a href="kFLAG_MODIFY_APPEND">previous</a> one, except that
+            the value will only be appended if it doesn't already exist in the
+            field.
+        <li><i><a href="kFLAG_MODIFY_POP">kFLAG_MODIFY_POP</a></i>: This option will
+            remove the first or last element of the array contained by the field:
+            if the value is 1, the last element will be removed, if it is -1, the
+            first element will be removed.
+        <li><i><a href="kFLAG_MODIFY_PULL">kFLAG_MODIFY_PULL</a></i>: This option will
+            remove all occurrences of the provided value from the field's array; if
+            the field does not hold an array, an error should be raised.
+     </ul>
+    <li><i><a href="kFLAG_PERSIST_REPLACE">kFLAG_PERSIST_REPLACE</a></i>: The provided
+        object will be <a href="kFLAG_PERSIST_INSERT">inserted</a>, if the identifier
+        doesn't match any container elements, or it will
+        <a href="kFLAG_PERSIST_UPDATE">replace</a> the existing object. As with
+        <a href="kFLAG_PERSIST_UPDATE">update</a>, it is assumed that the provided
+        object's attributes will replace all the existing object's ones.
+    <li><i><a href="kFLAG_PERSIST_DELETE">kFLAG_PERSIST_DELETE</a></i>: This option
+        assumes you want to remove the object from the container, although this
+        operation has its own public <a href="Delete()">method</a>, derived classes can
+        use this option to implement a <i>deleted state</i>, rather than actually
+        removing the object from the container.
+    <li><i><a href="kFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a></i>: This option can be
+        used to work with objects in which complex or custom data types are
+        represented by derived concrete instances of <a href="CDataType">CDataType</a>.
+        If the option is ON, the contents of the object will be
+        <a href="CContainer::UnserialiseObject()">unserialised</a>
+        <a href="_PrepareCommit()">prior</a> to <a href="Commit()">committing</a> it, and
+        <a href="CDataType::SerialiseData()">serialised</a> <a href="FinishCommit()">after</a>.
+        In general, this flag will be passed to method by the provided object.
+ </ul>
+</ul>
+
+<p>The method will return the object's key within the container or raise an exception if
+the operation was not successful.</p>
+
+<p>The operation is performed by a protected interface whose workflow is as follows:</p>
+
+<ul>
+<li><i><a href="_PrepareCommit()">_PrepareCommit</a>()</i>: This method can be used to
+    check the parameters and initialise the resources.
+<li><i><a href="_Commit()">_Commit</a>()</i>: This method will perform the actual commit.
+<li><i><a href="_FinishCommit()">_FinishCommit</a>()</i>: This method can be used to perform
+    eventual post-flight adjustments.
+</ul></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_PrepareCommit()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_Commit()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_FinishCommit()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kFLAG_PERSIST_INSERT</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kFLAG_PERSIST_REPLACE</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theObject</h4>
+<code>\reference</code><p>&$theObject Object to commit.</p>
+</div>
+<div class="subelement argument">
+<h4>$theIdentifier</h4>
+<code>mixed</code><p>Object identifier.</p></div>
+<div class="subelement argument">
+<h4>$theModifiers</h4>
+<code>\bitfield</code><p>Commit modifiers.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="Container" id="Container"></a><div class="element clickable method public Container" data-toggle="collapse" data-target=".Container .collapse">
+<h2>Manage persistent container.</h2>
+<pre>Container(mixed $theValue, boolean $getOld) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to manage the persistent container, it accepts a single
+parameter which represents either the container or the requested operation,
+depending on its value:</p>
+
+<ul>
+<li><i>NULL</i>: Return the current value.
+<li><i>FALSE</i>: Delete the current value.
+<li><i>other</i>: Set the value with the provided parameter.
+</ul>
+
+<p>The second parameter is a boolean which if <i>TRUE</i> will return the <i>old</i>
+value when replacing containers; if <i>FALSE</i>, it will return the currently set
+value.</p>
+
+<p>In derived classes you should overload this method to check if the provided container
+is of the correct type, in this class we accept anything.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\ManageMember()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theValue</h4>
+<code>mixed</code><p>Persistent container or operation.</p></div>
+<div class="subelement argument">
+<h4>$getOld</h4>
+<code>boolean</code><p>TRUE get old value.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="Database" id="Database"></a><div class="element clickable method public Database" data-toggle="collapse" data-target=".Database .collapse">
+<h2>Return database.</h2>
+<pre>Database() : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method should return the current container's database, if this is not relevant,
+it should return <i>NULL</i>.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>public</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="Delete" id="Delete"></a><div class="element clickable method public Delete" data-toggle="collapse" data-target=".Delete .collapse">
+<h2>Delete object.</h2>
+<pre>Delete(mixed $theIdentifier, \bitfield $theModifiers) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to remove an object from the current data store, it expects
+two parameters:</p>
+
+<ul>
+<li><b>$theIdentifier</b>: This parameter is expected to be the object's unique
+    identifier within the container, it will be the access key to the object.
+<li><b>$theModifiers</b>: This parameter represents the delete operation options,
+    please see the <a href="__construct()">constructor</a> documentation for more
+    information on this parameter.
+</ul>
+
+<p>The method should return the deleted object, or <i>NULL</i> if not found.</p>
+
+<p>The actual operation is performed by a protected interface:</p>
+
+<ul>
+<li><i><a href="_PrepareDelete()">_PrepareDelete</a></i>: Normalise parameters and
+    initialise resources.
+<li><i><a href="_Delete()">_Delete</a></i>: Remove object from container.
+<li><i><a href="_FinishDelete()">_FinishDelete</a></i>: Cleanup after the operation.
+</ul></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_PrepareDelete()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_Delete()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_FinishDelete()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kFLAG_STATE_ENCODED</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theIdentifier</h4>
+<code>mixed</code><p>Object identifier.</p></div>
+<div class="subelement argument">
+<h4>$theModifiers</h4>
+<code>\bitfield</code><p>Delete modifiers.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="Load" id="Load"></a><div class="element clickable method public Load" data-toggle="collapse" data-target=".Load .collapse">
+<h2>Load object.</h2>
+<pre>Load(mixed $theIdentifier, \bitfield $theModifiers) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to load an object from the current data store, it expects two
+parameters:</p>
+
+<ul>
+<li><b>$theIdentifier</b>: This parameter is expected to be the object's unique
+    identifier within the container, it will be the access key to the object.
+<li><b>$theModifiers</b>: This parameter represents the load operation options,
+    please see the <a href="__construct()">constructor</a> documentation for more
+    information on this parameter.
+</ul>
+
+<p>The method should return the found object, or <i>NULL</i> if not found.</p>
+
+<p>The actual operation is performed by a protected interface:</p>
+
+<ul>
+<li><i><a href="_PrepareLoad()">_PrepareLoad</a></i>: Normalise parameters and initialise
+    resources.
+<li><i><a href="_Load()">_Load</a></i>: Find and load object.
+<li><i><a href="_FinishLoad()">_FinishLoad</a></i>: Cleanup after the operation.
+</ul></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_PrepareLoad()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_Load()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_FinishLoad()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kFLAG_STATE_ENCODED</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theIdentifier</h4>
+<code>mixed</code><p>Object identifier.</p></div>
+<div class="subelement argument">
+<h4>$theModifiers</h4>
+<code>\bitfield</code><p>Load modifiers.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="Reference" id="Reference"></a><div class="element clickable method public Reference" data-toggle="collapse" data-target=".Reference .collapse">
+<h2>Convert an object to a reference.</h2>
+<pre>Reference(<a href="../classes/CPersistentUnitObject.html">\CPersistentUnitObject</a> $theObject, \bitfield $theModifiers) : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method accepts an object derived from
+<a href="CPersistentUnitObject">CPersistentUnitObject</a> and returns a structure that can
+be used as a reference to that object and stored as a property.</p>
+
+<p>The method will return an array composed by the following offsets:</p>
+
+<ul>
+<li><i><a href="kTAG_REFERENCE_ID">kTAG_REFERENCE_ID</a></i>: The object identifier,
+    if the provided object does not have an <a href="kTAG_LID">identifier</a>, this
+    method will raise an exception.
+<li><i><a href="kTAG_REFERENCE_CONTAINER">kTAG_REFERENCE_CONTAINER</a></i>: The
+    container name.
+<li><i><a href="kTAG_REFERENCE_DATABASE">kTAG_REFERENCE_DATABASE</a></i>: The
+    database name.
+<li><i><a href="kTAG_CLASS">kTAG_CLASS</a></i>: The object's class name.
+</ul>
+
+<p>The method accepts two parameters:</p>
+
+<ul>
+<li><b>$theObject</b>: The object to be referenced, it must be derived from
+    <a href="CPersistentUnitObject">CPersistentUnitObject</a> or the method will raise an
+    exception.
+<li><b>$theModifiers</b>: This bitfield determines what elements should be included
+    in the reference:
+ <ul>
+    <li><i><a href="kFLAG_REFERENCE_IDENTIFIER">kFLAG_REFERENCE_IDENTIFIER</a></i>: The
+        object <a href="kTAG_LID">identifier</a> will be stored under the
+        <a href="kTAG_REFERENCE_ID">kTAG_REFERENCE_ID</a> offset. If the object does
+        not have this identifier, the method will raise an exception. This is the
+        default option.
+    <li><i><a href="kFLAG_REFERENCE_CONTAINER">kFLAG_REFERENCE_CONTAINER</a></i>: The
+        current container name will be stored under the
+        <a href="kTAG_REFERENCE_CONTAINER">kTAG_REFERENCE_CONTAINER</a> offset. If
+        the provided value is empty, the offset will not be set.
+    <li><i><a href="kFLAG_REFERENCE_DATABASE">kFLAG_REFERENCE_DATABASE</a></i>: The
+        current container's database name will be stored under the
+        <a href="kTAG_REFERENCE_DATABASE">kTAG_REFERENCE_DATABASE</a> offset. If the
+        current object's <a href="Database()">database</a> name is <i>NULL</i>, the
+        offset will not be set.
+    <li><i><a href="kFLAG_REFERENCE_CLASS">kFLAG_REFERENCE_CLASS</a></i>: The provided
+        object's class name will be stored under the
+        <a href="kTAG_CLASS">kTAG_CLASS</a> offset.
+ </ul>
+</ul></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\__toString()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\Database()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kFLAG_REFERENCE_IDENTIFIER</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kFLAG_REFERENCE_DATABASE</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theObject</h4>
+<code><a href="../classes/CPersistentUnitObject.html">\CPersistentUnitObject</a></code><p>Object to reference.</p></div>
+<div class="subelement argument">
+<h4>$theModifiers</h4>
+<code>\bitfield</code><p>Referencing options.</p></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code>\{@link</code></th>
+<td>CException CException}</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a name="UnserialiseData" id="UnserialiseData"></a><div class="element clickable method public UnserialiseData" data-toggle="collapse" data-target=".UnserialiseData .collapse">
+<h2>Unserialise provided data element.</h2>
+<pre>UnserialiseData(\reference $theElement) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method should convert the provided structure into a custom data type compatible
+with the current container.</p>
+
+<p>This method is called by a public <a href="UnserialiseObject()">interface</a> which
+traverses an object and provides this method with all elements that satisfy the
+following conditions:</p>
+
+<ul>
+<li><i><a href="CDataType">CDataType</a></i>: All instances derived from this class are
+    sent to this method.
+<li><i>Array</i> or <i>ArrayObject</i>: If the structure is composed of exactly 2
+    offsets and these elements are <a href="kTAG_TYPE">kTAG_TYPE</a> and
+    <a href="kTAG_DATA">kTAG_DATA</a>, it will be sent to this method.
+</ul>
+
+<p>Derived concrete classes will implement this method to intercept all structures that
+can be converted to a native data type compatible with the current container.</p>
+
+<p>The elements to be converted are provided by reference, which means that they have to
+be converted in place.</p>
+
+<p>This class is abstract, so we force derived classes to implement this method.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kTAG_TYPE</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theElement</h4>
+<code>\reference</code><p>&$theElement Element to encode.</p>
+</div>
+</div></div>
+</div>
+<a name="UnserialiseObject" id="UnserialiseObject"></a><div class="element clickable method public UnserialiseObject" data-toggle="collapse" data-target=".UnserialiseObject .collapse">
+<h2>Unserialise provided object.</h2>
+<pre>UnserialiseObject(\reference $theObject) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method will convert concrete derived instances of <a href="CDataType">CDataType</a> or
+equivalent structures into native data types suitable to be stored in containers.</p>
+
+<p>This method will scan the provided object or structure and pass all instances derived
+from <a href="CDataType">CDataType</a> to another public <a href="UnserialiseData()">method</a>
+that will convert these objects into native data types that are compatible with the
+specific container type.</p>
+
+<p>The method will scan the provided structure and select all elements which are arrays,
+ArrayObjects or objects derived from <a href="CDataType">CDataType</a>, these elements will
+be sent to the <a href="UnserialiseData()">UnserialiseData</a> method that will take care
+of converting these structures into native data types that are compatible with the
+specific container type.</p>
+
+<p>The method will perform the conversion directly into the provided reference and will
+use recursion to traverse the provided structures.</p>
+
+<p>Elements sent to the <a href="UnserialiseData()">conversion</a> method are selected as
+follows:</p>
+
+<ul>
+<li><i><a href="CDataType">CDataType</a></i>: All instances derived from this class are
+    sent to the <a href="UnserialiseData()">UnserialiseData</a> method.
+<li><i>Array</i> or <i>ArrayObject</i>: If the structure is composed of exactly 2
+    offsets and these elements are <a href="kTAG_TYPE">kTAG_TYPE</a> and
+    <a href="kTAG_DATA">kTAG_DATA</a>, it will be sent to the
+    <a href="UnserialiseData()">UnserialiseData</a> method. If the above condition is not
+    satisfied, the structure will be sent recursively to this method.
+</ul></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\UnserialiseData()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kTAG_TYPE</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theObject</h4>
+<code>\reference</code><p>&$theObject Object to encode.</p>
+</div>
+</div></div>
+</div>
+<a name="__construct" id="__construct"></a><div class="element clickable method public __construct" data-toggle="collapse" data-target=".__construct .collapse">
+<h2>Instantiate class.</h2>
+<pre>__construct(mixed $theContainer) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>You instantiate the class with a native data store, the method expects a single
+parameter that will be handled specifically by specialised derived classes.</p>
+
+<p>Derived classes should overload this method if a default value is possible; to check
+for specific container types they should rather overload the member accessor
+<a href="Container()">method</a>.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\Container()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theContainer</h4>
+<code>mixed</code><p>Native object store.</p></div>
+</div></div>
+</div>
+<a name="__toString" id="__toString"></a><div class="element clickable method public __toString" data-toggle="collapse" data-target=".__toString .collapse">
+<h2>Return container name.</h2>
+<pre>__toString() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method should return the current container's name.</p>
+
+<p>All derived concrete classes should implement this method, all containers must be
+able to return a name.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>public</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a name="_Commit" id="_Commit"></a><div class="element clickable method protected _Commit" data-toggle="collapse" data-target="._Commit .collapse">
+<h2>Commit provided object.</h2>
+<pre>_Commit(\reference $theObject, \reference $theIdentifier, \reference $theModifiers) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>Derived classes must implement this method to actually store the provided object in
+the container, the method expects the same parameters as the public
+<a href="Commit()">interface</a>, except that in this method these are passed by reference.</p>
+
+<p>The method should return the object's key within the container or raise an exception
+if the operation was not successful.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theObject</h4>
+<code>\reference</code><p>&$theObject Object to commit.</p>
+</div>
+<div class="subelement argument">
+<h4>$theIdentifier</h4>
+<code>\reference</code><p>&$theIdentifier Object identifier.</p>
+</div>
+<div class="subelement argument">
+<h4>$theModifiers</h4>
+<code>\reference</code><p>&$theModifiers Commit modifiers.</p>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="_Container" id="_Container"></a><div class="element clickable method protected _Container" data-toggle="collapse" data-target="._Container .collapse">
+<h2>Get container reference.</h2>
+<pre>_Container() : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to retrieve a reference to the native container member, this
+can be useful when the native <a href="Container()">container</a> is not an object passed
+by reference.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="_Delete" id="_Delete"></a><div class="element clickable method protected _Delete" data-toggle="collapse" data-target="._Delete .collapse">
+<h2>Load object.</h2>
+<pre>_Delete(\reference $theIdentifier, \reference $theModifiers) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>Derived classes must implement this method to actually remove the object from the
+container, the method expects the same parameters as the public
+<a href="Delete()">interface</a>, except that in this method these are passed by reference.</p>
+
+<p>The method should return the removed object or <i>NULL</i> if not found.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theIdentifier</h4>
+<code>\reference</code><p>&$theIdentifier Object identifier.</p>
+</div>
+<div class="subelement argument">
+<h4>$theModifiers</h4>
+<code>\reference</code><p>&$theModifiers Delete modifiers.</p>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="_FinishCommit" id="_FinishCommit"></a><div class="element clickable method protected _FinishCommit" data-toggle="collapse" data-target="._FinishCommit .collapse">
+<h2>Normalise after a {@link _Commit() store}.</h2>
+<pre>_FinishCommit(\reference $theObject, \reference $theIdentifier, \reference $theModifiers) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>The duty of this method is to clean up or restore the object after the
+<a href="_Commit()">store</a> operation.</p>
+
+<p>By default we perform the following checks:</p>
+
+<ul>
+<li><a href="CDataType::SerialiseObject()">Serialise</a> the object if
+    <a href="kFLAG_STATE_ENCODED">necessary</a>.
+<li><a href="CDataType::SerialiseData()">Serialise</a> the identifier if
+    <a href="kFLAG_STATE_ENCODED">necessary</a>.
+</ul>
+
+<p>In derived classes you should always call the parent method, remember to check this
+method to determine whether to implement your custom changes before or after calling
+this method.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>protected</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\CDataType::SerialiseObject()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\CDataType::SerialiseData()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kFLAG_STATE_ENCODED</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theObject</h4>
+<code>\reference</code><p>&$theObject Object or data.</p>
+</div>
+<div class="subelement argument">
+<h4>$theIdentifier</h4>
+<code>\reference</code><p>&$theIdentifier Object identifier.</p>
+</div>
+<div class="subelement argument">
+<h4>$theModifiers</h4>
+<code>\reference</code><p>&$theModifiers Commit modifiers.</p>
+</div>
+</div></div>
+</div>
+<a name="_FinishDelete" id="_FinishDelete"></a><div class="element clickable method protected _FinishDelete" data-toggle="collapse" data-target="._FinishDelete .collapse">
+<h2>Normalise after a store.</h2>
+<pre>_FinishDelete(\reference $theObject, \reference $theIdentifier, \reference $theModifiers) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>The duty of this method is to clean up or restore the object after the
+<a href="_Delete()">delete</a> operation.</p>
+
+<p>By default we perform the following checks:</p>
+
+<ul>
+<li><a href="CDataType::SerialiseData()">Serialise</a> the identifier if
+    <a href="kFLAG_STATE_ENCODED">necessary</a>.
+</ul>
+
+<p>In derived classes you should always call the parent method, remember to check this
+method to determine whether to implement your custom changes before or after calling
+this method.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>protected</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\CDataType::SerialiseData()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kFLAG_STATE_ENCODED</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theObject</h4>
+<code>\reference</code><p>&$theObject Object or data.</p>
+</div>
+<div class="subelement argument">
+<h4>$theIdentifier</h4>
+<code>\reference</code><p>&$theIdentifier Object identifier.</p>
+</div>
+<div class="subelement argument">
+<h4>$theModifiers</h4>
+<code>\reference</code><p>&$theModifiers Commit modifiers.</p>
+</div>
+</div></div>
+</div>
+<a name="_FinishLoad" id="_FinishLoad"></a><div class="element clickable method protected _FinishLoad" data-toggle="collapse" data-target="._FinishLoad .collapse">
+<h2>Normalise after a {@link _Load() load}.</h2>
+<pre>_FinishLoad(\reference $theObject, \reference $theIdentifier, \reference $theModifiers) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>The duty of this method is to clean up or restore the object after the
+<a href="_Load()">load</a> operation.</p>
+
+<p>By default we perform the following checks:</p>
+
+<ul>
+<li><a href="CDataType::SerialiseObject()">Serialise</a> the object if
+    <a href="kFLAG_STATE_ENCODED">necessary</a>.
+<li><a href="CDataType::SerialiseData()">Serialise</a> the identifier if
+    <a href="kFLAG_STATE_ENCODED">necessary</a>.
+</ul>
+
+<p>In derived classes you should always call the parent method, remember to check this
+method to determine whether to implement your custom changes before or after calling
+this method.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>protected</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\CDataType::SerialiseObject()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\CDataType::SerialiseData()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kFLAG_STATE_ENCODED</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theObject</h4>
+<code>\reference</code><p>&$theObject Object reference.</p>
+</div>
+<div class="subelement argument">
+<h4>$theIdentifier</h4>
+<code>\reference</code><p>&$theIdentifier Object identifier.</p>
+</div>
+<div class="subelement argument">
+<h4>$theModifiers</h4>
+<code>\reference</code><p>&$theModifiers Commit modifiers.</p>
+</div>
+</div></div>
+</div>
+<a name="_Load" id="_Load"></a><div class="element clickable method protected _Load" data-toggle="collapse" data-target="._Load .collapse">
+<h2>Load object.</h2>
+<pre>_Load(\reference $theIdentifier, \reference $theModifiers) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>Derived classes must implement this method to actually retrieve the provided object
+from the container, the method expects the same parameters as the public
+<a href="Load()">interface</a>, except that in this method these are passed by reference.</p>
+
+<p>The method should return the found object or <i>NULL</i> if not found.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theIdentifier</h4>
+<code>\reference</code><p>&$theIdentifier Object identifier.</p>
+</div>
+<div class="subelement argument">
+<h4>$theModifiers</h4>
+<code>\reference</code><p>&$theModifiers Load modifiers.</p>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="_PrepareCommit" id="_PrepareCommit"></a><div class="element clickable method protected _PrepareCommit" data-toggle="collapse" data-target="._PrepareCommit .collapse">
+<h2>Prepare before a {@link _Commit() commit}.</h2>
+<pre>_PrepareCommit(\reference $theObject, \reference $theIdentifier, \reference $theModifiers) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method will be called before the <a href="_Commit()">store</a> operation, its duty is
+to prepare the object and check the parameters, please refer to <a href="Commit()">this</a>
+documentation for a reference of the method's parameters. Note that in this method
+all three parameters are passed by reference.</p>
+
+<p>By default we perform the following checks:</p>
+
+<ul>
+<li>Ensure the current object has a container.
+<li>Ensure the identifier is provided if the operation is not an
+    <a href="kFLAG_PERSIST_INSERT">insert</a>.
+<li>Ensure the method has the correct options.
+<li>Get the <a href="CPersistentObject::_IsEncoded()">encoded</a> status
+    <a href="kFLAG_STATE_ENCODED">flag</a> from the object and pass it to the current
+    container.
+<li><a href="UnserialiseObject()">Unserialise</a> the object if
+    <a href="kFLAG_STATE_ENCODED">necessary</a>.
+<li><a href="UnserialiseData()">Unserialise</a> the identifier if
+    <a href="kFLAG_STATE_ENCODED">necessary</a>.
+</ul>
+
+<p>In derived classes you should always call the parent method, remember to check this
+method to determine whether to implement your custom changes before or after calling
+this method.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>protected</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\Container()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\UnserialiseObject()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\UnserialiseData()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kFLAG_STATE_ENCODED</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theObject</h4>
+<code>\reference</code><p>&$theObject Object or data.</p>
+</div>
+<div class="subelement argument">
+<h4>$theIdentifier</h4>
+<code>\reference</code><p>&$theIdentifier Object identifier.</p>
+</div>
+<div class="subelement argument">
+<h4>$theModifiers</h4>
+<code>\reference</code><p>&$theModifiers Commit modifiers.</p>
+</div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code>\{@link</code></th>
+<td>CException CException}</td>
+</tr></table>
+</div></div>
+</div>
+<a name="_PrepareDelete" id="_PrepareDelete"></a><div class="element clickable method protected _PrepareDelete" data-toggle="collapse" data-target="._PrepareDelete .collapse">
+<h2>Prepare before a {@link _Delete() delete}.</h2>
+<pre>_PrepareDelete(\reference $theIdentifier, \reference $theModifiers) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>The duty of this method is to ensure that the parameters provided to the
+<a href="_Delete()">delete</a> operation are valid.</p>
+
+<p>By default we perform the following checks:</p>
+
+<ul>
+<li>Ensure the current object has a container.
+<li>Ensure the identifier is provided.
+<li><a href="CDataType::SerialiseData()">Serialise</a> the identifier if
+    <a href="kFLAG_STATE_ENCODED">necessary</a>.
+</ul>
+
+<p>In derived classes you should always call the parent method, remember to check this
+method to determine whether to implement your custom changes before or after calling
+this method.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>protected</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\Container()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\UnserialiseData()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kFLAG_STATE_ENCODED</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theIdentifier</h4>
+<code>\reference</code><p>&$theIdentifier Object identifier.</p>
+</div>
+<div class="subelement argument">
+<h4>$theModifiers</h4>
+<code>\reference</code><p>&$theModifiers Commit modifiers.</p>
+</div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code>\{@link</code></th>
+<td>CException CException}</td>
+</tr></table>
+</div></div>
+</div>
+<a name="_PrepareLoad" id="_PrepareLoad"></a><div class="element clickable method protected _PrepareLoad" data-toggle="collapse" data-target="._PrepareLoad .collapse">
+<h2>Prepare before a {@link _Load() load}.</h2>
+<pre>_PrepareLoad(\reference $theIdentifier, \reference $theModifiers) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>The duty of this method is to ensure that the parameters provided to the
+<a href="_Load()">find</a> operation are valid.</p>
+
+<p>By default we perform the following checks:</p>
+
+<ul>
+<li>Ensure the current object has a container.
+<li>Ensure the identifier is provided.
+<li><a href="CDataType::SerialiseData()">Serialise</a> the identifier if
+    <a href="kFLAG_STATE_ENCODED">necessary</a>.
+</ul>
+
+<p>In derived classes you should always call the parent method, remember to check this
+method to determine whether to implement your custom changes before or after calling
+this method.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>protected</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\Container()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\UnserialiseData()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kFLAG_STATE_ENCODED</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theIdentifier</h4>
+<code>\reference</code><p>&$theIdentifier Object identifier.</p>
+</div>
+<div class="subelement argument">
+<h4>$theModifiers</h4>
+<code>\reference</code><p>&$theModifiers Create modifiers.</p>
+</div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code>\{@link</code></th>
+<td>CException CException}</td>
+</tr></table>
+</div></div>
+</div>
+<h3>
+<i class="icon-custom icon-property"></i> Properties</h3>
+<a name="%24mContainer" id="$mContainer"> </a><div class="element clickable property protected $mContainer" data-toggle="collapse" data-target=".$mContainer .collapse">
+<h2>Persistent data store.</h2>
+<pre>$mContainer : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><p class="long_description"><p>This data member holds the native persistent store.</p></p></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a6</a> and<br>
+            generated on 2012-07-03T16:30:36+02:00.<br></footer></div>
+</div>
+</body>
+</html>

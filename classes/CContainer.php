@@ -1055,7 +1055,6 @@ abstract class CContainer extends CObject
 	 * method to determine whether to implement your custom changes before or after calling
 	 * this method.
 	 *
-	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
 	 * @param reference			   &$theModifiers		Create modifiers.
 	 *

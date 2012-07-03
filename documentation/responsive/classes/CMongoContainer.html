@@ -1,0 +1,416 @@
+<!DOCTYPE html><html xmlns:date="http://exslt.org/dates-and-times" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>My Wrapper Reference » \CMongoContainer</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">My Wrapper Reference</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Packages</a></li>
+<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
+<li><a href="../packages/MyWrapper.html"><i class="icon-folder-open"></i> MyWrapper</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">0</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods</li>
+<li class="method public "><a href="#Container" title="Container :: Manage persistent container."><span class="description">Manage persistent container.</span><pre>Container()</pre></a></li>
+<li class="method public "><a href="#Database" title="Database :: Return database."><span class="description">Return database.</span><pre>Database()</pre></a></li>
+<li class="method public "><a href="#UnserialiseData" title="UnserialiseData :: Unserialise provided data element."><span class="description">Unserialise provided data element.</span><pre>UnserialiseData()</pre></a></li>
+<li class="method public "><a href="#__toString" title="__toString :: Return container name."><span class="description">Return container name.</span><pre>__toString()</pre></a></li>
+<li class="nav-header protected">» Protected</li>
+<li class="method protected "><a href="#_Commit" title="_Commit :: Commit provided object."><span class="description">Commit provided object.</span><pre>_Commit()</pre></a></li>
+<li class="method protected "><a href="#_Delete" title="_Delete :: Delete object."><span class="description">Delete object.</span><pre>_Delete()</pre></a></li>
+<li class="method protected "><a href="#_Load" title="_Load :: Load object."><span class="description">Load object.</span><pre>_Load()</pre></a></li>
+<li class="method protected "><a href="#_PrepareCommit" title="_PrepareCommit :: Prepare before a {@link _Commit() commit}."><span class="description">Prepare before a {@link _Commit() commit}.</span><pre>_PrepareCommit()</pre></a></li>
+<li class="method protected "><a href="#_PrepareLoad" title="_PrepareLoad :: Prepare before a {@link _Load() load}."><span class="description">Prepare before a {@link _Load() load}.</span><pre>_PrepareLoad()</pre></a></li>
+</ul>
+</div>
+<div class="span8">
+<a name="%5CCMongoContainer" id="\CMongoContainer"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/.html"></a></li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/CMongoContainer.html">CMongoContainer</a>
+</li>
+</ul>
+<div href="../classes/CMongoContainer.html" class="element class">
+<p class="short_description">Mongo persistent data store.</p>
+<div class="details">
+<p class="long_description"><p>This class extends its <a href="CContainer">ancestor</a> to implement an object store based on
+MongoCollection containers.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>package</th>
+<td><a href="../packages/MyWrapper.Persistence.html">MyWrapper</a></td>
+</tr>
+<tr>
+<th>subpackage</th>
+<td>Persistence</td>
+</tr>
+</table>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a name="Container" id="Container"></a><div class="element clickable method public Container" data-toggle="collapse" data-target=".Container .collapse">
+<h2>Manage persistent container.</h2>
+<pre>Container(mixed $theValue, boolean $getOld) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>We <a href="CContainer::Container()">overload</a> this method to ensure that the
+provided container is a MongoCollection object.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>public</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theValue</h4>
+<code>mixed</code><p>Persistent container or operation.</p></div>
+<div class="subelement argument">
+<h4>$getOld</h4>
+<code>boolean</code><p>TRUE get old value.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="Database" id="Database"></a><div class="element clickable method public Database" data-toggle="collapse" data-target=".Database .collapse">
+<h2>Return database.</h2>
+<pre>Database() : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>In this class we return the collection's database.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\Container()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="UnserialiseData" id="UnserialiseData"></a><div class="element clickable method public UnserialiseData" data-toggle="collapse" data-target=".UnserialiseData .collapse">
+<h2>Unserialise provided data element.</h2>
+<pre>UnserialiseData(\reference $theElement) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>We <a href="CContainer::UnserialiseData()">implement</a> this method to convert all
+standard <a href="CDataType">types</a> into custom Mongo data types.</p>
+
+<p>In this class we parse the following types and <a href="kTAG_TYPE">offsets</a>:</p>
+
+<ul>
+<li><i><a href="CDataTypeMongoId">CDataTypeMongoId</a> object or
+    <a href="kTYPE_MongoId">kTYPE_MongoId</a> offset</i>: We return a MongoId
+    object.
+<li><i><a href="CDataTypeMongoCode">CDataTypeMongoCode</a> object or
+    <a href="kTYPE_MongoCode">kTYPE_MongoCode</a> offset</i>: We return a
+    MongoCode object.
+<li><i><a href="CDataTypeStamp">CDataTypeStamp</a> object or
+    <a href="kTYPE_STAMP">kTYPE_STAMP</a> offset</i>: We return a MongoDate
+    object.
+<li><i><a href="CDataTypeRegex">CDataTypeRegex</a> object or
+    <a href="kTYPE_REGEX">kTYPE_REGEX</a> offset</i>: We return a
+    MongoRegex object.
+<li><i><a href="CDataTypeInt32">CDataTypeInt32</a> object or
+    <a href="kTYPE_INT32">kTYPE_INT32</a> offset</i>: We return a MongoInt32
+    object.
+<li><i><a href="CDataTypeInt64">CDataTypeInt64</a> object or
+    <a href="kTYPE_INT64">kTYPE_INT64</a> offset</i>: We return a MongoInt64
+    object.
+<li><i><a href="CDataTypeBinary">CDataTypeBinary</a> object or
+    <a href="kTYPE_BINARY">kTYPE_BINARY</a> offset</i>: We return a MongoBinData
+    object.
+</ul></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>public</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theElement</h4>
+<code>\reference</code><p>&$theElement Element to encode.</p>
+</div>
+</div></div>
+</div>
+<a name="__toString" id="__toString"></a><div class="element clickable method public __toString" data-toggle="collapse" data-target=".__toString .collapse">
+<h2>Return container name.</h2>
+<pre>__toString() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method should return the current container's name.</p>
+
+<p>In this class we return the collection name.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\Container()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a name="_Commit" id="_Commit"></a><div class="element clickable method protected _Commit" data-toggle="collapse" data-target="._Commit .collapse">
+<h2>Commit provided object.</h2>
+<pre>_Commit(\reference $theObject, \reference $theIdentifier, \reference $theModifiers) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>We implement this method to handle MongoCollection object stores, this method will
+store the object in the current container.</p>
+
+<p>The method will check if the current container is a MongoCollection, if this is not
+the case, it will raise an <a href="kERROR_INVALID_STATE">exception</a>.</p>
+
+<p>If the provided modifiers indicate a <a href="kFLAG_PERSIST_MODIFY">modify</a> operation,
+the method will return the modified object, in all other cases the method will return
+the object identifier.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>protected</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\Container()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kFLAG_PERSIST_INSERT</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kFLAG_PERSIST_REPLACE</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theObject</h4>
+<code>\reference</code><p>&$theObject Object to commit.</p>
+</div>
+<div class="subelement argument">
+<h4>$theIdentifier</h4>
+<code>\reference</code><p>&$theIdentifier Object identifier.</p>
+</div>
+<div class="subelement argument">
+<h4>$theModifiers</h4>
+<code>\reference</code><p>&$theModifiers Commit modifiers.</p>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="_Delete" id="_Delete"></a><div class="element clickable method protected _Delete" data-toggle="collapse" data-target="._Delete .collapse">
+<h2>Delete object.</h2>
+<pre>_Delete(\reference $theIdentifier, \reference $theModifiers) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>We implement this method to handle MongoCollection object stores, this method will
+remove the object from the current container.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theIdentifier</h4>
+<code>\reference</code><p>&$theIdentifier Object identifier.</p>
+</div>
+<div class="subelement argument">
+<h4>$theModifiers</h4>
+<code>\reference</code><p>&$theModifiers Load modifiers.</p>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="_Load" id="_Load"></a><div class="element clickable method protected _Load" data-toggle="collapse" data-target="._Load .collapse">
+<h2>Load object.</h2>
+<pre>_Load(\reference $theIdentifier, \reference $theModifiers) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>We implement this method to handle MongoCollection object stores, this method will
+retrieve the object from the current container.</p>
+
+<p>The <a href="Load()">caller</a> will have resolved references andeventually extracted the
+identifier from the provided parameter.</p>
+
+<p>If the provided parameter is an array, the method will assume it is a query; if not,
+the method will assume it is the value to match against the <a href="kTAG_LID">local</a>
+identifier.</p>
+
+<p>The method will use the <i>findOne</i> method to retrieve the object.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theIdentifier</h4>
+<code>\reference</code><p>&$theIdentifier Object identifier.</p>
+</div>
+<div class="subelement argument">
+<h4>$theModifiers</h4>
+<code>\reference</code><p>&$theModifiers Load modifiers.</p>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="_PrepareCommit" id="_PrepareCommit"></a><div class="element clickable method protected _PrepareCommit" data-toggle="collapse" data-target="._PrepareCommit .collapse">
+<h2>Prepare before a {@link _Commit() commit}.</h2>
+<pre>_PrepareCommit(\reference $theObject, \reference $theIdentifier, \reference $theModifiers) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>We <a href="CContainer::_PrepareCommit()">overload</a> this method to handle the
+identifier: if provided, it means that that is to become the object's unique
+<a href="kTAG_LID">identifier</a>; if not provided and the object has an
+<a href="kTAG_LID">identifier</a>, we use that one.</p>
+
+<p>We also raise an exception if the provided object is not either an array or an
+ArrayObject.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>protected</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\Container()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kFLAG_STATE_ENCODED</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kERROR_OPTION_MISSING</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theObject</h4>
+<code>\reference</code><p>&$theObject Object or data.</p>
+</div>
+<div class="subelement argument">
+<h4>$theIdentifier</h4>
+<code>\reference</code><p>&$theIdentifier Object identifier.</p>
+</div>
+<div class="subelement argument">
+<h4>$theModifiers</h4>
+<code>\reference</code><p>&$theModifiers Commit modifiers.</p>
+</div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code>\{@link</code></th>
+<td>CException CException}</td>
+</tr></table>
+</div></div>
+</div>
+<a name="_PrepareLoad" id="_PrepareLoad"></a><div class="element clickable method protected _PrepareLoad" data-toggle="collapse" data-target="._PrepareLoad .collapse">
+<h2>Prepare before a {@link _Load() load}.</h2>
+<pre>_PrepareLoad(\reference $theIdentifier, \reference $theModifiers) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>The duty of this method is to ensure that the parameters provided to the
+<a href="_Load()">find</a> operation are valid.</p>
+
+<p>In this class we <a href="CContainer::_PrepareLoad()">overload</a> this method to handle
+identifiers provided as queries.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>protected</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\Container()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\UnserialiseData()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kFLAG_STATE_ENCODED</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theIdentifier</h4>
+<code>\reference</code><p>&$theIdentifier Object identifier.</p>
+</div>
+<div class="subelement argument">
+<h4>$theModifiers</h4>
+<code>\reference</code><p>&$theModifiers Create modifiers.</p>
+</div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code>\{@link</code></th>
+<td>CException CException}</td>
+</tr></table>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a6</a> and<br>
+            generated on 2012-07-03T16:30:36+02:00.<br></footer></div>
+</div>
+</body>
+</html>

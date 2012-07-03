@@ -1,0 +1,422 @@
+<!DOCTYPE html><html xmlns:date="http://exslt.org/dates-and-times" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>My Wrapper Reference » \CGraphEdge</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">My Wrapper Reference</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Packages</a></li>
+<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
+<li><a href="../packages/MyWrapper.html"><i class="icon-folder-open"></i> MyWrapper</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">0</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods</li>
+<li class="method public "><a href="#Node" title="Node :: Manage native node."><span class="description">Manage native node.</span><pre>Node()</pre></a></li>
+<li class="method public "><a href="#Object" title="Object :: Manage object node."><span class="description">Manage object node.</span><pre>Object()</pre></a></li>
+<li class="method public "><a href="#Subject" title="Subject :: Manage subject node."><span class="description">Manage subject node.</span><pre>Subject()</pre></a></li>
+<li class="method public "><a href="#Type" title="Type :: Manage node type."><span class="description">Manage node type.</span><pre>Type()</pre></a></li>
+<li class="method public "><a href="#__toString" title="__toString :: Return object identifier."><span class="description">Return object identifier.</span><pre>__toString()</pre></a></li>
+<li class="nav-header protected">» Protected</li>
+<li class="method protected "><a href="#_Commit" title="_Commit :: Store object in container."><span class="description">Store object in container.</span><pre>_Commit()</pre></a></li>
+<li class="method protected "><a href="#_FinishCreate" title="_FinishCreate :: Normalise after a {@link _Create() create}."><span class="description">Normalise after a {@link _Create() create}.</span><pre>_FinishCreate()</pre></a></li>
+<li class="method protected "><a href="#_FinishLoad" title="_FinishLoad :: Normalise after a {@link _Load() load}."><span class="description">Normalise after a {@link _Load() load}.</span><pre>_FinishLoad()</pre></a></li>
+<li class="method protected "><a href="#_Load" title="_Load :: Find object."><span class="description">Find object.</span><pre>_Load()</pre></a></li>
+</ul>
+</div>
+<div class="span8">
+<a name="%5CCGraphEdge" id="\CGraphEdge"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/.html"></a></li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/CGraphEdge.html">CGraphEdge</a>
+</li>
+</ul>
+<div href="../classes/CGraphEdge.html" class="element class">
+<p class="short_description">Graph edge.</p>
+<div class="details">
+<p class="long_description"><p>This class implements a graph edge.</p>
+
+<p>This class extends its <a href="CGraphNode">parent</a> class in that its <a href="Node()">node</a>
+property is a relationship node rather than a plain node.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>package</th>
+<td><a href="../packages/MyWrapper.Persistence.html">MyWrapper</a></td>
+</tr>
+<tr>
+<th>subpackage</th>
+<td>Persistence</td>
+</tr>
+</table>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a name="Node" id="Node"></a><div class="element clickable method public Node" data-toggle="collapse" data-target=".Node .collapse">
+<h2>Manage native node.</h2>
+<pre>Node(mixed $theValue, boolean $getOld) : \Everyman\Neo4j\Relationship</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>We override the <a href="CGraphNode">parent</a> <a href="CGRaphNode::Node()">method</a> to
+enforce Everyman\Neo4j\Relationship objects rather than Everyman\Neo4j\Node objects.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\CObject::ManageMember()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_IsDirty()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_IsInited()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theValue</h4>
+<code>mixed</code><p>Node or operation.</p></div>
+<div class="subelement argument">
+<h4>$getOld</h4>
+<code>boolean</code><p>TRUE get old value.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>\Everyman\Neo4j\Relationship</code></div>
+</div></div>
+</div>
+<a name="Object" id="Object"></a><div class="element clickable method public Object" data-toggle="collapse" data-target=".Object .collapse">
+<h2>Manage object node.</h2>
+<pre>Object(mixed $theValue, boolean $getOld) : \Everyman\Neo4j\Node</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method will wrap the member accessor around the native relationship node, note
+that the method will not allow to delete a value, you must replace it.</p>
+
+<ul>
+<li><b>$theValue</b>: The value or operation:
+ <ul>
+    <li><i>NULL</i>: Return the current value.
+    <li><i>Everyman\Neo4j\Node</i>: Set value.
+    <li><i>other</i>: Raise exception.
+ </ul>
+<li><b>$getOld</b>: Determines what the method will return:
+ <ul>
+    <li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
+    <li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
+ </ul>
+</ul></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\Node()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_IsDirty()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_IsInited()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theValue</h4>
+<code>mixed</code><p>Object node or operation.</p></div>
+<div class="subelement argument">
+<h4>$getOld</h4>
+<code>boolean</code><p>TRUE get old value.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>\Everyman\Neo4j\Node</code></div>
+</div></div>
+</div>
+<a name="Subject" id="Subject"></a><div class="element clickable method public Subject" data-toggle="collapse" data-target=".Subject .collapse">
+<h2>Manage subject node.</h2>
+<pre>Subject(mixed $theValue, boolean $getOld) : \Everyman\Neo4j\Node</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method will wrap the member accessor around the native relationship node, note
+that the method will not allow to delete a value, you must replace it.</p>
+
+<ul>
+<li><b>$theValue</b>: The value or operation:
+ <ul>
+    <li><i>NULL</i>: Return the current value.
+    <li><i>Everyman\Neo4j\Node</i>: Set value.
+    <li><i>other</i>: Raise exception.
+ </ul>
+<li><b>$getOld</b>: Determines what the method will return:
+ <ul>
+    <li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
+    <li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
+ </ul>
+</ul></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\Node()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_IsDirty()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_IsInited()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theValue</h4>
+<code>mixed</code><p>Subject node or operation.</p></div>
+<div class="subelement argument">
+<h4>$getOld</h4>
+<code>boolean</code><p>TRUE get old value.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>\Everyman\Neo4j\Node</code></div>
+</div></div>
+</div>
+<a name="Type" id="Type"></a><div class="element clickable method public Type" data-toggle="collapse" data-target=".Type .collapse">
+<h2>Manage node type.</h2>
+<pre>Type(mixed $theValue, boolean $getOld) : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This property corresponds to the node type, or predicate reference, this property is
+a string, and it is managed directly by the relationship node: we simply wrap this
+method around the native management:</p>
+
+<ul>
+<li><b>$theValue</b>: The value or operation:
+ <ul>
+    <li><i>NULL</i>: Return the current value.
+    <li><i>other</i>: Set the value converted to string.
+ </ul>
+<li><b>$getOld</b>: Determines what the method will return:
+ <ul>
+    <li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
+    <li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
+ </ul>
+</ul></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\Node()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_IsDirty()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_IsInited()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theValue</h4>
+<code>mixed</code><p>Node or operation.</p></div>
+<div class="subelement argument">
+<h4>$getOld</h4>
+<code>boolean</code><p>TRUE get old value.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a name="__toString" id="__toString"></a><div class="element clickable method public __toString" data-toggle="collapse" data-target=".__toString .collapse">
+<h2>Return object identifier.</h2>
+<pre>__toString() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>In this class we return the graph <a href="Type()">type</a>.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\Type()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a name="_Commit" id="_Commit"></a><div class="element clickable method protected _Commit" data-toggle="collapse" data-target="._Commit .collapse">
+<h2>Store object in container.</h2>
+<pre>_Commit(\reference $theContainer, \reference $theIdentifier, \reference $theModifiers) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>We <a href="CGraphNode::_Commit()">override</a> this method to initialise an empty
+relationship rather than a node when deleting.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>protected</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\Node()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theContainer</h4>
+<code>\reference</code><p>&$theContainer Object container.</p>
+</div>
+<div class="subelement argument">
+<h4>$theIdentifier</h4>
+<code>\reference</code><p>&$theIdentifier Object identifier.</p>
+</div>
+<div class="subelement argument">
+<h4>$theModifiers</h4>
+<code>\reference</code><p>&$theModifiers Commit modifiers.</p>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="_FinishCreate" id="_FinishCreate"></a><div class="element clickable method protected _FinishCreate" data-toggle="collapse" data-target="._FinishCreate .collapse">
+<h2>Normalise after a {@link _Create() create}.</h2>
+<pre>_FinishCreate(\reference $theContainer) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>We <a href="CGraphNode::_FinishCreate()">override</a> this method to handle relationships
+rather than nodes, and to initialise related nodes.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theContainer</h4>
+<code>\reference</code><p>&$theContainer Object container.</p>
+</div>
+</div></div>
+</div>
+<a name="_FinishLoad" id="_FinishLoad"></a><div class="element clickable method protected _FinishLoad" data-toggle="collapse" data-target="._FinishLoad .collapse">
+<h2>Normalise after a {@link _Load() load}.</h2>
+<pre>_FinishLoad(\reference $theContainer, \reference $theIdentifier, \reference $theModifiers) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>We <a href="CGraphNode::_FinishCreate()">override</a> this method to handle relationships
+rather than nodes.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theContainer</h4>
+<code>\reference</code><p>&$theContainer Object container.</p>
+</div>
+<div class="subelement argument">
+<h4>$theIdentifier</h4>
+<code>\reference</code><p>&$theIdentifier Object identifier.</p>
+</div>
+<div class="subelement argument">
+<h4>$theModifiers</h4>
+<code>\reference</code><p>&$theModifiers Create modifiers.</p>
+</div>
+</div></div>
+</div>
+<a name="_Load" id="_Load"></a><div class="element clickable method protected _Load" data-toggle="collapse" data-target="._Load .collapse">
+<h2>Find object.</h2>
+<pre>_Load(\reference $theContainer, \reference $theIdentifier, \reference $theModifiers) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>We <a href="CGraphNode::_Commit()">override</a> this method to locate relationships rather
+than nodes.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theContainer</h4>
+<code>\reference</code><p>&$theContainer Object container.</p>
+</div>
+<div class="subelement argument">
+<h4>$theIdentifier</h4>
+<code>\reference</code><p>&$theIdentifier Object identifier.</p>
+</div>
+<div class="subelement argument">
+<h4>$theModifiers</h4>
+<code>\reference</code><p>&$theModifiers Create options.</p>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a6</a> and<br>
+            generated on 2012-07-03T16:30:36+02:00.<br></footer></div>
+</div>
+</body>
+</html>

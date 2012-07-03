@@ -405,13 +405,13 @@ class CQuery extends CStatusObject
 	 *
 	 * <ul>
 	 *	<li><b>&$theQuery</b>: Query receiving statement.
-	 *	<li><b>$theStatement</b>: Statement to be added.
+	 *	<li><b>$theCondition</b>: Statement condition.
 	 *	<li><b>$theCondition</b>: Boolean statement condition code.
 	 * </ul>
 	 *
 	 * @param reference		   &$theQuery				Query.
-	 * @param array				$theStatements			Statement.
-	 * @param string			$theCondition			Statement condition.
+	 * @param array				$theCondition			Statement condition.
+	 * @param string			$theStatement			Statement.
 	 *
 	 * @access protected
 	 */

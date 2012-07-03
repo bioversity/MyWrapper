@@ -22,19 +22,21 @@
 /**
  * Exceptions.
  *
- * This include file contains all exception class definitions.
+ * This include file contains the exception class definitions.
  */
 require_once( kPATH_LIBRARY_SOURCE."CException.php" );
 
 /**
  *	Attribute class.
  *
- * This class is a static methods holder that manage {@link ArrayObject ArrayObject} derived
- * class attributes.
+ * This class is a static methods repository which is used to manage
+ * {@link CArrayObject CArrayObject} derived classe's attributes.
  *
- * The main function of this class is to concentrate all attribute management methods in a
- * static class which can be used for managing the attributes of any class derived from an
- * ArrayObject.
+ * The class is a collection of static methods which represent member accessor methods for
+ * objects that store their properties as array elements. These methods will handle
+ * insertion, extraction and deletion of attributes in either arrays or ArrayObject
+ * instances, these methods will then be used by {@link CArrayObject CArrayObject} derived
+ * classes as the base for their member accessor methods.
  *
  * The class features the following methods:
  *
@@ -57,7 +59,7 @@ class CAttribute
 
 /*=======================================================================================
  *																						*
- *							STATIC LOW-LEVEL ATTRIBUTES INTERFACE						*
+ *							STATIC ATTRIBUTE MANAGEMENT INTERFACE						*
  *																						*
  *======================================================================================*/
 
@@ -70,14 +72,16 @@ class CAttribute
 	/**
 	 * Manage a scalar offset.
 	 *
-	 * This method can be used to manage a scalar offset, this options involves setting,
+	 * This method can be used to manage a scalar offset, its options involve setting,
 	 * retrieving and deleting an offset of the provided array or ArrayObject.
 	 *
 	 * The method accepts the following parameters:
 	 *
 	 * <ul>
-	 *	<li><b>&$theReference</b>: Reference to an array or ArrayObject derived instance.
-	 *	<li><b>$theOffset</b>: The offset to manage.
+	 *	<li><b>&$theReference</b>: Reference to the attributes container, it may either
+	 *		refer to an array or an ArrayObject, any other type will trigger an exception.
+	 *	<li><b>$theOffset</b>: The offset to the attribute contained in the previous
+	 *		parameter that is to be managed.
 	 *	<li><b>$theValue</b>: The value or operation:
 	 *	 <ul>
 	 *		<li><i>NULL</i>: Return the offset's current value.
@@ -93,16 +97,18 @@ class CAttribute
 	 *	 </ul>
 	 * </ul>
 	 *
-	 * @param reference			   &$theReference		Object reference.
-	 * @param string				$theOffset			Offset.
-	 * @param mixed					$theValue			Value or operation.
+	 * @param reference			   &$theReference		Array or ArrayObject reference.
+	 * @param string				$theOffset			Offset to be managed.
+	 * @param mixed					$theValue			New value or operation.
 	 * @param boolean				$getOld				TRUE get old value.
 	 *
 	 * @static
 	 * @return mixed
+	 *
+	 * @throws {@link CException CException}
 	 */
-	static function ManageOffset( &$theReference,
-								   $theOffset, $theValue = NULL, $getOld = FALSE )
+	static function ManageOffset( &$theReference, $theOffset, $theValue = NULL,
+															  $getOld = FALSE )
 	{
 		//
 		// Check reference.
@@ -116,16 +122,11 @@ class CAttribute
 			$theOffset = (string) $theOffset;
 			
 			//
-			// Save current value.
+			// Save current list.
 			//
-			if( is_array( $theReference ) )
-				$save = ( array_key_exists( $theOffset, $theReference ) )
-					  ? $theReference[ $theOffset ]
-					  : NULL;
-			else
-				$save = ( $theReference->offsetExists( $theOffset ) )
-					  ? $theReference[ $theOffset ]
-					  : NULL;
+			$save = ( isset( $theReference[ $theOffset ] ) )
+				  ? $theReference[ $theOffset ]
+				  : NULL;
 			
 			//
 			// Return current value.
@@ -178,52 +179,64 @@ class CAttribute
 	/**
 	 * Manage an array offset.
 	 *
-	 * This method can be used to manage an array offset, this options involves setting,
-	 * retrieving and deleting elements of an offset which contains an array of values, this
-	 * method concentrates in managing the offset's elements, rather than
-	 * {@link ManageOffset() managing} the offset itself.
+	 * An array offset is an array property, this method can be used to set, retrieve and
+	 * delete the elements of this property, as opposed to
+	 * {@link ManageOffset() ManageOffset}, which is used to manage the property as a whole.
 	 *
-	 * The offset's array should be composed by elements that <i>must</i> be convertable to
-	 * strings: the string value represents the index of the element, which means that no
-	 * two elements can have the same string value.
+	 * The elements of this list are uniquely identified by a closure function which is
+	 * either passed to this method or defaults to the {@link HashClosure() HashClosure}
+	 * function.
 	 *
 	 * When deleting elements, if the list becomes empty, the whole offset will be deleted.
 	 *
 	 * The method accepts the following parameters:
 	 *
 	 * <ul>
-	 *	<li><b>&$theReference</b>: Reference to an array or ArrayObject derived instance.
-	 *	<li><b>$theOffset</b>: The offset to manage.
-	 *	<li><b>$theValue</b>: This parameter represents the data element to be set, or the
-	 *		index to the data element to be deleted or retrieved:
+	 *	<li><b>&$theReference</b>: Reference to the attributes container, it may either
+	 *		refer to an array or an ArrayObject, any other type will trigger an exception.
+	 *	<li><b>$theOffset</b>: The offset to the attribute contained in the previous
+	 *		parameter that is to be managed. This attribute is expected to be as an array,
+	 *		if the existing attribute is not an array, the method will raise an exception.
+	 *	<li><b>$theValue</b>: Depending on the next parameter, this may either refer to the
+	 *		value to be set or to the index of the element to be retrieved or deleted:
 	 *	 <ul>
 	 *		<li><i>NULL</i>: This value indicates that we want to operate on all elements,
-	 *			which means, depending on the next parameter, that we are either retrieving
-	 *			or deleting the full list. If the operation parameter is <i>TRUE</i>, no
-	 *			element will be added.
-	 *		<li><i>array</i>: This value indicates that we want to operate on a list of
-	 *			values: each of these values will be handled according to the operation
-	 *			parameter. Note that an ArrayObject is not considered in this scenario, so
-	 *			in that case you would have to convert it to an array.
+	 *			which means, in practical terms, that we either want to retrieve or delete
+	 *			the full list. If the operation parameter resolves to <i>TRUE</i>, the
+	 *			method will default to retrieving the current list and no new element will
+	 *			be added.
+	 *		<li><i>array</i>: An array indicates that we want to operate on a list of
+	 *			values and that we may be receiving the next parameters also as lists. Note
+	 *			that ArrayObject instances are not considered here as arrays.
 	 *		<li><i>other</i>: Any other type represents either the new value to be added or
-	 *			the index to the value to be returned or deleted. <i>It must be possible to
-	 *			cast this value to a string, this is what will be used to compare
-	 *			elements</i>.
+	 *			the index to the value to be returned or deleted. Note that this value will
+	 *			be hashed by the provided or {@link HashClosure() default} closure to
+	 *			determine if the element is new or not.
 	 *	 </ul>
-	 *	<li><b>$theOperation</b>: This parameter represents the operation to be performed,
-	 *		it will be evaluated as a boolean and its scope depends on the value of the
-	 *		previous parameter:
+	 *	<li><b>$theOperation</b>: This parameter represents the operation to be performed
+	 *		whose scope depends on the value of the previous parameter:
 	 *	 <ul>
-	 *		<li><i>NULL</i>: Return the element or list.
-	 *		<li><i>FALSE</i>: Delete the element or list.
-	 *		<li><i>TRUE</i>: Add the element or list. If you provided <i>NULL</i> as value,
-	 *			the operation will do nothing.
+	 *		<li><i>NULL</i>: Return the list element or full list.
+	 *		<li><i>FALSE</i>: Delete the list element or full list.
+	 *		<li><i>TRUE</i>: Add the value to the list. If you provided <i>NULL</i> in the
+	 *			previous parameter, the operation will be reset to <i>NULL</i>.
+	 *		<li><i>array</i>: This type is only considered if the <i>$theValue</i> parameter
+	 *			is provided as an array: the method will be called for each element of the
+	 *			<i>$theValue</i> parameter matched with the corresponding element of this
+	 *			parameter. This also implies that both parameters must share the same count.
 	 *	 </ul>
 	 *	<li><b>$getOld</b>: Determines what the method will return:
 	 *	 <ul>
 	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
 	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
 	 *	 </ul>
+	 *	<li><b>$theClosure</b>: The hashing closure, this function accepts a single
+	 *		parameter, which represents an element of the list, and should return a string
+	 *		which represents the unique identifier of this element. If omitted or
+	 *		<i>NULL</i>, the default {@link HashClosure() function} will be used, which
+	 *		uses the MD5 hash on the list elements and on the key value parameter. If the
+	 *		<i>$theValue</i> parameter was provided as an array, you can provide an array of
+	 *		closures each applying to the corresponding element of <i>$theValue</i> list.
 	 * </ul>
 	 *
 	 * @param reference			   &$theReference		Object reference.
@@ -231,13 +244,19 @@ class CAttribute
 	 * @param mixed					$theValue			Value to manage.
 	 * @param mixed					$theOperation		Operation to perform.
 	 * @param boolean				$getOld				TRUE get old value.
+	 * @param closure				$theClosure			Hashing anonymous function.
 	 *
 	 * @static
 	 * @return mixed
+	 *
+	 * @throws {@link CException CException}
+	 *
+	 * @uses HashClosure()
 	 */
 	static function ManageArrayOffset( &$theReference, $theOffset, $theValue = NULL,
 																   $theOperation = NULL,
-																   $getOld = FALSE )
+																   $getOld = FALSE,
+																   $theClosure = NULL )
 	{
 		//
 		// Check reference.
@@ -245,6 +264,12 @@ class CAttribute
 		if( is_array( $theReference )
 		 || ($theReference instanceof ArrayObject) )
 		{
+			//
+			// Resolve hashing closure.
+			//
+			if( $theClosure === NULL )
+				$theClosure = self::HashClosure();
+			
 			//
 			// Handle multiple parameters:
 			//
@@ -254,49 +279,110 @@ class CAttribute
 				// Init local storage.
 				//
 				$result = Array();
+				$count = count( $theValue );
+				
+				//
+				// Check operation.
+				//
+				if( is_array( $theOperation )
+				 && (count( $theOperation ) != $count) )
+					throw new CException
+							( "Values and operations counts do not match",
+							  kERROR_UNSUPPORTED,
+							  kMESSAGE_TYPE_ERROR,
+							  array( 'Values' => $theValue,
+									 'Operations' => $theOperation ) );			// !@! ==>
+				
+				//
+				// Check closures.
+				//
+				if( is_array( $theClosure )
+				 && (count( $theClosure ) != $count) )
+					throw new CException
+							( "Values and closures counts do not match",
+							  kERROR_UNSUPPORTED,
+							  kMESSAGE_TYPE_ERROR,
+							  array( 'Values' => $theValue,
+									 'Closures' => $theClosure ) );				// !@! ==>
 				
 				//
 				// Iterate values.
 				//
-				foreach( $theValue as $value )
+				foreach( $theValue as $index => $value )
+				{
+					//
+					// Set operation.
+					//
+					$operation = ( is_array( $theOperation ) )
+							   ? $theOperation[ $index ]
+							   : $theOperation;
+				
+					//
+					// Set closure.
+					//
+					$closure = ( is_array( $theClosure ) )
+							 ? $theClosure[ $index ]
+							 : $theClosure;
+					
+					//
+					// Get result.
+					//
 					$result[]
 						= self::ManageArrayOffset
-							( $theReference, $theOffset, $value, $theOperation, $getOld );
+							( $theReference, $theOffset,
+							  $value, $operation,
+							  $getOld, $closure );
+				
+				} // Iterating list of values.
 				
 				return $result;														// ==>
 			
 			} // Multiple parameters.
 			
 			//
+			// Manage full list.
+			//
+			if( $theValue === NULL )
+			{
+				//
+				// Prevent adding.
+				// This is because we would be adding the operation...
+				//
+				if( $theOperation )
+					$theOperation = NULL;
+				
+				//
+				// Retrieve or delete.
+				//
+				return self::ManageOffset(
+					$theReference, $theOffset, $theOperation, $getOld );			// ==>
+			
+			} // Manage full list.
+			
+			//
 			// Save current list.
 			//
-			if( is_array( $theReference ) )
-				$list = ( array_key_exists( $theOffset, $theReference ) )
-					  ? $theReference[ $theOffset ]
-					  : NULL;
-			else
-				$list = ( $theReference->offsetExists( $theOffset ) )
-					  ? $theReference[ $theOffset ]
-					  : NULL;
+			$list = ( isset( $theReference[ $theOffset ] ) )
+				  ? $theReference[ $theOffset ]
+				  : NULL;
 			
 			//
 			// Index list.
 			//
-			if( ($list !== NULL)			// Has data
-			 && ($theValue !== NULL) )		// and not deleting list.
+			if( is_array( $list )
+			 || ($list instanceof ArrayObject) )
 			{
 				//
 				// Index list.
 				//
 				$match = Array();
 				foreach( $list as $element )
-					$match[ md5( $element, TRUE ) ]
-						= $element;
+					$match[ $theClosure( $element ) ] = $element;
 				
 				//
 				// Save index.
 				//
-				$idx = md5( (string) $theValue, TRUE );
+				$idx = $theClosure( $theValue );
 				
 				//
 				// Save match.
@@ -305,64 +391,33 @@ class CAttribute
 					  ? $match[ $idx ]
 					  : NULL;
 			
-			} // Has data and operates on list.
+			} // Attribute is a list.
+			
+			//
+			// Missing offset.
+			//
+			elseif( $list === NULL )
+				$save = NULL;
 			
 			else
-				$save = NULL;
+				throw new CException
+						( "Unsupported list attribute type",
+						  kERROR_UNSUPPORTED,
+						  kMESSAGE_TYPE_ERROR,
+						  array( 'Attribute' => $list,
+						  		 'Offset' => $theOffset ) );					// !@! ==>
 			
 			//
 			// Return current value.
 			//
 			if( $theOperation === NULL )
-			{
-				//
-				// Handle list.
-				//
-				if( $theValue === NULL )
-					return $list;													// ==>
-				
-				//
-				// Handle element.
-				//
-				if( $list !== NULL )
-					return $save;													// ==>
-				
-				return NULL;														// ==>
-			
-			} // Return value.
+				return $save;														// ==>
 			
 			//
 			// Delete data.
 			//
 			if( $theOperation === FALSE )
 			{
-				//
-				// Delete list.
-				//
-				if( $theValue === NULL )
-				{
-					//
-					// Handle list.
-					//
-					if( $list !== NULL )
-					{
-						//
-						// Delete offset.
-						//
-						if( is_array( $theReference ) )
-							unset( $theReference[ $theOffset ] );
-						else
-							$theReference->offsetUnset( $theOffset );
-					
-					} // Has data.
-					
-					if( $getOld )
-						return $list;												// ==>
-					
-					return NULL;													// ==>
-				
-				} // Delete list.
-				
 				//
 				// Delete element.
 				//
@@ -402,18 +457,6 @@ class CAttribute
 				return NULL;														// ==>
 			
 			} // Delete data.
-			
-			//
-			// Skip operation.
-			//
-			if( $theValue === NULL )
-			{
-				if( $getOld )
-					return $list;													// ==>
-				
-				return NULL;														// ==>
-			
-			} // Replace list.
 			
 			//
 			// Add or replace element.
@@ -461,34 +504,41 @@ class CAttribute
 	/**
 	 * Manage a typed offset.
 	 *
-	 * A typed offset is structured as follows:
+	 * A typed offset is an element of an array property which contains two items:
 	 *
 	 * <ul>
-	 *	<li><i>Type</i>: This offset contains a scalar which determined the type or category
-	 *		of the element. This offset may be omitted.
-	 *	<li><i>Data</i>: This offset contains the element data, in this method we treat it
-	 *		as a scalar. This offset may not be omitted.
+	 *	<li><i>Type</i>: This item represents the type or category of the element and may be
+	 *		omitted.
+	 *	<li><i>Data</i>: This item represents the element data and may not be omitted.
 	 * </ul>
 	 *
-	 * No two elements may share the same type or category.
+	 * Each element of the offset is uniquely identified by the type item, there may be only
+	 * one element without the type item.
 	 *
 	 * The method accepts the following parameters:
 	 *
 	 * <ul>
-	 *	<li><b>&$theReference</b>: Reference to an array or ArrayObject derived instance.
-	 *	<li><b>$theMainOffset</b>: The offset to manage.
-	 *	<li><b>$theTypeOffset</b>: The element's offset of the type or category.
-	 *	<li><b>$theDataOffset</b>: The element's offset of the data.
-	 *	<li><b>$theType</b>: This parameter represents the value of the index element of the
-	 *		item, depending on the next parameter this value will be used for matching
-	 *		items in the list:
+	 *	<li><b>&$theReference</b>: Reference to the attributes container, it may either
+	 *		refer to an array or an ArrayObject, any other type will trigger an exception.
+	 *	<li><b>$theMainOffset</b>: The offset to the attribute contained in the previous
+	 *		parameter that is to be managed. This attribute is expected to be as an array,
+	 *		if the existing attribute is not an array, the method will raise an exception.
+	 *	<li><b>$theTypeOffset</b>: The offset to the element's item representing the type or
+	 *		category of the element.
+	 *	<li><b>$theDataOffset</b>: The offset to the element's item representing the data or
+	 *		value of the element.
+	 *	<li><b>$theType</b>: This parameter represents the value of the type or category of
+	 *		the element, it will be used for matching elements of the list:
 	 *	 <ul>
-	 *		<li><i>NULL</i>: An empty type means that we are looking for the item lacking
-	 *			the index element.
-	 *		<li><i>array</i>: If you provide an array, it means that you are operating on a
+	 *		<li><i>NULL</i>: An empty type means that we are looking for the element lacking
+	 *			the item referenced by the <i>$theTypeOffset</i>.
+	 *		<li><i>array</i>: If you provide an array, it means that the operation will be
+	 *			applied to each element of the provided array, 
+@@@@@@@@@@@@@@@@
+	 you are operating on a
 	 *			list of items: depending on the next parameter this will mean either
 	 *			retrieving the data elements of the items matching the array, deleting these
-	 *			items, or adding/replacing the items; in this lastcase, this means that the
+	 *			items, or adding/replacing the items; in this last case, this means that the
 	 *			next parameter must also be an array and that each of its elements will be
 	 *			associated to the corresponding index element.
 	 *		<li><i>other</i>: Any other value will be considered as the index to retrieve,
@@ -614,14 +664,9 @@ class CAttribute
 			//
 			// Save offset.
 			//
-			if( is_array( $theReference ) )
-				$list = ( array_key_exists( $theMainOffset, $theReference ) )
-						? $theReference[ $theMainOffset ]
-						: NULL;
-			else
-				$list = ( $theReference->offsetExists( $theMainOffset ) )
-						? $theReference[ $theMainOffset ]
-						: NULL;
+			$list = ( isset( $theReference[ $theMainOffset ] ) )
+				  ? $theReference[ $theMainOffset ]
+				  : NULL;
 			
 			//
 			// Handle categories.
@@ -1893,6 +1938,62 @@ class CAttribute
 		return $theValue;															// ==>
 	
 	} // ManageObjectList.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *									STATIC CLOSURE INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	MatchClosure																	*
+	 *==================================================================================*/
+
+	/**
+	 * Match function.
+	 *
+	 * This static method returns an anonymous function that is used as the default matching
+	 * closure function, by default the two parameters are converted to string and compared.
+	 *
+	 * @static
+	 * @return closure
+	 */
+	static function MatchClosure()
+	{
+		return function( $theItem1, $theItem2 )
+		{
+			return ( ((string) $theItem1) == ((string) $theItem2) );
+		};																			// ==>
+
+	} // MatchClosure.
+
+	 
+	/*===================================================================================
+	 *	HashClosure																		*
+	 *==================================================================================*/
+
+	/**
+	 * Hash function.
+	 *
+	 * This static method returns an anonymous function that is used as the default hashing
+	 * closure function, which takes the provided parameter as is and returns a binary MD5
+	 * hash of it.
+	 *
+	 * @static
+	 * @return closure
+	 */
+	static function HashClosure()
+	{
+		return function( $theItem )
+		{
+			return md5( $theItem, TRUE );
+		};																			// ==>
+
+	} // HashClosure.
 
 	 
 

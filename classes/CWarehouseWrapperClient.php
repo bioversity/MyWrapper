@@ -381,8 +381,7 @@ class CWarehouseWrapperClient extends CDataWrapperClient
 	 * which the second parameter will be the constant
 	 * {@link kAPI_OPT_PREDICATES kAPI_OPT_PREDICATES}.
 	 *
-	 * @param mixed					$theValue			Value or index.
-	 * @param mixed					$theOperation		Operation.
+	 * @param mixed					$theValue			Value or operation.
 	 * @param boolean				$getOld				TRUE get old value.
 	 *
 	 * @access public

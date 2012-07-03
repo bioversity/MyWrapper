@@ -772,7 +772,7 @@ class CMongoQuery extends CQuery
 	 * them in sorted order.
 	 *
 	 * @param mixed					$theRange				Range elements.
-	 * @param CMongoComtainer		$theContainer			Query container.
+	 * @param CMongoContainer		$theContainer			Query container.
 	 * @param string				$theType				Elements data type.
 	 *
 	 * @access protected

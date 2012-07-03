@@ -862,7 +862,6 @@ class CMongoContainer extends CContainer
 	 * In this class we {@link CContainer::_PrepareLoad() overload} this method to handle
 	 * identifiers provided as queries.
 	 *
-	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
 	 * @param reference			   &$theModifiers		Create modifiers.
 	 *

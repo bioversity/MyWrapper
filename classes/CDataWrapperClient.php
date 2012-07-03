@@ -393,7 +393,8 @@ class CDataWrapperClient extends CWrapperClient
 	 * If the provided value is not an array or an ArrayObject, the method will raise an
 	 * exception.
 	 *
-	 * @param mixed					$theValue			Value or operation.
+	 * @param mixed					$theValue			Value or index.
+	 * @param mixed					$theOperation		Operation.
 	 * @param boolean				$getOld				TRUE get old value.
 	 *
 	 * @access public

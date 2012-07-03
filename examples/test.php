@@ -615,7 +615,6 @@ echo( '</pre><hr>' );
 // Test open exceptions.
 //
 $x = new SplFileObject( 'pippo' );
-*/
 
 //
 // GridFS test.
@@ -639,5 +638,157 @@ echo( '</pre>' );
 echo( '<pre>' );
 print_r( (string) $id );
 echo( '</pre>' );
+
+//
+// PHP 5.4 ArrayObject tests.
+// Note that this implies having PHP 5.4 actove.
+//
+
+//
+// Test class.
+//
+class MyClass extends ArrayObject
+{
+	public function test1()
+	{
+		return $this[ 'Two' ];
+	}
+	public function test2()
+	{
+		return $this[ 'Three' ][ 1 ];
+	}
+	public function test3( $theValue )
+	{
+		return $this[ 'Two' ] = $theValue;
+	}
+	public function test4( $theValue )
+	{
+		return $this[ 'Three' ][ 1 ] = $theValue;
+	}
+	public function test5( $theValue )
+	{
+		return $this[ 'Three' ][ 2 ][ 1 ] = $theValue;
+	}
+	public function & test6( $theOffset )
+	{
+		$ref = & $this[ $theOffset ];
+		return $ref;
+	}
+	public function & test7( $theOffset1, $theOffset2 )
+	{
+		$ref = & $this[ $theOffset1 ][ $theOffset2 ];
+		return $ref;
+	}
+	public function & test8( $theOffset1, $theOffset2, $theOffset3 )
+	{
+		$ref = & $this[ $theOffset1 ][ $theOffset2 ][ $theOffset3 ];
+		return $ref;
+	}
+}
+
+//
+// Create content.
+//
+$array = array( 'One' => 1, 'Two' => 'Due', 'Three' => array( 1, 2, array( 'Uno', 'Due', 'Tre' ) ) );
+
+//
+// Create container.
+//
+$container = new MyClass( $array );
+
+//
+// Show.
+//
+echo( '<pre>' ); print_r( $container ); echo( '</pre>' );
+
+//
+// Test single level offset.
+//
+echo( '<i><b>(test1)</b> return $this[ \'Two\' ];</i><br>' );
+echo( '<pre>' ); print_r( $container->test1() ); echo( '</pre>' );
+
+//
+// Test double level offset.
+//
+echo( '<i><b>(test2)</b> return $this[ \'Three\' ][ 1 ];</i><br>' );
+echo( '<pre>' ); print_r( $container[ 'Three' ][ 1 ] ); echo( '</pre>' );
+
+//
+// Test single level reference.
+//
+echo( '<i><b>(test3)</b> $container[ \'Two\' ] = \'DUE\';</i><br>' );
+$container->test3( 'DUE' );
+echo( '<pre>' ); print_r( $container ); echo( '</pre>' );
+
+//
+// Test double level offset.
+//
+echo( '<i><b>(test4)</b> $container[ \'Three\' ][ 1 ] = \'DUE\';</i><br>' );
+$container->test4( 'DUE' );
+echo( '<pre>' ); print_r( $container ); echo( '</pre>' );
+
+//
+// Test triple level offset.
+//
+echo( '<i><b>(test5)</b> $container[ \'Three\' ][ 2 ][ 1 ] = 2222;</i><br>' );
+$container->test5( 2222 );
+echo( '<pre>' ); print_r( $container ); echo( '</pre>' );
+
+//
+// Test single level reference.
+//
+echo( '<i><b>(test6)</b> $ref = & $container[ \'Two\' ];</i><br>' );
+$ref = & $container->test6( 'Two' );
+echo( '<i>$ref = 2;</i><br>' );
+$ref = 2;
+echo( '<pre>' ); print_r( $container ); echo( '</pre>' );
+
+//
+// Test double level offset.
+//
+echo( '<i><b>(test7)</b> $ref = & $container[ \'Three\' ][ 1 ];</i><br>' );
+$ref = & $container->test7( 'Three', 1 );
+echo( '<i>$ref = 2;</i><br>' );
+$ref = 2;
+echo( '<pre>' ); print_r( $container ); echo( '</pre>' );
+
+//
+// Test triple level offset.
+//
+echo( '<i><b>(test8)</b> $ref = & $container[ \'Three\' ][ 2 ][ 1 ];</i><br>' );
+$ref = & $container->test8( 'Three', 2, 1 );
+echo( '<i>$ref = 2;</i><br>' );
+$ref = 2;
+echo( '<pre>' ); print_r( $container ); echo( '</pre>' );
+exit;
+*/
+
+//
+// Test closures.
+//
+class MyTest
+{
+	public function test1( $a, $b, $func = NULL )
+	{
+		if( $func === NULL )
+			$func = function( $a, $b )
+					{
+						return ((string) $a) == ((string) $b);
+					};
+		
+		return ( $func($a, $b) ) ? 'YES' : 'NO';
+	}
+}
+
+//
+// Test.
+//
+$test = new MyTest;
+
+echo( '<i>$test->test1( 1, 2 )</i><br />' );
+echo( $test->test1( 1, 2 ).'<br>' );
+
+echo( '<i>$test->test1( 1, 2, function( $a, $b ){ return ($a < $b); } )</i><br />' );
+echo( $test->test1( 1, 2, function( $a, $b ){ return ($a < $b); } ).'<br>' );
 
 ?>

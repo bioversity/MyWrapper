@@ -1,0 +1,597 @@
+<!DOCTYPE html><html xmlns:date="http://exslt.org/dates-and-times" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>My Wrapper Reference » \CException</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">My Wrapper Reference</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Packages</a></li>
+<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
+<li><a href="../packages/MyWrapper.html"><i class="icon-folder-open"></i> MyWrapper</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">0</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods</li>
+<li class="method public "><a href="#AsHTML" title="AsHTML :: Display an exception."><span class="description">Display an exception.</span><pre>AsHTML()</pre></a></li>
+<li class="method public "><a href="#Reference" title="Reference :: Set or return an exception reference."><span class="description">Set or return an exception reference.</span><pre>Reference()</pre></a></li>
+<li class="method public "><a href="#Severity" title="Severity :: Set or return the exception severity."><span class="description">Set or return the exception severity.</span><pre>Severity()</pre></a></li>
+<li class="method public "><a href="#_Exception2HTML" title="_Exception2HTML :: Return the exception as HTML."><span class="description">Return the exception as HTML.</span><pre>_Exception2HTML()</pre></a></li>
+<li class="method public "><a href="#_Trace" title="_Trace :: Return the exception trace."><span class="description">Return the exception trace.</span><pre>_Trace()</pre></a></li>
+<li class="method public "><a href="#_Trace2HTML" title="_Trace2HTML :: Return the exception trace element as HTML."><span class="description">Return the exception trace element as HTML.</span><pre>_Trace2HTML()</pre></a></li>
+<li class="method public "><a href="#__construct" title="__construct :: Instantiate class."><span class="description">Instantiate class.</span><pre>__construct()</pre></a></li>
+<li class="method public "><a href="#__toString" title="__toString :: Return the object name."><span class="description">Return the object name.</span><pre>__toString()</pre></a></li>
+<li class="method public "><a href="#getCode" title="getCode :: "><span class="description">getCode()
+        </span><pre>getCode()</pre></a></li>
+<li class="method public "><a href="#getFile" title="getFile :: "><span class="description">getFile()
+        </span><pre>getFile()</pre></a></li>
+<li class="method public "><a href="#getLine" title="getLine :: "><span class="description">getLine()
+        </span><pre>getLine()</pre></a></li>
+<li class="method public "><a href="#getMessage" title="getMessage :: "><span class="description">getMessage()
+        </span><pre>getMessage()</pre></a></li>
+<li class="method public "><a href="#getPrevious" title="getPrevious :: "><span class="description">getPrevious()
+        </span><pre>getPrevious()</pre></a></li>
+<li class="method public "><a href="#getTrace" title="getTrace :: "><span class="description">getTrace()
+        </span><pre>getTrace()</pre></a></li>
+<li class="method public "><a href="#getTraceAsString" title="getTraceAsString :: "><span class="description">getTraceAsString()
+        </span><pre>getTraceAsString()</pre></a></li>
+<li class="nav-header protected">» Protected</li>
+<li class="method protected "><a href="#_TraceArgumentString" title="_TraceArgumentString :: Return the trace argument string."><span class="description">Return the trace argument string.</span><pre>_TraceArgumentString()</pre></a></li>
+<li class="nav-header">
+<i class="icon-custom icon-property"></i> Properties</li>
+<li class="nav-header protected">» Protected</li>
+<li class="property protected "><a href="#%24mReferences" title="$mReferences :: Exception references."><span class="description">Exception references.</span><pre>$mReferences</pre></a></li>
+<li class="property protected "><a href="#%24mSeverity" title="$mSeverity :: Exception severity."><span class="description">Exception severity.</span><pre>$mSeverity</pre></a></li>
+</ul>
+</div>
+<div class="span8">
+<a name="%5CCException" id="\CException"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/.html"></a></li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/CException.html">CException</a>
+</li>
+</ul>
+<div href="../classes/CException.html" class="element class">
+<p class="short_description">Exception class.</p>
+<div class="details">
+<p class="long_description"><p>This class extends the built-in <i>Exception</i> class by adding a series of additional
+members and functionality.</p>
+
+<p><a href="Severity()">Severity</a> represents the severity of the exception such as
+<i>error</i>, <i>warning</i>, etc. You are free to set any value, but in this library we
+support the following standard:</p>
+
+<ul>
+<li><b><a href="kMESSAGE_TYPE_IDLE">Idle</a></b>: Idle state.
+<li><b><a href="kMESSAGE_TYPE_NOTICE">Notice</a></b>: Statistical information or message.
+<li><b><a href="kMESSAGE_TYPE_MESSAGE">Message</a></b>: A message.
+<li><b><a href="kMESSAGE_TYPE_WARNING">Warning</a></b>: A warning.
+<li><b><a href="kMESSAGE_TYPE_ERROR">Error</a></b>: An error.
+<li><b><a href="kMESSAGE_TYPE_FATAL">Fatal</a></b>: A fatal error.
+<li><b><a href="kMESSAGE_TYPE_BUG">Bug</a></b>: A bug.
+</ul>
+
+<p><a href="References()">References</a> represent a list of reference values structured as an
+array of key/value pairs where the key represents the reference label or name and the
+value the reference value. Labels must be strings, values can be of any type.</p>
+
+<p>Note that this class does not throw exceptions (hahaha), operations that fail are simply
+aborted.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>package</th>
+<td><a href="../packages/MyWrapper.Framework.html">MyWrapper</a></td>
+</tr>
+<tr>
+<th>subpackage</th>
+<td>Framework</td>
+</tr>
+</table>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a name="AsHTML" id="AsHTML"></a><div class="element clickable method public AsHTML" data-toggle="collapse" data-target=".AsHTML .collapse">
+<h2>Display an exception.</h2>
+<pre>AsHTML(Exception $theException) : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to display exceptions in a web browser page.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>static</th>
+<td></td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\Reference()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\Argument()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\Value()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theException</h4>
+<code><a href="http://php.net/manual/en/class.exception.php">\Exception</a><a href="../classes/CException.html">\CException</a></code><p>Exception object.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a name="Reference" id="Reference"></a><div class="element clickable method public Reference" data-toggle="collapse" data-target=".Reference .collapse">
+<h2>Set or return an exception reference.</h2>
+<pre>Reference(mixed $theIndex, mixed $theValue) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to set, retrieve and remove exception references.
+References are a key/value pair that provide additional information on the exception.</p>
+
+<ul>
+<li><b>$theIndex</b>: This represents the reference label or name, if you provide
+    the parameter, it will be used as an array index to either retrieve, set or
+    remove elements, depending on the next parameter's value. If you omit the
+    parameter or pass <i>NULL</i> the method will consider the whole list of
+    references.
+<li><b>$theValue</b>: This represents the reference value:
+ <ul>
+    <li><i>NULL</i>: This value indicates that we want to retrieve a reference. If
+        <i>$theIndex</i> is provided, the method will return the entry matching it,
+        if there is no match, the method will return <i>NULL</i>. If
+        <i>$theIndex</i> is omitted or <i>NULL</i>, the method will return the full
+        references array.
+    <li><i>FALSE</i>: This value indicates that we want to delete a reference. If
+        <i>$theIndex</i> is provided, the method will delete the entry matching it
+        and return <i>NULL</i>. If <i>$theIndex</i> is omitted or <i>NULL</i>, the
+        method will delete all references and return an empty array.
+    <li><i>Any other type</i>: Other types of value are considered as a value to
+        replace or be added to the references list: if <i>$theIndex</i> is provided,
+        the method will add or replace the matching element in the list and return
+        the eventual value <i>after</i> it was modified. If <i>$theIndex</i> is
+        omitted or <i>NULL</i>, the operation depends on the type of value:
+     <ul>
+        <li><i>array</i>: The provided array will replace the current list and the
+            method will return the list <i>after</i> it was replaced.
+        <li><i>Any other type</i>: The provided value will be appended to the list
+            by using a numeric index and the method will always return the provided
+            value.
+     </ul>
+ </ul>
+</ul></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>public</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theIndex</h4>
+<code>mixed</code><p>Reference element index.</p></div>
+<div class="subelement argument">
+<h4>$theValue</h4>
+<code>mixed</code><p>NULL, FALSE, reference value or list.</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>mixed</code>Exception reference.</div>
+</div></div>
+</div>
+<a name="Severity" id="Severity"></a><div class="element clickable method public Severity" data-toggle="collapse" data-target=".Severity .collapse">
+<h2>Set or return the exception severity.</h2>
+<pre>Severity(NULL | FALSE | integer $theValue) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>When providing <i>$theValue</i>:</p>
+
+<ul>
+<li><i>NULL</i>: Retrieve the current value.
+<li><i>FALSE</i>: Reset the value to <i>NULL</i>.
+<li><i>Integer</i>: Set the member to the provided value:
+ <ul>
+    <li><i><a href="kMESSAGE_TYPE_IDLE">kMESSAGE_TYPE_IDLE</a></i>: Idle state.
+    <li><i><a href="kMESSAGE_TYPE_NOTICE">kMESSAGE_TYPE_NOTICE</a></i>: A notice is an
+        informative message that does not imply an error, nor a situation that
+        should be handled; it can be considered as statistical data.
+    <li><i><a href="kMESSAGE_TYPE_MESSAGE">kMESSAGE_TYPE_MESSAGE</a></i>: A message is an
+        informative message that is addressed to somebody, although it does not
+        imply an error or warning, it was issued to a receiving party.
+    <li><i><a href="kMESSAGE_TYPE_WARNING">kMESSAGE_TYPE_WARNING</a></i>: Warnings are
+        informative data that indicate a potential problem, although they do not
+        imply an error, they indicate a potential problem or an issue that should be
+        addressed at least at a later stage.
+    <li><i><a href="kMESSAGE_TYPE_ERROR">kMESSAGE_TYPE_ERROR</a></i>: Errors indicate that
+        something prevented an operation from being performed, this does not
+        necessarily mean that the whole process is halted, but that the results of
+        an operation will not be as expected.
+    <li><i><a href="kMESSAGE_TYPE_FATAL">kMESSAGE_TYPE_FATAL</a></i>: Fatal errors are
+        <a href="kMESSAGE_TYPE_ERROR">errors</a> that result in stopping the whole
+        process: in this case the error will prevent other operations from being
+        performed and the whole process should be halted.
+    <li><i><a href="kMESSAGE_TYPE_BUG">kMESSAGE_TYPE_BUG</a></i>: Bugs, as opposed to
+        <a href="kMESSAGE_TYPE_ERROR">errors</a>, result from internal causes independant
+        from external factors. A bug indicates that an operation will never execute
+        as stated, it does not necessarily mean that it is
+        <a href="kMESSAGE_TYPE_FATAL">fatal</a>, but rather that the behaviour of an
+        operation does not correspond to its declaration.
+ </ul>
+</ul>
+
+<p>The above mentioned codes are integer based, each state is represented by an
+interval, we encourage using the above mentioned codes, but this is not enforced.</p>
+
+<p>When setting or resetting the value, the method will return it <i>after</i> any
+modification was made.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>public</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theValue</h4>
+<code>NULLFALSEinteger</code><p>NULL, FALSE or exception severity.</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>mixed</code>Exception severity or type.</div>
+</div></div>
+</div>
+<a name="_Exception2HTML" id="_Exception2HTML"></a><div class="element clickable method public _Exception2HTML" data-toggle="collapse" data-target="._Exception2HTML .collapse">
+<h2>Return the exception as HTML.</h2>
+<pre>_Exception2HTML(<a href="http://php.net/manual/en/class.domelement.php">\DOMElement</a> $theTable, array $theElement, NULL | TRUE | string $theSource) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to return the provided exception as HTML code, it is assumed
+that the element will be placed in an HTML table, so the method will return a series
+of table rows.</p>
+
+<p>The method accepts the following parameters:</p>
+
+<ul>
+<li><b>$theTable</b>: The HTML table in which we want to place the trace.
+<li><b>$theElement</b>: The exception, it must be an Exception, if any other type is
+    passed, the method will return <i>NULL</i>.
+<li><b>$theSource</b>: This parameter is used to provide a link to the source file:
+ <ul>
+    <li><i>NULL</i>: No source file management.
+    <li><i>TRUE</i>: The default source file viewer will be used.
+    <li><i>string</i>: The method will execute the provided string as a shell
+        command line.
+ </ul>
+</ul></p>
+<table class="table table-bordered"><tr>
+<th>static</th>
+<td></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theTable</h4>
+<code><a href="http://php.net/manual/en/class.domelement.php">\DOMElement</a></code><p>HTML table.</p></div>
+<div class="subelement argument">
+<h4>$theElement</h4>
+<code>array</code><p>Trace element.</p></div>
+<div class="subelement argument">
+<h4>$theSource</h4>
+<code>NULLTRUEstring</code><p>Source file control.</p></div>
+</div></div>
+</div>
+<a name="_Trace" id="_Trace"></a><div class="element clickable method public _Trace" data-toggle="collapse" data-target="._Trace .collapse">
+<h2>Return the exception trace.</h2>
+<pre>_Trace(Exception $theException) : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to return the exception trace in the order in which it was
+called. The main utility of this method is to manage forwarded exceptions.</p>
+
+<p>The method will return an array indexed by file path and line number hash in which
+the value is either an exception or a trace array. If you run in PHP version &lt; 3.0.x
+the first element will be an exception and the others will be traces, if you run a
+higher version of PHP you can forward exceptions, so the elements will be mixed.</p></p>
+<table class="table table-bordered"><tr>
+<th>static</th>
+<td></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theException</h4>
+<code><a href="http://php.net/manual/en/class.exception.php">\Exception</a></code><p>Exception to trace.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a name="_Trace2HTML" id="_Trace2HTML"></a><div class="element clickable method public _Trace2HTML" data-toggle="collapse" data-target="._Trace2HTML .collapse">
+<h2>Return the exception trace element as HTML.</h2>
+<pre>_Trace2HTML(DOMNode $theTable, array $theElement) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to return the trace element as HTML code.</p>
+
+<p>The method accepts the following parameters:</p>
+
+<ul>
+<li><b>$theTable</b>: The HTML table in which we want to place the trace.
+<li><b>$theElement</b>: The trace element, it must be an array, if any other type is
+    passed, the method will return <i>NULL</i>.
+</ul></p>
+<table class="table table-bordered"><tr>
+<th>static</th>
+<td></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theTable</h4>
+<code><a href="http://php.net/manual/en/class.domnode.php">\DOMNode</a></code><p>HTML table.</p></div>
+<div class="subelement argument">
+<h4>$theElement</h4>
+<code>array</code><p>Trace element.</p></div>
+</div></div>
+</div>
+<a name="__construct" id="__construct"></a><div class="element clickable method public __construct" data-toggle="collapse" data-target=".__construct .collapse">
+<h2>Instantiate class.</h2>
+<pre>__construct(string $theMessage, integer $theCode, string $theSeverity, array $theReferences, <a href="http://php.net/manual/en/class.exception.php">\Exception</a> $thePrevious) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>The first two parameters follow the inherited interface, the constructor adds support
+for the extended class members:</p>
+
+<ul>
+<li><b>$theMessage</b>: This parameter represents the inherited <i>message</i>.
+<li><b>$theCode</b>: This parameter represents the inherited <i>code</i>.
+<li><b>$theSeverity</b>: This parameter holds <a href="Severity()">the</a> exception
+    type, level or severity:
+ <ul>
+    <li><i><a href="kMESSAGE_TYPE_IDLE">kMESSAGE_TYPE_IDLE</a></i>: This indicates an idle
+        state.
+    <li><i><a href="kMESSAGE_TYPE_NOTICE">kMESSAGE_TYPE_NOTICE</a></i>: This indicates an
+        informative note or message.
+    <li><i><a href="kMESSAGE_TYPE_WARNING">kMESSAGE_TYPE_WARNING</a></i>: This indicates a
+        warning.
+    <li><i><a href="kMESSAGE_TYPE_ERROR">kMESSAGE_TYPE_ERROR</a></i>: This indicates an error.
+    <li><i><a href="kMESSAGE_TYPE_FATAL">kMESSAGE_TYPE_FATAL</a></i>: This indicates a fatal
+        error, in general this should halt program execution.
+    <li><i><a href="kMESSAGE_TYPE_BUG">kMESSAGE_TYPE_BUG</a></i>: This indicates a bug, such
+        exceptions should be logged and forwarded to developers.
+ </ul>
+<li><b>$theReferences</b>: This parameter holds the exception's references
+    <a href="References()">list</a>, it is an array indexed by reference label or term
+    holding the reference value as value.
+<li><b>$thePrevious</b>: This parameter represents the previous exception when
+    forwarding.
+</ul></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\CodeUser()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\UserMessages()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\UserNamespace()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\Severity()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\Reference()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theMessage</h4>
+<code>string</code><p>Exception message.</p></div>
+<div class="subelement argument">
+<h4>$theCode</h4>
+<code>integer</code><p>Exception code.</p></div>
+<div class="subelement argument">
+<h4>$theSeverity</h4>
+<code>string</code><p>Exception severity.</p></div>
+<div class="subelement argument">
+<h4>$theReferences</h4>
+<code>array</code><p>Exception references.</p></div>
+<div class="subelement argument">
+<h4>$thePrevious</h4>
+<code><a href="http://php.net/manual/en/class.exception.php">\Exception</a></code><p>Previous exception.</p></div>
+</div></div>
+</div>
+<a name="__toString" id="__toString"></a><div class="element clickable method public __toString" data-toggle="collapse" data-target=".__toString .collapse">
+<h2>Return the object name.</h2>
+<pre>__toString() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>In this class we return the stack trace.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>public</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>The stack trace.</div>
+</div></div>
+</div>
+<a name="getCode" id="getCode"></a><div class="element clickable method public getCode" data-toggle="collapse" data-target=".getCode .collapse">
+<h2>getCode()
+        </h2>
+<pre>getCode() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>Exception::getCode()</td>
+</tr></table>
+</div></div>
+</div>
+<a name="getFile" id="getFile"></a><div class="element clickable method public getFile" data-toggle="collapse" data-target=".getFile .collapse">
+<h2>getFile()
+        </h2>
+<pre>getFile() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>Exception::getFile()</td>
+</tr></table>
+</div></div>
+</div>
+<a name="getLine" id="getLine"></a><div class="element clickable method public getLine" data-toggle="collapse" data-target=".getLine .collapse">
+<h2>getLine()
+        </h2>
+<pre>getLine() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>Exception::getLine()</td>
+</tr></table>
+</div></div>
+</div>
+<a name="getMessage" id="getMessage"></a><div class="element clickable method public getMessage" data-toggle="collapse" data-target=".getMessage .collapse">
+<h2>getMessage()
+        </h2>
+<pre>getMessage() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>Exception::getMessage()</td>
+</tr></table>
+</div></div>
+</div>
+<a name="getPrevious" id="getPrevious"></a><div class="element clickable method public getPrevious" data-toggle="collapse" data-target=".getPrevious .collapse">
+<h2>getPrevious()
+        </h2>
+<pre>getPrevious() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>Exception::getPrevious()</td>
+</tr></table>
+</div></div>
+</div>
+<a name="getTrace" id="getTrace"></a><div class="element clickable method public getTrace" data-toggle="collapse" data-target=".getTrace .collapse">
+<h2>getTrace()
+        </h2>
+<pre>getTrace() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>Exception::getTrace()</td>
+</tr></table>
+</div></div>
+</div>
+<a name="getTraceAsString" id="getTraceAsString"></a><div class="element clickable method public getTraceAsString" data-toggle="collapse" data-target=".getTraceAsString .collapse">
+<h2>getTraceAsString()
+        </h2>
+<pre>getTraceAsString() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>Exception::getTraceAsString()</td>
+</tr></table>
+</div></div>
+</div>
+<a name="_TraceArgumentString" id="_TraceArgumentString"></a><div class="element clickable method protected _TraceArgumentString" data-toggle="collapse" data-target="._TraceArgumentString .collapse">
+<h2>Return the trace argument string.</h2>
+<pre>_TraceArgumentString(mixed $theValue) : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to return the string representation of a trace argument.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theValue</h4>
+<code>mixed</code><p>Trace argument.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<h3>
+<i class="icon-custom icon-property"></i> Properties</h3>
+<a name="%24mReferences" id="$mReferences"> </a><div class="element clickable property protected $mReferences" data-toggle="collapse" data-target=".$mReferences .collapse">
+<h2>Exception references.</h2>
+<pre>$mReferences : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><p class="long_description"><p>This data member holds the list of exception references.</p></p></div></div>
+</div>
+<a name="%24mSeverity" id="$mSeverity"> </a><div class="element clickable property protected $mSeverity" data-toggle="collapse" data-target=".$mSeverity .collapse">
+<h2>Exception severity.</h2>
+<pre>$mSeverity : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><p class="long_description"><p>This data member holds the exception severity.</p></p></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a6</a> and<br>
+            generated on 2012-07-03T16:30:36+02:00.<br></footer></div>
+</div>
+</body>
+</html>

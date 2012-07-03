@@ -1,0 +1,713 @@
+<!DOCTYPE html><html xmlns:date="http://exslt.org/dates-and-times" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>My Wrapper Reference » \COntologyTermObject</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">My Wrapper Reference</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Packages</a></li>
+<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
+<li><a href="../packages/MyWrapper.html"><i class="icon-folder-open"></i> MyWrapper</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">0</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods</li>
+<li class="method public "><a href="#Code" title="Code :: Manage code."><span class="description">Manage code.</span><pre>Code()</pre></a></li>
+<li class="method public "><a href="#Definition" title="Definition :: Manage term definition."><span class="description">Manage term definition.</span><pre>Definition()</pre></a></li>
+<li class="method public "><a href="#Description" title="Description :: Manage term description."><span class="description">Manage term description.</span><pre>Description()</pre></a></li>
+<li class="method public "><a href="#GID" title="GID :: Manage term global identifier."><span class="description">Manage term global identifier.</span><pre>GID()</pre></a></li>
+<li class="method public "><a href="#NS" title="NS :: Manage term namespace."><span class="description">Manage term namespace.</span><pre>NS()</pre></a></li>
+<li class="method public "><a href="#Name" title="Name :: Manage term name."><span class="description">Manage term name.</span><pre>Name()</pre></a></li>
+<li class="method public "><a href="#Synonym" title="Synonym :: Manage synonyms."><span class="description">Manage synonyms.</span><pre>Synonym()</pre></a></li>
+<li class="method public "><a href="#Xref" title="Xref :: Manage cross-references."><span class="description">Manage cross-references.</span><pre>Xref()</pre></a></li>
+<li class="method public "><a href="#__construct" title="__construct :: Instantiate class."><span class="description">Instantiate class.</span><pre>__construct()</pre></a></li>
+<li class="nav-header protected">» Protected</li>
+<li class="method protected "><a href="#_CheckReference" title="_CheckReference :: Normalise reference parameter."><span class="description">Normalise reference parameter.</span><pre>_CheckReference()</pre></a></li>
+<li class="method protected "><a href="#_PrepareCommit" title="_PrepareCommit :: Normalise before a store."><span class="description">Normalise before a store.</span><pre>_PrepareCommit()</pre></a></li>
+<li class="method protected "><a href="#_PrepareCreate" title="_PrepareCreate :: Normalise parameters of a create."><span class="description">Normalise parameters of a create.</span><pre>_PrepareCreate()</pre></a></li>
+<li class="method protected "><a href="#_index" title="_index :: Return the object's unique index."><span class="description">Return the object's unique index.</span><pre>_index()</pre></a></li>
+</ul>
+</div>
+<div class="span8">
+<a name="%5CCOntologyTermObject" id="\COntologyTermObject"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/.html"></a></li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/COntologyTermObject.html">COntologyTermObject</a>
+</li>
+</ul>
+<div href="../classes/COntologyTermObject.html" class="element class">
+<p class="short_description">Ontology term ancestor.</p>
+<div class="details">
+<p class="long_description"><p>An ontology term represents a concept identified by a pair of elements: the
+<a href="NS()">namespace</a> and the <a href="Code()">code</a>. The <a href="NS()">namespace</a> groups all
+<a href="Code()">codes</a> belonging to a specific category, the <a href="Code()">code</a> identifies
+the term within the <a href="NS()">namespace</a>.</p>
+
+<p>The unique <a href="_index()">identifier</a> of instances from this class are formed by the
+combination of the <a href="NS()">namespace</a> and @link Code() code}, separated by a
+<a href="kTOKEN_NAMESPACE_SEPARATOR">separator</a> token; if the term has no namespace, the
+token is omitted.</p>
+
+<p>This class represents the ancestor of ontology terms, it adds to its
+<a href="CCodedUnitObject">parent</a> the following requirements and features:</p>
+
+<ul>
+<li><i><a href="_CheckReference()">_CheckReference</a></i>: When instantiating the class, the
+    parameter provided as the identifier is required to be an object reference.
+<li><i><a href="kFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a> flag</i>: This flag is enforced,
+    which means that all derived classes must use the standard <a href="CDataType">types</a>.
+</ul>
+
+<p>We declare this class abstract to force the creation of specific ontology term types.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>package</th>
+<td><a href="../packages/MyWrapper.Ontology.html">MyWrapper</a></td>
+</tr>
+<tr>
+<th>subpackage</th>
+<td>Ontology</td>
+</tr>
+</table>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a name="Code" id="Code"></a><div class="element clickable method public Code" data-toggle="collapse" data-target=".Code .collapse">
+<h2>Manage code.</h2>
+<pre>Code(mixed $theValue, boolean $getOld) : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>We <a href="CCodedUnitObject::Code()">overload</a> this method to check the format of the
+code, we perform the following checks:</p>
+
+<ul>
+<li><i>Characters</i>: There are a number of characters that are forbidden in
+    codes, providing a code with such characters will trigger an exception:
+ <ul>
+    <li><i>period (.)</i>: No periods can be embedded in codes, these conflict with
+        the sub-fields character in Mongo.
+ </ul>
+</ul></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>public</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theValue</h4>
+<code>mixed</code><p>Value.</p></div>
+<div class="subelement argument">
+<h4>$getOld</h4>
+<code>boolean</code><p>TRUE get old value.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a name="Definition" id="Definition"></a><div class="element clickable method public Definition" data-toggle="collapse" data-target=".Definition .collapse">
+<h2>Manage term definition.</h2>
+<pre>Definition(mixed $theValue, mixed $theLanguage, boolean $getOld) : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to manage the term <a href="kTAG_DEFINITION">definition</a>, it
+manages an array of structures with the following offsets:</p>
+
+<ul>
+<li><i><a href="kTAG_LANGUAGE">kTAG_LANGUAGE</a></i>: The definition's language, this
+    element represents the code of the language in which the next element is
+    expressed in.
+<li><i><a href="kTAG_DATA">kTAG_DATA</a></i>: The term definition or description.
+</ul>
+
+<p>The parameters to this method are:</p>
+
+<ul>
+<li><b>$theValue</b>: The definition or operation:
+ <ul>
+    <li><i>NULL</i>: Return the current value selected by the second parameter.
+    <li><i>FALSE</i>: Delete the value selected by the second parameter.
+    <li><i>other</i>: Set value selected by the second parameter.
+ </ul>
+<li><b>$theLanguage</b>: The definition's language code:
+ <ul>
+    <li><i>NULL</i>: This value indicates that the definition has no language, in
+        general, when adding elements, this case applies to default elements.
+    <li><i>other</i>: All other types will be interpreted as the language code.
+ </ul>
+<li><b>$getOld</b>: Determines what the method will return:
+ <ul>
+    <li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
+    <li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
+ </ul>
+</ul></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\CAttribute::ManageTypedOffset()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kTAG_DEFINITION</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theValue</h4>
+<code>mixed</code><p>Term definition or operation.</p></div>
+<div class="subelement argument">
+<h4>$theLanguage</h4>
+<code>mixed</code><p>Term definition language code.</p></div>
+<div class="subelement argument">
+<h4>$getOld</h4>
+<code>boolean</code><p>TRUE get old value.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a name="Description" id="Description"></a><div class="element clickable method public Description" data-toggle="collapse" data-target=".Description .collapse">
+<h2>Manage term description.</h2>
+<pre>Description(mixed $theValue, mixed $theLanguage, boolean $getOld) : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to manage the term <a href="kTAG_DESCRIPTION">description</a>, it
+manages an array of structures with the following offsets:</p>
+
+<ul>
+<li><i><a href="kTAG_LANGUAGE">kTAG_LANGUAGE</a></i>: The description's language, this
+    element represents the code of the language in which the next element is
+    expressed in.
+<li><i><a href="kTAG_DATA">kTAG_DATA</a></i>: The term description or comment.
+</ul>
+
+<p>The parameters to this method are:</p>
+
+<ul>
+<li><b>$theValue</b>: The description or operation:
+ <ul>
+    <li><i>NULL</i>: Return the current value selected by the second parameter.
+    <li><i>FALSE</i>: Delete the value selected by the second parameter.
+    <li><i>other</i>: Set value selected by the second parameter.
+ </ul>
+<li><b>$theLanguage</b>: The description's language code:
+ <ul>
+    <li><i>NULL</i>: This value indicates that the description has no language, in
+        general, when adding elements, this case applies to default elements.
+    <li><i>other</i>: All other types will be interpreted as the language code.
+ </ul>
+<li><b>$getOld</b>: Determines what the method will return:
+ <ul>
+    <li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
+    <li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
+ </ul>
+</ul></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\CAttribute::ManageTypedOffset()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kTAG_DESCRIPTION</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theValue</h4>
+<code>mixed</code><p>Term description or operation.</p></div>
+<div class="subelement argument">
+<h4>$theLanguage</h4>
+<code>mixed</code><p>Term description language code.</p></div>
+<div class="subelement argument">
+<h4>$getOld</h4>
+<code>boolean</code><p>TRUE get old value.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a name="GID" id="GID"></a><div class="element clickable method public GID" data-toggle="collapse" data-target=".GID .collapse">
+<h2>Manage term global identifier.</h2>
+<pre>GID() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>The term global <a href="kTAG_GID">identifier</a> represents the un-hashed version of the
+term local <a href="kTAG_LID">identifier</a>.</p>
+
+<p>This value is set automatically by methods, so this method is read-only.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kTAG_GID</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a name="NS" id="NS"></a><div class="element clickable method public NS" data-toggle="collapse" data-target=".NS .collapse">
+<h2>Manage term namespace.</h2>
+<pre>NS(mixed $theValue, boolean $getOld) : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to handle the term <a href="kTAG_NAMESPACE">namespace</a>, it uses
+the standard accessor <a href="CAttribute::ManageOffset()">method</a> to manage the
+<a href="kTAG_NAMESPACE">offset</a>.</p>
+
+<p>The namespace collects a series of terms under a common group in which each term
+<a href="Code()">code</a> is unique, this <a href="kTAG_NAMESPACE">offset</a> represents a term
+reference.</p>
+
+<p>For a more in-depth reference of this method, please consult the
+<a href="CAttribute::ManageOffset()">CAttribute::ManageOffset</a> method, in which the
+second parameter will be the constant <a href="kTAG_NAMESPACE">kTAG_NAMESPACE</a>.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\CAttribute::ManageOffset()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kTAG_NAMESPACE</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theValue</h4>
+<code>mixed</code><p>Value.</p></div>
+<div class="subelement argument">
+<h4>$getOld</h4>
+<code>boolean</code><p>TRUE get old value.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a name="Name" id="Name"></a><div class="element clickable method public Name" data-toggle="collapse" data-target=".Name .collapse">
+<h2>Manage term name.</h2>
+<pre>Name(mixed $theValue, mixed $theLanguage, boolean $getOld) : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to manage the term <a href="kTAG_NAME">name</a>, it manages an
+array of structures with the following offsets:</p>
+
+<ul>
+<li><i><a href="kTAG_LANGUAGE">kTAG_LANGUAGE</a></i>: The name's language, this element
+    represents the code of the language in which the next element is expressed in.
+<li><i><a href="kTAG_DATA">kTAG_DATA</a></i>: The term name or label.
+</ul>
+
+<p>The parameters to this method are:</p>
+
+<ul>
+<li><b>$theValue</b>: The name or operation:
+ <ul>
+    <li><i>NULL</i>: Return the current value selected by the second parameter.
+    <li><i>FALSE</i>: Delete the value selected by the second parameter.
+    <li><i>other</i>: Set value selected by the second parameter.
+ </ul>
+<li><b>$theLanguage</b>: The name's language code:
+ <ul>
+    <li><i>NULL</i>: This value indicates that the name has no language, in general,
+        when adding elements, this case applies to default elements.
+    <li><i>other</i>: All other types will be interpreted as the language code.
+ </ul>
+<li><b>$getOld</b>: Determines what the method will return:
+ <ul>
+    <li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
+    <li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
+ </ul>
+</ul></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\CAttribute::ManageTypedOffset()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kTAG_NAME</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theValue</h4>
+<code>mixed</code><p>Term name or operation.</p></div>
+<div class="subelement argument">
+<h4>$theLanguage</h4>
+<code>mixed</code><p>Term name language code.</p></div>
+<div class="subelement argument">
+<h4>$getOld</h4>
+<code>boolean</code><p>TRUE get old value.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a name="Synonym" id="Synonym"></a><div class="element clickable method public Synonym" data-toggle="collapse" data-target=".Synonym .collapse">
+<h2>Manage synonyms.</h2>
+<pre>Synonym(string $theValue, mixed $theType, mixed $theOperation, boolean $getOld) : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to manage the term <a href="kTAG_REFERENCE_SYNONYM">synonyms</a>
+list, these elements are strings that can be considered synonyms of the current term.</p>
+
+<p>This property is organised as an array of items structured as follows:</p>
+
+<ul>
+<li><i><a href="kTAG_KIND">kTAG_KIND</a></i>: The synonym kind, its value is provided in
+    the <i>$theType</i> parameter.
+<li><i><a href="kTAG_DATA">kTAG_DATA</a></i>: The synonym values organised as an array of
+    strings.
+</ul>
+
+<p>The method expects the following parameters:</p>
+
+<ul>
+<li><b>$theValue</b>: The synonym value.
+<li><b>$theType</b>: The synonym type.
+<li><b>$theOperation</b>: The operation:
+ <ul>
+    <li><i>NULL</i>: Return the current value selected by the previous parameters.
+    <li><i>FALSE</i>: Delete the value selected by the previous parameters.
+    <li><i>other</i>: Set value selected by the previous parameters.
+ </ul>
+<li><b>$getOld</b>: Determines what the method will return:
+ <ul>
+    <li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
+    <li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
+ </ul>
+</ul>
+
+<p>The method makes use of a static
+<a href="CAttribute::ManageTypedArrayOffset()">method</a>, please consult its reference for
+more information.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>public</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theValue</h4>
+<code>string</code><p>Synonym.</p></div>
+<div class="subelement argument">
+<h4>$theType</h4>
+<code>mixed</code><p>Synonym type.</p></div>
+<div class="subelement argument">
+<h4>$theOperation</h4>
+<code>mixed</code><p>Operation.</p></div>
+<div class="subelement argument">
+<h4>$getOld</h4>
+<code>boolean</code><p>TRUE get old value.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a name="Xref" id="Xref"></a><div class="element clickable method public Xref" data-toggle="collapse" data-target=".Xref .collapse">
+<h2>Manage cross-references.</h2>
+<pre>Xref(string $theValue, mixed $theType, mixed $theOperation, boolean $getOld) : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to manage the term
+<a href="kTAG_REFERENCE_XREF">cross-references</a> list, these elements are references to
+other terms that can be considered synonyms of the current term, the reference should
+be the term's <a href="_id()">identifier</a>.</p>
+
+<p>This property is organised as an array of items structured as follows:</p>
+
+<ul>
+<li><i><a href="kTAG_KIND">kTAG_KIND</a></i>: The cross-reference kind, its value is
+    provided in the <i>$theType</i> parameter.
+<li><i><a href="kTAG_DATA">kTAG_DATA</a></i>: The cross-reference values organised as an
+    array of term identifiers.
+</ul>
+
+<p>The method expects the following parameters:</p>
+
+<ul>
+<li><b>$theValue</b>: The cross-reference.
+<li><b>$theType</b>: The cross-reference type.
+<li><b>$theOperation</b>: The operation:
+ <ul>
+    <li><i>NULL</i>: Return the current value selected by the previous parameters.
+    <li><i>FALSE</i>: Delete the value selected by the previous parameters.
+    <li><i>other</i>: Set value selected by the previous parameters.
+ </ul>
+<li><b>$getOld</b>: Determines what the method will return:
+ <ul>
+    <li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
+    <li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
+ </ul>
+</ul>
+
+<p>The method makes use of a static
+<a href="CAttribute::ManageTypedArrayOffset()">method</a>, please consult its reference for
+more information.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>public</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theValue</h4>
+<code>string</code><p>Object or operation.</p></div>
+<div class="subelement argument">
+<h4>$theType</h4>
+<code>mixed</code><p>Cross-reference type.</p>
+</div>
+<div class="subelement argument">
+<h4>$theOperation</h4>
+<code>mixed</code><p>Operation.</p></div>
+<div class="subelement argument">
+<h4>$getOld</h4>
+<code>boolean</code><p>TRUE get old value.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a name="__construct" id="__construct"></a><div class="element clickable method public __construct" data-toggle="collapse" data-target=".__construct .collapse">
+<h2>Instantiate class.</h2>
+<pre>__construct(mixed $theContainer, mixed $theIdentifier, \bitfield $theModifiers) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>We <a href="CCodedUnitObject::__construct()">overload</a> the constructor to
+<a href="_CheckReference()">normalise</a> the provided identifier.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_IsInited</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kTAG_CODE</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theContainer</h4>
+<code>mixed</code><p>Persistent container.</p></div>
+<div class="subelement argument">
+<h4>$theIdentifier</h4>
+<code>mixed</code><p>Object identifier.</p></div>
+<div class="subelement argument">
+<h4>$theModifiers</h4>
+<code>\bitfield</code><p>Create modifiers.</p></div>
+</div></div>
+</div>
+<a name="_CheckReference" id="_CheckReference"></a><div class="element clickable method protected _CheckReference" data-toggle="collapse" data-target="._CheckReference .collapse">
+<h2>Normalise reference parameter.</h2>
+<pre>_CheckReference(mixed $theReference) : <a href="../classes/CDataTypeBinary.html">\CDataTypeBinary</a></pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to normalise a parameter that is supposed to be a reference
+to another term, that is, a binary string hash of the term's
+<a href="_index()">identifier</a> converted to a <a href="CDataTypeBinary">binary</a>
+standard type.</p>
+
+<p>The method will perform the following conversions:</p>
+
+<ul>
+<li><i><a href="CDataTypeBinary">CDataTypeBinary</a></i>: This is the default data type
+    for the identifier.
+<li><i><a href="MongoBinData">MongoBinData</a></i>: This type will be converted to the
+    standard <a href="CDataTypeBinary">CDataTypeBinary</a> type.
+<li><i>COntologyTermObject</i>: Objects of the same class will have their
+    <a href="_id()">identifier</a> extracted.
+<li><i>NULL</i>: NULL data will simply be passed.
+<li><i>other</i>: Any other data type is assumed to be the term's
+    <a href="_index()">identifier</a>, so it will be hashed into a binary string and
+    converted to the standard <a href="CDataTypeBinary">CDataTypeBinary</a> type.
+<li><i>array</i>: Arrays cannot be converted to string, so the method will raise an
+    exception.
+</ul></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>protected</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_IsEncoded()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kFLAG_STATE_ENCODED</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theReference</h4>
+<code>mixed</code><p>Object reference.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code><a href="../classes/CDataTypeBinary.html">\CDataTypeBinary</a></code></div>
+</div></div>
+</div>
+<a name="_PrepareCommit" id="_PrepareCommit"></a><div class="element clickable method protected _PrepareCommit" data-toggle="collapse" data-target="._PrepareCommit .collapse">
+<h2>Normalise before a store.</h2>
+<pre>_PrepareCommit(\reference $theContainer, \reference $theIdentifier, \reference $theModifiers) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>We overload this method to enforce the <a href="kFLAG_STATE_ENCODED">encoded</a> modifier.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>protected</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_IsInited()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kFLAG_STATE_ENCODED</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theContainer</h4>
+<code>\reference</code><p>&$theContainer Object container.</p>
+</div>
+<div class="subelement argument">
+<h4>$theIdentifier</h4>
+<code>\reference</code><p>&$theIdentifier Object identifier.</p>
+</div>
+<div class="subelement argument">
+<h4>$theModifiers</h4>
+<code>\reference</code><p>&$theModifiers Commit modifiers.</p>
+</div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code>\{@link</code></th>
+<td>CException CException}</td>
+</tr></table>
+</div></div>
+</div>
+<a name="_PrepareCreate" id="_PrepareCreate"></a><div class="element clickable method protected _PrepareCreate" data-toggle="collapse" data-target="._PrepareCreate .collapse">
+<h2>Normalise parameters of a create.</h2>
+<pre>_PrepareCreate(\reference $theContainer, \reference $theIdentifier, \reference $theModifiers) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>We overload this method to enforce the <a href="kFLAG_STATE_ENCODED">encoded</a> modifier.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>protected</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_IsEncoded()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kFLAG_STATE_ENCODED</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theContainer</h4>
+<code>\reference</code><p>&$theContainer Object container.</p>
+</div>
+<div class="subelement argument">
+<h4>$theIdentifier</h4>
+<code>\reference</code><p>&$theIdentifier Object identifier.</p>
+</div>
+<div class="subelement argument">
+<h4>$theModifiers</h4>
+<code>\reference</code><p>&$theModifiers Create modifiers.</p>
+</div>
+</div></div>
+</div>
+<a name="_index" id="_index"></a><div class="element clickable method protected _index" data-toggle="collapse" data-target="._index .collapse">
+<h2>Return the object's unique index.</h2>
+<pre>_index() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>In this class we use the term's <a href="kTAG_NAMESPACE">namespace</a> and
+<a href="kTAG_CODE">code</a> to build the object's unique
+<a href="kTAG_LID">identifier</a>; if the <a href="kTAG_NAMESPACE">namespace</a> is
+missing, we use the <a href="kTAG_CODE">code</a>; if the <a href="kTAG_NAMESPACE">namespace</a>
+is present, we use it as a prefix with the <a href="kTAG_CODE">code</a>, separated by the
+<a href="kTOKEN_NAMESPACE_SEPARATOR">separator</a> token.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a6</a> and<br>
+            generated on 2012-07-03T16:30:36+02:00.<br></footer></div>
+</div>
+</body>
+</html>

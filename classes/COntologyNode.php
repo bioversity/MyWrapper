@@ -405,7 +405,8 @@ class COntologyNode extends CGraphNode
 	 * The method will also set the {@link _IsDirty() dirty}
 	 * {@link kFLAG_STATE_DIRTY status}.
 	 *
-	 * @param mixed					$theValue			Term or operation.
+	 * @param mixed					$theValue			Term or index.
+	 * @param mixed					$theOperation		Operation.
 	 * @param boolean				$getOld				TRUE get old value.
 	 *
 	 * @access public
@@ -450,7 +451,8 @@ class COntologyNode extends CGraphNode
 	 * The method will also set the {@link _IsDirty() dirty}
 	 * {@link kFLAG_STATE_DIRTY status}.
 	 *
-	 * @param mixed					$theValue			Term or operation.
+	 * @param mixed					$theValue			Term or index.
+	 * @param mixed					$theOperation		Operation.
 	 * @param boolean				$getOld				TRUE get old value.
 	 *
 	 * @access public

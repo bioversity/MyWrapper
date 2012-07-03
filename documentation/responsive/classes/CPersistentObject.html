@@ -1,0 +1,955 @@
+<!DOCTYPE html><html xmlns:date="http://exslt.org/dates-and-times" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>My Wrapper Reference » \CPersistentObject</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">My Wrapper Reference</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Packages</a></li>
+<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
+<li><a href="../packages/MyWrapper.html"><i class="icon-folder-open"></i> MyWrapper</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">0</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods</li>
+<li class="method public "><a href="#Commit" title="Commit :: Commit the object into a container."><span class="description">Commit the object into a container.</span><pre>Commit()</pre></a></li>
+<li class="method public "><a href="#Uncommit" title="Uncommit :: Reset {@link _IsCommitted() committed} status."><span class="description">Reset {@link _IsCommitted() committed} status.</span><pre>Uncommit()</pre></a></li>
+<li class="method public "><a href="#__construct" title="__construct :: Instantiate class."><span class="description">Instantiate class.</span><pre>__construct()</pre></a></li>
+<li class="nav-header protected">» Protected</li>
+<li class="method protected "><a href="#_Commit" title="_Commit :: Store object in container."><span class="description">Store object in container.</span><pre>_Commit()</pre></a></li>
+<li class="method protected "><a href="#_Create" title="_Create :: Create object."><span class="description">Create object.</span><pre>_Create()</pre></a></li>
+<li class="method protected "><a href="#_FinishCommit" title="_FinishCommit :: Normalise after a {@link _Commit() commit}."><span class="description">Normalise after a {@link _Commit() commit}.</span><pre>_FinishCommit()</pre></a></li>
+<li class="method protected "><a href="#_FinishCreate" title="_FinishCreate :: Normalise after a {@link _Create() create}."><span class="description">Normalise after a {@link _Create() create}.</span><pre>_FinishCreate()</pre></a></li>
+<li class="method protected "><a href="#_FinishLoad" title="_FinishLoad :: Normalise after a {@link _Load() load}."><span class="description">Normalise after a {@link _Load() load}.</span><pre>_FinishLoad()</pre></a></li>
+<li class="method protected "><a href="#_GetTags" title="_GetTags :: Get attribute tags."><span class="description">Get attribute tags.</span><pre>_GetTags()</pre></a></li>
+<li class="method protected "><a href="#_IsCommitted" title="_IsCommitted :: Manage committed status."><span class="description">Manage committed status.</span><pre>_IsCommitted()</pre></a></li>
+<li class="method protected "><a href="#_IsEncoded" title="_IsEncoded :: Manage encoded status."><span class="description">Manage encoded status.</span><pre>_IsEncoded()</pre></a></li>
+<li class="method protected "><a href="#_Load" title="_Load :: Find object."><span class="description">Find object.</span><pre>_Load()</pre></a></li>
+<li class="method protected "><a href="#_PrepareCommit" title="_PrepareCommit :: Normalise before a store."><span class="description">Normalise before a store.</span><pre>_PrepareCommit()</pre></a></li>
+<li class="method protected "><a href="#_PrepareCreate" title="_PrepareCreate :: Normalise parameters of a create."><span class="description">Normalise parameters of a create.</span><pre>_PrepareCreate()</pre></a></li>
+<li class="method protected "><a href="#_PrepareLoad" title="_PrepareLoad :: Normalise parameters of a find."><span class="description">Normalise parameters of a find.</span><pre>_PrepareLoad()</pre></a></li>
+<li class="method protected "><a href="#_SetTags" title="_SetTags :: Set attribute tags."><span class="description">Set attribute tags.</span><pre>_SetTags()</pre></a></li>
+</ul>
+</div>
+<div class="span8">
+<a name="%5CCPersistentObject" id="\CPersistentObject"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/.html"></a></li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/CPersistentObject.html">CPersistentObject</a>
+</li>
+</ul>
+<div href="../classes/CPersistentObject.html" class="element class">
+<p class="short_description">Persistent unit objects ancestor.</p>
+<div class="details">
+<p class="long_description"><p>This class is the ancestor of all persistent objects in this library, it implements the
+common interfaces and workflow that persistent objects will use to be
+<a href="__construct()">instantiated</a>, <a href="__construct()">retrieved</a> or
+<a href="Commit()">stored</a> in object <a href="CContainer">containers</a>.</p>
+
+<p>This class interacts closely with <a href="CContainer">CContainer</a> derived classes so that
+concrete classes derived from this one need only to be concerned with their specific
+functionality, while persistent issues are handled foth by this class and by the
+concrete classes derived from <a href="CContainer">CContainer</a>.</p>
+
+<p>The class declares three main persistence operations whose workflow is as follows:</p>
+
+<ul>
+<li><i><a href="__construct()">Create</a></i>: The <a href="__construct()">constructor</a> can
+    instantiate an object from data, as its <a href="CArrayObject">ancestor</a>, a protected
+    <a href="_Create()">method</a> may be overloaded by derived classes to implement
+    specific functionality.
+<li><i><a href="__construct()">Retrieve</a></i>: The <a href="__construct()">constructor</a> is
+    also used to retrieve objects stored in a <a href="CContainer">container</a>, this
+    operation follows these steps:
+ <ul>
+    <li><i><a href="_PrepareLoad()">Prepare</a></i>: This step is used to check parameters and
+        prepare the resources needed to locate and retrieve the object.
+    <li><i><a href="_Load()">Find</a></i>: In this step the object will be searched for
+        and retrieved from the <a href="CContainer">container</a>.
+ </ul>
+<li><i><a href="Commit()">Store</a></i>: This operation will store the object in a
+    <a href="CContainer">container</a>, the followed steps are:
+ <ul>
+    <li><i><a href="_PrepareCommit()">Prepare</a></i>: This step is used to check parameters
+        and prepare the resources needed to save the object.
+    <li><i><a href="_Commit()">Store</a></i>: This operation will perform the actual
+        storage, this step should be delegated to the <a href="CContainer">container</a>.
+ </ul>
+</ul>
+
+<p>This class implements the default behaviour, in derived classes you should overload these
+methods if necessary, without changing the public interface.</p>
+
+<p>This class extends its <a href="CStatusObject">ancestor</a> behaviour to record persistence
+status and accepts only instances derived from <a href="CContainer">CContainer</a> as
+containers.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>package</th>
+<td><a href="../packages/MyWrapper.Persistence.html">MyWrapper</a></td>
+</tr>
+<tr>
+<th>subpackage</th>
+<td>Persistence</td>
+</tr>
+</table>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a name="Commit" id="Commit"></a><div class="element clickable method public Commit" data-toggle="collapse" data-target=".Commit .collapse">
+<h2>Commit the object into a container.</h2>
+<pre>Commit(mixed $theContainer, mixed $theIdentifier, \bitfield $theModifiers) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method should be used to commit the object to a container, the method accepts
+two parameters:</p>
+
+<ul>
+<li><b>$theContainer</b>: This parameter represents the <i>container</i> in which
+    the object is to be stored. By default we enforce concrete instances of
+    <a href="CContainer">CContainer</a>, derived classes may overload the protected
+    interface to initialise this value.
+<li><b>$theIdentifier</b>: This parameter represents the value by which the current
+    object will be uniquely identified in the first parameter. By default this
+    value is required, derived classes may overload the protected interface to
+    initialise this value.
+<li><b>$theModifiers</b>: This parameter represents the commit operation options, by
+    default we assume you want to <a href="kFLAG_PERSIST_REPLACE">replace</a> an object,
+    but you may change this value if you want to perform specific commit operations:
+ <ul>
+    <li><i><a href="kFLAG_PERSIST_INSERT">kFLAG_PERSIST_INSERT</a></i>: The provided
+        object will be inserted in the container, it is assumed that no other
+        element in the container shares the same identifier, in that case the
+        container <a href="CContainer::Commit()">method</a> must raise an
+        <a href="kERROR_DUPLICATE">exception</a>.
+    <li><i><a href="kFLAG_PERSIST_UPDATE">kFLAG_PERSIST_UPDATE</a></i>: The provided
+        object will replace the existing object. In this case the method expects
+        the container to have an entry with the same key as the provided identifier,
+        if this is not the case the container <a href="CContainer::Commit()">method</a>
+        must raise an <a href="kERROR_NOT_FOUND">exception</a>. With this option it is
+        assumed that the provided object's attributes will replace all the existing
+        object's ones.
+    <li><i><a href="kFLAG_PERSIST_MODIFY">kFLAG_PERSIST_MODIFY</a></i>: The provided
+        object is assumed to contain a subset of an existing object's attributes,
+        these provided attributes will be appended or replace the existing ones.
+        In this case the method expects the container to have an entry with the
+        same key as the provided identifier, if this is not the case the method must
+        raise an <a href="kERROR_NOT_FOUND">exception</a>.
+    <li><i><a href="kFLAG_PERSIST_REPLACE">kFLAG_PERSIST_REPLACE</a></i>: The provided
+        object will be <a href="kFLAG_PERSIST_INSERT">inserted</a>, if the identifier
+        doesn't match any container elements, or it will
+        <a href="kFLAG_PERSIST_UPDATE">replace</a> the existing object. As with
+        <a href="kFLAG_PERSIST_UPDATE">update</a>, it is assumed that the provided
+        object's attributes will replace all the existing object's ones.
+    <li><i><a href="kFLAG_PERSIST_DELETE">kFLAG_PERSIST_DELETE</a></i>: This option
+        assumes you want to remove the object from the container, although the
+        container features a specific <a href="CContainer::Delete()">method</a> for this
+        purpose, this option may be used to implement a <i>deleted state</i>, rather
+        than actually removing the object from the container.
+    <li><i><a href="kFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a></i>: If the option is on,
+        the object will be passed through a
+        <a href="CContainer::UnserialiseObject()">conversion</a> process that will convert
+        all <a href="CDataType">standard</a> data types into native container custom data
+        types <a href="CContainer::_PrepareCommit()">before</a> committing the object. It
+        is a good idea to keep this flag ON, because the converted object will be
+        compatible with any <a href="CContainer">container</a> and it will make data
+        transfers from one database to the other easy. This process is automatic and
+        transparent.
+ </ul>
+</ul>
+
+<p>The method will only operate if either the <a href="_IsCommitted()">committed</a>
+<a href="kFLAG_STATE_COMMITTED">flag</a> is <i>not set</i>, or the
+<a href="_IsDirty()">dirty</a> <a href="kFLAG_STATE_DIRTY">flag</a> is <i>set</i>, if none of
+these two conditions are satisfied, the method will do nothing.</p>
+
+<p>The method will by default <i>set</i> the <a href="_IsCommitted()">committed</a>
+<a href="kFLAG_STATE_COMMITTED">flag</a> and <i>reset</i> the <a href="_IsDirty()">dirty</a>
+<a href="kFLAG_STATE_DIRTY">flag</a> if the operation was successful.</p>
+
+<p>This method should raise an exception if any error occurs.</p>
+
+<p>The method should return the unique identifier of the object or <i>NULL</i> if the
+operation was not performed.</p>
+
+<p>In derived classes you should not overload this method, instead, you should overload
+the protected interface:</p>
+
+<ul>
+<li><i><a href="_PrepareCommit()">_PrepareCommit</a>()</i>: This method can be used to
+    initialise or check the parameters and resources.
+<li><i><a href="_Commit()">_Commit</a>()</i>: This method will perform the
+    actual commit.
+<li><i><a href="_FinishCommit()">_FinishCommit</a>()</i>: This method can be used to perform
+    eventual post-flight adjustments.
+</ul></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_IsDirty()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_IsCommitted()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_PrepareCommit()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_Commit()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_FinishCommit()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kFLAG_PERSIST_INSERT</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kFLAG_PERSIST_REPLACE</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theContainer</h4>
+<code>mixed</code><p>Persistent container.</p></div>
+<div class="subelement argument">
+<h4>$theIdentifier</h4>
+<code>mixed</code><p>Object identifier.</p></div>
+<div class="subelement argument">
+<h4>$theModifiers</h4>
+<code>\bitfield</code><p>Commit modifiers.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="Uncommit" id="Uncommit"></a><div class="element clickable method public Uncommit" data-toggle="collapse" data-target=".Uncommit .collapse">
+<h2>Reset {@link _IsCommitted() committed} status.</h2>
+<pre>Uncommit() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to reset the object's <a href="kFLAG_STATE_COMMITTED">committed</a>
+<a href="_IsCommitted()">status</a>, this may be necessary when copying an object from one
+container to the other, since the object will be <a href="Commit()">committed</a> only if
+the <a href="kFLAG_STATE_COMMITTED">committed</a> <a href="_IsCommitted()">status</a> is not set,
+or if the <a href="kFLAG_STATE_DIRTY">dirty</a> <a href="_IsDirty()">status</a> is set.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_IsCommitted()</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a name="__construct" id="__construct"></a><div class="element clickable method public __construct" data-toggle="collapse" data-target=".__construct .collapse">
+<h2>Instantiate class.</h2>
+<pre>__construct(mixed $theContainer, mixed $theIdentifier, \bitfield $theModifiers) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>The constructor can be used to instantiate an empty object, instantiate an object
+from some content, or load an object from a container.</p>
+
+<p>The parameters to this method are:</p>
+
+<ul>
+<li><b>$theContainer</b>: This parameter represents either the <i>contents</i> of
+    the object, if the next parameter is missing, or the
+    <i><a href="CContainer">container</a></i> in which the object resides. If missing, we
+    assume we want to create an empty object.
+ <ul>
+    <li><i>NULL</i>: In this case it is assumed you want to instantiate an empty
+        object and the next parameter will be ignored.
+    <li><i>Array</i> or <i>ArrayObject</i>: In this case we assume the parameter
+        represents either the object contents, if the next parameter is <i>NULL</i>,
+        or the <a href="CContainer">container</a> in which the object is
+        <a href="Commit()">stored</a>, in which case we interpret the next parameter to be
+        the object's identifier.
+    <li><i>Other</i>: Any other type will raise an
+        <a href="kERROR_UNSUPPORTED">exception</a>, or it should be handled by derived
+        classes.
+ </ul>
+<li><b>$theIdentifier</b>: This parameter represents the key or query that will be
+    used to locate the object in the container provided in the first parameter.
+ <ul>
+    <li><i>NULL</i>: This indicates that the first parameter represents the object
+        <i>contents</i>.
+    <li><i>other</i>: Any other type is considered as a key or query used to locate
+        the object in the container provided in the first parameter.
+ </ul>
+<li><b>$theModifiers</b>: This bitfield parameter can be used to provide a series of
+    options to the object. The available options can be consulted in
+    <a href="Flags.inc.php">this</a> file. Most of these options are managed automatically
+    and should not be provided explicitly. This class handles one option that has
+    the following meaning:
+ <ul>
+    <li><i><a href="kFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a></i>: If the option is on,
+        the object will be passed through a
+        <a href="CContainer::UnserialiseObject()">conversion</a> process that will convert
+        all <a href="CDataType">standard</a> data types into native container custom data
+        types <a href="CContainer::_PrepareCommit()">before</a>
+        <a href="Commit()">committing</a> the object; the opposite
+        <a href="CDataType::SerialiseObject()">conversion</a> process will take place
+        <a href="CContainer::_FinishLoad()">after</a> <a href="__construct()">loading</a> the
+        object from a container. It is a good idea to keep this flag ON, because the
+        converted object will be compatible with any <a href="CContainer">container</a>
+        and it will make data transfers from one database to the other easy.
+        This process is automatic and transparent.
+ </ul>
+</ul>
+
+<p>Depending on the results of this method we set the <a href="_IsCommitted()">committed</a>
+status <a href="kFLAG_STATE_COMMITTED">flag</a> as follows:</p>
+
+<ul>
+<li><i>Empty object</i>: By omitting the first parameter we indicate that we want to
+    start from scratch, the object will not have its
+    <a href="_IsCommitted()">committed</a> <a href="kFLAG_STATE_COMMITTED">flag</a> set.
+<li><i>Filled object</i>: In this case we provide in the <i>$theContainer</i>
+    parameter the object's <i>contents</i>. In this case we do not consider the
+    object as persistent, so the object will not have its
+    <a href="_IsCommitted()">committed</a> <a href="kFLAG_STATE_COMMITTED">flag</a> set.
+<li><i>Selected object</i>: In this case we search the <i>$theContainer</i> with
+    the provided <i>$theIdentifier</i> as a key or query, and if:
+ <ul>
+    <li><i>Found</i>: We set the <a href="_IsCommitted()">committed</a>
+        <a href="kFLAG_STATE_COMMITTED">flag</a> on.
+    <li><i>Not found</i>: We instantiate an empty object and ignore the
+        <a href="_IsCommitted()">committed</a> <a href="kFLAG_STATE_COMMITTED">flag</a>.
+ </ul>
+</ul>
+
+<p>The <a href="_IsInited()">inited</a> status <a href="kFLAG_STATE_INITED">flag</a> is not set by
+default, this will prevent the object from being <a href="Commit()">stored</a> and it is
+the responsibility of derived concrete instances to manage this status.</p>
+
+<p>This method takes advantage of a protected interface which should be overloaded by
+derived classes instead of overloading this method:</p>
+
+<ul>
+<li><i>Retrieve object</i>: If the second parameter was provided, it implies that
+    the object is to be retrieved from the first parameter which represents the
+    <a href="CContainer">container</a> in which the object contents are stored.
+ <ul>
+    <li><i><a href="_PrepareLoad()">_PrepareLoad</a>()</i>: This method should check and
+        normalise the container and identifier. In this class we ensure that the
+        container is derived from <a href="CContainer">CContainer</a>.
+    <li><i><a href="_Load()">_Load</a>()</i>: This method will delegate the
+        <a href="CContainer">container</a> the responsibility of locating and retrieving
+        the object using the provided identifier.
+ </ul>
+<li><i><a href="_Create()">_Create</a>()</i>: This method should instantiate
+    the object from the contents returned by <a href="_Load()">_Load</a> or
+    by the data provided in the first parameter in the case the second parameter
+    was omitted.
+</ul>
+
+<p>Derived classes should overload the above interface rather than overloading this
+method and should do so only if necessary, because this workflow should be sufficient
+for persisting objects.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_PrepareLoad()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_Load()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_Create()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_IsCommitted()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_FinishLoad()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_FinishCreate()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theContainer</h4>
+<code>mixed</code><p>Persistent container.</p></div>
+<div class="subelement argument">
+<h4>$theIdentifier</h4>
+<code>mixed</code><p>Object identifier.</p></div>
+<div class="subelement argument">
+<h4>$theModifiers</h4>
+<code>\bitfield</code><p>Create modifiers.</p></div>
+</div></div>
+</div>
+<a name="_Commit" id="_Commit"></a><div class="element clickable method protected _Commit" data-toggle="collapse" data-target="._Commit .collapse">
+<h2>Store object in container.</h2>
+<pre>_Commit(\reference $theContainer, \reference $theIdentifier, \reference $theModifiers) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>The duty of this method is to store the current object in the container provided in
+the first parameter with as key the value provided in the second parameter with
+options provided in the third parameter, please refer to <a href="Commit()">this</a>
+documentation for a reference of these parameters. Note that in this method all three
+parameters are passed by reference.</p>
+
+<p>This class supports <a href="CContainer">CContainer</a> derived instances and will delegate
+the operation to the container. Note that by default we call the container's
+<a href="CContainer::Commit()">commit</a> method with the
+<a href="kFLAG_PERSIST_REPLACE">kFLAG_PERSIST_REPLACE</a> option, which will
+<a href="kFLAG_PERSIST_INSERT">insert</a> the object if new or
+<a href="kFLAG_PERSIST_UPDATE">replace</a> the eventual existing object.</p>
+
+<p>The method expects all parameters to have been previously
+<a href="_PrepareCommit()">checked</a>, its main duty is to perform the actual storage.
+In derived classes you should intercept custom containers, or call the parent method.</p>
+
+<p>There might be cases in which you do not want the commit operation to occur: in those
+cases you can clear all the persistence <a href="kFLAG_PERSIST_MASK">flags</a> in the
+modifier parameter, in that case the operation will not occur.</p>
+
+<p><i>Note: the duty of this method is to store only the array part of the object,
+properties should be ignored.</i></p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theContainer</h4>
+<code>\reference</code><p>&$theContainer Object container.</p>
+</div>
+<div class="subelement argument">
+<h4>$theIdentifier</h4>
+<code>\reference</code><p>&$theIdentifier Object identifier.</p>
+</div>
+<div class="subelement argument">
+<h4>$theModifiers</h4>
+<code>\reference</code><p>&$theModifiers Commit modifiers.</p>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="_Create" id="_Create"></a><div class="element clickable method protected _Create" data-toggle="collapse" data-target="._Create .collapse">
+<h2>Create object.</h2>
+<pre>_Create(\reference $theContent) : boolean</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>The duty of this method is to instantiate an object with the provided data.</p>
+
+<p>The method expects one parameter which is passed by reference:</p>
+
+<ul>
+<li><b></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>protected</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kERROR_UNSUPPORTED</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theContent</h4>
+<code>\reference</code><p>&$theContent Object data content.</p>
+</div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code>\{@link</code></th>
+<td>CException CException}</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code>boolean</code></div>
+</div></div>
+</div>
+<a name="_FinishCommit" id="_FinishCommit"></a><div class="element clickable method protected _FinishCommit" data-toggle="collapse" data-target="._FinishCommit .collapse">
+<h2>Normalise after a {@link _Commit() commit}.</h2>
+<pre>_FinishCommit(\reference $theContainer, \reference $theIdentifier, \reference $theModifiers) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method will be called after the <a href="_Commit()">store</a> operation, its
+duty is to clean up or restore the object after the operation please refer to
+<a href="Commit()">this</a> documentation for a reference of these parameters. Note that in
+this method all three parameters are passed by reference.</p>
+
+<p>In this class we set the <a href="_IsCommitted()">commit</a>
+<a href="kFLAG_STATE_COMMITTED">flag</a> and reset the <a href="_IsDirty()">dirty</a>
+<a href="kFLAG_STATE_DIRTY">flag</a>.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theContainer</h4>
+<code>\reference</code><p>&$theContainer Object container.</p>
+</div>
+<div class="subelement argument">
+<h4>$theIdentifier</h4>
+<code>\reference</code><p>&$theIdentifier Object identifier.</p>
+</div>
+<div class="subelement argument">
+<h4>$theModifiers</h4>
+<code>\reference</code><p>&$theModifiers Commit modifiers.</p>
+</div>
+</div></div>
+</div>
+<a name="_FinishCreate" id="_FinishCreate"></a><div class="element clickable method protected _FinishCreate" data-toggle="collapse" data-target="._FinishCreate .collapse">
+<h2>Normalise after a {@link _Create() create}.</h2>
+<pre>_FinishCreate(\reference $theContainer) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method will be called after the <a href="_Create()">create</a> operation, its duty is
+to initialise an empty object. Both the container and the identifier parameters are
+passed by reference.</p>
+
+<p>This method will be called if the identifier was not provided to the
+<a href="__construct()">constructor</a>, or if the <a href="__construct()">constructor</a> was
+unable to <a href="_Load()">find</a> the requested object.</p>
+
+<p>In this class we do nothing.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theContainer</h4>
+<code>\reference</code><p>&$theContainer Object container.</p>
+</div>
+</div></div>
+</div>
+<a name="_FinishLoad" id="_FinishLoad"></a><div class="element clickable method protected _FinishLoad" data-toggle="collapse" data-target="._FinishLoad .collapse">
+<h2>Normalise after a {@link _Load() load}.</h2>
+<pre>_FinishLoad(\reference $theContainer, \reference $theIdentifier, \reference $theModifiers) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method will be called after the <a href="_Load()">load</a> operation, its duty is to
+clean up or normalise after the operation. Both the container and the identifier
+parameters are passed by reference.</p>
+
+<p>In this class we do nothing.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theContainer</h4>
+<code>\reference</code><p>&$theContainer Object container.</p>
+</div>
+<div class="subelement argument">
+<h4>$theIdentifier</h4>
+<code>\reference</code><p>&$theIdentifier Object identifier.</p>
+</div>
+<div class="subelement argument">
+<h4>$theModifiers</h4>
+<code>\reference</code><p>&$theModifiers Create modifiers.</p>
+</div>
+</div></div>
+</div>
+<a name="_GetTags" id="_GetTags"></a><div class="element clickable method protected _GetTags" data-toggle="collapse" data-target="._GetTags .collapse">
+<h2>Get attribute tags.</h2>
+<pre>_GetTags() : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>The duty of this method is to collect all attribute tags used in the object and
+return them as an array.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a name="_IsCommitted" id="_IsCommitted"></a><div class="element clickable method protected _IsCommitted" data-toggle="collapse" data-target="._IsCommitted .collapse">
+<h2>Manage committed status.</h2>
+<pre>_IsCommitted(mixed $theState) : boolean</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to get or set the object's committed state.</p>
+
+<p>A committed object is one that has either been loaded from a container or committed
+to a container. This state indicates that the object is persistent. This state,
+combined with the <a href="_IsDirty()">dirty</a> status, can determine if an object needs
+to be committed in a container or not.</p>
+
+<p>The method features a single parameter:</p>
+
+<ul>
+<li><i>NULL</i>: The method will return <i>TRUE</i> if the object is committed, or
+    <i>FALSE</i> if the object is not committed.
+<li><i>TRUE</i>: The method will set the object to committed.
+<li><i>FALSE</i>: The method will reset the object's committed state.
+</ul>
+
+<p>In all cases the method will return the state <i>after</i> it was eventually
+modified.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>protected</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_ManageBitField()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kFLAG_STATE_COMMITTED</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theState</h4>
+<code>mixed</code><p>TRUE, FALSE or NULL.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>boolean</code></div>
+</div></div>
+</div>
+<a name="_IsEncoded" id="_IsEncoded"></a><div class="element clickable method protected _IsEncoded" data-toggle="collapse" data-target="._IsEncoded .collapse">
+<h2>Manage encoded status.</h2>
+<pre>_IsEncoded(mixed $theState) : boolean</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to get or set the object's encoded state.</p>
+
+<p>This flag determines whether custom data types are to be converted to
+<a href="CDataType">standard</a> types when working with the object. This is especially
+useful when transmitting the object through the network or when managing custom
+database types.</p>
+
+<p>The conversion to <a href="CDataType">standard</a> types is
+<a href="CDataType::SerialiseObject()">done</a> when <a href="__construct()">loading</a> the
+object from a <a href="CContainer">container</a> and the opposite is
+<a href="CContainer::UnserialiseObject()">done</a> before <a href="Commit()">storing</a> the
+object into a <a href="CContainer">container</a>, these operations are performed by the
+<a href="CContainer">container</a> object that takes care of object persistence.</p>
+
+<p>This <a href="kFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a> flag can be provided at
+<a href="__construct()">instantiation</a> or directly to the persistence methods, although
+it is a better idea to provide it in the <a href="__construct()">constructor</a> to have
+this conversion happen transparently.</p>
+
+<p>The method features a single parameter:</p>
+
+<ul>
+<li><i>NULL</i>: The method will return <i>TRUE</i> if the object is encoded, or
+    <i>FALSE</i> if the object is not encoded.
+<li><i>TRUE</i>: The method will set the object to encoded.
+<li><i>FALSE</i>: The method will reset the object's encoded state.
+</ul>
+
+<p>In all cases the method will return the state <i>after</i> it was eventually
+modified.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>protected</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_ManageBitField()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kFLAG_STATE_ENCODED</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theState</h4>
+<code>mixed</code><p>TRUE, FALSE or NULL.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>boolean</code></div>
+</div></div>
+</div>
+<a name="_Load" id="_Load"></a><div class="element clickable method protected _Load" data-toggle="collapse" data-target="._Load .collapse">
+<h2>Find object.</h2>
+<pre>_Load(\reference $theContainer, \reference $theIdentifier, \reference $theModifiers) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>The duty of this method is to locate the object identified by <i>$theIdentifier</i>
+in the container <i>$theContainer</i> and return its contents or <i>NULL</i> if not
+found.</p>
+
+<p>The method should expect both parameters to have been previously checked: in this
+class, the container must be an <i>ArrayObject</i> representing either the actual
+container, or a <a href="CContainer">CContainer</a> derived instance which will take care
+of locating the object within its managed native container.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theContainer</h4>
+<code>\reference</code><p>&$theContainer Object container.</p>
+</div>
+<div class="subelement argument">
+<h4>$theIdentifier</h4>
+<code>\reference</code><p>&$theIdentifier Object identifier.</p>
+</div>
+<div class="subelement argument">
+<h4>$theModifiers</h4>
+<code>\reference</code><p>&$theModifiers Create options.</p>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="_PrepareCommit" id="_PrepareCommit"></a><div class="element clickable method protected _PrepareCommit" data-toggle="collapse" data-target="._PrepareCommit .collapse">
+<h2>Normalise before a store.</h2>
+<pre>_PrepareCommit(\reference $theContainer, \reference $theIdentifier, \reference $theModifiers) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method will be called before the <a href="_Commit()">store</a> operation, its
+duty is to prepare the object and check the parameters for the
+<a href="_Commit()">commit</a> operation, please refer to <a href="Commit()">this</a>
+documentation for a reference of these parameters. Note that in this method all three
+parameters are passed by reference.</p>
+
+<p>By default we perform the following checks:</p>
+
+<ul>
+<li>Ensure the container is provided.
+<li>Ensure the identifier is provided if <a href="kFLAG_PERSIST_UPDATE">updating</a>.
+<li>Ensure the object is <a href="_IsInited()">initialised</a>.
+</ul>
+
+<p>In derived classes you should handle your custom containers or delegate to the parent
+method.</p>
+
+<p>In this class we do not check the identifier.</p>
+
+<p>Any errors should raise an exception.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>protected</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_IsInited()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kERROR_INVALID_STATE</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theContainer</h4>
+<code>\reference</code><p>&$theContainer Object container.</p>
+</div>
+<div class="subelement argument">
+<h4>$theIdentifier</h4>
+<code>\reference</code><p>&$theIdentifier Object identifier.</p>
+</div>
+<div class="subelement argument">
+<h4>$theModifiers</h4>
+<code>\reference</code><p>&$theModifiers Commit modifiers.</p>
+</div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code>\{@link</code></th>
+<td>CException CException}</td>
+</tr></table>
+</div></div>
+</div>
+<a name="_PrepareCreate" id="_PrepareCreate"></a><div class="element clickable method protected _PrepareCreate" data-toggle="collapse" data-target="._PrepareCreate .collapse">
+<h2>Normalise parameters of a create.</h2>
+<pre>_PrepareCreate(\reference $theContainer, \reference $theIdentifier, \reference $theModifiers) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>The duty of this method is to ensure that the parameters provided to a
+<a href="_Create()">create</a> operation are valid.</p>
+
+<p>The method has a chance to work with the container and the identifier before it is
+set in the object.</p>
+
+<p>In this class we set the <a href="_IsEncoded()">encoded</a> status
+<a href="kFLAG_STATE_ENCODED">flag</a> if provided among the modifiers of the operation.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>protected</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_IsEncoded()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kFLAG_STATE_ENCODED</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theContainer</h4>
+<code>\reference</code><p>&$theContainer Object container.</p>
+</div>
+<div class="subelement argument">
+<h4>$theIdentifier</h4>
+<code>\reference</code><p>&$theIdentifier Object identifier.</p>
+</div>
+<div class="subelement argument">
+<h4>$theModifiers</h4>
+<code>\reference</code><p>&$theModifiers Create modifiers.</p>
+</div>
+</div></div>
+</div>
+<a name="_PrepareLoad" id="_PrepareLoad"></a><div class="element clickable method protected _PrepareLoad" data-toggle="collapse" data-target="._PrepareLoad .collapse">
+<h2>Normalise parameters of a find.</h2>
+<pre>_PrepareLoad(\reference $theContainer, \reference $theIdentifier, \reference $theModifiers) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>The duty of this method is to ensure that the parameters provided to a
+<a href="_Load()">find</a> operation are valid.</p>
+
+<p>The method should first check if the provided container is of the correct type, then
+it should ensure that the identifier is valid.</p>
+
+<p>We know that the identifier cannot be missing, since this method is only called if
+the identifier was provided. We should check that the provided container is of the
+correct type. In derived classes you should first handle your custom types, then
+let the parent method handle other types.</p>
+
+<p>Any errors should raise an exception.</p>
+
+<p>In this class we only support <a href="CContainer">CContainer</a> containers and the
+identifier is not expected to be <i>NULL</i>.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>protected</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_IsEncoded()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kERROR_OPTION_MISSING</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theContainer</h4>
+<code>\reference</code><p>&$theContainer Object container.</p>
+</div>
+<div class="subelement argument">
+<h4>$theIdentifier</h4>
+<code>\reference</code><p>&$theIdentifier Object identifier.</p>
+</div>
+<div class="subelement argument">
+<h4>$theModifiers</h4>
+<code>\reference</code><p>&$theModifiers Create modifiers.</p>
+</div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code>\{@link</code></th>
+<td>CException CException}</td>
+</tr></table>
+</div></div>
+</div>
+<a name="_SetTags" id="_SetTags"></a><div class="element clickable method protected _SetTags" data-toggle="collapse" data-target="._SetTags .collapse">
+<h2>Set attribute tags.</h2>
+<pre>_SetTags(string $theOffset) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>The duty of this method is to collect all attribute tags used in the object and store
+them as an array at the provided offset.</p>
+
+<p>The method will collect all attributes, overload this method to exclude default
+attributes.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>protected</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theOffset</h4>
+<code>string</code><p>Offset.</p></div>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a6</a> and<br>
+            generated on 2012-07-03T16:30:36+02:00.<br></footer></div>
+</div>
+</body>
+</html>

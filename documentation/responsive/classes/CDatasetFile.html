@@ -1,0 +1,394 @@
+<!DOCTYPE html><html xmlns:date="http://exslt.org/dates-and-times" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>My Wrapper Reference » \CDatasetFile</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">My Wrapper Reference</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Packages</a></li>
+<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
+<li><a href="../packages/MyWrapper.html"><i class="icon-folder-open"></i> MyWrapper</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">0</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods</li>
+<li class="method public "><a href="#Column" title="Column :: Manage the file columns."><span class="description">Manage the file columns.</span><pre>Column()</pre></a></li>
+<li class="method public "><a href="#Dataset" title="Dataset :: Manage dataset."><span class="description">Manage dataset.</span><pre>Dataset()</pre></a></li>
+<li class="method public "><a href="#Kind" title="Kind :: Manage the file kind."><span class="description">Manage the file kind.</span><pre>Kind()</pre></a></li>
+<li class="method public "><a href="#Referenced" title="Referenced :: Manage referenced file references."><span class="description">Manage referenced file references.</span><pre>Referenced()</pre></a></li>
+<li class="method public "><a href="#Status" title="Status :: Manage the file status."><span class="description">Manage the file status.</span><pre>Status()</pre></a></li>
+<li class="method public "><a href="#__construct" title="__construct :: Instantiate class."><span class="description">Instantiate class.</span><pre>__construct()</pre></a></li>
+</ul>
+</div>
+<div class="span8">
+<a name="%5CCDatasetFile" id="\CDatasetFile"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/.html"></a></li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/CDatasetFile.html">CDatasetFile</a>
+</li>
+</ul>
+<div href="../classes/CDatasetFile.html" class="element class">
+<p class="short_description">Dataset file.</p>
+<div class="details">
+<p class="long_description"><p>This class implements a dataset file, it wraps the <a href="CArrayObject">parent</a> class
+around a structure that records a dataset file's attributes.</p>
+
+<p>In general instances of this class will be embedded in a <a href="CDataset">dataset</a> objects
+to add lists of file references, the current class does not feature any persistence
+functions, it only concentrates in managing a file reference as a set of properties:</p>
+
+<ul>
+<li><i><a href="File()">File</a></i>: This <a href="kOFFSET_FILE">property</a> defines a file, it
+    represents the GridFS record identifier for the file.
+<li><i><a href="Referenced()">Referenced</a></i>: This <a href="kTAG_REFS">property</a> holds the
+    list of file <a href="File()">references</a>, this attribute all files that were generated
+    taking the current file as a model. For instance, this list would contain all CSV
+    files generated from all the workbooks of an Excel file.
+<li><i><a href="Status()">Status</a></i>: This <a href="kTAG_STATUS">property</a> holds the list of
+    states in which the current file is.
+<li><i><a href="Kind()">Kind</a></i>: This <a href="kTAG_KIND">property</a> holds the list of kinds
+    or types assigned to the file.
+<li><i><a href="Column()">Columns</a></i>: This <a href="kOFFSET_COLS">property</a> holds the list
+    of column headers and associated metadata structured as follows:
+ <ul>
+    <li><i><a href="kTAG_TAG">kTAG_TAG</a></i>: The <a href="COntologyTag">tag</a> associated with
+        the data in the current column.
+    <li><i><a href="Title()">Title</a></i>: The original header <a href="kTAG_TITLE">title</a>
+        provided in the file and used for the annotation.
+ </ul>
+</ul>
+
+<p>You should always instantiate this class from the <a href="CDataset">dataset</a> by using its
+<a href="CDataset::NewFile()">static</a> method rather than instantiating the class on its own,
+this is because this way it is guaranteed that the record points to an existing file.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>package</th>
+<td><a href="../packages/MyWrapper.Traits.html">MyWrapper</a></td>
+</tr>
+<tr>
+<th>subpackage</th>
+<td>Traits</td>
+</tr>
+</table>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a name="Column" id="Column"></a><div class="element clickable method public Column" data-toggle="collapse" data-target=".Column .collapse">
+<h2>Manage the file columns.</h2>
+<pre>Column(integer $theColumn, mixed $theTag, string $theTitle) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to handle the object's list of <a href="kOFFSET_COLS">columns</a>,
+it uses the standard accessor <a href="CAttribute::ManageArrayOffset()">method</a> to
+manage each of the file's column metadata.</p>
+
+<p>Each element of this list represents a column of the file and holds the following
+information:</p>
+
+<ul>
+<li><i><a href="kTAG_TAG">kTAG_TAG</a></i>: This element holds the
+    <a href="kTAG_LID">identifier</a> of the ontology <a href="COntologyTag">tag</a> associated
+    with the data contained in the current file's column.
+<li><i><a href="kTAG_TITLE">kTAG_TITLE</a></i>: This element holds the original header
+    contents which were used to determine the column <a href="COntologyTag">tag</a>.
+</ul>
+
+<p>The method accepts three parameters:</p>
+
+<ul>
+<li><b>$theColumn</b>: The column index as an integer (zero based), or the operation
+    to be performed on the whole list:
+ <ul>
+    <li><i>NULL</i>: Return all columns metadata.
+    <li><i>FALSE</i>: Delete all columns metadata, the method will return the old
+        value.
+    <li><i>other</i>: Any other type of value will be interpreted as an integer
+        indicating the column index (zero based) to be considered.
+ </ul>
+<li><b>$theTag</b>: The <a href="kTAG_GID">identifier</a> of the <a href="COntologyTag">tag</a>
+    associated with the current column, or the operation to be performed:
+ <ul>
+    <li><i>NULL</i>: Return the full contents of the current column, the next
+        parameter is ignored in this case.
+    <li><i>FALSE</i>: Delete the current column, the next parameter is ignored in
+        this case.
+    <li><i>other</i>: Any other type of value will be interpreted as the
+        <a href="COntologyTag">tag</a> <a href="kTAG_GID">identifier</a> associated with the
+        column.
+ </ul>
+<li><b>$theTitle</b>: The original header contents used to annotate the column.
+</ul></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\CAttribute::ManageArrayOffset()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kOFFSET_COLS</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theColumn</h4>
+<code>integer</code><p>Column index.</p></div>
+<div class="subelement argument">
+<h4>$theTag</h4>
+<code>mixed</code><p>Column tag or operation.</p></div>
+<div class="subelement argument">
+<h4>$theTitle</h4>
+<code>string</code><p>Column original header.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="Dataset" id="Dataset"></a><div class="element clickable method public Dataset" data-toggle="collapse" data-target=".Dataset .collapse">
+<h2>Manage dataset.</h2>
+<pre>Dataset(string $theValue, boolean $getOld) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to manage the file's <a href="CDataset">dataset</a>
+<a href="kTAG_LID">reference</a> or the operation to be performed:</p>
+
+<ul>
+<li><i>NULL</i>: Return the current value.
+<li><i>FALSE</i>: Delete the current value.
+<li><i>other</i>: Set the value with the provided parameter.
+</ul>
+
+<p>The second parameter is a boolean which if <i>TRUE</i> will return the <i>old</i>
+value when replacing values; if <i>FALSE</i>, it will return the currently set value.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\CAttribute::ManageOffset()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kTAG_DATASET</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theValue</h4>
+<code>string</code><p>Value or operation.</p></div>
+<div class="subelement argument">
+<h4>$getOld</h4>
+<code>boolean</code><p>TRUE get old value.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="Kind" id="Kind"></a><div class="element clickable method public Kind" data-toggle="collapse" data-target=".Kind .collapse">
+<h2>Manage the file kind.</h2>
+<pre>Kind(mixed $theValue, mixed $theOperation, boolean $getOld) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to handle the object's list of <a href="kTAG_KIND">kinds</a>, it
+uses the standard accessor <a href="CAttribute::ManageArrayOffset()">method</a> to manage
+the list of kind or type tags associated with the file.</p>
+
+<p>Each element of this list should indicate a kind or type associated with the object.
+This information indicates what kind or type of file the current object is.</p>
+
+<p>For a more thorough reference of how this method works, please consult the
+<a href="CAttribute::ManageArrayOffset()">CAttribute::ManageArrayOffset</a> method, in
+which the second parameter will be the constant <a href="kTAG_KIND">kTAG_KIND</a>.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\CAttribute::ManageArrayOffset()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kTAG_KIND</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theValue</h4>
+<code>mixed</code><p>Value or index.</p></div>
+<div class="subelement argument">
+<h4>$theOperation</h4>
+<code>mixed</code><p>Operation.</p></div>
+<div class="subelement argument">
+<h4>$getOld</h4>
+<code>boolean</code><p>TRUE get old value.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="Referenced" id="Referenced"></a><div class="element clickable method public Referenced" data-toggle="collapse" data-target=".Referenced .collapse">
+<h2>Manage referenced file references.</h2>
+<pre>Referenced(mixed $theValue, mixed $theOperation, boolean $getOld) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to handle the object's <a href="kTAG_REFS">references</a>, it uses
+the standard accessor <a href="CAttribute::ManageArrayOffset()">method</a> to manage the
+list of referenced files.</p>
+
+<p>Each element of this list should indicate a the eventual file that the system
+generated according to the current file: for instance, an Excel file will generate
+as many CSV files as it has non-empty worksheets.</p>
+
+<p>For a more thorough reference of how this method works, please consult the
+<a href="CAttribute::ManageArrayOffset()">CAttribute::ManageArrayOffset</a> method, in
+which the second parameter will be the constant <a href="kTAG_REFS">kTAG_REFS</a>.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\CAttribute::ManageArrayOffset()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kTAG_REFS</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theValue</h4>
+<code>mixed</code><p>Value or index.</p></div>
+<div class="subelement argument">
+<h4>$theOperation</h4>
+<code>mixed</code><p>Operation.</p></div>
+<div class="subelement argument">
+<h4>$getOld</h4>
+<code>boolean</code><p>TRUE get old value.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="Status" id="Status"></a><div class="element clickable method public Status" data-toggle="collapse" data-target=".Status .collapse">
+<h2>Manage the file status.</h2>
+<pre>Status(mixed $theValue, mixed $theOperation, boolean $getOld) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to handle the object's list of <a href="kTAG_STATUS">states</a>, it
+uses the standard accessor <a href="CAttribute::ManageArrayOffset()">method</a> to manage
+the list of status tags associated with the file.</p>
+
+<p>Each element of this list should indicate an object state, status or quality. This
+information indicates in which state the file is in.</p>
+
+<p>For a more thorough reference of how this method works, please consult the
+<a href="CAttribute::ManageArrayOffset()">CAttribute::ManageArrayOffset</a> method, in
+which the second parameter will be the constant <a href="kTAG_STATUS">kTAG_STATUS</a>.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>public</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\CAttribute::ManageArrayOffset()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kTAG_STATUS</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theValue</h4>
+<code>mixed</code><p>Value or index.</p></div>
+<div class="subelement argument">
+<h4>$theOperation</h4>
+<code>mixed</code><p>Operation.</p></div>
+<div class="subelement argument">
+<h4>$getOld</h4>
+<code>boolean</code><p>TRUE get old value.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="__construct" id="__construct"></a><div class="element clickable method public __construct" data-toggle="collapse" data-target=".__construct .collapse">
+<h2>Instantiate class.</h2>
+<pre>__construct(mixed $theData) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>The constructor will instantiate an object either from an array, by loading all
+corresponding properties, or as an empty object.</p></p>
+<table class="table table-bordered"><tr>
+<th>access</th>
+<td>public</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theData</h4>
+<code>mixed</code><p>File structure.</p></div>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a6</a> and<br>
+            generated on 2012-07-03T16:30:36+02:00.<br></footer></div>
+</div>
+</body>
+</html>

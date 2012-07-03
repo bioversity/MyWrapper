@@ -1,0 +1,923 @@
+<!DOCTYPE html><html xmlns:date="http://exslt.org/dates-and-times" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>My Wrapper Reference » \CAttribute</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">My Wrapper Reference</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Packages</a></li>
+<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
+<li><a href="../packages/MyWrapper.html"><i class="icon-folder-open"></i> MyWrapper</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">0</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods</li>
+<li class="method public "><a href="#HashClosure" title="HashClosure :: Hash function."><span class="description">Hash function.</span><pre>HashClosure()</pre></a></li>
+<li class="method public "><a href="#ManageArrayOffset" title="ManageArrayOffset :: Manage an array offset."><span class="description">Manage an array offset.</span><pre>ManageArrayOffset()</pre></a></li>
+<li class="method public "><a href="#ManageObjectList" title="ManageObjectList :: Manage a list of object references."><span class="description">Manage a list of object references.</span><pre>ManageObjectList()</pre></a></li>
+<li class="method public "><a href="#ManageOffset" title="ManageOffset :: Manage a scalar offset."><span class="description">Manage a scalar offset.</span><pre>ManageOffset()</pre></a></li>
+<li class="method public "><a href="#ManageTypedArrayOffset" title="ManageTypedArrayOffset :: Manage a typed array offset."><span class="description">Manage a typed array offset.</span><pre>ManageTypedArrayOffset()</pre></a></li>
+<li class="method public "><a href="#ManageTypedKindOffset" title="ManageTypedKindOffset :: Manage a category and type offset."><span class="description">Manage a category and type offset.</span><pre>ManageTypedKindOffset()</pre></a></li>
+<li class="method public "><a href="#ManageTypedOffset" title="ManageTypedOffset :: Manage a typed offset."><span class="description">Manage a typed offset.</span><pre>ManageTypedOffset()</pre></a></li>
+<li class="method public "><a href="#MatchClosure" title="MatchClosure :: Match function."><span class="description">Match function.</span><pre>MatchClosure()</pre></a></li>
+</ul>
+</div>
+<div class="span8">
+<a name="%5CCAttribute" id="\CAttribute"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/.html"></a></li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/CAttribute.html">CAttribute</a>
+</li>
+</ul>
+<div href="../classes/CAttribute.html" class="element class">
+<p class="short_description">Attribute class.</p>
+<div class="details">
+<p class="long_description"><p>This class is a static methods repository which is used to manage
+<a href="CArrayObject">CArrayObject</a> derived classe's attributes.</p>
+
+<p>The class is a collection of static methods which represent member accessor methods for
+objects that store their properties as array elements. These methods will handle
+insertion, extraction and deletion of attributes in either arrays or ArrayObject
+instances, these methods will then be used by <a href="CArrayObject">CArrayObject</a> derived
+classes as the base for their member accessor methods.</p>
+
+<p>The class features the following methods:</p>
+
+<ul>
+<li><i><a href="ManageOffset()">ManageOffset</a></i>: Manage a scalar offset.
+<li><i><a href="ManageArrayOffset()">ManageArrayOffset</a></i>: Manage elements of an array
+    offset.
+<li><i><a href="ManageTypedOffset()">ManageTypedOffset</a></i>: Manage elements of an array
+    offset by category or type.
+<li><i><a href="ManageTypedArrayOffset()">ManageTypedArrayOffset</a></i>: Manage elements of
+    an array offset by category or type and data element value.
+</ul></p>
+<table class="table table-bordered">
+<tr>
+<th>package</th>
+<td><a href="../packages/MyWrapper.Framework.html">MyWrapper</a></td>
+</tr>
+<tr>
+<th>subpackage</th>
+<td>Framework</td>
+</tr>
+</table>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a name="HashClosure" id="HashClosure"></a><div class="element clickable method public HashClosure" data-toggle="collapse" data-target=".HashClosure .collapse">
+<h2>Hash function.</h2>
+<pre>HashClosure() : \closure</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This static method returns an anonymous function that is used as the default hashing
+closure function, which takes the provided parameter as is and returns a binary MD5
+hash of it.</p></p>
+<table class="table table-bordered"><tr>
+<th>static</th>
+<td></td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code>\closure</code></div>
+</div></div>
+</div>
+<a name="ManageArrayOffset" id="ManageArrayOffset"></a><div class="element clickable method public ManageArrayOffset" data-toggle="collapse" data-target=".ManageArrayOffset .collapse">
+<h2>Manage an array offset.</h2>
+<pre>ManageArrayOffset(\reference $theReference, string $theOffset, mixed $theValue, mixed $theOperation, boolean $getOld, \closure $theClosure) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>An array offset is an array property, this method can be used to set, retrieve and
+delete the elements of this property, as opposed to
+<a href="ManageOffset()">ManageOffset</a>, which is used to manage the property as a whole.</p>
+
+<p>The elements of this list are uniquely identified by a closure function which is
+either passed to this method or defaults to the <a href="HashClosure()">HashClosure</a>
+function.</p>
+
+<p>When deleting elements, if the list becomes empty, the whole offset will be deleted.</p>
+
+<p>The method accepts the following parameters:</p>
+
+<ul>
+<li><b></p>
+<table class="table table-bordered">
+<tr>
+<th>static</th>
+<td></td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\HashClosure()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CCodedUnitObject::Kind()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CDataset::Domain()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CDataset::Category()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CDatasetFile::Referenced()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CDatasetFile::Status()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CDatasetFile::Kind()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CDatasetFile::Column()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CFAOInstitute::FAOType()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CInstitute::Acronym()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\COntologyTag::Term()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\COntologyTerm::Node()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\COntologyTerm::Predicate()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\COntologyTerm::Enumeration()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\COntologyTerm::Pattern()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\COntologyTerm::Examples()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\COntologyTerm::Domain()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\COntologyTerm::Category()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CUser::Role()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CWarehouseWrapperClient::Identifiers()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CWarehouseWrapperClient::Predicates()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CWarehouseWrapperClient::PredicatesSelector()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theReference</h4>
+<code>\reference</code><p>&$theReference Object reference.</p>
+</div>
+<div class="subelement argument">
+<h4>$theOffset</h4>
+<code>string</code><p>Offset.</p></div>
+<div class="subelement argument">
+<h4>$theValue</h4>
+<code>mixed</code><p>Value to manage.</p></div>
+<div class="subelement argument">
+<h4>$theOperation</h4>
+<code>mixed</code><p>Operation to perform.</p></div>
+<div class="subelement argument">
+<h4>$getOld</h4>
+<code>boolean</code><p>TRUE get old value.</p></div>
+<div class="subelement argument">
+<h4>$theClosure</h4>
+<code>\closure</code><p>Hashing anonymous function.</p></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code>\{@link</code></th>
+<td>CException CException}</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="ManageObjectList" id="ManageObjectList"></a><div class="element clickable method public ManageObjectList" data-toggle="collapse" data-target=".ManageObjectList .collapse">
+<h2>Manage a list of object references.</h2>
+<pre>ManageObjectList(\reference $theReference, string $theMainOffset, string $theTypeOffset, string $theDataOffset, mixed $theValue, mixed $theOperation, boolean $getOld) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to manage a list of object references, in which each element
+is either:</p>
+
+<ul>
+<li><i>Scalar</i>: A scalar or object representing:
+ <ul>
+    <li><i>The object</i>: The actual referenced object.
+    <li><i>The object reference</i>: An object reference structure or a scalar
+        representing the object's <a href="kTAG_LID">identifier</a>.
+ </ul>
+    or:
+<li><i>Array</i>: A structure composed of two items:
+ <ul>
+    <li><i>Kind</i>: This offset represents the type or predicate of the reference.
+    <li><i>Data</i>: This offset represents the actual object or object reference.
+ </ul>
+</ul>
+
+<p>The reference list is numerically indexed array and this method will ensure it
+remains so.</p>
+
+<p>The method accepts the following parameters:</p>
+
+<ul>
+<li><b></p>
+<table class="table table-bordered">
+<tr>
+<th>access</th>
+<td>protected</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CRelatedUnitObject::Relate()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theReference</h4>
+<code>\reference</code><p>&$theReference Object reference.</p>
+</div>
+<div class="subelement argument">
+<h4>$theMainOffset</h4>
+<code>string</code><p>Main offset.</p></div>
+<div class="subelement argument">
+<h4>$theTypeOffset</h4>
+<code>string</code><p>Type offset.</p></div>
+<div class="subelement argument">
+<h4>$theDataOffset</h4>
+<code>string</code><p>Data offset.</p></div>
+<div class="subelement argument">
+<h4>$theValue</h4>
+<code>mixed</code><p>Reference or instance.</p></div>
+<div class="subelement argument">
+<h4>$theOperation</h4>
+<code>mixed</code><p>Operation.</p></div>
+<div class="subelement argument">
+<h4>$getOld</h4>
+<code>boolean</code><p>TRUE get old value.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="ManageOffset" id="ManageOffset"></a><div class="element clickable method public ManageOffset" data-toggle="collapse" data-target=".ManageOffset .collapse">
+<h2>Manage a scalar offset.</h2>
+<pre>ManageOffset(\reference $theReference, string $theOffset, mixed $theValue, boolean $getOld) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to manage a scalar offset, its options involve setting,
+retrieving and deleting an offset of the provided array or ArrayObject.</p>
+
+<p>The method accepts the following parameters:</p>
+
+<ul>
+<li><b>&$theReference</b>: Reference to the attributes container, it may either
+    refer to an array or an ArrayObject, any other type will trigger an exception.
+<li><b>$theOffset</b>: The offset to the attribute contained in the previous
+    parameter that is to be managed.
+<li><b>$theValue</b>: The value or operation:
+ <ul>
+    <li><i>NULL</i>: Return the offset's current value.
+    <li><i>FALSE</i>: Delete the offset.
+    <li><i>other</i>: Any other type represents the offset's new value.
+ </ul>
+<li><b>$getOld</b>: Determines what the method will return:
+ <ul>
+    <li><i>TRUE</i>: Return the value of the offset <i>before</i> it was eventually
+        modified.
+    <li><i>FALSE</i>: Return the value of the offset <i>after</i> it was eventually
+        modified.
+ </ul>
+</ul></p>
+<table class="table table-bordered">
+<tr>
+<th>static</th>
+<td></td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CCodedUnitObject::Code()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CCodedUnitObject::Created()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CCodedUnitObject::Modified()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CDataset::Title()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CDataset::User()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CDataset::Created()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CDataset::Modified()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CDataset::StoreFile()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CDatasetFile::Dataset()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CDataWrapperClient::Operation()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CDataWrapperClient::Database()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CDataWrapperClient::Container()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CDataWrapperClient::Start()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CDataWrapperClient::Limit()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CDataWrapperClient::Query()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CDataWrapperClient::Fields()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CDataWrapperClient::Sort()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CDataWrapperClient::Object()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CEntity::Name()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CFAOInstitute::EAcronym()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CFAOInstitute::Latitude()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CFAOInstitute::Longitude()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CFAOInstitute::Altitude()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CMailAddress::Place()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CMailAddress::Care()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CMailAddress::Street()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CMailAddress::Zip()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CMailAddress::City()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CMailAddress::Province()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CMailAddress::Country()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CMailAddress::Full()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CMongoDataWrapperClient::Operation()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CMongoDataWrapperClient::NoResponse()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\COntologyTerm::NamespaceName()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\COntologyTerm::Unit()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\COntologyTermObject::NS()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CQueryStatement::Subject()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CQueryStatement::Object()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CQueryStatement::Predicate()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CQueryStatement::Type()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CRelatedUnitObject::Used()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CRelatedUnitObject::Preferred()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CRelatedUnitObject::Valid()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CWarehouseWrapperClient::Operation()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CWarehouseWrapperClient::ObjectID()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CWarehouseWrapperClient::ObjectTitle()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CWarehouseWrapperClient::UserCode()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CWarehouseWrapperClient::UserPass()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CWarehouseWrapperClient::Direction()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CWarehouseWrapperClient::Levels()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CWrapperClient::Url()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CWrapperClient::Operation()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CWrapperClient::Format()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CWrapperClient::Stamp()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CWrapperClient::LogRequest()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CWrapperClient::LogTrace()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theReference</h4>
+<code>\reference</code><p>&$theReference Array or ArrayObject reference.</p>
+</div>
+<div class="subelement argument">
+<h4>$theOffset</h4>
+<code>string</code><p>Offset to be managed.</p></div>
+<div class="subelement argument">
+<h4>$theValue</h4>
+<code>mixed</code><p>New value or operation.</p></div>
+<div class="subelement argument">
+<h4>$getOld</h4>
+<code>boolean</code><p>TRUE get old value.</p></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code>\{@link</code></th>
+<td>CException CException}</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="ManageTypedArrayOffset" id="ManageTypedArrayOffset"></a><div class="element clickable method public ManageTypedArrayOffset" data-toggle="collapse" data-target=".ManageTypedArrayOffset .collapse">
+<h2>Manage a typed array offset.</h2>
+<pre>ManageTypedArrayOffset(\reference $theReference, string $theMainOffset, string $theTypeOffset, string $theDataOffset, mixed $theType, mixed $theData, mixed $theOperation, boolean $getOld) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>A typed array offset is structured as follows:</p>
+
+<ul>
+<li><i>Type</i>: This offset contains a scalar which determined the type or category
+    of the element. This offset may be omitted.
+<li><i>Data</i>: This offset contains the element data as an array of data elements,
+    these elements are handled by the <a href="ManageArrayOffset()">ManageArrayOffset</a>
+    method.
+</ul>
+
+<p>No two elements may share the same type or category and all data elements within a
+category must be unique.</p>
+
+<p>The method accepts the following parameters:</p>
+
+<ul>
+<li><b></p>
+<table class="table table-bordered"><tr>
+<th>static</th>
+<td></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theReference</h4>
+<code>\reference</code><p>&$theReference Object reference.</p>
+</div>
+<div class="subelement argument">
+<h4>$theMainOffset</h4>
+<code>string</code><p>Main offset.</p></div>
+<div class="subelement argument">
+<h4>$theTypeOffset</h4>
+<code>string</code><p>Type offset.</p></div>
+<div class="subelement argument">
+<h4>$theDataOffset</h4>
+<code>string</code><p>Data offset.</p></div>
+<div class="subelement argument">
+<h4>$theType</h4>
+<code>mixed</code><p>Type.</p></div>
+<div class="subelement argument">
+<h4>$theData</h4>
+<code>mixed</code><p>Data or operation.</p></div>
+<div class="subelement argument">
+<h4>$theOperation</h4>
+<code>mixed</code><p>Operation to perform.</p></div>
+<div class="subelement argument">
+<h4>$getOld</h4>
+<code>boolean</code><p>TRUE get old value.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="ManageTypedKindOffset" id="ManageTypedKindOffset"></a><div class="element clickable method public ManageTypedKindOffset" data-toggle="collapse" data-target=".ManageTypedKindOffset .collapse">
+<h2>Manage a category and type offset.</h2>
+<pre>ManageTypedKindOffset(\reference $theReference, string $theMainOffset, string $theKindOffset, string $theTypeOffset, string $theDataOffset, mixed $theKind, mixed $theType, mixed $theData, boolean $getOld) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>A typed kind offset is structured as follows:</p>
+
+<ul>
+<li><i>Kind</i>: This offset contains a scalar which determined the kind or category
+    of the element, this element may be omitted.
+<li><i>Type</i>: This element represents the type of the next item, this element is
+    required.
+<li><i>Data</i>: This offset contains the element data, in this method we treat it
+    as a scalar, this element is required.
+</ul>
+
+<p>No two elements of the list can share the same kind and type, these represent the
+index of the array.</p>
+
+<p>The parameters to this method are:</p>
+
+<ul>
+<li><b>&$theReference</b>: Reference to an array or ArrayObject derived instance.
+<li><b>$theMainOffset</b>: The offset to manage.
+<li><b>$theKindOffset</b>: The element's offset of the kind.
+<li><b>$theTypeOffset</b>: The element's offset of the type.
+<li><b>$theDataOffset</b>: The element's offset of the data.
+<li><b>$theKind</b>: The item kind value; this value may be <i>NULL</i>, or one
+    should be able to cast it to a string.
+<li><b>$theType</b>: The item type value; one should be able to cast the value to a
+    string.
+<li><b>$theData</b>: This parameter represents the item's data element, or the
+    operation to be performed:
+ <ul>
+    <li><i>NULL</i>: This indicates that we want to retrieve the data of the item
+        with index matching the kind and type parameters.
+    <li><i>FALSE</i>: This indicates that we want to remove the item matching the
+        kind and type parameters.
+    <li><i>other</i>: Any other value indicates that we want to add or replace the
+        data element of the item matching the kind and type parameters.
+ </ul>
+<li><b>$getOld</b>: Determines what the method will return:
+ <ul>
+    <li><i>TRUE</i>: Return the element or list <i>before</i> it was eventually
+        modified.
+    <li><i>FALSE</i>: Return the element or list <i>after</i> it was eventually
+        modified.
+ </ul>
+</ul></p>
+<table class="table table-bordered">
+<tr>
+<th>static</th>
+<td></td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\offsetGet()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\offsetSet()</td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\offsetUnset()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theReference</h4>
+<code>\reference</code><p>&$theReference Object reference.</p>
+</div>
+<div class="subelement argument">
+<h4>$theMainOffset</h4>
+<code>string</code><p>Main offset.</p></div>
+<div class="subelement argument">
+<h4>$theKindOffset</h4>
+<code>string</code><p>Type offset.</p></div>
+<div class="subelement argument">
+<h4>$theTypeOffset</h4>
+<code>string</code><p>Type offset.</p></div>
+<div class="subelement argument">
+<h4>$theDataOffset</h4>
+<code>string</code><p>Data offset.</p></div>
+<div class="subelement argument">
+<h4>$theKind</h4>
+<code>mixed</code><p>Item kind.</p></div>
+<div class="subelement argument">
+<h4>$theType</h4>
+<code>mixed</code><p>Item type.</p></div>
+<div class="subelement argument">
+<h4>$theData</h4>
+<code>mixed</code><p>Item value.</p></div>
+<div class="subelement argument">
+<h4>$getOld</h4>
+<code>boolean</code><p>TRUE get old value.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="ManageTypedOffset" id="ManageTypedOffset"></a><div class="element clickable method public ManageTypedOffset" data-toggle="collapse" data-target=".ManageTypedOffset .collapse">
+<h2>Manage a typed offset.</h2>
+<pre>ManageTypedOffset(\reference $theReference, string $theMainOffset, string $theTypeOffset, string $theDataOffset, mixed $theType, mixed $theData, boolean $getOld) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>A typed offset is an element of an array property which contains two items:</p>
+
+<ul>
+<li><i>Type</i>: This item represents the type or category of the element and may be
+    omitted.
+<li><i>Data</i>: This item represents the element data and may not be omitted.
+</ul>
+
+<p>Each element of the offset is uniquely identified by the type item, there may be only
+one element without the type item.</p>
+
+<p>The method accepts the following parameters:</p>
+
+<ul>
+<li><b>&$theReference</b>: Reference to the attributes container, it may either
+    refer to an array or an ArrayObject, any other type will trigger an exception.
+<li><b>$theMainOffset</b>: The offset to the attribute contained in the previous
+    parameter that is to be managed. This attribute is expected to be as an array,
+    if the existing attribute is not an array, the method will raise an exception.
+<li><b>$theTypeOffset</b>: The offset to the element's item representing the type or
+    category of the element.
+<li><b>$theDataOffset</b>: The offset to the element's item representing the data or
+    value of the element.
+<li><b>$theType</b>: This parameter represents the value of the type or category of
+    the element, it will be used for matching elements of the list:
+ <ul>
+    <li><i>NULL</i>: An empty type means that we are looking for the element lacking
+        the item referenced by the <i>$theTypeOffset</i>.
+    <li><i>array</i>: If you provide an array, it means that the operation will be
+        applied to each element of the provided array,
+@@@@@@@@@@@@@@@@
+you are operating on a
+        list of items: depending on the next parameter this will mean either
+        retrieving the data elements of the items matching the array, deleting these
+        items, or adding/replacing the items; in this last case, this means that the
+        next parameter must also be an array and that each of its elements will be
+        associated to the corresponding index element.
+    <li><i>other</i>: Any other value will be considered as the index to retrieve,
+        remove or add/replace. You <i>MUST</i> be able to cast this value to a
+        string.
+ </ul>
+<li><b>$theData</b>: This parameter represents the item's data element, or the
+    operation to be performed:
+ <ul>
+    <li><i>NULL</i>: This indicates that we want to retrieve the data of the item
+        with index matching the previous parameter.
+    <li><i>FALSE</i>: This indicates that we want to remove the item matching the
+        index provided in the previous parameter.
+    <li><i>other</i>: Any other value indicates that we want to add or replace the
+        data element of the item matching the previous parameter. Note that if the
+        previous parameter is an array, this one must also be an array matching the
+        latter's count.
+ </ul>
+<li><b>$getOld</b>: Determines what the method will return:
+ <ul>
+    <li><i>TRUE</i>: Return the value of the offset <i>before</i> it was eventually
+        modified.
+    <li><i>FALSE</i>: Return the value of the offset <i>after</i> it was eventually
+        modified.
+ </ul>
+</ul>
+
+<p>The method will return the matched element's value of the data offset.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>static</th>
+<td></td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CDataset::Name()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CDataset::Description()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\COntologyTermObject::Name()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\COntologyTermObject::Definition()</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\COntologyTermObject::Description()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theReference</h4>
+<code>\reference</code><p>&$theReference Object reference.</p>
+</div>
+<div class="subelement argument">
+<h4>$theMainOffset</h4>
+<code>string</code><p>Main offset.</p></div>
+<div class="subelement argument">
+<h4>$theTypeOffset</h4>
+<code>string</code><p>Type offset.</p></div>
+<div class="subelement argument">
+<h4>$theDataOffset</h4>
+<code>string</code><p>Data offset.</p></div>
+<div class="subelement argument">
+<h4>$theType</h4>
+<code>mixed</code><p>Type.</p></div>
+<div class="subelement argument">
+<h4>$theData</h4>
+<code>mixed</code><p>Data or operation.</p></div>
+<div class="subelement argument">
+<h4>$getOld</h4>
+<code>boolean</code><p>TRUE get old value.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
+<a name="MatchClosure" id="MatchClosure"></a><div class="element clickable method public MatchClosure" data-toggle="collapse" data-target=".MatchClosure .collapse">
+<h2>Match function.</h2>
+<pre>MatchClosure() : \closure</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This static method returns an anonymous function that is used as the default matching
+closure function, by default the two parameters are converted to string and compared.</p></p>
+<table class="table table-bordered"><tr>
+<th>static</th>
+<td></td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code>\closure</code></div>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a6</a> and<br>
+            generated on 2012-07-03T16:30:36+02:00.<br></footer></div>
+</div>
+</body>
+</html>

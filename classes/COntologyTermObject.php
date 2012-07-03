@@ -526,6 +526,7 @@ abstract class COntologyTermObject extends CCodedUnitObject
 	 *
 	 * @param string				$theValue			Object or operation.
 	 * @param mixed					$theType			Cross-reference type.
+	 * @param mixed					$theOperation		Operation.
 	 * @param boolean				$getOld				TRUE get old value.
 	 *
 	 * @access public

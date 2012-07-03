@@ -149,7 +149,7 @@
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">void</span>
 										<a href="#_AppendStatement" title="details" class="method-name">_AppendStatement</a>
-											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theQuery</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theCondition</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$theStatement</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$theStatements</span>)
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theQuery</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$theCondition</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theStatement</span>)
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
@@ -312,7 +312,7 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Append statement.</p>
-<p class="description"><p>This method will append the provided statement to the current query.</p><p>Statements of the same type, <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_AND">AND</a> and  <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NAND">NAND</a>,  or <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_OR">OR</a> and  <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NOR">NOR</a>, will be added at the same level. If the top level is an  <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_OR">OR</a> or <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NOR">NOR</a> and the provided statement is an  <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_AND">AND</a> or <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NAND">NAND</a>, the latter will be promoted  to the top level.</p><p>The parameters to this method are:</p><p><ul><li><strong>&amp;$theQuery</strong>: Query receiving statement.</li><li><strong>$theStatement</strong>: Statement to be added.</li><li><strong>$theCondition</strong>: Boolean statement condition code.</li></ul></p></p>
+<p class="description"><p>This method will append the provided statement to the current query.</p><p>Statements of the same type, <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_AND">AND</a> and  <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NAND">NAND</a>,  or <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_OR">OR</a> and  <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NOR">NOR</a>, will be added at the same level. If the top level is an  <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_OR">OR</a> or <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NOR">NOR</a> and the provided statement is an  <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_AND">AND</a> or <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NAND">NAND</a>, the latter will be promoted  to the top level.</p><p>The parameters to this method are:</p><p><ul><li><strong>&amp;$theQuery</strong>: Query receiving statement.</li><li><strong>$theCondition</strong>: Statement condition.</li><li><strong>$theCondition</strong>: Boolean statement condition code.</li></ul></p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
 			</ul>
@@ -322,7 +322,7 @@
 		<span class="method-name">
 			_AppendStatement
 		</span>
-					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theQuery</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theCondition</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$theStatement</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$theStatements</span>)
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theQuery</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$theCondition</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theStatement</span>)
 			</div>
 	
 			<ul class="parameters">
@@ -331,13 +331,10 @@
 				<span class="var-name">&$theQuery</span><span class="var-description">: Query.</span>			</li>
 					<li>
 				<span class="var-type">array</span>
-				<span class="var-name">$theStatements</span><span class="var-description">: Statement.</span>			</li>
-					<li>
-				<span class="var-type">string</span>
 				<span class="var-name">$theCondition</span><span class="var-description">: Statement condition.</span>			</li>
 					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$theStatement</span>			</li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theStatement</span><span class="var-description">: Statement.</span>			</li>
 				</ul>
 		
 			
@@ -538,7 +535,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Mon, 02 Jul 2012 17:30:51 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Tue, 03 Jul 2012 16:24:38 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>
