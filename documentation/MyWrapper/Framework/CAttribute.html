@@ -91,7 +91,7 @@
 					<img src="../../media/images/StaticMethod.png" alt=" "/>
 											static <span class="method-result">mixed</span>
 										<a href="#ManageTypedOffset" title="details" class="method-name">ManageTypedOffset</a>
-											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theReference</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theMainOffset</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theTypeOffset</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theDataOffset</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theData</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theReference</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theMainOffset</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theTypeOffset</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theDataOffset</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theData</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>], [<span class="var-type">closure</span>&nbsp;<span class="var-name">$theClosure</span> = <span class="var-default">NULL</span>])
 									</div>
 																<div class="method-definition">
 					<img src="../../media/images/StaticMethod.png" alt=" "/>
@@ -99,7 +99,13 @@
 										<a href="#MatchClosure" title="details" class="method-name">MatchClosure</a>
 										()
 									</div>
-																																																																															</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">closure</span>
+										<a href="#TypedHashClosure" title="details" class="method-name">TypedHashClosure</a>
+										()
+									</div>
+																																																																																							</div>
 		</div>
 	</div>		
 
@@ -113,18 +119,58 @@
 						
 		</div>
 		<div class="info-box-body">
-			<A NAME='method_detail'></A>
+			
+Strict standards: Only variables should be passed by reference in /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php on line 712
+
+Call Stack:
+    0.0388     241624   1. {main}() /Library/WebServer/Sites/PhpDocumentor/phpdoc:0
+    0.0901     234976   2. include('/Library/WebServer/Sites/PhpDocumentor/phpDocumentor/phpdoc.inc') /Library/WebServer/Sites/PhpDocumentor/phpdoc:59
+    0.3401    7648976   3. phpDocumentor_setup->createDocs() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/phpdoc.inc:65
+   22.0043  174136032   4. phpDocumentor_IntermediateParser->Output() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Setup.inc.php:763
+   22.8491  175105648   5. phpDocumentor_IntermediateParser->Convert() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/IntermediateParser.inc:1867
+   22.8491  175105880   6. Converter->walk() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/IntermediateParser.inc:1654
+   24.7897  178183576   7. HTMLframesConverter->endClass() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Converter.inc:1936
+   24.7898  178186080   8. Smarty->fetch() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Converters/HTML/frames/HTMLframesConverter.inc:347
+   24.8488  178620672   9. include('/Library/WebServer/Library/wrapper/documentation/MyWrapper/Definitions/37fe0d91c3b034db82eb2bc6d4fa57b5/%%165^%%1653142046^class.tpl.php') /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1298
+   24.8657  178776112  10. Smarty->_smarty_include() /Library/WebServer/Library/wrapper/documentation/MyWrapper/Definitions/37fe0d91c3b034db82eb2bc6d4fa57b5/%%165^%%1653142046^class.tpl.php:699
+   24.8658  178780688  11. Smarty->_compile_resource() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1935
+   24.8661  178795072  12. Smarty->_compile_source() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1458
+   24.8662  178826784  13. Smarty_Compiler->_compile_file() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1523
+   24.8687  178934016  14. Smarty_Compiler->_compile_tag() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php:316
+   24.8690  179066064  15. Smarty_Compiler->_compile_custom_tag() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php:537
+
+
+Strict standards: Only variables should be passed by reference in /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php on line 712
+
+Call Stack:
+    0.0388     241624   1. {main}() /Library/WebServer/Sites/PhpDocumentor/phpdoc:0
+    0.0901     234976   2. include('/Library/WebServer/Sites/PhpDocumentor/phpDocumentor/phpdoc.inc') /Library/WebServer/Sites/PhpDocumentor/phpdoc:59
+    0.3401    7648976   3. phpDocumentor_setup->createDocs() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/phpdoc.inc:65
+   22.0043  174136032   4. phpDocumentor_IntermediateParser->Output() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Setup.inc.php:763
+   22.8491  175105648   5. phpDocumentor_IntermediateParser->Convert() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/IntermediateParser.inc:1867
+   22.8491  175105880   6. Converter->walk() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/IntermediateParser.inc:1654
+   24.7897  178183576   7. HTMLframesConverter->endClass() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Converter.inc:1936
+   24.7898  178186080   8. Smarty->fetch() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Converters/HTML/frames/HTMLframesConverter.inc:347
+   24.8488  178620672   9. include('/Library/WebServer/Library/wrapper/documentation/MyWrapper/Definitions/37fe0d91c3b034db82eb2bc6d4fa57b5/%%165^%%1653142046^class.tpl.php') /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1298
+   24.8657  178776112  10. Smarty->_smarty_include() /Library/WebServer/Library/wrapper/documentation/MyWrapper/Definitions/37fe0d91c3b034db82eb2bc6d4fa57b5/%%165^%%1653142046^class.tpl.php:699
+   24.8658  178780688  11. Smarty->_compile_resource() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1935
+   24.8661  178795072  12. Smarty->_compile_source() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1458
+   24.8662  178826784  13. Smarty_Compiler->_compile_file() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1523
+   24.8789  178960272  14. Smarty_Compiler->_compile_tag() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php:316
+   24.8792  179092296  15. Smarty_Compiler->_compile_custom_tag() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php:537
+
+<A NAME='method_detail'></A>
 <a name="methodHashClosure" id="HashClosure"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static HashClosure</span> (line <span class="line-number">1989</span>)
+		<span class="method-title">static HashClosure</span> (line <span class="line-number">1991</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Hash function.</p>
-<p class="description"><p>This static method returns an anonymous function that is used as the default hashing  closure function, which takes the provided parameter as is and returns a binary MD5  hash of it.</p></p>
+<p class="description"><p>This static method returns an anonymous function that is used as the default hashing  closure function, which converts the provided parameter to a string and returns a  binary MD5 hash of it.</p></p>
 	<ul class="tags">
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageArrayOffset">CAttribute::ManageArrayOffset()</a></li>
 			</ul>
@@ -240,7 +286,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static ManageObjectList</span> (line <span class="line-number">1456</span>)
+		<span class="method-title">static ManageObjectList</span> (line <span class="line-number">1458</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -412,7 +458,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static ManageTypedArrayOffset</span> (line <span class="line-number">872</span>)
+		<span class="method-title">static ManageTypedArrayOffset</span> (line <span class="line-number">874</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -472,7 +518,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static ManageTypedKindOffset</span> (line <span class="line-number">1203</span>)
+		<span class="method-title">static ManageTypedKindOffset</span> (line <span class="line-number">1205</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -542,7 +588,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static ManageTypedOffset</span> (line <span class="line-number">582</span>)
+		<span class="method-title">static ManageTypedOffset</span> (line <span class="line-number">584</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -556,25 +602,26 @@
 		value of the element.</li><li><strong>$theType</strong>: This parameter represents the value of the type or category of
 		the element, it will be used for matching elements of the list:
 	 <ul><li><em>NULL</em>: An empty type means that we are looking for the element lacking
-			the item referenced by the <em>$theTypeOffset</em>.</li><li><em>array</em>: If you provide an array, it means that the operation will be
-			applied to each element of the provided array,
-			list of items: depending on the next parameter this will mean either
-			retrieving the data elements of the items matching the array, deleting these
-			items, or adding/replacing the items; in this last case, this means that the
-			next parameter must also be an array and that each of its elements will be
-			associated to the corresponding index element.</li><li><em>other</em>: Any other value will be considered as the index to retrieve,
-			remove or add/replace. You <em>MUST</em> be able to cast this value to a
-			string.</li></ul></li><li><strong>$theData</strong>: This parameter represents the item's data element, or the
-		operation to be performed:
-	 <ul><li><em>NULL</em>: This indicates that we want to retrieve the data of the item
-			with index matching the previous parameter.</li><li><em>FALSE</em>: This indicates that we want to remove the item matching the
-			index provided in the previous parameter.</li><li><em>other</em>: Any other value indicates that we want to add or replace the
-			data element of the item matching the previous parameter. Note that if the
-			previous parameter is an array, this one must also be an array matching the
-			latter's count.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
-	 <ul><li><em>TRUE</em>: Return the value of the offset <em>before</em> it was eventually
-			modified.</li><li><em>FALSE</em>: Return the value of the offset <em>after</em> it was eventually
-			modified.</li></ul></li></ul></p><p>The method will return the matched element's value of the data offset.</p></p>
+			the item referenced by the <em>$theTypeOffset</em>.</li><li><em>array</em>: An array indicates that we want to operate on a list of
+			values and that we may be receiving the next parameters also as lists. Note
+			that ArrayObject instances are not considered here as arrays.</li><li><em>other</em>: Any other value will be considered as the index to retrieve,
+			remove or add/replace. Note that this value will be hashed by the provided
+			or <a href="../../MyWrapper/Framework/CAttribute.html#methodHashClosure">default</a> closure to determine if the element is new
+            or not.</li></ul></li><li><strong>$theData</strong>: This parameter represents the item's data element, or the
+        operation to be performed:
+     <ul><li><em>NULL</em>: This indicates that we want to retrieve the data of the item
+            with index matching the previous parameter.</li><li><em>FALSE</em>: This indicates that we want to remove the item matching the
+            index provided in the previous parameter.</li><li><em>array</em>: This type is only considered if the <em>$theType</em> parameter
+            is provided as an array: the method will be called for each element of the
+            <em>$theValue</em> parameter matched with the corresponding element of this
+            parameter. This also implies that both parameters must share the same count.</li><li><em>other</em>: Any other value indicates that we want to add or replace the
+            data element of the item matching the previous parameter.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
+     <ul><li><em>TRUE</em>: Return the value of the offset <em>before</em> it was eventually
+            modified.</li><li><em>FALSE</em>: Return the value of the offset <em>after</em> it was eventually
+            modified.</li></ul></li><li><strong>$theClosure</strong>: The matching closure, this function accepts two parameters
+        and returns <em>TRUE</em> if both parameters match. Note that this function If the <em>$theType</em>
+        parameter was provided as an array, you can provide an array of closures each
+        applying to the corresponding element of <em>$theValue</em> list.</li></ul></p><p>The method will return the matched element's value of the data offset.</p></p>
 	<ul class="tags">
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CDataset.html#methodDescription">CDataset::Description()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CDataset.html#methodName">CDataset::Name()</a></li>
@@ -588,7 +635,7 @@
 		<span class="method-name">
 			ManageTypedOffset
 		</span>
-					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theReference</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theMainOffset</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theTypeOffset</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theDataOffset</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theData</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theReference</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theMainOffset</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theTypeOffset</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theDataOffset</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theData</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>], [<span class="var-type">closure</span>&nbsp;<span class="var-name">$theClosure</span> = <span class="var-default">NULL</span>])
 			</div>
 	
 			<ul class="parameters">
@@ -613,6 +660,9 @@
 					<li>
 				<span class="var-type">boolean</span>
 				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+					<li>
+				<span class="var-type">closure</span>
+				<span class="var-name">$theClosure</span><span class="var-description">: Hashing anonymous function.</span>			</li>
 				</ul>
 		
 			
@@ -622,7 +672,7 @@
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static MatchClosure</span> (line <span class="line-number">1965</span>)
+		<span class="method-title">static MatchClosure</span> (line <span class="line-number">1967</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -640,13 +690,36 @@
 		
 			
 	</div>
+<a name="methodTypedHashClosure" id="TypedHashClosure"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static TypedHashClosure</span> (line <span class="line-number">2015</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Typed hash function.</p>
+<p class="description"><p>This static method returns an anonymous function that is used as the default hashing  closure function, which converts the provided parameter to a string and returns a  binary MD5 hash of it.</p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">closure</span>
+		<span class="method-name">
+			TypedHashClosure
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
 						
 		</div>
 	</div>
 
 	
 	<p class="notes" id="credit">
-		Documentation generated on Tue, 03 Jul 2012 16:24:16 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Wed, 04 Jul 2012 12:19:16 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

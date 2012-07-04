@@ -736,10 +736,10 @@ class CException extends Exception
 	 *
 	 * @param mixed					$theValue		Trace argument.
 	 *
-	 * @access protected
+	 * @static
 	 * @return string
 	 */
-	protected function _TraceArgumentString( $theValue )
+	static protected function _TraceArgumentString( $theValue )
 	{
 		//
 		// Parse argument.
