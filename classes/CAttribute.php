@@ -741,7 +741,7 @@ class CAttribute
 									 'Closures' => $theClosure ) );				// !@! ==>
 echo( '<b><pre>' ); print_r( $theDataOffset ); echo( '</pre></b>' );
 echo( '<b><pre>' ); print_r( $theTypeOffsets ); echo( '</pre></b>' );
-echo( '<b><pre>' ); print_r( $datheDatata ); echo( '</pre></b>' );
+echo( '<b><pre>' ); print_r( $theData ); echo( '</pre></b>' );
 				
 				//
 				// Init loop.
