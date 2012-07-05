@@ -727,7 +727,8 @@ class COntologyTerm extends COntologyTermObject
 	{
 		return CAttribute::ManageTypedKindOffset
 				( $this,
-				  kOFFSET_IMAGE, kTAG_KIND, kTAG_TYPE, kTAG_DATA,
+				  kOFFSET_IMAGE,
+				  kTAG_KIND, kTAG_TYPE, kTAG_DATA,
 				  $theKind, $theType, $theData,
 				  $getOld );														// ==>
 

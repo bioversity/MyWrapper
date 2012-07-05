@@ -189,6 +189,53 @@ try
 	echo( '<hr>' );
 
 	//
+	// ManageTypeOffset.
+	//
+	echo( '<h3>ManageTypeOffset</h3>' );
+	
+	echo( '<i>$test = new ArrayObject();</i><br>' );
+	$test = new ArrayObject();
+	echo( '<i>$result = CAttribute::ManageTypeOffset( $test, \'ManageTypeOffset\', \'DATA\', array( \'TYPE\' ), array( \'type1\' ), \'data1\' );</i><br>' );
+	$result = CAttribute::ManageTypeOffset( $test, 'ManageTypeOffset', 'DATA', array( 'TYPE' ), array( 'type1' ), 'data1' );
+	echo( "Result <pre>" ); print_r( $result ); echo( '</pre>' );
+	echo( "Object <pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$result = CAttribute::ManageTypeOffset( $test, \'ManageTypeOffset\', \'DATA\', array( \'TYPE\' ), array( \'type2\' ), \'data2\' );</i><br>' );
+	$result = CAttribute::ManageTypeOffset( $test, 'ManageTypeOffset', 'DATA', array( 'TYPE' ), array( 'type2' ), 'data2' );
+	echo( "Result <pre>" ); print_r( $result ); echo( '</pre>' );
+	echo( "Object <pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$result = CAttribute::ManageTypeOffset( $test, \'ManageTypeOffset\', \'DATA\', \'TYPE\', NULL, \'data3\' );</i><br>' );
+	$result = CAttribute::ManageTypeOffset( $test, 'ManageTypeOffset', 'DATA', 'TYPE', NULL, 'data3' );
+	echo( "Result <pre>" ); print_r( $result ); echo( '</pre>' );
+	echo( "Object <pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$result = CAttribute::ManageTypeOffset( $test, \'ManageTypeOffset\', \'DATA\', \'TYPE\', NULL, \'NEW3\', TRUE );</i><br>' );
+	$result = CAttribute::ManageTypeOffset( $test, 'ManageTypeOffset', 'DATA', 'TYPE', NULL, 'NEW3', TRUE );
+	echo( "Result <pre>" ); print_r( $result ); echo( '</pre>' );
+	echo( "Object <pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$result = CAttribute::ManageTypeOffset( $test, \'ManageTypeOffset\',  \'DATA\', \'TYPE\',NULL, FALSE, TRUE );</i><br>' );
+	$result = CAttribute::ManageTypeOffset( $test, 'ManageTypeOffset', 'DATA', 'TYPE', NULL, FALSE, TRUE );
+	echo( "Result <pre>" ); print_r( $result ); echo( '</pre>' );
+	echo( "Object <pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$result = CAttribute::ManageTypeOffset( $test, \'ManageTypeOffset\', \'DATA\', \'TYPE\', \'type1\', FALSE, TRUE );</i><br>' );
+	$result = CAttribute::ManageTypeOffset( $test, 'ManageTypeOffset', 'DATA', 'TYPE', 'type1', FALSE, TRUE );
+	echo( "Result <pre>" ); print_r( $result ); echo( '</pre>' );
+	echo( "Object <pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$result = CAttribute::ManageTypeOffset( $test, \'ManageTypeOffset\', \'DATA\', \'TYPE\', \'type2\', FALSE, TRUE );</i><br>' );
+	$result = CAttribute::ManageTypeOffset( $test, 'ManageTypeOffset', 'DATA', 'TYPE', 'type2', FALSE, TRUE );
+	echo( "Result <pre>" ); print_r( $result ); echo( '</pre>' );
+	echo( "Object <pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<i>$result = CAttribute::ManageTypeOffset( $test, \'ManageTypeOffset\', array( \'DATA\', \'DATA\', \'DATA\' ), \'TYPE\', array( \'type1\', \'type2\', NULL ), array( \'data1\', \'data2\', \'data3\' ) );</i><br>' );
+	$result = CAttribute::ManageTypeOffset( $test, 'ManageTypeOffset', array( 'DATA', 'DATA', 'DATA' ), 'TYPE', array( 'type1', 'type2', NULL ), array( 'data1', 'data2', 'data3' ) );
+	echo( "Result <pre>" ); print_r( $result ); echo( '</pre>' );
+	echo( "Object <pre>" ); print_r( $test ); echo( '</pre>' );
+exit;
+	echo( '<i>$result = CAttribute::ManageTypeOffset( $test, \'ManageTypeOffset\', \'TYPE\', \'DATA\', array( \'type1\', \'type2\', NULL ), array( FALSE, FALSE, FALSE ), TRUE );</i><br>' );
+	$result = CAttribute::ManageTypeOffset( $test, 'ManageTypeOffset', 'TYPE', 'DATA', array( 'type1', 'type2', NULL ), array( FALSE, FALSE, FALSE ), TRUE );
+	echo( "Result <pre>" ); print_r( $result ); echo( '</pre>' );
+	echo( "Object <pre>" ); print_r( $test ); echo( '</pre>' );
+	echo( '<hr>' );
+	echo( '<hr>' );
+
+	//
 	// ManageTypedOffset.
 	//
 	echo( '<h3>ManageTypedOffset</h3>' );
@@ -296,8 +343,8 @@ try
 	$result = CAttribute::ManageTypedArrayOffset( $test, 'ManageTypedArrayOffset', 'TYPE', 'DATA', array( 'type1', 'type2', 'type3' ), array( NULL, 'data2', array( 2, 3, 4 ) ), FALSE, TRUE );
 	echo( "Result <pre>" ); print_r( $result ); echo( '</pre>' );
 	echo( "Object <pre>" ); print_r( $test ); echo( '</pre>' );
-	echo( '<i>$result = CAttribute::ManageTypedArrayOffset( $test, \'ManageTypedArrayOffset\', \'TYPE\', \'DATA\', array( \'type2\', \'type2\', \'type3\', \'type3\' ), array( \'data1\', \'data1\', 1, 1 ), array( NULL, FALSE, NULL, FALSE ), TRUE );</i><br>' );
-	$result = CAttribute::ManageTypedArrayOffset( $test, 'ManageTypedArrayOffset', 'TYPE', 'DATA', array( 'type2', 'type2', 'type3', 'type3' ), array( 'data1', 'data1', 1, 1 ), array( NULL, FALSE, NULL, FALSE ), TRUE );
+	echo( '<i>$result = CAttribute::ManageTypedArrayOffset( $test, \'ManageTypedArrayOffset\', \'TYPE\', \'DATA\', array( \'type2\', \'type2\', \'type3\', \'type3\' ), array( \'data1\', \'data1\', 1, 1 ), array( NULL, FALSE, NULL, FALSE ) );</i><br>' );
+	$result = CAttribute::ManageTypedArrayOffset( $test, 'ManageTypedArrayOffset', 'TYPE', 'DATA', array( 'type2', 'type2', 'type3', 'type3' ), array( 'data1', 'data1', 1, 1 ), array( NULL, FALSE, NULL, FALSE ) );
 	echo( "Result <pre>" ); print_r( $result ); echo( '</pre>' );
 	echo( "Object <pre>" ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );

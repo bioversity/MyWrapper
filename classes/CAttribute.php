@@ -27,6 +27,13 @@
 require_once( kPATH_LIBRARY_SOURCE."CException.php" );
 
 /**
+ * Tokens.
+ *
+ * This include file contains all token definitions.
+ */
+require_once( kPATH_LIBRARY_DEFINES."Tokens.inc.php" );
+
+/**
  *	Attribute class.
  *
  * This class is a static methods repository which is used to manage
@@ -211,40 +218,32 @@ class CAttribute
 	 *		<li><i>other</i>: Any other type represents either the new value to be added or
 	 *			the index to the value to be returned or deleted. Note that this value will
 	 *			be hashed by the provided or {@link HashClosure() default} closure to
-	 *			determine if the element is new or not. If you provide an ArrayObject
-	 *			derived instance, it will be converted to an array.
+	 *			determine if the element is new or not.
 	 *	 </ul>
 	 *	<li><b>$theOperation</b>: This parameter represents the operation to be performed
 	 *		whose scope depends on the value of the previous parameter:
 	 *	 <ul>
-	 *		<li><i>NULL</i>: Return the list element or full list.
-	 *		<li><i>FALSE</i>: Delete the list element or full list.
+	 *		<li><i>NULL</i>: Return the element or full list.
+	 *		<li><i>FALSE</i>: Delete the element or full list.
 	 *		<li><i>array</i>: This type is only considered if the <i>$theValue</i> parameter
 	 *			is provided as an array: the method will be called for each element of the
 	 *			<i>$theValue</i> parameter matched with the corresponding element of this
 	 *			parameter, which also means that both both parameters must share the same
 	 *			count.
-	 *		<li><i>other</i>: Add the value to the list. If you provided <i>NULL</i> in the
-	 *			previous parameter, the operation will be reset to <i>NULL</i>.
+	 *		<li><i>other</i>: Add the <i>$theValue</i> value to the list. If you provided
+	 *			<i>NULL</i> in the previous parameter, the operation will be reset to
+	 *			<i>NULL</i>.
 	 *	 </ul>
 	 *	<li><b>$getOld</b>: Determines what the method will return:
 	 *	 <ul>
 	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
 	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
 	 *	 </ul>
-	 *	<li><b>$theClosure</b>: The hashing closure, this function accepts two parameters:
-	 *	 <ul>
-	 *		<li><i>$theElement</i>: The element to be hashed, if it is an array, the next
-	 *			parameter is expected to be the offset to the element's item to be used for
-	 *			hashing.
-	 *		<li><i>$theOffset</i>: If provided, it implies that the previous parameter is an
-	 *			array and the current parameter will be used as the offset to the value to
-	 *			be hashed.
-	 *	 </ul>
-	 *		The function should return a value representing the element's key. If omitted or
-	 *		<i>NULL</i>, the {@link HashClosure() default} closure will be used. If the
-	 *		<i>$theValue</i> parameter was provided as an array, you can provide an array of
-	 *		closures each applying to the corresponding element of <i>$theValue</i> list.
+	 *	<li><b>$theClosure</b>: The hashing closure, the function should return a value
+	 *		representing the element's key. If omitted or <i>NULL</i>, the
+	 *		{@link HashClosure() default} closure will be used. If the <i>$theValue</i>
+	 *		parameter was provided as an array, you can provide an array of closures each
+	 *		applying to the corresponding element of <i>$theValue</i> list.
 	 * </ul>
 	 *
 	 * @param reference			   &$theReference		Object reference.
@@ -380,9 +379,13 @@ class CAttribute
 				  : NULL;
 			
 			//
-			// Match element.
+			// Init match.
 			//
 			$idx = $save = NULL;
+			
+			//
+			// Match element.
+			//
 			if( is_array( $list )
 			 || ($list instanceof ArrayObject) )
 			{
@@ -407,27 +410,11 @@ class CAttribute
 						$idx = $key;
 						
 						//
-						// Check value.
+						// Save value.
 						//
-						if( is_array( $value )
-						 || ($value instanceof ArrayObject) )
-						{
-							//
-							// Save value.
-							//
-							$save = $value;
-							
-							break;											// =>
+						$save = $value;
 						
-						} // Data item is a list.
-						
-						else
-							throw new CException
-									( "Unsupported list attribute element type",
-									  kERROR_UNSUPPORTED,
-									  kMESSAGE_TYPE_ERROR,
-									  array( 'Attribute' => $list,
-											 'Element' => $value ) );			// !@! ==>
+						break;												// =>
 					
 					} // Matched.
 				
@@ -503,14 +490,16 @@ class CAttribute
 			if( $list !== NULL )
 			{
 				//
-				// Set element.
+				// Replace element.
 				//
-				$list[ $idx ] = $theValue;
+				if( $idx !== NULL )
+					$list[ $idx ] = $theValue;
 				
 				//
-				// Update offset.
+				// Append new element.
 				//
-				$theReference[ $theOffset ] = array_values( $list );
+				else
+					$list[] = $theValue;
 			
 			} // Had values.
 			
@@ -518,7 +507,12 @@ class CAttribute
 			// Create list.
 			//
 			else
-				$theReference[ $theOffset ] = array( $theValue );
+				$list = array( $theValue );
+			
+			//
+			// Update offset.
+			//
+			$theReference[ $theOffset ] = $list;
 			
 			if( $getOld )
 				return $save;														// ==>
@@ -534,6 +528,497 @@ class CAttribute
 				  array( 'Reference' => $theReference ) );						// !@! ==>
 	
 	} // ManageArrayOffset.
+
+	 
+	/*===================================================================================
+	 *	ManageTypeOffset																*
+	 *==================================================================================*/
+
+	/**
+	 * Manage a typed offset.
+	 *
+	 * A typed offset is a list element that has at least an item containing the element
+	 * data and a variable number of other items that determine the type or kind of the
+	 * element: these latter items also determine the element's key and are used to
+	 * retrieve, delete and create elements, no two elements may share the same combination
+	 * of these items. Elements of this type must be arrays, ArrayObject instances will be
+	 * converted to arrays.
+	 *
+	 * The method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>&$theReference</b>: The reference to the attributes container, the object or
+	 *		array that holds the list of elements. The reference must point to an array or
+	 *		to an ArrayObject instance, any other type will trigger an exception.
+	 *	<li><b>$theMainOffset</b>: The offset, in the previous parameter, to the list of
+	 *		elements to be managed, this referenced element is expected to be an array, if
+	 *		this is not the case, the method will raise an exception.
+	 *	<li><b>$theDataOffset</b>: The offset to the element's data item as a string. If you
+	 *		provide an array, it means that you want to perform a series of operations, in
+	 *		other words, this method will be called once for each element of this array and
+	 *		the combination of parameters will depend on how the other arguments will have
+	 *		been provided. Note that an ArrayObject is not considered as a list in this
+	 *		case.
+	 *	<li><b>$theTypeOffsets</b>: This parameter represents the offsets of the element
+	 *		items that represent the element's kind, type or key. In general you should
+	 *		provide an array of strings, if you provide a scalar, this will become an array
+	 *		of one element. If the previous parameter was provided as an array, it means
+	 *		that this parameter may take three forms:
+	 *	 <ul>
+	 *		<li><i>scalar</i>: The single offset will be used for each element provided in
+	 *			the previous parameter.
+	 *		<li><i>list</i>: If you provide a list of strings, this list will be used for
+	 *			each element provided in the previous parameter.
+	 *		<li><i>matrix</i>: If you provide a list of arrays, each element of the previous
+	 *			parameter will be matched with the corresponding array in this list, which
+	 *			also means that in this case the count of both parameters must be the same.
+	 *	 </ul>
+	 *	<li><b>$theTypeValues</b>: This parameter represents the the element kind, type or
+	 *		key values, this parameter is matched against the previous parameter to
+	 *		constitute the significant items of the element, meaning that each element of
+	 *		the previous parameter represents the offset referencing the corresponding
+	 *		element in this parameter.
+	 *	<li><b>$theData</b>: This parameter represents the element's data value or the
+	 *		operation to be performed:
+	 *	 <ul>
+	 *		<li><i>array</i>: An array is considered in two different ways, depending on the
+	 *			type of the <i>$theDataOffset</i> parameter:
+	 *		 <ul>
+	 *			<li><i>scalar</i>: In this case the array is considered the data value.
+	 *			<li><i>array</i>: In this case the array is considered as the list of values
+	 *				to be managed: each element of this array will be identified by the
+	 *				corresponding element of the <i>$theDataOffset</i> array parameter.
+	 *		 </ul>
+	 *		<li><i>NULL</i>: Retrieve the element's data item matching the provided types.
+	 *		<li><i>FALSE</i>: Delete the element's data item matching the provided types.
+	 *		<li><i>other</i>: Add or replace the element's data item matching the provided
+	 *			types with the current value.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the data item <i>before</i> it was eventually modified.
+	 *		<li><i>FALSE</i>: Return the data item <i>after</i> it was eventually modified.
+	 *	 </ul>
+	 *	<li><b>$theClosure</b>: The hashing closure, if omitted, the
+	 *		{@link HashClosure() default} closure function will be used, for more details on
+	 *		how to create a custom closure please see the {@link HashClosure() HashClosure}
+	 *		reference in this class. If the <i>$theDataOffset</i> was provided as an array,
+	 *		this parameter may also be provided as a list of closures matching the
+	 *		<i>$theDataOffset</i> parameter count.
+	 * </ul>
+	 *
+	 * @param reference			   &$theReference		Container reference.
+	 * @param string				$theMainOffset		Attribute offset.
+	 * @param string				$theDataOffset		Element data item's offset.
+	 * @param array					$theTypeOffsets		List of type offsets.
+	 * @param array					$theTypeValues		List of type values.
+	 * @param mixed					$theData			Data item value or operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 * @param closure				$theClosure			Hashing anonymous function.
+	 *
+	 * @static
+	 * @return mixed
+	 *
+	 * @throws {@link CException CException}
+	 *
+	 * @uses HashClosure()
+	 */
+	static function ManageTypeOffset( &$theReference,
+										$theMainOffset,
+										$theDataOffset, $theTypeOffsets, $theTypeValues,
+										$theData = NULL,
+										$getOld = FALSE, $theClosure = NULL )
+	{
+		//
+		// Check reference.
+		//
+		if( is_array( $theReference )
+		 || ($theReference instanceof ArrayObject) )
+		{
+			//
+			// Normalise type offsets.
+			//
+			if( $theTypeOffsets instanceof ArrayObject )
+				$theTypeOffsets = $theTypeOffsets->getArrayCopy();
+			elseif( ! is_array( $theTypeOffsets ) )
+				$theTypeOffsets = ( is_array( $theDataOffset ) )
+								? array_fill( 0, count( $theDataOffset ), $theTypeOffsets )
+								: array( $theTypeOffsets );
+			
+			//
+			// At least one offset.
+			//
+			if( ! count( $theTypeOffsets ) )
+				throw new CException
+						( "You must provide at least one type offset",
+						  kERROR_INVALID_PARAMETER,
+						  kMESSAGE_TYPE_ERROR,
+						  array( 'Offsets' => $theTypeOffsets ) );				// !@! ==>
+				
+			//
+			// Normalise type values.
+			//
+			if( $theTypeValues instanceof ArrayObject )
+				$theTypeValues = $theTypeValues->getArrayCopy();
+			elseif( ! is_array( $theTypeValues ) )
+				$theTypeValues = ( is_array( $theDataOffset ) )
+								? array_fill( 0, count( $theDataOffset ), $theTypeValues )
+								: array_fill( 0, count( $theTypeOffsets ), $theTypeValues );
+			
+			//
+			// Check type values count.
+			//
+			if( count( $theTypeOffsets ) != count( $theTypeValues ) )
+				throw new CException
+						( "Invalid type values parameter count",
+						  kERROR_INVALID_PARAMETER,
+						  kMESSAGE_TYPE_ERROR,
+						  array( 'Offsets' => $theTypeOffsets,
+								 'Values' => $theTypeValues ) );				// !@! ==>
+			
+			//
+			// Handle multiple operations.
+			//
+			if( is_array( $theDataOffset ) )
+			{
+				//
+				// Check nested type offsets.
+				//
+				$nested_offsets = FALSE;
+				if( is_array( reset( $theTypeOffsets ) ) )
+				{
+					//
+					// Check offset counts.
+					//
+					if( count( $theDataOffset ) != count( $theTypeOffsets ) )
+						throw new CException
+								( "Invalid type offsets parameter count",
+								  kERROR_INVALID_PARAMETER,
+								  kMESSAGE_TYPE_ERROR,
+								  array( 'Data' => $theDataOffset,
+										 'Offsets' => $theTypeOffsets ) );		// !@! ==>
+					
+					//
+					// Remember.
+					//
+					$nested_offsets = TRUE;
+				
+				} // Nested type offsets.
+			
+				//
+				// Check values counts.
+				//
+				if( count( $theTypeOffsets ) != count( $theTypeValues ) )
+					throw new CException
+							( "Invalid type values parameter count",
+							  kERROR_INVALID_PARAMETER,
+							  kMESSAGE_TYPE_ERROR,
+							  array( 'Offsets' => $theTypeOffsets,
+									 'Values' => $theTypeValues ) );			// !@! ==>
+			
+				//
+				// Check data counts.
+				//
+				if( is_array( $theData )
+				 && (count( $theData ) != count( $theDataOffset )) )
+					throw new CException
+							( "Invalid data values parameter count",
+							  kERROR_INVALID_PARAMETER,
+							  kMESSAGE_TYPE_ERROR,
+							  array( 'Offsets' => $theDataOffset,
+									 'Data' => $theData ) );					// !@! ==>
+			
+				//
+				// Check closure counts.
+				//
+				if( is_array( $theClosure )
+				 && (count( $theClosure ) != count( $theDataOffset )) )
+					throw new CException
+							( "Invalid closures parameter count",
+							  kERROR_INVALID_PARAMETER,
+							  kMESSAGE_TYPE_ERROR,
+							  array( 'Offsets' => $theDataOffset,
+									 'Closures' => $theClosure ) );				// !@! ==>
+echo( '<b><pre>' ); print_r( $theDataOffset ); echo( '</pre></b>' );
+echo( '<b><pre>' ); print_r( $theTypeOffsets ); echo( '</pre></b>' );
+echo( '<b><pre>' ); print_r( $datheDatata ); echo( '</pre></b>' );
+				
+				//
+				// Init loop.
+				//
+				$result = Array();
+				
+				//
+				// Iterate data offsets.
+				//
+				foreach( $theDataOffset as $data_offset )
+				{
+					//
+					// Get type offset.
+					//
+					if( $nested_offsets )
+						$type_offsets = ( isset( $type_offsets ) )
+									  ? next( $theTypeOffsets )
+									  : reset( $theTypeOffsets );
+					else
+						$type_offsets = $theTypeOffsets;
+
+					//
+					// Get type values.
+					//
+					if( $nested_offsets )
+						$type_values = ( isset( $type_values ) )
+									  ? next( $theTypeValues )
+									  : reset( $theTypeValues );
+					else
+						$type_values = $theTypeValues;
+				
+					//
+					// Get data value or operation.
+					//
+					if( is_array( $theData ) )
+						$data = ( isset( $data ) )
+							  ? next( $theData )
+							  : reset( $theData );
+					else
+						$data = $theData;
+				
+					//
+					// Get closure.
+					//
+					if( is_array( $theClosure ) )
+						$closure = ( isset( $closure ) )
+								 ? next( $theClosure )
+								 : reset( $theClosure );
+					else
+						$closure = $theClosure;
+					
+					//
+					// Recurse.
+					//
+					$result[]
+						= self::ManageTypeOffset
+							( $theReference,
+							  $theMainOffset,
+							  $data_offset, $type_offsets, $type_values, $data,
+							  $getOld, $closure );
+				
+				} // Iterated data offsets.
+				
+				return $result;														// ==>
+			
+			} // Multiple operations.
+			
+			//
+			// Resolve hashing closure.
+			//
+			if( $theClosure === NULL )
+				$theClosure = self::HashClosure();
+
+			//
+			// Save offset.
+			//
+			$list = ( isset( $theReference[ $theMainOffset ] ) )
+				  ? $theReference[ $theMainOffset ]
+				  : NULL;
+			
+			//
+			// Init matches.
+			//
+			$idx = $save = NULL;
+			
+			//
+			// Match element.
+			//
+			if( is_array( $list )
+			 || ($list instanceof ArrayObject) )
+			{
+				//
+				// Set match reference.
+				//
+				$match = $theClosure( array_combine( $theTypeOffsets, $theTypeValues ),
+									  $theTypeOffsets );
+				
+				//
+				// Iterate existing elements.
+				//
+				foreach( $list as $key => $value )
+				{
+					//
+					// Match.
+					//
+					if( $match == $theClosure( $value, $theTypeOffsets ) )
+					{
+						//
+						// Check data offset.
+						//
+						if( ! isset( $value[ $theDataOffset ] ) )
+							throw new CException
+									( "Element is missing data offset",
+									  kERROR_INVALID_STATE,
+									  kMESSAGE_TYPE_ERROR,
+									  array( 'Element' => $value,
+											 'Offset' => $theDataOffset ) );	// !@! ==>
+						
+						//
+						// Save index.
+						//
+						$idx = $key;
+					
+						//
+						// Save value.
+						//
+						$save = $value;
+						
+						break;												// =>
+					
+					} // Matched.
+				
+				} // Iterating existing elements.
+			
+			} // Attribute is a list.
+			
+			//
+			// Invalid attribute type.
+			//
+			elseif( $list !== NULL )
+				throw new CException
+						( "Unsupported list attribute type",
+						  kERROR_UNSUPPORTED,
+						  kMESSAGE_TYPE_ERROR,
+						  array( 'Attribute' => $list,
+						  		 'Offset' => $theMainOffset ) );				// !@! ==>
+			
+			//
+			// Retrieve.
+			//
+			if( $theData === NULL )
+			{
+				//
+				// Return match.
+				//
+				if( $idx !== NULL )
+					return $save[ $theDataOffset ];									// ==>
+				
+				return NULL;														// ==>
+			
+			} // Retrieve.
+			
+			//
+			// Delete.
+			//
+			if( $theData === FALSE )
+			{
+				//
+				// Handle data.
+				//
+				if( $idx !== NULL )
+				{
+					//
+					// Remove element.
+					//
+					unset( $list[ $idx ] );
+					
+					//
+					// Update list.
+					//
+					if( count( $list ) )
+						$theReference[ $theMainOffset ] = array_values( $list );
+					
+					//
+					// Delete offset.
+					//
+					else
+					{
+						//
+						// Delete offset.
+						//
+						if( is_array( $theReference ) )
+							unset( $theReference[ $theMainOffset ] );
+						else
+							$theReference->offsetUnset( $theMainOffset );
+					
+					} // Deleted all elements.
+					
+					if( $getOld )
+						return $save[ $theDataOffset ];								// ==>
+				
+				} // Matched element.
+				
+				return NULL;														// ==>
+			
+			} // Delete.
+			
+			//
+			// Replace element.
+			//
+			if( $idx !== NULL )
+			{
+				//
+				// Save data.
+				//
+				if( $getOld )
+					$save = $list[ $idx ][ $theDataOffset ];
+				
+				//
+				// Update data.
+				//
+				$list[ $idx ][ $theDataOffset ] = $theData;
+				
+				//
+				// Set offset.
+				//
+				$theReference[ $theMainOffset ] = $list;
+				
+				if( $getOld )
+					return $save;													// ==>
+				
+				return $theData;													// ==>
+			
+			} // Matched element.
+			
+			//
+			// Create element.
+			//
+			$element = array_combine( $theTypeOffsets, $theTypeValues );
+			foreach( $theTypeOffsets as $offset )
+			{
+				if( $element[ $offset ] === NULL )
+					unset( $element[ $offset ] );
+			
+			} $element[ $theDataOffset ] = $theData;
+			
+			//
+			// Set first element.
+			//
+			if( $list === NULL )
+				$list = array( $element );
+			
+			//
+			// Add new element.
+			//
+			else
+				$list[] = $element;
+			
+			//
+			// Update offset.
+			//
+			$theReference[ $theMainOffset ] = $list;
+			
+			if( $getOld )
+				return NULL;														// ==>
+			
+			return $theData;														// ==>
+		
+		} // Supported reference.
+
+		throw new CException
+				( "Unsupported object reference",
+				  kERROR_UNSUPPORTED,
+				  kMESSAGE_TYPE_ERROR,
+				  array( 'Reference' => $theReference ) );						// !@! ==>
+	
+	} // ManageTypeOffset.
 
 	 
 	/*===================================================================================
@@ -752,7 +1237,7 @@ class CAttribute
 					//
 					// Match.
 					//
-					if( $match == $theClosure( $value, $theTypeOffset ) )
+					if( $match == $theClosure( $value, array( $theTypeOffset ) ) )
 					{
 						//
 						// Save index.
@@ -951,7 +1436,7 @@ class CAttribute
 	 *		item scope:
 	 *	 <ul>
 	 *		<li><i>NULL</i>: This indicates that the operation, provided in the next
-	 *			parameter, applies to the whole list od data items; this also means that if
+	 *			parameter, applies to the whole list of data items; this also means that if
 	 *			the operation is <i>TRUE</i> we raise here an exception, because one cannot
 	 *			add a <i>NULL</i> data item.
 	 *		<li><i>other</i>: Any other value represents either the index of the data item
@@ -1178,7 +1663,7 @@ class CAttribute
 					//
 					// Match.
 					//
-					if( $match == $theClosure( $value, $theTypeOffset ) )
+					if( $match == $theClosure( $value, array( $theTypeOffset ) ) )
 					{
 						//
 						// Save index.
@@ -1465,11 +1950,11 @@ class CAttribute
 	 *		<li><i>NULL</i>: An empty kind means that we are looking for the element lacking
 	 *			the item referenced by the <i>$theKindOffset</i>.
 	 *		<li><i>array</i>: An array indicates that we want to operate on a list of
-	 *			values and that we may be receiving the next parameters also as lists. Note
-	 *			that ArrayObject instances are not considered here as arrays.
+	 *			elements and that we may be receiving the next parameters also as lists.
+	 *			Note that ArrayObject instances are not considered here as arrays.
 	 *		<li><i>other</i>: Any other value will be considered as the element's kind. Note
 	 *			that this value will be used by the provided or
-	 *			{@link DoubleHashClosure() default} closure to determine if the element is
+	 *			{@link HashClosure() default} closure to determine if the element is
 	 *			new or not.
 	 *	 </ul>
 	 *	<li><b>$theType</b>: This parameter represents the value of the element's data item
@@ -1478,10 +1963,12 @@ class CAttribute
 	 *		<li><i>array</i>: If the <i>$theKind</i> parameter was provided as an array, you
 	 *			can provide an array of types each applying to the corresponding element of
 	 *			<i>$theKind</i> list. Note that ArrayObject instances are not considered
-	 *			here as arrays.
+	 *			here as arrays. If the <i>$theKind</i> parameter is not an array, it means
+	 *			that all other parameters will be considered as scalars and the operation
+	 *			will be repeated for each element of this array.
 	 *		<li><i>other</i>: Any other value will be considered as the element's data item
 	 *			type. Note that this value will be used by the provided or
-	 *			{@link DoubleHashClosure() default} closure to determine if the element is
+	 *			{@link HashClosure() default} closure to determine if the element is
 	 *			new or not.
 	 *	 </ul>
 	 *	<li><b>$theData</b>: This parameter represents the element's data item, or the
@@ -1494,7 +1981,9 @@ class CAttribute
 	 *		<li><i>array</i>: If the <i>$theKind</i> parameter was provided as an array, you
 	 *			can provide an array of data items each applying to the corresponding
 	 *			element of <i>$theKind</i> list. Note that ArrayObject instances are not
-	 *			considered here as arrays.
+	 *			considered here as arrays. If the <i>$theKind</i> parameter is not an array,
+	 *			it means that all other parameters will be considered as scalars and the
+	 *			operation will be repeated for each element of this array.
 	 *		<li><i>other</i>: Any other value indicates that we want to add or replace the
 	 *			data item of the element matching the provided kind and type parameters.
 	 *	 </ul>
@@ -1514,20 +2003,20 @@ class CAttribute
 	 *			representing the element's type.
 	 *	 </ul>
 	 *		The function should return a value representing the element's hash. If omitted
-	 *		or <i>NULL</i>, the {@link DoubleHashClosure() default} closure will be used.
+	 *		or <i>NULL</i>, the {@link HashClosure() default} closure will be used.
 	 *		If the <i>$theKind</i> parameter was provided as an array, you can provide an
 	 *		array of closures each applying to the corresponding element of <i>$theKind</i>
-	 *		list.
+	 *		list, if not, this parameter must be a closure.
 	 * </ul>
 	 *
 	 * @param reference			   &$theReference		Object reference.
 	 * @param string				$theMainOffset		Main offset.
-	 * @param string				$theKindOffset		Type offset.
+	 * @param string				$theKindOffset		Kind offset.
 	 * @param string				$theTypeOffset		Type offset.
 	 * @param string				$theDataOffset		Data offset.
-	 * @param mixed					$theKind			Item kind.
-	 * @param mixed					$theType			Item type.
-	 * @param mixed					$theData			Item value.
+	 * @param mixed					$theKind			Element kind.
+	 * @param mixed					$theType			Data item type.
+	 * @param mixed					$theData			Data value.
 	 * @param boolean				$getOld				TRUE get old value.
 	 * @param closure				$theClosure			Hashing anonymous function.
 	 *
@@ -1536,13 +2025,13 @@ class CAttribute
 	 *
 	 * @throws {@link CException CException}
 	 *
-	 * @uses DoubleHashClosure()
+	 * @uses HashClosure()
 	 */
 	static function ManageTypedKindOffset( &$theReference,
 											$theMainOffset,
 											$theKindOffset, $theTypeOffset, $theDataOffset,
 											$theKind, $theType, $theData = NULL,
-											$getOld = FALSE )
+											$getOld = FALSE, $theClosure = NULL )
 	{
 		//
 		// Check reference.
@@ -1551,67 +2040,251 @@ class CAttribute
 		 || ($theReference instanceof ArrayObject) )
 		{
 			//
-			// Save offset.
+			// Normalise offsets.
 			//
-			if( is_array( $theReference ) )
-				$list = ( array_key_exists( $theMainOffset, $theReference ) )
-						? $theReference[ $theMainOffset ]
-						: NULL;
-			else
-				$list = ( $theReference->offsetExists( $theMainOffset ) )
-						? $theReference[ $theMainOffset ]
-						: NULL;
+			$theMainOffset = (string) $theMainOffset;
+			$theKindOffset = (string) $theKindOffset;
+			$theTypeOffset = (string) $theTypeOffset;
+			$theDataOffset = (string) $theDataOffset;
 			
 			//
-			// Handle categories.
+			// Resolve hashing closure.
 			//
-			$save = $idx = NULL;
-			if( $list !== NULL )
+			if( $theClosure === NULL )
+				$theClosure = self::HashClosure();
+			
+			//
+			// Handle multiple elements:
+			//
+			if( is_array( $theKind ) )
 			{
 				//
-				// Locate category.
+				// Init local storage.
 				//
-				foreach( $list as $key => $element )
+				$result = Array();
+				$count = count( $theKind );
+				
+				//
+				// Check types.
+				//
+				if( is_array( $theType )
+				 && (count( $theType ) != $count) )
+					throw new CException
+							( "Kind and type counts do not match",
+							  kERROR_INVALID_PARAMETER,
+							  kMESSAGE_TYPE_ERROR,
+							  array( 'Kind' => $theKind,
+									 'Type' => $theType ) );					// !@! ==>
+				
+				//
+				// Check data.
+				//
+				if( is_array( $theData )
+				 && (count( $theData ) != $count) )
+					throw new CException
+							( "Kind and data counts do not match",
+							  kERROR_INVALID_PARAMETER,
+							  kMESSAGE_TYPE_ERROR,
+							  array( 'Kind' => $theKind,
+									 'Data' => $theData ) );					// !@! ==>
+				
+				//
+				// Check closures.
+				//
+				if( is_array( $theClosure )
+				 && (count( $theClosure ) != $count) )
+					throw new CException
+							( "Kind and closure counts do not match",
+							  kERROR_INVALID_PARAMETER,
+							  kMESSAGE_TYPE_ERROR,
+							  array( 'Kind' => $theKind,
+									 'Closure' => $theClosure ) );				// !@! ==>
+				
+				//
+				// Iterate kinds.
+				//
+				foreach( $theKind as $index => $value )
 				{
 					//
-					// Match kind and type.
+					// Set type.
 					//
-					if( ( is_array( $element )
-					   && ( ( array_key_exists( $theKindOffset, $element )
-						   && ($element[ $theKindOffset ] == (string) $theKind)
-						   && array_key_exists( $theTypeOffset, $element )
-						   && ($element[ $theTypeOffset ] == (string) $theType) )
-						 || ( (! array_key_exists( $theKindOffset, $element ))
-						   && ($theKind === NULL)
-						   && array_key_exists( $theTypeOffset, $element )
-						   && ($element[ $theTypeOffset ]
-						   		== (string) $theType) ) ) )
-					 || ( ($element instanceof ArrayObject)
-					   && ( ( $element->offsetExists( $theKindOffset )
-						   && ($element->offsetGet( $theKindOffset ) == (string) $theKind)
-						   && $element->offsetExists( $theTypeOffset )
-						   && ($element->offsetGet( $theTypeOffset ) == (string) $theType) )
-						 || ( (! $element->offsetExists( $theKindOffset ))
-						   && ($theKind === NULL)
-						   && $element->offsetExists( $theTypeOffset )
-						   && ($element->offsetGet( $theTypeOffset )
-						   		== (string) $theType) ) ) ) )
+					$type = ( is_array( $theType ) )
+							? $theType[ $index ]
+							: $theType;
+				
+					//
+					// Set data.
+					//
+					$data = ( is_array( $theData ) )
+							? $theData[ $index ]
+							: $theData;
+				
+					//
+					// Set closure.
+					//
+					$closure = ( is_array( $theClosure ) )
+							? $theClosure[ $index ]
+							: $theClosure;
+					
+					//
+					// Recurse.
+					//
+					$result[]
+						= self::ManageTypedKindOffset
+							( $theReference,
+							  $theMainOffset,
+							  $theKindOffset, $theTypeOffset, $theDataOffset,
+							  $value, $type, $data,
+							  $getOld, $closure );
+				
+				} // Iterating kinds.
+				
+				return $result;														// ==>
+			
+			} // Provided multiple elements.
+			
+			//
+			// Handle multiple types.
+			//
+			elseif( is_array( $theType ) )
+			{
+				//
+				// Init local storage.
+				//
+				$result = Array();
+				
+				//
+				// Recurse each data item.
+				//
+				foreach( $theType as $type )
+					$result[]
+						= self::ManageTypedKindOffset
+							( $theReference,
+							  $theMainOffset,
+							  $theKindOffset, $theTypeOffset, $theDataOffset,
+							  $theKind, $type, $theData,
+							  $getOld, $theClosure );
+				
+				return $result;														// ==>
+			
+			} // Provided multiple type items.
+			
+			//
+			// Handle multiple data items.
+			//
+			elseif( is_array( $theData ) )
+			{
+				//
+				// Init local storage.
+				//
+				$result = Array();
+				
+				//
+				// Recurse each data item.
+				//
+				foreach( $theData as $data )
+					$result[]
+						= self::ManageTypedKindOffset
+							( $theReference,
+							  $theMainOffset,
+							  $theKindOffset, $theTypeOffset, $theDataOffset,
+							  $theKind, $theType, $data,
+							  $getOld, $theClosure );
+				
+				return $result;														// ==>
+			
+			} // Provided multiple data items.
+
+			//
+			// Save offset.
+			//
+			$list = ( isset( $theReference[ $theMainOffset ] ) )
+				  ? $theReference[ $theMainOffset ]
+				  : NULL;
+			
+			//
+			// Match element.
+			//
+			$idx = $save = NULL;
+			if( is_array( $list )
+			 || ($list instanceof ArrayObject) )
+			{
+				//
+				// Set match hash.
+				//
+				$tmp = array( $theKindOffset => $theKind, $theTypeOffset => $theType );
+				$match = $theClosure( $tmp, array( $theKindOffset, $theTypeOffset ) );
+				
+				//
+				// Match element.
+				//
+				foreach( $list as $key => $value )
+				{
+					//
+					// Match.
+					//
+					if( $match == $theClosure( $value,
+											   array( $theKindOffset, $theTypeOffset ) ) )
 					{
+						//
+						// Save index.
+						//
 						$idx = $key;
-						$save = $element[ $theDataOffset ];
-						break;												// =>
+						
+						//
+						// Check value.
+						//
+						if( is_array( $value )
+						 || ($value instanceof ArrayObject) )
+						{
+							//
+							// Save value.
+							//
+							$save = $value;
+							
+							break;											// =>
+						
+						} // Data item is a list.
+						
+						else
+							throw new CException
+									( "Unsupported list attribute element type",
+									  kERROR_UNSUPPORTED,
+									  kMESSAGE_TYPE_ERROR,
+									  array( 'Attribute' => $list,
+											 'Element' => $value ) );			// !@! ==>
 					
 					} // Matched.
 				
-				} // Iterating offset elements.
+				} // Matching element.
 			
-			} // Has data.
-	
+			} // Attribute is a list.
+			
+			//
+			// Invalid attribute type.
+			//
+			elseif( $list !== NULL )
+				throw new CException
+						( "Unsupported list attribute type",
+						  kERROR_UNSUPPORTED,
+						  kMESSAGE_TYPE_ERROR,
+						  array( 'Attribute' => $list,
+						  		 'Offset' => $theMainOffset ) );				// !@! ==>
+			
 			//
 			// Retrieve.
 			//
 			if( $theData === NULL )
-				return $save;														// ==>
+			{
+				//
+				// Handle data.
+				//
+				if( $idx !== NULL )
+					return $save[ $theDataOffset ];									// ==>
+				
+				return NULL;														// ==>
+			
+			} // Retrieve.
 			
 			//
 			// Delete.
@@ -1619,17 +2292,17 @@ class CAttribute
 			if( $theData === FALSE )
 			{
 				//
-				// Handle existing list.
+				// Handle data.
 				//
 				if( $idx !== NULL )
 				{
 					//
-					// Delete item.
+					// Remove element.
 					//
 					unset( $list[ $idx ] );
 					
 					//
-					// Replace offset.
+					// Update list.
 					//
 					if( count( $list ) )
 						$theReference[ $theMainOffset ] = array_values( $list );
@@ -1639,20 +2312,52 @@ class CAttribute
 					//
 					else
 					{
+						//
+						// Delete offset.
+						//
 						if( is_array( $theReference ) )
 							unset( $theReference[ $theMainOffset ] );
 						else
 							$theReference->offsetUnset( $theMainOffset );
 					
-					} // No elements left.
+					} // Deleted all elements.
 					
 					if( $getOld )
-						return $save;												// ==>
-				}
+						return $save[ $theDataOffset ];								// ==>
+				
+				} // Matched element.
 				
 				return NULL;														// ==>
 			
 			} // Delete.
+			
+			//
+			// Replace element.
+			//
+			if( $idx !== NULL )
+			{
+				//
+				// Save data.
+				//
+				if( $getOld )
+					$save = $list[ $idx ][ $theDataOffset ];
+				
+				//
+				// Update data.
+				//
+				$list[ $idx ][ $theDataOffset ] = $theData;
+				
+				//
+				// Set offset.
+				//
+				$theReference[ $theMainOffset ] = $list;
+				
+				if( $getOld )
+					return $save;													// ==>
+				
+				return $theData;													// ==>
+			
+			} // Matched element.
 			
 			//
 			// Create element.
@@ -1660,45 +2365,29 @@ class CAttribute
 			$element = Array();
 			if( $theKind !== NULL )
 				$element[ $theKindOffset ] = $theKind;
-			$element[ $theTypeOffset ] = $theType;
+			if( $theType !== NULL )
+				$element[ $theTypeOffset ] = $theKind;
 			$element[ $theDataOffset ] = $theData;
 			
 			//
-			// Create first category.
+			// Set first element.
 			//
 			if( $list === NULL )
-			{
-				//
-				// Set offset.
-				//
-				$theReference[ $theMainOffset ] = array( $element );
-				
-				if( $getOld )
-					return $save;													// ==>
-				
-				return $theData;													// ==>
-			
-			} // Missing main offset.
+				$list = array( $element );
 			
 			//
 			// Add new element.
 			//
-			if( $save === NULL )
+			else
 				$list[] = $element;
 			
 			//
-			// Update element.
-			//
-			else
-				$list[ $idx ][ $theDataOffset ] = $theData;
-			
-			//
-			// Set offset.
+			// Update offset.
 			//
 			$theReference[ $theMainOffset ] = $list;
 			
 			if( $getOld )
-				return $save;														// ==>
+				return NULL;														// ==>
 			
 			return $theData;														// ==>
 		
@@ -2294,151 +2983,86 @@ class CAttribute
 	/**
 	 * Hash closure.
 	 *
-	 * This static method returns an anonymous function that is used as the default hashing
-	 * closure function for list elements, the method returns a closure that can be used to
-	 * hash a scalar or an array element depending on the provided parameters:
+	 * This static method returns the default hashing closure that will be used to compare
+	 * list elements. This method will return a closure function that expects two arguments:
 	 *
 	 * <ul>
-	 *	<li><b>$theElement</b>: This parameter contains the element to be hashed.
-	 *	<li><b>$theOffset</b>: If provided, it implies that the previous parameter is an
-	 *		array: the string represents the offset to the element that will be used for
-	 *		hashing; if this parameter is provided and the previous parameter is neither an
-	 *		array or an ArrayObject, the function will raise an exception.
+	 *	<li><b>$theElement</b>: This parameter represents the element to be hashed,
+	 *		depending on the presence of the next parameter this can be:
+	 *	 <ul>
+	 *		<li><i>scalar</i>: If the next parameter is not provided, it means that the
+	 *			element is a scalar and this parameter represents both the data and key of
+	 *			the element.
+	 *		<li><i>array</i>: If the next parameter is provided, it means that elements have
+	 *			items that represent the element type or kind and that also represent the
+	 *			element's key.
+	 *	 </ul>
+	 *	<li><b>$theOffsets</b>: If provided, it must be an array of strings that represent
+	 *		offsets to items in the previous parameter which constitute the element's key.
 	 * </ul>
 	 *
-	 * The function will hash the referenced value using the MD5 algorithm and return the
-	 * hashed binary string.
+	 * If the provided element is a scalar, the function will return the MD5 binary string
+	 * hash of its contents; if the offsets list was provided, each referenced item in the
+	 * element will be hashed and the function will return the sequence of hashes separated
+	 * by the {@link kTOKEN_INDEX_SEPARATOR kTOKEN_INDEX_SEPARATOR} token.
 	 *
 	 * @static
 	 * @return closure
 	 */
 	static function HashClosure()
 	{
-		return function( $theElement, $theOffset = NULL )
+		return function( $theElement, $theOffsets = NULL )
 		{
 			//
-			// Handle offset.
+			// Handle element.
 			//
-			if( $theOffset !== NULL )
+			if( $theOffsets === NULL )
+				return md5( $theElement, TRUE );									// ==>
+			
+			//
+			// Check element.
+			//
+			if( is_array( $theElement )
+			 || ($theElement instanceof ArrayObject) )
 			{
 				//
-				// Check element.
+				// Init local storage.
 				//
-				if( is_array( $theElement )
-				 || ($theElement instanceof ArrayObject) )
+				$sequence = Array();
+				
+				//
+				// Iterate offsets.
+				//
+				foreach( $theOffsets as $offset )
 				{
 					//
-					// Set element.
+					// Hash item.
 					//
-					$theElement = ( isset( $theElement[ $theOffset ] ) )
-								? $theElement[ $theOffset ]
-								: NULL;
+					if( isset( $theElement[ $offset ] ) )
+						$sequence[] = md5( $theElement[ $offset ], TRUE );
+					
+					//
+					// Hash missing item.
+					//
+					else
+						$sequence[] = md5( NULL, TRUE );
 				
-				} // Element is a list.
+				} // Iterating offsets.
 				
-				else
-					throw new CException
-							( "Cannot use offset on element",
-							  kERROR_INVALID_PARAMETER,
-							  kMESSAGE_TYPE_ERROR,
-							  array( 'Offset' => $theOffset,
-									 'Element' => $theElement ) );				// !@! ==>
+				return implode( kTOKEN_INDEX_SEPARATOR, $sequence );				// ==>
 			
-			} // Provided offset.
+			} // Valid element type.
 			
-			return md5( $theElement, TRUE );										// ==>
+			throw new CException
+					( "Invalid element type",
+					  kERROR_INVALID_PARAMETER,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Element' => $theElement,
+					  		 'Offsets' => $theOffsets ) );						// !@! ==>
 
 		};																			// ==>
 
 	} // HashClosure.
-
-	 
-	/*===================================================================================
-	 *	DoubleHashClosure																*
-	 *==================================================================================*/
-
-	/**
-	 * Double hash closure.
-	 *
-	 * This static method returns an anonymous function that is used as the default hashing
-	 * closure function for list elements that feature a kind and type item, the method
-	 * returns a closure that can be used to hash a scalar or an array element depending on
-	 * the provided parameters:
-	 *
-	 * <ul>
-	 *	<li><b>$theElement</b>: This parameter contains the element to be hashed.
-	 *	<li><b>$theKindOffset</b>: If provided, it implies that the previous parameter is an
-	 *		array: the string represents the offset to the element that represents the kind
-	 *		value; if this parameter is provided and the previous parameter is neither an
-	 *		array or an ArrayObject, the function will raise an exception.
-	 *	<li><b>$theTypeOffset</b>: If provided, it implies that the previous parameter is an
-	 *		array: the string represents the offset to the element that represents the
-	 *		element's data item's type; if this parameter is provided and the first
-	 *		parameter is neither an array or an ArrayObject, the function will raise an
-	 *		exception.
-	 * </ul>
-	 *
-	 * The function will concatenate the element's values referenced by the two provided
-	 * offsets separating them by the {@link kTOKEN_INDEX_SEPARATOR kTOKEN_INDEX_SEPARATOR}
-	 * token and will return the MD5 binary string hash of that sequence.
-	 *
-	 * @static
-	 * @return closure
-	 */
-	static function DoubleHashClosure()
-	{
-		return function( $theElement, $theKindOffset = NULL, $theTypeOffset = NULL )
-		{
-			//
-			// Handle offsets.
-			//
-			if( ($theKindOffset !== NULL)
-			 || ($theTypeOffset !== NULL) )
-			{
-				//
-				// Check element.
-				//
-				if( is_array( $theElement )
-				 || ($theElement instanceof ArrayObject) )
-				{
-					//
-					// Handle kind.
-					//
-					$sequence = ( isset( $theElement[ $theKindOffset ] ) )
-							  ? md5( $theElement[ $theKindOffset ], TRUE )
-							  : md5( NULL, TRUE );
-					
-					//
-					// Separate.
-					//
-					$sequence .= kTOKEN_INDEX_SEPARATOR;
-					
-					//
-					// Handle kind.
-					//
-					$sequence .= ( ( isset( $theElement[ $theTypeOffset ] ) )
-								   ? md5( $theElement[ $theTypeOffset ], TRUE )
-								   : md5( NULL, TRUE ) );
-					
-					return $sequence;												// ==>
-					
-				} // Element is a list.
-				
-				else
-					throw new CException
-							( "Cannot use offset on element",
-							  kERROR_INVALID_PARAMETER,
-							  kMESSAGE_TYPE_ERROR,
-							  array( 'Offset' => $theOffset,
-									 'Element' => $theElement ) );				// !@! ==>
-			
-			} // Provided offsets.
-			
-			return md5( $theElement, TRUE );										// ==>
-
-		};																			// ==>
-
-	} // DoubleHashClosure.
 
 	 
 

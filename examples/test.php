@@ -761,7 +761,6 @@ echo( '<i>$ref = 2;</i><br>' );
 $ref = 2;
 echo( '<pre>' ); print_r( $container ); echo( '</pre>' );
 exit;
-*/
 
 //
 // Test closures.
@@ -790,5 +789,20 @@ echo( $test->test1( 1, 2 ).'<br>' );
 
 echo( '<i>$test->test1( 1, 2, function( $a, $b ){ return ($a < $b); } )</i><br />' );
 echo( $test->test1( 1, 2, function( $a, $b ){ return ($a < $b); } ).'<br>' );
+*/
+
+//
+// Test array navigation.
+//
+$test = array( 'Key1' => 1, 'Key2' => 2, 'Key3' => array( 1, 2, 3 ) );
+echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+
+echo( '<i>$x = reset( $test );</i><br>' );
+$x = reset( $test );
+echo( '<pre>' ); print_r( $x ); echo( '</pre>' );
+
+echo( '<i>$x = next( $test );</i><br>' );
+$x = next( $test );
+echo( '<pre>' ); print_r( $x ); echo( '</pre>' );
 
 ?>
