@@ -275,10 +275,10 @@ class CDataset extends CRelatedUnitObject
 	 */
 	public function Name( $theValue = NULL, $theLanguage = NULL, $getOld = FALSE )
 	{
-		return CAttribute::ManageTypedOffset
-				( $this,
-				  kTAG_NAME, kTAG_LANGUAGE, kTAG_DATA,
-				  $theLanguage, $theValue, $getOld );								// ==>
+		return CAttribute::ManageTypedOffset( $this,
+											  kTAG_NAME, kTAG_DATA,
+											  kTAG_LANGUAGE, $theLanguage,
+											  $theValue, $getOld );					// ==>
 
 	} // Name.
 
@@ -335,10 +335,10 @@ class CDataset extends CRelatedUnitObject
 	 */
 	public function Description( $theValue = NULL, $theLanguage = NULL, $getOld = FALSE )
 	{
-		return CAttribute::ManageTypedOffset
-				( $this,
-				  kTAG_DESCRIPTION, kTAG_LANGUAGE, kTAG_DATA,
-				  $theLanguage, $theValue, $getOld );								// ==>
+		return CAttribute::ManageTypedOffset( $this,
+											  kTAG_DESCRIPTION, kTAG_DATA,
+											  kTAG_LANGUAGE, $theLanguage,
+											  $theValue, $getOld );					// ==>
 
 	} // Description.
 

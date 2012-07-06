@@ -669,7 +669,7 @@ class COntologyTerm extends COntologyTermObject
 	 *==================================================================================*/
 
 	/**
-	 * Manage cross-references.
+	 * Manage images.
 	 *
 	 * This method can be used to manage the term's list of {@link kOFFSET_IMAGE images},
 	 * this {@link kOFFSET_IMAGE offset} is represented by an array of items holding three
@@ -712,7 +712,7 @@ class COntologyTerm extends COntologyTermObject
 	 *	 </ul>
 	 * </ul>
 	 *
-	 * The method makes use of a static {@link CAttribute::ManageTypedKindOffset() method},
+	 * The method makes use of a static {@link CAttribute::ManageTypedOffset() method},
 	 * please consult its reference for more information.
 	 *
 	 * @param mixed					$theKind			Image kind.
@@ -725,12 +725,11 @@ class COntologyTerm extends COntologyTermObject
 	 */
 	public function Image( $theKind, $theType, $theData = NULL, $getOld = FALSE )
 	{
-		return CAttribute::ManageTypedKindOffset
+		return CAttribute::ManageTypedOffset
 				( $this,
-				  kOFFSET_IMAGE,
-				  kTAG_KIND, kTAG_TYPE, kTAG_DATA,
-				  $theKind, $theType, $theData,
-				  $getOld );														// ==>
+				  kOFFSET_IMAGE, kTAG_DATA,
+				  array( kTAG_KIND, kTAG_TYPE ), array( $theKind, $theType ),
+				  $theData, $getOld );												// ==>
 
 	} // Image.
 
@@ -786,8 +785,9 @@ class COntologyTerm extends COntologyTermObject
 	public function Source( $theValue = NULL, $theType = NULL, $getOld = FALSE )
 	{
 		return CAttribute::ManageTypedOffset( $this,
-											  kTAG_SOURCE, kTAG_KIND, kTAG_DATA,
-											  $theType, $theValue, $getOld );		// ==>
+											  kTAG_SOURCE, kTAG_DATA,
+											  kTAG_KIND, $theType,
+											  $theValue, $getOld );					// ==>
 
 	} // Source.
 

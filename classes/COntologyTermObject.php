@@ -285,10 +285,10 @@ abstract class COntologyTermObject extends CCodedUnitObject
 	 */
 	public function Name( $theValue = NULL, $theLanguage = NULL, $getOld = FALSE )
 	{
-		return CAttribute::ManageTypedOffset
-				( $this,
-				  kTAG_NAME, kTAG_LANGUAGE, kTAG_DATA,
-				  $theLanguage, $theValue, $getOld );								// ==>
+		return CAttribute::ManageTypedOffset( $this,
+											  kTAG_NAME, kTAG_DATA,
+											  kTAG_LANGUAGE, $theLanguage,
+											  $theValue, $getOld );					// ==>
 
 	} // Name.
 
@@ -345,10 +345,10 @@ abstract class COntologyTermObject extends CCodedUnitObject
 	 */
 	public function Definition( $theValue = NULL, $theLanguage = NULL, $getOld = FALSE )
 	{
-		return CAttribute::ManageTypedOffset
-				( $this,
-				  kTAG_DEFINITION, kTAG_LANGUAGE, kTAG_DATA,
-				  $theLanguage, $theValue, $getOld );								// ==>
+		return CAttribute::ManageTypedOffset( $this,
+											  kTAG_DEFINITION, kTAG_DATA,
+											  kTAG_LANGUAGE, $theLanguage,
+											  $theValue, $getOld );					// ==>
 
 	} // Definition.
 
@@ -405,10 +405,10 @@ abstract class COntologyTermObject extends CCodedUnitObject
 	 */
 	public function Description( $theValue = NULL, $theLanguage = NULL, $getOld = FALSE )
 	{
-		return CAttribute::ManageTypedOffset
-				( $this,
-				  kTAG_DESCRIPTION, kTAG_LANGUAGE, kTAG_DATA,
-				  $theLanguage, $theValue, $getOld );								// ==>
+		return CAttribute::ManageTypedOffset( $this,
+											  kTAG_DESCRIPTION, kTAG_DATA,
+											  kTAG_LANGUAGE, $theLanguage,
+											  $theValue, $getOld );					// ==>
 
 	} // Description.
 
@@ -473,10 +473,11 @@ abstract class COntologyTermObject extends CCodedUnitObject
 	 */
 	public function Synonym( $theValue, $theType, $theOperation = NULL, $getOld = FALSE )
 	{
-		return CAttribute::ManageTypedArrayOffset
-			( $this, kTAG_REFERENCE_SYNONYM, kTAG_KIND, kTAG_DATA,
-			  $theType, $theValue,
-			  $theOperation, $getOld );												// ==>
+		return CAttribute::ManageTypedArrayOffset( $this,
+												   kTAG_REFERENCE_SYNONYM, kTAG_DATA,
+												   kTAG_KIND, $theType,
+												   $theValue, $theOperation,
+												   $getOld );						// ==>
 
 	} // Synonym.
 
@@ -534,10 +535,11 @@ abstract class COntologyTermObject extends CCodedUnitObject
 	 */
 	public function Xref( $theValue, $theType, $theOperation = NULL, $getOld = FALSE )
 	{
-		return CAttribute::ManageTypedArrayOffset
-			( $this, kTAG_REFERENCE_XREF, kTAG_KIND, kTAG_DATA,
-			  $theType, $theValue,
-			  $theOperation, $getOld );												// ==>
+		return CAttribute::ManageTypedArrayOffset( $this,
+												   kTAG_REFERENCE_XREF, kTAG_DATA,
+												   kTAG_KIND, $theType,
+												   $theValue, $theOperation,
+												   $getOld );						// ==>
 
 	} // Xref.
 

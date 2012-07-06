@@ -805,4 +805,33 @@ echo( '<i>$x = next( $test );</i><br>' );
 $x = next( $test );
 echo( '<pre>' ); print_r( $x ); echo( '</pre>' );
 
+echo( '<i>$x = next( $test );</i><br>' );
+$x = next( $test );
+echo( '<pre>' ); print_r( $x ); echo( '</pre>' );
+
+echo( '<hr>' );
+
+$test = array( 1, 2, array( 1, 2, 3 ), 4, array( 5, 50 ) );
+echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+
+echo( '<i>$x = reset( $test );</i><br>' );
+$x = reset( $test );
+echo( '<pre>' ); print_r( $x ); echo( '</pre>' );
+
+echo( '<i>$x = next( $test );</i><br>' );
+$x = next( $test );
+echo( '<pre>' ); print_r( $x ); echo( '</pre>' );
+
+echo( '<i>$x = next( $test );</i><br>' );
+$x = next( $test );
+echo( '<pre>' ); print_r( $x ); echo( '</pre>' );
+
+echo( '<i>$x = next( $test );</i><br>' );
+$x = next( $test );
+echo( '<pre>' ); print_r( $x ); echo( '</pre>' );
+
+echo( '<i>$x = next( $test );</i><br>' );
+$x = next( $test );
+echo( '<pre>' ); print_r( $x ); echo( '</pre>' );
+
 ?>

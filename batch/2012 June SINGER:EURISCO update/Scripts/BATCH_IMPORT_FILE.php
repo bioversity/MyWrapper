@@ -63,6 +63,11 @@ try
 		$result = $batch->ImportPassport( $file );
 		
 		//
+		// Save results by institute.
+		//
+		$results = $batch->Results();
+		
+		//
 		// Write results.
 		//
 		echo( "Inserted: ".$result[ 'INSERTED' ]."\n" );

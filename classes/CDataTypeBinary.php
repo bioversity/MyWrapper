@@ -151,10 +151,10 @@ class CDataTypeBinary extends CDataType
 	 *
 	 * @param string				$theHex				Binary hexadecimal value.
 	 *
-	 * @access public
+	 * @static
 	 * @return CDataTypeBinary
 	 */
-	public function FromHex( $theHex )
+	static function FromHex( $theHex )
 	{
 		//
 		// Convert to binary.

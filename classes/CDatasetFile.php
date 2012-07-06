@@ -27,6 +27,13 @@
 require_once( kPATH_LIBRARY_SOURCE."CArrayObject.php" );
 
 /**
+ * Traits.
+ *
+ * This include file contains the parent class definitions.
+ */
+require_once( kPATH_LIBRARY_TRAITS."TDataset.php" );
+
+/**
  *	Dataset file.
  *
  * This class implements a dataset file, it wraps the {@link CArrayObject parent} class

@@ -33,20 +33,28 @@
 define( "kPATH_LIBRARY_ROOT",		"/Library/WebServer/Library/wrapper/" );
 
 /**
- * Class library sources.
- *
- * This value defines the <b><i>absolute</i></b> path to the class library sources
- * directory.
- */
-define( "kPATH_LIBRARY_SOURCE",		"/Library/WebServer/Library/wrapper/classes/" );
-
-/**
  * Class library definitions.
  *
  * This value defines the <b><i>absolute</i></b> path to the class library definitions
  * directory.
  */
 define( "kPATH_LIBRARY_DEFINES",	"/Library/WebServer/Library/wrapper/defines/" );
+
+/**
+ * Class library traits.
+ *
+ * This value defines the <b><i>absolute</i></b> path to the class library traits
+ * directory.
+ */
+define( "kPATH_LIBRARY_TRAITS",		"/Library/WebServer/Library/wrapper/traits/" );
+
+/**
+ * Class library sources.
+ *
+ * This value defines the <b><i>absolute</i></b> path to the class library sources
+ * directory.
+ */
+define( "kPATH_LIBRARY_SOURCE",		"/Library/WebServer/Library/wrapper/classes/" );
 
 /**
  * Batch library definitions.

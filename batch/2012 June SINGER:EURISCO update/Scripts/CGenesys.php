@@ -108,6 +108,15 @@ class CGenesys
 	protected $mCrops = Array();
 
 	/**
+	 * Results.
+	 *
+	 * This data member holds the results list.
+	 *
+	 * @var array
+	 */
+	protected $mResults = Array();
+
+	/**
 	 * Work record.
 	 *
 	 * This data member holds the work record.
@@ -480,6 +489,90 @@ class CGenesys
 	 */
 	public function CEtables()								{	return $this->mCETables;	}
 
+	 
+	/*===================================================================================
+	 *	Results																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage results.
+	 *
+	 * This method can be used to add results, the method accepts the following parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theInstitute</b>: The FAO institute code, if omitted or <i>NULL</i>, the
+	 *		method will return the results array.
+	 *	<li><b>$theType</b>: The type of count ('INSERTED', 'UPDATED' ), if omitted or
+	 *		<i>NULL</i>, the method will return the results for the provided institute.
+	 *	<li><b>$theCount</b>: Record count, if omitted or <i>NULL</i>, the method will
+	 *		return the results for the provided type.
+	 *	<li><b>$theError</b>: Error description.
+	 * </ul>
+	 *
+	 * @param string				$theInstitute		FAO institute code.
+	 * @param string				$theType			Record count type.
+	 * @param integer				$theCount			Record count.
+	 *
+	 * @access public
+	 * @return mixed
+	 */
+	public function Results( $theInstitute = NULL, $theType = NULL, $theCount = 1 )
+	{
+		//
+		// Return results.
+		//
+		if( $theInstitute === NULL )
+			return $this->mResults;													// ==>
+		
+		//
+		// Return institute results.
+		//
+		if( $theType === NULL )
+			return ( array_key_exists( $theInstitute, $this->mResults ) )
+				 ? $this->mResults[ $theInstitute ]									// ==>
+				 : NULL;															// ==>
+		
+		//
+		// Return institute type results.
+		//
+		if( $theCount === NULL )
+			return ( array_key_exists( $theInstitute, $this->mResults ) )
+				 ? ( ( array_key_exists( $theType, $this->mResults[ $theInstitute ] ) )
+				   ? $this->mResults[ $theInstitute ][ $theType ]					// ==>
+				   : NULL )															// ==>
+				 : NULL;															// ==>
+		
+		//
+		// Normalise count.
+		//
+		$theCount = (integer) $theCount;
+
+		//
+		// Increment.
+		//
+		if( array_key_exists( $theInstitute, $this->mResults ) )
+		{
+			//
+			// Increment.
+			//
+			if( array_key_exists( $theType, $this->mResults[ $theInstitute ] ) )
+				$this->mResults[ $theInstitute ][ $theType ] += $theCount;
+			
+			//
+			// Set.
+			//
+			else
+				$this->mResults[ $theInstitute ][ $theType ] = $theCount;
+		}
+		
+		//
+		// Set.
+		//
+		else
+			$this->mResults[ $theInstitute ] = array( $theType => $theCount );
+	
+	} // Results.
+
 		
 
 /*=======================================================================================
@@ -705,6 +798,7 @@ class CGenesys
 	 * <ul>
 	 *	<li><i>INSERTED</i>: The number of inserted records.
 	 *	<li><i>UPDATED</i>: The number of updated records.
+	 *	<li><i>SKIPPED</i>: The number of skipped records.
 	 *	<li><i>TAXA</i>: The number of new taxa records.
 	 * </ul>
 	 *
@@ -817,9 +911,15 @@ WHERE
 EOT;
 				$id = $db->GetOne( $query );
 				if( ! $id )
+				{
 					$result[ 'INSERTED' ]++;
+					$this->Results( $record[ 'INSTCODE' ], 'INSERTED' );
+				}
 				else
+				{
 					$result[ 'UPDATED' ]++;
+					$this->Results( $record[ 'INSTCODE' ], 'UPDATED' );
+				}
 				
 				//
 				// Set taxon.

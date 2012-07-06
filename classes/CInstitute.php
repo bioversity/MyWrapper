@@ -224,8 +224,9 @@ class CInstitute extends CContact
 	public function URL( $theValue = NULL, $theType = NULL, $getOld = FALSE )
 	{
 		return CAttribute::ManageTypedOffset( $this,
-											  kOFFSET_URL, kTAG_KIND, kTAG_DATA,
-											  $theType, $theValue, $getOld );		// ==>
+											  kOFFSET_URL, kTAG_DATA,
+											  kTAG_KIND, $theType,
+											  $theValue, $getOld );					// ==>
 
 	} // URL.
 
