@@ -789,7 +789,6 @@ echo( $test->test1( 1, 2 ).'<br>' );
 
 echo( '<i>$test->test1( 1, 2, function( $a, $b ){ return ($a < $b); } )</i><br />' );
 echo( $test->test1( 1, 2, function( $a, $b ){ return ($a < $b); } ).'<br>' );
-*/
 
 //
 // Test array navigation.
@@ -833,5 +832,24 @@ echo( '<pre>' ); print_r( $x ); echo( '</pre>' );
 echo( '<i>$x = next( $test );</i><br>' );
 $x = next( $test );
 echo( '<pre>' ); print_r( $x ); echo( '</pre>' );
+*/
+
+//
+// Test references in loops.
+//
+$test = array( 1, 2, 3 );
+echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+
+foreach( $test as &$data )
+	$data *= 10;
+echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+
+$test = array( 'A' => array( array( 'A', 'B', 'C' ), array( 'D', 'E', 'F' ) ),
+			   'B' => array( array( 'A', 'B', 'C' ), array( 'D', 'E', 'F' ) ) );
+echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+
+foreach( $test as &$data )
+	$data[ 0 ][ 0 ] = 'PIPO';
+echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 
 ?>
