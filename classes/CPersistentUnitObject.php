@@ -574,14 +574,14 @@ abstract class CPersistentUnitObject extends CPersistentObject
 	 *
 	 * @param mixed					$theValue			Relation predicate.
 	 *
-	 * @access protected
+	 * @static
 	 * @return mixed
 	 *
 	 * @uses _IsCommitted()
 	 *
 	 * @see kTAG_LID kTAG_REFERENCE_ID
 	 */
-	protected function NormaliseRelatedPredicate( $theValue )
+	static function NormaliseRelatedPredicate( $theValue )
 	{
 		//
 		// Handle missing or empty predicate.

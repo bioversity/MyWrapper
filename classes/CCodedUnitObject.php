@@ -27,23 +27,18 @@
 require_once( kPATH_LIBRARY_SOURCE."CRelatedUnitObject.php" );
 
 /**
+ * Kind.
+ *
+ * This include file contains the kind trait definitions.
+ */
+require_once( kPATH_LIBRARY_TRAITS."TKind.php" );
+
+/**
  * Coded unit object.
  *
- * Objects derived from this class have the following predefined properties:
- *
- * <ul>
- *	<li><i>{@link kTAG_CODE kTAG_CODE}</i>: This attribute represents the current object's
- *		{@link Code() code}, identifier or acronym.
- *	<li><i>{@link kTAG_KIND kTAG_KIND}</i>: This attribute represents the current object's
- *		{@link Kind() kind} or type.
- *	<li><i>{@link kTAG_CREATED kTAG_CREATED}</i>: This offset holds the object's creation
- *		{@link Created() time stamp}.
- *	<li><i>{@link kTAG_MODIFIED kTAG_MODIFIED}</i>: This offset holds the object's last
- *		modification time stamp, this property should be used to mark all objects.
- * </ul>
- *
- * By default, the unique {@link _index() identifier} of the object is its
- * {@link Code() code}, which is also its {@link _id() id}.
+ * Objects derived from this class have the {@link Code() code} predefined
+ * {@link kTAG_CODE properties}, by default, the unique {@link _index() identifier} of the
+ * object is its {@link Code() code}, which is also its {@link _id() id}.
  *
  * Objects of this class require at least the {@link Code() code} {@link kTAG_CODE offset}
  * to have an {@link _IsInited() initialised} {@link kFLAG_STATE_INITED status}.
@@ -142,129 +137,6 @@ class CCodedUnitObject extends CRelatedUnitObject
 		return CAttribute::ManageOffset( $this, kTAG_CODE, $theValue, $getOld );	// ==>
 
 	} // Code.
-
-	 
-	/*===================================================================================
-	 *	Kind																			*
-	 *==================================================================================*/
-
-	/**
-	 * Manage kind.
-	 *
-	 * This method can be used to handle the object's {@link kTAG_KIND kinds}, it uses the
-	 * standard accessor {@link CAttribute::ManageArrayOffset() method} to manage the list of
-	 * kinds.
-	 *
-	 * Each element of this list should indicate a function or quality of the current
-	 * object
-	 *
-	 * For a more thorough reference of how this method works, please consult the
-	 * {@link CAttribute::ManageArrayOffset() CAttribute::ManageArrayOffset} method, in
-	 * which the second parameter will be the constant {@link kTAG_KIND kTAG_KIND}.
-	 *
-	 * @param mixed					$theValue			Value or index.
-	 * @param mixed					$theOperation		Operation.
-	 * @param boolean				$getOld				TRUE get old value.
-	 *
-	 * @access public
-	 * @return mixed
-	 *
-	 * @uses CAttribute::ManageArrayOffset()
-	 *
-	 * @see kTAG_KIND
-	 */
-	public function Kind( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
-	{
-		return CAttribute::ManageArrayOffset
-					( $this, kTAG_KIND, $theValue, $theOperation, $getOld );		// ==>
-
-	} // Kind.
-
-	 
-	/*===================================================================================
-	 *	Created																			*
-	 *==================================================================================*/
-
-	/**
-	 * Manage object creation time stamp.
-	 *
-	 * This method can be used to manage the object {@link kTAG_CREATED creation}
-	 * time-stamp, it uses the standard accessor {@link CAttribute::ManageOffset() method}
-	 * to manage the {@link kTAG_MODIFIED offset}:
-	 *
-	 * <ul>
-	 *	<li><b>$theValue</b>: The value or operation:
-	 *	 <ul>
-	 *		<li><i>NULL</i>: Return the current value.
-	 *		<li><i>FALSE</i>: Delete the value.
-	 *		<li><i>other</i>: Set value.
-	 *	 </ul>
-	 *	<li><b>$getOld</b>: Determines what the method will return:
-	 *	 <ul>
-	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
-	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
-	 *	 </ul>
-	 * </ul>
-	 *
-	 * @param NULL|FALSE|string		$theValue			Object creation date.
-	 * @param boolean				$getOld				TRUE get old value.
-	 *
-	 * @access public
-	 * @return string
-	 *
-	 * @uses CAttribute::ManageOffset()
-	 *
-	 * @see kTAG_CREATED
-	 */
-	public function Created( $theValue = NULL, $getOld = FALSE )
-	{
-		return CAttribute::ManageOffset( $this, kTAG_CREATED, $theValue, $getOld );	// ==>
-
-	} // Created.
-
-	 
-	/*===================================================================================
-	 *	Modified																		*
-	 *==================================================================================*/
-
-	/**
-	 * Manage object last modification time stamp.
-	 *
-	 * This method can be used to manage the object last {@link kTAG_MODIFIED modification}
-	 * time-stamp, or the date in which the last modification was made on the object, it
-	 * uses the standard accessor {@link CAttribute::ManageOffset() method} to manage the
-	 * {@link kTAG_MODIFIED offset}:
-	 *
-	 * <ul>
-	 *	<li><b>$theValue</b>: The value or operation:
-	 *	 <ul>
-	 *		<li><i>NULL</i>: Return the current value.
-	 *		<li><i>FALSE</i>: Delete the value.
-	 *		<li><i>other</i>: Set value.
-	 *	 </ul>
-	 *	<li><b>$getOld</b>: Determines what the method will return:
-	 *	 <ul>
-	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
-	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
-	 *	 </ul>
-	 * </ul>
-	 *
-	 * @param NULL|FALSE|string		$theValue			Object last modification date.
-	 * @param boolean				$getOld				TRUE get old value.
-	 *
-	 * @access public
-	 * @return string
-	 *
-	 * @uses CAttribute::ManageOffset()
-	 *
-	 * @see kTAG_MODIFIED
-	 */
-	public function Modified( $theValue = NULL, $getOld = FALSE )
-	{
-		return CAttribute::ManageOffset
-					( $this, kTAG_MODIFIED, $theValue, $getOld );					// ==>
-
-	} // Modified.
 
 		
 

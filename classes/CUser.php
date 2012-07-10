@@ -27,6 +27,13 @@
 require_once( kPATH_LIBRARY_SOURCE."CEntity.php" );
 
 /**
+ * Kind.
+ *
+ * This include file contains the kind trait definitions.
+ */
+require_once( kPATH_LIBRARY_TRAITS."TKind.php" );
+
+/**
  * Tokens.
  *
  * This include file contains all default token definitions.
@@ -87,6 +94,28 @@ require_once( kPATH_LIBRARY_SOURCE."CUser.inc.php" );
  */
 class CUser extends CEntity
 {
+		
+
+/*=======================================================================================
+ *																						*
+ *										TRAITS											*
+ *																						*
+ *======================================================================================*/
+
+	use
+	 
+	/*===================================================================================
+	 *	Kind																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage user kind.
+	 *
+	 * This attribute records the various terms relating to the kind or type of the current
+	 * user.
+	 */
+	TKind;
+
 		
 
 /*=======================================================================================

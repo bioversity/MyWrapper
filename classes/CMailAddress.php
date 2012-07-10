@@ -27,6 +27,13 @@
 require_once( kPATH_LIBRARY_SOURCE."CArrayObject.php" );
 
 /**
+ * Attributes.
+ *
+ * This include file contains the attribute class definitions.
+ */
+require_once( kPATH_LIBRARY_SOURCE."CAttribute.php" );
+
+/**
  *	Mailing address.
  *
  * This class implements a mailing address, it wraps the {@link CArrayObject parent} class
@@ -175,7 +182,7 @@ class CMailAddress extends CArrayObject
 	/**
 	 * Manage place.
 	 *
-	 * This method can be used to manage the address {@link kOFFSET_PLACE place}, it
+	 * This method can be used to manage a mailing address {@link kOFFSET_PLACE place}, it
 	 * accepts a parameter which represents either the place name or the requested
 	 * operation, depending on its value:
 	 *
@@ -213,8 +220,8 @@ class CMailAddress extends CArrayObject
 	/**
 	 * Manage care-of.
 	 *
-	 * This method can be used to manage the address {@link kOFFSET_CARE care-of}, it
-	 * accepts a parameter which represents a care-of reference or the requested operation,
+	 * This method can be used to manage an address {@link kOFFSET_CARE care-of}, it accepts
+	 * a parameter which represents a care-of reference or the requested operation,
 	 * depending on its value:
 	 *
 	 * <ul>
@@ -289,7 +296,7 @@ class CMailAddress extends CArrayObject
 	/**
 	 * Manage zip code.
 	 *
-	 * This method can be used to manage the address {@link kOFFSET_ZIP_CODE zip} code, it
+	 * This method can be used to manage an address {@link kOFFSET_ZIP_CODE zip} code, it
 	 * accepts a parameter which represents the address zip code or the requested operation,
 	 * depending on its value:
 	 *
@@ -401,7 +408,7 @@ class CMailAddress extends CArrayObject
 	 *==================================================================================*/
 
 	/**
-	 * Manage province.
+	 * Manage country.
 	 *
 	 * This method can be used to manage the address {@link kOFFSET_COUNTRY country},
 	 * it accepts a parameter which represents the address country name, code or the

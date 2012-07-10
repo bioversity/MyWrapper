@@ -27,6 +27,20 @@
 require_once( kPATH_LIBRARY_SOURCE."CCodedUnitObject.php" );
 
 /**
+ * Kind.
+ *
+ * This include file contains the kind trait definitions.
+ */
+require_once( kPATH_LIBRARY_TRAITS."TKind.php" );
+
+/**
+ * Creation and modification.
+ *
+ * This include file contains the creation and last modification trait definitions.
+ */
+require_once( kPATH_LIBRARY_TRAITS."TDateStamp.php" );
+
+/**
  * Local defines.
  *
  * This include file contains the parent class definitions.
@@ -62,6 +76,40 @@ require_once( kPATH_LIBRARY_SOURCE."CEntity.inc.php" );
  */
 class CEntity extends CCodedUnitObject
 {
+		
+
+/*=======================================================================================
+ *																						*
+ *										TRAITS											*
+ *																						*
+ *======================================================================================*/
+
+	use
+	 
+	/*===================================================================================
+	 *	Kind																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage file kind.
+	 *
+	 * This attribute records the various terms relating to the current kind or type of the
+	 * file.
+	 */
+	TKind,
+	 
+	/*===================================================================================
+	 *	Creation and modification dates													*
+	 *==================================================================================*/
+
+	/**
+	 * Manage creation and modification dates.
+	 *
+	 * These two attributes represent respectively the dataset's {@link Created() creation}
+	 * and the the dataset's last {@link Modified() modification} time-stamps.
+	 */
+	TDateStamp;
+
 		
 
 /*=======================================================================================

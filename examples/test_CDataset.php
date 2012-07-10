@@ -142,14 +142,12 @@ try
 	
 	echo( '<i>$file = new CDatasetFile();</i><br>' );
 	$file = new CDatasetFile();
-	echo( '<i>$file->Referenced( \'Ref 1\', TRUE );</i><br>' );
-	$file->Referenced( 'Ref 1', TRUE );
-	echo( '<i>$file->Referenced( \'Ref 2\', TRUE );</i><br>' );
-	$file->Referenced( 'Ref 2', TRUE );
-	echo( '<i>$file->Status( \'Original\', TRUE );</i><br>' );
-	$file->Status( 'Original', TRUE );
-	echo( '<i>$file->Status( \'Processed\', TRUE );</i><br>' );
-	$file->Status( 'Processed', TRUE );
+	echo( '<i>$file->Owner( \'Ref 1\' );</i><br>' );
+	$file->Owner( 'Ref 1' );
+	echo( '<i>$file->State( \'Original\', TRUE );</i><br>' );
+	$file->State( 'Original', TRUE );
+	echo( '<i>$file->State( \'Processed\', TRUE );</i><br>' );
+	$file->State( 'Processed', TRUE );
 	echo( '<i>$file->Kind( \'Kind 1\', TRUE );</i><br>' );
 	$file->Kind( 'Kind 1', TRUE );
 	echo( '<i>$file->Kind( \'Kind 2\', TRUE );</i><br>' );

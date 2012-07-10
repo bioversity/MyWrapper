@@ -136,22 +136,20 @@ try
 	echo( '<hr>' );
 	
 	//
-	// Add references.
+	// Add owner.
 	//
-	echo( '<i>$test->Referenced( \'Ref 1\', TRUE );</i><br>' );
-	$test->Referenced( 'Ref 1', TRUE );
-	echo( '<i>$test->Referenced( \'Ref 2\', TRUE );</i><br>' );
-	$test->Referenced( 'Ref 2', TRUE );
+	echo( '<i>$test->Owner( \'Ref 1\' );</i><br>' );
+	$test->Owner( 'Ref 1' );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	
 	//
-	// Add status.
+	// Add state.
 	//
-	echo( '<i>$test->Status( \'Original\', TRUE );</i><br>' );
-	$test->Status( 'Original', TRUE );
-	echo( '<i>$test->Status( \'Processed\', TRUE );</i><br>' );
-	$test->Status( 'Processed', TRUE );
+	echo( '<i>$test->State( \'Original\', TRUE );</i><br>' );
+	$test->State( 'Original', TRUE );
+	echo( '<i>$test->State( \'Processed\', TRUE );</i><br>' );
+	$test->State( 'Processed', TRUE );
 	echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
 	

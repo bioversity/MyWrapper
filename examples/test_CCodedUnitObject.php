@@ -69,12 +69,6 @@ try
 	$object1 = new CCodedUnitObject();
 	echo( '<i>$object1->Code( \'ENTITY1\' );</i><br>' );
 	$object1->Code( 'ENTITY1' );
-	echo( '<i>$object1->Kind( \'OBJECT\', TRUE );</i><br>' );
-	$object1->Kind( 'OBJECT', TRUE );
-	echo( '<i>$object1->Kind( \'PERSON\', TRUE );</i><br>' );
-	$object1->Kind( 'PERSON', TRUE );
-	echo( '<i>$object1->Modified( new CDataTypeStamp() );</i><br>' );
-	$object1->Modified( new CDataTypeStamp() );
 	echo( '<pre>' ); print_r( $object1 ); echo( '</pre>' );
 	echo( '<hr>' );
 	
@@ -83,12 +77,6 @@ try
 	$object2 = new CCodedUnitObject();
 	echo( '<i>$object2->Code( \'ENTITY2\' );</i><br>' );
 	$object2->Code( 'ENTITY2' );
-	echo( '<i>$object2->Kind( \'OBJECT\', TRUE );</i><br>' );
-	$object2->Kind( 'OBJECT', TRUE );
-	echo( '<i>$object2->Kind( \'USER\', TRUE );</i><br>' );
-	$object2->Kind( 'USER', TRUE );
-	echo( '<i>$object2->Modified( new CDataTypeStamp() );</i><br>' );
-	$object2->Modified( new CDataTypeStamp() );
 	echo( '<i>$object2->Valid( $object1 );</i><br>' );
 	$object2->Valid( $object1 );
 	echo( '<pre>' ); print_r( $object2 ); echo( '</pre>' );
