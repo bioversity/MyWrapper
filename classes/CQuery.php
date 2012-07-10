@@ -516,28 +516,6 @@ class CQuery extends CStatusObject
 						//
 						// Iterate AND statements.
 						//
-					/*
-						$keys = array_keys( $theQuery[ kOPERATOR_AND ] );
-						foreach( $keys as $key )
-						{
-							//
-							// Match nested condition.
-							//
-							if( array_key_exists( $theCondition,
-												  $theQuery[ kOPERATOR_AND ][ $key ] ) )
-							{
-								//
-								// Append to nested condition.
-								//
-								$theQuery[ kOPERATOR_AND ][ $key ][ $theCondition ][]
-									= $theStatement;
-								
-								return;												// ==>
-							
-							} // Matched nested condition.
-						
-						} // Iterating AND statements.
-					*/
 						foreach( $theQuery[ kOPERATOR_AND ] as & $tmp )
 						{
 							//
