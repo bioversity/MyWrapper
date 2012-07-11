@@ -124,9 +124,8 @@ class CContact extends CEntity
 	public function Mail( $theValue = NULL, $theType = NULL, $getOld = FALSE )
 	{
 		return CAttribute::ManageTypedOffset( $this,
-											  kOFFSET_MAIL, kTAG_DATA,
-											  kTAG_KIND, $theType, $theValue,
-											  $getOld );							// ==>
+											  kOFFSET_MAIL, kTAG_DATA, kTAG_KIND,
+											  $theType, $theValue, $getOld );		// ==>
 
 	} // Mail.
 

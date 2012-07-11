@@ -367,6 +367,7 @@
 <li class="constant  "><a href="#kTAG_NODE" title="kTAG_NODE :: Graph node offset."><span class="description">Graph node offset.</span><pre>kTAG_NODE</pre></a></li>
 <li class="constant  "><a href="#kTAG_OBJECT" title="kTAG_OBJECT :: Object offset."><span class="description">Object offset.</span><pre>kTAG_OBJECT</pre></a></li>
 <li class="constant  "><a href="#kTAG_OUT" title="kTAG_OUT :: Outgoing tag."><span class="description">Outgoing tag.</span><pre>kTAG_OUT</pre></a></li>
+<li class="constant  "><a href="#kTAG_OWNER" title="kTAG_OWNER :: Owner tag."><span class="description">Owner tag.</span><pre>kTAG_OWNER</pre></a></li>
 <li class="constant  "><a href="#kTAG_PATH" title="kTAG_PATH :: Path offset."><span class="description">Path offset.</span><pre>kTAG_PATH</pre></a></li>
 <li class="constant  "><a href="#kTAG_PATTERN" title="kTAG_PATTERN :: Pattern."><span class="description">Pattern.</span><pre>kTAG_PATTERN</pre></a></li>
 <li class="constant  "><a href="#kTAG_PREDICATE" title="kTAG_PREDICATE :: Predicate offset."><span class="description">Predicate offset.</span><pre>kTAG_PREDICATE</pre></a></li>
@@ -390,6 +391,7 @@ but a reference to another term object. Cross-references can be of several kinds
 <li class="constant  "><a href="#kTAG_ROLE" title="kTAG_ROLE :: Role."><span class="description">Role.</span><pre>kTAG_ROLE</pre></a></li>
 <li class="constant  "><a href="#kTAG_SINGLETON_ID" title="kTAG_SINGLETON_ID :: Singleton default identifier."><span class="description">Singleton default identifier.</span><pre>kTAG_SINGLETON_ID</pre></a></li>
 <li class="constant  "><a href="#kTAG_SOURCE" title="kTAG_SOURCE :: Source."><span class="description">Source.</span><pre>kTAG_SOURCE</pre></a></li>
+<li class="constant  "><a href="#kTAG_STATE" title="kTAG_STATE :: State."><span class="description">State.</span><pre>kTAG_STATE</pre></a></li>
 <li class="constant  "><a href="#kTAG_STATUS" title="kTAG_STATUS :: Status."><span class="description">Status.</span><pre>kTAG_STATUS</pre></a></li>
 <li class="constant  "><a href="#kTAG_SUBJECT" title="kTAG_SUBJECT :: Subject offset."><span class="description">Subject offset.</span><pre>kTAG_SUBJECT</pre></a></li>
 <li class="constant  "><a href="#kTAG_TAG" title="kTAG_TAG :: Tag offset."><span class="description">Tag offset.</span><pre>kTAG_TAG</pre></a></li>
@@ -3186,6 +3188,12 @@ the value or values used by the public to refer to that object.</p>
 <div class="row collapse"><div class="detail-description"><p class="long_description"><p>This is the tag that represents the outgoing direction, it can be used for tagging items
 that the current object points to.</p></p></div></div>
 </div>
+<a name="kTAG_OWNER" id="kTAG_OWNER"> </a><div class="element clickable constant  kTAG_OWNER" data-toggle="collapse" data-target=".kTAG_OWNER .collapse">
+<h2>Owner tag.</h2>
+<pre>kTAG_OWNER </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><p class="long_description"><p>This tag identifies the object that owns, controls or generated the current one.</p></p></div></div>
+</div>
 <a name="kTAG_PATH" id="kTAG_PATH"> </a><div class="element clickable constant  kTAG_PATH" data-toggle="collapse" data-target=".kTAG_PATH .collapse">
 <h2>Path offset.</h2>
 <pre>kTAG_PATH </pre>
@@ -3311,13 +3319,20 @@ the record that holds the sequence count.</p></p></div></div>
 <div class="row collapse"><div class="detail-description"><p class="long_description"><p>This tag is used as the default offset for indicating a source. A source indicates from
 where an object comes from, it is usually expressed as an URL.</p></p></div></div>
 </div>
+<a name="kTAG_STATE" id="kTAG_STATE"> </a><div class="element clickable constant  kTAG_STATE" data-toggle="collapse" data-target=".kTAG_STATE .collapse">
+<h2>State.</h2>
+<pre>kTAG_STATE </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><p class="long_description"><p>This tag is used as the default offset for indicating an object's state, it will
+generally be an array of elements defining the various states currenty associated with
+the object.</p></p></div></div>
+</div>
 <a name="kTAG_STATUS" id="kTAG_STATUS"> </a><div class="element clickable constant  kTAG_STATUS" data-toggle="collapse" data-target=".kTAG_STATUS .collapse">
 <h2>Status.</h2>
 <pre>kTAG_STATUS </pre>
 <div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"><p>This tag is used as the default offset for indicating an attribute's status or state, it
-will generally be an array of tags defining the various states associated with the
-object.</p></p></div></div>
+<div class="row collapse"><div class="detail-description"><p class="long_description"><p>This tag is used as the default offset for indicating an attribute's status, it will
+generally be an array of tags defining the various states associated with the object.</p></p></div></div>
 </div>
 <a name="kTAG_SUBJECT" id="kTAG_SUBJECT"> </a><div class="element clickable constant  kTAG_SUBJECT" data-toggle="collapse" data-target=".kTAG_SUBJECT .collapse">
 <h2>Subject offset.</h2>
@@ -3800,7 +3815,7 @@ you may not have missing elements.</p></p></div></div>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a6</a> and<br>
-            generated on 2012-07-06T19:02:15+02:00.<br></footer></div>
+            generated on 2012-07-11T12:27:23+02:00.<br></footer></div>
 </div>
 </body>
 </html>

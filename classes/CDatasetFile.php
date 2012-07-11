@@ -27,20 +27,6 @@
 require_once( kPATH_LIBRARY_SOURCE."CArrayObject.php" );
 
 /**
- * State.
- *
- * This include file contains the state trait definitions.
- */
-require_once( kPATH_LIBRARY_TRAITS."TState.php" );
-
-/**
- * Kind.
- *
- * This include file contains the kind trait definitions.
- */
-require_once( kPATH_LIBRARY_TRAITS."TKind.php" );
-
-/**
  *	Dataset file.
  *
  * This class implements a dataset file, it wraps the {@link CArrayObject parent} class
@@ -80,40 +66,6 @@ require_once( kPATH_LIBRARY_TRAITS."TKind.php" );
  */
 class CDatasetFile extends CArrayObject
 {
-		
-
-/*=======================================================================================
- *																						*
- *										TRAITS											*
- *																						*
- *======================================================================================*/
-
-	use
-	 
-	/*===================================================================================
-	 *	State																			*
-	 *==================================================================================*/
-
-	/**
-	 * Manage file state.
-	 *
-	 * This attribute records the various terms relating to the current state or status of
-	 * the file, in particular, it is is an original or processed file.
-	 */
-	TState,
-	 
-	/*===================================================================================
-	 *	Kind																			*
-	 *==================================================================================*/
-
-	/**
-	 * Manage file kind.
-	 *
-	 * This attribute records the various terms relating to the current kind or type of the
-	 * file.
-	 */
-	TKind;
-
 		
 
 /*=======================================================================================
@@ -257,6 +209,80 @@ class CDatasetFile extends CArrayObject
 		return CAttribute::ManageOffset( $this, kTAG_OWNER, $theValue, $getOld );	// ==>
 
 	} // Owner.
+
+	 
+	/*===================================================================================
+	 *	State																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage the state.
+	 *
+	 * This method can be used to handle the object's list of {@link kTAG_STATE states}, it
+	 * uses the standard accessor {@link CAttribute::ManageArrayOffset() method} to manage
+	 * the list of tags associated with the various states of the current object.
+	 *
+	 * Each element of this list should indicate an object state, status or quality. This
+	 * information indicates in which state the object is in.
+	 *
+	 * For a more thorough reference of how this method works, please consult the
+	 * {@link CAttribute::ManageArrayOffset() CAttribute::ManageArrayOffset} method, in
+	 * which the second parameter will be the constant {@link kTAG_STATE kTAG_STATE}.
+	 *
+	 * @param mixed					$theValue			Value or index.
+	 * @param mixed					$theOperation		Operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return mixed
+	 *
+	 * @uses CAttribute::ManageArrayOffset()
+	 *
+	 * @see kTAG_STATE
+	 */
+	public function State( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
+	{
+		return CAttribute::ManageArrayOffset
+					( $this, kTAG_STATE, $theValue, $theOperation, $getOld );		// ==>
+
+	} // State.
+
+	 
+	/*===================================================================================
+	 *	Kind																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage the kind.
+	 *
+	 * This method can be used to handle the object's list of {@link kTAG_KIND kinds}, it
+	 * uses the standard accessor {@link CAttribute::ManageArrayOffset() method} to manage
+	 * the list of kind, type or function tags associated with the file.
+	 *
+	 * Each element of this list should indicate a specific kind or type of the object or a
+	 * specific function that the object has.
+	 *
+	 * For a more thorough reference of how this method works, please consult the
+	 * {@link CAttribute::ManageArrayOffset() CAttribute::ManageArrayOffset} method, in
+	 * which the second parameter will be the constant {@link kTAG_KIND kTAG_KIND}.
+	 *
+	 * @param mixed					$theValue			Value or index.
+	 * @param mixed					$theOperation		Operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return mixed
+	 *
+	 * @uses CAttribute::ManageArrayOffset()
+	 *
+	 * @see kTAG_KIND
+	 */
+	public function Kind( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
+	{
+		return CAttribute::ManageArrayOffset
+					( $this, kTAG_KIND, $theValue, $theOperation, $getOld );		// ==>
+
+	} // Kind.
 
 	 
 	/*===================================================================================

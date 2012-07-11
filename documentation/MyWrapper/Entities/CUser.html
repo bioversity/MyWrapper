@@ -36,7 +36,7 @@
  always use complex data type instances derived from the <a href="../../MyWrapper/Framework/CDataType.html">standard</a>
  types&lt;/b&gt;</em>.</p><p>The unique identifier of this class is composed by the default <a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_index">index</a> of  the object, prefixed by the <a href="../../MyWrapper/Entities/_classes---CUser.inc.php.html#definekENTITY_USER">kENTITY_USER</a> token and the  <a href="../../MyWrapper/Definitions/_defines---Tokens.inc.php.html#definekTOKEN_CLASS_SEPARATOR">kTOKEN_CLASS_SEPARATOR</a> token, this allows users and other  types of <a href="../../MyWrapper/Entities/CEntity.html">entities</a> to share the same <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a>; this is enforced  both in the <a href="../../MyWrapper/Entities/CUser.html#methodHashIndex">HashIndex</a> method, to which you only need to pass the user  <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a>, and in the protected <a href="../../MyWrapper/Entities/CUser.html#method_PrepareCommit">_PrepareCommit</a> method  which will place the resulting string in the global <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_GID">identifier</a>.</p></p>
 		<p class="notes">
-			Located in <a class="field" href="_classes---CUser.php.html">/classes/CUser.php</a> (line <span class="field">88</span>)
+			Located in <a class="field" href="_classes---CUser.php.html">/classes/CUser.php</a> (line <span class="field">95</span>)
 		</p>
 		
 				
@@ -171,11 +171,11 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="methodHashIndex" id="HashIndex"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static HashIndex</span> (line <span class="line-number">306</span>)
+		<span class="method-title">static HashIndex</span> (line <span class="line-number">335</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -205,11 +205,11 @@
 			
 	</div>
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Constructor.png" />
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">120</span>)
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">149</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -248,11 +248,11 @@
 			
 	</div>
 <a name="methodManager" id="Manager"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Manager</span> (line <span class="line-number">261</span>)
+		<span class="method-title">Manager</span> (line <span class="line-number">290</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -284,11 +284,11 @@
 			
 	</div>
 <a name="methodoffsetSet" id="offsetSet"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetSet</span> (line <span class="line-number">344</span>)
+		<span class="method-title">offsetSet</span> (line <span class="line-number">373</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -326,11 +326,11 @@
 			
 	</div>
 <a name="methodoffsetUnset" id="offsetUnset"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetUnset</span> (line <span class="line-number">382</span>)
+		<span class="method-title">offsetUnset</span> (line <span class="line-number">411</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -365,11 +365,11 @@
 			
 	</div>
 <a name="methodPassword" id="Password"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Password</span> (line <span class="line-number">185</span>)
+		<span class="method-title">Password</span> (line <span class="line-number">214</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -401,11 +401,11 @@
 			
 	</div>
 <a name="methodRole" id="Role"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Role</span> (line <span class="line-number">219</span>)
+		<span class="method-title">Role</span> (line <span class="line-number">248</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -440,11 +440,11 @@
 			
 	</div>
 <a name="method_PrepareCommit" id="_PrepareCommit"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">430</span>)
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">459</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -509,12 +509,6 @@
 							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#method__construct">CCodedUnitObject::__construct()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">CCodedUnitObject::Code()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCreated">CCodedUnitObject::Created()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodKind">CCodedUnitObject::Kind()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodModified">CCodedUnitObject::Modified()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodoffsetSet">CCodedUnitObject::offsetSet()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
@@ -724,7 +718,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 06 Jul 2012 19:01:47 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Wed, 11 Jul 2012 12:28:15 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

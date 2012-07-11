@@ -59,12 +59,12 @@
 <li class="method public "><a href="#HashIndex" title="HashIndex :: Hash index."><span class="description">Hash index.</span><pre>HashIndex()</pre></a></li>
 <li class="method public "><a href="#NewObject" title="NewObject :: Instantiate object."><span class="description">Instantiate object.</span><pre>NewObject()</pre></a></li>
 <li class="method public "><a href="#NormaliseRelatedObject" title="NormaliseRelatedObject :: Normalise object reference property."><span class="description">Normalise object reference property.</span><pre>NormaliseRelatedObject()</pre></a></li>
+<li class="method public "><a href="#NormaliseRelatedPredicate" title="NormaliseRelatedPredicate :: Normalise predicate reference property."><span class="description">Normalise predicate reference property.</span><pre>NormaliseRelatedPredicate()</pre></a></li>
 <li class="method public "><a href="#ObjectIdentifier" title="ObjectIdentifier :: Return object identifier."><span class="description">Return object identifier.</span><pre>ObjectIdentifier()</pre></a></li>
 <li class="method public "><a href="#Persistent" title="Persistent :: Check whether object is persistent."><span class="description">Check whether object is persistent.</span><pre>Persistent()</pre></a></li>
 <li class="method public "><a href="#Reference" title="Reference :: Convert an object to a reference."><span class="description">Convert an object to a reference.</span><pre>Reference()</pre></a></li>
 <li class="method public "><a href="#__toString" title="__toString :: Return object identifier."><span class="description">Return object identifier.</span><pre>__toString()</pre></a></li>
 <li class="nav-header protected">» Protected</li>
-<li class="method protected "><a href="#NormaliseRelatedPredicate" title="NormaliseRelatedPredicate :: Normalise predicate reference property."><span class="description">Normalise predicate reference property.</span><pre>NormaliseRelatedPredicate()</pre></a></li>
 <li class="method protected "><a href="#_Commit" title="_Commit :: Store object in container."><span class="description">Store object in container.</span><pre>_Commit()</pre></a></li>
 <li class="method protected "><a href="#_CommitReferences" title="_CommitReferences :: Commit references."><span class="description">Commit references.</span><pre>_CommitReferences()</pre></a></li>
 <li class="method protected "><a href="#_GetTags" title="_GetTags :: Get attribute tags."><span class="description">Get attribute tags.</span><pre>_GetTags()</pre></a></li>
@@ -297,6 +297,54 @@ to another object, the method will perform the following conversions:</p>
 <div class="subelement response"><code>mixed</code></div>
 </div></div>
 </div>
+<a name="NormaliseRelatedPredicate" id="NormaliseRelatedPredicate"></a><div class="element clickable method public NormaliseRelatedPredicate" data-toggle="collapse" data-target=".NormaliseRelatedPredicate .collapse">
+<h2>Normalise predicate reference property.</h2>
+<pre>NormaliseRelatedPredicate(mixed $theValue) : mixed</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This method can be used to normalise a property that is supposed to be a relation
+predicate, the method will perform the following conversions:</p>
+
+<ul>
+<li><i>NULL</i>: No conversion.
+<li><i>FALSE</i>: No conversion.
+<li><i>CGraphNodeObject</i>: The method will pass the parameter to the
+    <a href="NormaliseRelatedObject()">NormaliseRelatedObject</a> method.
+<li><i><a href="CDataType">CDataType</a></i>: The method will pass the parameter to the
+    <a href="NormaliseRelatedObject()">NormaliseRelatedObject</a> method.
+<li><i>Array</i> or <i>ArrayObject</i>: The method will pass the parameter to the
+    <a href="NormaliseRelatedObject()">NormaliseRelatedObject</a> method.
+<li><i>other</i>: Any other type will be converted to a string.
+</ul>
+
+<p>The method will return the converted value, derived classes should first handle
+custom types and pass other types to the parent method.</p></p>
+<table class="table table-bordered">
+<tr>
+<th>static</th>
+<td></td>
+</tr>
+<tr>
+<th>uses</th>
+<td>\_IsCommitted()</td>
+</tr>
+<tr>
+<th>see</th>
+<td>\kTAG_LID</td>
+</tr>
+<tr>
+<th>used_by</th>
+<td>\CRelatedUnitObject::Relate()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$theValue</h4>
+<code>mixed</code><p>Relation predicate.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>mixed</code></div>
+</div></div>
+</div>
 <a name="ObjectIdentifier" id="ObjectIdentifier"></a><div class="element clickable method public ObjectIdentifier" data-toggle="collapse" data-target=".ObjectIdentifier .collapse">
 <h2>Return object identifier.</h2>
 <pre>ObjectIdentifier(mixed $theValue) : string | NULL</pre>
@@ -452,54 +500,6 @@ can be used as a reference to that object.</p>
 </table>
 <h3>Returns</h3>
 <div class="subelement response"><code>string</code></div>
-</div></div>
-</div>
-<a name="NormaliseRelatedPredicate" id="NormaliseRelatedPredicate"></a><div class="element clickable method protected NormaliseRelatedPredicate" data-toggle="collapse" data-target=".NormaliseRelatedPredicate .collapse">
-<h2>Normalise predicate reference property.</h2>
-<pre>NormaliseRelatedPredicate(mixed $theValue) : mixed</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<p class="long_description"><p>This method can be used to normalise a property that is supposed to be a relation
-predicate, the method will perform the following conversions:</p>
-
-<ul>
-<li><i>NULL</i>: No conversion.
-<li><i>FALSE</i>: No conversion.
-<li><i>CGraphNodeObject</i>: The method will pass the parameter to the
-    <a href="NormaliseRelatedObject()">NormaliseRelatedObject</a> method.
-<li><i><a href="CDataType">CDataType</a></i>: The method will pass the parameter to the
-    <a href="NormaliseRelatedObject()">NormaliseRelatedObject</a> method.
-<li><i>Array</i> or <i>ArrayObject</i>: The method will pass the parameter to the
-    <a href="NormaliseRelatedObject()">NormaliseRelatedObject</a> method.
-<li><i>other</i>: Any other type will be converted to a string.
-</ul>
-
-<p>The method will return the converted value, derived classes should first handle
-custom types and pass other types to the parent method.</p></p>
-<table class="table table-bordered">
-<tr>
-<th>access</th>
-<td>protected</td>
-</tr>
-<tr>
-<th>uses</th>
-<td>\_IsCommitted()</td>
-</tr>
-<tr>
-<th>see</th>
-<td>\kTAG_LID</td>
-</tr>
-<tr>
-<th>used_by</th>
-<td>\CRelatedUnitObject::Relate()</td>
-</tr>
-</table>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$theValue</h4>
-<code>mixed</code><p>Relation predicate.</p></div>
-<h3>Returns</h3>
-<div class="subelement response"><code>mixed</code></div>
 </div></div>
 </div>
 <a name="_Commit" id="_Commit"></a><div class="element clickable method protected _Commit" data-toggle="collapse" data-target="._Commit .collapse">
@@ -893,7 +893,7 @@ smaller.</p>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a6</a> and<br>
-            generated on 2012-07-06T19:02:16+02:00.<br></footer></div>
+            generated on 2012-07-11T12:27:23+02:00.<br></footer></div>
 </div>
 </body>
 </html>

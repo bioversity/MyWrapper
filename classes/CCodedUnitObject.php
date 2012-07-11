@@ -27,13 +27,6 @@
 require_once( kPATH_LIBRARY_SOURCE."CRelatedUnitObject.php" );
 
 /**
- * Kind.
- *
- * This include file contains the kind trait definitions.
- */
-require_once( kPATH_LIBRARY_TRAITS."TKind.php" );
-
-/**
  * Coded unit object.
  *
  * Objects derived from this class have the {@link Code() code} predefined

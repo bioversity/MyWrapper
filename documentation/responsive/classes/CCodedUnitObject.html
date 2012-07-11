@@ -57,9 +57,6 @@
 <li class="nav-header">
 <i class="icon-custom icon-method"></i> Methods</li>
 <li class="method public "><a href="#Code" title="Code :: Manage code."><span class="description">Manage code.</span><pre>Code()</pre></a></li>
-<li class="method public "><a href="#Created" title="Created :: Manage object creation time stamp."><span class="description">Manage object creation time stamp.</span><pre>Created()</pre></a></li>
-<li class="method public "><a href="#Kind" title="Kind :: Manage kind."><span class="description">Manage kind.</span><pre>Kind()</pre></a></li>
-<li class="method public "><a href="#Modified" title="Modified :: Manage object last modification time stamp."><span class="description">Manage object last modification time stamp.</span><pre>Modified()</pre></a></li>
 <li class="method public "><a href="#__construct" title="__construct :: Instantiate class."><span class="description">Instantiate class.</span><pre>__construct()</pre></a></li>
 <li class="method public "><a href="#offsetSet" title="offsetSet :: Set a value for a given offset."><span class="description">Set a value for a given offset.</span><pre>offsetSet()</pre></a></li>
 <li class="method public "><a href="#offsetUnset" title="offsetUnset :: Reset a value for a given offset."><span class="description">Reset a value for a given offset.</span><pre>offsetUnset()</pre></a></li>
@@ -80,21 +77,9 @@
 <div href="../classes/CCodedUnitObject.html" class="element class">
 <p class="short_description">Coded unit object.</p>
 <div class="details">
-<p class="long_description"><p>Objects derived from this class have the following predefined properties:</p>
-
-<ul>
-<li><i><a href="kTAG_CODE">kTAG_CODE</a></i>: This attribute represents the current object's
-    <a href="Code()">code</a>, identifier or acronym.
-<li><i><a href="kTAG_KIND">kTAG_KIND</a></i>: This attribute represents the current object's
-    <a href="Kind()">kind</a> or type.
-<li><i><a href="kTAG_CREATED">kTAG_CREATED</a></i>: This offset holds the object's creation
-    <a href="Created()">time stamp</a>.
-<li><i><a href="kTAG_MODIFIED">kTAG_MODIFIED</a></i>: This offset holds the object's last
-    modification time stamp, this property should be used to mark all objects.
-</ul>
-
-<p>By default, the unique <a href="_index()">identifier</a> of the object is its
-<a href="Code()">code</a>, which is also its <a href="_id()">id</a>.</p>
+<p class="long_description"><p>Objects derived from this class have the <a href="Code()">code</a> predefined
+<a href="kTAG_CODE">properties</a>, by default, the unique <a href="_index()">identifier</a> of the
+object is its <a href="Code()">code</a>, which is also its <a href="_id()">id</a>.</p>
 
 <p>Objects of this class require at least the <a href="Code()">code</a> <a href="kTAG_CODE">offset</a>
 to have an <a href="_IsInited()">initialised</a> <a href="kFLAG_STATE_INITED">status</a>.</p></p>
@@ -142,144 +127,6 @@ will be the constant <a href="kTAG_CODE">kTAG_CODE</a>.</p></p>
 <div class="subelement argument">
 <h4>$theValue</h4>
 <code>mixed</code><p>Value.</p></div>
-<div class="subelement argument">
-<h4>$getOld</h4>
-<code>boolean</code><p>TRUE get old value.</p></div>
-<h3>Returns</h3>
-<div class="subelement response"><code>string</code></div>
-</div></div>
-</div>
-<a name="Created" id="Created"></a><div class="element clickable method public Created" data-toggle="collapse" data-target=".Created .collapse">
-<h2>Manage object creation time stamp.</h2>
-<pre>Created(NULL | FALSE | string $theValue, boolean $getOld) : string</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<p class="long_description"><p>This method can be used to manage the object <a href="kTAG_CREATED">creation</a>
-time-stamp, it uses the standard accessor <a href="CAttribute::ManageOffset()">method</a>
-to manage the <a href="kTAG_MODIFIED">offset</a>:</p>
-
-<ul>
-<li><b>$theValue</b>: The value or operation:
- <ul>
-    <li><i>NULL</i>: Return the current value.
-    <li><i>FALSE</i>: Delete the value.
-    <li><i>other</i>: Set value.
- </ul>
-<li><b>$getOld</b>: Determines what the method will return:
- <ul>
-    <li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
-    <li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
- </ul>
-</ul></p>
-<table class="table table-bordered">
-<tr>
-<th>access</th>
-<td>public</td>
-</tr>
-<tr>
-<th>uses</th>
-<td>\CAttribute::ManageOffset()</td>
-</tr>
-<tr>
-<th>see</th>
-<td>\kTAG_CREATED</td>
-</tr>
-</table>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$theValue</h4>
-<code>NULLFALSEstring</code><p>Object creation date.</p></div>
-<div class="subelement argument">
-<h4>$getOld</h4>
-<code>boolean</code><p>TRUE get old value.</p></div>
-<h3>Returns</h3>
-<div class="subelement response"><code>string</code></div>
-</div></div>
-</div>
-<a name="Kind" id="Kind"></a><div class="element clickable method public Kind" data-toggle="collapse" data-target=".Kind .collapse">
-<h2>Manage kind.</h2>
-<pre>Kind(mixed $theValue, mixed $theOperation, boolean $getOld) : mixed</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<p class="long_description"><p>This method can be used to handle the object's <a href="kTAG_KIND">kinds</a>, it uses the
-standard accessor <a href="CAttribute::ManageArrayOffset()">method</a> to manage the list of
-kinds.</p>
-
-<p>Each element of this list should indicate a function or quality of the current
-object</p>
-
-<p>For a more thorough reference of how this method works, please consult the
-<a href="CAttribute::ManageArrayOffset()">CAttribute::ManageArrayOffset</a> method, in
-which the second parameter will be the constant <a href="kTAG_KIND">kTAG_KIND</a>.</p></p>
-<table class="table table-bordered">
-<tr>
-<th>access</th>
-<td>public</td>
-</tr>
-<tr>
-<th>uses</th>
-<td>\CAttribute::ManageArrayOffset()</td>
-</tr>
-<tr>
-<th>see</th>
-<td>\kTAG_KIND</td>
-</tr>
-</table>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$theValue</h4>
-<code>mixed</code><p>Value or index.</p></div>
-<div class="subelement argument">
-<h4>$theOperation</h4>
-<code>mixed</code><p>Operation.</p></div>
-<div class="subelement argument">
-<h4>$getOld</h4>
-<code>boolean</code><p>TRUE get old value.</p></div>
-<h3>Returns</h3>
-<div class="subelement response"><code>mixed</code></div>
-</div></div>
-</div>
-<a name="Modified" id="Modified"></a><div class="element clickable method public Modified" data-toggle="collapse" data-target=".Modified .collapse">
-<h2>Manage object last modification time stamp.</h2>
-<pre>Modified(NULL | FALSE | string $theValue, boolean $getOld) : string</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<p class="long_description"><p>This method can be used to manage the object last <a href="kTAG_MODIFIED">modification</a>
-time-stamp, or the date in which the last modification was made on the object, it
-uses the standard accessor <a href="CAttribute::ManageOffset()">method</a> to manage the
-<a href="kTAG_MODIFIED">offset</a>:</p>
-
-<ul>
-<li><b>$theValue</b>: The value or operation:
- <ul>
-    <li><i>NULL</i>: Return the current value.
-    <li><i>FALSE</i>: Delete the value.
-    <li><i>other</i>: Set value.
- </ul>
-<li><b>$getOld</b>: Determines what the method will return:
- <ul>
-    <li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
-    <li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
- </ul>
-</ul></p>
-<table class="table table-bordered">
-<tr>
-<th>access</th>
-<td>public</td>
-</tr>
-<tr>
-<th>uses</th>
-<td>\CAttribute::ManageOffset()</td>
-</tr>
-<tr>
-<th>see</th>
-<td>\kTAG_MODIFIED</td>
-</tr>
-</table>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$theValue</h4>
-<code>NULLFALSEstring</code><p>Object last modification date.</p></div>
 <div class="subelement argument">
 <h4>$getOld</h4>
 <code>boolean</code><p>TRUE get old value.</p></div>
@@ -382,7 +229,7 @@ set.</p></p>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a6</a> and<br>
-            generated on 2012-07-06T19:02:15+02:00.<br></footer></div>
+            generated on 2012-07-11T12:27:23+02:00.<br></footer></div>
 </div>
 </body>
 </html>

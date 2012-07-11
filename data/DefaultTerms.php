@@ -1258,58 +1258,73 @@ exit( "Done!\n" );
 		//
 		$components = array
 		(
-			array( 'id'	=> kTYPE_TRAIT,
-				   'syn' => 'kTYPE_TRAIT',
-				   'nam' => 'Trait',
-				   'def' => 'This term represents a generic trait, this type of term '
-				   		   .'generally refers to what a measured data element refers to.' ),
-			array( 'id'	=> kTYPE_METHOD,
-				   'syn' => 'kTYPE_METHOD',
-				   'nam' => 'Method',
-				   'def' => 'This term represents a generic method, this type of term '
-				   		   .'generally refers to the method by which a data element '
-				   		   .'was obtained.' ),
-			array( 'id'	=> kTYPE_MEASURE,
-				   'syn' => 'kTYPE_MEASURE',
-				   'nam' => 'Measure',
-				   'def' => 'This term represents a generic scale or measure, this type '
-						   .'of term generally refers to the scale and unit of '
-						   .'a data element.' ),
-			array( 'id'	=> kTYPE_NAMESPACE,
-				   'syn' => 'kTYPE_NAMESPACE',
-				   'nam' => 'Namespace',
-				   'def' => 'This term represents a namespace.' ),
 			array( 'id'	=> kTYPE_ROOT,
 				   'syn' => 'kTYPE_ROOT',
 				   'nam' => 'Root',
-				   'def' => 'This term represents a root term or an entry point '
-				   		   .'into an ontology.' ),
-			array( 'id'	=> kTYPE_PREDICATE,
-				   'syn' => 'kTYPE_PREDICATE',
-				   'nam' => 'Predicate',
-				   'def' => 'This term represents a predicate, this type of term '
-				   		   .'generally is used to qualify a relation between two terms.' ),
+				   'def' => 'A root node is an entry point into an ontology, '
+				   		   .'it represents the term that defines the whole ontology.' ),
+			array( 'id'	=> kTYPE_NAMESPACE,
+				   'syn' => 'kTYPE_NAMESPACE',
+				   'nam' => 'Namespace',
+				   'def' => 'A namespace term is used as a container for a set of other '
+				   		   .'term identifiers to allow the disambiguation of homonym '
+				   		   .'identifiers residing in different namespaces. In general, '
+				   		   .'namespaces are grouped by functionality.' ),
 			array( 'id'	=> kTYPE_ATTRIBUTE,
 				   'syn' => 'kTYPE_ATTRIBUTE',
 				   'nam' => 'Attribute',
-				   'def' => 'This term represents a generic attribute.' ),
-			array( 'id'	=> kTYPE_STRUCTURE,
-				   'syn' => 'kTYPE_STRUCTURE',
-				   'nam' => 'Structure',
-				   'def' => 'This term represents a data structure.' ),
+				   'def' => 'An attribute term is used to tag attributes or properties of '
+				   		   .'an object, it describes and identifies a specific property '
+				   		   .'or quality of an object.' ),
+			array( 'id'	=> kTYPE_TYPEDEF,
+				   'syn' => 'kTYPE_TYPEDEF',
+				   'nam' => 'Type definition',
+				   'def' => 'A type definition node is used to record the data structure '
+				   		   .'of an attribute or property. It forms a graph of nodes which '
+				   		   .'are in turn type definitions or primitive types, this '
+				   		   .'structure can be used to illustrate a data structure.' ),
+			array( 'id'	=> kTYPE_PREDICATE,
+				   'syn' => 'kTYPE_PREDICATE',
+				   'nam' => 'Predicate',
+				   'def' => 'A predicate term is used to qualify the relation between a '
+						   .'subject and an object, it represents the type or kind of the '
+				   		   .'relationship.' ),
+			array( 'id'	=> kTYPE_TRAIT,
+				   'syn' => 'kTYPE_TRAIT',
+				   'nam' => 'Trait',
+				   'def' => 'A trait node is generally a leaf node of an ontology, it '
+				   		   .'defines a leaf concept that may be used to annotate data. '
+				   		   .'Plant height, for instance, is a trait. The only child nodes '
+				   		   .'of a trait can be methods and scales.' ),
+			array( 'id'	=> kTYPE_METHOD,
+				   'syn' => 'kTYPE_METHOD',
+				   'nam' => 'Method',
+				   'def' => 'A method is a node that defines the specific method or '
+				   		   .'workflow with which trait data is collected. Methods are used '
+				   		   .'to record variations in the way a specific trait data is '
+				   		   .'measured or collected.' ),
+			array( 'id'	=> kTYPE_MEASURE,
+				   'syn' => 'kTYPE_MEASURE',
+				   'nam' => 'Measure',
+				   'def' => 'A measure or scale node defines the specific data type of '
+				   		   .'a trait or method. One method or trait may be expressed in '
+				   		   .'many different types of measures or scales.' ),
 			array( 'id'	=> kTYPE_ANNOTATION,
 				   'syn' => 'kTYPE_ANNOTATION',
 				   'nam' => 'Annotation',
-				   'def' => 'This term represents an annotation term, this type '
-						   .'of term is used to tag data elements.' ),
+				   'def' => 'Data elements are tagged by annotations, these annotations '
+				   		   .'describe the trait, method and scale of the data and are '
+				   		   .'expressed as a sequence of terms.' ),
 			array( 'id'	=> kTYPE_ENUMERATION,
 				   'syn' => 'kTYPE_ENUMERATION',
 				   'nam' => 'Enumeration',
-				   'def' => 'This term represents an enumerated term.' ),
+				   'def' => 'An enumeration is a term that represents an element of a '
+				   		   .'controlled vocabulary.' ),
 			array( 'id'	=> kTYPE_DICTIONARY,
 				   'syn' => 'kTYPE_DICTIONARY',
 				   'nam' => 'Dictionary',
-				   'def' => 'This term represents a dictionary term.' )
+				   'def' => 'A dictionary node is a root node of a graph that represents a '
+				   		   .'data structure or dictionary.' )
 		);
 		
 		//

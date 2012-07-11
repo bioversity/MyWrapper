@@ -34,27 +34,6 @@ require_once( kPATH_LIBRARY_SOURCE."CRelatedUnitObject.php" );
 require_once( kPATH_LIBRARY_SOURCE."CMongoGridContainer.php" );
 
 /**
- * Name and description.
- *
- * This include file contains the name and description trait definitions.
- */
-require_once( kPATH_LIBRARY_TRAITS."TNameDescription.php" );
-
-/**
- * Domain and category.
- *
- * This include file contains the domain and category trait definitions.
- */
-require_once( kPATH_LIBRARY_TRAITS."TDomainCategory.php" );
-
-/**
- * Creation and modification.
- *
- * This include file contains the creation and last modification trait definitions.
- */
-require_once( kPATH_LIBRARY_TRAITS."TDateStamp.php" );
-
-/**
  * Dataset object.
  *
  * Besides the inherited properties. datasets have the following attributes:
@@ -88,56 +67,6 @@ require_once( kPATH_LIBRARY_TRAITS."TDateStamp.php" );
  */
 class CDataset extends CRelatedUnitObject
 {
-		
-
-/*=======================================================================================
- *																						*
- *										TRAITS											*
- *																						*
- *======================================================================================*/
-
-	use
-	 
-	/*===================================================================================
-	 *	Name and description															*
-	 *==================================================================================*/
-
-	/**
-	 * Manage dataset name and description.
-	 *
-	 * These methods record the dataset name or label which can be expressed in several
-	 * languages and also the dataset description and notes.
-	 *
-	 * The {@link Name() name} attribute is not to be confused with the @link TTitle title}, the
-	 * latter represents the dataset identifier provided by the user, this attribute
-	 * represents a name or label that can be used by humans to refer to this dataset.
-	 */
-	TNameDescription,
-	 
-	/*===================================================================================
-	 *	Domain & Category																*
-	 *==================================================================================*/
-
-	/**
-	 * Manage domains and categories.
-	 *
-	 * These two attributes represent respectively the {@link Domain() domains} covered by
-	 * the dataset and the {@link Category() categories} to which the dataset belongs.
-	 */
-	TDomainCategory,
-	 
-	/*===================================================================================
-	 *	Creation and modification dates													*
-	 *==================================================================================*/
-
-	/**
-	 * Manage creation and modification dates.
-	 *
-	 * These two attributes represent respectively the dataset's {@link Created() creation}
-	 * and the the dataset's last {@link Modified() modification} time-stamps.
-	 */
-	TDateStamp;
-
 		
 
 /*=======================================================================================
@@ -295,6 +224,286 @@ class CDataset extends CRelatedUnitObject
 		return CAttribute::ManageOffset( $this, kENTITY_USER, $theValue, $getOld );	// ==>
 
 	} // User.
+
+	 
+	/*===================================================================================
+	 *	Name																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage name.
+	 *
+	 * This method can be used to manage an object's {@link kTAG_NAME name}, it manages an
+	 * array of structures with the following offsets:
+	 *
+	 * <ul>
+	 *	<li><i>{@link kTAG_LANGUAGE kTAG_LANGUAGE}</i>: The name's language, this element
+	 *		represents the code of the language in which the next element is expressed in.
+	 *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The object's name or label.
+	 * </ul>
+	 *
+	 * No two elements may share the same language and only one element may omit the
+	 * language, the parameters to this method are:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: The name or operation:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Return the current value selected by the second parameter.
+	 *		<li><i>FALSE</i>: Delete the value selected by the second parameter.
+	 *		<li><i>other</i>: Set value selected by the second parameter.
+	 *	 </ul>
+	 *	<li><b>$theLanguage</b>: The name's language code:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: This value indicates that the name has no language, in general,
+	 *			when adding elements, this case applies to default elements.
+	 *		<li><i>other</i>: All other types will be interpreted as the language code.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
+	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * @param mixed					$theValue			Term name or operation.
+	 * @param mixed					$theLanguage		Term name language code.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 *
+	 * @uses CAttribute::ManageTypedOffset()
+	 *
+	 * @see kTAG_NAME kTAG_DATA kTAG_LANGUAGE
+	 */
+	public function Name( $theValue = NULL, $theLanguage = NULL, $getOld = FALSE )
+	{
+		return CAttribute::ManageTypedOffset( $this,
+											  kTAG_NAME, kTAG_DATA, kTAG_LANGUAGE,
+											  $theLanguage, $theValue, $getOld );	// ==>
+
+	} // Name.
+
+	 
+	/*===================================================================================
+	 *	Description																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage description.
+	 *
+	 * This method can be used to manage the {@link kTAG_DESCRIPTION description}, it
+	 * manages an array of structures with the following offsets:
+	 *
+	 * <ul>
+	 *	<li><i>{@link kTAG_LANGUAGE kTAG_LANGUAGE}</i>: The description's language, this
+	 *		element represents the code of the language in which the next element is
+	 *		expressed in.
+	 *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The dataset description or comment.
+	 * </ul>
+	 *
+	 * No two elements may share the same language and only one element may omit the
+	 * language, the parameters to this method are:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: The description or operation:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Return the current value selected by the second parameter.
+	 *		<li><i>FALSE</i>: Delete the value selected by the second parameter.
+	 *		<li><i>other</i>: Set value selected by the second parameter.
+	 *	 </ul>
+	 *	<li><b>$theLanguage</b>: The description's language code:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: This value indicates that the description has no language, in
+	 *			general, when adding elements, this case applies to default elements.
+	 *		<li><i>other</i>: All other types will be interpreted as the language code.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
+	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * @param mixed					$theValue			Term description or operation.
+	 * @param mixed					$theLanguage		Term description language code.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 *
+	 * @uses CAttribute::ManageTypedOffset()
+	 *
+	 * @see kTAG_DESCRIPTION kTAG_LANGUAGE
+	 */
+	public function Description( $theValue = NULL, $theLanguage = NULL, $getOld = FALSE )
+	{
+		return CAttribute::ManageTypedOffset( $this,
+											  kTAG_DESCRIPTION, kTAG_DATA,
+											  kTAG_LANGUAGE, $theLanguage,
+											  $theValue, $getOld );					// ==>
+
+	} // Description.
+
+	 
+	/*===================================================================================
+	 *	Domain																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage domains.
+	 *
+	 * This method can be used to handle the object's {@link kTAG_DOMAIN domains}, it uses
+	 * the standard accessor {@link CAttribute::ManageArrayOffset() method} to manage the
+	 * list of domains.
+	 *
+	 * Each element of this list should indicate a domain to which the current object
+	 * belongs to.
+	 *
+	 * For a more thorough reference of how this method works, please consult the
+	 * {@link CAttribute::ManageArrayOffset() CAttribute::ManageArrayOffset} method, in
+	 * which the second parameter will be the constant {@link kTAG_CATEGORY kTAG_CATEGORY}.
+	 *
+	 * @param mixed					$theValue			Value or index.
+	 * @param mixed					$theOperation		Operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return mixed
+	 *
+	 * @uses CAttribute::ManageArrayOffset()
+	 *
+	 * @see kTAG_DOMAIN
+	 */
+	public function Domain( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
+	{
+		return CAttribute::ManageArrayOffset
+					( $this, kTAG_DOMAIN, $theValue, $theOperation, $getOld );		// ==>
+
+	} // Domain.
+
+	 
+	/*===================================================================================
+	 *	Category																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage categories.
+	 *
+	 * This method can be used to handle the object's {@link kTAG_CATEGORY categories}, it
+	 * uses the standard accessor {@link CAttribute::ManageArrayOffset() method} to manage
+	 * the list of categories.
+	 *
+	 * Each element of this list should indicate a category to which the current object
+	 * belongs to.
+	 *
+	 * For a more thorough reference of how this method works, please consult the
+	 * {@link CAttribute::ManageArrayOffset() CAttribute::ManageArrayOffset} method, in
+	 * which the second parameter will be the constant {@link kTAG_CATEGORY kTAG_CATEGORY}.
+	 *
+	 * @param mixed					$theValue			Value or index.
+	 * @param mixed					$theOperation		Operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return mixed
+	 *
+	 * @uses CAttribute::ManageArrayOffset()
+	 *
+	 * @see kTAG_CATEGORY
+	 */
+	public function Category( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
+	{
+		return CAttribute::ManageArrayOffset
+					( $this, kTAG_CATEGORY, $theValue, $theOperation, $getOld );	// ==>
+
+	} // Category.
+
+	 
+	/*===================================================================================
+	 *	Created																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage object creation time stamp.
+	 *
+	 * This method can be used to manage the object {@link kTAG_CREATED creation}
+	 * time-stamp, it uses the standard accessor {@link CAttribute::ManageOffset() method}
+	 * to manage the {@link kTAG_MODIFIED offset}:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: The value or operation:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Return the current value.
+	 *		<li><i>FALSE</i>: Delete the value.
+	 *		<li><i>other</i>: Set value.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
+	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * @param NULL|FALSE|string		$theValue			Object creation date.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 *
+	 * @uses CAttribute::ManageOffset()
+	 *
+	 * @see kTAG_CREATED
+	 */
+	public function Created( $theValue = NULL, $getOld = FALSE )
+	{
+		return CAttribute::ManageOffset( $this, kTAG_CREATED, $theValue, $getOld );	// ==>
+
+	} // Created.
+
+	 
+	/*===================================================================================
+	 *	Modified																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage object last modification time stamp.
+	 *
+	 * This method can be used to manage the object last {@link kTAG_MODIFIED modification}
+	 * time-stamp, or the date in which the last modification was made on the object, it
+	 * uses the standard accessor {@link CAttribute::ManageOffset() method} to manage the
+	 * {@link kTAG_MODIFIED offset}:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: The value or operation:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Return the current value.
+	 *		<li><i>FALSE</i>: Delete the value.
+	 *		<li><i>other</i>: Set value.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
+	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * @param NULL|FALSE|string		$theValue			Object last modification date.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 *
+	 * @uses CAttribute::ManageOffset()
+	 *
+	 * @see kTAG_MODIFIED
+	 */
+	public function Modified( $theValue = NULL, $getOld = FALSE )
+	{
+		return CAttribute::ManageOffset
+					( $this, kTAG_MODIFIED, $theValue, $getOld );					// ==>
+
+	} // Modified.
 
 	 
 

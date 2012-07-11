@@ -508,7 +508,7 @@ exit( "Done!\n" );
 		//
 		$node = new COntologyNode( $container );
 		$node->Term( $term );
-		$node->Type( kTYPE_STRUCTURE );
+		$node->Type( kTYPE_TYPEDEF );
 		$node->Cardinality( kCARD_ANY );
 		$node->Kind( kTYPE_TRAIT, TRUE );
 		$node->Commit( $container );
@@ -625,7 +625,7 @@ exit( "Done!\n" );
 		//
 		$node = new COntologyNode( $container );
 		$node->Term( $term );
-		$node->Type( kTYPE_STRUCTURE );
+		$node->Type( kTYPE_TYPEDEF );
 		$node->Cardinality( kCARD_ANY );
 		$node->Kind( kTYPE_TRAIT, TRUE );
 		$node->Commit( $container );
@@ -818,7 +818,7 @@ exit( "Done!\n" );
 		//
 		$node = new COntologyNode( $container );
 		$node->Term( $term );
-		$node->Type( kTYPE_STRUCTURE );
+		$node->Type( kTYPE_TYPEDEF );
 		$node->Cardinality( kCARD_ANY );
 		$node->Kind( kTYPE_TRAIT, TRUE );
 		$node->Commit( $container );

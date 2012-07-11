@@ -611,25 +611,47 @@ abstract class CPersistentUnitObject extends CPersistentObject
 	/**
 	 * Return object identifier.
 	 *
-	 * This method is a utility that can be used to extract an object identifier from a
-	 * value, it is used when adding objects or object references to a list that is not
-	 * organised by object {@link kTAG_LID ID}.
+	 * This method will extract a string identifier from the provided parameter, it is used
+	 * to get a value to be used when matching objects derived from this class.
 	 *
-	 * This method will attempt to infer the object identifier by performing the following
-	 * steps:
+	 * The expected parameter is supposed to be either an object reference or its
+	 * identifier, this method makes no assumption on the state of the provided object, its
+	 * duty is to spit out a string that represents the object {@link kTAG_LID identifier}.
+	 *
+	 * The method will handle the following cases:
 	 *
 	 * <ul>
-	 *	<li><i>Array</i> or <i>ArrayObject</i>: In this case we interpret the parameter to
-	 *		be either an instance of the object itself, or a reference to the object, we
-	 *		check in order if any of the following can be found:
+	 *	<li><i>NULL</i>: Although this value is not a valid identifier, it will be returned
+	 *		as provided to allow skipping missing elements; this means that the method will
+	 *		either return <i>NULL</i> or a string.
+	 *	<li><i>{@link CDataType CDataType}</i>: A derived instance of this kind of object is
+	 *		interpreted as the actual value of the {@link kTAG_LID identifier}, since that
+	 *		class can be {@link CDataType::__toString() converted} to a string, we return
+	 *		its string value.
+	 *	<li><i>CPersistentUnitObject</i>: Instances derived from this class will be handled
+	 *		as follows:
+	 *	 <ul>
+	 *		<li><i>{@link kTAG_LID kTAG_LID}</i>: If the object has the identifier, this
+	 *			will be passed back to this method to be resolved as a string.
+	 *		<li><i>{@link _IsInited() Inited}</i>: If the object lacks its
+	 *			{@link kTAG_LID identifier} the method will check if it is at least
+	 *			{@link _IsInited() initialised}, if this is not the case, the method will
+	 *			raise an exception, since an identifier value cannot be inferred.
+	 *		<li><i>{@link _id() _id}</i>: If the object is {@link _IsInited() inited} the
+	 *			method will pass the identifier method value back to itself.
+	 *	 </ul>
+	 *	<li><i>Array</i> or <i>ArrayObject</i>: In this case we check in order if any of the
+	 *		following can be found:
 	 *	 <ul>
 	 *		<li><i>{@link kTAG_LID kTAG_LID}</i>: We first check whether the
-	 *			object has that offset and use it is so.
+	 *			object has this offset and pass it back to this method.
 	 *		<li><i>{@link kTAG_REFERENCE_ID kTAG_REFERENCE_ID}</i>: We then check
 	 *			whether the structure contains a reference identifier.
-	 *		<li><i>{@link _id() _id}</i>: If the parameter is an object derived from this
-	 *			class, we try to call this method and use its result.
+	 *		<li><i>{@link kTAG_DATA kTAG_DATA}</i>: As last resort we use the data element
+	 *			of the structure.
 	 *	 </ul>
+	 *		If none of the above is found, the method will raise an exception.
+	 *	<li><i>object</i>: In this case we check if it can be converted to a string.
 	 *	<li><i>other</i>: If all of the above fails we simply return the provided value.
 	 * </ul>
 	 *
@@ -640,6 +662,8 @@ abstract class CPersistentUnitObject extends CPersistentObject
 	 *
 	 * @static
 	 * @return string|NULL
+	 *
+	 * @throws {@link CException CException}
 	 */
 	static function ObjectIdentifier( $theValue )
 	{
@@ -650,30 +674,89 @@ abstract class CPersistentUnitObject extends CPersistentObject
 			return NULL;															// ==>
 		
 		//
-		// Try identifier.
+		// Return data type.
 		//
-		if( ( is_array( $theValue )
-		   && array_key_exists( kTAG_LID, $theValue ) )
-		 || ( ($theValue instanceof ArrayObject)
-		   && $theValue->offsetExists( kTAG_LID ) ) )
-			return $theValue[ kTAG_LID ];											// ==>
-
-		//
-		// Try reference identifier.
-		//
-		if( ( is_array( $theValue )
-		   && array_key_exists( kTAG_REFERENCE_ID, $theValue ) )
-		 || ( ($theValue instanceof ArrayObject)
-		   && $theValue->offsetExists( kTAG_REFERENCE_ID ) ) )
-			return $theValue[ kTAG_REFERENCE_ID ];									// ==>
+		if( $theValue instanceof CDataType )
+			return (string) $theValue;												// ==>
 		
 		//
 		// Try identifier value.
 		//
 		if( $theValue instanceof self )
-			return (string) $theValue;
+		{
+			//
+			// Check identifier.
+			//
+			if( isset( $theValue[ kTAG_LID ] ) )
+				return self::ObjectIdentifier( $theValue[ kTAG_LID ] );				// ==>
+			
+			//
+			// Handle uninited object.
+			//
+			if( ! $theValue->_IsInited() )
+				throw new CException
+					( "Cannot use object identifier: the object is not inited",
+					  kERROR_INVALID_PARAMETER,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Object' => $theValue ) );							// !@! ==>
+			
+			return self::ObjectIdentifier( $theValue->_id() );						// ==>
+		}
 		
-		return $theValue;															// ==>
+		//
+		// Handle arrays.
+		//
+		if( is_array( $theValue )
+		 || ($theValue instanceof ArrayObject) )
+		{
+			//
+			// Try identifier.
+			//
+			if( isset( $theValue[ kTAG_LID ] ) )
+				return self::ObjectIdentifier( $theValue[ kTAG_LID ] );				// ==>
+
+			//
+			// Try reference.
+			//
+			if( isset( $theValue[ kTAG_REFERENCE_ID ] ) )
+				return self::ObjectIdentifier( $theValue[ kTAG_REFERENCE_ID ] );	// ==>
+
+			//
+			// Try data.
+			//
+			if( isset( $theValue[ kTAG_DATA ] ) )
+				return self::ObjectIdentifier( $theValue[ kTAG_DATA ] );			// ==>
+
+			throw new CException
+				( "Cannot resolve object identifier",
+				  kERROR_INVALID_PARAMETER,
+				  kMESSAGE_TYPE_ERROR,
+				  array( 'Object' => $theValue ) );								// !@! ==>
+		}
+		
+		//
+		// Handle object.
+		//
+		if( is_object( $theValue ) )
+		{
+			//
+			// Check string conversion.
+			//
+			if( method_exists( $theValue, '__toString' ) )
+				return (string) $theValue;											// ==>
+		}
+		
+		//
+		// Handle scalars.
+		//
+		if( is_scalar( $theValue ) )
+			return (string) $theValue;												// ==>
+		
+		throw new CException
+			( "Cannot resolve object identifier",
+			  kERROR_INVALID_PARAMETER,
+			  kMESSAGE_TYPE_ERROR,
+			  array( 'Object' => $theValue ) );									// !@! ==>
 	
 	} // ObjectIdentifier.
 

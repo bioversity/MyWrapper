@@ -27,13 +27,6 @@
 require_once( kPATH_LIBRARY_SOURCE."CEntity.php" );
 
 /**
- * Kind.
- *
- * This include file contains the kind trait definitions.
- */
-require_once( kPATH_LIBRARY_TRAITS."TKind.php" );
-
-/**
  * Tokens.
  *
  * This include file contains all default token definitions.
@@ -94,28 +87,6 @@ require_once( kPATH_LIBRARY_SOURCE."CUser.inc.php" );
  */
 class CUser extends CEntity
 {
-		
-
-/*=======================================================================================
- *																						*
- *										TRAITS											*
- *																						*
- *======================================================================================*/
-
-	use
-	 
-	/*===================================================================================
-	 *	Kind																			*
-	 *==================================================================================*/
-
-	/**
-	 * Manage user kind.
-	 *
-	 * This attribute records the various terms relating to the kind or type of the current
-	 * user.
-	 */
-	TKind;
-
 		
 
 /*=======================================================================================
@@ -300,6 +271,43 @@ class CUser extends CEntity
 				( $this, kTAG_MANAGER, $theValue, $getOld );						// ==>
 
 	} // Manager.
+
+	 
+	/*===================================================================================
+	 *	Kind																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage the kind.
+	 *
+	 * This method can be used to handle the object's list of {@link kTAG_KIND kinds}, it
+	 * uses the standard accessor {@link CAttribute::ManageArrayOffset() method} to manage
+	 * the list of kind, type or function tags associated with the file.
+	 *
+	 * Each element of this list should indicate a specific kind or type of the object or a
+	 * specific function that the object has.
+	 *
+	 * For a more thorough reference of how this method works, please consult the
+	 * {@link CAttribute::ManageArrayOffset() CAttribute::ManageArrayOffset} method, in
+	 * which the second parameter will be the constant {@link kTAG_KIND kTAG_KIND}.
+	 *
+	 * @param mixed					$theValue			Value or index.
+	 * @param mixed					$theOperation		Operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return mixed
+	 *
+	 * @uses CAttribute::ManageArrayOffset()
+	 *
+	 * @see kTAG_KIND
+	 */
+	public function Kind( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
+	{
+		return CAttribute::ManageArrayOffset
+					( $this, kTAG_KIND, $theValue, $theOperation, $getOld );		// ==>
+
+	} // Kind.
 
 		
 
