@@ -361,6 +361,13 @@ define( "kTAG_LANGUAGE",						':LANGUAGE' );
 define( "kTAG_ENTITY",							':ENTITY' );
 
 /**
+ * Session.
+ *
+ * This tag is used as the namespace and default offset for sessions.
+ */
+define( "kTAG_SESSION",							':SESSION' );
+
+/**
  * Status.
  *
  * This tag is used as the default offset for indicating an attribute's status, it will

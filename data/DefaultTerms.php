@@ -66,7 +66,7 @@ require_once( kPATH_LIBRARY_DEFINES."Operators.inc.php" );
  *
  * This include file contains the session tag definitions.
  */
-require_once( kPATH_LIBRARY_DEFINES."Session.inc.php" );
+require_once( kPATH_LIBRARY_SOURCE."Session.inc.php" );
 
 /**
  * Terms.
@@ -374,7 +374,11 @@ exit( "Done!\n" );
 			array( 'id'	=> kTAG_ENTITY,
 				   'syn' => 'kTAG_ENTITY',
 				   'nam' => 'Entity',
-				   'def' => 'This term is used to indicate an entity.' )
+				   'def' => 'This term is used to indicate an entity.' ),
+			array( 'id'	=> kTAG_SESSION,
+				   'syn' => 'kTAG_SESSION',
+				   'nam' => 'Session',
+				   'def' => 'This term is used to indicate a session.' )
 		);
 		
 		//
