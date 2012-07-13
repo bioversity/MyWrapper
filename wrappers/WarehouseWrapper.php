@@ -31,6 +31,14 @@
 require_once( '/Library/WebServer/Library/wrapper/includes.inc.php' );
 
 /**
+ * Local includes.
+ *
+ * This include file contains local definitions, it should be stored locally, in this case
+ * we are using the default one
+ */
+require_once( '/Library/WebServer/Library/wrapper/local/environment.inc.php' );
+
+/**
  * Class includes.
  *
  * This include file contains the working class definitions.

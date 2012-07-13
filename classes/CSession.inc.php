@@ -23,13 +23,49 @@
  *======================================================================================*/
 
 /**
- * User instance.
+ * User ID instance.
  *
- * This tag defines the current user instance.
+ * This tag defines the current user ID instance.
  *
- * Cardinality: one.
+ * Type: CDataTypeBinary.
  */
-define( "kSESSION_USER",					':SESSION:USER' );
+define( "kSESSION_USER_ID",					'_SESSION_USER_ID' );
+
+/**
+ * User name instance.
+ *
+ * This tag defines the current user name instance.
+ *
+ * Type: string.
+ */
+define( "kSESSION_USER_NAME",				'_SESSION_USER_NAME' );
+
+/**
+ * User email instance.
+ *
+ * This tag defines the current user email instance.
+ *
+ * Type: string.
+ */
+define( "kSESSION_USER_EMAIL",				'_SESSION_USER_EMAIL' );
+
+/**
+ * User roles instance.
+ *
+ * This tag defines the current user roles instance.
+ *
+ * Type: array.
+ */
+define( "kSESSION_USER_ROLE",				'_SESSION_USER_ROLE' );
+
+/**
+ * User kinds instance.
+ *
+ * This tag defines the current user kinds instance.
+ *
+ * Type: array.
+ */
+define( "kSESSION_USER_KIND",				'_SESSION_USER_KIND' );
 
 /**
  * Mongo instance.
@@ -38,7 +74,7 @@ define( "kSESSION_USER",					':SESSION:USER' );
  *
  * Cardinality: one.
  */
-define( "kSESSION_MONGO",					':SESSION:MONGO' );
+define( "kSESSION_STORE",					'_SESSION_STORE' );
 
 /**
  * Neo4j instance.
@@ -47,7 +83,7 @@ define( "kSESSION_MONGO",					':SESSION:MONGO' );
  *
  * Cardinality: one.
  */
-define( "kSESSION_NEO4J",					':SESSION:NEO4J' );
+define( "kSESSION_GRAPH",					'_SESSION_GRAPH' );
 
 /**
  * Database instance.
@@ -56,15 +92,15 @@ define( "kSESSION_NEO4J",					':SESSION:NEO4J' );
  *
  * Cardinality: one.
  */
-define( "kSESSION_DATABASE",				':SESSION:DATABASE' );
+define( "kSESSION_DATABASE",				'_SESSION_DATABASE' );
 
 /**
- * Container instance.
+ * Entity container instance.
  *
- * This tag defines the current container instance.
+ * This tag defines the entity container instance.
  *
  * Cardinality: one.
  */
-define( "kSESSION_CONTAINER",				':SESSION:CONTAINER' );
+define( "kSESSION_CONTAINER_ENTITY",		'_SESSION_CONTAINER_ENTITY' );
 
 ?>

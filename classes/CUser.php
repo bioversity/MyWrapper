@@ -91,60 +91,6 @@ class CUser extends CEntity
 
 /*=======================================================================================
  *																						*
- *											MAGIC										*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	__construct																		*
-	 *==================================================================================*/
-
-	/**
-	 * Instantiate class.
-	 *
-	 * We {@link CEntity::__construct() overload} the constructor to initialise the
-	 * {@link _IsInited() inited} {@link kFLAG_STATE_INITED flag} if the
-	 * {@link Password() password} element is set.
-	 *
-	 * We also pass the {@link _IsEncoded() encoded} {@link kFLAG_STATE_ENCODED flag} to the
-	 * parent constructor.
-	 *
-	 * @param mixed					$theContainer		Persistent container.
-	 * @param mixed					$theIdentifier		Object identifier.
-	 * @param bitfield				$theModifiers		Create modifiers.
-	 *
-	 * @access public
-	 */
-	public function __construct( $theContainer = NULL,
-								 $theIdentifier = NULL,
-								 $theModifiers = kFLAG_DEFAULT )
-	{
-		//
-		// Enforce encoded flag.
-		//
-		$theModifiers |= kFLAG_STATE_ENCODED;
-		
-		//
-		// Call parent method.
-		//
-		parent::__construct( $theContainer, $theIdentifier, $theModifiers );
-		
-		//
-		// Set inited status.
-		//
-		$this->_IsInited( $this->_IsInited() &&
-						  $this->offsetExists( kTAG_NAME ) &&
-						  $this->offsetExists( kOFFSET_EMAIL ) &&
-						  $this->offsetExists( kOFFSET_PASSWORD ) );
-		
-	} // Constructor.
-
-		
-
-/*=======================================================================================
- *																						*
  *								PUBLIC MEMBER INTERFACE									*
  *																						*
  *======================================================================================*/
@@ -426,10 +372,10 @@ class CUser extends CEntity
 		//
 		// Set inited flag.
 		//
-			$this->_IsInited( $this->_IsInited() &&
-							  $this->offsetExists( kTAG_NAME ) &&
-							  $this->offsetExists( kOFFSET_EMAIL ) &&
-							  $this->offsetExists( kOFFSET_PASSWORD ) );
+		$this->_IsInited( $this->_IsInited() &&
+						  $this->offsetExists( kTAG_NAME ) &&
+						  $this->offsetExists( kOFFSET_EMAIL ) &&
+						  $this->offsetExists( kOFFSET_PASSWORD ) );
 	
 	} // offsetUnset.
 
@@ -441,6 +387,43 @@ class CUser extends CEntity
  *																						*
  *======================================================================================*/
 
+
+	 
+	/*===================================================================================
+	 *	_PrepareCreate																	*
+	 *==================================================================================*/
+
+	/**
+	 * Normalise parameters of a create.
+	 *
+	 * The duty of this method is to ensure that the parameters provided to a
+	 * {@link _Create() create} operation are valid.
+	 *
+	 * In this method we enforce the {@link kFLAG_STATE_ENCODED encoded} flag.
+	 *
+	 * @param reference			   &$theContainer		Object container.
+	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Create modifiers.
+	 *
+	 * @access protected
+	 *
+	 * @uses _IsEncoded()
+	 *
+	 * @see kFLAG_STATE_ENCODED
+	 */
+	protected function _PrepareCreate( &$theContainer, &$theIdentifier, &$theModifiers )
+	{
+		//
+		// Enforce encoded flag.
+		//
+		$theModifiers |= kFLAG_STATE_ENCODED;
+		
+		//
+		// Call parent method.
+		//
+		parent::_PrepareCreate( $theContainer, $theIdentifier, $theModifiers );
+	
+	} // _PrepareCreate.
 
 	 
 	/*===================================================================================
@@ -487,6 +470,82 @@ class CUser extends CEntity
 		$this->_ParseReferences( kTAG_MANAGER, $theContainer, $theModifiers );
 		
 	} // _PrepareCommit.
+
+	 
+	/*===================================================================================
+	 *	_FinishCreate																		*
+	 *==================================================================================*/
+
+	/**
+	 * Normalise after a {@link _Create() create}.
+	 *
+	 * This method will be called after the {@link _Create() create} operation, its duty is
+	 * to initialise an empty object. Both the container and the identifier parameters are
+	 * passed by reference.
+	 *
+	 * This method will be called if the identifier was not provided to the
+	 * {@link __construct() constructor}, or if the {@link __construct() constructor} was
+	 * unable to {@link _Load() find} the requested object.
+	 *
+	 * In this class we set the inited flag.
+	 *
+	 * @param reference			   &$theContainer		Object container.
+	 *
+	 * @access protected
+	 */
+	protected function _FinishCreate( &$theContainer )
+	{
+		//
+		// Call parent method.
+		//
+		parent::_FinishCreate( $theContainer );
+		
+		//
+		// Set inited status.
+		//
+		$this->_IsInited( $this->_IsInited() &&
+						  $this->offsetExists( kTAG_NAME ) &&
+						  $this->offsetExists( kOFFSET_EMAIL ) &&
+						  $this->offsetExists( kOFFSET_PASSWORD ) );
+	
+	} // _FinishCreate.
+
+	 
+	/*===================================================================================
+	 *	_FinishLoad																		*
+	 *==================================================================================*/
+
+	/**
+	 * Normalise after a {@link _Load() load}.
+	 *
+	 * This method will be called after the {@link _Load() load} operation, its duty is to
+	 * clean up or normalise after the operation. Both the container and the identifier
+	 * parameters are passed by reference.
+	 *
+	 * In this class we set the inited flag.
+	 *
+	 * @param reference			   &$theContainer		Object container.
+	 * @param reference			   &$theIdentifier		Object identifier.
+	 * @param reference			   &$theModifiers		Create modifiers.
+	 *
+	 * @access protected
+	 */
+	protected function _FinishLoad( &$theContainer, &$theIdentifier, &$theModifiers )
+	{
+		//
+		// Call parent method.
+		//
+		parent::_FinishLoad( $theContainer, $theIdentifier, $theModifiers );
+		
+		//
+		// Set inited status.
+		//
+		$this->_IsInited( $this->_IsInited() &&
+						  $this->offsetExists( kTAG_NAME ) &&
+						  $this->offsetExists( kOFFSET_EMAIL ) &&
+						  $this->offsetExists( kOFFSET_PASSWORD ) );
+	
+	} // _FinishLoad.
 
 	 
 

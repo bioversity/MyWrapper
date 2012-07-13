@@ -28,7 +28,7 @@
 	<div class="info-box-body">
         		<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Generic term.</p>
-<p class="description"><p>This kind of <a href="../../MyWrapper/Ontology/COntologyTermObject.html">term</a> represents a generic ontology term.</p><p>This class handles the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">inited</a> status by checking the following values  in its Kind() list:</p><p><ul><li><em>Default</em>: By default the object must have its <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a> set.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_NAMESPACE">kTYPE_NAMESPACE</a></em>: It uses the default requirements.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ROOT">kTYPE_ROOT</a></em>: It requires the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">name</a> to be
+<p class="description"><p>This kind of <a href="../../MyWrapper/Ontology/COntologyTermObject.html">term</a> represents a generic ontology term.</p><p>This class handles the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">inited</a> status by checking the following values  in its <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodKind">kinds</a> list:</p><p><ul><li><em>Default</em>: By default the object must have its <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a> set.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_NAMESPACE">kTYPE_NAMESPACE</a></em>: It uses the default requirements.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ROOT">kTYPE_ROOT</a></em>: It requires the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">name</a> to be
         set.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_PREDICATE">kTYPE_PREDICATE</a></em>: It requires the
         <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">name</a>.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ATTRIBUTE">kTYPE_ATTRIBUTE</a></em>: It requires the
         <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">name</a> and <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CARDINALITY">cardinality</a>.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_MEASURE">kTYPE_MEASURE</a></em>: It requires the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">name</a>
@@ -1276,7 +1276,7 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Return _IsInited() status.</p>
-<p class="description"><p>This method will check the contents of the object and return the correct  <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">initialised</a> status according to the contents of the  Kind() <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">property</a>:</p><p><ul><li><em>Default</em>: By default the object must have its <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a> set,
+<p class="description"><p>This method will check the contents of the object and return the correct  <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">initialised</a> status according to the contents of the  <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodKind">kind</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">property</a>:</p><p><ul><li><em>Default</em>: By default the object must have its <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a> set,
         this is <a href="../../MyWrapper/Ontology/COntologyTermObject.html">inherited</a>.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_NAMESPACE">kTYPE_NAMESPACE</a></em>: It uses the default
         requirements.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ROOT">kTYPE_ROOT</a></em>: It requires the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">name</a>.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_PREDICATE">kTYPE_PREDICATE</a></em>: It requires the
         <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_NAME">name</a>.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ATTRIBUTE">kTYPE_ATTRIBUTE</a></em>: It requires the
@@ -1308,15 +1308,15 @@
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Normalise before a store.</p>
-<p class="description"><p>We overload this method to set default Kind() according to which data  properties the object has:</p><p><ul><li><em><a href="../../MyWrapper/Ontology/COntologyTerm.html#methodCardinality">Cardinality</a></em>: We set the Kind() to
-        <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ATTRIBUTE">attribute</a>.</li><li><em>Data <a href="../../MyWrapper/Ontology/COntologyTerm.html#methodType">Type</a></em>: We set the Kind() to
-        <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_MEASURE">measure</a>.</li><li><em><a href="../../MyWrapper/Ontology/COntologyTerm.html#methodEnumeration">Enumeration</a></em>: We set the Kind() to
-        <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ENUMERATION">enumeration</a>.</li></ul></p><p>We also set by default the Enumerstion() to the value of the  <a href="../../MyWrapper/Ontology/COntologyTerm.html#methodCode">code</a>, if the term has the <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ENUMERATION">enumeration</a>  Kind() and the term <a href="../../MyWrapper/Ontology/COntologyTerm.html#methodEnumeration">enumerations</a> are empty.</p></p>
+<p class="description"><p>We overload this method to set default <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodKind">kinds</a> according to which data  properties the object has:</p><p><ul><li><em><a href="../../MyWrapper/Ontology/COntologyTerm.html#methodCardinality">Cardinality</a></em>: We set the <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodKind">kind</a> to
+        <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ATTRIBUTE">attribute</a>.</li><li><em>Data <a href="../../MyWrapper/Ontology/COntologyTerm.html#methodType">Type</a></em>: We set the <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodKind">kind</a> to
+        <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_MEASURE">measure</a>.</li><li><em><a href="../../MyWrapper/Ontology/COntologyTerm.html#methodEnumeration">Enumeration</a></em>: We set the <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodKind">kind</a> to
+        <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ENUMERATION">enumeration</a>.</li></ul></p><p>We also set by default the Enumerstion() to the value of the  <a href="../../MyWrapper/Ontology/COntologyTerm.html#methodCode">code</a>, if the term has the <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ENUMERATION">enumeration</a>  <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodKind">kind</a> and the term <a href="../../MyWrapper/Ontology/COntologyTerm.html#methodEnumeration">enumerations</a> are empty.</p></p>
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_ENUMERATION">kTYPE_ENUMERATION</a></li>
 				<li><span class="field">throws:</span> <a href="../../MyWrapper/Framework/CException.html">CException</a></li>
 				<li><span class="field">access:</span> protected</li>
-				<li><span class="field">uses:</span> Kind()</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodKind">COntologyTermObject::Kind()</a></li>
 			</ul>
 	
 	<div class="method-signature">
@@ -1357,11 +1357,17 @@
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodCode">COntologyTermObject::Code()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodCreated">COntologyTermObject::Created()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodDefinition">COntologyTermObject::Definition()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodDescription">COntologyTermObject::Description()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodGID">COntologyTermObject::GID()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodKind">COntologyTermObject::Kind()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodModified">COntologyTermObject::Modified()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodName">COntologyTermObject::Name()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
@@ -1595,7 +1601,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Wed, 11 Jul 2012 12:28:10 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Fri, 13 Jul 2012 19:24:41 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

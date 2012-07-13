@@ -28,18 +28,18 @@
 require_once( kPATH_LIBRARY_SOURCE."CDataWrapper.php" );
 
 /**
+ * Session.
+ *
+ * This include file contains the {@link CSession session} class definitions.
+ */
+require_once( kPATH_LIBRARY_SOURCE."CSession.php" );
+
+/**
  * Mongo query.
  *
  * This include file contains the Mongo {@link CMongoQuery object} class definitions.
  */
 require_once( kPATH_LIBRARY_SOURCE."CMongoQuery.php" );
-
-/**
- * Session.
- *
- * This include file contains common session tag definitions.
- */
-require_once( kPATH_LIBRARY_DEFINES."Session.inc.php" );
 
 /**
  * Local definitions.
@@ -99,12 +99,21 @@ class CMongoDataWrapper extends CDataWrapper
 	/**
 	 * Initialise resources.
 	 *
-	 * In this class we initialise the Mongo object into the
-	 * {@link kSESSION_MONGO kSESSION_MONGO} offset of the $_SESSION variable.
+	 * In this class we initialise the {@link CStatus status} object, which in turn
+	 * initialises the Mongo object, and set it in the default
+	 * {@link kDEFAULT_SESSION offset} of the $_SESSION global.
 	 *
 	 * @access protected
 	 */
-	protected function _InitResources()		{	$_SESSION[ kSESSION_MONGO ] = new Mongo();	}
+	protected function _InitResources()
+	{
+		//
+		// Check session object.
+		//
+		if( ! isset( $_SESSION[ kDEFAULT_SESSION ] ) )
+			$_SESSION[ kDEFAULT_SESSION ] = new CSession();
+	
+	} // _InitResources.
 
 		
 
@@ -270,7 +279,8 @@ class CMongoDataWrapper extends CDataWrapper
 		//
 		if( array_key_exists( kAPI_DATABASE, $_REQUEST ) )
 			$_REQUEST[ kAPI_DATABASE ]
-				= $_SESSION[ kSESSION_MONGO ]->selectDB( $_REQUEST[ kAPI_DATABASE ] );
+				= $_SESSION[ kDEFAULT_SESSION ]
+					->Store()->selectDB( $_REQUEST[ kAPI_DATABASE ] );
 	
 	} // _FormatDatabase.
 
