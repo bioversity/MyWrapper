@@ -318,7 +318,7 @@
 		<div class="info-box-body">
 			
 <a name="var$mReceivedStamp" id="$mReceivedStamp"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<img src="../../media/images/Variable.png" />
@@ -367,17 +367,18 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Constructor.png" />
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">248</span>)
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">249</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Instantiate class.</p>
 <p class="description"><p>The constructor will set-up the environment and parse the request.  The workflow is as follows:</p><p><ul><li><em>Check required elements</em>: The method will check if all required elements
-		of the request are there, if that is not the case it will just exit.</li><li><em>Init <a href="../../MyWrapper/Wrappers/CWrapper.html#method_InitStatus">status</a></em>: The response status will be
+		of the request are there, only if this is the case will the constructor init the
+		service.</li><li><em>Init <a href="../../MyWrapper/Wrappers/CWrapper.html#method_InitStatus">status</a></em>: The response status will be
         initialised to the <a href="../../MyWrapper/Definitions/_defines---MessageTypes.inc.php.html#definekMESSAGE_TYPE_IDLE">idle</a> state.</li><li><em>Init <a href="../../MyWrapper/Wrappers/CWrapper.html#method_InitOptions">options</a></em>: Service options will be initialised.</li><li><em>Init <a href="../../MyWrapper/Wrappers/CWrapper.html#method_InitResources">resources</a></em>: Eventual resources are
         initialised.</li><li><em><a href="../../MyWrapper/Wrappers/CWrapper.html#method_ParseRequest">Parse</a> request</em>: The request is parsed.</li><li><em><a href="../../MyWrapper/Wrappers/CWrapper.html#method_FormatRequest">Format</a> request</em>: The request is normalised if
         necessary.</li><li><em><a href="../../MyWrapper/Wrappers/CWrapper.html#method_ValidateRequest">Validate</a> request</em>: The request is validated.</li></ul></p><p>This protected interface should be overloaded by derived classes to implement custom  services.</p></p>
@@ -405,16 +406,16 @@
 			
 	</div>
 <a name="methodHandleRequest" id="HandleRequest"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">HandleRequest</span> (line <span class="line-number">341</span>)
+		<span class="method-title">HandleRequest</span> (line <span class="line-number">349</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
 <p class="short-description">Handle the request.</p>
-<p class="description"><p>This method will handle the request.</p></p>
+<p class="description"><p>This method will handle the request.</p><p>Note that we only run the method if the object is <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">inited</a>, if this  is not the case, the method will do nothing.</p></p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 				<li><span class="field">uses:</span> <a href="../../MyWrapper/Wrappers/CWrapper.html#method_HandleRequest">CWrapper::_HandleRequest()</a></li>
@@ -434,11 +435,11 @@
 			
 	</div>
 <a name="method_EncodeResponse" id="_EncodeResponse"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_EncodeResponse</span> (line <span class="line-number">1268</span>)
+		<span class="method-title">_EncodeResponse</span> (line <span class="line-number">1283</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -462,11 +463,11 @@
 			
 	</div>
 <a name="method_Exception2Status" id="_Exception2Status"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Exception2Status</span> (line <span class="line-number">1174</span>)
+		<span class="method-title">_Exception2Status</span> (line <span class="line-number">1189</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -502,11 +503,11 @@
 			
 	</div>
 <a name="method_FormatRequest" id="_FormatRequest"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_FormatRequest</span> (line <span class="line-number">582</span>)
+		<span class="method-title">_FormatRequest</span> (line <span class="line-number">597</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -545,11 +546,11 @@
 				</ul>
 	</div>
 <a name="method_HandleRequest" id="_HandleRequest"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_HandleRequest</span> (line <span class="line-number">913</span>)
+		<span class="method-title">_HandleRequest</span> (line <span class="line-number">928</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -586,11 +587,11 @@
 				</ul>
 	</div>
 <a name="method_Handle_ListOp" id="_Handle_ListOp"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_ListOp</span> (line <span class="line-number">956</span>)
+		<span class="method-title">_Handle_ListOp</span> (line <span class="line-number">971</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -637,11 +638,11 @@
 				</ul>
 	</div>
 <a name="method_Handle_Ping" id="_Handle_Ping"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_Handle_Ping</span> (line <span class="line-number">987</span>)
+		<span class="method-title">_Handle_Ping</span> (line <span class="line-number">1002</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -663,11 +664,11 @@
 			
 	</div>
 <a name="method_InitOptions" id="_InitOptions"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_InitOptions</span> (line <span class="line-number">462</span>)
+		<span class="method-title">_InitOptions</span> (line <span class="line-number">477</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -703,11 +704,11 @@
 				</ul>
 	</div>
 <a name="method_InitResources" id="_InitResources"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_InitResources</span> (line <span class="line-number">506</span>)
+		<span class="method-title">_InitResources</span> (line <span class="line-number">521</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -738,11 +739,11 @@
 				</ul>
 	</div>
 <a name="method_InitStatus" id="_InitStatus"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_InitStatus</span> (line <span class="line-number">406</span>)
+		<span class="method-title">_InitStatus</span> (line <span class="line-number">421</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -766,11 +767,11 @@
 			
 	</div>
 <a name="method_OffsetManage" id="_OffsetManage"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_OffsetManage</span> (line <span class="line-number">1026</span>)
+		<span class="method-title">_OffsetManage</span> (line <span class="line-number">1041</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -812,11 +813,11 @@
 			
 	</div>
 <a name="method_ParseFormat" id="_ParseFormat"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseFormat</span> (line <span class="line-number">667</span>)
+		<span class="method-title">_ParseFormat</span> (line <span class="line-number">682</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -840,11 +841,11 @@
 			
 	</div>
 <a name="method_ParseOperation" id="_ParseOperation"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseOperation</span> (line <span class="line-number">696</span>)
+		<span class="method-title">_ParseOperation</span> (line <span class="line-number">711</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -868,11 +869,11 @@
 			
 	</div>
 <a name="method_ParseRequest" id="_ParseRequest"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseRequest</span> (line <span class="line-number">543</span>)
+		<span class="method-title">_ParseRequest</span> (line <span class="line-number">558</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -914,11 +915,11 @@
 				</ul>
 	</div>
 <a name="method_ParseTiming" id="_ParseTiming"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ParseTiming</span> (line <span class="line-number">725</span>)
+		<span class="method-title">_ParseTiming</span> (line <span class="line-number">740</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -942,11 +943,11 @@
 			
 	</div>
 <a name="method_ValidateFormat" id="_ValidateFormat"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateFormat</span> (line <span class="line-number">779</span>)
+		<span class="method-title">_ValidateFormat</span> (line <span class="line-number">794</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -970,11 +971,11 @@
 			
 	</div>
 <a name="method_ValidateOperation" id="_ValidateOperation"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateOperation</span> (line <span class="line-number">841</span>)
+		<span class="method-title">_ValidateOperation</span> (line <span class="line-number">856</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1014,11 +1015,11 @@
 				</ul>
 	</div>
 <a name="method_ValidateRequest" id="_ValidateRequest"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_ValidateRequest</span> (line <span class="line-number">620</span>)
+		<span class="method-title">_ValidateRequest</span> (line <span class="line-number">635</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1175,7 +1176,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 13 Jul 2012 19:24:49 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Mon, 16 Jul 2012 16:45:07 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

@@ -177,40 +177,6 @@ try
 	echo( kSTYLE_TABLE_POS );
 	echo( '<hr>' );
 	
-	echo( '<h4>Test debug</h4>' );
-	//
-	// Debug wrapper.
-	//
-	$params = array( (kAPI_FORMAT.'='.kTYPE_JSON),
-					 (kAPI_OPERATION.'='.kAPI_OP_DEBUG),
-					 (kAPI_REQ_STAMP.'='.gettimeofday( true )),
-					 (kAPI_OPT_LOG_REQUEST.'='.'1') );
-	$request = implode( '&', $params );
-	$request = "$url?$request";
-	$response = file_get_contents( $request );
-	//
-	// Display.
-	//
-	echo( kSTYLE_TABLE_PRE );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'URL:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.htmlspecialchars( $request ).kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'Parameters:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.'<pre>' ); print_r( $params ); echo( '</pre>'.kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'Response:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.htmlspecialchars( $response ).kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_ROW_PRE );
-	echo( kSTYLE_HEAD_PRE.'Raw:'.kSTYLE_HEAD_POS );
-	echo( kSTYLE_DATA_PRE.$response.kSTYLE_DATA_POS );
-	echo( kSTYLE_ROW_POS );
-	echo( kSTYLE_TABLE_POS );
-	echo( '<hr>' );
-	
 	echo( '<h4>Test invalid operator</h4>' );
 	//
 	// Invalid operator.

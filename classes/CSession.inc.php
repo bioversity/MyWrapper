@@ -19,7 +19,47 @@
  */
 
 /*=======================================================================================
- *	SESSION TAGS																		*
+ *	SESSION RESOURCE TAGS																*
+ *======================================================================================*/
+
+/**
+ * Mongo instance.
+ *
+ * This tag defines the default Mongo instance.
+ *
+ * Cardinality: one.
+ */
+define( "kSESSION_STORE",					'_SESSION_STORE' );
+
+/**
+ * Neo4j instance.
+ *
+ * This tag defines the default Neo4j instance.
+ *
+ * Cardinality: one.
+ */
+define( "kSESSION_GRAPH",					'_SESSION_GRAPH' );
+
+/**
+ * Database instance.
+ *
+ * This tag defines the current database instance.
+ *
+ * Cardinality: one.
+ */
+define( "kSESSION_DATABASE",				'_SESSION_DATABASE' );
+
+/**
+ * Entity container instance.
+ *
+ * This tag defines the entity container instance.
+ *
+ * Cardinality: one.
+ */
+define( "kSESSION_CONTAINER_ENTITY",		'_SESSION_CONTAINER_ENTITY' );
+
+/*=======================================================================================
+ *	SESSION USER TAGS																	*
  *======================================================================================*/
 
 /**
@@ -68,39 +108,12 @@ define( "kSESSION_USER_ROLE",				'_SESSION_USER_ROLE' );
 define( "kSESSION_USER_KIND",				'_SESSION_USER_KIND' );
 
 /**
- * Mongo instance.
+ * User login stamp.
  *
- * This tag defines the default Mongo instance.
+ * This tag defines the current user login stamp.
  *
- * Cardinality: one.
+ * Type: CSataTypeStamp.
  */
-define( "kSESSION_STORE",					'_SESSION_STORE' );
-
-/**
- * Neo4j instance.
- *
- * This tag defines the default Neo4j instance.
- *
- * Cardinality: one.
- */
-define( "kSESSION_GRAPH",					'_SESSION_GRAPH' );
-
-/**
- * Database instance.
- *
- * This tag defines the current database instance.
- *
- * Cardinality: one.
- */
-define( "kSESSION_DATABASE",				'_SESSION_DATABASE' );
-
-/**
- * Entity container instance.
- *
- * This tag defines the entity container instance.
- *
- * Cardinality: one.
- */
-define( "kSESSION_CONTAINER_ENTITY",		'_SESSION_CONTAINER_ENTITY' );
+define( "kSESSION_USER_STAMP",				'_SESSION_USER_STAMP' );
 
 ?>

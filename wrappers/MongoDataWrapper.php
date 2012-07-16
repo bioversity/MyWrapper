@@ -50,18 +50,16 @@ require_once( kPATH_LIBRARY_SOURCE."CMongoDataWrapper.php" );
 /*=======================================================================================
  *	TEST WRAPPER OBJECT																	*
  *======================================================================================*/
- 
-session_start();
 
 //
 // Instantiate wrapper.
 //
-$test = new CMongoDataWrapper();
+$wrapper = new CMongoDataWrapper();
 
 //
 // Handle request.
 //
-$test->HandleRequest();
+$wrapper->HandleRequest();
 
 exit;
 

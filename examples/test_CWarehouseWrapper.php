@@ -318,7 +318,7 @@ try
 		//
 		$params = Array();
 		$params[] = kAPI_OPERATION.'='.kAPI_OP_LOGIN;				// Command.
-		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;				// Format.
+		$params[] = kAPI_FORMAT.'='.kTYPE_JSON;						// Format.
 		$params[] = kAPI_OPT_USER_CODE.'='.'MILKO';					// User code.
 		$params[] = kAPI_OPT_USER_PASS.'='.'MilkoPass';				// User password.
 		$params[] = kAPI_DATABASE.'='.'TEST';						// Database.

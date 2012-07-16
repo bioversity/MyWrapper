@@ -45,7 +45,10 @@ require_once( kPATH_LIBRARY_SOURCE."CGraphEdge.php" );
  *
  * This include file contains the wrapper class definitions.
  */
-require_once( kPATH_LIBRARY_SOURCE."CWarehouseWrapper.php" );
+require_once( kPATH_LIBRARY_SOURCE."CWrapper.inc.php" );
+require_once( kPATH_LIBRARY_SOURCE."CDataWrapper.inc.php" );
+require_once( kPATH_LIBRARY_SOURCE."CMongoDataWrapper.inc.php" );
+require_once( kPATH_LIBRARY_SOURCE."CWarehouseWrapper.inc.php" );
 
 /**
  * Local definitions.
@@ -481,6 +484,44 @@ class CSession extends CArrayObject
 
 	 
 	/*===================================================================================
+	 *	UserKind																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage the session user kinds.
+	 *
+	 * This method can be used to manage the session's {@link CUser user}
+	 * {@link kTAG_KIND kinds}, the provided parameter represents either the new value
+	 * or the operation to be performed:
+	 *
+	 * <ul>
+	 *	<li><i>NULL</i>: Return the current value.
+	 *	<li><i>FALSE</i>: Delete the current value.
+	 *	<li><i>other</i>: Set the value with the provided parameter.
+	 * </ul>
+	 *
+	 * The second parameter is a boolean which if <i>TRUE</i> will return the <i>old</i>
+	 * value when replacing values; if <i>FALSE</i>, it will return the currently set value.
+	 *
+	 * @param mixed					$theValue			Value or operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return mixed
+	 *
+	 * @uses CAttribute::ManageOffset()
+	 *
+	 * @see kSESSION_USER_KIND
+	 */
+	public function UserKind( $theValue = NULL, $getOld = FALSE )
+	{
+		return CAttribute::ManageOffset
+				( $this, kSESSION_USER_KIND, $theValue, $getOld );					// ==>
+
+	} // UserKind.
+
+	 
+	/*===================================================================================
 	 *	UserRole																		*
 	 *==================================================================================*/
 
@@ -716,6 +757,11 @@ class CSession extends CArrayObject
 	protected function _LoadUser( $theUser )
 	{
 		//
+		// Set user login stamp.
+		//
+		$this->offsetSet( kSESSION_USER_STAMP, new CDatatypeStamp() );
+		
+		//
 		// Normalise user.
 		//
 		if( ! ($theUser instanceof CUser) )
@@ -724,7 +770,7 @@ class CSession extends CArrayObject
 		//
 		// Set user ID.
 		//
-		$this->IserId( $theUser[ kTAG_LID ] );
+		$this->UserId( $theUser[ kTAG_LID ] );
 		
 		//
 		// Set user name.
@@ -735,6 +781,11 @@ class CSession extends CArrayObject
 		// Set user email.
 		//
 		$this->UserEmail( $theUser->Email() );
+		
+		//
+		// Set user kinds.
+		//
+		$this->UserKind( $theUser->Kind() );
 		
 		//
 		// Set user roles.

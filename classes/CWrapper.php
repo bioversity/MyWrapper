@@ -219,7 +219,8 @@ class CWrapper extends CStatusObject
 	 *
 	 * <ul>
 	 *	<li><i>Check required elements</i>: The method will check if all required elements
-	 *		of the request are there, if that is not the case it will just exit.
+	 *		of the request are there, only if this is the case will the constructor init the
+	 *		service.
 	 *	<li><i>Init {@link _InitStatus() status}</i>: The response status will be
 	 *		initialised to the {@link kMESSAGE_TYPE_IDLE idle} state.
 	 *	<li><i>Init {@link _InitOptions() options}</i>: Service options will be initialised.
@@ -250,66 +251,70 @@ class CWrapper extends CStatusObject
 		//
 		// Check dependencies.
 		//
-		if( (! isset( $_REQUEST ))								// No request,
-		 || (! count( $_REQUEST ))								// or empty request,
-		 || (! array_key_exists( kAPI_FORMAT, $_REQUEST ))		// or missing format,
-		 || (! array_key_exists( kAPI_OPERATION, $_REQUEST )) )	// or operation.
-			exit;																	// ==>
-		
-		//
-		// Set reception time.
-		//
-		$this->mReceivedStamp = gettimeofday( TRUE );
-		
-		//
-		// TRY BLOCK
-		//
-		try
+		if( isset( $_REQUEST )									// Has request
+		 && count( $_REQUEST )									// and request not empty
+		 && array_key_exists( kAPI_FORMAT, $_REQUEST )			// and has formst
+		 && array_key_exists( kAPI_OPERATION, $_REQUEST ) )		// and has operation.
 		{
 			//
-			// Instantiate object.
+			// Set reception time.
 			//
-			parent::__construct();
-		
-			//
-			// Initialise service.
-			//
-			$this->_InitStatus();
-			$this->_InitOptions();
-			$this->_InitResources();
+			$this->mReceivedStamp = gettimeofday( TRUE );
 			
 			//
-			// Parse and validate request.
+			// TRY BLOCK
 			//
-			$this->_ParseRequest();
-			$this->_FormatRequest();
-			$this->_ValidateRequest();
+			try
+			{
+				//
+				// Instantiate object.
+				//
+				parent::__construct();
+			
+				//
+				// Initialise service.
+				//
+				$this->_InitStatus();
+				$this->_InitOptions();
+				$this->_InitResources();
 				
+				//
+				// Parse and validate request.
+				//
+				$this->_ParseRequest();
+				$this->_FormatRequest();
+				$this->_ValidateRequest();
+					
+				//
+				// Set parsed timer.
+				//
+				if( $this->offsetExists( kAPI_DATA_TIMING ) )
+					$this->_OffsetManage
+						( kAPI_DATA_TIMING, kAPI_PARSE_STAMP, gettimeofday( TRUE ) );
+				
+				//
+				// Set inited status.
+				//
+				$this->_IsInited( TRUE );
+			}
+			
 			//
-			// Set parsed timer.
+			// CATCH BLOCK
 			//
-			if( $this->offsetExists( kAPI_DATA_TIMING ) )
-				$this->_OffsetManage
-					( kAPI_DATA_TIMING, kAPI_PARSE_STAMP, gettimeofday( TRUE ) );
-		}
+			catch( Exception $error )
+			{
+				//
+				// Load exception in status.
+				//
+				$this->_Exception2Status( $error );
+				
+				//
+				// Return result.
+				//
+				echo( $this->_EncodeResponse() );
+			}
 		
-		//
-		// CATCH BLOCK
-		//
-		catch( Exception $error )
-		{
-			//
-			// Load exception in status.
-			//
-			$this->_Exception2Status( $error );
-			
-			//
-			// Return result.
-			//
-			echo( $this->_EncodeResponse() );
-			
-			exit;																	// ==>
-		}
+		} // Has required elements.
 
 	} // Constructor.
 
@@ -332,6 +337,9 @@ class CWrapper extends CStatusObject
 	 *
 	 * This method will handle the request.
 	 *
+	 * Note that we only run the method if the object is {@link _IsInited() inited}, if this
+	 * is not the case, the method will do nothing.
+	 *
 	 * @access public
 	 *
 	 * @uses _HandleRequest()
@@ -341,37 +349,44 @@ class CWrapper extends CStatusObject
 	public function HandleRequest()
 	{
 		//
-		// TRY BLOCK
+		// Check object status.
 		//
-		try
+		if( $this->_isInited() )
 		{
 			//
-			// Perform request.
+			// TRY BLOCK
 			//
-			$this->_HandleRequest();
-		}
+			try
+			{
+				//
+				// Perform request.
+				//
+				$this->_HandleRequest();
+			}
+			
+			//
+			// CATCH BLOCK
+			//
+			catch( Exception $error )
+			{
+				//
+				// Load exception in status.
+				//
+				$this->_Exception2Status( $error );
+			}
 		
-		//
-		// CATCH BLOCK
-		//
-		catch( Exception $error )
-		{
 			//
-			// Load exception in status.
+			// Set sent timer.
 			//
-			$this->_Exception2Status( $error );
-		}
-	
-		//
-		// Set sent timer.
-		//
-		if( $this->offsetExists( kAPI_DATA_TIMING ) )
-			$this->_OffsetManage( kAPI_DATA_TIMING, kAPI_RES_STAMP, gettimeofday( TRUE ) );
+			if( $this->offsetExists( kAPI_DATA_TIMING ) )
+				$this->_OffsetManage( kAPI_DATA_TIMING, kAPI_RES_STAMP, gettimeofday( TRUE ) );
+			
+			//
+			// Return result.
+			//
+			echo( $this->_EncodeResponse() );
 		
-		//
-		// Return result.
-		//
-		echo( $this->_EncodeResponse() );
+		} // Object is inited.
 	
 	} // HandleRequest.
 

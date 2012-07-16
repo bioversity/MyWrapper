@@ -45,6 +45,45 @@ require_once( kPATH_LIBRARY_SOURCE."CSession.php" );
 try
 {
 	//
+	// Instantiate Mongo database.
+	//
+	$mongo = New Mongo();
+	
+	//
+	// Select MCPD database.
+	//
+	$db = $mongo->selectDB( "WAREHOUSE" );
+	
+	//
+	// Select test collection.
+	//
+	$collection = $db->selectCollection( kDEFAULT_CNT_ENTITIES );
+	
+	//
+	// Create utility container.
+	//
+	$container = new CMongoContainer( $collection );
+
+	/*===================================================================================
+	 *	CREATE USERS																	*
+	 *==================================================================================*/
+	 
+	//
+	// Create user 1.
+	//
+	$user = new CUser();
+	$user->Code( 'Milko' );
+	$user->Password( 'Secret' );
+	$user->Name( 'Milko Škofič' );
+	$user->Email( 'm.skofic@cgiar.org' );
+	$user->Role( array( kROLE_FILE_IMPORT, kROLE_USER_MANAGE ), TRUE );
+	$user_id = $user->Commit( $container );
+
+	/*===================================================================================
+	 *	RUN TESTS																		*
+	 *==================================================================================*/
+	 
+	//
 	// Test instantiation.
 	//
 	echo( '<h3>Instantiation</h3>' );
@@ -56,13 +95,21 @@ try
 
 	//
 	// Test login.
+	// Note that you must have called this script by providing the user credentials, as:
+	// ?:@operation=@LOGIN&:@user-code=Milko&:@user-pass=Secret
 	//
 	echo( '<h3>Login</h3>' );
 	
 	echo( '<i>$result = $test->Login();</i><br>' );
 	$result = $test->Login();
-	echo( '<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( 'Result<pre>' ); print_r( $result ); echo( '</pre>' );
+	echo( 'Session<pre>' ); print_r( $test ); echo( '</pre>' );
 	echo( '<hr>' );
+	
+	//
+	// Delete user.
+	//
+	$container->Delete( $user[ kTAG_LID ], kFLAG_STATE_ENCODED );
 }
 
 //
