@@ -10,7 +10,11 @@
  *	@subpackage	Entities
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
+<<<<<<< HEAD
  *	@version	1.00 19/07/2012
+=======
+ *	@version	1.00 21/12/2012
+>>>>>>> e9b95e8954bdf985a9d4f6f7d6a96e7ac5aee83c
  */
 
 /*=======================================================================================
