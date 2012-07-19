@@ -30,11 +30,7 @@
  *
  * Type: string.
  */
-<<<<<<< HEAD
 define( "kSESSION_USER_NAME",				'_sessionUserName' );
-=======
-define( "kSESSION_USER_NAME",				'_SESSION_USER_NAME' );
->>>>>>> e9b95e8954bdf985a9d4f6f7d6a96e7ac5aee83c
 
 /**
  * User email instance.
@@ -43,11 +39,7 @@ define( "kSESSION_USER_NAME",				'_SESSION_USER_NAME' );
  *
  * Type: string.
  */
-<<<<<<< HEAD
 define( "kSESSION_USER_EMAIL",				'_sessionUserEmail' );
-=======
-define( "kSESSION_USER_EMAIL",				'_SESSION_USER_EMAIL' );
->>>>>>> e9b95e8954bdf985a9d4f6f7d6a96e7ac5aee83c
 
 /**
  * User roles instance.
@@ -56,11 +48,7 @@ define( "kSESSION_USER_EMAIL",				'_SESSION_USER_EMAIL' );
  *
  * Type: array.
  */
-<<<<<<< HEAD
 define( "kSESSION_USER_ROLE",				'_sessionUserRole' );
-=======
-define( "kSESSION_USER_ROLE",				'_SESSION_USER_ROLE' );
->>>>>>> e9b95e8954bdf985a9d4f6f7d6a96e7ac5aee83c
 
 /**
  * User kinds instance.
@@ -69,10 +57,6 @@ define( "kSESSION_USER_ROLE",				'_SESSION_USER_ROLE' );
  *
  * Type: array.
  */
-<<<<<<< HEAD
 define( "kSESSION_USER_KIND",				'_sessionUserKind' );
-=======
-define( "kSESSION_USER_KIND",				'_SESSION_USER_KIND' );
->>>>>>> e9b95e8954bdf985a9d4f6f7d6a96e7ac5aee83c
 
 ?>

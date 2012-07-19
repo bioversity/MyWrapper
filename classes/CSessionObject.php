@@ -27,16 +27,6 @@
 require_once( kPATH_LIBRARY_SOURCE."CArrayObject.php" );
 
 /**
-<<<<<<< HEAD
-=======
- * Attributes.
- *
- * This include file contains the attributes class definitions.
- */
-require_once( kPATH_LIBRARY_SOURCE."CAttribute.php" );
-
-/**
->>>>>>> e9b95e8954bdf985a9d4f6f7d6a96e7ac5aee83c
  * User definitions.
  *
  * This include file contains the user class definitions.
@@ -44,19 +34,6 @@ require_once( kPATH_LIBRARY_SOURCE."CAttribute.php" );
 require_once( kPATH_LIBRARY_SOURCE."CUser.php" );
 
 /**
-<<<<<<< HEAD
-=======
- * Wrapper definitions.
- *
- * This include file contains the wrapper class definitions.
- */
-require_once( kPATH_LIBRARY_SOURCE."CWrapper.inc.php" );
-require_once( kPATH_LIBRARY_SOURCE."CDataWrapper.inc.php" );
-require_once( kPATH_LIBRARY_SOURCE."CMongoDataWrapper.inc.php" );
-require_once( kPATH_LIBRARY_SOURCE."CWarehouseWrapper.inc.php" );
-
-/**
->>>>>>> e9b95e8954bdf985a9d4f6f7d6a96e7ac5aee83c
  * Local definitions.
  *
  * This include file contains all local definitions to this class.
@@ -366,12 +343,6 @@ abstract class CSessionObject extends CArrayObject
 	 *	 </ul>
 	 * </ul>
 	 *
-<<<<<<< HEAD
-=======
-	 * In this class, by default, we support MongoDB data stores, which means that the
-	 * method expects Mongo objects, if other types are passed, an exception will be raised.
-	 *
->>>>>>> e9b95e8954bdf985a9d4f6f7d6a96e7ac5aee83c
 	 * @param mixed					$theValue			Value or operation.
 	 * @param boolean				$getOld				TRUE get old value.
 	 *
@@ -382,27 +353,6 @@ abstract class CSessionObject extends CArrayObject
 	 */
 	public function DataStore( $theValue = NULL, $getOld = FALSE )
 	{
-<<<<<<< HEAD
-=======
-		//
-		// New value.
-		//
-		if( ($theValue !== NULL)
-		 && ($theValue !== FALSE) )
-		{
-			//
-			// Check value.
-			//
-			if( ! ($theValue instanceof Mongo) )
-				throw new CException
-					( "Unsupported data store reference",
-					  kERROR_UNSUPPORTED,
-					  kMESSAGE_TYPE_ERROR,
-					  array( 'Reference' => $theValue ) );						// !@! ==>
-		
-		} // New value.
-		
->>>>>>> e9b95e8954bdf985a9d4f6f7d6a96e7ac5aee83c
 		return CObject::ManageMember( $this->mDataStore, $theValue, $getOld );		// ==>
 
 	} // DataStore.
@@ -436,13 +386,6 @@ abstract class CSessionObject extends CArrayObject
 	 *	 </ul>
 	 * </ul>
 	 *
-<<<<<<< HEAD
-=======
-	 * In this class, by default, we support Neo4j graph stores, which means that the
-	 * method expects a Neo4j client object, if other types are passed, an exception will be
-	 * raised.
-	 *
->>>>>>> e9b95e8954bdf985a9d4f6f7d6a96e7ac5aee83c
 	 * @param mixed					$theValue			Value or operation.
 	 * @param boolean				$getOld				TRUE get old value.
 	 *
@@ -453,27 +396,6 @@ abstract class CSessionObject extends CArrayObject
 	 */
 	public function GraphStore( $theValue = NULL, $getOld = FALSE )
 	{
-<<<<<<< HEAD
-=======
-		//
-		// New value.
-		//
-		if( ($theValue !== NULL)
-		 && ($theValue !== FALSE) )
-		{
-			//
-			// Check value.
-			//
-			if( ! ($theValue instanceof Everyman\Neo4j\Client) )
-				throw new CException
-					( "Unsupported graph store reference",
-					  kERROR_UNSUPPORTED,
-					  kMESSAGE_TYPE_ERROR,
-					  array( 'Reference' => $theValue ) );						// !@! ==>
-		
-		} // New value.
-		
->>>>>>> e9b95e8954bdf985a9d4f6f7d6a96e7ac5aee83c
 		return CObject::ManageMember( $this->mGraphStore, $theValue, $getOld );		// ==>
 
 	} // GraphStore.
@@ -507,12 +429,6 @@ abstract class CSessionObject extends CArrayObject
 	 *	 </ul>
 	 * </ul>
 	 *
-<<<<<<< HEAD
-=======
-	 * In this class, by default, we support MongoDB instances, if other types are passed,
-	 * an exception will be thrown.
-	 *
->>>>>>> e9b95e8954bdf985a9d4f6f7d6a96e7ac5aee83c
 	 * @param mixed					$theValue			Value or operation.
 	 * @param boolean				$getOld				TRUE get old value.
 	 *
@@ -523,27 +439,6 @@ abstract class CSessionObject extends CArrayObject
 	 */
 	public function Database( $theValue = NULL, $getOld = FALSE )
 	{
-<<<<<<< HEAD
-=======
-		//
-		// New value.
-		//
-		if( ($theValue !== NULL)
-		 && ($theValue !== FALSE) )
-		{
-			//
-			// Check value.
-			//
-			if( ! ($theValue instanceof MongoDB) )
-				throw new CException
-					( "Unsupported database reference",
-					  kERROR_UNSUPPORTED,
-					  kMESSAGE_TYPE_ERROR,
-					  array( 'Reference' => $theValue ) );						// !@! ==>
-		
-		} // New value.
-		
->>>>>>> e9b95e8954bdf985a9d4f6f7d6a96e7ac5aee83c
 		return CObject::ManageMember( $this->mDatabase, $theValue, $getOld );		// ==>
 
 	} // Database.
@@ -577,12 +472,6 @@ abstract class CSessionObject extends CArrayObject
 	 *	 </ul>
 	 * </ul>
 	 *
-<<<<<<< HEAD
-=======
-	 * In this class, by default, we support {@link CContainer CContainer} derived
-	 * instances, if other types are passed, the method will raise an exception.
-	 *
->>>>>>> e9b95e8954bdf985a9d4f6f7d6a96e7ac5aee83c
 	 * @param mixed					$theValue			Value or operation.
 	 * @param boolean				$getOld				TRUE get old value.
 	 *
@@ -593,27 +482,6 @@ abstract class CSessionObject extends CArrayObject
 	 */
 	public function UsersContainer( $theValue = NULL, $getOld = FALSE )
 	{
-<<<<<<< HEAD
-=======
-		//
-		// New value.
-		//
-		if( ($theValue !== NULL)
-		 && ($theValue !== FALSE) )
-		{
-			//
-			// Check value.
-			//
-			if( ! ($theValue instanceof CContainer) )
-				throw new CException
-					( "Unsupported users container reference",
-					  kERROR_UNSUPPORTED,
-					  kMESSAGE_TYPE_ERROR,
-					  array( 'Reference' => $theValue ) );						// !@! ==>
-		
-		} // New value.
-		
->>>>>>> e9b95e8954bdf985a9d4f6f7d6a96e7ac5aee83c
 		return CObject::ManageMember( $this->mUsersContainer, $theValue, $getOld );	// ==>
 
 	} // UsersContainer.
