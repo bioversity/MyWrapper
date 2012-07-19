@@ -46,12 +46,12 @@ session_start();
 //
 // Instantiate wrapper.
 //
-$test = new CDataWrapper();
+$wrapper = new CDataWrapper();
 
 //
 // Handle request.
 //
-$test->HandleRequest();
+$wrapper->HandleRequest();
 
 exit;
 

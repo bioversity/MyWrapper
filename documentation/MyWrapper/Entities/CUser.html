@@ -78,19 +78,19 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																				<div class="method-definition">
+												<div class="method-definition">
 					<img src="../../media/images/StaticMethod.png" alt=" "/>
 											static <span class="method-result">string</span>
 										<a href="#HashIndex" title="details" class="method-name">HashIndex</a>
 											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theValue</span>)
 									</div>
-																																																																				<div class="method-definition">
-					<img src="../../media/images/Constructor.png" alt=" "/>
-											<span class="method-result">CUser</span>
-										<a href="#__construct" title="details" class="method-name">__construct</a>
-											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span> = <span class="var-default">NULL</span>], [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_DEFAULT</span>])
+																																																																																																												<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#Kind" title="details" class="method-name">Kind</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theOperation</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
 									</div>
-																								<div class="method-definition">
+																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">string</span>
 										<a href="#Manager" title="details" class="method-name">Manager</a>
@@ -123,7 +123,25 @@
 																<div class="method-definition">
 					<img src="../../media/images/Method.png" alt=" "/>
 											<span class="method-result">void</span>
+										<a href="#_FinishCreate" title="details" class="method-name">_FinishCreate</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_FinishLoad" title="details" class="method-name">_FinishLoad</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
 										<a href="#_PrepareCommit" title="details" class="method-name">_PrepareCommit</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_PrepareCreate" title="details" class="method-name">_PrepareCreate</a>
 											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
 									</div>
 											</div>
@@ -171,11 +189,11 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="methodHashIndex" id="HashIndex"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/StaticMethod.png" />
-		<span class="method-title">static HashIndex</span> (line <span class="line-number">306</span>)
+		<span class="method-title">static HashIndex</span> (line <span class="line-number">289</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -204,55 +222,57 @@
 					</dl>
 			
 	</div>
-<a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<a name="methodKind" id="Kind"><!-- --></a>
+<div class="oddrow">
 	
 	<div class="method-header">
-		<img src="../../media/images/Constructor.png" />
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">120</span>)
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Kind</span> (line <span class="line-number">251</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Instantiate class.</p>
-<p class="description"><p>We CEntity::__construct() the constructor to initialise the  <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">inited</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">flag</a> if the  <a href="../../MyWrapper/Entities/CUser.html#methodPassword">password</a> element is set.</p><p>We also pass the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsEncoded">encoded</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">flag</a> to the  parent constructor.</p></p>
+<p class="short-description">Manage the kind.</p>
+<p class="description"><p>This method can be used to handle the object's list of <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kinds</a>, it  uses the standard accessor <a href="../../MyWrapper/Framework/CAttribute.html#methodManageArrayOffset">method</a> to manage  the list of kind, type or function tags associated with the file.</p><p>Each element of this list should indicate a specific kind or type of the object or a  specific function that the object has.</p><p>For a more thorough reference of how this method works, please consult the  <a href="../../MyWrapper/Framework/CAttribute.html#methodManageArrayOffset">CAttribute::ManageArrayOffset</a> method, in  which the second parameter will be the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kTAG_KIND</a>.</p></p>
 	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_KIND">kTAG_KIND</a></li>
 				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageArrayOffset">CAttribute::ManageArrayOffset()</a></li>
 			</ul>
 	
 	<div class="method-signature">
-		<span class="method-result">CUser</span>
+		<span class="method-result">mixed</span>
 		<span class="method-name">
-			__construct
+			Kind
 		</span>
-					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span> = <span class="var-default">NULL</span>], [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_DEFAULT</span>])
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theOperation</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
 			</div>
 	
 			<ul class="parameters">
 					<li>
 				<span class="var-type">mixed</span>
-				<span class="var-name">$theContainer</span><span class="var-description">: Persistent container.</span>			</li>
+				<span class="var-name">$theValue</span><span class="var-description">: Value or index.</span>			</li>
 					<li>
 				<span class="var-type">mixed</span>
-				<span class="var-name">$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+				<span class="var-name">$theOperation</span><span class="var-description">: Operation.</span>			</li>
 					<li>
-				<span class="var-type">bitfield</span>
-				<span class="var-name">$theModifiers</span><span class="var-description">: Create modifiers.</span>			</li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
 				</ul>
 		
 			<hr class="separator" />
 		<div class="notes">Redefinition of:</div>
 		<dl>
-			<dt><a href="../../MyWrapper/Framework/CCodedUnitObject.html#method__construct">CCodedUnitObject::__construct()</a></dt>
-						<dd>Instantiate class.</dd>
+			<dt><a href="../../MyWrapper/Entities/CEntity.html#methodKind">CEntity::Kind()</a></dt>
+						<dd>Manage the kind.</dd>
 					</dl>
 			
 	</div>
 <a name="methodManager" id="Manager"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Manager</span> (line <span class="line-number">261</span>)
+		<span class="method-title">Manager</span> (line <span class="line-number">207</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -284,11 +304,11 @@
 			
 	</div>
 <a name="methodoffsetSet" id="offsetSet"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetSet</span> (line <span class="line-number">344</span>)
+		<span class="method-title">offsetSet</span> (line <span class="line-number">327</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -326,11 +346,11 @@
 			
 	</div>
 <a name="methodoffsetUnset" id="offsetUnset"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">offsetUnset</span> (line <span class="line-number">382</span>)
+		<span class="method-title">offsetUnset</span> (line <span class="line-number">365</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -365,11 +385,11 @@
 			
 	</div>
 <a name="methodPassword" id="Password"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Password</span> (line <span class="line-number">185</span>)
+		<span class="method-title">Password</span> (line <span class="line-number">131</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -401,11 +421,11 @@
 			
 	</div>
 <a name="methodRole" id="Role"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">Role</span> (line <span class="line-number">219</span>)
+		<span class="method-title">Role</span> (line <span class="line-number">165</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -439,12 +459,92 @@
 		
 			
 	</div>
-<a name="method_PrepareCommit" id="_PrepareCommit"><!-- --></a>
+<a name="method_FinishCreate" id="_FinishCreate"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_FinishCreate</span> (line <span class="line-number">496</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Normalise after a _Create().</p>
+<p class="description"><p>This method will be called after the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_Create">create</a> operation, its duty is  to initialise an empty object. Both the container and the identifier parameters are  passed by reference.</p><p>This method will be called if the identifier was not provided to the  <a href="../../MyWrapper/Framework/CCodedUnitObject.html#method__construct">constructor</a>, or if the <a href="../../MyWrapper/Framework/CCodedUnitObject.html#method__construct">constructor</a> was  unable to <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_Load">find</a> the requested object.</p><p>In this class we set the inited flag.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_FinishCreate
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theContainer</span><span class="var-description">: Object container.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_FinishCreate">CPersistentObject::_FinishCreate()</a></dt>
+						<dd>Normalise after a _Create().</dd>
+					</dl>
+			
+	</div>
+<a name="method_FinishLoad" id="_FinishLoad"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
 		<img src="../../media/images/Method.png" />
-		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">430</span>)
+		<span class="method-title">_FinishLoad</span> (line <span class="line-number">533</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Normalise after a _Load().</p>
+<p class="description"><p>This method will be called after the <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_Load">load</a> operation, its duty is to  clean up or normalise after the operation. Both the container and the identifier  parameters are passed by reference.</p><p>In this class we set the inited flag.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_FinishLoad
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theContainer</span><span class="var-description">: Object container.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theModifiers</span><span class="var-description">: Create modifiers.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_FinishLoad">CPersistentObject::_FinishLoad()</a></dt>
+						<dd>Normalise after a _Load().</dd>
+					</dl>
+			
+	</div>
+<a name="method_PrepareCommit" id="_PrepareCommit"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">450</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -484,17 +584,68 @@
 					</dl>
 			
 	</div>
+<a name="method_PrepareCreate" id="_PrepareCreate"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_PrepareCreate</span> (line <span class="line-number">414</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Normalise parameters of a create.</p>
+<p class="description"><p>The duty of this method is to ensure that the parameters provided to a  <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_Create">create</a> operation are valid.</p><p>In this method we enforce the <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">encoded</a> flag.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a></li>
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsEncoded">CPersistentObject::_IsEncoded()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_PrepareCreate
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theContainer</span><span class="var-description">: Object container.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theModifiers</span><span class="var-description">: Create modifiers.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Entities/CEntity.html#method_PrepareCreate">CEntity::_PrepareCreate()</a></dt>
+						<dd>Normalise parameters of a create.</dd>
+					</dl>
+			
+	</div>
 							<h4>Inherited Methods</h4>
 				<a name='inherited_methods'><!-- --></a>	
 									<!-- =========== Summary =========== -->
 					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Entities/CEntity.html">CEntity</a></span></p>
 					<blockquote>
 													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodCreated">CEntity::Created()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodDefaultContainer">CEntity::DefaultContainer()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodEmail">CEntity::Email()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodGID">CEntity::GID()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodKind">CEntity::Kind()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodModified">CEntity::Modified()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodName">CEntity::Name()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
@@ -509,12 +660,6 @@
 							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#method__construct">CCodedUnitObject::__construct()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">CCodedUnitObject::Code()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCreated">CCodedUnitObject::Created()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodKind">CCodedUnitObject::Kind()</a></span><br>
-													<img src="../../media/images/Method.png" alt=" "/>
-							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodModified">CCodedUnitObject::Modified()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
 							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodoffsetSet">CCodedUnitObject::offsetSet()</a></span><br>
 													<img src="../../media/images/Method.png" alt=" "/>
@@ -724,7 +869,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 06 Jul 2012 19:01:47 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 19 Jul 2012 17:45:24 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

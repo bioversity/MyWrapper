@@ -313,77 +313,79 @@ define( "kTYPE_RELATED",					':RELATED' );
 /**
  * Root.
  *
- * This is the tag that represents a root term or node.
+ * This is the tag that represents a root {@link COntologyNode node}.
  */
 define( "kTYPE_ROOT",						':ROOT' );
 
 /**
  * Namespace.
  *
- * This is the tag that represents a namespace.
+ * This is the tag that represents a namespace {@link COntologyTerm term}.
  */
 define( "kTYPE_NAMESPACE",					':NAMESPACE' );
 
 /**
  * Attribute.
  *
- * This is the tag that represents an attribute.
+ * This is the tag that represents an attribute {@link COntologyTerm term}.
  */
 define( "kTYPE_ATTRIBUTE",					':ATTRIBUTE' );
 
 /**
  * Structure.
  *
- * This is the tag that represents a term that rtepresents a structure.
+ * This is the tag that represents a term that represents a type definition
+ * {@link COntologyNode node}.
  */
-define( "kTYPE_STRUCTURE",					':STRUCTURE' );
+define( "kTYPE_TYPEDEF",					':TYPEDEF' );
 
 /**
  * Predicate.
  *
- * This is the tag that represents a predicate.
+ * This is the tag that represents a predicate {@link COntologyTerm term}.
  */
 define( "kTYPE_PREDICATE",					':PREDICATE' );
 
 /**
  * Trait.
  *
- * This is the tag that represents a generic trait.
+ * This is the tag that represents a generic trait {@link COntologyNode node}.
  */
 define( "kTYPE_TRAIT",						':TRAIT' );
 
 /**
  * Method.
  *
- * This is the tag that represents a generic method.
+ * This is the tag that represents a generic method {@link COntologyNode node}.
  */
 define( "kTYPE_METHOD",						':METHOD' );
 
 /**
  * Measure.
  *
- * This is the tag that represents a measure term.
+ * This is the tag that represents a measure term {@link COntologyNode node}.
  */
 define( "kTYPE_MEASURE",					':MEASURE' );
 
 /**
  * Annotation.
  *
- * This is the tag that represents an annotation term.
+ * This is the tag that represents an annotation {@link COntologyTag tag}.
  */
 define( "kTYPE_ANNOTATION",					':ANNOTATION' );
 
 /**
  * Enumeration.
  *
- * This is the tag that represents an enumeration term.
+ * This is the tag that represents an enumeration {@link COntologyTerm term} or
+ * {@link COntologyNode node}.
  */
 define( "kTYPE_ENUMERATION",				':ENUMERATION' );
 
 /**
  * Dictionary.
  *
- * This is the tag that represents a dictionary term.
+ * This is the tag that represents a data dictionary {@link COntologyNode node}.
  */
 define( "kTYPE_DICTIONARY",					':DICTIONARY' );
 

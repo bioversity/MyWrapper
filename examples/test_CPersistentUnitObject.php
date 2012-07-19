@@ -47,9 +47,13 @@ class MyClass extends CPersistentUnitObject
 											 $getOld );
 	}
 	
-	protected function _PrepareCommit( &$theContainer, &$theIdentifier, &$theModifiers )
+	protected function _PrepareCreate( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		$this->_isInited( TRUE );
+	}
+	
+	protected function _PrepareCommit( &$theContainer, &$theIdentifier, &$theModifiers )
+	{
 		parent::_PrepareCommit( $theContainer, $theIdentifier, $theModifiers );
 		$this->_ParseReferences('REFERENCE', $theContainer, kFLAG_REFERENCE_MASK );
 	}
@@ -318,9 +322,9 @@ try
 	echo( '<hr>' );
 	
 	//
-	// Relation list.
+	// Test relations.
 	//
-	echo( '<h3>Relation list</h3>' );
+	echo( '<h3>Test relations</h3>' );
 	
 	//
 	// Create references.
@@ -336,6 +340,69 @@ try
 	echo( '2:<pre>' ); print_r( $ref2 ); echo( '</pre>' );
 	echo( '3:<pre>' ); print_r( $ref3 ); echo( '</pre>' );
 	echo( '<hr>' );
+	
+	//
+	// Object normalisers.
+	//
+	echo( '<h3>Object normalisers</h3>' );
+	
+	echo( '<i>$res = CPersistentUnitObject::NormaliseRelatedObject( $ref1 );</i><br>' );
+	$res = CPersistentUnitObject::NormaliseRelatedObject( $ref1 );
+	echo( 'Object:<pre>' ); print_r( $ref1 ); echo( '</pre>' );
+	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$res = CPersistentUnitObject::NormaliseRelatedObject( $ref2 );</i><br>' );
+	$res = CPersistentUnitObject::NormaliseRelatedObject( $ref2 );
+	echo( 'Object:<pre>' ); print_r( $ref2 ); echo( '</pre>' );
+	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$res = CPersistentUnitObject::NormaliseRelatedObject( $ref3 );</i><br>' );
+	$res = CPersistentUnitObject::NormaliseRelatedObject( $ref3 );
+	echo( 'Object:<pre>' ); print_r( $ref3 ); echo( '</pre>' );
+	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$res = CPersistentUnitObject::ObjectIdentifier( $ref1 );</i><br>' );
+	$res = CPersistentUnitObject::ObjectIdentifier( $ref1 );
+	echo( 'Object:<pre>' ); print_r( $ref1 ); echo( '</pre>' );
+	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$res = CPersistentUnitObject::ObjectIdentifier( $ref2 );</i><br>' );
+	$res = CPersistentUnitObject::ObjectIdentifier( $ref2 );
+	echo( 'Object:<pre>' ); print_r( $ref2 ); echo( '</pre>' );
+	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$res = CPersistentUnitObject::ObjectIdentifier( $ref3 );</i><br>' );
+	$res = CPersistentUnitObject::ObjectIdentifier( $ref3 );
+	echo( 'Object:<pre>' ); print_r( $ref3 ); echo( '</pre>' );
+	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$res = CPersistentUnitObject::ObjectIdentifier( \'ID\' );</i><br>' );
+	$res = CPersistentUnitObject::ObjectIdentifier( 'ID' );
+	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$res = CPersistentUnitObject::ObjectIdentifier( new CDataTypeStamp() );</i><br>' );
+	$res = CPersistentUnitObject::ObjectIdentifier( new CDataTypeStamp() );
+	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
+	echo( '<hr>' );
+	
+	echo( '<i>$res = CPersistentUnitObject::ObjectIdentifier( $tmp = CPersistentUnitObject::Reference( $ref3 ) );</i><br>' );
+	$res = CPersistentUnitObject::ObjectIdentifier( $tmp = CPersistentUnitObject::Reference( $ref3 ) );
+	echo( 'Object:<pre>' ); print_r( $tmp ); echo( '</pre>' );
+	echo( 'Result:<pre>' ); print_r( $res ); echo( '</pre>' );
+	echo( '<hr>' );
+	echo( '<hr>' );
+	
+	//
+	// Relation list.
+	//
+	echo( '<h3>Relation list</h3>' );
 	
 	echo( '<i>$res = $test->Relation( $ref1, TRUE );</i><br>' );
 	$res = $test->Relation( $ref1, TRUE );

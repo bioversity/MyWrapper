@@ -568,7 +568,8 @@ class CAttribute
 	 *		that this parameter may take three forms:
 	 *	 <ul>
 	 *		<li><i>scalar</i>: The single offset will be used for each element provided in
-	 *			the previous parameter.
+	 *			the previous parameter. Note that an ArrayObject instance is also considered
+	 *			a scalar.
 	 *		<li><i>list</i>: If you provide a list of strings, this list will be used for
 	 *			each element provided in the previous parameter.
 	 *		<li><i>matrix</i>: If you provide a list of arrays, each element of the previous
@@ -639,9 +640,7 @@ class CAttribute
 			//
 			// Normalise type offsets.
 			//
-			if( $theTypeOffsets instanceof ArrayObject )
-				$theTypeOffsets = $theTypeOffsets->getArrayCopy();
-			elseif( ! is_array( $theTypeOffsets ) )
+			if( ! is_array( $theTypeOffsets ) )
 				$theTypeOffsets = ( is_array( $theDataOffset ) )
 								? array_fill( 0,
 											  count( $theDataOffset ),
@@ -661,9 +660,7 @@ class CAttribute
 			//
 			// Normalise type values.
 			//
-			if( $theTypeValues instanceof ArrayObject )
-				$theTypeValues = $theTypeValues->getArrayCopy();
-			elseif( ! is_array( $theTypeValues ) )
+			if( ! is_array( $theTypeValues ) )
 				$theTypeValues = ( is_array( $theDataOffset ) )
 								? array_fill( 0, count( $theDataOffset ), $theTypeValues )
 								: array_fill( 0, count( $theTypeOffsets ), $theTypeValues );
@@ -1071,7 +1068,8 @@ class CAttribute
 	 *		that this parameter may take three forms:
 	 *	 <ul>
 	 *		<li><i>scalar</i>: The single offset will be used for each element provided in
-	 *			the previous parameter.
+	 *			the previous parameter. Note that an ArrayObject instance is also considered
+	 *			a scalar.
 	 *		<li><i>list</i>: If you provide a list of strings, this list will be used for
 	 *			each element provided in the previous parameter.
 	 *		<li><i>matrix</i>: If you provide a list of arrays, each element of the previous
@@ -2320,6 +2318,92 @@ class CAttribute
 		};																			// ==>
 
 	} // HashClosure.
+
+	 
+	/*===================================================================================
+	 *	HashObjectClosure																*
+	 *==================================================================================*/
+
+	/**
+	 * Hash closure.
+	 *
+	 * This method is equivalent to the {@link HashClosure() HashClosure} method, except
+	 * that it is tailored to operate on objects or object references.
+	 *
+	 * It uses the {@link CPersistentUnitObject::ObjectIdentifier() ObjectIdentifier} method
+	 * in place of the MD5 hash, which also means that the provided parameters must be
+	 * resolvable.
+	 *
+	 * @static
+	 * @return closure
+	 */
+	static function HashObjectClosure()
+	{
+		return function( $theElement, $theOffsets = NULL )
+		{
+			//
+			// Handle scalar.
+			//
+			if( $theOffsets === NULL )
+				return CPersistentUnitObject::ObjectIdentifier( $theElement );		// ==>
+			
+			//
+			// Check element.
+			//
+			if( is_array( $theElement )
+			 || ($theElement instanceof ArrayObject) )
+			{
+				//
+				// Init local storage.
+				//
+				$sequence = Array();
+				
+				//
+				// Iterate offsets.
+				//
+				foreach( $theOffsets as $offset )
+				{
+					//
+					// Init subsequence.
+					//
+					$subsequence = $offset.kTOKEN_NAMESPACE_SEPARATOR;
+					
+					//
+					// Hash item.
+					//
+					if( isset( $theElement[ $offset ] ) )
+						$subsequence
+							.= CPersistentUnitObject::ObjectIdentifier
+								( $theElement[ $offset ] );
+					
+					//
+					// Hash missing item.
+					//
+					else
+						$subsequence .= md5( NULL );
+					
+					//
+					// Add to sequence.
+					//
+					$sequence[] = $subsequence;
+				
+				} // Iterating offsets.
+				
+				return CPersistentUnitObject::ObjectIdentifier
+					( implode( kTOKEN_INDEX_SEPARATOR, $sequence ) );				// ==>
+			
+			} // Valid element type.
+			
+			throw new CException
+					( "Invalid element type",
+					  kERROR_INVALID_PARAMETER,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Element' => $theElement,
+					  		 'Offsets' => $theOffsets ) );						// !@! ==>
+
+		};																			// ==>
+
+	} // HashObjectClosure.
 
 	 
 

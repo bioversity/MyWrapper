@@ -113,6 +113,14 @@ define( "kDEFAULT_LIMITS",				'50' );				// 50 by default.
 define( "kDEFAULT_MEMBER",				'___TMP___' );		// Temporary data member name.
 
 /**
+ * Default session offset.
+ *
+ * This value is used as the default offset in which the current session
+ * {@link CSession object} will be stored.
+ */
+define( "kDEFAULT_SESSION",				'_SESSION' );		// Session object offset.
+
+/**
  * Default tags container name.
  *
  * This value defines the default tags container name.
@@ -146,6 +154,13 @@ define( "kDEFAULT_CNT_EDGES",			"EDGES" );
  * This value defines the default datasets container name.
  */
 define( "kDEFAULT_CNT_DATASET",			"DATASETS" );
+
+/**
+ * Default users container name.
+ *
+ * This value defines the default users container name.
+ */
+define( "kDEFAULT_CNT_USERS",			"USERS" );
 
 /*=======================================================================================
  *	CLASS AUTOLOADER																	*

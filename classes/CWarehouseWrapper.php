@@ -244,34 +244,6 @@ class CWarehouseWrapper extends CMongoDataWrapper
 	
 	} // _InitOptions.
 
-	 
-	/*===================================================================================
-	 *	_InitResources																	*
-	 *==================================================================================*/
-
-	/**
-	 * Initialise resources.
-	 *
-	 * In this class we instantiate the Neo4j client.
-	 *
-	 * @access protected
-	 */
-	protected function _InitResources()
-	{
-		//
-		// Set Neo4j connection.
-		//
-		$_SESSION[ kSESSION_NEO4J ] = new Everyman\Neo4j\Client( 'localhost', 7474 );
-//		$_SESSION[ kSESSION_NEO4J ]->getTransport()
-//								   ->useHttps()->setAuth( 'username', 'password' );
-		
-		//
-		// Call parent method.
-		//
-		parent::_InitResources();
-	
-	} // _InitResources.
-
 		
 
 /*=======================================================================================
@@ -1407,7 +1379,8 @@ class CWarehouseWrapper extends CMongoDataWrapper
 						$term_cnt = new CMongoContainer(
 										$db->selectCollection( kDEFAULT_CNT_TERMS ) );
 						$edge_cnt = array( kTAG_TERM => $term_cnt,
-										   kTAG_NODE => $_SESSION[ kSESSION_NEO4J ] );
+										   kTAG_NODE => $_SESSION[ kDEFAULT_SESSION ]
+										   					->Graph() );
 						
 						//
 						// Iterate identifiers.
@@ -2962,7 +2935,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 			$container = array
 			(
 				kTAG_TERM => new CMongoContainer( $_REQUEST[ kAPI_CONTAINER ] ),
-				kTAG_NODE => $_SESSION[ kSESSION_NEO4J ]
+				kTAG_NODE => $_SESSION[ kDEFAULT_SESSION ]->Graph()
 			);
 			
 			//
@@ -3030,7 +3003,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 					//
 					// Instantiate node.
 					//
-					$node = $_SESSION[ kSESSION_NEO4J ]->getNode( $id );
+					$node = $_SESSION[ kDEFAULT_SESSION ]->Graph()->getNode( $id );
 					if( $node !== NULL )
 					{
 						//

@@ -32,6 +32,14 @@
 require_once( '/Library/WebServer/Library/wrapper/includes.inc.php' );
 
 /**
+ * Local includes.
+ *
+ * This include file contains local definitions, it should be stored locally, in this case
+ * we are using the default one
+ */
+require_once( '/Library/WebServer/Library/wrapper/local/environment.inc.php' );
+
+/**
  * Class includes.
  *
  * This include file contains the working class definitions.
@@ -42,18 +50,16 @@ require_once( kPATH_LIBRARY_SOURCE."CMongoDataWrapper.php" );
 /*=======================================================================================
  *	TEST WRAPPER OBJECT																	*
  *======================================================================================*/
- 
-session_start();
 
 //
 // Instantiate wrapper.
 //
-$test = new CMongoDataWrapper();
+$wrapper = new CMongoDataWrapper();
 
 //
 // Handle request.
 //
-$test->HandleRequest();
+$wrapper->HandleRequest();
 
 exit;
 

@@ -56,16 +56,10 @@
 <ul class="side-nav nav nav-list">
 <li class="nav-header">
 <i class="icon-custom icon-method"></i> Methods</li>
-<li class="method public "><a href="#Category" title="Category :: Manage categories."><span class="description">Manage categories.</span><pre>Category()</pre></a></li>
-<li class="method public "><a href="#Created" title="Created :: Manage object creation time stamp."><span class="description">Manage object creation time stamp.</span><pre>Created()</pre></a></li>
-<li class="method public "><a href="#Description" title="Description :: Manage dataset description."><span class="description">Manage dataset description.</span><pre>Description()</pre></a></li>
-<li class="method public "><a href="#Domain" title="Domain :: Manage domains."><span class="description">Manage domains.</span><pre>Domain()</pre></a></li>
 <li class="method public "><a href="#GID" title="GID :: Manage dataset global identifier."><span class="description">Manage dataset global identifier.</span><pre>GID()</pre></a></li>
-<li class="method public "><a href="#Modified" title="Modified :: Manage object last modification time stamp."><span class="description">Manage object last modification time stamp.</span><pre>Modified()</pre></a></li>
-<li class="method public "><a href="#Name" title="Name :: Manage name."><span class="description">Manage name.</span><pre>Name()</pre></a></li>
 <li class="method public "><a href="#StoreFile" title="StoreFile :: Store a file."><span class="description">Store a file.</span><pre>StoreFile()</pre></a></li>
 <li class="method public "><a href="#Title" title="Title :: Manage title."><span class="description">Manage title.</span><pre>Title()</pre></a></li>
-<li class="method public "><a href="#User" title="User :: Manage title."><span class="description">Manage title.</span><pre>User()</pre></a></li>
+<li class="method public "><a href="#User" title="User :: Manage user."><span class="description">Manage user.</span><pre>User()</pre></a></li>
 <li class="method public "><a href="#__construct" title="__construct :: Instantiate class."><span class="description">Instantiate class.</span><pre>__construct()</pre></a></li>
 <li class="method public "><a href="#offsetSet" title="offsetSet :: Set a value for a given offset."><span class="description">Set a value for a given offset.</span><pre>offsetSet()</pre></a></li>
 <li class="method public "><a href="#offsetUnset" title="offsetUnset :: Reset a value for a given offset."><span class="description">Reset a value for a given offset.</span><pre>offsetUnset()</pre></a></li>
@@ -106,11 +100,13 @@
     dataset, it can be expressed in several languages.
 </ul>
 
-<p>By default, the unique <a href="_index()">identifier</a> of the object is its
-<a href="Code()">code</a>, which is also its <a href="_id()">id</a>.</p>
+<p>By default, the unique <a href="_index()">identifier</a> of the object is the combination of
+the <a href="User()">user</a> <a href="kTAG_LID">identifier</a> and the dataset
+<a href="Title()">title</a>.</p>
 
-<p>Objects of this class require at least the <a href="Code()">code</a> <a href="kTAG_CODE">offset</a>
-to have an <a href="_IsInited()">initialised</a> <a href="kFLAG_STATE_INITED">status</a>.</p></p>
+<p>Objects of this class require at least the <a href="kENTITY_USER">user</a> and
+<a href="kTAG_TITLE">title</a> offsets set to have an <a href="_IsInited()">initialised</a>
+<a href="kFLAG_STATE_INITED">status</a>.</p></p>
 <table class="table table-bordered">
 <tr>
 <th>package</th>
@@ -123,203 +119,6 @@ to have an <a href="_IsInited()">initialised</a> <a href="kFLAG_STATE_INITED">st
 </table>
 <h3>
 <i class="icon-custom icon-method"></i> Methods</h3>
-<a name="Category" id="Category"></a><div class="element clickable method public Category" data-toggle="collapse" data-target=".Category .collapse">
-<h2>Manage categories.</h2>
-<pre>Category(mixed $theValue, mixed $theOperation, boolean $getOld) : mixed</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<p class="long_description"><p>This method can be used to handle the object's <a href="kTAG_CATEGORY">categories</a>, it
-uses the standard accessor <a href="CAttribute::ManageArrayOffset()">method</a> to manage
-the list of categories.</p>
-
-<p>Each element of this list should indicate a category to which the current object
-belongs to.</p>
-
-<p>For a more thorough reference of how this method works, please consult the
-<a href="CAttribute::ManageArrayOffset()">CAttribute::ManageArrayOffset</a> method, in
-which the second parameter will be the constant <a href="kTAG_CATEGORY">kTAG_CATEGORY</a>.</p></p>
-<table class="table table-bordered">
-<tr>
-<th>access</th>
-<td>public</td>
-</tr>
-<tr>
-<th>uses</th>
-<td>\CAttribute::ManageArrayOffset()</td>
-</tr>
-<tr>
-<th>see</th>
-<td>\kTAG_CATEGORY</td>
-</tr>
-</table>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$theValue</h4>
-<code>mixed</code><p>Value or index.</p></div>
-<div class="subelement argument">
-<h4>$theOperation</h4>
-<code>mixed</code><p>Operation.</p></div>
-<div class="subelement argument">
-<h4>$getOld</h4>
-<code>boolean</code><p>TRUE get old value.</p></div>
-<h3>Returns</h3>
-<div class="subelement response"><code>mixed</code></div>
-</div></div>
-</div>
-<a name="Created" id="Created"></a><div class="element clickable method public Created" data-toggle="collapse" data-target=".Created .collapse">
-<h2>Manage object creation time stamp.</h2>
-<pre>Created(NULL | FALSE | string $theValue, boolean $getOld) : string</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<p class="long_description"><p>This method can be used to manage the object <a href="kTAG_CREATED">creation</a>
-time-stamp, it uses the standard accessor <a href="CAttribute::ManageOffset()">method</a>
-to manage the <a href="kTAG_MODIFIED">offset</a>:</p>
-
-<ul>
-<li><b>$theValue</b>: The value or operation:
- <ul>
-    <li><i>NULL</i>: Return the current value.
-    <li><i>FALSE</i>: Delete the value.
-    <li><i>other</i>: Set value.
- </ul>
-<li><b>$getOld</b>: Determines what the method will return:
- <ul>
-    <li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
-    <li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
- </ul>
-</ul></p>
-<table class="table table-bordered">
-<tr>
-<th>access</th>
-<td>public</td>
-</tr>
-<tr>
-<th>uses</th>
-<td>\CAttribute::ManageOffset()</td>
-</tr>
-<tr>
-<th>see</th>
-<td>\kTAG_CREATED</td>
-</tr>
-</table>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$theValue</h4>
-<code>NULLFALSEstring</code><p>Object creation date.</p></div>
-<div class="subelement argument">
-<h4>$getOld</h4>
-<code>boolean</code><p>TRUE get old value.</p></div>
-<h3>Returns</h3>
-<div class="subelement response"><code>string</code></div>
-</div></div>
-</div>
-<a name="Description" id="Description"></a><div class="element clickable method public Description" data-toggle="collapse" data-target=".Description .collapse">
-<h2>Manage dataset description.</h2>
-<pre>Description(mixed $theValue, mixed $theLanguage, boolean $getOld) : string</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<p class="long_description"><p>This method can be used to manage the <a href="kTAG_DESCRIPTION">description</a>, it
-manages an array of structures with the following offsets:</p>
-
-<ul>
-<li><i><a href="kTAG_LANGUAGE">kTAG_LANGUAGE</a></i>: The description's language, this
-    element represents the code of the language in which the next element is
-    expressed in.
-<li><i><a href="kTAG_DATA">kTAG_DATA</a></i>: The dataset description or comment.
-</ul>
-
-<p>The parameters to this method are:</p>
-
-<ul>
-<li><b>$theValue</b>: The description or operation:
- <ul>
-    <li><i>NULL</i>: Return the current value selected by the second parameter.
-    <li><i>FALSE</i>: Delete the value selected by the second parameter.
-    <li><i>other</i>: Set value selected by the second parameter.
- </ul>
-<li><b>$theLanguage</b>: The description's language code:
- <ul>
-    <li><i>NULL</i>: This value indicates that the description has no language, in
-        general, when adding elements, this case applies to default elements.
-    <li><i>other</i>: All other types will be interpreted as the language code.
- </ul>
-<li><b>$getOld</b>: Determines what the method will return:
- <ul>
-    <li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
-    <li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
- </ul>
-</ul></p>
-<table class="table table-bordered">
-<tr>
-<th>access</th>
-<td>public</td>
-</tr>
-<tr>
-<th>uses</th>
-<td>\CAttribute::ManageTypedOffset()</td>
-</tr>
-<tr>
-<th>see</th>
-<td>\kTAG_DESCRIPTION</td>
-</tr>
-</table>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$theValue</h4>
-<code>mixed</code><p>Term description or operation.</p></div>
-<div class="subelement argument">
-<h4>$theLanguage</h4>
-<code>mixed</code><p>Term description language code.</p></div>
-<div class="subelement argument">
-<h4>$getOld</h4>
-<code>boolean</code><p>TRUE get old value.</p></div>
-<h3>Returns</h3>
-<div class="subelement response"><code>string</code></div>
-</div></div>
-</div>
-<a name="Domain" id="Domain"></a><div class="element clickable method public Domain" data-toggle="collapse" data-target=".Domain .collapse">
-<h2>Manage domains.</h2>
-<pre>Domain(mixed $theValue, mixed $theOperation, boolean $getOld) : mixed</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<p class="long_description"><p>This method can be used to handle the object's <a href="kTAG_DOMAIN">domains</a>, it uses
-the standard accessor <a href="CAttribute::ManageArrayOffset()">method</a> to manage the
-list of domains.</p>
-
-<p>Each element of this list should indicate a domain to which the current object
-belongs to.</p>
-
-<p>For a more thorough reference of how this method works, please consult the
-<a href="CAttribute::ManageArrayOffset()">CAttribute::ManageArrayOffset</a> method, in
-which the second parameter will be the constant <a href="kTAG_CATEGORY">kTAG_CATEGORY</a>.</p></p>
-<table class="table table-bordered">
-<tr>
-<th>access</th>
-<td>public</td>
-</tr>
-<tr>
-<th>uses</th>
-<td>\CAttribute::ManageArrayOffset()</td>
-</tr>
-<tr>
-<th>see</th>
-<td>\kTAG_DOMAIN</td>
-</tr>
-</table>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$theValue</h4>
-<code>mixed</code><p>Value or index.</p></div>
-<div class="subelement argument">
-<h4>$theOperation</h4>
-<code>mixed</code><p>Operation.</p></div>
-<div class="subelement argument">
-<h4>$getOld</h4>
-<code>boolean</code><p>TRUE get old value.</p></div>
-<h3>Returns</h3>
-<div class="subelement response"><code>mixed</code></div>
-</div></div>
-</div>
 <a name="GID" id="GID"></a><div class="element clickable method public GID" data-toggle="collapse" data-target=".GID .collapse">
 <h2>Manage dataset global identifier.</h2>
 <pre>GID() : string</pre>
@@ -344,120 +143,9 @@ this method is read-only.</p></p>
 <div class="subelement response"><code>string</code></div>
 </div></div>
 </div>
-<a name="Modified" id="Modified"></a><div class="element clickable method public Modified" data-toggle="collapse" data-target=".Modified .collapse">
-<h2>Manage object last modification time stamp.</h2>
-<pre>Modified(NULL | FALSE | string $theValue, boolean $getOld) : string</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<p class="long_description"><p>This method can be used to manage the object last <a href="kTAG_MODIFIED">modification</a>
-time-stamp, or the date in which the last modification was made on the object, it
-uses the standard accessor <a href="CAttribute::ManageOffset()">method</a> to manage the
-<a href="kTAG_MODIFIED">offset</a>:</p>
-
-<ul>
-<li><b>$theValue</b>: The value or operation:
- <ul>
-    <li><i>NULL</i>: Return the current value.
-    <li><i>FALSE</i>: Delete the value.
-    <li><i>other</i>: Set value.
- </ul>
-<li><b>$getOld</b>: Determines what the method will return:
- <ul>
-    <li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
-    <li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
- </ul>
-</ul></p>
-<table class="table table-bordered">
-<tr>
-<th>access</th>
-<td>public</td>
-</tr>
-<tr>
-<th>uses</th>
-<td>\CAttribute::ManageOffset()</td>
-</tr>
-<tr>
-<th>see</th>
-<td>\kTAG_MODIFIED</td>
-</tr>
-</table>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$theValue</h4>
-<code>NULLFALSEstring</code><p>Object last modification date.</p></div>
-<div class="subelement argument">
-<h4>$getOld</h4>
-<code>boolean</code><p>TRUE get old value.</p></div>
-<h3>Returns</h3>
-<div class="subelement response"><code>string</code></div>
-</div></div>
-</div>
-<a name="Name" id="Name"></a><div class="element clickable method public Name" data-toggle="collapse" data-target=".Name .collapse">
-<h2>Manage name.</h2>
-<pre>Name(mixed $theValue, mixed $theLanguage, boolean $getOld) : string</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<p class="long_description"><p>This method can be used to manage the dataset <a href="kTAG_NAME">name</a>, it manages an
-array of structures with the following offsets:</p>
-
-<ul>
-<li><i><a href="kTAG_LANGUAGE">kTAG_LANGUAGE</a></i>: The name's language, this element
-    represents the code of the language in which the next element is expressed in.
-<li><i><a href="kTAG_DATA">kTAG_DATA</a></i>: The dataset name or label.
-</ul>
-
-<p>The parameters to this method are:</p>
-
-<ul>
-<li><b>$theValue</b>: The name or operation:
- <ul>
-    <li><i>NULL</i>: Return the current value selected by the second parameter.
-    <li><i>FALSE</i>: Delete the value selected by the second parameter.
-    <li><i>other</i>: Set value selected by the second parameter.
- </ul>
-<li><b>$theLanguage</b>: The name's language code:
- <ul>
-    <li><i>NULL</i>: This value indicates that the name has no language, in general,
-        when adding elements, this case applies to default elements.
-    <li><i>other</i>: All other types will be interpreted as the language code.
- </ul>
-<li><b>$getOld</b>: Determines what the method will return:
- <ul>
-    <li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
-    <li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
- </ul>
-</ul></p>
-<table class="table table-bordered">
-<tr>
-<th>access</th>
-<td>public</td>
-</tr>
-<tr>
-<th>uses</th>
-<td>\CAttribute::ManageTypedOffset()</td>
-</tr>
-<tr>
-<th>see</th>
-<td>\kTAG_NAME</td>
-</tr>
-</table>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$theValue</h4>
-<code>mixed</code><p>Term name or operation.</p></div>
-<div class="subelement argument">
-<h4>$theLanguage</h4>
-<code>mixed</code><p>Term name language code.</p></div>
-<div class="subelement argument">
-<h4>$getOld</h4>
-<code>boolean</code><p>TRUE get old value.</p></div>
-<h3>Returns</h3>
-<div class="subelement response"><code>string</code></div>
-</div></div>
-</div>
 <a name="StoreFile" id="StoreFile"></a><div class="element clickable method public StoreFile" data-toggle="collapse" data-target=".StoreFile .collapse">
 <h2>Store a file.</h2>
-<pre>StoreFile(string $theFile, <a href="../classes/CMongoGridContainer.html">\CMongoGridContainer</a> $theContainer, mixed $theMetadata, \bitfield $theModifiers) : <a href="../classes/CDatasetFile.html">\CDatasetFile</a></pre>
+<pre>StoreFile(string $theFile, <a href="../classes/CMongoGridContainer.html">\CMongoGridContainer</a> $theContainer, mixed $theMetadata, \bitfield $theModifiers) : <a href="http://php.net/manual/en/class.mongoid.php">\MongoId</a></pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <p class="long_description"><p>This method can be used to store a file in a grid
@@ -516,7 +204,7 @@ without a valid dataset reference</i></b>.</p>
 <h4>$theModifiers</h4>
 <code>\bitfield</code><p>Operation modifiers.</p></div>
 <h3>Returns</h3>
-<div class="subelement response"><code><a href="../classes/CDatasetFile.html">\CDatasetFile</a></code></div>
+<div class="subelement response"><code><a href="http://php.net/manual/en/class.mongoid.php">\MongoId</a></code></div>
 </div></div>
 </div>
 <a name="Title" id="Title"></a><div class="element clickable method public Title" data-toggle="collapse" data-target=".Title .collapse">
@@ -528,8 +216,8 @@ without a valid dataset reference</i></b>.</p>
 standard accessor <a href="CAttribute::ManageOffset()">method</a> to manage the
 <a href="kTAG_TITLE">offset</a>.</p>
 
-<p>The title represents the object's identifier provided by its creator, it should be
-unique within all datasets created by the same user.</p>
+<p>The title represents a non language-based string which can be used to identify or
+provide a name to an object.</p>
 
 <p>For a more in-depth reference of this method, please consult the
 <a href="CAttribute::ManageOffset()">ManageOffset</a> method, in which the first parameter
@@ -560,11 +248,11 @@ will be the constant <a href="kTAG_TITLE">kTAG_TITLE</a>.</p></p>
 </div></div>
 </div>
 <a name="User" id="User"></a><div class="element clickable method public User" data-toggle="collapse" data-target=".User .collapse">
-<h2>Manage title.</h2>
+<h2>Manage user.</h2>
 <pre>User(mixed $theValue, boolean $getOld) : string</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
-<p class="long_description"><p>This method can be used to handle the object's <a href="kENTITY_USER">title</a>, it uses
+<p class="long_description"><p>This method can be used to handle the object's <a href="kENTITY_USER">user</a>, it uses
 the standard accessor <a href="CAttribute::ManageOffset()">method</a> to manage the
 <a href="kENTITY_USER">offset</a>.</p>
 
@@ -772,7 +460,7 @@ dataset <a href="User()">creator</a> with the <a href="Title()">title</a> separa
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a6</a> and<br>
-            generated on 2012-07-06T19:02:15+02:00.<br></footer></div>
+            generated on 2012-07-11T12:27:23+02:00.<br></footer></div>
 </div>
 </body>
 </html>

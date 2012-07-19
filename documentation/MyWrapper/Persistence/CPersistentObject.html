@@ -367,10 +367,6 @@
 								: Instantiate class.
 							</li>
 					<li>
-				<a href="../../MyWrapper/Entities/CUser.html#method__construct">CUser::__construct()</a>
-								: Instantiate class.
-							</li>
-					<li>
 				<a href="../../MyWrapper/Ontology/COntologyTermObject.html#method__construct">COntologyTermObject::__construct()</a>
 								: Instantiate class.
 							</li>
@@ -699,6 +695,10 @@
 				<a href="../../MyWrapper/Ontology/COntologyNode.html#method_FinishCreate">COntologyNode::_FinishCreate()</a>
 								: Normalise after a _Create().
 							</li>
+					<li>
+				<a href="../../MyWrapper/Entities/CUser.html#method_FinishCreate">CUser::_FinishCreate()</a>
+								: Normalise after a _Create().
+							</li>
 				</ul>
 	</div>
 <a name="method_FinishLoad" id="_FinishLoad"><!-- --></a>
@@ -755,6 +755,10 @@
 							</li>
 					<li>
 				<a href="../../MyWrapper/Ontology/COntologyNode.html#method_FinishLoad">COntologyNode::_FinishLoad()</a>
+								: Normalise after a _Load().
+							</li>
+					<li>
+				<a href="../../MyWrapper/Entities/CUser.html#method_FinishLoad">CUser::_FinishLoad()</a>
 								: Normalise after a _Load().
 							</li>
 				</ul>
@@ -850,10 +854,11 @@
 	<ul class="tags">
 				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a></li>
 				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Entities/CUser.html#method_PrepareCreate">CUser::_PrepareCreate()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTermObject.html#method_PrepareCreate">COntologyTermObject::_PrepareCreate()</a></li>
-				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTermObject.html#method_CheckReference">COntologyTermObject::_CheckReference()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CDataset.html#method_PrepareCreate">CDataset::_PrepareCreate()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Entities/CEntity.html#method_PrepareCreate">CEntity::_PrepareCreate()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTermObject.html#method_CheckReference">COntologyTermObject::_CheckReference()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyEdge.html#method_PrepareCreate">COntologyEdge::_PrepareCreate()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_PrepareCreate">CPersistentObject::_PrepareCreate()</a></li>
 				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CPersistentObject.html#method_PrepareLoad">CPersistentObject::_PrepareLoad()</a></li>
@@ -1090,6 +1095,10 @@
 								: Normalise parameters of a create.
 							</li>
 					<li>
+				<a href="../../MyWrapper/Entities/CUser.html#method_PrepareCreate">CUser::_PrepareCreate()</a>
+								: Normalise parameters of a create.
+							</li>
+					<li>
 				<a href="../../MyWrapper/Ontology/COntologyTermObject.html#method_PrepareCreate">COntologyTermObject::_PrepareCreate()</a>
 								: Normalise parameters of a create.
 							</li>
@@ -1308,7 +1317,7 @@
 	</div>
 	
 	<p class="notes" id="credit">
-		Documentation generated on Fri, 06 Jul 2012 19:01:44 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Thu, 19 Jul 2012 17:45:21 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

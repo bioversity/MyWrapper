@@ -57,10 +57,8 @@
 <li class="nav-header">
 <i class="icon-custom icon-method"></i> Methods</li>
 <li class="method public "><a href="#Column" title="Column :: Manage the file columns."><span class="description">Manage the file columns.</span><pre>Column()</pre></a></li>
-<li class="method public "><a href="#Dataset" title="Dataset :: Manage dataset."><span class="description">Manage dataset.</span><pre>Dataset()</pre></a></li>
-<li class="method public "><a href="#Kind" title="Kind :: Manage the file kind."><span class="description">Manage the file kind.</span><pre>Kind()</pre></a></li>
-<li class="method public "><a href="#Referenced" title="Referenced :: Manage referenced file references."><span class="description">Manage referenced file references.</span><pre>Referenced()</pre></a></li>
-<li class="method public "><a href="#Status" title="Status :: Manage the file status."><span class="description">Manage the file status.</span><pre>Status()</pre></a></li>
+<li class="method public "><a href="#Dataset" title="Dataset :: Manage the dataset reference."><span class="description">Manage the dataset reference.</span><pre>Dataset()</pre></a></li>
+<li class="method public "><a href="#Owner" title="Owner :: Manage the owner reference."><span class="description">Manage the owner reference.</span><pre>Owner()</pre></a></li>
 <li class="method public "><a href="#__construct" title="__construct :: Instantiate class."><span class="description">Instantiate class.</span><pre>__construct()</pre></a></li>
 </ul>
 </div>
@@ -91,7 +89,7 @@ functions, it only concentrates in managing a file reference as a set of propert
     list of file <a href="File()">references</a>, this attribute all files that were generated
     taking the current file as a model. For instance, this list would contain all CSV
     files generated from all the workbooks of an Excel file.
-<li><i><a href="Status()">Status</a></i>: This <a href="kTAG_STATUS">property</a> holds the list of
+<li><i><a href="Status()">Status</a></i>: This <a href="kTAG_STATE">property</a> holds the list of
     states in which the current file is.
 <li><i><a href="Kind()">Kind</a></i>: This <a href="kTAG_KIND">property</a> holds the list of kinds
     or types assigned to the file.
@@ -194,7 +192,7 @@ information:</p>
 </div></div>
 </div>
 <a name="Dataset" id="Dataset"></a><div class="element clickable method public Dataset" data-toggle="collapse" data-target=".Dataset .collapse">
-<h2>Manage dataset.</h2>
+<h2>Manage the dataset reference.</h2>
 <pre>Dataset(string $theValue, boolean $getOld) : mixed</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
@@ -208,7 +206,10 @@ information:</p>
 </ul>
 
 <p>The second parameter is a boolean which if <i>TRUE</i> will return the <i>old</i>
-value when replacing values; if <i>FALSE</i>, it will return the currently set value.</p></p>
+value when replacing values; if <i>FALSE</i>, it will return the currently set value.</p>
+
+<p>You should provide an object reference or the actual object to this method when
+providing a new value.</p></p>
 <table class="table table-bordered">
 <tr>
 <th>access</th>
@@ -234,21 +235,26 @@ value when replacing values; if <i>FALSE</i>, it will return the currently set v
 <div class="subelement response"><code>mixed</code></div>
 </div></div>
 </div>
-<a name="Kind" id="Kind"></a><div class="element clickable method public Kind" data-toggle="collapse" data-target=".Kind .collapse">
-<h2>Manage the file kind.</h2>
-<pre>Kind(mixed $theValue, mixed $theOperation, boolean $getOld) : mixed</pre>
+<a name="Owner" id="Owner"></a><div class="element clickable method public Owner" data-toggle="collapse" data-target=".Owner .collapse">
+<h2>Manage the owner reference.</h2>
+<pre>Owner(string $theValue, boolean $getOld) : mixed</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
-<p class="long_description"><p>This method can be used to handle the object's list of <a href="kTAG_KIND">kinds</a>, it
-uses the standard accessor <a href="CAttribute::ManageArrayOffset()">method</a> to manage
-the list of kind or type tags associated with the file.</p>
+<p class="long_description"><p>This method can be used to manage the reference to the object that owns, controls or
+generated the current one, the provided parameter represents an object reference or
+the operation to be performed:</p>
 
-<p>Each element of this list should indicate a kind or type associated with the object.
-This information indicates what kind or type of file the current object is.</p>
+<ul>
+<li><i>NULL</i>: Return the current value.
+<li><i>FALSE</i>: Delete the current value.
+<li><i>other</i>: Set the value with the provided parameter.
+</ul>
 
-<p>For a more thorough reference of how this method works, please consult the
-<a href="CAttribute::ManageArrayOffset()">CAttribute::ManageArrayOffset</a> method, in
-which the second parameter will be the constant <a href="kTAG_KIND">kTAG_KIND</a>.</p></p>
+<p>The second parameter is a boolean which if <i>TRUE</i> will return the <i>old</i>
+value when replacing values; if <i>FALSE</i>, it will return the currently set value.</p>
+
+<p>You should provide an object reference or the <a href="kTAG_LID">identifier</a> of the
+owner object.</p></p>
 <table class="table table-bordered">
 <tr>
 <th>access</th>
@@ -256,107 +262,17 @@ which the second parameter will be the constant <a href="kTAG_KIND">kTAG_KIND</a
 </tr>
 <tr>
 <th>uses</th>
-<td>\CAttribute::ManageArrayOffset()</td>
+<td>\CAttribute::ManageOffset()</td>
 </tr>
 <tr>
 <th>see</th>
-<td>\kTAG_KIND</td>
+<td>\kTAG_OWNER</td>
 </tr>
 </table>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$theValue</h4>
-<code>mixed</code><p>Value or index.</p></div>
-<div class="subelement argument">
-<h4>$theOperation</h4>
-<code>mixed</code><p>Operation.</p></div>
-<div class="subelement argument">
-<h4>$getOld</h4>
-<code>boolean</code><p>TRUE get old value.</p></div>
-<h3>Returns</h3>
-<div class="subelement response"><code>mixed</code></div>
-</div></div>
-</div>
-<a name="Referenced" id="Referenced"></a><div class="element clickable method public Referenced" data-toggle="collapse" data-target=".Referenced .collapse">
-<h2>Manage referenced file references.</h2>
-<pre>Referenced(mixed $theValue, mixed $theOperation, boolean $getOld) : mixed</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<p class="long_description"><p>This method can be used to handle the object's <a href="kTAG_REFS">references</a>, it uses
-the standard accessor <a href="CAttribute::ManageArrayOffset()">method</a> to manage the
-list of referenced files.</p>
-
-<p>Each element of this list should indicate a the eventual file that the system
-generated according to the current file: for instance, an Excel file will generate
-as many CSV files as it has non-empty worksheets.</p>
-
-<p>For a more thorough reference of how this method works, please consult the
-<a href="CAttribute::ManageArrayOffset()">CAttribute::ManageArrayOffset</a> method, in
-which the second parameter will be the constant <a href="kTAG_REFS">kTAG_REFS</a>.</p></p>
-<table class="table table-bordered">
-<tr>
-<th>access</th>
-<td>public</td>
-</tr>
-<tr>
-<th>uses</th>
-<td>\CAttribute::ManageArrayOffset()</td>
-</tr>
-<tr>
-<th>see</th>
-<td>\kTAG_REFS</td>
-</tr>
-</table>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$theValue</h4>
-<code>mixed</code><p>Value or index.</p></div>
-<div class="subelement argument">
-<h4>$theOperation</h4>
-<code>mixed</code><p>Operation.</p></div>
-<div class="subelement argument">
-<h4>$getOld</h4>
-<code>boolean</code><p>TRUE get old value.</p></div>
-<h3>Returns</h3>
-<div class="subelement response"><code>mixed</code></div>
-</div></div>
-</div>
-<a name="Status" id="Status"></a><div class="element clickable method public Status" data-toggle="collapse" data-target=".Status .collapse">
-<h2>Manage the file status.</h2>
-<pre>Status(mixed $theValue, mixed $theOperation, boolean $getOld) : mixed</pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<p class="long_description"><p>This method can be used to handle the object's list of <a href="kTAG_STATUS">states</a>, it
-uses the standard accessor <a href="CAttribute::ManageArrayOffset()">method</a> to manage
-the list of status tags associated with the file.</p>
-
-<p>Each element of this list should indicate an object state, status or quality. This
-information indicates in which state the file is in.</p>
-
-<p>For a more thorough reference of how this method works, please consult the
-<a href="CAttribute::ManageArrayOffset()">CAttribute::ManageArrayOffset</a> method, in
-which the second parameter will be the constant <a href="kTAG_STATUS">kTAG_STATUS</a>.</p></p>
-<table class="table table-bordered">
-<tr>
-<th>access</th>
-<td>public</td>
-</tr>
-<tr>
-<th>uses</th>
-<td>\CAttribute::ManageArrayOffset()</td>
-</tr>
-<tr>
-<th>see</th>
-<td>\kTAG_STATUS</td>
-</tr>
-</table>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$theValue</h4>
-<code>mixed</code><p>Value or index.</p></div>
-<div class="subelement argument">
-<h4>$theOperation</h4>
-<code>mixed</code><p>Operation.</p></div>
+<code>string</code><p>Value or operation.</p></div>
 <div class="subelement argument">
 <h4>$getOld</h4>
 <code>boolean</code><p>TRUE get old value.</p></div>
@@ -388,7 +304,7 @@ corresponding properties, or as an empty object.</p></p>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a6</a> and<br>
-            generated on 2012-07-06T19:02:15+02:00.<br></footer></div>
+            generated on 2012-07-11T12:27:23+02:00.<br></footer></div>
 </div>
 </body>
 </html>

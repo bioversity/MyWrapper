@@ -39,18 +39,16 @@ require_once( kPATH_LIBRARY_SOURCE."CWrapper.php" );
 /*=======================================================================================
  *	TEST WRAPPER OBJECT																	*
  *======================================================================================*/
- 
-session_start();
 
 //
 // Instantiate wrapper.
 //
-$test = new CWrapper();
+$wrapper = new CWrapper();
 
 //
 // Handle request.
 //
-$test->HandleRequest();
+$wrapper->HandleRequest();
 
 exit;
 

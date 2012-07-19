@@ -27,13 +27,6 @@
 require_once( kPATH_LIBRARY_SOURCE."CArrayObject.php" );
 
 /**
- * Traits.
- *
- * This include file contains the parent class definitions.
- */
-require_once( kPATH_LIBRARY_TRAITS."TDataset.php" );
-
-/**
  *	Dataset file.
  *
  * This class implements a dataset file, it wraps the {@link CArrayObject parent} class
@@ -50,7 +43,7 @@ require_once( kPATH_LIBRARY_TRAITS."TDataset.php" );
  *		list of file {@link File() references}, this attribute all files that were generated
  *		taking the current file as a model. For instance, this list would contain all CSV
  *		files generated from all the workbooks of an Excel file.
- *	<li><i>{@link Status() Status}</i>: This {@link kTAG_STATUS property} holds the list of
+ *	<li><i>{@link Status() Status}</i>: This {@link kTAG_STATE property} holds the list of
  *		states in which the current file is.
  *	<li><i>{@link Kind() Kind}</i>: This {@link kTAG_KIND property} holds the list of kinds
  *		or types assigned to the file.
@@ -129,7 +122,7 @@ class CDatasetFile extends CArrayObject
 	 *==================================================================================*/
 
 	/**
-	 * Manage dataset.
+	 * Manage the dataset reference.
 	 *
 	 * This method can be used to manage the file's {@link CDataset dataset}
 	 * {@link kTAG_LID reference} or the operation to be performed:
@@ -143,6 +136,9 @@ class CDatasetFile extends CArrayObject
 	 * The second parameter is a boolean which if <i>TRUE</i> will return the <i>old</i>
 	 * value when replacing values; if <i>FALSE</i>, it will return the currently set value.
 	 *
+	 * You should provide an object reference or the actual object to this method when
+	 * providing a new value.
+	 *
 	 * @param string				$theValue			Value or operation.
 	 * @param boolean				$getOld				TRUE get old value.
 	 *
@@ -155,6 +151,13 @@ class CDatasetFile extends CArrayObject
 	 */
 	public function Dataset( $theValue = NULL, $getOld = FALSE )
 	{
+		//
+		// Check identifier.
+		//
+		if( ($theValue !== NULL)
+		 && ($theValue !== FALSE) )
+			$theValue = CPersistentUnitObject::NormaliseRelatedObject( $theValue );
+		
 		return CAttribute::ManageOffset
 				( $this, kTAG_DATASET, $theValue, $getOld );						// ==>
 
@@ -162,60 +165,69 @@ class CDatasetFile extends CArrayObject
 
 	 
 	/*===================================================================================
-	 *	Referenced																		*
+	 *	Owner																			*
 	 *==================================================================================*/
 
 	/**
-	 * Manage referenced file references.
+	 * Manage the owner reference.
 	 *
-	 * This method can be used to handle the object's {@link kTAG_REFS references}, it uses
-	 * the standard accessor {@link CAttribute::ManageArrayOffset() method} to manage the
-	 * list of referenced files.
+	 * This method can be used to manage the reference to the object that owns, controls or
+	 * generated the current one, the provided parameter represents an object reference or
+	 * the operation to be performed:
 	 *
-	 * Each element of this list should indicate a the eventual file that the system
-	 * generated according to the current file: for instance, an Excel file will generate
-	 * as many CSV files as it has non-empty worksheets.
+	 * <ul>
+	 *	<li><i>NULL</i>: Return the current value.
+	 *	<li><i>FALSE</i>: Delete the current value.
+	 *	<li><i>other</i>: Set the value with the provided parameter.
+	 * </ul>
 	 *
-	 * For a more thorough reference of how this method works, please consult the
-	 * {@link CAttribute::ManageArrayOffset() CAttribute::ManageArrayOffset} method, in
-	 * which the second parameter will be the constant {@link kTAG_REFS kTAG_REFS}.
+	 * The second parameter is a boolean which if <i>TRUE</i> will return the <i>old</i>
+	 * value when replacing values; if <i>FALSE</i>, it will return the currently set value.
 	 *
-	 * @param mixed					$theValue			Value or index.
-	 * @param mixed					$theOperation		Operation.
+	 * You should provide an object reference or the {@link kTAG_LID identifier} of the
+	 * owner object.
+	 *
+	 * @param string				$theValue			Value or operation.
 	 * @param boolean				$getOld				TRUE get old value.
 	 *
 	 * @access public
 	 * @return mixed
 	 *
-	 * @uses CAttribute::ManageArrayOffset()
+	 * @uses CAttribute::ManageOffset()
 	 *
-	 * @see kTAG_REFS
+	 * @see kTAG_OWNER
 	 */
-	public function Referenced( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
+	public function Owner( $theValue = NULL, $getOld = FALSE )
 	{
-		return CAttribute::ManageArrayOffset
-					( $this, kTAG_REFS, $theValue, $theOperation, $getOld );		// ==>
+		//
+		// Check identifier.
+		//
+		if( ($theValue !== NULL)
+		 && ($theValue !== FALSE) )
+			$theValue = CPersistentUnitObject::NormaliseRelatedObject( $theValue );
+		
+		return CAttribute::ManageOffset( $this, kTAG_OWNER, $theValue, $getOld );	// ==>
 
-	} // Referenced.
+	} // Owner.
 
 	 
 	/*===================================================================================
-	 *	Status																			*
+	 *	State																			*
 	 *==================================================================================*/
 
 	/**
-	 * Manage the file status.
+	 * Manage the state.
 	 *
-	 * This method can be used to handle the object's list of {@link kTAG_STATUS states}, it
+	 * This method can be used to handle the object's list of {@link kTAG_STATE states}, it
 	 * uses the standard accessor {@link CAttribute::ManageArrayOffset() method} to manage
-	 * the list of status tags associated with the file.
+	 * the list of tags associated with the various states of the current object.
 	 *
 	 * Each element of this list should indicate an object state, status or quality. This
-	 * information indicates in which state the file is in.
+	 * information indicates in which state the object is in.
 	 *
 	 * For a more thorough reference of how this method works, please consult the
 	 * {@link CAttribute::ManageArrayOffset() CAttribute::ManageArrayOffset} method, in
-	 * which the second parameter will be the constant {@link kTAG_STATUS kTAG_STATUS}.
+	 * which the second parameter will be the constant {@link kTAG_STATE kTAG_STATE}.
 	 *
 	 * @param mixed					$theValue			Value or index.
 	 * @param mixed					$theOperation		Operation.
@@ -226,14 +238,14 @@ class CDatasetFile extends CArrayObject
 	 *
 	 * @uses CAttribute::ManageArrayOffset()
 	 *
-	 * @see kTAG_STATUS
+	 * @see kTAG_STATE
 	 */
-	public function Status( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
+	public function State( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
 	{
 		return CAttribute::ManageArrayOffset
-					( $this, kTAG_STATUS, $theValue, $theOperation, $getOld );		// ==>
+					( $this, kTAG_STATE, $theValue, $theOperation, $getOld );		// ==>
 
-	} // Status.
+	} // State.
 
 	 
 	/*===================================================================================
@@ -241,14 +253,14 @@ class CDatasetFile extends CArrayObject
 	 *==================================================================================*/
 
 	/**
-	 * Manage the file kind.
+	 * Manage the kind.
 	 *
 	 * This method can be used to handle the object's list of {@link kTAG_KIND kinds}, it
 	 * uses the standard accessor {@link CAttribute::ManageArrayOffset() method} to manage
-	 * the list of kind or type tags associated with the file.
+	 * the list of kind, type or function tags associated with the file.
 	 *
-	 * Each element of this list should indicate a kind or type associated with the object.
-	 * This information indicates what kind or type of file the current object is.
+	 * Each element of this list should indicate a specific kind or type of the object or a
+	 * specific function that the object has.
 	 *
 	 * For a more thorough reference of how this method works, please consult the
 	 * {@link CAttribute::ManageArrayOffset() CAttribute::ManageArrayOffset} method, in

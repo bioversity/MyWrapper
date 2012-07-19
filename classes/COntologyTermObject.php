@@ -120,6 +120,26 @@ abstract class COntologyTermObject extends CCodedUnitObject
 
 	 
 	/*===================================================================================
+	 *	GID																				*
+	 *==================================================================================*/
+
+	/**
+	 * Manage term global identifier.
+	 *
+	 * The term global {@link kTAG_GID identifier} represents the un-hashed version of the
+	 * term local {@link kTAG_LID identifier}.
+	 *
+	 * This value is set automatically by methods, so this method is read-only.
+	 *
+	 * @access public
+	 * @return string
+	 *
+	 * @see kTAG_GID
+	 */
+	public function GID()									{	return $this[ kTAG_GID ];	}
+
+	 
+	/*===================================================================================
 	 *	NS																				*
 	 *==================================================================================*/
 
@@ -204,27 +224,130 @@ abstract class COntologyTermObject extends CCodedUnitObject
 
 	} // Code.
 
-
+	 
 	/*===================================================================================
-	 *	GID																				*
+	 *	Kind																			*
 	 *==================================================================================*/
 
 	/**
-	 * Manage term global identifier.
+	 * Manage the kind.
 	 *
-	 * The term global {@link kTAG_GID identifier} represents the un-hashed version of the
-	 * term local {@link kTAG_LID identifier}.
+	 * This method can be used to handle the object's list of {@link kTAG_KIND kinds}, it
+	 * uses the standard accessor {@link CAttribute::ManageArrayOffset() method} to manage
+	 * the list of kind, type or function tags associated with the file.
 	 *
-	 * This value is set automatically by methods, so this method is read-only.
+	 * Each element of this list should indicate a specific kind or type of the object or a
+	 * specific function that the object has.
+	 *
+	 * For a more thorough reference of how this method works, please consult the
+	 * {@link CAttribute::ManageArrayOffset() CAttribute::ManageArrayOffset} method, in
+	 * which the second parameter will be the constant {@link kTAG_KIND kTAG_KIND}.
+	 *
+	 * @param mixed					$theValue			Value or index.
+	 * @param mixed					$theOperation		Operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return mixed
+	 *
+	 * @uses CAttribute::ManageArrayOffset()
+	 *
+	 * @see kTAG_KIND
+	 */
+	public function Kind( $theValue = NULL, $theOperation = NULL, $getOld = FALSE )
+	{
+		return CAttribute::ManageArrayOffset
+					( $this, kTAG_KIND, $theValue, $theOperation, $getOld );		// ==>
+
+	} // Kind.
+
+	 
+	/*===================================================================================
+	 *	Created																			*
+	 *==================================================================================*/
+
+	/**
+	 * Manage object creation time stamp.
+	 *
+	 * This method can be used to manage the object {@link kTAG_CREATED creation}
+	 * time-stamp, it uses the standard accessor {@link CAttribute::ManageOffset() method}
+	 * to manage the {@link kTAG_MODIFIED offset}:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: The value or operation:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Return the current value.
+	 *		<li><i>FALSE</i>: Delete the value.
+	 *		<li><i>other</i>: Set value.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
+	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * @param NULL|FALSE|string		$theValue			Object creation date.
+	 * @param boolean				$getOld				TRUE get old value.
 	 *
 	 * @access public
 	 * @return string
 	 *
-	 * @see kTAG_GID
+	 * @uses CAttribute::ManageOffset()
+	 *
+	 * @see kTAG_CREATED
 	 */
-	public function GID()									{	return $this[ kTAG_GID ];	}
+	public function Created( $theValue = NULL, $getOld = FALSE )
+	{
+		return CAttribute::ManageOffset( $this, kTAG_CREATED, $theValue, $getOld );	// ==>
+
+	} // Created.
 
 	 
+	/*===================================================================================
+	 *	Modified																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage object last modification time stamp.
+	 *
+	 * This method can be used to manage the object last {@link kTAG_MODIFIED modification}
+	 * time-stamp, or the date in which the last modification was made on the object, it
+	 * uses the standard accessor {@link CAttribute::ManageOffset() method} to manage the
+	 * {@link kTAG_MODIFIED offset}:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: The value or operation:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Return the current value.
+	 *		<li><i>FALSE</i>: Delete the value.
+	 *		<li><i>other</i>: Set value.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: Determines what the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.
+	 *		<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * @param NULL|FALSE|string		$theValue			Object last modification date.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return string
+	 *
+	 * @uses CAttribute::ManageOffset()
+	 *
+	 * @see kTAG_MODIFIED
+	 */
+	public function Modified( $theValue = NULL, $getOld = FALSE )
+	{
+		return CAttribute::ManageOffset
+					( $this, kTAG_MODIFIED, $theValue, $getOld );					// ==>
+
+	} // Modified.
+
+
 	 
 /*=======================================================================================
  *																						*

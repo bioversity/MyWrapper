@@ -54,11 +54,13 @@ require_once( kPATH_LIBRARY_SOURCE."CMongoGridContainer.php" );
  *		dataset, it can be expressed in several languages.
  * </ul>
  *
- * By default, the unique {@link _index() identifier} of the object is its
- * {@link Code() code}, which is also its {@link _id() id}.
+ * By default, the unique {@link _index() identifier} of the object is the combination of
+ * the {@link User() user} {@link kTAG_LID identifier} and the dataset
+ * {@link Title() title}.
  *
- * Objects of this class require at least the {@link Code() code} {@link kTAG_CODE offset}
- * to have an {@link _IsInited() initialised} {@link kFLAG_STATE_INITED status}.
+ * Objects of this class require at least the {@link kENTITY_USER user} and
+ * {@link kTAG_TITLE title} offsets set to have an {@link _IsInited() initialised}
+ * {@link kFLAG_STATE_INITED status}.
  *
  *	@package	MyWrapper
  *	@subpackage	Persistence
@@ -142,7 +144,7 @@ class CDataset extends CRelatedUnitObject
 	 */
 	public function GID()									{	return $this[ kTAG_GID ];	}
 
-	 
+		
 	/*===================================================================================
 	 *	Title																			*
 	 *==================================================================================*/
@@ -154,8 +156,8 @@ class CDataset extends CRelatedUnitObject
 	 * standard accessor {@link CAttribute::ManageOffset() method} to manage the
 	 * {@link kTAG_TITLE offset}.
 	 *
-	 * The title represents the object's identifier provided by its creator, it should be
-	 * unique within all datasets created by the same user.
+	 * The title represents a non language-based string which can be used to identify or
+	 * provide a name to an object.
 	 *
 	 * For a more in-depth reference of this method, please consult the
 	 * {@link CAttribute::ManageOffset() ManageOffset} method, in which the first parameter
@@ -183,9 +185,9 @@ class CDataset extends CRelatedUnitObject
 	 *==================================================================================*/
 
 	/**
-	 * Manage title.
+	 * Manage user.
 	 *
-	 * This method can be used to handle the object's {@link kENTITY_USER title}, it uses
+	 * This method can be used to handle the object's {@link kENTITY_USER user}, it uses
 	 * the standard accessor {@link CAttribute::ManageOffset() method} to manage the
 	 * {@link kENTITY_USER offset}.
 	 *
@@ -231,16 +233,17 @@ class CDataset extends CRelatedUnitObject
 	/**
 	 * Manage name.
 	 *
-	 * This method can be used to manage the dataset {@link kTAG_NAME name}, it manages an
+	 * This method can be used to manage an object's {@link kTAG_NAME name}, it manages an
 	 * array of structures with the following offsets:
 	 *
 	 * <ul>
 	 *	<li><i>{@link kTAG_LANGUAGE kTAG_LANGUAGE}</i>: The name's language, this element
 	 *		represents the code of the language in which the next element is expressed in.
-	 *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The dataset name or label.
+	 *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The object's name or label.
 	 * </ul>
 	 *
-	 * The parameters to this method are:
+	 * No two elements may share the same language and only one element may omit the
+	 * language, the parameters to this method are:
 	 *
 	 * <ul>
 	 *	<li><b>$theValue</b>: The name or operation:
@@ -271,24 +274,23 @@ class CDataset extends CRelatedUnitObject
 	 *
 	 * @uses CAttribute::ManageTypedOffset()
 	 *
-	 * @see kTAG_NAME kTAG_LANGUAGE
+	 * @see kTAG_NAME kTAG_DATA kTAG_LANGUAGE
 	 */
 	public function Name( $theValue = NULL, $theLanguage = NULL, $getOld = FALSE )
 	{
 		return CAttribute::ManageTypedOffset( $this,
-											  kTAG_NAME, kTAG_DATA,
-											  kTAG_LANGUAGE, $theLanguage,
-											  $theValue, $getOld );					// ==>
+											  kTAG_NAME, kTAG_DATA, kTAG_LANGUAGE,
+											  $theLanguage, $theValue, $getOld );	// ==>
 
 	} // Name.
 
-
+	 
 	/*===================================================================================
 	 *	Description																		*
 	 *==================================================================================*/
 
 	/**
-	 * Manage dataset description.
+	 * Manage description.
 	 *
 	 * This method can be used to manage the {@link kTAG_DESCRIPTION description}, it
 	 * manages an array of structures with the following offsets:
@@ -300,7 +302,8 @@ class CDataset extends CRelatedUnitObject
 	 *	<li><i>{@link kTAG_DATA kTAG_DATA}</i>: The dataset description or comment.
 	 * </ul>
 	 *
-	 * The parameters to this method are:
+	 * No two elements may share the same language and only one element may omit the
+	 * language, the parameters to this method are:
 	 *
 	 * <ul>
 	 *	<li><b>$theValue</b>: The description or operation:
@@ -502,7 +505,7 @@ class CDataset extends CRelatedUnitObject
 
 	} // Modified.
 
-		
+	 
 
 /*=======================================================================================
  *																						*
@@ -554,7 +557,7 @@ class CDataset extends CRelatedUnitObject
 	 * @param bitfield				$theModifiers		Operation modifiers.
 	 *
 	 * @access public
-	 * @return CDatasetFile
+	 * @return MongoId
 	 *
 	 * @uses CAttribute::ManageOffset()
 	 *
@@ -608,6 +611,11 @@ class CDataset extends CRelatedUnitObject
 		// Update metadata.
 		//
 		$theMetadata->Dataset( $this->offsetGet( kTAG_LID ) );
+		
+		//
+		// Enforce encoded flag.
+		//
+		$theModifiers |= kFLAG_STATE_ENCODED;
 		
 		return $theContainer->Commit( $theFile, $theMetadata, $theModifiers );		// ==>
 

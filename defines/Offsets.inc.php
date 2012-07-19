@@ -361,13 +361,28 @@ define( "kTAG_LANGUAGE",						':LANGUAGE' );
 define( "kTAG_ENTITY",							':ENTITY' );
 
 /**
+ * Session.
+ *
+ * This tag is used as the namespace and default offset for sessions.
+ */
+define( "kTAG_SESSION",							':SESSION' );
+
+/**
  * Status.
  *
- * This tag is used as the default offset for indicating an attribute's status or state, it
- * will generally be an array of tags defining the various states associated with the
- * object.
+ * This tag is used as the default offset for indicating an attribute's status, it will
+ * generally be an array of tags defining the various states associated with the object.
  */
 define( "kTAG_STATUS",							':STATUS' );
+
+/**
+ * State.
+ *
+ * This tag is used as the default offset for indicating an object's state, it will
+ * generally be an array of elements defining the various states currenty associated with
+ * the object.
+ */
+define( "kTAG_STATE",							':STATE' );
 
 /**
  * Role.
@@ -510,6 +525,13 @@ define( "kTAG_PROVIDED",						':PROVIDED' );
  * This tags generated elements as opposed to {@link kTAG_PROVIDED provided} elements.
  */
 define( "kTAG_GENERATED",						':GENERATED' );
+
+/**
+ * Owner tag.
+ *
+ * This tag identifies the object that owns, controls or generated the current one.
+ */
+define( "kTAG_OWNER",							':OWNER' );
 
 /**
  * Incoming tag.
