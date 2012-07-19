@@ -207,6 +207,12 @@ print_r( $error->Reference( 'Object' ) );
 echo( "\n" );
 }
 
+//
+// Cleanup session.
+// There may be closures in the session: these cannot be serialised.
+//
+$_SESSION = Array();
+
 exit( "Done!\n" );
 
 		

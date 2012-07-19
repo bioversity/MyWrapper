@@ -57,7 +57,7 @@ try
 	//
 	// Select test collection.
 	//
-	$collection = $db->selectCollection( kDEFAULT_CNT_ENTITIES );
+	$collection = $db->selectCollection( kDEFAULT_CNT_USERS );
 	
 	//
 	// Create utility container.

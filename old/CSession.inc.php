@@ -50,13 +50,13 @@ define( "kSESSION_GRAPH",					'_SESSION_GRAPH' );
 define( "kSESSION_DATABASE",				'_SESSION_DATABASE' );
 
 /**
- * Entity container instance.
+ * Users container instance.
  *
- * This tag defines the entity container instance.
+ * This tag defines the users container instance.
  *
  * Cardinality: one.
  */
-define( "kSESSION_CONTAINER_ENTITY",		'_SESSION_CONTAINER_ENTITY' );
+define( "kSESSION_CONTAINER_USER",			'_SESSION_CONTAINER_ENTITY' );
 
 /*=======================================================================================
  *	SESSION USER TAGS																	*

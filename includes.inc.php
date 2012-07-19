@@ -156,11 +156,11 @@ define( "kDEFAULT_CNT_EDGES",			"EDGES" );
 define( "kDEFAULT_CNT_DATASET",			"DATASETS" );
 
 /**
- * Default entities container name.
+ * Default users container name.
  *
- * This value defines the default entities container name.
+ * This value defines the default users container name.
  */
-define( "kDEFAULT_CNT_ENTITIES",		"ENTITIES" );
+define( "kDEFAULT_CNT_USERS",			"USERS" );
 
 /*=======================================================================================
  *	CLASS AUTOLOADER																	*

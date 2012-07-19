@@ -41,6 +41,13 @@ require_once( kPATH_LIBRARY_SOURCE."CAttribute.php" );
 require_once( kPATH_LIBRARY_SOURCE."CGraphEdge.php" );
 
 /**
+ * User definitions.
+ *
+ * This include file contains the user class definitions.
+ */
+require_once( kPATH_LIBRARY_SOURCE."CUser.php" );
+
+/**
  * Wrapper definitions.
  *
  * This include file contains the wrapper class definitions.
@@ -60,16 +67,54 @@ require_once( kPATH_LIBRARY_SOURCE."CSession.inc.php" );
 /**
  *	Session object.
  *
- * This class implements a session object, it wraps the default PHP session array into a
- * class which is stored in a {@link kTAG_SESSION default} session offset.
+ * This class implements a session object, it should be stored in the session with the
+ * {@link kDEFAULT_SESSION kDEFAULT_SESSION} offset.
  * 
- * The idea is to derive from this class and include the custom libraries.
+ * This class and its derived instances store session objects in data members and the view
+ * model object in its array, this means that the server holds private data and the public
+ * data is published to the web pages by converting the array to JSON.
  *
  *	@package	MyWrapper
  *	@subpackage	Site
  */
 class CSession extends CArrayObject
 {
+	/**
+	 * Data store.
+	 *
+	 * This data member holds the data store instance.
+	 *
+	 * @var mixed
+	 */
+	 protected $mDataStore = NULL;
+
+	/**
+	 * Graph store store.
+	 *
+	 * This data member holds the graph store instance.
+	 *
+	 * @var mixed
+	 */
+	 protected $mGraphStore = NULL;
+
+	/**
+	 * Session database.
+	 *
+	 * This data member holds the default database object.
+	 *
+	 * @var mixed
+	 */
+	 protected $mDatabase = NULL;
+
+	/**
+	 * Session users container.
+	 *
+	 * This data member holds the default {@link CUser user} {@link CContainer container}.
+	 *
+	 * @var mixed
+	 */
+	 protected $mUserContainer = NULL;
+
 		
 
 /*=======================================================================================
@@ -120,6 +165,273 @@ class CSession extends CArrayObject
 			parent::__construct( (array) $theData );
 
 	} // Constructor.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *								PUBLIC DATA MEMBER INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	DataStore																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage the data store reference.
+	 *
+	 * This method can be used to manage the session's data store reference. The data store
+	 * represents the main connection to the database, from which
+	 * {@link CContainer container} references can be derived.
+	 *
+	 * The method accepts two parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: The value to set or the operation to perform:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Retrieve the current value.
+	 *		<li><i>FALSE</i>: Delete the current value, it will be set to <i>NULL</i>.
+	 *		<li><i>other</i>: Any other value will be interpreted as the new value to be
+	 *			set.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: A boolean flag determining which value the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the value <i>before</i> it has eventually been modified,
+	 *			this option is only relevant when deleting or relacing a value.
+	 *		<li><i>FALSE</i>: Return the value <i>after</i> it has eventually been modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * In this class, by default, we support MongoDB data stores, which means that the
+	 * method expects Mongo objects, if other types are passed, an exception will be raised.
+	 *
+	 * @param mixed					$theValue			Value or operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return mixed
+	 *
+	 * @uses CObject::ManageMember()
+	 */
+	public function DataStore( $theValue = NULL, $getOld = FALSE )
+	{
+		//
+		// New value.
+		//
+		if( ($theValue !== NULL)
+		 && ($theValue !== FALSE) )
+		{
+			//
+			// Check value.
+			//
+			if( ! ($theValue instanceof Mongo) )
+				throw new CException
+					( "Unsupported data store reference",
+					  kERROR_UNSUPPORTED,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Reference' => $theValue ) );						// !@! ==>
+		
+		} // New value.
+		
+		return CObject::ManageMember( $this->mDataStore, $theValue, $getOld );		// ==>
+
+	} // DataStore.
+
+	 
+	/*===================================================================================
+	 *	GraphStore																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage the graph store reference.
+	 *
+	 * This method can be used to manage the session's graph store reference. The graph
+	 * store represents the main connection to the graph, the graph database vcient.
+	 *
+	 * The method accepts two parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: The value to set or the operation to perform:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Retrieve the current value.
+	 *		<li><i>FALSE</i>: Delete the current value, it will be set to <i>NULL</i>.
+	 *		<li><i>other</i>: Any other value will be interpreted as the new value to be
+	 *			set.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: A boolean flag determining which value the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the value <i>before</i> it has eventually been modified,
+	 *			this option is only relevant when deleting or relacing a value.
+	 *		<li><i>FALSE</i>: Return the value <i>after</i> it has eventually been modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * In this class, by default, we support Neo4j graph stores, which means that the
+	 * method expects a Neo4j client object, if other types are passed, an exception will be
+	 * raised.
+	 *
+	 * @param mixed					$theValue			Value or operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return mixed
+	 *
+	 * @uses CObject::ManageMember()
+	 */
+	public function GraphStore( $theValue = NULL, $getOld = FALSE )
+	{
+		//
+		// New value.
+		//
+		if( ($theValue !== NULL)
+		 && ($theValue !== FALSE) )
+		{
+			//
+			// Check value.
+			//
+			if( ! ($theValue instanceof Everyman\Neo4j\Client) )
+				throw new CException
+					( "Unsupported graph store reference",
+					  kERROR_UNSUPPORTED,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Reference' => $theValue ) );						// !@! ==>
+		
+		} // New value.
+		
+		return CObject::ManageMember( $this->mGraphStore, $theValue, $getOld );		// ==>
+
+	} // GraphStore.
+
+	 
+	/*===================================================================================
+	 *	Database																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage the database reference.
+	 *
+	 * This method can be used to manage the session's default database reference. This
+	 * database represents the connection to the default collections container.
+	 *
+	 * The method accepts two parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: The value to set or the operation to perform:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Retrieve the current value.
+	 *		<li><i>FALSE</i>: Delete the current value, it will be set to <i>NULL</i>.
+	 *		<li><i>other</i>: Any other value will be interpreted as the new value to be
+	 *			set.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: A boolean flag determining which value the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the value <i>before</i> it has eventually been modified,
+	 *			this option is only relevant when deleting or relacing a value.
+	 *		<li><i>FALSE</i>: Return the value <i>after</i> it has eventually been modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * In this class, by default, we support MongoDB instances, if other types are passed,
+	 * an exception will be thrown.
+	 *
+	 * @param mixed					$theValue			Value or operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return mixed
+	 *
+	 * @uses CObject::ManageMember()
+	 */
+	public function Database( $theValue = NULL, $getOld = FALSE )
+	{
+		//
+		// New value.
+		//
+		if( ($theValue !== NULL)
+		 && ($theValue !== FALSE) )
+		{
+			//
+			// Check value.
+			//
+			if( ! ($theValue instanceof MongoDB) )
+				throw new CException
+					( "Unsupported database reference",
+					  kERROR_UNSUPPORTED,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Reference' => $theValue ) );						// !@! ==>
+		
+		} // New value.
+		
+		return CObject::ManageMember( $this->mDatabase, $theValue, $getOld );		// ==>
+
+	} // Database.
+
+	 
+	/*===================================================================================
+	 *	UsersContainer																	*
+	 *==================================================================================*/
+
+	/**
+	 * Manage the defrault users container.
+	 *
+	 * This method can be used to manage the session's default users container. This object
+	 * represents the the container in which all users are stored.
+	 *
+	 * The method accepts two parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: The value to set or the operation to perform:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Retrieve the current value.
+	 *		<li><i>FALSE</i>: Delete the current value, it will be set to <i>NULL</i>.
+	 *		<li><i>other</i>: Any other value will be interpreted as the new value to be
+	 *			set.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: A boolean flag determining which value the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the value <i>before</i> it has eventually been modified,
+	 *			this option is only relevant when deleting or relacing a value.
+	 *		<li><i>FALSE</i>: Return the value <i>after</i> it has eventually been modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * In this class, by default, we support {@link CContainer CContainer} derived
+	 * instances, if other types are passed, the method will raise an exception.
+	 *
+	 * @param mixed					$theValue			Value or operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return mixed
+	 *
+	 * @uses CObject::ManageMember()
+	 */
+	public function UsersContainer( $theValue = NULL, $getOld = FALSE )
+	{
+		//
+		// New value.
+		//
+		if( ($theValue !== NULL)
+		 && ($theValue !== FALSE) )
+		{
+			//
+			// Check value.
+			//
+			if( ! ($theValue instanceof CContainer) )
+				throw new CException
+					( "Unsupported users container reference",
+					  kERROR_UNSUPPORTED,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Reference' => $theValue ) );						// !@! ==>
+		
+		} // New value.
+		
+		return CObject::ManageMember( $this->mUsersContainer, $theValue, $getOld );	// ==>
+
+	} // UsersContainer.
 
 		
 
@@ -306,14 +618,14 @@ class CSession extends CArrayObject
 
 	 
 	/*===================================================================================
-	 *	ContainerEntities																*
+	 *	ContainerUsers																	*
 	 *==================================================================================*/
 
 	/**
 	 * Manage the session entities container.
 	 *
-	 * This method can be used to manage the session's entities container
-	 * {@link kSESSION_CONTAINER_ENTITY reference}, the provided parameter represents either
+	 * This method can be used to manage the session's user container
+	 * {@link kSESSION_CONTAINER_USER reference}, the provided parameter represents either
 	 * the new value or the operation to be performed:
 	 *
 	 * <ul>
@@ -336,9 +648,9 @@ class CSession extends CArrayObject
 	 *
 	 * @uses CAttribute::ManageOffset()
 	 *
-	 * @see kSESSION_CONTAINER_ENTITY
+	 * @see kSESSION_CONTAINER_USER
 	 */
-	public function ContainerEntities( $theValue = NULL, $getOld = FALSE )
+	public function ContainerUsers( $theValue = NULL, $getOld = FALSE )
 	{
 		//
 		// New value.
@@ -357,16 +669,16 @@ class CSession extends CArrayObject
 			//
 			if( ! ($theValue instanceof CMongoContainer) )
 				throw new CException
-					( "Invalid entities container reference",
+					( "Invalid users container reference",
 					  kERROR_INVALID_PARAMETER,
 					  kMESSAGE_TYPE_ERROR,
 					  array( 'Container' => $theValue ) );						// !@! ==>
 		}
 		
 		return CAttribute::ManageOffset
-				( $this, kSESSION_CONTAINER_ENTITY, $theValue, $getOld );			// ==>
+				( $this, kSESSION_CONTAINER_USER, $theValue, $getOld );			// ==>
 
-	} // ContainerEntities.
+	} // ContainerUsers.
 
 	 
 	/*===================================================================================
@@ -601,7 +913,7 @@ class CSession extends CArrayObject
 		//
 		// Get container.
 		//
-		$container = $this->ContainerEntities();
+		$container = $this->ContainerUsers();
 		if( $container !== NULL )
 		{
 			//
@@ -692,16 +1004,16 @@ class CSession extends CArrayObject
 	protected function _InitResources()
 	{
 		//
-		// Load graph.
-		//
-		$this->Graph(
-			new Everyman\Neo4j\Client(
-				DEFAULT_kNEO4J_HOST, DEFAULT_kNEO4J_PORT ) );
-		
-		//
 		// Load store.
 		//
-		$this->Store( New Mongo() );
+		$this->DataStore( New Mongo() );
+		
+		//
+		// Load graph.
+		//
+		$this->GraphStore(
+			new Everyman\Neo4j\Client(
+				DEFAULT_kNEO4J_HOST, DEFAULT_kNEO4J_PORT ) );
 		
 		//
 		// Load database.
@@ -713,9 +1025,9 @@ class CSession extends CArrayObject
 		//
 		// Load entities container.
 		//
-		$this->ContainerEntities(
+		$this->ContainerUsers(
 			$this->Database()->selectCollection(
-				kDEFAULT_CNT_ENTITIES ));
+				kDEFAULT_CNT_USERS ));
 
 	} // _InitResources.
 
