@@ -34,17 +34,17 @@ define( "kENTITY_USER",							':ENTITY:USER' );
  *======================================================================================*/
 
 /**
- * File import.
- *
- * This value defines the file import role, this allows importing files in datasets.
- */
-define( "kROLE_FILE_IMPORT",					':ROLE:FILE-IMPORT' );
-
-/**
  * Manage users.
  *
  * This value defines the manage users role, this allows creating and modifying users.
  */
 define( "kROLE_USER_MANAGE",					':ROLE:USER-MANAGE' );
+
+/**
+ * File import.
+ *
+ * This value defines the file import role, this allows importing files in datasets.
+ */
+define( "kROLE_FILE_IMPORT",					':ROLE:FILE-IMPORT' );
 
 ?>

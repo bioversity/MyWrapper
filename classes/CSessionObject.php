@@ -160,6 +160,11 @@ abstract class CSessionObject extends CArrayObject
 		// Initialise default resources.
 		//
 		$this->_InitResources( TRUE );
+		
+		//
+		// Initialise view model.
+		//
+		$this->_Register();
 
 	} // Constructor.
 
@@ -179,12 +184,17 @@ abstract class CSessionObject extends CArrayObject
 	public function __toString()
 	{
 		//
-		// Handle data.
+		// Init local storage.
 		//
-		if( $data = $this->getArrayCopy() )
-			return CObject::JsonEncode( $data );									// ==>
+		$string = '';
 		
-		return '{}';																// ==>
+		//
+		// Iterate object.
+		//
+		foreach( $this as $tag => $value )
+			$string .= ( 'this.'.$tag.' = '.CObject::JsonEncode( $value ).'; ' );
+		
+		return '{'.$string.'}';														// ==>
 	
 	} // __toString.
 
@@ -889,6 +899,27 @@ abstract class CSessionObject extends CArrayObject
 
 	 
 	/*===================================================================================
+	 *	_Register																		*
+	 *==================================================================================*/
+
+	/**
+	 * Initialise view model.
+	 *
+	 * This method will initialise the view model.
+	 *
+	 * @access protected
+	 */
+	protected function _Register()
+	{
+		//
+		// Register user.
+		//
+		$this->_RegisterUser();
+		
+	} // _Register.
+
+	 
+	/*===================================================================================
 	 *	_RegisterUser																	*
 	 *==================================================================================*/
 
@@ -903,34 +934,155 @@ abstract class CSessionObject extends CArrayObject
 	protected function _RegisterUser()
 	{
 		//
-		// Init local storage.
+		// Get current user.
 		//
-		$object = $this->User();
-		$fields = array( kTAG_NAME => kSESSION_USER_NAME,
-						 kOFFSET_EMAIL => kSESSION_USER_EMAIL,
-						 kTAG_KIND => kSESSION_USER_KIND,
-						 kTAG_ROLE => kSESSION_USER_ROLE );
+		$user = $this->User();
 		
 		//
-		// Load data.
+		// Handle name.
 		//
-		foreach( $fields as $property => $tag )
-		{
-			//
-			// Set attribute.
-			//
-			if( $object !== NULL )
-				$this->offsetSet( $tag, $object[ $property ] );
-			
-			//
-			// Reset attribute.
-			//
-			else
-				$this->offsetUnset( $tag );
+		$this->_RegisterUserName();
 		
-		} // Iterating object properties
+		//
+		// Handle e-mail.
+		//
+		$this->_RegisterUserEmail();
+		
+		//
+		// Handle kinds.
+		//
+		$this->_RegisterUserKind();
+		
+		//
+		// Handle roles.
+		//
+		$this->_RegisterUserRole();
 		
 	} // _RegisterUser.
+
+	 
+	/*===================================================================================
+	 *	_RegisterUserName																*
+	 *==================================================================================*/
+
+	/**
+	 * Load user name in view model.
+	 *
+	 * This method will load user {@load CUser::Name() name}  in the view model.
+	 *
+	 * This method can be overloaded if derived classes need to do do custom stuff with the
+	 * name.
+	 *
+	 * Note that if the user is missing the name is set to <i>Login</i>, this assumes the
+	 * name goes onto the login button which becomes a popup whe  the user has logged.
+	 *
+	 * @access protected
+	 */
+	protected function _RegisterUserName()
+	{
+		//
+		// Get current user.
+		//
+		$user = $this->User();
+		
+		//
+		// Handle name.
+		//
+		$this->offsetSet( kSESSION_USER_NAME,
+						  ( ( $user !== NULL ) ? $user->Name() : 'Login' ) );
+		
+		
+	} // _RegisterUserName.
+
+	 
+	/*===================================================================================
+	 *	_RegisterUserEmail																*
+	 *==================================================================================*/
+
+	/**
+	 * Load user e-mail in view model.
+	 *
+	 * This method will load user {@link CUser::Email() e-mail} in the view model.
+	 *
+	 * This method can be overloaded if derived classes need to do do custom stuff with the
+	 * e-mail.
+	 *
+	 * @access protected
+	 */
+	protected function _RegisterUserEmail()
+	{
+		//
+		// Get current user.
+		//
+		$user = $this->User();
+		
+		//
+		// Handle e-mail.
+		//
+		$this->offsetSet( kSESSION_USER_EMAIL,
+						  ( ( $user !== NULL ) ? $user->Email() : NULL ) );
+		
+	} // _RegisterUserEmail.
+
+	 
+	/*===================================================================================
+	 *	_RegisterUserKind																*
+	 *==================================================================================*/
+
+	/**
+	 * Load user kinds in view model.
+	 *
+	 * This method will load user {@load CUser::Kind() kinds} in the view model.
+	 *
+	 * This method can be overridden if derived classes need to do custom stuff using the
+	 * user kinds; in this class we simply copy the property contents.
+	 *
+	 * @access protected
+	 */
+	protected function _RegisterUserKind()
+	{
+		//
+		// Get current user.
+		//
+		$user = $this->User();
+		
+		//
+		// Handle kinds.
+		//
+		$this->offsetSet( kSESSION_USER_KIND,
+						  ( ( $user !== NULL ) ? $user->Kind() : Array() ) );
+		
+	} // _RegisterUserKind.
+
+	 
+	/*===================================================================================
+	 *	_RegisterUserRole																*
+	 *==================================================================================*/
+
+	/**
+	 * Load user roles in view model.
+	 *
+	 * This method will load user {@load CUser::Role() roles} in the view model.
+	 *
+	 * This method can be overridden if derived classes need to do custom stuff using the
+	 * user roles; in this class we simply copy the property contents.
+	 *
+	 * @access protected
+	 */
+	protected function _RegisterUserRole()
+	{
+		//
+		// Get current user.
+		//
+		$user = $this->User();
+		
+		//
+		// Handle kinds.
+		//
+		$this->offsetSet( kSESSION_USER_ROLE,
+						  ( ( $user !== NULL ) ? $user->Role() : Array() ) );
+		
+	} // _RegisterUserRole.
 
 		
 
