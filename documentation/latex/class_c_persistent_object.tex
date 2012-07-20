@@ -1,0 +1,655 @@
+\hypertarget{class_c_persistent_object}{\section{C\-Persistent\-Object Class Reference}
+\label{class_c_persistent_object}\index{C\-Persistent\-Object@{C\-Persistent\-Object}}
+}
+Inheritance diagram for C\-Persistent\-Object\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=7.724138cm]{class_c_persistent_object}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_c_persistent_object_a0f0729cfaef48bd1c98c0711c061a7d3}{\-\_\-\-\_\-construct} (\$the\-Container=N\-U\-L\-L, \$the\-Identifier=N\-U\-L\-L, \$the\-Modifiers=k\-F\-L\-A\-G\-\_\-\-D\-E\-F\-A\-U\-L\-T)
+\item 
+\hyperlink{class_c_persistent_object_a88b1f2b11d3d60e0b3d33d8b0649b68a}{Commit} (\$the\-Container=N\-U\-L\-L, \$the\-Identifier=N\-U\-L\-L, \$the\-Modifiers=k\-F\-L\-A\-G\-\_\-\-P\-E\-R\-S\-I\-S\-T\-\_\-\-R\-E\-P\-L\-A\-C\-E)
+\item 
+\hyperlink{class_c_persistent_object_a37c897b534e88477a06ec60b89d84450}{Uncommit} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_c_persistent_object_a6520a7bcecf3f39fd61ec6d08f736e77}{\-\_\-\-Is\-Committed} (\$the\-State=N\-U\-L\-L)
+\item 
+\hyperlink{class_c_persistent_object_aa8dc7db66e2af3d28c2035161a2aabf9}{\-\_\-\-Is\-Encoded} (\$the\-State=N\-U\-L\-L)
+\item 
+\hyperlink{class_c_persistent_object_a584005d1ec0d7e7327dc6d267a9ec50c}{\-\_\-\-Create} (\&\$the\-Content)
+\item 
+\hyperlink{class_c_persistent_object_ad5376e5aeda7a58e5b27fae6c03b4ef9}{\-\_\-\-Commit} (\&\$the\-Container, \&\$the\-Identifier, \&\$the\-Modifiers)
+\item 
+\hyperlink{class_c_persistent_object_ada4dfe5bdb0309dee9df94f6e96dc3cb}{\-\_\-\-Load} (\&\$the\-Container, \&\$the\-Identifier, \&\$the\-Modifiers)
+\item 
+\hyperlink{class_c_persistent_object_a2e5dd4f8a92c0ada964ade712c9579b0}{\-\_\-\-Prepare\-Create} (\&\$the\-Container, \&\$the\-Identifier, \&\$the\-Modifiers)
+\item 
+\hyperlink{class_c_persistent_object_a5a664513b015919da582c6f0230fab75}{\-\_\-\-Prepare\-Load} (\&\$the\-Container, \&\$the\-Identifier, \&\$the\-Modifiers)
+\item 
+\hyperlink{class_c_persistent_object_a9d98503112f78729b13995a850b174a8}{\-\_\-\-Prepare\-Commit} (\&\$the\-Container, \&\$the\-Identifier, \&\$the\-Modifiers)
+\item 
+\hyperlink{class_c_persistent_object_a9029ba173e65e2ec14eeb8bc7c2024c6}{\-\_\-\-Finish\-Create} (\&\$the\-Container)
+\item 
+\hyperlink{class_c_persistent_object_a35ffbe4e875e03a84985493bbce75457}{\-\_\-\-Finish\-Load} (\&\$the\-Container, \&\$the\-Identifier, \&\$the\-Modifiers)
+\item 
+\hyperlink{class_c_persistent_object_a535a2f078b777a144d31117de054ccf7}{\-\_\-\-Finish\-Commit} (\&\$the\-Container, \&\$the\-Identifier, \&\$the\-Modifiers)
+\item 
+\hyperlink{class_c_persistent_object_a948ba9d69729dfe20564aecdb9d4fae7}{\-\_\-\-Set\-Tags} (\$the\-Offset=k\-T\-A\-G\-\_\-\-T\-A\-G\-S)
+\item 
+\hyperlink{class_c_persistent_object_a7a9363dc8aba31cf00e382172ba327bd}{\-\_\-\-Get\-Tags} ()
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_c_persistent_object_a0f0729cfaef48bd1c98c0711c061a7d3}{\index{C\-Persistent\-Object@{C\-Persistent\-Object}!\-\_\-\-\_\-construct@{\-\_\-\-\_\-construct}}
+\index{\-\_\-\-\_\-construct@{\-\_\-\-\_\-construct}!CPersistentObject@{C\-Persistent\-Object}}
+\subsubsection[{\-\_\-\-\_\-construct}]{\setlength{\rightskip}{0pt plus 5cm}C\-Persistent\-Object\-::\-\_\-\-\_\-construct (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Container = {\ttfamily NULL}, }
+\item[{}]{\$the\-Identifier = {\ttfamily NULL}, }
+\item[{}]{\$the\-Modifiers = {\ttfamily kFLAG\-\_\-DEFAULT}}
+\end{DoxyParamCaption}
+)}}\label{class_c_persistent_object_a0f0729cfaef48bd1c98c0711c061a7d3}
+Instantiate class.
+
+The constructor can be used to instantiate an empty object, instantiate an object from some content, or load an object from a container.
+
+The parameters to this method are\-:
+
+
+\begin{DoxyItemize}
+\item {\bfseries \$the\-Container}\-: This parameter represents either the {\itshape contents} of the object, if the next parameter is missing, or the {\itshape \hyperlink{class_c_container}{container}} in which the object resides. If missing, we assume we want to create an empty object. 
+\begin{DoxyItemize}
+\item {\itshape N\-U\-L\-L}\-: In this case it is assumed you want to instantiate an empty object and the next parameter will be ignored. 
+\item {\itshape Array} or {\itshape Array\-Object}\-: In this case we assume the parameter represents either the object contents, if the next parameter is {\itshape N\-U\-L\-L}, or the \hyperlink{class_c_container}{container} in which the object is \hyperlink{class_c_persistent_object_a88b1f2b11d3d60e0b3d33d8b0649b68a}{stored}, in which case we interpret the next parameter to be the object's identifier. 
+\item {\itshape Other}\-: Any other type will raise an \hyperlink{}{exception}, or it should be handled by derived classes. 
+\end{DoxyItemize}
+\item {\bfseries \$the\-Identifier}\-: This parameter represents the key or query that will be used to locate the object in the container provided in the first parameter. 
+\begin{DoxyItemize}
+\item {\itshape N\-U\-L\-L}\-: This indicates that the first parameter represents the object {\itshape contents}. 
+\item {\itshape other}\-: Any other type is considered as a key or query used to locate the object in the container provided in the first parameter. 
+\end{DoxyItemize}
+\item {\bfseries \$the\-Modifiers}\-: This bitfield parameter can be used to provide a series of options to the object. The available options can be consulted in \hyperlink{}{this} file. Most of these options are managed automatically and should not be provided explicitly. This class handles one option that has the following meaning\-: 
+\begin{DoxyItemize}
+\item {\itshape \hyperlink{}{k\-F\-L\-A\-G\-\_\-\-S\-T\-A\-T\-E\-\_\-\-E\-N\-C\-O\-D\-E\-D}}\-: If the option is on, the object will be passed through a \hyperlink{class_c_container_aa339d3c4c9b011713176a89fe9c7783d}{conversion} process that will convert all \hyperlink{class_c_data_type}{standard} data types into native container custom data types \hyperlink{class_c_container_a0dc47e54abc533cedf1c2c0f915d96b2}{before} \hyperlink{class_c_persistent_object_a88b1f2b11d3d60e0b3d33d8b0649b68a}{committing} the object; the opposite \hyperlink{class_c_data_type_a608d6fc184bce537ce83669f729d6008}{conversion} process will take place \hyperlink{class_c_container_ab53bd683f0e28b2203897cf03f9d1c76}{after} \hyperlink{class_c_persistent_object_a0f0729cfaef48bd1c98c0711c061a7d3}{loading} the object from a container. It is a good idea to keep this flag O\-N, because the converted object will be compatible with any \hyperlink{class_c_container}{container} and it will make data transfers from one database to the other easy. This process is automatic and transparent. 
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+Depending on the results of this method we set the \hyperlink{class_c_persistent_object_a6520a7bcecf3f39fd61ec6d08f736e77}{committed} status \hyperlink{}{flag} as follows\-:
+
+
+\begin{DoxyItemize}
+\item {\itshape Empty object}\-: By omitting the first parameter we indicate that we want to start from scratch, the object will not have its \hyperlink{class_c_persistent_object_a6520a7bcecf3f39fd61ec6d08f736e77}{committed} \hyperlink{}{flag} set. 
+\item {\itshape Filled object}\-: In this case we provide in the {\itshape \$the\-Container} parameter the object's {\itshape contents}. In this case we do not consider the object as persistent, so the object will not have its \hyperlink{class_c_persistent_object_a6520a7bcecf3f39fd61ec6d08f736e77}{committed} \hyperlink{}{flag} set. 
+\item {\itshape Selected object}\-: In this case we search the {\itshape \$the\-Container} with the provided {\itshape \$the\-Identifier} as a key or query, and if\-: 
+\begin{DoxyItemize}
+\item {\itshape Found}\-: We set the \hyperlink{class_c_persistent_object_a6520a7bcecf3f39fd61ec6d08f736e77}{committed} \hyperlink{}{flag} on. 
+\item {\itshape Not found}\-: We instantiate an empty object and ignore the \hyperlink{class_c_persistent_object_a6520a7bcecf3f39fd61ec6d08f736e77}{committed} \hyperlink{}{flag}. 
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+The \hyperlink{class_c_status_object_a8429102e4f52f7558649b64f4e673a69}{inited} status \hyperlink{}{flag} is not set by default, this will prevent the object from being \hyperlink{class_c_persistent_object_a88b1f2b11d3d60e0b3d33d8b0649b68a}{stored} and it is the responsibility of derived concrete instances to manage this status.
+
+This method takes advantage of a protected interface which should be overloaded by derived classes instead of overloading this method\-:
+
+
+\begin{DoxyItemize}
+\item {\itshape Retrieve object}\-: If the second parameter was provided, it implies that the object is to be retrieved from the first parameter which represents the \hyperlink{class_c_container}{container} in which the object contents are stored. 
+\begin{DoxyItemize}
+\item {\itshape \hyperlink{class_c_persistent_object_a5a664513b015919da582c6f0230fab75}{\-\_\-\-Prepare\-Load}()}\-: This method should check and normalise the container and identifier. In this class we ensure that the container is derived from \hyperlink{class_c_container}{C\-Container}. 
+\item {\itshape \hyperlink{class_c_persistent_object_ada4dfe5bdb0309dee9df94f6e96dc3cb}{\-\_\-\-Load}()}\-: This method will delegate the \hyperlink{class_c_container}{container} the responsibility of locating and retrieving the object using the provided identifier. 
+\end{DoxyItemize}
+\item {\itshape \hyperlink{class_c_persistent_object_a584005d1ec0d7e7327dc6d267a9ec50c}{\-\_\-\-Create}()}\-: This method should instantiate the object from the contents returned by \hyperlink{class_c_persistent_object_ada4dfe5bdb0309dee9df94f6e96dc3cb}{\-\_\-\-Load} or by the data provided in the first parameter in the case the second parameter was omitted. 
+\end{DoxyItemize}
+
+Derived classes should overload the above interface rather than overloading this method and should do so only if necessary, because this workflow should be sufficient for persisting objects.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Container} & Persistent container. \\
+\hline
+mixed & {\em \$the\-Identifier} & Object identifier. \\
+\hline
+bitfield & {\em \$the\-Modifiers} & Create modifiers.\\
+\hline
+\end{DoxyParams}
+public
+
+\hyperlink{class_c_persistent_object_a5a664513b015919da582c6f0230fab75}{\-\_\-\-Prepare\-Load()}  \hyperlink{class_c_persistent_object_ada4dfe5bdb0309dee9df94f6e96dc3cb}{\-\_\-\-Load()}  \hyperlink{class_c_persistent_object_a584005d1ec0d7e7327dc6d267a9ec50c}{\-\_\-\-Create()}  \hyperlink{class_c_persistent_object_a6520a7bcecf3f39fd61ec6d08f736e77}{\-\_\-\-Is\-Committed()}  \hyperlink{class_c_persistent_object_a35ffbe4e875e03a84985493bbce75457}{\-\_\-\-Finish\-Load()}  \hyperlink{class_c_persistent_object_a9029ba173e65e2ec14eeb8bc7c2024c6}{\-\_\-\-Finish\-Create()} 
+
+Reimplemented in \hyperlink{class_c_institute_a468ba723fabd5a67bea5016d1531b147}{C\-Institute}, \hyperlink{class_c_dataset_ac85b53d5a48ce3c6c36ffbafd9eabcf4}{C\-Dataset}, \hyperlink{class_c_ontology_term_object_af1fb502088538ad7372719c20f73bc5c}{C\-Ontology\-Term\-Object}, \hyperlink{class_c_ontology_term_a33679101b2a63044f0084918a8df123e}{C\-Ontology\-Term}, and \hyperlink{class_c_coded_unit_object_a314fc62af62314f5ac5acca2ac809900}{C\-Coded\-Unit\-Object}.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_c_persistent_object_ad5376e5aeda7a58e5b27fae6c03b4ef9}{\index{C\-Persistent\-Object@{C\-Persistent\-Object}!\-\_\-\-Commit@{\-\_\-\-Commit}}
+\index{\-\_\-\-Commit@{\-\_\-\-Commit}!CPersistentObject@{C\-Persistent\-Object}}
+\subsubsection[{\-\_\-\-Commit}]{\setlength{\rightskip}{0pt plus 5cm}C\-Persistent\-Object\-::\-\_\-\-Commit (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Container, }
+\item[{\&}]{\$the\-Identifier, }
+\item[{\&}]{\$the\-Modifiers}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_persistent_object_ad5376e5aeda7a58e5b27fae6c03b4ef9}
+Store object in container.
+
+The duty of this method is to store the current object in the container provided in the first parameter with as key the value provided in the second parameter with options provided in the third parameter, please refer to \hyperlink{class_c_persistent_object_a88b1f2b11d3d60e0b3d33d8b0649b68a}{this} documentation for a reference of these parameters. Note that in this method all three parameters are passed by reference.
+
+This class supports \hyperlink{class_c_container}{C\-Container} derived instances and will delegate the operation to the container. Note that by default we call the container's \hyperlink{class_c_container_a4847dc676d1f7704e75f8981e927508a}{commit} method with the \hyperlink{}{k\-F\-L\-A\-G\-\_\-\-P\-E\-R\-S\-I\-S\-T\-\_\-\-R\-E\-P\-L\-A\-C\-E} option, which will \hyperlink{}{insert} the object if new or \hyperlink{}{replace} the eventual existing object.
+
+The method expects all parameters to have been previously \hyperlink{class_c_persistent_object_a9d98503112f78729b13995a850b174a8}{checked}, its main duty is to perform the actual storage. In derived classes you should intercept custom containers, or call the parent method.
+
+There might be cases in which you do not want the commit operation to occur\-: in those cases you can clear all the persistence \hyperlink{}{flags} in the modifier parameter, in that case the operation will not occur.
+
+{\itshape Note\-: the duty of this method is to store only the array part of the object, properties should be ignored.}
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \&\$the\-Container} & Object container. \\
+\hline
+reference & {\em \&\$the\-Identifier} & Object identifier. \\
+\hline
+reference & {\em \&\$the\-Modifiers} & Commit modifiers.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+mixed 
+\end{DoxyReturn}
+
+
+Reimplemented in \hyperlink{class_c_ontology_node_a590c869a08d167ba35d987e450106a2d}{C\-Ontology\-Node}, \hyperlink{class_c_graph_node_a7af17771eaba24551f8c9a465f391c23}{C\-Graph\-Node}, \hyperlink{class_c_persistent_unit_object_ae8726af138967ed9b4b2edbfa2a188a3}{C\-Persistent\-Unit\-Object}, \hyperlink{class_c_ontology_edge_a76e551f21dcac3c0bc228c67226bec08}{C\-Ontology\-Edge}, \hyperlink{class_c_ontology_tag_afe9d06131f9b005732238ed0d8e8c7be}{C\-Ontology\-Tag}, and \hyperlink{class_c_graph_edge_a73dd2ced3103285f8ad4ea212c0e918e}{C\-Graph\-Edge}.
+
+\hypertarget{class_c_persistent_object_a584005d1ec0d7e7327dc6d267a9ec50c}{\index{C\-Persistent\-Object@{C\-Persistent\-Object}!\-\_\-\-Create@{\-\_\-\-Create}}
+\index{\-\_\-\-Create@{\-\_\-\-Create}!CPersistentObject@{C\-Persistent\-Object}}
+\subsubsection[{\-\_\-\-Create}]{\setlength{\rightskip}{0pt plus 5cm}C\-Persistent\-Object\-::\-\_\-\-Create (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Content}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_persistent_object_a584005d1ec0d7e7327dc6d267a9ec50c}
+Create object.
+
+The duty of this method is to instantiate an object with the provided data.
+
+The method expects one parameter which is passed by reference\-:
+
+
+\begin{DoxyItemize}
+\item {\bfseries \&\$the\-Content}\-: This parameter represents the object contents\-: 
+\begin{DoxyItemize}
+\item {\itshape N\-U\-L\-L}\-: The method will instantiate an empty object. 
+\item {\itshape array} or an {\itshape Array\-Object}\-: The method will instantiate the object with the contents of the provided parameter. 
+\item {\itshape other}\-: By default any other type will raise an exception, in derived classes you can overload this method to handle custom types. 
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+The method returns a boolean where {\itshape T\-R\-U\-E} indicates that the object was instantiated with data, and {\itshape F\-A\-L\-S\-E} indicating that the object is empty. This will be used by the \hyperlink{class_c_persistent_object_a0f0729cfaef48bd1c98c0711c061a7d3}{caller} to set the object \hyperlink{class_c_persistent_object_a6520a7bcecf3f39fd61ec6d08f736e77}{committed} status \hyperlink{}{flag}.
+
+The parameter is provided as a reference.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \&\$the\-Content} & Object data content.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+boolean
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \{@link} & \hyperlink{class_c_exception}{C\-Exception} \hyperlink{class_c_exception}{C\-Exception}\}\\
+\hline
+\end{DoxyExceptions}
+\begin{DoxySeeAlso}{See Also}
+k\-E\-R\-R\-O\-R\-\_\-\-U\-N\-S\-U\-P\-P\-O\-R\-T\-E\-D 
+\end{DoxySeeAlso}
+
+
+Reimplemented in \hyperlink{class_c_graph_node_a90e49bf5e95ccf3c8644196696154268}{C\-Graph\-Node}.
+
+\hypertarget{class_c_persistent_object_a535a2f078b777a144d31117de054ccf7}{\index{C\-Persistent\-Object@{C\-Persistent\-Object}!\-\_\-\-Finish\-Commit@{\-\_\-\-Finish\-Commit}}
+\index{\-\_\-\-Finish\-Commit@{\-\_\-\-Finish\-Commit}!CPersistentObject@{C\-Persistent\-Object}}
+\subsubsection[{\-\_\-\-Finish\-Commit}]{\setlength{\rightskip}{0pt plus 5cm}C\-Persistent\-Object\-::\-\_\-\-Finish\-Commit (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Container, }
+\item[{\&}]{\$the\-Identifier, }
+\item[{\&}]{\$the\-Modifiers}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_persistent_object_a535a2f078b777a144d31117de054ccf7}
+Normalise after a \hyperlink{class_c_persistent_object_ad5376e5aeda7a58e5b27fae6c03b4ef9}{commit}.
+
+This method will be called after the \hyperlink{class_c_persistent_object_ad5376e5aeda7a58e5b27fae6c03b4ef9}{store} operation, its duty is to clean up or restore the object after the operation please refer to \hyperlink{class_c_persistent_object_a88b1f2b11d3d60e0b3d33d8b0649b68a}{this} documentation for a reference of these parameters. Note that in this method all three parameters are passed by reference.
+
+In this class we set the \hyperlink{class_c_persistent_object_a6520a7bcecf3f39fd61ec6d08f736e77}{commit} \hyperlink{}{flag} and reset the \hyperlink{class_c_status_object_a19c4ac94dfe26476e780d77b99744d43}{dirty} \hyperlink{}{flag}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \&\$the\-Container} & Object container. \\
+\hline
+reference & {\em \&\$the\-Identifier} & Object identifier. \\
+\hline
+reference & {\em \&\$the\-Modifiers} & Commit modifiers.\\
+\hline
+\end{DoxyParams}
+protected \hypertarget{class_c_persistent_object_a9029ba173e65e2ec14eeb8bc7c2024c6}{\index{C\-Persistent\-Object@{C\-Persistent\-Object}!\-\_\-\-Finish\-Create@{\-\_\-\-Finish\-Create}}
+\index{\-\_\-\-Finish\-Create@{\-\_\-\-Finish\-Create}!CPersistentObject@{C\-Persistent\-Object}}
+\subsubsection[{\-\_\-\-Finish\-Create}]{\setlength{\rightskip}{0pt plus 5cm}C\-Persistent\-Object\-::\-\_\-\-Finish\-Create (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Container}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_persistent_object_a9029ba173e65e2ec14eeb8bc7c2024c6}
+Normalise after a \hyperlink{class_c_persistent_object_a584005d1ec0d7e7327dc6d267a9ec50c}{create}.
+
+This method will be called after the \hyperlink{class_c_persistent_object_a584005d1ec0d7e7327dc6d267a9ec50c}{create} operation, its duty is to initialise an empty object. Both the container and the identifier parameters are passed by reference.
+
+This method will be called if the identifier was not provided to the \hyperlink{class_c_persistent_object_a0f0729cfaef48bd1c98c0711c061a7d3}{constructor}, or if the \hyperlink{class_c_persistent_object_a0f0729cfaef48bd1c98c0711c061a7d3}{constructor} was unable to \hyperlink{class_c_persistent_object_ada4dfe5bdb0309dee9df94f6e96dc3cb}{find} the requested object.
+
+In this class we do nothing.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \&\$the\-Container} & Object container.\\
+\hline
+\end{DoxyParams}
+protected 
+
+Reimplemented in \hyperlink{class_c_ontology_node_a3f116a2f1a1047da5187f21e20d3d405}{C\-Ontology\-Node}, \hyperlink{class_c_graph_node_a8a8df45cff2375d0bcbb15342ae3960b}{C\-Graph\-Node}, \hyperlink{class_c_ontology_edge_a0956d5920484a329c77d878bb6c25784}{C\-Ontology\-Edge}, \hyperlink{class_c_graph_edge_a42fd83eff1eef079a6005e961fd2d371}{C\-Graph\-Edge}, and \hyperlink{class_c_user_aac39ac91532ebdbe5a7f10976b2d2bec}{C\-User}.
+
+\hypertarget{class_c_persistent_object_a35ffbe4e875e03a84985493bbce75457}{\index{C\-Persistent\-Object@{C\-Persistent\-Object}!\-\_\-\-Finish\-Load@{\-\_\-\-Finish\-Load}}
+\index{\-\_\-\-Finish\-Load@{\-\_\-\-Finish\-Load}!CPersistentObject@{C\-Persistent\-Object}}
+\subsubsection[{\-\_\-\-Finish\-Load}]{\setlength{\rightskip}{0pt plus 5cm}C\-Persistent\-Object\-::\-\_\-\-Finish\-Load (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Container, }
+\item[{\&}]{\$the\-Identifier, }
+\item[{\&}]{\$the\-Modifiers}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_persistent_object_a35ffbe4e875e03a84985493bbce75457}
+Normalise after a \hyperlink{class_c_persistent_object_ada4dfe5bdb0309dee9df94f6e96dc3cb}{load}.
+
+This method will be called after the \hyperlink{class_c_persistent_object_ada4dfe5bdb0309dee9df94f6e96dc3cb}{load} operation, its duty is to clean up or normalise after the operation. Both the container and the identifier parameters are passed by reference.
+
+In this class we do nothing.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \&\$the\-Container} & Object container. \\
+\hline
+reference & {\em \&\$the\-Identifier} & Object identifier. \\
+\hline
+reference & {\em \&\$the\-Modifiers} & Create modifiers.\\
+\hline
+\end{DoxyParams}
+protected 
+
+Reimplemented in \hyperlink{class_c_ontology_node_a97c5e875641e3bb3da83d32ed8b26ebc}{C\-Ontology\-Node}, \hyperlink{class_c_graph_node_a23c2beb0fbed1ab67018dd9d78dee8fa}{C\-Graph\-Node}, \hyperlink{class_c_ontology_edge_ac45af3396c797be599c2a1780b7bfa59}{C\-Ontology\-Edge}, \hyperlink{class_c_graph_edge_a7cbf3dab4745b0924905fce01e383819}{C\-Graph\-Edge}, and \hyperlink{class_c_user_a6a06a22502d96bb2483cb0de6e043ddb}{C\-User}.
+
+\hypertarget{class_c_persistent_object_a7a9363dc8aba31cf00e382172ba327bd}{\index{C\-Persistent\-Object@{C\-Persistent\-Object}!\-\_\-\-Get\-Tags@{\-\_\-\-Get\-Tags}}
+\index{\-\_\-\-Get\-Tags@{\-\_\-\-Get\-Tags}!CPersistentObject@{C\-Persistent\-Object}}
+\subsubsection[{\-\_\-\-Get\-Tags}]{\setlength{\rightskip}{0pt plus 5cm}C\-Persistent\-Object\-::\-\_\-\-Get\-Tags (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_persistent_object_a7a9363dc8aba31cf00e382172ba327bd}
+Get attribute tags.
+
+The duty of this method is to collect all attribute tags used in the object and return them as an array.
+
+protected \begin{DoxyReturn}{Returns}
+array 
+\end{DoxyReturn}
+
+
+Reimplemented in \hyperlink{class_c_persistent_unit_object_ac4df6b15733c79b93493131275a27493}{C\-Persistent\-Unit\-Object}.
+
+\hypertarget{class_c_persistent_object_a6520a7bcecf3f39fd61ec6d08f736e77}{\index{C\-Persistent\-Object@{C\-Persistent\-Object}!\-\_\-\-Is\-Committed@{\-\_\-\-Is\-Committed}}
+\index{\-\_\-\-Is\-Committed@{\-\_\-\-Is\-Committed}!CPersistentObject@{C\-Persistent\-Object}}
+\subsubsection[{\-\_\-\-Is\-Committed}]{\setlength{\rightskip}{0pt plus 5cm}C\-Persistent\-Object\-::\-\_\-\-Is\-Committed (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-State = {\ttfamily NULL}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_persistent_object_a6520a7bcecf3f39fd61ec6d08f736e77}
+Manage committed status.
+
+This method can be used to get or set the object's committed state.
+
+A committed object is one that has either been loaded from a container or committed to a container. This state indicates that the object is persistent. This state, combined with the \hyperlink{class_c_status_object_a19c4ac94dfe26476e780d77b99744d43}{dirty} status, can determine if an object needs to be committed in a container or not.
+
+The method features a single parameter\-:
+
+
+\begin{DoxyItemize}
+\item {\itshape N\-U\-L\-L}\-: The method will return {\itshape T\-R\-U\-E} if the object is committed, or {\itshape F\-A\-L\-S\-E} if the object is not committed. 
+\item {\itshape T\-R\-U\-E}\-: The method will set the object to committed. 
+\item {\itshape F\-A\-L\-S\-E}\-: The method will reset the object's committed state. 
+\end{DoxyItemize}
+
+In all cases the method will return the state {\itshape after} it was eventually modified.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-State} & T\-R\-U\-E, F\-A\-L\-S\-E or N\-U\-L\-L.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+boolean
+\end{DoxyReturn}
+\hyperlink{class_c_status_object_a3e37d72a6462d93bf7ff567f07f78093}{\-\_\-\-Manage\-Bit\-Field()}
+
+\begin{DoxySeeAlso}{See Also}
+k\-F\-L\-A\-G\-\_\-\-S\-T\-A\-T\-E\-\_\-\-C\-O\-M\-M\-I\-T\-T\-E\-D 
+\end{DoxySeeAlso}
+\hypertarget{class_c_persistent_object_aa8dc7db66e2af3d28c2035161a2aabf9}{\index{C\-Persistent\-Object@{C\-Persistent\-Object}!\-\_\-\-Is\-Encoded@{\-\_\-\-Is\-Encoded}}
+\index{\-\_\-\-Is\-Encoded@{\-\_\-\-Is\-Encoded}!CPersistentObject@{C\-Persistent\-Object}}
+\subsubsection[{\-\_\-\-Is\-Encoded}]{\setlength{\rightskip}{0pt plus 5cm}C\-Persistent\-Object\-::\-\_\-\-Is\-Encoded (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-State = {\ttfamily NULL}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_persistent_object_aa8dc7db66e2af3d28c2035161a2aabf9}
+Manage encoded status.
+
+This method can be used to get or set the object's encoded state.
+
+This flag determines whether custom data types are to be converted to \hyperlink{class_c_data_type}{standard} types when working with the object. This is especially useful when transmitting the object through the network or when managing custom database types.
+
+The conversion to \hyperlink{class_c_data_type}{standard} types is \hyperlink{class_c_data_type_a608d6fc184bce537ce83669f729d6008}{done} when \hyperlink{class_c_persistent_object_a0f0729cfaef48bd1c98c0711c061a7d3}{loading} the object from a \hyperlink{class_c_container}{container} and the opposite is \hyperlink{class_c_container_aa339d3c4c9b011713176a89fe9c7783d}{done} before \hyperlink{class_c_persistent_object_a88b1f2b11d3d60e0b3d33d8b0649b68a}{storing} the object into a \hyperlink{class_c_container}{container}, these operations are performed by the \hyperlink{class_c_container}{container} object that takes care of object persistence.
+
+This \hyperlink{}{k\-F\-L\-A\-G\-\_\-\-S\-T\-A\-T\-E\-\_\-\-E\-N\-C\-O\-D\-E\-D} flag can be provided at \hyperlink{class_c_persistent_object_a0f0729cfaef48bd1c98c0711c061a7d3}{instantiation} or directly to the persistence methods, although it is a better idea to provide it in the \hyperlink{class_c_persistent_object_a0f0729cfaef48bd1c98c0711c061a7d3}{constructor} to have this conversion happen transparently.
+
+The method features a single parameter\-:
+
+
+\begin{DoxyItemize}
+\item {\itshape N\-U\-L\-L}\-: The method will return {\itshape T\-R\-U\-E} if the object is encoded, or {\itshape F\-A\-L\-S\-E} if the object is not encoded. 
+\item {\itshape T\-R\-U\-E}\-: The method will set the object to encoded. 
+\item {\itshape F\-A\-L\-S\-E}\-: The method will reset the object's encoded state. 
+\end{DoxyItemize}
+
+In all cases the method will return the state {\itshape after} it was eventually modified.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-State} & T\-R\-U\-E, F\-A\-L\-S\-E or N\-U\-L\-L.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+boolean
+\end{DoxyReturn}
+\hyperlink{class_c_status_object_a3e37d72a6462d93bf7ff567f07f78093}{\-\_\-\-Manage\-Bit\-Field()}
+
+\begin{DoxySeeAlso}{See Also}
+k\-F\-L\-A\-G\-\_\-\-S\-T\-A\-T\-E\-\_\-\-E\-N\-C\-O\-D\-E\-D 
+\end{DoxySeeAlso}
+\hypertarget{class_c_persistent_object_ada4dfe5bdb0309dee9df94f6e96dc3cb}{\index{C\-Persistent\-Object@{C\-Persistent\-Object}!\-\_\-\-Load@{\-\_\-\-Load}}
+\index{\-\_\-\-Load@{\-\_\-\-Load}!CPersistentObject@{C\-Persistent\-Object}}
+\subsubsection[{\-\_\-\-Load}]{\setlength{\rightskip}{0pt plus 5cm}C\-Persistent\-Object\-::\-\_\-\-Load (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Container, }
+\item[{\&}]{\$the\-Identifier, }
+\item[{\&}]{\$the\-Modifiers}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_persistent_object_ada4dfe5bdb0309dee9df94f6e96dc3cb}
+Find object.
+
+The duty of this method is to locate the object identified by {\itshape \$the\-Identifier} in the container {\itshape \$the\-Container} and return its contents or {\itshape N\-U\-L\-L} if not found.
+
+The method should expect both parameters to have been previously checked\-: in this class, the container must be an {\itshape Array\-Object} representing either the actual container, or a \hyperlink{class_c_container}{C\-Container} derived instance which will take care of locating the object within its managed native container.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \&\$the\-Container} & Object container. \\
+\hline
+reference & {\em \&\$the\-Identifier} & Object identifier. \\
+\hline
+reference & {\em \&\$the\-Modifiers} & Create options.\\
+\hline
+\end{DoxyParams}
+protected \begin{DoxyReturn}{Returns}
+mixed 
+\end{DoxyReturn}
+
+
+Reimplemented in \hyperlink{class_c_ontology_node_a7a8304ab0e782d621012edddd8e7da3a}{C\-Ontology\-Node}, \hyperlink{class_c_graph_node_a60c57e754245042fe04dad8fb63a5fec}{C\-Graph\-Node}, \hyperlink{class_c_ontology_edge_ae7a4861887c1a73dcdbd0285cdba1d8d}{C\-Ontology\-Edge}, and \hyperlink{class_c_graph_edge_a8c19599c8543c9c1a25b9c2dfba8e223}{C\-Graph\-Edge}.
+
+\hypertarget{class_c_persistent_object_a9d98503112f78729b13995a850b174a8}{\index{C\-Persistent\-Object@{C\-Persistent\-Object}!\-\_\-\-Prepare\-Commit@{\-\_\-\-Prepare\-Commit}}
+\index{\-\_\-\-Prepare\-Commit@{\-\_\-\-Prepare\-Commit}!CPersistentObject@{C\-Persistent\-Object}}
+\subsubsection[{\-\_\-\-Prepare\-Commit}]{\setlength{\rightskip}{0pt plus 5cm}C\-Persistent\-Object\-::\-\_\-\-Prepare\-Commit (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Container, }
+\item[{\&}]{\$the\-Identifier, }
+\item[{\&}]{\$the\-Modifiers}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_persistent_object_a9d98503112f78729b13995a850b174a8}
+Normalise before a store.
+
+This method will be called before the \hyperlink{class_c_persistent_object_ad5376e5aeda7a58e5b27fae6c03b4ef9}{store} operation, its duty is to prepare the object and check the parameters for the \hyperlink{class_c_persistent_object_ad5376e5aeda7a58e5b27fae6c03b4ef9}{commit} operation, please refer to \hyperlink{class_c_persistent_object_a88b1f2b11d3d60e0b3d33d8b0649b68a}{this} documentation for a reference of these parameters. Note that in this method all three parameters are passed by reference.
+
+By default we perform the following checks\-:
+
+
+\begin{DoxyItemize}
+\item Ensure the container is provided. 
+\item Ensure the identifier is provided if \hyperlink{}{updating}. 
+\item Ensure the object is \hyperlink{class_c_status_object_a8429102e4f52f7558649b64f4e673a69}{initialised}. 
+\end{DoxyItemize}
+
+In derived classes you should handle your custom containers or delegate to the parent method.
+
+In this class we do not check the identifier.
+
+Any errors should raise an exception.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \&\$the\-Container} & Object container. \\
+\hline
+reference & {\em \&\$the\-Identifier} & Object identifier. \\
+\hline
+reference & {\em \&\$the\-Modifiers} & Commit modifiers.\\
+\hline
+\end{DoxyParams}
+protected
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \{@link} & \hyperlink{class_c_exception}{C\-Exception} \hyperlink{class_c_exception}{C\-Exception}\}\\
+\hline
+\end{DoxyExceptions}
+\hyperlink{class_c_status_object_a8429102e4f52f7558649b64f4e673a69}{\-\_\-\-Is\-Inited()}
+
+\begin{DoxySeeAlso}{See Also}
+k\-E\-R\-R\-O\-R\-\_\-\-I\-N\-V\-A\-L\-I\-D\-\_\-\-S\-T\-A\-T\-E k\-E\-R\-R\-O\-R\-\_\-\-O\-P\-T\-I\-O\-N\-\_\-\-M\-I\-S\-S\-I\-N\-G k\-E\-R\-R\-O\-R\-\_\-\-U\-N\-S\-U\-P\-P\-O\-R\-T\-E\-D 
+\end{DoxySeeAlso}
+
+
+Reimplemented in \hyperlink{class_c_ontology_node_a460df05b73fd4160e7a652ed3b03dd78}{C\-Ontology\-Node}, \hyperlink{class_c_ontology_term_a5d10f6baf1e484591d1d99b325e22d89}{C\-Ontology\-Term}, \hyperlink{class_c_graph_node_ad55d35f1ac947bae32fe8019daf05112}{C\-Graph\-Node}, \hyperlink{class_c_ontology_edge_a2bea996dff6e836069d75572f9386039}{C\-Ontology\-Edge}, \hyperlink{class_c_persistent_unit_object_aaa69a5dd56c441027197d5cb677972ad}{C\-Persistent\-Unit\-Object}, \hyperlink{class_c_ontology_term_object_aca3572974abb180f507fc63264a9ba15}{C\-Ontology\-Term\-Object}, \hyperlink{class_c_dataset_aaa2f58e75510697834f905e434bfb3aa}{C\-Dataset}, \hyperlink{class_c_f_a_o_institute_a9917150b0e31b741aa10c9443e880746}{C\-F\-A\-O\-Institute}, \hyperlink{class_c_ontology_tag_a8f4f23a880ee224c8d154ed81fdd5d94}{C\-Ontology\-Tag}, \hyperlink{class_c_related_unit_object_a577c73999830641e07440126a3252286}{C\-Related\-Unit\-Object}, \hyperlink{class_c_user_aacdc43c5a38cb6b013ee9ce686b186e9}{C\-User}, \hyperlink{class_c_institute_a096aa38309ae2f88250700d5755a18a6}{C\-Institute}, and \hyperlink{class_c_entity_ac306808f0f8404fa405674cbe14fd441}{C\-Entity}.
+
+\hypertarget{class_c_persistent_object_a2e5dd4f8a92c0ada964ade712c9579b0}{\index{C\-Persistent\-Object@{C\-Persistent\-Object}!\-\_\-\-Prepare\-Create@{\-\_\-\-Prepare\-Create}}
+\index{\-\_\-\-Prepare\-Create@{\-\_\-\-Prepare\-Create}!CPersistentObject@{C\-Persistent\-Object}}
+\subsubsection[{\-\_\-\-Prepare\-Create}]{\setlength{\rightskip}{0pt plus 5cm}C\-Persistent\-Object\-::\-\_\-\-Prepare\-Create (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Container, }
+\item[{\&}]{\$the\-Identifier, }
+\item[{\&}]{\$the\-Modifiers}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_persistent_object_a2e5dd4f8a92c0ada964ade712c9579b0}
+Normalise parameters of a create.
+
+The duty of this method is to ensure that the parameters provided to a \hyperlink{class_c_persistent_object_a584005d1ec0d7e7327dc6d267a9ec50c}{create} operation are valid.
+
+The method has a chance to work with the container and the identifier before it is set in the object.
+
+In this class we set the \hyperlink{class_c_persistent_object_aa8dc7db66e2af3d28c2035161a2aabf9}{encoded} status \hyperlink{}{flag} if provided among the modifiers of the operation.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \&\$the\-Container} & Object container. \\
+\hline
+reference & {\em \&\$the\-Identifier} & Object identifier. \\
+\hline
+reference & {\em \&\$the\-Modifiers} & Create modifiers.\\
+\hline
+\end{DoxyParams}
+protected
+
+\hyperlink{class_c_persistent_object_aa8dc7db66e2af3d28c2035161a2aabf9}{\-\_\-\-Is\-Encoded()}
+
+\begin{DoxySeeAlso}{See Also}
+k\-F\-L\-A\-G\-\_\-\-S\-T\-A\-T\-E\-\_\-\-E\-N\-C\-O\-D\-E\-D 
+\end{DoxySeeAlso}
+
+
+Reimplemented in \hyperlink{class_c_ontology_node_a8dd4c8bc984a535448618bbbba987a55}{C\-Ontology\-Node}, \hyperlink{class_c_graph_node_a500c59ddfbec7fedf8598ee5d886de67}{C\-Graph\-Node}, \hyperlink{class_c_ontology_edge_a1d09b3ef8e4ef57a072291a7c09f7371}{C\-Ontology\-Edge}, \hyperlink{class_c_ontology_term_object_a7e785a79bf4c20b094450e688e3e73cf}{C\-Ontology\-Term\-Object}, \hyperlink{class_c_dataset_a0ffe9ddfad31a560a8c312cf25afe467}{C\-Dataset}, \hyperlink{class_c_user_a88f492d72f0a4595ba66ea6c25ded2cd}{C\-User}, and \hyperlink{class_c_entity_a4fdef5f86472b284c53a876d72ba8b07}{C\-Entity}.
+
+\hypertarget{class_c_persistent_object_a5a664513b015919da582c6f0230fab75}{\index{C\-Persistent\-Object@{C\-Persistent\-Object}!\-\_\-\-Prepare\-Load@{\-\_\-\-Prepare\-Load}}
+\index{\-\_\-\-Prepare\-Load@{\-\_\-\-Prepare\-Load}!CPersistentObject@{C\-Persistent\-Object}}
+\subsubsection[{\-\_\-\-Prepare\-Load}]{\setlength{\rightskip}{0pt plus 5cm}C\-Persistent\-Object\-::\-\_\-\-Prepare\-Load (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Container, }
+\item[{\&}]{\$the\-Identifier, }
+\item[{\&}]{\$the\-Modifiers}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_persistent_object_a5a664513b015919da582c6f0230fab75}
+Normalise parameters of a find.
+
+The duty of this method is to ensure that the parameters provided to a \hyperlink{class_c_persistent_object_ada4dfe5bdb0309dee9df94f6e96dc3cb}{find} operation are valid.
+
+The method should first check if the provided container is of the correct type, then it should ensure that the identifier is valid.
+
+We know that the identifier cannot be missing, since this method is only called if the identifier was provided. We should check that the provided container is of the correct type. In derived classes you should first handle your custom types, then let the parent method handle other types.
+
+Any errors should raise an exception.
+
+In this class we only support \hyperlink{class_c_container}{C\-Container} containers and the identifier is not expected to be {\itshape N\-U\-L\-L}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \&\$the\-Container} & Object container. \\
+\hline
+reference & {\em \&\$the\-Identifier} & Object identifier. \\
+\hline
+reference & {\em \&\$the\-Modifiers} & Create modifiers.\\
+\hline
+\end{DoxyParams}
+protected
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \{@link} & \hyperlink{class_c_exception}{C\-Exception} \hyperlink{class_c_exception}{C\-Exception}\}\\
+\hline
+\end{DoxyExceptions}
+\hyperlink{class_c_persistent_object_aa8dc7db66e2af3d28c2035161a2aabf9}{\-\_\-\-Is\-Encoded()}
+
+\begin{DoxySeeAlso}{See Also}
+k\-E\-R\-R\-O\-R\-\_\-\-O\-P\-T\-I\-O\-N\-\_\-\-M\-I\-S\-S\-I\-N\-G k\-E\-R\-R\-O\-R\-\_\-\-U\-N\-S\-U\-P\-P\-O\-R\-T\-E\-D 
+\end{DoxySeeAlso}
+
+
+Reimplemented in \hyperlink{class_c_ontology_node_ac8a77d7437a9be4b4aa18626b1a9f95d}{C\-Ontology\-Node}, \hyperlink{class_c_graph_node_af9f27bcc601672903af33f33d62e7ebf}{C\-Graph\-Node}, \hyperlink{class_c_ontology_edge_a6099442ba1dca683e4832d406793b5b9}{C\-Ontology\-Edge}, and \hyperlink{class_c_persistent_unit_object_a5f41b9143a5ae8fb353989c26d4ee301}{C\-Persistent\-Unit\-Object}.
+
+\hypertarget{class_c_persistent_object_a948ba9d69729dfe20564aecdb9d4fae7}{\index{C\-Persistent\-Object@{C\-Persistent\-Object}!\-\_\-\-Set\-Tags@{\-\_\-\-Set\-Tags}}
+\index{\-\_\-\-Set\-Tags@{\-\_\-\-Set\-Tags}!CPersistentObject@{C\-Persistent\-Object}}
+\subsubsection[{\-\_\-\-Set\-Tags}]{\setlength{\rightskip}{0pt plus 5cm}C\-Persistent\-Object\-::\-\_\-\-Set\-Tags (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Offset = {\ttfamily kTAG\-\_\-TAGS}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_persistent_object_a948ba9d69729dfe20564aecdb9d4fae7}
+Set attribute tags.
+
+The duty of this method is to collect all attribute tags used in the object and store them as an array at the provided offset.
+
+The method will collect all attributes, overload this method to exclude default attributes.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Offset} & Offset.\\
+\hline
+\end{DoxyParams}
+protected \hypertarget{class_c_persistent_object_a88b1f2b11d3d60e0b3d33d8b0649b68a}{\index{C\-Persistent\-Object@{C\-Persistent\-Object}!Commit@{Commit}}
+\index{Commit@{Commit}!CPersistentObject@{C\-Persistent\-Object}}
+\subsubsection[{Commit}]{\setlength{\rightskip}{0pt plus 5cm}C\-Persistent\-Object\-::\-Commit (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Container = {\ttfamily NULL}, }
+\item[{}]{\$the\-Identifier = {\ttfamily NULL}, }
+\item[{}]{\$the\-Modifiers = {\ttfamily kFLAG\-\_\-PERSIST\-\_\-REPLACE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_persistent_object_a88b1f2b11d3d60e0b3d33d8b0649b68a}
+Commit the object into a container.
+
+This method should be used to commit the object to a container, the method accepts two parameters\-:
+
+
+\begin{DoxyItemize}
+\item {\bfseries \$the\-Container}\-: This parameter represents the {\itshape container} in which the object is to be stored. By default we enforce concrete instances of \hyperlink{class_c_container}{C\-Container}, derived classes may overload the protected interface to initialise this value. 
+\item {\bfseries \$the\-Identifier}\-: This parameter represents the value by which the current object will be uniquely identified in the first parameter. By default this value is required, derived classes may overload the protected interface to initialise this value. 
+\item {\bfseries \$the\-Modifiers}\-: This parameter represents the commit operation options, by default we assume you want to \hyperlink{}{replace} an object, but you may change this value if you want to perform specific commit operations\-: 
+\begin{DoxyItemize}
+\item {\itshape \hyperlink{}{k\-F\-L\-A\-G\-\_\-\-P\-E\-R\-S\-I\-S\-T\-\_\-\-I\-N\-S\-E\-R\-T}}\-: The provided object will be inserted in the container, it is assumed that no other element in the container shares the same identifier, in that case the container \hyperlink{class_c_container_a4847dc676d1f7704e75f8981e927508a}{method} must raise an \hyperlink{}{exception}. 
+\item {\itshape \hyperlink{}{k\-F\-L\-A\-G\-\_\-\-P\-E\-R\-S\-I\-S\-T\-\_\-\-U\-P\-D\-A\-T\-E}}\-: The provided object will replace the existing object. In this case the method expects the container to have an entry with the same key as the provided identifier, if this is not the case the container \hyperlink{class_c_container_a4847dc676d1f7704e75f8981e927508a}{method} must raise an \hyperlink{}{exception}. With this option it is assumed that the provided object's attributes will replace all the existing object's ones. 
+\item {\itshape \hyperlink{}{k\-F\-L\-A\-G\-\_\-\-P\-E\-R\-S\-I\-S\-T\-\_\-\-M\-O\-D\-I\-F\-Y}}\-: The provided object is assumed to contain a subset of an existing object's attributes, these provided attributes will be appended or replace the existing ones. In this case the method expects the container to have an entry with the same key as the provided identifier, if this is not the case the method must raise an \hyperlink{}{exception}. 
+\item {\itshape \hyperlink{}{k\-F\-L\-A\-G\-\_\-\-P\-E\-R\-S\-I\-S\-T\-\_\-\-R\-E\-P\-L\-A\-C\-E}}\-: The provided object will be \hyperlink{}{inserted}, if the identifier doesn't match any container elements, or it will \hyperlink{}{replace} the existing object. As with \hyperlink{}{update}, it is assumed that the provided object's attributes will replace all the existing object's ones. 
+\item {\itshape \hyperlink{}{k\-F\-L\-A\-G\-\_\-\-P\-E\-R\-S\-I\-S\-T\-\_\-\-D\-E\-L\-E\-T\-E}}\-: This option assumes you want to remove the object from the container, although the container features a specific \hyperlink{class_c_container_aa91ec2f4624a2ebfb74668f274139329}{method} for this purpose, this option may be used to implement a {\itshape deleted state}, rather than actually removing the object from the container. 
+\item {\itshape \hyperlink{}{k\-F\-L\-A\-G\-\_\-\-S\-T\-A\-T\-E\-\_\-\-E\-N\-C\-O\-D\-E\-D}}\-: If the option is on, the object will be passed through a \hyperlink{class_c_container_aa339d3c4c9b011713176a89fe9c7783d}{conversion} process that will convert all \hyperlink{class_c_data_type}{standard} data types into native container custom data types \hyperlink{class_c_container_a0dc47e54abc533cedf1c2c0f915d96b2}{before} committing the object. It is a good idea to keep this flag O\-N, because the converted object will be compatible with any \hyperlink{class_c_container}{container} and it will make data transfers from one database to the other easy. This process is automatic and transparent. 
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+The method will only operate if either the \hyperlink{class_c_persistent_object_a6520a7bcecf3f39fd61ec6d08f736e77}{committed} \hyperlink{}{flag} is {\itshape not set}, or the \hyperlink{class_c_status_object_a19c4ac94dfe26476e780d77b99744d43}{dirty} \hyperlink{}{flag} is {\itshape set}, if none of these two conditions are satisfied, the method will do nothing.
+
+The method will by default {\itshape set} the \hyperlink{class_c_persistent_object_a6520a7bcecf3f39fd61ec6d08f736e77}{committed} \hyperlink{}{flag} and {\itshape reset} the \hyperlink{class_c_status_object_a19c4ac94dfe26476e780d77b99744d43}{dirty} \hyperlink{}{flag} if the operation was successful.
+
+This method should raise an exception if any error occurs.
+
+The method should return the unique identifier of the object or {\itshape N\-U\-L\-L} if the operation was not performed.
+
+In derived classes you should not overload this method, instead, you should overload the protected interface\-:
+
+
+\begin{DoxyItemize}
+\item {\itshape \hyperlink{class_c_persistent_object_a9d98503112f78729b13995a850b174a8}{\-\_\-\-Prepare\-Commit}()}\-: This method can be used to initialise or check the parameters and resources. 
+\item {\itshape \hyperlink{class_c_persistent_object_ad5376e5aeda7a58e5b27fae6c03b4ef9}{\-\_\-\-Commit}()}\-: This method will perform the actual commit. 
+\item {\itshape \hyperlink{class_c_persistent_object_a535a2f078b777a144d31117de054ccf7}{\-\_\-\-Finish\-Commit}()}\-: This method can be used to perform eventual post-\/flight adjustments. 
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Container} & Persistent container. \\
+\hline
+mixed & {\em \$the\-Identifier} & Object identifier. \\
+\hline
+bitfield & {\em \$the\-Modifiers} & Commit modifiers.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+\hyperlink{class_c_status_object_a19c4ac94dfe26476e780d77b99744d43}{\-\_\-\-Is\-Dirty()}  \hyperlink{class_c_persistent_object_a6520a7bcecf3f39fd61ec6d08f736e77}{\-\_\-\-Is\-Committed()}  \hyperlink{class_c_persistent_object_a9d98503112f78729b13995a850b174a8}{\-\_\-\-Prepare\-Commit()}  \hyperlink{class_c_persistent_object_ad5376e5aeda7a58e5b27fae6c03b4ef9}{\-\_\-\-Commit()}  \hyperlink{class_c_persistent_object_a535a2f078b777a144d31117de054ccf7}{\-\_\-\-Finish\-Commit()}
+
+\begin{DoxySeeAlso}{See Also}
+k\-F\-L\-A\-G\-\_\-\-P\-E\-R\-S\-I\-S\-T\-\_\-\-I\-N\-S\-E\-R\-T k\-F\-L\-A\-G\-\_\-\-P\-E\-R\-S\-I\-S\-T\-\_\-\-U\-P\-D\-A\-T\-E k\-F\-L\-A\-G\-\_\-\-P\-E\-R\-S\-I\-S\-T\-\_\-\-M\-O\-D\-I\-F\-Y 
+
+k\-F\-L\-A\-G\-\_\-\-P\-E\-R\-S\-I\-S\-T\-\_\-\-R\-E\-P\-L\-A\-C\-E k\-F\-L\-A\-G\-\_\-\-S\-T\-A\-T\-E\-\_\-\-E\-N\-C\-O\-D\-E\-D 
+\end{DoxySeeAlso}
+\hypertarget{class_c_persistent_object_a37c897b534e88477a06ec60b89d84450}{\index{C\-Persistent\-Object@{C\-Persistent\-Object}!Uncommit@{Uncommit}}
+\index{Uncommit@{Uncommit}!CPersistentObject@{C\-Persistent\-Object}}
+\subsubsection[{Uncommit}]{\setlength{\rightskip}{0pt plus 5cm}C\-Persistent\-Object\-::\-Uncommit (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_c_persistent_object_a37c897b534e88477a06ec60b89d84450}
+Reset \hyperlink{class_c_persistent_object_a6520a7bcecf3f39fd61ec6d08f736e77}{committed} status.
+
+This method can be used to reset the object's \hyperlink{}{committed} \hyperlink{class_c_persistent_object_a6520a7bcecf3f39fd61ec6d08f736e77}{status}, this may be necessary when copying an object from one container to the other, since the object will be \hyperlink{class_c_persistent_object_a88b1f2b11d3d60e0b3d33d8b0649b68a}{committed} only if the \hyperlink{}{committed} \hyperlink{class_c_persistent_object_a6520a7bcecf3f39fd61ec6d08f736e77}{status} is not set, or if the \hyperlink{}{dirty} \hyperlink{class_c_status_object_a19c4ac94dfe26476e780d77b99744d43}{status} is set.
+
+public
+
+\hyperlink{class_c_persistent_object_a6520a7bcecf3f39fd61ec6d08f736e77}{\-\_\-\-Is\-Committed()} 
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/\-Library/\-Web\-Server/\-Library/wrapper/classes/C\-Persistent\-Object.\-php\end{DoxyCompactItemize}

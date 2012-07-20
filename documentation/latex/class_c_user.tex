@@ -1,0 +1,390 @@
+\hypertarget{class_c_user}{\section{C\-User Class Reference}
+\label{class_c_user}\index{C\-User@{C\-User}}
+}
+Inheritance diagram for C\-User\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=8.000000cm]{class_c_user}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_c_user_a0e6f1cf51ad23f971ed0999f8d248c8d}{Password} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_user_add1faba1d336cf4b610a632d3c376dd2}{Role} (\$the\-Value=N\-U\-L\-L, \$the\-Operation=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_user_acd45e0c231f54e7ccc452cb6bcd3aa35}{Manager} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_user_aff35c01690c6cfa3c58954c78f597316}{Kind} (\$the\-Value=N\-U\-L\-L, \$the\-Operation=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_user_aace3446b9cacfe28cc1937c608fcc999}{offset\-Set} (\$the\-Offset, \$the\-Value)
+\item 
+\hyperlink{class_c_user_aed8557e18a89d868cedf5a48328b33b2}{offset\-Unset} (\$the\-Offset)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_c_user_ada20d1f74260a4a5f67453bc9b4f3990}{Hash\-Index} (\$the\-Value)
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_c_user_a88f492d72f0a4595ba66ea6c25ded2cd}{\-\_\-\-Prepare\-Create} (\&\$the\-Container, \&\$the\-Identifier, \&\$the\-Modifiers)
+\item 
+\hyperlink{class_c_user_aacdc43c5a38cb6b013ee9ce686b186e9}{\-\_\-\-Prepare\-Commit} (\&\$the\-Container, \&\$the\-Identifier, \&\$the\-Modifiers)
+\item 
+\hyperlink{class_c_user_aac39ac91532ebdbe5a7f10976b2d2bec}{\-\_\-\-Finish\-Create} (\&\$the\-Container)
+\item 
+\hyperlink{class_c_user_a6a06a22502d96bb2483cb0de6e043ddb}{\-\_\-\-Finish\-Load} (\&\$the\-Container, \&\$the\-Identifier, \&\$the\-Modifiers)
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_c_user_aac39ac91532ebdbe5a7f10976b2d2bec}{\index{C\-User@{C\-User}!\-\_\-\-Finish\-Create@{\-\_\-\-Finish\-Create}}
+\index{\-\_\-\-Finish\-Create@{\-\_\-\-Finish\-Create}!CUser@{C\-User}}
+\subsubsection[{\-\_\-\-Finish\-Create}]{\setlength{\rightskip}{0pt plus 5cm}C\-User\-::\-\_\-\-Finish\-Create (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Container}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_user_aac39ac91532ebdbe5a7f10976b2d2bec}
+Normalise after a \hyperlink{class_c_persistent_object_a584005d1ec0d7e7327dc6d267a9ec50c}{create}.
+
+This method will be called after the \hyperlink{class_c_persistent_object_a584005d1ec0d7e7327dc6d267a9ec50c}{create} operation, its duty is to initialise an empty object. Both the container and the identifier parameters are passed by reference.
+
+This method will be called if the identifier was not provided to the \hyperlink{class_c_coded_unit_object_a314fc62af62314f5ac5acca2ac809900}{constructor}, or if the \hyperlink{class_c_coded_unit_object_a314fc62af62314f5ac5acca2ac809900}{constructor} was unable to \hyperlink{class_c_persistent_object_ada4dfe5bdb0309dee9df94f6e96dc3cb}{find} the requested object.
+
+In this class we set the inited flag.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \&\$the\-Container} & Object container.\\
+\hline
+\end{DoxyParams}
+protected 
+
+Reimplemented from \hyperlink{class_c_persistent_object_a9029ba173e65e2ec14eeb8bc7c2024c6}{C\-Persistent\-Object}.
+
+\hypertarget{class_c_user_a6a06a22502d96bb2483cb0de6e043ddb}{\index{C\-User@{C\-User}!\-\_\-\-Finish\-Load@{\-\_\-\-Finish\-Load}}
+\index{\-\_\-\-Finish\-Load@{\-\_\-\-Finish\-Load}!CUser@{C\-User}}
+\subsubsection[{\-\_\-\-Finish\-Load}]{\setlength{\rightskip}{0pt plus 5cm}C\-User\-::\-\_\-\-Finish\-Load (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Container, }
+\item[{\&}]{\$the\-Identifier, }
+\item[{\&}]{\$the\-Modifiers}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_user_a6a06a22502d96bb2483cb0de6e043ddb}
+Normalise after a \hyperlink{class_c_persistent_object_ada4dfe5bdb0309dee9df94f6e96dc3cb}{load}.
+
+This method will be called after the \hyperlink{class_c_persistent_object_ada4dfe5bdb0309dee9df94f6e96dc3cb}{load} operation, its duty is to clean up or normalise after the operation. Both the container and the identifier parameters are passed by reference.
+
+In this class we set the inited flag.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \&\$the\-Container} & Object container. \\
+\hline
+reference & {\em \&\$the\-Identifier} & Object identifier. \\
+\hline
+reference & {\em \&\$the\-Modifiers} & Create modifiers.\\
+\hline
+\end{DoxyParams}
+protected 
+
+Reimplemented from \hyperlink{class_c_persistent_object_a35ffbe4e875e03a84985493bbce75457}{C\-Persistent\-Object}.
+
+\hypertarget{class_c_user_aacdc43c5a38cb6b013ee9ce686b186e9}{\index{C\-User@{C\-User}!\-\_\-\-Prepare\-Commit@{\-\_\-\-Prepare\-Commit}}
+\index{\-\_\-\-Prepare\-Commit@{\-\_\-\-Prepare\-Commit}!CUser@{C\-User}}
+\subsubsection[{\-\_\-\-Prepare\-Commit}]{\setlength{\rightskip}{0pt plus 5cm}C\-User\-::\-\_\-\-Prepare\-Commit (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Container, }
+\item[{\&}]{\$the\-Identifier, }
+\item[{\&}]{\$the\-Modifiers}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_user_aacdc43c5a38cb6b013ee9ce686b186e9}
+Normalise parameters of a store.
+
+We overload this method to add the \hyperlink{}{k\-E\-N\-T\-I\-T\-Y\-\_\-\-U\-S\-E\-R} \hyperlink{}{type} to the object prior \hyperlink{class_c_persistent_object_a88b1f2b11d3d60e0b3d33d8b0649b68a}{saving} it and we initialise the user \hyperlink{class_c_coded_unit_object_a56af949800e65f9a283239d2e455259f}{code}, if empty, with the \hyperlink{class_c_entity_acf65b6fb2f4195f6c649b4ca506c7899}{e-\/mail}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \&\$the\-Container} & Object container. \\
+\hline
+reference & {\em \&\$the\-Identifier} & Object identifier. \\
+\hline
+reference & {\em \&\$the\-Modifiers} & Commit modifiers.\\
+\hline
+\end{DoxyParams}
+protected
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \{@link} & \hyperlink{class_c_exception}{C\-Exception} \hyperlink{class_c_exception}{C\-Exception}\}\\
+\hline
+\end{DoxyExceptions}
+\begin{DoxySeeAlso}{See Also}
+k\-E\-R\-R\-O\-R\-\_\-\-O\-P\-T\-I\-O\-N\-\_\-\-M\-I\-S\-S\-I\-N\-G 
+\end{DoxySeeAlso}
+
+
+Reimplemented from \hyperlink{class_c_entity_ac306808f0f8404fa405674cbe14fd441}{C\-Entity}.
+
+\hypertarget{class_c_user_a88f492d72f0a4595ba66ea6c25ded2cd}{\index{C\-User@{C\-User}!\-\_\-\-Prepare\-Create@{\-\_\-\-Prepare\-Create}}
+\index{\-\_\-\-Prepare\-Create@{\-\_\-\-Prepare\-Create}!CUser@{C\-User}}
+\subsubsection[{\-\_\-\-Prepare\-Create}]{\setlength{\rightskip}{0pt plus 5cm}C\-User\-::\-\_\-\-Prepare\-Create (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Container, }
+\item[{\&}]{\$the\-Identifier, }
+\item[{\&}]{\$the\-Modifiers}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_user_a88f492d72f0a4595ba66ea6c25ded2cd}
+Normalise parameters of a create.
+
+The duty of this method is to ensure that the parameters provided to a \hyperlink{class_c_persistent_object_a584005d1ec0d7e7327dc6d267a9ec50c}{create} operation are valid.
+
+In this method we enforce the \hyperlink{}{encoded} flag.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \&\$the\-Container} & Object container. \\
+\hline
+reference & {\em \&\$the\-Identifier} & Object identifier. \\
+\hline
+reference & {\em \&\$the\-Modifiers} & Create modifiers.\\
+\hline
+\end{DoxyParams}
+protected
+
+\hyperlink{class_c_persistent_object_aa8dc7db66e2af3d28c2035161a2aabf9}{\-\_\-\-Is\-Encoded()}
+
+\begin{DoxySeeAlso}{See Also}
+k\-F\-L\-A\-G\-\_\-\-S\-T\-A\-T\-E\-\_\-\-E\-N\-C\-O\-D\-E\-D 
+\end{DoxySeeAlso}
+
+
+Reimplemented from \hyperlink{class_c_entity_a4fdef5f86472b284c53a876d72ba8b07}{C\-Entity}.
+
+\hypertarget{class_c_user_ada20d1f74260a4a5f67453bc9b4f3990}{\index{C\-User@{C\-User}!Hash\-Index@{Hash\-Index}}
+\index{Hash\-Index@{Hash\-Index}!CUser@{C\-User}}
+\subsubsection[{Hash\-Index}]{\setlength{\rightskip}{0pt plus 5cm}static C\-User\-::\-Hash\-Index (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{class_c_user_ada20d1f74260a4a5f67453bc9b4f3990}
+Hash index.
+
+This method can be used to format an identifier provided as a string, it will be used by the \hyperlink{class_c_persistent_unit_object_ad1ca0920cf0df3c24351402f9afbf34b}{\-\_\-id} method to format the result of the \hyperlink{class_c_coded_unit_object_a990c19b8bf98d2784da81e3a3121ce56}{\-\_\-index} method. One can consider this as the index hashing method for all derived classes.
+
+In this class we take the provided \hyperlink{class_c_coded_unit_object_a56af949800e65f9a283239d2e455259f}{code} and prefix it with the \hyperlink{}{k\-E\-N\-T\-I\-T\-Y\-\_\-\-U\-S\-E\-R} token, the result will be \hyperlink{class_c_data_type_binary}{hashed}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Value} & Value to hash.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_c_persistent_unit_object_af0e75c386b883074c8bb677bac500bb3}{C\-Persistent\-Unit\-Object}.
+
+\hypertarget{class_c_user_aff35c01690c6cfa3c58954c78f597316}{\index{C\-User@{C\-User}!Kind@{Kind}}
+\index{Kind@{Kind}!CUser@{C\-User}}
+\subsubsection[{Kind}]{\setlength{\rightskip}{0pt plus 5cm}C\-User\-::\-Kind (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$the\-Operation = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_user_aff35c01690c6cfa3c58954c78f597316}
+Manage the kind.
+
+This method can be used to handle the object's list of \hyperlink{}{kinds}, it uses the standard accessor \hyperlink{class_c_attribute_ace756c1a8832932ec135104223d1e50c}{method} to manage the list of kind, type or function tags associated with the file.
+
+Each element of this list should indicate a specific kind or type of the object or a specific function that the object has.
+
+For a more thorough reference of how this method works, please consult the \hyperlink{class_c_attribute_ace756c1a8832932ec135104223d1e50c}{C\-Attribute\-::\-Manage\-Array\-Offset} method, in which the second parameter will be the constant \hyperlink{}{k\-T\-A\-G\-\_\-\-K\-I\-N\-D}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Value} & Value or index. \\
+\hline
+mixed & {\em \$the\-Operation} & Operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+\hyperlink{class_c_attribute_ace756c1a8832932ec135104223d1e50c}{C\-Attribute\-::\-Manage\-Array\-Offset()}
+
+\begin{DoxySeeAlso}{See Also}
+k\-T\-A\-G\-\_\-\-K\-I\-N\-D 
+\end{DoxySeeAlso}
+
+
+Reimplemented from \hyperlink{class_c_entity_ab64ce6f953237efc2bb10cfe97850f9a}{C\-Entity}.
+
+\hypertarget{class_c_user_acd45e0c231f54e7ccc452cb6bcd3aa35}{\index{C\-User@{C\-User}!Manager@{Manager}}
+\index{Manager@{Manager}!CUser@{C\-User}}
+\subsubsection[{Manager}]{\setlength{\rightskip}{0pt plus 5cm}C\-User\-::\-Manager (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_user_acd45e0c231f54e7ccc452cb6bcd3aa35}
+Manage user manager.
+
+This method can be used to manage the user \hyperlink{}{manager}, it uses the standard accessor \hyperlink{class_c_attribute_a9d231a47718719fcd6c33f3d0ac91675}{method} to manage the \hyperlink{}{offset}\-:
+
+
+\begin{DoxyItemize}
+\item {\bfseries \$the\-Value}\-: The value or operation\-: 
+\begin{DoxyItemize}
+\item {\itshape N\-U\-L\-L}\-: Return the current value. 
+\item {\itshape F\-A\-L\-S\-E}\-: Delete the value. 
+\item {\itshape other}\-: Set value. 
+\end{DoxyItemize}
+\item {\bfseries \$get\-Old}\-: Determines what the method will return\-: 
+\begin{DoxyItemize}
+\item {\itshape T\-R\-U\-E}\-: Return the value {\itshape before} it was eventually modified. 
+\item {\itshape F\-A\-L\-S\-E}\-: Return the value {\itshape after} it was eventually modified. 
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+The manager is either the user that created the current user or the user that is in charge of the current user.
+
+
+\begin{DoxyParams}[1]{Parameters}
+N\-U\-L\-L | F\-A\-L\-S\-E | string & {\em \$the\-Value} & User password or operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+\hypertarget{class_c_user_aace3446b9cacfe28cc1937c608fcc999}{\index{C\-User@{C\-User}!offset\-Set@{offset\-Set}}
+\index{offset\-Set@{offset\-Set}!CUser@{C\-User}}
+\subsubsection[{offset\-Set}]{\setlength{\rightskip}{0pt plus 5cm}C\-User\-::offset\-Set (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Offset, }
+\item[{}]{\$the\-Value}
+\end{DoxyParamCaption}
+)}}\label{class_c_user_aace3446b9cacfe28cc1937c608fcc999}
+Set a value for a given offset.
+
+We overload this method to manage the \hyperlink{class_c_status_object_a8429102e4f52f7558649b64f4e673a69}{inited} \hyperlink{}{status}\-: this is set if the \hyperlink{}{name}, \hyperlink{}{e-\/mail}, \hyperlink{}{password} and the parent \hyperlink{}{code} are set.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Offset} & Offset. \\
+\hline
+string | N\-U\-L\-L & {\em \$the\-Value} & Value to set at offset.\\
+\hline
+\end{DoxyParams}
+public
+
+\hyperlink{class_c_status_object_a8429102e4f52f7558649b64f4e673a69}{\-\_\-\-Is\-Inited()}  \hyperlink{class_c_persistent_object_a6520a7bcecf3f39fd61ec6d08f736e77}{\-\_\-\-Is\-Committed()} 
+
+Reimplemented from \hyperlink{class_c_coded_unit_object_a49bb8f2956cb0551ba827b222778f295}{C\-Coded\-Unit\-Object}.
+
+\hypertarget{class_c_user_aed8557e18a89d868cedf5a48328b33b2}{\index{C\-User@{C\-User}!offset\-Unset@{offset\-Unset}}
+\index{offset\-Unset@{offset\-Unset}!CUser@{C\-User}}
+\subsubsection[{offset\-Unset}]{\setlength{\rightskip}{0pt plus 5cm}C\-User\-::offset\-Unset (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Offset}
+\end{DoxyParamCaption}
+)}}\label{class_c_user_aed8557e18a89d868cedf5a48328b33b2}
+Reset a value for a given offset.
+
+We overload this method to manage the \hyperlink{class_c_status_object_a8429102e4f52f7558649b64f4e673a69}{inited} \hyperlink{}{status}\-: this is set if the \hyperlink{}{name}, \hyperlink{}{e-\/mail}, \hyperlink{}{password} and the parent \hyperlink{}{code} are set.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Offset} & Offset.\\
+\hline
+\end{DoxyParams}
+public
+
+\hyperlink{class_c_status_object_a8429102e4f52f7558649b64f4e673a69}{\-\_\-\-Is\-Inited()}  \hyperlink{class_c_persistent_object_a6520a7bcecf3f39fd61ec6d08f736e77}{\-\_\-\-Is\-Committed()} 
+
+Reimplemented from \hyperlink{class_c_coded_unit_object_a5072e0f72c19260df212a4cf93c9f1cb}{C\-Coded\-Unit\-Object}.
+
+\hypertarget{class_c_user_a0e6f1cf51ad23f971ed0999f8d248c8d}{\index{C\-User@{C\-User}!Password@{Password}}
+\index{Password@{Password}!CUser@{C\-User}}
+\subsubsection[{Password}]{\setlength{\rightskip}{0pt plus 5cm}C\-User\-::\-Password (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_user_a0e6f1cf51ad23f971ed0999f8d248c8d}
+Manage user password.
+
+This method can be used to manage the user \hyperlink{}{password}, it uses the standard accessor \hyperlink{class_c_attribute_a9d231a47718719fcd6c33f3d0ac91675}{method} to manage the \hyperlink{}{offset}\-:
+
+
+\begin{DoxyItemize}
+\item {\bfseries \$the\-Value}\-: The value or operation\-: 
+\begin{DoxyItemize}
+\item {\itshape N\-U\-L\-L}\-: Return the current value. 
+\item {\itshape F\-A\-L\-S\-E}\-: Delete the value. 
+\item {\itshape other}\-: Set value. 
+\end{DoxyItemize}
+\item {\bfseries \$get\-Old}\-: Determines what the method will return\-: 
+\begin{DoxyItemize}
+\item {\itshape T\-R\-U\-E}\-: Return the value {\itshape before} it was eventually modified. 
+\item {\itshape F\-A\-L\-S\-E}\-: Return the value {\itshape after} it was eventually modified. 
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+N\-U\-L\-L | F\-A\-L\-S\-E | string & {\em \$the\-Value} & User password or operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+\hypertarget{class_c_user_add1faba1d336cf4b610a632d3c376dd2}{\index{C\-User@{C\-User}!Role@{Role}}
+\index{Role@{Role}!CUser@{C\-User}}
+\subsubsection[{Role}]{\setlength{\rightskip}{0pt plus 5cm}C\-User\-::\-Role (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$the\-Operation = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_user_add1faba1d336cf4b610a632d3c376dd2}
+Manage user roles.
+
+This method can be used to manage the user \hyperlink{}{roles}, it uses the standard accessor \hyperlink{class_c_attribute_ace756c1a8832932ec135104223d1e50c}{method} to manage the \hyperlink{}{roles}\-:
+
+For a more thorough reference of how this method works, please consult the \hyperlink{class_c_attribute_ace756c1a8832932ec135104223d1e50c}{C\-Attribute\-::\-Manage\-Array\-Offset} method, in which the second parameter will be the constant \hyperlink{}{k\-T\-A\-G\-\_\-\-R\-O\-L\-E}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Value} & Value or index. \\
+\hline
+mixed & {\em \$the\-Operation} & Operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+\hyperlink{class_c_attribute_ace756c1a8832932ec135104223d1e50c}{C\-Attribute\-::\-Manage\-Array\-Offset()}
+
+\begin{DoxySeeAlso}{See Also}
+k\-T\-A\-G\-\_\-\-R\-O\-L\-E 
+\end{DoxySeeAlso}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/\-Library/\-Web\-Server/\-Library/wrapper/classes/C\-User.\-php\end{DoxyCompactItemize}

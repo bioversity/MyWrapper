@@ -1,0 +1,252 @@
+\hypertarget{class_c_dataset_file}{\section{C\-Dataset\-File Class Reference}
+\label{class_c_dataset_file}\index{C\-Dataset\-File@{C\-Dataset\-File}}
+}
+Inheritance diagram for C\-Dataset\-File\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_c_dataset_file}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_c_dataset_file_a8e2d5b7660c65fef0f304a8f81c239fa}{\-\_\-\-\_\-construct} (\$the\-Data=N\-U\-L\-L)
+\item 
+\hyperlink{class_c_dataset_file_a2c26bae21eda50d110f8459cc2352bbf}{Dataset} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_dataset_file_ad3880b3fc69f61711de06ccfd01e407a}{Owner} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_dataset_file_a2c79dc1df451f7bd3da34965515deb16}{State} (\$the\-Value=N\-U\-L\-L, \$the\-Operation=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_dataset_file_a73921a3c99d6a6bb823aabb689b84f1d}{Kind} (\$the\-Value=N\-U\-L\-L, \$the\-Operation=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_dataset_file_a19bf22649c538e6d0c7c9e6e92769de9}{Column} (\$the\-Column=N\-U\-L\-L, \$the\-Tag=N\-U\-L\-L, \$the\-Title=N\-U\-L\-L)
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_c_dataset_file_a8e2d5b7660c65fef0f304a8f81c239fa}{\index{C\-Dataset\-File@{C\-Dataset\-File}!\-\_\-\-\_\-construct@{\-\_\-\-\_\-construct}}
+\index{\-\_\-\-\_\-construct@{\-\_\-\-\_\-construct}!CDatasetFile@{C\-Dataset\-File}}
+\subsubsection[{\-\_\-\-\_\-construct}]{\setlength{\rightskip}{0pt plus 5cm}C\-Dataset\-File\-::\-\_\-\-\_\-construct (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Data = {\ttfamily NULL}}
+\end{DoxyParamCaption}
+)}}\label{class_c_dataset_file_a8e2d5b7660c65fef0f304a8f81c239fa}
+Instantiate class.
+
+The constructor will instantiate an object either from an array, by loading all corresponding properties, or as an empty object.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Data} & File structure.\\
+\hline
+\end{DoxyParams}
+public 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_c_dataset_file_a19bf22649c538e6d0c7c9e6e92769de9}{\index{C\-Dataset\-File@{C\-Dataset\-File}!Column@{Column}}
+\index{Column@{Column}!CDatasetFile@{C\-Dataset\-File}}
+\subsubsection[{Column}]{\setlength{\rightskip}{0pt plus 5cm}C\-Dataset\-File\-::\-Column (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Column = {\ttfamily NULL}, }
+\item[{}]{\$the\-Tag = {\ttfamily NULL}, }
+\item[{}]{\$the\-Title = {\ttfamily NULL}}
+\end{DoxyParamCaption}
+)}}\label{class_c_dataset_file_a19bf22649c538e6d0c7c9e6e92769de9}
+Manage the file columns.
+
+This method can be used to handle the object's list of \hyperlink{}{columns}, it uses the standard accessor \hyperlink{class_c_attribute_ace756c1a8832932ec135104223d1e50c}{method} to manage each of the file's column metadata.
+
+Each element of this list represents a column of the file and holds the following information\-:
+
+
+\begin{DoxyItemize}
+\item {\itshape \hyperlink{}{k\-T\-A\-G\-\_\-\-T\-A\-G}}\-: This element holds the \hyperlink{}{identifier} of the ontology \hyperlink{class_c_ontology_tag}{tag} associated with the data contained in the current file's column. 
+\item {\itshape \hyperlink{}{k\-T\-A\-G\-\_\-\-T\-I\-T\-L\-E}}\-: This element holds the original header contents which were used to determine the column \hyperlink{class_c_ontology_tag}{tag}. 
+\end{DoxyItemize}
+
+The method accepts three parameters\-:
+
+
+\begin{DoxyItemize}
+\item {\bfseries \$the\-Column}\-: The column index as an integer (zero based), or the operation to be performed on the whole list\-: 
+\begin{DoxyItemize}
+\item {\itshape N\-U\-L\-L}\-: Return all columns metadata. 
+\item {\itshape F\-A\-L\-S\-E}\-: Delete all columns metadata, the method will return the old value. 
+\item {\itshape other}\-: Any other type of value will be interpreted as an integer indicating the column index (zero based) to be considered. 
+\end{DoxyItemize}
+\item {\bfseries \$the\-Tag}\-: The \hyperlink{}{identifier} of the \hyperlink{class_c_ontology_tag}{tag} associated with the current column, or the operation to be performed\-: 
+\begin{DoxyItemize}
+\item {\itshape N\-U\-L\-L}\-: Return the full contents of the current column, the next parameter is ignored in this case. 
+\item {\itshape F\-A\-L\-S\-E}\-: Delete the current column, the next parameter is ignored in this case. 
+\item {\itshape other}\-: Any other type of value will be interpreted as the \hyperlink{class_c_ontology_tag}{tag} \hyperlink{}{identifier} associated with the column. 
+\end{DoxyItemize}
+\item {\bfseries \$the\-Title}\-: The original header contents used to annotate the column. 
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+integer & {\em \$the\-Column} & Column index. \\
+\hline
+mixed & {\em \$the\-Tag} & Column tag or operation. \\
+\hline
+string & {\em \$the\-Title} & Column original header.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+\hyperlink{class_c_attribute_ace756c1a8832932ec135104223d1e50c}{C\-Attribute\-::\-Manage\-Array\-Offset()}
+
+\begin{DoxySeeAlso}{See Also}
+k\-O\-F\-F\-S\-E\-T\-\_\-\-C\-O\-L\-S k\-T\-A\-G\-\_\-\-T\-A\-G k\-T\-A\-G\-\_\-\-T\-I\-T\-L\-E 
+\end{DoxySeeAlso}
+\hypertarget{class_c_dataset_file_a2c26bae21eda50d110f8459cc2352bbf}{\index{C\-Dataset\-File@{C\-Dataset\-File}!Dataset@{Dataset}}
+\index{Dataset@{Dataset}!CDatasetFile@{C\-Dataset\-File}}
+\subsubsection[{Dataset}]{\setlength{\rightskip}{0pt plus 5cm}C\-Dataset\-File\-::\-Dataset (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_dataset_file_a2c26bae21eda50d110f8459cc2352bbf}
+Manage the dataset reference.
+
+This method can be used to manage the file's \hyperlink{class_c_dataset}{dataset} \hyperlink{}{reference} or the operation to be performed\-:
+
+
+\begin{DoxyItemize}
+\item {\itshape N\-U\-L\-L}\-: Return the current value. 
+\item {\itshape F\-A\-L\-S\-E}\-: Delete the current value. 
+\item {\itshape other}\-: Set the value with the provided parameter. 
+\end{DoxyItemize}
+
+The second parameter is a boolean which if {\itshape T\-R\-U\-E} will return the {\itshape old} value when replacing values; if {\itshape F\-A\-L\-S\-E}, it will return the currently set value.
+
+You should provide an object reference or the actual object to this method when providing a new value.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Value} & Value or operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+\hyperlink{class_c_attribute_a9d231a47718719fcd6c33f3d0ac91675}{C\-Attribute\-::\-Manage\-Offset()}
+
+\begin{DoxySeeAlso}{See Also}
+k\-T\-A\-G\-\_\-\-D\-A\-T\-A\-S\-E\-T 
+\end{DoxySeeAlso}
+\hypertarget{class_c_dataset_file_a73921a3c99d6a6bb823aabb689b84f1d}{\index{C\-Dataset\-File@{C\-Dataset\-File}!Kind@{Kind}}
+\index{Kind@{Kind}!CDatasetFile@{C\-Dataset\-File}}
+\subsubsection[{Kind}]{\setlength{\rightskip}{0pt plus 5cm}C\-Dataset\-File\-::\-Kind (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$the\-Operation = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_dataset_file_a73921a3c99d6a6bb823aabb689b84f1d}
+Manage the kind.
+
+This method can be used to handle the object's list of \hyperlink{}{kinds}, it uses the standard accessor \hyperlink{class_c_attribute_ace756c1a8832932ec135104223d1e50c}{method} to manage the list of kind, type or function tags associated with the file.
+
+Each element of this list should indicate a specific kind or type of the object or a specific function that the object has.
+
+For a more thorough reference of how this method works, please consult the \hyperlink{class_c_attribute_ace756c1a8832932ec135104223d1e50c}{C\-Attribute\-::\-Manage\-Array\-Offset} method, in which the second parameter will be the constant \hyperlink{}{k\-T\-A\-G\-\_\-\-K\-I\-N\-D}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Value} & Value or index. \\
+\hline
+mixed & {\em \$the\-Operation} & Operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+\hyperlink{class_c_attribute_ace756c1a8832932ec135104223d1e50c}{C\-Attribute\-::\-Manage\-Array\-Offset()}
+
+\begin{DoxySeeAlso}{See Also}
+k\-T\-A\-G\-\_\-\-K\-I\-N\-D 
+\end{DoxySeeAlso}
+\hypertarget{class_c_dataset_file_ad3880b3fc69f61711de06ccfd01e407a}{\index{C\-Dataset\-File@{C\-Dataset\-File}!Owner@{Owner}}
+\index{Owner@{Owner}!CDatasetFile@{C\-Dataset\-File}}
+\subsubsection[{Owner}]{\setlength{\rightskip}{0pt plus 5cm}C\-Dataset\-File\-::\-Owner (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_dataset_file_ad3880b3fc69f61711de06ccfd01e407a}
+Manage the owner reference.
+
+This method can be used to manage the reference to the object that owns, controls or generated the current one, the provided parameter represents an object reference or the operation to be performed\-:
+
+
+\begin{DoxyItemize}
+\item {\itshape N\-U\-L\-L}\-: Return the current value. 
+\item {\itshape F\-A\-L\-S\-E}\-: Delete the current value. 
+\item {\itshape other}\-: Set the value with the provided parameter. 
+\end{DoxyItemize}
+
+The second parameter is a boolean which if {\itshape T\-R\-U\-E} will return the {\itshape old} value when replacing values; if {\itshape F\-A\-L\-S\-E}, it will return the currently set value.
+
+You should provide an object reference or the \hyperlink{}{identifier} of the owner object.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Value} & Value or operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+\hyperlink{class_c_attribute_a9d231a47718719fcd6c33f3d0ac91675}{C\-Attribute\-::\-Manage\-Offset()}
+
+\begin{DoxySeeAlso}{See Also}
+k\-T\-A\-G\-\_\-\-O\-W\-N\-E\-R 
+\end{DoxySeeAlso}
+\hypertarget{class_c_dataset_file_a2c79dc1df451f7bd3da34965515deb16}{\index{C\-Dataset\-File@{C\-Dataset\-File}!State@{State}}
+\index{State@{State}!CDatasetFile@{C\-Dataset\-File}}
+\subsubsection[{State}]{\setlength{\rightskip}{0pt plus 5cm}C\-Dataset\-File\-::\-State (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$the\-Operation = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_dataset_file_a2c79dc1df451f7bd3da34965515deb16}
+Manage the state.
+
+This method can be used to handle the object's list of \hyperlink{}{states}, it uses the standard accessor \hyperlink{class_c_attribute_ace756c1a8832932ec135104223d1e50c}{method} to manage the list of tags associated with the various states of the current object.
+
+Each element of this list should indicate an object state, status or quality. This information indicates in which state the object is in.
+
+For a more thorough reference of how this method works, please consult the \hyperlink{class_c_attribute_ace756c1a8832932ec135104223d1e50c}{C\-Attribute\-::\-Manage\-Array\-Offset} method, in which the second parameter will be the constant \hyperlink{}{k\-T\-A\-G\-\_\-\-S\-T\-A\-T\-E}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Value} & Value or index. \\
+\hline
+mixed & {\em \$the\-Operation} & Operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+\hyperlink{class_c_attribute_ace756c1a8832932ec135104223d1e50c}{C\-Attribute\-::\-Manage\-Array\-Offset()}
+
+\begin{DoxySeeAlso}{See Also}
+k\-T\-A\-G\-\_\-\-S\-T\-A\-T\-E 
+\end{DoxySeeAlso}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/\-Library/\-Web\-Server/\-Library/wrapper/classes/C\-Dataset\-File.\-php\end{DoxyCompactItemize}

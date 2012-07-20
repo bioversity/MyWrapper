@@ -1,0 +1,347 @@
+\hypertarget{class_c_mail_address}{\section{C\-Mail\-Address Class Reference}
+\label{class_c_mail_address}\index{C\-Mail\-Address@{C\-Mail\-Address}}
+}
+Inheritance diagram for C\-Mail\-Address\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_c_mail_address}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_c_mail_address_a6c1a89dabb933fe8cc82c7579d91b764}{\-\_\-\-\_\-construct} (\$the\-Address=N\-U\-L\-L)
+\item 
+\hyperlink{class_c_mail_address_a84de4b41187ae62787e661f5c7fd750e}{Place} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_mail_address_a607c00bd7b2dc17c986e1bdf0d821a6a}{Care} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_mail_address_a4e0c4fbb0ff61bc678f18f8cab421f44}{Street} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_mail_address_a00b413b11f642c386d4389a54725e963}{Zip} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_mail_address_a38cea06af29000931b0e05e1cbef375c}{City} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_mail_address_a931ae6ed594d5eadf4a7390ed06426c5}{Province} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_mail_address_a1abebf29998a4c1bc04d32f2f7059da6}{Country} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_mail_address_a660d959c10bd32b1454615d0c804d93e}{Full} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_c_mail_address_a6c1a89dabb933fe8cc82c7579d91b764}{\index{C\-Mail\-Address@{C\-Mail\-Address}!\-\_\-\-\_\-construct@{\-\_\-\-\_\-construct}}
+\index{\-\_\-\-\_\-construct@{\-\_\-\-\_\-construct}!CMailAddress@{C\-Mail\-Address}}
+\subsubsection[{\-\_\-\-\_\-construct}]{\setlength{\rightskip}{0pt plus 5cm}C\-Mail\-Address\-::\-\_\-\-\_\-construct (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Address = {\ttfamily NULL}}
+\end{DoxyParamCaption}
+)}}\label{class_c_mail_address_a6c1a89dabb933fe8cc82c7579d91b764}
+Instantiate class.
+
+The constructor will instantiate an object either from an array, by loading all corresponding properties, from a string, in which case it will be interpreted as the \hyperlink{class_c_mail_address_a660d959c10bd32b1454615d0c804d93e}{full} address, or as an empty address.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Address} & Address structure or string.\\
+\hline
+\end{DoxyParams}
+public 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_c_mail_address_a607c00bd7b2dc17c986e1bdf0d821a6a}{\index{C\-Mail\-Address@{C\-Mail\-Address}!Care@{Care}}
+\index{Care@{Care}!CMailAddress@{C\-Mail\-Address}}
+\subsubsection[{Care}]{\setlength{\rightskip}{0pt plus 5cm}C\-Mail\-Address\-::\-Care (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_mail_address_a607c00bd7b2dc17c986e1bdf0d821a6a}
+Manage care-\/of.
+
+This method can be used to manage an address \hyperlink{}{care-\/of}, it accepts a parameter which represents a care-\/of reference or the requested operation, depending on its value\-:
+
+
+\begin{DoxyItemize}
+\item {\itshape N\-U\-L\-L}\-: Return the current value. 
+\item {\itshape F\-A\-L\-S\-E}\-: Delete the current value. 
+\item {\itshape other}\-: Set the value with the provided parameter. 
+\end{DoxyItemize}
+
+The second parameter is a boolean which if {\itshape T\-R\-U\-E} will return the {\itshape old} value when replacing values; if {\itshape F\-A\-L\-S\-E}, it will return the currently set value.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Value} & Value or operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+\hyperlink{class_c_attribute_a9d231a47718719fcd6c33f3d0ac91675}{C\-Attribute\-::\-Manage\-Offset()}
+
+\begin{DoxySeeAlso}{See Also}
+k\-O\-F\-F\-S\-E\-T\-\_\-\-C\-A\-R\-E 
+\end{DoxySeeAlso}
+\hypertarget{class_c_mail_address_a38cea06af29000931b0e05e1cbef375c}{\index{C\-Mail\-Address@{C\-Mail\-Address}!City@{City}}
+\index{City@{City}!CMailAddress@{C\-Mail\-Address}}
+\subsubsection[{City}]{\setlength{\rightskip}{0pt plus 5cm}C\-Mail\-Address\-::\-City (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_mail_address_a38cea06af29000931b0e05e1cbef375c}
+Manage city.
+
+This method can be used to manage the address \hyperlink{}{city}, it accepts a parameter which represents the address city name or the requested operation, depending on its value\-:
+
+
+\begin{DoxyItemize}
+\item {\itshape N\-U\-L\-L}\-: Return the current value. 
+\item {\itshape F\-A\-L\-S\-E}\-: Delete the current value. 
+\item {\itshape other}\-: Set the value with the provided parameter. 
+\end{DoxyItemize}
+
+The second parameter is a boolean which if {\itshape T\-R\-U\-E} will return the {\itshape old} value when replacing values; if {\itshape F\-A\-L\-S\-E}, it will return the currently set value.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Value} & Value or operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+\hyperlink{class_c_attribute_a9d231a47718719fcd6c33f3d0ac91675}{C\-Attribute\-::\-Manage\-Offset()}
+
+\begin{DoxySeeAlso}{See Also}
+k\-O\-F\-F\-S\-E\-T\-\_\-\-C\-I\-T\-Y 
+\end{DoxySeeAlso}
+\hypertarget{class_c_mail_address_a1abebf29998a4c1bc04d32f2f7059da6}{\index{C\-Mail\-Address@{C\-Mail\-Address}!Country@{Country}}
+\index{Country@{Country}!CMailAddress@{C\-Mail\-Address}}
+\subsubsection[{Country}]{\setlength{\rightskip}{0pt plus 5cm}C\-Mail\-Address\-::\-Country (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_mail_address_a1abebf29998a4c1bc04d32f2f7059da6}
+Manage country.
+
+This method can be used to manage the address \hyperlink{}{country}, it accepts a parameter which represents the address country name, code or the requested operation, depending on its value\-:
+
+
+\begin{DoxyItemize}
+\item {\itshape N\-U\-L\-L}\-: Return the current value. 
+\item {\itshape F\-A\-L\-S\-E}\-: Delete the current value. 
+\item {\itshape other}\-: Set the value with the provided parameter. 
+\end{DoxyItemize}
+
+The second parameter is a boolean which if {\itshape T\-R\-U\-E} will return the {\itshape old} value when replacing values; if {\itshape F\-A\-L\-S\-E}, it will return the currently set value.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Value} & Value or operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+\hyperlink{class_c_attribute_a9d231a47718719fcd6c33f3d0ac91675}{C\-Attribute\-::\-Manage\-Offset()}
+
+\begin{DoxySeeAlso}{See Also}
+k\-O\-F\-F\-S\-E\-T\-\_\-\-C\-O\-U\-N\-T\-R\-Y 
+\end{DoxySeeAlso}
+\hypertarget{class_c_mail_address_a660d959c10bd32b1454615d0c804d93e}{\index{C\-Mail\-Address@{C\-Mail\-Address}!Full@{Full}}
+\index{Full@{Full}!CMailAddress@{C\-Mail\-Address}}
+\subsubsection[{Full}]{\setlength{\rightskip}{0pt plus 5cm}C\-Mail\-Address\-::\-Full (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_mail_address_a660d959c10bd32b1454615d0c804d93e}
+Manage full address.
+
+This method can be used to manage the full address as a \hyperlink{}{string}, it accepts a parameter which represents the full address or the requested operation, depending on its value\-:
+
+
+\begin{DoxyItemize}
+\item {\itshape N\-U\-L\-L}\-: Return the current value. 
+\item {\itshape F\-A\-L\-S\-E}\-: Delete the current value. 
+\item {\itshape other}\-: Set the value with the provided parameter. 
+\end{DoxyItemize}
+
+The second parameter is a boolean which if {\itshape T\-R\-U\-E} will return the {\itshape old} value when replacing values; if {\itshape F\-A\-L\-S\-E}, it will return the currently set value.
+
+When retrieving values, if the full address was not set, this method will return in any case the string representation of the full address.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Value} & Value or operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+\hyperlink{class_c_attribute_a9d231a47718719fcd6c33f3d0ac91675}{C\-Attribute\-::\-Manage\-Offset()}
+
+\begin{DoxySeeAlso}{See Also}
+k\-O\-F\-F\-S\-E\-T\-\_\-\-F\-U\-L\-L 
+\end{DoxySeeAlso}
+\hypertarget{class_c_mail_address_a84de4b41187ae62787e661f5c7fd750e}{\index{C\-Mail\-Address@{C\-Mail\-Address}!Place@{Place}}
+\index{Place@{Place}!CMailAddress@{C\-Mail\-Address}}
+\subsubsection[{Place}]{\setlength{\rightskip}{0pt plus 5cm}C\-Mail\-Address\-::\-Place (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_mail_address_a84de4b41187ae62787e661f5c7fd750e}
+Manage place.
+
+This method can be used to manage a mailing address \hyperlink{}{place}, it accepts a parameter which represents either the place name or the requested operation, depending on its value\-:
+
+
+\begin{DoxyItemize}
+\item {\itshape N\-U\-L\-L}\-: Return the current value. 
+\item {\itshape F\-A\-L\-S\-E}\-: Delete the current value. 
+\item {\itshape other}\-: Set the value with the provided parameter. 
+\end{DoxyItemize}
+
+The second parameter is a boolean which if {\itshape T\-R\-U\-E} will return the {\itshape old} value when replacing values; if {\itshape F\-A\-L\-S\-E}, it will return the currently set value.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Value} & Value or operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+\hyperlink{class_c_attribute_a9d231a47718719fcd6c33f3d0ac91675}{C\-Attribute\-::\-Manage\-Offset()}
+
+\begin{DoxySeeAlso}{See Also}
+k\-O\-F\-F\-S\-E\-T\-\_\-\-P\-L\-A\-C\-E 
+\end{DoxySeeAlso}
+\hypertarget{class_c_mail_address_a931ae6ed594d5eadf4a7390ed06426c5}{\index{C\-Mail\-Address@{C\-Mail\-Address}!Province@{Province}}
+\index{Province@{Province}!CMailAddress@{C\-Mail\-Address}}
+\subsubsection[{Province}]{\setlength{\rightskip}{0pt plus 5cm}C\-Mail\-Address\-::\-Province (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_mail_address_a931ae6ed594d5eadf4a7390ed06426c5}
+Manage province.
+
+This method can be used to manage the address \hyperlink{}{province}, it accepts a parameter which represents the address province name, code or the requested operation, depending on its value\-:
+
+
+\begin{DoxyItemize}
+\item {\itshape N\-U\-L\-L}\-: Return the current value. 
+\item {\itshape F\-A\-L\-S\-E}\-: Delete the current value. 
+\item {\itshape other}\-: Set the value with the provided parameter. 
+\end{DoxyItemize}
+
+The second parameter is a boolean which if {\itshape T\-R\-U\-E} will return the {\itshape old} value when replacing values; if {\itshape F\-A\-L\-S\-E}, it will return the currently set value.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Value} & Value or operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+\hyperlink{class_c_attribute_a9d231a47718719fcd6c33f3d0ac91675}{C\-Attribute\-::\-Manage\-Offset()}
+
+\begin{DoxySeeAlso}{See Also}
+k\-O\-F\-F\-S\-E\-T\-\_\-\-P\-R\-O\-V\-I\-N\-C\-E 
+\end{DoxySeeAlso}
+\hypertarget{class_c_mail_address_a4e0c4fbb0ff61bc678f18f8cab421f44}{\index{C\-Mail\-Address@{C\-Mail\-Address}!Street@{Street}}
+\index{Street@{Street}!CMailAddress@{C\-Mail\-Address}}
+\subsubsection[{Street}]{\setlength{\rightskip}{0pt plus 5cm}C\-Mail\-Address\-::\-Street (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_mail_address_a4e0c4fbb0ff61bc678f18f8cab421f44}
+Manage street.
+
+This method can be used to manage the address \hyperlink{}{street}, it accepts a parameter which represents a street name, P.\-O. box or the requested operation, depending on its value\-:
+
+
+\begin{DoxyItemize}
+\item {\itshape N\-U\-L\-L}\-: Return the current value. 
+\item {\itshape F\-A\-L\-S\-E}\-: Delete the current value. 
+\item {\itshape other}\-: Set the value with the provided parameter. 
+\end{DoxyItemize}
+
+The second parameter is a boolean which if {\itshape T\-R\-U\-E} will return the {\itshape old} value when replacing values; if {\itshape F\-A\-L\-S\-E}, it will return the currently set value.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Value} & Value or operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+\hyperlink{class_c_attribute_a9d231a47718719fcd6c33f3d0ac91675}{C\-Attribute\-::\-Manage\-Offset()}
+
+\begin{DoxySeeAlso}{See Also}
+k\-O\-F\-F\-S\-E\-T\-\_\-\-S\-T\-R\-E\-E\-T 
+\end{DoxySeeAlso}
+\hypertarget{class_c_mail_address_a00b413b11f642c386d4389a54725e963}{\index{C\-Mail\-Address@{C\-Mail\-Address}!Zip@{Zip}}
+\index{Zip@{Zip}!CMailAddress@{C\-Mail\-Address}}
+\subsubsection[{Zip}]{\setlength{\rightskip}{0pt plus 5cm}C\-Mail\-Address\-::\-Zip (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_mail_address_a00b413b11f642c386d4389a54725e963}
+Manage zip code.
+
+This method can be used to manage an address \hyperlink{}{zip} code, it accepts a parameter which represents the address zip code or the requested operation, depending on its value\-:
+
+
+\begin{DoxyItemize}
+\item {\itshape N\-U\-L\-L}\-: Return the current value. 
+\item {\itshape F\-A\-L\-S\-E}\-: Delete the current value. 
+\item {\itshape other}\-: Set the value with the provided parameter. 
+\end{DoxyItemize}
+
+The second parameter is a boolean which if {\itshape T\-R\-U\-E} will return the {\itshape old} value when replacing values; if {\itshape F\-A\-L\-S\-E}, it will return the currently set value.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Value} & Value or operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+\hyperlink{class_c_attribute_a9d231a47718719fcd6c33f3d0ac91675}{C\-Attribute\-::\-Manage\-Offset()}
+
+\begin{DoxySeeAlso}{See Also}
+k\-O\-F\-F\-S\-E\-T\-\_\-\-Z\-I\-P\-\_\-\-C\-O\-D\-E 
+\end{DoxySeeAlso}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/\-Library/\-Web\-Server/\-Library/wrapper/classes/C\-Mail\-Address.\-php\end{DoxyCompactItemize}

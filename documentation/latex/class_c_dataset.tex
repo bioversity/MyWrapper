@@ -1,0 +1,620 @@
+\hypertarget{class_c_dataset}{\section{C\-Dataset Class Reference}
+\label{class_c_dataset}\index{C\-Dataset@{C\-Dataset}}
+}
+Inheritance diagram for C\-Dataset\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=6.000000cm]{class_c_dataset}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_c_dataset_ac85b53d5a48ce3c6c36ffbafd9eabcf4}{\-\_\-\-\_\-construct} (\$the\-Container=N\-U\-L\-L, \$the\-Identifier=N\-U\-L\-L, \$the\-Modifiers=k\-F\-L\-A\-G\-\_\-\-D\-E\-F\-A\-U\-L\-T)
+\item 
+\hyperlink{class_c_dataset_af44d770e9ee1f72530b8fc19c759a586}{G\-I\-D} ()
+\item 
+\hyperlink{class_c_dataset_a560c5a4e4d453bd3f1e5a8fa49fb0012}{Title} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_dataset_ab462365e96da63373576ea2e19819c8c}{User} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_dataset_a2ebcf2c81be37a425f09895d25e69458}{Name} (\$the\-Value=N\-U\-L\-L, \$the\-Language=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_dataset_a16f38f4d6744d63f846d604f81d41ef3}{Description} (\$the\-Value=N\-U\-L\-L, \$the\-Language=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_dataset_a3e6a6185756febe859118223b32a91e2}{Domain} (\$the\-Value=N\-U\-L\-L, \$the\-Operation=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_dataset_afac7cb6635f9295bcfccbac0bd4ee314}{Category} (\$the\-Value=N\-U\-L\-L, \$the\-Operation=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_dataset_a189492fea657a8bf5a4186bd516fa57e}{Created} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_dataset_a81e723c164a7141a0a9b45709ed297d1}{Modified} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_dataset_ab82a571ed30ea5b9d5f84bafad05eecd}{Store\-File} (\$the\-File, \$the\-Container, \$the\-Metadata=N\-U\-L\-L, \$the\-Modifiers=k\-F\-L\-A\-G\-\_\-\-D\-E\-F\-A\-U\-L\-T)
+\item 
+\hyperlink{class_c_dataset_a72f36837282a754ba453799172802e31}{offset\-Set} (\$the\-Offset, \$the\-Value)
+\item 
+\hyperlink{class_c_dataset_a9f048a8cbe7109da16a8ef2b7cbd2165}{offset\-Unset} (\$the\-Offset)
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_c_dataset_a0ffe9ddfad31a560a8c312cf25afe467}{\-\_\-\-Prepare\-Create} (\&\$the\-Container, \&\$the\-Identifier, \&\$the\-Modifiers)
+\item 
+\hyperlink{class_c_dataset_aaa2f58e75510697834f905e434bfb3aa}{\-\_\-\-Prepare\-Commit} (\&\$the\-Container, \&\$the\-Identifier, \&\$the\-Modifiers)
+\item 
+\hyperlink{class_c_dataset_a0b2ca2d83f0be648b92f251fad1f0aa8}{\-\_\-index} ()
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_c_dataset_ac85b53d5a48ce3c6c36ffbafd9eabcf4}{\index{C\-Dataset@{C\-Dataset}!\-\_\-\-\_\-construct@{\-\_\-\-\_\-construct}}
+\index{\-\_\-\-\_\-construct@{\-\_\-\-\_\-construct}!CDataset@{C\-Dataset}}
+\subsubsection[{\-\_\-\-\_\-construct}]{\setlength{\rightskip}{0pt plus 5cm}C\-Dataset\-::\-\_\-\-\_\-construct (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Container = {\ttfamily NULL}, }
+\item[{}]{\$the\-Identifier = {\ttfamily NULL}, }
+\item[{}]{\$the\-Modifiers = {\ttfamily kFLAG\-\_\-DEFAULT}}
+\end{DoxyParamCaption}
+)}}\label{class_c_dataset_ac85b53d5a48ce3c6c36ffbafd9eabcf4}
+Instantiate class.
+
+We \hyperlink{class_c_persistent_object_a0f0729cfaef48bd1c98c0711c061a7d3}{overload} the constructor to initialise the \hyperlink{class_c_status_object_a8429102e4f52f7558649b64f4e673a69}{inited} \hyperlink{}{flag} if the \hyperlink{}{code} attribute is set.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Container} & Persistent container. \\
+\hline
+mixed & {\em \$the\-Identifier} & Object identifier. \\
+\hline
+bitfield & {\em \$the\-Modifiers} & Create modifiers.\\
+\hline
+\end{DoxyParams}
+public
+
+\-\_\-\-Is\-Inited
+
+\begin{DoxySeeAlso}{See Also}
+k\-T\-A\-G\-\_\-\-C\-O\-D\-E 
+\end{DoxySeeAlso}
+
+
+Reimplemented from \hyperlink{class_c_persistent_object_a0f0729cfaef48bd1c98c0711c061a7d3}{C\-Persistent\-Object}.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_c_dataset_a0b2ca2d83f0be648b92f251fad1f0aa8}{\index{C\-Dataset@{C\-Dataset}!\-\_\-index@{\-\_\-index}}
+\index{\-\_\-index@{\-\_\-index}!CDataset@{C\-Dataset}}
+\subsubsection[{\-\_\-index}]{\setlength{\rightskip}{0pt plus 5cm}C\-Dataset\-::\-\_\-index (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_dataset_a0b2ca2d83f0be648b92f251fad1f0aa8}
+Return the object's unique index.
+
+In this class we build the object \hyperlink{}{I\-D} by concatenating the dataset dataset \hyperlink{class_c_dataset_ab462365e96da63373576ea2e19819c8c}{creator} with the \hyperlink{class_c_dataset_a560c5a4e4d453bd3f1e5a8fa49fb0012}{title} separated by the \hyperlink{}{k\-T\-O\-K\-E\-N\-\_\-\-I\-N\-D\-E\-X\-\_\-\-S\-E\-P\-A\-R\-A\-T\-O\-R} token.
+
+protected \begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_c_persistent_unit_object_a5166fdce0b1be6a3e4889f20c5f1c2dd}{C\-Persistent\-Unit\-Object}.
+
+\hypertarget{class_c_dataset_aaa2f58e75510697834f905e434bfb3aa}{\index{C\-Dataset@{C\-Dataset}!\-\_\-\-Prepare\-Commit@{\-\_\-\-Prepare\-Commit}}
+\index{\-\_\-\-Prepare\-Commit@{\-\_\-\-Prepare\-Commit}!CDataset@{C\-Dataset}}
+\subsubsection[{\-\_\-\-Prepare\-Commit}]{\setlength{\rightskip}{0pt plus 5cm}C\-Dataset\-::\-\_\-\-Prepare\-Commit (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Container, }
+\item[{\&}]{\$the\-Identifier, }
+\item[{\&}]{\$the\-Modifiers}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_dataset_aaa2f58e75510697834f905e434bfb3aa}
+Normalise before a store.
+
+We \hyperlink{class_c_persistent_unit_object_aaa69a5dd56c441027197d5cb677972ad}{overload} this method to \hyperlink{class_c_persistent_object_a88b1f2b11d3d60e0b3d33d8b0649b68a}{commit} eventual object references stored as instances. We scan the \hyperlink{class_c_dataset_ab462365e96da63373576ea2e19819c8c}{user} references and process all elements stored as instances.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \&\$the\-Container} & Object container. \\
+\hline
+reference & {\em \&\$the\-Identifier} & Object identifier. \\
+\hline
+reference & {\em \&\$the\-Modifiers} & Commit modifiers.\\
+\hline
+\end{DoxyParams}
+protected
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \{@link} & \hyperlink{class_c_exception}{C\-Exception} \hyperlink{class_c_exception}{C\-Exception}\}\\
+\hline
+\end{DoxyExceptions}
+\begin{DoxySeeAlso}{See Also}
+k\-E\-R\-R\-O\-R\-\_\-\-O\-P\-T\-I\-O\-N\-\_\-\-M\-I\-S\-S\-I\-N\-G 
+\end{DoxySeeAlso}
+
+
+Reimplemented from \hyperlink{class_c_related_unit_object_a577c73999830641e07440126a3252286}{C\-Related\-Unit\-Object}.
+
+\hypertarget{class_c_dataset_a0ffe9ddfad31a560a8c312cf25afe467}{\index{C\-Dataset@{C\-Dataset}!\-\_\-\-Prepare\-Create@{\-\_\-\-Prepare\-Create}}
+\index{\-\_\-\-Prepare\-Create@{\-\_\-\-Prepare\-Create}!CDataset@{C\-Dataset}}
+\subsubsection[{\-\_\-\-Prepare\-Create}]{\setlength{\rightskip}{0pt plus 5cm}C\-Dataset\-::\-\_\-\-Prepare\-Create (
+\begin{DoxyParamCaption}
+\item[{\&}]{\$the\-Container, }
+\item[{\&}]{\$the\-Identifier, }
+\item[{\&}]{\$the\-Modifiers}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_dataset_a0ffe9ddfad31a560a8c312cf25afe467}
+Normalise parameters of a create.
+
+We overload this method to enforce the \hyperlink{}{encoded} modifier.
+
+
+\begin{DoxyParams}[1]{Parameters}
+reference & {\em \&\$the\-Container} & Object container. \\
+\hline
+reference & {\em \&\$the\-Identifier} & Object identifier. \\
+\hline
+reference & {\em \&\$the\-Modifiers} & Create modifiers.\\
+\hline
+\end{DoxyParams}
+protected
+
+\hyperlink{class_c_persistent_object_aa8dc7db66e2af3d28c2035161a2aabf9}{\-\_\-\-Is\-Encoded()}
+
+\begin{DoxySeeAlso}{See Also}
+k\-F\-L\-A\-G\-\_\-\-S\-T\-A\-T\-E\-\_\-\-E\-N\-C\-O\-D\-E\-D 
+\end{DoxySeeAlso}
+
+
+Reimplemented from \hyperlink{class_c_persistent_object_a2e5dd4f8a92c0ada964ade712c9579b0}{C\-Persistent\-Object}.
+
+\hypertarget{class_c_dataset_afac7cb6635f9295bcfccbac0bd4ee314}{\index{C\-Dataset@{C\-Dataset}!Category@{Category}}
+\index{Category@{Category}!CDataset@{C\-Dataset}}
+\subsubsection[{Category}]{\setlength{\rightskip}{0pt plus 5cm}C\-Dataset\-::\-Category (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$the\-Operation = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_dataset_afac7cb6635f9295bcfccbac0bd4ee314}
+Manage categories.
+
+This method can be used to handle the object's \hyperlink{}{categories}, it uses the standard accessor \hyperlink{class_c_attribute_ace756c1a8832932ec135104223d1e50c}{method} to manage the list of categories.
+
+Each element of this list should indicate a category to which the current object belongs to.
+
+For a more thorough reference of how this method works, please consult the \hyperlink{class_c_attribute_ace756c1a8832932ec135104223d1e50c}{C\-Attribute\-::\-Manage\-Array\-Offset} method, in which the second parameter will be the constant \hyperlink{}{k\-T\-A\-G\-\_\-\-C\-A\-T\-E\-G\-O\-R\-Y}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Value} & Value or index. \\
+\hline
+mixed & {\em \$the\-Operation} & Operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+\hyperlink{class_c_attribute_ace756c1a8832932ec135104223d1e50c}{C\-Attribute\-::\-Manage\-Array\-Offset()}
+
+\begin{DoxySeeAlso}{See Also}
+k\-T\-A\-G\-\_\-\-C\-A\-T\-E\-G\-O\-R\-Y 
+\end{DoxySeeAlso}
+\hypertarget{class_c_dataset_a189492fea657a8bf5a4186bd516fa57e}{\index{C\-Dataset@{C\-Dataset}!Created@{Created}}
+\index{Created@{Created}!CDataset@{C\-Dataset}}
+\subsubsection[{Created}]{\setlength{\rightskip}{0pt plus 5cm}C\-Dataset\-::\-Created (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_dataset_a189492fea657a8bf5a4186bd516fa57e}
+Manage object creation time stamp.
+
+This method can be used to manage the object \hyperlink{}{creation} time-\/stamp, it uses the standard accessor \hyperlink{class_c_attribute_a9d231a47718719fcd6c33f3d0ac91675}{method} to manage the \hyperlink{}{offset}\-:
+
+
+\begin{DoxyItemize}
+\item {\bfseries \$the\-Value}\-: The value or operation\-: 
+\begin{DoxyItemize}
+\item {\itshape N\-U\-L\-L}\-: Return the current value. 
+\item {\itshape F\-A\-L\-S\-E}\-: Delete the value. 
+\item {\itshape other}\-: Set value. 
+\end{DoxyItemize}
+\item {\bfseries \$get\-Old}\-: Determines what the method will return\-: 
+\begin{DoxyItemize}
+\item {\itshape T\-R\-U\-E}\-: Return the value {\itshape before} it was eventually modified. 
+\item {\itshape F\-A\-L\-S\-E}\-: Return the value {\itshape after} it was eventually modified. 
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+N\-U\-L\-L | F\-A\-L\-S\-E | string & {\em \$the\-Value} & Object creation date. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+string
+\end{DoxyReturn}
+\hyperlink{class_c_attribute_a9d231a47718719fcd6c33f3d0ac91675}{C\-Attribute\-::\-Manage\-Offset()}
+
+\begin{DoxySeeAlso}{See Also}
+k\-T\-A\-G\-\_\-\-C\-R\-E\-A\-T\-E\-D 
+\end{DoxySeeAlso}
+\hypertarget{class_c_dataset_a16f38f4d6744d63f846d604f81d41ef3}{\index{C\-Dataset@{C\-Dataset}!Description@{Description}}
+\index{Description@{Description}!CDataset@{C\-Dataset}}
+\subsubsection[{Description}]{\setlength{\rightskip}{0pt plus 5cm}C\-Dataset\-::\-Description (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$the\-Language = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_dataset_a16f38f4d6744d63f846d604f81d41ef3}
+Manage description.
+
+This method can be used to manage the \hyperlink{}{description}, it manages an array of structures with the following offsets\-:
+
+
+\begin{DoxyItemize}
+\item {\itshape \hyperlink{}{k\-T\-A\-G\-\_\-\-L\-A\-N\-G\-U\-A\-G\-E}}\-: The description's language, this element represents the code of the language in which the next element is expressed in. 
+\item {\itshape \hyperlink{}{k\-T\-A\-G\-\_\-\-D\-A\-T\-A}}\-: The dataset description or comment. 
+\end{DoxyItemize}
+
+No two elements may share the same language and only one element may omit the language, the parameters to this method are\-:
+
+
+\begin{DoxyItemize}
+\item {\bfseries \$the\-Value}\-: The description or operation\-: 
+\begin{DoxyItemize}
+\item {\itshape N\-U\-L\-L}\-: Return the current value selected by the second parameter. 
+\item {\itshape F\-A\-L\-S\-E}\-: Delete the value selected by the second parameter. 
+\item {\itshape other}\-: Set value selected by the second parameter. 
+\end{DoxyItemize}
+\item {\bfseries \$the\-Language}\-: The description's language code\-: 
+\begin{DoxyItemize}
+\item {\itshape N\-U\-L\-L}\-: This value indicates that the description has no language, in general, when adding elements, this case applies to default elements. 
+\item {\itshape other}\-: All other types will be interpreted as the language code. 
+\end{DoxyItemize}
+\item {\bfseries \$get\-Old}\-: Determines what the method will return\-: 
+\begin{DoxyItemize}
+\item {\itshape T\-R\-U\-E}\-: Return the value {\itshape before} it was eventually modified. 
+\item {\itshape F\-A\-L\-S\-E}\-: Return the value {\itshape after} it was eventually modified. 
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Value} & Term description or operation. \\
+\hline
+mixed & {\em \$the\-Language} & Term description language code. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+string
+\end{DoxyReturn}
+\hyperlink{class_c_attribute_a200333aed4419e123658883a9e4495e2}{C\-Attribute\-::\-Manage\-Typed\-Offset()}
+
+\begin{DoxySeeAlso}{See Also}
+k\-T\-A\-G\-\_\-\-D\-E\-S\-C\-R\-I\-P\-T\-I\-O\-N k\-T\-A\-G\-\_\-\-L\-A\-N\-G\-U\-A\-G\-E 
+\end{DoxySeeAlso}
+\hypertarget{class_c_dataset_a3e6a6185756febe859118223b32a91e2}{\index{C\-Dataset@{C\-Dataset}!Domain@{Domain}}
+\index{Domain@{Domain}!CDataset@{C\-Dataset}}
+\subsubsection[{Domain}]{\setlength{\rightskip}{0pt plus 5cm}C\-Dataset\-::\-Domain (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$the\-Operation = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_dataset_a3e6a6185756febe859118223b32a91e2}
+Manage domains.
+
+This method can be used to handle the object's \hyperlink{}{domains}, it uses the standard accessor \hyperlink{class_c_attribute_ace756c1a8832932ec135104223d1e50c}{method} to manage the list of domains.
+
+Each element of this list should indicate a domain to which the current object belongs to.
+
+For a more thorough reference of how this method works, please consult the \hyperlink{class_c_attribute_ace756c1a8832932ec135104223d1e50c}{C\-Attribute\-::\-Manage\-Array\-Offset} method, in which the second parameter will be the constant \hyperlink{}{k\-T\-A\-G\-\_\-\-C\-A\-T\-E\-G\-O\-R\-Y}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Value} & Value or index. \\
+\hline
+mixed & {\em \$the\-Operation} & Operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+\hyperlink{class_c_attribute_ace756c1a8832932ec135104223d1e50c}{C\-Attribute\-::\-Manage\-Array\-Offset()}
+
+\begin{DoxySeeAlso}{See Also}
+k\-T\-A\-G\-\_\-\-D\-O\-M\-A\-I\-N 
+\end{DoxySeeAlso}
+\hypertarget{class_c_dataset_af44d770e9ee1f72530b8fc19c759a586}{\index{C\-Dataset@{C\-Dataset}!G\-I\-D@{G\-I\-D}}
+\index{G\-I\-D@{G\-I\-D}!CDataset@{C\-Dataset}}
+\subsubsection[{G\-I\-D}]{\setlength{\rightskip}{0pt plus 5cm}C\-Dataset\-::\-G\-I\-D (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_c_dataset_af44d770e9ee1f72530b8fc19c759a586}
+Manage dataset global identifier.
+
+The term global \hyperlink{}{identifier} represents the un-\/hashed version of the term local \hyperlink{}{identifier}.
+
+This value is set automatically by a protected \hyperlink{class_c_dataset_aaa2f58e75510697834f905e434bfb3aa}{method}, so this method is read-\/only.
+
+public \begin{DoxyReturn}{Returns}
+string
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See Also}
+k\-T\-A\-G\-\_\-\-G\-I\-D 
+\end{DoxySeeAlso}
+\hypertarget{class_c_dataset_a81e723c164a7141a0a9b45709ed297d1}{\index{C\-Dataset@{C\-Dataset}!Modified@{Modified}}
+\index{Modified@{Modified}!CDataset@{C\-Dataset}}
+\subsubsection[{Modified}]{\setlength{\rightskip}{0pt plus 5cm}C\-Dataset\-::\-Modified (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_dataset_a81e723c164a7141a0a9b45709ed297d1}
+Manage object last modification time stamp.
+
+This method can be used to manage the object last \hyperlink{}{modification} time-\/stamp, or the date in which the last modification was made on the object, it uses the standard accessor \hyperlink{class_c_attribute_a9d231a47718719fcd6c33f3d0ac91675}{method} to manage the \hyperlink{}{offset}\-:
+
+
+\begin{DoxyItemize}
+\item {\bfseries \$the\-Value}\-: The value or operation\-: 
+\begin{DoxyItemize}
+\item {\itshape N\-U\-L\-L}\-: Return the current value. 
+\item {\itshape F\-A\-L\-S\-E}\-: Delete the value. 
+\item {\itshape other}\-: Set value. 
+\end{DoxyItemize}
+\item {\bfseries \$get\-Old}\-: Determines what the method will return\-: 
+\begin{DoxyItemize}
+\item {\itshape T\-R\-U\-E}\-: Return the value {\itshape before} it was eventually modified. 
+\item {\itshape F\-A\-L\-S\-E}\-: Return the value {\itshape after} it was eventually modified. 
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+N\-U\-L\-L | F\-A\-L\-S\-E | string & {\em \$the\-Value} & Object last modification date. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+string
+\end{DoxyReturn}
+\hyperlink{class_c_attribute_a9d231a47718719fcd6c33f3d0ac91675}{C\-Attribute\-::\-Manage\-Offset()}
+
+\begin{DoxySeeAlso}{See Also}
+k\-T\-A\-G\-\_\-\-M\-O\-D\-I\-F\-I\-E\-D 
+\end{DoxySeeAlso}
+\hypertarget{class_c_dataset_a2ebcf2c81be37a425f09895d25e69458}{\index{C\-Dataset@{C\-Dataset}!Name@{Name}}
+\index{Name@{Name}!CDataset@{C\-Dataset}}
+\subsubsection[{Name}]{\setlength{\rightskip}{0pt plus 5cm}C\-Dataset\-::\-Name (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$the\-Language = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_dataset_a2ebcf2c81be37a425f09895d25e69458}
+Manage name.
+
+This method can be used to manage an object's \hyperlink{}{name}, it manages an array of structures with the following offsets\-:
+
+
+\begin{DoxyItemize}
+\item {\itshape \hyperlink{}{k\-T\-A\-G\-\_\-\-L\-A\-N\-G\-U\-A\-G\-E}}\-: The name's language, this element represents the code of the language in which the next element is expressed in. 
+\item {\itshape \hyperlink{}{k\-T\-A\-G\-\_\-\-D\-A\-T\-A}}\-: The object's name or label. 
+\end{DoxyItemize}
+
+No two elements may share the same language and only one element may omit the language, the parameters to this method are\-:
+
+
+\begin{DoxyItemize}
+\item {\bfseries \$the\-Value}\-: The name or operation\-: 
+\begin{DoxyItemize}
+\item {\itshape N\-U\-L\-L}\-: Return the current value selected by the second parameter. 
+\item {\itshape F\-A\-L\-S\-E}\-: Delete the value selected by the second parameter. 
+\item {\itshape other}\-: Set value selected by the second parameter. 
+\end{DoxyItemize}
+\item {\bfseries \$the\-Language}\-: The name's language code\-: 
+\begin{DoxyItemize}
+\item {\itshape N\-U\-L\-L}\-: This value indicates that the name has no language, in general, when adding elements, this case applies to default elements. 
+\item {\itshape other}\-: All other types will be interpreted as the language code. 
+\end{DoxyItemize}
+\item {\bfseries \$get\-Old}\-: Determines what the method will return\-: 
+\begin{DoxyItemize}
+\item {\itshape T\-R\-U\-E}\-: Return the value {\itshape before} it was eventually modified. 
+\item {\itshape F\-A\-L\-S\-E}\-: Return the value {\itshape after} it was eventually modified. 
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Value} & Term name or operation. \\
+\hline
+mixed & {\em \$the\-Language} & Term name language code. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+string
+\end{DoxyReturn}
+\hyperlink{class_c_attribute_a200333aed4419e123658883a9e4495e2}{C\-Attribute\-::\-Manage\-Typed\-Offset()}
+
+\begin{DoxySeeAlso}{See Also}
+k\-T\-A\-G\-\_\-\-N\-A\-M\-E k\-T\-A\-G\-\_\-\-D\-A\-T\-A k\-T\-A\-G\-\_\-\-L\-A\-N\-G\-U\-A\-G\-E 
+\end{DoxySeeAlso}
+\hypertarget{class_c_dataset_a72f36837282a754ba453799172802e31}{\index{C\-Dataset@{C\-Dataset}!offset\-Set@{offset\-Set}}
+\index{offset\-Set@{offset\-Set}!CDataset@{C\-Dataset}}
+\subsubsection[{offset\-Set}]{\setlength{\rightskip}{0pt plus 5cm}C\-Dataset\-::offset\-Set (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Offset, }
+\item[{}]{\$the\-Value}
+\end{DoxyParamCaption}
+)}}\label{class_c_dataset_a72f36837282a754ba453799172802e31}
+Set a value for a given offset.
+
+We overload this method to manage the \hyperlink{class_c_status_object_a8429102e4f52f7558649b64f4e673a69}{inited} \hyperlink{}{status}\-: this is set if \hyperlink{}{code} property is set.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Offset} & Offset. \\
+\hline
+string | N\-U\-L\-L & {\em \$the\-Value} & Value to set at offset.\\
+\hline
+\end{DoxyParams}
+public 
+
+Reimplemented from \hyperlink{class_c_status_object_a140ef140d4fa1c4a6180e843bd5ec969}{C\-Status\-Object}.
+
+\hypertarget{class_c_dataset_a9f048a8cbe7109da16a8ef2b7cbd2165}{\index{C\-Dataset@{C\-Dataset}!offset\-Unset@{offset\-Unset}}
+\index{offset\-Unset@{offset\-Unset}!CDataset@{C\-Dataset}}
+\subsubsection[{offset\-Unset}]{\setlength{\rightskip}{0pt plus 5cm}C\-Dataset\-::offset\-Unset (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Offset}
+\end{DoxyParamCaption}
+)}}\label{class_c_dataset_a9f048a8cbe7109da16a8ef2b7cbd2165}
+Reset a value for a given offset.
+
+We overload this method to manage the \hyperlink{class_c_status_object_a8429102e4f52f7558649b64f4e673a69}{inited} \hyperlink{}{status}\-: this is set if \hyperlink{}{code} property is set.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-Offset} & Offset.\\
+\hline
+\end{DoxyParams}
+public 
+
+Reimplemented from \hyperlink{class_c_status_object_ae733db1bbfffcbe894ea405765ab4150}{C\-Status\-Object}.
+
+\hypertarget{class_c_dataset_ab82a571ed30ea5b9d5f84bafad05eecd}{\index{C\-Dataset@{C\-Dataset}!Store\-File@{Store\-File}}
+\index{Store\-File@{Store\-File}!CDataset@{C\-Dataset}}
+\subsubsection[{Store\-File}]{\setlength{\rightskip}{0pt plus 5cm}C\-Dataset\-::\-Store\-File (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-File, }
+\item[{}]{\$the\-Container, }
+\item[{}]{\$the\-Metadata = {\ttfamily NULL}, }
+\item[{}]{\$the\-Modifiers = {\ttfamily kFLAG\-\_\-DEFAULT}}
+\end{DoxyParamCaption}
+)}}\label{class_c_dataset_ab82a571ed30ea5b9d5f84bafad05eecd}
+Store a file.
+
+This method can be used to store a file in a grid \hyperlink{class_c_mongo_grid_container}{container}, it will take care of adding a \hyperlink{class_c_dataset_file_a2c26bae21eda50d110f8459cc2352bbf}{reference} to the current dataset in the provided file metadata \hyperlink{class_c_dataset_file}{record}.
+
+This method accepts the following parameters\-:
+
+
+\begin{DoxyItemize}
+\item {\bfseries \$the\-File}\-: The file path or object (Spl\-File\-Info). 
+\item {\bfseries \$the\-Container}\-: The grid container in the form of a \hyperlink{class_c_mongo_grid_container}{C\-Mongo\-Grid\-Container} or a Mongo\-Grid\-F\-S; any other type will raise an exception. 
+\item {\bfseries \$the\-Metadata}\-: An array or preferably a \hyperlink{class_c_dataset_file}{C\-Dataset\-File} record containing the file's metadata, which will be added to the Mongo\-Grid\-F\-S record under the \char`\"{}metadata\char`\"{} label. If the parameter is omitted, a \hyperlink{class_c_dataset_file}{C\-Dataset\-File} record will be initialised with a reference to the current dataset. 
+\item {\bfseries \$the\-Modifiers}\-: A bitfield containing the operation options, the only relevant flag is \hyperlink{}{k\-F\-L\-A\-G\-\_\-\-S\-T\-A\-T\-E\-\_\-\-E\-N\-C\-O\-D\-E\-D} which determines whether custom data types are to be encoded (set by default in this class). 
+\end{DoxyItemize}
+
+{\bfseries {\itshape The current dataset must have been \hyperlink{class_c_persistent_object_a88b1f2b11d3d60e0b3d33d8b0649b68a}{committed} before calling this method, or an exception will be raised\-: no files can be saved from this class without a valid dataset reference}}.
+
+The mnethod will return the newly created file reference I\-D.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$the\-File} & File path. \\
+\hline
+\hyperlink{class_c_mongo_grid_container}{C\-Mongo\-Grid\-Container} & {\em \$the\-Container} & File grid container. \\
+\hline
+mixed & {\em \$the\-Metadata} & File metadata. \\
+\hline
+bitfield & {\em \$the\-Modifiers} & Operation modifiers.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+Mongo\-Id
+\end{DoxyReturn}
+\hyperlink{class_c_attribute_a9d231a47718719fcd6c33f3d0ac91675}{C\-Attribute\-::\-Manage\-Offset()}
+
+\begin{DoxySeeAlso}{See Also}
+k\-T\-A\-G\-\_\-\-T\-I\-T\-L\-E 
+\end{DoxySeeAlso}
+\hypertarget{class_c_dataset_a560c5a4e4d453bd3f1e5a8fa49fb0012}{\index{C\-Dataset@{C\-Dataset}!Title@{Title}}
+\index{Title@{Title}!CDataset@{C\-Dataset}}
+\subsubsection[{Title}]{\setlength{\rightskip}{0pt plus 5cm}C\-Dataset\-::\-Title (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_dataset_a560c5a4e4d453bd3f1e5a8fa49fb0012}
+Manage title.
+
+This method can be used to handle the object's \hyperlink{}{title}, it uses the standard accessor \hyperlink{class_c_attribute_a9d231a47718719fcd6c33f3d0ac91675}{method} to manage the \hyperlink{}{offset}.
+
+The title represents a non language-\/based string which can be used to identify or provide a name to an object.
+
+For a more in-\/depth reference of this method, please consult the \hyperlink{class_c_attribute_a9d231a47718719fcd6c33f3d0ac91675}{Manage\-Offset} method, in which the first parameter will be the constant \hyperlink{}{k\-T\-A\-G\-\_\-\-T\-I\-T\-L\-E}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Value} & Value. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+string
+\end{DoxyReturn}
+\hyperlink{class_c_attribute_a9d231a47718719fcd6c33f3d0ac91675}{C\-Attribute\-::\-Manage\-Offset()}
+
+\begin{DoxySeeAlso}{See Also}
+k\-T\-A\-G\-\_\-\-T\-I\-T\-L\-E 
+\end{DoxySeeAlso}
+\hypertarget{class_c_dataset_ab462365e96da63373576ea2e19819c8c}{\index{C\-Dataset@{C\-Dataset}!User@{User}}
+\index{User@{User}!CDataset@{C\-Dataset}}
+\subsubsection[{User}]{\setlength{\rightskip}{0pt plus 5cm}C\-Dataset\-::\-User (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_dataset_ab462365e96da63373576ea2e19819c8c}
+Manage user.
+
+This method can be used to handle the object's \hyperlink{}{user}, it uses the standard accessor \hyperlink{class_c_attribute_a9d231a47718719fcd6c33f3d0ac91675}{method} to manage the \hyperlink{}{offset}.
+
+The user represents the object's creator, it should be provided either as an object \hyperlink{}{identifier} or as an object itself.
+
+For a more in-\/depth reference of this method, please consult the \hyperlink{class_c_attribute_a9d231a47718719fcd6c33f3d0ac91675}{C\-Attribute\-::\-Manage\-Offset} method, in which the second parameter will be the constant \hyperlink{}{k\-E\-N\-T\-I\-T\-Y\-\_\-\-U\-S\-E\-R}.
+
+In this class we feed the value to the \hyperlink{class_c_persistent_unit_object_abdf69880df0ce8257c4d0fd64adc7053}{Normalise\-Related\-Object} method that will take care of handling object references.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Value} & Value. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+string
+\end{DoxyReturn}
+\hyperlink{class_c_attribute_a9d231a47718719fcd6c33f3d0ac91675}{C\-Attribute\-::\-Manage\-Offset()}
+
+\begin{DoxySeeAlso}{See Also}
+k\-E\-N\-T\-I\-T\-Y\-\_\-\-U\-S\-E\-R 
+\end{DoxySeeAlso}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/\-Library/\-Web\-Server/\-Library/wrapper/classes/C\-Dataset.\-php\end{DoxyCompactItemize}

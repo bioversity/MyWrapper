@@ -224,29 +224,9 @@ abstract class CSessionObject extends CArrayObject
 	public function serialize()
 	{
 		//
-		// Save current user.
+		// Prepare before serialization.
 		//
-		$this->_InitUser( FALSE );
-		
-		//
-		// Close data store.
-		//
-		$this->_InitDataStore( FALSE );
-		
-		//
-		// Close graph store.
-		//
-		$this->_InitGraphStore( FALSE );
-		
-		//
-		// Close database.
-		//
-		$this->_InitDatabase( FALSE );
-		
-		//
-		// Close users container.
-		//
-		$this->_InitUserContainer( FALSE );
+		$this->_PreSerialize();
 		
 		//
 		// Serialise object.
@@ -276,26 +256,6 @@ abstract class CSessionObject extends CArrayObject
 	public function unserialize( $theSerialised )
 	{
 		//
-		// Open data store.
-		//
-		$this->_InitDataStore( TRUE );
-		
-		//
-		// Open graph store.
-		//
-		$this->_InitGraphStore( TRUE );
-		
-		//
-		// Open database.
-		//
-		$this->_InitDatabase( TRUE );
-		
-		//
-		// Open users container.
-		//
-		$this->_InitUserContainer( TRUE );
-		
-		//
 		// Unserialise old object.
 		//
 		$theSerialised = unserialize( $theSerialised );
@@ -303,9 +263,9 @@ abstract class CSessionObject extends CArrayObject
 			$this->mUser = $theSerialised[ 'User' ];
 		
 		//
-		// Reload current user.
+		// Prepare after unserialisation.
 		//
-		$this->_InitUser( TRUE );
+		$this->_PostUnserialize();
 		
 		//
 		// Register default resources.
@@ -459,7 +419,7 @@ abstract class CSessionObject extends CArrayObject
 	 *==================================================================================*/
 
 	/**
-	 * Manage the defrault users container.
+	 * Manage the default users container.
 	 *
 	 * This method can be used to manage the session's default users container. This object
 	 * represents the the container in which all users are stored.
@@ -500,7 +460,7 @@ abstract class CSessionObject extends CArrayObject
 
 /*=======================================================================================
  *																						*
- *								PUBLIC PROPERTIES INTERFACE								*
+ *							PUBLIC VIEW MODEL PROPERTIES INTERFACE						*
  *																						*
  *======================================================================================*/
 
@@ -1088,7 +1048,100 @@ abstract class CSessionObject extends CArrayObject
 
 /*=======================================================================================
  *																						*
- *							PROTECTED PROPERTIES INTERFACE								*
+ *							PROTECTED SERIALISATION INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	_PreSerialize																	*
+	 *==================================================================================*/
+
+	/**
+	 * Prepare before serialization.
+	 *
+	 * This method will be called before the object gets serialized, it is an opportunity
+	 * to cleanup elements that cannot be serialized and do other optimisations.
+	 *
+	 * @access protected
+	 */
+	protected function _PreSerialize()
+	{
+		//
+		// Save current user.
+		//
+		$this->_InitUser( FALSE );
+		
+		//
+		// Close users container.
+		//
+		$this->_InitUserContainer( FALSE );
+		
+		//
+		// Close database.
+		//
+		$this->_InitDatabase( FALSE );
+		
+		//
+		// Close data store.
+		//
+		$this->_InitDataStore( FALSE );
+		
+		//
+		// Close graph store.
+		//
+		$this->_InitGraphStore( FALSE );
+		
+	} // _PreSerialize.
+
+	 
+	/*===================================================================================
+	 *	_PostUnserialize																*
+	 *==================================================================================*/
+
+	/**
+	 * Prepare after unserialization.
+	 *
+	 * This method will be called after the object gets unserialized, it is an opportunity
+	 * to restore elements that were not serialised.
+	 *
+	 * @access protected
+	 */
+	protected function _PostUnserialize()
+	{
+		//
+		// Open data store.
+		//
+		$this->_InitDataStore( TRUE );
+		
+		//
+		// Open graph store.
+		//
+		$this->_InitGraphStore( TRUE );
+		
+		//
+		// Open database.
+		//
+		$this->_InitDatabase( TRUE );
+		
+		//
+		// Open users container.
+		//
+		$this->_InitUserContainer( TRUE );
+		
+		//
+		// Reload current user.
+		//
+		$this->_InitUser( TRUE );
+		
+	} // _PostUnserialize.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED OPERATIONS INTERFACE								*
  *																						*
  *======================================================================================*/
 

@@ -1,0 +1,111 @@
+\hypertarget{class_c_data_type_stamp}{\section{C\-Data\-Type\-Stamp Class Reference}
+\label{class_c_data_type_stamp}\index{C\-Data\-Type\-Stamp@{C\-Data\-Type\-Stamp}}
+}
+Inheritance diagram for C\-Data\-Type\-Stamp\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_c_data_type_stamp}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_c_data_type_stamp_a4ae6aac8e317e97afcf82bcd61450f52}{\-\_\-\-\_\-construct} (\$the\-Data=N\-U\-L\-L)
+\item 
+\hyperlink{class_c_data_type_stamp_ab0256098cc25df9b50cc765a093d2cef}{\-\_\-\-\_\-to\-String} ()
+\item 
+\hyperlink{class_c_data_type_stamp_ac44e6be53a7dd369c159c19a5d31056c}{value} ()
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_c_data_type_stamp_a4ae6aac8e317e97afcf82bcd61450f52}{\index{C\-Data\-Type\-Stamp@{C\-Data\-Type\-Stamp}!\-\_\-\-\_\-construct@{\-\_\-\-\_\-construct}}
+\index{\-\_\-\-\_\-construct@{\-\_\-\-\_\-construct}!CDataTypeStamp@{C\-Data\-Type\-Stamp}}
+\subsubsection[{\-\_\-\-\_\-construct}]{\setlength{\rightskip}{0pt plus 5cm}C\-Data\-Type\-Stamp\-::\-\_\-\-\_\-construct (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Data = {\ttfamily NULL}}
+\end{DoxyParamCaption}
+)}}\label{class_c_data_type_stamp_a4ae6aac8e317e97afcf82bcd61450f52}
+Instantiate class.
+
+We overload the parent constructor to handle different types of data\-:
+
+
+\begin{DoxyItemize}
+\item {\itshape float}\-: If the data is a float, we assume it is the result of {\itshape microtime( T\-R\-U\-E )} in which the integral part of the number represents the number of seconds since January 1st 1970 G\-M\-T, and the fractional part represents the microseconds. 
+\item {\itshape integer}\-: If the data is an integer, we assume it represents the number of seconds since January 1st 1970 G\-M\-T. 
+\item {\itshape Mongo\-Date}\-: We use the object's elements. 
+\item {\itshape Date\-Time}\-: We get the date seconds count. 
+\item {\itshape other}\-: We assume the data is a date time string. 
+\end{DoxyItemize}
+
+No {\itshape N\-U\-L\-L} concrete instance is allowed, all instances derived from this class must have a value.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Data} & Custom data.\\
+\hline
+\end{DoxyParams}
+public
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Reimplemented from \hyperlink{class_c_data_type_a52f7a2ebe5e01eed9995115a410d83ab}{C\-Data\-Type}.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_c_data_type_stamp_ab0256098cc25df9b50cc765a093d2cef}{\index{C\-Data\-Type\-Stamp@{C\-Data\-Type\-Stamp}!\-\_\-\-\_\-to\-String@{\-\_\-\-\_\-to\-String}}
+\index{\-\_\-\-\_\-to\-String@{\-\_\-\-\_\-to\-String}!CDataTypeStamp@{C\-Data\-Type\-Stamp}}
+\subsubsection[{\-\_\-\-\_\-to\-String}]{\setlength{\rightskip}{0pt plus 5cm}C\-Data\-Type\-Stamp\-::\-\_\-\-\_\-to\-String (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_c_data_type_stamp_ab0256098cc25df9b50cc765a093d2cef}
+Return string representation.
+
+This method should return a string representation of the custom data type contents, this method must be implemented for all concrete classes.
+
+By default this method expects the custom data part to be convertable to string, if this is not the case, overload this method.
+
+public \begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_c_data_type_a47c70c056d328f35497a6e712bf9be1c}{C\-Data\-Type}.
+
+\hypertarget{class_c_data_type_stamp_ac44e6be53a7dd369c159c19a5d31056c}{\index{C\-Data\-Type\-Stamp@{C\-Data\-Type\-Stamp}!value@{value}}
+\index{value@{value}!CDataTypeStamp@{C\-Data\-Type\-Stamp}}
+\subsubsection[{value}]{\setlength{\rightskip}{0pt plus 5cm}C\-Data\-Type\-Stamp\-::value (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_c_data_type_stamp_ac44e6be53a7dd369c159c19a5d31056c}
+Return data value.
+
+This method will return a floating point number equivalent to the result of the {\itshape microtime( T\-R\-U\-E )} function.
+
+public \begin{DoxyReturn}{Returns}
+float
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+Reimplemented from \hyperlink{class_c_data_type_a6f013843044529b54c2df535fc1471a8}{C\-Data\-Type}.
+
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/\-Library/\-Web\-Server/\-Library/wrapper/classes/C\-Data\-Type\-Stamp.\-php\end{DoxyCompactItemize}

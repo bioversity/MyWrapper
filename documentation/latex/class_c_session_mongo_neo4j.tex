@@ -1,0 +1,305 @@
+\hypertarget{class_c_session_mongo_neo4j}{\section{C\-Session\-Mongo\-Neo4j Class Reference}
+\label{class_c_session_mongo_neo4j}\index{C\-Session\-Mongo\-Neo4j@{C\-Session\-Mongo\-Neo4j}}
+}
+Inheritance diagram for C\-Session\-Mongo\-Neo4j\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{class_c_session_mongo_neo4j}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_c_session_mongo_neo4j_af286bc524ded3db59800bb5e585b0a58}{Data\-Store} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_session_mongo_neo4j_aa5e06288fa3a285675da6ba8a2b281d5}{Graph\-Store} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_session_mongo_neo4j_ada4d97ca5fb8a3f205517032856a6c1a}{Database} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_session_mongo_neo4j_a705c05fae227d70ca244d018b15a6bd4}{Users\-Container} (\$the\-Value=N\-U\-L\-L, \$get\-Old=F\-A\-L\-S\-E)
+\item 
+\hyperlink{class_c_session_mongo_neo4j_a1362c95656d103b12a04a16bb3b43061}{Query} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_c_session_mongo_neo4j_a16fcb72ddf0d7e10f1480e9c5206dc5a}{\-\_\-\-Init\-Data\-Store} (\$the\-Operation)
+\item 
+\hyperlink{class_c_session_mongo_neo4j_ab512e36184ee03fe2fee7a30175f899d}{\-\_\-\-Init\-Graph\-Store} (\$the\-Operation)
+\item 
+\hyperlink{class_c_session_mongo_neo4j_af755b245fd52b177bc9d8471acc32d8b}{\-\_\-\-Init\-Database} (\$the\-Operation)
+\item 
+\hyperlink{class_c_session_mongo_neo4j_abf876f3b2e90ed9fab09314b2ebce978}{\-\_\-\-Init\-User\-Container} (\$the\-Operation)
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_c_session_mongo_neo4j_af755b245fd52b177bc9d8471acc32d8b}{\index{C\-Session\-Mongo\-Neo4j@{C\-Session\-Mongo\-Neo4j}!\-\_\-\-Init\-Database@{\-\_\-\-Init\-Database}}
+\index{\-\_\-\-Init\-Database@{\-\_\-\-Init\-Database}!CSessionMongoNeo4j@{C\-Session\-Mongo\-Neo4j}}
+\subsubsection[{\-\_\-\-Init\-Database}]{\setlength{\rightskip}{0pt plus 5cm}C\-Session\-Mongo\-Neo4j\-::\-\_\-\-Init\-Database (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Operation}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_session_mongo_neo4j_af755b245fd52b177bc9d8471acc32d8b}
+Initialise database.
+
+This method will initialise the default database connection, the method expects one boolean parameter\-: {\itshape T\-R\-U\-E} means that the database connection is to be opened, {\itshape F\-A\-L\-S\-E} means that the database connection is to be closed.
+
+In this class we initialise a Mongo\-D\-B database by the default database \hyperlink{}{name}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+boolean & {\em \$the\-Operation} & T\-R\-U\-E set, F\-A\-L\-S\-E reset.\\
+\hline
+\end{DoxyParams}
+protected
+
+\hyperlink{class_c_session_mongo_neo4j_ada4d97ca5fb8a3f205517032856a6c1a}{Database()}
+
+\begin{DoxySeeAlso}{See Also}
+k\-D\-E\-F\-A\-U\-L\-T\-\_\-\-D\-A\-T\-A\-B\-A\-S\-E 
+\end{DoxySeeAlso}
+
+
+Reimplemented from \hyperlink{class_c_session_object_ab09b6b1dfb64b6cc33d86755a7682978}{C\-Session\-Object}.
+
+\hypertarget{class_c_session_mongo_neo4j_a16fcb72ddf0d7e10f1480e9c5206dc5a}{\index{C\-Session\-Mongo\-Neo4j@{C\-Session\-Mongo\-Neo4j}!\-\_\-\-Init\-Data\-Store@{\-\_\-\-Init\-Data\-Store}}
+\index{\-\_\-\-Init\-Data\-Store@{\-\_\-\-Init\-Data\-Store}!CSessionMongoNeo4j@{C\-Session\-Mongo\-Neo4j}}
+\subsubsection[{\-\_\-\-Init\-Data\-Store}]{\setlength{\rightskip}{0pt plus 5cm}C\-Session\-Mongo\-Neo4j\-::\-\_\-\-Init\-Data\-Store (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Operation}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_session_mongo_neo4j_a16fcb72ddf0d7e10f1480e9c5206dc5a}
+Initialise data store.
+
+This method will initialise the default data store, the method expects one boolean parameter\-: {\itshape T\-R\-U\-E} means that the data store is to be set, {\itshape F\-A\-L\-S\-E} means that the data store is to be reset.
+
+In this class we initialise a Mongo object.
+
+
+\begin{DoxyParams}[1]{Parameters}
+boolean & {\em \$the\-Operation} & T\-R\-U\-E set, F\-A\-L\-S\-E reset.\\
+\hline
+\end{DoxyParams}
+protected
+
+\hyperlink{class_c_session_mongo_neo4j_af286bc524ded3db59800bb5e585b0a58}{Data\-Store()} 
+
+Reimplemented from \hyperlink{class_c_session_object_adf0b60bc1ab46ff8b5474c43f03f604d}{C\-Session\-Object}.
+
+\hypertarget{class_c_session_mongo_neo4j_ab512e36184ee03fe2fee7a30175f899d}{\index{C\-Session\-Mongo\-Neo4j@{C\-Session\-Mongo\-Neo4j}!\-\_\-\-Init\-Graph\-Store@{\-\_\-\-Init\-Graph\-Store}}
+\index{\-\_\-\-Init\-Graph\-Store@{\-\_\-\-Init\-Graph\-Store}!CSessionMongoNeo4j@{C\-Session\-Mongo\-Neo4j}}
+\subsubsection[{\-\_\-\-Init\-Graph\-Store}]{\setlength{\rightskip}{0pt plus 5cm}C\-Session\-Mongo\-Neo4j\-::\-\_\-\-Init\-Graph\-Store (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Operation}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_session_mongo_neo4j_ab512e36184ee03fe2fee7a30175f899d}
+Initialise graph store.
+
+This method will initialise the default graph store, the method expects one boolean parameter\-: {\itshape T\-R\-U\-E} means that the graph store is to be set, {\itshape F\-A\-L\-S\-E} means that the graph store is to be reset.
+
+In this class we initialise a Neo4j client using the default \hyperlink{}{host} and \hyperlink{}{port}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+boolean & {\em \$the\-Operation} & T\-R\-U\-E set, F\-A\-L\-S\-E reset.\\
+\hline
+\end{DoxyParams}
+protected
+
+\hyperlink{class_c_session_mongo_neo4j_aa5e06288fa3a285675da6ba8a2b281d5}{Graph\-Store()}
+
+\begin{DoxySeeAlso}{See Also}
+D\-E\-F\-A\-U\-L\-T\-\_\-k\-N\-E\-O4\-J\-\_\-\-H\-O\-S\-T D\-E\-F\-A\-U\-L\-T\-\_\-k\-N\-E\-O4\-J\-\_\-\-P\-O\-R\-T 
+\end{DoxySeeAlso}
+
+
+Reimplemented from \hyperlink{class_c_session_object_a2c47162b8582c5b2e6b29790254b9506}{C\-Session\-Object}.
+
+\hypertarget{class_c_session_mongo_neo4j_abf876f3b2e90ed9fab09314b2ebce978}{\index{C\-Session\-Mongo\-Neo4j@{C\-Session\-Mongo\-Neo4j}!\-\_\-\-Init\-User\-Container@{\-\_\-\-Init\-User\-Container}}
+\index{\-\_\-\-Init\-User\-Container@{\-\_\-\-Init\-User\-Container}!CSessionMongoNeo4j@{C\-Session\-Mongo\-Neo4j}}
+\subsubsection[{\-\_\-\-Init\-User\-Container}]{\setlength{\rightskip}{0pt plus 5cm}C\-Session\-Mongo\-Neo4j\-::\-\_\-\-Init\-User\-Container (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Operation}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_session_mongo_neo4j_abf876f3b2e90ed9fab09314b2ebce978}
+Initialise users container.
+
+This method will initialise the default users container, the method expects one boolean parameter\-: {\itshape T\-R\-U\-E} means that the users container is to be set, {\itshape F\-A\-L\-S\-E} means that the users container is to be reset.
+
+In this class we initialise a Mongo\-Collection container by the default user container \hyperlink{}{name}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+boolean & {\em \$the\-Operation} & T\-R\-U\-E set, F\-A\-L\-S\-E reset.\\
+\hline
+\end{DoxyParams}
+protected
+
+\hyperlink{class_c_session_mongo_neo4j_a705c05fae227d70ca244d018b15a6bd4}{Users\-Container()}
+
+\begin{DoxySeeAlso}{See Also}
+k\-D\-E\-F\-A\-U\-L\-T\-\_\-\-C\-N\-T\-\_\-\-U\-S\-E\-R\-S 
+\end{DoxySeeAlso}
+
+
+Reimplemented from \hyperlink{class_c_session_object_aeeef60870f814ab5e684f31b0b355f50}{C\-Session\-Object}.
+
+\hypertarget{class_c_session_mongo_neo4j_ada4d97ca5fb8a3f205517032856a6c1a}{\index{C\-Session\-Mongo\-Neo4j@{C\-Session\-Mongo\-Neo4j}!Database@{Database}}
+\index{Database@{Database}!CSessionMongoNeo4j@{C\-Session\-Mongo\-Neo4j}}
+\subsubsection[{Database}]{\setlength{\rightskip}{0pt plus 5cm}C\-Session\-Mongo\-Neo4j\-::\-Database (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_session_mongo_neo4j_ada4d97ca5fb8a3f205517032856a6c1a}
+Manage the database reference.
+
+This method can be used to manage the session's default database reference. This database represents the connection to the default collections container.
+
+We \hyperlink{class_c_session_object_ae2e67e9c788e6a55568ae96b1f74b64f}{overload} this method to ensure the provided parameter is a Mongo\-D\-B object.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Value} & Value or operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \{@link} & \hyperlink{class_c_exception}{C\-Exception} \hyperlink{class_c_exception}{C\-Exception}\} \\
+\hline
+\end{DoxyExceptions}
+
+
+Reimplemented from \hyperlink{class_c_session_object_ae2e67e9c788e6a55568ae96b1f74b64f}{C\-Session\-Object}.
+
+\hypertarget{class_c_session_mongo_neo4j_af286bc524ded3db59800bb5e585b0a58}{\index{C\-Session\-Mongo\-Neo4j@{C\-Session\-Mongo\-Neo4j}!Data\-Store@{Data\-Store}}
+\index{Data\-Store@{Data\-Store}!CSessionMongoNeo4j@{C\-Session\-Mongo\-Neo4j}}
+\subsubsection[{Data\-Store}]{\setlength{\rightskip}{0pt plus 5cm}C\-Session\-Mongo\-Neo4j\-::\-Data\-Store (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_session_mongo_neo4j_af286bc524ded3db59800bb5e585b0a58}
+Manage the data store reference.
+
+This method can be used to manage the session's data store reference. The data store represents the main connection to the database, from which \hyperlink{class_c_container}{container} references can be derived.
+
+We \hyperlink{class_c_session_object_a3c2fb7a5f1bfd878b5336944679c01fa}{overload} this method to ensure the provided parameter is a Mongo object.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Value} & Value or operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \{@link} & \hyperlink{class_c_exception}{C\-Exception} \hyperlink{class_c_exception}{C\-Exception}\} \\
+\hline
+\end{DoxyExceptions}
+
+
+Reimplemented from \hyperlink{class_c_session_object_a3c2fb7a5f1bfd878b5336944679c01fa}{C\-Session\-Object}.
+
+\hypertarget{class_c_session_mongo_neo4j_aa5e06288fa3a285675da6ba8a2b281d5}{\index{C\-Session\-Mongo\-Neo4j@{C\-Session\-Mongo\-Neo4j}!Graph\-Store@{Graph\-Store}}
+\index{Graph\-Store@{Graph\-Store}!CSessionMongoNeo4j@{C\-Session\-Mongo\-Neo4j}}
+\subsubsection[{Graph\-Store}]{\setlength{\rightskip}{0pt plus 5cm}C\-Session\-Mongo\-Neo4j\-::\-Graph\-Store (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_session_mongo_neo4j_aa5e06288fa3a285675da6ba8a2b281d5}
+Manage the graph store reference.
+
+This method can be used to manage the session's graph store reference. The graph store represents the main connection to the graph, the graph database vcient.
+
+We \hyperlink{class_c_session_object_a7fd05281e6d014677e739845436d5451}{overload} this method to ensure the provided parameter is a Neo4j client object.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Value} & Value or operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \{@link} & \hyperlink{class_c_exception}{C\-Exception} \hyperlink{class_c_exception}{C\-Exception}\} \\
+\hline
+\end{DoxyExceptions}
+
+
+Reimplemented from \hyperlink{class_c_session_object_a7fd05281e6d014677e739845436d5451}{C\-Session\-Object}.
+
+\hypertarget{class_c_session_mongo_neo4j_a1362c95656d103b12a04a16bb3b43061}{\index{C\-Session\-Mongo\-Neo4j@{C\-Session\-Mongo\-Neo4j}!Query@{Query}}
+\index{Query@{Query}!CSessionMongoNeo4j@{C\-Session\-Mongo\-Neo4j}}
+\subsubsection[{Query}]{\setlength{\rightskip}{0pt plus 5cm}C\-Session\-Mongo\-Neo4j\-::\-Query (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_c_session_mongo_neo4j_a1362c95656d103b12a04a16bb3b43061}
+Return an empty query.
+
+This method can be used to return a concrete query instance based on the specific database engines supported by the session.
+
+In this class we return an empty \hyperlink{class_c_mongo_query}{C\-Mongo\-Query}.
+
+public \begin{DoxyReturn}{Returns}
+\hyperlink{class_c_query}{C\-Query} 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_c_session_object_a80ee4a2049ab1f0aa962b346f1e75f05}{C\-Session\-Object}.
+
+\hypertarget{class_c_session_mongo_neo4j_a705c05fae227d70ca244d018b15a6bd4}{\index{C\-Session\-Mongo\-Neo4j@{C\-Session\-Mongo\-Neo4j}!Users\-Container@{Users\-Container}}
+\index{Users\-Container@{Users\-Container}!CSessionMongoNeo4j@{C\-Session\-Mongo\-Neo4j}}
+\subsubsection[{Users\-Container}]{\setlength{\rightskip}{0pt plus 5cm}C\-Session\-Mongo\-Neo4j\-::\-Users\-Container (
+\begin{DoxyParamCaption}
+\item[{}]{\$the\-Value = {\ttfamily NULL}, }
+\item[{}]{\$get\-Old = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}\label{class_c_session_mongo_neo4j_a705c05fae227d70ca244d018b15a6bd4}
+Manage the default users container.
+
+This method can be used to manage the session's default users container. This object represents the the container in which all users are stored.
+
+We \hyperlink{class_c_session_object_aefd5962093881fa488ccf86f6f717a20}{overload} this method to ensure the provided parameter is either a Mongo\-Collection or a \hyperlink{class_c_mongo_container}{C\-Mongo\-Container} object, the latter being the expected type.
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$the\-Value} & Value or operation. \\
+\hline
+boolean & {\em \$get\-Old} & T\-R\-U\-E get old value.\\
+\hline
+\end{DoxyParams}
+public \begin{DoxyReturn}{Returns}
+mixed
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \{@link} & \hyperlink{class_c_exception}{C\-Exception} \hyperlink{class_c_exception}{C\-Exception}\} \\
+\hline
+\end{DoxyExceptions}
+
+
+Reimplemented from \hyperlink{class_c_session_object_aefd5962093881fa488ccf86f6f717a20}{C\-Session\-Object}.
+
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/\-Library/\-Web\-Server/\-Library/wrapper/classes/C\-Session\-Mongo\-Neo4j.\-php\end{DoxyCompactItemize}

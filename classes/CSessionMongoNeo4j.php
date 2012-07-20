@@ -216,7 +216,7 @@ class CSessionMongoNeo4j extends CSessionObject
 	 *==================================================================================*/
 
 	/**
-	 * Manage the defrault users container.
+	 * Manage the default users container.
 	 *
 	 * This method can be used to manage the session's default users container. This object
 	 * represents the the container in which all users are stored.
@@ -466,7 +466,7 @@ class CSessionMongoNeo4j extends CSessionObject
 			$this->UsersContainer(
 				$this->Database()->
 					selectCollection(
-						'CSessionObject' ) );
+						kDEFAULT_CNT_USERS ) );
 		
 		//
 		// Reset.
