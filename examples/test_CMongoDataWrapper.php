@@ -36,11 +36,6 @@ require_once( '/Library/WebServer/Library/wrapper/local/environment.inc.php' );
 require_once( '/Library/WebServer/Library/wrapper/styles.inc.php' );
 
 //
-// Session includes.
-//
-require_once( kPATH_LIBRARY_SOURCE."CSessionMongoNeo4j.php" );
-
-//
 // Class includes.
 //
 require_once( kPATH_LIBRARY_SOURCE."CMongoDataWrapperClient.php" );
@@ -54,13 +49,6 @@ require_once( kPATH_LIBRARY_SOURCE."CMongoDataWrapperClient.php" );
 // Use raw parameters or use wrapper client?.
 //
 define( 'kUSE_CLIENT', FALSE );
-
-
-/*=======================================================================================
- *	INIT SESSION																		*
- *======================================================================================*/
- 
- $_SESSION[ kDEFAULT_SESSION ] = new CSessionMongoNeo4j();
 
 
 /*=======================================================================================

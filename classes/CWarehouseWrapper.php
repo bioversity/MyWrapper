@@ -1380,7 +1380,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 										$db->selectCollection( kDEFAULT_CNT_TERMS ) );
 						$edge_cnt = array( kTAG_TERM => $term_cnt,
 										   kTAG_NODE => $_SESSION[ kDEFAULT_SESSION ]
-										   					->Graph() );
+										   					->GraphStore() );
 						
 						//
 						// Iterate identifiers.
@@ -2935,7 +2935,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 			$container = array
 			(
 				kTAG_TERM => new CMongoContainer( $_REQUEST[ kAPI_CONTAINER ] ),
-				kTAG_NODE => $_SESSION[ kDEFAULT_SESSION ]->Graph()
+				kTAG_NODE => $_SESSION[ kDEFAULT_SESSION ]->GraphStore()
 			);
 			
 			//
@@ -3003,7 +3003,7 @@ class CWarehouseWrapper extends CMongoDataWrapper
 					//
 					// Instantiate node.
 					//
-					$node = $_SESSION[ kDEFAULT_SESSION ]->Graph()->getNode( $id );
+					$node = $_SESSION[ kDEFAULT_SESSION ]->GraphStore()->getNode( $id );
 					if( $node !== NULL )
 					{
 						//

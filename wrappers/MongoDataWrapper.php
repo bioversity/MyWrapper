@@ -46,6 +46,25 @@ require_once( '/Library/WebServer/Library/wrapper/local/environment.inc.php' );
  */
 require_once( kPATH_LIBRARY_SOURCE."CMongoDataWrapper.php" );
 
+/**
+ * Session includes.
+ *
+ * This include file contains the definition of the session object.
+ */
+require_once( kPATH_LIBRARY_SOURCE."CSessionMongoNeo4j.php" );
+
+/**
+ * Start session.
+ */
+session_start();
+
+
+/*=======================================================================================
+ *	INIT SESSION																		*
+ *======================================================================================*/
+ 
+$_SESSION[ kDEFAULT_SESSION ] = new CSessionMongoNeo4j();
+
 
 /*=======================================================================================
  *	TEST WRAPPER OBJECT																	*
