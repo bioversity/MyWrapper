@@ -59,4 +59,29 @@ define( "kSESSION_USER_ROLE",				'_sessionUserRole' );
  */
 define( "kSESSION_USER_KIND",				'_sessionUserKind' );
 
+/*=======================================================================================
+ *	SESSION PARAMETER TAGS																*
+ *======================================================================================*/
+
+/**
+ * User code.
+ *
+ * This tag defines the user code.
+ */
+define( "kSESSION_PARAM_USER_CODE",			'@user-code@' );
+
+/**
+ * User password.
+ *
+ * This tag defines the user password.
+ */
+define( "kSESSION_PARAM_USER_PASS",			'@user-pass@' );
+
+/**
+ * User logout.
+ *
+ * This tag defines the user logout command.
+ */
+define( "kSESSION_PARAM_USER_LOGOUT",		'LOGOUT' );
+
 ?>
