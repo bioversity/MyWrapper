@@ -59,6 +59,15 @@ define( "kSESSION_USER_ROLE",				'_sessionUserRole' );
  */
 define( "kSESSION_USER_KIND",				'_sessionUserKind' );
 
+/**
+ * User logged instance.
+ *
+ * This tag indicates whether the user is logged or not.
+ *
+ * Type: boolean.
+ */
+define( "kSESSION_USER_LOGGED",				'_sessionUserLogged' );
+
 /*=======================================================================================
  *	SESSION PARAMETER TAGS																*
  *======================================================================================*/

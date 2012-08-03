@@ -918,6 +918,11 @@ abstract class CSessionObject extends CArrayObject
 		//
 		$this->_RegisterUserRole();
 		
+		//
+		// Set logged flag.
+		//
+		$this->_RegisterUserLogged();
+		
 	} // _RegisterUser.
 
 	 
@@ -1043,6 +1048,33 @@ abstract class CSessionObject extends CArrayObject
 						  ( ( $user !== NULL ) ? $user->Role() : Array() ) );
 		
 	} // _RegisterUserRole.
+
+	 
+	/*===================================================================================
+	 *	_RegisterUserLogged																*
+	 *==================================================================================*/
+
+	/**
+	 * Set user logged flag in view model.
+	 *
+	 * This method will set the logged {@link kSESSION_USER_LOGGED flag} in the view model.
+	 *
+	 * @access protected
+	 */
+	protected function _RegisterUserLogged()
+	{
+		//
+		// Get current user.
+		//
+		$user = $this->User();
+		
+		//
+		// Handle kinds.
+		//
+		$this->offsetSet( kSESSION_USER_LOGGED,
+						  ( ( $user !== NULL ) ? TRUE : FALSE ) );
+		
+	} // _RegisterUserLogged.
 
 		
 
