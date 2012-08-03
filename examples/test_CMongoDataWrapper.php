@@ -25,10 +25,19 @@
 //
 require_once( '/Library/WebServer/Library/wrapper/includes.inc.php' );
 
-//
-// Environment includes.
-//
-require_once( '/Library/WebServer/Library/wrapper/local/environment.inc.php' );
+/**
+ * Server environment.
+ *
+ * This include file contains the server run-time definitions.
+ */
+require_once( "/Library/WebServer/Library/wrapper/local/server.inc.php" );
+
+/**
+ * Site environment.
+ *
+ * This include file contains the site run-time definitions.
+ */
+require_once( "/Library/WebServer/Library/wrapper/local/site.inc.php" );
 
 //
 // Style includes.

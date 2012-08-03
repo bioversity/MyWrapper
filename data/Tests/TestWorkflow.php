@@ -33,11 +33,18 @@ require_once( "/Library/WebServer/Library/wrapper/includes.inc.php" );
 require_once( "/Library/WebServer/Library/wrapper/local/categories.inc.php" );
 
 /**
- * Run-time environment.
+ * Server environment.
  *
- * This include file contains the run-time definitions.
+ * This include file contains the server run-time definitions.
  */
-require_once( "/Library/WebServer/Library/wrapper/local/environment.inc.php" );
+require_once( "/Library/WebServer/Library/wrapper/local/server.inc.php" );
+
+/**
+ * Site environment.
+ *
+ * This include file contains the site run-time definitions.
+ */
+require_once( "site.inc.php" );
 
 /**
  * ADODB library.

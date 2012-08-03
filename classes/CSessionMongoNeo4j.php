@@ -418,6 +418,16 @@ class CSessionMongoNeo4j extends CSessionObject
 	protected function _InitDatabase( $theOperation )
 	{
 		//
+		// Check default database.
+		//
+		if( ! defined( 'kDEFAULT_DATABASE' ) )
+			throw new CException
+				( "Default database name is undefined",
+				  kERROR_OPTION_MISSING,
+				  kMESSAGE_TYPE_ERROR,
+				  array( 'Symbol' => 'kDEFAULT_DATABASE' ) );					// !@! ==>
+		
+		//
 		// Set.
 		//
 		if( $theOperation )

@@ -31,12 +31,11 @@
 require_once( '/Library/WebServer/Library/wrapper/includes.inc.php' );
 
 /**
- * Local includes.
+ * Server environment.
  *
- * This include file contains local definitions, it should be stored locally, in this case
- * we are using the default one
+ * This include file contains the server run-time definitions.
  */
-require_once( '/Library/WebServer/Library/wrapper/local/environment.inc.php' );
+require_once( "/Library/WebServer/Library/wrapper/local/server.inc.php" );
 
 /**
  * Class includes.
