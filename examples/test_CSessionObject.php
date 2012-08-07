@@ -71,7 +71,7 @@ class TestClass extends CSessionObject
 		if( $theOperation )
 			$this->GraphStore(
 				new Everyman\Neo4j\Client(
-					DEFAULT_kNEO4J_HOST, DEFAULT_kNEO4J_PORT ) );
+					kDEFAULT_kNEO4J_HOST, kDEFAULT_kNEO4J_PORT ) );
 		else
 			$this->GraphStore( FALSE );
 	}

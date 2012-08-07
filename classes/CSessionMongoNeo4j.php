@@ -364,7 +364,7 @@ class CSessionMongoNeo4j extends CSessionObject
 	 * that the graph store is to be reset.
 	 *
 	 * In this class we initialise a Neo4j client using the default
-	 * {@link DEFAULT_kNEO4J_HOST host} and {@link DEFAULT_kNEO4J_PORT port}.
+	 * {@link kDEFAULT_kNEO4J_HOST host} and {@link kDEFAULT_kNEO4J_PORT port}.
 	 *
 	 * @param boolean				$theOperation		TRUE set, FALSE reset.
 	 *
@@ -372,7 +372,7 @@ class CSessionMongoNeo4j extends CSessionObject
 	 *
 	 * @uses GraphStore()
 	 *
-	 * @see DEFAULT_kNEO4J_HOST DEFAULT_kNEO4J_PORT
+	 * @see kDEFAULT_kNEO4J_HOST kDEFAULT_kNEO4J_PORT
 	 */
 	protected function _InitGraphStore( $theOperation )
 	{
@@ -382,7 +382,7 @@ class CSessionMongoNeo4j extends CSessionObject
 		if( $theOperation )
 			$this->GraphStore(
 				new Everyman\Neo4j\Client(
-					DEFAULT_kNEO4J_HOST, DEFAULT_kNEO4J_PORT ) );
+					kDEFAULT_kNEO4J_HOST, kDEFAULT_kNEO4J_PORT ) );
 		
 		//
 		// Reset.

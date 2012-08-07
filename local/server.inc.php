@@ -30,7 +30,7 @@
  *
  * Cardinality: one.
  */
-define( "DEFAULT_kNEO4J_HOST",		'localhost' );
+define( "kDEFAULT_kNEO4J_HOST",		'localhost' );
 
 /**
  * Neo4j port.
@@ -39,7 +39,7 @@ define( "DEFAULT_kNEO4J_HOST",		'localhost' );
  *
  * Cardinality: one.
  */
-define( "DEFAULT_kNEO4J_PORT",		'7474' );
+define( "kDEFAULT_kNEO4J_PORT",		'7474' );
 
 /**
  * Neo4j user.
@@ -48,7 +48,7 @@ define( "DEFAULT_kNEO4J_PORT",		'7474' );
  *
  * Cardinality: one.
  */
-define( "DEFAULT_kNEO4J_USER",		NULL );
+define( "kDEFAULT_kNEO4J_USER",		NULL );
 
 /**
  * Neo4j password.
@@ -57,7 +57,39 @@ define( "DEFAULT_kNEO4J_USER",		NULL );
  *
  * Cardinality: one.
  */
-define( "DEFAULT_kNEO4J_PASS",		NULL );
+define( "kDEFAULT_kNEO4J_PASS",		NULL );
+
+/*=======================================================================================
+ *	USER DEFINITIONS																	*
+ *======================================================================================*/
+
+/**
+ * Default guest name.
+ *
+ * This value defines the default guest user name.
+ */
+define( "kDEFAULT_GUEST_NAME",		"Guest" );
+
+/**
+ * Default guest code.
+ *
+ * This value defines the default guest user code.
+ */
+define( "kDEFAULT_GUEST_CODE",		"guest" );
+
+/**
+ * Default guest password.
+ *
+ * This value defines the default guest user password.
+ */
+define( "kDEFAULT_GUEST_PASS",		"guest" );
+
+/**
+ * Default guest e-mail.
+ *
+ * This value defines the default guest user e-mail.
+ */
+define( "kDEFAULT_GUEST_EMAIL",		"helpdesk@grinfo.net" );
 
 /*=======================================================================================
  *	MYSQL CLIENT PARAMETERS																*
