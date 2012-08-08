@@ -323,31 +323,44 @@ class CSessionMongoNeo4j extends CSessionObject
 	/**
 	 * Initialise data store.
 	 *
-	 * This method will initialise the default data store, the method expects one boolean
-	 * parameter: <i>TRUE</i> means that the data store is to be set, <i>FALSE</i> means
-	 * that the data store is to be reset.
+	 * The duty of this method is to initialise the data store.
 	 *
-	 * In this class we initialise a Mongo object.
+	 * This method is called in three occasions
 	 *
-	 * @param boolean				$theOperation		TRUE set, FALSE reset.
+	 * <ul>
+	 *	<li><i>{@link __construct() Instantiating}</i>: The provided parameter will be
+	 *		<i>NULL</i>, the duty of this method is to initialise all necessary resources.
+	 *	<li><i>{@link serialize() Serialising}</i>: The provided parameter will be
+	 *		<i>FALSE</i>, the duty of this method is to prepare all assets that are to be
+	 *		serialised.
+	 *	<li><i>{@link unserialize() Unserialising}</i>: The provided parameter will be an
+	 *		array containing the serialised contents of this object, the duty of this
+	 *		method is to restore all elements to their original value.
+	 * </ul>
+	 *
+	 * In this class we initialise a Mongo object when {@link __construct() initialising} or
+	 * {@link unserialize() unserialising}.
+	 *
+	 * @param reference			   &$theOperation		Operation or serialised data.
 	 *
 	 * @access protected
 	 *
 	 * @uses DataStore()
 	 */
-	protected function _InitDataStore( $theOperation )
+	protected function _InitDataStore( &$theOperation )
 	{
 		//
-		// Set.
+		// Initialising or unserialising.
 		//
-		if( $theOperation )
+		if( ($theOperation === NULL)							// Initialising,
+		 || array_key_exists( 'mDataStore', $theOperation ) )	// or unserialising.
 			$this->DataStore( new Mongo() );
 		
 		//
-		// Reset.
+		// Serialise.
 		//
 		else
-			$this->DataStore( FALSE );
+			$theOperation[ 'mDataStore' ] = TRUE;
 	
 	} // _InitDataStore.
 
@@ -359,14 +372,25 @@ class CSessionMongoNeo4j extends CSessionObject
 	/**
 	 * Initialise graph store.
 	 *
-	 * This method will initialise the default graph store, the method expects one boolean
-	 * parameter: <i>TRUE</i> means that the graph store is to be set, <i>FALSE</i> means
-	 * that the graph store is to be reset.
+	 * The duty of this method is to initialise the graph store.
+	 *
+	 * This method is called in three occasions
+	 *
+	 * <ul>
+	 *	<li><i>{@link __construct() Instantiating}</i>: The provided parameter will be
+	 *		<i>NULL</i>, the duty of this method is to initialise all necessary resources.
+	 *	<li><i>{@link serialize() Serialising}</i>: The provided parameter will be
+	 *		<i>FALSE</i>, the duty of this method is to prepare all assets that are to be
+	 *		serialised.
+	 *	<li><i>{@link unserialize() Unserialising}</i>: The provided parameter will be an
+	 *		array containing the serialised contents of this object, the duty of this
+	 *		method is to restore all elements to their original value.
+	 * </ul>
 	 *
 	 * In this class we initialise a Neo4j client using the default
 	 * {@link kDEFAULT_kNEO4J_HOST host} and {@link kDEFAULT_kNEO4J_PORT port}.
 	 *
-	 * @param boolean				$theOperation		TRUE set, FALSE reset.
+	 * @param reference			   &$theOperation		Operation or serialised data.
 	 *
 	 * @access protected
 	 *
@@ -374,21 +398,22 @@ class CSessionMongoNeo4j extends CSessionObject
 	 *
 	 * @see kDEFAULT_kNEO4J_HOST kDEFAULT_kNEO4J_PORT
 	 */
-	protected function _InitGraphStore( $theOperation )
+	protected function _InitGraphStore( &$theOperation )
 	{
 		//
-		// Set.
+		// Initialising or unserialising.
 		//
-		if( $theOperation )
+		if( ($theOperation === NULL)							// Initialising,
+		 || array_key_exists( 'mGraphStore', $theOperation ) )	// or unserialising.
 			$this->GraphStore(
 				new Everyman\Neo4j\Client(
 					kDEFAULT_kNEO4J_HOST, kDEFAULT_kNEO4J_PORT ) );
 		
 		//
-		// Reset.
+		// Serialise.
 		//
 		else
-			$this->GraphStore( FALSE );
+			$theOperation[ 'mGraphStore' ] = TRUE;
 	
 	} // _InitGraphStore.
 
@@ -400,14 +425,25 @@ class CSessionMongoNeo4j extends CSessionObject
 	/**
 	 * Initialise database.
 	 *
-	 * This method will initialise the default database connection, the method expects one
-	 * boolean parameter: <i>TRUE</i> means that the database connection is to be opened,
-	 * <i>FALSE</i> means that the database connection is to be closed.
+	 * The duty of this method is to initialise the database.
+	 *
+	 * This method is called in three occasions
+	 *
+	 * <ul>
+	 *	<li><i>{@link __construct() Instantiating}</i>: The provided parameter will be
+	 *		<i>NULL</i>, the duty of this method is to initialise all necessary resources.
+	 *	<li><i>{@link serialize() Serialising}</i>: The provided parameter will be
+	 *		<i>FALSE</i>, the duty of this method is to prepare all assets that are to be
+	 *		serialised.
+	 *	<li><i>{@link unserialize() Unserialising}</i>: The provided parameter will be an
+	 *		array containing the serialised contents of this object, the duty of this
+	 *		method is to restore all elements to their original value.
+	 * </ul>
 	 *
 	 * In this class we initialise a MongoDB database by the default database
 	 * {@link kDEFAULT_DATABASE name}.
 	 *
-	 * @param boolean				$theOperation		TRUE set, FALSE reset.
+	 * @param reference			   &$theOperation		Operation or serialised data.
 	 *
 	 * @access protected
 	 *
@@ -415,32 +451,47 @@ class CSessionMongoNeo4j extends CSessionObject
 	 *
 	 * @see kDEFAULT_DATABASE
 	 */
-	protected function _InitDatabase( $theOperation )
+	protected function _InitDatabase( &$theOperation )
 	{
 		//
-		// Check default database.
+		// Initialise.
 		//
-		if( ! defined( 'kDEFAULT_DATABASE' ) )
-			throw new CException
-				( "Default database name is undefined",
-				  kERROR_OPTION_MISSING,
-				  kMESSAGE_TYPE_ERROR,
-				  array( 'Symbol' => 'kDEFAULT_DATABASE' ) );					// !@! ==>
-		
-		//
-		// Set.
-		//
-		if( $theOperation )
+		if( $theOperation === NULL )
+		{
+			//
+			// Check default database.
+			//
+			if( ! defined( 'kDEFAULT_DATABASE' ) )
+				throw new CException
+					( "Default database name is undefined",
+					  kERROR_OPTION_MISSING,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Symbol' => 'kDEFAULT_DATABASE' ) );				// !@! ==>
+			
+			//
+			// Open connection.
+			//
 			$this->Database(
 				$this->DataStore()->
 					selectDB(
 						kDEFAULT_DATABASE ) );
 		
+		} // Initialising.
+		
 		//
-		// Reset.
+		// Unserialise.
+		//
+		elseif( array_key_exists( 'mDatabase', $theOperation ) )
+			$this->Database(
+				$this->DataStore()->
+					selectDB(
+						$theOperation[ 'mDatabase' ] ) );
+		
+		//
+		// Serialise.
 		//
 		else
-			$this->Database( FALSE );
+			$theOperation[ 'mDatabase' ] = (string) $this->Database();
 	
 	} // _InitDatabase.
 
@@ -452,14 +503,25 @@ class CSessionMongoNeo4j extends CSessionObject
 	/**
 	 * Initialise users container.
 	 *
-	 * This method will initialise the default users container, the method expects one
-	 * boolean parameter: <i>TRUE</i> means that the users container is to be set,
-	 * <i>FALSE</i> means that the users container is to be reset.
+	 * The duty of this method is to initialise the user container.
+	 *
+	 * This method is called in three occasions
+	 *
+	 * <ul>
+	 *	<li><i>{@link __construct() Instantiating}</i>: The provided parameter will be
+	 *		<i>NULL</i>, the duty of this method is to initialise all necessary resources.
+	 *	<li><i>{@link serialize() Serialising}</i>: The provided parameter will be
+	 *		<i>FALSE</i>, the duty of this method is to prepare all assets that are to be
+	 *		serialised.
+	 *	<li><i>{@link unserialize() Unserialising}</i>: The provided parameter will be an
+	 *		array containing the serialised contents of this object, the duty of this
+	 *		method is to restore all elements to their original value.
+	 * </ul>
 	 *
 	 * In this class we initialise a MongoCollection container by the default user container
 	 * {@link kDEFAULT_CNT_USERS name}.
 	 *
-	 * @param boolean				$theOperation		TRUE set, FALSE reset.
+	 * @param reference			   &$theOperation		Operation or serialised data.
 	 *
 	 * @access protected
 	 *
@@ -467,22 +529,47 @@ class CSessionMongoNeo4j extends CSessionObject
 	 *
 	 * @see kDEFAULT_CNT_USERS
 	 */
-	protected function _InitUserContainer( $theOperation )
+	protected function _InitUserContainer( &$theOperation )
 	{
 		//
-		// Set.
+		// Initialise.
 		//
-		if( $theOperation )
+		if( $theOperation === NULL )
+		{
+			//
+			// Check default user container.
+			//
+			if( ! defined( 'kDEFAULT_CNT_USERS' ) )
+				throw new CException
+					( "Default users container name is undefined",
+					  kERROR_OPTION_MISSING,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Symbol' => 'kDEFAULT_CNT_USERS' ) );				// !@! ==>
+			
+			//
+			// Open connection.
+			//
 			$this->UsersContainer(
 				$this->Database()->
 					selectCollection(
 						kDEFAULT_CNT_USERS ) );
 		
+		} // Initialising.
+		
 		//
-		// Reset.
+		// Unserialise.
+		//
+		elseif( array_key_exists( 'mUsersContainer', $theOperation ) )
+			$this->Database()->
+				selectCollection(
+					$theOperation[ 'mUsersContainer' ] );
+		
+		//
+		// Serialise.
 		//
 		else
-			$this->UsersContainer( FALSE );
+			$theOperation[ 'mUsersContainer' ]
+				= $this->UsersContainer()->Container()->getName();
 	
 	} // _InitUserContainer.
 

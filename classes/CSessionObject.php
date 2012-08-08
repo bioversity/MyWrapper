@@ -159,7 +159,8 @@ abstract class CSessionObject extends CArrayObject
 		//
 		// Initialise default resources.
 		//
-		$this->_InitResources( TRUE );
+		$tmp = NULL;
+		$this->_InitResources( $tmp );
 		
 		//
 		// Initialise view model.
@@ -224,16 +225,14 @@ abstract class CSessionObject extends CArrayObject
 	public function serialize()
 	{
 		//
-		// Prepare before serialization.
-		//
-		$this->_PreSerialize();
-		
-		//
-		// Serialise object.
+		// Initialise data.
 		//
 		$data = Array();
-		if( ($tmp = $this->User()) !== NULL )
-			$data[ 'User' ] = $tmp;
+		
+		//
+		// Initialise resources.
+		//
+		$this->_InitResources( $data );
 		
 		return serialize( $data );													// ==>
 		
@@ -256,16 +255,14 @@ abstract class CSessionObject extends CArrayObject
 	public function unserialize( $theSerialised )
 	{
 		//
-		// Unserialise old object.
+		// Initialise data.
 		//
-		$theSerialised = unserialize( $theSerialised );
-		if( array_key_exists( 'User', $theSerialised ) )
-			$this->mUser = $theSerialised[ 'User' ];
+		$data = unserialize( $theSerialised );
 		
 		//
-		// Prepare after unserialisation.
+		// Initialise resources.
 		//
-		$this->_PostUnserialize();
+		$this->_InitResources( $data );
 		
 		//
 		// Register default resources.
@@ -652,25 +649,36 @@ abstract class CSessionObject extends CArrayObject
 	/**
 	 * Initialise resources.
 	 *
-	 * This method will initialise the default resources, the method expects one parameter
-	 * that determines whether these resources are to be initialised, <i>TRUE</i>, or reset,
-	 * <i>FALSE</i>.
+	 * This method is called in three occasions
 	 *
-	 * In this class we handle the {@link DataStore() data} and the
-	 * {@link GraphStore() graph} stores, the {@link Database() database} and the
-	 * {@link UsersContainer() users} container.
+	 * <ul>
+	 *	<li><i>{@link __construct() Instantiating}</i>: The provided parameter will be
+	 *		<i>NULL</i>, the duty of this method is to initialise all necessary resources.
+	 *	<li><i>{@link serialize() Serialising}</i>: The provided parameter will be
+	 *		a reference to the serialised object, the duty of this method is to serialise
+	 *		the data members .
+	 *	<li><i>{@link unserialize() Unserialising}</i>: The provided parameter will be an
+	 *		array containing the serialised contents of this object, the duty of this
+	 *		method is to restore all elements to their original value.
+	 * </ul>
 	 *
-	 * @param boolean				$theOperation		TRUE set, FALSE reset.
+	 * @param reference			   &$theOperation		Operation or serialised data.
 	 *
 	 * @access protected
 	 *
+	 * @uses _InitOffsets()
 	 * @uses _InitDataStore()
 	 * @uses _InitGraphStore()
 	 * @uses _InitDatabase()
 	 * @uses _InitUserContainer()
 	 */
-	protected function _InitResources( $theOperation )
+	protected function _InitResources( &$theOperation )
 	{
+		//
+		// Init offsets.
+		//
+		$this->_InitOffsets( $theOperation );
+		
 		//
 		// Init data store.
 		//
@@ -695,26 +703,88 @@ abstract class CSessionObject extends CArrayObject
 
 	 
 	/*===================================================================================
+	 *	_InitOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Initialise offsets.
+	 *
+	 * The duty of this method is to initialise the object's offsets.
+	 *
+	 * This method is called in three occasions
+	 *
+	 * <ul>
+	 *	<li><i>{@link __construct() Instantiating}</i>: The provided parameter will be
+	 *		<i>NULL</i>, the duty of this method is to initialise all necessary resources.
+	 *	<li><i>{@link serialize() Serialising}</i>: The provided parameter will be
+	 *		<i>FALSE</i>, the duty of this method is to prepare all assets that are to be
+	 *		serialised.
+	 *	<li><i>{@link unserialize() Unserialising}</i>: The provided parameter will be an
+	 *		array containing the serialised contents of this object, the duty of this
+	 *		method is to restore all elements to their original value.
+	 * </ul>
+	 *
+	 * In this class we store the current offsets in the 0 element of the serialised data
+	 * array.
+	 *
+	 * @param reference			   &$theOperation		Operation or serialised data.
+	 *
+	 * @access protected
+	 */
+	protected function _InitOffsets( &$theOperation )
+	{
+		//
+		// Not initialising.
+		//
+		if( is_array( $theOperation ) )
+		{
+			//
+			// Serialising.
+			//
+			if( ! count( $theOperation ) )
+				$theOperation[] = $this->getArrayCopy();
+			
+			//
+			// Unserialising.
+			//
+			else
+				$this->exchangeArray( $theOperation );
+		
+		} // Not initialising.
+	
+	} // _InitOffsets.
+
+	 
+	/*===================================================================================
 	 *	_InitDataStore																	*
 	 *==================================================================================*/
 
 	/**
 	 * Initialise data store.
 	 *
-	 * This method will initialise the default data store, the method expects one boolean
-	 * parameter: <i>TRUE</i> means that the data store is to be set, <i>FALSE</i> means
-	 * that the data store is to be reset.
+	 * The duty of this method is to initialise the data store.
 	 *
-	 * The method returns no result, any error should trigger an exception.
+	 * This method is called in three occasions
+	 *
+	 * <ul>
+	 *	<li><i>{@link __construct() Instantiating}</i>: The provided parameter will be
+	 *		<i>NULL</i>, the duty of this method is to initialise all necessary resources.
+	 *	<li><i>{@link serialize() Serialising}</i>: The provided parameter will be
+	 *		<i>FALSE</i>, the duty of this method is to prepare all assets that are to be
+	 *		serialised.
+	 *	<li><i>{@link unserialize() Unserialising}</i>: The provided parameter will be an
+	 *		array containing the serialised contents of this object, the duty of this
+	 *		method is to restore all elements to their original value.
+	 * </ul>
 	 *
 	 * In this class we declare this method as abstract, derived classes must decide what
-	 * database engine to use.
+	 * data store engine to use.
 	 *
-	 * @param boolean				$theOperation		TRUE set, FALSE reset.
+	 * @param reference			   &$theOperation		Operation or serialised data.
 	 *
 	 * @access protected
 	 */
-	abstract protected function _InitDataStore( $theOperation );
+	abstract protected function _InitDataStore( &$theOperation );
 
 	 
 	/*===================================================================================
@@ -724,20 +794,29 @@ abstract class CSessionObject extends CArrayObject
 	/**
 	 * Initialise graph store.
 	 *
-	 * This method will initialise the default graph store, the method expects one boolean
-	 * parameter: <i>TRUE</i> means that the graph store is to be set, <i>FALSE</i> means
-	 * that the graph store is to be reset.
+	 * The duty of this method is to initialise the graph store.
 	 *
-	 * The method returns no result, any error should trigger an exception.
+	 * This method is called in three occasions
+	 *
+	 * <ul>
+	 *	<li><i>{@link __construct() Instantiating}</i>: The provided parameter will be
+	 *		<i>NULL</i>, the duty of this method is to initialise all necessary resources.
+	 *	<li><i>{@link serialize() Serialising}</i>: The provided parameter will be
+	 *		<i>FALSE</i>, the duty of this method is to prepare all assets that are to be
+	 *		serialised.
+	 *	<li><i>{@link unserialize() Unserialising}</i>: The provided parameter will be an
+	 *		array containing the serialised contents of this object, the duty of this
+	 *		method is to restore all elements to their original value.
+	 * </ul>
 	 *
 	 * In this class we declare this method as abstract, derived classes must decide what
 	 * graph engine to use.
 	 *
-	 * @param boolean				$theOperation		TRUE set, FALSE reset.
+	 * @param reference			   &$theOperation		Operation or serialised data.
 	 *
 	 * @access protected
 	 */
-	abstract protected function _InitGraphStore( $theOperation );
+	abstract protected function _InitGraphStore( &$theOperation );
 
 	 
 	/*===================================================================================
@@ -747,43 +826,61 @@ abstract class CSessionObject extends CArrayObject
 	/**
 	 * Initialise database.
 	 *
-	 * This method will initialise the default database connection, the method expects one
-	 * boolean parameter: <i>TRUE</i> means that the database connection is to be opened,
-	 * <i>FALSE</i> means that the database connection is to be closed.
+	 * The duty of this method is to initialise the database.
 	 *
-	 * The method returns no result, any error should trigger an exception.
+	 * This method is called in three occasions
+	 *
+	 * <ul>
+	 *	<li><i>{@link __construct() Instantiating}</i>: The provided parameter will be
+	 *		<i>NULL</i>, the duty of this method is to initialise all necessary resources.
+	 *	<li><i>{@link serialize() Serialising}</i>: The provided parameter will be
+	 *		<i>FALSE</i>, the duty of this method is to prepare all assets that are to be
+	 *		serialised.
+	 *	<li><i>{@link unserialize() Unserialising}</i>: The provided parameter will be an
+	 *		array containing the serialised contents of this object, the duty of this
+	 *		method is to restore all elements to their original value.
+	 * </ul>
 	 *
 	 * In this class we declare this method as abstract, derived classes must decide what
 	 * database engine to use.
 	 *
-	 * @param boolean				$theOperation		TRUE set, FALSE reset.
+	 * @param reference			   &$theOperation		Operation or serialised data.
 	 *
 	 * @access protected
 	 */
-	abstract protected function _InitDatabase( $theOperation );
+	abstract protected function _InitDatabase( &$theOperation );
 
 	 
 	/*===================================================================================
-	 *	_InitUserContainer																	*
+	 *	_InitUserContainer																*
 	 *==================================================================================*/
 
 	/**
 	 * Initialise users container.
 	 *
-	 * This method will initialise the default users container, the method expects one
-	 * boolean parameter: <i>TRUE</i> means that the users container is to be set,
-	 * <i>FALSE</i> means that the users container is to be reset.
+	 * The duty of this method is to initialise the user container.
 	 *
-	 * The method returns no result, any error should trigger an exception.
+	 * This method is called in three occasions
+	 *
+	 * <ul>
+	 *	<li><i>{@link __construct() Instantiating}</i>: The provided parameter will be
+	 *		<i>NULL</i>, the duty of this method is to initialise all necessary resources.
+	 *	<li><i>{@link serialize() Serialising}</i>: The provided parameter will be
+	 *		<i>FALSE</i>, the duty of this method is to prepare all assets that are to be
+	 *		serialised.
+	 *	<li><i>{@link unserialize() Unserialising}</i>: The provided parameter will be an
+	 *		array containing the serialised contents of this object, the duty of this
+	 *		method is to restore all elements to their original value.
+	 * </ul>
 	 *
 	 * In this class we declare this method as abstract, derived classes must decide what
-	 * database engine to use.
+	 * user container to use.
 	 *
-	 * @param boolean				$theOperation		TRUE set, FALSE reset.
+	 * @param reference			   &$theOperation		Operation or serialised data.
 	 *
 	 * @access protected
 	 */
-	abstract protected function _InitUserContainer( $theOperation );
+	abstract protected function _InitUserContainer( &$theOperation );
 
 	 
 	/*===================================================================================
@@ -793,58 +890,58 @@ abstract class CSessionObject extends CArrayObject
 	/**
 	 * Initialise user.
 	 *
-	 * This method will initialise the current user object, the method expects one boolean
-	 * parameter: <i>TRUE</i> means that the user is to be set, <i>FALSE</i> means that the
-	 * user is to be reset.
+	 * The duty of this method is to initialise the current user.
 	 *
-	 * Mote that this method is only called when {@link __sleep() sleeping} or
-	 * {@link __wakeup() waking}: it will save eventual changes made to the user when
-	 * {@link __sleep() sleeping} and reload the user when {@link __wakeup() waking}.
+	 * This method is called in three occasions
 	 *
-	 * The method returns no result, any error should trigger an exception.
+	 * <ul>
+	 *	<li><i>{@link __construct() Instantiating}</i>: The provided parameter will be
+	 *		<i>NULL</i>, the method will do nothing.
+	 *	<li><i>{@link serialize() Serialising}</i>: The provided parameter will be
+	 *		<i>FALSE</i>, the method will convert the user {@link CUser object} into its
+	 *		{@link kTAG_LID identifier}.
+	 *	<li><i>{@link unserialize() Unserialising}</i>: The provided parameter will be an
+	 *		array containing the serialised contents of this object, the method will restore
+	 *		the user if necessary.
+	 * </ul>
 	 *
-	 * In this class we {@link CPersistentObject::Commit() commit} user data and store the
-	 * user {@link kTAG_LID identifier} when going to {@link __sleep() sleep} and
-	 * {@link _LoadUser() load} the user back when {@link __wakeup() waking}.
-	 *
-	 * @param boolean				$theOperation		TRUE set, FALSE reset.
+	 * @param reference			   &$theOperation		Operation or serialised data.
 	 *
 	 * @access protected
 	 */
-	protected function _InitUser( $theOperation )
+	protected function _InitUser( &$theOperation )
 	{
 		//
-		// Check if there is a user.
+		// Not initialising.
 		//
-		$user = $this->User();
-		if( $user !== NULL )
+		if( is_array( $theOperation ) )
 		{
 			//
-			// Wake.
+			// Unserialise user.
 			//
-			if( $theOperation )
-				$this->_LoadUser( $user );
+			if( array_key_exists( 'mUser', $theOperation ) )
+				$this->_LoadUser( $theOperation[ 'mUser' ] );
 			
 			//
-			// Sleep.
+			// Serialise user.
 			//
-			else
+			elseif( $save = $this->User() )
 			{
 				//
 				// Save user.
 				//
-				$user->Commit( $this->UsersContainer() );
+				$save->Commit( $this->UsersContainer() );
 				
 				//
-				// Set identifier.
+				// Serialise identifier.
 				// Note that I use the member and not the method:
 				// it would complain that the parameter is not a user object.
 				//
-				$this->mUser = $user[ kTAG_LID ];
+				$theOperation[ 'mUser' ] = $save[ kTAG_LID ];
 			
-			} // Sleep.
+			} // Has user.
 		
-		} // Has user.
+		} // Not initialising.
 	
 	} // _InitUser.
 
@@ -1075,99 +1172,6 @@ abstract class CSessionObject extends CArrayObject
 						  ( ( $user !== NULL ) ? TRUE : FALSE ) );
 		
 	} // _RegisterUserLogged.
-
-		
-
-/*=======================================================================================
- *																						*
- *							PROTECTED SERIALISATION INTERFACE							*
- *																						*
- *======================================================================================*/
-
-
-	 
-	/*===================================================================================
-	 *	_PreSerialize																	*
-	 *==================================================================================*/
-
-	/**
-	 * Prepare before serialization.
-	 *
-	 * This method will be called before the object gets serialized, it is an opportunity
-	 * to cleanup elements that cannot be serialized and do other optimisations.
-	 *
-	 * @access protected
-	 */
-	protected function _PreSerialize()
-	{
-		//
-		// Save current user.
-		//
-		$this->_InitUser( FALSE );
-		
-		//
-		// Close users container.
-		//
-		$this->_InitUserContainer( FALSE );
-		
-		//
-		// Close database.
-		//
-		$this->_InitDatabase( FALSE );
-		
-		//
-		// Close data store.
-		//
-		$this->_InitDataStore( FALSE );
-		
-		//
-		// Close graph store.
-		//
-		$this->_InitGraphStore( FALSE );
-		
-	} // _PreSerialize.
-
-	 
-	/*===================================================================================
-	 *	_PostUnserialize																*
-	 *==================================================================================*/
-
-	/**
-	 * Prepare after unserialization.
-	 *
-	 * This method will be called after the object gets unserialized, it is an opportunity
-	 * to restore elements that were not serialised.
-	 *
-	 * @access protected
-	 */
-	protected function _PostUnserialize()
-	{
-		//
-		// Open data store.
-		//
-		$this->_InitDataStore( TRUE );
-		
-		//
-		// Open graph store.
-		//
-		$this->_InitGraphStore( TRUE );
-		
-		//
-		// Open database.
-		//
-		$this->_InitDatabase( TRUE );
-		
-		//
-		// Open users container.
-		//
-		$this->_InitUserContainer( TRUE );
-		
-		//
-		// Reload current user.
-		//
-		$this->_InitUser( TRUE );
-		
-	} // _PostUnserialize.
 
 		
 
