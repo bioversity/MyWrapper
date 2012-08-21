@@ -63,6 +63,7 @@ require_once( kPATH_LIBRARY_SOURCE."CSessionObject.inc.php" );
  *	@subpackage	Session
  */
 abstract class CSessionObject extends CArrayObject
+							  implements Serializable
 {
 	/**
 	 * Data store.
@@ -225,14 +226,25 @@ abstract class CSessionObject extends CArrayObject
 	 *==================================================================================*/
 
 	/**
-	 * Serialization interface.
+	 * Default serialization interface.
 	 *
-	 * We overload the inherited method to allow performing custom actions before the object
-	 * gets serialized.
+	 * The duty of this method is to serialise the current object, it operates by calling a
+	 * protected {@link _Serialise() method} which prepares all resources to be serialised.
 	 *
-	 * The method will call a protected {@link _Serialise() method} which takes care of
-	 * preparing the object's properties, once this method has performed, the parent method
-	 * will be called.
+	 * The object is serialised in an array of three elements:
+	 *
+	 * <ul>
+	 *	<li><i>{@link kSESSION_SERIALIZE_OFFSET kSESSION_SERIALIZE_OFFSET}</i>: This element
+	 *		is an array containing the object offsets.
+	 *	<li><i>{@link kSESSION_SERIALIZE_MEMBER kSESSION_SERIALIZE_MEMBER}</i>: This element
+	 *		is an array containing the object members, the elements are indexed by member
+	 *		name.
+	 *	<li><i>{@link kSESSION_SERIALIZE_STATIC kSESSION_SERIALIZE_STATIC}</i>: This element
+	 *		is an array containing the object static members, the elements are indexed by
+	 *		member name.
+	 * </ul>
+	 *
+	 * The method will return the serialised array.
 	 *
 	 * @access public
 	 * @return string
@@ -242,14 +254,19 @@ abstract class CSessionObject extends CArrayObject
 	public function serialize()
 	{
 		//
-		// Prepare object.
+		// Initialise data container.
 		//
-		$this->_Serialise();
+		$data = Array();
+		$data[ kSESSION_SERIALIZE_OFFSET ] =
+		$data[ kSESSION_SERIALIZE_MEMBER ] =
+		$data[ kSESSION_SERIALIZE_STATIC ] = Array();
 		
 		//
-		// Serialize object.
+		// Load serialise container.
 		//
-		return parent::serialize();													// ==>
+		$this->_Serialise( $data );
+		
+		return serialize( $data );													// ==>
 		
 	} // serialize().
 
@@ -259,14 +276,24 @@ abstract class CSessionObject extends CArrayObject
 	 *==================================================================================*/
 
 	/**
-	 * Unserialization interface.
+	 * Default unserialization interface.
 	 *
-	 * We overload the inherited method to allow performing custom actions after the object
-	 * got unserialized.
+	 * The duty of this method is to load the current object with the provided serialised
+	 * data, it operates by calling a protected {@link _Unserialise() method} which extracts
+	 * repsective elements from the provided serialised data.
 	 *
-	 * The method will first call the inherited method, then it will execute a protected
-	 * {@link _Unserialise() method} which can restore resources normalised by the
-	 * protected {@link _Serialise() interface}.
+	 * The parameter is a serialised array of three elements:
+	 *
+	 * <ul>
+	 *	<li><i>{@link kSESSION_SERIALIZE_OFFSET kSESSION_SERIALIZE_OFFSET}</i>: This element
+	 *		is an array containing the object offsets.
+	 *	<li><i>{@link kSESSION_SERIALIZE_MEMBER kSESSION_SERIALIZE_MEMBER}</i>: This element
+	 *		is an array containing the object members, the elements are indexed by member
+	 *		name.
+	 *	<li><i>{@link kSESSION_SERIALIZE_STATIC kSESSION_SERIALIZE_STATIC}</i>: This element
+	 *		is an array containing the object static members, the elements are indexed by
+	 *		member name.
+	 * </ul>
 	 *
 	 * Before exiting, the method will {@link _Register() restore} the view model from
 	 * member data where applicable in order to reflect changes made by server-side
@@ -282,14 +309,14 @@ abstract class CSessionObject extends CArrayObject
 	public function unserialize( $theData )
 	{
 		//
-		// Unserialise object.
+		// Unserialise container.
 		//
-		parent::unserialize( $theData );
+		$data = unserialize( $theData );
 		
 		//
-		// Prepare object.
+		// Reconstitute object.
 		//
-		$this->_Unserialise();
+		$this->_Unserialise( $data );
 		
 		//
 		// Initialise view model.
@@ -681,11 +708,144 @@ abstract class CSessionObject extends CArrayObject
 	 * This method is called when {@link __construct() instantiating} the object, its duty
 	 * is to initialise the required resources.
 	 *
-	 * In this class it does nothing.
+	 * @access protected
+	 *
+	 * @uses _InitOffsets()
+	 * @uses _InitDataStore()
+	 * @uses _InitGraphStore()
+	 * @uses _InitDatabase()
+	 * @uses _InitUserContainer()
+	 */
+	protected function _Init()
+	{
+		//
+		// Init offsets.
+		//
+		$this->_InitOffsets();
+		
+		//
+		// Init data store.
+		//
+		$this->_InitDataStore();
+		
+		//
+		// Init graph store.
+		//
+		$this->_InitGraphStore();
+		
+		//
+		// Init database.
+		//
+		$this->_InitDatabase();
+		
+		//
+		// Init users container.
+		//
+		$this->_InitUserContainer();
+		
+	} // _Init.
+
+	 
+	/*===================================================================================
+	 *	_InitOffsets																	*
+	 *==================================================================================*/
+
+	/**
+	 * Initialise offsets.
+	 *
+	 * The duty of this method is to initialise the object's offsets.
+	 *
+	 * In this class we do nothing, derived classes may overload this method to prepare the
+	 * object's offsets.
 	 *
 	 * @access protected
 	 */
-	protected function _Init()															   {}
+	protected function _InitOffsets()													   {}
+
+	 
+	/*===================================================================================
+	 *	_InitDataStore																	*
+	 *==================================================================================*/
+
+	/**
+	 * Initialise data store.
+	 *
+	 * The duty of this method is to initialise the data store.
+	 *
+	 * In this class we declare this method as abstract, derived classes must decide what
+	 * data store engine to use.
+	 *
+	 * @access protected
+	 */
+	abstract protected function _InitDataStore();
+
+	 
+	/*===================================================================================
+	 *	_InitGraphStore																	*
+	 *==================================================================================*/
+
+	/**
+	 * Initialise graph store.
+	 *
+	 * The duty of this method is to initialise the graph store.
+	 *
+	 * In this class we declare this method as abstract, derived classes must decide what
+	 * graph engine to use.
+	 *
+	 * @access protected
+	 */
+	abstract protected function _InitGraphStore();
+
+	 
+	/*===================================================================================
+	 *	_InitDatabase																	*
+	 *==================================================================================*/
+
+	/**
+	 * Initialise database.
+	 *
+	 * The duty of this method is to initialise the database.
+	 *
+	 * In this class we declare this method as abstract, derived classes must decide what
+	 * database engine to use.
+	 *
+	 * @access protected
+	 */
+	abstract protected function _InitDatabase();
+
+	 
+	/*===================================================================================
+	 *	_InitUserContainer																*
+	 *==================================================================================*/
+
+	/**
+	 * Initialise users container.
+	 *
+	 * The duty of this method is to initialise the user container.
+	 *
+	 * In this class we declare this method as abstract, derived classes must decide what
+	 * user container to use.
+	 *
+	 * @access protected
+	 */
+	abstract protected function _InitUserContainer();
+
+	 
+	/*===================================================================================
+	 *	_InitUser																		*
+	 *==================================================================================*/
+
+	/**
+	 * Initialise user.
+	 *
+	 * The duty of this method is to initialise the current user.
+	 *
+	 * In this class we do nothing, derived classes may overload this method to prepare the
+	 * session's user.
+	 *
+	 * @access protected
+	 */
+	protected function _InitUser()														   {}
 
 		
 
@@ -704,27 +864,168 @@ abstract class CSessionObject extends CArrayObject
 	/**
 	 * Serialise object.
 	 *
-	 * This method is called before the object gets {@link serialize() serialized}, its duty
-	 * is to normalise the object's properties before these get serialized. This may be
-	 * necessary if elements of the object cannot be serialized, such as closures, or if
-	 * automatic commits should be issued before.
+	 * This method should prepare elements to be serialised and store them in the provided
+	 * array which has the following structure:
 	 *
-	 * In this class we {@link _SerialiseUser() commit} the current user if there.
+	 * <ul>
+	 *	<li><i>{@link kSESSION_SERIALIZE_OFFSET kSESSION_SERIALIZE_OFFSET}</i>: This element
+	 *		is an array containing the object offsets.
+	 *	<li><i>{@link kSESSION_SERIALIZE_MEMBER kSESSION_SERIALIZE_MEMBER}</i>: This element
+	 *		is an array containing the object members, the elements are indexed by member
+	 *		name.
+	 *	<li><i>{@link kSESSION_SERIALIZE_STATIC kSESSION_SERIALIZE_STATIC}</i>: This element
+	 *		is an array containing the object static members, the elements are indexed by
+	 *		member name.
+	 * </ul>
+	 *
+	 * The method expects the parameter to have been initialised.
+	 *
+	 * @param reference			   &$theData			Serialised data container.
 	 *
 	 * @access protected
 	 *
-	 * @uses _SerialiseUser()
+	 * @uses _SerialiseOffsets()
+	 * @uses _SerialiseDataStore()
+	 * @uses _SerialiseGraphStore()
+	 * @uses _SerialiseDatabase()
+	 * @uses _SerialiseUserContainer()
 	 */
-	protected function _Serialise()
+	protected function _Serialise( &$theData )
 	{
 		//
-		// Serialise user.
+		// Serialise offsets.
 		//
-		$this->_SerialiseUser();
+		$this->_SerialiseOffsets( $theData[ kSESSION_SERIALIZE_OFFSET ] );
+		
+		//
+		// Serialise data store.
+		//
+		$this->_SerialiseDataStore( $theData[ kSESSION_SERIALIZE_MEMBER ] );
+		
+		//
+		// Serialise graph store.
+		//
+		$this->_SerialiseGraphStore( $theData[ kSESSION_SERIALIZE_MEMBER ] );
+		
+		//
+		// Serialise database.
+		//
+		$this->_SerialiseDatabase( $theData[ kSESSION_SERIALIZE_MEMBER ] );
+		
+		//
+		// Serialise users container.
+		//
+		$this->_SerialiseUserContainer( $theData[ kSESSION_SERIALIZE_MEMBER ] );
 		
 	} // _Serialise.
 
-		
+	 
+	/*===================================================================================
+	 *	_SerialiseOffsets																*
+	 *==================================================================================*/
+
+	/**
+	 * Serialise offsets.
+	 *
+	 * The duty of this method is to serialise the object's offsets, the provided parameter
+	 * represents the serialised offsets container.
+	 *
+	 * The method will simply copy the object's offsets in the provided array.
+	 *
+	 * Note that the expected parameter is the actual serialise container element reserved
+	 * to offsets (<i>$theData[ 0 ]</i>), not the whole container.
+	 *
+	 * @param reference			   &$theData			Offsets serialise container.
+	 *
+	 * @access protected
+	 */
+	protected function _SerialiseOffsets( &$theData )
+	{
+		$theData = $this->getArrayCopy();
+	
+	} // _SerialiseOffsets.
+
+	 
+	/*===================================================================================
+	 *	_SerialiseDataStore																*
+	 *==================================================================================*/
+
+	/**
+	 * Serialise data store.
+	 *
+	 * The duty of this method is to serialise the data store, the provided parameter
+	 * represents the serialised members container.
+	 *
+	 * In this class we declare this method as abstract, derived classes must decide what
+	 * data store engine to use.
+	 *
+	 * @param reference			   &$theData			Members serialise container.
+	 *
+	 * @access protected
+	 */
+	abstract protected function _SerialiseDataStore( &$theData );
+
+	 
+	/*===================================================================================
+	 *	_SerialiseGraphStore															*
+	 *==================================================================================*/
+
+	/**
+	 * Serialise graph store.
+	 *
+	 * The duty of this method is to serialise the graph store, the provided parameter
+	 * represents the serialised members container.
+	 *
+	 * In this class we declare this method as abstract, derived classes must decide what
+	 * data store engine to use.
+	 *
+	 * @param reference			   &$theData			Members serialise container.
+	 *
+	 * @access protected
+	 */
+	abstract protected function _SerialiseGraphStore( &$theData );
+
+	 
+	/*===================================================================================
+	 *	_SerialiseDatabase																*
+	 *==================================================================================*/
+
+	/**
+	 * Serialise database.
+	 *
+	 * The duty of this method is to serialise the database, the provided parameter
+	 * represents the serialised members container.
+	 *
+	 * In this class we declare this method as abstract, derived classes must decide what
+	 * database engine to use.
+	 *
+	 * @param reference			   &$theData			Members serialise container.
+	 *
+	 * @access protected
+	 */
+	abstract protected function _SerialiseDatabase( &$theData );
+
+	 
+	/*===================================================================================
+	 *	_SerialiseUserContainer															*
+	 *==================================================================================*/
+
+	/**
+	 * Serialise users container.
+	 *
+	 * The duty of this method is to serialise the user container, the provided parameter
+	 * represents the serialised members container.
+	 *
+	 * In this class we declare this method as abstract, derived classes must decide what
+	 * user container to use.
+	 *
+	 * @param reference			   &$theData			Members serialise container.
+	 *
+	 * @access protected
+	 */
+	abstract protected function _SerialiseUserContainer( &$theData );
+
+	 
 	/*===================================================================================
 	 *	_SerialiseUser																	*
 	 *==================================================================================*/
@@ -732,19 +1033,20 @@ abstract class CSessionObject extends CArrayObject
 	/**
 	 * Serialise user.
 	 *
-	 * This method is called before the object gets {@link serialize() serialised}, its duty
-	 * is to normalise the current user before the object goes to sleep.
+	 * The duty of this method is to serialise the current user, the provided parameter
+	 * represents the serialised members container.
 	 *
-	 * In this class we {@link CUser::Commit() commit} the current user and replace the user
-	 * object with the user {@link kTAG_LID identifier}, so that when
-	 * {@link unserialize() restoring} the object, the user record will be read from the
-	 * data store again.
+	 * By default we first commit the current user and then we store the user
+	 * {@link kTAG_LID identifier} in the data member; when unserialising the
+	 * {@link _UnserialiseUser() method} will load the user with the stored identifier.
+	 *
+	 * @param reference			   &$theData			Members serialise container.
 	 *
 	 * @access protected
 	 *
 	 * @uses UsersContainer()
 	 */
-	protected function _SerialiseUser()
+	protected function _SerialiseUser( &$theData )
 	{
 		//
 		// Handle user.
@@ -757,9 +1059,9 @@ abstract class CSessionObject extends CArrayObject
 			$save->Commit( $this->UsersContainer() );
 			
 			//
-			// Replace with identifier.
+			// Serialise identifier.
 			//
-			$this->mUser = $save->offsetGet( kTAG_LID );
+			$theData[ 'mUser' ] = $save->offsetGet( kTAG_LID );
 		
 		} // Has user.
 	
@@ -776,30 +1078,169 @@ abstract class CSessionObject extends CArrayObject
 
 	 
 	/*===================================================================================
-	 *	_Unserialise																	*
+	 *	_Unserialise																		*
 	 *==================================================================================*/
 
 	/**
 	 * Unserialise object.
 	 *
-	 * This method is called after the object gets {@link unserialize() unserialized}, its
-	 * duty is to restore the object's properties that were {@link _Serialise() normalised}
-	 * before the object was {@link serialize() serialized}.
+	 * This method should prepare elements to be serialised and store them in the provided
+	 * array which has the following structure:
 	 *
-	 * In this class we {@link _UnserialiseUser() refresh} the current user if there.
+	 * <ul>
+	 *	<li><i>{@link kSESSION_SERIALIZE_OFFSET kSESSION_SERIALIZE_OFFSET}</i>: This element
+	 *		is an array containing the object offsets.
+	 *	<li><i>{@link kSESSION_SERIALIZE_MEMBER kSESSION_SERIALIZE_MEMBER}</i>: This element
+	 *		is an array containing the object members, the elements are indexed by member
+	 *		name.
+	 *	<li><i>{@link kSESSION_SERIALIZE_STATIC kSESSION_SERIALIZE_STATIC}</i>: This element
+	 *		is an array containing the object static members, the elements are indexed by
+	 *		member name.
+	 * </ul>
+	 *
+	 * The method expects the parameter to have been initialised.
+	 *
+	 * @param reference			   &$theData			Serialised data container.
 	 *
 	 * @access protected
 	 *
-	 * @uses _UnserialiseUser()
+	 * @uses _UnserialiseOffsets()
+	 * @uses _UnserialiseDataStore()
+	 * @uses _UnserialiseGraphStore()
+	 * @uses _UnserialiseDatabase()
+	 * @uses _UnserialiseUserContainer()
 	 */
-	protected function _Unserialise()
+	protected function _Unserialise( &$theData )
 	{
 		//
-		// Unserialise user.
+		// Unserialise offsets.
 		//
-		$this->_UnserialiseUser();
+		$this->_UnserialiseOffsets( $theData[ kSESSION_SERIALIZE_OFFSET ] );
+		
+		//
+		// Unserialise data store.
+		//
+		$this->_UnserialiseDataStore( $theData[ kSESSION_SERIALIZE_MEMBER ] );
+		
+		//
+		// Unserialise graph store.
+		//
+		$this->_UnserialiseGraphStore( $theData[ kSESSION_SERIALIZE_MEMBER ] );
+		
+		//
+		// Unserialise database.
+		//
+		$this->_UnserialiseDatabase( $theData[ kSESSION_SERIALIZE_MEMBER ] );
+		
+		//
+		// Unserialise users container.
+		//
+		$this->_UnserialiseUserContainer( $theData[ kSESSION_SERIALIZE_MEMBER ] );
 		
 	} // _Unserialise.
+
+	 
+	/*===================================================================================
+	 *	_UnserialiseOffsets																*
+	 *==================================================================================*/
+
+	/**
+	 * Unserialise offsets.
+	 *
+	 * The duty of this method is to restore the object's offsets using the provided
+	 * parameter.
+	 *
+	 * The method will simply copy the serialised offsets in the current object.
+	 *
+	 * Note that the expected parameter is the actual serialised container element reserved
+	 * to offsets (<i>$theData[ 0 ]</i>), not the whole container.
+	 *
+	 * @param reference			   &$theData			Offsets serialise container.
+	 *
+	 * @access protected
+	 */
+	protected function _UnserialiseOffsets( &$theData )
+	{
+		$this->exchangeArray( $theData );
+	
+	} // _UnserialiseOffsets.
+
+	 
+	/*===================================================================================
+	 *	_UnserialiseDataStore															*
+	 *==================================================================================*/
+
+	/**
+	 * Unserialise data store.
+	 *
+	 * The duty of this method is to restore the data store using the provided parameter.
+	 *
+	 * In this class we declare this method as abstract, derived classes must decide what
+	 * data store engine to use.
+	 *
+	 * @param reference			   &$theData			Members serialise container.
+	 *
+	 * @access protected
+	 */
+	abstract protected function _UnserialiseDataStore( &$theData );
+
+	 
+	/*===================================================================================
+	 *	_UnserialiseGraphStore															*
+	 *==================================================================================*/
+
+	/**
+	 * Unserialise graph store.
+	 *
+	 * The duty of this method is to restore the graph store using the provided parameter.
+	 *
+	 * In this class we declare this method as abstract, derived classes must decide what
+	 * data store engine to use.
+	 *
+	 * @param reference			   &$theData			Members serialise container.
+	 *
+	 * @access protected
+	 */
+	abstract protected function _UnserialiseGraphStore( &$theData );
+
+	 
+	/*===================================================================================
+	 *	_UnserialiseDatabase															*
+	 *==================================================================================*/
+
+	/**
+	 * Unserialise database.
+	 *
+	 * The duty of this method is to restore the database using the provided parameter.
+	 *
+	 * In this class we declare this method as abstract, derived classes must decide what
+	 * database engine to use.
+	 *
+	 * @param reference			   &$theData			Members serialise container.
+	 *
+	 * @access protected
+	 */
+	abstract protected function _UnserialiseDatabase( &$theData );
+
+	 
+	/*===================================================================================
+	 *	_UnserialiseUserContainer														*
+	 *==================================================================================*/
+
+	/**
+	 * Unserialise users container.
+	 *
+	 * The duty of this method is to restore the user container using the provided
+	 * parameter.
+	 *
+	 * In this class we declare this method as abstract, derived classes must decide what
+	 * user container to use.
+	 *
+	 * @param reference			   &$theData			Members serialise container.
+	 *
+	 * @access protected
+	 */
+	abstract protected function _UnserialiseUserContainer( &$theData );
 
 	 
 	/*===================================================================================
@@ -809,13 +1250,12 @@ abstract class CSessionObject extends CArrayObject
 	/**
 	 * Unserialise user.
 	 *
-	 * This method is called after the object gets {@link unserialize() unserialised}, its
-	 * duty is to restore the current user after it was {@link _SerialiseUser() normalised}
-	 * before the object was {@link serialize() serialized}.
+	 * The duty of this method is to restore the current user using the provided parameter.
 	 *
-	 * In this class we {@link _LoadUser() restore} the current user using its
-	 * {@link kTAG_LID identifier} stored by the serialization
-	 * {@link _SerialiseUser() method}.
+	 * If the stored user is not found, we do not raise an exception, we simply reset the
+	 * user.
+	 *
+	 * @param reference			   &$theData			Members serialise container.
 	 *
 	 * @access protected
 	 *
@@ -826,11 +1266,15 @@ abstract class CSessionObject extends CArrayObject
 	{
 		//
 		// Unserialise user.
-		// Note that we cannot use the accessor method,
-		// because it only accepts CUser objects.
 		//
-		if( $this->mUser !== NULL )
-			$this->_LoadUser( $this->mUser );
+		if( array_key_exists( 'mUser', $theData ) )
+			$this->_LoadUser( $theData[ 'mUser' ] );
+		
+		//
+		// Reset user.
+		//
+		else
+			$this->User( FALSE );
 	
 	} // _UnserialiseUser.
 

@@ -20,6 +20,31 @@
  */
 
 /*=======================================================================================
+ *	SESSION SERIALISE TAGS																*
+ *======================================================================================*/
+
+/**
+ * Object offsets container.
+ *
+ * This tag defines the object offsets container.
+ */
+define( "kSESSION_SERIALIZE_OFFSET",		'_offsets' );
+
+/**
+ * Object members container.
+ *
+ * This tag defines the object members container.
+ */
+define( "kSESSION_SERIALIZE_MEMBER",		'_members' );
+
+/**
+ * Object static members container.
+ *
+ * This tag defines the object static members container.
+ */
+define( "kSESSION_SERIALIZE_STATIC",		'_static' );
+
+/*=======================================================================================
  *	SESSION USER TAGS																	*
  *======================================================================================*/
 

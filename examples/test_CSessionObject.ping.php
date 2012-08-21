@@ -56,6 +56,14 @@ class TestClass extends CSessionObject
 		return new CMongoQuery();
 	}
 	
+	protected function _Init()
+	{
+		parent::_Init();
+		$this->_InitDataStore();
+		$this->_InitGraphStore();
+		$this->_InitDatabase();
+		$this->_InitUserContainer();
+	}
 	protected function _InitDataStore()
 	{
 		$this->DataStore( new Mongo() );
@@ -82,47 +90,61 @@ class TestClass extends CSessionObject
 						'CSessionObject' ) ) );
 	}
 	
-	protected function _SerialiseDataStore( &$theData )
+	protected function _Serialise()
+	{
+		parent::_Serialise();
+		$this->_SerialiseDataStore();
+		$this->_SerialiseGraphStore();
+		$this->_SerialiseDatabase();
+		$this->_SerialiseUserContainer();
+	}
+	protected function _SerialiseDataStore()
 	{
 		$this->DataStore( FALSE );
 	}
-	protected function _SerialiseGraphStore( &$theData )
+	protected function _SerialiseGraphStore()
 	{
 		$this->GraphStore( FALSE );
 	}
-	protected function _SerialiseDatabase( &$theData )
+	protected function _SerialiseDatabase()
 	{
-		$theData[ 'mDatabase' ] = 'TEST';
+		$this->mDatabase = 'TEST';
 	}
-	protected function _SerialiseUserContainer( &$theData )
+	protected function _SerialiseUserContainer()
 	{
-		$theData[ 'mUsersContainer' ] = 'CSessionObject';
+		$this->mUsersContainer = 'CSessionObject';
 	}
 	
-	protected function _UnserialiseDataStore( &$theData )
+	protected function _Unserialise()
+	{
+		$this->_UnserialiseDataStore();
+		$this->_UnserialiseGraphStore();
+		$this->_UnserialiseDatabase();
+		$this->_UnserialiseUserContainer();
+		parent::_Unserialise();
+	}
+	protected function _UnserialiseDataStore()
 	{
 		$this->_InitDataStore();
 	}
-	protected function _UnserialiseGraphStore( &$theData )
+	protected function _UnserialiseGraphStore()
 	{
 		$this->_InitGraphStore();
 	}
-	protected function _UnserialiseDatabase( &$theData )
+	protected function _UnserialiseDatabase()
 	{
-		if( array_key_exists( 'mDatabase', $theData ) )
-			$this->Database(
-				$this->DataStore()->
-					selectDB(
-						$theData[ 'mDatabase' ] ) );
+		$this->Database(
+			$this->DataStore()->
+				selectDB(
+					$this->mDatabase ) );
 	}
-	protected function _UnserialiseUserContainer( &$theData )
+	protected function _UnserialiseUserContainer()
 	{
-		if( array_key_exists( 'mUsersContainer', $theData ) )
-			$this->UsersContainer(
-				new CMongoContainer(
-					$this->Database()->
-						selectCollection(
-							$theData[ 'mUsersContainer' ] ) ) );
+		$this->UsersContainer(
+			new CMongoContainer(
+				$this->Database()->
+					selectCollection(
+						$this->mUsersContainer ) ) );
 	}
 }
 
@@ -131,9 +153,16 @@ class TestClass extends CSessionObject
  *	TEST USER PERSISTENT OBJECTS														*
  *======================================================================================*/
 
+//
+// Start session.
+//
 session_start();
 
+//
+// Init local storage.
+//
 $inited = FALSE;
+$offsets = $_SESSION;
 
 //
 // Test class.
@@ -143,7 +172,7 @@ try
 	//
 	// First run.
 	//
-	if( ! array_key_exists( kDEFAULT_SESSION, $_SESSION ) )
+	if( ! array_key_exists( 'COUNTER', $_SESSION ) )
 	{
 		//
 		// Mark inited.
@@ -151,28 +180,58 @@ try
 		$inited = TRUE;
 		
 		//
-		// Initialise session.
+		// Initialise session counter.
+		//
+		$_SESSION[ 'COUNTER' ] = 1;
+	
+	} // Missing counter.
+	
+	else
+		$_SESSION[ 'COUNTER' ]++;
+	
+	//
+	// Session object.
+	//
+	if( array_key_exists( 'reset', $_REQUEST )					// Reset request,
+	 || (! array_key_exists( kDEFAULT_SESSION, $_SESSION )) )	// or missing session.
+	{
+		//
+		// Initialise session counter.
+		//
+		if( array_key_exists( 'reset', $_REQUEST ) )
+			$_SESSION[ 'COUNTER' ] = 1;
+	
+		//
+		// Initialise session object.
 		//
 		$_SESSION[ kDEFAULT_SESSION ] = new TestClass();
 	
 		//
-		// Create user 1.
+		// Create test user.
+		// We make the check so that you can just comment the above line.
 		//
-		$user = new CUser();
-		$user->Code( 'guest' );
-		$user->Password( 'guest' );
-		$user->Name( 'Milko Škofič' );
-		$user->Email( 'm.skofic@cgiar.org' );
-		$user->Role( array( kROLE_FILE_IMPORT, kROLE_USER_MANAGE ), TRUE );
-		$user->Commit( $_SESSION[ kDEFAULT_SESSION ]->UsersContainer() );
-	
-	} // First time.
+		if( array_key_exists( kDEFAULT_SESSION, $_SESSION ) )
+		{
+			$user = new CUser();
+			$user->Code( 'test' );
+			$user->Password( 'test' );
+			$user->Name( 'Milko Škofič' );
+			$user->Email( 'm.skofic@cgiar.org' );
+			$user->Role( array( kROLE_FILE_IMPORT, kROLE_USER_MANAGE ), TRUE );
+			$user->Commit( $_SESSION[ kDEFAULT_SESSION ]->UsersContainer() );
+			
+			$_SESSION[ 'USER' ] = $user;
+		
+		} // Has session object.
+		
+	} // Missing session object
 	
 	//
 	// Load user.
 	//
 	if( array_key_exists( 'code', $_REQUEST )
-	 && array_key_exists( 'pass', $_REQUEST ) )
+	 && array_key_exists( 'pass', $_REQUEST )
+	 && array_key_exists( kDEFAULT_SESSION, $_SESSION ) )
 	{
 		//
 		// Look for user.
@@ -180,6 +239,10 @@ try
 		$found
 			= $_SESSION[ kDEFAULT_SESSION ]
 				->Login( $_REQUEST[ 'code' ], $_REQUEST[ 'pass' ] );
+		
+		//
+		// Set user.
+		//
 		if( $found )
 			$_SESSION[ kDEFAULT_SESSION ]
 				->User( $found );
@@ -204,7 +267,7 @@ catch( Exception $error )
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Test CSessionObject</title>
+		<title>Test CSessionObject (ping)</title>
 	</head>
 	
 	<body>
@@ -212,28 +275,44 @@ catch( Exception $error )
 		<!-- ------------------------------------------------------------------------- --
 		  -- INITED?																   --
 		  -- ------------------------------------------------------------------------- -->
-		<?php if( $inited ) echo( '<h3>Inited</h3>' ); ?>
+		<?php
+			if( $inited )
+				echo( '<h3>First run</h3>' );
+			else
+				echo( '<h3>Next run</h3>' );
+		?>
+		
+		<!-- ------------------------------------------------------------------------- --
+		  -- LOGGED?																   --
+		  -- ------------------------------------------------------------------------- -->
+		<?php
+			if( array_key_exists( kDEFAULT_SESSION, $_SESSION )
+			 && $_SESSION[ kDEFAULT_SESSION ][ kSESSION_USER_LOGGED ] )
+				echo( '<h3>User logged</h3>' );
+		?>
 		
 		<!-- ------------------------------------------------------------------------- --
 		  -- PING PONG																   --
 		  -- ------------------------------------------------------------------------- -->
-		<form action="test_CSessionObject.php" method="post">
+		<form action="test_CSessionObject.pong.php" method="post">
 			<button type="submit">
-				GO
+				PONG
 			</button>
 		</form>
 		
 		<!-- ------------------------------------------------------------------------- --
-		  -- SESSION DATA															   --
+		  -- SESSION OFFSETS														   --
 		  -- ------------------------------------------------------------------------- -->
-		<pre><?php print_r( $_SESSION ); ?></pre>
-		
+		<h4>Session offsets:</h4>
+		<pre><?php print_r( $offsets ); ?></pre>
 		<hr />
 		
 		<!-- ------------------------------------------------------------------------- --
-		  -- SESSION JSON															   --
+		  -- SESSION DATA															   --
 		  -- ------------------------------------------------------------------------- -->
-		<pre><?php echo( (string) $_SESSION[ kDEFAULT_SESSION ] ); ?></pre>
+		<h4>Session data:</h4>
+		<pre><?php print_r( $_SESSION ); ?></pre>
+		<hr />
 
   </body>
 </html>
