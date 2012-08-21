@@ -41,8 +41,6 @@ require_once( kPATH_LIBRARY_SOURCE."CGraphEdge.php" );
 //
 require_once( kPATH_LIBRARY_SOURCE."CSessionObject.php" );
 
-session_start();
-
 
 /*=======================================================================================
  *	TEST CLASS																			*
@@ -58,45 +56,73 @@ class TestClass extends CSessionObject
 		return new CMongoQuery();
 	}
 	
-	protected function _InitDataStore( $theOperation )
+	protected function _InitDataStore()
 	{
-		if( $theOperation )
-			$this->DataStore( new Mongo() );
-		else
-			$this->DataStore( FALSE );
+		$this->DataStore( new Mongo() );
+	}
+	protected function _InitGraphStore()
+	{
+		$this->GraphStore(
+			new Everyman\Neo4j\Client(
+				kDEFAULT_kNEO4J_HOST, kDEFAULT_kNEO4J_PORT ) );
+	}
+	protected function _InitDatabase()
+	{
+		$this->Database(
+			$this->DataStore()->
+				selectDB(
+					'TEST' ) );
+	}
+	protected function _InitUserContainer()
+	{
+		$this->UsersContainer(
+			new CMongoContainer(
+				$this->Database()->
+					selectCollection(
+						'CSessionObject' ) ) );
 	}
 	
-	protected function _InitGraphStore( $theOperation )
+	protected function _SerialiseDataStore( &$theData )
 	{
-		if( $theOperation )
-			$this->GraphStore(
-				new Everyman\Neo4j\Client(
-					kDEFAULT_kNEO4J_HOST, kDEFAULT_kNEO4J_PORT ) );
-		else
-			$this->GraphStore( FALSE );
+		$this->DataStore( FALSE );
+	}
+	protected function _SerialiseGraphStore( &$theData )
+	{
+		$this->GraphStore( FALSE );
+	}
+	protected function _SerialiseDatabase( &$theData )
+	{
+		$theData[ 'mDatabase' ] = 'TEST';
+	}
+	protected function _SerialiseUserContainer( &$theData )
+	{
+		$theData[ 'mUsersContainer' ] = 'CSessionObject';
 	}
 	
-	protected function _InitDatabase( $theOperation )
+	protected function _UnserialiseDataStore( &$theData )
 	{
-		if( $theOperation )
+		$this->_InitDataStore();
+	}
+	protected function _UnserialiseGraphStore( &$theData )
+	{
+		$this->_InitGraphStore();
+	}
+	protected function _UnserialiseDatabase( &$theData )
+	{
+		if( array_key_exists( 'mDatabase', $theData ) )
 			$this->Database(
 				$this->DataStore()->
 					selectDB(
-						'TEST' ) );
-		else
-			$this->Database( FALSE );
+						$theData[ 'mDatabase' ] ) );
 	}
-	
-	protected function _InitUserContainer( $theOperation )
+	protected function _UnserialiseUserContainer( &$theData )
 	{
-		if( $theOperation )
+		if( array_key_exists( 'mUsersContainer', $theData ) )
 			$this->UsersContainer(
 				new CMongoContainer(
 					$this->Database()->
 						selectCollection(
-							'CSessionObject' ) ) );
-		else
-			$this->UsersContainer( FALSE );
+							$theData[ 'mUsersContainer' ] ) ) );
 	}
 }
 
@@ -104,6 +130,10 @@ class TestClass extends CSessionObject
 /*=======================================================================================
  *	TEST USER PERSISTENT OBJECTS														*
  *======================================================================================*/
+
+session_start();
+
+$inited = FALSE;
 
 //
 // Test class.
@@ -116,6 +146,11 @@ try
 	if( ! array_key_exists( kDEFAULT_SESSION, $_SESSION ) )
 	{
 		//
+		// Mark inited.
+		//
+		$inited = TRUE;
+		
+		//
 		// Initialise session.
 		//
 		$_SESSION[ kDEFAULT_SESSION ] = new TestClass();
@@ -124,8 +159,8 @@ try
 		// Create user 1.
 		//
 		$user = new CUser();
-		$user->Code( 'Milko' );
-		$user->Password( 'Secret' );
+		$user->Code( 'guest' );
+		$user->Password( 'guest' );
 		$user->Name( 'Milko Škofič' );
 		$user->Email( 'm.skofic@cgiar.org' );
 		$user->Role( array( kROLE_FILE_IMPORT, kROLE_USER_MANAGE ), TRUE );
@@ -148,17 +183,8 @@ try
 		if( $found )
 			$_SESSION[ kDEFAULT_SESSION ]
 				->User( $found );
-		else
-			echo( '<i>User not found</i><br />' );
 	
 	} // Provided credentials.
-	
-	echo( '<pre>' );
-	print_r( $_SESSION[ kDEFAULT_SESSION ] );
-	echo( '</pre>' );
-	echo( '<hr />' );
-	echo( (string) $_SESSION[ kDEFAULT_SESSION ] );
-	echo( '<hr />' );
 }
 
 //
@@ -169,8 +195,45 @@ catch( Exception $error )
 	echo( CException::AsHTML( $error ) );
 	echo( '<pre>'.(string) $error.'</pre>' );
 	echo( '<hr>' );
+	
+	exit;
 }
 
-echo( "Done!<br />" );
-
 ?>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Test CSessionObject</title>
+	</head>
+	
+	<body>
+		
+		<!-- ------------------------------------------------------------------------- --
+		  -- INITED?																   --
+		  -- ------------------------------------------------------------------------- -->
+		<?php if( $inited ) echo( '<h3>Inited</h3>' ); ?>
+		
+		<!-- ------------------------------------------------------------------------- --
+		  -- PING PONG																   --
+		  -- ------------------------------------------------------------------------- -->
+		<form action="test_CSessionObject.php" method="post">
+			<button type="submit">
+				GO
+			</button>
+		</form>
+		
+		<!-- ------------------------------------------------------------------------- --
+		  -- SESSION DATA															   --
+		  -- ------------------------------------------------------------------------- -->
+		<pre><?php print_r( $_SESSION ); ?></pre>
+		
+		<hr />
+		
+		<!-- ------------------------------------------------------------------------- --
+		  -- SESSION JSON															   --
+		  -- ------------------------------------------------------------------------- -->
+		<pre><?php echo( (string) $_SESSION[ kDEFAULT_SESSION ] ); ?></pre>
+
+  </body>
+</html>
