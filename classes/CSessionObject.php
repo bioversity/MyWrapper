@@ -11,7 +11,7 @@
  *
  *	@author		Milko A. Škofič <m.skofic@cgiar.org>
  *	@version	1.00 12/07/2012
-*/
+ */
 
 /*=======================================================================================
  *																						*
@@ -231,8 +231,7 @@ abstract class CSessionObject extends CArrayObject
 	 * gets serialized.
 	 *
 	 * The method will call a protected {@link _Serialise() method} which takes care of
-	 * preparing the object's properties, once this method has performed, the parent method
-	 * will be called.
+	 * preparing the object's properties before the object gets serialized.
 	 *
 	 * @access public
 	 * @return string
@@ -246,9 +245,6 @@ abstract class CSessionObject extends CArrayObject
 		//
 		$this->_Serialise();
 		
-		//
-		// Serialize object.
-		//
 		return parent::serialize();													// ==>
 		
 	} // serialize().
@@ -287,12 +283,12 @@ abstract class CSessionObject extends CArrayObject
 		parent::unserialize( $theData );
 		
 		//
-		// Prepare object.
+		// Restore object.
 		//
 		$this->_Unserialise();
 		
 		//
-		// Initialise view model.
+		// Update view model.
 		//
 		$this->_Register();
 		
@@ -822,15 +818,20 @@ abstract class CSessionObject extends CArrayObject
 	 * @uses User()
 	 * @uses _LoadUser()
 	 */
-	protected function _UnserialiseUser( &$theData )
+	protected function _UnserialiseUser()
 	{
+		//
+		// Get user identifier.
+		//
+		$user = $this->User();
+		
 		//
 		// Unserialise user.
 		// Note that we cannot use the accessor method,
 		// because it only accepts CUser objects.
 		//
-		if( $this->mUser !== NULL )
-			$this->_LoadUser( $this->mUser );
+		if( $user !== NULL )
+			$this->_LoadUser( $user );
 	
 	} // _UnserialiseUser.
 

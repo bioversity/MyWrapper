@@ -59,6 +59,7 @@ class TestClass extends CSessionObject
 	protected function _Init()
 	{
 		parent::_Init();
+		
 		$this->_InitDataStore();
 		$this->_InitGraphStore();
 		$this->_InitDatabase();
@@ -93,58 +94,65 @@ class TestClass extends CSessionObject
 	protected function _Serialise()
 	{
 		parent::_Serialise();
-		$this->_SerialiseDataStore();
+		
 		$this->_SerialiseGraphStore();
-		$this->_SerialiseDatabase();
 		$this->_SerialiseUserContainer();
-	}
-	protected function _SerialiseDataStore()
-	{
-		$this->DataStore( FALSE );
+		$this->_SerialiseDatabase();
 	}
 	protected function _SerialiseGraphStore()
 	{
-		$this->GraphStore( FALSE );
-	}
-	protected function _SerialiseDatabase()
-	{
-		$this->mDatabase = 'TEST';
+		$data = $this->GraphStore();
+		if( $data !== NULL )
+			$this->GraphStore( $data->getTransport() );
 	}
 	protected function _SerialiseUserContainer()
 	{
-		$this->mUsersContainer = 'CSessionObject';
+		$data = $this->UsersContainer();
+		if( $data !== NULL )
+			$this->UsersContainer( $data->Container()->getName() );
+	}
+	protected function _SerialiseDatabase()
+	{
+		$data = $this->Database();
+		if( $data !== NULL )
+			$this->Database( (string) $data );
 	}
 	
 	protected function _Unserialise()
 	{
-		$this->_UnserialiseDataStore();
+		$this->_InitDataStore();
 		$this->_UnserialiseGraphStore();
 		$this->_UnserialiseDatabase();
 		$this->_UnserialiseUserContainer();
+		
 		parent::_Unserialise();
-	}
-	protected function _UnserialiseDataStore()
-	{
-		$this->_InitDataStore();
 	}
 	protected function _UnserialiseGraphStore()
 	{
-		$this->_InitGraphStore();
+		$data = $this->GraphStore();
+		if( $data !== NULL )
+			$this->GraphStore(
+				new Everyman\Neo4j\Client(
+					$data ) );
 	}
 	protected function _UnserialiseDatabase()
 	{
-		$this->Database(
-			$this->DataStore()->
-				selectDB(
-					$this->mDatabase ) );
+		$data = $this->Database();
+		if( $data !== NULL )
+			$this->Database(
+				$this->DataStore()->
+					selectDB(
+						$data ) );
 	}
 	protected function _UnserialiseUserContainer()
 	{
-		$this->UsersContainer(
-			new CMongoContainer(
-				$this->Database()->
-					selectCollection(
-						$this->mUsersContainer ) ) );
+		$data = $this->UsersContainer();
+		if( $data !== NULL )
+			$this->UsersContainer(
+				new CMongoContainer(
+					$this->Database()->
+						selectCollection(
+							$data ) ) );
 	}
 }
 
@@ -161,8 +169,7 @@ session_start();
 //
 // Init local storage.
 //
-$inited = FALSE;
-$offsets = $_SESSION;
+$inited_counter = $inited_session = $reset = FALSE;
 
 //
 // Test class.
@@ -177,7 +184,7 @@ try
 		//
 		// Mark inited.
 		//
-		$inited = TRUE;
+		$inited_counter = TRUE;
 		
 		//
 		// Initialise session counter.
@@ -196,10 +203,30 @@ try
 	 || (! array_key_exists( kDEFAULT_SESSION, $_SESSION )) )	// or missing session.
 	{
 		//
+		// Mark inited.
+		//
+		$inited_session = TRUE;
+		
+		//
 		// Initialise session counter.
 		//
 		if( array_key_exists( 'reset', $_REQUEST ) )
+		{
+			//
+			// Mark inited.
+			//
+			$reset = TRUE;
+			
+			//
+			// Reset session.
+			//
+			$_SESSION = Array();
+			
+			//
+			// Init counter.
+			//
 			$_SESSION[ 'COUNTER' ] = 1;
+		}
 	
 		//
 		// Initialise session object.
@@ -219,8 +246,6 @@ try
 			$user->Email( 'm.skofic@cgiar.org' );
 			$user->Role( array( kROLE_FILE_IMPORT, kROLE_USER_MANAGE ), TRUE );
 			$user->Commit( $_SESSION[ kDEFAULT_SESSION ]->UsersContainer() );
-			
-			$_SESSION[ 'USER' ] = $user;
 		
 		} // Has session object.
 		
@@ -248,6 +273,11 @@ try
 				->User( $found );
 	
 	} // Provided credentials.
+	
+	//
+	// Load graph info.
+	//
+	$graph = $_SESSION[ kDEFAULT_SESSION ]->GraphStore()->getTransport();
 }
 
 //
@@ -273,25 +303,6 @@ catch( Exception $error )
 	<body>
 		
 		<!-- ------------------------------------------------------------------------- --
-		  -- INITED?																   --
-		  -- ------------------------------------------------------------------------- -->
-		<?php
-			if( $inited )
-				echo( '<h3>First run</h3>' );
-			else
-				echo( '<h3>Next run</h3>' );
-		?>
-		
-		<!-- ------------------------------------------------------------------------- --
-		  -- LOGGED?																   --
-		  -- ------------------------------------------------------------------------- -->
-		<?php
-			if( array_key_exists( kDEFAULT_SESSION, $_SESSION )
-			 && $_SESSION[ kDEFAULT_SESSION ][ kSESSION_USER_LOGGED ] )
-				echo( '<h3>User logged</h3>' );
-		?>
-		
-		<!-- ------------------------------------------------------------------------- --
 		  -- PING PONG																   --
 		  -- ------------------------------------------------------------------------- -->
 		<form action="test_CSessionObject.pong.php" method="post">
@@ -301,11 +312,36 @@ catch( Exception $error )
 		</form>
 		
 		<!-- ------------------------------------------------------------------------- --
-		  -- SESSION OFFSETS														   --
+		  -- INITED?																   --
 		  -- ------------------------------------------------------------------------- -->
-		<h4>Session offsets:</h4>
-		<pre><?php print_r( $offsets ); ?></pre>
-		<hr />
+		<?php
+			if( $inited_counter )
+				echo( '<h3>Inited counter</h3>' );
+			else
+				echo( '<h3>Counter exists</h3>' );
+
+			if( $reset )
+				echo( '<h3>Reset</h3>' );
+			else
+				echo( '<h3>Not reset</h3>' );
+
+			if( $inited_session )
+				echo( '<h3>Inited session</h3>' );
+			else
+				echo( '<h3>Session exists</h3>' );
+		?>
+		
+		<!-- ------------------------------------------------------------------------- --
+		  -- LOGGED?																   --
+		  -- ------------------------------------------------------------------------- -->
+		<?php
+			if( array_key_exists( kDEFAULT_SESSION, $_SESSION )
+			 && ($_SESSION[ kDEFAULT_SESSION ] instanceof TestClass)
+			 && $_SESSION[ kDEFAULT_SESSION ][ kSESSION_USER_LOGGED ] )
+				echo( '<h3>User logged</h3>' );
+			else
+				echo( '<h3>User NOT logged</h3>' );
+		?>
 		
 		<!-- ------------------------------------------------------------------------- --
 		  -- SESSION DATA															   --
@@ -313,6 +349,18 @@ catch( Exception $error )
 		<h4>Session data:</h4>
 		<pre><?php print_r( $_SESSION ); ?></pre>
 		<hr />
+		
+		<!-- ------------------------------------------------------------------------- --
+		  -- GRAPH INFO																   --
+		  -- ------------------------------------------------------------------------- -->
+		<?php
+			if( $graph )
+			{
+				echo( '<pre>' );
+				print_r( $graph );
+				echo( '</pre>' );
+			}
+		?>
 
   </body>
 </html>

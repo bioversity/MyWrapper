@@ -38,6 +38,13 @@ require_once( '/Library/WebServer/Library/wrapper/includes.inc.php' );
 require_once( "/Library/WebServer/Library/wrapper/local/server.inc.php" );
 
 /**
+ * Site includes.
+ *
+ * This include file contains the local run-time definitions.
+ */
+require_once( "site.inc.php" );
+
+/**
  * Class includes.
  *
  * This include file contains the working class definitions.

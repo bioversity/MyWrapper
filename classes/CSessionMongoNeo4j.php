@@ -304,7 +304,7 @@ class CSessionMongoNeo4j extends CSessionObject
 	 * @access public
 	 * @return CQuery
 	 */
-	public function Query()						{	return new CMongoQuery();	}
+	public function Query()									{	return new CMongoQuery();	}
 
 		
 
@@ -317,6 +317,45 @@ class CSessionMongoNeo4j extends CSessionObject
 
 	 
 	/*===================================================================================
+	 *	_Init																			*
+	 *==================================================================================*/
+
+	/**
+	 * Initialise resources.
+	 *
+	 * This method is called when {@link __construct() instantiating} the object, its duty
+	 * is to initialise the required resources.
+	 *
+	 * In this class we initialise the {@link _InitDataStore() data} and
+	 * {@link _InitGraphStore() graph} stores, the {@link _InitDatabase() database} and the
+	 * users {@link _InitUserContainer() container}.
+	 *
+	 * @access protected
+	 *
+	 * @uses _InitDataStore()
+	 * @uses _InitGraphStore()
+	 * @uses _InitDatabase()
+	 * @uses _InitUserContainer()
+	 */
+	protected function _Init()
+	{
+		//
+		// Call parent method.
+		//
+		parent::_Init();
+		
+		//
+		// Initialise local resources.
+		//
+		$this->_InitGraphStore();
+		$this->_InitDataStore();
+		$this->_InitDatabase();
+		$this->_InitUserContainer();
+	
+	} // _Init.
+
+	 
+	/*===================================================================================
 	 *	_InitDataStore																	*
 	 *==================================================================================*/
 
@@ -325,42 +364,26 @@ class CSessionMongoNeo4j extends CSessionObject
 	 *
 	 * The duty of this method is to initialise the data store.
 	 *
-	 * This method is called in three occasions
+	 * In this class we simply instantiate a new Mongo.
 	 *
-	 * <ul>
-	 *	<li><i>{@link __construct() Instantiating}</i>: The provided parameter will be
-	 *		<i>NULL</i>, the duty of this method is to initialise all necessary resources.
-	 *	<li><i>{@link serialize() Serialising}</i>: The provided parameter will be
-	 *		<i>FALSE</i>, the duty of this method is to prepare all assets that are to be
-	 *		serialised.
-	 *	<li><i>{@link unserialize() Unserialising}</i>: The provided parameter will be an
-	 *		array containing the serialised contents of this object, the duty of this
-	 *		method is to restore all elements to their original value.
-	 * </ul>
-	 *
-	 * In this class we initialise a Mongo object when {@link __construct() initialising} or
-	 * {@link unserialize() unserialising}.
-	 *
-	 * @param reference			   &$theOperation		Operation or serialised data.
+	 * @param mixed					$theData			Eventual custom data store.
 	 *
 	 * @access protected
 	 *
 	 * @uses DataStore()
 	 */
-	protected function _InitDataStore( &$theOperation )
+	protected function _InitDataStore( $theData = NULL )
 	{
 		//
-		// Initialising or unserialising.
+		// Use default value.
 		//
-		if( ($theOperation === NULL)							// Initialising,
-		 || array_key_exists( 'mDataStore', $theOperation ) )	// or unserialising.
-			$this->DataStore( new Mongo() );
+		if( $theData === NULL )
+			$theData = new Mongo();
 		
 		//
-		// Serialise.
+		// Set data store.
 		//
-		else
-			$theOperation[ 'mDataStore' ] = TRUE;
+		$this->DataStore( $theData );
 	
 	} // _InitDataStore.
 
@@ -374,46 +397,72 @@ class CSessionMongoNeo4j extends CSessionObject
 	 *
 	 * The duty of this method is to initialise the graph store.
 	 *
-	 * This method is called in three occasions
-	 *
-	 * <ul>
-	 *	<li><i>{@link __construct() Instantiating}</i>: The provided parameter will be
-	 *		<i>NULL</i>, the duty of this method is to initialise all necessary resources.
-	 *	<li><i>{@link serialize() Serialising}</i>: The provided parameter will be
-	 *		<i>FALSE</i>, the duty of this method is to prepare all assets that are to be
-	 *		serialised.
-	 *	<li><i>{@link unserialize() Unserialising}</i>: The provided parameter will be an
-	 *		array containing the serialised contents of this object, the duty of this
-	 *		method is to restore all elements to their original value.
-	 * </ul>
-	 *
 	 * In this class we initialise a Neo4j client using the default
 	 * {@link kDEFAULT_kNEO4J_HOST host} and {@link kDEFAULT_kNEO4J_PORT port}.
 	 *
-	 * @param reference			   &$theOperation		Operation or serialised data.
+	 * @param string				$theHost			Eventual custom host or transport.
+	 * @param string				$thePort			Eventual custom port.
 	 *
 	 * @access protected
+	 *
+	 * @throws {@link CException CException}
 	 *
 	 * @uses GraphStore()
 	 *
 	 * @see kDEFAULT_kNEO4J_HOST kDEFAULT_kNEO4J_PORT
 	 */
-	protected function _InitGraphStore( &$theOperation )
+	protected function _InitGraphStore( $theHost = NULL, $thePort = NULL )
 	{
 		//
-		// Initialising or unserialising.
+		// Set default host.
 		//
-		if( ($theOperation === NULL)							// Initialising,
-		 || array_key_exists( 'mGraphStore', $theOperation ) )	// or unserialising.
-			$this->GraphStore(
-				new Everyman\Neo4j\Client(
-					kDEFAULT_kNEO4J_HOST, kDEFAULT_kNEO4J_PORT ) );
+		if( $theHost === NULL )
+		{
+			//
+			// Check host.
+			//
+			if( ! defined( 'kDEFAULT_kNEO4J_HOST' ) )
+				throw new CException
+					( "Default graph host name is undefined",
+					  kERROR_OPTION_MISSING,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Symbol' => 'kDEFAULT_kNEO4J_HOST' ) );			// !@! ==>
+			
+			//
+			// Set host.
+			//
+			$theHost = kDEFAULT_kNEO4J_HOST;
+		
+		} // Missing host.
 		
 		//
-		// Serialise.
+		// Set default port.
 		//
-		else
-			$theOperation[ 'mGraphStore' ] = TRUE;
+		if( $theHost === NULL )
+		{
+			//
+			// Check port.
+			//
+			if( ! defined( 'kDEFAULT_kNEO4J_PORT' ) )
+				throw new CException
+					( "Default graph port number is undefined",
+					  kERROR_OPTION_MISSING,
+					  kMESSAGE_TYPE_ERROR,
+					  array( 'Symbol' => 'kDEFAULT_kNEO4J_PORT' ) );				// !@! ==>
+			
+			//
+			// Set port.
+			//
+			$thePort = kDEFAULT_kNEO4J_PORT;
+		
+		} // Missing host.
+		
+		//
+		// Init graph store.
+		//
+		$this->GraphStore(
+			new Everyman\Neo4j\Client(
+				$theHost, $thePort ) );
 	
 	} // _InitGraphStore.
 
@@ -427,71 +476,50 @@ class CSessionMongoNeo4j extends CSessionObject
 	 *
 	 * The duty of this method is to initialise the database.
 	 *
-	 * This method is called in three occasions
-	 *
-	 * <ul>
-	 *	<li><i>{@link __construct() Instantiating}</i>: The provided parameter will be
-	 *		<i>NULL</i>, the duty of this method is to initialise all necessary resources.
-	 *	<li><i>{@link serialize() Serialising}</i>: The provided parameter will be
-	 *		<i>FALSE</i>, the duty of this method is to prepare all assets that are to be
-	 *		serialised.
-	 *	<li><i>{@link unserialize() Unserialising}</i>: The provided parameter will be an
-	 *		array containing the serialised contents of this object, the duty of this
-	 *		method is to restore all elements to their original value.
-	 * </ul>
-	 *
 	 * In this class we initialise a MongoDB database by the default database
 	 * {@link kDEFAULT_DATABASE name}.
 	 *
-	 * @param reference			   &$theOperation		Operation or serialised data.
+	 * @param mixed					$theData			Eventual custom database name.
 	 *
 	 * @access protected
+	 *
+	 * @throws {@link CException CException}
 	 *
 	 * @uses Database()
 	 *
 	 * @see kDEFAULT_DATABASE
 	 */
-	protected function _InitDatabase( &$theOperation )
+	protected function _InitDatabase( $theData = NULL )
 	{
 		//
-		// Initialise.
+		// Set default name.
 		//
-		if( $theOperation === NULL )
+		if( $theData === NULL )
 		{
 			//
-			// Check default database.
+			// Check symbol.
 			//
 			if( ! defined( 'kDEFAULT_DATABASE' ) )
 				throw new CException
 					( "Default database name is undefined",
 					  kERROR_OPTION_MISSING,
 					  kMESSAGE_TYPE_ERROR,
-					  array( 'Symbol' => 'kDEFAULT_DATABASE' ) );				// !@! ==>
+					  array( 'Symbol' => 'kDEFAULT_DATABASE' ) );					// !@! ==>
 			
 			//
-			// Open connection.
+			// Set port.
 			//
-			$this->Database(
-				$this->DataStore()->
-					selectDB(
-						kDEFAULT_DATABASE ) );
+			$theData = kDEFAULT_DATABASE;
 		
-		} // Initialising.
+		} // Missing host.
 		
 		//
-		// Unserialise.
+		// Init database.
 		//
-		elseif( array_key_exists( 'mDatabase', $theOperation ) )
-			$this->Database(
-				$this->DataStore()->
-					selectDB(
-						$theOperation[ 'mDatabase' ] ) );
-		
-		//
-		// Serialise.
-		//
-		else
-			$theOperation[ 'mDatabase' ] = (string) $this->Database();
+		$this->Database(
+			$this->DataStore()->
+				selectDB(
+					$theData ) );
 	
 	} // _InitDatabase.
 
@@ -505,39 +533,28 @@ class CSessionMongoNeo4j extends CSessionObject
 	 *
 	 * The duty of this method is to initialise the user container.
 	 *
-	 * This method is called in three occasions
-	 *
-	 * <ul>
-	 *	<li><i>{@link __construct() Instantiating}</i>: The provided parameter will be
-	 *		<i>NULL</i>, the duty of this method is to initialise all necessary resources.
-	 *	<li><i>{@link serialize() Serialising}</i>: The provided parameter will be
-	 *		<i>FALSE</i>, the duty of this method is to prepare all assets that are to be
-	 *		serialised.
-	 *	<li><i>{@link unserialize() Unserialising}</i>: The provided parameter will be an
-	 *		array containing the serialised contents of this object, the duty of this
-	 *		method is to restore all elements to their original value.
-	 * </ul>
-	 *
 	 * In this class we initialise a MongoCollection container by the default user container
 	 * {@link kDEFAULT_CNT_USERS name}.
 	 *
-	 * @param reference			   &$theOperation		Operation or serialised data.
+	 * @param mixed					$theData			Eventual custom container name.
 	 *
 	 * @access protected
+	 *
+	 * @throws {@link CException CException}
 	 *
 	 * @uses UsersContainer()
 	 *
 	 * @see kDEFAULT_CNT_USERS
 	 */
-	protected function _InitUserContainer( &$theOperation )
+	protected function _InitUserContainer( $theData = NULL )
 	{
 		//
-		// Initialise.
+		// Set default name.
 		//
-		if( $theOperation === NULL )
+		if( $theData === NULL )
 		{
 			//
-			// Check default user container.
+			// Check symbol.
 			//
 			if( ! defined( 'kDEFAULT_CNT_USERS' ) )
 				throw new CException
@@ -547,31 +564,353 @@ class CSessionMongoNeo4j extends CSessionObject
 					  array( 'Symbol' => 'kDEFAULT_CNT_USERS' ) );				// !@! ==>
 			
 			//
-			// Open connection.
+			// Set port.
 			//
-			$this->UsersContainer(
-				$this->Database()->
-					selectCollection(
-						kDEFAULT_CNT_USERS ) );
+			$theData = kDEFAULT_CNT_USERS;
 		
-		} // Initialising.
+		} // Missing host.
 		
 		//
-		// Unserialise.
+		// Open connection.
 		//
-		elseif( array_key_exists( 'mUsersContainer', $theOperation ) )
+		$this->UsersContainer(
 			$this->Database()->
 				selectCollection(
-					$theOperation[ 'mUsersContainer' ] );
-		
-		//
-		// Serialise.
-		//
-		else
-			$theOperation[ 'mUsersContainer' ]
-				= $this->UsersContainer()->Container()->getName();
+					$theData ) );
 	
 	} // _InitUserContainer.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED SERIALISATION INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	_Serialise																		*
+	 *==================================================================================*/
+
+	/**
+	 * Serialise object.
+	 *
+	 * This method is called before the object gets {@link serialize() serialized}, its duty
+	 * is to normalise the object's properties before these get serialized.
+	 *
+	 * In this class we {@link _SerialiseUsersContainer() replace} the users
+	 * {@link UsersContainer() container} with its name,
+	 * the {@link Database() database} {@link _SerialiseDatabase() with} its name and the
+	 * graph {@link GraphStore() store} {@link _SerialiseGraphStore() with} its transport.
+	 *
+	 * We need to do the above because those objects do not serialize correctly.
+	 *
+	 * @access protected
+	 *
+	 * @uses _SerialiseUsersContainer()
+	 * @uses _SerialiseDatabase()
+	 * @uses _SerialiseDataStore()
+	 * @uses _SerialiseGraphStore()
+	 */
+	protected function _Serialise()
+	{
+		//
+		// Call parent method.
+		//
+		parent::_Serialise();
+		
+		//
+		// Serialise properties.
+		//
+		$this->_SerialiseUsersContainer();
+		$this->_SerialiseDatabase();
+		$this->_SerialiseDataStore();
+		$this->_SerialiseGraphStore();
+		
+	} // _Serialise.
+
+		
+	/*===================================================================================
+	 *	_SerialiseUsersContainer														*
+	 *==================================================================================*/
+
+	/**
+	 * Serialise users container.
+	 *
+	 * This method will replace the current object's users container
+	 * {@link UsersContainer() property} with its name, because the container object cannot
+	 * be serialized.
+	 *
+	 * Note that we do not use the accessor method, because we are setting the data member
+	 * to an unsupported data type.
+	 *
+	 * @access protected
+	 *
+	 * @uses UsersContainer()
+	 */
+	protected function _SerialiseUsersContainer()
+	{
+		//
+		// Handle users container.
+		//
+		$data = $this->UsersContainer();
+		if( $data !== NULL )
+			$this->mUsersContainer = $data->Container()->getName();
+	
+	} // _SerialiseUsersContainer.
+
+		
+	/*===================================================================================
+	 *	_SerialiseDatabase																*
+	 *==================================================================================*/
+
+	/**
+	 * Serialise database.
+	 *
+	 * This method will replace the current object's database {@link Database() property}
+	 * with its name, because the database object cannot be serialized.
+	 *
+	 * Note that we do not use the accessor method, because we are setting the data member
+	 * to an unsupported data type.
+	 *
+	 * @access protected
+	 *
+	 * @uses Database()
+	 */
+	protected function _SerialiseDatabase()
+	{
+		//
+		// Handle database.
+		//
+		$data = $this->Database();
+		if( $data !== NULL )
+			$this->mDatabase = (string) $data;
+	
+	} // _SerialiseDatabase.
+
+		
+	/*===================================================================================
+	 *	_SerialiseDataStore																*
+	 *==================================================================================*/
+
+	/**
+	 * Serialise data store.
+	 *
+	 * This method will reset the current object's data store {@link DataStore() property},
+	 * because the object cannot be serialized.
+	 *
+	 * @access protected
+	 *
+	 * @uses DataStore()
+	 */
+	protected function _SerialiseDataStore()				{	$this->DataStore( FALSE );	}
+
+		
+	/*===================================================================================
+	 *	_SerialiseGraphStore															*
+	 *==================================================================================*/
+
+	/**
+	 * Serialise graph store.
+	 *
+	 * This method will replace the current object's graph store
+	 * {@link GraphStore() property} with its transport, because the graph store contains a
+	 * closure which cannot be serialized.
+	 *
+	 * Note that we do not use the accessor method, because we are setting the data member
+	 * to an unsupported data type.
+	 *
+	 * @access protected
+	 *
+	 * @uses GraphStore()
+	 */
+	protected function _SerialiseGraphStore()
+	{
+		//
+		// Handle graph store.
+		//
+		$data = $this->GraphStore();
+		if( $data !== NULL )
+			$this->mGraphStore = $data->getTransport();
+	
+	} // _SerialiseGraphStore.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED UNSERIALISATION INTERFACE							*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	_Unserialise																	*
+	 *==================================================================================*/
+
+	/**
+	 * Unserialise object.
+	 *
+	 * This method is called after the object gets {@link unserialize() unserialized}, its
+	 * duty is to restore the object's properties that were {@link _Serialise() normalised}
+	 * before the object was {@link serialize() serialized}.
+	 *
+	 * In this class we need to {@link _UnserialiseGraphStore() restore} the graph
+	 * {@link GraphStore() store}, the {@link _UnserialiseDataStore() data}
+	 * {@link DataStore() store}, {@link _UnserialiseDatabase() the}
+	 * {@link Database() database} and the {@link _UnserialiseUsersContainer() users}
+	 * {@link UsersContainer() container}.
+	 *
+	 * @access protected
+	 *
+	 * @uses _UnserialiseGraphStore()
+	 * @uses _UnserialiseDataStore()
+	 * @uses _UnserialiseDatabase()
+	 * @uses _UnserialiseUsersContainer()
+	 */
+	protected function _Unserialise()
+	{
+		//
+		// Unserialise properties.
+		//
+		$this->_UnserialiseGraphStore();
+		$this->_UnserialiseDataStore();
+		$this->_UnserialiseDatabase();
+		$this->_UnserialiseUsersContainer();
+		
+		//
+		// Call parent method.
+		//
+		parent::_Unserialise();
+		
+	} // _Unserialise.
+
+	 
+	/*===================================================================================
+	 *	_UnserialiseGraphStore															*
+	 *==================================================================================*/
+
+	/**
+	 * Unserialise graph store.
+	 *
+	 * This method is called after the object gets {@link unserialize() unserialised}, its
+	 * duty is to restore the current graph {@link GraphStore() store} from its
+	 * {@link _SerialiseGraphStore() transport}.
+	 *
+	 * @access protected
+	 *
+	 * @uses GraphStore()
+	 *
+	 * @see _SerialiseGraphStore()
+	 */
+	protected function _UnserialiseGraphStore()
+	{
+		//
+		// Handle graph store.
+		//
+		$data = $this->GraphStore();
+		if( $data !== NULL )
+			$this->GraphStore(
+				new Everyman\Neo4j\Client(
+					$data ) );
+	
+	} // _UnserialiseGraphStore.
+
+	 
+	/*===================================================================================
+	 *	_UnserialiseDataStore															*
+	 *==================================================================================*/
+
+	/**
+	 * Unserialise data store.
+	 *
+	 * This method is called after the object gets {@link unserialize() unserialised}, its
+	 * duty is to restore the current data {@link DataStore() store}.
+	 *
+	 * @access protected
+	 *
+	 * @uses _InitDataStore()
+	 *
+	 * @see _SerialiseDataStore()
+	 */
+	protected function _UnserialiseDataStore()
+	{
+		//
+		// Call the initialisation function.
+		//
+		$this->_InitDataStore();
+	
+	} // _UnserialiseDataStore.
+
+	 
+	/*===================================================================================
+	 *	_UnserialiseDatabase															*
+	 *==================================================================================*/
+
+	/**
+	 * Unserialise database.
+	 *
+	 * This method is called after the object gets {@link unserialize() unserialised}, its
+	 * duty is to restore the current {@link GraphStore() database} from its
+	 * {@link _SerialiseDatabase() name}.
+	 *
+	 * @access protected
+	 *
+	 * @uses Database()
+	 * @uses DataStore()
+	 *
+	 * @see _SerialiseDatabase()
+	 */
+	protected function _UnserialiseDatabase()
+	{
+		//
+		// Handle database.
+		//
+		$data = $this->Database();
+		if( $data !== NULL )
+			$this->Database(
+				$this->DataStore()->
+					selectDB(
+						$data ) );
+	
+	} // _UnserialiseDatabase.
+
+	 
+	/*===================================================================================
+	 *	_UnserialiseUsersContainer														*
+	 *==================================================================================*/
+
+	/**
+	 * Unserialise users container.
+	 *
+	 * This method is called after the object gets {@link unserialize() unserialised}, its
+	 * duty is to restore the current users {@link UsersContainer() container} from its
+	 * {@link _SerialiseUsersContainer() name}.
+	 *
+	 * @access protected
+	 *
+	 * @uses UsersContainer()
+	 * @uses Database()
+	 *
+	 * @see _SerialiseUsersContainer()
+	 */
+	protected function _UnserialiseUsersContainer()
+	{
+		//
+		// Handle users container.
+		//
+		$data = $this->UsersContainer();
+		if( $data !== NULL )
+			$this->UsersContainer(
+				new CMongoContainer(
+					$this->Database()-> 
+						selectCollection(
+							$data ) ) );
+	
+	} // _UnserialiseUsersContainer.
 
 	 
 

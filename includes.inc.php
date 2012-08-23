@@ -118,7 +118,7 @@ define( "kDEFAULT_MEMBER",				'___TMP___' );		// Temporary data member name.
  * This value is used as the default offset in which the current session
  * {@link CSession object} will be stored.
  */
-define( "kDEFAULT_SESSION",				'_SESSION' );		// Session object offset.
+define( "kDEFAULT_SESSION",				'SESSION' );		// Session object offset.
 
 /**
  * Default tags container name.
