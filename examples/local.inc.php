@@ -2,33 +2,25 @@
 
 /*=======================================================================================
  *																						*
- *									site.inc.php										*
+ *										local.inc.php									*
  *																						*
  *======================================================================================*/
  
 /**
- *	Local environment definitions.
+ * Local definitions.
  *
- *	This file should be included at the top level of the application or web site, it
- *	represents the local environment definitions, those specific to the current site.
+ * This file contains common definitions used by the current directory
  *
  *	@package	MyWrapper
- *	@subpackage	Run-time
+ *	@subpackage	Session
  *
- *	@author		Milko A. Skofic <m.skofic@cgiar.org>
- *	@version	1.00 03/08/2012
+ *	@author		Milko A. Škofič <m.skofic@cgiar.org>
+ *	@version	1.00 24/08/2012
  */
 
 /*=======================================================================================
- *	DEFAULT DEFINITIONS																	*
+ *	DEFAULT SESSION OFFSETS																*
  *======================================================================================*/
-
-/**
- * Default database name.
- *
- * This value defines the default database name for the current application.
- */
-define( "kDEFAULT_DATABASE",		"WAREHOUSE" );
 
 /**
  * Default session offset.

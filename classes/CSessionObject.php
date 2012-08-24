@@ -193,8 +193,6 @@ abstract class CSessionObject extends CArrayObject
 	 */
 	public function __toString()
 	{
-		return CObject::JsonEncode( $this->getArrayCopy() );						// ==>
-		
 		//
 		// Init local storage.
 		//
@@ -487,6 +485,51 @@ abstract class CSessionObject extends CArrayObject
 
 	 
 	/*===================================================================================
+	 *	ShowDebug																		*
+	 *==================================================================================*/
+
+	/**
+	 * Manage the debug switch.
+	 *
+	 * This method can be used to show or hide the debug elements by managing the
+	 * {@link kSESSION_DEBUG kSESSION_DEBUG} offset, the method accepts two parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theValue</b>: The value to set or the operation to perform:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Retrieve the current value.
+	 *		<li><i>FALSE</i>: Hide the element.
+	 *		<li><i>TRUE</i>: Show the element.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: A boolean flag determining which value the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the value <i>before</i> it has eventually been modified,
+	 *			this option is only relevant when deleting or replacing a value.
+	 *		<li><i>FALSE</i>: Return the value <i>after</i> it has eventually been modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * If the element exists the method will return its value, if not, it will return
+	 * <i>NULL</i>.
+	 *
+	 * @param mixed					$theValue			Value or operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return mixed
+	 *
+	 * @uses _ManageFlag()
+	 *
+	 * @see kSESSION_DEBUG
+	 */
+	public function ShowDebug( $theValue = NULL, $getOld = FALSE )
+	{
+		return $this->_ManageFlag( kSESSION_DEBUG, $theValue, $getOld );			// ==>
+
+	} // ShowDebug.
+
+	 
+	/*===================================================================================
 	 *	User																			*
 	 *==================================================================================*/
 
@@ -556,8 +599,7 @@ abstract class CSessionObject extends CArrayObject
 		//
 		// Changed value.
 		//
-		if( ($theValue !== NULL)
-		 && ($theValue !== FALSE) )
+		if( $theValue !== NULL )
 			$this->_RegisterUser();
 		
 		return $save;																// ==>
@@ -857,20 +899,50 @@ abstract class CSessionObject extends CArrayObject
 	 * The view model is stored in this object's offsets, the current web page will convert
 	 * the data into JSON and use it in the Javascript procedures.
 	 *
-	 * In this class we register the eventual user data.
+	 * In this class we register the debug switch and the eventual user data.
 	 *
 	 * @access protected
 	 *
+	 * @uses _RegisterDebug()
 	 * @uses _RegisterUser()
 	 */
 	protected function _Register()
 	{
 		//
-		// Register user.
+		// Register properties.
 		//
+		$this->_RegisterDebug();
 		$this->_RegisterUser();
 		
 	} // _Register.
+
+	 
+	/*===================================================================================
+	 *	_RegisterDebug																	*
+	 *==================================================================================*/
+
+	/**
+	 * Set debug switch in view model.
+	 *
+	 * This method will set the debug switch in the view model. The method will check if
+	 * the {@link kDEFAULT_DEBUG kDEFAULT_DEBUG} symbol is defined, if this is the case it
+	 * will use its value, if not the switch will be turned off.
+	 *
+	 * @access protected
+	 *
+	 * @uses ShowDebug()
+	 */
+	protected function _RegisterDebug()
+	{
+		//
+		// Check symbol.
+		//
+		if( defined( 'kDEFAULT_DEBUG' ) )
+			$this->ShowDebug( (boolean) kDEFAULT_DEBUG );
+		else
+			$this->ShowDebug( FALSE );
+		
+	} // _RegisterDebug.
 
 	 
 	/*===================================================================================
@@ -997,7 +1069,7 @@ abstract class CSessionObject extends CArrayObject
 		// Handle e-mail.
 		//
 		$this->offsetSet( kSESSION_USER_EMAIL,
-						  ( ( $theData !== NULL ) ? $theData->Email() : NULL ) );
+						  ( ( $theData !== NULL ) ? $theData->Email() : '' ) );
 		
 	} // _RegisterUserEmail.
 
@@ -1023,10 +1095,17 @@ abstract class CSessionObject extends CArrayObject
 	protected function _RegisterUserKind( $theData )
 	{
 		//
-		// Handle kinds.
+		// Get kinds.
 		//
-		$this->offsetSet( kSESSION_USER_KIND,
-						  ( ( $theData !== NULL ) ? $theData->Kind() : Array() ) );
+		$data = ( ($theData !== NULL)
+			   && (($tmp = $theData->Kind()) !== NULL) )
+			  ? $tmp
+			  : Array();
+
+		//
+		// Handle roles.
+		//
+		$this->offsetSet( kSESSION_USER_KIND, $data );
 		
 	} // _RegisterUserKind.
 
@@ -1052,10 +1131,17 @@ abstract class CSessionObject extends CArrayObject
 	protected function _RegisterUserRole( $theData )
 	{
 		//
-		// Handle kinds.
+		// Get roles.
 		//
-		$this->offsetSet( kSESSION_USER_ROLE,
-						  ( ( $theData !== NULL ) ? $theData->Role() : Array() ) );
+		$data = ( ($theData !== NULL)
+			   && (($tmp = $theData->Role()) !== NULL) )
+			  ? $tmp
+			  : Array();
+
+		//
+		// Handle roles.
+		//
+		$this->offsetSet( kSESSION_USER_ROLE, $data );
 		
 	} // _RegisterUserRole.
 
@@ -1131,6 +1217,77 @@ abstract class CSessionObject extends CArrayObject
 			 : $this->User( FALSE, TRUE );											// ==>
 		
 	} // _LoadUser.
+
+		
+
+/*=======================================================================================
+ *																						*
+ *							PROTECTED UTILITIES INTERFACE								*
+ *																						*
+ *======================================================================================*/
+
+
+	 
+	/*===================================================================================
+	 *	_ManageFlag																		*
+	 *==================================================================================*/
+
+	/**
+	 * This method can be used to set or reset a flag offset, the method accepts three
+	 * parameters:
+	 *
+	 * <ul>
+	 *	<li><b>$theOffset</b>: The offset to be managed.
+	 *	<li><b>$theValue</b>: The value to set or the operation to perform:
+	 *	 <ul>
+	 *		<li><i>NULL</i>: Retrieve the current value.
+	 *		<li><i>FALSE</i>: Hide the element.
+	 *		<li><i>TRUE</i>: Show the element.
+	 *	 </ul>
+	 *	<li><b>$getOld</b>: A boolean flag determining which value the method will return:
+	 *	 <ul>
+	 *		<li><i>TRUE</i>: Return the value <i>before</i> it has eventually been modified,
+	 *			this option is only relevant when deleting or replacing a value.
+	 *		<li><i>FALSE</i>: Return the value <i>after</i> it has eventually been modified.
+	 *	 </ul>
+	 * </ul>
+	 *
+	 * If the element exists the method will return its value, if not, it will return
+	 * <i>NULL</i>.
+	 *
+	 * @param string				$theOffset			Offset.
+	 * @param mixed					$theValue			Value or operation.
+	 * @param boolean				$getOld				TRUE get old value.
+	 *
+	 * @access public
+	 * @return mixed
+	 */
+	public function _ManageFlag( $theOffset, $theValue = NULL, $getOld = FALSE )
+	{
+		//
+		// Save current value.
+		//
+		$save = ( $this->offsetExists( $theOffset ) )
+			  ? $this->offsetGet( $theOffset )
+			  : NULL;
+		
+		//
+		// Return current value.
+		//
+		if( $theValue === NULL )
+			return $save;															// ==>
+		
+		//
+		// Set new value.
+		//
+		$this->offsetSet( $theOffset, (boolean) $theValue );
+		
+		if( $getOld	)
+			return $save;															// ==>
+		
+		return (boolean) $theValue;													// ==>
+		
+	} // _ManageFlag.
 
 	 
 

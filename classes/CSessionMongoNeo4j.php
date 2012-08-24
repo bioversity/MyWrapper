@@ -356,39 +356,6 @@ class CSessionMongoNeo4j extends CSessionObject
 
 	 
 	/*===================================================================================
-	 *	_InitDataStore																	*
-	 *==================================================================================*/
-
-	/**
-	 * Initialise data store.
-	 *
-	 * The duty of this method is to initialise the data store.
-	 *
-	 * In this class we simply instantiate a new Mongo.
-	 *
-	 * @param mixed					$theData			Eventual custom data store.
-	 *
-	 * @access protected
-	 *
-	 * @uses DataStore()
-	 */
-	protected function _InitDataStore( $theData = NULL )
-	{
-		//
-		// Use default value.
-		//
-		if( $theData === NULL )
-			$theData = new Mongo();
-		
-		//
-		// Set data store.
-		//
-		$this->DataStore( $theData );
-	
-	} // _InitDataStore.
-
-	 
-	/*===================================================================================
 	 *	_InitGraphStore																	*
 	 *==================================================================================*/
 
@@ -465,6 +432,39 @@ class CSessionMongoNeo4j extends CSessionObject
 				$theHost, $thePort ) );
 	
 	} // _InitGraphStore.
+
+	 
+	/*===================================================================================
+	 *	_InitDataStore																	*
+	 *==================================================================================*/
+
+	/**
+	 * Initialise data store.
+	 *
+	 * The duty of this method is to initialise the data store.
+	 *
+	 * In this class we simply instantiate a new Mongo.
+	 *
+	 * @param mixed					$theData			Eventual custom data store.
+	 *
+	 * @access protected
+	 *
+	 * @uses DataStore()
+	 */
+	protected function _InitDataStore( $theData = NULL )
+	{
+		//
+		// Use default value.
+		//
+		if( $theData === NULL )
+			$theData = new Mongo();
+		
+		//
+		// Set data store.
+		//
+		$this->DataStore( $theData );
+	
+	} // _InitDataStore.
 
 	 
 	/*===================================================================================
