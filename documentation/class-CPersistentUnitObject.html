@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.7.0" />
+
+	<title>Class CPersistentUnitObject | MyWrapper Reference</title>
+
+	<script type="text/javascript" src="resources/combined.js?417553483"></script>
+	<script type="text/javascript" src="elementlist.js?1387923255"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?1567499433" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Packages</h3>
+			<ul>
+				<li class="active main"><a href="package-MyWrapper.html">MyWrapper<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MyWrapper.Entities.html">Entities</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Framework.html">Framework</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Ontology.html">Ontology</a>
+						</li>
+				<li class="active main"><a href="package-MyWrapper.Persistence.html">Persistence</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Session.html">Session</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Traits.html">Traits</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Wrappers.html">Wrappers</a>
+						</li>
+							</ul></li>
+				<li><a href="package-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-CArrayContainer.html">CArrayContainer</a></li>
+				<li><a href="class-CContainer.html">CContainer</a></li>
+				<li><a href="class-CDataset.html">CDataset</a></li>
+				<li><a href="class-CGraphEdge.html">CGraphEdge</a></li>
+				<li><a href="class-CGraphNode.html">CGraphNode</a></li>
+				<li><a href="class-CMongoContainer.html">CMongoContainer</a></li>
+				<li><a href="class-CMongoGridContainer.html">CMongoGridContainer</a></li>
+				<li><a href="class-CMongoQuery.html">CMongoQuery</a></li>
+				<li><a href="class-COntologyEdgeIndex.html">COntologyEdgeIndex</a></li>
+				<li><a href="class-COntologyNodeIndex.html">COntologyNodeIndex</a></li>
+				<li><a href="class-CPersistentObject.html">CPersistentObject</a></li>
+				<li class="active"><a href="class-CPersistentUnitObject.html">CPersistentUnitObject</a></li>
+				<li><a href="class-CQuery.html">CQuery</a></li>
+				<li><a href="class-CQueryStatement.html">CQueryStatement</a></li>
+				<li><a href="class-CRelatedUnitObject.html">CRelatedUnitObject</a></li>
+			</ul>
+
+
+
+
+
+			<h3>Functions</h3>
+			<ul>
+				<li><a href="function-Neo4jAutoload.html">Neo4jAutoload</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="package-MyWrapper.Persistence.html" title="Summary of MyWrapper\Persistence"><span>Package</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class CPersistentUnitObject</h1>
+
+
+	<div class="description">
+	
+<p>Unit objects ancestor.</p>
+
+<p>A unit object is one that has a unique identifier, that is, it can be
+uniquely identified among a collection of other objects.</p>
+
+<p>Instances derived from this class have a series of additional properties and
+methods that govern how these can be stored and retrieved from containers.</p>
+
+<p>The class features two read-only public methods that return:</p>
+
+<ul>
+	<li><i>_id() _id()</i>: The object unique identifier as used by the
+	native persistent container to uniquely identify the object.</li>
+
+	<li><i>_index() _index()</i>: The full index that uniquely identifies
+	the object, expressed as a string.</li>
+</ul>
+
+<p>Although both methods seem to return the same information, they are
+different, in the sense that the _index() _index method should return
+the property or properties that constitute the object's unique identifier
+concatenated in a single string. This may be too long to use as an index, so
+_id() _id() should return the actual value used as the key, which may be
+the hashed _index() _index value. In other words, _index()
+_index is the human readable version of _id() _id.</p>
+
+<p>When the object is Commit committed for the first time, the value of
+the _id() _id method will be set in the kTAG_LID kTAG_LID offset
+which represents the object ID. This offset should never be changed and
+represents the persistent identifier of the object.</p>
+
+<p>The class implements the __toString() __toString method to return the
+value of the object's _index() index by default.</p>
+
+<p>This object also introduces the concept of object reference, that is, a
+structure that can be used to refer to other objects. The class implements a
+series of protected methods that derived classes can use to implement properties
+that point to other objects:</p>
+
+<ul>
+	<li><i>_ParseReferences() _ParseReferences</i>: When adding object
+	references to properties one is also allowed to add the actual instance, at
+	Commit() commit time, these objects must also be committed before
+	committing the object that references them: this method will handle this.</li>
+
+	<li><i>CAttribute::ManageObjectList() ManageObjectList</i>: This method
+	can be used as a base for handling properties that consist of object references
+	lists. It handles a list of scalar object reference elements or a list of
+	predicate/object pairs.</li>
+
+	<li><i>NormaliseRelatedObject() NormaliseRelatedObject</i>: This method
+	can be used to normalise parameters that expect object references, these can be
+	overloaded by derived classes to implement a custom framework.</li>
+
+	<li><i>NormaliseRelatedPredicate() NormaliseRelatedPredicate</i>: This
+	method can be used to normalise parameters that expect predicate object
+	references, these can be overloaded by derived classes to implement a custom
+	framework.</li>
+</ul>
+
+<p>The above protected interface is not used in this class, but it is made
+available to derived classes in order to handle objects derived from this
+class.</p>
+
+<p>Objects derived from this class also hold, by default, their class name in an
+kTAG_CLASS offset, this is used to NewObject() instantiate
+objects of thecorrect class when retrieving data from a container.</p>
+
+<p>This class also features a kTAG_VERSION version which is an integer,
+incremented each time the object is Commit() committed: this is useful
+to implement a concurrency control mechanism.</p>
+
+<p>Starting from this class we only handle CContainer CContainer derived
+instances as containers, other container types will not be supported. This is
+because CContainer CContainer derived instances have an CDataType::SerialiseObject() serialise and CMongoDataWrapper::UnserialiseObject() unserialise interface for handling
+special data types.</p>
+
+<p>The specifics of this are managed by the CContainer CContainer
+derived classes, so when planning your objects think in advance in what
+containers you plan to store them.</p>
+
+<p>Finally, this class features a series of static methods;</p>
+
+<ul>
+	<li><i>NewObject() NewObject</i>: This method can be used to instantiate
+	a class from a mixed class data store, it accepts the same parameters as the
+	__construct() constructor, but will return an instance of the correct
+	kTAG_CLASS class.</li>
+
+	<li><i>Reference() Reference</i>: This method will convert an instance
+	derived from this class into a standard object reference structure in which it
+	is possible to indicate both the kTAG_REFERENCE_CONTAINER container and
+	the kTAG_REFERENCE_DATABASE database.</li>
+</ul>
+
+<p>We declare the class abstract because the object must be _IsInited()
+inited to be Commit() committed and the _index() index must be
+explicitly implemented.</p>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-ArrayObject.html"><span>ArrayObject</span></a>
+			
+			 implements 
+				<a href="class-IteratorAggregate.html"><span>IteratorAggregate</span></a>, 
+			
+				<a href="class-Traversable.html"><span>Traversable</span></a>, 
+			
+				<a href="class-ArrayAccess.html"><span>ArrayAccess</span></a>, 
+			
+				<a href="class-Serializable.html"><span>Serializable</span></a>, 
+			
+				<a href="class-Countable.html"><span>Countable</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CArrayObject.html"><span>CArrayObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:60px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CStatusObject.html"><span>CStatusObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:90px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CPersistentObject.html"><span>CPersistentObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:120px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>CPersistentUnitObject</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+	<div>
+		<h4>Direct known subclasses</h4>
+			<a href="class-CRelatedUnitObject.html">CRelatedUnitObject</a>
+	</div>
+
+	<div>
+		<h4>Indirect known subclasses</h4>
+			<a href="class-CCodedUnitObject.html">CCodedUnitObject</a>, 
+			<a href="class-CContact.html">CContact</a>, 
+			<a href="class-CDataset.html">CDataset</a>, 
+			<a href="class-CEntity.html">CEntity</a>, 
+			<a href="class-CFAOInstitute.html">CFAOInstitute</a>, 
+			<a href="class-CInstitute.html">CInstitute</a>, 
+			<a href="class-COntologyTag.html">COntologyTag</a>, 
+			<a href="class-COntologyTerm.html">COntologyTerm</a>, 
+			<a href="class-COntologyTermObject.html">COntologyTermObject</a>, 
+			<a href="class-CUser.html">CUser</a>
+	</div>
+
+
+
+
+
+	<div class="info">
+		<b>Abstract</b><br />
+		
+		
+		<b>Package:</b> <a href="package-MyWrapper.html">MyWrapper</a>\<a href="package-MyWrapper.Persistence.html">Persistence</a><br />
+
+				<b>Author:</b>
+				Milko A. Škofič &lt;<a
+href="mailto:m.skofic&#64;cgiar.org">m.skofic&#64;<!---->cgiar.org</a>&gt;<br />
+		<b>Located at</b> <a href="source-class-CPersistentUnitObject.html#30" title="Go to source code">CPersistentUnitObject.php</a><br />
+	</div>
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__toString" id="___toString">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___toString">#</a>
+		<code><a href="source-class-CPersistentUnitObject.html#140" title="Go to source code">__toString</a>( )</code>
+
+		<div class="description short">
+			
+<p>Return object identifier.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return object identifier.</p>
+
+<p>In this class we return the object string _index() identifier.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CPersistentUnitObject.html#_">CPersistentUnitObject::_index()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Persistent" id="_Persistent">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Persistent">#</a>
+		<code><a href="source-class-CPersistentUnitObject.html#166" title="Go to source code">Persistent</a>( )</code>
+
+		<div class="description short">
+			
+<p>Check whether object is persistent.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Check whether object is persistent.</p>
+
+<p>This method will return <i>TRUE</i> if the object has the kTAG_LID
+local identifier, this would mean that the object has either been Commit() saved or that the object was _Load() loaded from a CContainer container.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="NewObject" id="_NewObject">
+
+		<td class="attributes"><code>
+			 public static
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_NewObject">#</a>
+		<code><a href="source-class-CPersistentUnitObject.html#192" title="Go to source code">NewObject</a>( <span>mixed <var>$theContainer</var></span>, <span>mixed <var>$theIdentifier</var></span>, <span>bitfield <var>$theModifiers</var> = kFLAG_DEFAULT </span> )</code>
+
+		<div class="description short">
+			
+<p>Instantiate object.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Instantiate object.</p>
+
+<p>This method can be used to instantiate an object from a mixed class data
+store, it expects the container to be a CContainer CContainer derived
+instance and the identifier to be the _id() unique kTAG_LID
+identifier of the object.</p>
+
+<p>This method takes advantage of the Commit() stored kTAG_CLASS
+class name.</p>
+
+<p>The method will return an object, if the identifier matches and the object
+has its kTAG_CLASS class name; an array if the identifier matches, but
+the data doesn't contain a @link kTAG_CLASS class} name reference; <i>NULL</i>
+if the identifier didn't match.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>mixed</code><br> Persistent container.</dd>
+					<dt><var>$theIdentifier</var></dt>
+					<dd><code>mixed</code><br> Object identifier.</dd>
+					<dt><var>$theModifiers</var></dt>
+					<dd><code>bitfield</code><br> Create modifiers.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Reference" id="_Reference">
+
+		<td class="attributes"><code>
+			 public static
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Reference">#</a>
+		<code><a href="source-class-CPersistentUnitObject.html#279" title="Go to source code">Reference</a>( <span>mixed <var>$theObject</var></span>, <span>bitfield <var>$theModifiers</var> = kFLAG_REFERENCE_IDENTIFIER </span> )</code>
+
+		<div class="description short">
+			
+<p>Convert an object to a reference.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Convert an object to a reference.</p>
+
+<p>This method accepts an object derived from this class and returns a structure
+that can be used as a reference to that object.</p>
+
+<p>The method will return an array composed by the following offsets:</p>
+
+<ul>
+	<li><i>kTAG_REFERENCE_ID kTAG_REFERENCE_ID</i>: The object identifier,
+	if the provided object does not have an kTAG_LID identifier, this method
+	will search for a kTAG_REFERENCE_ID reference.</li>
+
+	<li><i>kTAG_REFERENCE_CONTAINER kTAG_REFERENCE_CONTAINER</i>: The
+	container name, if the provided object is a reference.</li>
+
+	<li><i>kTAG_REFERENCE_DATABASE kTAG_REFERENCE_DATABASE</i>: The database
+	name, if the provided object is a reference.</li>
+
+	<li><i>kTAG_CLASS kTAG_CLASS</i>: If the provided object is derived from
+	this class, the object's class.</li>
+</ul>
+
+<p>The method accepts two parameters:</p>
+
+<ul>
+	<li><b>$theObject</b>: The object to be referenced, or a structure containing a
+	reference.</li>
+
+	<li><b>$theModifiers</b>: This bitfield determines what elements should be
+	included in the reference:
+		<ul>
+			<li><i>kFLAG_REFERENCE_IDENTIFIER kFLAG_REFERENCE_IDENTIFIER</i>: The
+			object kTAG_LID identifier will be stored under the kTAG_REFERENCE_ID kTAG_REFERENCE_ID offset. If the object does not have this
+			identifier, the method will raise an exception. This is the default option.</li>
+
+			<li><i>kFLAG_REFERENCE_CONTAINER kFLAG_REFERENCE_CONTAINER</i>: The
+			container name if available.</li>
+
+			<li><i>kFLAG_REFERENCE_DATABASE kFLAG_REFERENCE_DATABASE</i>: The
+			container's database name if available.</li>
+
+			<li><i>kFLAG_REFERENCE_CLASS kFLAG_REFERENCE_CLASS</i>: The provided
+			object's class name if derived from this class.</li>
+		</ul>
+	</li>
+</ul>
+
+<p>If the provided object cannot be resolved, the method will return
+<i>NULL</i>.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theObject</var></dt>
+					<dd><code>mixed</code><br> Object to reference.</dd>
+					<dt><var>$theModifiers</var></dt>
+					<dd><code>bitfield</code><br> Referencing options.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						kFLAG_REFERENCE_IDENTIFIER kFLAG_REFERENCE_CONTAINER<br />
+						kFLAG_REFERENCE_DATABASE kFLAG_REFERENCE_CLASS<br />
+						kTAG_REFERENCE_ID kTAG_REFERENCE_CONTAINER kTAG_REFERENCE_DATABASE<br />
+						kTAG_CLASS kTAG_LID<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="HashIndex" id="_HashIndex">
+
+		<td class="attributes"><code>
+			 public static
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_HashIndex">#</a>
+		<code><a href="source-class-CPersistentUnitObject.html#441" title="Go to source code">HashIndex</a>( <span>string <var>$theValue</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Hash index.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Hash index.</p>
+
+<p>This method can be used to format an identifier provided as a string, it will
+be used by the _id() _id method to format the result of the _index() _index method.</p>
+
+<p>All derived classes will call this method to format the object kTAG_LID ID, so you should overload this method in classes where the current
+behaviour is not desirable.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>string</code><br> Value to hash.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="NormaliseRelatedObject" id="_NormaliseRelatedObject">
+
+		<td class="attributes"><code>
+			 public static
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_NormaliseRelatedObject">#</a>
+		<code><a href="source-class-CPersistentUnitObject.html#468" title="Go to source code">NormaliseRelatedObject</a>( <span>mixed <var>$theValue</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Normalise object reference property.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Normalise object reference property.</p>
+
+<p>This method can be used to normalise a property that is supposed to be a
+reference to another object, the method will perform the following
+conversions:</p>
+
+<ul>
+	<li><i>CPersistentUnitObject</i>: Objects derived from this class will be
+	handled as follows:
+		<ul>
+			<li><i>_IsCommitted() Committed</i>: If the provided object has a _IsCommitted() committed kFLAG_STATE_COMMITTED status, the method will
+			return the object's kTAG_LID identifier.</li>
+
+			<li><i>Not _IsCommitted() committed</i>: The parameter will not be
+			converted.</li>
+		</ul>
+	</li>
+
+	<li><i>CDataType CDataType</i>: When providing a complex data type, we
+	assume the value corresponds to the kTAG_LID identifier, in which case
+	we leave it untouched.</li>
+
+	<li><i>Array</i> or <i>ArrayObject</i>: In this case the method will assume the
+	provided structure is an object reference and it will check if the kTAG_REFERENCE_ID kTAG_REFERENCE_ID offset is there, if this is not the case
+	the method will raise an exception.</li>
+
+	<li><i>other</i>: Any other type will be converted to a string.</li>
+</ul>
+
+<p>The method will return the converted value.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br> Object or reference.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						kTAG_LID kTAG_REFERENCE_ID<br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CRelatedUnitObject.html#_">CRelatedUnitObject::Relate()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="NormaliseRelatedPredicate" id="_NormaliseRelatedPredicate">
+
+		<td class="attributes"><code>
+			 public static
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_NormaliseRelatedPredicate">#</a>
+		<code><a href="source-class-CPersistentUnitObject.html#554" title="Go to source code">NormaliseRelatedPredicate</a>( <span>mixed <var>$theValue</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Normalise predicate reference property.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Normalise predicate reference property.</p>
+
+<p>This method can be used to normalise a property that is supposed to be a
+relation predicate, the method will perform the following conversions:</p>
+
+<ul>
+	<li><i>NULL</i>: No conversion.</li>
+
+	<li><i>FALSE</i>: No conversion.</li>
+
+	<li><i>CGraphNodeObject</i>: The method will pass the parameter to the NormaliseRelatedObject() NormaliseRelatedObject method.</li>
+
+	<li><i>CDataType CDataType</i>: The method will pass the parameter to
+	the NormaliseRelatedObject() NormaliseRelatedObject method.</li>
+
+	<li><i>Array</i> or <i>ArrayObject</i>: The method will pass the parameter to
+	the NormaliseRelatedObject() NormaliseRelatedObject method.</li>
+
+	<li><i>other</i>: Any other type will be converted to a string.</li>
+</ul>
+
+<p>The method will return the converted value, derived classes should first
+handle custom types and pass other types to the parent method.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br> Relation predicate.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						kTAG_LID kTAG_REFERENCE_ID<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CPersistentObject.html#_">CPersistentObject::_IsCommitted()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CRelatedUnitObject.html#_">CRelatedUnitObject::Relate()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="ObjectIdentifier" id="_ObjectIdentifier">
+
+		<td class="attributes"><code>
+			 public static
+			string|null
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_ObjectIdentifier">#</a>
+		<code><a href="source-class-CPersistentUnitObject.html#611" title="Go to source code">ObjectIdentifier</a>( <span>mixed <var>$theValue</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Return object identifier.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return object identifier.</p>
+
+<p>This method will extract a string identifier from the provided parameter, it
+is used to get a value to be used when matching objects derived from this
+class.</p>
+
+<p>The expected parameter is supposed to be either an object reference or its
+identifier, this method makes no assumption on the state of the provided object,
+its duty is to spit out a string that represents the object kTAG_LID
+identifier.</p>
+
+<p>The method will handle the following cases:</p>
+
+<ul>
+	<li><i>NULL</i>: Although this value is not a valid identifier, it will be
+	returned as provided to allow skipping missing elements; this means that the
+	method will either return <i>NULL</i> or a string.</li>
+
+	<li><i>CDataType CDataType</i>: A derived instance of this kind of
+	object is interpreted as the actual value of the kTAG_LID identifier,
+	since that class can be CDataType::__toString() converted to a string,
+	we return its string value.</li>
+
+	<li><i>CPersistentUnitObject</i>: Instances derived from this class will be
+	handled as follows:
+		<ul>
+			<li><i>kTAG_LID kTAG_LID</i>: If the object has the identifier, this
+			will be passed back to this method to be resolved as a string.</li>
+
+			<li><i>_IsInited() Inited</i>: If the object lacks its kTAG_LID
+			identifier the method will check if it is at least _IsInited()
+			initialised, if this is not the case, the method will raise an exception, since
+			an identifier value cannot be inferred.</li>
+
+			<li><i>_id() _id</i>: If the object is _IsInited() inited the
+			method will pass the identifier method value back to itself.</li>
+		</ul>
+	</li>
+
+	<li><i>Array</i> or <i>ArrayObject</i>: In this case we check in order if any of
+	the following can be found:
+		<ul>
+			<li><i>kTAG_LID kTAG_LID</i>: We first check whether the object has this
+			offset and pass it back to this method.</li>
+
+			<li><i>kTAG_REFERENCE_ID kTAG_REFERENCE_ID</i>: We then check whether
+			the structure contains a reference identifier.</li>
+
+			<li><i>kTAG_DATA kTAG_DATA</i>: As last resort we use the data element
+			of the structure.</li>
+		</ul>
+		 If none of the above is found, the method will raise an exception.</li>
+
+	<li><i>object</i>: In this case we check if it can be converted to a
+	string.</li>
+
+	<li><i>other</i>: If all of the above fails we simply return the provided
+	value.</li>
+</ul>
+
+<p>Note that the method assumes that the returned value must be convertable to a
+string, if that is not the case you may get into trouble.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br> Object or identifier.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string|null</code><br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>{@link</code><br>CException CException}<br />
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_id" id="__id">
+
+		<td class="attributes"><code>
+			 protected 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__id">#</a>
+		<code><a href="source-class-CPersistentUnitObject.html#777" title="Go to source code">_id</a>( )</code>
+
+		<div class="description short">
+			
+<p>Return the object's unique identifier.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return the object's unique identifier.</p>
+
+<p>This method can be used to return a value that represents the object's unique
+native identifier. The method should use the value returned by the _index() _index method and hash it if necessary.</p>
+
+<p>This method will be called _PrepareCommit() before Commit()
+committing the object to fill its unique identifier kTAG_LID
+offset.</p>
+
+<p>If this method returns <i>NULL</i>, it is assumed that it will be the CContainer container that will provide a default unique value.</p>
+
+<p>In this class we return the HashIndex() hashed value of _index() _index.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_index" id="__index">
+
+		<td class="attributes"><code>
+			abstract protected 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__index">#</a>
+		<code><a href="source-class-CPersistentUnitObject.html#803" title="Go to source code">_index</a>( )</code>
+
+		<div class="description short">
+			
+<p>Return the object's unique index.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return the object's unique index.</p>
+
+<p>This method can be used to return a string value that represents the object's
+unique identifier. This value should generally be extracted from the object's
+properties.</p>
+
+<p>In general this value will be used by the _id() _id method to form
+the object's unique kTAG_LID identifier, maybe hashed to make the index
+smaller.</p>
+
+<p>In this class we require derived classes to implement the method.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CPersistentUnitObject.html#_">CPersistentUnitObject::__toString()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_Commit" id="__Commit">
+
+		<td class="attributes"><code>
+			 protected 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__Commit">#</a>
+		<code><a href="source-class-CPersistentUnitObject.html#834" title="Go to source code">_Commit</a>( <span>reference <var>&amp; $theContainer</var></span>, <span>reference <var>&amp; $theIdentifier</var></span>, <span>reference <var>&amp; $theModifiers</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Store object in container.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Store object in container.</p>
+
+<p>We overload this method to _GetTags() collect and _SetTags()
+set the object tags.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>reference</code><br>&amp;$theContainer Object container.</dd>
+					<dt><var>$theIdentifier</var></dt>
+					<dd><code>reference</code><br>&amp;$theIdentifier Object identifier.</dd>
+					<dt><var>$theModifiers</var></dt>
+					<dd><code>reference</code><br>&amp;$theModifiers Commit modifiers.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CPersistentObject.html#_">CPersistentObject::_Commit</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_PrepareLoad" id="__PrepareLoad">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__PrepareLoad">#</a>
+		<code><a href="source-class-CPersistentUnitObject.html#872" title="Go to source code">_PrepareLoad</a>( <span>reference <var>&amp; $theContainer</var></span>, <span>reference <var>&amp; $theIdentifier</var></span>, <span>reference <var>&amp; $theModifiers</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Normalise parameters of a find.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Normalise parameters of a find.</p>
+
+<p>We CPersistentObject::_PrepareLoad() overload this method to handle
+identifiers provided as structures containing either the kTAG_LID native
+identifier or an object kTAG_REFERENCE_ID reference.</p>
+
+<p>We also handle queries provided in the identifier, in this case we only check
+whether the container is supported.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>reference</code><br>&amp;$theContainer Object container.</dd>
+					<dt><var>$theIdentifier</var></dt>
+					<dd><code>reference</code><br>&amp;$theIdentifier Object identifier.</dd>
+					<dt><var>$theModifiers</var></dt>
+					<dd><code>reference</code><br>&amp;$theModifiers Create modifiers.</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>{@link</code><br>CException CException}<br />
+				</div>
+
+				<h4>See</h4>
+				<div class="list">
+						kERROR_OPTION_MISSING kERROR_UNSUPPORTED<br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CPersistentObject.html#_">CPersistentObject::_PrepareLoad</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_PrepareCommit" id="__PrepareCommit">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__PrepareCommit">#</a>
+		<code><a href="source-class-CPersistentUnitObject.html#936" title="Go to source code">_PrepareCommit</a>( <span>reference <var>&amp; $theContainer</var></span>, <span>reference <var>&amp; $theIdentifier</var></span>, <span>reference <var>&amp; $theModifiers</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Normalise before a store.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Normalise before a store.</p>
+
+<p>We CPersistentObject::_PrepareCommit() overload this method to
+perform the following steps:</p>
+
+<ul>
+	<li><i>Identifier as structure</i>: We handle identifiers provided as object
+	structures or references by checking the kTAG_LID native identifier or
+	the object kTAG_REFERENCE_ID reference.</li>
+
+	<li><i>Set identifier</i>: If the current object has already an kTAG_LID
+	identifier and an identifier was not provided we set it, if this is not the
+	case we set it via the _id() _id method.</li>
+
+	<li><i>Call parent method</i>: We then call the parent method, this is to ensure
+	all required data is provided.</li>
+
+	<li><i>kTAG_CLASS kTAG_CLASS</i>: We set this offset with the current
+	object's class name. Note that we overwrite old values.</li>
+
+	<li><i>kTAG_VERSION kTAG_VERSION</i>: If not set, we initialise this
+	value to zero, if already set, we increment it.</li>
+</ul>
+
+<p>identifiers provided as structures containing either the kTAG_LID
+native identifier or an object kTAG_REFERENCE_ID reference.</p>
+
+<p>The duty of this method is to ensure that the parameters provided to the
+_Commit() store operation are correct.</p>
+
+<p>In this class we ensure that the container is a ArrayObject or a CContainer CContainer derived instance and we ensure the identifier is filled
+in the case it was not provided:</p>
+
+<ul>
+	<li><i>Get kTAG_LID kTAG_LID</i>: If the object features the kTAG_LID kTAG_LID offset, it will be preferred. This is necessary, because we
+	don't want the object identifier to change in time.</li>
+
+	<li><i>Use the _id() :id method</i>: We use the value returned by the
+	_id() _id protected method, this will be the case when Commit()
+	saving new objects.</li>
+</ul>
+
+<p>We also handle here the other two default offsets:</p>
+
+<ul>
+	<li><i>kTAG_CLASS kTAG_CLASS</i>: We set this offset with the current
+	object's name. Note that we overwrite old values.</li>
+
+	<li><i>kTAG_VERSION kTAG_VERSION</i>: If not set, we initialise this
+	value to zero, if already set, we increment it.</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>reference</code><br>&amp;$theContainer Object container.</dd>
+					<dt><var>$theIdentifier</var></dt>
+					<dd><code>reference</code><br>&amp;$theIdentifier Object identifier.</dd>
+					<dt><var>$theModifiers</var></dt>
+					<dd><code>reference</code><br>&amp;$theModifiers Commit modifiers.</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>{@link</code><br>CException CException}<br />
+				</div>
+
+				<h4>See</h4>
+				<div class="list">
+						kERROR_OPTION_MISSING kERROR_UNSUPPORTED<br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CPersistentObject.html#_">CPersistentObject::_PrepareCommit</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_ParseReferences" id="__ParseReferences">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__ParseReferences">#</a>
+		<code><a href="source-class-CPersistentUnitObject.html#1078" title="Go to source code">_ParseReferences</a>( <span>string <var>$theOffset</var></span>, <span><code><a href="class-CContainer.html">CContainer</a></code> <var>$theContainer</var></span>, <span>bitfield <var>$theModifiers</var> = kFLAG_DEFAULT </span> )</code>
+
+		<div class="description short">
+			
+<p>Handle references.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Handle references.</p>
+
+<p>This method will parse the provided offset and convert all instances derived
+from this class to object references according to a series of rules.</p>
+
+<p>Object references may have two forms:</p>
+
+<ul>
+	<li><i>Scalar</i>: A scalar value represents the object kTAG_LID
+	identifier.</li>
+
+	<li><i>Object reference structure</i>: This form is a structure holding the
+	following elements:
+		<ul>
+			<li><i>kTAG_REFERENCE_ID kTAG_REFERENCE_ID</i>: This offset holds the
+			object's kTAG_LID identifier.</li>
+
+			<li><i>kTAG_REFERENCE_CONTAINER kTAG_REFERENCE_CONTAINER</i>: This
+			offset holds the container name in which the object resides.</li>
+
+			<li><i>kTAG_REFERENCE_DATABASE kTAG_REFERENCE_DATABASE</i>: This offset
+			holds the database name in which the object resides.</li>
+
+			<li><i>kTAG_CLASS kTAG_CLASS</i>: This offset holds the object's class
+			name.</li>
+		</ul>
+		 Such structures should not have any other allowed offset.</li>
+</ul>
+
+<p>Object references are stored in offsets with the following forms:</p>
+
+<ul>
+	<li><i>Scalar</i>: The offset holds the object reference as a scalar
+	element.</li>
+
+	<li><i>Typed</i>: A typed object reference consists of a structure in which the
+	kTAG_DATA kTAG_DATA offset holds the object reference and an optional
+	kTAG_KIND kTAG_KIND offset holds the relation predicate, which may also
+	be in the form of an object reference.</li>
+
+	<li><i>List</i>: A list of references whose elements may be a combination of the
+	previous two formats.</li>
+</ul>
+
+<p>This method will pass the provided offset value to a _CommitReferences() method that will take care of parsing the contents and
+_CommitReference() committing all instances derived from this class into
+object references according to the provided modifier flags.</p>
+
+<p>The parameters to this method are:</p>
+
+<ul>
+	<li><b>$theOffset</b>: The current object's offset that holds the reference or
+	references.</li>
+
+	<li><b>$theContainer</b>: The container that is about to receive the current
+	object, it must also be the container in which to find the references and must
+	be derived from CContainer CContainer.</li>
+
+	<li><b>$theModifiers</b>: A bitfield indicating which elements should be
+	included in the CContainer::Reference() reference:
+		<ul>
+			<li><i>kFLAG_REFERENCE_IDENTIFIER kFLAG_REFERENCE_IDENTIFIER</i>: The
+			object kTAG_LID identifier will be stored under the kTAG_REFERENCE_ID kTAG_REFERENCE_ID offset. This option is enforced.</li>
+
+			<li><i>kFLAG_REFERENCE_CONTAINER kFLAG_REFERENCE_CONTAINER</i>: The
+			provided container name will be stored under the kTAG_REFERENCE_CONTAINER
+			kTAG_REFERENCE_CONTAINER offset. If the provided value is empty, the offset
+			will not be set.</li>
+
+			<li><i>kFLAG_REFERENCE_DATABASE kFLAG_REFERENCE_DATABASE</i>: The
+			provided container's database name will be stored under the kTAG_REFERENCE_DATABASE kTAG_REFERENCE_DATABASE offset. If the current object's
+			Database() database name is <i>NULL</i>, the offset will not be
+			set.</li>
+
+			<li><i>kFLAG_REFERENCE_CLASS kFLAG_REFERENCE_CLASS</i>: The element
+			object's class name will be stored under the kTAG_CLASS kTAG_CLASS
+			offset.</li>
+		</ul>
+		 If none of the above flags are set, it means that object references are
+		expressed directly as the value of the kTAG_LID identifier, and that
+		kTAG_REFERENCE_CONTAINER container and kTAG_REFERENCE_DATABASE
+		database are implicit.</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>string</code><br> Reference list offset.</dd>
+					<dt><var>$theContainer</var></dt>
+					<dd><code><code><a href="class-CContainer.html">CContainer</a></code></code><br> Object container.</dd>
+					<dt><var>$theModifiers</var></dt>
+					<dd><code>bitfield</code><br> Referencing options.</dd>
+				</dl></div>
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						_CommitReference()<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_CommitReferences" id="__CommitReferences">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__CommitReferences">#</a>
+		<code><a href="source-class-CPersistentUnitObject.html#1195" title="Go to source code">_CommitReferences</a>( <span>reference <var>&amp; $theReference</var></span>, <span><code><a href="class-CContainer.html">CContainer</a></code> <var>$theContainer</var></span>, <span>bitfield <var>$theModifiers</var></span>, <span>integer <var>$doRecurse</var> = <span class="php-num">2</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Commit references.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Commit references.</p>
+
+<p>This method will parse the provided value looking for object references, if
+such references are expressed as instances derived from this class, it will will
+Commit() commit these instances and convert them to object
+references.</p>
+
+<p>The method will first check if the provided reference is a scalar, then it
+will check if it is a predicate/object par and finally it will check if it is a
+list of references.</p>
+
+<p>The parameters to this method are:</p>
+
+<ul>
+	<li><b>$theReference</b>: The reference to be parsed, the conversion will
+	replace the provided parameter.</li>
+
+	<li><b>$theContainer</b>: The container in which the referenced object(s)
+	resides, please refer to the documentation of _ParseReferences()
+	_ParseReferences for more information.</li>
+
+	<li><b>$theModifiers</b>: A bitfield indicating which elements of the CContainer::Reference() reference should be included, please refer to the
+	documentation of _ParseReferences() _ParseReferences for more
+	information.</li>
+
+	<li><b>$doRecurse</b>: This is a private parameter that you should leave
+	untouched, it it determines whether or not to recurse this method: it starts
+	with a value of 2, and at each recursion the value decreases, when it reaches
+	zero, structures will no more be considered.</li>
+</ul>
+
+<p>The method follows this set of rules:</p>
+
+<ul>
+	<li><i>Handle scalars</i>: A scalar element may be an instance derived from this
+	class, an instance derived from CDataType, or anything that is not an array or
+	an ArrayObject. If the scalar is an instance of this class, we Commit()
+	commit the instance and convert it to an object reference.</li>
+
+	<li><i>Handle structures</i>: Once we have determined it is not a scalar, we
+	check if it is either a predicate/object pair, or if it is a list of references;
+	in the both cases the elements will be passed recursively to this method.</li>
+</ul>
+
+<p>Note that when we Commit() commit referenced objects we use kFLAG_PERSIST_REPLACE kFLAG_PERSIST_REPLACE as the commit type.</p>
+
+<p>The method will return <i>TRUE</i> is a conversion occurred and <i>FALSE</i>
+if not.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theReference</var></dt>
+					<dd><code>reference</code><br>&amp;$theReference Reference.</dd>
+					<dt><var>$theContainer</var></dt>
+					<dd><code><code><a href="class-CContainer.html">CContainer</a></code></code><br> Object container.</dd>
+					<dt><var>$theModifiers</var></dt>
+					<dd><code>bitfield</code><br> Reference options.</dd>
+					<dt><var>$doRecurse</var></dt>
+					<dd><code>integer</code><br> Recurse level.</dd>
+				</dl></div>
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						_CommitReference()<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_GetTags" id="__GetTags">
+
+		<td class="attributes"><code>
+			 protected 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__GetTags">#</a>
+		<code><a href="source-class-CPersistentUnitObject.html#1400" title="Go to source code">_GetTags</a>( )</code>
+
+		<div class="description short">
+			
+<p>Get attribute tags.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Get attribute tags.</p>
+
+<p>In this class we exclude the kTAG_LID kTAG_LID, kTAG_CLASS
+kTAG_CLASS and kTAG_VERSION kTAG_VERSION tags, since they are set by
+default.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br />
+				</div>
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CPersistentObject.html#_">CPersistentObject::_GetTags</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CPersistentObject.html#methods">CPersistentObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CPersistentObject.html#_">Commit()</a>, 
+			<a href="class-CPersistentObject.html#_">Uncommit()</a>, 
+			<a href="class-CPersistentObject.html#_">_Create()</a>, 
+			<a href="class-CPersistentObject.html#_">_FinishCommit()</a>, 
+			<a href="class-CPersistentObject.html#_">_FinishCreate()</a>, 
+			<a href="class-CPersistentObject.html#_">_FinishLoad()</a>, 
+			<a href="class-CPersistentObject.html#_">_IsCommitted()</a>, 
+			<a href="class-CPersistentObject.html#_">_IsEncoded()</a>, 
+			<a href="class-CPersistentObject.html#_">_Load()</a>, 
+			<a href="class-CPersistentObject.html#_">_PrepareCreate()</a>, 
+			<a href="class-CPersistentObject.html#_">_SetTags()</a>, 
+			<a href="class-CPersistentObject.html#_">__construct()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CStatusObject.html#methods">CStatusObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CStatusObject.html#_">Status()</a>, 
+			<a href="class-CStatusObject.html#_">_IsDirty()</a>, 
+			<a href="class-CStatusObject.html#_">_IsInited()</a>, 
+			<a href="class-CStatusObject.html#_">_ManageBitField()</a>, 
+			<a href="class-CStatusObject.html#_">offsetSet()</a>, 
+			<a href="class-CStatusObject.html#_">offsetUnset()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CArrayObject.html#methods">CArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CArrayObject.html#_">keys()</a>, 
+			<a href="class-CArrayObject.html#_">offsetGet()</a>, 
+			<a href="class-CArrayObject.html#_">values()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-ArrayObject.html#methods">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#_">append()</a>, 
+			<a href="class-ArrayObject.html#_">asort()</a>, 
+			<a href="class-ArrayObject.html#_">count()</a>, 
+			<a href="class-ArrayObject.html#_">exchangeArray()</a>, 
+			<a href="class-ArrayObject.html#_">getArrayCopy()</a>, 
+			<a href="class-ArrayObject.html#_">getFlags()</a>, 
+			<a href="class-ArrayObject.html#_">getIterator()</a>, 
+			<a href="class-ArrayObject.html#_">getIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_">ksort()</a>, 
+			<a href="class-ArrayObject.html#_">natcasesort()</a>, 
+			<a href="class-ArrayObject.html#_">natsort()</a>, 
+			<a href="class-ArrayObject.html#_">offsetExists()</a>, 
+			<a href="class-ArrayObject.html#_">serialize()</a>, 
+			<a href="class-ArrayObject.html#_">setFlags()</a>, 
+			<a href="class-ArrayObject.html#_">setIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_">uasort()</a>, 
+			<a href="class-ArrayObject.html#_">uksort()</a>, 
+			<a href="class-ArrayObject.html#_">unserialize()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+	<table class="summary inherited">
+	<caption>Constants inherited from <a href="class-ArrayObject.html#constants">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#ARRAY_AS_PROPS"><b>ARRAY_AS_PROPS</b></a>, 
+			<a href="class-ArrayObject.html#STD_PROP_LIST"><b>STD_PROP_LIST</b></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-CStatusObject.html#properties">CStatusObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CStatusObject.html#$mStatus"><var>$mStatus</var></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+</div>
+
+	<div id="footer">
+		MyWrapper Reference API documentation generated by <a href="http://apigen.org">ApiGen 2.7.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

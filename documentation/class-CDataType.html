@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.7.0" />
+
+	<title>Class CDataType | MyWrapper Reference</title>
+
+	<script type="text/javascript" src="resources/combined.js?417553483"></script>
+	<script type="text/javascript" src="elementlist.js?1387923255"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?1567499433" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Packages</h3>
+			<ul>
+				<li class="active main"><a href="package-MyWrapper.html">MyWrapper<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MyWrapper.Entities.html">Entities</a>
+						</li>
+				<li class="active main"><a href="package-MyWrapper.Framework.html">Framework</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Ontology.html">Ontology</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Persistence.html">Persistence</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Session.html">Session</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Traits.html">Traits</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Wrappers.html">Wrappers</a>
+						</li>
+							</ul></li>
+				<li><a href="package-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-CArrayObject.html">CArrayObject</a></li>
+				<li><a href="class-CAttribute.html">CAttribute</a></li>
+				<li><a href="class-CCodedUnitObject.html">CCodedUnitObject</a></li>
+				<li class="active"><a href="class-CDataType.html">CDataType</a></li>
+				<li><a href="class-CDataTypeBinary.html">CDataTypeBinary</a></li>
+				<li><a href="class-CDataTypeInt32.html">CDataTypeInt32</a></li>
+				<li><a href="class-CDataTypeInt64.html">CDataTypeInt64</a></li>
+				<li><a href="class-CDataTypeMongoCode.html">CDataTypeMongoCode</a></li>
+				<li><a href="class-CDataTypeMongoId.html">CDataTypeMongoId</a></li>
+				<li><a href="class-CDataTypeRegex.html">CDataTypeRegex</a></li>
+				<li><a href="class-CDataTypeStamp.html">CDataTypeStamp</a></li>
+				<li><a href="class-CObject.html">CObject</a></li>
+				<li><a href="class-CStatusObject.html">CStatusObject</a></li>
+			</ul>
+
+
+
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-CException.html">CException</a></li>
+			</ul>
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="package-MyWrapper.Framework.html" title="Summary of MyWrapper\Framework"><span>Package</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class CDataType</h1>
+
+
+	<div class="description">
+	
+<p>Data types ancestor.</p>
+
+<p>This abstract class is the ancestor of data type classes in this library,
+classes derived from this one can be used to wrap special data types in a
+standard class so that it can be converted to a custom data type by CDataWrapper wrappers and CContainer containers.</p>
+
+<p>This may become necessary when CPersistentObject::Commit() storing
+objects in persistent data CDataWrapper stores.</p>
+
+<p>Current derived classes are:</p>
+
+<ul>
+	<li><i>kTYPE_INT32 kTYPE_INT32</i>: 32 bit integer, this data type is
+	generally available, but it might be useful to distinguish it from the kTYPE_INT64 64 bit version.</li>
+
+	<li><i>kTYPE_INT64 kTYPE_INT64</i>: 64 bit integer, this data type is
+	supported only on 64 bit systems.</li>
+
+	<li><i>kTYPE_STAMP kTYPE_STAMP</i>: Time stamp, we create this type to
+	have a standard way of representing a time-stamp.</li>
+
+	<li><i>kTYPE_BINARY kTYPE_BINARY</i>: Binary string, binary strings are
+	supported by PHPO, but they must be encoded for transport over the network or
+	for storing in databases.</li>
+
+	<li><i>kTYPE_REGEX kTYPE_REGEX</i>: Regular expression query.</li>
+</ul>
+
+<p>Other specialised data types are:</p>
+
+<ul>
+	<li><i>kTYPE_MongoId kTYPE_MongoId</i>: MongoDB _id.</li>
+
+	<li><i>kTYPE_MongoCode kTYPE_MongoCode</i>: MongoDB map/reduce
+	javascript code.</li>
+</ul>
+
+<p>The object derives from CArrayObject CArrayObject and holds the
+following default offsets:</p>
+
+<ul>
+	<li><i>kTAG_TYPE kTAG_TYPE</i>: Data type code, this element indicates
+	the data type.</li>
+
+	<li><i>kTAG_DATA kTAG_DATA</i>: This element holds the serialised
+	data.</li>
+</ul>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-ArrayObject.html"><span>ArrayObject</span></a>
+			
+			 implements 
+				<a href="class-IteratorAggregate.html"><span>IteratorAggregate</span></a>, 
+			
+				<a href="class-Traversable.html"><span>Traversable</span></a>, 
+			
+				<a href="class-ArrayAccess.html"><span>ArrayAccess</span></a>, 
+			
+				<a href="class-Serializable.html"><span>Serializable</span></a>, 
+			
+				<a href="class-Countable.html"><span>Countable</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CArrayObject.html"><span>CArrayObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:60px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>CDataType</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+	<div>
+		<h4>Direct known subclasses</h4>
+			<a href="class-CDataTypeBinary.html">CDataTypeBinary</a>, 
+			<a href="class-CDataTypeInt32.html">CDataTypeInt32</a>, 
+			<a href="class-CDataTypeInt64.html">CDataTypeInt64</a>, 
+			<a href="class-CDataTypeMongoCode.html">CDataTypeMongoCode</a>, 
+			<a href="class-CDataTypeMongoId.html">CDataTypeMongoId</a>, 
+			<a href="class-CDataTypeRegex.html">CDataTypeRegex</a>, 
+			<a href="class-CDataTypeStamp.html">CDataTypeStamp</a>
+	</div>
+
+
+
+
+
+
+	<div class="info">
+		<b>Abstract</b><br />
+		
+		
+		<b>Package:</b> <a href="package-MyWrapper.html">MyWrapper</a>\<a href="package-MyWrapper.Framework.html">Framework</a><br />
+
+				<b>Author:</b>
+				Milko A. Škofič &lt;<a
+href="mailto:m.skofic&#64;cgiar.org">m.skofic&#64;<!---->cgiar.org</a>&gt;<br />
+		<b>Located at</b> <a href="source-class-CDataType.html#36" title="Go to source code">CDataType.php</a><br />
+	</div>
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-CDataType.html#99" title="Go to source code">__construct</a>( <span>mixed <var>$theData</var> = <span class="php-keyword1">NULL</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Instantiate class.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Instantiate class.</p>
+
+<p>This class enforces a standard constructor that accepts one parameter which
+represents the custom data contents, these will be stored in the kTAG_DATA kTAG_DATA offset, this element must be filled.</p>
+
+<p>The method will ensure that this parameter is not <i>NULL</i> and not an
+array; it may be an ArrayObject, but it must then have the _toString()
+method.</p>
+
+<p>No <i>NULL</i> concrete instance is allowed, all instances derived from this
+class must have a value.</p>
+
+<p>The @link kTAG_TYPE kTAG_TYPE} offset will be set by derived classes.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theData</var></dt>
+					<dd><code>mixed</code><br> Custom data.</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-Exception.html">Exception</a></code></code><br />
+				</div>
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-ArrayObject.html#_">ArrayObject::__construct</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__toString" id="___toString">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___toString">#</a>
+		<code><a href="source-class-CDataType.html#146" title="Go to source code">__toString</a>( )</code>
+
+		<div class="description short">
+			
+<p>Return string representation.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return string representation.</p>
+
+<p>This method should return a string representation of the custom data type
+contents, this method must be implemented for all concrete classes.</p>
+
+<p>By default this method expects the custom data part to be convertable to
+string, if this is not the case, overload this method.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="value" id="_value">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_value">#</a>
+		<code><a href="source-class-CDataType.html#174" title="Go to source code">value</a>( )</code>
+
+		<div class="description short">
+			
+<p>Return data value.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return data value.</p>
+
+<p>This method should return the custom data value in the closest type possible
+in PHP.</p>
+
+<p>By default we return the string representation of the data, this is the last
+resort if the actual data type cannot be represented in PHP; derived classes
+that can be represented in PHP should overload this method.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-Exception.html">Exception</a></code></code><br />
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="SerialiseObject" id="_SerialiseObject">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_SerialiseObject">#</a>
+		<code><a href="source-class-CDataType.html#204" title="Go to source code">SerialiseObject</a>( <span>reference <var>&amp; $theObject</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Serialise provided object.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Serialise provided object.</p>
+
+<p>This method will take an object and convert all data elements that are
+compatible with one of the concrete classes derived from this one into a derived
+concrete instance.</p>
+
+<p>This method is useful when encoding objects in a format suitable for being
+transmitted, or just after CPersistentObject::Commit() committing them
+to a persistent CContainer container.</p>
+
+<p>This method will ensure that the object contains data types compatible with
+PHP and this library; it will be the duty of persistent CContainer
+containers to convert these structures into custom data types compatible with
+their storage engines.</p>
+
+<p>The method will scan the provided data elements: array or ArrayObject
+elements will be recursed, scalar elements will be sent to the public SerialiseData() SerialiseData method that will take care of performing the
+actual data conversion.</p>
+
+<p>If an element of the provided structure is converted, it will <i>always</i>
+be an object derived from this class, and all conversions will be performed on
+the object itself, which means that you should expect the provided object to be
+modified.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theObject</var></dt>
+					<dd><code>reference</code><br>&amp;$theObject Object to decode.</dd>
+				</dl></div>
+
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CContainer.html#_">CContainer::_FinishCommit()</a></code></code> <br />
+						<code><code><a href="class-CContainer.html#_">CContainer::_FinishLoad()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="SerialiseElement" id="_SerialiseElement">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_SerialiseElement">#</a>
+		<code><a href="source-class-CDataType.html#285" title="Go to source code">SerialiseElement</a>( <span>reference <var>&amp; $theElement</var></span>, <span>string <var>&amp; $theType</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Serialise provided element.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Serialise provided element.</p>
+
+<p>This method can be used to enforce converting custom data types to a standard
+format that can be serialised and transmitted through the network. This method
+accepts two parameters: the data type and the value: depending on their
+combination, the method will convert in place the data and the type.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theElement</var></dt>
+					<dd><code>reference</code><br>&amp;$theElement Element to encode.</dd>
+					<dt><var>$theType</var></dt>
+					<dd><code>string</code><br>&amp;$theType Element data type.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="SerialiseData" id="_SerialiseData">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_SerialiseData">#</a>
+		<code><a href="source-class-CDataType.html#498" title="Go to source code">SerialiseData</a>( <span>reference <var>&amp; $theElement</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Serialise provided data element.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Serialise provided data element.</p>
+
+<p>This method can be used to convert custom data types to a standard format
+that can be serialised and transmitted through the network. This method is
+generally called by SerialiseObject() SerialiseObject which passes each
+scalar element as a reference to this method which should decide whether the
+provided element is to be converted or not.</p>
+
+<p>This method will check if the provided parameter corresponds to a custom data
+type that needs to be converted, if so, it will convert it to an instance
+derived from this class.</p>
+
+<p>The following data types will be converted:</p>
+
+<ul>
+	<li><i>MongoId</i>: We convert into a CDataTypeMongoId CDataTypeMongoId
+	object.</li>
+
+	<li><i>MongoCode</i>: We convert into a CDataTypeMongoCode
+	CDataTypeMongoCode object.</li>
+
+	<li><i>MongoDate</i>: We convert into a CDataTypeStamp CDataTypeStamp
+	object.</li>
+
+	<li><i>MongoRegex</i>: We convert into a CDataTypeRegex CDataTypeRegex
+	object.</li>
+
+	<li><i>MongoBinData</i>: We convert into a CDataTypeBinary
+	CDataTypeBinary object.</li>
+
+	<li><i>MongoInt32</i>: We convert into a CDataTypeInt32 CDataTypeInt32
+	object.</li>
+
+	<li><i>MongoInt64</i>: We convert into a CDataTypeInt64 CDataTypeInt64
+	object.</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theElement</var></dt>
+					<dd><code>reference</code><br>&amp;$theElement Element to encode.</dd>
+				</dl></div>
+
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CContainer.html#_">CContainer::_FinishCommit()</a></code></code> <br />
+						<code><code><a href="class-CContainer.html#_">CContainer::_FinishLoad()</a></code></code> <br />
+						<code><code><a href="class-CContainer.html#_">CContainer::_FinishDelete()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CArrayObject.html#methods">CArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CArrayObject.html#_">keys()</a>, 
+			<a href="class-CArrayObject.html#_">offsetGet()</a>, 
+			<a href="class-CArrayObject.html#_">offsetSet()</a>, 
+			<a href="class-CArrayObject.html#_">offsetUnset()</a>, 
+			<a href="class-CArrayObject.html#_">values()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-ArrayObject.html#methods">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#_">append()</a>, 
+			<a href="class-ArrayObject.html#_">asort()</a>, 
+			<a href="class-ArrayObject.html#_">count()</a>, 
+			<a href="class-ArrayObject.html#_">exchangeArray()</a>, 
+			<a href="class-ArrayObject.html#_">getArrayCopy()</a>, 
+			<a href="class-ArrayObject.html#_">getFlags()</a>, 
+			<a href="class-ArrayObject.html#_">getIterator()</a>, 
+			<a href="class-ArrayObject.html#_">getIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_">ksort()</a>, 
+			<a href="class-ArrayObject.html#_">natcasesort()</a>, 
+			<a href="class-ArrayObject.html#_">natsort()</a>, 
+			<a href="class-ArrayObject.html#_">offsetExists()</a>, 
+			<a href="class-ArrayObject.html#_">serialize()</a>, 
+			<a href="class-ArrayObject.html#_">setFlags()</a>, 
+			<a href="class-ArrayObject.html#_">setIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_">uasort()</a>, 
+			<a href="class-ArrayObject.html#_">uksort()</a>, 
+			<a href="class-ArrayObject.html#_">unserialize()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+	<table class="summary inherited">
+	<caption>Constants inherited from <a href="class-ArrayObject.html#constants">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#ARRAY_AS_PROPS"><b>ARRAY_AS_PROPS</b></a>, 
+			<a href="class-ArrayObject.html#STD_PROP_LIST"><b>STD_PROP_LIST</b></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		MyWrapper Reference API documentation generated by <a href="http://apigen.org">ApiGen 2.7.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

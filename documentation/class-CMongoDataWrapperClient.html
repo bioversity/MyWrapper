@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.7.0" />
+
+	<title>Class CMongoDataWrapperClient | MyWrapper Reference</title>
+
+	<script type="text/javascript" src="resources/combined.js?417553483"></script>
+	<script type="text/javascript" src="elementlist.js?1387923255"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?1567499433" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Packages</h3>
+			<ul>
+				<li class="active main"><a href="package-MyWrapper.html">MyWrapper<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MyWrapper.Entities.html">Entities</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Framework.html">Framework</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Ontology.html">Ontology</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Persistence.html">Persistence</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Session.html">Session</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Traits.html">Traits</a>
+						</li>
+				<li class="active main"><a href="package-MyWrapper.Wrappers.html">Wrappers</a>
+						</li>
+							</ul></li>
+				<li><a href="package-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-CDataWrapper.html">CDataWrapper</a></li>
+				<li><a href="class-CDataWrapperClient.html">CDataWrapperClient</a></li>
+				<li><a href="class-CMongoDataWrapper.html">CMongoDataWrapper</a></li>
+				<li class="active"><a href="class-CMongoDataWrapperClient.html">CMongoDataWrapperClient</a></li>
+				<li><a href="class-CWarehouseWrapper.html">CWarehouseWrapper</a></li>
+				<li><a href="class-CWarehouseWrapperClient.html">CWarehouseWrapperClient</a></li>
+				<li><a href="class-CWrapper.html">CWrapper</a></li>
+				<li><a href="class-CWrapperClient.html">CWrapperClient</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="package-MyWrapper.Wrappers.html" title="Summary of MyWrapper\Wrappers"><span>Package</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class CMongoDataWrapperClient</h1>
+
+
+	<div class="description">
+	
+<p>MongoDB data wrapper client.</p>
+
+<p>This class represents a MongoDB web-services data wrapper client, it
+facilitates the job of requesting information from servers derived from the
+CMongoDataWrapper CMongoDataWrapper class.</p>
+
+<p>This class adds the following properties to its CWrapperClient
+ancestor:</p>
+
+<ul>
+	<li><i>NoResponse() No response</i>: This kAPI_OPT_NO_RESP
+	property represents a switch that, if on, prevents the response from being
+	sent. This can be useful when you are only interested in the status of the
+	operation and not in the response.</li>
+</ul>
+
+<p>The class also adds the following new operations:</p>
+
+<ul>
+	<li><i>kAPI_OP_GET_ONE kAPI_OP_GET_ONE</i>: This is the tag that
+	represents the findOne Mongo operation, it will return the first matched
+	object.</li>
+
+	<li><i>kAPI_OP_GET_OBJECT_REF kAPI_OP_GET_OBJECT_REF</i>: This tag
+	defines a web service that returns an object by reference. It is equivalent to
+	the kAPI_OP_GET_ONE kAPI_OP_GET_ONE operation, except that instead of
+	using the query provided in the kAPI_DATA_QUERY kAPI_DATA_QUERY
+	parameter, it will try to extract an identifier from the object provided in the
+	kAPI_DATA_OBJECT kAPI_DATA_OBJECT parameter.</li>
+</ul>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-ArrayObject.html"><span>ArrayObject</span></a>
+			
+			 implements 
+				<a href="class-IteratorAggregate.html"><span>IteratorAggregate</span></a>, 
+			
+				<a href="class-Traversable.html"><span>Traversable</span></a>, 
+			
+				<a href="class-ArrayAccess.html"><span>ArrayAccess</span></a>, 
+			
+				<a href="class-Serializable.html"><span>Serializable</span></a>, 
+			
+				<a href="class-Countable.html"><span>Countable</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CArrayObject.html"><span>CArrayObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:60px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CStatusObject.html"><span>CStatusObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:90px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CWrapperClient.html"><span>CWrapperClient</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:120px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CDataWrapperClient.html"><span>CDataWrapperClient</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:150px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>CMongoDataWrapperClient</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		
+		<b>Package:</b> <a href="package-MyWrapper.html">MyWrapper</a>\<a href="package-MyWrapper.Wrappers.html">Wrappers</a><br />
+
+				<b>Author:</b>
+				Milko A. Škofič &lt;<a
+href="mailto:m.skofic&#64;cgiar.org">m.skofic&#64;<!---->cgiar.org</a>&gt;<br />
+		<b>Located at</b> <a href="source-class-CMongoDataWrapperClient.html#36" title="Go to source code">CMongoDataWrapperClient.php</a><br />
+	</div>
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="Operation" id="_Operation">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Operation">#</a>
+		<code><a href="source-class-CMongoDataWrapperClient.html#84" title="Go to source code">Operation</a>( <span>string <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage operation.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage operation.</p>
+
+<p>We CDataWrapperClient::Operation() overload this method to add the
+following allowed operations:</p>
+
+<ul>
+	<li><i>kAPI_OP_GET_ONE kAPI_OP_GET_ONE</i>: This is the tag that
+	represents the findOne Mongo operation, it will return the first matched
+	object.</li>
+
+	<li><i>kAPI_OP_GET_OBJECT_REF kAPI_OP_GET_OBJECT_REF</i>: This tag
+	defines a web-service that returns an object by reference. It is equivalent to
+	the kAPI_OP_GET_ONE kAPI_OP_GET_ONE operation, except that instead of
+	using the query provided in the kAPI_DATA_QUERY kAPI_DATA_QUERY
+	parameter, it will try to extract an identifier from the object provided in the
+	kAPI_DATA_OBJECT kAPI_DATA_OBJECT parameter.</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>string</code><br> Value or operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>{@link</code><br>CException CException}<br />
+				</div>
+
+				<h4>See</h4>
+				<div class="list">
+						kAPI_OPERATION<br />
+						kAPI_OP_GET_ONE kAPI_OP_GET_OBJECT_REF<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CAttribute.html#_">CAttribute::ManageOffset()</a></code></code> <br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CDataWrapperClient.html#_">CDataWrapperClient::Operation</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="NoResponse" id="_NoResponse">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_NoResponse">#</a>
+		<code><a href="source-class-CMongoDataWrapperClient.html#143" title="Go to source code">NoResponse</a>( <span>integer <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage no response switch.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage no response switch.</p>
+
+<p>This method can be used to manage the no kAPI_OPT_NO_RESP response
+switch, it accepts a boolean which represents either the on/off value, or the
+requested operation:</p>
+
+<ul>
+	<li><i>NULL</i>: Return the current value.</li>
+
+	<li><i>FALSE</i>: Delete the current value.</li>
+
+	<li><i>other</i>: Set the value with the provided parameter.</li>
+</ul>
+
+<p>The second parameter is a boolean which if <i>TRUE</i> will return the
+<i>old</i> value when replacing values; if <i>FALSE</i>, it will return the
+currently set value.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>integer</code><br> Value or operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						kAPI_OPT_NO_RESP<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CAttribute.html#_">CAttribute::ManageOffset()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CDataWrapperClient.html#methods">CDataWrapperClient</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CDataWrapperClient.html#_">Container()</a>, 
+			<a href="class-CDataWrapperClient.html#_">Database()</a>, 
+			<a href="class-CDataWrapperClient.html#_">Fields()</a>, 
+			<a href="class-CDataWrapperClient.html#_">Limit()</a>, 
+			<a href="class-CDataWrapperClient.html#_">Object()</a>, 
+			<a href="class-CDataWrapperClient.html#_">Options()</a>, 
+			<a href="class-CDataWrapperClient.html#_">Query()</a>, 
+			<a href="class-CDataWrapperClient.html#_">Sort()</a>, 
+			<a href="class-CDataWrapperClient.html#_">Start()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CWrapperClient.html#methods">CWrapperClient</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CWrapperClient.html#_">Execute()</a>, 
+			<a href="class-CWrapperClient.html#_">Format()</a>, 
+			<a href="class-CWrapperClient.html#_">LogRequest()</a>, 
+			<a href="class-CWrapperClient.html#_">LogTrace()</a>, 
+			<a href="class-CWrapperClient.html#_">Request()</a>, 
+			<a href="class-CWrapperClient.html#_">Stamp()</a>, 
+			<a href="class-CWrapperClient.html#_">Url()</a>, 
+			<a href="class-CWrapperClient.html#_">__construct()</a>, 
+			<a href="class-CWrapperClient.html#_">offsetSet()</a>, 
+			<a href="class-CWrapperClient.html#_">offsetUnset()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CStatusObject.html#methods">CStatusObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CStatusObject.html#_">Status()</a>, 
+			<a href="class-CStatusObject.html#_">_IsDirty()</a>, 
+			<a href="class-CStatusObject.html#_">_IsInited()</a>, 
+			<a href="class-CStatusObject.html#_">_ManageBitField()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CArrayObject.html#methods">CArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CArrayObject.html#_">keys()</a>, 
+			<a href="class-CArrayObject.html#_">offsetGet()</a>, 
+			<a href="class-CArrayObject.html#_">values()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-ArrayObject.html#methods">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#_">append()</a>, 
+			<a href="class-ArrayObject.html#_">asort()</a>, 
+			<a href="class-ArrayObject.html#_">count()</a>, 
+			<a href="class-ArrayObject.html#_">exchangeArray()</a>, 
+			<a href="class-ArrayObject.html#_">getArrayCopy()</a>, 
+			<a href="class-ArrayObject.html#_">getFlags()</a>, 
+			<a href="class-ArrayObject.html#_">getIterator()</a>, 
+			<a href="class-ArrayObject.html#_">getIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_">ksort()</a>, 
+			<a href="class-ArrayObject.html#_">natcasesort()</a>, 
+			<a href="class-ArrayObject.html#_">natsort()</a>, 
+			<a href="class-ArrayObject.html#_">offsetExists()</a>, 
+			<a href="class-ArrayObject.html#_">serialize()</a>, 
+			<a href="class-ArrayObject.html#_">setFlags()</a>, 
+			<a href="class-ArrayObject.html#_">setIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_">uasort()</a>, 
+			<a href="class-ArrayObject.html#_">uksort()</a>, 
+			<a href="class-ArrayObject.html#_">unserialize()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+	<table class="summary inherited">
+	<caption>Constants inherited from <a href="class-ArrayObject.html#constants">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#ARRAY_AS_PROPS"><b>ARRAY_AS_PROPS</b></a>, 
+			<a href="class-ArrayObject.html#STD_PROP_LIST"><b>STD_PROP_LIST</b></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-CStatusObject.html#properties">CStatusObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CStatusObject.html#$mStatus"><var>$mStatus</var></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+</div>
+
+	<div id="footer">
+		MyWrapper Reference API documentation generated by <a href="http://apigen.org">ApiGen 2.7.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

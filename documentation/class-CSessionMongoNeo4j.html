@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.7.0" />
+
+	<title>Class CSessionMongoNeo4j | MyWrapper Reference</title>
+
+	<script type="text/javascript" src="resources/combined.js?417553483"></script>
+	<script type="text/javascript" src="elementlist.js?1387923255"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?1567499433" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Packages</h3>
+			<ul>
+				<li class="active main"><a href="package-MyWrapper.html">MyWrapper<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MyWrapper.Entities.html">Entities</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Framework.html">Framework</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Ontology.html">Ontology</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Persistence.html">Persistence</a>
+						</li>
+				<li class="active main"><a href="package-MyWrapper.Session.html">Session</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Traits.html">Traits</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Wrappers.html">Wrappers</a>
+						</li>
+							</ul></li>
+				<li><a href="package-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-CSessionMongoNeo4j.html">CSessionMongoNeo4j</a></li>
+				<li><a href="class-CSessionObject.html">CSessionObject</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="package-MyWrapper.Session.html" title="Summary of MyWrapper\Session"><span>Package</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class CSessionMongoNeo4j</h1>
+
+
+	<div class="description">
+	
+<p>Mongo and Neo4j session object.</p>
+
+<p>This concrete class implements a session that uses MongoDB as its data DataStore() store and Neo4j as its GraphStore() store.</p>
+
+<p>The class does not add any extra functionality to its CSessionObject
+parent, except that this class can be instantiated.</p>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-ArrayObject.html"><span>ArrayObject</span></a>
+			
+			 implements 
+				<a href="class-IteratorAggregate.html"><span>IteratorAggregate</span></a>, 
+			
+				<a href="class-Traversable.html"><span>Traversable</span></a>, 
+			
+				<a href="class-ArrayAccess.html"><span>ArrayAccess</span></a>, 
+			
+				<a href="class-Serializable.html"><span>Serializable</span></a>, 
+			
+				<a href="class-Countable.html"><span>Countable</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CArrayObject.html"><span>CArrayObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:60px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CSessionObject.html"><span>CSessionObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:90px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>CSessionMongoNeo4j</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		
+		<b>Package:</b> <a href="package-MyWrapper.html">MyWrapper</a>\<a href="package-MyWrapper.Session.html">Session</a><br />
+
+				<b>Author:</b>
+				Milko A. Škofič &lt;<a
+href="mailto:m.skofic&#64;cgiar.org">m.skofic&#64;<!---->cgiar.org</a>&gt;<br />
+		<b>Located at</b> <a href="source-class-CSessionMongoNeo4j.html#51" title="Go to source code">CSessionMongoNeo4j.php</a><br />
+	</div>
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="DataStore" id="_DataStore">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_DataStore">#</a>
+		<code><a href="source-class-CSessionMongoNeo4j.html#79" title="Go to source code">DataStore</a>( <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage the data store reference.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage the data store reference.</p>
+
+<p>This method can be used to manage the session's data store reference. The
+data store represents the main connection to the database, from which CContainer container references can be derived.</p>
+
+<p>We CSessionObject::DataStore() overload this method to ensure the
+provided parameter is a Mongo object.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br> Value or operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>{@link</code><br>CException CException}<br />
+				</div>
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_InitDataStore()</a></code></code> <br />
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_SerialiseDataStore()</a></code></code> <br />
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_UnserialiseDatabase()</a></code></code> <br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CSessionObject.html#_">CSessionObject::DataStore</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="GraphStore" id="_GraphStore">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_GraphStore">#</a>
+		<code><a href="source-class-CSessionMongoNeo4j.html#126" title="Go to source code">GraphStore</a>( <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage the graph store reference.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage the graph store reference.</p>
+
+<p>This method can be used to manage the session's graph store reference. The
+graph store represents the main connection to the graph, the graph database
+vcient.</p>
+
+<p>We CSessionObject::GraphStore() overload this method to ensure the
+provided parameter is a Neo4j client object.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br> Value or operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>{@link</code><br>CException CException}<br />
+				</div>
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_InitGraphStore()</a></code></code> <br />
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_SerialiseGraphStore()</a></code></code> <br />
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_UnserialiseGraphStore()</a></code></code> <br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CSessionObject.html#_">CSessionObject::GraphStore</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Database" id="_Database">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Database">#</a>
+		<code><a href="source-class-CSessionMongoNeo4j.html#172" title="Go to source code">Database</a>( <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage the database reference.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage the database reference.</p>
+
+<p>This method can be used to manage the session's default database reference.
+This database represents the connection to the default collections
+container.</p>
+
+<p>We CSessionObject::Database() overload this method to ensure the
+provided parameter is a MongoDB object.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br> Value or operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>{@link</code><br>CException CException}<br />
+				</div>
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_InitDatabase()</a></code></code> <br />
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_SerialiseDatabase()</a></code></code> <br />
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_UnserialiseDatabase()</a></code></code> <br />
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_UnserialiseUsersContainer()</a></code></code> <br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CSessionObject.html#_">CSessionObject::Database</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="UsersContainer" id="_UsersContainer">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_UsersContainer">#</a>
+		<code><a href="source-class-CSessionMongoNeo4j.html#218" title="Go to source code">UsersContainer</a>( <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage the default users container.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage the default users container.</p>
+
+<p>This method can be used to manage the session's default users container. This
+object represents the the container in which all users are stored.</p>
+
+<p>We CSessionObject::UsersContainer() overload this method to ensure
+the provided parameter is either a MongoCollection or a CMongoContainer
+CMongoContainer object, the latter being the expected type.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br> Value or operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>{@link</code><br>CException CException}<br />
+				</div>
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_InitUserContainer()</a></code></code> <br />
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_SerialiseUsersContainer()</a></code></code> <br />
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_UnserialiseUsersContainer()</a></code></code> <br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CSessionObject.html#_">CSessionObject::UsersContainer</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Query" id="_Query">
+
+		<td class="attributes"><code>
+			 public 
+			<code><a href="class-CQuery.html">CQuery</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Query">#</a>
+		<code><a href="source-class-CSessionMongoNeo4j.html#296" title="Go to source code">Query</a>( )</code>
+
+		<div class="description short">
+			
+<p>Return an empty query.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return an empty query.</p>
+
+<p>This method can be used to return a concrete query instance based on the
+specific database engines supported by the session.</p>
+
+<p>In this class we return an empty CMongoQuery CMongoQuery.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-CQuery.html">CQuery</a></code></code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_Init" id="__Init">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__Init">#</a>
+		<code><a href="source-class-CSessionMongoNeo4j.html#323" title="Go to source code">_Init</a>( )</code>
+
+		<div class="description short">
+			
+<p>Initialise resources.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Initialise resources.</p>
+
+<p>This method is called when __construct() instantiating the object,
+its duty is to initialise the required resources.</p>
+
+<p>In this class we initialise the _InitDataStore() data and _InitGraphStore() graph stores, the _InitDatabase() database and the
+users _InitUserContainer() container.</p>
+
+
+
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_InitDataStore()</a></code></code> <br />
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_InitGraphStore()</a></code></code> <br />
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_InitDatabase()</a></code></code> <br />
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_InitUserContainer()</a></code></code> <br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CSessionObject.html#_">CSessionObject::_Init</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_InitGraphStore" id="__InitGraphStore">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__InitGraphStore">#</a>
+		<code><a href="source-class-CSessionMongoNeo4j.html#362" title="Go to source code">_InitGraphStore</a>( <span>string <var>$theHost</var> = <span class="php-keyword1">NULL</span></span>, <span>string <var>$thePort</var> = <span class="php-keyword1">NULL</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Initialise graph store.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Initialise graph store.</p>
+
+<p>The duty of this method is to initialise the graph store.</p>
+
+<p>In this class we initialise a Neo4j client using the default kDEFAULT_kNEO4J_HOST host and kDEFAULT_kNEO4J_PORT port.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theHost</var></dt>
+					<dd><code>string</code><br> Eventual custom host or transport.</dd>
+					<dt><var>$thePort</var></dt>
+					<dd><code>string</code><br> Eventual custom port.</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>{@link</code><br>CException CException}<br />
+				</div>
+
+				<h4>See</h4>
+				<div class="list">
+						kDEFAULT_kNEO4J_HOST kDEFAULT_kNEO4J_PORT<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::GraphStore()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_Init()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_InitDataStore" id="__InitDataStore">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__InitDataStore">#</a>
+		<code><a href="source-class-CSessionMongoNeo4j.html#441" title="Go to source code">_InitDataStore</a>( <span>mixed <var>$theData</var> = <span class="php-keyword1">NULL</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Initialise data store.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Initialise data store.</p>
+
+<p>The duty of this method is to initialise the data store.</p>
+
+<p>In this class we simply instantiate a new Mongo.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theData</var></dt>
+					<dd><code>mixed</code><br> Eventual custom data store.</dd>
+				</dl></div>
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::DataStore()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_Init()</a></code></code> <br />
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_UnserialiseDataStore()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_InitDatabase" id="__InitDatabase">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__InitDatabase">#</a>
+		<code><a href="source-class-CSessionMongoNeo4j.html#474" title="Go to source code">_InitDatabase</a>( <span>mixed <var>$theData</var> = <span class="php-keyword1">NULL</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Initialise database.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Initialise database.</p>
+
+<p>The duty of this method is to initialise the database.</p>
+
+<p>In this class we initialise a MongoDB database by the default database kDEFAULT_DATABASE name.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theData</var></dt>
+					<dd><code>mixed</code><br> Eventual custom database name.</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>{@link</code><br>CException CException}<br />
+				</div>
+
+				<h4>See</h4>
+				<div class="list">
+						kDEFAULT_DATABASE<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::Database()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_Init()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_InitUserContainer" id="__InitUserContainer">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__InitUserContainer">#</a>
+		<code><a href="source-class-CSessionMongoNeo4j.html#531" title="Go to source code">_InitUserContainer</a>( <span>mixed <var>$theData</var> = <span class="php-keyword1">NULL</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Initialise users container.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Initialise users container.</p>
+
+<p>The duty of this method is to initialise the user container.</p>
+
+<p>In this class we initialise a MongoCollection container by the default user
+container kDEFAULT_CNT_USERS name.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theData</var></dt>
+					<dd><code>mixed</code><br> Eventual custom container name.</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>{@link</code><br>CException CException}<br />
+				</div>
+
+				<h4>See</h4>
+				<div class="list">
+						kDEFAULT_CNT_USERS<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::UsersContainer()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_Init()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_Serialise" id="__Serialise">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__Serialise">#</a>
+		<code><a href="source-class-CSessionMongoNeo4j.html#597" title="Go to source code">_Serialise</a>( )</code>
+
+		<div class="description short">
+			
+<p>Serialise object.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Serialise object.</p>
+
+<p>This method is called before the object gets serialize() serialized,
+its duty is to normalise the object's properties before these get
+serialized.</p>
+
+<p>In this class we _SerialiseUsersContainer() replace the users UsersContainer() container with its name, the Database() database
+_SerialiseDatabase() with its name and the graph GraphStore()
+store _SerialiseGraphStore() with its transport.</p>
+
+<p>We need to do the above because those objects do not serialize correctly.</p>
+
+
+
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_SerialiseUsersContainer()</a></code></code> <br />
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_SerialiseDatabase()</a></code></code> <br />
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_SerialiseDataStore()</a></code></code> <br />
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_SerialiseGraphStore()</a></code></code> <br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CSessionObject.html#_">CSessionObject::_Serialise</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_SerialiseUsersContainer" id="__SerialiseUsersContainer">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__SerialiseUsersContainer">#</a>
+		<code><a href="source-class-CSessionMongoNeo4j.html#639" title="Go to source code">_SerialiseUsersContainer</a>( )</code>
+
+		<div class="description short">
+			
+<p>Serialise users container.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Serialise users container.</p>
+
+<p>This method will replace the current object's users container UsersContainer() property with its name, because the container object cannot be
+serialized.</p>
+
+<p>Note that we do not use the accessor method, because we are setting the data
+member to an unsupported data type.</p>
+
+
+
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::UsersContainer()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_Serialise()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_SerialiseDatabase" id="__SerialiseDatabase">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__SerialiseDatabase">#</a>
+		<code><a href="source-class-CSessionMongoNeo4j.html#669" title="Go to source code">_SerialiseDatabase</a>( )</code>
+
+		<div class="description short">
+			
+<p>Serialise database.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Serialise database.</p>
+
+<p>This method will replace the current object's database Database()
+property with its name, because the database object cannot be serialized.</p>
+
+<p>Note that we do not use the accessor method, because we are setting the data
+member to an unsupported data type.</p>
+
+
+
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::Database()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_Serialise()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_SerialiseDataStore" id="__SerialiseDataStore">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__SerialiseDataStore">#</a>
+		<code><a href="source-class-CSessionMongoNeo4j.html#698" title="Go to source code">_SerialiseDataStore</a>( )</code>
+
+		<div class="description short">
+			
+<p>Serialise data store.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Serialise data store.</p>
+
+<p>This method will reset the current object's data store DataStore()
+property, because the object cannot be serialized.</p>
+
+
+
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::DataStore()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_Serialise()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_SerialiseGraphStore" id="__SerialiseGraphStore">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__SerialiseGraphStore">#</a>
+		<code><a href="source-class-CSessionMongoNeo4j.html#715" title="Go to source code">_SerialiseGraphStore</a>( )</code>
+
+		<div class="description short">
+			
+<p>Serialise graph store.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Serialise graph store.</p>
+
+<p>This method will replace the current object's graph store GraphStore()
+property with its transport, because the graph store contains a closure which
+cannot be serialized.</p>
+
+<p>Note that we do not use the accessor method, because we are setting the data
+member to an unsupported data type.</p>
+
+
+
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::GraphStore()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_Serialise()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_Unserialise" id="__Unserialise">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__Unserialise">#</a>
+		<code><a href="source-class-CSessionMongoNeo4j.html#754" title="Go to source code">_Unserialise</a>( )</code>
+
+		<div class="description short">
+			
+<p>Unserialise object.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Unserialise object.</p>
+
+<p>This method is called after the object gets unserialize()
+unserialized, its duty is to restore the object's properties that were _Serialise() normalised before the object was serialize()
+serialized.</p>
+
+<p>In this class we need to _UnserialiseGraphStore() restore the graph
+GraphStore() store, the _UnserialiseDataStore() data DataStore() store, _UnserialiseDatabase() the Database()
+database and the _UnserialiseUsersContainer() users UsersContainer() container.</p>
+
+
+
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_UnserialiseGraphStore()</a></code></code> <br />
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_UnserialiseDataStore()</a></code></code> <br />
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_UnserialiseDatabase()</a></code></code> <br />
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_UnserialiseUsersContainer()</a></code></code> <br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CSessionObject.html#_">CSessionObject::_Unserialise</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_UnserialiseGraphStore" id="__UnserialiseGraphStore">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__UnserialiseGraphStore">#</a>
+		<code><a href="source-class-CSessionMongoNeo4j.html#796" title="Go to source code">_UnserialiseGraphStore</a>( )</code>
+
+		<div class="description short">
+			
+<p>Unserialise graph store.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Unserialise graph store.</p>
+
+<p>This method is called after the object gets unserialize()
+unserialised, its duty is to restore the current graph GraphStore()
+store from its _SerialiseGraphStore() transport.</p>
+
+
+
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_SerialiseGraphStore()</a></code></code><br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::GraphStore()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_Unserialise()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_UnserialiseDataStore" id="__UnserialiseDataStore">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__UnserialiseDataStore">#</a>
+		<code><a href="source-class-CSessionMongoNeo4j.html#827" title="Go to source code">_UnserialiseDataStore</a>( )</code>
+
+		<div class="description short">
+			
+<p>Unserialise data store.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Unserialise data store.</p>
+
+<p>This method is called after the object gets unserialize()
+unserialised, its duty is to restore the current data DataStore()
+store.</p>
+
+
+
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_SerialiseDataStore()</a></code></code><br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_InitDataStore()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_Unserialise()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_UnserialiseDatabase" id="__UnserialiseDatabase">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__UnserialiseDatabase">#</a>
+		<code><a href="source-class-CSessionMongoNeo4j.html#853" title="Go to source code">_UnserialiseDatabase</a>( )</code>
+
+		<div class="description short">
+			
+<p>Unserialise database.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Unserialise database.</p>
+
+<p>This method is called after the object gets unserialize()
+unserialised, its duty is to restore the current GraphStore() database
+from its _SerialiseDatabase() name.</p>
+
+
+
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_SerialiseDatabase()</a></code></code><br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::Database()</a></code></code> <br />
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::DataStore()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_Unserialise()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_UnserialiseUsersContainer" id="__UnserialiseUsersContainer">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__UnserialiseUsersContainer">#</a>
+		<code><a href="source-class-CSessionMongoNeo4j.html#886" title="Go to source code">_UnserialiseUsersContainer</a>( )</code>
+
+		<div class="description short">
+			
+<p>Unserialise users container.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Unserialise users container.</p>
+
+<p>This method is called after the object gets unserialize()
+unserialised, its duty is to restore the current users UsersContainer()
+container from its _SerialiseUsersContainer() name.</p>
+
+
+
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_SerialiseUsersContainer()</a></code></code><br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::UsersContainer()</a></code></code> <br />
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::Database()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionMongoNeo4j.html#_">CSessionMongoNeo4j::_Unserialise()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CSessionObject.html#methods">CSessionObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CSessionObject.html#_">Login()</a>, 
+			<a href="class-CSessionObject.html#_">ShowDebug()</a>, 
+			<a href="class-CSessionObject.html#_">User()</a>, 
+			<a href="class-CSessionObject.html#_">_LoadUser()</a>, 
+			<a href="class-CSessionObject.html#_">_ManageFlag()</a>, 
+			<a href="class-CSessionObject.html#_">_Register()</a>, 
+			<a href="class-CSessionObject.html#_">_RegisterDebug()</a>, 
+			<a href="class-CSessionObject.html#_">_RegisterUser()</a>, 
+			<a href="class-CSessionObject.html#_">_RegisterUserEmail()</a>, 
+			<a href="class-CSessionObject.html#_">_RegisterUserKind()</a>, 
+			<a href="class-CSessionObject.html#_">_RegisterUserLogged()</a>, 
+			<a href="class-CSessionObject.html#_">_RegisterUserName()</a>, 
+			<a href="class-CSessionObject.html#_">_RegisterUserRole()</a>, 
+			<a href="class-CSessionObject.html#_">_SerialiseUser()</a>, 
+			<a href="class-CSessionObject.html#_">_UnserialiseUser()</a>, 
+			<a href="class-CSessionObject.html#_">__construct()</a>, 
+			<a href="class-CSessionObject.html#_">__toString()</a>, 
+			<a href="class-CSessionObject.html#_">serialize()</a>, 
+			<a href="class-CSessionObject.html#_">unserialize()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CArrayObject.html#methods">CArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CArrayObject.html#_">keys()</a>, 
+			<a href="class-CArrayObject.html#_">offsetGet()</a>, 
+			<a href="class-CArrayObject.html#_">offsetSet()</a>, 
+			<a href="class-CArrayObject.html#_">offsetUnset()</a>, 
+			<a href="class-CArrayObject.html#_">values()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-ArrayObject.html#methods">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#_">append()</a>, 
+			<a href="class-ArrayObject.html#_">asort()</a>, 
+			<a href="class-ArrayObject.html#_">count()</a>, 
+			<a href="class-ArrayObject.html#_">exchangeArray()</a>, 
+			<a href="class-ArrayObject.html#_">getArrayCopy()</a>, 
+			<a href="class-ArrayObject.html#_">getFlags()</a>, 
+			<a href="class-ArrayObject.html#_">getIterator()</a>, 
+			<a href="class-ArrayObject.html#_">getIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_">ksort()</a>, 
+			<a href="class-ArrayObject.html#_">natcasesort()</a>, 
+			<a href="class-ArrayObject.html#_">natsort()</a>, 
+			<a href="class-ArrayObject.html#_">offsetExists()</a>, 
+			<a href="class-ArrayObject.html#_">setFlags()</a>, 
+			<a href="class-ArrayObject.html#_">setIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_">uasort()</a>, 
+			<a href="class-ArrayObject.html#_">uksort()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+	<table class="summary inherited">
+	<caption>Constants inherited from <a href="class-ArrayObject.html#constants">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#ARRAY_AS_PROPS"><b>ARRAY_AS_PROPS</b></a>, 
+			<a href="class-ArrayObject.html#STD_PROP_LIST"><b>STD_PROP_LIST</b></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-CSessionObject.html#properties">CSessionObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CSessionObject.html#$mDataStore"><var>$mDataStore</var></a>, 
+			<a href="class-CSessionObject.html#$mDatabase"><var>$mDatabase</var></a>, 
+			<a href="class-CSessionObject.html#$mGraphStore"><var>$mGraphStore</var></a>, 
+			<a href="class-CSessionObject.html#$mUser"><var>$mUser</var></a>, 
+			<a href="class-CSessionObject.html#$mUsersContainer"><var>$mUsersContainer</var></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+</div>
+
+	<div id="footer">
+		MyWrapper Reference API documentation generated by <a href="http://apigen.org">ApiGen 2.7.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

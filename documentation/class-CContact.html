@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.7.0" />
+
+	<title>Class CContact | MyWrapper Reference</title>
+
+	<script type="text/javascript" src="resources/combined.js?417553483"></script>
+	<script type="text/javascript" src="elementlist.js?1387923255"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?1567499433" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Packages</h3>
+			<ul>
+				<li class="active main"><a href="package-MyWrapper.html">MyWrapper<span></span></a>
+						<ul>
+				<li class="active main"><a href="package-MyWrapper.Entities.html">Entities</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Framework.html">Framework</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Ontology.html">Ontology</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Persistence.html">Persistence</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Session.html">Session</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Traits.html">Traits</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Wrappers.html">Wrappers</a>
+						</li>
+							</ul></li>
+				<li><a href="package-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-CContact.html">CContact</a></li>
+				<li><a href="class-CEntity.html">CEntity</a></li>
+				<li><a href="class-CFAOInstitute.html">CFAOInstitute</a></li>
+				<li><a href="class-CInstitute.html">CInstitute</a></li>
+				<li><a href="class-CUser.html">CUser</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="package-MyWrapper.Entities.html" title="Summary of MyWrapper\Entities"><span>Package</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class CContact</h1>
+
+
+	<div class="description">
+	
+<p>Contact.</p>
+
+<p>This class overloads its CEntity ancestor to implement a contact
+entity.</p>
+
+<p>Contacts are entities that need to be tracked by Mail() mail, Phone() telephone or Email() e-mail.</p>
+
+<p>The class features the following properties:</p>
+
+<ul>
+	<li><i>kOFFSET_MAIL kOFFSET_MAIL</i>: The contact Mail() mailing
+	address list.</li>
+
+	<li><i>kOFFSET_PHONE kOFFSET_PHONE</i>: The contact Phone()
+	telephone list.</li>
+</ul>
+
+<p>These three properties are managed as an array of elements discriminated by
+the kTAG_KIND kTAG_KIND offset, no two elements may share the same
+kTAG_KIND kind.</p>
+
+<p>The object inherits the _IsInited() inited kFLAG_STATE_INITED
+status, it is the responsibility of concrete classes to implement this
+feature.</p>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-ArrayObject.html"><span>ArrayObject</span></a>
+			
+			 implements 
+				<a href="class-IteratorAggregate.html"><span>IteratorAggregate</span></a>, 
+			
+				<a href="class-Traversable.html"><span>Traversable</span></a>, 
+			
+				<a href="class-ArrayAccess.html"><span>ArrayAccess</span></a>, 
+			
+				<a href="class-Serializable.html"><span>Serializable</span></a>, 
+			
+				<a href="class-Countable.html"><span>Countable</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CArrayObject.html"><span>CArrayObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:60px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CStatusObject.html"><span>CStatusObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:90px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CPersistentObject.html"><span>CPersistentObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:120px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CPersistentUnitObject.html"><span>CPersistentUnitObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:150px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CRelatedUnitObject.html"><span>CRelatedUnitObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:180px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CCodedUnitObject.html"><span>CCodedUnitObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:210px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CEntity.html"><span>CEntity</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:240px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>CContact</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+	<div>
+		<h4>Direct known subclasses</h4>
+			<a href="class-CInstitute.html">CInstitute</a>
+	</div>
+
+	<div>
+		<h4>Indirect known subclasses</h4>
+			<a href="class-CFAOInstitute.html">CFAOInstitute</a>
+	</div>
+
+
+
+
+
+	<div class="info">
+		
+		
+		
+		<b>Package:</b> <a href="package-MyWrapper.html">MyWrapper</a>\<a href="package-MyWrapper.Entities.html">Entities</a><br />
+
+				<b>Author:</b>
+				Milko A. Škofič &lt;<a
+href="mailto:m.skofic&#64;cgiar.org">m.skofic&#64;<!---->cgiar.org</a>&gt;<br />
+		<b>Located at</b> <a href="source-class-CContact.html#36" title="Go to source code">CContact.php</a><br />
+	</div>
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="Mail" id="_Mail">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Mail">#</a>
+		<code><a href="source-class-CContact.html#79" title="Go to source code">Mail</a>( <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>mixed <var>$theType</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage mailing address.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage mailing address.</p>
+
+<p>This method can be used to manage the contact kOFFSET_MAIL mailing
+address, it manages an array of structures with the following offsets:</p>
+
+<ul>
+	<li><i>kTAG_KIND kTAG_KIND</i>: The mailing address kind, this could be
+	<i>home</i>, <i>work</i> or <i>other</i>. This element represents the array key,
+	although technically it is implemented as an element to allow searching on all
+	values.</li>
+
+	<li><i>kTAG_DATA kTAG_DATA</i>: The mailing address structure or string,
+	this element should hold the actual address.</li>
+</ul>
+
+<p>The parameters to this method are:</p>
+
+<ul>
+	<li><b>$theValue</b>: The value or operation:
+		<ul>
+			<li><i>NULL</i>: Return the current value selected by the second parameter.</li>
+
+			<li><i>FALSE</i>: Delete the value selected by the second parameter.</li>
+
+			<li><i>other</i>: Set value selected by the second parameter.</li>
+		</ul>
+	</li>
+
+	<li><b>$theType</b>: The element type, kind or index:
+		<ul>
+			<li><i>NULL</i>: This value indicates that the adress has no type or kind, in
+			general, when adding elements, this case applies to default elements.</li>
+
+			<li><i>other</i>: All other types will be interpreted as the kind or type of the
+			address.</li>
+		</ul>
+	</li>
+
+	<li><b>$getOld</b>: Determines what the method will return:
+		<ul>
+			<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.</li>
+
+			<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.</li>
+		</ul>
+	</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br> Mailing address or operation.</dd>
+					<dt><var>$theType</var></dt>
+					<dd><code>mixed</code><br> Mailing address kind or index.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Phone" id="_Phone">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Phone">#</a>
+		<code><a href="source-class-CContact.html#137" title="Go to source code">Phone</a>( <span>string <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>mixed <var>$theType</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage telephone numbers.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage telephone numbers.</p>
+
+<p>This method can be used to manage the contact kOFFSET_PHONE telephone
+numbers, it manages an array of strings with the following offsets:</p>
+
+<ul>
+	<li><i>kTAG_KIND kTAG_KIND</i>: The telephone number kind, this could be
+	<i>home</i>, <i>work</i> or <i>other</i>. This element represents the array key,
+	although technically it is implemented as an element to allow searching on all
+	values.</li>
+
+	<li><i>kTAG_DATA kTAG_DATA</i>: The telephone number string, this
+	element should hold the actual phone number.</li>
+</ul>
+
+<p>The parameters to this method are:</p>
+
+<ul>
+	<li><b>$theValue</b>: The value or operation:
+		<ul>
+			<li><i>NULL</i>: Return the current value selected by the second parameter.</li>
+
+			<li><i>FALSE</i>: Delete the value selected by the second parameter.</li>
+
+			<li><i>other</i>: Set value selected by the second parameter.</li>
+		</ul>
+	</li>
+
+	<li><b>$theType</b>: The element type, kind or index:
+		<ul>
+			<li><i>NULL</i>: This value indicates that the phone has no type or kind, in
+			general, when adding elements, this case applies to default elements.</li>
+
+			<li><i>other</i>: All other types will be interpreted as the kind or type of the
+			phone number.</li>
+		</ul>
+	</li>
+
+	<li><b>$getOld</b>: Determines what the method will return:
+		<ul>
+			<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.</li>
+
+			<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.</li>
+		</ul>
+	</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>string</code><br> Telephone number or operation.</dd>
+					<dt><var>$theType</var></dt>
+					<dd><code>mixed</code><br> Mailing address kind or index.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Fax" id="_Fax">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Fax">#</a>
+		<code><a href="source-class-CContact.html#196" title="Go to source code">Fax</a>( <span>string <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>mixed <var>$theType</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage telefax numbers.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage telefax numbers.</p>
+
+<p>This method can be used to manage the contact kOFFSET_FAX telephone
+numbers, it manages an array of strings with the following offsets:</p>
+
+<ul>
+	<li><i>kTAG_KIND kTAG_KIND</i>: The telephone number kind, this could be
+	<i>home</i>, <i>work</i> or <i>other</i>. This element represents the array key,
+	although technically it is implemented as an element to allow searching on all
+	values.</li>
+
+	<li><i>kTAG_DATA kTAG_DATA</i>: The telephone number string, this
+	element should hold the actual phone number.</li>
+</ul>
+
+<p>The parameters to this method are:</p>
+
+<ul>
+	<li><b>$theValue</b>: The value or operation:
+		<ul>
+			<li><i>NULL</i>: Return the current value selected by the second parameter.</li>
+
+			<li><i>FALSE</i>: Delete the value selected by the second parameter.</li>
+
+			<li><i>other</i>: Set value selected by the second parameter.</li>
+		</ul>
+	</li>
+
+	<li><b>$theType</b>: The element type, kind or index:
+		<ul>
+			<li><i>NULL</i>: This value indicates that the phone has no type or kind, in
+			general, when adding elements, this case applies to default elements.</li>
+
+			<li><i>other</i>: All other types will be interpreted as the kind or type of the
+			phone number.</li>
+		</ul>
+	</li>
+
+	<li><b>$getOld</b>: Determines what the method will return:
+		<ul>
+			<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.</li>
+
+			<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.</li>
+		</ul>
+	</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>string</code><br> Telephone number or operation.</dd>
+					<dt><var>$theType</var></dt>
+					<dd><code>mixed</code><br> Mailing address kind or index.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CEntity.html#methods">CEntity</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CEntity.html#_">Created()</a>, 
+			<a href="class-CEntity.html#_">DefaultContainer()</a>, 
+			<a href="class-CEntity.html#_">Email()</a>, 
+			<a href="class-CEntity.html#_">GID()</a>, 
+			<a href="class-CEntity.html#_">Kind()</a>, 
+			<a href="class-CEntity.html#_">Modified()</a>, 
+			<a href="class-CEntity.html#_">Name()</a>, 
+			<a href="class-CEntity.html#_">_PrepareCommit()</a>, 
+			<a href="class-CEntity.html#_">_PrepareCreate()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CCodedUnitObject.html#methods">CCodedUnitObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CCodedUnitObject.html#_">Code()</a>, 
+			<a href="class-CCodedUnitObject.html#_">__construct()</a>, 
+			<a href="class-CCodedUnitObject.html#_">_index()</a>, 
+			<a href="class-CCodedUnitObject.html#_">offsetSet()</a>, 
+			<a href="class-CCodedUnitObject.html#_">offsetUnset()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CRelatedUnitObject.html#methods">CRelatedUnitObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CRelatedUnitObject.html#_">Preferred()</a>, 
+			<a href="class-CRelatedUnitObject.html#_">Relate()</a>, 
+			<a href="class-CRelatedUnitObject.html#_">Used()</a>, 
+			<a href="class-CRelatedUnitObject.html#_">Valid()</a>, 
+			<a href="class-CRelatedUnitObject.html#_">ValidObject()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CPersistentUnitObject.html#methods">CPersistentUnitObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CPersistentUnitObject.html#_">HashIndex()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">NewObject()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">NormaliseRelatedObject()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">NormaliseRelatedPredicate()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">ObjectIdentifier()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">Persistent()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">Reference()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">_Commit()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">_CommitReferences()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">_GetTags()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">_ParseReferences()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">_PrepareLoad()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">__toString()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">_id()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CPersistentObject.html#methods">CPersistentObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CPersistentObject.html#_">Commit()</a>, 
+			<a href="class-CPersistentObject.html#_">Uncommit()</a>, 
+			<a href="class-CPersistentObject.html#_">_Create()</a>, 
+			<a href="class-CPersistentObject.html#_">_FinishCommit()</a>, 
+			<a href="class-CPersistentObject.html#_">_FinishCreate()</a>, 
+			<a href="class-CPersistentObject.html#_">_FinishLoad()</a>, 
+			<a href="class-CPersistentObject.html#_">_IsCommitted()</a>, 
+			<a href="class-CPersistentObject.html#_">_IsEncoded()</a>, 
+			<a href="class-CPersistentObject.html#_">_Load()</a>, 
+			<a href="class-CPersistentObject.html#_">_SetTags()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CStatusObject.html#methods">CStatusObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CStatusObject.html#_">Status()</a>, 
+			<a href="class-CStatusObject.html#_">_IsDirty()</a>, 
+			<a href="class-CStatusObject.html#_">_IsInited()</a>, 
+			<a href="class-CStatusObject.html#_">_ManageBitField()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CArrayObject.html#methods">CArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CArrayObject.html#_">keys()</a>, 
+			<a href="class-CArrayObject.html#_">offsetGet()</a>, 
+			<a href="class-CArrayObject.html#_">values()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-ArrayObject.html#methods">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#_">append()</a>, 
+			<a href="class-ArrayObject.html#_">asort()</a>, 
+			<a href="class-ArrayObject.html#_">count()</a>, 
+			<a href="class-ArrayObject.html#_">exchangeArray()</a>, 
+			<a href="class-ArrayObject.html#_">getArrayCopy()</a>, 
+			<a href="class-ArrayObject.html#_">getFlags()</a>, 
+			<a href="class-ArrayObject.html#_">getIterator()</a>, 
+			<a href="class-ArrayObject.html#_">getIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_">ksort()</a>, 
+			<a href="class-ArrayObject.html#_">natcasesort()</a>, 
+			<a href="class-ArrayObject.html#_">natsort()</a>, 
+			<a href="class-ArrayObject.html#_">offsetExists()</a>, 
+			<a href="class-ArrayObject.html#_">serialize()</a>, 
+			<a href="class-ArrayObject.html#_">setFlags()</a>, 
+			<a href="class-ArrayObject.html#_">setIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_">uasort()</a>, 
+			<a href="class-ArrayObject.html#_">uksort()</a>, 
+			<a href="class-ArrayObject.html#_">unserialize()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+	<table class="summary inherited">
+	<caption>Constants inherited from <a href="class-ArrayObject.html#constants">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#ARRAY_AS_PROPS"><b>ARRAY_AS_PROPS</b></a>, 
+			<a href="class-ArrayObject.html#STD_PROP_LIST"><b>STD_PROP_LIST</b></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-CStatusObject.html#properties">CStatusObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CStatusObject.html#$mStatus"><var>$mStatus</var></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+</div>
+
+	<div id="footer">
+		MyWrapper Reference API documentation generated by <a href="http://apigen.org">ApiGen 2.7.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,1974 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.7.0" />
+
+	<title>Class CSessionObject | MyWrapper Reference</title>
+
+	<script type="text/javascript" src="resources/combined.js?417553483"></script>
+	<script type="text/javascript" src="elementlist.js?1387923255"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?1567499433" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Packages</h3>
+			<ul>
+				<li class="active main"><a href="package-MyWrapper.html">MyWrapper<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MyWrapper.Entities.html">Entities</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Framework.html">Framework</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Ontology.html">Ontology</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Persistence.html">Persistence</a>
+						</li>
+				<li class="active main"><a href="package-MyWrapper.Session.html">Session</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Traits.html">Traits</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Wrappers.html">Wrappers</a>
+						</li>
+							</ul></li>
+				<li><a href="package-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-CSessionMongoNeo4j.html">CSessionMongoNeo4j</a></li>
+				<li class="active"><a href="class-CSessionObject.html">CSessionObject</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="package-MyWrapper.Session.html" title="Summary of MyWrapper\Session"><span>Package</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class CSessionObject</h1>
+
+
+	<div class="description">
+	
+<p>Session object.</p>
+
+<p>This class implements a session object, it expects to be stored in the
+session with the kDEFAULT_SESSION kDEFAULT_SESSION offset.</p>
+
+<p>Concrete instances derived from this class use the data members to store
+server data and the object's offsets to store the view model data, this means
+that the server holds private data and the public data is published to the web
+pages by __toString() converting the offsets to JSON.</p>
+
+<p>This class is declared abstract, because it does not assume which storage
+engines and custom resources will be used.</p>
+
+<p>The class implements the <i>Serializable</i> interface which can be
+overloaded by working on its protected _Serialise() serialize and _Unserialise() unserialize interface; remember that this also means that the
+sleep and wake events will also be governed by that interface.</p>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-ArrayObject.html"><span>ArrayObject</span></a>
+			
+			 implements 
+				<a href="class-IteratorAggregate.html"><span>IteratorAggregate</span></a>, 
+			
+				<a href="class-Traversable.html"><span>Traversable</span></a>, 
+			
+				<a href="class-ArrayAccess.html"><span>ArrayAccess</span></a>, 
+			
+				<a href="class-Serializable.html"><span>Serializable</span></a>, 
+			
+				<a href="class-Countable.html"><span>Countable</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CArrayObject.html"><span>CArrayObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:60px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>CSessionObject</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+	<div>
+		<h4>Direct known subclasses</h4>
+			<a href="class-CSessionMongoNeo4j.html">CSessionMongoNeo4j</a>
+	</div>
+
+
+
+
+
+
+	<div class="info">
+		<b>Abstract</b><br />
+		
+		
+		<b>Package:</b> <a href="package-MyWrapper.html">MyWrapper</a>\<a href="package-MyWrapper.Session.html">Session</a><br />
+
+				<b>Author:</b>
+				Milko A. Škofič &lt;<a
+href="mailto:m.skofic&#64;cgiar.org">m.skofic&#64;<!---->cgiar.org</a>&gt;<br />
+		<b>Located at</b> <a href="source-class-CSessionObject.html#43" title="Go to source code">CSessionObject.php</a><br />
+	</div>
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-CSessionObject.html#126" title="Go to source code">__construct</a>( <span>mixed <var>$theData</var> = <span class="php-keyword1">NULL</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Instantiate class.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Instantiate class.</p>
+
+<p>The constructor will either instantiate an empty object, or it will
+initialise its array data with the provided parameter, which represents the view
+model data.</p>
+
+<p>In all cases the database connections will be created.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theData</var></dt>
+					<dd><code>mixed</code><br> View model data.</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>{@link</code><br>CException CException}<br />
+				</div>
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::_Init()</a></code></code> <br />
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::_Register()</a></code></code> <br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-ArrayObject.html#_">ArrayObject::__construct</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__toString" id="___toString">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___toString">#</a>
+		<code><a href="source-class-CSessionObject.html#186" title="Go to source code">__toString</a>( )</code>
+
+		<div class="description short">
+			
+<p>Return string representation.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return string representation.</p>
+
+<p>In this class we return the view model converted to JSON.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="serialize" id="_serialize">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_serialize">#</a>
+		<code><a href="source-class-CSessionObject.html#225" title="Go to source code">serialize</a>( )</code>
+
+		<div class="description short">
+			
+<p>Serialization interface.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Serialization interface.</p>
+
+<p>We overload the inherited method to allow performing custom actions before
+the object gets serialized.</p>
+
+<p>The method will call a protected _Serialise() method which takes care
+of preparing the object's properties before the object gets serialized.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::_Serialise()</a></code></code> <br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-ArrayObject.html#_">ArrayObject::serialize</a></code></div>
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Serializable.html#_">Serializable::serialize</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="unserialize" id="_unserialize">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_unserialize">#</a>
+		<code><a href="source-class-CSessionObject.html#255" title="Go to source code">unserialize</a>( <span>string <var>$theData</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Unserialization interface.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Unserialization interface.</p>
+
+<p>We overload the inherited method to allow performing custom actions after the
+object got unserialized.</p>
+
+<p>The method will first call the inherited method, then it will execute a
+protected _Unserialise() method which can restore resources normalised
+by the protected _Serialise() interface.</p>
+
+<p>Before exiting, the method will _Register() restore the view model
+from member data where applicable in order to reflect changes made by
+server-side procedures.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theData</var></dt>
+					<dd><code>string</code><br> Serialized data.</dd>
+				</dl></div>
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::_Unserialise()</a></code></code> <br />
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::_Register()</a></code></code> <br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-ArrayObject.html#_">ArrayObject::unserialize</a></code></div>
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Serializable.html#_">Serializable::unserialize</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="DataStore" id="_DataStore">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_DataStore">#</a>
+		<code><a href="source-class-CSessionObject.html#309" title="Go to source code">DataStore</a>( <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage the data store reference.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage the data store reference.</p>
+
+<p>This method can be used to manage the session's data store reference. The
+data store represents the main connection to the database, from which CContainer container references can be derived.</p>
+
+<p>The method accepts two parameters:</p>
+
+<ul>
+	<li><b>$theValue</b>: The value to set or the operation to perform:
+		<ul>
+			<li><i>NULL</i>: Retrieve the current value.</li>
+
+			<li><i>FALSE</i>: Delete the current value, it will be set to <i>NULL</i>.</li>
+
+			<li><i>other</i>: Any other value will be interpreted as the new value to be
+			set.</li>
+		</ul>
+	</li>
+
+	<li><b>$getOld</b>: A boolean flag determining which value the method will
+	return:
+		<ul>
+			<li><i>TRUE</i>: Return the value <i>before</i> it has eventually been modified,
+			this option is only relevant when deleting or relacing a value.</li>
+
+			<li><i>FALSE</i>: Return the value <i>after</i> it has eventually been
+			modified.</li>
+		</ul>
+	</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br> Value or operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CObject.html#_">CObject::ManageMember()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="GraphStore" id="_GraphStore">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_GraphStore">#</a>
+		<code><a href="source-class-CSessionObject.html#353" title="Go to source code">GraphStore</a>( <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage the graph store reference.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage the graph store reference.</p>
+
+<p>This method can be used to manage the session's graph store reference. The
+graph store represents the main connection to the graph, the graph database
+vcient.</p>
+
+<p>The method accepts two parameters:</p>
+
+<ul>
+	<li><b>$theValue</b>: The value to set or the operation to perform:
+		<ul>
+			<li><i>NULL</i>: Retrieve the current value.</li>
+
+			<li><i>FALSE</i>: Delete the current value, it will be set to <i>NULL</i>.</li>
+
+			<li><i>other</i>: Any other value will be interpreted as the new value to be
+			set.</li>
+		</ul>
+	</li>
+
+	<li><b>$getOld</b>: A boolean flag determining which value the method will
+	return:
+		<ul>
+			<li><i>TRUE</i>: Return the value <i>before</i> it has eventually been modified,
+			this option is only relevant when deleting or relacing a value.</li>
+
+			<li><i>FALSE</i>: Return the value <i>after</i> it has eventually been
+			modified.</li>
+		</ul>
+	</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br> Value or operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CObject.html#_">CObject::ManageMember()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Database" id="_Database">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Database">#</a>
+		<code><a href="source-class-CSessionObject.html#396" title="Go to source code">Database</a>( <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage the database reference.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage the database reference.</p>
+
+<p>This method can be used to manage the session's default database reference.
+This database represents the connection to the default collections
+container.</p>
+
+<p>The method accepts two parameters:</p>
+
+<ul>
+	<li><b>$theValue</b>: The value to set or the operation to perform:
+		<ul>
+			<li><i>NULL</i>: Retrieve the current value.</li>
+
+			<li><i>FALSE</i>: Delete the current value, it will be set to <i>NULL</i>.</li>
+
+			<li><i>other</i>: Any other value will be interpreted as the new value to be
+			set.</li>
+		</ul>
+	</li>
+
+	<li><b>$getOld</b>: A boolean flag determining which value the method will
+	return:
+		<ul>
+			<li><i>TRUE</i>: Return the value <i>before</i> it has eventually been modified,
+			this option is only relevant when deleting or relacing a value.</li>
+
+			<li><i>FALSE</i>: Return the value <i>after</i> it has eventually been
+			modified.</li>
+		</ul>
+	</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br> Value or operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CObject.html#_">CObject::ManageMember()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="UsersContainer" id="_UsersContainer">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_UsersContainer">#</a>
+		<code><a href="source-class-CSessionObject.html#439" title="Go to source code">UsersContainer</a>( <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage the default users container.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage the default users container.</p>
+
+<p>This method can be used to manage the session's default users container. This
+object represents the the container in which all users are stored.</p>
+
+<p>The method accepts two parameters:</p>
+
+<ul>
+	<li><b>$theValue</b>: The value to set or the operation to perform:
+		<ul>
+			<li><i>NULL</i>: Retrieve the current value.</li>
+
+			<li><i>FALSE</i>: Delete the current value, it will be set to <i>NULL</i>.</li>
+
+			<li><i>other</i>: Any other value will be interpreted as the new value to be
+			set.</li>
+		</ul>
+	</li>
+
+	<li><b>$getOld</b>: A boolean flag determining which value the method will
+	return:
+		<ul>
+			<li><i>TRUE</i>: Return the value <i>before</i> it has eventually been modified,
+			this option is only relevant when deleting or relacing a value.</li>
+
+			<li><i>FALSE</i>: Return the value <i>after</i> it has eventually been
+			modified.</li>
+		</ul>
+	</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br> Value or operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CObject.html#_">CObject::ManageMember()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::Login()</a></code></code> <br />
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::_SerialiseUser()</a></code></code> <br />
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::_LoadUser()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="ShowDebug" id="_ShowDebug">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_ShowDebug">#</a>
+		<code><a href="source-class-CSessionObject.html#491" title="Go to source code">ShowDebug</a>( <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage the debug switch.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage the debug switch.</p>
+
+<p>This method can be used to show or hide the debug elements by managing the
+kSESSION_DEBUG kSESSION_DEBUG offset, the method accepts two
+parameters:</p>
+
+<ul>
+	<li><b>$theValue</b>: The value to set or the operation to perform:
+		<ul>
+			<li><i>NULL</i>: Retrieve the current value.</li>
+
+			<li><i>FALSE</i>: Hide the element.</li>
+
+			<li><i>TRUE</i>: Show the element.</li>
+		</ul>
+	</li>
+
+	<li><b>$getOld</b>: A boolean flag determining which value the method will
+	return:
+		<ul>
+			<li><i>TRUE</i>: Return the value <i>before</i> it has eventually been modified,
+			this option is only relevant when deleting or replacing a value.</li>
+
+			<li><i>FALSE</i>: Return the value <i>after</i> it has eventually been
+			modified.</li>
+		</ul>
+	</li>
+</ul>
+
+<p>If the element exists the method will return its value, if not, it will
+return <i>NULL</i>.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br> Value or operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						kSESSION_DEBUG<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::_ManageFlag()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::_RegisterDebug()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="User" id="_User">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_User">#</a>
+		<code><a href="source-class-CSessionObject.html#536" title="Go to source code">User</a>( <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage the session user.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage the session user.</p>
+
+<p>This method can be used to manage the session's user CUser object.
+This object is available to the server PHP, while some of its properties will be
+provided to the view model.</p>
+
+<p>The method accepts two parameters:</p>
+
+<ul>
+	<li><b>$theValue</b>: The value to set or the operation to perform:
+		<ul>
+			<li><i>NULL</i>: Retrieve the current value.</li>
+
+			<li><i>FALSE</i>: Delete the current value, it will be set to <i>NULL</i>.</li>
+
+			<li><i>other</i>: Any other value will be interpreted as the new value to be
+			set.</li>
+		</ul>
+	</li>
+
+	<li><b>$getOld</b>: A boolean flag determining which value the method will
+	return:
+		<ul>
+			<li><i>TRUE</i>: Return the value <i>before</i> it has eventually been modified,
+			this option is only relevant when deleting or relacing a value.</li>
+
+			<li><i>FALSE</i>: Return the value <i>after</i> it has eventually been
+			modified.</li>
+		</ul>
+	</li>
+</ul>
+
+<p>In this class, by default, we support CUser CUser objects, if other
+types are passed, an exception will be raised.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br> Value or operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>{@link</code><br>CException CException}<br />
+				</div>
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::_RegisterUser()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::_UnserialiseUser()</a></code></code> <br />
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::_RegisterUser()</a></code></code> <br />
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::_LoadUser()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Query" id="_Query">
+
+		<td class="attributes"><code>
+			abstract public 
+			<code><a href="class-CQuery.html">CQuery</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Query">#</a>
+		<code><a href="source-class-CSessionObject.html#623" title="Go to source code">Query</a>( )</code>
+
+		<div class="description short">
+			
+<p>Return an empty query.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return an empty query.</p>
+
+<p>This method can be used to return a concrete query instance based on the
+specific database engines supported by the session.</p>
+
+<p>Derived classes must implement this method.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-CQuery.html">CQuery</a></code></code><br />
+				</div>
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::Login()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Login" id="_Login">
+
+		<td class="attributes"><code>
+			 public 
+			<code><a href="class-CObject.html">CObject</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Login">#</a>
+		<code><a href="source-class-CSessionObject.html#641" title="Go to source code">Login</a>( <span>string <var>$theCode</var></span>, <span>string <var>$thePass</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Perform a login.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Perform a login.</p>
+
+<p>This method can be used to query a user by CUser::Code() code and
+CUser::Password() password.</p>
+
+<p>The method will look for the user in the default users UsersContainer() container, if found, it will return the CUser()
+object, if not, it will return <i>NULL</i>.</p>
+
+<p>The method expects two parameters:</p>
+
+<ul>
+	<li><b>$theCode</b>: The user code.</li>
+
+	<li><b>$thePass</b>: The user password.</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theCode</var></dt>
+					<dd><code>string</code><br> User code.</dd>
+					<dt><var>$thePass</var></dt>
+					<dd><code>string</code><br> User password.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-CObject.html">CObject</a></code></code><br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::Query()</a></code></code> <br />
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::UsersContainer()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_Init" id="__Init">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__Init">#</a>
+		<code><a href="source-class-CSessionObject.html#716" title="Go to source code">_Init</a>( )</code>
+
+		<div class="description short">
+			
+<p>Initialise resources.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Initialise resources.</p>
+
+<p>This method is called when __construct() instantiating the object,
+its duty is to initialise the required resources.</p>
+
+<p>In this class it does nothing.</p>
+
+
+
+
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::__construct()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_Serialise" id="__Serialise">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__Serialise">#</a>
+		<code><a href="source-class-CSessionObject.html#742" title="Go to source code">_Serialise</a>( )</code>
+
+		<div class="description short">
+			
+<p>Serialise object.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Serialise object.</p>
+
+<p>This method is called before the object gets serialize() serialized,
+its duty is to normalise the object's properties before these get serialized.
+This may be necessary if elements of the object cannot be serialized, such as
+closures, or if automatic commits should be issued before.</p>
+
+<p>In this class we _SerialiseUser() commit the current user if
+there.</p>
+
+
+
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::_SerialiseUser()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::serialize()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_SerialiseUser" id="__SerialiseUser">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__SerialiseUser">#</a>
+		<code><a href="source-class-CSessionObject.html#770" title="Go to source code">_SerialiseUser</a>( )</code>
+
+		<div class="description short">
+			
+<p>Serialise user.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Serialise user.</p>
+
+<p>This method is called before the object gets serialize() serialised,
+its duty is to normalise the current user before the object goes to sleep.</p>
+
+<p>In this class we CUser::Commit() commit the current user and replace
+the user object with the user kTAG_LID identifier, so that when unserialize() restoring the object, the user record will be read from the data
+store again.</p>
+
+
+
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::UsersContainer()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::_Serialise()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_Unserialise" id="__Unserialise">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__Unserialise">#</a>
+		<code><a href="source-class-CSessionObject.html#820" title="Go to source code">_Unserialise</a>( )</code>
+
+		<div class="description short">
+			
+<p>Unserialise object.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Unserialise object.</p>
+
+<p>This method is called after the object gets unserialize()
+unserialized, its duty is to restore the object's properties that were _Serialise() normalised before the object was serialize()
+serialized.</p>
+
+<p>In this class we _UnserialiseUser() refresh the current user if
+there.</p>
+
+
+
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::_UnserialiseUser()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::unserialize()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_UnserialiseUser" id="__UnserialiseUser">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__UnserialiseUser">#</a>
+		<code><a href="source-class-CSessionObject.html#847" title="Go to source code">_UnserialiseUser</a>( )</code>
+
+		<div class="description short">
+			
+<p>Unserialise user.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Unserialise user.</p>
+
+<p>This method is called after the object gets unserialize()
+unserialised, its duty is to restore the current user after it was _SerialiseUser() normalised before the object was serialize()
+serialized.</p>
+
+<p>In this class we _LoadUser() restore the current user using its
+kTAG_LID identifier stored by the serialization _SerialiseUser()
+method.</p>
+
+
+
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::User()</a></code></code> <br />
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::_LoadUser()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::_Unserialise()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_Register" id="__Register">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__Register">#</a>
+		<code><a href="source-class-CSessionObject.html#894" title="Go to source code">_Register</a>( )</code>
+
+		<div class="description short">
+			
+<p>Initialise view model.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Initialise view model.</p>
+
+<p>This method will initialise the view model.</p>
+
+<p>The view model is stored in this object's offsets, the current web page will
+convert the data into JSON and use it in the Javascript procedures.</p>
+
+<p>In this class we register the debug switch and the eventual user data.</p>
+
+
+
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::_RegisterDebug()</a></code></code> <br />
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::_RegisterUser()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::__construct()</a></code></code> <br />
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::unserialize()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_RegisterDebug" id="__RegisterDebug">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__RegisterDebug">#</a>
+		<code><a href="source-class-CSessionObject.html#924" title="Go to source code">_RegisterDebug</a>( )</code>
+
+		<div class="description short">
+			
+<p>Set debug switch in view model.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Set debug switch in view model.</p>
+
+<p>This method will set the debug switch in the view model. The method will
+check if the kDEFAULT_DEBUG kDEFAULT_DEBUG symbol is defined, if this is
+the case it will use its value, if not the switch will be turned off.</p>
+
+
+
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::ShowDebug()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::_Register()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_RegisterUser" id="__RegisterUser">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__RegisterUser">#</a>
+		<code><a href="source-class-CSessionObject.html#952" title="Go to source code">_RegisterUser</a>( )</code>
+
+		<div class="description short">
+			
+<p>Load user in view model.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Load user in view model.</p>
+
+<p>This method will load user data into the view model, it will either use the
+current User() user or reset all user data if not present.</p>
+
+
+
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>{@link</code><br>CException CException}<br />
+				</div>
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::User()</a></code></code> <br />
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::_RegisterUserName()</a></code></code> <br />
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::_RegisterUserEmail()</a></code></code> <br />
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::_RegisterUserKind()</a></code></code> <br />
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::_RegisterUserRole()</a></code></code> <br />
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::_RegisterUserLogged()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::User()</a></code></code> <br />
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::_Register()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_RegisterUserName" id="__RegisterUserName">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__RegisterUserName">#</a>
+		<code><a href="source-class-CSessionObject.html#1019" title="Go to source code">_RegisterUserName</a>( <span>mixed <var>$theData</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Load user name in view model.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Load user name in view model.</p>
+
+<p>This method will load user {@load CUser::Name() name} in the view model.</p>
+
+<p>The provided parameter represents the current User() user.</p>
+
+<p>This method can be overloaded if derived classes need to do do custom stuff
+with the name.</p>
+
+<p>Note that if the user is missing the name is set to <i>Login</i>, this
+assumes the name goes onto the login button which becomes a popup whe the user
+has logged.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theData</var></dt>
+					<dd><code>mixed</code><br> Current user.</dd>
+				</dl></div>
+
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::_RegisterUser()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_RegisterUserEmail" id="__RegisterUserEmail">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__RegisterUserEmail">#</a>
+		<code><a href="source-class-CSessionObject.html#1052" title="Go to source code">_RegisterUserEmail</a>( <span>mixed <var>$theData</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Load user e-mail in view model.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Load user e-mail in view model.</p>
+
+<p>This method will load user CUser::Email() e-mail in the view
+model.</p>
+
+<p>The provided parameter represents the current User() user.</p>
+
+<p>This method can be overloaded if derived classes need to do do custom stuff
+with the e-mail.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theData</var></dt>
+					<dd><code>mixed</code><br> Current user.</dd>
+				</dl></div>
+
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::_RegisterUser()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_RegisterUserKind" id="__RegisterUserKind">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__RegisterUserKind">#</a>
+		<code><a href="source-class-CSessionObject.html#1081" title="Go to source code">_RegisterUserKind</a>( <span>mixed <var>$theData</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Load user kinds in view model.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Load user kinds in view model.</p>
+
+<p>This method will load user {@load CUser::Kind() kinds} in the view model.</p>
+
+<p>The provided parameter represents the current User() user.</p>
+
+<p>This method can be overridden if derived classes need to do custom stuff
+using the user kinds; in this class we simply copy the property contents.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theData</var></dt>
+					<dd><code>mixed</code><br> Current user.</dd>
+				</dl></div>
+
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::_RegisterUser()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_RegisterUserRole" id="__RegisterUserRole">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__RegisterUserRole">#</a>
+		<code><a href="source-class-CSessionObject.html#1117" title="Go to source code">_RegisterUserRole</a>( <span>mixed <var>$theData</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Load user roles in view model.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Load user roles in view model.</p>
+
+<p>This method will load user {@load CUser::Role() roles} in the view model.</p>
+
+<p>The provided parameter represents the current User() user.</p>
+
+<p>This method can be overridden if derived classes need to do custom stuff
+using the user roles; in this class we simply copy the property contents.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theData</var></dt>
+					<dd><code>mixed</code><br> Current user.</dd>
+				</dl></div>
+
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::_RegisterUser()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_RegisterUserLogged" id="__RegisterUserLogged">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__RegisterUserLogged">#</a>
+		<code><a href="source-class-CSessionObject.html#1153" title="Go to source code">_RegisterUserLogged</a>( <span>mixed <var>$theData</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Set user logged flag in view model.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Set user logged flag in view model.</p>
+
+<p>This method will set the logged kSESSION_USER_LOGGED flag in the view
+model.</p>
+
+<p>The provided parameter represents the current User() user.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theData</var></dt>
+					<dd><code>mixed</code><br> Current user.</dd>
+				</dl></div>
+
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::_RegisterUser()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_LoadUser" id="__LoadUser">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__LoadUser">#</a>
+		<code><a href="source-class-CSessionObject.html#1187" title="Go to source code">_LoadUser</a>( <span>mixed <var>$theIdentifier</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Load user.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Load user.</p>
+
+<p>This method can be used to load a User() user from the users UsersContainer() container, it expects the user identifier as the
+parameter.</p>
+
+<p>If the user is not found, it is not considered an error, so no exception will
+be raised and the current user will be reset; for this reason remember to _Register() register the view model whenever you call this method.</p>
+
+<p>The method will return the eventual old user if the operation replaced
+it.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theIdentifier</var></dt>
+					<dd><code>mixed</code><br> User identifier.</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>{@link</code><br>CException CException}<br />
+				</div>
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::UsersContainer()</a></code></code> <br />
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::User()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::_UnserialiseUser()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_ManageFlag" id="__ManageFlag">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__ManageFlag">#</a>
+		<code><a href="source-class-CSessionObject.html#1235" title="Go to source code">_ManageFlag</a>( <span>string <var>$theOffset</var></span>, <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>This method can be used to set or reset a flag offset, the method accepts
+three parameters:</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>This method can be used to set or reset a flag offset, the method accepts
+three parameters:</p>
+
+<ul>
+	<li><b>$theOffset</b>: The offset to be managed.</li>
+
+	<li><b>$theValue</b>: The value to set or the operation to perform:
+		<ul>
+			<li><i>NULL</i>: Retrieve the current value.</li>
+
+			<li><i>FALSE</i>: Hide the element.</li>
+
+			<li><i>TRUE</i>: Show the element.</li>
+		</ul>
+	</li>
+
+	<li><b>$getOld</b>: A boolean flag determining which value the method will
+	return:
+		<ul>
+			<li><i>TRUE</i>: Return the value <i>before</i> it has eventually been modified,
+			this option is only relevant when deleting or replacing a value.</li>
+
+			<li><i>FALSE</i>: Return the value <i>after</i> it has eventually been
+			modified.</li>
+		</ul>
+	</li>
+</ul>
+
+<p>If the element exists the method will return its value, if not, it will
+return <i>NULL</i>.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>string</code><br> Offset.</dd>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br> Value or operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::ShowDebug()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CArrayObject.html#methods">CArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CArrayObject.html#_">keys()</a>, 
+			<a href="class-CArrayObject.html#_">offsetGet()</a>, 
+			<a href="class-CArrayObject.html#_">offsetSet()</a>, 
+			<a href="class-CArrayObject.html#_">offsetUnset()</a>, 
+			<a href="class-CArrayObject.html#_">values()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-ArrayObject.html#methods">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#_">append()</a>, 
+			<a href="class-ArrayObject.html#_">asort()</a>, 
+			<a href="class-ArrayObject.html#_">count()</a>, 
+			<a href="class-ArrayObject.html#_">exchangeArray()</a>, 
+			<a href="class-ArrayObject.html#_">getArrayCopy()</a>, 
+			<a href="class-ArrayObject.html#_">getFlags()</a>, 
+			<a href="class-ArrayObject.html#_">getIterator()</a>, 
+			<a href="class-ArrayObject.html#_">getIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_">ksort()</a>, 
+			<a href="class-ArrayObject.html#_">natcasesort()</a>, 
+			<a href="class-ArrayObject.html#_">natsort()</a>, 
+			<a href="class-ArrayObject.html#_">offsetExists()</a>, 
+			<a href="class-ArrayObject.html#_">setFlags()</a>, 
+			<a href="class-ArrayObject.html#_">setIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_">uasort()</a>, 
+			<a href="class-ArrayObject.html#_">uksort()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+	<table class="summary inherited">
+	<caption>Constants inherited from <a href="class-ArrayObject.html#constants">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#ARRAY_AS_PROPS"><b>ARRAY_AS_PROPS</b></a>, 
+			<a href="class-ArrayObject.html#STD_PROP_LIST"><b>STD_PROP_LIST</b></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+	<table class="summary" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="mDataStore" id="$mDataStore">
+
+		<td class="attributes"><code>
+			protected 
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-CSessionObject.html#67" title="Go to source code"><var>$mDataStore</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">NULL</span></code></td>
+		<td class="description"><div>
+			<a href="#$mDataStore" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Data store.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Data store.</p>
+
+<p>This data member holds the data store instance.</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="mGraphStore" id="$mGraphStore">
+
+		<td class="attributes"><code>
+			protected 
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-CSessionObject.html#76" title="Go to source code"><var>$mGraphStore</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">NULL</span></code></td>
+		<td class="description"><div>
+			<a href="#$mGraphStore" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Graph store store.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Graph store store.</p>
+
+<p>This data member holds the graph store instance.</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="mDatabase" id="$mDatabase">
+
+		<td class="attributes"><code>
+			protected 
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-CSessionObject.html#85" title="Go to source code"><var>$mDatabase</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">NULL</span></code></td>
+		<td class="description"><div>
+			<a href="#$mDatabase" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Session database.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Session database.</p>
+
+<p>This data member holds the default database object.</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="mUsersContainer" id="$mUsersContainer">
+
+		<td class="attributes"><code>
+			protected 
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-CSessionObject.html#94" title="Go to source code"><var>$mUsersContainer</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">NULL</span></code></td>
+		<td class="description"><div>
+			<a href="#$mUsersContainer" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Session users container.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Session users container.</p>
+
+<p>This data member holds the default CUser user CContainer
+container.</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="mUser" id="$mUser">
+
+		<td class="attributes"><code>
+			protected 
+			<code><a href="class-CUser.html">CUser</a></code>
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-CSessionObject.html#103" title="Go to source code"><var>$mUser</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">NULL</span></code></td>
+		<td class="description"><div>
+			<a href="#$mUser" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Session user.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Session user.</p>
+
+<p>This data member holds the session CUser user object.</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+</div>
+
+	<div id="footer">
+		MyWrapper Reference API documentation generated by <a href="http://apigen.org">ApiGen 2.7.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

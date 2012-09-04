@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.7.0" />
+
+	<title>Class CUser | MyWrapper Reference</title>
+
+	<script type="text/javascript" src="resources/combined.js?417553483"></script>
+	<script type="text/javascript" src="elementlist.js?1387923255"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?1567499433" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Packages</h3>
+			<ul>
+				<li class="active main"><a href="package-MyWrapper.html">MyWrapper<span></span></a>
+						<ul>
+				<li class="active main"><a href="package-MyWrapper.Entities.html">Entities</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Framework.html">Framework</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Ontology.html">Ontology</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Persistence.html">Persistence</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Session.html">Session</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Traits.html">Traits</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Wrappers.html">Wrappers</a>
+						</li>
+							</ul></li>
+				<li><a href="package-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-CContact.html">CContact</a></li>
+				<li><a href="class-CEntity.html">CEntity</a></li>
+				<li><a href="class-CFAOInstitute.html">CFAOInstitute</a></li>
+				<li><a href="class-CInstitute.html">CInstitute</a></li>
+				<li class="active"><a href="class-CUser.html">CUser</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="package-MyWrapper.Entities.html" title="Summary of MyWrapper\Entities"><span>Package</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class CUser</h1>
+
+
+	<div class="description">
+	
+<p>User.</p>
+
+<p>This class overloads its CEntity ancestor to implement a user
+entity.</p>
+
+<p>Users are entities that are used for authentication purposes, they share the
+same attributes as their parent CEntity class and add one required
+element:</p>
+
+<ul>
+	<li><i>kOFFSET_PASSWORD kOFFSET_PASSWORD</i>: This offset represents the
+	user access password, it will be used in the authentication process. The class
+	features a member accessor Password() method to manage this
+	property.</li>
+</ul>
+
+<p>The object is considered _IsInited() initialised only if it has its
+Code() code, as its CEntity ancestor, its Name() name,
+Password() password and Email() e-mail address.</p>
+
+<p>If the Code() code has not been explicitly set, _PrepareCommit() before Commit() committing the object it will be set
+to the value of the Email e-mail. Also in that phase, the kENTITY_USER kENTITY_USER constant will be set in the user Type()
+type.</p>
+
+<p>The Email() e-mail in this class is a scalar property, in other
+classes it will probably be a list of different e-mail types. In this class we
+want to link a single user with a single e-mail, possibly not shared by any
+other user, that is why we link by default the user Code() code and
+Email() e-mail.</p>
+
+<p><i><b>Note: this class enforces the _IsEncoded() encoded Status() status kFLAG_STATE_ENCODED flag, because the object identifier
+is a binary string, so always use complex data type instances derived from the
+CDataType standard types</b></i>.</p>
+
+<p>The unique identifier of this class is composed by the default _index() index of the object, prefixed by the kENTITY_USER kENTITY_USER
+token and the kTOKEN_CLASS_SEPARATOR kTOKEN_CLASS_SEPARATOR token, this
+allows users and other types of CEntity entities to share the same
+Code() code; this is enforced both in the HashIndex() HashIndex
+method, to which you only need to pass the user Code() code, and in the
+protected _PrepareCommit() _PrepareCommit method which will place the
+resulting string in the global kTAG_GID identifier.</p>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-ArrayObject.html"><span>ArrayObject</span></a>
+			
+			 implements 
+				<a href="class-IteratorAggregate.html"><span>IteratorAggregate</span></a>, 
+			
+				<a href="class-Traversable.html"><span>Traversable</span></a>, 
+			
+				<a href="class-ArrayAccess.html"><span>ArrayAccess</span></a>, 
+			
+				<a href="class-Serializable.html"><span>Serializable</span></a>, 
+			
+				<a href="class-Countable.html"><span>Countable</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CArrayObject.html"><span>CArrayObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:60px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CStatusObject.html"><span>CStatusObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:90px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CPersistentObject.html"><span>CPersistentObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:120px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CPersistentUnitObject.html"><span>CPersistentUnitObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:150px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CRelatedUnitObject.html"><span>CRelatedUnitObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:180px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CCodedUnitObject.html"><span>CCodedUnitObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:210px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CEntity.html"><span>CEntity</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:240px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>CUser</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		
+		<b>Package:</b> <a href="package-MyWrapper.html">MyWrapper</a>\<a href="package-MyWrapper.Entities.html">Entities</a><br />
+
+				<b>Author:</b>
+				Milko A. Škofič &lt;<a
+href="mailto:m.skofic&#64;cgiar.org">m.skofic&#64;<!---->cgiar.org</a>&gt;<br />
+		<b>Located at</b> <a href="source-class-CUser.html#43" title="Go to source code">CUser.php</a><br />
+	</div>
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="Password" id="_Password">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Password">#</a>
+		<code><a href="source-class-CUser.html#104" title="Go to source code">Password</a>( <span>null|false|string <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage user password.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage user password.</p>
+
+<p>This method can be used to manage the user kOFFSET_PASSWORD password,
+it uses the standard accessor CAttribute::ManageOffset() method to
+manage the kOFFSET_PASSWORD offset:</p>
+
+<ul>
+	<li><b>$theValue</b>: The value or operation:
+		<ul>
+			<li><i>NULL</i>: Return the current value.</li>
+
+			<li><i>FALSE</i>: Delete the value.</li>
+
+			<li><i>other</i>: Set value.</li>
+		</ul>
+	</li>
+
+	<li><b>$getOld</b>: Determines what the method will return:
+		<ul>
+			<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.</li>
+
+			<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.</li>
+		</ul>
+	</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>null|false|string</code><br> User password or operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Role" id="_Role">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Role">#</a>
+		<code><a href="source-class-CUser.html#143" title="Go to source code">Role</a>( <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>mixed <var>$theOperation</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage user roles.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage user roles.</p>
+
+<p>This method can be used to manage the user kTAG_ROLE roles, it uses
+the standard accessor CAttribute::ManageArrayOffset() method to manage
+the kTAG_ROLE roles:</p>
+
+<p>For a more thorough reference of how this method works, please consult the
+CAttribute::ManageArrayOffset() CAttribute::ManageArrayOffset method, in
+which the second parameter will be the constant kTAG_ROLE kTAG_ROLE.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br> Value or index.</dd>
+					<dt><var>$theOperation</var></dt>
+					<dd><code>mixed</code><br> Operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						kTAG_ROLE<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CAttribute.html#_">CAttribute::ManageArrayOffset()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Manager" id="_Manager">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Manager">#</a>
+		<code><a href="source-class-CUser.html#177" title="Go to source code">Manager</a>( <span>null|false|string <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage user manager.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage user manager.</p>
+
+<p>This method can be used to manage the user kTAG_MANAGER manager, it
+uses the standard accessor CAttribute::ManageOffset() method to manage
+the kTAG_MANAGER offset:</p>
+
+<ul>
+	<li><b>$theValue</b>: The value or operation:
+		<ul>
+			<li><i>NULL</i>: Return the current value.</li>
+
+			<li><i>FALSE</i>: Delete the value.</li>
+
+			<li><i>other</i>: Set value.</li>
+		</ul>
+	</li>
+
+	<li><b>$getOld</b>: Determines what the method will return:
+		<ul>
+			<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.</li>
+
+			<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.</li>
+		</ul>
+	</li>
+</ul>
+
+<p>The manager is either the user that created the current user or the user that
+is in charge of the current user.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>null|false|string</code><br> User password or operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Kind" id="_Kind">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Kind">#</a>
+		<code><a href="source-class-CUser.html#226" title="Go to source code">Kind</a>( <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>mixed <var>$theOperation</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage the kind.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage the kind.</p>
+
+<p>This method can be used to handle the object's list of kTAG_KIND
+kinds, it uses the standard accessor CAttribute::ManageArrayOffset()
+method to manage the list of kind, type or function tags associated with the
+file.</p>
+
+<p>Each element of this list should indicate a specific kind or type of the
+object or a specific function that the object has.</p>
+
+<p>For a more thorough reference of how this method works, please consult the
+CAttribute::ManageArrayOffset() CAttribute::ManageArrayOffset method, in
+which the second parameter will be the constant kTAG_KIND kTAG_KIND.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br> Value or index.</dd>
+					<dt><var>$theOperation</var></dt>
+					<dd><code>mixed</code><br> Operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						kTAG_KIND<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CAttribute.html#_">CAttribute::ManageArrayOffset()</a></code></code> <br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CEntity.html#_">CEntity::Kind</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="HashIndex" id="_HashIndex">
+
+		<td class="attributes"><code>
+			 public static
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_HashIndex">#</a>
+		<code><a href="source-class-CUser.html#272" title="Go to source code">HashIndex</a>( <span>string <var>$theValue</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Hash index.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Hash index.</p>
+
+<p>This method can be used to format an identifier provided as a string, it will
+be used by the _id() _id method to format the result of the _index() _index method. One can consider this as the index hashing method for
+all derived classes.</p>
+
+<p>In this class we take the provided Code() code and prefix it with the
+kENTITY_USER kENTITY_USER token, the result will be CDataTypeBinary hashed.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>string</code><br> Value to hash.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CPersistentUnitObject.html#_">CPersistentUnitObject::HashIndex</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="offsetSet" id="_offsetSet">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_offsetSet">#</a>
+		<code><a href="source-class-CUser.html#311" title="Go to source code">offsetSet</a>( <span>string <var>$theOffset</var></span>, <span>string|null <var>$theValue</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Set a value for a given offset.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Set a value for a given offset.</p>
+
+<p>We overload this method to manage the _IsInited() inited kFLAG_STATE_INITED status: this is set if the kTAG_NAME name, kOFFSET_EMAIL e-mail, kOFFSET_PASSWORD password and the parent kTAG_CODE code are set.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>string</code><br> Offset.</dd>
+					<dt><var>$theValue</var></dt>
+					<dd><code>string|null</code><br> Value to set at offset.</dd>
+				</dl></div>
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CStatusObject.html#_">CStatusObject::_IsInited()</a></code></code> <br />
+						<code><code><a href="class-CPersistentObject.html#_">CPersistentObject::_IsCommitted()</a></code></code> <br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CCodedUnitObject.html#_">CCodedUnitObject::offsetSet</a></code></div>
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-ArrayAccess.html#_">ArrayAccess::offsetSet</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="offsetUnset" id="_offsetUnset">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_offsetUnset">#</a>
+		<code><a href="source-class-CUser.html#350" title="Go to source code">offsetUnset</a>( <span>string <var>$theOffset</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Reset a value for a given offset.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Reset a value for a given offset.</p>
+
+<p>We overload this method to manage the _IsInited() inited kFLAG_STATE_INITED status: this is set if the kTAG_NAME name, kOFFSET_EMAIL e-mail, kOFFSET_PASSWORD password and the parent kTAG_CODE code are set.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>string</code><br> Offset.</dd>
+				</dl></div>
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CStatusObject.html#_">CStatusObject::_IsInited()</a></code></code> <br />
+						<code><code><a href="class-CPersistentObject.html#_">CPersistentObject::_IsCommitted()</a></code></code> <br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CCodedUnitObject.html#_">CCodedUnitObject::offsetUnset</a></code></div>
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-ArrayAccess.html#_">ArrayAccess::offsetUnset</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_PrepareCreate" id="__PrepareCreate">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__PrepareCreate">#</a>
+		<code><a href="source-class-CUser.html#396" title="Go to source code">_PrepareCreate</a>( <span>reference <var>&amp; $theContainer</var></span>, <span>reference <var>&amp; $theIdentifier</var></span>, <span>reference <var>&amp; $theModifiers</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Normalise parameters of a create.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Normalise parameters of a create.</p>
+
+<p>The duty of this method is to ensure that the parameters provided to a _Create() create operation are valid.</p>
+
+<p>In this method we enforce the kFLAG_STATE_ENCODED encoded flag.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>reference</code><br>&amp;$theContainer Object container.</dd>
+					<dt><var>$theIdentifier</var></dt>
+					<dd><code>reference</code><br>&amp;$theIdentifier Object identifier.</dd>
+					<dt><var>$theModifiers</var></dt>
+					<dd><code>reference</code><br>&amp;$theModifiers Create modifiers.</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						kFLAG_STATE_ENCODED<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CPersistentObject.html#_">CPersistentObject::_IsEncoded()</a></code></code> <br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CEntity.html#_">CEntity::_PrepareCreate</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_PrepareCommit" id="__PrepareCommit">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__PrepareCommit">#</a>
+		<code><a href="source-class-CUser.html#433" title="Go to source code">_PrepareCommit</a>( <span>reference <var>&amp; $theContainer</var></span>, <span>reference <var>&amp; $theIdentifier</var></span>, <span>reference <var>&amp; $theModifiers</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Normalise parameters of a store.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Normalise parameters of a store.</p>
+
+<p>We overload this method to add the kENTITY_USER kENTITY_USER Type() type to the object prior Commit() saving it and we initialise
+the user Code() code, if empty, with the Email() e-mail.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>reference</code><br>&amp;$theContainer Object container.</dd>
+					<dt><var>$theIdentifier</var></dt>
+					<dd><code>reference</code><br>&amp;$theIdentifier Object identifier.</dd>
+					<dt><var>$theModifiers</var></dt>
+					<dd><code>reference</code><br>&amp;$theModifiers Commit modifiers.</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>{@link</code><br>CException CException}<br />
+				</div>
+
+				<h4>See</h4>
+				<div class="list">
+						kERROR_OPTION_MISSING<br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CEntity.html#_">CEntity::_PrepareCommit</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_FinishCreate" id="__FinishCreate">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__FinishCreate">#</a>
+		<code><a href="source-class-CUser.html#479" title="Go to source code">_FinishCreate</a>( <span>reference <var>&amp; $theContainer</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Normalise after a _Create() create.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Normalise after a _Create() create.</p>
+
+<p>This method will be called after the _Create() create operation, its
+duty is to initialise an empty object. Both the container and the identifier
+parameters are passed by reference.</p>
+
+<p>This method will be called if the identifier was not provided to the __construct() constructor, or if the __construct() constructor was
+unable to _Load() find the requested object.</p>
+
+<p>In this class we set the inited flag.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>reference</code><br>&amp;$theContainer Object container.</dd>
+				</dl></div>
+
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CPersistentObject.html#_">CPersistentObject::_FinishCreate</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_FinishLoad" id="__FinishLoad">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__FinishLoad">#</a>
+		<code><a href="source-class-CUser.html#518" title="Go to source code">_FinishLoad</a>( <span>reference <var>&amp; $theContainer</var></span>, <span>reference <var>&amp; $theIdentifier</var></span>, <span>reference <var>&amp; $theModifiers</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Normalise after a _Load() load.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Normalise after a _Load() load.</p>
+
+<p>This method will be called after the _Load() load operation, its duty
+is to clean up or normalise after the operation. Both the container and the
+identifier parameters are passed by reference.</p>
+
+<p>In this class we set the inited flag.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>reference</code><br>&amp;$theContainer Object container.</dd>
+					<dt><var>$theIdentifier</var></dt>
+					<dd><code>reference</code><br>&amp;$theIdentifier Object identifier.</dd>
+					<dt><var>$theModifiers</var></dt>
+					<dd><code>reference</code><br>&amp;$theModifiers Create modifiers.</dd>
+				</dl></div>
+
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CPersistentObject.html#_">CPersistentObject::_FinishLoad</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CEntity.html#methods">CEntity</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CEntity.html#_">Created()</a>, 
+			<a href="class-CEntity.html#_">DefaultContainer()</a>, 
+			<a href="class-CEntity.html#_">Email()</a>, 
+			<a href="class-CEntity.html#_">GID()</a>, 
+			<a href="class-CEntity.html#_">Modified()</a>, 
+			<a href="class-CEntity.html#_">Name()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CCodedUnitObject.html#methods">CCodedUnitObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CCodedUnitObject.html#_">Code()</a>, 
+			<a href="class-CCodedUnitObject.html#_">__construct()</a>, 
+			<a href="class-CCodedUnitObject.html#_">_index()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CRelatedUnitObject.html#methods">CRelatedUnitObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CRelatedUnitObject.html#_">Preferred()</a>, 
+			<a href="class-CRelatedUnitObject.html#_">Relate()</a>, 
+			<a href="class-CRelatedUnitObject.html#_">Used()</a>, 
+			<a href="class-CRelatedUnitObject.html#_">Valid()</a>, 
+			<a href="class-CRelatedUnitObject.html#_">ValidObject()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CPersistentUnitObject.html#methods">CPersistentUnitObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CPersistentUnitObject.html#_">NewObject()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">NormaliseRelatedObject()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">NormaliseRelatedPredicate()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">ObjectIdentifier()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">Persistent()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">Reference()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">_Commit()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">_CommitReferences()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">_GetTags()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">_ParseReferences()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">_PrepareLoad()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">__toString()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">_id()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CPersistentObject.html#methods">CPersistentObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CPersistentObject.html#_">Commit()</a>, 
+			<a href="class-CPersistentObject.html#_">Uncommit()</a>, 
+			<a href="class-CPersistentObject.html#_">_Create()</a>, 
+			<a href="class-CPersistentObject.html#_">_FinishCommit()</a>, 
+			<a href="class-CPersistentObject.html#_">_IsCommitted()</a>, 
+			<a href="class-CPersistentObject.html#_">_IsEncoded()</a>, 
+			<a href="class-CPersistentObject.html#_">_Load()</a>, 
+			<a href="class-CPersistentObject.html#_">_SetTags()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CStatusObject.html#methods">CStatusObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CStatusObject.html#_">Status()</a>, 
+			<a href="class-CStatusObject.html#_">_IsDirty()</a>, 
+			<a href="class-CStatusObject.html#_">_IsInited()</a>, 
+			<a href="class-CStatusObject.html#_">_ManageBitField()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CArrayObject.html#methods">CArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CArrayObject.html#_">keys()</a>, 
+			<a href="class-CArrayObject.html#_">offsetGet()</a>, 
+			<a href="class-CArrayObject.html#_">values()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-ArrayObject.html#methods">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#_">append()</a>, 
+			<a href="class-ArrayObject.html#_">asort()</a>, 
+			<a href="class-ArrayObject.html#_">count()</a>, 
+			<a href="class-ArrayObject.html#_">exchangeArray()</a>, 
+			<a href="class-ArrayObject.html#_">getArrayCopy()</a>, 
+			<a href="class-ArrayObject.html#_">getFlags()</a>, 
+			<a href="class-ArrayObject.html#_">getIterator()</a>, 
+			<a href="class-ArrayObject.html#_">getIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_">ksort()</a>, 
+			<a href="class-ArrayObject.html#_">natcasesort()</a>, 
+			<a href="class-ArrayObject.html#_">natsort()</a>, 
+			<a href="class-ArrayObject.html#_">offsetExists()</a>, 
+			<a href="class-ArrayObject.html#_">serialize()</a>, 
+			<a href="class-ArrayObject.html#_">setFlags()</a>, 
+			<a href="class-ArrayObject.html#_">setIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_">uasort()</a>, 
+			<a href="class-ArrayObject.html#_">uksort()</a>, 
+			<a href="class-ArrayObject.html#_">unserialize()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+	<table class="summary inherited">
+	<caption>Constants inherited from <a href="class-ArrayObject.html#constants">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#ARRAY_AS_PROPS"><b>ARRAY_AS_PROPS</b></a>, 
+			<a href="class-ArrayObject.html#STD_PROP_LIST"><b>STD_PROP_LIST</b></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-CStatusObject.html#properties">CStatusObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CStatusObject.html#$mStatus"><var>$mStatus</var></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+</div>
+
+	<div id="footer">
+		MyWrapper Reference API documentation generated by <a href="http://apigen.org">ApiGen 2.7.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

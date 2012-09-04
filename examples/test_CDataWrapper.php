@@ -43,7 +43,7 @@ require_once( kPATH_LIBRARY_SOURCE."CDataWrapper.php" );
 //
 // Init local storage.
 //
-$url = 'http://localhost/newwrapper/DataWrapper.php';
+$url = 'http://localhost/wrapper/DataWrapper.php';
 
 //
 // TRY BLOCK.

@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.7.0" />
+
+	<title>Class CMongoQuery | MyWrapper Reference</title>
+
+	<script type="text/javascript" src="resources/combined.js?417553483"></script>
+	<script type="text/javascript" src="elementlist.js?1387923255"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?1567499433" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Packages</h3>
+			<ul>
+				<li class="active main"><a href="package-MyWrapper.html">MyWrapper<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MyWrapper.Entities.html">Entities</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Framework.html">Framework</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Ontology.html">Ontology</a>
+						</li>
+				<li class="active main"><a href="package-MyWrapper.Persistence.html">Persistence</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Session.html">Session</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Traits.html">Traits</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Wrappers.html">Wrappers</a>
+						</li>
+							</ul></li>
+				<li><a href="package-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-CArrayContainer.html">CArrayContainer</a></li>
+				<li><a href="class-CContainer.html">CContainer</a></li>
+				<li><a href="class-CDataset.html">CDataset</a></li>
+				<li><a href="class-CGraphEdge.html">CGraphEdge</a></li>
+				<li><a href="class-CGraphNode.html">CGraphNode</a></li>
+				<li><a href="class-CMongoContainer.html">CMongoContainer</a></li>
+				<li><a href="class-CMongoGridContainer.html">CMongoGridContainer</a></li>
+				<li class="active"><a href="class-CMongoQuery.html">CMongoQuery</a></li>
+				<li><a href="class-COntologyEdgeIndex.html">COntologyEdgeIndex</a></li>
+				<li><a href="class-COntologyNodeIndex.html">COntologyNodeIndex</a></li>
+				<li><a href="class-CPersistentObject.html">CPersistentObject</a></li>
+				<li><a href="class-CPersistentUnitObject.html">CPersistentUnitObject</a></li>
+				<li><a href="class-CQuery.html">CQuery</a></li>
+				<li><a href="class-CQueryStatement.html">CQueryStatement</a></li>
+				<li><a href="class-CRelatedUnitObject.html">CRelatedUnitObject</a></li>
+			</ul>
+
+
+
+
+
+			<h3>Functions</h3>
+			<ul>
+				<li><a href="function-Neo4jAutoload.html">Neo4jAutoload</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="package-MyWrapper.Persistence.html" title="Summary of MyWrapper\Persistence"><span>Package</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class CMongoQuery</h1>
+
+
+	<div class="description">
+	
+<p>Mongo query.</p>
+
+<p>This class extends its CQuery ancestor to implement a public method
+that will convert the current object's query into a query suitable to be
+submitted to a Mongo database.</p>
+
+<p>This class implements a query that Export() exports as a Mongo
+query.</p>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-ArrayObject.html"><span>ArrayObject</span></a>
+			
+			 implements 
+				<a href="class-IteratorAggregate.html"><span>IteratorAggregate</span></a>, 
+			
+				<a href="class-Traversable.html"><span>Traversable</span></a>, 
+			
+				<a href="class-ArrayAccess.html"><span>ArrayAccess</span></a>, 
+			
+				<a href="class-Serializable.html"><span>Serializable</span></a>, 
+			
+				<a href="class-Countable.html"><span>Countable</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CArrayObject.html"><span>CArrayObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:60px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CStatusObject.html"><span>CStatusObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:90px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CQuery.html"><span>CQuery</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:120px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>CMongoQuery</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		
+		<b>Package:</b> <a href="package-MyWrapper.html">MyWrapper</a>\<a href="package-MyWrapper.Persistence.html">Persistence</a><br />
+
+				<b>Author:</b>
+				Milko A. Škofič &lt;<a
+href="mailto:m.skofic&#64;cgiar.org">m.skofic&#64;<!---->cgiar.org</a>&gt;<br />
+		<b>Located at</b> <a href="source-class-CMongoQuery.html#36" title="Go to source code">CMongoQuery.php</a><br />
+	</div>
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="Export" id="_Export">
+
+		<td class="attributes"><code>
+			 public 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Export">#</a>
+		<code><a href="source-class-CMongoQuery.html#64" title="Go to source code">Export</a>( <span><code><a href="class-CMongoContainer.html">CMongoContainer</a></code> <var>$theContainer</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Export query.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Export query.</p>
+
+<p>The method will return an array suitable to be provided as a MongoDB query,
+the method requires a container that will take care of converting query
+arguments to native data types, this container must be an instance of CMongoContainer CMongoContainer, or the method will raise an exception.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code><code><a href="class-CMongoContainer.html">CMongoContainer</a></code></code><br> Query container.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-Exception.html">Exception</a></code></code><br />
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_ValidateCondition" id="__ValidateCondition">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__ValidateCondition">#</a>
+		<code><a href="source-class-CMongoQuery.html#120" title="Go to source code">_ValidateCondition</a>( <span>string <var>$theCondition</var></span>, <span>array <var>$theStatements</var></span>, <span>integer <var>$theLevel</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Validate condition.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Validate condition.</p>
+
+<p>This method expects a condition as its argument, it will check if it is a
+valid condition, then it will _ValidateStatement() validate all
+condition statements.</p>
+
+<p>In this class we handle queries to Mongo databases, so the depth of the query
+conditions cannot go beyond 2 levels.</p>
+
+<p>We overload this method to prevent nesting OR conditions.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theCondition</var></dt>
+					<dd><code>string</code><br> Boolean condition.</dd>
+					<dt><var>$theStatements</var></dt>
+					<dd><code>array</code><br> Statements list.</dd>
+					<dt><var>$theLevel</var></dt>
+					<dd><code>integer</code><br> [PRIVATE] condition level.</dd>
+				</dl></div>
+
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CQuery.html#_">CQuery::_ValidateCondition</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_ConvertCondition" id="__ConvertCondition">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__ConvertCondition">#</a>
+		<code><a href="source-class-CMongoQuery.html#171" title="Go to source code">_ConvertCondition</a>( <span>reference <var>&amp; $theQuery</var></span>, <span><code><a href="class-CMongoContainer.html">CMongoContainer</a></code> <var>$theContainer</var></span>, <span>string <var>$theCondition</var></span>, <span>array <var>$theStatements</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Convert condition.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Convert condition.</p>
+
+<p>This method will convert the statements of the provided condition to Mongo
+format.</p>
+
+<p>The parameters to this method are:</p>
+
+<ul>
+	<li><b>&amp;$theQuery</b>: Reference to an array that will receive the converted
+	condition.</li>
+
+	<li><b>$theContainer</b>: Data container, must be derived from CMongoContainer CMongoContainer.</li>
+
+	<li><b>$theCondition</b>: Boolean condition code.</li>
+
+	<li><b>$theStatements</b>: List of condition statements.</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theQuery</var></dt>
+					<dd><code>reference</code><br>&amp;$theQuery Receives converted query.</dd>
+					<dt><var>$theContainer</var></dt>
+					<dd><code><code><a href="class-CMongoContainer.html">CMongoContainer</a></code></code><br> Query container.</dd>
+					<dt><var>$theCondition</var></dt>
+					<dd><code>string</code><br> Boolean condition.</dd>
+					<dt><var>$theStatements</var></dt>
+					<dd><code>array</code><br> Statements list.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_ConvertStatement" id="__ConvertStatement">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__ConvertStatement">#</a>
+		<code><a href="source-class-CMongoQuery.html#251" title="Go to source code">_ConvertStatement</a>( <span>reference <var>&amp; $theQuery</var></span>, <span><code><a href="class-CMongoContainer.html">CMongoContainer</a></code> <var>$theContainer</var></span>, <span>string <var>$theCondition</var></span>, <span>array <var>$theStatement</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Convert statement.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Convert statement.</p>
+
+<p>This method will convert the statement to Mongo format.</p>
+
+<p>The parameters to this method are:</p>
+
+<ul>
+	<li><b>&amp;$theQuery</b>: Reference to an array that will receive the converted
+	statement.</li>
+
+	<li><b>$theContainer</b>: Data container, must be derived from CMongoContainer CMongoContainer and we assume this check has been done by the
+	_ConvertCondition() caller.</li>
+
+	<li><b>$theCondition</b>: Boolean condition code.</li>
+
+	<li><b>$theStatement</b>: Statement.</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theQuery</var></dt>
+					<dd><code>reference</code><br>&amp;$theQuery Receives converted statement.</dd>
+					<dt><var>$theContainer</var></dt>
+					<dd><code><code><a href="class-CMongoContainer.html">CMongoContainer</a></code></code><br> Query container.</dd>
+					<dt><var>$theCondition</var></dt>
+					<dd><code>string</code><br> Boolean condition.</dd>
+					<dt><var>$theStatement</var></dt>
+					<dd><code>array</code><br> Statement.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_OrderRange" id="__OrderRange">
+
+		<td class="attributes"><code>
+			 protected 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__OrderRange">#</a>
+		<code><a href="source-class-CMongoQuery.html#752" title="Go to source code">_OrderRange</a>( <span>mixed <var>$theRange</var></span>, <span><code><a href="class-CMongoContainer.html">CMongoContainer</a></code> <var>$theContainer</var></span>, <span>string <var>$theType</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Order range elements.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Order range elements.</p>
+
+<p>This method will order the provided range elements, the method accepts an
+array of two elements which represent the range bounds and will return an array
+with the two provided elements sorted.</p>
+
+<p>The method accepts three parameters:</p>
+
+<ul>
+	<li><b>$theRange</b>: An array containing two elements representing the range
+	bounds.</li>
+
+	<li><b>$theContainer</b>: The CMongoContainer container on which the
+	query will be executed.</li>
+
+	<li><b>$theType</b>: The data type of the range elements.</li>
+</ul>
+
+<p>The method expects the range elements to be in CDataType::SerialiseData() serialised format, these elements will be CContainer::UnserialiseData() converted by this method which will return them
+in sorted order.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theRange</var></dt>
+					<dd><code>mixed</code><br> Range elements.</dd>
+					<dt><var>$theContainer</var></dt>
+					<dd><code><code><a href="class-CMongoContainer.html">CMongoContainer</a></code></code><br> Query container.</dd>
+					<dt><var>$theType</var></dt>
+					<dd><code>string</code><br> Elements data type.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CQuery.html#methods">CQuery</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CQuery.html#_">AppendStatement()</a>, 
+			<a href="class-CQuery.html#_">Validate()</a>, 
+			<a href="class-CQuery.html#_">_AppendStatement()</a>, 
+			<a href="class-CQuery.html#_">_ValidateStatement()</a>, 
+			<a href="class-CQuery.html#_">__construct()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CStatusObject.html#methods">CStatusObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CStatusObject.html#_">Status()</a>, 
+			<a href="class-CStatusObject.html#_">_IsDirty()</a>, 
+			<a href="class-CStatusObject.html#_">_IsInited()</a>, 
+			<a href="class-CStatusObject.html#_">_ManageBitField()</a>, 
+			<a href="class-CStatusObject.html#_">offsetSet()</a>, 
+			<a href="class-CStatusObject.html#_">offsetUnset()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CArrayObject.html#methods">CArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CArrayObject.html#_">keys()</a>, 
+			<a href="class-CArrayObject.html#_">offsetGet()</a>, 
+			<a href="class-CArrayObject.html#_">values()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-ArrayObject.html#methods">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#_">append()</a>, 
+			<a href="class-ArrayObject.html#_">asort()</a>, 
+			<a href="class-ArrayObject.html#_">count()</a>, 
+			<a href="class-ArrayObject.html#_">exchangeArray()</a>, 
+			<a href="class-ArrayObject.html#_">getArrayCopy()</a>, 
+			<a href="class-ArrayObject.html#_">getFlags()</a>, 
+			<a href="class-ArrayObject.html#_">getIterator()</a>, 
+			<a href="class-ArrayObject.html#_">getIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_">ksort()</a>, 
+			<a href="class-ArrayObject.html#_">natcasesort()</a>, 
+			<a href="class-ArrayObject.html#_">natsort()</a>, 
+			<a href="class-ArrayObject.html#_">offsetExists()</a>, 
+			<a href="class-ArrayObject.html#_">serialize()</a>, 
+			<a href="class-ArrayObject.html#_">setFlags()</a>, 
+			<a href="class-ArrayObject.html#_">setIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_">uasort()</a>, 
+			<a href="class-ArrayObject.html#_">uksort()</a>, 
+			<a href="class-ArrayObject.html#_">unserialize()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+	<table class="summary inherited">
+	<caption>Constants inherited from <a href="class-ArrayObject.html#constants">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#ARRAY_AS_PROPS"><b>ARRAY_AS_PROPS</b></a>, 
+			<a href="class-ArrayObject.html#STD_PROP_LIST"><b>STD_PROP_LIST</b></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-CStatusObject.html#properties">CStatusObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CStatusObject.html#$mStatus"><var>$mStatus</var></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+</div>
+
+	<div id="footer">
+		MyWrapper Reference API documentation generated by <a href="http://apigen.org">ApiGen 2.7.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

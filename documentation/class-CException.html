@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.7.0" />
+
+	<title>Class CException | MyWrapper Reference</title>
+
+	<script type="text/javascript" src="resources/combined.js?417553483"></script>
+	<script type="text/javascript" src="elementlist.js?1387923255"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?1567499433" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Packages</h3>
+			<ul>
+				<li class="active main"><a href="package-MyWrapper.html">MyWrapper<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MyWrapper.Entities.html">Entities</a>
+						</li>
+				<li class="active main"><a href="package-MyWrapper.Framework.html">Framework</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Ontology.html">Ontology</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Persistence.html">Persistence</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Session.html">Session</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Traits.html">Traits</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Wrappers.html">Wrappers</a>
+						</li>
+							</ul></li>
+				<li><a href="package-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-CArrayObject.html">CArrayObject</a></li>
+				<li><a href="class-CAttribute.html">CAttribute</a></li>
+				<li><a href="class-CCodedUnitObject.html">CCodedUnitObject</a></li>
+				<li><a href="class-CDataType.html">CDataType</a></li>
+				<li><a href="class-CDataTypeBinary.html">CDataTypeBinary</a></li>
+				<li><a href="class-CDataTypeInt32.html">CDataTypeInt32</a></li>
+				<li><a href="class-CDataTypeInt64.html">CDataTypeInt64</a></li>
+				<li><a href="class-CDataTypeMongoCode.html">CDataTypeMongoCode</a></li>
+				<li><a href="class-CDataTypeMongoId.html">CDataTypeMongoId</a></li>
+				<li><a href="class-CDataTypeRegex.html">CDataTypeRegex</a></li>
+				<li><a href="class-CDataTypeStamp.html">CDataTypeStamp</a></li>
+				<li><a href="class-CObject.html">CObject</a></li>
+				<li><a href="class-CStatusObject.html">CStatusObject</a></li>
+			</ul>
+
+
+
+			<h3>Exceptions</h3>
+			<ul>
+				<li class="active"><a href="class-CException.html">CException</a></li>
+			</ul>
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="package-MyWrapper.Framework.html" title="Summary of MyWrapper\Framework"><span>Package</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class CException</h1>
+
+
+	<div class="description">
+	
+<p>Exception class.</p>
+
+<p>This class extends the built-in <i>Exception</i> class by adding a series of
+additional members and functionality.</p>
+Severity() Severity represents the severity of the exception such as
+<i>error</i>, <i>warning</i>, etc. You are free to set any value, but in this
+library we support the following standard:
+<ul>
+	<li><b>kMESSAGE_TYPE_IDLE Idle</b>: Idle state.</li>
+
+	<li><b>kMESSAGE_TYPE_NOTICE Notice</b>: Statistical information or
+	message.</li>
+
+	<li><b>kMESSAGE_TYPE_MESSAGE Message</b>: A message.</li>
+
+	<li><b>kMESSAGE_TYPE_WARNING Warning</b>: A warning.</li>
+
+	<li><b>kMESSAGE_TYPE_ERROR Error</b>: An error.</li>
+
+	<li><b>kMESSAGE_TYPE_FATAL Fatal</b>: A fatal error.</li>
+
+	<li><b>kMESSAGE_TYPE_BUG Bug</b>: A bug.</li>
+</ul>
+
+<p>References() References represent a list of reference values
+structured as an array of key/value pairs where the key represents the reference
+label or name and the value the reference value. Labels must be strings, values
+can be of any type.</p>
+
+<p>Note that this class does not throw exceptions (hahaha), operations that fail
+are simply aborted.</p>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-Exception.html"><span>Exception</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>CException</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		
+		<b>Package:</b> <a href="package-MyWrapper.html">MyWrapper</a>\<a href="package-MyWrapper.Framework.html">Framework</a><br />
+
+				<b>Author:</b>
+				Milko A. Škofič &lt;<a
+href="mailto:m.skofic&#64;cgiar.org">m.skofic&#64;<!---->cgiar.org</a>&gt;<br />
+		<b>Located at</b> <a href="source-class-CException.html#42" title="Go to source code">CException.php</a><br />
+	</div>
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-CException.html#105" title="Go to source code">__construct</a>( <span>string <var>$theMessage</var> = <span class="php-keyword1">NULL</span></span>, <span>integer <var>$theCode</var> = <span class="php-keyword1">NULL</span></span>, <span>string <var>$theSeverity</var> = <span class="php-keyword1">NULL</span></span>, <span>array <var>$theReferences</var> = <span class="php-keyword1">NULL</span></span>, <span><code><a href="class-Exception.html">Exception</a></code> <var>$thePrevious</var> = <span class="php-keyword1">NULL</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Instantiate class.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Instantiate class.</p>
+
+<p>The first two parameters follow the inherited interface, the constructor adds
+support for the extended class members:</p>
+
+<ul>
+	<li><b>$theMessage</b>: This parameter represents the inherited
+	<i>message</i>.</li>
+
+	<li><b>$theCode</b>: This parameter represents the inherited <i>code</i>.</li>
+
+	<li><b>$theSeverity</b>: This parameter holds Severity() the exception
+	type, level or severity:
+		<ul>
+			<li><i>kMESSAGE_TYPE_IDLE kMESSAGE_TYPE_IDLE</i>: This indicates an idle
+			state.</li>
+
+			<li><i>kMESSAGE_TYPE_NOTICE kMESSAGE_TYPE_NOTICE</i>: This indicates an
+			informative note or message.</li>
+
+			<li><i>kMESSAGE_TYPE_WARNING kMESSAGE_TYPE_WARNING</i>: This indicates a
+			warning.</li>
+
+			<li><i>kMESSAGE_TYPE_ERROR kMESSAGE_TYPE_ERROR</i>: This indicates an
+			error.</li>
+
+			<li><i>kMESSAGE_TYPE_FATAL kMESSAGE_TYPE_FATAL</i>: This indicates a
+			fatal error, in general this should halt program execution.</li>
+
+			<li><i>kMESSAGE_TYPE_BUG kMESSAGE_TYPE_BUG</i>: This indicates a bug,
+			such exceptions should be logged and forwarded to developers.</li>
+		</ul>
+	</li>
+
+	<li><b>$theReferences</b>: This parameter holds the exception's references
+	References() list, it is an array indexed by reference label or term
+	holding the reference value as value.</li>
+
+	<li><b>$thePrevious</b>: This parameter represents the previous exception when
+	forwarding.</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theMessage</var></dt>
+					<dd><code>string</code><br> Exception message.</dd>
+					<dt><var>$theCode</var></dt>
+					<dd><code>integer</code><br> Exception code.</dd>
+					<dt><var>$theSeverity</var></dt>
+					<dd><code>string</code><br> Exception severity.</dd>
+					<dt><var>$theReferences</var></dt>
+					<dd><code>array</code><br> Exception references.</dd>
+					<dt><var>$thePrevious</var></dt>
+					<dd><code><code><a href="class-Exception.html">Exception</a></code></code><br> Previous exception.</dd>
+				</dl></div>
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						CodeUser()<br />
+						UserMessages()<br />
+						UserNamespace()<br />
+						<code><code><a href="class-CException.html#_">CException::Severity()</a></code></code> <br />
+						<code><code><a href="class-CException.html#_">CException::Reference()</a></code></code> <br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-Exception.html#_">Exception::__construct</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__toString" id="___toString">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___toString">#</a>
+		<code><a href="source-class-CException.html#180" title="Go to source code">__toString</a>( )</code>
+
+		<div class="description short">
+			
+<p>Return the object name.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return the object name.</p>
+
+<p>In this class we return the stack trace.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>The stack trace.<br />
+				</div>
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-Exception.html#_">Exception::__toString</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Severity" id="_Severity">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Severity">#</a>
+		<code><a href="source-class-CException.html#377" title="Go to source code">Severity</a>( <span>null|false|integer <var>$theValue</var> = <span class="php-keyword1">NULL</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Set or return the exception severity.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Set or return the exception severity.</p>
+
+<p>When providing <i>$theValue</i>:</p>
+
+<ul>
+	<li><i>NULL</i>: Retrieve the current value.</li>
+
+	<li><i>FALSE</i>: Reset the value to <i>NULL</i>.</li>
+
+	<li><i>Integer</i>: Set the member to the provided value:
+		<ul>
+			<li><i>kMESSAGE_TYPE_IDLE kMESSAGE_TYPE_IDLE</i>: Idle state.</li>
+
+			<li><i>kMESSAGE_TYPE_NOTICE kMESSAGE_TYPE_NOTICE</i>: A notice is an
+			informative message that does not imply an error, nor a situation that should be
+			handled; it can be considered as statistical data.</li>
+
+			<li><i>kMESSAGE_TYPE_MESSAGE kMESSAGE_TYPE_MESSAGE</i>: A message is an
+			informative message that is addressed to somebody, although it does not imply an
+			error or warning, it was issued to a receiving party.</li>
+
+			<li><i>kMESSAGE_TYPE_WARNING kMESSAGE_TYPE_WARNING</i>: Warnings are
+			informative data that indicate a potential problem, although they do not imply
+			an error, they indicate a potential problem or an issue that should be addressed
+			at least at a later stage.</li>
+
+			<li><i>kMESSAGE_TYPE_ERROR kMESSAGE_TYPE_ERROR</i>: Errors indicate that
+			something prevented an operation from being performed, this does not necessarily
+			mean that the whole process is halted, but that the results of an operation will
+			not be as expected.</li>
+
+			<li><i>kMESSAGE_TYPE_FATAL kMESSAGE_TYPE_FATAL</i>: Fatal errors are
+			kMESSAGE_TYPE_ERROR errors that result in stopping the whole process: in
+			this case the error will prevent other operations from being performed and the
+			whole process should be halted.</li>
+
+			<li><i>kMESSAGE_TYPE_BUG kMESSAGE_TYPE_BUG</i>: Bugs, as opposed to
+			kMESSAGE_TYPE_ERROR errors, result from internal causes independant from
+			external factors. A bug indicates that an operation will never execute as
+			stated, it does not necessarily mean that it is kMESSAGE_TYPE_FATAL
+			fatal, but rather that the behaviour of an operation does not correspond to its
+			declaration.</li>
+		</ul>
+	</li>
+</ul>
+
+<p>The above mentioned codes are integer based, each state is represented by an
+interval, we encourage using the above mentioned codes, but this is not
+enforced.</p>
+
+<p>When setting or resetting the value, the method will return it <i>after</i>
+any modification was made.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>null|false|integer</code><br> NULL, FALSE or exception severity.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br>Exception severity or type.<br />
+				</div>
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CException.html#_">CException::__construct()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Reference" id="_Reference">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Reference">#</a>
+		<code><a href="source-class-CException.html#450" title="Go to source code">Reference</a>( <span>mixed <var>$theIndex</var> = <span class="php-keyword1">NULL</span></span>, <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Set or return an exception reference.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Set or return an exception reference.</p>
+
+<p>This method can be used to set, retrieve and remove exception references.
+References are a key/value pair that provide additional information on the
+exception.</p>
+
+<ul>
+	<li><b>$theIndex</b>: This represents the reference label or name, if you
+	provide the parameter, it will be used as an array index to either retrieve, set
+	or remove elements, depending on the next parameter's value. If you omit the
+	parameter or pass <i>NULL</i> the method will consider the whole list of
+	references.</li>
+
+	<li><b>$theValue</b>: This represents the reference value:
+		<ul>
+			<li><i>NULL</i>: This value indicates that we want to retrieve a reference. If
+			<i>$theIndex</i> is provided, the method will return the entry matching it, if
+			there is no match, the method will return <i>NULL</i>. If <i>$theIndex</i> is
+			omitted or <i>NULL</i>, the method will return the full references array.</li>
+
+			<li><i>FALSE</i>: This value indicates that we want to delete a reference. If
+			<i>$theIndex</i> is provided, the method will delete the entry matching it and
+			return <i>NULL</i>. If <i>$theIndex</i> is omitted or <i>NULL</i>, the method
+			will delete all references and return an empty array.</li>
+
+			<li><i>Any other type</i>: Other types of value are considered as a value to
+			replace or be added to the references list: if <i>$theIndex</i> is provided, the
+			method will add or replace the matching element in the list and return the
+			eventual value <i>after</i> it was modified. If <i>$theIndex</i> is omitted or
+			<i>NULL</i>, the operation depends on the type of value:
+				<ul>
+					<li><i>array</i>: The provided array will replace the current list and the
+					method will return the list <i>after</i> it was replaced.</li>
+
+					<li><i>Any other type</i>: The provided value will be appended to the list by
+					using a numeric index and the method will always return the provided value.</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theIndex</var></dt>
+					<dd><code>mixed</code><br> Reference element index.</dd>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br> NULL, FALSE, reference value or list.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br>Exception reference.<br />
+				</div>
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CException.html#_">CException::__construct()</a></code></code> <br />
+						<code><code><a href="class-CException.html#_">CException::AsHTML()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="AsHTML" id="_AsHTML">
+
+		<td class="attributes"><code>
+			 public static
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_AsHTML">#</a>
+		<code><a href="source-class-CException.html#579" title="Go to source code">AsHTML</a>( <span><code><a href="class-Exception.html">Exception</a></code> <var>$theException</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Display an exception.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Display an exception.</p>
+
+<p>This method can be used to display exceptions in a web browser page.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theException</var></dt>
+					<dd><code><code><a href="class-Exception.html">Exception</a></code>|<code><a href="class-CException.html">CException</a></code></code><br> Exception object.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CException.html#_">CException::Reference()</a></code></code> <br />
+						Argument()<br />
+						Value()<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_Trace" id="__Trace">
+
+		<td class="attributes"><code>
+			 public static
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__Trace">#</a>
+		<code><a href="source-class-CException.html#661" title="Go to source code">_Trace</a>( <span><code><a href="class-Exception.html">Exception</a></code> <var>$theException</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Return the exception trace.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return the exception trace.</p>
+
+<p>This method can be used to return the exception trace in the order in which
+it was called. The main utility of this method is to manage forwarded
+exceptions.</p>
+
+<p>The method will return an array indexed by file path and line number hash in
+which the value is either an exception or a trace array. If you run in PHP
+version &lt; 3.0.x the first element will be an exception and the others will be
+traces, if you run a higher version of PHP you can forward exceptions, so the
+elements will be mixed.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theException</var></dt>
+					<dd><code><code><a href="class-Exception.html">Exception</a></code></code><br> Exception to trace.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_TraceArgumentString" id="__TraceArgumentString">
+
+		<td class="attributes"><code>
+			 protected static
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__TraceArgumentString">#</a>
+		<code><a href="source-class-CException.html#732" title="Go to source code">_TraceArgumentString</a>( <span>mixed <var>$theValue</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Return the trace argument string.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return the trace argument string.</p>
+
+<p>This method can be used to return the string representation of a trace
+argument.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br> Trace argument.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_Trace2HTML" id="__Trace2HTML">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__Trace2HTML">#</a>
+		<code><a href="source-class-CException.html#782" title="Go to source code">_Trace2HTML</a>( <span><code><a href="class-DOMNode.html">DOMNode</a></code> <var>$theTable</var></span>, <span>array <var>$theElement</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Return the exception trace element as HTML.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return the exception trace element as HTML.</p>
+
+<p>This method can be used to return the trace element as HTML code.</p>
+
+<p>The method accepts the following parameters:</p>
+
+<ul>
+	<li><b>$theTable</b>: The HTML table in which we want to place the trace.</li>
+
+	<li><b>$theElement</b>: The trace element, it must be an array, if any other
+	type is passed, the method will return <i>NULL</i>.</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theTable</var></dt>
+					<dd><code><code><a href="class-DOMNode.html">DOMNode</a></code></code><br> HTML table.</dd>
+					<dt><var>$theElement</var></dt>
+					<dd><code>array</code><br> Trace element.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_Exception2HTML" id="__Exception2HTML">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__Exception2HTML">#</a>
+		<code><a href="source-class-CException.html#944" title="Go to source code">_Exception2HTML</a>( <span><code><a href="class-DOMElement.html">DOMElement</a></code> <var>$theTable</var></span>, <span>array <var>$theElement</var></span>, <span>null|true|string <var>$theSource</var> = <span class="php-keyword1">NULL</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Return the exception as HTML.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return the exception as HTML.</p>
+
+<p>This method can be used to return the provided exception as HTML code, it is
+assumed that the element will be placed in an HTML table, so the method will
+return a series of table rows.</p>
+
+<p>The method accepts the following parameters:</p>
+
+<ul>
+	<li><b>$theTable</b>: The HTML table in which we want to place the trace.</li>
+
+	<li><b>$theElement</b>: The exception, it must be an Exception, if any other
+	type is passed, the method will return <i>NULL</i>.</li>
+
+	<li><b>$theSource</b>: This parameter is used to provide a link to the source
+	file:
+		<ul>
+			<li><i>NULL</i>: No source file management.</li>
+
+			<li><i>TRUE</i>: The default source file viewer will be used.</li>
+
+			<li><i>string</i>: The method will execute the provided string as a shell
+			command line.</li>
+		</ul>
+	</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theTable</var></dt>
+					<dd><code><code><a href="class-DOMElement.html">DOMElement</a></code></code><br> HTML table.</dd>
+					<dt><var>$theElement</var></dt>
+					<dd><code>array</code><br> Trace element.</dd>
+					<dt><var>$theSource</var></dt>
+					<dd><code>null|true|string</code><br> Source file control.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-Exception.html#methods">Exception</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-Exception.html#_">getCode()</a>, 
+			<a href="class-Exception.html#_">getFile()</a>, 
+			<a href="class-Exception.html#_">getLine()</a>, 
+			<a href="class-Exception.html#_">getMessage()</a>, 
+			<a href="class-Exception.html#_">getPrevious()</a>, 
+			<a href="class-Exception.html#_">getTrace()</a>, 
+			<a href="class-Exception.html#_">getTraceAsString()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+	<table class="summary" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="mSeverity" id="$mSeverity">
+
+		<td class="attributes"><code>
+			protected 
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-CException.html#73" title="Go to source code"><var>$mSeverity</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">NULL</span></code></td>
+		<td class="description"><div>
+			<a href="#$mSeverity" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Exception severity.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Exception severity.</p>
+
+<p>This data member holds the exception severity.</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="mReferences" id="$mReferences">
+
+		<td class="attributes"><code>
+			protected 
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-CException.html#82" title="Go to source code"><var>$mReferences</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">Array</span>()</code></td>
+		<td class="description"><div>
+			<a href="#$mReferences" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Exception references.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Exception references.</p>
+
+<p>This data member holds the list of exception references.</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-Exception.html#properties">Exception</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-Exception.html#$code"><var>$code</var></a>, 
+			<a href="class-Exception.html#$file"><var>$file</var></a>, 
+			<a href="class-Exception.html#$line"><var>$line</var></a>, 
+			<a href="class-Exception.html#$message"><var>$message</var></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+</div>
+
+	<div id="footer">
+		MyWrapper Reference API documentation generated by <a href="http://apigen.org">ApiGen 2.7.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

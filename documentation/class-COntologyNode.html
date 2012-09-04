@@ -1,0 +1,1962 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.7.0" />
+
+	<title>Class COntologyNode | MyWrapper Reference</title>
+
+	<script type="text/javascript" src="resources/combined.js?417553483"></script>
+	<script type="text/javascript" src="elementlist.js?1387923255"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?1567499433" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Packages</h3>
+			<ul>
+				<li class="active main"><a href="package-MyWrapper.html">MyWrapper<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MyWrapper.Entities.html">Entities</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Framework.html">Framework</a>
+						</li>
+				<li class="active main"><a href="package-MyWrapper.Ontology.html">Ontology</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Persistence.html">Persistence</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Session.html">Session</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Traits.html">Traits</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Wrappers.html">Wrappers</a>
+						</li>
+							</ul></li>
+				<li><a href="package-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-COntologyEdge.html">COntologyEdge</a></li>
+				<li class="active"><a href="class-COntologyNode.html">COntologyNode</a></li>
+				<li><a href="class-COntologyTag.html">COntologyTag</a></li>
+				<li><a href="class-COntologyTerm.html">COntologyTerm</a></li>
+				<li><a href="class-COntologyTermObject.html">COntologyTermObject</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="package-MyWrapper.Ontology.html" title="Summary of MyWrapper\Ontology"><span>Package</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class COntologyNode</h1>
+
+
+	<div class="description">
+	
+<p>Ontology graph node.</p>
+
+<p>This class implements an ontology graph node.</p>
+
+<p>The class is derived from CGraphNode CGraphNode, it adds another
+required property, the Term() term. This class will wrap the array
+access framework to the combination of the Node() node properties and
+the Term() term elements, except that the Term() term elements
+will be read-only.</p>
+
+<p>This class introduces a new kind of container: it must be an array of two
+elements structured as follows:</p>
+
+<ul>
+	<li><i>kTAG_NODE kTAG_NODE</i>: This element should hold the nodes
+	container, it must be a Everyman\Neo4j\Client instance.</li>
+
+	<li><i>kTAG_TERM kTAG_TERM</i>: This element should hold the terms
+	container, it must be a CContainer CContainer instance.</li>
+</ul>
+
+<p><i>Note that the class will not cast to an array correctly, you must use the
+getArrayCopy() getArrayCopy method to get an array, if you know how to
+solve this, please do it!</i></p>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-ArrayObject.html"><span>ArrayObject</span></a>
+			
+			 implements 
+				<a href="class-IteratorAggregate.html"><span>IteratorAggregate</span></a>, 
+			
+				<a href="class-Traversable.html"><span>Traversable</span></a>, 
+			
+				<a href="class-ArrayAccess.html"><span>ArrayAccess</span></a>, 
+			
+				<a href="class-Serializable.html"><span>Serializable</span></a>, 
+			
+				<a href="class-Countable.html"><span>Countable</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CArrayObject.html"><span>CArrayObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:60px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CStatusObject.html"><span>CStatusObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:90px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CPersistentObject.html"><span>CPersistentObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:120px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CGraphNode.html"><span>CGraphNode</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:150px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>COntologyNode</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		
+		<b>Package:</b> <a href="package-MyWrapper.html">MyWrapper</a>\<a href="package-MyWrapper.Ontology.html">Ontology</a><br />
+
+				<b>Author:</b>
+				Milko A. Škofič &lt;<a
+href="mailto:m.skofic&#64;cgiar.org">m.skofic&#64;<!---->cgiar.org</a>&gt;<br />
+		<b>Located at</b> <a href="source-class-COntologyNode.html#59" title="Go to source code">COntologyNode.php</a><br />
+	</div>
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__toString" id="___toString">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___toString">#</a>
+		<code><a href="source-class-COntologyNode.html#111" title="Go to source code">__toString</a>( )</code>
+
+		<div class="description short">
+			
+<p>Return object identifier.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return object identifier.</p>
+
+<p>In this class we return the Term() term Node() node kTAG_TERM property.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CGraphNode.html#_">CGraphNode::Node()</a></code></code> <br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CGraphNode.html#_">CGraphNode::__toString</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Term" id="_Term">
+
+		<td class="attributes"><code>
+			 public 
+			<code><a href="class-COntologyTermObject.html">COntologyTermObject</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Term">#</a>
+		<code><a href="source-class-COntologyNode.html#150" title="Go to source code">Term</a>( <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage node term.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage node term.</p>
+
+<p>This method can be used to manage the node term reference, it uses the
+standard accessor CObject::ManageMember() method to manage the
+property:</p>
+
+<ul>
+	<li><b>$theValue</b>: The value or operation:
+		<ul>
+			<li><i>NULL</i>: Return the current value.</li>
+
+			<li><i>FALSE</i>: Delete the value.</li>
+
+			<li><i>COntologyTermObject COntologyTermObject</i>: Set value.</li>
+
+			<li><i>other</i>: Raise exception.</li>
+		</ul>
+	</li>
+
+	<li><b>$getOld</b>: Determines what the method will return:
+		<ul>
+			<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.</li>
+
+			<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.</li>
+		</ul>
+	</li>
+</ul>
+
+<p>The method will also set the _IsDirty() dirty kFLAG_STATE_DIRTY status and the _IsInited() inited kFLAG_STATE_INITED status if the node is provided.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br> Term or operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-COntologyTermObject.html">COntologyTermObject</a></code></code><br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CObject.html#_">CObject::ManageMember()</a></code></code> <br />
+						<code><code><a href="class-CStatusObject.html#_">CStatusObject::_IsDirty()</a></code></code> <br />
+						<code><code><a href="class-CStatusObject.html#_">CStatusObject::_IsInited()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Kind" id="_Kind">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Kind">#</a>
+		<code><a href="source-class-COntologyNode.html#230" title="Go to source code">Kind</a>( <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>mixed <var>$theOperation</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage node kind.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage node kind.</p>
+
+<p>This method can be used to manage the node kTAG_KIND kinds, in
+general it reflects the Term() term CCodedUnitObject::Kind()
+kinds.</p>
+
+<p>For a more thorough reference of how this method works, please consult the
+_ManagePropertyArray() _ManagePropertyArray method, in which the first
+parameter will be the constant kTAG_KIND kTAG_KIND.</p>
+
+<p>The method will also set the _IsDirty() dirty kFLAG_STATE_DIRTY status.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br> Value or index.</dd>
+					<dt><var>$theOperation</var></dt>
+					<dd><code>mixed</code><br> Operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						kTAG_KIND<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-COntologyNode.html#_">COntologyNode::_ManagePropertyArray()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Type" id="_Type">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Type">#</a>
+		<code><a href="source-class-COntologyNode.html#275" title="Go to source code">Type</a>( <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage node type.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage node type.</p>
+
+<p>This method can be used to manage the node kTAG_TYPE type, in general
+it reflects the Term() term COntologyTerm::Type() type.</p>
+
+<p>The method accepts the following parameters:</p>
+
+<ul>
+	<li><b>$theValue</b>: The value or operation:
+		<ul>
+			<li><i>NULL</i>: Return the current value.</li>
+
+			<li><i>FALSE</i>: Delete Set value exception.</li>
+		</ul>
+	</li>
+
+	<li><b>$getOld</b>: Determines what the method will return:
+		<ul>
+			<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.</li>
+
+			<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.</li>
+		</ul>
+	</li>
+</ul>
+
+<p>The method will also set the _IsDirty() dirty kFLAG_STATE_DIRTY status.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br> Term or operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						kTAG_TYPE<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-COntologyNode.html#_">COntologyNode::_ManageProperty()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Cardinality" id="_Cardinality">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Cardinality">#</a>
+		<code><a href="source-class-COntologyNode.html#327" title="Go to source code">Cardinality</a>( <span>null|false|string <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage data cardinality.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage data cardinality.</p>
+
+<p>This method can be used to manage the measure data kTAG_CARDINALITY
+type, it uses the standard accessor CAttribute::ManageOffset() method
+to manage the kTAG_TYPE offset:</p>
+
+<ul>
+	<li><b>$theValue</b>: The value or operation:
+		<ul>
+			<li><i>NULL</i>: Return the current value.</li>
+
+			<li><i>FALSE</i>: Delete the value.</li>
+
+			<li><i>string</i>: String values represent the cardinality enumeration:
+				<ul>
+					<li><i>kCARD<sub>0</sub>_1 kCARD<sub>0</sub>_1</i>: Zero or one, a
+					scalar or none.</li>
+
+					<li><i>kCARD<sub>1</sub> kCARD<sub>1</sub></i>: Exactly one, a required
+					scalar.</li>
+
+					<li><i>kCARD_ANY kCARD_ANY</i>: Any, this implies that we either have an
+					array or no data.</li>
+				</ul>
+			</li>
+
+			<li><i>integer</i>: An integer represents the exact cardinality, in that case we
+			assume the data is an array of at most that number of elements.</li>
+		</ul>
+	</li>
+
+	<li><b>$getOld</b>: Determines what the method will return:
+		<ul>
+			<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.</li>
+
+			<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.</li>
+		</ul>
+	</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>null|false|string</code><br> Data type tag.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Domain" id="_Domain">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Domain">#</a>
+		<code><a href="source-class-COntologyNode.html#395" title="Go to source code">Domain</a>( <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>mixed <var>$theOperation</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage node kind.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage node kind.</p>
+
+<p>This method can be used to manage the node kTAG_DOMAIN domains, in
+general it reflects the Term() term COntologyTermObject::Domain()
+domains.</p>
+
+<p>For a more thorough reference of how this method works, please consult the
+_ManagePropertyArray() _ManagePropertyArray method, in which the first
+parameter will be the constant kTAG_DOMAIN kTAG_DOMAIN.</p>
+
+<p>The method will also set the _IsDirty() dirty kFLAG_STATE_DIRTY status.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br> Term or index.</dd>
+					<dt><var>$theOperation</var></dt>
+					<dd><code>mixed</code><br> Operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						kTAG_DOMAIN<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-COntologyNode.html#_">COntologyNode::_ManagePropertyArray()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Category" id="_Category">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Category">#</a>
+		<code><a href="source-class-COntologyNode.html#440" title="Go to source code">Category</a>( <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>mixed <var>$theOperation</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage node kind.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage node kind.</p>
+
+<p>This method can be used to manage the node kTAG_CATEGORY categories,
+in general it reflects the Term() term COntologyTermObject::Category() categories.</p>
+
+<p>For a more thorough reference of how this method works, please consult the
+_ManagePropertyArray() _ManagePropertyArray method, in which the first
+parameter will be the constant kTAG_CATEGORY kTAG_CATEGORY.</p>
+
+<p>The method will also set the _IsDirty() dirty kFLAG_STATE_DIRTY status.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br> Term or index.</dd>
+					<dt><var>$theOperation</var></dt>
+					<dd><code>mixed</code><br> Operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						kTAG_CATEGORY<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-COntologyNode.html#_">COntologyNode::_ManagePropertyArray()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="RelateTo" id="_RelateTo">
+
+		<td class="attributes"><code>
+			 public 
+			<code><a href="class-COntologyEdge.html">COntologyEdge</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_RelateTo">#</a>
+		<code><a href="source-class-COntologyNode.html#495" title="Go to source code">RelateTo</a>( <span>reference <var>$theContainer</var></span>, <span>mixed <var>$thePredicate</var></span>, <span>mixed <var>$theObject</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$doDuplicate</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Create a graph edge.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a graph edge.</p>
+
+<p>This method can be used to create a graph edge or relation between the
+current node and an object node using a predicate node. This method consideres
+the triplet subject node/predicate term/object node as the relationship
+identifier when considering duplicate relationships. For that reason the subject
+and object terms of the relationship must relate to _IsCommitted()
+committed nodes.</p>
+
+<p>The method accepts the following parameters:</p>
+
+<ul>
+	<li><b>$theContainer</b>: The graph and term containers as an array:
+		<ul>
+			<li><i>kTAG_NODE kTAG_NODE</i>: This element should hold the nodes
+			container, it must be a Everyman\Neo4j\Client instance.</li>
+
+			<li><i>kTAG_TERM kTAG_TERM</i>: This element should hold the terms
+			container, it must be a CContainer CContainer instance.</li>
+		</ul>
+	</li>
+
+	<li><b>$thePredicate</b>: The predicate term:
+		<ul>
+			<li><i>COntologyNode</i>: The node Term() term kTAG_GID global
+			COntologyTerm::GID() identifier.</li>
+
+			<li><i>COntologyTerm COntologyTerm</i>: The term kTAG_GID global
+			identifier will be used as the COntologyEdge node COntologyEdge::Type() type.</li>
+
+			<li><i>Everyman\Neo4j\Relationship</i>: The relationship's type will be used as
+			the predicate, all other elements of the provided edge node will be
+			ignored.</li>
+
+			<li><i>string</i>: Any other type will be converted to string and will be used
+			as the COntologyEdge node COntologyEdge::Type() type.</li>
+		</ul>
+	</li>
+
+	<li><b>$theObject</b>: The destination node or relationship object node:
+		<ul>
+			<li><i>COntologyNode</i>: The method will use it's Node() node.</li>
+
+			<li><i>Everyman\Neo4j\Node</i>: The method will use it as the relationship
+			object.</li>
+
+			<li><i>integer</i>: The method will search for the node corresponding to the
+			provided number, if the node was not found, the method will raise an
+			exception.</li>
+
+			<li><i>other</i>: Any other type will raise an exception.</li>
+		</ul>
+	</li>
+
+	<li><b>$doDuplicate</b>: This flag determines whether cuplicate relationships
+	are allowed: if <i>FALSE</i>, if a relationship with the same subject and object
+	nodes, along with the same predicate term are found, it will be considered a
+	duplicate, and this method will actually return that relationship.</li>
+</ul>
+
+<p>The method will return a COntologyEdge COntologyEdge object, or raise
+an exception if the operation was not successful.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>reference</code><br> Object container.</dd>
+					<dt><var>$thePredicate</var></dt>
+					<dd><code>mixed</code><br> Predicate.</dd>
+					<dt><var>$theObject</var></dt>
+					<dd><code>mixed</code><br> Object.</dd>
+					<dt><var>$doDuplicate</var></dt>
+					<dd><code>boolean</code><br> TRUE means duplicate relationship.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-COntologyEdge.html">COntologyEdge</a></code></code><br />
+				</div>
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CGraphNode.html#_">CGraphNode::RelateTo</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="GetRelated" id="_GetRelated">
+
+		<td class="attributes"><code>
+			 public 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_GetRelated">#</a>
+		<code><a href="source-class-COntologyNode.html#772" title="Go to source code">GetRelated</a>( <span>reference <var>$theContainer</var></span>, <span>mixed <var>$thePredicate</var> = <span class="php-keyword1">NULL</span></span>, <span>string <var>$theDirection</var> = <span class="php-quote">'all'</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Return related COntologyEdge edges.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return related COntologyEdge edges.</p>
+
+<p>This method will return all nodes that are related to the current one in an
+array of COntologyEdge edge nodes whose elements are structured as
+follows:</p>
+
+<ul>
+	<li><i>Key</i>: The edge ID.</li>
+
+	<li><i>Value</i>: The edge COntologyEdge object.</li>
+</ul>
+
+<p>The method accepts the following parameters:</p>
+
+<ul>
+	<li><b>$theContainer</b>: The graph and term containers as an array:
+		<ul>
+			<li><i>kTAG_NODE kTAG_NODE</i>: This element should hold the nodes
+			container, it must be a Everyman\Neo4j\Client instance.</li>
+
+			<li><i>kTAG_TERM kTAG_TERM</i>: This element should hold the terms
+			container, it must be a CContainer CContainer instance.</li>
+		</ul>
+	</li>
+
+	<li><b>$thePredicate</b>: The predicate terms as an array of the following
+	types:
+		<ul>
+			<li><i>COntologyNode</i>: The node Term() term kTAG_GID global
+			COntologyTerm::GID() identifier.</li>
+
+			<li><i>COntologyTerm COntologyTerm</i>: The term kTAG_GID global
+			identifier will be used as the COntologyEdge node COntologyEdge::Type() type.</li>
+
+			<li><i>Everyman\Neo4j\Relationship</i>: The relationship's type will be used as
+			the predicate, all other elements of the provided edge node will be
+			ignored.</li>
+
+			<li><i>string</i>: Any other type will be converted to string and will be used
+			as the COntologyEdge node COntologyEdge::Type() type.</li>
+		</ul>
+	</li>
+
+	<li><b>$theDirection</b>: The direction of the relation:
+		<ul>
+			<li><i>out</i>: Outgoing relations, the current node is the subject.</li>
+
+			<li><i>in</i>: Incoming relations, the current node is the object.</li>
+
+			<li><i>all</i>: Incoming and outgoing relations (default), the current node is
+			the object or the subject.</li>
+		</ul>
+	</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>reference</code><br> Object container.</dd>
+					<dt><var>$thePredicate</var></dt>
+					<dd><code>mixed</code><br> Predicate.</dd>
+					<dt><var>$theDirection</var></dt>
+					<dd><code>string</code><br> Relation direction.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>{@link</code><br>CException CException}<br />
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="offsetExists" id="_offsetExists">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_offsetExists">#</a>
+		<code><a href="source-class-COntologyNode.html#985" title="Go to source code">offsetExists</a>( <span>string <var>$theOffset</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Check whether a given offset exists.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Check whether a given offset exists.</p>
+
+<p>We overload this method to wrap the internal array over the node
+properties.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>string</code><br> Offset.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br />
+				</div>
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CGraphNode.html#_">CGraphNode::offsetExists</a></code></div>
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-ArrayAccess.html#_">ArrayAccess::offsetExists</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="offsetGet" id="_offsetGet">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_offsetGet">#</a>
+		<code><a href="source-class-COntologyNode.html#1018" title="Go to source code">offsetGet</a>( <span>string <var>$theOffset</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Return a value at a given offset.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return a value at a given offset.</p>
+
+<p>We overload this method to wrap the internal array over the node
+properties.</p>
+
+<p>In this class no offset may have a <i>NULL</i> value, if this method returns
+a <i>NULL</i> value, it means that the offset doesn't exist.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>string</code><br> Offset.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CGraphNode.html#_">CGraphNode::offsetGet</a></code></div>
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-ArrayAccess.html#_">ArrayAccess::offsetGet</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="count" id="_count">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_count">#</a>
+		<code><a href="source-class-COntologyNode.html#1054" title="Go to source code">count</a>( )</code>
+
+		<div class="description short">
+			
+<p>Count number of elements.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Count number of elements.</p>
+
+<p>We overload this method to wrap the internal array over the node
+properties.</p>
+
+<p>Note that if the node exists the method will return an integer, if not, it
+will return <i>NULL</i>.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CGraphNode.html#_">CGraphNode::count</a></code></div>
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Countable.html#_">Countable::count</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getArrayCopy" id="_getArrayCopy">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getArrayCopy">#</a>
+		<code><a href="source-class-COntologyNode.html#1076" title="Go to source code">getArrayCopy</a>( )</code>
+
+		<div class="description short">
+			
+<p>Create a copy of the array.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a copy of the array.</p>
+
+<p>We overload this method to wrap the internal array over the node
+properties.</p>
+
+<p>Note that if the node exists the method will return an array, if not, it will
+return an empty array.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CGraphNode.html#_">CGraphNode::getArrayCopy</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_Commit" id="__Commit">
+
+		<td class="attributes"><code>
+			 protected 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__Commit">#</a>
+		<code><a href="source-class-COntologyNode.html#1120" title="Go to source code">_Commit</a>( <span>reference <var>&amp; $theContainer</var></span>, <span>reference <var>&amp; $theIdentifier</var></span>, <span>reference <var>&amp; $theModifiers</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Store object in container.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Store object in container.</p>
+
+<p>We CGraphNode::_Commit() overload this method to provide the correct
+container to the CGraphNode parent CGraphNode::_Commit()
+method.</p>
+
+<p>We also overload this method to store the node properties into a Mongo
+collection named kDEFAULT_CNT_NODES kDEFAULT_CNT_NODES, the record will
+be indexed by node ID as a 64 bit integer.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>reference</code><br>&amp;$theContainer Object container.</dd>
+					<dt><var>$theIdentifier</var></dt>
+					<dd><code>reference</code><br>&amp;$theIdentifier Object identifier.</dd>
+					<dt><var>$theModifiers</var></dt>
+					<dd><code>reference</code><br>&amp;$theModifiers Commit modifiers.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CGraphNode.html#_">CGraphNode::Node()</a></code></code> <br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CGraphNode.html#_">CGraphNode::_Commit</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_Load" id="__Load">
+
+		<td class="attributes"><code>
+			 protected 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__Load">#</a>
+		<code><a href="source-class-COntologyNode.html#1281" title="Go to source code">_Load</a>( <span>reference <var>&amp; $theContainer</var></span>, <span>reference <var>&amp; $theIdentifier</var></span>, <span>reference <var>&amp; $theModifiers</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Find object.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Find object.</p>
+
+<p>In this class we try to load the node.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>reference</code><br>&amp;$theContainer Object container.</dd>
+					<dt><var>$theIdentifier</var></dt>
+					<dd><code>reference</code><br>&amp;$theIdentifier Object identifier.</dd>
+					<dt><var>$theModifiers</var></dt>
+					<dd><code>reference</code><br>&amp;$theModifiers Create options.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CGraphNode.html#_">CGraphNode::_Load</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_PrepareCreate" id="__PrepareCreate">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__PrepareCreate">#</a>
+		<code><a href="source-class-COntologyNode.html#1315" title="Go to source code">_PrepareCreate</a>( <span>reference <var>&amp; $theContainer</var></span>, <span>reference <var>&amp; $theIdentifier</var></span>, <span>reference <var>&amp; $theModifiers</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Normalise parameters of a create.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Normalise parameters of a create.</p>
+
+<p>In this class we first check whether the container has the following
+structure:</p>
+
+<ul>
+	<li><i>kTAG_NODE kTAG_NODE</i>: This element should hold the nodes
+	container, it must be a Everyman\Neo4j\Client instance.</li>
+
+	<li><i>kTAG_TERM kTAG_TERM</i>: This element should hold the terms
+	container, it must be a COntologyTermObject COntologyTermObject
+	instance.</li>
+</ul>
+
+<p>We then call the CGraphNode parent CGraphNode::_PrepareCreate() method and check if the container was replaced
+with the content: in that case we try to load the related Term()
+term.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>reference</code><br>&amp;$theContainer Object container.</dd>
+					<dt><var>$theIdentifier</var></dt>
+					<dd><code>reference</code><br>&amp;$theIdentifier Object identifier.</dd>
+					<dt><var>$theModifiers</var></dt>
+					<dd><code>reference</code><br>&amp;$theModifiers Create modifiers.</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						kFLAG_STATE_ENCODED<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CPersistentObject.html#_">CPersistentObject::_IsEncoded()</a></code></code> <br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CGraphNode.html#_">CGraphNode::_PrepareCreate</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_PrepareLoad" id="__PrepareLoad">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__PrepareLoad">#</a>
+		<code><a href="source-class-COntologyNode.html#1438" title="Go to source code">_PrepareLoad</a>( <span>reference <var>&amp; $theContainer</var></span>, <span>reference <var>&amp; $theIdentifier</var></span>, <span>reference <var>&amp; $theModifiers</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Normalise parameters of a find.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Normalise parameters of a find.</p>
+
+<p>In this class we check if the provided container is supported., terms require
+a container instance derived from CContainer CContainer.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>reference</code><br>&amp;$theContainer Object container.</dd>
+					<dt><var>$theIdentifier</var></dt>
+					<dd><code>reference</code><br>&amp;$theIdentifier Object identifier.</dd>
+					<dt><var>$theModifiers</var></dt>
+					<dd><code>reference</code><br>&amp;$theModifiers Create modifiers.</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>{@link</code><br>CException CException}<br />
+				</div>
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CGraphNode.html#_">CGraphNode::_PrepareLoad</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_PrepareCommit" id="__PrepareCommit">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__PrepareCommit">#</a>
+		<code><a href="source-class-COntologyNode.html#1510" title="Go to source code">_PrepareCommit</a>( <span>reference <var>&amp; $theContainer</var></span>, <span>reference <var>&amp; $theIdentifier</var></span>, <span>reference <var>&amp; $theModifiers</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Normalise before a store.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Normalise before a store.</p>
+
+<p>In this class we check if the provided container is supported and we set the
+kTAG_TERM term property in the node and Commit() commit the
+Term() term.</p>
+
+<p>We also copy the current node's Kind() kind to the term and save it
+if not kFLAG_PERSIST_DELETE deleting.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>reference</code><br>&amp;$theContainer Object container.</dd>
+					<dt><var>$theIdentifier</var></dt>
+					<dd><code>reference</code><br>&amp;$theIdentifier Object identifier.</dd>
+					<dt><var>$theModifiers</var></dt>
+					<dd><code>reference</code><br>&amp;$theModifiers Commit modifiers.</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>{@link</code><br>CException CException}<br />
+				</div>
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CGraphNode.html#_">CGraphNode::_PrepareCommit</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_FinishCreate" id="__FinishCreate">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__FinishCreate">#</a>
+		<code><a href="source-class-COntologyNode.html#1606" title="Go to source code">_FinishCreate</a>( <span>reference <var>&amp; $theContainer</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Normalise after a _Create() create.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Normalise after a _Create() create.</p>
+
+<p>In this class we initialise the Term() term if necessary.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>reference</code><br>&amp;$theContainer Object container.</dd>
+				</dl></div>
+
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CGraphNode.html#_">CGraphNode::_FinishCreate</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_FinishLoad" id="__FinishLoad">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__FinishLoad">#</a>
+		<code><a href="source-class-COntologyNode.html#1639" title="Go to source code">_FinishLoad</a>( <span>reference <var>&amp; $theContainer</var></span>, <span>reference <var>&amp; $theIdentifier</var></span>, <span>reference <var>&amp; $theModifiers</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Normalise after a _Load() load.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Normalise after a _Load() load.</p>
+
+<p>In this class we get the kTAG_TERM term reference from the node
+properties and load it.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>reference</code><br>&amp;$theContainer Object container.</dd>
+					<dt><var>$theIdentifier</var></dt>
+					<dd><code>reference</code><br>&amp;$theIdentifier Object identifier.</dd>
+					<dt><var>$theModifiers</var></dt>
+					<dd><code>reference</code><br>&amp;$theModifiers Create modifiers.</dd>
+				</dl></div>
+
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CGraphNode.html#_">CGraphNode::_FinishLoad</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_IndexTerms" id="__IndexTerms">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__IndexTerms">#</a>
+		<code><a href="source-class-COntologyNode.html#1704" title="Go to source code">_IndexTerms</a>( <span>Everyman\Neo4j\Client <var>$theContainer</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Create node/term indexes.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create node/term indexes.</p>
+
+<p>This method will save node indexes after the node was _Commit()
+committed, there are two main indexes for nodes:</p>
+
+<ul>
+	<li><i>kINDEX_NODE_TERM kINDEX_NODE_TERM</i>: This index (NodeIndex)
+	links the node to its Term() term through the following keys:
+		<ul>
+			<li><i>kTAG_TERM kTAG_TERM</i>: This key represents the Term()
+			term kTAG_GID identifier.</li>
+
+			<li><i>kTAG_NAME kTAG_NAME</i>: This key represents the Term()
+			term kTAG_NAME names in all languages.</li>
+		</ul>
+	</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>Everyman\Neo4j\Client</code><br> Node container.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_IndexNodes" id="__IndexNodes">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__IndexNodes">#</a>
+		<code><a href="source-class-COntologyNode.html#1756" title="Go to source code">_IndexNodes</a>( <span>Everyman\Neo4j\Client <var>$theContainer</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Create node property indexes.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create node property indexes.</p>
+
+<p>This method will save node indexes after the node was _Commit()
+committed, there are two main indexes for node properties:</p>
+
+<ul>
+	<li><i>kINDEX_NODE_NODE kINDEX_NODE_NODE</i>: This index (NodeIndex)
+	links the node to its properties through the following keys:
+		<ul>
+			<li><i>kTAG_TYPE kTAG_TYPE</i>: This key links the current node to its
+			Type() type, which may either be inherited from its Term() term
+			or have been Type() explicitly set.</li>
+
+			<li><i>kTAG_KIND kTAG_KIND</i>: This key links the current node to its
+			Kind() kinds, which may either be inherited from its Term() term
+			or have been Kind() explicitly set.</li>
+
+			<li><i>kTAG_DOMAIN kTAG_DOMAIN</i>: This key links the current node to
+			its Domain() domains, which may either be inherited from its Term() term or have been Domain() explicitly set.</li>
+
+			<li><i>kTAG_CATEGORY kTAG_CATEGORY</i>: This key links the current node
+			to its Category() categories, which may either be inherited from its
+			Category() term or have been Category() explicitly set.</li>
+		</ul>
+	</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>Everyman\Neo4j\Client</code><br> Node container.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_GetNodeIndex" id="__GetNodeIndex">
+
+		<td class="attributes"><code>
+			 protected 
+			Everyman\Neo4j\NodeIndex
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__GetNodeIndex">#</a>
+		<code><a href="source-class-COntologyNode.html#1837" title="Go to source code">_GetNodeIndex</a>( <span>Everyman\Neo4j\Client <var>$theContainer</var></span>, <span>string <var>$theIndex</var></span>, <span>boolean <var>$doClear</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Retrieve the node index.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Retrieve the node index.</p>
+
+<p>This method can be used to return a node index identified by the provided
+index tag.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>Everyman\Neo4j\Client</code><br> Node container.</dd>
+					<dt><var>$theIndex</var></dt>
+					<dd><code>string</code><br> Index tag.</dd>
+					<dt><var>$doClear</var></dt>
+					<dd><code>boolean</code><br> TRUE means clear index.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>Everyman\Neo4j\NodeIndex</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_ManageProperty" id="__ManageProperty">
+
+		<td class="attributes"><code>
+			 protected 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__ManageProperty">#</a>
+		<code><a href="source-class-COntologyNode.html#1883" title="Go to source code">_ManageProperty</a>( <span>string <var>$theOffset</var></span>, <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage scalar property.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage scalar property.</p>
+
+<p>This method will set, retrieve and delete scalar properties, it accepts the
+following parameters:</p>
+
+<ul>
+	<li><b>$theOffset</b>: The property offset to manage.</li>
+
+	<li><b>$theValue</b>: The property value or operation:
+		<ul>
+			<li><i>NULL</i>: Return the property current value.</li>
+
+			<li><i>FALSE</i>: Delete the property.</li>
+
+			<li><i>other</i>: Any other type represents the new property value.</li>
+		</ul>
+	</li>
+
+	<li><b>$getOld</b>: Determines what the method will return:
+		<ul>
+			<li><i>TRUE</i>: Return the value of the property <i>before</i> it was
+			eventually modified.</li>
+
+			<li><i>FALSE</i>: Return the value of the property <i>after</i> it was
+			eventually modified.</li>
+		</ul>
+	</li>
+</ul>
+
+<p>Note that if the current object does no yet have a Node() node
+reference, the method will raise an exception.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>string</code><br> Property key.</dd>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br> Value or operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>{@link</code><br>CException CException}<br />
+				</div>
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CGraphNode.html#_">CGraphNode::Node()</a></code></code> <br />
+						<code><code><a href="class-CStatusObject.html#_">CStatusObject::_IsDirty()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-COntologyNode.html#_">COntologyNode::Type()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_ManagePropertyArray" id="__ManagePropertyArray">
+
+		<td class="attributes"><code>
+			 protected 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__ManagePropertyArray">#</a>
+		<code><a href="source-class-COntologyNode.html#1980" title="Go to source code">_ManagePropertyArray</a>( <span>string <var>$theOffset</var></span>, <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>mixed <var>$theOperation</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage scalar property.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage scalar property.</p>
+
+<p>This method will set, retrieve and delete array element properties, it
+accepts the following parameters:</p>
+
+<ul>
+	<li><b>$theOffset</b>: The property offset to manage.</li>
+
+	<li><b>$theValue</b>: This parameter represents either the value to add, or the
+	index of the element to operate on:
+		<ul>
+			<li><i>NULL</i>: This value indicates that we want to operate on all elements,
+			which means that we are retrieving the full list or deleting it.</li>
+
+			<li><i>array</i>: This value indicates that we want to replace the whole list,
+			this will only be tested if the next parameter evaluates to <i>TRUE</i>.</li>
+
+			<li><i>other</i>: Any other type represents either the new value to be added or
+			the index to the value to be returned or deleted. <i>It must be possible to cast
+			this value to a string, this is what will be used to compare elements</i>.</li>
+		</ul>
+	</li>
+
+	<li><b>$theOperation</b>: This parameter represents the operation to be
+	performed, it will be evaluated as a boolean and its scope depends on the value
+	of the previous parameter:
+		<ul>
+			<li><i>NULL</i>: Return the element or list.</li>
+
+			<li><i>FALSE</i>: Delete the element or list.</li>
+
+			<li><i>TRUE</i>: Add the element or list. Note that with this value, if you
+			provide <i>NULL</i> in the previous parameter, it will be equivalent to deleting
+			the whole list.</li>
+		</ul>
+	</li>
+
+	<li><b>$getOld</b>: Determines what the method will return:
+		<ul>
+			<li><i>TRUE</i>: Return the element or list <i>before</i> it was eventually
+			modified.</li>
+
+			<li><i>FALSE</i>: Return the element or list <i>after</i> it was eventually
+			modified.</li>
+		</ul>
+	</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>string</code><br> Property key.</dd>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br> Value or index.</dd>
+					<dt><var>$theOperation</var></dt>
+					<dd><code>mixed</code><br> Operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>{@link</code><br>CException CException}<br />
+				</div>
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CGraphNode.html#_">CGraphNode::Node()</a></code></code> <br />
+						<code><code><a href="class-CStatusObject.html#_">CStatusObject::_IsDirty()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-COntologyNode.html#_">COntologyNode::Kind()</a></code></code> <br />
+						<code><code><a href="class-COntologyNode.html#_">COntologyNode::Domain()</a></code></code> <br />
+						<code><code><a href="class-COntologyNode.html#_">COntologyNode::Category()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CGraphNode.html#methods">CGraphNode</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CGraphNode.html#_">Node()</a>, 
+			<a href="class-CGraphNode.html#_">Persistent()</a>, 
+			<a href="class-CGraphNode.html#_">_Create()</a>, 
+			<a href="class-CGraphNode.html#_">append()</a>, 
+			<a href="class-CGraphNode.html#_">asort()</a>, 
+			<a href="class-CGraphNode.html#_">exchangeArray()</a>, 
+			<a href="class-CGraphNode.html#_">getIterator()</a>, 
+			<a href="class-CGraphNode.html#_">keys()</a>, 
+			<a href="class-CGraphNode.html#_">ksort()</a>, 
+			<a href="class-CGraphNode.html#_">natcasesort()</a>, 
+			<a href="class-CGraphNode.html#_">natsort()</a>, 
+			<a href="class-CGraphNode.html#_">offsetSet()</a>, 
+			<a href="class-CGraphNode.html#_">offsetUnset()</a>, 
+			<a href="class-CGraphNode.html#_">values()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CPersistentObject.html#methods">CPersistentObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CPersistentObject.html#_">Commit()</a>, 
+			<a href="class-CPersistentObject.html#_">Uncommit()</a>, 
+			<a href="class-CPersistentObject.html#_">_FinishCommit()</a>, 
+			<a href="class-CPersistentObject.html#_">_GetTags()</a>, 
+			<a href="class-CPersistentObject.html#_">_IsCommitted()</a>, 
+			<a href="class-CPersistentObject.html#_">_IsEncoded()</a>, 
+			<a href="class-CPersistentObject.html#_">_SetTags()</a>, 
+			<a href="class-CPersistentObject.html#_">__construct()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CStatusObject.html#methods">CStatusObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CStatusObject.html#_">Status()</a>, 
+			<a href="class-CStatusObject.html#_">_IsDirty()</a>, 
+			<a href="class-CStatusObject.html#_">_IsInited()</a>, 
+			<a href="class-CStatusObject.html#_">_ManageBitField()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-ArrayObject.html#methods">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#_">getFlags()</a>, 
+			<a href="class-ArrayObject.html#_">getIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_">serialize()</a>, 
+			<a href="class-ArrayObject.html#_">setFlags()</a>, 
+			<a href="class-ArrayObject.html#_">setIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_">uasort()</a>, 
+			<a href="class-ArrayObject.html#_">uksort()</a>, 
+			<a href="class-ArrayObject.html#_">unserialize()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+	<table class="summary inherited">
+	<caption>Constants inherited from <a href="class-ArrayObject.html#constants">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#ARRAY_AS_PROPS"><b>ARRAY_AS_PROPS</b></a>, 
+			<a href="class-ArrayObject.html#STD_PROP_LIST"><b>STD_PROP_LIST</b></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+	<table class="summary" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="mTerm" id="$mTerm">
+
+		<td class="attributes"><code>
+			protected 
+			<code><a href="class-COntologyTerm.html">COntologyTerm</a></code>
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-COntologyNode.html#88" title="Go to source code"><var>$mTerm</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">NULL</span></code></td>
+		<td class="description"><div>
+			<a href="#$mTerm" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Term.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Term.</p>
+
+<p>This data member holds the node COntologyTerm term.</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-CGraphNode.html#properties">CGraphNode</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CGraphNode.html#$mNode"><var>$mNode</var></a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-CStatusObject.html#properties">CStatusObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CStatusObject.html#$mStatus"><var>$mStatus</var></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+</div>
+
+	<div id="footer">
+		MyWrapper Reference API documentation generated by <a href="http://apigen.org">ApiGen 2.7.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

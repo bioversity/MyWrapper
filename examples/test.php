@@ -832,7 +832,6 @@ echo( '<pre>' ); print_r( $x ); echo( '</pre>' );
 echo( '<i>$x = next( $test );</i><br>' );
 $x = next( $test );
 echo( '<pre>' ); print_r( $x ); echo( '</pre>' );
-*/
 
 //
 // Test references in loops.
@@ -869,7 +868,6 @@ echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
 foreach( $test as &$data )
 	$data[ 0 ][ 0 ] = 'PIPO';
 echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
-*/
 
 //
 // Trait inheritance.
@@ -898,6 +896,35 @@ class MyTest
 $test = new MyTest();
 $test->test();
 echo( '<pre>' ); print_r( $test ); echo( '</pre>' );
+*/
+
+//
+// Test APC.
+//
+$fruit  = 'apple';
+$veggie = 'carrot';
+
+apc_store('foo', $fruit);
+apc_store('bar', $veggie);
+
+if (apc_exists('foo')) {
+    echo "Foo exists: ";
+    echo apc_fetch('foo');
+} else {
+    echo "Foo does not exist";
+}
+
+echo PHP_EOL;
+if (apc_exists('baz')) {
+    echo "Baz exists.";
+} else {
+    echo "Baz does not exist";
+}
+
+echo PHP_EOL;
+
+$ret = apc_exists(array('foo', 'donotexist', 'bar'));
+var_dump($ret);
 
 
 ?>

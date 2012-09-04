@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.7.0" />
+
+	<title>Class COntologyEdge | MyWrapper Reference</title>
+
+	<script type="text/javascript" src="resources/combined.js?417553483"></script>
+	<script type="text/javascript" src="elementlist.js?1387923255"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?1567499433" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Packages</h3>
+			<ul>
+				<li class="active main"><a href="package-MyWrapper.html">MyWrapper<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MyWrapper.Entities.html">Entities</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Framework.html">Framework</a>
+						</li>
+				<li class="active main"><a href="package-MyWrapper.Ontology.html">Ontology</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Persistence.html">Persistence</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Session.html">Session</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Traits.html">Traits</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Wrappers.html">Wrappers</a>
+						</li>
+							</ul></li>
+				<li><a href="package-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-COntologyEdge.html">COntologyEdge</a></li>
+				<li><a href="class-COntologyNode.html">COntologyNode</a></li>
+				<li><a href="class-COntologyTag.html">COntologyTag</a></li>
+				<li><a href="class-COntologyTerm.html">COntologyTerm</a></li>
+				<li><a href="class-COntologyTermObject.html">COntologyTermObject</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="package-MyWrapper.Ontology.html" title="Summary of MyWrapper\Ontology"><span>Package</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class COntologyEdge</h1>
+
+
+	<div class="description">
+	
+<p>Ontology graph edge node.</p>
+
+<p>This class implements an ontology graph edge node.</p>
+
+<p>The class is derived from CGraphEdge CGraphEdge and implements the
+exact same functionality as COntologyNode COntologyNode, it adds two
+elements: the SubjectTerm() subject and ObjectTerm() object
+COntologyTerm terms which are linked with the Subject() subject
+and Object() object nodes.</p>
+
+<p>Instances of this class represent predicate nodes and they hold the
+referenced nodes.</p>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-ArrayObject.html"><span>ArrayObject</span></a>
+			
+			 implements 
+				<a href="class-IteratorAggregate.html"><span>IteratorAggregate</span></a>, 
+			
+				<a href="class-Traversable.html"><span>Traversable</span></a>, 
+			
+				<a href="class-ArrayAccess.html"><span>ArrayAccess</span></a>, 
+			
+				<a href="class-Serializable.html"><span>Serializable</span></a>, 
+			
+				<a href="class-Countable.html"><span>Countable</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CArrayObject.html"><span>CArrayObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:60px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CStatusObject.html"><span>CStatusObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:90px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CPersistentObject.html"><span>CPersistentObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:120px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CGraphNode.html"><span>CGraphNode</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:150px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CGraphEdge.html"><span>CGraphEdge</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:180px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>COntologyEdge</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		
+		<b>Package:</b> <a href="package-MyWrapper.html">MyWrapper</a>\<a href="package-MyWrapper.Ontology.html">Ontology</a><br />
+
+				<b>Author:</b>
+				Milko A. Škofič &lt;<a
+href="mailto:m.skofic&#64;cgiar.org">m.skofic&#64;<!---->cgiar.org</a>&gt;<br />
+		<b>Located at</b> <a href="source-class-COntologyEdge.html#44" title="Go to source code">COntologyEdge.php</a><br />
+	</div>
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="Term" id="_Term">
+
+		<td class="attributes"><code>
+			 public 
+			<code><a href="class-COntologyTermObject.html">COntologyTermObject</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Term">#</a>
+		<code><a href="source-class-COntologyEdge.html#102" title="Go to source code">Term</a>( <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage node term.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage node term.</p>
+
+<p>This method can be used to manage the node term reference, it uses the
+standard accessor CObject::ManageMember() method to manage the
+property:</p>
+
+<ul>
+	<li><b>$theValue</b>: The value or operation:
+		<ul>
+			<li><i>NULL</i>: Return the current value.</li>
+
+			<li><i>FALSE</i>: Delete the value.</li>
+
+			<li><i>COntologyTermObject COntologyTermObject</i>: Set value.</li>
+
+			<li><i>other</i>: Raise exception.</li>
+		</ul>
+	</li>
+
+	<li><b>$getOld</b>: Determines what the method will return:
+		<ul>
+			<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.</li>
+
+			<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.</li>
+		</ul>
+	</li>
+</ul>
+
+<p>The method will also set the _IsDirty() dirty kFLAG_STATE_DIRTY status and the _IsInited() inited kFLAG_STATE_INITED status if the node is provided.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br> Term or operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-COntologyTermObject.html">COntologyTermObject</a></code></code><br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CObject.html#_">CObject::ManageMember()</a></code></code> <br />
+						<code><code><a href="class-CStatusObject.html#_">CStatusObject::_IsDirty()</a></code></code> <br />
+						<code><code><a href="class-CStatusObject.html#_">CStatusObject::_IsInited()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="SubjectTerm" id="_SubjectTerm">
+
+		<td class="attributes"><code>
+			 public 
+			<code><a href="class-COntologyTermObject.html">COntologyTermObject</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_SubjectTerm">#</a>
+		<code><a href="source-class-COntologyEdge.html#190" title="Go to source code">SubjectTerm</a>( <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage subject term.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage subject term.</p>
+
+<p>This method can be used to manage the subject node term reference, it uses
+the standard accessor CObject::ManageMember() method to manage the
+property:</p>
+
+<ul>
+	<li><b>$theValue</b>: The value or operation:
+		<ul>
+			<li><i>NULL</i>: Return the current value.</li>
+
+			<li><i>FALSE</i>: Delete the value.</li>
+
+			<li><i>COntologyTermObject COntologyTermObject</i>: Set value.</li>
+
+			<li><i>other</i>: Raise exception.</li>
+		</ul>
+	</li>
+
+	<li><b>$getOld</b>: Determines what the method will return:
+		<ul>
+			<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.</li>
+
+			<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.</li>
+		</ul>
+	</li>
+</ul>
+
+<p>The method will also set the _IsDirty() dirty kFLAG_STATE_DIRTY status and the _IsInited() inited kFLAG_STATE_INITED status if the node is provided.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br> Term or operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-COntologyTermObject.html">COntologyTermObject</a></code></code><br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CObject.html#_">CObject::ManageMember()</a></code></code> <br />
+						<code><code><a href="class-CStatusObject.html#_">CStatusObject::_IsDirty()</a></code></code> <br />
+						<code><code><a href="class-CStatusObject.html#_">CStatusObject::_IsInited()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-COntologyEdge.html#_">COntologyEdge::SubjectNode()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="ObjectTerm" id="_ObjectTerm">
+
+		<td class="attributes"><code>
+			 public 
+			<code><a href="class-COntologyTermObject.html">COntologyTermObject</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_ObjectTerm">#</a>
+		<code><a href="source-class-COntologyEdge.html#272" title="Go to source code">ObjectTerm</a>( <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage object term.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage object term.</p>
+
+<p>This method can be used to manage the object node term reference, it uses the
+standard accessor CObject::ManageMember() method to manage the
+property:</p>
+
+<ul>
+	<li><b>$theValue</b>: The value or operation:
+		<ul>
+			<li><i>NULL</i>: Return the current value.</li>
+
+			<li><i>FALSE</i>: Delete the value.</li>
+
+			<li><i>COntologyTermObject COntologyTermObject</i>: Set value.</li>
+
+			<li><i>other</i>: Raise exception.</li>
+		</ul>
+	</li>
+
+	<li><b>$getOld</b>: Determines what the method will return:
+		<ul>
+			<li><i>TRUE</i>: Return the value <i>before</i> it was eventually modified.</li>
+
+			<li><i>FALSE</i>: Return the value <i>after</i> it was eventually modified.</li>
+		</ul>
+	</li>
+</ul>
+
+<p>The method will also set the _IsDirty() dirty kFLAG_STATE_DIRTY status and the _IsInited() inited kFLAG_STATE_INITED status if the node is provided.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br> Term or operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-COntologyTermObject.html">COntologyTermObject</a></code></code><br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CObject.html#_">CObject::ManageMember()</a></code></code> <br />
+						<code><code><a href="class-CStatusObject.html#_">CStatusObject::_IsDirty()</a></code></code> <br />
+						<code><code><a href="class-CStatusObject.html#_">CStatusObject::_IsInited()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-COntologyEdge.html#_">COntologyEdge::ObjectNode()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="SubjectNode" id="_SubjectNode">
+
+		<td class="attributes"><code>
+			 public 
+			<code><a href="class-COntologyNode.html">COntologyNode</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_SubjectNode">#</a>
+		<code><a href="source-class-COntologyEdge.html#363" title="Go to source code">SubjectNode</a>( <span>array <var>$theContainer</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Return subject node.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return subject node.</p>
+
+<p>This method can be used to convert the Subject() subject COntologyNode node into an ontology COntologyNode node.</p>
+
+<p>The method accepts a single parameter which represents the term and node
+containers structured as follows:</p>
+
+<ul>
+	<li><i>kTAG_NODE kTAG_NODE</i>: This element should hold the nodes
+	container, it must be a Everyman\Neo4j\Client instance.</li>
+
+	<li><i>kTAG_TERM kTAG_TERM</i>: This element should hold the terms
+	container, it must be a CContainer CContainer instance.</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>array</code><br> Object container.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-COntologyNode.html">COntologyNode</a></code></code><br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CGraphEdge.html#_">CGraphEdge::Subject()</a></code></code> <br />
+						<code><code><a href="class-COntologyEdge.html#_">COntologyEdge::SubjectTerm()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="ObjectNode" id="_ObjectNode">
+
+		<td class="attributes"><code>
+			 public 
+			<code><a href="class-COntologyNode.html">COntologyNode</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_ObjectNode">#</a>
+		<code><a href="source-class-COntologyEdge.html#413" title="Go to source code">ObjectNode</a>( <span>array <var>$theContainer</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Return object node.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return object node.</p>
+
+<p>This method can be used to convert the Object() object COntologyNode node into an ontology COntologyNode node.</p>
+
+<p>The method accepts a single parameter which represents the term and node
+containers structured as follows:</p>
+
+<ul>
+	<li><i>kTAG_NODE kTAG_NODE</i>: This element should hold the nodes
+	container, it must be a Everyman\Neo4j\Client instance.</li>
+
+	<li><i>kTAG_TERM kTAG_TERM</i>: This element should hold the terms
+	container, it must be a CContainer CContainer instance.</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>array</code><br> Object container.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-COntologyNode.html">COntologyNode</a></code></code><br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CGraphEdge.html#_">CGraphEdge::Object()</a></code></code> <br />
+						<code><code><a href="class-COntologyEdge.html#_">COntologyEdge::ObjectTerm()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="offsetExists" id="_offsetExists">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_offsetExists">#</a>
+		<code><a href="source-class-COntologyEdge.html#472" title="Go to source code">offsetExists</a>( <span>string <var>$theOffset</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Check whether a given offset exists.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Check whether a given offset exists.</p>
+
+<p>We overload this method to wrap the internal array over the node
+properties.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>string</code><br> Offset.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br />
+				</div>
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CGraphNode.html#_">CGraphNode::offsetExists</a></code></div>
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-ArrayAccess.html#_">ArrayAccess::offsetExists</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="offsetGet" id="_offsetGet">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_offsetGet">#</a>
+		<code><a href="source-class-COntologyEdge.html#505" title="Go to source code">offsetGet</a>( <span>string <var>$theOffset</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Return a value at a given offset.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return a value at a given offset.</p>
+
+<p>We overload this method to wrap the internal array over the node
+properties.</p>
+
+<p>In this class no offset may have a <i>NULL</i> value, if this method returns
+a <i>NULL</i> value, it means that the offset doesn't exist.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>string</code><br> Offset.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CGraphNode.html#_">CGraphNode::offsetGet</a></code></div>
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-ArrayAccess.html#_">ArrayAccess::offsetGet</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="count" id="_count">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_count">#</a>
+		<code><a href="source-class-COntologyEdge.html#541" title="Go to source code">count</a>( )</code>
+
+		<div class="description short">
+			
+<p>Count number of elements.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Count number of elements.</p>
+
+<p>We overload this method to wrap the internal array over the node
+properties.</p>
+
+<p>Note that if the node exists the method will return an integer, if not, it
+will return <i>NULL</i>.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CGraphNode.html#_">CGraphNode::count</a></code></div>
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Countable.html#_">Countable::count</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getArrayCopy" id="_getArrayCopy">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getArrayCopy">#</a>
+		<code><a href="source-class-COntologyEdge.html#563" title="Go to source code">getArrayCopy</a>( )</code>
+
+		<div class="description short">
+			
+<p>Create a copy of the array.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a copy of the array.</p>
+
+<p>We overload this method to wrap the internal array over the node
+properties.</p>
+
+<p>Note that if the node exists the method will return an array, if not, it will
+return an empty array.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CGraphNode.html#_">CGraphNode::getArrayCopy</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_Commit" id="__Commit">
+
+		<td class="attributes"><code>
+			 protected 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__Commit">#</a>
+		<code><a href="source-class-COntologyEdge.html#607" title="Go to source code">_Commit</a>( <span>reference <var>&amp; $theContainer</var></span>, <span>reference <var>&amp; $theIdentifier</var></span>, <span>reference <var>&amp; $theModifiers</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Store object in container.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Store object in container.</p>
+
+<p>We CGraphEdge::_Commit() overload this method to provide the correct
+container to the CGraphEdge parent CGraphEdge::_Commit()
+method.</p>
+
+<p>We also COntologyTerm::Commit() commit the SubjectTerm()
+subject and ObjectTerm() object COntologyTerm terms, setting or
+removing COntologyTerm their kTAG_NODEnode reference.</p>
+
+<p>We also overload this method to store the node properties into a Mongo
+collection named kDEFAULT_CNT_EDGES kDEFAULT_CNT_EDGES, the record will
+be indexed by the combination of subject and node IDs interleaved with the
+predicate term kTAG_GID identifier and divided by the kTOKEN_INDEX_SEPARATOR kTOKEN_INDEX_SEPARATOR token.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>reference</code><br>&amp;$theContainer Object container.</dd>
+					<dt><var>$theIdentifier</var></dt>
+					<dd><code>reference</code><br>&amp;$theIdentifier Object identifier.</dd>
+					<dt><var>$theModifiers</var></dt>
+					<dd><code>reference</code><br>&amp;$theModifiers Commit modifiers.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CGraphEdge.html#_">CGraphEdge::Node()</a></code></code> <br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CGraphEdge.html#_">CGraphEdge::_Commit</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_Load" id="__Load">
+
+		<td class="attributes"><code>
+			 protected 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__Load">#</a>
+		<code><a href="source-class-COntologyEdge.html#718" title="Go to source code">_Load</a>( <span>reference <var>&amp; $theContainer</var></span>, <span>reference <var>&amp; $theIdentifier</var></span>, <span>reference <var>&amp; $theModifiers</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Find object.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Find object.</p>
+
+<p>In this class we pass the correct parameters to the CGraphEdge parent
+CGraphEdge::_Load() method.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>reference</code><br>&amp;$theContainer Object container.</dd>
+					<dt><var>$theIdentifier</var></dt>
+					<dd><code>reference</code><br>&amp;$theIdentifier Object identifier.</dd>
+					<dt><var>$theModifiers</var></dt>
+					<dd><code>reference</code><br>&amp;$theModifiers Create options.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CGraphEdge.html#_">CGraphEdge::_Load</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_PrepareCreate" id="__PrepareCreate">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__PrepareCreate">#</a>
+		<code><a href="source-class-COntologyEdge.html#753" title="Go to source code">_PrepareCreate</a>( <span>reference <var>&amp; $theContainer</var></span>, <span>reference <var>&amp; $theIdentifier</var></span>, <span>reference <var>&amp; $theModifiers</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Normalise parameters of a create.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Normalise parameters of a create.</p>
+
+<p>In this class we first check whether the container has the following
+structure:</p>
+
+<ul>
+	<li><i>kTAG_NODE kTAG_NODE</i>: This element should hold the nodes
+	container, it must be a Everyman\Neo4j\Client instance.</li>
+
+	<li><i>kTAG_TERM kTAG_TERM</i>: This element should hold the terms
+	container, it must be a CContainer CContainer instance.</li>
+</ul>
+
+<p>If the container has the correct structure the kTAG_NODE node
+container will be passed to the parent method and the method will check if the
+kTAG_TERM term container is a COntologyTermObject
+COntologyTermObject.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>reference</code><br>&amp;$theContainer Object container.</dd>
+					<dt><var>$theIdentifier</var></dt>
+					<dd><code>reference</code><br>&amp;$theIdentifier Object identifier.</dd>
+					<dt><var>$theModifiers</var></dt>
+					<dd><code>reference</code><br>&amp;$theModifiers Create modifiers.</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						kFLAG_STATE_ENCODED<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CPersistentObject.html#_">CPersistentObject::_IsEncoded()</a></code></code> <br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CGraphNode.html#_">CGraphNode::_PrepareCreate</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_PrepareLoad" id="__PrepareLoad">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__PrepareLoad">#</a>
+		<code><a href="source-class-COntologyEdge.html#935" title="Go to source code">_PrepareLoad</a>( <span>reference <var>&amp; $theContainer</var></span>, <span>reference <var>&amp; $theIdentifier</var></span>, <span>reference <var>&amp; $theModifiers</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Normalise parameters of a find.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Normalise parameters of a find.</p>
+
+<p>In this class we check if the provided container is supported., terms require
+a container instance derived from CContainer CContainer.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>reference</code><br>&amp;$theContainer Object container.</dd>
+					<dt><var>$theIdentifier</var></dt>
+					<dd><code>reference</code><br>&amp;$theIdentifier Object identifier.</dd>
+					<dt><var>$theModifiers</var></dt>
+					<dd><code>reference</code><br>&amp;$theModifiers Create modifiers.</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>{@link</code><br>CException CException}<br />
+				</div>
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CGraphNode.html#_">CGraphNode::_PrepareLoad</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_PrepareCommit" id="__PrepareCommit">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__PrepareCommit">#</a>
+		<code><a href="source-class-COntologyEdge.html#1007" title="Go to source code">_PrepareCommit</a>( <span>reference <var>&amp; $theContainer</var></span>, <span>reference <var>&amp; $theIdentifier</var></span>, <span>reference <var>&amp; $theModifiers</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Normalise before a store.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Normalise before a store.</p>
+
+<p>In this class we check if the provided container is supported and we set the
+kTAG_TERM term property in the node and Commit() commit the
+Term() term.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>reference</code><br>&amp;$theContainer Object container.</dd>
+					<dt><var>$theIdentifier</var></dt>
+					<dd><code>reference</code><br>&amp;$theIdentifier Object identifier.</dd>
+					<dt><var>$theModifiers</var></dt>
+					<dd><code>reference</code><br>&amp;$theModifiers Commit modifiers.</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>{@link</code><br>CException CException}<br />
+				</div>
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CGraphNode.html#_">CGraphNode::_PrepareCommit</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_FinishCreate" id="__FinishCreate">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__FinishCreate">#</a>
+		<code><a href="source-class-COntologyEdge.html#1112" title="Go to source code">_FinishCreate</a>( <span>reference <var>&amp; $theContainer</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Normalise after a _Create() create.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Normalise after a _Create() create.</p>
+
+<p>In this class we initialise the Term() predicate, SubjectTerm() subject and ObjectTerm() object COntologyTerm
+terms.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>reference</code><br>&amp;$theContainer Object container.</dd>
+				</dl></div>
+
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CGraphEdge.html#_">CGraphEdge::_FinishCreate</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_FinishLoad" id="__FinishLoad">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__FinishLoad">#</a>
+		<code><a href="source-class-COntologyEdge.html#1159" title="Go to source code">_FinishLoad</a>( <span>reference <var>&amp; $theContainer</var></span>, <span>reference <var>&amp; $theIdentifier</var></span>, <span>reference <var>&amp; $theModifiers</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Normalise after a _Load() load.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Normalise after a _Load() load.</p>
+
+<p>In this class we get the term reference from the node Type() type
+property and load it, along with the Subject() subject and Object() object terms.</p>
+
+<p>Note that if the object has a Type() type it means it was read from
+the container: in this case it <i>must</i> have term references for both the
+SubjectTerm() subject and ObjectTerm() object, or an exception
+should be raised.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>reference</code><br>&amp;$theContainer Object container.</dd>
+					<dt><var>$theIdentifier</var></dt>
+					<dd><code>reference</code><br>&amp;$theIdentifier Object identifier.</dd>
+					<dt><var>$theModifiers</var></dt>
+					<dd><code>reference</code><br>&amp;$theModifiers Create modifiers.</dd>
+				</dl></div>
+
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CGraphEdge.html#_">CGraphEdge::_FinishLoad</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_IndexTerms" id="__IndexTerms">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__IndexTerms">#</a>
+		<code><a href="source-class-COntologyEdge.html#1316" title="Go to source code">_IndexTerms</a>( <span>Everyman\Neo4j\Client <var>$theContainer</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Create node indexes.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create node indexes.</p>
+
+<p>This method will save node indexes after the node was _Commit()
+committed, it will perform the following selections:</p>
+
+<ul>
+	<li><i>kINDEX_EDGE_TERM kINDEX_EDGE_TERM</i>: The Term() term
+	kTAG_GID global identifier (RelationshipIndex). container, it must be a
+	Everyman\Neo4j\Client instance.</li>
+
+	<li><i>kINDEX_EDGE_NAME kINDEX_EDGE_NAME</i>: The Term() term
+	COntologyTermObject::Name() names in all languages
+	(RelationshipIndex).</li>
+
+	<li><i>kINDEX_EDGE_TERMS kINDEX_EDGE_TERMS</i>: The node relations, this
+	index records the relation terms, that is, the combination of the subject SubjectTerm() term, predicate Term() term and the object ObjectTerm() term, this can be used to retrieve existing relations.</li>
+</ul>
+
+<p>The following index tags are set:</p>
+
+<ul>
+	<li><i>kTAG_GID kTAG_GID</i>: The Term() term kTAG_GID
+	global identifier.</li>
+
+	<li><i>kTAG_NAME kTAG_NAME</i>: The Term() term kTAG_NAME
+	names.</li>
+
+	<li><i>kTAG_EDGE_TERM kTAG_EDGE_TERM</i>: The relationships between
+	terms taken from the Node() node's kTAG_EDGE_TERM kTAG_EDGE_TERM
+	property, formatted as a SUBJECT/PREDICATE/OBJECT string, in which each element
+	is the kTAG_GID global COntologyTerm term identifier.</li>
+
+	<li><i>kTAG_NODE kTAG_NODE</i>: The relationships between Node()
+	nodes, expressed as a SUBJECT/PREDICATE/OBJECT string, in which the subject and
+	object are the Node() node identifiers and the predicate is the kTAG_GID global Term() term identifier.</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>Everyman\Neo4j\Client</code><br> Node container.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_GetNodeIndex" id="__GetNodeIndex">
+
+		<td class="attributes"><code>
+			 protected 
+			Everyman\Neo4j\RelationshipIndex
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__GetNodeIndex">#</a>
+		<code><a href="source-class-COntologyEdge.html#1398" title="Go to source code">_GetNodeIndex</a>( <span>Everyman\Neo4j\Client <var>$theContainer</var></span>, <span>string <var>$theIndex</var></span>, <span>boolean <var>$doClear</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Retrieve the edge index.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Retrieve the edge index.</p>
+
+<p>This method can be used to return an edge index identified by the provided
+index tag.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>Everyman\Neo4j\Client</code><br> Node container.</dd>
+					<dt><var>$theIndex</var></dt>
+					<dd><code>string</code><br> Index tag.</dd>
+					<dt><var>$doClear</var></dt>
+					<dd><code>boolean</code><br> TRUE means clear index.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>Everyman\Neo4j\RelationshipIndex</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CGraphEdge.html#methods">CGraphEdge</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CGraphEdge.html#_">Node()</a>, 
+			<a href="class-CGraphEdge.html#_">Object()</a>, 
+			<a href="class-CGraphEdge.html#_">Subject()</a>, 
+			<a href="class-CGraphEdge.html#_">Type()</a>, 
+			<a href="class-CGraphEdge.html#_">__toString()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CGraphNode.html#methods">CGraphNode</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CGraphNode.html#_">Persistent()</a>, 
+			<a href="class-CGraphNode.html#_">RelateTo()</a>, 
+			<a href="class-CGraphNode.html#_">_Create()</a>, 
+			<a href="class-CGraphNode.html#_">append()</a>, 
+			<a href="class-CGraphNode.html#_">asort()</a>, 
+			<a href="class-CGraphNode.html#_">exchangeArray()</a>, 
+			<a href="class-CGraphNode.html#_">getIterator()</a>, 
+			<a href="class-CGraphNode.html#_">keys()</a>, 
+			<a href="class-CGraphNode.html#_">ksort()</a>, 
+			<a href="class-CGraphNode.html#_">natcasesort()</a>, 
+			<a href="class-CGraphNode.html#_">natsort()</a>, 
+			<a href="class-CGraphNode.html#_">offsetSet()</a>, 
+			<a href="class-CGraphNode.html#_">offsetUnset()</a>, 
+			<a href="class-CGraphNode.html#_">values()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CPersistentObject.html#methods">CPersistentObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CPersistentObject.html#_">Commit()</a>, 
+			<a href="class-CPersistentObject.html#_">Uncommit()</a>, 
+			<a href="class-CPersistentObject.html#_">_FinishCommit()</a>, 
+			<a href="class-CPersistentObject.html#_">_GetTags()</a>, 
+			<a href="class-CPersistentObject.html#_">_IsCommitted()</a>, 
+			<a href="class-CPersistentObject.html#_">_IsEncoded()</a>, 
+			<a href="class-CPersistentObject.html#_">_SetTags()</a>, 
+			<a href="class-CPersistentObject.html#_">__construct()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CStatusObject.html#methods">CStatusObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CStatusObject.html#_">Status()</a>, 
+			<a href="class-CStatusObject.html#_">_IsDirty()</a>, 
+			<a href="class-CStatusObject.html#_">_IsInited()</a>, 
+			<a href="class-CStatusObject.html#_">_ManageBitField()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-ArrayObject.html#methods">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#_">getFlags()</a>, 
+			<a href="class-ArrayObject.html#_">getIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_">serialize()</a>, 
+			<a href="class-ArrayObject.html#_">setFlags()</a>, 
+			<a href="class-ArrayObject.html#_">setIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_">uasort()</a>, 
+			<a href="class-ArrayObject.html#_">uksort()</a>, 
+			<a href="class-ArrayObject.html#_">unserialize()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+	<table class="summary inherited">
+	<caption>Constants inherited from <a href="class-ArrayObject.html#constants">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#ARRAY_AS_PROPS"><b>ARRAY_AS_PROPS</b></a>, 
+			<a href="class-ArrayObject.html#STD_PROP_LIST"><b>STD_PROP_LIST</b></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+	<table class="summary" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="mPredicateTerm" id="$mPredicateTerm">
+
+		<td class="attributes"><code>
+			protected 
+			<code><a href="class-COntologyTerm.html">COntologyTerm</a></code>
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-COntologyEdge.html#61" title="Go to source code"><var>$mPredicateTerm</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">NULL</span></code></td>
+		<td class="description"><div>
+			<a href="#$mPredicateTerm" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Predicate term.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Predicate term.</p>
+
+<p>This data member holds the node predicate COntologyTerm term.</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="mSubjectTerm" id="$mSubjectTerm">
+
+		<td class="attributes"><code>
+			protected 
+			<code><a href="class-COntologyTerm.html">COntologyTerm</a></code>
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-COntologyEdge.html#70" title="Go to source code"><var>$mSubjectTerm</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">NULL</span></code></td>
+		<td class="description"><div>
+			<a href="#$mSubjectTerm" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Subject term.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Subject term.</p>
+
+<p>This data member holds the node subject COntologyTerm term.</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="mObjectTerm" id="$mObjectTerm">
+
+		<td class="attributes"><code>
+			protected 
+			<code><a href="class-COntologyTerm.html">COntologyTerm</a></code>
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-COntologyEdge.html#79" title="Go to source code"><var>$mObjectTerm</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">NULL</span></code></td>
+		<td class="description"><div>
+			<a href="#$mObjectTerm" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Object term.</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Object term.</p>
+
+<p>This data member holds the node object COntologyTerm term.</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-CGraphNode.html#properties">CGraphNode</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CGraphNode.html#$mNode"><var>$mNode</var></a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-CStatusObject.html#properties">CStatusObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CStatusObject.html#$mStatus"><var>$mStatus</var></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+</div>
+
+	<div id="footer">
+		MyWrapper Reference API documentation generated by <a href="http://apigen.org">ApiGen 2.7.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.7.0" />
+
+	<title>Class CObject | MyWrapper Reference</title>
+
+	<script type="text/javascript" src="resources/combined.js?417553483"></script>
+	<script type="text/javascript" src="elementlist.js?1387923255"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?1567499433" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Packages</h3>
+			<ul>
+				<li class="active main"><a href="package-MyWrapper.html">MyWrapper<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MyWrapper.Entities.html">Entities</a>
+						</li>
+				<li class="active main"><a href="package-MyWrapper.Framework.html">Framework</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Ontology.html">Ontology</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Persistence.html">Persistence</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Session.html">Session</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Traits.html">Traits</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Wrappers.html">Wrappers</a>
+						</li>
+							</ul></li>
+				<li><a href="package-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-CArrayObject.html">CArrayObject</a></li>
+				<li><a href="class-CAttribute.html">CAttribute</a></li>
+				<li><a href="class-CCodedUnitObject.html">CCodedUnitObject</a></li>
+				<li><a href="class-CDataType.html">CDataType</a></li>
+				<li><a href="class-CDataTypeBinary.html">CDataTypeBinary</a></li>
+				<li><a href="class-CDataTypeInt32.html">CDataTypeInt32</a></li>
+				<li><a href="class-CDataTypeInt64.html">CDataTypeInt64</a></li>
+				<li><a href="class-CDataTypeMongoCode.html">CDataTypeMongoCode</a></li>
+				<li><a href="class-CDataTypeMongoId.html">CDataTypeMongoId</a></li>
+				<li><a href="class-CDataTypeRegex.html">CDataTypeRegex</a></li>
+				<li><a href="class-CDataTypeStamp.html">CDataTypeStamp</a></li>
+				<li class="active"><a href="class-CObject.html">CObject</a></li>
+				<li><a href="class-CStatusObject.html">CStatusObject</a></li>
+			</ul>
+
+
+
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-CException.html">CException</a></li>
+			</ul>
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="package-MyWrapper.Framework.html" title="Summary of MyWrapper\Framework"><span>Package</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class CObject</h1>
+
+
+	<div class="description">
+	
+<p>Common static ancestor.</p>
+
+<p>This <i>abstract</i> class implements a common interface shared by all
+classes in this library.</p>
+
+<p>The library uses the following conventions:</p>
+
+<p><b>Naming standards</b></p>
+
+<ul>
+	<li><b>Classes</b>: All class names in this library start with a capital
+	(<i>C</i>), for instance <i>CAnotherClass</i>, followed by a name starting with
+	another capital letter.</li>
+
+	<li><b>Public methods</b>: All public method names should begin with a capital
+	letter, for instance <i>AnotherMethod()</i>.</li>
+
+	<li><b>Protected and private methods</b>: All protected and private method names
+	should begin with an underscore, for instance <i>_AnotherMethod()</i>. Another
+	case in which names would start with an underscore is with core static
+	methods.</li>
+
+	<li><b>Members</b>: All members should start with lowercase (<i>m</i>), followed
+	by a capital letter. For instance <i>mMember</i>.</li>
+
+	<li><b>Static members</b>: All static members should begin with lowercase
+	(<i>s</i>), so a static member could be <i>CSomeClass::$sStaticMember</i>.</li>
+
+	<li><b>Definitions</b>: All definitions should start with a (<i>k</i>) and be
+	followed by a code and ending with an uppercase name, for instance
+	<i>kTAG_DOMAIN</i> would be the definition of a domain tag.</li>
+
+	<li><b>Method arguments</b>: All method arguments should start with either
+	<i>the</i>, for parameters holding miscellaneous values, such as
+	<i>$theVariable</i>,, or with a lowercase verb, such as <i>is</i>, <i>has</i> or
+	<i>do</i>, for parameters holding a flag value, such as <i>isProtected</i>.</li>
+
+	<li><b>Local variables</b>: All local variables should be in <i>lowercase</i>,
+	for instance <i>$local_counter</i>.</li>
+</ul>
+
+<p>In general, abstract classes implement public interfaces which call a
+protected implementation. Usually the public methods should not be overridden,
+while derived classes may implement custom behaviours in the protected
+interface.</p>
+
+<p>This class implements the following interfaces:</p>
+
+<ul>
+	<li><i>Offsets</i>: In this class there cannot be an offset with a <i>NULL</i>
+	value, the offset itself should be offsetUnset() deleted in that case.
+	Because of this we also override the inherited behaviour by suppressing notices
+	and warnings when offsetGet() getting non-existant offsets.</li>
+
+	<li><i>JSON encoding</i>: Derived classes will use JSON for web-services, so we
+	provide two static methods to JsonEncode() encode and JsonDecode() decode JSON strings allowing for exceptions on errors.</li>
+
+	<li><i>String formatting</i>: We provide a generalised static method to StringNormalise() format strings which accepts a bitfield parameter that
+	indicates which operation to perform, such as kFLAG_MODIFIER_UTF8 UTF8
+	encode, kFLAG_MODIFIER_LTRIM left and kFLAG_MODIFIER_RTRIM right
+	trim, kFLAG_MODIFIER_NULL NULL handling, kFLAG_MODIFIER_NOCASE
+	case insensitive conversion, kFLAG_MODIFIER_URL URL, kFLAG_MODIFIER_HTML HTML and kFLAG_MODIFIER_HEX HEX encoding and kFLAG_MODIFIER_HASH hashing.</li>
+
+	<li><i>Time formatting</i>: We provide a generalised static DurationString() method to display duration strings.</li>
+</ul>
+
+	</div>
+
+
+
+	<div>
+		<h4>Direct known subclasses</h4>
+			<a href="class-CContainer.html">CContainer</a>
+	</div>
+
+	<div>
+		<h4>Indirect known subclasses</h4>
+			<a href="class-CArrayContainer.html">CArrayContainer</a>, 
+			<a href="class-CMongoContainer.html">CMongoContainer</a>, 
+			<a href="class-CMongoGridContainer.html">CMongoGridContainer</a>
+	</div>
+
+
+
+
+
+	<div class="info">
+		<b>Abstract</b><br />
+		
+		
+		<b>Package:</b> <a href="package-MyWrapper.html">MyWrapper</a>\<a href="package-MyWrapper.Framework.html">Framework</a><br />
+
+				<b>Author:</b>
+				Milko A. Škofič &lt;<a
+href="mailto:m.skofic&#64;cgiar.org">m.skofic&#64;<!---->cgiar.org</a>&gt;<br />
+		<b>Located at</b> <a href="source-class-CObject.html#36" title="Go to source code">CObject.php</a><br />
+	</div>
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="JsonEncode" id="_JsonEncode">
+
+		<td class="attributes"><code>
+			 public static
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_JsonEncode">#</a>
+		<code><a href="source-class-CObject.html#115" title="Go to source code">JsonEncode</a>( <span>mixed <var>$theData</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Return JSON encoded data.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return JSON encoded data.</p>
+
+<p>This method will return the provided array or object into a JSON encoded
+string.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theData</var></dt>
+					<dd><code>mixed</code><br> Input data.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="JsonDecode" id="_JsonDecode">
+
+		<td class="attributes"><code>
+			 public static
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_JsonDecode">#</a>
+		<code><a href="source-class-CObject.html#176" title="Go to source code">JsonDecode</a>( <span>string <var>$theData</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Return JSON decoded data.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return JSON decoded data.</p>
+
+<p>This method will return an array representation of the provided JSON
+string.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theData</var></dt>
+					<dd><code>string</code><br> Input data.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br />
+				</div>
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CDataWrapper.html#_">CDataWrapper::_DecodeParameter()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="StringNormalise" id="_StringNormalise">
+
+		<td class="attributes"><code>
+			 public static
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_StringNormalise">#</a>
+		<code><a href="source-class-CObject.html#239" title="Go to source code">StringNormalise</a>( <span>string <var>$theString</var></span>, <span>bitfield <var>$theModifiers</var> = kFLAG_DEFAULT </span> )</code>
+
+		<div class="description short">
+			
+<p>Normalise string.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Normalise string.</p>
+
+<p>This method can be used to format a string, the provided modifiers bitfield
+determines what manipulations are applied:</p>
+
+<ul>
+	<li><b>kFLAG_MODIFIER_UTF8 kFLAG_MODIFIER_UTF8</b>: Convert the string
+	to the <i>UTF8</i> character set.</li>
+
+	<li><b>kFLAG_MODIFIER_LTRIM kFLAG_MODIFIER_LTRIM</b>: Apply left
+	trimming to the string.</li>
+
+	<li><b>kFLAG_MODIFIER_RTRIM kFLAG_MODIFIER_RTRIM</b>: Apply right
+	trimming to the string.</li>
+
+	<li><b>kFLAG_MODIFIER_TRIM kFLAG_MODIFIER_TRIM</b>: Apply both left and
+	right trimming to the string.</li>
+
+	<li><b>kFLAG_MODIFIER_NULL kFLAG_MODIFIER_NULL</b>: If this flag is set
+	and the resulting string is empty, the method will return <i>NULL</i>.
+		<ul>
+			<li><b>kFLAG_MODIFIER_NULLSTR kFLAG_MODIFIER_NULLSTR</b>: If this flag
+			is set and the resulting string is empty, the method will return the
+			'<i>NULL</i>' string; this option implies that the kFLAG_MODIFIER_NULL
+			kFLAG_MODIFIER_NULL is also set.</li>
+		</ul>
+	</li>
+
+	<li><b>kFLAG_MODIFIER_NOCASE kFLAG_MODIFIER_NOCASE</b>: Set the string
+	to lowercase, this is the default way to generate a case insensitive
+	string.</li>
+
+	<li><b>kFLAG_MODIFIER_URL kFLAG_MODIFIER_URL</b>: URL-encode the string;
+	note that this option and kFLAG_MODIFIER_HTML kFLAG_MODIFIER_HTML are
+	mutually exclusive.</li>
+
+	<li><b>kFLAG_MODIFIER_HTML kFLAG_MODIFIER_HTML</b>: HTML-encode the
+	string; note that this option and kFLAG_MODIFIER_URL kFLAG_MODIFIER_URL
+	are mutually exclusive.</li>
+
+	<li><b>kFLAG_MODIFIER_HEX kFLAG_MODIFIER_HEX</b>: Convert the string to
+	hexadecimal; note that this option and kFLAG_MODIFIER_MASK_HASH hashing
+	are mutually exclusive.
+		<ul>
+			<li><b>kFLAG_MODIFIER_HEXEXP kFLAG_MODIFIER_HEXEXP</b>: Convert the
+			string to a hexadecimal expression; note that this option implies kFLAG_MODIFIER_HEX kFLAG_MODIFIER_HEX, and this option and kFLAG_MODIFIER_MASK_HASH hashing are mutually exclusive.</li>
+		</ul>
+	</li>
+
+	<li><b>kFLAG_MODIFIER_HASH kFLAG_MODIFIER_HASH</b>: If this bit is set
+	the resulting string will be hashed using the <i>md5</i> algorithm resulting in
+	a 32 character hexadecimal string; this option is mutually exclusive with the
+	kFLAG_MODIFIER_MASK_HEX kFLAG_MODIFIER_MASK_HEX option.
+		<ul>
+			<li><b>kFLAG_MODIFIER_HASH_BIN kFLAG_MODIFIER_HASH_BIN</b>: If this bit
+			is set, the resulting value should be a 16 character binary string; if the bit
+			is <i>OFF</i>, the resulting value should be a 32 character hexadecimal
+			string.</li>
+		</ul>
+	</li>
+</ul>
+
+<p>The order in which these modifications are applied are as stated.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theString</var></dt>
+					<dd><code>string</code><br> String to normalise.</dd>
+					<dt><var>$theModifiers</var></dt>
+					<dd><code>bitfield</code><br> Modifiers bitfield.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						kFLAG_DEFAULT, kFLAG_MODIFIER_MASK<br />
+						kFLAG_MODIFIER_UTF8<br />
+						kFLAG_MODIFIER_LTRIM, kFLAG_MODIFIER_RTRIM, kFLAG_MODIFIER_TRIM<br />
+						kFLAG_MODIFIER_NULL, kFLAG_MODIFIER_NULLSTR<br />
+						kFLAG_MODIFIER_NOCASE, kFLAG_MODIFIER_URL, kFLAG_MODIFIER_HTML<br />
+						kFLAG_MODIFIER_HEX, kFLAG_MODIFIER_HEXEXP<br />
+						kFLAG_MODIFIER_HASH, kFLAG_MODIFIER_HASH_BIN<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="DurationString" id="_DurationString">
+
+		<td class="attributes"><code>
+			 public static
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_DurationString">#</a>
+		<code><a href="source-class-CObject.html#422" title="Go to source code">DurationString</a>( <span>float <var>$theTime</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Return a formatted duration.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return a formatted duration.</p>
+
+<p>This function will return a formatted duration string in H:MM:SS:mmmmm
+format, where <i>H</i> stands for hours, <i>M</i> stands for minutes, <i>S</i>
+stands for seconds and <i>m</i> stands for milliseconds, from the value of
+<i>microtime( TRUE )</i>.</p>
+
+<p><i>Note: The provided value should be a difference between two timestamps
+taken with microtime( true ).</i></p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theTime</var></dt>
+					<dd><code>float</code><br> Microtime difference.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="ManageMember" id="_ManageMember">
+
+		<td class="attributes"><code>
+			 public static
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_ManageMember">#</a>
+		<code><a href="source-class-CObject.html#462" title="Go to source code">ManageMember</a>( <span>string <var>&amp; $theMember</var></span>, <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage a member.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage a member.</p>
+
+<p>This library implements a standard interface for managing object properties
+using methods, this method implements this interface:</p>
+
+<ul>
+	<li><b>$theMember</b>: The member to manage, it is a reference to the element
+	being managed.</li>
+
+	<li><b>$theValue</b>: The value or operation:
+		<ul>
+			<li><i>NULL</i>: Return the member's current value.</li>
+
+			<li><i>FALSE</i>: Reset the member, <i>NULL</i> by default.</li>
+
+			<li><i>other</i>: Any other type represents the member's new value.</li>
+		</ul>
+	</li>
+
+	<li><b>$getOld</b>: Determines what the method will return:
+		<ul>
+			<li><i>TRUE</i>: Return the value of the member <i>before</i> it was eventually
+			modified.</li>
+
+			<li><i>FALSE</i>: Return the value of the member <i>after</i> it was eventually
+			modified.</li>
+		</ul>
+	</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theMember</var></dt>
+					<dd><code>string</code><br>&amp;$theMember Offset.</dd>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br> Value or operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CGraphEdge.html#_">CGraphEdge::Node()</a></code></code> <br />
+						<code><code><a href="class-CGraphNode.html#_">CGraphNode::Node()</a></code></code> <br />
+						<code><code><a href="class-COntologyEdge.html#_">COntologyEdge::Term()</a></code></code> <br />
+						<code><code><a href="class-COntologyEdge.html#_">COntologyEdge::SubjectTerm()</a></code></code> <br />
+						<code><code><a href="class-COntologyEdge.html#_">COntologyEdge::ObjectTerm()</a></code></code> <br />
+						<code><code><a href="class-COntologyNode.html#_">COntologyNode::Term()</a></code></code> <br />
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::DataStore()</a></code></code> <br />
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::GraphStore()</a></code></code> <br />
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::Database()</a></code></code> <br />
+						<code><code><a href="class-CSessionObject.html#_">CSessionObject::UsersContainer()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		MyWrapper Reference API documentation generated by <a href="http://apigen.org">ApiGen 2.7.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,2596 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.7.0" />
+
+	<title>Class CQueryStatement | MyWrapper Reference</title>
+
+	<script type="text/javascript" src="resources/combined.js?417553483"></script>
+	<script type="text/javascript" src="elementlist.js?1387923255"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?1567499433" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Packages</h3>
+			<ul>
+				<li class="active main"><a href="package-MyWrapper.html">MyWrapper<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MyWrapper.Entities.html">Entities</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Framework.html">Framework</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Ontology.html">Ontology</a>
+						</li>
+				<li class="active main"><a href="package-MyWrapper.Persistence.html">Persistence</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Session.html">Session</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Traits.html">Traits</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Wrappers.html">Wrappers</a>
+						</li>
+							</ul></li>
+				<li><a href="package-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-CArrayContainer.html">CArrayContainer</a></li>
+				<li><a href="class-CContainer.html">CContainer</a></li>
+				<li><a href="class-CDataset.html">CDataset</a></li>
+				<li><a href="class-CGraphEdge.html">CGraphEdge</a></li>
+				<li><a href="class-CGraphNode.html">CGraphNode</a></li>
+				<li><a href="class-CMongoContainer.html">CMongoContainer</a></li>
+				<li><a href="class-CMongoGridContainer.html">CMongoGridContainer</a></li>
+				<li><a href="class-CMongoQuery.html">CMongoQuery</a></li>
+				<li><a href="class-COntologyEdgeIndex.html">COntologyEdgeIndex</a></li>
+				<li><a href="class-COntologyNodeIndex.html">COntologyNodeIndex</a></li>
+				<li><a href="class-CPersistentObject.html">CPersistentObject</a></li>
+				<li><a href="class-CPersistentUnitObject.html">CPersistentUnitObject</a></li>
+				<li><a href="class-CQuery.html">CQuery</a></li>
+				<li class="active"><a href="class-CQueryStatement.html">CQueryStatement</a></li>
+				<li><a href="class-CRelatedUnitObject.html">CRelatedUnitObject</a></li>
+			</ul>
+
+
+
+
+
+			<h3>Functions</h3>
+			<ul>
+				<li><a href="function-Neo4jAutoload.html">Neo4jAutoload</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="package-MyWrapper.Persistence.html" title="Summary of MyWrapper\Persistence"><span>Package</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class CQueryStatement</h1>
+
+
+	<div class="description">
+	
+<p>Query statement.</p>
+
+<p>This class implements a query statement, such as those that populate the
+CQuery query class. This class concentrates on building and managing
+these statements, which are structured as follows:</p>
+
+<ul>
+	<li><i>kAPI_QUERY_SUBJECT kAPI_QUERY_SUBJECT</i>: The query subject. It
+	refers to the object element that we are considering in the query.</li>
+
+	<li><i>kAPI_QUERY_OPERATOR kAPI_QUERY_OPERATOR</i>: The query predicate.
+	This element represents the predicate or comparaison operator, it can take the
+	following values:
+		<ul>
+			<li><i>kOPERATOR_DISABLED kOPERATOR_DISABLED</i>: Disabled, it means
+			that the current statement is disabled.</li>
+
+			<li><i>kOPERATOR_EQUAL kOPERATOR_EQUAL</i>: Equality (=), this operator
+			implies that the statement has also an kAPI_QUERY_DATA object.</li>
+
+			<li><i>kOPERATOR_EQUAL_NOT kOPERATOR_EQUAL_NOT</i>: Inequality (!=),
+			negates the kOPERATOR_EQUAL kOPERATOR_EQUAL operator; this operator
+			implies that the statement has also an kAPI_QUERY_DATA object.</li>
+
+			<li><i>kOPERATOR_LIKE kOPERATOR_LIKE</i>: Like, it is an accent and case
+			insensitive equality filter, this operator implies that the statement has also
+			an kAPI_QUERY_DATA object.</li>
+
+			<li><i>kOPERATOR_LIKE_NOT kOPERATOR_LIKE_NOT</i>: The negation of the
+			kOPERATOR_LIKE LIKE operator, this operator implies that the statement
+			has also an kAPI_QUERY_DATA object.</li>
+
+			<li><i>kOPERATOR_PREFIX kOPERATOR_PREFIX</i>: Starts with, or prefix
+			match, this operator implies that the statement has also an kAPI_QUERY_DATA object.</li>
+
+			<li><i>kOPERATOR_CONTAINS kOPERATOR_CONTAINS</i>: Contains, selects all
+			elements that contain the match string, this operator implies that the statement
+			has also an kAPI_QUERY_DATA object.</li>
+
+			<li><i>kOPERATOR_SUFFIX kOPERATOR_SUFFIX</i>: Ends with, or suffix
+			match, this operator implies that the statement has also an kAPI_QUERY_DATA object.</li>
+
+			<li><i>kOPERATOR_REGEX kOPERATOR_REGEX</i>: Regular expression, this
+			operator implies that the statement has also an kAPI_QUERY_DATA
+			object.</li>
+
+			<li><i>kOPERATOR_LESS kOPERATOR_LESS</i>: Smaller than (\&lt;), this
+			operator implies that the statement has also an kAPI_QUERY_DATA
+			object.</li>
+
+			<li><i>kOPERATOR_LESS_EQUAL kOPERATOR_LESS_EQUAL</i>: Smaller than or
+			equal (\&lt;=), this operator implies that the statement has also an kAPI_QUERY_DATA object.</li>
+
+			<li><i>kOPERATOR_GREAT kOPERATOR_GREAT</i>: Greater than (\&gt;), this
+			operator implies that the statement has also an kAPI_QUERY_DATA
+			object.</li>
+
+			<li><i>kOPERATOR_GREAT_EQUAL kOPERATOR_GREAT_EQUAL</i>: Greater than or
+			equal (\&gt;=), this operator implies that the statement has also an kAPI_QUERY_DATA object.</li>
+
+			<li><i>kOPERATOR_IRANGE kOPERATOR_IRANGE</i>: Range inclusive, matches
+			\&gt;= value \&lt;=; this operator implies that the statement has also an kAPI_QUERY_DATA object which should contain the two range values.</li>
+
+			<li><i>kOPERATOR_ERANGE kOPERATOR_ERANGE</i>: Range exclusive, matches
+			\&gt; value \&lt;, this operator implies that the statement has also an kAPI_QUERY_DATA object which should contain the two range values.</li>
+
+			<li><i>kOPERATOR_NULL kOPERATOR_NULL</i>: Is <i>NULL</i> or element is
+			missing.</li>
+
+			<li><i>kOPERATOR_NOT_NULL kOPERATOR_NOT_NULL</i>:Not <i>NULL</i> or
+			element exists.</li>
+
+			<li><i>kOPERATOR_IN kOPERATOR_IN</i>: In, or belongs to set, this
+			operator implies that the statement has also an kAPI_QUERY_DATA object
+			that will contain the list of choices.</li>
+
+			<li><i>kOPERATOR_NI kOPERATOR_NI</i>: Not in, the negation of kOPERATOR_IN kOPERATOR_IN, this operator implies that the statement has also an
+			kAPI_QUERY_DATA object which contains the list of choices.</li>
+
+			<li><i>kOPERATOR_ALL kOPERATOR_ALL</i>: All, or match the full set, this
+			operator implies that the statement has also an kAPI_QUERY_DATA object
+			which will contain the set.</li>
+
+			<li><i>kOPERATOR_NALL kOPERATOR_NALL</i>: Not all, the negation of the
+			kOPERATOR_ALL kOPERATOR_ALL operator, this operator implies that the
+			statement has also an kAPI_QUERY_DATA object which contains the
+			set.</li>
+
+			<li><i>kOPERATOR_EX kOPERATOR_EX</i>: Expression, indicates a complex
+			expression, this operator implies that the statement has also an kAPI_QUERY_DATA object which will contain the expression.</li>
+		</ul>
+	</li>
+
+	<li><i>kAPI_QUERY_TYPE kAPI_QUERY_TYPE</i>: The statement object type,
+	or data type of the kAPI_QUERY_DATA kAPI_QUERY_DATA element, if the
+	latter is required:
+		<ul>
+			<li><i>kTYPE_STRING kTYPE_STRING</i>: String, we assume in UTF8
+			character set.</li>
+
+			<li><i>kTYPE_INT32 kTYPE_INT32</i>: 32 bit signed integer.</li>
+
+			<li><i>kTYPE_INT64 kTYPE_INT64</i>: 64 bit signed integer.</li>
+
+			<li><i>kTYPE_FLOAT kTYPE_FLOAT</i>: Floating point number.</li>
+
+			<li><i>kTYPE_DATE kTYPE_DATE</i>: A date.</li>
+
+			<li><i>kTYPE_TIME kTYPE_TIME</i>: A date and time.</li>
+
+			<li><i>kTYPE_STAMP kTYPE_STAMP</i>: A native timestamp.</li>
+
+			<li><i>kTYPE_BOOLEAN kTYPE_BOOLEAN</i>: An on/off switch.</li>
+
+			<li><i>kTYPE_BINARY kTYPE_BINARY</i>: A binary string.</li>
+		</ul>
+	</li>
+
+	<li><i>kAPI_QUERY_DATA kAPI_QUERY_DATA</i>: The statement object or test
+	data.</li>
+</ul>
+
+<p>The main goal of this class is to provide an interface that may ease the
+construction of complex CQuery queries by providing specialised methods
+for building statements that can then safely be CQuery::AppendStatement()
+appended to query CQuery objects.</p>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-ArrayObject.html"><span>ArrayObject</span></a>
+			
+			 implements 
+				<a href="class-IteratorAggregate.html"><span>IteratorAggregate</span></a>, 
+			
+				<a href="class-Traversable.html"><span>Traversable</span></a>, 
+			
+				<a href="class-ArrayAccess.html"><span>ArrayAccess</span></a>, 
+			
+				<a href="class-Serializable.html"><span>Serializable</span></a>, 
+			
+				<a href="class-Countable.html"><span>Countable</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CArrayObject.html"><span>CArrayObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:60px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>CQueryStatement</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		
+		<b>Package:</b> <a href="package-MyWrapper.html">MyWrapper</a>\<a href="package-MyWrapper.Persistence.html">Persistence</a><br />
+
+				<b>Author:</b>
+				Milko A. Škofič &lt;<a
+href="mailto:m.skofic&#64;cgiar.org">m.skofic&#64;<!---->cgiar.org</a>&gt;<br />
+		<b>Located at</b> <a href="source-class-CQueryStatement.html#50" title="Go to source code">CQueryStatement.php</a><br />
+	</div>
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-CQueryStatement.html#167" title="Go to source code">__construct</a>( <span>mixed <var>$theSubject</var> = <span class="php-keyword1">NULL</span></span>, <span>string <var>$thePredicate</var> = <span class="php-keyword1">NULL</span></span>, <span>string <var>$theType</var> = <span class="php-keyword1">NULL</span></span>, <span>mixed <var>$theObject</var> = <span class="php-keyword1">NULL</span></span>, <span>mixed <var>$theRange</var> = <span class="php-keyword1">NULL</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Instantiate class.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Instantiate class.</p>
+
+<p>The constructor can be used to instantiate a statement either by providing an
+existing statement structure, or by providing the statement elements:</p>
+
+<ul>
+	<li><b>$theSubject</b>: The statement subject:
+		<ul>
+			<li><i>array</i> or <i>ArrayObject</i>: Structures are interpreted as built
+			statements, so the method will scan the structure and load the corresponding
+			elements.</li>
+
+			<li><i>string</i>: Any other type will be converted to a string and interpreted
+			as the statement subject, or data element key.</li>
+		</ul>
+	</li>
+
+	<li><b>$thePredicate</b>: The statement operator or predicate:
+		<ul>
+			<li><i>kOPERATOR_DISABLED kOPERATOR_DISABLED</i>: Disabled, it means
+			that the current statement is disabled; the remaining parameters are
+			ignored.</li>
+
+			<li><i>kOPERATOR_EQUAL kOPERATOR_EQUAL</i>: Equality (=), this operator
+			implies that the method expects the next two parameters.</li>
+
+			<li><i>kOPERATOR_EQUAL_NOT kOPERATOR_EQUAL_NOT</i>: Inequality (!=),
+			negates the kOPERATOR_EQUAL kOPERATOR_EQUAL operator; this operator
+			implies that the method expects the next two parameters.</li>
+
+			<li><i>kOPERATOR_LIKE kOPERATOR_LIKE</i>: Like, it is an accent and case
+			insensitive equality filter, this operator implies that the method expects the
+			next two parameters.</li>
+
+			<li><i>kOPERATOR_LIKE_NOT kOPERATOR_LIKE_NOT</i>: The negation of the
+			kOPERATOR_LIKE LIKE operator, this operator implies that the method
+			expects the next two parameters.</li>
+
+			<li><i>kOPERATOR_PREFIX kOPERATOR_PREFIX</i>: Starts with, or prefix
+			match, this operator implies that the method expects the next two
+			parameters.</li>
+
+			<li><i>kOPERATOR_CONTAINS kOPERATOR_CONTAINS</i>: Contains, selects all
+			elements that contain the match string, this operator implies that the method
+			expects the next two parameters.</li>
+
+			<li><i>kOPERATOR_SUFFIX kOPERATOR_SUFFIX</i>: Ends with, or suffix
+			match, this operator implies that the method expects the next two
+			parameters.</li>
+
+			<li><i>kOPERATOR_REGEX kOPERATOR_REGEX</i>: Regular expression, this
+			operator implies that the method expects the next two parameters.</li>
+
+			<li><i>kOPERATOR_LESS kOPERATOR_LESS</i>: Smaller than (\&lt;), this
+			operator implies that the method expects the next two parameters.</li>
+
+			<li><i>kOPERATOR_LESS_EQUAL kOPERATOR_LESS_EQUAL</i>: Smaller than or
+			equal (\&lt;=), this operator implies that the method expects the next two
+			parameters.</li>
+
+			<li><i>kOPERATOR_GREAT kOPERATOR_GREAT</i>: Greater than (\&gt;), this
+			operator implies that the method expects the next two parameters.</li>
+
+			<li><i>kOPERATOR_GREAT_EQUAL kOPERATOR_GREAT_EQUAL</i>: Greater than or
+			equal (\&gt;=), this operator implies that the method expects the next two
+			parameters.</li>
+
+			<li><i>kOPERATOR_IRANGE kOPERATOR_IRANGE</i>: Range inclusive, matches
+			\&gt;= value \&lt;=; this operator implies that the method expects the next
+			three parameters.</li>
+
+			<li><i>kOPERATOR_ERANGE kOPERATOR_ERANGE</i>: Range exclusive, matches
+			\&gt; value \&lt;, this operator implies that the method expects the next three
+			parameters.</li>
+
+			<li><i>kOPERATOR_NULL kOPERATOR_NULL</i>: Is <i>NULL</i> or element is
+			missing.</li>
+
+			<li><i>kOPERATOR_NOT_NULL kOPERATOR_NOT_NULL</i>:Not <i>NULL</i> or
+			element exists.</li>
+
+			<li><i>kOPERATOR_IN kOPERATOR_IN</i>: In, or belongs to set, this
+			operator implies that the method expects the next two parameters.</li>
+
+			<li><i>kOPERATOR_NI kOPERATOR_NI</i>: Not in, the negation of kOPERATOR_IN kOPERATOR_IN, this operator implies that the method expects the
+			next two parameters.</li>
+
+			<li><i>kOPERATOR_ALL kOPERATOR_ALL</i>: All, or match the full set, this
+			operator implies that the method expects the next two parameters.</li>
+
+			<li><i>kOPERATOR_NALL kOPERATOR_NALL</i>: Not all, the negation of the
+			kOPERATOR_ALL kOPERATOR_ALL operator, this operator implies that the
+			method expects the next two parameters.</li>
+
+			<li><i>kOPERATOR_EX kOPERATOR_EX</i>: Expression, indicates a complex
+			expression, this operator implies that the method expects the next two
+			parameters.</li>
+		</ul>
+	</li>
+
+	<li><b>$theType</b>: The statement object data type, this qualifies all
+	remaining parameters. The allowed values are:
+		<ul>
+			<li><i>kTYPE_STRING kTYPE_STRING</i>: String, we assume in UTF8
+			character set, the string is expected in the next parameter.</li>
+
+			<li><i>kTYPE_INT32 kTYPE_INT32</i>: 32 bit signed integer, the number is
+			expected in the next parameter, either as an integer, float or string; once
+			received, it will be converted to a CDataTypeInt32 CDataTypeInt32
+			object.</li>
+
+			<li><i>kTYPE_INT64 kTYPE_INT64</i>: 64 bit signed integer, the number is
+			expected in the next parameter, either as an integer, float or string; once
+			received, it will be converted to a CDataTypeInt64 CDataTypeInt64
+			object.</li>
+
+			<li><i>kTYPE_FLOAT kTYPE_FLOAT</i>: Floating point number, the number is
+			expected in the next parameter, either as an integer, float or string.</li>
+
+			<li><i>kTYPE_DATE kTYPE_DATE</i>: A string date, it is treated as a
+			string date with a YYYYMMDD format in which month and day may be omitted.</li>
+
+			<li><i>kTYPE_TIME kTYPE_TIME</i>: A string time, it is treated as a
+			string time with a YYYY-MM-DD HH:MM:SS format in which all elements are
+			required; this element will be converted to a kTYPE_STAMP kTYPE_STAMP
+			data type.</li>
+
+			<li><i>kTYPE_STAMP kTYPE_STAMP</i>: A timestamp, optionally including
+			microseconds, elements of this type will be converted to CDataTypeStamp
+			CDataTypeStamp objects.</li>
+
+			<li><i>kTYPE_BOOLEAN kTYPE_BOOLEAN</i>: An on/off switch, it will be
+			converted to a 1/0 pair.</li>
+
+			<li><i>kTYPE_BINARY kTYPE_BINARY</i>: A binary string, the string will
+			be converted to a CDataTypeBinary CDataTypeBinary object.</li>
+		</ul>
+	</li>
+
+	<li><b>$theObject</b>: The statement object data, it should reflect the data
+	type provided in the previous parameter.</li>
+
+	<li><b>$theRange</b>: The statement range end or second element. This value must
+	also reflect the data type provided in the previous parameter and will be
+	automatically set if you provided a range and forgot to set it.</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theSubject</var></dt>
+					<dd><code>mixed</code><br> Statement subject.</dd>
+					<dt><var>$thePredicate</var></dt>
+					<dd><code>string</code><br> Statement predicate.</dd>
+					<dt><var>$theType</var></dt>
+					<dd><code>string</code><br> Statement object data type.</dd>
+					<dt><var>$theObject</var></dt>
+					<dd><code>mixed</code><br> Statement object or first range.</dd>
+					<dt><var>$theRange</var></dt>
+					<dd><code>mixed</code><br> Statement second range.</dd>
+				</dl></div>
+
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-ArrayObject.html#_">ArrayObject::__construct</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Subject" id="_Subject">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Subject">#</a>
+		<code><a href="source-class-CQueryStatement.html#369" title="Go to source code">Subject</a>( <span>string <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage subject.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage subject.</p>
+
+<p>This method can be used to manage the query kAPI_QUERY_SUBJECT
+subject, it accepts a parameter which represents either the statement subject
+or the requested operation, depending on its value:</p>
+
+<ul>
+	<li><i>NULL</i>: Return the current value.</li>
+
+	<li><i>FALSE</i>: Delete the current value.</li>
+
+	<li><i>other</i>: Set the value with the provided parameter.</li>
+</ul>
+
+<p>The second parameter is a boolean which if <i>TRUE</i> will return the
+<i>old</i> value when replacing values; if <i>FALSE</i>, it will return the
+currently set value.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>string</code><br> Value or operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						kAPI_QUERY_SUBJECT<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CAttribute.html#_">CAttribute::ManageOffset()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Object" id="_Object">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Object">#</a>
+		<code><a href="source-class-CQueryStatement.html#407" title="Go to source code">Object</a>( <span>string <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage object.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage object.</p>
+
+<p>This method can be used to manage the query kAPI_QUERY_DATA object or
+match data, it accepts a parameter which represents either the statement object
+or the requested operation, depending on its value:</p>
+
+<ul>
+	<li><i>NULL</i>: Return the current value.</li>
+
+	<li><i>FALSE</i>: Delete the current value.</li>
+
+	<li><i>other</i>: Set the value with the provided parameter.</li>
+</ul>
+
+<p>The second parameter is a boolean which if <i>TRUE</i> will return the
+<i>old</i> value when replacing values; if <i>FALSE</i>, it will return the
+currently set value.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>string</code><br> Value or operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						kAPI_QUERY_DATA<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CAttribute.html#_">CAttribute::ManageOffset()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CQueryStatement.html#_">CQueryStatement::Range()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Predicate" id="_Predicate">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Predicate">#</a>
+		<code><a href="source-class-CQueryStatement.html#452" title="Go to source code">Predicate</a>( <span>string <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage predicate.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage predicate.</p>
+
+<p>This method can be used to manage the query kAPI_QUERY_OPERATOR
+operator or predicate, it accepts a parameter which represents either the
+statement predicate or the requested operation, depending on its value:</p>
+
+<ul>
+	<li><i>NULL</i>: Return the current value.</li>
+
+	<li><i>FALSE</i>: Delete the current value.</li>
+
+	<li><i>other</i>: Set the value with the provided parameter:
+		<ul>
+			<li><i>kOPERATOR_DISABLED kOPERATOR_DISABLED</i>: Disabled, it means
+			that the current statement is disabled.</li>
+
+			<li><i>kOPERATOR_EQUAL kOPERATOR_EQUAL</i>: Equality (=).</li>
+
+			<li><i>kOPERATOR_EQUAL_NOT kOPERATOR_EQUAL_NOT</i>: Inequality (!=),
+			negates the kOPERATOR_EQUAL kOPERATOR_EQUAL operator.</li>
+
+			<li><i>kOPERATOR_LIKE kOPERATOR_LIKE</i>: Like, it is an accent and case
+			insensitive equality filter.</li>
+
+			<li><i>kOPERATOR_LIKE_NOT kOPERATOR_LIKE_NOT</i>: The negation of the
+			kOPERATOR_LIKE LIKE operator.</li>
+
+			<li><i>kOPERATOR_PREFIX kOPERATOR_PREFIX</i>: Starts with, or prefix
+			match.</li>
+
+			<li><i>kOPERATOR_CONTAINS kOPERATOR_CONTAINS</i>: Contains, selects all
+			elements that contain the match string.</li>
+
+			<li><i>kOPERATOR_SUFFIX kOPERATOR_SUFFIX</i>: Ends with, or suffix
+			match.</li>
+
+			<li><i>kOPERATOR_REGEX kOPERATOR_REGEX</i>: Regular expression.</li>
+
+			<li><i>kOPERATOR_LESS kOPERATOR_LESS</i>: Smaller than (\&lt;).</li>
+
+			<li><i>kOPERATOR_LESS_EQUAL kOPERATOR_LESS_EQUAL</i>: Smaller than or
+			equal (\&lt;=).</li>
+
+			<li><i>kOPERATOR_GREAT kOPERATOR_GREAT</i>: Greater than (\&gt;).</li>
+
+			<li><i>kOPERATOR_GREAT_EQUAL kOPERATOR_GREAT_EQUAL</i>: Greater than or
+			equal (\&gt;=).</li>
+
+			<li><i>kOPERATOR_IRANGE kOPERATOR_IRANGE</i>: Range inclusive, matches
+			\&gt;= value \&lt;=.</li>
+
+			<li><i>kOPERATOR_ERANGE kOPERATOR_ERANGE</i>: Range exclusive, matches
+			\&gt; value \&lt;.</li>
+
+			<li><i>kOPERATOR_NULL kOPERATOR_NULL</i>: Is <i>NULL</i> or element is
+			missing.</li>
+
+			<li><i>kOPERATOR_NOT_NULL kOPERATOR_NOT_NULL</i>:Not <i>NULL</i> or
+			element exists.</li>
+
+			<li><i>kOPERATOR_IN kOPERATOR_IN</i>: In, or belongs to set.</li>
+
+			<li><i>kOPERATOR_NI kOPERATOR_NI</i>: Not in, the negation of kOPERATOR_IN kOPERATOR_IN.</li>
+
+			<li><i>kOPERATOR_ALL kOPERATOR_ALL</i>: All, or match the full set.</li>
+
+			<li><i>kOPERATOR_NALL kOPERATOR_NALL</i>: Not all, the negation of the
+			kOPERATOR_ALL kOPERATOR_ALL operator.</li>
+
+			<li><i>kOPERATOR_EX kOPERATOR_EX</i>: Expression, indicates a complex
+			expression.</li>
+		</ul>
+		 If the provided value does not match any of the above, the method will raise an
+		exception.</li>
+</ul>
+
+<p>The second parameter is a boolean which if <i>TRUE</i> will return the
+<i>old</i> value when replacing values; if <i>FALSE</i>, it will return the
+currently set value.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>string</code><br> Value or operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						kAPI_QUERY_OPERATOR<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CAttribute.html#_">CAttribute::ManageOffset()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Type" id="_Type">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Type">#</a>
+		<code><a href="source-class-CQueryStatement.html#577" title="Go to source code">Type</a>( <span>string <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage data type.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage data type.</p>
+
+<p>This method can be used to manage the query data kAPI_QUERY_TYPE type
+or Object() object data type, it accepts a parameter which represents
+either the data type in which the Object() object is expressed, or the
+requested operation, depending on its value:</p>
+
+<ul>
+	<li><i>NULL</i>: Return the current value.</li>
+
+	<li><i>FALSE</i>: Delete the current value.</li>
+
+	<li><i>other</i>: Set the value with the provided parameter:
+		<ul>
+			<li><i>kTYPE_STRING kTYPE_STRING</i>: String, we assume in UTF8
+			character set.</li>
+
+			<li><i>kTYPE_INT32 kTYPE_INT32</i>: 32 bit signed integer.</li>
+
+			<li><i>kTYPE_INT64 kTYPE_INT64</i>: 64 bit signed integer.</li>
+
+			<li><i>kTYPE_FLOAT kTYPE_FLOAT</i>: Floating point number.</li>
+
+			<li><i>kTYPE_DATE kTYPE_DATE</i>: A string date, it means a string date
+			with a YYYYMMDD format in which month and day may be omitted.</li>
+
+			<li><i>kTYPE_TIME kTYPE_TIME</i>: A string time, it is treated as a
+			string time with a YYYY-MM-DD HH:MM:SS format in which all elements are
+			required.</li>
+
+			<li><i>kTYPE_STAMP kTYPE_STAMP</i>: A timestamp, optionally including
+			microseconds.</li>
+
+			<li><i>kTYPE_BOOLEAN kTYPE_BOOLEAN</i>: An on/off switch.</li>
+
+			<li><i>kTYPE_BINARY kTYPE_BINARY</i>: A binary string.</li>
+		</ul>
+		 If the provided value does not match any of the above, the method will raise an
+		exception.</li>
+</ul>
+
+<p>The second parameter is a boolean which if <i>TRUE</i> will return the
+<i>old</i> value when replacing values; if <i>FALSE</i>, it will return the
+currently set value.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>string</code><br> Value or operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						kAPI_QUERY_TYPE<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CAttribute.html#_">CAttribute::ManageOffset()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Range" id="_Range">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Range">#</a>
+		<code><a href="source-class-CQueryStatement.html#662" title="Go to source code">Range</a>( <span>mixed <var>$theBound1</var></span>, <span>mixed <var>$theBound2</var></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage range.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage range.</p>
+
+<p>This method can be used to manage the query kAPI_QUERY_DATA object if
+it is in the form of a range. This method will only allow you to set the range,
+to retrieve or delete the range you must use the Object() Object
+method.</p>
+
+<p>The method accepts the following parameters:</p>
+
+<ul>
+	<li><b>$theBound1</b>: First range bound.</li>
+
+	<li><b>$theBound2</b>: Second range bound.</li>
+
+	<li><b>$getOld</b>: If <i>TRUE</i> will return the <i>old</i> value when
+	replacing values; if <i>FALSE</i>, it will return the currently set value.</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theBound1</var></dt>
+					<dd><code>mixed</code><br> First bound.</dd>
+					<dt><var>$theBound2</var></dt>
+					<dd><code>mixed</code><br> Second bound.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						kAPI_QUERY_DATA<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CQueryStatement.html#_">CQueryStatement::Object()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Disabled" id="_Disabled">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Disabled">#</a>
+		<code><a href="source-class-CQueryStatement.html#723" title="Go to source code">Disabled</a>( <span>mixed <var>$theSubject</var></span>, <span>mixed <var>$theObject</var> = <span class="php-keyword1">NULL</span></span>, <span>string <var>$theType</var> = <span class="php-keyword1">NULL</span></span>, <span>mixed <var>$theRange</var> = <span class="php-keyword1">NULL</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Create a disabled statement.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a disabled statement.</p>
+
+<p>This method can be used to instantiate a disabled query statement. A disabled
+statement is one that should not execute, it can be used as a placeholder, or
+external methods may disable statements.</p>
+
+<p>The statement uses the kOPERATOR_DISABLED kOPERATOR_DISABLED operator
+and this method accepts the following parameters:</p>
+
+<ul>
+	<li><b>$theSubject</b>: Statement Subject() subject.</li>
+
+	<li><b>$theObject</b>: Statement Object() object or first Range()
+	range bound.</li>
+
+	<li><b>$theType</b>: Statement object data Type() type.</li>
+
+	<li><b>$theRange</b>: Statement second Range() range bound.</li>
+</ul>
+
+<p>The method will return an instance of this class or raise an exception on
+errors.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theSubject</var></dt>
+					<dd><code>mixed</code><br> Statement subject.</dd>
+					<dt><var>$theObject</var></dt>
+					<dd><code>mixed</code><br> Statement object or range bound.</dd>
+					<dt><var>$theType</var></dt>
+					<dd><code>string</code><br> Statement object data type.</dd>
+					<dt><var>$theRange</var></dt>
+					<dd><code>mixed</code><br> Statement range bound.</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						kOPERATOR_DISABLED<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Equals" id="_Equals">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Equals">#</a>
+		<code><a href="source-class-CQueryStatement.html#766" title="Go to source code">Equals</a>( <span>mixed <var>$theSubject</var></span>, <span>mixed <var>$theObject</var></span>, <span>string <var>$theType</var> = <span class="php-keyword1">NULL</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Create an kOPERATOR_EQUAL equals statement.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create an kOPERATOR_EQUAL equals statement.</p>
+
+<p>This method can be used to instantiate an kOPERATOR_EQUAL equality
+query statement.</p>
+
+<p>The statement uses the kOPERATOR_EQUAL kOPERATOR_EQUAL operator and
+this method accepts the following parameters:</p>
+
+<ul>
+	<li><b>$theSubject</b>: Statement Subject() subject.</li>
+
+	<li><b>$theObject</b>: Statement Object() object.</li>
+
+	<li><b>$theType</b>: Statement object data Type() type.</li>
+</ul>
+
+<p>The method will return an instance of this class or raise an exception on
+errors.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theSubject</var></dt>
+					<dd><code>mixed</code><br> Statement subject.</dd>
+					<dt><var>$theObject</var></dt>
+					<dd><code>mixed</code><br> Statement object.</dd>
+					<dt><var>$theType</var></dt>
+					<dd><code>string</code><br> Statement object data type.</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						kOPERATOR_EQUAL<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="NotEquals" id="_NotEquals">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_NotEquals">#</a>
+		<code><a href="source-class-CQueryStatement.html#803" title="Go to source code">NotEquals</a>( <span>mixed <var>$theSubject</var></span>, <span>mixed <var>$theObject</var></span>, <span>string <var>$theType</var> = <span class="php-keyword1">NULL</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Create a not kOPERATOR_EQUAL_NOT equals statement.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a not kOPERATOR_EQUAL_NOT equals statement.</p>
+
+<p>This method can be used to instantiate a not kOPERATOR_EQUAL_NOT
+equals query statement, which is the negation of the Equals() equals
+statement.</p>
+
+<p>The statement uses the kOPERATOR_EQUAL_NOT kOPERATOR_EQUAL_NOT
+operator and this method accepts the following parameters:</p>
+
+<ul>
+	<li><b>$theSubject</b>: Statement Subject() subject.</li>
+
+	<li><b>$theObject</b>: Statement Object() object.</li>
+
+	<li><b>$theType</b>: Statement object data Type() type.</li>
+</ul>
+
+<p>The method will return an instance of this class or raise an exception on
+errors.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theSubject</var></dt>
+					<dd><code>mixed</code><br> Statement subject.</dd>
+					<dt><var>$theObject</var></dt>
+					<dd><code>mixed</code><br> Statement object.</dd>
+					<dt><var>$theType</var></dt>
+					<dd><code>string</code><br> Statement object data type.</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						kOPERATOR_EQUAL_NOT<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Like" id="_Like">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Like">#</a>
+		<code><a href="source-class-CQueryStatement.html#840" title="Go to source code">Like</a>( <span>mixed <var>$theSubject</var></span>, <span>mixed <var>$theObject</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Create a case and accent kOPERATOR_LIKE insensitive equality
+statement.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a case and accent kOPERATOR_LIKE insensitive equality
+statement.</p>
+
+<p>This method can be used to instantiate a kOPERATOR_LIKE LIKE query
+statement, which is equivalent to the SQL <i>LIKE</i> clause, an accent and case
+insensitive comparaison.</p>
+
+<p>The statement uses the kOPERATOR_LIKE kOPERATOR_LIKE operator and
+this method accepts the following parameters:</p>
+
+<ul>
+	<li><b>$theSubject</b>: Statement Subject() subject.</li>
+
+	<li><b>$theObject</b>: Statement Object() object match string.</li>
+</ul>
+
+<p>Note that the data type is implicitly a kTYPE_STRING string</p>
+
+<p>The method will return an instance of this class or raise an exception on
+errors.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theSubject</var></dt>
+					<dd><code>mixed</code><br> Statement subject.</dd>
+					<dt><var>$theObject</var></dt>
+					<dd><code>mixed</code><br> Statement object.</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						kOPERATOR_LIKE kTYPE_STRING<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="NotLike" id="_NotLike">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_NotLike">#</a>
+		<code><a href="source-class-CQueryStatement.html#880" title="Go to source code">NotLike</a>( <span>mixed <var>$theSubject</var></span>, <span>mixed <var>$theObject</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Create a not kOPERATOR_LIKE_NOT like statement.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a not kOPERATOR_LIKE_NOT like statement.</p>
+
+<p>This method can be used to instantiate a not kOPERATOR_LIKE_NOT like
+query statement, which is the negation of the Like() equals
+statement.</p>
+
+<p>The statement uses the kOPERATOR_LIKE_NOT kOPERATOR_LIKE_NOT operator
+and this method accepts the following parameters:</p>
+
+<ul>
+	<li><b>$theSubject</b>: Statement Subject() subject.</li>
+
+	<li><b>$theObject</b>: Statement Object() object match string.</li>
+</ul>
+
+<p>The method will return an instance of this class or raise an exception on
+errors.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theSubject</var></dt>
+					<dd><code>mixed</code><br> Statement subject.</dd>
+					<dt><var>$theObject</var></dt>
+					<dd><code>mixed</code><br> Statement object.</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						kOPERATOR_LIKE_NOT kTYPE_STRING<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Prefix" id="_Prefix">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Prefix">#</a>
+		<code><a href="source-class-CQueryStatement.html#917" title="Go to source code">Prefix</a>( <span>mixed <var>$theSubject</var></span>, <span>mixed <var>$theObject</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Create a kOPERATOR_PREFIX prefix statement.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a kOPERATOR_PREFIX prefix statement.</p>
+
+<p>This method can be used to instantiate a query statement that will select all
+elements whose contents beginning matches the test data.</p>
+
+<p>The statement uses the kOPERATOR_PREFIX kOPERATOR_PREFIX operator and
+this method accepts the following parameters:</p>
+
+<ul>
+	<li><b>$theSubject</b>: Statement Subject() subject.</li>
+
+	<li><b>$theObject</b>: Statement Object() object prefix string.</li>
+</ul>
+
+<p>Note that the data type is implicitly a kTYPE_STRING string</p>
+
+<p>The method will return an instance of this class or raise an exception on
+errors.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theSubject</var></dt>
+					<dd><code>mixed</code><br> Statement subject.</dd>
+					<dt><var>$theObject</var></dt>
+					<dd><code>mixed</code><br> Statement object.</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						kOPERATOR_PREFIX kTYPE_STRING<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="PrefixNoCase" id="_PrefixNoCase">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_PrefixNoCase">#</a>
+		<code><a href="source-class-CQueryStatement.html#956" title="Go to source code">PrefixNoCase</a>( <span>mixed <var>$theSubject</var></span>, <span>mixed <var>$theObject</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Create a kOPERATOR_PREFIX_NOCASE case-insensitive prefix
+statement.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a kOPERATOR_PREFIX_NOCASE case-insensitive prefix
+statement.</p>
+
+<p>This method can be used to instantiate a query statement that will select all
+elements whose contents beginning matches the test data in a case and accent
+insensitive way.</p>
+
+<p>The statement uses the kOPERATOR_PREFIX_NOCASE
+kOPERATOR_PREFIX_NOCASE operator and this method accepts the following
+parameters:</p>
+
+<ul>
+	<li><b>$theSubject</b>: Statement Subject() subject.</li>
+
+	<li><b>$theObject</b>: Statement Object() object prefix string.</li>
+</ul>
+
+<p>Note that the data type is implicitly a kTYPE_STRING string</p>
+
+<p>The method will return an instance of this class or raise an exception on
+errors.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theSubject</var></dt>
+					<dd><code>mixed</code><br> Statement subject.</dd>
+					<dt><var>$theObject</var></dt>
+					<dd><code>mixed</code><br> Statement object.</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						kOPERATOR_PREFIX_NOCASE kTYPE_STRING<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Contains" id="_Contains">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Contains">#</a>
+		<code><a href="source-class-CQueryStatement.html#996" title="Go to source code">Contains</a>( <span>mixed <var>$theSubject</var></span>, <span>mixed <var>$theObject</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Create a kOPERATOR_CONTAINS contains statement.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a kOPERATOR_CONTAINS contains statement.</p>
+
+<p>This method can be used to instantiate a query statement that will select all
+elements whose contents matches the test data in any position.</p>
+
+<p>The statement uses the kOPERATOR_CONTAINS kOPERATOR_CONTAINS operator
+and this method accepts the following parameters:</p>
+
+<ul>
+	<li><b>$theSubject</b>: Statement Subject() subject.</li>
+
+	<li><b>$theObject</b>: Statement Object() object match sub-string.</li>
+</ul>
+
+<p>Note that the data type is implicitly a kTYPE_STRING string</p>
+
+<p>The method will return an instance of this class or raise an exception on
+errors.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theSubject</var></dt>
+					<dd><code>mixed</code><br> Statement subject.</dd>
+					<dt><var>$theObject</var></dt>
+					<dd><code>mixed</code><br> Statement object.</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						kOPERATOR_CONTAINS kTYPE_STRING<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="ContainsNoCase" id="_ContainsNoCase">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_ContainsNoCase">#</a>
+		<code><a href="source-class-CQueryStatement.html#1035" title="Go to source code">ContainsNoCase</a>( <span>mixed <var>$theSubject</var></span>, <span>mixed <var>$theObject</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Create a kOPERATOR_CONTAINS_NOCASE case-insensitive contains
+statement.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a kOPERATOR_CONTAINS_NOCASE case-insensitive contains
+statement.</p>
+
+<p>This method can be used to instantiate a query statement that will select all
+elements whose contents matches the test data in any position in a case and
+accent insensitive way.</p>
+
+<p>The statement uses the kOPERATOR_CONTAINS_NOCASE
+kOPERATOR_CONTAINS_NOCASE operator and this method accepts the following
+parameters:</p>
+
+<ul>
+	<li><b>$theSubject</b>: Statement Subject() subject.</li>
+
+	<li><b>$theObject</b>: Statement Object() object match sub-string.</li>
+</ul>
+
+<p>Note that the data type is implicitly a kTYPE_STRING string</p>
+
+<p>The method will return an instance of this class or raise an exception on
+errors.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theSubject</var></dt>
+					<dd><code>mixed</code><br> Statement subject.</dd>
+					<dt><var>$theObject</var></dt>
+					<dd><code>mixed</code><br> Statement object.</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						kOPERATOR_CONTAINS_NOCASE kTYPE_STRING<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Suffix" id="_Suffix">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Suffix">#</a>
+		<code><a href="source-class-CQueryStatement.html#1075" title="Go to source code">Suffix</a>( <span>mixed <var>$theSubject</var></span>, <span>mixed <var>$theObject</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Create a kOPERATOR_SUFFIX prefix statement.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a kOPERATOR_SUFFIX prefix statement.</p>
+
+<p>This method can be used to instantiate a query statement that will select all
+elements whose contents end matches the test data.</p>
+
+<p>The statement uses the kOPERATOR_SUFFIX kOPERATOR_SUFFIX operator and
+this method accepts the following parameters:</p>
+
+<ul>
+	<li><b>$theSubject</b>: Statement Subject() subject.</li>
+
+	<li><b>$theObject</b>: Statement Object() object suffix string.</li>
+</ul>
+
+<p>Note that the data type is implicitly a kTYPE_STRING string</p>
+
+<p>The method will return an instance of this class or raise an exception on
+errors.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theSubject</var></dt>
+					<dd><code>mixed</code><br> Statement subject.</dd>
+					<dt><var>$theObject</var></dt>
+					<dd><code>mixed</code><br> Statement object.</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						kOPERATOR_SUFFIX kTYPE_STRING<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="SuffixNoCase" id="_SuffixNoCase">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_SuffixNoCase">#</a>
+		<code><a href="source-class-CQueryStatement.html#1114" title="Go to source code">SuffixNoCase</a>( <span>mixed <var>$theSubject</var></span>, <span>mixed <var>$theObject</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Create a kOPERATOR_SUFFIX_NOCASE case-insensitive suffix
+statement.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a kOPERATOR_SUFFIX_NOCASE case-insensitive suffix
+statement.</p>
+
+<p>This method can be used to instantiate a query statement that will select all
+elements whose contents end matches the test data in a case and accent
+insensitive way.</p>
+
+<p>The statement uses the kOPERATOR_SUFFIX_NOCASE
+kOPERATOR_SUFFIX_NOCASE operator and this method accepts the following
+parameters:</p>
+
+<ul>
+	<li><b>$theSubject</b>: Statement Subject() subject.</li>
+
+	<li><b>$theObject</b>: Statement Object() object suffix string.</li>
+</ul>
+
+<p>Note that the data type is implicitly a kTYPE_STRING string</p>
+
+<p>The method will return an instance of this class or raise an exception on
+errors.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theSubject</var></dt>
+					<dd><code>mixed</code><br> Statement subject.</dd>
+					<dt><var>$theObject</var></dt>
+					<dd><code>mixed</code><br> Statement object.</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						kOPERATOR_SUFFIX_NOCASE kTYPE_STRING<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Regex" id="_Regex">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Regex">#</a>
+		<code><a href="source-class-CQueryStatement.html#1154" title="Go to source code">Regex</a>( <span>mixed <var>$theSubject</var></span>, <span>mixed <var>$theObject</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Create a kOPERATOR_REGEX regular expression statement.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a kOPERATOR_REGEX regular expression statement.</p>
+
+<p>This method can be used to instantiate a query statement that will select all
+elements that match the provided regular expression pattern.</p>
+
+<p>The statement uses the kOPERATOR_REGEX kOPERATOR_REGEX operator and
+this method accepts the following parameters:</p>
+
+<ul>
+	<li><b>$theSubject</b>: Statement Subject() subject.</li>
+
+	<li><b>$theObject</b>: Statement Object() object regular expression
+	pattern.</li>
+</ul>
+
+<p>Note that the data type is implicitly a kTYPE_STRING string</p>
+
+<p>The method will return an instance of this class or raise an exception on
+errors.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theSubject</var></dt>
+					<dd><code>mixed</code><br> Statement subject.</dd>
+					<dt><var>$theObject</var></dt>
+					<dd><code>mixed</code><br> Statement object.</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						kOPERATOR_REGEX kTYPE_STRING<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Less" id="_Less">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Less">#</a>
+		<code><a href="source-class-CQueryStatement.html#1193" title="Go to source code">Less</a>( <span>mixed <var>$theSubject</var></span>, <span>mixed <var>$theObject</var></span>, <span>string <var>$theType</var> = <span class="php-keyword1">NULL</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Create a kOPERATOR_LESS less than statement.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a kOPERATOR_LESS less than statement.</p>
+
+<p>This method can be used to instantiate a kOPERATOR_LESS less than
+query statement.</p>
+
+<p>The statement uses the kOPERATOR_LESS kOPERATOR_LESS operator and
+this method accepts the following parameters:</p>
+
+<ul>
+	<li><b>$theSubject</b>: Statement Subject() subject.</li>
+
+	<li><b>$theObject</b>: Statement Object() object, or comparaison
+	value.</li>
+
+	<li><b>$theType</b>: Statement object data Type() type.</li>
+</ul>
+
+<p>The method will return an instance of this class or raise an exception on
+errors.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theSubject</var></dt>
+					<dd><code>mixed</code><br> Statement subject.</dd>
+					<dt><var>$theObject</var></dt>
+					<dd><code>mixed</code><br> Statement object.</dd>
+					<dt><var>$theType</var></dt>
+					<dd><code>string</code><br> Statement object data type.</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						kOPERATOR_LESS<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="LessEqual" id="_LessEqual">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_LessEqual">#</a>
+		<code><a href="source-class-CQueryStatement.html#1230" title="Go to source code">LessEqual</a>( <span>mixed <var>$theSubject</var></span>, <span>mixed <var>$theObject</var></span>, <span>string <var>$theType</var> = <span class="php-keyword1">NULL</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Create a kOPERATOR_LESS_EQUAL less than or equal statement.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a kOPERATOR_LESS_EQUAL less than or equal statement.</p>
+
+<p>This method can be used to instantiate a kOPERATOR_LESS_EQUAL less
+than or equal query statement.</p>
+
+<p>The statement uses the kOPERATOR_LESS_EQUAL kOPERATOR_LESS_EQUAL
+operator and this method accepts the following parameters:</p>
+
+<ul>
+	<li><b>$theSubject</b>: Statement Subject() subject.</li>
+
+	<li><b>$theObject</b>: Statement Object() object, or comparaison
+	value.</li>
+
+	<li><b>$theType</b>: Statement object data Type() type.</li>
+</ul>
+
+<p>The method will return an instance of this class or raise an exception on
+errors.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theSubject</var></dt>
+					<dd><code>mixed</code><br> Statement subject.</dd>
+					<dt><var>$theObject</var></dt>
+					<dd><code>mixed</code><br> Statement object.</dd>
+					<dt><var>$theType</var></dt>
+					<dd><code>string</code><br> Statement object data type.</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						kOPERATOR_LESS_EQUAL<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Great" id="_Great">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Great">#</a>
+		<code><a href="source-class-CQueryStatement.html#1267" title="Go to source code">Great</a>( <span>mixed <var>$theSubject</var></span>, <span>mixed <var>$theObject</var></span>, <span>string <var>$theType</var> = <span class="php-keyword1">NULL</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Create a kOPERATOR_GREAT greater than statement.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a kOPERATOR_GREAT greater than statement.</p>
+
+<p>This method can be used to instantiate a kOPERATOR_GREAT greater than
+query statement.</p>
+
+<p>The statement uses the kOPERATOR_GREAT kOPERATOR_GREAT operator and
+this method accepts the following parameters:</p>
+
+<ul>
+	<li><b>$theSubject</b>: Statement Subject() subject.</li>
+
+	<li><b>$theObject</b>: Statement Object() object, or comparaison
+	value.</li>
+
+	<li><b>$theType</b>: Statement object data Type() type.</li>
+</ul>
+
+<p>The method will return an instance of this class or raise an exception on
+errors.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theSubject</var></dt>
+					<dd><code>mixed</code><br> Statement subject.</dd>
+					<dt><var>$theObject</var></dt>
+					<dd><code>mixed</code><br> Statement object.</dd>
+					<dt><var>$theType</var></dt>
+					<dd><code>string</code><br> Statement object data type.</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						kOPERATOR_GREAT<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="GreatEqual" id="_GreatEqual">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_GreatEqual">#</a>
+		<code><a href="source-class-CQueryStatement.html#1304" title="Go to source code">GreatEqual</a>( <span>mixed <var>$theSubject</var></span>, <span>mixed <var>$theObject</var></span>, <span>string <var>$theType</var> = <span class="php-keyword1">NULL</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Create a kOPERATOR_GREAT_EQUAL greater than or equal statement.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a kOPERATOR_GREAT_EQUAL greater than or equal statement.</p>
+
+<p>This method can be used to instantiate a kOPERATOR_GREAT_EQUAL
+greater than or equal query statement.</p>
+
+<p>The statement uses the kOPERATOR_GREAT_EQUAL kOPERATOR_GREAT_EQUAL
+operator and this method accepts the following parameters:</p>
+
+<ul>
+	<li><b>$theSubject</b>: Statement Subject() subject.</li>
+
+	<li><b>$theObject</b>: Statement Object() object, or comparaison
+	value.</li>
+
+	<li><b>$theType</b>: Statement object data Type() type.</li>
+</ul>
+
+<p>The method will return an instance of this class or raise an exception on
+errors.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theSubject</var></dt>
+					<dd><code>mixed</code><br> Statement subject.</dd>
+					<dt><var>$theObject</var></dt>
+					<dd><code>mixed</code><br> Statement object.</dd>
+					<dt><var>$theType</var></dt>
+					<dd><code>string</code><br> Statement object data type.</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						kOPERATOR_GREAT_EQUAL<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="RangeInclusive" id="_RangeInclusive">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_RangeInclusive">#</a>
+		<code><a href="source-class-CQueryStatement.html#1341" title="Go to source code">RangeInclusive</a>( <span>mixed <var>$theSubject</var></span>, <span>mixed <var>$theBound1</var></span>, <span>mixed <var>$theBound2</var></span>, <span>string <var>$theType</var> = <span class="php-keyword1">NULL</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Create a kOPERATOR_IRANGE range inclusive statement.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a kOPERATOR_IRANGE range inclusive statement.</p>
+
+<p>This method can be used to instantiate a kOPERATOR_IRANGE range
+inclusive query statement, the statement will check if the Subject()
+subject value lies between the two range bounds including the bound values.</p>
+
+<p>The statement uses the kOPERATOR_IRANGE kOPERATOR_IRANGE operator and
+this method accepts the following parameters:</p>
+
+<ul>
+	<li><b>$theSubject</b>: Statement Subject() subject.</li>
+
+	<li><b>$theBound1</b>: Statement range lower Object() bound.</li>
+
+	<li><b>$theBound2</b>: Statement range upper Object() bound.</li>
+
+	<li><b>$theType</b>: Statement range data Type() type.</li>
+</ul>
+
+<p>The method will return an instance of this class or raise an exception on
+errors.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theSubject</var></dt>
+					<dd><code>mixed</code><br> Statement subject.</dd>
+					<dt><var>$theBound1</var></dt>
+					<dd><code>mixed</code><br> Range lower bound.</dd>
+					<dt><var>$theBound2</var></dt>
+					<dd><code>mixed</code><br> Range upper bound.</dd>
+					<dt><var>$theType</var></dt>
+					<dd><code>string</code><br> Statement object data type.</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						kOPERATOR_IRANGE<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="RangeExclusive" id="_RangeExclusive">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_RangeExclusive">#</a>
+		<code><a href="source-class-CQueryStatement.html#1388" title="Go to source code">RangeExclusive</a>( <span>mixed <var>$theSubject</var></span>, <span>mixed <var>$theBound1</var></span>, <span>mixed <var>$theBound2</var></span>, <span>string <var>$theType</var> = <span class="php-keyword1">NULL</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Create a kOPERATOR_ERANGE range inclusive statement.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a kOPERATOR_ERANGE range inclusive statement.</p>
+
+<p>This method can be used to instantiate a kOPERATOR_ERANGE range
+exclusive query statement, the statement will check if the Subject()
+subject value lies between the two range bounds excluding the bound values.</p>
+
+<p>The statement uses the kOPERATOR_ERANGE kOPERATOR_ERANGE operator and
+this method accepts the following parameters:</p>
+
+<ul>
+	<li><b>$theSubject</b>: Statement Subject() subject.</li>
+
+	<li><b>$theBound1</b>: Statement range lower Object() bound.</li>
+
+	<li><b>$theBound2</b>: Statement range upper Object() bound.</li>
+
+	<li><b>$theType</b>: Statement range data Type() type.</li>
+</ul>
+
+<p>The method will return an instance of this class or raise an exception on
+errors.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theSubject</var></dt>
+					<dd><code>mixed</code><br> Statement subject.</dd>
+					<dt><var>$theBound1</var></dt>
+					<dd><code>mixed</code><br> Range lower bound.</dd>
+					<dt><var>$theBound2</var></dt>
+					<dd><code>mixed</code><br> Range upper bound.</dd>
+					<dt><var>$theType</var></dt>
+					<dd><code>string</code><br> Statement object data type.</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						kOPERATOR_ERANGE<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Missing" id="_Missing">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Missing">#</a>
+		<code><a href="source-class-CQueryStatement.html#1438" title="Go to source code">Missing</a>( <span>mixed <var>$theSubject</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Create an kOPERATOR_NULL missing statement.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create an kOPERATOR_NULL missing statement.</p>
+
+<p>This method can be used to instantiate a kOPERATOR_NULL missing query
+statement, the statement will check if the Subject() subject is missing
+or is <i>NULL</i>.</p>
+
+<p>The statement uses the kOPERATOR_NULL kOPERATOR_NULL operator and
+this method accepts the following parameters:</p>
+
+<ul>
+	<li><b>$theSubject</b>: Statement Subject() subject.</li>
+</ul>
+
+<p>The method will return an instance of this class or raise an exception on
+errors.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theSubject</var></dt>
+					<dd><code>mixed</code><br> Statement subject.</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						kOPERATOR_NULL<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Exists" id="_Exists">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Exists">#</a>
+		<code><a href="source-class-CQueryStatement.html#1470" title="Go to source code">Exists</a>( <span>mixed <var>$theSubject</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Create an kOPERATOR_NOT_NULL exists statement.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create an kOPERATOR_NOT_NULL exists statement.</p>
+
+<p>This method can be used to instantiate a kOPERATOR_NOT_NULL missing
+or null query statement, the statement will check if the Subject()
+subject exists or is not <i>NULL</i>.</p>
+
+<p>The statement uses the kOPERATOR_NOT_NULL kOPERATOR_NOT_NULL operator
+and this method accepts the following parameters:</p>
+
+<ul>
+	<li><b>$theSubject</b>: Statement Subject() subject.</li>
+</ul>
+
+<p>The method will return an instance of this class or raise an exception on
+errors.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theSubject</var></dt>
+					<dd><code>mixed</code><br> Statement subject.</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						kOPERATOR_NOT_NULL<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Member" id="_Member">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Member">#</a>
+		<code><a href="source-class-CQueryStatement.html#1503" title="Go to source code">Member</a>( <span>mixed <var>$theSubject</var></span>, <span>mixed <var>$theObject</var></span>, <span>string <var>$theType</var> = <span class="php-keyword1">NULL</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Create a kOPERATOR_IN membership statement.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a kOPERATOR_IN membership statement.</p>
+
+<p>This method can be used to instantiate a kOPERATOR_IN membership
+query statement which will test whether the Subject() subject value can
+be found in the provided Object() object, which will be interpreted as a
+list of values.</p>
+
+<p>If the provided Object() object is not an array or an ArrayObject,
+the method will add it to a newly created array.</p>
+
+<p>The statement uses the kOPERATOR_IN kOPERATOR_IN operator and this
+method accepts the following parameters:</p>
+
+<ul>
+	<li><b>$theSubject</b>: Statement Subject() subject.</li>
+
+	<li><b>$theObject</b>: Statement Object() object, or members list.</li>
+
+	<li><b>$theType</b>: Statement object data Type() type.</li>
+</ul>
+
+<p>The method will return an instance of this class or raise an exception on
+errors.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theSubject</var></dt>
+					<dd><code>mixed</code><br> Statement subject.</dd>
+					<dt><var>$theObject</var></dt>
+					<dd><code>mixed</code><br> Statement object.</dd>
+					<dt><var>$theType</var></dt>
+					<dd><code>string</code><br> Statement object data type.</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						kOPERATOR_IN<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="NotMember" id="_NotMember">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_NotMember">#</a>
+		<code><a href="source-class-CQueryStatement.html#1561" title="Go to source code">NotMember</a>( <span>mixed <var>$theSubject</var></span>, <span>mixed <var>$theObject</var></span>, <span>string <var>$theType</var> = <span class="php-keyword1">NULL</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Create a non kOPERATOR_NI membership statement.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a non kOPERATOR_NI membership statement.</p>
+
+<p>This method can be used to instantiate a non kOPERATOR_NI membership
+query statement which will test whether the Subject() subject value
+cannot be found in the provided Object() object, which will be
+interpreted as a list of values.</p>
+
+<p>If the provided Object() object is not an array or an ArrayObject,
+the method will add it to a newly created array.</p>
+
+<p>The statement uses the kOPERATOR_NI kOPERATOR_NI operator and this
+method accepts the following parameters:</p>
+
+<ul>
+	<li><b>$theSubject</b>: Statement Subject() subject.</li>
+
+	<li><b>$theObject</b>: Statement Object() object, or members list.</li>
+
+	<li><b>$theType</b>: Statement object data Type() type.</li>
+</ul>
+
+<p>The method will return an instance of this class or raise an exception on
+errors.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theSubject</var></dt>
+					<dd><code>mixed</code><br> Statement subject.</dd>
+					<dt><var>$theObject</var></dt>
+					<dd><code>mixed</code><br> Statement object.</dd>
+					<dt><var>$theType</var></dt>
+					<dd><code>string</code><br> Statement object data type.</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						kOPERATOR_NI<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="All" id="_All">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_All">#</a>
+		<code><a href="source-class-CQueryStatement.html#1620" title="Go to source code">All</a>( <span>mixed <var>$theSubject</var></span>, <span>mixed <var>$theObject</var></span>, <span>string <var>$theType</var> = <span class="php-keyword1">NULL</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Create an kOPERATOR_ALL all statement.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create an kOPERATOR_ALL all statement.</p>
+
+<p>This method can be used to instantiate an kOPERATOR_ALL all query
+statement which will test whether all the Subject() subject values can
+be found in the provided Object() object, which will be interpreted as a
+list of values.</p>
+
+<p>If the provided Object() object is not an array or an ArrayObject,
+the method will add it to a newly created array.</p>
+
+<p>The statement uses the kOPERATOR_ALL kOPERATOR_ALL operator and this
+method accepts the following parameters:</p>
+
+<ul>
+	<li><b>$theSubject</b>: Statement Subject() subject.</li>
+
+	<li><b>$theObject</b>: Statement Object() object, or members list.</li>
+
+	<li><b>$theType</b>: Statement object data Type() type.</li>
+</ul>
+
+<p>The method will return an instance of this class or raise an exception on
+errors.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theSubject</var></dt>
+					<dd><code>mixed</code><br> Statement subject.</dd>
+					<dt><var>$theObject</var></dt>
+					<dd><code>mixed</code><br> Statement object.</dd>
+					<dt><var>$theType</var></dt>
+					<dd><code>string</code><br> Statement object data type.</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						kOPERATOR_ALL<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="NotAll" id="_NotAll">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_NotAll">#</a>
+		<code><a href="source-class-CQueryStatement.html#1678" title="Go to source code">NotAll</a>( <span>mixed <var>$theSubject</var></span>, <span>mixed <var>$theObject</var></span>, <span>string <var>$theType</var> = <span class="php-keyword1">NULL</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Create a not kOPERATOR_NALL all statement.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create a not kOPERATOR_NALL all statement.</p>
+
+<p>This method can be used to instantiate a not kOPERATOR_NALL all query
+statement which will test whether any of the Subject() subject values
+cannot be found in the provided Object() object, which will be
+interpreted as a list of values. This statement is the negation of the All() All statement.</p>
+
+<p>If the provided Object() object is not an array or an ArrayObject,
+the method will add it to a newly created array.</p>
+
+<p>The statement uses the kOPERATOR_NALL kOPERATOR_NALL operator and
+this method accepts the following parameters:</p>
+
+<ul>
+	<li><b>$theSubject</b>: Statement Subject() subject.</li>
+
+	<li><b>$theObject</b>: Statement Object() object, or members list.</li>
+
+	<li><b>$theType</b>: Statement object data Type() type.</li>
+</ul>
+
+<p>The method will return an instance of this class or raise an exception on
+errors.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theSubject</var></dt>
+					<dd><code>mixed</code><br> Statement subject.</dd>
+					<dt><var>$theObject</var></dt>
+					<dd><code>mixed</code><br> Statement object.</dd>
+					<dt><var>$theType</var></dt>
+					<dd><code>string</code><br> Statement object data type.</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						kOPERATOR_NALL<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Expression" id="_Expression">
+
+		<td class="attributes"><code>
+			 public static
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Expression">#</a>
+		<code><a href="source-class-CQueryStatement.html#1737" title="Go to source code">Expression</a>( <span>mixed <var>$theSubject</var></span>, <span>mixed <var>$theObject</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Create an kOPERATOR_EX expression statement.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create an kOPERATOR_EX expression statement.</p>
+
+<p>This method can be used to instantiate an kOPERATOR_EX expression
+query statement in which the object of the statement represents an
+expression.</p>
+
+<p>Note that in this case the Type() type is not relevant and it is set
+by default as a kTYPE_STRING string.</p>
+
+<p>The statement uses the kOPERATOR_EX kOPERATOR_EX operator and this
+method accepts the following parameters:</p>
+
+<ul>
+	<li><b>$theSubject</b>: Statement Subject() subject.</li>
+
+	<li><b>$theObject</b>: Statement Object() object, or comparaison
+	value.</li>
+
+	<li><b>$theType</b>: Statement object data Type() type.</li>
+</ul>
+
+<p>The method will return an instance of this class or raise an exception on
+errors.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theSubject</var></dt>
+					<dd><code>mixed</code><br> Statement subject.</dd>
+					<dt><var>$theObject</var></dt>
+					<dd><code>mixed</code><br> Statement object or expression.</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						kOPERATOR_EX kTYPE_STRING<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CArrayObject.html#methods">CArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CArrayObject.html#_">keys()</a>, 
+			<a href="class-CArrayObject.html#_">offsetGet()</a>, 
+			<a href="class-CArrayObject.html#_">offsetSet()</a>, 
+			<a href="class-CArrayObject.html#_">offsetUnset()</a>, 
+			<a href="class-CArrayObject.html#_">values()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-ArrayObject.html#methods">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#_">append()</a>, 
+			<a href="class-ArrayObject.html#_">asort()</a>, 
+			<a href="class-ArrayObject.html#_">count()</a>, 
+			<a href="class-ArrayObject.html#_">exchangeArray()</a>, 
+			<a href="class-ArrayObject.html#_">getArrayCopy()</a>, 
+			<a href="class-ArrayObject.html#_">getFlags()</a>, 
+			<a href="class-ArrayObject.html#_">getIterator()</a>, 
+			<a href="class-ArrayObject.html#_">getIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_">ksort()</a>, 
+			<a href="class-ArrayObject.html#_">natcasesort()</a>, 
+			<a href="class-ArrayObject.html#_">natsort()</a>, 
+			<a href="class-ArrayObject.html#_">offsetExists()</a>, 
+			<a href="class-ArrayObject.html#_">serialize()</a>, 
+			<a href="class-ArrayObject.html#_">setFlags()</a>, 
+			<a href="class-ArrayObject.html#_">setIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_">uasort()</a>, 
+			<a href="class-ArrayObject.html#_">uksort()</a>, 
+			<a href="class-ArrayObject.html#_">unserialize()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+	<table class="summary inherited">
+	<caption>Constants inherited from <a href="class-ArrayObject.html#constants">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#ARRAY_AS_PROPS"><b>ARRAY_AS_PROPS</b></a>, 
+			<a href="class-ArrayObject.html#STD_PROP_LIST"><b>STD_PROP_LIST</b></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		MyWrapper Reference API documentation generated by <a href="http://apigen.org">ApiGen 2.7.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

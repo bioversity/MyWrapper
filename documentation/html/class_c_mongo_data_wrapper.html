@@ -760,7 +760,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>Initialise resources.</p>
-<p>In this class we initialise the <a class="el" href="">status</a> object, which in turn initialises the Mongo object, and set it in the default <a class="el" href="">offset</a> of the $_SESSION global.</p>
+<p>In this class we check whether the session <a class="el" href="">kDEFAULT_SESSION</a> offset has received the session <a class="el" href="class_c_session_object.html">object</a>, if that is not the case, the method will raise an exception.</p>
 <p>protected </p>
 
 <p>Reimplemented from <a class="el" href="class_c_wrapper.html#a0e5c5488fce4b388e43dcf6810874d74">CWrapper</a>.</p>
@@ -951,7 +951,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="class_c_mongo_data_wrapper.html">CMongoDataWrapper</a></li>
-    <li class="footer">Generated on Fri Jul 20 2012 17:59:47 for Wrapper by
+    <li class="footer">Generated on Mon Sep 3 2012 10:20:25 for Wrapper by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.1.2 </li>
   </ul>

@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.7.0" />
+
+	<title>Class CPersistentObject | MyWrapper Reference</title>
+
+	<script type="text/javascript" src="resources/combined.js?417553483"></script>
+	<script type="text/javascript" src="elementlist.js?1387923255"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?1567499433" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Packages</h3>
+			<ul>
+				<li class="active main"><a href="package-MyWrapper.html">MyWrapper<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MyWrapper.Entities.html">Entities</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Framework.html">Framework</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Ontology.html">Ontology</a>
+						</li>
+				<li class="active main"><a href="package-MyWrapper.Persistence.html">Persistence</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Session.html">Session</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Traits.html">Traits</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Wrappers.html">Wrappers</a>
+						</li>
+							</ul></li>
+				<li><a href="package-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-CArrayContainer.html">CArrayContainer</a></li>
+				<li><a href="class-CContainer.html">CContainer</a></li>
+				<li><a href="class-CDataset.html">CDataset</a></li>
+				<li><a href="class-CGraphEdge.html">CGraphEdge</a></li>
+				<li><a href="class-CGraphNode.html">CGraphNode</a></li>
+				<li><a href="class-CMongoContainer.html">CMongoContainer</a></li>
+				<li><a href="class-CMongoGridContainer.html">CMongoGridContainer</a></li>
+				<li><a href="class-CMongoQuery.html">CMongoQuery</a></li>
+				<li><a href="class-COntologyEdgeIndex.html">COntologyEdgeIndex</a></li>
+				<li><a href="class-COntologyNodeIndex.html">COntologyNodeIndex</a></li>
+				<li class="active"><a href="class-CPersistentObject.html">CPersistentObject</a></li>
+				<li><a href="class-CPersistentUnitObject.html">CPersistentUnitObject</a></li>
+				<li><a href="class-CQuery.html">CQuery</a></li>
+				<li><a href="class-CQueryStatement.html">CQueryStatement</a></li>
+				<li><a href="class-CRelatedUnitObject.html">CRelatedUnitObject</a></li>
+			</ul>
+
+
+
+
+
+			<h3>Functions</h3>
+			<ul>
+				<li><a href="function-Neo4jAutoload.html">Neo4jAutoload</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="package-MyWrapper.Persistence.html" title="Summary of MyWrapper\Persistence"><span>Package</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class CPersistentObject</h1>
+
+
+	<div class="description">
+	
+<p>Persistent unit objects ancestor.</p>
+
+<p>This class is the ancestor of all persistent objects in this library, it
+implements the common interfaces and workflow that persistent objects will use
+to be __construct() instantiated, __construct() retrieved or
+Commit() stored in object CContainer containers.</p>
+
+<p>This class interacts closely with CContainer CContainer derived
+classes so that concrete classes derived from this one need only to be concerned
+with their specific functionality, while persistent issues are handled foth by
+this class and by the concrete classes derived from CContainer
+CContainer.</p>
+
+<p>The class declares three main persistence operations whose workflow is as
+follows:</p>
+
+<ul>
+	<li><i>__construct() Create</i>: The __construct() constructor
+	can instantiate an object from data, as its CArrayObject ancestor, a
+	protected _Create() method may be overloaded by derived classes to
+	implement specific functionality.</li>
+
+	<li><i>__construct() Retrieve</i>: The __construct() constructor
+	is also used to retrieve objects stored in a CContainer container, this
+	operation follows these steps:
+		<ul>
+			<li><i>_PrepareLoad() Prepare</i>: This step is used to check parameters
+			and prepare the resources needed to locate and retrieve the object.</li>
+
+			<li><i>_Load() Find</i>: In this step the object will be searched for
+			and retrieved from the CContainer container.</li>
+		</ul>
+	</li>
+
+	<li><i>Commit() Store</i>: This operation will store the object in a
+	CContainer container, the followed steps are:
+		<ul>
+			<li><i>_PrepareCommit() Prepare</i>: This step is used to check
+			parameters and prepare the resources needed to save the object.</li>
+
+			<li><i>_Commit() Store</i>: This operation will perform the actual
+			storage, this step should be delegated to the CContainer container.</li>
+		</ul>
+	</li>
+</ul>
+
+<p>This class implements the default behaviour, in derived classes you should
+overload these methods if necessary, without changing the public interface.</p>
+
+<p>This class extends its CStatusObject ancestor behaviour to record
+persistence status and accepts only instances derived from CContainer
+CContainer as containers.</p>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-ArrayObject.html"><span>ArrayObject</span></a>
+			
+			 implements 
+				<a href="class-IteratorAggregate.html"><span>IteratorAggregate</span></a>, 
+			
+				<a href="class-Traversable.html"><span>Traversable</span></a>, 
+			
+				<a href="class-ArrayAccess.html"><span>ArrayAccess</span></a>, 
+			
+				<a href="class-Serializable.html"><span>Serializable</span></a>, 
+			
+				<a href="class-Countable.html"><span>Countable</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CArrayObject.html"><span>CArrayObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:60px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CStatusObject.html"><span>CStatusObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:90px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>CPersistentObject</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+	<div>
+		<h4>Direct known subclasses</h4>
+			<a href="class-CGraphNode.html">CGraphNode</a>, 
+			<a href="class-CPersistentUnitObject.html">CPersistentUnitObject</a>
+	</div>
+
+	<div>
+		<h4>Indirect known subclasses</h4>
+			<a href="class-CCodedUnitObject.html">CCodedUnitObject</a>, 
+			<a href="class-CContact.html">CContact</a>, 
+			<a href="class-COntologyTerm.html">COntologyTerm</a>, 
+			<a href="class-COntologyTermObject.html">COntologyTermObject</a>, 
+			<a href="class-CRelatedUnitObject.html">CRelatedUnitObject</a>, 
+			<a href="class-CUser.html">CUser</a>, 
+			<a href="class-CDataset.html">CDataset</a>, 
+			<a href="class-CEntity.html">CEntity</a>, 
+			<a href="class-CFAOInstitute.html">CFAOInstitute</a>, 
+			<a href="class-CGraphEdge.html">CGraphEdge</a>, 
+			<a href="class-CInstitute.html">CInstitute</a>, 
+			<a href="class-COntologyEdge.html">COntologyEdge</a>, 
+			<a href="class-COntologyNode.html">COntologyNode</a>, 
+			<a href="class-COntologyTag.html">COntologyTag</a>
+	</div>
+
+
+
+
+
+	<div class="info">
+		
+		
+		
+		<b>Package:</b> <a href="package-MyWrapper.html">MyWrapper</a>\<a href="package-MyWrapper.Persistence.html">Persistence</a><br />
+
+				<b>Author:</b>
+				Milko A. Škofič &lt;<a
+href="mailto:m.skofic&#64;cgiar.org">m.skofic&#64;<!---->cgiar.org</a>&gt;<br />
+		<b>Located at</b> <a href="source-class-CPersistentObject.html#31" title="Go to source code">CPersistentObject.php</a><br />
+	</div>
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-CPersistentObject.html#96" title="Go to source code">__construct</a>( <span>mixed <var>$theContainer</var> = <span class="php-keyword1">NULL</span></span>, <span>mixed <var>$theIdentifier</var> = <span class="php-keyword1">NULL</span></span>, <span>bitfield <var>$theModifiers</var> = kFLAG_DEFAULT </span> )</code>
+
+		<div class="description short">
+			
+<p>Instantiate class.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Instantiate class.</p>
+
+<p>The constructor can be used to instantiate an empty object, instantiate an
+object from some content, or load an object from a container.</p>
+
+<p>The parameters to this method are:</p>
+
+<ul>
+	<li><b>$theContainer</b>: This parameter represents either the <i>contents</i>
+	of the object, if the next parameter is missing, or the <i>CContainer
+	container</i> in which the object resides. If missing, we assume we want to
+	create an empty object.
+		<ul>
+			<li><i>NULL</i>: In this case it is assumed you want to instantiate an empty
+			object and the next parameter will be ignored.</li>
+
+			<li><i>Array</i> or <i>ArrayObject</i>: In this case we assume the parameter
+			represents either the object contents, if the next parameter is <i>NULL</i>, or
+			the CContainer container in which the object is Commit() stored,
+			in which case we interpret the next parameter to be the object's
+			identifier.</li>
+
+			<li><i>Other</i>: Any other type will raise an kERROR_UNSUPPORTED
+			exception, or it should be handled by derived classes.</li>
+		</ul>
+	</li>
+
+	<li><b>$theIdentifier</b>: This parameter represents the key or query that will
+	be used to locate the object in the container provided in the first parameter.
+		<ul>
+			<li><i>NULL</i>: This indicates that the first parameter represents the object
+			<i>contents</i>.</li>
+
+			<li><i>other</i>: Any other type is considered as a key or query used to locate
+			the object in the container provided in the first parameter.</li>
+		</ul>
+	</li>
+
+	<li><b>$theModifiers</b>: This bitfield parameter can be used to provide a
+	series of options to the object. The available options can be consulted in
+	Flags.inc.php this file. Most of these options are managed automatically
+	and should not be provided explicitly. This class handles one option that has
+	the following meaning:
+		<ul>
+			<li><i>kFLAG_STATE_ENCODED kFLAG_STATE_ENCODED</i>: If the option is on,
+			the object will be passed through a CContainer::UnserialiseObject()
+			conversion process that will convert all CDataType standard data types
+			into native container custom data types CContainer::_PrepareCommit()
+			before Commit() committing the object; the opposite CDataType::SerialiseObject() conversion process will take place CContainer::_FinishLoad() after __construct() loading the object from a
+			container. It is a good idea to keep this flag ON, because the converted object
+			will be compatible with any CContainer container and it will make data
+			transfers from one database to the other easy. This process is automatic and
+			transparent.</li>
+		</ul>
+	</li>
+</ul>
+
+<p>Depending on the results of this method we set the _IsCommitted()
+committed status kFLAG_STATE_COMMITTED flag as follows:</p>
+
+<ul>
+	<li><i>Empty object</i>: By omitting the first parameter we indicate that we
+	want to start from scratch, the object will not have its _IsCommitted()
+	committed kFLAG_STATE_COMMITTED flag set.</li>
+
+	<li><i>Filled object</i>: In this case we provide in the <i>$theContainer</i>
+	parameter the object's <i>contents</i>. In this case we do not consider the
+	object as persistent, so the object will not have its _IsCommitted()
+	committed kFLAG_STATE_COMMITTED flag set.</li>
+
+	<li><i>Selected object</i>: In this case we search the <i>$theContainer</i> with
+	the provided <i>$theIdentifier</i> as a key or query, and if:
+		<ul>
+			<li><i>Found</i>: We set the _IsCommitted() committed kFLAG_STATE_COMMITTED flag on.</li>
+
+			<li><i>Not found</i>: We instantiate an empty object and ignore the _IsCommitted() committed kFLAG_STATE_COMMITTED flag.</li>
+		</ul>
+	</li>
+</ul>
+
+<p>The _IsInited() inited status kFLAG_STATE_INITED flag is not
+set by default, this will prevent the object from being Commit() stored
+and it is the responsibility of derived concrete instances to manage this
+status.</p>
+
+<p>This method takes advantage of a protected interface which should be
+overloaded by derived classes instead of overloading this method:</p>
+
+<ul>
+	<li><i>Retrieve object</i>: If the second parameter was provided, it implies
+	that the object is to be retrieved from the first parameter which represents the
+	CContainer container in which the object contents are stored.
+		<ul>
+			<li><i>_PrepareLoad() _PrepareLoad()</i>: This method should check and
+			normalise the container and identifier. In this class we ensure that the
+			container is derived from CContainer CContainer.</li>
+
+			<li><i>_Load() _Load()</i>: This method will delegate the CContainer container the responsibility of locating and retrieving the object
+			using the provided identifier.</li>
+		</ul>
+	</li>
+
+	<li><i>_Create() _Create()</i>: This method should instantiate the
+	object from the contents returned by _Load() _Load or by the data
+	provided in the first parameter in the case the second parameter was
+	omitted.</li>
+</ul>
+
+<p>Derived classes should overload the above interface rather than overloading
+this method and should do so only if necessary, because this workflow should be
+sufficient for persisting objects.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>mixed</code><br> Persistent container.</dd>
+					<dt><var>$theIdentifier</var></dt>
+					<dd><code>mixed</code><br> Object identifier.</dd>
+					<dt><var>$theModifiers</var></dt>
+					<dd><code>bitfield</code><br> Create modifiers.</dd>
+				</dl></div>
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CPersistentObject.html#_">CPersistentObject::_PrepareLoad()</a></code></code> <br />
+						<code><code><a href="class-CPersistentObject.html#_">CPersistentObject::_Load()</a></code></code> <br />
+						<code><code><a href="class-CPersistentObject.html#_">CPersistentObject::_Create()</a></code></code> <br />
+						<code><code><a href="class-CPersistentObject.html#_">CPersistentObject::_IsCommitted()</a></code></code> <br />
+						<code><code><a href="class-CPersistentObject.html#_">CPersistentObject::_FinishLoad()</a></code></code> <br />
+						<code><code><a href="class-CPersistentObject.html#_">CPersistentObject::_FinishCreate()</a></code></code> <br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-ArrayObject.html#_">ArrayObject::__construct</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Commit" id="_Commit">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Commit">#</a>
+		<code><a href="source-class-CPersistentObject.html#280" title="Go to source code">Commit</a>( <span>mixed <var>$theContainer</var> = <span class="php-keyword1">NULL</span></span>, <span>mixed <var>$theIdentifier</var> = <span class="php-keyword1">NULL</span></span>, <span>bitfield <var>$theModifiers</var> = kFLAG_PERSIST_REPLACE </span> )</code>
+
+		<div class="description short">
+			
+<p>Commit the object into a container.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Commit the object into a container.</p>
+
+<p>This method should be used to commit the object to a container, the method
+accepts two parameters:</p>
+
+<ul>
+	<li><b>$theContainer</b>: This parameter represents the <i>container</i> in
+	which the object is to be stored. By default we enforce concrete instances of
+	CContainer CContainer, derived classes may overload the protected
+	interface to initialise this value.</li>
+
+	<li><b>$theIdentifier</b>: This parameter represents the value by which the
+	current object will be uniquely identified in the first parameter. By default
+	this value is required, derived classes may overload the protected interface to
+	initialise this value.</li>
+
+	<li><b>$theModifiers</b>: This parameter represents the commit operation
+	options, by default we assume you want to kFLAG_PERSIST_REPLACE replace
+	an object, but you may change this value if you want to perform specific commit
+	operations:
+		<ul>
+			<li><i>kFLAG_PERSIST_INSERT kFLAG_PERSIST_INSERT</i>: The provided
+			object will be inserted in the container, it is assumed that no other element in
+			the container shares the same identifier, in that case the container CContainer::Commit() method must raise an kERROR_DUPLICATE
+			exception.</li>
+
+			<li><i>kFLAG_PERSIST_UPDATE kFLAG_PERSIST_UPDATE</i>: The provided
+			object will replace the existing object. In this case the method expects the
+			container to have an entry with the same key as the provided identifier, if this
+			is not the case the container CContainer::Commit() method must raise an
+			kERROR_NOT_FOUND exception. With this option it is assumed that the
+			provided object's attributes will replace all the existing object's ones.</li>
+
+			<li><i>kFLAG_PERSIST_MODIFY kFLAG_PERSIST_MODIFY</i>: The provided
+			object is assumed to contain a subset of an existing object's attributes, these
+			provided attributes will be appended or replace the existing ones. In this case
+			the method expects the container to have an entry with the same key as the
+			provided identifier, if this is not the case the method must raise an kERROR_NOT_FOUND exception.</li>
+
+			<li><i>kFLAG_PERSIST_REPLACE kFLAG_PERSIST_REPLACE</i>: The provided
+			object will be kFLAG_PERSIST_INSERT inserted, if the identifier doesn't
+			match any container elements, or it will kFLAG_PERSIST_UPDATE replace
+			the existing object. As with kFLAG_PERSIST_UPDATE update, it is assumed
+			that the provided object's attributes will replace all the existing object's
+			ones.</li>
+
+			<li><i>kFLAG_PERSIST_DELETE kFLAG_PERSIST_DELETE</i>: This option
+			assumes you want to remove the object from the container, although the container
+			features a specific CContainer::Delete() method for this purpose, this
+			option may be used to implement a <i>deleted state</i>, rather than actually
+			removing the object from the container.</li>
+
+			<li><i>kFLAG_STATE_ENCODED kFLAG_STATE_ENCODED</i>: If the option is on,
+			the object will be passed through a CContainer::UnserialiseObject()
+			conversion process that will convert all CDataType standard data types
+			into native container custom data types CContainer::_PrepareCommit()
+			before committing the object. It is a good idea to keep this flag ON, because
+			the converted object will be compatible with any CContainer container
+			and it will make data transfers from one database to the other easy. This
+			process is automatic and transparent.</li>
+		</ul>
+	</li>
+</ul>
+
+<p>The method will only operate if either the _IsCommitted() committed
+kFLAG_STATE_COMMITTED flag is <i>not set</i>, or the _IsDirty()
+dirty kFLAG_STATE_DIRTY flag is <i>set</i>, if none of these two
+conditions are satisfied, the method will do nothing.</p>
+
+<p>The method will by default <i>set</i> the _IsCommitted() committed
+kFLAG_STATE_COMMITTED flag and <i>reset</i> the _IsDirty() dirty
+kFLAG_STATE_DIRTY flag if the operation was successful.</p>
+
+<p>This method should raise an exception if any error occurs.</p>
+
+<p>The method should return the unique identifier of the object or <i>NULL</i>
+if the operation was not performed.</p>
+
+<p>In derived classes you should not overload this method, instead, you should
+overload the protected interface:</p>
+
+<ul>
+	<li><i>_PrepareCommit() _PrepareCommit()</i>: This method can be used to
+	initialise or check the parameters and resources.</li>
+
+	<li><i>_Commit() _Commit()</i>: This method will perform the actual
+	commit.</li>
+
+	<li><i>_FinishCommit() _FinishCommit()</i>: This method can be used to
+	perform eventual post-flight adjustments.</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>mixed</code><br> Persistent container.</dd>
+					<dt><var>$theIdentifier</var></dt>
+					<dd><code>mixed</code><br> Object identifier.</dd>
+					<dt><var>$theModifiers</var></dt>
+					<dd><code>bitfield</code><br> Commit modifiers.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						kFLAG_PERSIST_INSERT kFLAG_PERSIST_UPDATE kFLAG_PERSIST_MODIFY<br />
+						kFLAG_PERSIST_REPLACE kFLAG_STATE_ENCODED<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CStatusObject.html#_">CStatusObject::_IsDirty()</a></code></code> <br />
+						<code><code><a href="class-CPersistentObject.html#_">CPersistentObject::_IsCommitted()</a></code></code> <br />
+						<code><code><a href="class-CPersistentObject.html#_">CPersistentObject::_PrepareCommit()</a></code></code> <br />
+						<code><code><a href="class-CPersistentObject.html#_">CPersistentObject::_Commit()</a></code></code> <br />
+						<code><code><a href="class-CPersistentObject.html#_">CPersistentObject::_FinishCommit()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Uncommit" id="_Uncommit">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Uncommit">#</a>
+		<code><a href="source-class-CPersistentObject.html#431" title="Go to source code">Uncommit</a>( )</code>
+
+		<div class="description short">
+			
+<p>Reset _IsCommitted() committed status.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Reset _IsCommitted() committed status.</p>
+
+<p>This method can be used to reset the object's kFLAG_STATE_COMMITTED
+committed _IsCommitted() status, this may be necessary when copying an
+object from one container to the other, since the object will be Commit()
+committed only if the kFLAG_STATE_COMMITTED committed _IsCommitted() status is not set, or if the kFLAG_STATE_DIRTY dirty
+_IsDirty() status is set.</p>
+
+
+
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CPersistentObject.html#_">CPersistentObject::_IsCommitted()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_IsCommitted" id="__IsCommitted">
+
+		<td class="attributes"><code>
+			 protected 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__IsCommitted">#</a>
+		<code><a href="source-class-CPersistentObject.html#460" title="Go to source code">_IsCommitted</a>( <span>mixed <var>$theState</var> = <span class="php-keyword1">NULL</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage committed status.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage committed status.</p>
+
+<p>This method can be used to get or set the object's committed state.</p>
+
+<p>A committed object is one that has either been loaded from a container or
+committed to a container. This state indicates that the object is persistent.
+This state, combined with the _IsDirty() dirty status, can determine if
+an object needs to be committed in a container or not.</p>
+
+<p>The method features a single parameter:</p>
+
+<ul>
+	<li><i>NULL</i>: The method will return <i>TRUE</i> if the object is committed,
+	or <i>FALSE</i> if the object is not committed.</li>
+
+	<li><i>TRUE</i>: The method will set the object to committed.</li>
+
+	<li><i>FALSE</i>: The method will reset the object's committed state.</li>
+</ul>
+
+<p>In all cases the method will return the state <i>after</i> it was eventually
+modified.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theState</var></dt>
+					<dd><code>mixed</code><br> TRUE, FALSE or NULL.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						kFLAG_STATE_COMMITTED<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CStatusObject.html#_">CStatusObject::_ManageBitField()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CPersistentObject.html#_">CPersistentObject::__construct()</a></code></code> <br />
+						<code><code><a href="class-CPersistentObject.html#_">CPersistentObject::Commit()</a></code></code> <br />
+						<code><code><a href="class-CPersistentObject.html#_">CPersistentObject::Uncommit()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_IsEncoded" id="__IsEncoded">
+
+		<td class="attributes"><code>
+			 protected 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__IsEncoded">#</a>
+		<code><a href="source-class-CPersistentObject.html#504" title="Go to source code">_IsEncoded</a>( <span>mixed <var>$theState</var> = <span class="php-keyword1">NULL</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage encoded status.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage encoded status.</p>
+
+<p>This method can be used to get or set the object's encoded state.</p>
+
+<p>This flag determines whether custom data types are to be converted to CDataType standard types when working with the object. This is especially
+useful when transmitting the object through the network or when managing custom
+database types.</p>
+
+<p>The conversion to CDataType standard types is CDataType::SerialiseObject() done when __construct() loading the object
+from a CContainer container and the opposite is CContainer::UnserialiseObject() done before Commit() storing the object
+into a CContainer container, these operations are performed by the
+CContainer container object that takes care of object persistence.</p>
+
+<p>This kFLAG_STATE_ENCODED kFLAG_STATE_ENCODED flag can be provided at
+__construct() instantiation or directly to the persistence methods,
+although it is a better idea to provide it in the __construct()
+constructor to have this conversion happen transparently.</p>
+
+<p>The method features a single parameter:</p>
+
+<ul>
+	<li><i>NULL</i>: The method will return <i>TRUE</i> if the object is encoded, or
+	<i>FALSE</i> if the object is not encoded.</li>
+
+	<li><i>TRUE</i>: The method will set the object to encoded.</li>
+
+	<li><i>FALSE</i>: The method will reset the object's encoded state.</li>
+</ul>
+
+<p>In all cases the method will return the state <i>after</i> it was eventually
+modified.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theState</var></dt>
+					<dd><code>mixed</code><br> TRUE, FALSE or NULL.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						kFLAG_STATE_ENCODED<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CStatusObject.html#_">CStatusObject::_ManageBitField()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CPersistentObject.html#_">CPersistentObject::_PrepareCreate()</a></code></code> <br />
+						<code><code><a href="class-CPersistentObject.html#_">CPersistentObject::_PrepareLoad()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_Create" id="__Create">
+
+		<td class="attributes"><code>
+			 protected 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__Create">#</a>
+		<code><a href="source-class-CPersistentObject.html#569" title="Go to source code">_Create</a>( <span>reference <var>&amp; $theContent</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Create object.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Create object.</p>
+
+<p>The duty of this method is to instantiate an object with the provided
+data.</p>
+
+<p>The method expects one parameter which is passed by reference:</p>
+
+<ul>
+	<li><b>&amp;$theContent</b>: This parameter represents the object contents:
+		<ul>
+			<li><i>NULL</i>: The method will instantiate an empty object.</li>
+
+			<li><i>array</i> or an <i>ArrayObject</i>: The method will instantiate the
+			object with the contents of the provided parameter.</li>
+
+			<li><i>other</i>: By default any other type will raise an exception, in derived
+			classes you can overload this method to handle custom types.</li>
+		</ul>
+	</li>
+</ul>
+
+<p>The method returns a boolean where <i>TRUE</i> indicates that the object was
+instantiated with data, and <i>FALSE</i> indicating that the object is empty.
+This will be used by the __construct() caller to set the object _IsCommitted() committed status kFLAG_STATE_COMMITTED flag.</p>
+
+<p>The parameter is provided as a reference.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContent</var></dt>
+					<dd><code>reference</code><br>&amp;$theContent Object data content.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>{@link</code><br>CException CException}<br />
+				</div>
+
+				<h4>See</h4>
+				<div class="list">
+						kERROR_UNSUPPORTED<br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CPersistentObject.html#_">CPersistentObject::__construct()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_Commit" id="__Commit">
+
+		<td class="attributes"><code>
+			 protected 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__Commit">#</a>
+		<code><a href="source-class-CPersistentObject.html#644" title="Go to source code">_Commit</a>( <span>reference <var>&amp; $theContainer</var></span>, <span>reference <var>&amp; $theIdentifier</var></span>, <span>reference <var>&amp; $theModifiers</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Store object in container.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Store object in container.</p>
+
+<p>The duty of this method is to store the current object in the container
+provided in the first parameter with as key the value provided in the second
+parameter with options provided in the third parameter, please refer to Commit() this documentation for a reference of these parameters. Note that in
+this method all three parameters are passed by reference.</p>
+
+<p>This class supports CContainer CContainer derived instances and will
+delegate the operation to the container. Note that by default we call the
+container's CContainer::Commit() commit method with the kFLAG_PERSIST_REPLACE kFLAG_PERSIST_REPLACE option, which will kFLAG_PERSIST_INSERT insert the object if new or kFLAG_PERSIST_UPDATE
+replace the eventual existing object.</p>
+
+<p>The method expects all parameters to have been previously _PrepareCommit() checked, its main duty is to perform the actual storage. In
+derived classes you should intercept custom containers, or call the parent
+method.</p>
+
+<p>There might be cases in which you do not want the commit operation to occur:
+in those cases you can clear all the persistence kFLAG_PERSIST_MASK
+flags in the modifier parameter, in that case the operation will not occur.</p>
+
+<p><i>Note: the duty of this method is to store only the array part of the
+object, properties should be ignored.</i></p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>reference</code><br>&amp;$theContainer Object container.</dd>
+					<dt><var>$theIdentifier</var></dt>
+					<dd><code>reference</code><br>&amp;$theIdentifier Object identifier.</dd>
+					<dt><var>$theModifiers</var></dt>
+					<dd><code>reference</code><br>&amp;$theModifiers Commit modifiers.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CPersistentObject.html#_">CPersistentObject::Commit()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_Load" id="__Load">
+
+		<td class="attributes"><code>
+			 protected 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__Load">#</a>
+		<code><a href="source-class-CPersistentObject.html#695" title="Go to source code">_Load</a>( <span>reference <var>&amp; $theContainer</var></span>, <span>reference <var>&amp; $theIdentifier</var></span>, <span>reference <var>&amp; $theModifiers</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Find object.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Find object.</p>
+
+<p>The duty of this method is to locate the object identified by
+<i>$theIdentifier</i> in the container <i>$theContainer</i> and return its
+contents or <i>NULL</i> if not found.</p>
+
+<p>The method should expect both parameters to have been previously checked: in
+this class, the container must be an <i>ArrayObject</i> representing either the
+actual container, or a CContainer CContainer derived instance which will
+take care of locating the object within its managed native container.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>reference</code><br>&amp;$theContainer Object container.</dd>
+					<dt><var>$theIdentifier</var></dt>
+					<dd><code>reference</code><br>&amp;$theIdentifier Object identifier.</dd>
+					<dt><var>$theModifiers</var></dt>
+					<dd><code>reference</code><br>&amp;$theModifiers Create options.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CPersistentObject.html#_">CPersistentObject::__construct()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_PrepareCreate" id="__PrepareCreate">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__PrepareCreate">#</a>
+		<code><a href="source-class-CPersistentObject.html#734" title="Go to source code">_PrepareCreate</a>( <span>reference <var>&amp; $theContainer</var></span>, <span>reference <var>&amp; $theIdentifier</var></span>, <span>reference <var>&amp; $theModifiers</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Normalise parameters of a create.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Normalise parameters of a create.</p>
+
+<p>The duty of this method is to ensure that the parameters provided to a _Create() create operation are valid.</p>
+
+<p>The method has a chance to work with the container and the identifier before
+it is set in the object.</p>
+
+<p>In this class we set the _IsEncoded() encoded status kFLAG_STATE_ENCODED flag if provided among the modifiers of the operation.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>reference</code><br>&amp;$theContainer Object container.</dd>
+					<dt><var>$theIdentifier</var></dt>
+					<dd><code>reference</code><br>&amp;$theIdentifier Object identifier.</dd>
+					<dt><var>$theModifiers</var></dt>
+					<dd><code>reference</code><br>&amp;$theModifiers Create modifiers.</dd>
+				</dl></div>
+
+
+
+				<h4>See</h4>
+				<div class="list">
+						kFLAG_STATE_ENCODED<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CPersistentObject.html#_">CPersistentObject::_IsEncoded()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_PrepareLoad" id="__PrepareLoad">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__PrepareLoad">#</a>
+		<code><a href="source-class-CPersistentObject.html#771" title="Go to source code">_PrepareLoad</a>( <span>reference <var>&amp; $theContainer</var></span>, <span>reference <var>&amp; $theIdentifier</var></span>, <span>reference <var>&amp; $theModifiers</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Normalise parameters of a find.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Normalise parameters of a find.</p>
+
+<p>The duty of this method is to ensure that the parameters provided to a _Load() find operation are valid.</p>
+
+<p>The method should first check if the provided container is of the correct
+type, then it should ensure that the identifier is valid.</p>
+
+<p>We know that the identifier cannot be missing, since this method is only
+called if the identifier was provided. We should check that the provided
+container is of the correct type. In derived classes you should first handle
+your custom types, then let the parent method handle other types.</p>
+
+<p>Any errors should raise an exception.</p>
+
+<p>In this class we only support CContainer CContainer containers and
+the identifier is not expected to be <i>NULL</i>.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>reference</code><br>&amp;$theContainer Object container.</dd>
+					<dt><var>$theIdentifier</var></dt>
+					<dd><code>reference</code><br>&amp;$theIdentifier Object identifier.</dd>
+					<dt><var>$theModifiers</var></dt>
+					<dd><code>reference</code><br>&amp;$theModifiers Create modifiers.</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>{@link</code><br>CException CException}<br />
+				</div>
+
+				<h4>See</h4>
+				<div class="list">
+						kERROR_OPTION_MISSING kERROR_UNSUPPORTED<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CPersistentObject.html#_">CPersistentObject::_IsEncoded()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CPersistentObject.html#_">CPersistentObject::__construct()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_PrepareCommit" id="__PrepareCommit">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__PrepareCommit">#</a>
+		<code><a href="source-class-CPersistentObject.html#829" title="Go to source code">_PrepareCommit</a>( <span>reference <var>&amp; $theContainer</var></span>, <span>reference <var>&amp; $theIdentifier</var></span>, <span>reference <var>&amp; $theModifiers</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Normalise before a store.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Normalise before a store.</p>
+
+<p>This method will be called before the _Commit() store operation, its
+duty is to prepare the object and check the parameters for the _Commit()
+commit operation, please refer to Commit() this documentation for a
+reference of these parameters. Note that in this method all three parameters are
+passed by reference.</p>
+
+<p>By default we perform the following checks:</p>
+
+<ul>
+	<li>Ensure the container is provided.</li>
+
+	<li>Ensure the identifier is provided if kFLAG_PERSIST_UPDATE
+	updating.</li>
+
+	<li>Ensure the object is _IsInited() initialised.</li>
+</ul>
+
+<p>In derived classes you should handle your custom containers or delegate to
+the parent method.</p>
+
+<p>In this class we do not check the identifier.</p>
+
+<p>Any errors should raise an exception.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>reference</code><br>&amp;$theContainer Object container.</dd>
+					<dt><var>$theIdentifier</var></dt>
+					<dd><code>reference</code><br>&amp;$theIdentifier Object identifier.</dd>
+					<dt><var>$theModifiers</var></dt>
+					<dd><code>reference</code><br>&amp;$theModifiers Commit modifiers.</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>{@link</code><br>CException CException}<br />
+				</div>
+
+				<h4>See</h4>
+				<div class="list">
+						kERROR_INVALID_STATE kERROR_OPTION_MISSING kERROR_UNSUPPORTED<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-CStatusObject.html#_">CStatusObject::_IsInited()</a></code></code> <br />
+				</div>
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CPersistentObject.html#_">CPersistentObject::Commit()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_FinishCreate" id="__FinishCreate">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__FinishCreate">#</a>
+		<code><a href="source-class-CPersistentObject.html#903" title="Go to source code">_FinishCreate</a>( <span>reference <var>&amp; $theContainer</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Normalise after a _Create() create.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Normalise after a _Create() create.</p>
+
+<p>This method will be called after the _Create() create operation, its
+duty is to initialise an empty object. Both the container and the identifier
+parameters are passed by reference.</p>
+
+<p>This method will be called if the identifier was not provided to the __construct() constructor, or if the __construct() constructor was
+unable to _Load() find the requested object.</p>
+
+<p>In this class we do nothing.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>reference</code><br>&amp;$theContainer Object container.</dd>
+				</dl></div>
+
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CPersistentObject.html#_">CPersistentObject::__construct()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_FinishLoad" id="__FinishLoad">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__FinishLoad">#</a>
+		<code><a href="source-class-CPersistentObject.html#927" title="Go to source code">_FinishLoad</a>( <span>reference <var>&amp; $theContainer</var></span>, <span>reference <var>&amp; $theIdentifier</var></span>, <span>reference <var>&amp; $theModifiers</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Normalise after a _Load() load.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Normalise after a _Load() load.</p>
+
+<p>This method will be called after the _Load() load operation, its duty
+is to clean up or normalise after the operation. Both the container and the
+identifier parameters are passed by reference.</p>
+
+<p>In this class we do nothing.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>reference</code><br>&amp;$theContainer Object container.</dd>
+					<dt><var>$theIdentifier</var></dt>
+					<dd><code>reference</code><br>&amp;$theIdentifier Object identifier.</dd>
+					<dt><var>$theModifiers</var></dt>
+					<dd><code>reference</code><br>&amp;$theModifiers Create modifiers.</dd>
+				</dl></div>
+
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CPersistentObject.html#_">CPersistentObject::__construct()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_FinishCommit" id="__FinishCommit">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__FinishCommit">#</a>
+		<code><a href="source-class-CPersistentObject.html#949" title="Go to source code">_FinishCommit</a>( <span>reference <var>&amp; $theContainer</var></span>, <span>reference <var>&amp; $theIdentifier</var></span>, <span>reference <var>&amp; $theModifiers</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Normalise after a _Commit() commit.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Normalise after a _Commit() commit.</p>
+
+<p>This method will be called after the _Commit() store operation, its
+duty is to clean up or restore the object after the operation please refer to
+Commit() this documentation for a reference of these parameters. Note
+that in this method all three parameters are passed by reference.</p>
+
+<p>In this class we set the _IsCommitted() commit kFLAG_STATE_COMMITTED flag and reset the _IsDirty() dirty kFLAG_STATE_DIRTY flag.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>reference</code><br>&amp;$theContainer Object container.</dd>
+					<dt><var>$theIdentifier</var></dt>
+					<dd><code>reference</code><br>&amp;$theIdentifier Object identifier.</dd>
+					<dt><var>$theModifiers</var></dt>
+					<dd><code>reference</code><br>&amp;$theModifiers Commit modifiers.</dd>
+				</dl></div>
+
+
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-CPersistentObject.html#_">CPersistentObject::Commit()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_SetTags" id="__SetTags">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__SetTags">#</a>
+		<code><a href="source-class-CPersistentObject.html#996" title="Go to source code">_SetTags</a>( <span>string <var>$theOffset</var> = kTAG_TAGS </span> )</code>
+
+		<div class="description short">
+			
+<p>Set attribute tags.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Set attribute tags.</p>
+
+<p>The duty of this method is to collect all attribute tags used in the object
+and store them as an array at the provided offset.</p>
+
+<p>The method will collect all attributes, overload this method to exclude
+default attributes.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theOffset</var></dt>
+					<dd><code>string</code><br> Offset.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_GetTags" id="__GetTags">
+
+		<td class="attributes"><code>
+			 protected 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__GetTags">#</a>
+		<code><a href="source-class-CPersistentObject.html#1028" title="Go to source code">_GetTags</a>( )</code>
+
+		<div class="description short">
+			
+<p>Get attribute tags.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Get attribute tags.</p>
+
+<p>The duty of this method is to collect all attribute tags used in the object
+and return them as an array.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CStatusObject.html#methods">CStatusObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CStatusObject.html#_">Status()</a>, 
+			<a href="class-CStatusObject.html#_">_IsDirty()</a>, 
+			<a href="class-CStatusObject.html#_">_IsInited()</a>, 
+			<a href="class-CStatusObject.html#_">_ManageBitField()</a>, 
+			<a href="class-CStatusObject.html#_">offsetSet()</a>, 
+			<a href="class-CStatusObject.html#_">offsetUnset()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CArrayObject.html#methods">CArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CArrayObject.html#_">keys()</a>, 
+			<a href="class-CArrayObject.html#_">offsetGet()</a>, 
+			<a href="class-CArrayObject.html#_">values()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-ArrayObject.html#methods">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#_">append()</a>, 
+			<a href="class-ArrayObject.html#_">asort()</a>, 
+			<a href="class-ArrayObject.html#_">count()</a>, 
+			<a href="class-ArrayObject.html#_">exchangeArray()</a>, 
+			<a href="class-ArrayObject.html#_">getArrayCopy()</a>, 
+			<a href="class-ArrayObject.html#_">getFlags()</a>, 
+			<a href="class-ArrayObject.html#_">getIterator()</a>, 
+			<a href="class-ArrayObject.html#_">getIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_">ksort()</a>, 
+			<a href="class-ArrayObject.html#_">natcasesort()</a>, 
+			<a href="class-ArrayObject.html#_">natsort()</a>, 
+			<a href="class-ArrayObject.html#_">offsetExists()</a>, 
+			<a href="class-ArrayObject.html#_">serialize()</a>, 
+			<a href="class-ArrayObject.html#_">setFlags()</a>, 
+			<a href="class-ArrayObject.html#_">setIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_">uasort()</a>, 
+			<a href="class-ArrayObject.html#_">uksort()</a>, 
+			<a href="class-ArrayObject.html#_">unserialize()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+	<table class="summary inherited">
+	<caption>Constants inherited from <a href="class-ArrayObject.html#constants">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#ARRAY_AS_PROPS"><b>ARRAY_AS_PROPS</b></a>, 
+			<a href="class-ArrayObject.html#STD_PROP_LIST"><b>STD_PROP_LIST</b></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-CStatusObject.html#properties">CStatusObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CStatusObject.html#$mStatus"><var>$mStatus</var></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+</div>
+
+	<div id="footer">
+		MyWrapper Reference API documentation generated by <a href="http://apigen.org">ApiGen 2.7.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

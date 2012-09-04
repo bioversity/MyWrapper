@@ -53,7 +53,7 @@ define( 'kUSE_CLIENT', FALSE );
 //
 // Init local storage.
 //
-$url = 'http://localhost/newwrapper/MongoDataWrapper.php';
+$url = 'http://localhost/wrapper/MongoDataWrapper.php';
 
 //
 // TRY BLOCK.

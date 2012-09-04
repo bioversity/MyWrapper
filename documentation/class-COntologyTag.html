@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.7.0" />
+
+	<title>Class COntologyTag | MyWrapper Reference</title>
+
+	<script type="text/javascript" src="resources/combined.js?417553483"></script>
+	<script type="text/javascript" src="elementlist.js?1387923255"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?1567499433" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Packages</h3>
+			<ul>
+				<li class="active main"><a href="package-MyWrapper.html">MyWrapper<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MyWrapper.Entities.html">Entities</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Framework.html">Framework</a>
+						</li>
+				<li class="active main"><a href="package-MyWrapper.Ontology.html">Ontology</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Persistence.html">Persistence</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Session.html">Session</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Traits.html">Traits</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Wrappers.html">Wrappers</a>
+						</li>
+							</ul></li>
+				<li><a href="package-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-COntologyEdge.html">COntologyEdge</a></li>
+				<li><a href="class-COntologyNode.html">COntologyNode</a></li>
+				<li class="active"><a href="class-COntologyTag.html">COntologyTag</a></li>
+				<li><a href="class-COntologyTerm.html">COntologyTerm</a></li>
+				<li><a href="class-COntologyTermObject.html">COntologyTermObject</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="package-MyWrapper.Ontology.html" title="Summary of MyWrapper\Ontology"><span>Package</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class COntologyTag</h1>
+
+
+	<div class="description">
+	
+<p>Ontology tag.</p>
+
+<p>A data element tagged by an instance of the COntologyTerm
+COntologyTerm class will have all its metadata stored in that term, but there
+are cases in which one term is not enough to describe the full metadata of a
+data element: for instance, a trait may be measured using different methods and
+workflows, and this data may also be measured in different units. For this
+reason this class extends the term COntologyTermObject base class to
+handle this case.</p>
+
+<p>Instances of this class contain a list of ontology COntologyTerm
+terms whose elements are related between each other by predicates, which are
+also COntologyTerm terms, this kTAG_TERM attribute</p>
+
+<p>This path or chain of COntologyTerm terms represents the unique
+identifier of this class instances and the tags with which data elements can be
+described.</p>
+
+<p>The path root is a COntologyTerm term whose COntologyNode::Kind() kind must be kTYPE_TRAIT kTYPE_TRAIT which
+represents <i>what the data element is and the path leaf is a COntologyTerm term whose COntologyNode::Kind() kind must be kTYPE_MEASURE kTYPE_MEASURE which represents the <b>type</b> or <b>scale</b> of
+the data; all the COntologyTerm terms found between these two describe
+<b>how</b> the data was measured or obtained. This path or chain represents the
+<i>descriptors</i> of data in this library and the container in which these
+objects are stored represents the data dictionary.</i></p>
+
+<p>No two objects may exist with the same Path() path.</p>
+
+<p>All instances of this class are uniquely GID() identified by a
+combination of two elements:</p>
+
+<ul>
+	<li><i>NS() Namespace</i>: There is one instance of this class which
+	represents the default namespace of all objects derived from this class, its
+	GID() identifier is a '@' character (which is forbidden in other related
+	term classes).</li>
+
+	<li><i>Code() Code</i>: The aforementioned namespace contains an integer
+	field which represents a sequence counter which will be used as the object's
+	Code() code.</li>
+</ul>
+
+<p>The class features the following properties:</p>
+
+<ul>
+	<li><i>kTAG_PATH kTAG_PATH</i>: This Path() attribute holds the
+	list of COntologyTerm term COntologyTerm::GID() identifiers
+	representing the tag path, the attribute is a string formed by the concatenation
+	of all the COntologyTerm term COntologyTerm::GID() identifiers
+	structured as follows: <i>TERM/PREDICATE/TERM/PREDICATE/.../TERM</i> where all
+	items are COntologyTerm term COntologyTerm::GID() identifiers.
+	This property represents the object's unique identifier, no two records can have
+	this same value.</li>
+
+	<li><i>kTAG_TERM kTAG_TERM</i>: This Term() attribute holds the
+	list of COntologyTerm terms featured in the Path() path as an
+	array of COntologyTerm term kTAG_LID identifiers in which odd
+	elements represent the subjects and objects of the relationships and the even
+	elements the relationship predicates.</li>
+
+	<li><i>kTAG_UID kTAG_UID</i>: This attribute holds the hashed value of
+	the Path() path: it will be used to detect duplicate records.</li>
+
+	<li><i>kTAG_REF_COUNT kTAG_REF_COUNT</i>: This RefCount()
+	attribute holds the count of data instances that refer to the current tag, or
+	the number of data instances tagged by the current path. This attribute is
+	required and is initialised to 0.</li>
+</ul>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-ArrayObject.html"><span>ArrayObject</span></a>
+			
+			 implements 
+				<a href="class-IteratorAggregate.html"><span>IteratorAggregate</span></a>, 
+			
+				<a href="class-Traversable.html"><span>Traversable</span></a>, 
+			
+				<a href="class-ArrayAccess.html"><span>ArrayAccess</span></a>, 
+			
+				<a href="class-Serializable.html"><span>Serializable</span></a>, 
+			
+				<a href="class-Countable.html"><span>Countable</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CArrayObject.html"><span>CArrayObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:60px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CStatusObject.html"><span>CStatusObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:90px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CPersistentObject.html"><span>CPersistentObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:120px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CPersistentUnitObject.html"><span>CPersistentUnitObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:150px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CRelatedUnitObject.html"><span>CRelatedUnitObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:180px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CCodedUnitObject.html"><span>CCodedUnitObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:210px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-COntologyTermObject.html"><span>COntologyTermObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:240px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>COntologyTag</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		
+		<b>Package:</b> <a href="package-MyWrapper.html">MyWrapper</a>\<a href="package-MyWrapper.Ontology.html">Ontology</a><br />
+
+				<b>Author:</b>
+				Milko A. Škofič &lt;<a
+href="mailto:m.skofic&#64;cgiar.org">m.skofic&#64;<!---->cgiar.org</a>&gt;<br />
+		<b>Located at</b> <a href="source-class-COntologyTag.html#36" title="Go to source code">COntologyTag.php</a><br />
+	</div>
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="NS" id="_NS">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_NS">#</a>
+		<code><a href="source-class-COntologyTag.html#120" title="Go to source code">NS</a>( <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage term namespace.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage term namespace.</p>
+
+<p>We COntologyTerm::NS() overload this method to force a default
+namespace with a '@' code, this namespace element is created
+programmatically.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br> Value.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						kTAG_NAMESPACE<br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-COntologyTermObject.html#_">COntologyTermObject::NS</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Code" id="_Code">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Code">#</a>
+		<code><a href="source-class-COntologyTag.html#151" title="Go to source code">Code</a>( <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Get code.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Get code.</p>
+
+<p>We COntologyTerm::Code() overload this method to make this method
+read-only, the code is generated programmatically.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br> Value.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						kTAG_CODE<br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-COntologyTermObject.html#_">COntologyTermObject::Code</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Path" id="_Path">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Path">#</a>
+		<code><a href="source-class-COntologyTag.html#176" title="Go to source code">Path</a>( )</code>
+
+		<div class="description short">
+			
+<p>Get path.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Get path.</p>
+
+<p>This kTAG_PATH attribute holds the list of COntologyTerm term
+COntologyTerm::GID() identifiers representing the tag path, each element
+is separated by a kTOKEN_INDEX_SEPARATOR kTOKEN_INDEX_SEPARATOR
+token.</p>
+
+<p>This value represents the unique identifier of the object and it is set
+automatically by the Term() term method, for this reason this method is
+read-only.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						kTAG_PATH<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="RefCount" id="_RefCount">
+
+		<td class="attributes"><code>
+			 public 
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_RefCount">#</a>
+		<code><a href="source-class-COntologyTag.html#198" title="Go to source code">RefCount</a>( )</code>
+
+		<div class="description short">
+			
+<p>Manage references count.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage references count.</p>
+
+<p>This method can be used to retrieve the object's kTAG_REF_COUNT
+references count, or number of data instances tagged by this object.</p>
+
+<p>This method is read-only, because this value is set programmatically.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>integer</code><br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						kTAG_REF_COUNT<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Term" id="_Term">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Term">#</a>
+		<code><a href="source-class-COntologyTag.html#218" title="Go to source code">Term</a>( <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage terms.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage terms.</p>
+
+<p>This method can be used to add COntologyTerm term elements of the
+path, it accepts a single parameter which represents either the elements to be
+added or the operation to be performed:</p>
+
+<ul>
+	<li><i>NULL</i>: This value indicates that we want to retrieve the whole
+	list.</li>
+
+	<li><i>FALSE</i>: This value indicates that we want to delete the whole
+	list.</li>
+
+	<li><i>array</i>: The elements of the array will be added to the list by
+	recursing this method.</li>
+
+	<li><i>other</i>: Any other type will be analysed as follows:
+		<ul>
+			<li><i>COntologyTerm COntologyTerm</i>: The term's kTAG_GID
+			identifier will be used.</li>
+
+			<li><i>COntologyEdge COntologyEdge</i>: The edge elements will be
+			handled as follows:
+				<ul>
+					<li><i>The current list is empty</i>: The three terms will make the list.</li>
+
+					<li><i>The current list exists</i>: The method will check if the edge's subject
+					matches the last element in the list: if this is the case, the method will add
+					the predicate and object terms; if not, it will raise an exception.</li>
+				</ul>
+			</li>
+
+			<li><i>COntologyEdgeIndex COntologyEdgeIndex</i>: The same treatment as
+			for the COntologyEdge COntologyEdge.</li>
+
+			<li><i>other</i>: Any other type will be cast to a string and interpreted as the
+			COntologyTerm term's kTAG_GID identifier.</li>
+		</ul>
+	</li>
+</ul>
+
+<p>All elements will be appended to the list in the order they were provided, it
+must be noted that the class expects this list to be a sequence of
+term/predicate/term elements, this method is not responsible for checking
+this.</p>
+
+<p>The method will prevent modifications if the object is _IsCommitted()
+committed, because this would change the object's unique kTAG_UID
+identifier.</p>
+
+<p>The method will return the current full list.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br> Term or operation.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						kTAG_TERM<br />
+				</div>
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-COntologyTermObject.html#_">COntologyTermObject::_CheckReference()</a></code></code> <br />
+						<code><code><a href="class-CAttribute.html#_">CAttribute::ManageArrayOffset()</a></code></code> <br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="HashIndex" id="_HashIndex">
+
+		<td class="attributes"><code>
+			 public static
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_HashIndex">#</a>
+		<code><a href="source-class-COntologyTag.html#401" title="Go to source code">HashIndex</a>( <span>string <var>$theValue</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Hash index.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Hash index.</p>
+
+<p>We CPersistentUnitObject::HashIndex() overload this method to disable
+index hashing.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>string</code><br> Value to hash.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CPersistentUnitObject.html#_">CPersistentUnitObject::HashIndex</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_index" id="__index">
+
+		<td class="attributes"><code>
+			 protected 
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__index">#</a>
+		<code><a href="source-class-COntologyTag.html#428" title="Go to source code">_index</a>( )</code>
+
+		<div class="description short">
+			
+<p>Return the object's unique index.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return the object's unique index.</p>
+
+<p>In this class we use the term's kTAG_CODE code as the kTAG_LID
+local identifier.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>integer</code><br />
+				</div>
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-COntologyTermObject.html#_">COntologyTermObject::_index</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_Commit" id="__Commit">
+
+		<td class="attributes"><code>
+			 protected 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__Commit">#</a>
+		<code><a href="source-class-COntologyTag.html#453" title="Go to source code">_Commit</a>( <span>reference <var>&amp; $theContainer</var></span>, <span>reference <var>&amp; $theIdentifier</var></span>, <span>reference <var>&amp; $theModifiers</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Store object in container.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Store object in container.</p>
+
+<p>We CGraphNode::_Commit() overload this method to provide the correct
+container to the CGraphNode parent CGraphNode::_Commit()
+method.</p>
+
+<p>We also overload this method to store the node properties into a Mongo
+collection named kDEFAULT_CNT_NODES kDEFAULT_CNT_NODES, the record will
+be indexed by node ID as a 64 bit integer.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>reference</code><br>&amp;$theContainer Object container.</dd>
+					<dt><var>$theIdentifier</var></dt>
+					<dd><code>reference</code><br>&amp;$theIdentifier Object identifier.</dd>
+					<dt><var>$theModifiers</var></dt>
+					<dd><code>reference</code><br>&amp;$theModifiers Commit modifiers.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						Node()<br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-CPersistentUnitObject.html#_">CPersistentUnitObject::_Commit</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_PrepareCommit" id="__PrepareCommit">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__PrepareCommit">#</a>
+		<code><a href="source-class-COntologyTag.html#521" title="Go to source code">_PrepareCommit</a>( <span>reference <var>&amp; $theContainer</var></span>, <span>reference <var>&amp; $theIdentifier</var></span>, <span>reference <var>&amp; $theModifiers</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Normalise before a store.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Normalise before a store.</p>
+
+<p>We COntologyTerm::_PrepareCommit() overload this method to check
+whether there is another record with the same kTAG_UID unique
+identifier, in that case we load the current object with the contents of the
+found one.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>reference</code><br>&amp;$theContainer Object container.</dd>
+					<dt><var>$theIdentifier</var></dt>
+					<dd><code>reference</code><br>&amp;$theIdentifier Object identifier.</dd>
+					<dt><var>$theModifiers</var></dt>
+					<dd><code>reference</code><br>&amp;$theModifiers Commit modifiers.</dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>{@link</code><br>CException CException}<br />
+				</div>
+
+				<h4>Uses</h4>
+				<div class="list">
+						kERROR_OPTION_MISSING kERROR_UNSUPPORTED<br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-COntologyTermObject.html#_">COntologyTermObject::_PrepareCommit</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_Inited" id="__Inited">
+
+		<td class="attributes"><code>
+			 protected 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__Inited">#</a>
+		<code><a href="source-class-COntologyTag.html#636" title="Go to source code">_Inited</a>( )</code>
+
+		<div class="description short">
+			
+<p>Return _IsInited() initialised status.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Return _IsInited() initialised status.</p>
+
+<p>We COntologyTerm::_Inited() overload this method to link the presence
+of the Term() term kTAG_TERM attribute to the _IsInited()
+initialised kFLAG_STATE_INITED status and disable all other inherited
+requirements.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br />
+				</div>
+
+
+				<h4>See</h4>
+				<div class="list">
+						kTAG_TERM<br />
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_NewSequence" id="__NewSequence">
+
+		<td class="attributes"><code>
+			 protected 
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__NewSequence">#</a>
+		<code><a href="source-class-COntologyTag.html#665" title="Go to source code">_NewSequence</a>( <span><code><a href="class-CMongoContainer.html">CMongoContainer</a></code> <var>$theContainer</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Get new sequence.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Get new sequence.</p>
+
+<p>This method will return the next sequence number and increment the existing
+one. The sequence is stored in a singleton record identified by the kTAG_SINGLETON_ID kTAG_SINGLETON_ID character, this record contains a single
+kTAG_COUNT attribute which represents the next available sequence
+number.</p>
+
+<p>When retrieving the sequence, if the main record does not exist, this method
+will create one with a first value of 1.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code><code><a href="class-CMongoContainer.html">CMongoContainer</a></code></code><br> Object container.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>integer</code><br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>{@link</code><br>CException CException}<br />
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-COntologyTermObject.html#methods">COntologyTermObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-COntologyTermObject.html#_">Created()</a>, 
+			<a href="class-COntologyTermObject.html#_">Definition()</a>, 
+			<a href="class-COntologyTermObject.html#_">Description()</a>, 
+			<a href="class-COntologyTermObject.html#_">GID()</a>, 
+			<a href="class-COntologyTermObject.html#_">Kind()</a>, 
+			<a href="class-COntologyTermObject.html#_">Modified()</a>, 
+			<a href="class-COntologyTermObject.html#_">Name()</a>, 
+			<a href="class-COntologyTermObject.html#_">Synonym()</a>, 
+			<a href="class-COntologyTermObject.html#_">Xref()</a>, 
+			<a href="class-COntologyTermObject.html#_">_CheckReference()</a>, 
+			<a href="class-COntologyTermObject.html#_">_PrepareCreate()</a>, 
+			<a href="class-COntologyTermObject.html#_">__construct()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CCodedUnitObject.html#methods">CCodedUnitObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CCodedUnitObject.html#_">offsetSet()</a>, 
+			<a href="class-CCodedUnitObject.html#_">offsetUnset()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CRelatedUnitObject.html#methods">CRelatedUnitObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CRelatedUnitObject.html#_">Preferred()</a>, 
+			<a href="class-CRelatedUnitObject.html#_">Relate()</a>, 
+			<a href="class-CRelatedUnitObject.html#_">Used()</a>, 
+			<a href="class-CRelatedUnitObject.html#_">Valid()</a>, 
+			<a href="class-CRelatedUnitObject.html#_">ValidObject()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CPersistentUnitObject.html#methods">CPersistentUnitObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CPersistentUnitObject.html#_">NewObject()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">NormaliseRelatedObject()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">NormaliseRelatedPredicate()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">ObjectIdentifier()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">Persistent()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">Reference()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">_CommitReferences()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">_GetTags()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">_ParseReferences()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">_PrepareLoad()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">__toString()</a>, 
+			<a href="class-CPersistentUnitObject.html#_">_id()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CPersistentObject.html#methods">CPersistentObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CPersistentObject.html#_">Commit()</a>, 
+			<a href="class-CPersistentObject.html#_">Uncommit()</a>, 
+			<a href="class-CPersistentObject.html#_">_Create()</a>, 
+			<a href="class-CPersistentObject.html#_">_FinishCommit()</a>, 
+			<a href="class-CPersistentObject.html#_">_FinishCreate()</a>, 
+			<a href="class-CPersistentObject.html#_">_FinishLoad()</a>, 
+			<a href="class-CPersistentObject.html#_">_IsCommitted()</a>, 
+			<a href="class-CPersistentObject.html#_">_IsEncoded()</a>, 
+			<a href="class-CPersistentObject.html#_">_Load()</a>, 
+			<a href="class-CPersistentObject.html#_">_SetTags()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CStatusObject.html#methods">CStatusObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CStatusObject.html#_">Status()</a>, 
+			<a href="class-CStatusObject.html#_">_IsDirty()</a>, 
+			<a href="class-CStatusObject.html#_">_IsInited()</a>, 
+			<a href="class-CStatusObject.html#_">_ManageBitField()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CArrayObject.html#methods">CArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CArrayObject.html#_">keys()</a>, 
+			<a href="class-CArrayObject.html#_">offsetGet()</a>, 
+			<a href="class-CArrayObject.html#_">values()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-ArrayObject.html#methods">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#_">append()</a>, 
+			<a href="class-ArrayObject.html#_">asort()</a>, 
+			<a href="class-ArrayObject.html#_">count()</a>, 
+			<a href="class-ArrayObject.html#_">exchangeArray()</a>, 
+			<a href="class-ArrayObject.html#_">getArrayCopy()</a>, 
+			<a href="class-ArrayObject.html#_">getFlags()</a>, 
+			<a href="class-ArrayObject.html#_">getIterator()</a>, 
+			<a href="class-ArrayObject.html#_">getIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_">ksort()</a>, 
+			<a href="class-ArrayObject.html#_">natcasesort()</a>, 
+			<a href="class-ArrayObject.html#_">natsort()</a>, 
+			<a href="class-ArrayObject.html#_">offsetExists()</a>, 
+			<a href="class-ArrayObject.html#_">serialize()</a>, 
+			<a href="class-ArrayObject.html#_">setFlags()</a>, 
+			<a href="class-ArrayObject.html#_">setIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_">uasort()</a>, 
+			<a href="class-ArrayObject.html#_">uksort()</a>, 
+			<a href="class-ArrayObject.html#_">unserialize()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+	<table class="summary inherited">
+	<caption>Constants inherited from <a href="class-ArrayObject.html#constants">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#ARRAY_AS_PROPS"><b>ARRAY_AS_PROPS</b></a>, 
+			<a href="class-ArrayObject.html#STD_PROP_LIST"><b>STD_PROP_LIST</b></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-CStatusObject.html#properties">CStatusObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CStatusObject.html#$mStatus"><var>$mStatus</var></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+</div>
+
+	<div id="footer">
+		MyWrapper Reference API documentation generated by <a href="http://apigen.org">ApiGen 2.7.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

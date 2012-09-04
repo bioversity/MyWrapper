@@ -726,8 +726,7 @@ $(document).ready(function(){initNavTree('namespace_my_wrapper.html','');});
  @author            Milko A. Škofič &lt;m.skofic@cgiar.org&gt;
  @version   1.00 07/06/2011
                     2.00 23/02/2012</pre><p>Ancestor.</p>
-<p>This include file contains the parent class definitions. Session.</p>
-<p>This include file contains the <a class="el" href="">session</a> class definitions. Mongo query.</p>
+<p>This include file contains the parent class definitions. Mongo query.</p>
 <p>This include file contains the Mongo <a class="el" href="class_c_mongo_query.html">object</a> class definitions. Local definitions.</p>
 <p>This include file contains all local definitions to this class. Mongo data wrapper.</p>
 <p>This class overloads its <a class="el" href="class_c_data_wrapper.html">ancestor</a> to implement a web-service that uses a MongoDB data store to manage objects.</p>
@@ -1367,9 +1366,10 @@ The value of this root element is an array that can be of two types: <ul>
 <p><em>This include file contains the parent class definitions. User definitions.</em></p>
 <p><em>This include file contains the user class definitions. Local definitions.</em></p>
 <p><em>This include file contains all local definitions to this class. Session object.</em></p>
-<p><em>This class implements a session object, it should be stored in the session with the <a class="el" href="">kDEFAULT_SESSION</a> offset.</em></p>
-<p><em>This class and its derived instances store session objects in data members and the view model object in its array, this means that the server holds private data and the public data is published to the web pages by converting the array to JSON.</em></p>
-<p><em>This class is declared abstract, because it lets concrete derived instances take care of choosing the specific database engines.</em></p>
+<p><em>This class implements a session object, it expects to be stored in the session with the <a class="el" href="">kDEFAULT_SESSION</a> offset.</em></p>
+<p><em>Concrete instances derived from this class use the data members to store server data and the object's offsets to store the view model data, this means that the server holds private data and the public data is published to the web pages by <a class="el" href="">converting</a> the offsets to JSON.</em></p>
+<p><em>This class is declared abstract, because it does not assume which storage engines and custom resources will be used.</em></p>
+<p><em>The class implements the <em>Serializable</em> interface which can be overloaded by working on its protected <a class="el" href="">serialize</a> and <a class="el" href="">unserialize</a> interface; remember that this also means that the sleep and wake events will also be governed by that interface.</em></p>
 <p><em></p>
 <pre class="fragment"> @subpackage        Session</pre><p></em></p>
 <p><em><em><a class="el" href="class_c_status_object.html">CStatusObject</a></em> class definition.</em></p>
@@ -1428,19 +1428,6 @@ The value of this root element is an array that can be of two types: <ul>
 <p><em>The unique identifier of this class is composed by the default <a class="el" href="">index</a> of the object, prefixed by the <a class="el" href="">kENTITY_USER</a> token and the <a class="el" href="">kTOKEN_CLASS_SEPARATOR</a> token, this allows users and other types of <a class="el" href="class_c_entity.html">entities</a> to share the same <a class="el" href="">code</a>; this is enforced both in the <a class="el" href="">HashIndex</a> method, to which you only need to pass the user <a class="el" href="">code</a>, and in the protected <a class="el" href="">_PrepareCommit</a> method which will place the resulting string in the global <a class="el" href="">identifier</a>.</em></p>
 <p><em></p>
 <pre class="fragment"> @subpackage        Entities</pre><p></em></p>
-<p><em><em><a class="el" href="class_c_warehouse_session.html">CWarehouseSession</a></em> class definition.</em></p>
-<p><em>This file contains the class definition of <b><a class="el" href="class_c_warehouse_session.html">CWarehouseSession</a></b> which overloads its <a class="el" href="class_c_session_object.html">ancestor</a> to implement a session that uses MongoDB as the database and Neo4j as the graph.</em></p>
-<p><em></p>
-<pre class="fragment"> @subpackage        Session
-
- @author            Milko A. Škofič &lt;m.skofic@cgiar.org&gt;
- @version   1.00 21/07/2012</pre><p></em></p>
-<p><em>Ancestor.</em></p>
-<p><em>This include file contains the parent class definitions. Ontology trait.</em></p>
-<p><em>This include file contains the ontology trait definitions. Warehouse session object.</em></p>
-<p><em>This concrete class implements a data warehouse session object, it features a Mongo data <a class="el" href="">store</a> and a Neo4j Graph <a class="el" href="">store</a>, it also features the ontology <a class="el" href="">trait</a>.</em></p>
-<p><em></p>
-<pre class="fragment"> @subpackage        Session</pre><p></em></p>
 <p><em></p>
 <pre class="fragment"> {@link CWarehouseWrapper CWarehouseWrapper} definitions.
 </pre><p></em></p>
@@ -1732,7 +1719,7 @@ The value of this root element is an array that can be of two types: <ul>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_my_wrapper.html">MyWrapper</a></li>
-    <li class="footer">Generated on Fri Jul 20 2012 17:59:50 for Wrapper by
+    <li class="footer">Generated on Mon Sep 3 2012 10:20:29 for Wrapper by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.1.2 </li>
   </ul>

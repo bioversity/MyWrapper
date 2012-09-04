@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.7.0" />
+
+	<title>Class COntologyEdgeIndex | MyWrapper Reference</title>
+
+	<script type="text/javascript" src="resources/combined.js?417553483"></script>
+	<script type="text/javascript" src="elementlist.js?1387923255"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?1567499433" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Packages</h3>
+			<ul>
+				<li class="active main"><a href="package-MyWrapper.html">MyWrapper<span></span></a>
+						<ul>
+				<li class="main"><a href="package-MyWrapper.Entities.html">Entities</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Framework.html">Framework</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Ontology.html">Ontology</a>
+						</li>
+				<li class="active main"><a href="package-MyWrapper.Persistence.html">Persistence</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Session.html">Session</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Traits.html">Traits</a>
+						</li>
+				<li class="main"><a href="package-MyWrapper.Wrappers.html">Wrappers</a>
+						</li>
+							</ul></li>
+				<li><a href="package-PHP.html">PHP</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-CArrayContainer.html">CArrayContainer</a></li>
+				<li><a href="class-CContainer.html">CContainer</a></li>
+				<li><a href="class-CDataset.html">CDataset</a></li>
+				<li><a href="class-CGraphEdge.html">CGraphEdge</a></li>
+				<li><a href="class-CGraphNode.html">CGraphNode</a></li>
+				<li><a href="class-CMongoContainer.html">CMongoContainer</a></li>
+				<li><a href="class-CMongoGridContainer.html">CMongoGridContainer</a></li>
+				<li><a href="class-CMongoQuery.html">CMongoQuery</a></li>
+				<li class="active"><a href="class-COntologyEdgeIndex.html">COntologyEdgeIndex</a></li>
+				<li><a href="class-COntologyNodeIndex.html">COntologyNodeIndex</a></li>
+				<li><a href="class-CPersistentObject.html">CPersistentObject</a></li>
+				<li><a href="class-CPersistentUnitObject.html">CPersistentUnitObject</a></li>
+				<li><a href="class-CQuery.html">CQuery</a></li>
+				<li><a href="class-CQueryStatement.html">CQueryStatement</a></li>
+				<li><a href="class-CRelatedUnitObject.html">CRelatedUnitObject</a></li>
+			</ul>
+
+
+
+
+
+			<h3>Functions</h3>
+			<ul>
+				<li><a href="function-Neo4jAutoload.html">Neo4jAutoload</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="package-MyWrapper.Persistence.html" title="Summary of MyWrapper\Persistence"><span>Package</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class COntologyEdgeIndex</h1>
+
+
+	<div class="description">
+	
+<p>Edge index.</p>
+
+<p>This class implements a graph edge node index, it can be used to replicate a
+Neo4j edge node to a MongoDB collection.</p>
+
+<p>Neo4j uses Lucene as its standard indexing tool, in this library we use
+MongoDB as the standard database, so it is a logical choice to use Mongo as the
+indexing mechanism for Neo4j. Also, by storing nodes in Mongo, by dumping the
+database contents we also have the graph structure with it.</p>
+
+<p>The class features a single data member, the Node() node which
+contains a Neo4j edge node reference. When __construct() instantiating
+this class you are required to provide a persistent instance of a node.</p>
+
+<p>The contents of the object will be the node properties as will be stored in
+the Mongo kDEFAULT_CNT_EDGES default collection for edges:</p>
+
+<ul>
+	<li><i>kTAG_LID kTAG_LID</i>: This offset will hold the edge node
+	ID.</li>
+
+	<li><i>kTAG_PATH kTAG_PATH</i>: This offset will hold the edge node
+	path, that is, the source node ID, the predicate term kTAG_GID
+	identifier and the object node ID, all three separated by the kTOKEN_INDEX_SEPARATOR kTOKEN_INDEX_SEPARATOR token.</li>
+
+	<li><i>kTAG_SUBJECT kTAG_SUBJECT</i>: This offset will hold the subject
+	node information:
+		<ul>
+			<li><i>kTAG_TERM kTAG_TERM</i>: The subject node term kTAG_GID
+			identifier.</li>
+
+			<li><i>kTAG_NODE kTAG_NODE</i>: The subject node ID.</li>
+		</ul>
+	</li>
+
+	<li><i>kTAG_PREDICATE kTAG_PREDICATE</i>: This offset will hold the
+	predicate information:
+		<ul>
+			<li><i>kTAG_TERM kTAG_TERM</i>: The predicate term kTAG_GID
+			identifier, which corresponds to the edge node type.</li>
+
+			<li><i>kTAG_NODE kTAG_NODE</i>: The edge node ID.</li>
+		</ul>
+	</li>
+
+	<li><i>kTAG_OBJECT kTAG_OBJECT</i>: This offset will hold the object
+	node information:
+		<ul>
+			<li><i>kTAG_TERM kTAG_TERM</i>: The object node term kTAG_GID
+			identifier.</li>
+
+			<li><i>kTAG_NODE kTAG_NODE</i>: The object node ID.</li>
+		</ul>
+	</li>
+
+	<li><i>kTAG_DATA kTAG_DATA</i>: This offset will hold the edge node
+	properties.</li>
+</ul>
+
+<p>The class provides a single member accessor method: Node() Node,
+which can be used to set the referenced edge node.</p>
+
+<p><i>Note that the class will not cast to an array correctly, you must use the
+getArrayCopy() getArrayCopy method to get an array, if you know how to
+solve this, please do it!</i></p>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-ArrayObject.html"><span>ArrayObject</span></a>
+			
+			 implements 
+				<a href="class-IteratorAggregate.html"><span>IteratorAggregate</span></a>, 
+			
+				<a href="class-Traversable.html"><span>Traversable</span></a>, 
+			
+				<a href="class-ArrayAccess.html"><span>ArrayAccess</span></a>, 
+			
+				<a href="class-Serializable.html"><span>Serializable</span></a>, 
+			
+				<a href="class-Countable.html"><span>Countable</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-CArrayObject.html"><span>CArrayObject</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:60px">
+			<img src="resources/inherit.png" alt="Extended by" />
+			<a href="class-COntologyNodeIndex.html"><span>COntologyNodeIndex</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:90px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>COntologyEdgeIndex</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		
+		<b>Package:</b> <a href="package-MyWrapper.html">MyWrapper</a>\<a href="package-MyWrapper.Persistence.html">Persistence</a><br />
+
+				<b>Author:</b>
+				Milko A. Škofič &lt;<a
+href="mailto:m.skofic&#64;cgiar.org">m.skofic&#64;<!---->cgiar.org</a>&gt;<br />
+		<b>Located at</b> <a href="source-class-COntologyEdgeIndex.html#36" title="Go to source code">COntologyEdgeIndex.php</a><br />
+	</div>
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="Node" id="_Node">
+
+		<td class="attributes"><code>
+			 public 
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Node">#</a>
+		<code><a href="source-class-COntologyEdgeIndex.html#110" title="Go to source code">Node</a>( <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+
+		<div class="description short">
+			
+<p>Manage native node.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Manage native node.</p>
+
+<p>We COntologyNodeIndex::Node() overload this method to ensure that the
+provided node is an edge node.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theValue</var></dt>
+					<dd><code>mixed</code><br> Node or operation.</dd>
+					<dt><var>$getOld</var></dt>
+					<dd><code>boolean</code><br> TRUE get old value.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>mixed</code><br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>{@link</code><br>CException CException}<br />
+				</div>
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-COntologyEdgeIndex.html#_">COntologyEdgeIndex::_LoadNodeProperties()</a></code></code> <br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-COntologyNodeIndex.html#_">COntologyNodeIndex::Node</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="EdgeNodePath" id="_EdgeNodePath">
+
+		<td class="attributes"><code>
+			 public static
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_EdgeNodePath">#</a>
+		<code><a href="source-class-COntologyEdgeIndex.html#159" title="Go to source code">EdgeNodePath</a>( <span>mixed <var>$theSubject</var></span>, <span>mixed <var>$thePredicate</var></span>, <span>mixed <var>$theObject</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Build an edge node path.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Build an edge node path.</p>
+
+<p>The edge path represents the unique identifier of an edge node using the
+relationship node identifiers, it is composed by the subject and object node IDs
+and the predicate term identifier.</p>
+
+<p>This method will return the kTAG_PATH path according to the provided
+parameters:</p>
+
+<ul>
+	<li><b>$theSubject</b>: The relation subject node reference:
+		<ul>
+			<li><i>COntologyNode COntologyNode</i>: The node ID will be used.</li>
+
+			<li><i>Neo4j node</i>: The node ID will be used.</li>
+
+			<li><i>other</i>: Other types will be cast to a string.</li>
+		</ul>
+	</li>
+
+	<li><b>$thePredicate</b>: The relation predicate term reference, the value will
+	be cast to a string and is expected to represent the COntologyTerm term
+	kTAG_GID global identifier.</li>
+
+	<li><b>$theObject</b>: The relation object node reference:
+		<ul>
+			<li><i>COntologyNode COntologyNode</i>: The node ID will be used.</li>
+
+			<li><i>Neo4j node</i>: The node ID will be used.</li>
+
+			<li><i>other</i>: Other types will be cast to a string.</li>
+		</ul>
+	</li>
+</ul>
+
+<p>The method will check if all three parameters are not empty, if this is not
+the case, the method will raise an exception.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theSubject</var></dt>
+					<dd><code>mixed</code><br> Subject node reference.</dd>
+					<dt><var>$thePredicate</var></dt>
+					<dd><code>mixed</code><br> Predicate term reference.</dd>
+					<dt><var>$theObject</var></dt>
+					<dd><code>mixed</code><br> Object node reference.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="EdgeTermPath" id="_EdgeTermPath">
+
+		<td class="attributes"><code>
+			 public static
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_EdgeTermPath">#</a>
+		<code><a href="source-class-COntologyEdgeIndex.html#261" title="Go to source code">EdgeTermPath</a>( <span>mixed <var>$theSubject</var></span>, <span>mixed <var>$thePredicate</var></span>, <span>mixed <var>$theObject</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Build an edge term path.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Build an edge term path.</p>
+
+<p>This edge path represents an identifier of an edge node using the
+relationship term identifiers, it is composed by the subject, predicate and
+object term kTAG_GID identifiers.</p>
+
+<p>This method will return the kTAG_EDGE_TERM path according to the
+provided parameters:</p>
+
+<ul>
+	<li><b>$theSubject</b>: The relation subject term reference, the value will be
+	cast to a string and is expected to represent the COntologyTerm term
+	kTAG_GID global identifier.</li>
+
+	<li><b>$thePredicate</b>: The relation predicate term reference, the value will
+	be cast to a string and is expected to represent the COntologyTerm term
+	kTAG_GID global identifier.</li>
+
+	<li><b>$theObject</b>: The relation object node reference, the value will be
+	cast to a string and is expected to represent the COntologyTerm term
+	kTAG_GID global identifier.</li>
+</ul>
+
+<p>The method will check if all three parameters are not empty, if this is not
+the case, the method will raise an exception.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theSubject</var></dt>
+					<dd><code>mixed</code><br> Subject term reference.</dd>
+					<dt><var>$thePredicate</var></dt>
+					<dd><code>mixed</code><br> Predicate term reference.</dd>
+					<dt><var>$theObject</var></dt>
+					<dd><code>mixed</code><br> Object term reference.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_ResolveIndexContainer" id="__ResolveIndexContainer">
+
+		<td class="attributes"><code>
+			 protected 
+			<code><a href="class-MongoCollection.html">MongoCollection</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__ResolveIndexContainer">#</a>
+		<code><a href="source-class-COntologyEdgeIndex.html#341" title="Go to source code">_ResolveIndexContainer</a>( <span>mixed <var>$theContainer</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Resolve index container.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Resolve index container.</p>
+
+<p>We COntologyNodeIndex::_ResolveIndexContainer() overload this class
+to use the correct kDEFAULT_CNT_EDGES default collection when providing
+a MongoDB.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>mixed</code><br> Index container.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-MongoCollection.html">MongoCollection</a></code></code><br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>{@link</code><br>CException CException}<br />
+				</div>
+
+				<h4>Used by</h4>
+				<div class="list">
+						<code><code><a href="class-COntologyEdgeIndex.html#_">COntologyEdgeIndex::_LocateNode()</a></code></code> <br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-COntologyNodeIndex.html#_">COntologyNodeIndex::_ResolveIndexContainer</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_LocateNode" id="__LocateNode">
+
+		<td class="attributes"><code>
+			 protected 
+			Everyman\Neo4j\Node|null
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__LocateNode">#</a>
+		<code><a href="source-class-COntologyEdgeIndex.html#372" title="Go to source code">_LocateNode</a>( <span>mixed <var>$theNode</var></span>, <span>mixed <var>$theContainer</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Locate node in container.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Locate node in container.</p>
+
+<p>We COntologyNodeIndex::_LocateNode() overload this method to locate
+relationships in place of nodes.</p>
+
+<p>We also override the rule of raising an exception on zero node IDs, because
+the first relationship will have an ID of zero, here we check if the identifier
+is numeric.</p>
+
+<p>Finally, we handle arrays in the node parameter: in this case we assume the
+array holds the subject node ID, the predicate term kTAG_GID identifier
+and the object node ID, these elements will be used to select the edge node
+whose kTAG_PATH kTAG_PATH offset corresponds to this combination. In
+this case the provided container must be an array structured as follows:</p>
+
+<ul>
+	<li><i>kTAG_NODE kTAG_NODE</i>: The graph container.</li>
+
+	<li><i>kTAG_TERM kTAG_TERM</i>: The index container.</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theNode</var></dt>
+					<dd><code>mixed</code><br> Graph node identifier.</dd>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>mixed</code><br> Graph container.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>Everyman\Neo4j\Node|null</code><br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code>{@link</code><br>CException CException}<br />
+				</div>
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-COntologyEdgeIndex.html#_">COntologyEdgeIndex::_ResolveIndexContainer()</a></code></code> <br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-COntologyNodeIndex.html#_">COntologyNodeIndex::_LocateNode</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_LoadNodeProperties" id="__LoadNodeProperties">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__LoadNodeProperties">#</a>
+		<code><a href="source-class-COntologyEdgeIndex.html#436" title="Go to source code">_LoadNodeProperties</a>( )</code>
+
+		<div class="description short">
+			
+<p>Copy node properties to object.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Copy node properties to object.</p>
+
+<p>We COntologyNodeIndex::_LocateNode() overload this method to load the
+edge node properties along with the subject, predicate and object information as
+follows:</p>
+
+<ul>
+	<li><i>kTAG_LID kTAG_LID</i>: This offset will hold the edge node
+	ID.</li>
+
+	<li><i>kTAG_PATH kTAG_PATH</i>: This offset will hold the edge node
+	path, that is, the source node ID, the predicate term kTAG_GID
+	identifier and the object node ID, all three separated by the kTOKEN_INDEX_SEPARATOR kTOKEN_INDEX_SEPARATOR token.</li>
+
+	<li><i>kTAG_SUBJECT kTAG_SUBJECT</i>: This offset will hold the subject
+	node information:
+		<ul>
+			<li><i>kTAG_TERM kTAG_TERM</i>: The subject node term kTAG_GID
+			identifier.</li>
+
+			<li><i>kTAG_NODE kTAG_NODE</i>: The subject node ID.</li>
+		</ul>
+	</li>
+
+	<li><i>kTAG_PREDICATE kTAG_PREDICATE</i>: This offset will hold the
+	predicate information:
+		<ul>
+			<li><i>kTAG_TERM kTAG_TERM</i>: The predicate term kTAG_GID
+			identifier, which corresponds to the edge node type.</li>
+
+			<li><i>kTAG_NODE kTAG_NODE</i>: The edge node ID.</li>
+		</ul>
+	</li>
+
+	<li><i>kTAG_OBJECT kTAG_OBJECT</i>: This offset will hold the object
+	node information:
+		<ul>
+			<li><i>kTAG_TERM kTAG_TERM</i>: The object node term kTAG_GID
+			identifier.</li>
+
+			<li><i>kTAG_NODE kTAG_NODE</i>: The object node ID.</li>
+		</ul>
+	</li>
+
+	<li><i>kTAG_DATA kTAG_DATA</i>: This offset will hold the edge node
+	properties.</li>
+</ul>
+
+
+
+
+
+
+				<h4>Uses</h4>
+				<div class="list">
+						<code><code><a href="class-COntologyEdgeIndex.html#_">COntologyEdgeIndex::Node()</a></code></code> <br />
+				</div>
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-COntologyNodeIndex.html#_">COntologyNodeIndex::_LoadNodeProperties</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_UpdateRelationshipCounts" id="__UpdateRelationshipCounts">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__UpdateRelationshipCounts">#</a>
+		<code><a href="source-class-COntologyEdgeIndex.html#526" title="Go to source code">_UpdateRelationshipCounts</a>( <span>MongoContainer <var>$theContainer</var></span>, <span>bitfield <var>$theModifiers</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Update relationship counts.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Update relationship counts.</p>
+
+<p>This method will increment or decrement the relationships count in the
+subject and object {node indexes.</p>
+
+<p>The method accepts the following parameters:</p>
+
+<ul>
+	<li><b>$theContainer</b>: The index Mongo container, we use the CMongoContainer::Database() database element and force the kDEFAULT_CNT_NODES default node collection name, since it apparently gives this
+	class personality disorder problems to use the parent version of the _ResolveIndexContainer() _ResolveIndexContainer method.</li>
+
+	<li><b>$theModifiers</b>: This parameter represents the commit operation
+	options, these will have been passed by the Commit() commit method.</li>
+</ul>
+
+<p>These counts are stored in the COntologyNodeIndex indexes in the
+following structure:</p>
+
+<ul>
+	<li><i>kTAG_IN kTAG_IN</i>: This element represents incoming
+	relationships, it is an array structured as follows:
+		<ul>
+			<li><i>Key</i>: The term kTAG_GID identifier of the relationship
+			predicate.</li>
+
+			<li><i>Value</i>: The number of incoming relationships for the given
+			predicate.</li>
+		</ul>
+	</li>
+
+	<li><i>kTAG_OUT kTAG_OUT</i>: This element represents outgoing
+	relationships, it is an array structured as follows:
+		<ul>
+			<li><i>Key</i>: The term kTAG_GID identifier of the relationship
+			predicate.</li>
+
+			<li><i>Value</i>: The number of outgoing relationships for the given
+			predicate.</li>
+		</ul>
+	</li>
+</ul>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$theContainer</var></dt>
+					<dd><code>MongoContainer</code><br> Mongo container.</dd>
+					<dt><var>$theModifiers</var></dt>
+					<dd><code>bitfield</code><br> Commit modifiers.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-COntologyNodeIndex.html#methods">COntologyNodeIndex</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-COntologyNodeIndex.html#_">Commit()</a>, 
+			<a href="class-COntologyNodeIndex.html#_">_QueryNode()</a>, 
+			<a href="class-COntologyNodeIndex.html#_">__construct()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-CArrayObject.html#methods">CArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-CArrayObject.html#_">keys()</a>, 
+			<a href="class-CArrayObject.html#_">offsetGet()</a>, 
+			<a href="class-CArrayObject.html#_">offsetSet()</a>, 
+			<a href="class-CArrayObject.html#_">offsetUnset()</a>, 
+			<a href="class-CArrayObject.html#_">values()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-ArrayObject.html#methods">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#_">append()</a>, 
+			<a href="class-ArrayObject.html#_">asort()</a>, 
+			<a href="class-ArrayObject.html#_">count()</a>, 
+			<a href="class-ArrayObject.html#_">exchangeArray()</a>, 
+			<a href="class-ArrayObject.html#_">getArrayCopy()</a>, 
+			<a href="class-ArrayObject.html#_">getFlags()</a>, 
+			<a href="class-ArrayObject.html#_">getIterator()</a>, 
+			<a href="class-ArrayObject.html#_">getIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_">ksort()</a>, 
+			<a href="class-ArrayObject.html#_">natcasesort()</a>, 
+			<a href="class-ArrayObject.html#_">natsort()</a>, 
+			<a href="class-ArrayObject.html#_">offsetExists()</a>, 
+			<a href="class-ArrayObject.html#_">serialize()</a>, 
+			<a href="class-ArrayObject.html#_">setFlags()</a>, 
+			<a href="class-ArrayObject.html#_">setIteratorClass()</a>, 
+			<a href="class-ArrayObject.html#_">uasort()</a>, 
+			<a href="class-ArrayObject.html#_">uksort()</a>, 
+			<a href="class-ArrayObject.html#_">unserialize()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+	<table class="summary inherited">
+	<caption>Constants inherited from <a href="class-ArrayObject.html#constants">ArrayObject</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ArrayObject.html#ARRAY_AS_PROPS"><b>ARRAY_AS_PROPS</b></a>, 
+			<a href="class-ArrayObject.html#STD_PROP_LIST"><b>STD_PROP_LIST</b></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-COntologyNodeIndex.html#properties">COntologyNodeIndex</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-COntologyNodeIndex.html#$mNode"><var>$mNode</var></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+</div>
+
+	<div id="footer">
+		MyWrapper Reference API documentation generated by <a href="http://apigen.org">ApiGen 2.7.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

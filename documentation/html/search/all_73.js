@@ -5,6 +5,7 @@ var searchData=
   ['serialiseobject',['SerialiseObject',['../class_c_data_type.html#a608d6fc184bce537ce83669f729d6008',1,'CDataType']]],
   ['serialize',['serialize',['../class_c_session_object.html#a37b9597dba12c0cc62c444e1b371634d',1,'CSessionObject']]],
   ['severity',['Severity',['../class_c_exception.html#a2bef90da8a35e80dda8072d4f748ec20',1,'CException']]],
+  ['showdebug',['ShowDebug',['../class_c_session_object.html#a14919fc60dd7f99c69d55d6ec1e80578',1,'CSessionObject']]],
   ['sort',['Sort',['../class_c_data_wrapper_client.html#abd1cbfe57fda4734cfd387fd0830272c',1,'CDataWrapperClient']]],
   ['source',['Source',['../class_c_ontology_term.html#ae31144406c264b94ccc4fc1e2cfc8138',1,'COntologyTerm']]],
   ['stamp',['Stamp',['../class_c_wrapper_client.html#ac87e4af5c32d735f192c8041e83b3ce3',1,'CWrapperClient']]],

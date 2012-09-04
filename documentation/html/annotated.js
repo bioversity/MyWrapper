@@ -48,7 +48,6 @@ var annotated =
     [ "CSessionObject", "class_c_session_object.html", "class_c_session_object" ],
     [ "CStatusObject", "class_c_status_object.html", "class_c_status_object" ],
     [ "CUser", "class_c_user.html", "class_c_user" ],
-    [ "CWarehouseSession", "class_c_warehouse_session.html", null ],
     [ "CWarehouseWrapper", "class_c_warehouse_wrapper.html", "class_c_warehouse_wrapper" ],
     [ "CWarehouseWrapperClient", "class_c_warehouse_wrapper_client.html", "class_c_warehouse_wrapper_client" ],
     [ "CWrapper", "class_c_wrapper.html", "class_c_wrapper" ],
