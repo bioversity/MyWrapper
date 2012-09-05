@@ -1,0 +1,834 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class CFAOInstitute</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name"><img src="../../media/images/Class_logo.png"
+														alt=" Class"
+														title=" Class"
+														style="vertical-align: middle"> CFAOInstitute</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+													<a href="#sec-vars">Vars</a>
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+											<a href="#sec-consts">Constants</a>
+						
+			</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">FAO/WIEWS institute.</p>
+<p class="description"><p>This class overloads its <a href="../../MyWrapper/Entities/CInstitute.html">ancestor</a> to implement an institute entity  taken from the FAO WIEWS institutes database.</p><p>This kind of institutes adds the following properties:</p><p><ul><li><em><a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_EPACRONYM">kENTITY_INST_FAO_EPACRONYM</a></em>: This offset
+        represents the institute ECPGR <a href="../../MyWrapper/Entities/CFAOInstitute.html#methodEAcronym">acronym</a>.</li><li><em><a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_TYPE">kENTITY_INST_FAO_TYPE</a></em>: This offset represents
+        the institute set of <a href="../../MyWrapper/Entities/CFAOInstitute.html#methodFAOType">FAO</a> institute types.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekOFFSET_URL">kOFFSET_URL</a></em>: This offset represents the institute
+        <a href="../../MyWrapper/Entities/CInstitute.html#methodURL">URL</a>.</li><li><em><a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_LAT">kOFFSET_kENTITY_INST_FAO_LATLATITUDE</a></em>: This
+        offset represents the institute <a href="../../MyWrapper/Entities/CFAOInstitute.html#methodLatitude">latitude</a>, note this is an integer
+        value.</li><li><em><a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_LON">kENTITY_INST_FAO_LON</a></em>: This offset represents the
+        institute <a href="../../MyWrapper/Entities/CFAOInstitute.html#methodLongitude">longitude</a>, note this is an integer value.</li><li><em><a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_ALT">kENTITY_INST_FAO_ALT</a></em>: This offset represents the
+        institute <a href="../../MyWrapper/Entities/CFAOInstitute.html#methodAltitude">altitude</a>, note this is an integer value.</li></ul></p><p>Unlike its <a href="../../MyWrapper/Entities/CInstitute.html">parent</a>, this class will use the institute  <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a> as-is for the object unique <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_id">identifier</a>, the index  <a href="../../MyWrapper/Entities/CFAOInstitute.html#methodHashIndex">hashing</a> method will not transform the <a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_index">index</a> since  it is at most 7 characters thus cannot conflict with other <a href="../../MyWrapper/Entities/CEntity.html">entity</a>  identifiers.</p></p>
+		<p class="notes">
+			Located in <a class="field" href="_classes---CFAOInstitute.php.html">/classes/CFAOInstitute.php</a> (line <span class="field">69</span>)
+		</p>
+		
+				
+		<pre>ArrayObject
+   |
+   --<a href="../../MyWrapper/Framework/CArrayObject.html">CArrayObject</a>
+      |
+      --<a href="../../MyWrapper/Framework/CStatusObject.html">CStatusObject</a>
+         |
+         --<a href="../../MyWrapper/Persistence/CPersistentObject.html">CPersistentObject</a>
+            |
+            --<a href="../../MyWrapper/Persistence/CPersistentUnitObject.html">CPersistentUnitObject</a>
+               |
+               --<a href="../../MyWrapper/Persistence/CRelatedUnitObject.html">CRelatedUnitObject</a>
+                  |
+                  --<a href="../../MyWrapper/Framework/CCodedUnitObject.html">CCodedUnitObject</a>
+                     |
+                     --<a href="../../MyWrapper/Entities/CEntity.html">CEntity</a>
+                        |
+                        --<a href="../../MyWrapper/Entities/CContact.html">CContact</a>
+                           |
+                           --<a href="../../MyWrapper/Entities/CInstitute.html">CInstitute</a>
+                              |
+                              --CFAOInstitute</pre>
+	
+			</div>
+</div>
+
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+															<a href="#sec-consts">Constants</a>
+							
+															<a href="#sec-vars">Vars</a>
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																				<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">string</span>
+										<a href="#HashIndex" title="details" class="method-name">HashIndex</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theValue</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">integer</span>
+										<a href="#Import" title="details" class="method-name">Import</a>
+											(<span class="var-type"><a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a></span>&nbsp;<span class="var-name">$theContainer</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$theURL</span> = <span class="var-default">kENTITY_INST_FAO_DOWNLOAD</span>])
+									</div>
+																																																												<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">string</span>
+										<a href="#Altitude" title="details" class="method-name">Altitude</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">string</span>
+										<a href="#EAcronym" title="details" class="method-name">EAcronym</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#FAOType" title="details" class="method-name">FAOType</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theOperation</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">string</span>
+										<a href="#Latitude" title="details" class="method-name">Latitude</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">string</span>
+										<a href="#Longitude" title="details" class="method-name">Longitude</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#offsetSet" title="details" class="method-name">offsetSet</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>, <span class="var-type">string|NULL</span>&nbsp;<span class="var-name">$theValue</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#offsetUnset" title="details" class="method-name">offsetUnset</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_PrepareCommit" title="details" class="method-name">_PrepareCommit</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+									</div>
+											</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+												<a href="#sec-consts">Constants</a>
+							
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			
+							<h4>Inherited Variables</h4>
+				<A NAME='inherited_vars'><!-- --></A>
+									<p>Inherited from <span class="classname"><a href="../../MyWrapper/Framework/CStatusObject.html">CStatusObject</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Variable.png" />
+							<span class="var-title">
+								<span class="var-name"><a href="../../MyWrapper/Framework/CStatusObject.html#var$mStatus">CStatusObject::$mStatus</a></span><br>
+							</span>
+											</blockquote> 
+										
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+															<a href="#sec-vars">Vars</a>
+														<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+<a name="methodHashIndex" id="HashIndex"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static HashIndex</span> (line <span class="line-number">712</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Hash index.</p>
+<p class="description"><p>In this class we do not nodify the provided value, it is supposed to be the FAO  institute <em>INSTCODE</em> field.</p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			HashIndex
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$theValue</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Value to hash.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Entities/CInstitute.html#methodHashIndex">CInstitute::HashIndex()</a></dt>
+						<dd>Hash index.</dd>
+					</dl>
+			
+	</div>
+<a name="methodImport" id="Import"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static Import</span> (line <span class="line-number">369</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Import institutes.</p>
+<p class="description"><p>This method can be used to import the institutes list from the current FAO/WIEWS  export file, the method expects two parameters:</p><p><ul><li><strong>$theContainer</strong>: The <a href="../../MyWrapper/Persistence/CContainer.html">container</a> in which the institutes
+        are stored.</li><li><strong>$theURL</strong>: The download URL of the FAO/WIEWS export file.</li></ul></p><p>The method will return the number of records added and replaced.</p><p><em>Note that the method will commit the records using the
+ <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_REPLACE">kFLAG_PERSIST_REPLACE</a> and
+ <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a> flags</em>.</p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">integer</span>
+		<span class="method-name">
+			Import
+		</span>
+					(<span class="var-type"><a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a></span>&nbsp;<span class="var-name">$theContainer</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$theURL</span> = <span class="var-default">kENTITY_INST_FAO_DOWNLOAD</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"><a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a></span>
+				<span class="var-name">$theContainer</span><span class="var-description">: Data container.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theURL</span><span class="var-description">: Import file path.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodAltitude" id="Altitude"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Altitude</span> (line <span class="line-number">262</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage institute altitude.</p>
+<p class="description"><p>This method can be used to handle the institute  <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_ALT">altitude</a>, it uses the standard accessor  <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">method</a> to manage the  <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_ALT">offset</a>.</p><p>This value is provided as an integer, specialised classes may convert it.</p><p>For a more in-depth reference of this method, please consult the  <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">CAttribute::ManageOffset</a> method, in which the  second parameter will be the constant  <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_ALT">kENTITY_INST_FAO_ALT</a>.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_ALT">kENTITY_INST_FAO_ALT</a></li>
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">CAttribute::ManageOffset()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			Altitude
+		</span>
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Value.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodEAcronym" id="EAcronym"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">EAcronym</span> (line <span class="line-number">110</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage institute ECPGR acronym.</p>
+<p class="description"><p>This method can be used to handle the institute ECPGR  <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_EPACRONYM">acronym</a>, it uses the standard accessor  <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">method</a> to manage the  <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_EPACRONYM">offset</a>.</p><p>This value should be a string.</p><p>For a more in-depth reference of this method, please consult the  <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">CAttribute::ManageOffset</a> method, in which the  second parameter will be the constant  <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_EPACRONYM">kENTITY_INST_FAO_EPACRONYM</a>.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_EPACRONYM">kENTITY_INST_FAO_EPACRONYM</a></li>
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">CAttribute::ManageOffset()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			EAcronym
+		</span>
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Value.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodFAOType" id="FAOType"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">FAOType</span> (line <span class="line-number">150</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage FAO/WIEWS types.</p>
+<p class="description"><p>This method can be used to handle the institute FAO/WIEWS  <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_TYPE">types</a> list, it uses the standard accessor  <a href="../../MyWrapper/Framework/CAttribute.html#methodManageArrayOffset">method</a> to manage the  list of acronyms.</p><p>Each element of this list should indicate an acronym by which one refers to the  current institute, the nature and specifics of these elements is the responsibility  of concrete classes.</p><p>For a more thorough reference of how this method works, please consult the  <a href="../../MyWrapper/Framework/CAttribute.html#methodManageArrayOffset">CAttribute::ManageArrayOffset</a> method, in  which the second parameter will be the constant  <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_TYPE">kENTITY_INST_FAO_TYPE</a>.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_TYPE">kENTITY_INST_FAO_TYPE</a></li>
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageArrayOffset">CAttribute::ManageArrayOffset()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			FAOType
+		</span>
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theOperation</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Value or index.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theOperation</span><span class="var-description">: Operation.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodLatitude" id="Latitude"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Latitude</span> (line <span class="line-number">188</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage institute latitude.</p>
+<p class="description"><p>This method can be used to handle the institute  <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_LAT">latitude</a>, it uses the standard accessor  <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">method</a> to manage the  <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_LAT">offset</a>.</p><p>This value is provided as an integer, specialised classes may convert it.</p><p>For a more in-depth reference of this method, please consult the  <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">CAttribute::ManageOffset</a> method, in which the  second parameter will be the constant  <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_LAT">kENTITY_INST_FAO_LAT</a>.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_LAT">kENTITY_INST_FAO_LAT</a></li>
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">CAttribute::ManageOffset()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			Latitude
+		</span>
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Value.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodLongitude" id="Longitude"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Longitude</span> (line <span class="line-number">225</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage institute longitude.</p>
+<p class="description"><p>This method can be used to handle the institute  <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_LON">longitude</a>, it uses the standard accessor  <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">method</a> to manage the  <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_LON">offset</a>.</p><p>This value is provided as an integer, specialised classes may convert it.</p><p>For a more in-depth reference of this method, please consult the  <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">CAttribute::ManageOffset</a> method, in which the  second parameter will be the constant  <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_LON">kENTITY_INST_FAO_LON</a>.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO_LON">kENTITY_INST_FAO_LON</a></li>
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">CAttribute::ManageOffset()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			Longitude
+		</span>
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Value.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodoffsetSet" id="offsetSet"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">offsetSet</span> (line <span class="line-number">296</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set a value for a given offset.</p>
+<p class="description"><p>We overload this method to override the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">inited</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a> of the <a href="../../MyWrapper/Entities/CInstitute.html">parent</a> class: FAO  institutes may not have a <a href="../../MyWrapper/Entities/CEntity.html#methodName">name</a> set, so we call the  <a href="../../MyWrapper/Entities/CEntity.html">entity</a> version of this method.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			offsetSet
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>, <span class="var-type">string|NULL</span>&nbsp;<span class="var-name">$theValue</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theOffset</span><span class="var-description">: Offset.</span>			</li>
+					<li>
+				<span class="var-type">string|NULL</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Value to set at offset.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Entities/CInstitute.html#methodoffsetSet">CInstitute::offsetSet()</a></dt>
+						<dd>Set a value for a given offset.</dd>
+					</dl>
+			
+	</div>
+<a name="methodoffsetUnset" id="offsetUnset"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">offsetUnset</span> (line <span class="line-number">322</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Reset a value for a given offset.</p>
+<p class="description"><p>We overload this method to override the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">inited</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a> of the <a href="../../MyWrapper/Entities/CInstitute.html">parent</a> class: FAO  institutes may not have a <a href="../../MyWrapper/Entities/CEntity.html#methodName">name</a> set, so we call the  <a href="../../MyWrapper/Entities/CEntity.html">entity</a> version of this method.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			offsetUnset
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theOffset</span><span class="var-description">: Offset.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Entities/CInstitute.html#methodoffsetUnset">CInstitute::offsetUnset()</a></dt>
+						<dd>Reset a value for a given offset.</dd>
+					</dl>
+			
+	</div>
+<a name="method_PrepareCommit" id="_PrepareCommit"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">748</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Normalise parameters of a store.</p>
+<p class="description"><p>We overload this method to add the <a href="../../MyWrapper/Entities/_classes---CFAOInstitute.inc.php.html#definekENTITY_INST_FAO">kENTITY_INST_FAO</a>  Type() to the object prior <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">saving</a> it.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Errors.inc.php.html#definekERROR_OPTION_MISSING">kERROR_OPTION_MISSING</a></li>
+				<li><span class="field">throws:</span> <a href="../../MyWrapper/Framework/CException.html">CException</a></li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_PrepareCommit
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theContainer</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theContainer</span><span class="var-description">: Object container.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theModifiers</span><span class="var-description">: Commit modifiers.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Entities/CInstitute.html#method_PrepareCommit">CInstitute::_PrepareCommit()</a></dt>
+						<dd>Normalise parameters of a store.</dd>
+					</dl>
+			
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Entities/CInstitute.html">CInstitute</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Constructor.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Entities/CInstitute.html#method__construct">CInstitute::__construct()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Entities/CInstitute.html#methodAcronym">CInstitute::Acronym()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Entities/CInstitute.html#methodHashIndex">CInstitute::HashIndex()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Entities/CInstitute.html#methodoffsetSet">CInstitute::offsetSet()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Entities/CInstitute.html#methodoffsetUnset">CInstitute::offsetUnset()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Entities/CInstitute.html#methodURL">CInstitute::URL()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Entities/CInstitute.html#method_PrepareCommit">CInstitute::_PrepareCommit()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Entities/CContact.html">CContact</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Entities/CContact.html#methodFax">CContact::Fax()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Entities/CContact.html#methodMail">CContact::Mail()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Entities/CContact.html#methodPhone">CContact::Phone()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Entities/CEntity.html">CEntity</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodCreated">CEntity::Created()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodDefaultContainer">CEntity::DefaultContainer()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodEmail">CEntity::Email()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodGID">CEntity::GID()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodKind">CEntity::Kind()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodModified">CEntity::Modified()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#methodName">CEntity::Name()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#method_PrepareCommit">CEntity::_PrepareCommit()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Entities/CEntity.html#method_PrepareCreate">CEntity::_PrepareCreate()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Framework/CCodedUnitObject.html">CCodedUnitObject</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Constructor.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#method__construct">CCodedUnitObject::__construct()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">CCodedUnitObject::Code()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodoffsetSet">CCodedUnitObject::offsetSet()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodoffsetUnset">CCodedUnitObject::offsetUnset()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_index">CCodedUnitObject::_index()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Persistence/CRelatedUnitObject.html">CRelatedUnitObject</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CRelatedUnitObject.html#methodPreferred">CRelatedUnitObject::Preferred()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CRelatedUnitObject.html#methodRelate">CRelatedUnitObject::Relate()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CRelatedUnitObject.html#methodUsed">CRelatedUnitObject::Used()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CRelatedUnitObject.html#methodValid">CRelatedUnitObject::Valid()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CRelatedUnitObject.html#methodValidObject">CRelatedUnitObject::ValidObject()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CRelatedUnitObject.html#method_PrepareCommit">CRelatedUnitObject::_PrepareCommit()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html">CPersistentUnitObject</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodHashIndex">CPersistentUnitObject::HashIndex()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodNewObject">CPersistentUnitObject::NewObject()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodNormaliseRelatedObject">CPersistentUnitObject::NormaliseRelatedObject()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodNormaliseRelatedPredicate">CPersistentUnitObject::NormaliseRelatedPredicate()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodObjectIdentifier">CPersistentUnitObject::ObjectIdentifier()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodPersistent">CPersistentUnitObject::Persistent()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodReference">CPersistentUnitObject::Reference()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_Commit">CPersistentUnitObject::_Commit()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_CommitReferences">CPersistentUnitObject::_CommitReferences()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_GetTags">CPersistentUnitObject::_GetTags()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_id">CPersistentUnitObject::_id()</a></span><br>
+													<img src="../../media/images/AbstractMethod.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_index">CPersistentUnitObject::_index()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_ParseReferences">CPersistentUnitObject::_ParseReferences()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_PrepareCommit">CPersistentUnitObject::_PrepareCommit()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_PrepareLoad">CPersistentUnitObject::_PrepareLoad()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method__toString">CPersistentUnitObject::__toString()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Persistence/CPersistentObject.html">CPersistentObject</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Constructor.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">CPersistentObject::__construct()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">CPersistentObject::Commit()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentObject.html#methodUncommit">CPersistentObject::Uncommit()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_Commit">CPersistentObject::_Commit()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_Create">CPersistentObject::_Create()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_FinishCommit">CPersistentObject::_FinishCommit()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_FinishCreate">CPersistentObject::_FinishCreate()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_FinishLoad">CPersistentObject::_FinishLoad()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_GetTags">CPersistentObject::_GetTags()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsCommitted">CPersistentObject::_IsCommitted()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsEncoded">CPersistentObject::_IsEncoded()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_Load">CPersistentObject::_Load()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_PrepareCommit">CPersistentObject::_PrepareCommit()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_PrepareCreate">CPersistentObject::_PrepareCreate()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_PrepareLoad">CPersistentObject::_PrepareLoad()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_SetTags">CPersistentObject::_SetTags()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Framework/CStatusObject.html">CStatusObject</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#methodoffsetSet">CStatusObject::offsetSet()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#methodoffsetUnset">CStatusObject::offsetUnset()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#methodStatus">CStatusObject::Status()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#method_IsDirty">CStatusObject::_IsDirty()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#method_ManageBitField">CStatusObject::_ManageBitField()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Framework/CArrayObject.html">CArrayObject</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodkeys">CArrayObject::keys()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetGet">CArrayObject::offsetGet()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetSet">CArrayObject::offsetSet()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetUnset">CArrayObject::offsetUnset()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodvalues">CArrayObject::values()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname">ArrayObject (Internal Class)</span></p>
+					<blockquote>
+													<img src="../../media/images/Constructor.png" alt=" "/>
+							<span class="method-name">constructor __construct ( $array )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">append ( $value )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">asort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">count (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">exchangeArray ( $array )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getArrayCopy (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getFlags (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getIterator (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getIteratorClass (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">ksort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">natcasesort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">natsort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetExists ( $index )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetGet ( $index )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetSet ( $index, $newval )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetUnset ( $index )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">serialize (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">setFlags ( $flags )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">setIteratorClass ( $iteratorClass )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">uasort ( $cmp_function )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">uksort ( $cmp_function )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">unserialize ( $serialized )</span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+	<a name="sec-consts"></a>
+	<div class="info-box">
+		<div class="info-box-title">Class Constants</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+										<a href="#sec-var-summary">Constants</a> (<span class="disabled">details</span>)
+						
+			
+												<a href="#sec-vars">Vars</a>
+														| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+										<h4>Inherited Constants</h4>
+				<A NAME='inherited_consts'><!-- --></A>
+									<p>Inherited from <span class="classname">ArrayObject (Internal Class)</span></p>
+					<blockquote>
+													<img src="../../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name">ARRAY_AS_PROPS = 2</span><br>
+							</span>
+													<img src="../../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name">STD_PROP_LIST = 1</span><br>
+							</span>
+											</blockquote> 
+										
+		</div>
+	</div>
+	
+	<p class="notes" id="credit">
+		Documentation generated on Fri, 20 Jul 2012 17:57:41 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

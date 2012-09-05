@@ -1216,12 +1216,9 @@ class COntologyTerm extends COntologyTermObject
 	 *		{@link kTYPE_ENUMERATION enumeration}.
 	 * </ul>
 	 *
-	 * We set by default the {@link Enumeration() enumeration} to the value of the
+	 * We also set by default the {@link Enumerstion() enumeration} to the value of the
 	 * {@link Code() code}, if the term has the {@link kTYPE_ENUMERATION enumeration}
 	 * {@link Kind() kind} and the term {@link Enumeration() enumerations} are empty.
-	 *
-	 * We also add the {@link kTYPE_NAMESPACE kTYPE_NAMESPACE} {@link Kind() kind} to the
-	 * {@link NS() namespace} term.
 	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
@@ -1238,6 +1235,16 @@ class COntologyTerm extends COntologyTermObject
 	protected function _PrepareCommit( &$theContainer, &$theIdentifier, &$theModifiers )
 	{
 		//
+		// Set default kinds.
+		//
+//		if( $this->Cardinality() !== NULL )
+//			$this->Kind( kTYPE_ATTRIBUTE, TRUE );
+//		if( $this->Type() !== NULL )
+//			$this->Kind( kTYPE_MEASURE, TRUE );
+//		if( $this->Enumeration() !== NULL )
+//			$this->Kind( kTYPE_ENUMERATION, TRUE );
+		
+		//
 		// Set default enumeration.
 		//
 		if( ($this->Kind( kTYPE_ENUMERATION ) !== NULL)
@@ -1248,38 +1255,6 @@ class COntologyTerm extends COntologyTermObject
 		// Call parent method.
 		//
 		parent::_PrepareCommit( $theContainer, $theIdentifier, $theModifiers );
-		
-		//
-		// Handle namespace's kind.
-		//
-		if( ($tmp = $this->NS()) !== NULL )
-		{
-			//
-			// Get predicate.
-			//
-			$ns = new self( $theContainer, $this->HashIndex( $tmp ) );
-			if( $ns->_IsCommitted() )
-			{
-				//
-				// Set namespace kind.
-				//
-				$ns->Kind( kTYPE_NAMESPACE, TRUE );
-				
-				//
-				// Commit namespace.
-				//
-				$ns->Commit( $theContainer );
-			
-			} // Namespace exists.
-			
-			else
-				throw new CException
-					( "Namespace term not found",
-					  kERROR_NOT_FOUND,
-					  kMESSAGE_TYPE_ERROR,
-					  array( 'Namespace' => $tmp ) );							// !@! ==>
-		
-		} // Has namespace.
 	
 	} // _PrepareCommit.
 
@@ -1350,7 +1325,7 @@ class COntologyTerm extends COntologyTermObject
 		if( $this->Kind( kTYPE_MEASURE ) !== NULL )
 		{
 			$props[ kTAG_NAME ] = kTAG_NAME;
-	//		$props[ kTAG_TYPE ] = kTAG_TYPE;
+			$props[ kTAG_TYPE ] = kTAG_TYPE;
 		}
 		if( $this->Kind( kTYPE_ATTRIBUTE ) !== NULL )
 		{

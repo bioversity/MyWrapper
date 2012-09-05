@@ -1,0 +1,706 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class CAttribute</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name"><img src="../../media/images/Class_logo.png"
+														alt=" Class"
+														title=" Class"
+														style="vertical-align: middle"> CAttribute</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Attribute class.</p>
+<p class="description"><p>This class is a static methods repository which is used to manage  <a href="../../MyWrapper/Framework/CArrayObject.html">CArrayObject</a> derived classe's attributes.</p><p>The class is a collection of static methods which represent member accessor methods for  objects that store their properties as array elements. These methods will handle  insertion, extraction and deletion of attributes in either arrays or ArrayObject  instances, these methods will then be used by <a href="../../MyWrapper/Framework/CArrayObject.html">CArrayObject</a> derived  classes as the base for their member accessor methods.</p><p>The class features the following methods:</p><p><ul><li><em><a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">ManageOffset</a></em>: Manage a scalar offset.</li><li><em><a href="../../MyWrapper/Framework/CAttribute.html#methodManageArrayOffset">ManageArrayOffset</a></em>: Manage elements of an array
+        offset.</li><li><em><a href="../../MyWrapper/Framework/CAttribute.html#methodManageTypedOffset">ManageTypedOffset</a></em>: Manage elements of an array
+        offset by category or type.</li><li><em><a href="../../MyWrapper/Framework/CAttribute.html#methodManageTypedArrayOffset">ManageTypedArrayOffset</a></em>: Manage elements of
+        an array offset by category or type and data element value.</li></ul></p></p>
+		<p class="notes">
+			Located in <a class="field" href="_classes---CAttribute.php.html">/classes/CAttribute.php</a> (line <span class="field">63</span>)
+		</p>
+		
+				
+		<pre></pre>
+	
+			</div>
+</div>
+
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+												<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+												<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">closure</span>
+										<a href="#HashClosure" title="details" class="method-name">HashClosure</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">closure</span>
+										<a href="#HashObjectClosure" title="details" class="method-name">HashObjectClosure</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">mixed</span>
+										<a href="#ManageArrayOffset" title="details" class="method-name">ManageArrayOffset</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theReference</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theOperation</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>], [<span class="var-type">closure</span>&nbsp;<span class="var-name">$theClosure</span> = <span class="var-default">NULL</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">mixed</span>
+										<a href="#ManageObjectList" title="details" class="method-name">ManageObjectList</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theReference</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theMainOffset</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theTypeOffset</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theDataOffset</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theOperation</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">mixed</span>
+										<a href="#ManageOffset" title="details" class="method-name">ManageOffset</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theReference</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">mixed</span>
+										<a href="#ManageTypedArrayOffset" title="details" class="method-name">ManageTypedArrayOffset</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theReference</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theMainOffset</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theDataOffset</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$theTypeOffsets</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$theTypeValues</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theData</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theOperation</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>], [<span class="var-type">closure</span>&nbsp;<span class="var-name">$theClosure</span> = <span class="var-default">NULL</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">mixed</span>
+										<a href="#ManageTypedOffset" title="details" class="method-name">ManageTypedOffset</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theReference</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theMainOffset</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theDataOffset</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$theTypeOffsets</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$theTypeValues</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theData</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>], [<span class="var-type">closure</span>&nbsp;<span class="var-name">$theClosure</span> = <span class="var-default">NULL</span>])
+									</div>
+																																																																							</div>
+		</div>
+	</div>		
+
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+													<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			
+Strict standards: Only variables should be passed by reference in /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php on line 712
+
+Call Stack:
+    0.0214     241624   1. {main}() /Library/WebServer/Sites/PhpDocumentor/phpdoc:0
+    0.1058     234976   2. include('/Library/WebServer/Sites/PhpDocumentor/phpDocumentor/phpdoc.inc') /Library/WebServer/Sites/PhpDocumentor/phpdoc:59
+    0.4743    7648976   3. phpDocumentor_setup->createDocs() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/phpdoc.inc:65
+   23.3847  180187424   4. phpDocumentor_IntermediateParser->Output() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Setup.inc.php:763
+   25.0280  181222672   5. phpDocumentor_IntermediateParser->Convert() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/IntermediateParser.inc:1867
+   25.0280  181222904   6. Converter->walk() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/IntermediateParser.inc:1654
+   27.1017  184399376   7. HTMLframesConverter->endClass() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Converter.inc:1936
+   27.1019  184401856   8. Smarty->fetch() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Converters/HTML/frames/HTMLframesConverter.inc:347
+   27.1625  184836624   9. include('/Library/WebServer/Library/wrapper/documentation/MyWrapper/Definitions/37fe0d91c3b034db82eb2bc6d4fa57b5/%%165^%%1653142046^class.tpl.php') /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1298
+   27.1915  184992152  10. Smarty->_smarty_include() /Library/WebServer/Library/wrapper/documentation/MyWrapper/Definitions/37fe0d91c3b034db82eb2bc6d4fa57b5/%%165^%%1653142046^class.tpl.php:699
+   27.1916  184996600  11. Smarty->_compile_resource() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1935
+   27.1917  185011048  12. Smarty->_compile_source() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1458
+   27.1919  185042960  13. Smarty_Compiler->_compile_file() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1523
+   27.1943  185146456  14. Smarty_Compiler->_compile_tag() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php:316
+   27.1945  185278480  15. Smarty_Compiler->_compile_custom_tag() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php:537
+
+
+Strict standards: Only variables should be passed by reference in /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php on line 712
+
+Call Stack:
+    0.0214     241624   1. {main}() /Library/WebServer/Sites/PhpDocumentor/phpdoc:0
+    0.1058     234976   2. include('/Library/WebServer/Sites/PhpDocumentor/phpDocumentor/phpdoc.inc') /Library/WebServer/Sites/PhpDocumentor/phpdoc:59
+    0.4743    7648976   3. phpDocumentor_setup->createDocs() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/phpdoc.inc:65
+   23.3847  180187424   4. phpDocumentor_IntermediateParser->Output() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Setup.inc.php:763
+   25.0280  181222672   5. phpDocumentor_IntermediateParser->Convert() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/IntermediateParser.inc:1867
+   25.0280  181222904   6. Converter->walk() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/IntermediateParser.inc:1654
+   27.1017  184399376   7. HTMLframesConverter->endClass() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Converter.inc:1936
+   27.1019  184401856   8. Smarty->fetch() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Converters/HTML/frames/HTMLframesConverter.inc:347
+   27.1625  184836624   9. include('/Library/WebServer/Library/wrapper/documentation/MyWrapper/Definitions/37fe0d91c3b034db82eb2bc6d4fa57b5/%%165^%%1653142046^class.tpl.php') /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1298
+   27.1915  184992152  10. Smarty->_smarty_include() /Library/WebServer/Library/wrapper/documentation/MyWrapper/Definitions/37fe0d91c3b034db82eb2bc6d4fa57b5/%%165^%%1653142046^class.tpl.php:699
+   27.1916  184996600  11. Smarty->_compile_resource() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1935
+   27.1917  185011048  12. Smarty->_compile_source() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1458
+   27.1919  185042960  13. Smarty_Compiler->_compile_file() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1523
+   27.2045  185172632  14. Smarty_Compiler->_compile_tag() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php:316
+   27.2048  185304704  15. Smarty_Compiler->_compile_custom_tag() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php:537
+
+<A NAME='method_detail'></A>
+<a name="methodHashClosure" id="HashClosure"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static HashClosure</span> (line <span class="line-number">2257</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Hash closure.</p>
+<p class="description"><p>This static method returns the default hashing closure that will be used to compare  list elements. This method will return a closure function that expects two arguments:</p><p><ul><li><strong>$theElement</strong>: This parameter represents the element to be hashed, it can
+		take two forms depending on the presence or not of the next parameter:
+	 <ul><li><em>Next parameter is not there</em>: If you omit the next parameter, it means
+			that the element belongs to a list of scalars and that it is the element
+			itself to represent the key. In this case, the function will return the MD5
+			hash of the element itself.</li><li><em>Next parameter is there</em>: If you provide the next parameter, it means
+			that the provided offset or offsets point to the key data items contained in
+			this parameter: in this case this parameter must be either an array or an
+			ArrayObject, if you provide anything else, an exception will be raised. The
+			hash will be generated by an MD5 hash of the following sequence:
+			[<em>Offset</em>]
+			<a href="../../MyWrapper/Definitions/_defines---Tokens.inc.php.html#definekTOKEN_NAMESPACE_SEPARATOR">kTOKEN_NAMESPACE_SEPARATOR</a>
+            [<em>MD5( Value )</em>], in which the value is the value referenced by the
+            offset or <em>NULL</em>; if there are more than one offset, these blocks will
+            be separated by the <a href="../../MyWrapper/Definitions/_defines---Tokens.inc.php.html#definekTOKEN_INDEX_SEPARATOR">kTOKEN_INDEX_SEPARATOR</a>
+            token, the function will return the MD5 of the full sequence.</li></ul></li><li><strong>$theOffsets</strong>: If provided, it must be an array of strings that represent
+        offsets to items in the previous parameter which constitute the element's key.
+        Note that these offsets will be sorted prior to being used, to allow consistent
+        results.</li></ul></p><p>When creating your custom closures, you should use this function as a model and be  aware of the following rule: the static methods in this class invoke a single hash  closure, but they might use this closure on both lists and matrices, so you should  design the function as two separate functions depending on the presence or not of  the offsets list.</p></p>
+	<ul class="tags">
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageTypedArrayOffset">CAttribute::ManageTypedArrayOffset()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageArrayOffset">CAttribute::ManageArrayOffset()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageTypedOffset">CAttribute::ManageTypedOffset()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">closure</span>
+		<span class="method-name">
+			HashClosure
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodHashObjectClosure" id="HashObjectClosure"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static HashObjectClosure</span> (line <span class="line-number">2340</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Hash closure.</p>
+<p class="description"><p>This method is equivalent to the <a href="../../MyWrapper/Framework/CAttribute.html#methodHashClosure">HashClosure</a> method, except  that it is tailored to operate on objects or object references.</p><p>It uses the <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodObjectIdentifier">ObjectIdentifier</a> method  in place of the MD5 hash, which also means that the provided parameters must be  resolvable.</p></p>
+	
+	<div class="method-signature">
+		<span class="method-result">closure</span>
+		<span class="method-name">
+			HashObjectClosure
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodManageArrayOffset" id="ManageArrayOffset"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static ManageArrayOffset</span> (line <span class="line-number">264</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage an array offset.</p>
+<p class="description"><p>An array offset is an array property, this method can be used to set, retrieve and  delete the elements of this property, as opposed to  <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">ManageOffset</a>, which is used to manage the property as a whole.</p><p>The elements of this list are uniquely identified by a closure function which is  either passed to this method or defaults to the <a href="../../MyWrapper/Framework/CAttribute.html#methodHashClosure">HashClosure</a>  function.</p><p>When deleting elements, if the list becomes empty, the whole offset will be deleted.</p><p>The method accepts the following parameters:</p><p><ul><li><strong>&amp;$theReference</strong>: Reference to the attributes container, it may either
+        refer to an array or an ArrayObject, any other type will trigger an exception.</li><li><strong>$theOffset</strong>: The offset to the attribute contained in the previous
+        parameter that is to be managed. This referenced element is expected to be an
+        array, if this is not the case, the method will raise an exception.</li><li><strong>$theValue</strong>: Depending on the next parameter, this may either refer to the
+        value to be set or to the index of the element to be retrieved or deleted:
+     <ul><li><em>NULL</em>: This value indicates that we want to operate on all elements,
+            which means, in practical terms, that we either want to retrieve or delete
+            the full list. If the operation parameter resolves to <em>TRUE</em>, the
+            method will default to retrieving the current list and no new element will
+            be added.</li><li><em>array</em>: An array indicates that we want to operate on a list of
+            values and that other parameters may also be provided as lists. Note that
+            ArrayObject instances are not considered here as arrays.</li><li><em>other</em>: Any other type represents either the new value to be added or
+            the index to the value to be returned or deleted. Note that this value will
+            be hashed by the provided or <a href="../../MyWrapper/Framework/CAttribute.html#methodHashClosure">default</a> closure to
+            determine if the element is new or not.</li></ul></li><li><strong>$theOperation</strong>: This parameter represents the operation to be performed
+        whose scope depends on the value of the previous parameter:
+     <ul><li><em>NULL</em>: Return the element or full list.</li><li><em>FALSE</em>: Delete the element or full list.</li><li><em>array</em>: This type is only considered if the <em>$theValue</em> parameter
+            is provided as an array: the method will be called for each element of the
+            <em>$theValue</em> parameter matched with the corresponding element of this
+            parameter, which also means that both both parameters must share the same
+            count.</li><li><em>other</em>: Add the <em>$theValue</em> value to the list. If you provided
+            <em>NULL</em> in the previous parameter, the operation will be reset to
+            <em>NULL</em>.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
+     <ul><li><em>TRUE</em>: Return the value <em>before</em> it was eventually modified.</li><li><em>FALSE</em>: Return the value <em>after</em> it was eventually modified.</li></ul></li><li><strong>$theClosure</strong>: The hashing closure, the function should return a value
+        representing the element's key. If omitted or <em>NULL</em>, the
+        <a href="../../MyWrapper/Framework/CAttribute.html#methodHashClosure">default</a> closure will be used. If the <em>$theValue</em>
+        parameter was provided as an array, you can provide an array of closures each
+        applying to the corresponding element of <em>$theValue</em> list.</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> <a href="../../MyWrapper/Framework/CException.html">CException</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTerm.html#methodDomain">COntologyTerm::Domain()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTerm.html#methodExamples">COntologyTerm::Examples()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTerm.html#methodPattern">COntologyTerm::Pattern()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTerm.html#methodCategory">COntologyTerm::Category()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTerm.html#methodEnumeration">COntologyTerm::Enumeration()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CDataset.html#methodCategory">CDataset::Category()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWarehouseWrapperClient.html#methodPredicatesSelector">CWarehouseWrapperClient::PredicatesSelector()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageTypedArrayOffset">CAttribute::ManageTypedArrayOffset()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWarehouseWrapperClient.html#methodPredicates">CWarehouseWrapperClient::Predicates()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWarehouseWrapperClient.html#methodIdentifiers">CWarehouseWrapperClient::Identifiers()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTerm.html#methodPredicate">COntologyTerm::Predicate()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CDataset.html#methodDomain">CDataset::Domain()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTag.html#methodTerm">COntologyTag::Term()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Traits/CDatasetFile.html#methodKind">CDatasetFile::Kind()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Traits/CDatasetFile.html#methodColumn">CDatasetFile::Column()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Traits/CDatasetFile.html#methodState">CDatasetFile::State()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">CAttribute::ManageOffset()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodHashClosure">CAttribute::HashClosure()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Entities/CEntity.html#methodKind">CEntity::Kind()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Entities/CInstitute.html#methodAcronym">CInstitute::Acronym()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodKind">COntologyTermObject::Kind()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Entities/CUser.html#methodKind">CUser::Kind()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Entities/CUser.html#methodRole">CUser::Role()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Entities/CFAOInstitute.html#methodFAOType">CFAOInstitute::FAOType()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTerm.html#methodNode">COntologyTerm::Node()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			ManageArrayOffset
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theReference</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theOperation</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>], [<span class="var-type">closure</span>&nbsp;<span class="var-name">$theClosure</span> = <span class="var-default">NULL</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theReference</span><span class="var-description">: Object reference.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theOffset</span><span class="var-description">: Offset.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Value to manage.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theOperation</span><span class="var-description">: Operation to perform.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+					<li>
+				<span class="var-type">closure</span>
+				<span class="var-name">$theClosure</span><span class="var-description">: Hashing anonymous function.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodManageObjectList" id="ManageObjectList"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static ManageObjectList</span> (line <span class="line-number">1716</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage a list of object references.</p>
+<p class="description"><p>This method can be used to manage a list of object references, in which each element  is either:</p><p><ul><li><em>Scalar</em>: A scalar or object representing:
+	 <ul><li><em>The object</em>: The actual referenced object.</li><li><em>The object reference</em>: An object reference structure or a scalar
+			representing the object's <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LID">identifier</a>.</li></ul>
+        or:</li><li><em>Array</em>: A structure composed of two items:
+     <ul><li><em>Kind</em>: This offset represents the type or predicate of the reference.</li><li><em>Data</em>: This offset represents the actual object or object reference.</li></ul></li></ul></p><p>The reference list is numerically indexed array and this method will ensure it  remains so.</p><p>The method accepts the following parameters:</p><p><ul><li><strong>&amp;$theReference</strong>: Reference to an array or ArrayObject derived instance.</li><li><strong>$theMainOffset</strong>: The offset to manage.</li><li><strong>$theTypeOffset</strong>: The element's offset of the type or predicate.</li><li><strong>$theDataOffset</strong>: The element's offset of the data.</li><li><strong>$theValue</strong>: This parameter represents either the search key in the list
+        when retrieving or deleting, or the reference when replacing or adding. If you
+        provide an array, it means that the elements may have a kind offset and that the
+        reference or object must be found in the data offset. When matching, if the kind
+        offset is not provided, it means that only those elements that do not have a
+        kind offset will be selected for matching. If the types match, the method will
+        use the <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodObjectIdentifier">ObjectIdentifier</a>
+        method to match the references, please refer to its documentation for more
+        information. If the provided value is not an array, it means that the reference
+        list does not feature types, so matches will only be performed on the reference.</li><li><strong>$theOperation</strong>: The operation to perform:
+     <ul><li><em>NULL</em>: Return the element matched by the previous parameter.</li><li><em>FALSE</em>: Delete the element matched by the previous parameter and
+            return it.</li><li><em>other</em>: Any other value means that we want to add to the list the
+            element provided in the previous parameter, either appending it if there
+            was no matching element, or by replacing a matching element. The method will
+            return either the replaced element or the new one.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return when deleting or
+        replacing:
+     <ul><li><em>TRUE</em>: Return the deleted or replaced element.</li><li><em>FALSE</em>: Return the replacing element or <em>NULL</em> when deleting.</li></ul></li></ul></p><p>The <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodObjectIdentifier">method</a> used to match the list  elements expects <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LID">identifiers</a> in the references or objects, if these  are not there, there is no way to discern duplicates.</p></p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> <a href="../../MyWrapper/Framework/CException.html">CException</a></li>
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CRelatedUnitObject.html#methodRelate">CRelatedUnitObject::Relate()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			ManageObjectList
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theReference</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theMainOffset</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theTypeOffset</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theDataOffset</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theOperation</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theReference</span><span class="var-description">: Object reference.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theMainOffset</span><span class="var-description">: Main offset.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theTypeOffset</span><span class="var-description">: Type offset.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theDataOffset</span><span class="var-description">: Data offset.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Reference or instance.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theOperation</span><span class="var-description">: Operation.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodManageOffset" id="ManageOffset"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static ManageOffset</span> (line <span class="line-number">117</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage a scalar offset.</p>
+<p class="description"><p>This method can be used to manage a scalar offset, its options involve setting,  retrieving and deleting an offset of the provided array or ArrayObject.</p><p>The method accepts the following parameters:</p><p><ul><li><strong>&amp;$theReference</strong>: Reference to the attributes container, it may either
+		refer to an array or an ArrayObject, any other type will trigger an exception.</li><li><strong>$theOffset</strong>: The offset to the attribute contained in the previous
+		parameter that is to be managed.</li><li><strong>$theValue</strong>: The value or operation:
+	 <ul><li><em>NULL</em>: Return the offset's current value.</li><li><em>FALSE</em>: Delete the offset.</li><li><em>other</em>: Any other type represents the offset's new value.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
+	 <ul><li><em>TRUE</em>: Return the value of the offset <em>before</em> it was eventually
+			modified.</li><li><em>FALSE</em>: Return the value of the offset <em>after</em> it was eventually
+			modified.</li></ul></li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> <a href="../../MyWrapper/Framework/CException.html">CException</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWrapperClient.html#methodLogRequest">CWrapperClient::LogRequest()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWrapperClient.html#methodStamp">CWrapperClient::Stamp()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWrapperClient.html#methodLogTrace">CWrapperClient::LogTrace()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CDataWrapperClient.html#methodDatabase">CDataWrapperClient::Database()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CDataWrapperClient.html#methodContainer">CDataWrapperClient::Container()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWrapperClient.html#methodFormat">CWrapperClient::Format()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CDataWrapperClient.html#methodOperation">CDataWrapperClient::Operation()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWrapperClient.html#methodUrl">CWrapperClient::Url()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CDataset.html#methodCreated">CDataset::Created()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CDataset.html#methodUser">CDataset::User()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CDataset.html#methodModified">CDataset::Modified()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CDataset.html#methodStoreFile">CDataset::StoreFile()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CDataWrapperClient.html#methodStart">CDataWrapperClient::Start()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWrapperClient.html#methodOperation">CWrapperClient::Operation()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CDataWrapperClient.html#methodQuery">CDataWrapperClient::Query()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWarehouseWrapperClient.html#methodUserCode">CWarehouseWrapperClient::UserCode()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWarehouseWrapperClient.html#methodObjectTitle">CWarehouseWrapperClient::ObjectTitle()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWarehouseWrapperClient.html#methodUserPass">CWarehouseWrapperClient::UserPass()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWarehouseWrapperClient.html#methodDirection">CWarehouseWrapperClient::Direction()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageArrayOffset">CAttribute::ManageArrayOffset()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWarehouseWrapperClient.html#methodLevels">CWarehouseWrapperClient::Levels()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWarehouseWrapperClient.html#methodObjectID">CWarehouseWrapperClient::ObjectID()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CWarehouseWrapperClient.html#methodOperation">CWarehouseWrapperClient::Operation()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CDataWrapperClient.html#methodFields">CDataWrapperClient::Fields()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CDataset.html#methodTitle">CDataset::Title()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CDataWrapperClient.html#methodSort">CDataWrapperClient::Sort()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CDataWrapperClient.html#methodObject">CDataWrapperClient::Object()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CMongoDataWrapperClient.html#methodNoResponse">CMongoDataWrapperClient::NoResponse()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CMongoDataWrapperClient.html#methodOperation">CMongoDataWrapperClient::Operation()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Wrappers/CDataWrapperClient.html#methodLimit">CDataWrapperClient::Limit()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTerm.html#methodNamespaceName">COntologyTerm::NamespaceName()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Traits/CMailAddress.html#methodCountry">CMailAddress::Country()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Traits/CMailAddress.html#methodProvince">CMailAddress::Province()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Traits/CMailAddress.html#methodFull">CMailAddress::Full()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodSubject">CQueryStatement::Subject()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodPredicate">CQueryStatement::Predicate()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">CQueryStatement::Object()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Traits/CMailAddress.html#methodCity">CMailAddress::City()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Traits/CMailAddress.html#methodZip">CMailAddress::Zip()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Traits/CDatasetFile.html#methodOwner">CDatasetFile::Owner()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Traits/CDatasetFile.html#methodDataset">CDatasetFile::Dataset()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Traits/CMailAddress.html#methodPlace">CMailAddress::Place()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Traits/CMailAddress.html#methodCare">CMailAddress::Care()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Traits/CMailAddress.html#methodStreet">CMailAddress::Street()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodType">CQueryStatement::Type()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CRelatedUnitObject.html#methodUsed">CRelatedUnitObject::Used()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Entities/CFAOInstitute.html#methodLongitude">CFAOInstitute::Longitude()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Entities/CFAOInstitute.html#methodLatitude">CFAOInstitute::Latitude()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Entities/CFAOInstitute.html#methodAltitude">CFAOInstitute::Altitude()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodNS">COntologyTermObject::NS()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodModified">COntologyTermObject::Modified()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodCreated">COntologyTermObject::Created()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Entities/CFAOInstitute.html#methodEAcronym">CFAOInstitute::EAcronym()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Entities/CEntity.html#methodModified">CEntity::Modified()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CRelatedUnitObject.html#methodValid">CRelatedUnitObject::Valid()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CRelatedUnitObject.html#methodPreferred">CRelatedUnitObject::Preferred()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">CCodedUnitObject::Code()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Entities/CEntity.html#methodName">CEntity::Name()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Entities/CEntity.html#methodCreated">CEntity::Created()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTerm.html#methodUnit">COntologyTerm::Unit()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			ManageOffset
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theReference</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theReference</span><span class="var-description">: Array or ArrayObject reference.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theOffset</span><span class="var-description">: Offset to be managed.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: New value or operation.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodManageTypedArrayOffset" id="ManageTypedArrayOffset"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static ManageTypedArrayOffset</span> (line <span class="line-number">1150</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage a typed array offset.</p>
+<p class="description"><p>The structures managed by this method are equivalent to the structures managed by the  <a href="../../MyWrapper/Framework/CAttribute.html#methodManageTypedOffset">ManageTypedOffset</a> method, except that the data item, in  this case, is an array and the goal of this method is to manage the data item array  elements rather than the data item itself.</p><p>This method features many of the same parameters than the  <a href="../../MyWrapper/Framework/CAttribute.html#methodManageTypedOffset">ManageTypedOffset</a> method except for a couple of changes.</p><p>Here is the list of arguments:</p><p><ul><li><strong>&amp;$theReference</strong>: The reference to the attributes container, the object or
+        array that holds the list of elements. The reference must point to an array or
+        to an ArrayObject instance, any other type will trigger an exception.</li><li><strong>$theMainOffset</strong>: The offset, in the previous parameter, to the list of
+        elements to be managed, this referenced element is expected to be an array, if
+        this is not the case, the method will raise an exception.</li><li><strong>$theDataOffset</strong>: The offset to the element's data item as a string. If you
+        provide an array, it means that you want to perform a series of operations, in
+        other words, this method will be called once for each element of this array and
+        the combination of parameters will depend on how the other arguments will have
+        been provided. Note that an ArrayObject is not considered as a list in this
+        case.</li><li><strong>$theTypeOffsets</strong>: This parameter represents the offsets of the element
+        items that represent the element's kind, type or key. In general you should
+        provide an array of strings, if you provide a scalar, this will become an array
+        of one element. If the previous parameter was provided as an array, it means
+        that this parameter may take three forms:
+     <ul><li><em>scalar</em>: The single offset will be used for each element provided in
+            the previous parameter. Note that an ArrayObject instance is also considered
+            a scalar.</li><li><em>list</em>: If you provide a list of strings, this list will be used for
+            each element provided in the previous parameter.</li><li><em>matrix</em>: If you provide a list of arrays, each element of the previous
+            parameter will be matched with the corresponding array in this list, which
+            also means that in this case the count of both parameters must be the same.</li></ul></li><li><strong>$theTypeValues</strong>: This parameter represents the the element kind, type or
+        key values, this parameter is matched against the previous parameter to
+        constitute the significant items of the element, meaning that each element of
+        the previous parameter represents the offset referencing the corresponding
+        element in this parameter.</li><li><strong>$theData</strong>: This parameter represents the element's data value or the the
+        data scope; this parameter is one of those that have a different usage than in
+        the <a href="../../MyWrapper/Framework/CAttribute.html#methodManageTypedOffset">ManageTypedOffset</a> method:
+     <ul><li><em>array</em>: An array is considered in two different ways, depending on the
+            type of the <em>$theDataOffset</em> parameter:
+         <ul><li><em>scalar</em>: In this case the array is considered the data value.</li><li><em>array</em>: In this case the array is considered as the list of values
+                to be managed: each element of this array will be identified by the
+                corresponding element of the <em>$theDataOffset</em> array parameter.</li></ul></li><li><em>NULL</em>: This indicates that the operation, provided in the next
+            parameter, applies to the whole data item list; this also means that if the
+            operation is <em>TRUE</em> we raise here an exception, because one cannot add
+            a <em>NULL</em> data item.</li><li><em>other</em>: Any other value represents either the index of the data item
+            to be retrieved or deleted, or the data item to be added. Note that if the
+            value is an array, the array elements will be added individually, rather
+            than setting the data to the actual array.</li></ul></li><li><strong>$theOperation</strong>: This parameter represents the operation to be performed,
+        it will be evaluated as a boolean and its scope depends on the value of the
+        previous parameter:
+     <ul><li><em>NULL</em>: Return the element's data item or list.</li><li><em>FALSE</em>: Delete the element's data item or list.</li><li><em>TRUE</em>: Add or replace an element's data item or list.</li><li><em>array</em>: This type is only considered if the <em>$theDataOffset</em>
+            parameter is provided as an array: the method will be called for each
+            element of the <em>$theDataOffset</em> parameter matched with the
+            corresponding element of this parameter. This also implies that both
+            parameters must share the same count.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
+     <ul><li><em>TRUE</em>: Return the data item <em>before</em> it was eventually modified.</li><li><em>FALSE</em>: Return the data item <em>after</em> it was eventually modified.</li></ul></li><li><strong>$theClosure</strong>: The hashing closure, if omitted, the
+        <a href="../../MyWrapper/Framework/CAttribute.html#methodHashClosure">default</a> closure function will be used, for more details on
+        how to create a custom closure please see the <a href="../../MyWrapper/Framework/CAttribute.html#methodHashClosure">HashClosure</a>
+        reference in this class. If the <em>$theDataOffset</em> was provided as an array,
+        this parameter may also be provided as a list of closures matching the
+        <em>$theDataOffset</em> parameter count.</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> <a href="../../MyWrapper/Framework/CException.html">CException</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageTypedOffset">CAttribute::ManageTypedOffset()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageArrayOffset">CAttribute::ManageArrayOffset()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodHashClosure">CAttribute::HashClosure()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			ManageTypedArrayOffset
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theReference</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theMainOffset</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theDataOffset</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$theTypeOffsets</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$theTypeValues</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theData</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theOperation</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>], [<span class="var-type">closure</span>&nbsp;<span class="var-name">$theClosure</span> = <span class="var-default">NULL</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theReference</span><span class="var-description">: Container reference.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theMainOffset</span><span class="var-description">: Attribute offset.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theDataOffset</span><span class="var-description">: Element data item's offset.</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$theTypeOffsets</span><span class="var-description">: List of type offsets.</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$theTypeValues</span><span class="var-description">: List of type values.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theData</span><span class="var-description">: Data item value or scope.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theOperation</span><span class="var-description">: Operation.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+					<li>
+				<span class="var-type">closure</span>
+				<span class="var-name">$theClosure</span><span class="var-description">: Hashing anonymous function.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodManageTypedOffset" id="ManageTypedOffset"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static ManageTypedOffset</span> (line <span class="line-number">629</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage a typed offset.</p>
+<p class="description"><p>A typed offset is a list element that has at least an item containing the element  data and a variable number of other items that determine the type or kind of the  element: these latter items also determine the element's key and are used to  retrieve, delete and create elements, no two elements may share the same combination  of these items. Elements of this type must be arrays, ArrayObject instances will be  converted to arrays.</p><p>The method accepts the following parameters:</p><p><ul><li><strong>&amp;$theReference</strong>: The reference to the attributes container, the object or
+		array that holds the list of elements. The reference must point to an array or
+		to an ArrayObject instance, any other type will trigger an exception.</li><li><strong>$theMainOffset</strong>: The offset, in the previous parameter, to the list of
+		elements to be managed, this referenced element is expected to be an array, if
+		this is not the case, the method will raise an exception.</li><li><strong>$theDataOffset</strong>: The offset to the element's data item as a string. If you
+		provide an array, it means that you want to perform a series of operations, in
+		other words, this method will be called once for each element of this array and
+		the combination of parameters will depend on how the other arguments will have
+		been provided. Note that an ArrayObject is not considered as a list in this
+		case.</li><li><strong>$theTypeOffsets</strong>: This parameter represents the offsets of the element
+		items that represent the element's kind, type or key. In general you should
+		provide an array of strings, if you provide a scalar, this will become an array
+		of one element. If the previous parameter was provided as an array, it means
+		that this parameter may take three forms:
+	 <ul><li><em>scalar</em>: The single offset will be used for each element provided in
+			the previous parameter. Note that an ArrayObject instance is also considered
+			a scalar.</li><li><em>list</em>: If you provide a list of strings, this list will be used for
+			each element provided in the previous parameter.</li><li><em>matrix</em>: If you provide a list of arrays, each element of the previous
+			parameter will be matched with the corresponding array in this list, which
+			also means that in this case the count of both parameters must be the same.</li></ul></li><li><strong>$theTypeValues</strong>: This parameter represents the the element kind, type or
+		key values, this parameter is matched against the previous parameter to
+		constitute the significant items of the element, meaning that each element of
+		the previous parameter represents the offset referencing the corresponding
+		element in this parameter.</li><li><strong>$theData</strong>: This parameter represents the element's data value or the
+		operation to be performed:
+	 <ul><li><em>array</em>: An array is considered in two different ways, depending on the
+			type of the <em>$theDataOffset</em> parameter:
+		 <ul><li><em>scalar</em>: In this case the array is considered the data value.</li><li><em>array</em>: In this case the array is considered as the list of values
+				to be managed: each element of this array will be identified by the
+				corresponding element of the <em>$theDataOffset</em> array parameter.</li></ul></li><li><em>NULL</em>: Retrieve the element's data item matching the provided types.</li><li><em>FALSE</em>: Delete the element's data item matching the provided types.</li><li><em>other</em>: Add or replace the element's data item matching the provided
+			types with the current value.</li></ul></li><li><strong>$getOld</strong>: Determines what the method will return:
+	 <ul><li><em>TRUE</em>: Return the data item <em>before</em> it was eventually modified.</li><li><em>FALSE</em>: Return the data item <em>after</em> it was eventually modified.</li></ul></li><li><strong>$theClosure</strong>: The hashing closure, if omitted, the
+		<a href="../../MyWrapper/Framework/CAttribute.html#methodHashClosure">default</a> closure function will be used, for more details on
+        how to create a custom closure please see the <a href="../../MyWrapper/Framework/CAttribute.html#methodHashClosure">HashClosure</a>
+        reference in this class. If the <em>$theDataOffset</em> was provided as an array,
+        this parameter may also be provided as a list of closures matching the
+        <em>$theDataOffset</em> parameter count.</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">throws:</span> <a href="../../MyWrapper/Framework/CException.html">CException</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageTypedArrayOffset">CAttribute::ManageTypedArrayOffset()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CDataset.html#methodDescription">CDataset::Description()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CDataset.html#methodName">CDataset::Name()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodDefinition">COntologyTermObject::Definition()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodHashClosure">CAttribute::HashClosure()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodName">COntologyTermObject::Name()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodDescription">COntologyTermObject::Description()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			ManageTypedOffset
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theReference</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theMainOffset</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$theDataOffset</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$theTypeOffsets</span>, <span class="var-type">array</span>&nbsp;<span class="var-name">$theTypeValues</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theData</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>], [<span class="var-type">closure</span>&nbsp;<span class="var-name">$theClosure</span> = <span class="var-default">NULL</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theReference</span><span class="var-description">: Container reference.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theMainOffset</span><span class="var-description">: Attribute offset.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theDataOffset</span><span class="var-description">: Element data item's offset.</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$theTypeOffsets</span><span class="var-description">: List of type offsets.</span>			</li>
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$theTypeValues</span><span class="var-description">: List of type values.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theData</span><span class="var-description">: Data item value or operation.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+					<li>
+				<span class="var-type">closure</span>
+				<span class="var-name">$theClosure</span><span class="var-description">: Hashing anonymous function.</span>			</li>
+				</ul>
+		
+			
+	</div>
+						
+		</div>
+	</div>
+
+	
+	<p class="notes" id="credit">
+		Documentation generated on Fri, 20 Jul 2012 17:57:35 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

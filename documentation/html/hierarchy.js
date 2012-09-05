@@ -17,7 +17,9 @@ var hierarchy =
       ] ],
       [ "CQueryStatement", "class_c_query_statement.html", null ],
       [ "CSessionObject", "class_c_session_object.html", [
-        [ "CSessionMongoNeo4j", "class_c_session_mongo_neo4j.html", null ]
+        [ "CSessionMongoNeo4j", "class_c_session_mongo_neo4j.html", [
+          [ "CWarehouseSession", "class_c_warehouse_session.html", null ]
+        ] ]
       ] ],
       [ "CStatusObject", "class_c_status_object.html", [
         [ "CPersistentObject", "class_c_persistent_object.html", [

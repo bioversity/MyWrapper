@@ -60,6 +60,7 @@ var searchData=
   ['csessionobject',['CSessionObject',['../class_c_session_object.html',1,'']]],
   ['cstatusobject',['CStatusObject',['../class_c_status_object.html',1,'']]],
   ['cuser',['CUser',['../class_c_user.html',1,'']]],
+  ['cwarehousesession',['CWarehouseSession',['../class_c_warehouse_session.html',1,'']]],
   ['cwarehousewrapper',['CWarehouseWrapper',['../class_c_warehouse_wrapper.html',1,'']]],
   ['cwarehousewrapperclient',['CWarehouseWrapperClient',['../class_c_warehouse_wrapper_client.html',1,'']]],
   ['cwrapper',['CWrapper',['../class_c_wrapper.html',1,'']]],

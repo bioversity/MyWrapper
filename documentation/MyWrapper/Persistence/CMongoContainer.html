@@ -1,0 +1,703 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class CMongoContainer</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name"><img src="../../media/images/Class_logo.png"
+														alt=" Class"
+														title=" Class"
+														style="vertical-align: middle"> CMongoContainer</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+							<a href="#sec-descendents">Descendents</a>
+			|											<a href="#sec-vars">Vars</a>
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Mongo persistent data store.</p>
+<p class="description"><p>This class extends its <a href="../../MyWrapper/Persistence/CContainer.html">ancestor</a> to implement an object store based on  MongoCollection containers.</p></p>
+		<p class="notes">
+			Located in <a class="field" href="_classes---CMongoContainer.php.html">/classes/CMongoContainer.php</a> (line <span class="field">45</span>)
+		</p>
+		
+				
+		<pre><a href="../../MyWrapper/Framework/CObject.html">CObject</a>
+   |
+   --<a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a>
+      |
+      --CMongoContainer</pre>
+	
+			</div>
+</div>
+
+	<a name="sec-descendents"></a>
+	<div class="info-box">
+		<div class="info-box-title">Direct descendents</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+			<span class="disabled">Descendents</span>
+			|												<a href="#sec-vars">Vars</a>
+								|															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<table cellpadding="2" cellspacing="0" class="class-table">
+				<tr>
+					<th class="class-table-header">Class</th>
+					<th class="class-table-header">Description</th>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; white-space: nowrap">
+						<img src="../../media/images/Class.png"
+								 alt=" class"
+								 title=" class"
+								 style="vertical-align: center"/>
+						<a href="../../MyWrapper/Persistence/CMongoGridContainer.html">CMongoGridContainer</a>
+					</td>
+					<td>
+											Mongo persistent file store.
+										</td>
+				</tr>
+							</table>
+		</div>
+	</div>
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendants</a> |
+																		<a href="#sec-vars">Vars</a>
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																																																								<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#Container" title="details" class="method-name">Container</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#Database" title="details" class="method-name">Database</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#UnserialiseData" title="details" class="method-name">UnserialiseData</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theElement</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#_Commit" title="details" class="method-name">_Commit</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theObject</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#_Delete" title="details" class="method-name">_Delete</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#_Load" title="details" class="method-name">_Load</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_PrepareCommit" title="details" class="method-name">_PrepareCommit</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theObject</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_PrepareLoad" title="details" class="method-name">_PrepareLoad</a>
+											(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">string</span>
+										<a href="#__toString" title="details" class="method-name">__toString</a>
+										()
+									</div>
+											</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			
+Strict standards: Only variables should be passed by reference in /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php on line 712
+
+Call Stack:
+    0.0214     241624   1. {main}() /Library/WebServer/Sites/PhpDocumentor/phpdoc:0
+    0.1058     234976   2. include('/Library/WebServer/Sites/PhpDocumentor/phpDocumentor/phpdoc.inc') /Library/WebServer/Sites/PhpDocumentor/phpdoc:59
+    0.4743    7648976   3. phpDocumentor_setup->createDocs() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/phpdoc.inc:65
+   23.3847  180187424   4. phpDocumentor_IntermediateParser->Output() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Setup.inc.php:763
+   25.0280  181222672   5. phpDocumentor_IntermediateParser->Convert() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/IntermediateParser.inc:1867
+   25.0280  181222904   6. Converter->walk() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/IntermediateParser.inc:1654
+   37.5067  186969968   7. HTMLframesConverter->endClass() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Converter.inc:1936
+   37.5069  186972360   8. Smarty->fetch() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Converters/HTML/frames/HTMLframesConverter.inc:347
+   37.5104  187400224   9. include('/Library/WebServer/Library/wrapper/documentation/MyWrapper/Traits/37fe0d91c3b034db82eb2bc6d4fa57b5/%%165^%%1653142046^class.tpl.php') /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1298
+   37.5117  187557776  10. Smarty->_smarty_include() /Library/WebServer/Library/wrapper/documentation/MyWrapper/Traits/37fe0d91c3b034db82eb2bc6d4fa57b5/%%165^%%1653142046^class.tpl.php:603
+   37.5118  187561968  11. Smarty->_compile_resource() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1935
+   37.5120  187569104  12. Smarty->_compile_source() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1458
+   37.5121  187597416  13. Smarty_Compiler->_compile_file() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1523
+   37.5137  187650880  14. Smarty_Compiler->_compile_tag() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php:316
+   37.5140  187782904  15. Smarty_Compiler->_compile_custom_tag() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php:537
+
+
+Strict standards: Only variables should be passed by reference in /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php on line 712
+
+Call Stack:
+    0.0214     241624   1. {main}() /Library/WebServer/Sites/PhpDocumentor/phpdoc:0
+    0.1058     234976   2. include('/Library/WebServer/Sites/PhpDocumentor/phpDocumentor/phpdoc.inc') /Library/WebServer/Sites/PhpDocumentor/phpdoc:59
+    0.4743    7648976   3. phpDocumentor_setup->createDocs() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/phpdoc.inc:65
+   23.3847  180187424   4. phpDocumentor_IntermediateParser->Output() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Setup.inc.php:763
+   25.0280  181222672   5. phpDocumentor_IntermediateParser->Convert() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/IntermediateParser.inc:1867
+   25.0280  181222904   6. Converter->walk() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/IntermediateParser.inc:1654
+   37.5067  186969968   7. HTMLframesConverter->endClass() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Converter.inc:1936
+   37.5069  186972360   8. Smarty->fetch() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Converters/HTML/frames/HTMLframesConverter.inc:347
+   37.5104  187400224   9. include('/Library/WebServer/Library/wrapper/documentation/MyWrapper/Traits/37fe0d91c3b034db82eb2bc6d4fa57b5/%%165^%%1653142046^class.tpl.php') /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1298
+   37.5117  187557776  10. Smarty->_smarty_include() /Library/WebServer/Library/wrapper/documentation/MyWrapper/Traits/37fe0d91c3b034db82eb2bc6d4fa57b5/%%165^%%1653142046^class.tpl.php:603
+   37.5118  187561968  11. Smarty->_compile_resource() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1935
+   37.5120  187569104  12. Smarty->_compile_source() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1458
+   37.5121  187597416  13. Smarty_Compiler->_compile_file() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1523
+   37.5195  187665144  14. Smarty_Compiler->_compile_tag() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php:316
+   37.5197  187797104  15. Smarty_Compiler->_compile_custom_tag() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php:537
+
+
+							<h4>Inherited Variables</h4>
+				<A NAME='inherited_vars'><!-- --></A>
+									<p>Inherited from <span class="classname"><a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Variable.png" />
+							<span class="var-title">
+								<span class="var-name"><a href="../../MyWrapper/Persistence/CContainer.html#var$mContainer">CContainer::$mContainer</a></span><br>
+							</span>
+											</blockquote> 
+										
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+															<a href="#sec-vars">Vars</a>
+														<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+<a name="methodContainer" id="Container"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Container</span> (line <span class="line-number">111</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage persistent container.</p>
+<p class="description"><p>We <a href="../../MyWrapper/Persistence/CContainer.html#methodContainer">overload</a> this method to ensure that the  provided container is a MongoCollection object.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CMongoContainer.html#method_PrepareLoad">CMongoContainer::_PrepareLoad()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CMongoContainer.html#method_PrepareCommit">CMongoContainer::_PrepareCommit()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CMongoContainer.html#methodDatabase">CMongoContainer::Database()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CMongoContainer.html#method__toString">CMongoContainer::__toString()</a></li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CMongoContainer.html#method_Commit">CMongoContainer::_Commit()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			Container
+		</span>
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Persistent container or operation.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Persistence/CContainer.html#methodContainer">CContainer::Container()</a></dt>
+						<dd>Manage persistent container.</dd>
+					</dl>
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Persistence/CMongoGridContainer.html#methodContainer">CMongoGridContainer::Container()</a>
+								: Manage persistent container.
+							</li>
+				</ul>
+	</div>
+<a name="methodDatabase" id="Database"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Database</span> (line <span class="line-number">157</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return database.</p>
+<p class="description"><p>In this class we return the collection's database.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CMongoContainer.html#methodContainer">CMongoContainer::Container()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			Database
+		</span>
+				()
+			</div>
+	
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Persistence/CContainer.html#methodDatabase">CContainer::Database()</a></dt>
+						<dd>Return database.</dd>
+					</dl>
+			
+	</div>
+<a name="methodUnserialiseData" id="UnserialiseData"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">UnserialiseData</span> (line <span class="line-number">219</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Unserialise provided data element.</p>
+<p class="description"><p>We <a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseData">implement</a> this method to convert all  standard <a href="../../MyWrapper/Framework/CDataType.html">types</a> into custom Mongo data types.</p><p>In this class we parse the following types and <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_TYPE">offsets</a>:</p><p><ul><li><em><a href="../../MyWrapper/Framework/CDataTypeMongoId.html">CDataTypeMongoId</a> object or
+        <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_MongoId">kTYPE_MongoId</a> offset</em>: We return a MongoId
+        object.</li><li><em><a href="../../MyWrapper/Framework/CDataTypeMongoCode.html">CDataTypeMongoCode</a> object or
+        <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_MongoCode">kTYPE_MongoCode</a> offset</em>: We return a
+        MongoCode object.</li><li><em><a href="../../MyWrapper/Framework/CDataTypeStamp.html">CDataTypeStamp</a> object or
+        <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_STAMP">kTYPE_STAMP</a> offset</em>: We return a MongoDate
+        object.</li><li><em><a href="../../MyWrapper/Framework/CDataTypeRegex.html">CDataTypeRegex</a> object or
+        <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_REGEX">kTYPE_REGEX</a> offset</em>: We return a
+        MongoRegex object.</li><li><em><a href="../../MyWrapper/Framework/CDataTypeInt32.html">CDataTypeInt32</a> object or
+        <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_INT32">kTYPE_INT32</a> offset</em>: We return a MongoInt32
+        object.</li><li><em><a href="../../MyWrapper/Framework/CDataTypeInt64.html">CDataTypeInt64</a> object or
+        <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_INT64">kTYPE_INT64</a> offset</em>: We return a MongoInt64
+        object.</li><li><em><a href="../../MyWrapper/Framework/CDataTypeBinary.html">CDataTypeBinary</a> object or
+        <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_BINARY">kTYPE_BINARY</a> offset</em>: We return a MongoBinData
+        object.</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CMongoContainer.html#method_PrepareLoad">CMongoContainer::_PrepareLoad()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			UnserialiseData
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theElement</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theElement</span><span class="var-description">: Element to encode.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseData">CContainer::UnserialiseData()</a></dt>
+						<dd>Unserialise provided data element.</dd>
+					</dl>
+			
+	</div>
+<a name="method_Commit" id="_Commit"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_Commit</span> (line <span class="line-number">346</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Commit provided object.</p>
+<p class="description"><p>We implement this method to handle MongoCollection object stores, this method will  store the object in the current container.</p><p>The method will check if the current container is a MongoCollection, if this is not  the case, it will raise an <a href="../../MyWrapper/Definitions/_defines---Errors.inc.php.html#definekERROR_INVALID_STATE">exception</a>.</p><p>If the provided modifiers indicate a <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_PERSIST_MODIFY">modify</a> operation,  the method will return the modified object, in all other cases the method will return  the object identifier.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> kFLAG_PERSIST_REPLACE kFLAG_PERSIST_UPDATE</li>
+				<li><span class="field">see:</span> kFLAG_PERSIST_INSERT kFLAG_PERSIST_MODIFY</li>
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CMongoContainer.html#methodContainer">CMongoContainer::Container()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			_Commit
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theObject</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theObject</span><span class="var-description">: Object to commit.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theModifiers</span><span class="var-description">: Commit modifiers.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Persistence/CContainer.html#method_Commit">CContainer::_Commit()</a></dt>
+						<dd>Commit provided object.</dd>
+					</dl>
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Persistence/CMongoGridContainer.html#method_Commit">CMongoGridContainer::_Commit()</a>
+								: Commit provided object.
+							</li>
+				</ul>
+	</div>
+<a name="method_Delete" id="_Delete"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_Delete</span> (line <span class="line-number">746</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Delete object.</p>
+<p class="description"><p>We implement this method to handle MongoCollection object stores, this method will  remove the object from the current container.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			_Delete
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theModifiers</span><span class="var-description">: Load modifiers.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Persistence/CContainer.html#method_Delete">CContainer::_Delete()</a></dt>
+						<dd>Load object.</dd>
+					</dl>
+			
+	</div>
+<a name="method_Load" id="_Load"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_Load</span> (line <span class="line-number">716</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Load object.</p>
+<p class="description"><p>We implement this method to handle MongoCollection object stores, this method will  retrieve the object from the current container.</p><p>The <a href="../../MyWrapper/Persistence/CContainer.html#methodLoad">caller</a> will have resolved references andeventually extracted the  identifier from the provided parameter.</p><p>If the provided parameter is an array, the method will assume it is a query; if not,  the method will assume it is the value to match against the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LID">local</a>  identifier.</p><p>The method will use the <em>findOne</em> method to retrieve the object.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			_Load
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theModifiers</span><span class="var-description">: Load modifiers.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Persistence/CContainer.html#method_Load">CContainer::_Load()</a></dt>
+						<dd>Load object.</dd>
+					</dl>
+			
+	</div>
+<a name="method_PrepareCommit" id="_PrepareCommit"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_PrepareCommit</span> (line <span class="line-number">819</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Prepare before a _Commit().</p>
+<p class="description"><p>We <a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareCommit">overload</a> this method to handle the  identifier: if provided, it means that that is to become the object's unique  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LID">identifier</a>; if not provided and the object has an  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LID">identifier</a>, we use that one.</p><p>We also raise an exception if the provided object is not either an array or an  ArrayObject.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> kERROR_OPTION_MISSING kERROR_INVALID_PARAMETER kERROR_INVALID_STATE</li>
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a></li>
+				<li><span class="field">throws:</span> <a href="../../MyWrapper/Framework/CException.html">CException</a></li>
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CMongoContainer.html#methodContainer">CMongoContainer::Container()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_PrepareCommit
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theObject</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theObject</span><span class="var-description">: Object or data.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theModifiers</span><span class="var-description">: Commit modifiers.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareCommit">CContainer::_PrepareCommit()</a></dt>
+						<dd>Prepare before a _Commit().</dd>
+					</dl>
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Persistence/CMongoGridContainer.html#method_PrepareCommit">CMongoGridContainer::_PrepareCommit()</a>
+								: Prepare before a _Commit().
+							</li>
+				</ul>
+	</div>
+<a name="method_PrepareLoad" id="_PrepareLoad"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_PrepareLoad</span> (line <span class="line-number">877</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Prepare before a _Load().</p>
+<p class="description"><p>The duty of this method is to ensure that the parameters provided to the  <a href="../../MyWrapper/Persistence/CMongoContainer.html#method_Load">find</a> operation are valid.</p><p>In this class we <a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareLoad">overload</a> this method to handle  identifiers provided as queries.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_ENCODED">kFLAG_STATE_ENCODED</a></li>
+				<li><span class="field">throws:</span> <a href="../../MyWrapper/Framework/CException.html">CException</a></li>
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CMongoContainer.html#methodUnserialiseData">CMongoContainer::UnserialiseData()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CMongoContainer.html#methodContainer">CMongoContainer::Container()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_PrepareLoad
+		</span>
+					(<span class="var-type">reference</span>&nbsp;<span class="var-name">&$theIdentifier</span>, <span class="var-type">reference</span>&nbsp;<span class="var-name">&$theModifiers</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+					<li>
+				<span class="var-type">reference</span>
+				<span class="var-name">&$theModifiers</span><span class="var-description">: Create modifiers.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareLoad">CContainer::_PrepareLoad()</a></dt>
+						<dd>Prepare before a _Load().</dd>
+					</dl>
+			
+	</div>
+<a name="method__toString" id="__toString"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">__toString</span> (line <span class="line-number">73</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return container name.</p>
+<p class="description"><p>This method should return the current container's name.</p><p>In this class we return the collection name.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CMongoContainer.html#methodContainer">CMongoContainer::Container()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			__toString
+		</span>
+				()
+			</div>
+	
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Persistence/CContainer.html#method__toString">CContainer::__toString()</a></dt>
+						<dd>Return container name.</dd>
+					</dl>
+			
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Constructor.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CContainer.html#method__construct">CContainer::__construct()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CContainer.html#methodCommit">CContainer::Commit()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CContainer.html#methodContainer">CContainer::Container()</a></span><br>
+													<img src="../../media/images/AbstractMethod.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CContainer.html#methodDatabase">CContainer::Database()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CContainer.html#methodDelete">CContainer::Delete()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CContainer.html#methodLoad">CContainer::Load()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CContainer.html#methodReference">CContainer::Reference()</a></span><br>
+													<img src="../../media/images/AbstractMethod.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseData">CContainer::UnserialiseData()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CContainer.html#methodUnserialiseObject">CContainer::UnserialiseObject()</a></span><br>
+													<img src="../../media/images/AbstractMethod.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CContainer.html#method_Commit">CContainer::_Commit()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CContainer.html#method_Container">CContainer::_Container()</a></span><br>
+													<img src="../../media/images/AbstractMethod.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CContainer.html#method_Delete">CContainer::_Delete()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CContainer.html#method_FinishCommit">CContainer::_FinishCommit()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CContainer.html#method_FinishDelete">CContainer::_FinishDelete()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CContainer.html#method_FinishLoad">CContainer::_FinishLoad()</a></span><br>
+													<img src="../../media/images/AbstractMethod.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CContainer.html#method_Load">CContainer::_Load()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareCommit">CContainer::_PrepareCommit()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareDelete">CContainer::_PrepareDelete()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CContainer.html#method_PrepareLoad">CContainer::_PrepareLoad()</a></span><br>
+													<img src="../../media/images/AbstractMethod.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CContainer.html#method__toString">CContainer::__toString()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Framework/CObject.html">CObject</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CObject.html#methodDurationString">CObject::DurationString()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CObject.html#methodJsonDecode">CObject::JsonDecode()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CObject.html#methodJsonEncode">CObject::JsonEncode()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CObject.html#methodManageMember">CObject::ManageMember()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CObject.html#methodStringNormalise">CObject::StringNormalise()</a></span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+	
+	<p class="notes" id="credit">
+		Documentation generated on Fri, 20 Jul 2012 17:57:45 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

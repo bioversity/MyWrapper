@@ -1,0 +1,776 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class CCodedUnitObject</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name"><img src="../../media/images/Class_logo.png"
+														alt=" Class"
+														title=" Class"
+														style="vertical-align: middle"> CCodedUnitObject</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+							<a href="#sec-descendents">Descendents</a>
+			|											<a href="#sec-vars">Vars</a>
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+											<a href="#sec-consts">Constants</a>
+						
+			</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Coded unit object.</p>
+<p class="description"><p>Objects derived from this class have the <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a> predefined  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">properties</a>, by default, the unique <a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_index">identifier</a> of the  object is its <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a>, which is also its <a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_id">id</a>.</p><p>Objects of this class require at least the <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">offset</a>  to have an <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">initialised</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>.</p></p>
+		<p class="notes">
+			Located in <a class="field" href="_classes---CCodedUnitObject.php.html">/classes/CCodedUnitObject.php</a> (line <span class="field">42</span>)
+		</p>
+		
+				
+		<pre>ArrayObject
+   |
+   --<a href="../../MyWrapper/Framework/CArrayObject.html">CArrayObject</a>
+      |
+      --<a href="../../MyWrapper/Framework/CStatusObject.html">CStatusObject</a>
+         |
+         --<a href="../../MyWrapper/Persistence/CPersistentObject.html">CPersistentObject</a>
+            |
+            --<a href="../../MyWrapper/Persistence/CPersistentUnitObject.html">CPersistentUnitObject</a>
+               |
+               --<a href="../../MyWrapper/Persistence/CRelatedUnitObject.html">CRelatedUnitObject</a>
+                  |
+                  --CCodedUnitObject</pre>
+	
+			</div>
+</div>
+
+	<a name="sec-descendents"></a>
+	<div class="info-box">
+		<div class="info-box-title">Direct descendents</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+			<span class="disabled">Descendents</span>
+			|												<a href="#sec-vars">Vars</a>
+								|															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+															<a href="#sec-consts">Constants</a>
+							
+					</div>
+		<div class="info-box-body">
+			<table cellpadding="2" cellspacing="0" class="class-table">
+				<tr>
+					<th class="class-table-header">Class</th>
+					<th class="class-table-header">Description</th>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; white-space: nowrap">
+						<img src="../../media/images/Class.png"
+								 alt=" class"
+								 title=" class"
+								 style="vertical-align: center"/>
+						<a href="../../MyWrapper/Entities/CEntity.html">CEntity</a>
+					</td>
+					<td>
+											Entity.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; white-space: nowrap">
+						<img src="../../media/images/AbstractClass.png"
+								 alt="Abstract class"
+								 title="Abstract class"
+								 style="vertical-align: center"/>
+						<a href="../../MyWrapper/Ontology/COntologyTermObject.html">COntologyTermObject</a>
+					</td>
+					<td>
+											Ontology term ancestor.
+										</td>
+				</tr>
+							</table>
+		</div>
+	</div>
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendants</a> |
+															<a href="#sec-consts">Constants</a>
+							
+															<a href="#sec-vars">Vars</a>
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																								<div class="method-definition">
+					<img src="../../media/images/Constructor.png" alt=" "/>
+											<span class="method-result">CCodedUnitObject</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span> = <span class="var-default">NULL</span>], [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_DEFAULT</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">string</span>
+										<a href="#Code" title="details" class="method-name">Code</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#offsetSet" title="details" class="method-name">offsetSet</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>, <span class="var-type">string|NULL</span>&nbsp;<span class="var-name">$theValue</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#offsetUnset" title="details" class="method-name">offsetUnset</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">string</span>
+										<a href="#_index" title="details" class="method-name">_index</a>
+										()
+									</div>
+											</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+												<a href="#sec-consts">Constants</a>
+							
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			
+Strict standards: Only variables should be passed by reference in /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php on line 712
+
+Call Stack:
+    0.0214     241624   1. {main}() /Library/WebServer/Sites/PhpDocumentor/phpdoc:0
+    0.1058     234976   2. include('/Library/WebServer/Sites/PhpDocumentor/phpDocumentor/phpdoc.inc') /Library/WebServer/Sites/PhpDocumentor/phpdoc:59
+    0.4743    7648976   3. phpDocumentor_setup->createDocs() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/phpdoc.inc:65
+   23.3847  180187424   4. phpDocumentor_IntermediateParser->Output() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Setup.inc.php:763
+   25.0280  181222672   5. phpDocumentor_IntermediateParser->Convert() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/IntermediateParser.inc:1867
+   25.0280  181222904   6. Converter->walk() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/IntermediateParser.inc:1654
+   27.8846  184565040   7. HTMLframesConverter->endClass() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Converter.inc:1936
+   27.8848  184567368   8. Smarty->fetch() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Converters/HTML/frames/HTMLframesConverter.inc:347
+   27.9520  185002120   9. include('/Library/WebServer/Library/wrapper/documentation/MyWrapper/Framework/37fe0d91c3b034db82eb2bc6d4fa57b5/%%165^%%1653142046^class.tpl.php') /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1298
+   27.9533  185159288  10. Smarty->_smarty_include() /Library/WebServer/Library/wrapper/documentation/MyWrapper/Framework/37fe0d91c3b034db82eb2bc6d4fa57b5/%%165^%%1653142046^class.tpl.php:603
+   27.9534  185163536  11. Smarty->_compile_resource() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1935
+   27.9535  185170592  12. Smarty->_compile_source() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1458
+   27.9537  185198464  13. Smarty_Compiler->_compile_file() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1523
+   27.9554  185251984  14. Smarty_Compiler->_compile_tag() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php:316
+   27.9556  185384024  15. Smarty_Compiler->_compile_custom_tag() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php:537
+
+
+Strict standards: Only variables should be passed by reference in /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php on line 712
+
+Call Stack:
+    0.0214     241624   1. {main}() /Library/WebServer/Sites/PhpDocumentor/phpdoc:0
+    0.1058     234976   2. include('/Library/WebServer/Sites/PhpDocumentor/phpDocumentor/phpdoc.inc') /Library/WebServer/Sites/PhpDocumentor/phpdoc:59
+    0.4743    7648976   3. phpDocumentor_setup->createDocs() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/phpdoc.inc:65
+   23.3847  180187424   4. phpDocumentor_IntermediateParser->Output() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Setup.inc.php:763
+   25.0280  181222672   5. phpDocumentor_IntermediateParser->Convert() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/IntermediateParser.inc:1867
+   25.0280  181222904   6. Converter->walk() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/IntermediateParser.inc:1654
+   27.8846  184565040   7. HTMLframesConverter->endClass() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Converter.inc:1936
+   27.8848  184567368   8. Smarty->fetch() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Converters/HTML/frames/HTMLframesConverter.inc:347
+   27.9520  185002120   9. include('/Library/WebServer/Library/wrapper/documentation/MyWrapper/Framework/37fe0d91c3b034db82eb2bc6d4fa57b5/%%165^%%1653142046^class.tpl.php') /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1298
+   27.9533  185159288  10. Smarty->_smarty_include() /Library/WebServer/Library/wrapper/documentation/MyWrapper/Framework/37fe0d91c3b034db82eb2bc6d4fa57b5/%%165^%%1653142046^class.tpl.php:603
+   27.9534  185163536  11. Smarty->_compile_resource() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1935
+   27.9535  185170592  12. Smarty->_compile_source() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1458
+   27.9537  185198464  13. Smarty_Compiler->_compile_file() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1523
+   27.9613  185266568  14. Smarty_Compiler->_compile_tag() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php:316
+   27.9615  185398600  15. Smarty_Compiler->_compile_custom_tag() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php:537
+
+
+							<h4>Inherited Variables</h4>
+				<A NAME='inherited_vars'><!-- --></A>
+									<p>Inherited from <span class="classname"><a href="../../MyWrapper/Framework/CStatusObject.html">CStatusObject</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Variable.png" />
+							<span class="var-title">
+								<span class="var-name"><a href="../../MyWrapper/Framework/CStatusObject.html#var$mStatus">CStatusObject::$mStatus</a></span><br>
+							</span>
+											</blockquote> 
+										
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+															<a href="#sec-vars">Vars</a>
+														<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			
+Strict standards: Only variables should be passed by reference in /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php on line 712
+
+Call Stack:
+    0.0214     241624   1. {main}() /Library/WebServer/Sites/PhpDocumentor/phpdoc:0
+    0.1058     234976   2. include('/Library/WebServer/Sites/PhpDocumentor/phpDocumentor/phpdoc.inc') /Library/WebServer/Sites/PhpDocumentor/phpdoc:59
+    0.4743    7648976   3. phpDocumentor_setup->createDocs() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/phpdoc.inc:65
+   23.3847  180187424   4. phpDocumentor_IntermediateParser->Output() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Setup.inc.php:763
+   25.0280  181222672   5. phpDocumentor_IntermediateParser->Convert() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/IntermediateParser.inc:1867
+   25.0280  181222904   6. Converter->walk() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/IntermediateParser.inc:1654
+   27.8846  184565040   7. HTMLframesConverter->endClass() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Converter.inc:1936
+   27.8848  184567368   8. Smarty->fetch() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Converters/HTML/frames/HTMLframesConverter.inc:347
+   27.9520  185002120   9. include('/Library/WebServer/Library/wrapper/documentation/MyWrapper/Framework/37fe0d91c3b034db82eb2bc6d4fa57b5/%%165^%%1653142046^class.tpl.php') /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1298
+   27.9879  185167872  10. Smarty->_smarty_include() /Library/WebServer/Library/wrapper/documentation/MyWrapper/Framework/37fe0d91c3b034db82eb2bc6d4fa57b5/%%165^%%1653142046^class.tpl.php:699
+   27.9881  185172216  11. Smarty->_compile_resource() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1935
+   27.9883  185186584  12. Smarty->_compile_source() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1458
+   27.9884  185218072  13. Smarty_Compiler->_compile_file() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1523
+   27.9910  185322248  14. Smarty_Compiler->_compile_tag() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php:316
+   27.9913  185454280  15. Smarty_Compiler->_compile_custom_tag() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php:537
+
+
+Strict standards: Only variables should be passed by reference in /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php on line 712
+
+Call Stack:
+    0.0214     241624   1. {main}() /Library/WebServer/Sites/PhpDocumentor/phpdoc:0
+    0.1058     234976   2. include('/Library/WebServer/Sites/PhpDocumentor/phpDocumentor/phpdoc.inc') /Library/WebServer/Sites/PhpDocumentor/phpdoc:59
+    0.4743    7648976   3. phpDocumentor_setup->createDocs() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/phpdoc.inc:65
+   23.3847  180187424   4. phpDocumentor_IntermediateParser->Output() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Setup.inc.php:763
+   25.0280  181222672   5. phpDocumentor_IntermediateParser->Convert() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/IntermediateParser.inc:1867
+   25.0280  181222904   6. Converter->walk() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/IntermediateParser.inc:1654
+   27.8846  184565040   7. HTMLframesConverter->endClass() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Converter.inc:1936
+   27.8848  184567368   8. Smarty->fetch() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Converters/HTML/frames/HTMLframesConverter.inc:347
+   27.9520  185002120   9. include('/Library/WebServer/Library/wrapper/documentation/MyWrapper/Framework/37fe0d91c3b034db82eb2bc6d4fa57b5/%%165^%%1653142046^class.tpl.php') /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1298
+   27.9879  185167872  10. Smarty->_smarty_include() /Library/WebServer/Library/wrapper/documentation/MyWrapper/Framework/37fe0d91c3b034db82eb2bc6d4fa57b5/%%165^%%1653142046^class.tpl.php:699
+   27.9881  185172216  11. Smarty->_compile_resource() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1935
+   27.9883  185186584  12. Smarty->_compile_source() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1458
+   27.9884  185218072  13. Smarty_Compiler->_compile_file() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1523
+   28.0024  185348488  14. Smarty_Compiler->_compile_tag() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php:316
+   28.0027  185480552  15. Smarty_Compiler->_compile_custom_tag() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php:537
+
+<A NAME='method_detail'></A>
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Constructor.png" />
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">75</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Instantiate class.</p>
+<p class="description"><p>We <a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">overload</a> the constructor to initialise  the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">inited</a> <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">flag</a> if the  <a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodCode">code</a> attribute is set.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">kTAG_CODE</a></li>
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">CCodedUnitObject</span>
+		<span class="method-name">
+			__construct
+		</span>
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theContainer</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span> = <span class="var-default">NULL</span>], [<span class="var-type">bitfield</span>&nbsp;<span class="var-name">$theModifiers</span> = <span class="var-default">kFLAG_DEFAULT</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theContainer</span><span class="var-description">: Persistent container.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theIdentifier</span><span class="var-description">: Object identifier.</span>			</li>
+					<li>
+				<span class="var-type">bitfield</span>
+				<span class="var-name">$theModifiers</span><span class="var-description">: Create modifiers.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">CPersistentObject::__construct()</a></dt>
+						<dd>Instantiate class.</dd>
+					</dl>
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Entities/CInstitute.html#method__construct">CInstitute::__construct()</a>
+								: Instantiate class.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyTermObject.html#method__construct">COntologyTermObject::__construct()</a>
+								: Instantiate class.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyTerm.html#method__construct">COntologyTerm::__construct()</a>
+								: Instantiate class.
+							</li>
+				</ul>
+	</div>
+<a name="methodCode" id="Code"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Code</span> (line <span class="line-number">128</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage code.</p>
+<p class="description"><p>This method can be used to handle the object's <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a>, it uses the  standard accessor <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">method</a> to manage the  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">offset</a>.</p><p>The code represents the object's <a href="../../MyWrapper/Framework/CCodedUnitObject.html#method_index">identifier</a>.</p><p>For a more in-depth reference of this method, please consult the  <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">ManageOffset</a> method, in which the first parameter  will be the constant <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">kTAG_CODE</a>.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">kTAG_CODE</a></li>
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">CAttribute::ManageOffset()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			Code
+		</span>
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Value.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyTermObject.html#methodCode">COntologyTermObject::Code()</a>
+								: Manage code.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyTag.html#methodCode">COntologyTag::Code()</a>
+								: Get code.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyTerm.html#methodCode">COntologyTerm::Code()</a>
+								: Manage code.
+							</li>
+				</ul>
+	</div>
+<a name="methodoffsetSet" id="offsetSet"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">offsetSet</span> (line <span class="line-number">160</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set a value for a given offset.</p>
+<p class="description"><p>We overload this method to manage the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">inited</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>: this is set if <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a> property is  set.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			offsetSet
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>, <span class="var-type">string|NULL</span>&nbsp;<span class="var-name">$theValue</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theOffset</span><span class="var-description">: Offset.</span>			</li>
+					<li>
+				<span class="var-type">string|NULL</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Value to set at offset.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Framework/CStatusObject.html#methodoffsetSet">CStatusObject::offsetSet()</a></dt>
+						<dd>Set a value for a given offset.</dd>
+					</dl>
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Entities/CInstitute.html#methodoffsetSet">CInstitute::offsetSet()</a>
+								: Set a value for a given offset.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Entities/CFAOInstitute.html#methodoffsetSet">CFAOInstitute::offsetSet()</a>
+								: Set a value for a given offset.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Entities/CUser.html#methodoffsetSet">CUser::offsetSet()</a>
+								: Set a value for a given offset.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyTerm.html#methodoffsetSet">COntologyTerm::offsetSet()</a>
+								: Set a value for a given offset.
+							</li>
+				</ul>
+	</div>
+<a name="methodoffsetUnset" id="offsetUnset"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">offsetUnset</span> (line <span class="line-number">191</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Reset a value for a given offset.</p>
+<p class="description"><p>We overload this method to manage the <a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">inited</a>  <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_STATE_INITED">status</a>: this is set if <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a> property is  set.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			offsetUnset
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theOffset</span><span class="var-description">: Offset.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Framework/CStatusObject.html#methodoffsetUnset">CStatusObject::offsetUnset()</a></dt>
+						<dd>Reset a value for a given offset.</dd>
+					</dl>
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Entities/CInstitute.html#methodoffsetUnset">CInstitute::offsetUnset()</a>
+								: Reset a value for a given offset.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Entities/CFAOInstitute.html#methodoffsetUnset">CFAOInstitute::offsetUnset()</a>
+								: Reset a value for a given offset.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Entities/CUser.html#methodoffsetUnset">CUser::offsetUnset()</a>
+								: Reset a value for a given offset.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyTerm.html#methodoffsetUnset">COntologyTerm::offsetUnset()</a>
+								: Reset a value for a given offset.
+							</li>
+				</ul>
+	</div>
+<a name="method_index" id="_index"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_index</span> (line <span class="line-number">228</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return the object's unique index.</p>
+<p class="description"><p>In this class we consider the <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_CODE">code</a> to be the object's unique  <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LID">identifier</a>.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			_index
+		</span>
+				()
+			</div>
+	
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_index">CPersistentUnitObject::_index()</a></dt>
+						<dd>Return the object's unique index.</dd>
+					</dl>
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyTermObject.html#method_index">COntologyTermObject::_index()</a>
+								: Return the object's unique index.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyTag.html#method_index">COntologyTag::_index()</a>
+								: Return the object's unique index.
+							</li>
+				</ul>
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Persistence/CRelatedUnitObject.html">CRelatedUnitObject</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CRelatedUnitObject.html#methodPreferred">CRelatedUnitObject::Preferred()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CRelatedUnitObject.html#methodRelate">CRelatedUnitObject::Relate()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CRelatedUnitObject.html#methodUsed">CRelatedUnitObject::Used()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CRelatedUnitObject.html#methodValid">CRelatedUnitObject::Valid()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CRelatedUnitObject.html#methodValidObject">CRelatedUnitObject::ValidObject()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CRelatedUnitObject.html#method_PrepareCommit">CRelatedUnitObject::_PrepareCommit()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html">CPersistentUnitObject</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodHashIndex">CPersistentUnitObject::HashIndex()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodNewObject">CPersistentUnitObject::NewObject()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodNormaliseRelatedObject">CPersistentUnitObject::NormaliseRelatedObject()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodNormaliseRelatedPredicate">CPersistentUnitObject::NormaliseRelatedPredicate()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodObjectIdentifier">CPersistentUnitObject::ObjectIdentifier()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodPersistent">CPersistentUnitObject::Persistent()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#methodReference">CPersistentUnitObject::Reference()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_Commit">CPersistentUnitObject::_Commit()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_CommitReferences">CPersistentUnitObject::_CommitReferences()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_GetTags">CPersistentUnitObject::_GetTags()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_id">CPersistentUnitObject::_id()</a></span><br>
+													<img src="../../media/images/AbstractMethod.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_index">CPersistentUnitObject::_index()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_ParseReferences">CPersistentUnitObject::_ParseReferences()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_PrepareCommit">CPersistentUnitObject::_PrepareCommit()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method_PrepareLoad">CPersistentUnitObject::_PrepareLoad()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentUnitObject.html#method__toString">CPersistentUnitObject::__toString()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Persistence/CPersistentObject.html">CPersistentObject</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Constructor.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentObject.html#method__construct">CPersistentObject::__construct()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">CPersistentObject::Commit()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentObject.html#methodUncommit">CPersistentObject::Uncommit()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_Commit">CPersistentObject::_Commit()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_Create">CPersistentObject::_Create()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_FinishCommit">CPersistentObject::_FinishCommit()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_FinishCreate">CPersistentObject::_FinishCreate()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_FinishLoad">CPersistentObject::_FinishLoad()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_GetTags">CPersistentObject::_GetTags()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsCommitted">CPersistentObject::_IsCommitted()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_IsEncoded">CPersistentObject::_IsEncoded()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_Load">CPersistentObject::_Load()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_PrepareCommit">CPersistentObject::_PrepareCommit()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_PrepareCreate">CPersistentObject::_PrepareCreate()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_PrepareLoad">CPersistentObject::_PrepareLoad()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Persistence/CPersistentObject.html#method_SetTags">CPersistentObject::_SetTags()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Framework/CStatusObject.html">CStatusObject</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#methodoffsetSet">CStatusObject::offsetSet()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#methodoffsetUnset">CStatusObject::offsetUnset()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#methodStatus">CStatusObject::Status()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#method_IsDirty">CStatusObject::_IsDirty()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#method_IsInited">CStatusObject::_IsInited()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CStatusObject.html#method_ManageBitField">CStatusObject::_ManageBitField()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Framework/CArrayObject.html">CArrayObject</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodkeys">CArrayObject::keys()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetGet">CArrayObject::offsetGet()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetSet">CArrayObject::offsetSet()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetUnset">CArrayObject::offsetUnset()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodvalues">CArrayObject::values()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname">ArrayObject (Internal Class)</span></p>
+					<blockquote>
+													<img src="../../media/images/Constructor.png" alt=" "/>
+							<span class="method-name">constructor __construct ( $array )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">append ( $value )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">asort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">count (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">exchangeArray ( $array )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getArrayCopy (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getFlags (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getIterator (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getIteratorClass (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">ksort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">natcasesort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">natsort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetExists ( $index )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetGet ( $index )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetSet ( $index, $newval )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetUnset ( $index )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">serialize (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">setFlags ( $flags )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">setIteratorClass ( $iteratorClass )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">uasort ( $cmp_function )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">uksort ( $cmp_function )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">unserialize ( $serialized )</span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+	<a name="sec-consts"></a>
+	<div class="info-box">
+		<div class="info-box-title">Class Constants</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendants</a> |
+										<a href="#sec-var-summary">Constants</a> (<span class="disabled">details</span>)
+						
+			
+												<a href="#sec-vars">Vars</a>
+														| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			
+Strict standards: Only variables should be passed by reference in /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php on line 712
+
+Call Stack:
+    0.0214     241624   1. {main}() /Library/WebServer/Sites/PhpDocumentor/phpdoc:0
+    0.1058     234976   2. include('/Library/WebServer/Sites/PhpDocumentor/phpDocumentor/phpdoc.inc') /Library/WebServer/Sites/PhpDocumentor/phpdoc:59
+    0.4743    7648976   3. phpDocumentor_setup->createDocs() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/phpdoc.inc:65
+   23.3847  180187424   4. phpDocumentor_IntermediateParser->Output() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Setup.inc.php:763
+   25.0280  181222672   5. phpDocumentor_IntermediateParser->Convert() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/IntermediateParser.inc:1867
+   25.0280  181222904   6. Converter->walk() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/IntermediateParser.inc:1654
+   27.8846  184565040   7. HTMLframesConverter->endClass() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Converter.inc:1936
+   27.8848  184567368   8. Smarty->fetch() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Converters/HTML/frames/HTMLframesConverter.inc:347
+   27.9520  185002120   9. include('/Library/WebServer/Library/wrapper/documentation/MyWrapper/Framework/37fe0d91c3b034db82eb2bc6d4fa57b5/%%165^%%1653142046^class.tpl.php') /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1298
+   28.0311  185210384  10. Smarty->_smarty_include() /Library/WebServer/Library/wrapper/documentation/MyWrapper/Framework/37fe0d91c3b034db82eb2bc6d4fa57b5/%%165^%%1653142046^class.tpl.php:803
+   28.0312  185214576  11. Smarty->_compile_resource() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1935
+   28.0314  185217376  12. Smarty->_compile_source() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1458
+   28.0315  185243072  13. Smarty_Compiler->_compile_file() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1523
+   28.0324  185260104  14. Smarty_Compiler->_compile_tag() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php:316
+   28.0326  185392080  15. Smarty_Compiler->_compile_custom_tag() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php:537
+
+							<h4>Inherited Constants</h4>
+				<A NAME='inherited_consts'><!-- --></A>
+									<p>Inherited from <span class="classname">ArrayObject (Internal Class)</span></p>
+					<blockquote>
+													<img src="../../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name">ARRAY_AS_PROPS = 2</span><br>
+							</span>
+													<img src="../../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name">STD_PROP_LIST = 1</span><br>
+							</span>
+											</blockquote> 
+										
+		</div>
+	</div>
+	
+	<p class="notes" id="credit">
+		Documentation generated on Fri, 20 Jul 2012 17:57:35 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

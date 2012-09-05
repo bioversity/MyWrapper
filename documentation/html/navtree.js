@@ -20,7 +20,7 @@ var NAVTREEINDEX =
 [
 "annotated.html",
 "class_c_mongo_data_wrapper.html#a1b61fb28b8917a53948b02194902eb34",
-"class_c_session_mongo_neo4j.html#a6311c1e5d89e5de8188472de659bd50d"
+"class_c_session_mongo_neo4j.html#ab512e36184ee03fe2fee7a30175f899d"
 ];
 
 var navTreeSubIndices = new Array();

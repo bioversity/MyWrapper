@@ -1,0 +1,1034 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class CSessionObject</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name"><img src="../../media/images/AbstractClass_logo.png"
+														alt="Abstract Class"
+														title="Abstract Class"
+														style="vertical-align: middle"> CSessionObject</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+													<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+                <p class="implements">
+            Implements interfaces:
+            <ul>
+                <li>Serializable (internal interface)</li>            </ul>
+        </p>
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Session object.</p>
+<p class="description"><p>This class implements a session object, it should be stored in the session with the  <a href="../../MyWrapper/Definitions/_includes.inc.php.html#definekDEFAULT_SESSION">kDEFAULT_SESSION</a> offset.</p><p>This class and its derived instances store session objects in data members and the view  model object in its array, this means that the server holds private data and the public  data is published to the web pages by converting the array to JSON.</p><p>This class is declared abstract, because it lets concrete derived instances take care of  choosing the specific database engines.</p></p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_classes---CSessionObject.php.html">/classes/CSessionObject.php</a> (line <span class="field">76</span>)
+		</p>
+		
+				
+		<pre>ArrayObject
+   |
+   --<a href="../../MyWrapper/Framework/CArrayObject.html">CArrayObject</a>
+      |
+      --CSessionObject</pre>
+	
+			</div>
+</div>
+
+
+
+	<a name="sec-var-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variable Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+						<span class="disabled">Vars</span> (<a href="#sec-vars">details</a>)
+							| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+								</div>
+		<div class="info-box-body">
+			<div class="var-summary">
+																																																								<div class="var-title">
+					<img src="../../media/images/Variable.png" alt=" " />
+					<span class="var-type">mixed</span>
+					<a href="#$mDatabase" title="details" class="var-name">$mDatabase</a>
+				</div>
+																<div class="var-title">
+					<img src="../../media/images/Variable.png" alt=" " />
+					<span class="var-type">mixed</span>
+					<a href="#$mDataStore" title="details" class="var-name">$mDataStore</a>
+				</div>
+																<div class="var-title">
+					<img src="../../media/images/Variable.png" alt=" " />
+					<span class="var-type">mixed</span>
+					<a href="#$mGraphStore" title="details" class="var-name">$mGraphStore</a>
+				</div>
+																<div class="var-title">
+					<img src="../../media/images/Variable.png" alt=" " />
+					<span class="var-type"><a href="../../MyWrapper/Entities/CUser.html">CUser</a></span>
+					<a href="#$mUser" title="details" class="var-name">$mUser</a>
+				</div>
+																<div class="var-title">
+					<img src="../../media/images/Variable.png" alt=" " />
+					<span class="var-type">mixed</span>
+					<a href="#$mUsersContainer" title="details" class="var-name">$mUsersContainer</a>
+				</div>
+											</div>
+		</div>
+	</div>
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+																		<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																																																																																																																																								<div class="method-definition">
+					<img src="../../media/images/Constructor.png" alt=" "/>
+											<span class="method-result">CSessionObject</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theData</span> = <span class="var-default">NULL</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#Database" title="details" class="method-name">Database</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#DataStore" title="details" class="method-name">DataStore</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#GraphStore" title="details" class="method-name">GraphStore</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result"><a href="../../MyWrapper/Framework/CObject.html">CObject</a></span>
+										<a href="#Login" title="details" class="method-name">Login</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theCode</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$thePass</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/AbstractMethod.png" alt=" "/>
+											<span class="method-result"><a href="../../MyWrapper/Persistence/CQuery.html">CQuery</a></span>
+										<a href="#Query" title="details" class="method-name">Query</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">string</span>
+										<a href="#serialize" title="details" class="method-name">serialize</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#unserialize" title="details" class="method-name">unserialize</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theSerialised</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#User" title="details" class="method-name">User</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#UsersContainer" title="details" class="method-name">UsersContainer</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/AbstractMethod.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_InitDatabase" title="details" class="method-name">_InitDatabase</a>
+											(<span class="var-type">boolean</span>&nbsp;<span class="var-name">$theOperation</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/AbstractMethod.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_InitDataStore" title="details" class="method-name">_InitDataStore</a>
+											(<span class="var-type">boolean</span>&nbsp;<span class="var-name">$theOperation</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/AbstractMethod.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_InitGraphStore" title="details" class="method-name">_InitGraphStore</a>
+											(<span class="var-type">boolean</span>&nbsp;<span class="var-name">$theOperation</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_InitResources" title="details" class="method-name">_InitResources</a>
+											(<span class="var-type">boolean</span>&nbsp;<span class="var-name">$theOperation</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_InitUser" title="details" class="method-name">_InitUser</a>
+											(<span class="var-type">boolean</span>&nbsp;<span class="var-name">$theOperation</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/AbstractMethod.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_InitUserContainer" title="details" class="method-name">_InitUserContainer</a>
+											(<span class="var-type">boolean</span>&nbsp;<span class="var-name">$theOperation</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_LoadUser" title="details" class="method-name">_LoadUser</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#_RegisterUser" title="details" class="method-name">_RegisterUser</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">string</span>
+										<a href="#__toString" title="details" class="method-name">__toString</a>
+										()
+									</div>
+											</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			
+<a name="var$mDatabase" id="$mDatabase"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<img src="../../media/images/Variable.png" />
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$mDatabase</span>
+			 = <span class="var-default"> NULL</span>			(line <span class="line-number">104</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Session database.</p>
+<p class="description"><p>This data member holds the default database object.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$mDataStore" id="$mDataStore"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<img src="../../media/images/Variable.png" />
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$mDataStore</span>
+			 = <span class="var-default"> NULL</span>			(line <span class="line-number">86</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Data store.</p>
+<p class="description"><p>This data member holds the data store instance.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$mGraphStore" id="$mGraphStore"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<img src="../../media/images/Variable.png" />
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$mGraphStore</span>
+			 = <span class="var-default"> NULL</span>			(line <span class="line-number">95</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Graph store store.</p>
+<p class="description"><p>This data member holds the graph store instance.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$mUser" id="$mUser"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<img src="../../media/images/Variable.png" />
+		<span class="var-title">
+			<span class="var-type"><a href="../../MyWrapper/Entities/CUser.html">CUser</a></span>
+			<span class="var-name">$mUser</span>
+			 = <span class="var-default"> NULL</span>			(line <span class="line-number">122</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Session user.</p>
+<p class="description"><p>This data member holds the session <a href="../../MyWrapper/Entities/CUser.html">user</a> object.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$mUsersContainer" id="$mUsersContainer"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<img src="../../media/images/Variable.png" />
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$mUsersContainer</span>
+			 = <span class="var-default"> NULL</span>			(line <span class="line-number">113</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Session users container.</p>
+<p class="description"><p>This data member holds the default <a href="../../MyWrapper/Entities/CUser.html">user</a> <a href="../../MyWrapper/Persistence/CContainer.html">container</a>.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+						
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+															<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+														<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Constructor.png" />
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">150</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Instantiate class.</p>
+<p class="description"><p>The constructor will either instantiate an empty object, or it will initialise its  array data with the provided parameter, which represents the view model data.</p><p>In all cases the database connections will be created.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">CSessionObject</span>
+		<span class="method-name">
+			__construct
+		</span>
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theData</span> = <span class="var-default">NULL</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theData</span><span class="var-description">: View model data.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodDatabase" id="Database"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Database</span> (line <span class="line-number">503</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage the database reference.</p>
+<p class="description"><p>This method can be used to manage the session's default database reference. This  database represents the connection to the default collections container.</p><p>The method accepts two parameters:</p><p><ul><li><strong>$theValue</strong>: The value to set or the operation to perform:
+	 <ul><li><em>NULL</em>: Retrieve the current value.</li><li><em>FALSE</em>: Delete the current value, it will be set to <em>NULL</em>.</li><li><em>other</em>: Any other value will be interpreted as the new value to be
+			set.</li></ul></li><li><strong>$getOld</strong>: A boolean flag determining which value the method will return:
+	 <ul><li><em>TRUE</em>: Return the value <em>before</em> it has eventually been modified,
+			this option is only relevant when deleting or relacing a value.</li><li><em>FALSE</em>: Return the value <em>after</em> it has eventually been modified.</li></ul></li></ul></p><p>In this class, by default, we support MongoDB instances, if other types are passed,  an exception will be thrown.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CObject.html#methodManageMember">CObject::ManageMember()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			Database
+		</span>
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Value or operation.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodDataStore" id="DataStore"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">DataStore</span> (line <span class="line-number">374</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage the data store reference.</p>
+<p class="description"><p>This method can be used to manage the session's data store reference. The data store  represents the main connection to the database, from which  <a href="../../MyWrapper/Persistence/CContainer.html">container</a> references can be derived.</p><p>The method accepts two parameters:</p><p><ul><li><strong>$theValue</strong>: The value to set or the operation to perform:
+     <ul><li><em>NULL</em>: Retrieve the current value.</li><li><em>FALSE</em>: Delete the current value, it will be set to <em>NULL</em>.</li><li><em>other</em>: Any other value will be interpreted as the new value to be
+            set.</li></ul></li><li><strong>$getOld</strong>: A boolean flag determining which value the method will return:
+     <ul><li><em>TRUE</em>: Return the value <em>before</em> it has eventually been modified,
+            this option is only relevant when deleting or relacing a value.</li><li><em>FALSE</em>: Return the value <em>after</em> it has eventually been modified.</li></ul></li></ul></p><p>In this class, by default, we support MongoDB data stores, which means that the  method expects Mongo objects, if other types are passed, an exception will be raised.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CObject.html#methodManageMember">CObject::ManageMember()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			DataStore
+		</span>
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Value or operation.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodGraphStore" id="GraphStore"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">GraphStore</span> (line <span class="line-number">439</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage the graph store reference.</p>
+<p class="description"><p>This method can be used to manage the session's graph store reference. The graph  store represents the main connection to the graph, the graph database vcient.</p><p>The method accepts two parameters:</p><p><ul><li><strong>$theValue</strong>: The value to set or the operation to perform:
+	 <ul><li><em>NULL</em>: Retrieve the current value.</li><li><em>FALSE</em>: Delete the current value, it will be set to <em>NULL</em>.</li><li><em>other</em>: Any other value will be interpreted as the new value to be
+			set.</li></ul></li><li><strong>$getOld</strong>: A boolean flag determining which value the method will return:
+	 <ul><li><em>TRUE</em>: Return the value <em>before</em> it has eventually been modified,
+			this option is only relevant when deleting or relacing a value.</li><li><em>FALSE</em>: Return the value <em>after</em> it has eventually been modified.</li></ul></li></ul></p><p>In this class, by default, we support Neo4j graph stores, which means that the  method expects a Neo4j client object, if other types are passed, an exception will be  raised.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CObject.html#methodManageMember">CObject::ManageMember()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			GraphStore
+		</span>
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Value or operation.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodLogin" id="Login"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Login</span> (line <span class="line-number">735</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Perform a login.</p>
+<p class="description"><p>This method can be used to query a user by CUser::Code() and  <a href="../../MyWrapper/Entities/CUser.html#methodPassword">password</a>.</p><p>The method will look for the user in the default users  <a href="../../MyWrapper/Site/CSessionObject.html#methodUsersContainer">container</a>, if found, it will return the  CUser(), if not, it will return <em>NULL</em>.</p><p>The method expects two parameters:</p><p><ul><li><strong>$theCode</strong>: The user code.</li><li><strong>$thePass</strong>: The user password.</li></ul></p><p>In this class we declare the method abstract, because the specifics of seeking for  the user depends on the specific database engine.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../../MyWrapper/Framework/CObject.html">CObject</a></span>
+		<span class="method-name">
+			Login
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$theCode</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$thePass</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theCode</span><span class="var-description">: User code.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$thePass</span><span class="var-description">: User password.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodQuery" id="Query"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/AbstractMethod.png" />
+		<span class="method-title">Query</span> (line <span class="line-number">702</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return an empty query.</p>
+<p class="description"><p>This method can be used to return a concrete query instance based on the specific  database engines supported by the session.</p><p>Derived classes must implement this method.</p></p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result"><a href="../../MyWrapper/Persistence/CQuery.html">CQuery</a></span>
+		<span class="method-name">
+			Query
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodserialize" id="serialize"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">serialize</span> (line <span class="line-number">231</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Default serialization interface.</p>
+<p class="description"><p>This method will serialize the object, the method will first close any open  connections and commit the current user if there, then serialize the object.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			serialize
+		</span>
+				()
+			</div>
+	
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt>Serializable::serialize</dt>
+					</dl>
+			
+	</div>
+<a name="methodunserialize" id="unserialize"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">unserialize</span> (line <span class="line-number">283</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Default unserialization interface.</p>
+<p class="description"><p>This method will reconstitute the object after serialization.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			unserialize
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$theSerialised</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theSerialised</span><span class="var-description">: Serialized data.</span>			</li>
+				</ul>
+		
+				<hr class="separator" />
+		<div class="notes">Implementation of:</div>
+			<dl>
+			<dt>Serializable::unserialize</dt>
+					</dl>
+			
+	</div>
+<a name="methodUser" id="User"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">User</span> (line <span class="line-number">641</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage the session user.</p>
+<p class="description"><p>This method can be used to manage the session's user <a href="../../MyWrapper/Entities/CUser.html">object</a>. This  object is available to the server PHP, while some of its properties will be provided  to the view model.</p><p>The method accepts two parameters:</p><p><ul><li><strong>$theValue</strong>: The value to set or the operation to perform:
+     <ul><li><em>NULL</em>: Retrieve the current value.</li><li><em>FALSE</em>: Delete the current value, it will be set to <em>NULL</em>.</li><li><em>other</em>: Any other value will be interpreted as the new value to be
+            set.</li></ul></li><li><strong>$getOld</strong>: A boolean flag determining which value the method will return:
+     <ul><li><em>TRUE</em>: Return the value <em>before</em> it has eventually been modified,
+            this option is only relevant when deleting or relacing a value.</li><li><em>FALSE</em>: Return the value <em>after</em> it has eventually been modified.</li></ul></li></ul></p><p>In this class, by default, we support <a href="../../MyWrapper/Entities/CUser.html">CUser</a> objects, if other types are  passed, an exception will be raised.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CObject.html#methodManageMember">CObject::ManageMember()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			User
+		</span>
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Value or operation.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodUsersContainer" id="UsersContainer"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">UsersContainer</span> (line <span class="line-number">567</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage the defrault users container.</p>
+<p class="description"><p>This method can be used to manage the session's default users container. This object  represents the the container in which all users are stored.</p><p>The method accepts two parameters:</p><p><ul><li><strong>$theValue</strong>: The value to set or the operation to perform:
+	 <ul><li><em>NULL</em>: Retrieve the current value.</li><li><em>FALSE</em>: Delete the current value, it will be set to <em>NULL</em>.</li><li><em>other</em>: Any other value will be interpreted as the new value to be
+			set.</li></ul></li><li><strong>$getOld</strong>: A boolean flag determining which value the method will return:
+	 <ul><li><em>TRUE</em>: Return the value <em>before</em> it has eventually been modified,
+			this option is only relevant when deleting or relacing a value.</li><li><em>FALSE</em>: Return the value <em>after</em> it has eventually been modified.</li></ul></li></ul></p><p>In this class, by default, we support <a href="../../MyWrapper/Persistence/CContainer.html">CContainer</a> derived  instances, if other types are passed, the method will raise an exception.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CObject.html#methodManageMember">CObject::ManageMember()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			UsersContainer
+		</span>
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Value or operation.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_InitDatabase" id="_InitDatabase"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/AbstractMethod.png" />
+		<span class="method-title">_InitDatabase</span> (line <span class="line-number">895</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Initialise database.</p>
+<p class="description"><p>This method will initialise the default database connection, the method expects one  boolean parameter: <em>TRUE</em> means that the database connection is to be opened,  <em>FALSE</em> means that the database connection is to be closed.</p><p>The method returns no result, any error should trigger an exception.</p><p>In this class we declare this method as abstract, derived classes must decide what  database engine to use.</p></p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Site/CSessionObject.html#method_InitResources">CSessionObject::_InitResources()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_InitDatabase
+		</span>
+					(<span class="var-type">boolean</span>&nbsp;<span class="var-name">$theOperation</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$theOperation</span><span class="var-description">: TRUE set, FALSE reset.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_InitDataStore" id="_InitDataStore"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/AbstractMethod.png" />
+		<span class="method-title">_InitDataStore</span> (line <span class="line-number">849</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Initialise data store.</p>
+<p class="description"><p>This method will initialise the default data store, the method expects one boolean  parameter: <em>TRUE</em> means that the data store is to be set, <em>FALSE</em> means  that the data store is to be reset.</p><p>The method returns no result, any error should trigger an exception.</p><p>In this class we declare this method as abstract, derived classes must decide what  database engine to use.</p></p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Site/CSessionObject.html#method_InitResources">CSessionObject::_InitResources()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_InitDataStore
+		</span>
+					(<span class="var-type">boolean</span>&nbsp;<span class="var-name">$theOperation</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$theOperation</span><span class="var-description">: TRUE set, FALSE reset.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_InitGraphStore" id="_InitGraphStore"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/AbstractMethod.png" />
+		<span class="method-title">_InitGraphStore</span> (line <span class="line-number">872</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Initialise graph store.</p>
+<p class="description"><p>This method will initialise the default graph store, the method expects one boolean  parameter: <em>TRUE</em> means that the graph store is to be set, <em>FALSE</em> means  that the graph store is to be reset.</p><p>The method returns no result, any error should trigger an exception.</p><p>In this class we declare this method as abstract, derived classes must decide what  graph engine to use.</p></p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Site/CSessionObject.html#method_InitResources">CSessionObject::_InitResources()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_InitGraphStore
+		</span>
+					(<span class="var-type">boolean</span>&nbsp;<span class="var-name">$theOperation</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$theOperation</span><span class="var-description">: TRUE set, FALSE reset.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_InitResources" id="_InitResources"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_InitResources</span> (line <span class="line-number">804</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Initialise resources.</p>
+<p class="description"><p>This method will initialise the default resources, the method expects one parameter  that determines whether these resources are to be initialised, <em>TRUE</em>, or reset,  <em>FALSE</em>.</p><p>In this class we handle the <a href="../../MyWrapper/Site/CSessionObject.html#methodDataStore">data</a> and the  <a href="../../MyWrapper/Site/CSessionObject.html#methodGraphStore">graph</a> stores, the <a href="../../MyWrapper/Site/CSessionObject.html#methodDatabase">database</a> and the  <a href="../../MyWrapper/Site/CSessionObject.html#methodUsersContainer">users</a> container.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Site/CSessionObject.html#method_InitUserContainer">CSessionObject::_InitUserContainer()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Site/CSessionObject.html#method_InitGraphStore">CSessionObject::_InitGraphStore()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Site/CSessionObject.html#method_InitDataStore">CSessionObject::_InitDataStore()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Site/CSessionObject.html#method_InitDatabase">CSessionObject::_InitDatabase()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_InitResources
+		</span>
+					(<span class="var-type">boolean</span>&nbsp;<span class="var-name">$theOperation</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$theOperation</span><span class="var-description">: TRUE set, FALSE reset.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_InitUser" id="_InitUser"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_InitUser</span> (line <span class="line-number">946</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Initialise user.</p>
+<p class="description"><p>This method will initialise the current user object, the method expects one boolean  parameter: <em>TRUE</em> means that the user is to be set, <em>FALSE</em> means that the  user is to be reset.</p><p>Mote that this method is only called when __sleep() or  __wakeup(): it will save eventual changes made to the user when  __sleep() and reload the user when __wakeup().</p><p>The method returns no result, any error should trigger an exception.</p><p>In this class we <a href="../../MyWrapper/Persistence/CPersistentObject.html#methodCommit">commit</a> user data and store the  user <a href="../../MyWrapper/Definitions/_defines---Offsets.inc.php.html#definekTAG_LID">identifier</a> when going to __sleep() and  <a href="../../MyWrapper/Site/CSessionObject.html#method_LoadUser">load</a> the user back when __wakeup().</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_InitUser
+		</span>
+					(<span class="var-type">boolean</span>&nbsp;<span class="var-name">$theOperation</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$theOperation</span><span class="var-description">: TRUE set, FALSE reset.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_InitUserContainer" id="_InitUserContainer"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/AbstractMethod.png" />
+		<span class="method-title">_InitUserContainer</span> (line <span class="line-number">918</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Initialise users container.</p>
+<p class="description"><p>This method will initialise the default users container, the method expects one  boolean parameter: <em>TRUE</em> means that the users container is to be set,  <em>FALSE</em> means that the users container is to be reset.</p><p>The method returns no result, any error should trigger an exception.</p><p>In this class we declare this method as abstract, derived classes must decide what  database engine to use.</p></p>
+	<ul class="tags">
+				<li><span class="field">abstract:</span> </li>
+				<li><span class="field">access:</span> protected</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Site/CSessionObject.html#method_InitResources">CSessionObject::_InitResources()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_InitUserContainer
+		</span>
+					(<span class="var-type">boolean</span>&nbsp;<span class="var-name">$theOperation</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$theOperation</span><span class="var-description">: TRUE set, FALSE reset.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_LoadUser" id="_LoadUser"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_LoadUser</span> (line <span class="line-number">1065</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Load user.</p>
+<p class="description"><p>This method can be used to load a <a href="../../MyWrapper/Site/CSessionObject.html#methodUser">user</a> from the users  <a href="../../MyWrapper/Site/CSessionObject.html#methodUsersContainer">container</a>, it expects the user identifier as the parameter  and the procedure is not expected to represent a query, which means that if the user  is not found an exception should be raised.</p><p>The method will return the eventual old user if the operation replaced it.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_LoadUser
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theIdentifier</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theIdentifier</span><span class="var-description">: User identifier.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method_RegisterUser" id="_RegisterUser"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">_RegisterUser</span> (line <span class="line-number">1005</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Load user in view model.</p>
+<p class="description"><p>This method will load user data into the view model, it will either use the current  <a href="../../MyWrapper/Site/CSessionObject.html#methodUser">user</a> or reset all user data if not present.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			_RegisterUser
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method__toString" id="__toString"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">__toString</span> (line <span class="line-number">196</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return string representation.</p>
+<p class="description"><p>In this class we return the view model converted to JSON.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			__toString
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Framework/CArrayObject.html">CArrayObject</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodkeys">CArrayObject::keys()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetGet">CArrayObject::offsetGet()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetSet">CArrayObject::offsetSet()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetUnset">CArrayObject::offsetUnset()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodvalues">CArrayObject::values()</a></span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+	
+	<p class="notes" id="credit">
+		Documentation generated on Thu, 19 Jul 2012 17:45:23 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

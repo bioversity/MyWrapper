@@ -1,0 +1,646 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class CArrayObject</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name"><img src="../../media/images/Class_logo.png"
+														alt=" Class"
+														title=" Class"
+														style="vertical-align: middle"> CArrayObject</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+							<a href="#sec-descendents">Descendents</a>
+			|													<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+											<a href="#sec-consts">Constants</a>
+						
+			</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Common ancestor.</p>
+<p class="description"><p>This class represents the ancestor of most entity mapped classes, it maps objects to an  array by deriving from ArrayObject and it defines a couple of general  purpose utility static methods.</p><p>This class implements the following interfaces:</p><p><ul><li><em>Offsets</em>: In this class there cannot be an offset with a <em>NULL</em> value,
+        the offset itself should be <a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetUnset">deleted</a> in that case. Because of
+        this we also override the inherited behaviour by suppressing notices and warnings
+        when <a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetGet">getting</a> non-existant offsets.</li><li><em>String formatting</em>: We provide a generalised static method to
+        StringNormalise() strings which accepts a bitfield parameter that
+        indicates which operation to perform, such as <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_UTF8">UTF8</a>
+        encode, <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_LTRIM">left</a> and <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_RTRIM">right</a>
+        trim, <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_NULL">NULL</a> handling, <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_NOCASE">case</a>
+        insensitive conversion, <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_URL">URL</a>,
+        <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_HTML">HTML</a> and <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_HEX">HEX</a> encoding and
+        <a href="../../MyWrapper/Definitions/_defines---Flags.inc.php.html#definekFLAG_MODIFIER_HASH">hashing</a>.</li><li><em>Time formatting</em>: We provide a generalised static
+        DurationString() to display duration strings.</li></ul></p></p>
+		<p class="notes">
+			Located in <a class="field" href="_classes---CArrayObject.php.html">/classes/CArrayObject.php</a> (line <span class="field">76</span>)
+		</p>
+		
+				
+		<pre>ArrayObject
+   |
+   --CArrayObject</pre>
+	
+			</div>
+</div>
+
+	<a name="sec-descendents"></a>
+	<div class="info-box">
+		<div class="info-box-title">Direct descendents</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+			<span class="disabled">Descendents</span>
+			|															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+															<a href="#sec-consts">Constants</a>
+							
+					</div>
+		<div class="info-box-body">
+			<table cellpadding="2" cellspacing="0" class="class-table">
+				<tr>
+					<th class="class-table-header">Class</th>
+					<th class="class-table-header">Description</th>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; white-space: nowrap">
+						<img src="../../media/images/Class.png"
+								 alt=" class"
+								 title=" class"
+								 style="vertical-align: center"/>
+						<a href="../../MyWrapper/Traits/CDatasetFile.html">CDatasetFile</a>
+					</td>
+					<td>
+											Dataset file.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; white-space: nowrap">
+						<img src="../../media/images/AbstractClass.png"
+								 alt="Abstract class"
+								 title="Abstract class"
+								 style="vertical-align: center"/>
+						<a href="../../MyWrapper/Framework/CDataType.html">CDataType</a>
+					</td>
+					<td>
+											Data types ancestor.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; white-space: nowrap">
+						<img src="../../media/images/Class.png"
+								 alt=" class"
+								 title=" class"
+								 style="vertical-align: center"/>
+						<a href="../../MyWrapper/Traits/CMailAddress.html">CMailAddress</a>
+					</td>
+					<td>
+											Mailing address.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; white-space: nowrap">
+						<img src="../../media/images/Class.png"
+								 alt=" class"
+								 title=" class"
+								 style="vertical-align: center"/>
+						<a href="../../MyWrapper/Persistence/COntologyNodeIndex.html">COntologyNodeIndex</a>
+					</td>
+					<td>
+											Node index.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; white-space: nowrap">
+						<img src="../../media/images/Class.png"
+								 alt=" class"
+								 title=" class"
+								 style="vertical-align: center"/>
+						<a href="../../MyWrapper/Persistence/CQueryStatement.html">CQueryStatement</a>
+					</td>
+					<td>
+											Query statement.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; white-space: nowrap">
+						<img src="../../media/images/AbstractClass.png"
+								 alt="Abstract class"
+								 title="Abstract class"
+								 style="vertical-align: center"/>
+						<a href="../../MyWrapper/Session/CSessionObject.html">CSessionObject</a>
+					</td>
+					<td>
+											Session object.
+										</td>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; white-space: nowrap">
+						<img src="../../media/images/Class.png"
+								 alt=" class"
+								 title=" class"
+								 style="vertical-align: center"/>
+						<a href="../../MyWrapper/Framework/CStatusObject.html">CStatusObject</a>
+					</td>
+					<td>
+											Status object.
+										</td>
+				</tr>
+							</table>
+		</div>
+	</div>
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendants</a> |
+															<a href="#sec-consts">Constants</a>
+							
+									<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																								<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">array</span>
+										<a href="#keys" title="details" class="method-name">keys</a>
+										()
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#offsetGet" title="details" class="method-name">offsetGet</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#offsetSet" title="details" class="method-name">offsetSet</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>, <span class="var-type">string|NULL</span>&nbsp;<span class="var-name">$theValue</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">void</span>
+										<a href="#offsetUnset" title="details" class="method-name">offsetUnset</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">array</span>
+										<a href="#values" title="details" class="method-name">values</a>
+										()
+									</div>
+											</div>
+		</div>
+	</div>		
+
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendents</a> |
+													<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			
+Strict standards: Only variables should be passed by reference in /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php on line 712
+
+Call Stack:
+    0.0214     241624   1. {main}() /Library/WebServer/Sites/PhpDocumentor/phpdoc:0
+    0.1058     234976   2. include('/Library/WebServer/Sites/PhpDocumentor/phpDocumentor/phpdoc.inc') /Library/WebServer/Sites/PhpDocumentor/phpdoc:59
+    0.4743    7648976   3. phpDocumentor_setup->createDocs() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/phpdoc.inc:65
+   23.3847  180187424   4. phpDocumentor_IntermediateParser->Output() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Setup.inc.php:763
+   25.0280  181222672   5. phpDocumentor_IntermediateParser->Convert() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/IntermediateParser.inc:1867
+   25.0280  181222904   6. Converter->walk() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/IntermediateParser.inc:1654
+   26.6840  183852472   7. HTMLframesConverter->endClass() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Converter.inc:1936
+   26.6841  183854824   8. Smarty->fetch() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Converters/HTML/frames/HTMLframesConverter.inc:347
+   26.7485  184289360   9. include('/Library/WebServer/Library/wrapper/documentation/MyWrapper/Persistence/37fe0d91c3b034db82eb2bc6d4fa57b5/%%165^%%1653142046^class.tpl.php') /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1298
+   26.7649  184448192  10. Smarty->_smarty_include() /Library/WebServer/Library/wrapper/documentation/MyWrapper/Persistence/37fe0d91c3b034db82eb2bc6d4fa57b5/%%165^%%1653142046^class.tpl.php:699
+   26.7651  184452544  11. Smarty->_compile_resource() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1935
+   26.7654  184466912  12. Smarty->_compile_source() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1458
+   26.7656  184498400  13. Smarty_Compiler->_compile_file() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1523
+   26.7682  184600440  14. Smarty_Compiler->_compile_tag() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php:316
+   26.7686  184732384  15. Smarty_Compiler->_compile_custom_tag() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php:537
+
+
+Strict standards: Only variables should be passed by reference in /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php on line 712
+
+Call Stack:
+    0.0214     241624   1. {main}() /Library/WebServer/Sites/PhpDocumentor/phpdoc:0
+    0.1058     234976   2. include('/Library/WebServer/Sites/PhpDocumentor/phpDocumentor/phpdoc.inc') /Library/WebServer/Sites/PhpDocumentor/phpdoc:59
+    0.4743    7648976   3. phpDocumentor_setup->createDocs() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/phpdoc.inc:65
+   23.3847  180187424   4. phpDocumentor_IntermediateParser->Output() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Setup.inc.php:763
+   25.0280  181222672   5. phpDocumentor_IntermediateParser->Convert() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/IntermediateParser.inc:1867
+   25.0280  181222904   6. Converter->walk() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/IntermediateParser.inc:1654
+   26.6840  183852472   7. HTMLframesConverter->endClass() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Converter.inc:1936
+   26.6841  183854824   8. Smarty->fetch() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Converters/HTML/frames/HTMLframesConverter.inc:347
+   26.7485  184289360   9. include('/Library/WebServer/Library/wrapper/documentation/MyWrapper/Persistence/37fe0d91c3b034db82eb2bc6d4fa57b5/%%165^%%1653142046^class.tpl.php') /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1298
+   26.7649  184448192  10. Smarty->_smarty_include() /Library/WebServer/Library/wrapper/documentation/MyWrapper/Persistence/37fe0d91c3b034db82eb2bc6d4fa57b5/%%165^%%1653142046^class.tpl.php:699
+   26.7651  184452544  11. Smarty->_compile_resource() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1935
+   26.7654  184466912  12. Smarty->_compile_source() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1458
+   26.7656  184498400  13. Smarty_Compiler->_compile_file() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1523
+   26.7781  184625680  14. Smarty_Compiler->_compile_tag() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php:316
+   26.7784  184757624  15. Smarty_Compiler->_compile_custom_tag() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php:537
+
+<A NAME='method_detail'></A>
+<a name="methodkeys" id="keys"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">keys</span> (line <span class="line-number">187</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return object's keys.</p>
+<p class="description"><p>This method has the same function as array's <em>array_keys()</em>, it will return an  array comprised of all object's offsets.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			keys
+		</span>
+				()
+			</div>
+	
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Persistence/CGraphNode.html#methodkeys">CGraphNode::keys()</a>
+								: Return object's keys.
+							</li>
+				</ul>
+	</div>
+<a name="methodoffsetGet" id="offsetGet"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">offsetGet</span> (line <span class="line-number">108</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return a value at a given offset.</p>
+<p class="description"><p>This method should return the value corresponding to the provided offset.</p><p>This method is overloaded to prevent notices from being triggered when seeking  non-existing offsets.</p><p>In this class no offset may have a <em>NULL</em> value, if this method returns a  <em>NULL</em> value, it means that the offset doesn't exist.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			offsetGet
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theOffset</span><span class="var-description">: Offset.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt>ArrayObject::offsetGet ( $index )</dt>
+					</dl>
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Persistence/CGraphNode.html#methodoffsetGet">CGraphNode::offsetGet()</a>
+								: Return the value of the provided offset.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyEdge.html#methodoffsetGet">COntologyEdge::offsetGet()</a>
+								: Return a value at a given offset.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyNode.html#methodoffsetGet">COntologyNode::offsetGet()</a>
+								: Return a value at a given offset.
+							</li>
+				</ul>
+	</div>
+<a name="methodoffsetSet" id="offsetSet"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">offsetSet</span> (line <span class="line-number">130</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Set a value for a given offset.</p>
+<p class="description"><p>This method should set the provided value corresponding to the provided offset.</p><p>This method is overloaded to prevent setting <em>NULL</em> values: if this is the case,  the method will <a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetUnset">delete</a> the offset.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetUnset">CArrayObject::offsetUnset()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			offsetSet
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>, <span class="var-type">string|NULL</span>&nbsp;<span class="var-name">$theValue</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theOffset</span><span class="var-description">: Offset.</span>			</li>
+					<li>
+				<span class="var-type">string|NULL</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Value to set at offset.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt>ArrayObject::offsetSet ( $index, $newval )</dt>
+					</dl>
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Framework/CStatusObject.html#methodoffsetSet">CStatusObject::offsetSet()</a>
+								: Set a value for a given offset.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Persistence/CGraphNode.html#methodoffsetSet">CGraphNode::offsetSet()</a>
+								: Set a value for a given offset.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodoffsetSet">CCodedUnitObject::offsetSet()</a>
+								: Set a value for a given offset.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Entities/CInstitute.html#methodoffsetSet">CInstitute::offsetSet()</a>
+								: Set a value for a given offset.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Entities/CFAOInstitute.html#methodoffsetSet">CFAOInstitute::offsetSet()</a>
+								: Set a value for a given offset.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Entities/CUser.html#methodoffsetSet">CUser::offsetSet()</a>
+								: Set a value for a given offset.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyTerm.html#methodoffsetSet">COntologyTerm::offsetSet()</a>
+								: Set a value for a given offset.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Persistence/CDataset.html#methodoffsetSet">CDataset::offsetSet()</a>
+								: Set a value for a given offset.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Wrappers/CWrapperClient.html#methodoffsetSet">CWrapperClient::offsetSet()</a>
+								: Set a value for a given offset.
+							</li>
+				</ul>
+	</div>
+<a name="methodoffsetUnset" id="offsetUnset"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">offsetUnset</span> (line <span class="line-number">162</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Reset a value for a given offset.</p>
+<p class="description"><p>This method should reset the value corresponding to the provided offset.</p><p>We overload this method to prevent notices on non-existing offsets.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetSet">CArrayObject::offsetSet()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			offsetUnset
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$theOffset</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theOffset</span><span class="var-description">: Offset.</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt>ArrayObject::offsetUnset ( $index )</dt>
+					</dl>
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Framework/CStatusObject.html#methodoffsetUnset">CStatusObject::offsetUnset()</a>
+								: Reset a value for a given offset.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Persistence/CGraphNode.html#methodoffsetUnset">CGraphNode::offsetUnset()</a>
+								: Delete a given offset.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Framework/CCodedUnitObject.html#methodoffsetUnset">CCodedUnitObject::offsetUnset()</a>
+								: Reset a value for a given offset.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Entities/CInstitute.html#methodoffsetUnset">CInstitute::offsetUnset()</a>
+								: Reset a value for a given offset.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Entities/CFAOInstitute.html#methodoffsetUnset">CFAOInstitute::offsetUnset()</a>
+								: Reset a value for a given offset.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Entities/CUser.html#methodoffsetUnset">CUser::offsetUnset()</a>
+								: Reset a value for a given offset.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Ontology/COntologyTerm.html#methodoffsetUnset">COntologyTerm::offsetUnset()</a>
+								: Reset a value for a given offset.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Persistence/CDataset.html#methodoffsetUnset">CDataset::offsetUnset()</a>
+								: Reset a value for a given offset.
+							</li>
+					<li>
+				<a href="../../MyWrapper/Wrappers/CWrapperClient.html#methodoffsetUnset">CWrapperClient::offsetUnset()</a>
+								: Reset a value for a given offset.
+							</li>
+				</ul>
+	</div>
+<a name="methodvalues" id="values"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">values</span> (line <span class="line-number">203</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Return object's values.</p>
+<p class="description"><p>This method has the same function as array's <em>array_values()</em>, it will return an  array comprised of all object's values.</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			values
+		</span>
+				()
+			</div>
+	
+		
+			
+			<hr class="separator" />
+		<div class="notes">Redefined in descendants as:</div>
+		<ul class="redefinitions">
+					<li>
+				<a href="../../MyWrapper/Persistence/CGraphNode.html#methodvalues">CGraphNode::values()</a>
+								: Return object's values.
+							</li>
+				</ul>
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname">ArrayObject (Internal Class)</span></p>
+					<blockquote>
+													<img src="../../media/images/Constructor.png" alt=" "/>
+							<span class="method-name">constructor __construct ( $array )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">append ( $value )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">asort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">count (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">exchangeArray ( $array )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getArrayCopy (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getFlags (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getIterator (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">getIteratorClass (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">ksort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">natcasesort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">natsort (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetExists ( $index )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetGet ( $index )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetSet ( $index, $newval )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">offsetUnset ( $index )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">serialize (  )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">setFlags ( $flags )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">setIteratorClass ( $iteratorClass )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">uasort ( $cmp_function )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">uksort ( $cmp_function )</span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name">unserialize ( $serialized )</span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+	<a name="sec-consts"></a>
+	<div class="info-box">
+		<div class="info-box-title">Class Constants</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+							<a href="#sec-descendents">Descendants</a> |
+										<a href="#sec-var-summary">Constants</a> (<span class="disabled">details</span>)
+						
+			
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			
+Strict standards: Only variables should be passed by reference in /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php on line 712
+
+Call Stack:
+    0.0214     241624   1. {main}() /Library/WebServer/Sites/PhpDocumentor/phpdoc:0
+    0.1058     234976   2. include('/Library/WebServer/Sites/PhpDocumentor/phpDocumentor/phpdoc.inc') /Library/WebServer/Sites/PhpDocumentor/phpdoc:59
+    0.4743    7648976   3. phpDocumentor_setup->createDocs() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/phpdoc.inc:65
+   23.3847  180187424   4. phpDocumentor_IntermediateParser->Output() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Setup.inc.php:763
+   25.0280  181222672   5. phpDocumentor_IntermediateParser->Convert() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/IntermediateParser.inc:1867
+   25.0280  181222904   6. Converter->walk() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/IntermediateParser.inc:1654
+   26.6840  183852472   7. HTMLframesConverter->endClass() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Converter.inc:1936
+   26.6841  183854824   8. Smarty->fetch() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Converters/HTML/frames/HTMLframesConverter.inc:347
+   26.7485  184289360   9. include('/Library/WebServer/Library/wrapper/documentation/MyWrapper/Persistence/37fe0d91c3b034db82eb2bc6d4fa57b5/%%165^%%1653142046^class.tpl.php') /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1298
+   26.8037  184475864  10. Smarty->_smarty_include() /Library/WebServer/Library/wrapper/documentation/MyWrapper/Persistence/37fe0d91c3b034db82eb2bc6d4fa57b5/%%165^%%1653142046^class.tpl.php:803
+   26.8038  184480056  11. Smarty->_compile_resource() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1935
+   26.8063  184482840  12. Smarty->_compile_source() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1458
+   26.8065  184508536  13. Smarty_Compiler->_compile_file() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty.class.php:1523
+   26.8074  184525568  14. Smarty_Compiler->_compile_tag() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php:316
+   26.8076  184657512  15. Smarty_Compiler->_compile_custom_tag() /Library/WebServer/Sites/PhpDocumentor/phpDocumentor/Smarty-2.6.0/libs/Smarty_Compiler.class.php:537
+
+							<h4>Inherited Constants</h4>
+				<A NAME='inherited_consts'><!-- --></A>
+									<p>Inherited from <span class="classname">ArrayObject (Internal Class)</span></p>
+					<blockquote>
+													<img src="../../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name">ARRAY_AS_PROPS = 2</span><br>
+							</span>
+													<img src="../../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name">STD_PROP_LIST = 1</span><br>
+							</span>
+											</blockquote> 
+										
+		</div>
+	</div>
+	
+	<p class="notes" id="credit">
+		Documentation generated on Fri, 20 Jul 2012 17:57:34 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

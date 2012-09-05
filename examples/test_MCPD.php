@@ -63,7 +63,7 @@ define( 'kUSE_CLIENT', FALSE );
 //
 // Init local storage.
 //
-$url = 'http://localhost/wrapper/WarehouseWrapper.php';
+$url = 'http://localhost/newwrapper/WarehouseWrapper.php';
 
 //
 // TRY BLOCK.

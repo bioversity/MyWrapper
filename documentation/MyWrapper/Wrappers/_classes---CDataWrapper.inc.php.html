@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs for page CDataWrapper.inc.php</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="file-name"><img src="../../media/images/Page_logo.png" alt="File" style="vertical-align: middle">/classes/CDataWrapper.inc.php</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+											<a href="#sec-constants">Constants</a>
+										</div>
+	<div class="info-box-body">	
+		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description"><a href="../../MyWrapper/Wrappers/CDataWrapper.html">CDataWrapper</a> definitions.</p>
+<p class="description"><p>This file contains common definitions used by the <a href="../../MyWrapper/Wrappers/CDataWrapper.html">CDataWrapper</a>     class.</p></p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Milko A. Škofič &lt;<a href="mailto:m.skofic@cgiar.org">m.skofic@cgiar.org</a>&gt;</li>
+				<li><span class="field">version:</span> 1.00 05/06/2011                 2.00 22/02/2012</li>
+			</ul>
+		
+			</div>
+</div>
+		
+
+	
+	<a name="sec-constants"></a>	
+	<div class="info-box">
+		<div class="info-box-title">Constants</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+									<span class="disabled">Constants</span>
+											</div>
+		<div class="info-box-body">	
+			<a name="definekAPI_CONTAINER"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_CONTAINER</span> = ':@container'
+			(line <span class="line-number">127</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Web-service database container.</p>
+<p class="description"><p>This is the tag that represents the database container on which we want to operate.</p><p>Cardinality: one.</p></p>
+	
+		
+</div>
+<a name="definekAPI_DATABASE"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_DATABASE</span> = ':@database'
+			(line <span class="line-number">118</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Web-service database.</p>
+<p class="description"><p>This is the tag that represents the database on which we want to operate.</p><p>Cardinality: one.</p></p>
+	
+		
+</div>
+<a name="definekAPI_DATA_FIELD"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_DATA_FIELD</span> = ':@field'
+			(line <span class="line-number">179</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Data store object fields.</p>
+<p class="description"><p>This is the tag that represents the data store object elements that should be returned:  if omitted it is assumed that the whole object is to be returned.</p><p>Cardinality: one or zero.</p></p>
+	
+		
+</div>
+<a name="definekAPI_DATA_OBJECT"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_DATA_OBJECT</span> = ':@object'
+			(line <span class="line-number">199</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Data store object.</p>
+<p class="description"><p>This is the tag that represents the data store object, this value is used when committing  data back to the data store.</p><p>Cardinality: one or zero.</p></p>
+	
+		
+</div>
+<a name="definekAPI_DATA_OPTIONS"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_DATA_OPTIONS</span> = ':@options'
+			(line <span class="line-number">217</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Data store options.</p>
+<p class="description"><p>This is the tag that represents the data store options, this value is used to provide  additional options to the operation. It is structured as a key/value pair having the  following default key elements:</p><p><ul><li><em><a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OPT_SAFE">kAPI_OPT_SAFE</a></em>: Safe commit option.</li><li><em><a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OPT_FSYNC">kAPI_OPT_FSYNC</a></em>: Safe and sync commit option.</li><li><em><a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OPT_TIMEOUT">kAPI_OPT_TIMEOUT</a></em>: Operation timeout.</li><li><em><a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OPT_SINGLE">kAPI_OPT_SINGLE</a></em>: Single object selection.</li></ul></p><p>Cardinality: one or zero.</p></p>
+	
+		
+</div>
+<a name="definekAPI_DATA_PAGING"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_DATA_PAGING</span> = '_paging'
+			(line <span class="line-number">230</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Paging.</p>
+<p class="description"><p>This offset represents the collector tag for request paging parameters.</p><p><em>Note: this is a &lt;b&gt;reserved offset tag&lt;/b&gt;.</em></p></p>
+	
+		
+</div>
+<a name="definekAPI_DATA_QUERY"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_DATA_QUERY</span> = ':@query'
+			(line <span class="line-number">169</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Data store filter.</p>
+<p class="description"><p>This is the tag that represents the data store filter or query.</p><p>Cardinality: one or zero.</p></p>
+	
+		
+</div>
+<a name="definekAPI_DATA_SORT"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_DATA_SORT</span> = ':@sort'
+			(line <span class="line-number">189</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Data store sort order.</p>
+<p class="description"><p>This is the tag that represents the data store sort elements that should be used for  sorting the results.</p><p>Cardinality: one or zero.</p></p>
+	
+		
+</div>
+<a name="definekAPI_OPT_FSYNC"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_OPT_FSYNC</span> = 'fsync'
+			(line <span class="line-number">251</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">FSYNC option.</p>
+<p class="description"><p>Boolean, defaults to FALSE. Forces the update to be synced to disk before returning  success. If TRUE, a safe update is implied and will override setting safe to FALSE.</p></p>
+	
+		
+</div>
+<a name="definekAPI_OPT_SAFE"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_OPT_SAFE</span> = 'safe'
+			(line <span class="line-number">243</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">SAFE option.</p>
+<p class="description"><p>Can be a boolean or integer, defaults to FALSE. If FALSE, the program continues executing  without waiting for a database response. If TRUE, the program will wait for the database  response and throw an exception if the operation did not succeed.</p></p>
+	
+		
+</div>
+<a name="definekAPI_OPT_SINGLE"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_OPT_SINGLE</span> = 'justOne'
+			(line <span class="line-number">268</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">SINGLE option.</p>
+<p class="description"><p>Boolean, used in the <a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OP_DEL">delete</a> operation: if TRUE, only one object will  be deleted; if not, all matching objects will be deleted.</p></p>
+	
+		
+</div>
+<a name="definekAPI_OPT_TIMEOUT"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_OPT_TIMEOUT</span> = 'timeout'
+			(line <span class="line-number">260</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">TIMEOUT option.</p>
+<p class="description"><p>Integer, if &quot;safe&quot; is set, this sets how long (in milliseconds) for the client to wait  for a database response. If the database does not respond within the timeout period, an  exception will be thrown.</p></p>
+	
+		
+</div>
+<a name="definekAPI_OP_BATCH_INSERT"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_OP_BATCH_INSERT</span> = '@BINSERT'
+			(line <span class="line-number">87</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">BATCH-INSERT web-service.</p>
+<p class="description"><p>This service is equivalent to the <a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_OP_INSERT">kAPI_OP_INSERT</a> command, except  that in this case you provide a list ov objects to insert.</p><p>This option implies that the objects do not exists, or the operation should fail.</p></p>
+	
+		
+</div>
+<a name="definekAPI_OP_COUNT"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_OP_COUNT</span> = '@COUNT'
+			(line <span class="line-number">33</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">COUNT web-service.</p>
+<p class="description"><p>This is the tag that represents the COUNT web-service operation, used to return the  total number of elements satisfying a query.</p></p>
+	
+		
+</div>
+<a name="definekAPI_OP_DEL"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_OP_DEL</span> = '@DELETE'
+			(line <span class="line-number">105</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">DELETE web-service.</p>
+<p class="description"><p>This is the tag that represents the DELETE web-service operation, used to delete objects  from the data store.</p></p>
+	
+		
+</div>
+<a name="definekAPI_OP_GET"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_OP_GET</span> = '@GET'
+			(line <span class="line-number">49</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">GET web-service.</p>
+<p class="description"><p>This is the tag that represents the GET web-service operation, used to retrieve objects  from the data store.</p></p>
+	
+		
+</div>
+<a name="definekAPI_OP_INSERT"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_OP_INSERT</span> = '@INSERT'
+			(line <span class="line-number">77</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">INSERT web-service.</p>
+<p class="description"><p>This is the tag that represents the INSERT web-service operation, used to insert new  objects in the data store.</p><p>This option implies that the object does not exists, or the operation should fail.</p></p>
+	
+		
+</div>
+<a name="definekAPI_OP_MATCH"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_OP_MATCH</span> = '@MATCH'
+			(line <span class="line-number">41</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">MATCH web-service.</p>
+<p class="description"><p>This is the tag that represents the MATCH web-service operation, used to retrieve objects  based on a list of possible matches.</p></p>
+	
+		
+</div>
+<a name="definekAPI_OP_MODIFY"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_OP_MODIFY</span> = '@MODIFY'
+			(line <span class="line-number">97</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">MODIFY web-service.</p>
+<p class="description"><p>This is the tag that represents the MODIFY web-service operation, used to modify partial  contents of objects in the data store.</p><p>This option implies that the object already exists, or the operation should fail.</p></p>
+	
+		
+</div>
+<a name="definekAPI_OP_SET"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_OP_SET</span> = '@SET'
+			(line <span class="line-number">57</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">SET web-service.</p>
+<p class="description"><p>This is the tag that represents the SET web-service operation, used to insert or update  objects in the data store.</p></p>
+	
+		
+</div>
+<a name="definekAPI_OP_UPDATE"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_OP_UPDATE</span> = '@UPDATE'
+			(line <span class="line-number">67</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">UPDATE web-service.</p>
+<p class="description"><p>This is the tag that represents the UPDATE web-service operation, used to update existing  objects in the data store.</p><p>This option implies that the object already exists, or the operation should fail.</p></p>
+	
+		
+</div>
+<a name="definekAPI_PAGE_COUNT"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_PAGE_COUNT</span> = ':@page-count'
+			(line <span class="line-number">156</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Page count tag.</p>
+<p class="description"><p>This tag is used to define the <em>actual</em> number of elements returned by a request,  this value will be smaller or equal <a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_PAGE_LIMIT">limit</a> tag which defines  the maximum number of elements to be returned by a request.</p></p>
+	
+		
+</div>
+<a name="definekAPI_PAGE_LIMIT"><!-- --></a>
+<div class="oddrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_PAGE_LIMIT</span> = ':@page-limit'
+			(line <span class="line-number">147</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Page limit tag.</p>
+<p class="description"><p>This tag is used to define the maximum number of elements to be returned by a request,  this should not be confused with the <a href="../../MyWrapper/Wrappers/_classes---CDataWrapper.inc.php.html#definekAPI_PAGE_COUNT">count</a> tag which defines  the total number of elements affected by a request.</p></p>
+	
+		
+</div>
+<a name="definekAPI_PAGE_START"><!-- --></a>
+<div class="evenrow">
+	
+	<div>
+		<img src="../../media/images/Constant.png" />
+		<span class="const-title">
+			<span class="const-name">kAPI_PAGE_START</span> = ':@page-start'
+			(line <span class="line-number">138</span>)
+		</span>
+	</div>
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Page start tag.</p>
+<p class="description"><p>This tag is used to define the starting page or record number.</p></p>
+	
+		
+</div>
+		</div>
+	</div>
+	
+	
+	
+	<p class="notes" id="credit">
+		Documentation generated on Fri, 20 Jul 2012 17:57:39 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>

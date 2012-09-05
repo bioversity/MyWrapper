@@ -778,7 +778,7 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Normalise before a store.</p>
 <p>In this class we check if the provided container is supported and we set the <a class="el" href="">term</a> property in the node and <a class="el" href="class_c_persistent_object.html#a88b1f2b11d3d60e0b3d33d8b0649b68a">commit</a> the <a class="el" href="class_c_ontology_node.html#a2f294a9c93079f58190cedbdd0c09068">term</a>.</p>
-<p>We also copy the current node's <a class="el" href="class_c_ontology_node.html#abfe1cb2e10bb53cf7d500c9860e5cb7a">kind</a> to the term and save it if not <a class="el" href="">deleting</a>.</p>
+<p>We also copy the <a class="el" href="">kind</a>, <a class="el" href="">domain</a>, <a class="el" href="">category</a> and <a class="el" href="class_c_ontology_term.html#afd46ef8241b696e99cf7b5e1334914b7">type</a> elements, if not yet present, from the <a class="el" href="class_c_ontology_node.html#a2f294a9c93079f58190cedbdd0c09068">term</a> to the current node.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">reference</td><td class="paramname">&amp;$theContainer</td><td>Object container. </td></tr>
@@ -1539,7 +1539,7 @@ Protected Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="class_c_ontology_node.html">COntologyNode</a></li>
-    <li class="footer">Generated on Mon Sep 3 2012 10:20:26 for Wrapper by
+    <li class="footer">Generated on Fri Jul 20 2012 17:59:48 for Wrapper by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.1.2 </li>
   </ul>

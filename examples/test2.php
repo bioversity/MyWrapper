@@ -93,7 +93,7 @@ $params = array( kAPI_FORMAT => kTYPE_JSON, kAPI_OPERATION => kAPI_OP_HELP );
 //
 // My test.
 //
-$result = rest_helper( 'http://localhost/wrapper/MongoDataWrapper.php',
+$result = rest_helper( 'http://localhost/newwrapper/MongoDataWrapper.php',
 					   $params,
 					   'POST',
 					   'json' );

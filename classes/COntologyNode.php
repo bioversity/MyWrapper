@@ -1514,8 +1514,11 @@ class COntologyNode extends CGraphNode
 	 * {@link kTAG_TERM term} property in the node and {@link Commit() commit} the
 	 * {@link Term() term}.
 	 *
-	 * We also copy the current node's {@link Kind() kind} to the term and save it if not
-	 * {@link kFLAG_PERSIST_DELETE deleting}.
+	 * We also copy the {@link CCodedUnitObject::Kind() kind},
+	 * {@link COntologyTermObject::Domain() domain},
+	 * {@link COntologyTermObject::Category() category} and
+	 * {@link COntologyTerm::Type() type} elements, if not yet present, from the
+	 * {@link Term() term} to the current node.
 	 *
 	 * @param reference			   &$theContainer		Object container.
 	 * @param reference			   &$theIdentifier		Object identifier.
@@ -1572,18 +1575,6 @@ class COntologyNode extends CGraphNode
 		//
 		if( ! ($theModifiers & kFLAG_PERSIST_DELETE) )
 		{
-			//
-			// Copy node kind to term.
-			//
-			if( is_array( $kinds = $this->Kind() ) )
-			{
-				//
-				// Copy kinds.
-				//
-				foreach( $kinds as $kind )
-					$this->mTerm->Kind( $kind, TRUE );
-			}
-			
 			//
 			// Commit term.
 			//

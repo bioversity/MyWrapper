@@ -414,6 +414,7 @@ exit( "Done!\n" );
 				}
 				else
 					$term->Code( $component[ 'id' ] );
+				$term->Kind( kTYPE_NAMESPACE, TRUE );
 				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
 				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
 				if( array_key_exists( 'syn', $component ) )
@@ -478,6 +479,7 @@ exit( "Done!\n" );
 				}
 				else
 					$term->Code( $component[ 'id' ] );
+				$term->Kind( kTYPE_NAMESPACE, TRUE );
 				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
 				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
 				if( array_key_exists( 'syn', $component ) )
@@ -586,6 +588,7 @@ exit( "Done!\n" );
 			{
 				$term->NS( $namespace );
 				$term->Code( substr( $component[ 'id' ], $len ) );
+				$term->Kind( kTYPE_PREDICATE, TRUE );
 				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
 				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
 				$term->Synonym( $component[ 'syn' ], kTYPE_EXACT, TRUE );
@@ -684,6 +687,7 @@ exit( "Done!\n" );
 			{
 				$term->NS( $namespace );
 				$term->Code( substr( $component[ 'id' ], $len ) );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
 				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
 				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
 				$term->Synonym( $component[ 'syn' ], kTYPE_EXACT, TRUE );
@@ -809,6 +813,7 @@ exit( "Done!\n" );
 				}
 				else
 					$term->Code( $component[ 'id' ] );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
 				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
 				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
 				$term->Synonym( $component[ 'syn' ], kTYPE_EXACT, TRUE );
@@ -926,6 +931,7 @@ exit( "Done!\n" );
 			{
 				$term->NS( $namespace );
 				$term->Code( substr( $component[ 'id' ], $len ) );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
 				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
 				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
 				$term->Synonym( $component[ 'syn' ], kTYPE_EXACT, TRUE );
@@ -1036,6 +1042,7 @@ exit( "Done!\n" );
 			{
 				$term->NS( $namespace );
 				$term->Code( substr( $component[ 'id' ], $len ) );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
 				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
 				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
 				$term->Synonym( $component[ 'syn' ], kTYPE_EXACT, TRUE );
@@ -1122,6 +1129,7 @@ exit( "Done!\n" );
 			{
 				$term->NS( $namespace );
 				$term->Code( substr( $component[ 'id' ], $len ) );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
 				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
 				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
 				$term->Synonym( $component[ 'syn' ], kTYPE_EXACT, TRUE );
@@ -1215,6 +1223,7 @@ exit( "Done!\n" );
 			{
 				$term->NS( $namespace );
 				$term->Code( substr( $component[ 'id' ], $len ) );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
 				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
 				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
 				$term->Synonym( $component[ 'syn' ], kTYPE_EXACT, TRUE );
@@ -1359,6 +1368,7 @@ exit( "Done!\n" );
 			{
 				$term->NS( $namespace );
 				$term->Code( substr( $component[ 'id' ], $len ) );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
 				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
 				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
 				$term->Synonym( $component[ 'syn' ], kTYPE_EXACT, TRUE );
@@ -1448,6 +1458,7 @@ exit( "Done!\n" );
 			{
 				$term->NS( $namespace );
 				$term->Code( substr( $component[ 'id' ], $len ) );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
 				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
 				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
 				$term->Synonym( $component[ 'syn' ], kTYPE_EXACT, TRUE );
@@ -1638,6 +1649,7 @@ exit( "Done!\n" );
 			if( ! $term->Persistent() )
 			{
 				$term->Code( $component[ 'id' ] );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
 				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
 				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
 				$term->Synonym( $component[ 'syn' ], kTYPE_EXACT, TRUE );
@@ -1728,6 +1740,7 @@ exit( "Done!\n" );
 			{
 				$term->NS( $namespace );
 				$term->Code( substr( $component[ 'id' ], $len ) );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
 				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
 				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
 				$term->Synonym( $component[ 'syn' ], kTYPE_EXACT, TRUE );
@@ -1837,6 +1850,7 @@ exit( "Done!\n" );
 				}
 				else
 					$term->Code( $component[ 'id' ] );
+				$term->Kind( kTYPE_ATTRIBUTE, TRUE );
 				$term->Cardinality( $component[ 'car' ] );
 				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
 				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
@@ -1960,6 +1974,7 @@ exit( "Done!\n" );
 				}
 				else
 					$term->Code( $component[ 'id' ] );
+				$term->Kind( kTYPE_ATTRIBUTE, TRUE );
 				$term->Cardinality( $component[ 'car' ] );
 				if( array_key_exists( 'typ', $component ) )
 					$term->Type( $component[ 'typ' ] );
@@ -2520,6 +2535,7 @@ exit( "Done!\n" );
 					$term->NS( $namespace );
 					$term->Code( substr( $component[ 'id' ], $len ) );
 				}
+				$term->Kind( kTYPE_ATTRIBUTE, TRUE );
 				if( array_key_exists( 'car', $component ) )
 					$term->Cardinality( $component[ 'car' ] );
 				if( array_key_exists( 'typ', $component ) )
@@ -2642,6 +2658,7 @@ exit( "Done!\n" );
 			{
 				$term->NS( $namespace );
 				$term->Code( substr( $component[ 'id' ], $len ) );
+				$term->Kind( kTYPE_ATTRIBUTE, TRUE );
 				$term->Cardinality( $component[ 'car' ] );
 				if( array_key_exists( 'typ', $component ) )
 					$term->Type( $component[ 'typ' ] );
@@ -2776,6 +2793,7 @@ exit( "Done!\n" );
 			{
 				$term->NS( $namespace );
 				$term->Code( substr( $component[ 'id' ], $len ) );
+				$term->Kind( kTYPE_ATTRIBUTE, TRUE );
 				$term->Cardinality( $component[ 'car' ] );
 				if( array_key_exists( 'typ', $component ) )
 					$term->Type( $component[ 'typ' ] );
@@ -2853,6 +2871,7 @@ exit( "Done!\n" );
 		{
 			$term->NS( $ns );
 			$term->Code( substr( kDEF_DOMAIN, $len ) );
+			$term->Kind( kTYPE_NAMESPACE, TRUE );
 			$term->Name( 'Domain', kDEFAULT_LANGUAGE );
 			$term->Definition( 'Default domain.', kDEFAULT_LANGUAGE );
 			$term->Synonym( kDEF_DOMAIN, kTYPE_EXACT, TRUE );
@@ -2927,6 +2946,7 @@ exit( "Done!\n" );
 			{
 				$term->NS( $ns );
 				$term->Code( substr( $component[ 'id' ], $len ) );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
 				$term->Type( kTYPE_ENUM );
 				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
 				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
@@ -3008,6 +3028,7 @@ exit( "Done!\n" );
 			{
 				$term->NS( $ns );
 				$term->Code( substr( $component[ 'id' ], $len ) );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
 				$term->Type( kTYPE_ENUM );
 				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
 				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
@@ -3097,6 +3118,7 @@ exit( "Done!\n" );
 		{
 			$term->NS( $ns );
 			$term->Code( substr( kDEF_CATEGORY, $len ) );
+			$term->Kind( kTYPE_NAMESPACE, TRUE );
 			$term->Name( 'Categories', kDEFAULT_LANGUAGE );
 			$term->Definition( 'Default categories.', kDEFAULT_LANGUAGE );
 			$term->Synonym( kDEF_CATEGORY, kTYPE_EXACT, TRUE );
@@ -3189,6 +3211,7 @@ exit( "Done!\n" );
 			{
 				$term->NS( $ns );
 				$term->Code( substr( $component[ 'id' ], $len ) );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
 				$term->Type( kTYPE_ENUM );
 				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
 				$term->Definition( $component[ 'def' ], kDEFAULT_LANGUAGE );
@@ -3305,6 +3328,7 @@ exit( "Done!\n" );
 		if( ! $term->Persistent() )
 		{
 			$term->Code( 'ITPGRFA' );
+			$term->Kind( kTYPE_NAMESPACE, TRUE );
 			$term->Name
 			( 'International Treaty on Plant Genetic Resources descriptor',
 			  kDEFAULT_LANGUAGE );
@@ -3412,6 +3436,7 @@ exit( "Done!\n" );
 			{
 				$term->NS( $nodes[ 'ITPGRFA' ]->Term() );
 				$term->Code( $component[ 'id' ] );
+				$term->Kind( kTYPE_ATTRIBUTE, TRUE );
 				$term->Type( kTYPE_STRING );
 				$term->Cardinality( kCARD_ANY );
 				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
@@ -3456,6 +3481,7 @@ EOT;
 			{
 				$term->NS( $nodes[ 'ANNEX1-CROP-GROUP' ]->Term() );
 				$term->Code( $record[ 'Code' ] );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
 				$term->Type( kTYPE_ENUM );
 				$term->Name( $record[ 'Label' ], kDEFAULT_LANGUAGE );
 				$term->Commit( $theContainer );
@@ -3631,6 +3657,7 @@ EOT;
 			{
 				$term->NS( $nodes[ 'ANNEX1-CROP' ]->Term() );
 				$term->Code( $record[ 'Code' ] );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
 				$term->Type( kTYPE_ENUM );
 				$term->Name( $record[ 'Label' ], kDEFAULT_LANGUAGE );
 				if( $record[ 'Observations' ] !== NULL )
@@ -3780,6 +3807,7 @@ EOT;
 		if( ! $term->Persistent() )
 		{
 			$term->Code( 'UNSTATS' );
+			$term->Kind( kTYPE_NAMESPACE, TRUE );
 			$term->Name
 			( 'UN Statistics Division',
 			  kDEFAULT_LANGUAGE );
@@ -3891,6 +3919,7 @@ EOT;
 			{
 				$term->NS( $nodes[ 'REGIONS' ]->Term() );
 				$term->Code( $record[ 'Code' ] );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
 				$term->Type( kTYPE_ENUM );
 				$term->Name( $record[ 'Name' ], kDEFAULT_LANGUAGE );
 				$term->Commit( $theContainer );
@@ -4058,6 +4087,7 @@ EOT;
 		if( ! $term->Persistent() )
 		{
 			$term->Code( 'ISO' );
+			$term->Kind( kTYPE_NAMESPACE, TRUE );
 			$term->Domain( kDOMAIN_LANGUAGE, TRUE );
 			$term->Domain( kDOMAIN_GEOGRAPHY, TRUE );
 			$term->Name
@@ -4106,6 +4136,7 @@ EOT;
 		{
 			$term->NS( $nodes[ 'ISO' ]->Term() );
 			$term->Code( '639' );
+			$term->Kind( kTYPE_NAMESPACE, TRUE );
 			$term->Domain( kDOMAIN_LANGUAGE, TRUE );
 			$term->Name
 			( 'ISO 639',
@@ -4176,6 +4207,7 @@ EOT;
 			{
 				$term->NS( $nodes[ 'ISO:639' ]->Term() );
 				$term->Code( $component[ 'id' ] );
+				$term->Kind( kTYPE_ATTRIBUTE, TRUE );
 				$term->Type( kTYPE_STRING );
 				$term->Cardinality( kCARD_0_1 );
 				$term->Name( $component[ 'nam' ], kDEFAULT_LANGUAGE );
@@ -4204,6 +4236,7 @@ EOT;
 		{
 			$term->NS( $nodes[ 'ISO:639' ]->Term() );
 			$term->Code( '3' );
+			$term->Kind( kTYPE_NAMESPACE, TRUE );
 			$term->Domain( kDOMAIN_LANGUAGE, TRUE );
 			$term->Name
 			( 'Part 3 alpha-3 codes',
@@ -4341,6 +4374,7 @@ EOT;
 		{
 			$term->NS( $nodes[ 'ISO:639:3' ]->Term() );
 			$term->Code( 'Scope' );
+			$term->Kind( kTYPE_NAMESPACE, TRUE );
 			$term->Domain( kDOMAIN_LANGUAGE, TRUE );
 			$term->Name
 			( 'Language scope',
@@ -4414,6 +4448,7 @@ EOT;
 			{
 				$term->NS( $nodes[ 'ISO:639:3:Scope' ]->Term() );
 				$term->Code( $component[ 'id' ] );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
 				$term->Type( kTYPE_ENUM );
 				$term->Enumeration( $term->Code(), TRUE );
 				$term->Domain( kDOMAIN_LANGUAGE, TRUE );
@@ -4469,6 +4504,7 @@ EOT;
 		{
 			$term->NS( $nodes[ 'ISO:639:3' ]->Term() );
 			$term->Code( 'Type' );
+			$term->Kind( kTYPE_NAMESPACE, TRUE );
 			$term->Domain( kDOMAIN_LANGUAGE, TRUE );
 			$term->Name
 			( 'Language type',
@@ -4551,6 +4587,7 @@ EOT;
 			{
 				$term->NS( $nodes[ 'ISO:639:3:Type' ]->Term() );
 				$term->Code( $component[ 'id' ] );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
 				$term->Type( kTYPE_ENUM );
 				$term->Enumeration( $term->Code(), TRUE );
 				$term->Domain( kDOMAIN_LANGUAGE, TRUE );
@@ -4632,6 +4669,7 @@ EOT;
 			{
 				$term->NS( $nodes[ 'ISO:639:3:Part3' ]->Term() );
 				$term->Code( $record[ 'Code3' ] );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
 				$term->Type( kTYPE_ENUM );
 				$term->Enumeration( $term->Code(), TRUE );
 				if( $record[ 'Part2B' ] !== NULL )
@@ -4711,6 +4749,7 @@ EOT;
 				{
 					$term->NS( $nodes[ 'ISO:639:3:Part2B' ]->Term() );
 					$term->Code( $record[ 'Part2B' ] );
+					$term->Kind( kTYPE_ENUMERATION, TRUE );
 					$term->Type( kTYPE_ENUM );
 					$term->Enumeration( $term->Code(), TRUE );
 					$term->Enumeration( $record[ 'Code3' ], TRUE );
@@ -4791,6 +4830,7 @@ EOT;
 				{
 					$term->NS( $nodes[ 'ISO:639:3:Part2T' ]->Term() );
 					$term->Code( $record[ 'Part2T' ] );
+					$term->Kind( kTYPE_ENUMERATION, TRUE );
 					$term->Type( kTYPE_ENUM );
 					$term->Enumeration( $term->Code(), TRUE );
 					$term->Enumeration( $record[ 'Code3' ], TRUE );
@@ -4871,6 +4911,7 @@ EOT;
 				{
 					$term->NS( $nodes[ 'ISO:639:3:Part1' ]->Term() );
 					$term->Code( $record[ 'Part1' ] );
+					$term->Kind( kTYPE_ENUMERATION, TRUE );
 					$term->Type( kTYPE_ENUM );
 					$term->Enumeration( $term->Code(), TRUE );
 					$term->Enumeration( $record[ 'Code3' ], TRUE );
@@ -5069,6 +5110,7 @@ EOT;
 		{
 			$term->NS( $nodes[ 'ISO' ]->Term() );
 			$term->Code( '3166' );
+			$term->Kind( kTYPE_NAMESPACE, TRUE );
 			$term->Domain( kDOMAIN_GEOGRAPHY, TRUE );
 			$term->Category( kCATEGORY_ADMIN, TRUE );
 			$term->Name
@@ -5120,6 +5162,7 @@ EOT;
 		{
 			$term->NS( $nodes[ 'ISO:3166' ]->Term() );
 			$term->Code( '1' );
+			$term->Kind( kTYPE_NAMESPACE, TRUE );
 			$term->Domain( kDOMAIN_GEOGRAPHY, TRUE );
 			$term->Category( kCATEGORY_ADMIN, TRUE );
 			$term->Name
@@ -5296,6 +5339,7 @@ EOT;
 			{
 				$term->NS( $nodes[ 'ISO:3166:1' ]->Term() );
 				$term->Code( $record[ 'ISO3' ] );
+				$term->Kind( kTYPE_ENUMERATION, TRUE );
 				$term->Type( kTYPE_ENUM );
 				$term->Enumeration( $term->Code(), TRUE );
 				if( $record[ 'CodeNum' ] !== NULL )
@@ -5390,6 +5434,7 @@ EOT;
 					{
 						$term->NS( $nodes[ 'ISO:3166:1' ]->Term() );
 						$term->Code( $record[ 'Code2' ] );
+						$term->Kind( kTYPE_ENUMERATION, TRUE );
 						$term->Type( kTYPE_ENUM );
 						$term->Enumeration( $term->Code(), TRUE );
 						$term->Synonym( $record[ 'ISO3' ], kTYPE_EXACT, TRUE );
@@ -5468,6 +5513,7 @@ EOT;
 					{
 						$term->NS( $nodes[ 'ISO:3166:1' ]->Term() );
 						$term->Code( $record[ 'CodeNum' ] );
+						$term->Kind( kTYPE_ENUMERATION, TRUE );
 						$term->Type( kTYPE_ENUM );
 						$term->Enumeration( $term->Code(), TRUE );
 						$term->Synonym( $record[ 'ISO3' ], kTYPE_EXACT, TRUE );
@@ -5735,6 +5781,7 @@ EOT;
 			 .'IPGRI crop descriptor lists and with the descriptors used for the FAO '
 			 .'World Information and Early Warning System (WIEWS) on plant genetic '
 			 .'resources (PGR).', kDEFAULT_LANGUAGE );
+			$term->Kind( kTYPE_NAMESPACE, TRUE );
 			$term->Domain( kDOMAIN_ACCESSION, TRUE );
 			$term->Category( kCATEGORY_PASSPORT, TRUE );
 			$term->Version( 'December 2001' );
@@ -5776,6 +5823,7 @@ EOT;
 			  kDEFAULT_LANGUAGE );
 			$term->Definition
 			( 'Extensions to the FAO/IPGRI list of multi-crop passport descriptors (MCPD).', kDEFAULT_LANGUAGE );
+			$term->Kind( kTYPE_NAMESPACE, TRUE );
 			$term->Domain( kDOMAIN_ACCESSION, TRUE );
 			$term->Category( kCATEGORY_PASSPORT, TRUE );
 			$term->Version( 'March 2011' );
@@ -8960,6 +9008,7 @@ EOT;
 		{
 			$term->NS( $ns );
 			$term->Code( substr( kROLE_FILE_IMPORT, $len ) );
+			$term->Kind( kTYPE_ENUMERATION, TRUE );
 			$term->Type( kTYPE_ENUM );
 			$term->Enumeration( $term->Code(), TRUE );
 			$term->Name(
@@ -9001,6 +9050,7 @@ EOT;
 		{
 			$term->NS( $ns );
 			$term->Code( substr( kROLE_USER_MANAGE, $len ) );
+			$term->Kind( kTYPE_ENUMERATION, TRUE );
 			$term->Type( kTYPE_ENUM );
 			$term->Enumeration( $term->Code(), TRUE );
 			$term->Name(
@@ -9794,6 +9844,7 @@ EOT;
 			 .'This number is essential for identifying duplicates held in different '
 			 .'collections.',
 			  kDEFAULT_LANGUAGE );
+			$term->Kind( kTYPE_ATTRIBUTE, TRUE );
 			$term->Cardinality( kCARD_0_1 );
 			$term->Type( kTYPE_STRING );
 			$term->Examples( 'USAID', TRUE );
@@ -9882,6 +9933,7 @@ EOT;
 			$term->Definition
 			( 'Full institution name.',
 			  kDEFAULT_LANGUAGE );
+			$term->Kind( kTYPE_ATTRIBUTE, TRUE );
 			$term->Cardinality( kCARD_0_1 );
 			$term->Type( kTYPE_STRING );
 			$term->Examples( 'Pan American Development Foundation', TRUE );
@@ -10046,6 +10098,7 @@ EOT;
 			$term->Definition
 			( 'Street or post office box number.',
 			  kDEFAULT_LANGUAGE );
+			$term->Kind( kTYPE_ATTRIBUTE, TRUE );
 			$term->Cardinality( kCARD_0_1 );
 			$term->Type( kTYPE_STRING );
 			$term->Examples( '1301 West Gregory Drive', TRUE );
@@ -10097,6 +10150,7 @@ EOT;
 			$term->Definition
 			( 'City and state.',
 			  kDEFAULT_LANGUAGE );
+			$term->Kind( kTYPE_ATTRIBUTE, TRUE );
 			$term->Cardinality( kCARD_0_1 );
 			$term->Type( kTYPE_STRING );
 			$term->Examples( 'Roma (RM)', TRUE );
@@ -10147,6 +10201,7 @@ EOT;
 			$term->Definition
 			( 'Zip code.',
 			  kDEFAULT_LANGUAGE );
+			$term->Kind( kTYPE_ATTRIBUTE, TRUE );
 			$term->Cardinality( kCARD_0_1 );
 			$term->Type( kTYPE_STRING );
 			$term->Examples( 'Roma (RM)', TRUE );
@@ -10197,6 +10252,7 @@ EOT;
 			$term->Definition
 			( 'Telephone number.',
 			  kDEFAULT_LANGUAGE );
+			$term->Kind( kTYPE_ATTRIBUTE, TRUE );
 			$term->Cardinality( kCARD_0_1 );
 			$term->Type( kTYPE_STRING );
 			$term->Examples( '870126', TRUE );
@@ -10247,6 +10303,7 @@ EOT;
 			$term->Definition
 			( 'Telefax number.',
 			  kDEFAULT_LANGUAGE );
+			$term->Kind( kTYPE_ATTRIBUTE, TRUE );
 			$term->Cardinality( kCARD_0_1 );
 			$term->Type( kTYPE_STRING );
 			$term->Examples( '870126', TRUE );
@@ -10297,6 +10354,7 @@ EOT;
 			$term->Definition
 			( 'E-mail address.',
 			  kDEFAULT_LANGUAGE );
+			$term->Kind( kTYPE_ATTRIBUTE, TRUE );
 			$term->Cardinality( kCARD_0_1 );
 			$term->Type( kTYPE_STRING );
 			$term->Examples( 'recfitog@reacciun.ve', TRUE );
@@ -10347,6 +10405,7 @@ EOT;
 			$term->Definition
 			( 'Institution web page.',
 			  kDEFAULT_LANGUAGE );
+			$term->Kind( kTYPE_ATTRIBUTE, TRUE );
 			$term->Cardinality( kCARD_0_1 );
 			$term->Type( kTYPE_STRING );
 			$term->Examples( 'http://www.uky.edu/Ag/Agronomy/Department/CloverGC', TRUE );
@@ -10396,6 +10455,7 @@ EOT;
 			$term->Definition
 			( 'Institution location latitude.',
 			  kDEFAULT_LANGUAGE );
+			$term->Kind( kTYPE_ATTRIBUTE, TRUE );
 			$term->Cardinality( kCARD_0_1 );
 			$term->Type( kTYPE_INT32 );
 			$term->Examples( '5007', TRUE );
@@ -10446,6 +10506,7 @@ EOT;
 			$term->Definition
 			( 'Institution location longitude.',
 			  kDEFAULT_LANGUAGE );
+			$term->Kind( kTYPE_ATTRIBUTE, TRUE );
 			$term->Cardinality( kCARD_0_1 );
 			$term->Type( kTYPE_INT32 );
 			$term->Examples( '-6739', TRUE );
@@ -10496,6 +10557,7 @@ EOT;
 			$term->Definition
 			( 'Institution elevation.',
 			  kDEFAULT_LANGUAGE );
+			$term->Kind( kTYPE_ATTRIBUTE, TRUE );
 			$term->Cardinality( kCARD_0_1 );
 			$term->Type( kTYPE_INT32 );
 			$term->Examples( '480', TRUE );
@@ -10546,6 +10608,7 @@ EOT;
 			$term->Definition
 			( 'Last record update date.',
 			  kDEFAULT_LANGUAGE );
+			$term->Kind( kTYPE_ATTRIBUTE, TRUE );
 			$term->Cardinality( kCARD_1 );
 			$term->Type( kTYPE_STRING );
 			$term->Pattern( 'YYYY-MM-DD', TRUE );
@@ -10599,6 +10662,7 @@ EOT;
 			 .'by indicating in this field which is the new institution that takes the '
 			 .'place of the obsolete one.',
 			  kDEFAULT_LANGUAGE );
+			$term->Kind( kTYPE_ATTRIBUTE, TRUE );
 			$term->Cardinality( kCARD_0_1 );
 			$term->Type( kTYPE_STRING );
 			$term->Pattern( '[A-Z]{3}[0-9]{3,4}' );

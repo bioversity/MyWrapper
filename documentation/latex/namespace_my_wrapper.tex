@@ -945,7 +945,9 @@ This file contains the class definition of {\bfseries \hyperlink{class_c_mongo_d
 
 Ancestor.
 
-This include file contains the parent class definitions. Mongo query.
+This include file contains the parent class definitions. Session.
+
+This include file contains the \hyperlink{}{session} class definitions. Mongo query.
 
 This include file contains the Mongo \hyperlink{class_c_mongo_query}{object} class definitions. Local definitions.
 
@@ -1722,13 +1724,11 @@ Milko A. Škofič \href{mailto:m.skofic@cgiar.org}{\tt m.\-skofic@cgiar.\-org}
 
 {\itshape This include file contains all local definitions to this class. Session object.}
 
-{\itshape This class implements a session object, it expects to be stored in the session with the \hyperlink{}{k\-D\-E\-F\-A\-U\-L\-T\-\_\-\-S\-E\-S\-S\-I\-O\-N} offset.}
+{\itshape This class implements a session object, it should be stored in the session with the \hyperlink{}{k\-D\-E\-F\-A\-U\-L\-T\-\_\-\-S\-E\-S\-S\-I\-O\-N} offset.}
 
-{\itshape Concrete instances derived from this class use the data members to store server data and the object's offsets to store the view model data, this means that the server holds private data and the public data is published to the web pages by \hyperlink{}{converting} the offsets to J\-S\-O\-N.}
+{\itshape This class and its derived instances store session objects in data members and the view model object in its array, this means that the server holds private data and the public data is published to the web pages by converting the array to J\-S\-O\-N.}
 
-{\itshape This class is declared abstract, because it does not assume which storage engines and custom resources will be used.}
-
-{\itshape The class implements the {\itshape Serializable} interface which can be overloaded by working on its protected \hyperlink{}{serialize} and \hyperlink{}{unserialize} interface; remember that this also means that the sleep and wake events will also be governed by that interface.}
+{\itshape This class is declared abstract, because it lets concrete derived instances take care of choosing the specific database engines.}
 
 {\itshape \begin{DoxyVerb} @subpackage        Session\end{DoxyVerb}
 }
@@ -1812,6 +1812,27 @@ Milko A. Škofič \href{mailto:m.skofic@cgiar.org}{\tt m.\-skofic@cgiar.\-org}
 {\itshape The unique identifier of this class is composed by the default \hyperlink{}{index} of the object, prefixed by the \hyperlink{}{k\-E\-N\-T\-I\-T\-Y\-\_\-\-U\-S\-E\-R} token and the \hyperlink{}{k\-T\-O\-K\-E\-N\-\_\-\-C\-L\-A\-S\-S\-\_\-\-S\-E\-P\-A\-R\-A\-T\-O\-R} token, this allows users and other types of \hyperlink{class_c_entity}{entities} to share the same \hyperlink{}{code}; this is enforced both in the \hyperlink{}{Hash\-Index} method, to which you only need to pass the user \hyperlink{}{code}, and in the protected \hyperlink{}{\-\_\-\-Prepare\-Commit} method which will place the resulting string in the global \hyperlink{}{identifier}.}
 
 {\itshape \begin{DoxyVerb} @subpackage        Entities\end{DoxyVerb}
+}
+
+{\itshape {\itshape \hyperlink{class_c_warehouse_session}{C\-Warehouse\-Session}} class definition.}
+
+{\itshape This file contains the class definition of {\bfseries \hyperlink{class_c_warehouse_session}{C\-Warehouse\-Session}} which overloads its \hyperlink{class_c_session_object}{ancestor} to implement a session that uses Mongo\-D\-B as the database and Neo4j as the graph.}
+
+{\itshape \begin{DoxyVerb} @subpackage        Session
+
+ @author            Milko A. Škofič <m.skofic@cgiar.org>
+ @version   1.00 21/07/2012\end{DoxyVerb}
+}
+
+{\itshape Ancestor.}
+
+{\itshape This include file contains the parent class definitions. Ontology trait.}
+
+{\itshape This include file contains the ontology trait definitions. Warehouse session object.}
+
+{\itshape This concrete class implements a data warehouse session object, it features a Mongo data \hyperlink{}{store} and a Neo4j Graph \hyperlink{}{store}, it also features the ontology \hyperlink{}{trait}.}
+
+{\itshape \begin{DoxyVerb} @subpackage        Session\end{DoxyVerb}
 }
 
 {\itshape \begin{DoxyVerb} {@link CWarehouseWrapper CWarehouseWrapper} definitions.

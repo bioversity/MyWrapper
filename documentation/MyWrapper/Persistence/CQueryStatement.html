@@ -1,0 +1,1542 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class CQueryStatement</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name"><img src="../../media/images/Class_logo.png"
+														alt=" Class"
+														title=" Class"
+														style="vertical-align: middle"> CQueryStatement</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Query statement.</p>
+<p class="description"><p>This class implements a query statement, such as those that populate the  <a href="../../MyWrapper/Persistence/CQuery.html">query</a> class. This class concentrates on building and managing these  statements, which are structured as follows:</p><p><ul><li><em><a href="../../MyWrapper/Persistence/_classes---CQuery.inc.php.html#definekAPI_QUERY_SUBJECT">kAPI_QUERY_SUBJECT</a></em>: The query subject. It refers
+        to the object element that we are considering in the query.</li><li><em><a href="../../MyWrapper/Persistence/_classes---CQuery.inc.php.html#definekAPI_QUERY_OPERATOR">kAPI_QUERY_OPERATOR</a></em>: The query predicate. This
+        element represents the predicate or comparaison operator, it can take the following
+        values:
+     <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_DISABLED">kOPERATOR_DISABLED</a></em>: Disabled, it means that
+            the current statement is disabled.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_EQUAL">kOPERATOR_EQUAL</a></em>: Equality (=), this operator
+            implies that the statement has also an <a href="../../MyWrapper/Persistence/_classes---CQuery.inc.php.html#definekAPI_QUERY_DATA">object</a>.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_EQUAL_NOT">kOPERATOR_EQUAL_NOT</a></em>: Inequality
+            (!=), negates the <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_EQUAL">kOPERATOR_EQUAL</a>
+            operator; this operator implies that the statement has also an
+            <a href="../../MyWrapper/Persistence/_classes---CQuery.inc.php.html#definekAPI_QUERY_DATA">object</a>.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_LIKE">kOPERATOR_LIKE</a></em>: Like, it is an accent and
+            case insensitive equality filter, this operator implies that the statement has
+            also an <a href="../../MyWrapper/Persistence/_classes---CQuery.inc.php.html#definekAPI_QUERY_DATA">object</a>.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_LIKE_NOT">kOPERATOR_LIKE_NOT</a></em>: The negation of
+            the <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_LIKE">LIKE</a> operator, this operator implies that the
+            statement has also an <a href="../../MyWrapper/Persistence/_classes---CQuery.inc.php.html#definekAPI_QUERY_DATA">object</a>.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_PREFIX">kOPERATOR_PREFIX</a></em>: Starts with, or prefix
+            match, this operator implies that the statement has also an
+            <a href="../../MyWrapper/Persistence/_classes---CQuery.inc.php.html#definekAPI_QUERY_DATA">object</a>.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_CONTAINS">kOPERATOR_CONTAINS</a></em>: Contains, selects
+            all elements that contain the match string, this operator implies that the
+            statement has also an <a href="../../MyWrapper/Persistence/_classes---CQuery.inc.php.html#definekAPI_QUERY_DATA">object</a>.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_SUFFIX">kOPERATOR_SUFFIX</a></em>: Ends with, or suffix
+            match, this operator implies that the statement has also an
+            <a href="../../MyWrapper/Persistence/_classes---CQuery.inc.php.html#definekAPI_QUERY_DATA">object</a>.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_REGEX">kOPERATOR_REGEX</a></em>: Regular expression, this
+            operator implies that the statement has also an <a href="../../MyWrapper/Persistence/_classes---CQuery.inc.php.html#definekAPI_QUERY_DATA">object</a>.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_LESS">kOPERATOR_LESS</a></em>: Smaller than (\&lt;), this operator
+            implies that the statement has also an <a href="../../MyWrapper/Persistence/_classes---CQuery.inc.php.html#definekAPI_QUERY_DATA">object</a>.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_LESS_EQUAL">kOPERATOR_LESS_EQUAL</a></em>: Smaller than
+            or equal (\&lt;=), this operator implies that the statement has also an
+            <a href="../../MyWrapper/Persistence/_classes---CQuery.inc.php.html#definekAPI_QUERY_DATA">object</a>.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_GREAT">kOPERATOR_GREAT</a></em>: Greater than (\&gt;), this operator
+            implies that the statement has also an <a href="../../MyWrapper/Persistence/_classes---CQuery.inc.php.html#definekAPI_QUERY_DATA">object</a>.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_GREAT_EQUAL">kOPERATOR_GREAT_EQUAL</a></em>: Greater than
+            or equal (\&gt;=), this operator implies that the statement has also an
+            <a href="../../MyWrapper/Persistence/_classes---CQuery.inc.php.html#definekAPI_QUERY_DATA">object</a>.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_IRANGE">kOPERATOR_IRANGE</a></em>: Range inclusive,
+            matches \&gt;= value \&lt;=; this operator implies that the statement has also an
+            <a href="../../MyWrapper/Persistence/_classes---CQuery.inc.php.html#definekAPI_QUERY_DATA">object</a> which should contain the two range values.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_ERANGE">kOPERATOR_ERANGE</a></em>: Range exclusive,
+            matches \&gt; value \&lt;, this operator implies that the statement has also an
+            <a href="../../MyWrapper/Persistence/_classes---CQuery.inc.php.html#definekAPI_QUERY_DATA">object</a> which should contain the two range values.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NULL">kOPERATOR_NULL</a></em>: Is <em>NULL</em> or element
+            is missing.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NOT_NULL">kOPERATOR_NOT_NULL</a></em>:Not <em>NULL</em> or
+            element exists.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_IN">kOPERATOR_IN</a></em>: In, or belongs to set, this operator
+            implies that the statement has also an <a href="../../MyWrapper/Persistence/_classes---CQuery.inc.php.html#definekAPI_QUERY_DATA">object</a> that will
+            contain the list of choices.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NI">kOPERATOR_NI</a></em>: Not in, the negation of
+            <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_IN">kOPERATOR_IN</a>, this operator implies that the statement has
+            also an <a href="../../MyWrapper/Persistence/_classes---CQuery.inc.php.html#definekAPI_QUERY_DATA">object</a> which contains the list of choices.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_ALL">kOPERATOR_ALL</a></em>: All, or match the full set, this
+            operator implies that the statement has also an <a href="../../MyWrapper/Persistence/_classes---CQuery.inc.php.html#definekAPI_QUERY_DATA">object</a>
+            which will contain the set.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NALL">kOPERATOR_NALL</a></em>: Not all, the negation of
+            the <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_ALL">kOPERATOR_ALL</a> operator, this operator implies that the
+            statement has also an <a href="../../MyWrapper/Persistence/_classes---CQuery.inc.php.html#definekAPI_QUERY_DATA">object</a> which contains the set.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_EX">kOPERATOR_EX</a></em>: Expression, indicates a
+            complex expression, this operator implies that the statement has also an
+            <a href="../../MyWrapper/Persistence/_classes---CQuery.inc.php.html#definekAPI_QUERY_DATA">object</a> which will contain the expression.</li></ul></li><li><em><a href="../../MyWrapper/Persistence/_classes---CQuery.inc.php.html#definekAPI_QUERY_TYPE">kAPI_QUERY_TYPE</a></em>: The statement object type, or data
+        type of the <a href="../../MyWrapper/Persistence/_classes---CQuery.inc.php.html#definekAPI_QUERY_DATA">kAPI_QUERY_DATA</a> element, if the latter is
+        required:
+     <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_STRING">kTYPE_STRING</a></em>: String, we assume
+            in UTF8 character set.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_INT32">kTYPE_INT32</a></em>: 32 bit signed integer.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_INT64">kTYPE_INT64</a></em>: 64 bit signed integer.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_FLOAT">kTYPE_FLOAT</a></em>: Floating point number.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_DATE">kTYPE_DATE</a></em>: A date.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_TIME">kTYPE_TIME</a></em>: A date and time.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_STAMP">kTYPE_STAMP</a></em>: A native timestamp.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_BOOLEAN">kTYPE_BOOLEAN</a></em>: An on/off switch.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_BINARY">kTYPE_BINARY</a></em>: A binary string.</li></ul></li><li><em><a href="../../MyWrapper/Persistence/_classes---CQuery.inc.php.html#definekAPI_QUERY_DATA">kAPI_QUERY_DATA</a></em>: The statement object or test data.</li></ul></p><p>The main goal of this class is to provide an interface that may ease the construction of  complex <a href="../../MyWrapper/Persistence/CQuery.html">queries</a> by providing specialised methods for building statements  that can then safely be <a href="../../MyWrapper/Persistence/CQuery.html#methodAppendStatement">appended</a> to query  <a href="../../MyWrapper/Persistence/CQuery.html">objects</a>.</p></p>
+		<p class="notes">
+			Located in <a class="field" href="_classes---CQueryStatement.php.html">/classes/CQueryStatement.php</a> (line <span class="field">151</span>)
+		</p>
+		
+				
+		<pre>ArrayObject
+   |
+   --<a href="../../MyWrapper/Framework/CArrayObject.html">CArrayObject</a>
+      |
+      --CQueryStatement</pre>
+	
+			</div>
+</div>
+
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+												<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																				<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">void</span>
+										<a href="#All" title="details" class="method-name">All</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">void</span>
+										<a href="#Contains" title="details" class="method-name">Contains</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">void</span>
+										<a href="#ContainsNoCase" title="details" class="method-name">ContainsNoCase</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">void</span>
+										<a href="#Disabled" title="details" class="method-name">Disabled</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span> = <span class="var-default">NULL</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theRange</span> = <span class="var-default">NULL</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">void</span>
+										<a href="#Equals" title="details" class="method-name">Equals</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">void</span>
+										<a href="#Exists" title="details" class="method-name">Exists</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">void</span>
+										<a href="#Expression" title="details" class="method-name">Expression</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">void</span>
+										<a href="#Great" title="details" class="method-name">Great</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">void</span>
+										<a href="#GreatEqual" title="details" class="method-name">GreatEqual</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">void</span>
+										<a href="#Less" title="details" class="method-name">Less</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">void</span>
+										<a href="#LessEqual" title="details" class="method-name">LessEqual</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">void</span>
+										<a href="#Like" title="details" class="method-name">Like</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">void</span>
+										<a href="#Member" title="details" class="method-name">Member</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">void</span>
+										<a href="#Missing" title="details" class="method-name">Missing</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">void</span>
+										<a href="#NotAll" title="details" class="method-name">NotAll</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">void</span>
+										<a href="#NotEquals" title="details" class="method-name">NotEquals</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">void</span>
+										<a href="#NotLike" title="details" class="method-name">NotLike</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">void</span>
+										<a href="#NotMember" title="details" class="method-name">NotMember</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>])
+									</div>
+																																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">void</span>
+										<a href="#Prefix" title="details" class="method-name">Prefix</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">void</span>
+										<a href="#PrefixNoCase" title="details" class="method-name">PrefixNoCase</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>)
+									</div>
+																								<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">void</span>
+										<a href="#RangeExclusive" title="details" class="method-name">RangeExclusive</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theBound1</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theBound2</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">void</span>
+										<a href="#RangeInclusive" title="details" class="method-name">RangeInclusive</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theBound1</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theBound2</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">void</span>
+										<a href="#Regex" title="details" class="method-name">Regex</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>)
+									</div>
+																								<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">void</span>
+										<a href="#Suffix" title="details" class="method-name">Suffix</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>)
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/StaticMethod.png" alt=" "/>
+											static <span class="method-result">void</span>
+										<a href="#SuffixNoCase" title="details" class="method-name">SuffixNoCase</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>)
+									</div>
+																												<div class="method-definition">
+					<img src="../../media/images/Constructor.png" alt=" "/>
+											<span class="method-result">CQueryStatement</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+											([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span> = <span class="var-default">NULL</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$thePredicate</span> = <span class="var-default">NULL</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theRange</span> = <span class="var-default">NULL</span>])
+									</div>
+																																																																																																																																																																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#Object" title="details" class="method-name">Object</a>
+											([<span class="var-type">string</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#Predicate" title="details" class="method-name">Predicate</a>
+											([<span class="var-type">string</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#Range" title="details" class="method-name">Range</a>
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theBound1</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theBound2</span>, [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																																								<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#Subject" title="details" class="method-name">Subject</a>
+											([<span class="var-type">string</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+																																<div class="method-definition">
+					<img src="../../media/images/Method.png" alt=" "/>
+											<span class="method-result">mixed</span>
+										<a href="#Type" title="details" class="method-name">Type</a>
+											([<span class="var-type">string</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+									</div>
+											</div>
+		</div>
+	</div>		
+
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+													<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+<a name="methodAll" id="All"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static All</span> (line <span class="line-number">1649</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create an <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_ALL">all</a> statement.</p>
+<p class="description"><p>This method can be used to instantiate an <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_ALL">all</a> query statement  which will test whether all the <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodSubject">subject</a> values can be found in  the provided <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">object</a>, which will be interpreted as a list of values.</p><p>If the provided <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">object</a> is not an array or an ArrayObject, the method  will add it to a newly created array.</p><p>The statement uses the <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_ALL">kOPERATOR_ALL</a> operator and this  method accepts the following parameters:</p><p><ul><li><strong>$theSubject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodSubject">subject</a>.</li><li><strong>$theObject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">object</a>, or members list.</li><li><strong>$theType</strong>: Statement object data <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodType">type</a>.</li></ul></p><p>The method will return an instance of this class or raise an exception on errors.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_ALL">kOPERATOR_ALL</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			All
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theSubject</span><span class="var-description">: Statement subject.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theObject</span><span class="var-description">: Statement object.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theType</span><span class="var-description">: Statement object data type.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodContains" id="Contains"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static Contains</span> (line <span class="line-number">1021</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_CONTAINS">contains</a> statement.</p>
+<p class="description"><p>This method can be used to instantiate a query statement that will select all  elements whose contents matches the test data in any position.</p><p>The statement uses the <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_CONTAINS">kOPERATOR_CONTAINS</a> operator and this  method accepts the following parameters:</p><p><ul><li><strong>$theSubject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodSubject">subject</a>.</li><li><strong>$theObject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">object</a> match sub-string.</li></ul></p><p>Note that the data type is implicitly a <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_STRING">string</a></p><p>The method will return an instance of this class or raise an exception on errors.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> kOPERATOR_CONTAINS kTYPE_STRING</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			Contains
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theSubject</span><span class="var-description">: Statement subject.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theObject</span><span class="var-description">: Statement object.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodContainsNoCase" id="ContainsNoCase"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static ContainsNoCase</span> (line <span class="line-number">1061</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_CONTAINS_NOCASE">case-insensitive</a> contains statement.</p>
+<p class="description"><p>This method can be used to instantiate a query statement that will select all  elements whose contents matches the test data in any position in a case and accent  insensitive way.</p><p>The statement uses the <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_CONTAINS_NOCASE">kOPERATOR_CONTAINS_NOCASE</a>  operator and this method accepts the following parameters:</p><p><ul><li><strong>$theSubject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodSubject">subject</a>.</li><li><strong>$theObject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">object</a> match sub-string.</li></ul></p><p>Note that the data type is implicitly a <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_STRING">string</a></p><p>The method will return an instance of this class or raise an exception on errors.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> kOPERATOR_CONTAINS_NOCASE kTYPE_STRING</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			ContainsNoCase
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theSubject</span><span class="var-description">: Statement subject.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theObject</span><span class="var-description">: Statement object.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodDisabled" id="Disabled"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static Disabled</span> (line <span class="line-number">752</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a disabled statement.</p>
+<p class="description"><p>This method can be used to instantiate a disabled query statement. A disabled  statement is one that should not execute, it can be used as a placeholder, or  external methods may disable statements.</p><p>The statement uses the <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_DISABLED">kOPERATOR_DISABLED</a> operator and  this method accepts the following parameters:</p><p><ul><li><strong>$theSubject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodSubject">subject</a>.</li><li><strong>$theObject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">object</a> or first
+        <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodRange">range</a> bound.</li><li><strong>$theType</strong>: Statement object data <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodType">type</a>.</li><li><strong>$theRange</strong>: Statement second <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodRange">range</a> bound.</li></ul></p><p>The method will return an instance of this class or raise an exception on errors.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_DISABLED">kOPERATOR_DISABLED</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			Disabled
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span> = <span class="var-default">NULL</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theRange</span> = <span class="var-default">NULL</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theSubject</span><span class="var-description">: Statement subject.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theObject</span><span class="var-description">: Statement object or range bound.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theType</span><span class="var-description">: Statement object data type.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theRange</span><span class="var-description">: Statement range bound.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodEquals" id="Equals"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static Equals</span> (line <span class="line-number">791</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create an <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_EQUAL">equals</a> statement.</p>
+<p class="description"><p>This method can be used to instantiate an <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_EQUAL">equality</a> query  statement.</p><p>The statement uses the <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_EQUAL">kOPERATOR_EQUAL</a> operator and this  method accepts the following parameters:</p><p><ul><li><strong>$theSubject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodSubject">subject</a>.</li><li><strong>$theObject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">object</a>.</li><li><strong>$theType</strong>: Statement object data <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodType">type</a>.</li></ul></p><p>The method will return an instance of this class or raise an exception on errors.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_EQUAL">kOPERATOR_EQUAL</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			Equals
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theSubject</span><span class="var-description">: Statement subject.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theObject</span><span class="var-description">: Statement object.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theType</span><span class="var-description">: Statement object data type.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodExists" id="Exists"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static Exists</span> (line <span class="line-number">1492</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create an <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NOT_NULL">exists</a> statement.</p>
+<p class="description"><p>This method can be used to instantiate a <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NOT_NULL">missing</a> or null  query statement, the statement will check if the <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodSubject">subject</a> exists or  is not <em>NULL</em>.</p><p>The statement uses the <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NOT_NULL">kOPERATOR_NOT_NULL</a> operator and this  method accepts the following parameters:</p><p><ul><li><strong>$theSubject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodSubject">subject</a>.</li></ul></p><p>The method will return an instance of this class or raise an exception on errors.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NOT_NULL">kOPERATOR_NOT_NULL</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			Exists
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theSubject</span><span class="var-description">: Statement subject.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodExpression" id="Expression"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static Expression</span> (line <span class="line-number">1764</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create an <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_EX">expression</a> statement.</p>
+<p class="description"><p>This method can be used to instantiate an <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_EX">expression</a> query  statement in which the object of the statement represents an expression.</p><p>Note that in this case the <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodType">type</a> is not relevant and it is set by  default as a <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_STRING">string</a>.</p><p>The statement uses the <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_EX">kOPERATOR_EX</a> operator and this  method accepts the following parameters:</p><p><ul><li><strong>$theSubject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodSubject">subject</a>.</li><li><strong>$theObject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">object</a>, or comparaison value.</li><li><strong>$theType</strong>: Statement object data <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodType">type</a>.</li></ul></p><p>The method will return an instance of this class or raise an exception on errors.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> kOPERATOR_EX kTYPE_STRING</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			Expression
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theSubject</span><span class="var-description">: Statement subject.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theObject</span><span class="var-description">: Statement object or expression.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodGreat" id="Great"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static Great</span> (line <span class="line-number">1292</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_GREAT">greater</a> than statement.</p>
+<p class="description"><p>This method can be used to instantiate a <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_GREAT">greater</a> than query  statement.</p><p>The statement uses the <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_GREAT">kOPERATOR_GREAT</a> operator and this  method accepts the following parameters:</p><p><ul><li><strong>$theSubject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodSubject">subject</a>.</li><li><strong>$theObject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">object</a>, or comparaison value.</li><li><strong>$theType</strong>: Statement object data <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodType">type</a>.</li></ul></p><p>The method will return an instance of this class or raise an exception on errors.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_GREAT">kOPERATOR_GREAT</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			Great
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theSubject</span><span class="var-description">: Statement subject.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theObject</span><span class="var-description">: Statement object.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theType</span><span class="var-description">: Statement object data type.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodGreatEqual" id="GreatEqual"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static GreatEqual</span> (line <span class="line-number">1329</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_GREAT_EQUAL">greater</a> than or equal statement.</p>
+<p class="description"><p>This method can be used to instantiate a <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_GREAT_EQUAL">greater</a> than  or equal query statement.</p><p>The statement uses the <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_GREAT_EQUAL">kOPERATOR_GREAT_EQUAL</a> operator  and this method accepts the following parameters:</p><p><ul><li><strong>$theSubject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodSubject">subject</a>.</li><li><strong>$theObject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">object</a>, or comparaison value.</li><li><strong>$theType</strong>: Statement object data <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodType">type</a>.</li></ul></p><p>The method will return an instance of this class or raise an exception on errors.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_GREAT_EQUAL">kOPERATOR_GREAT_EQUAL</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			GreatEqual
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theSubject</span><span class="var-description">: Statement subject.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theObject</span><span class="var-description">: Statement object.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theType</span><span class="var-description">: Statement object data type.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodLess" id="Less"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static Less</span> (line <span class="line-number">1218</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_LESS">less</a> than statement.</p>
+<p class="description"><p>This method can be used to instantiate a <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_LESS">less</a> than query  statement.</p><p>The statement uses the <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_LESS">kOPERATOR_LESS</a> operator and this  method accepts the following parameters:</p><p><ul><li><strong>$theSubject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodSubject">subject</a>.</li><li><strong>$theObject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">object</a>, or comparaison value.</li><li><strong>$theType</strong>: Statement object data <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodType">type</a>.</li></ul></p><p>The method will return an instance of this class or raise an exception on errors.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_LESS">kOPERATOR_LESS</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			Less
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theSubject</span><span class="var-description">: Statement subject.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theObject</span><span class="var-description">: Statement object.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theType</span><span class="var-description">: Statement object data type.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodLessEqual" id="LessEqual"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static LessEqual</span> (line <span class="line-number">1255</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_LESS_EQUAL">less</a> than or equal statement.</p>
+<p class="description"><p>This method can be used to instantiate a <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_LESS_EQUAL">less</a> than or  equal query statement.</p><p>The statement uses the <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_LESS_EQUAL">kOPERATOR_LESS_EQUAL</a> operator and  this method accepts the following parameters:</p><p><ul><li><strong>$theSubject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodSubject">subject</a>.</li><li><strong>$theObject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">object</a>, or comparaison value.</li><li><strong>$theType</strong>: Statement object data <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodType">type</a>.</li></ul></p><p>The method will return an instance of this class or raise an exception on errors.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_LESS_EQUAL">kOPERATOR_LESS_EQUAL</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			LessEqual
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theSubject</span><span class="var-description">: Statement subject.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theObject</span><span class="var-description">: Statement object.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theType</span><span class="var-description">: Statement object data type.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodLike" id="Like"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static Like</span> (line <span class="line-number">866</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a case and accent <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_LIKE">insensitive</a> equality statement.</p>
+<p class="description"><p>This method can be used to instantiate a <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_LIKE">LIKE</a> query statement,  which is equivalent to the SQL <em>LIKE</em> clause, an accent and case insensitive  comparaison.</p><p>The statement uses the <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_LIKE">kOPERATOR_LIKE</a> operator and this method  accepts the following parameters:</p><p><ul><li><strong>$theSubject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodSubject">subject</a>.</li><li><strong>$theObject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">object</a> match string.</li></ul></p><p>Note that the data type is implicitly a <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_STRING">string</a></p><p>The method will return an instance of this class or raise an exception on errors.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> kOPERATOR_LIKE kTYPE_STRING</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			Like
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theSubject</span><span class="var-description">: Statement subject.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theObject</span><span class="var-description">: Statement object.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodMember" id="Member"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static Member</span> (line <span class="line-number">1532</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_IN">membership</a> statement.</p>
+<p class="description"><p>This method can be used to instantiate a <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_IN">membership</a> query  statement which will test whether the <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodSubject">subject</a> value can be found in  the provided <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">object</a>, which will be interpreted as a list of values.</p><p>If the provided <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">object</a> is not an array or an ArrayObject, the method  will add it to a newly created array.</p><p>The statement uses the <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_IN">kOPERATOR_IN</a> operator and this  method accepts the following parameters:</p><p><ul><li><strong>$theSubject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodSubject">subject</a>.</li><li><strong>$theObject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">object</a>, or members list.</li><li><strong>$theType</strong>: Statement object data <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodType">type</a>.</li></ul></p><p>The method will return an instance of this class or raise an exception on errors.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_IN">kOPERATOR_IN</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			Member
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theSubject</span><span class="var-description">: Statement subject.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theObject</span><span class="var-description">: Statement object.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theType</span><span class="var-description">: Statement object data type.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodMissing" id="Missing"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static Missing</span> (line <span class="line-number">1459</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create an <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NULL">missing</a> statement.</p>
+<p class="description"><p>This method can be used to instantiate a <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NULL">missing</a> query  statement, the statement will check if the <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodSubject">subject</a> is missing or is <em>NULL</em>.</p><p>The statement uses the <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NULL">kOPERATOR_NULL</a> operator and this  method accepts the following parameters:</p><p><ul><li><strong>$theSubject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodSubject">subject</a>.</li></ul></p><p>The method will return an instance of this class or raise an exception on errors.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NULL">kOPERATOR_NULL</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			Missing
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theSubject</span><span class="var-description">: Statement subject.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodNotAll" id="NotAll"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static NotAll</span> (line <span class="line-number">1708</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a not <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NALL">all</a> statement.</p>
+<p class="description"><p>This method can be used to instantiate a not <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NALL">all</a> query  statement which will test whether any of the <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodSubject">subject</a> values cannot  be found in the provided <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">object</a>, which will be interpreted as a list  of values. This statement is the negation of the <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodAll">All</a> statement.</p><p>If the provided <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">object</a> is not an array or an ArrayObject, the method  will add it to a newly created array.</p><p>The statement uses the <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NALL">kOPERATOR_NALL</a> operator and this  method accepts the following parameters:</p><p><ul><li><strong>$theSubject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodSubject">subject</a>.</li><li><strong>$theObject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">object</a>, or members list.</li><li><strong>$theType</strong>: Statement object data <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodType">type</a>.</li></ul></p><p>The method will return an instance of this class or raise an exception on errors.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NALL">kOPERATOR_NALL</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			NotAll
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theSubject</span><span class="var-description">: Statement subject.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theObject</span><span class="var-description">: Statement object.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theType</span><span class="var-description">: Statement object data type.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodNotEquals" id="NotEquals"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static NotEquals</span> (line <span class="line-number">828</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a not <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_EQUAL_NOT">equals</a> statement.</p>
+<p class="description"><p>This method can be used to instantiate a not <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_EQUAL_NOT">equals</a> query  statement, which is the negation of the <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodEquals">equals</a> statement.</p><p>The statement uses the <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_EQUAL_NOT">kOPERATOR_EQUAL_NOT</a> operator and  this method accepts the following parameters:</p><p><ul><li><strong>$theSubject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodSubject">subject</a>.</li><li><strong>$theObject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">object</a>.</li><li><strong>$theType</strong>: Statement object data <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodType">type</a>.</li></ul></p><p>The method will return an instance of this class or raise an exception on errors.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_EQUAL_NOT">kOPERATOR_EQUAL_NOT</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			NotEquals
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theSubject</span><span class="var-description">: Statement subject.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theObject</span><span class="var-description">: Statement object.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theType</span><span class="var-description">: Statement object data type.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodNotLike" id="NotLike"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static NotLike</span> (line <span class="line-number">903</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a not <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_LIKE_NOT">like</a> statement.</p>
+<p class="description"><p>This method can be used to instantiate a not <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_LIKE_NOT">like</a> query  statement, which is the negation of the <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodLike">equals</a> statement.</p><p>The statement uses the <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_LIKE_NOT">kOPERATOR_LIKE_NOT</a> operator and  this method accepts the following parameters:</p><p><ul><li><strong>$theSubject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodSubject">subject</a>.</li><li><strong>$theObject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">object</a> match string.</li></ul></p><p>The method will return an instance of this class or raise an exception on errors.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> kOPERATOR_LIKE_NOT kTYPE_STRING</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			NotLike
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theSubject</span><span class="var-description">: Statement subject.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theObject</span><span class="var-description">: Statement object.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodNotMember" id="NotMember"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static NotMember</span> (line <span class="line-number">1591</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a non <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NI">membership</a> statement.</p>
+<p class="description"><p>This method can be used to instantiate a non <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NI">membership</a> query  statement which will test whether the <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodSubject">subject</a> value cannot be found  in the provided <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">object</a>, which will be interpreted as a list of  values.</p><p>If the provided <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">object</a> is not an array or an ArrayObject, the method  will add it to a newly created array.</p><p>The statement uses the <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NI">kOPERATOR_NI</a> operator and this  method accepts the following parameters:</p><p><ul><li><strong>$theSubject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodSubject">subject</a>.</li><li><strong>$theObject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">object</a>, or members list.</li><li><strong>$theType</strong>: Statement object data <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodType">type</a>.</li></ul></p><p>The method will return an instance of this class or raise an exception on errors.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NI">kOPERATOR_NI</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			NotMember
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theSubject</span><span class="var-description">: Statement subject.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theObject</span><span class="var-description">: Statement object.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theType</span><span class="var-description">: Statement object data type.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodPrefix" id="Prefix"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static Prefix</span> (line <span class="line-number">942</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_PREFIX">prefix</a> statement.</p>
+<p class="description"><p>This method can be used to instantiate a query statement that will select all  elements whose contents beginning matches the test data.</p><p>The statement uses the <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_PREFIX">kOPERATOR_PREFIX</a> operator and this  method accepts the following parameters:</p><p><ul><li><strong>$theSubject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodSubject">subject</a>.</li><li><strong>$theObject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">object</a> prefix string.</li></ul></p><p>Note that the data type is implicitly a <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_STRING">string</a></p><p>The method will return an instance of this class or raise an exception on errors.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> kOPERATOR_PREFIX kTYPE_STRING</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			Prefix
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theSubject</span><span class="var-description">: Statement subject.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theObject</span><span class="var-description">: Statement object.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodPrefixNoCase" id="PrefixNoCase"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static PrefixNoCase</span> (line <span class="line-number">982</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_PREFIX_NOCASE">case-insensitive</a> prefix statement.</p>
+<p class="description"><p>This method can be used to instantiate a query statement that will select all  elements whose contents beginning matches the test data in a case and accent  insensitive way.</p><p>The statement uses the <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_PREFIX_NOCASE">kOPERATOR_PREFIX_NOCASE</a>  operator and this method accepts the following parameters:</p><p><ul><li><strong>$theSubject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodSubject">subject</a>.</li><li><strong>$theObject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">object</a> prefix string.</li></ul></p><p>Note that the data type is implicitly a <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_STRING">string</a></p><p>The method will return an instance of this class or raise an exception on errors.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> kOPERATOR_PREFIX_NOCASE kTYPE_STRING</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			PrefixNoCase
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theSubject</span><span class="var-description">: Statement subject.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theObject</span><span class="var-description">: Statement object.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodRangeExclusive" id="RangeExclusive"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static RangeExclusive</span> (line <span class="line-number">1416</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_ERANGE">range</a> inclusive statement.</p>
+<p class="description"><p>This method can be used to instantiate a <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_ERANGE">range</a> exclusive  query statement, the statement will check if the <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodSubject">subject</a> value lies  between the two range bounds excluding the bound values.</p><p>The statement uses the <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_ERANGE">kOPERATOR_ERANGE</a> operator and this  method accepts the following parameters:</p><p><ul><li><strong>$theSubject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodSubject">subject</a>.</li><li><strong>$theBound1</strong>: Statement range lower <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">bound</a>.</li><li><strong>$theBound2</strong>: Statement range upper <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">bound</a>.</li><li><strong>$theType</strong>: Statement range data <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodType">type</a>.</li></ul></p><p>The method will return an instance of this class or raise an exception on errors.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_ERANGE">kOPERATOR_ERANGE</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			RangeExclusive
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theBound1</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theBound2</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theSubject</span><span class="var-description">: Statement subject.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theBound1</span><span class="var-description">: Range lower bound.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theBound2</span><span class="var-description">: Range upper bound.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theType</span><span class="var-description">: Statement object data type.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodRangeInclusive" id="RangeInclusive"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static RangeInclusive</span> (line <span class="line-number">1369</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_IRANGE">range</a> inclusive statement.</p>
+<p class="description"><p>This method can be used to instantiate a <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_IRANGE">range</a> inclusive  query statement, the statement will check if the <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodSubject">subject</a> value lies  between the two range bounds including the bound values.</p><p>The statement uses the <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_IRANGE">kOPERATOR_IRANGE</a> operator and this  method accepts the following parameters:</p><p><ul><li><strong>$theSubject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodSubject">subject</a>.</li><li><strong>$theBound1</strong>: Statement range lower <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">bound</a>.</li><li><strong>$theBound2</strong>: Statement range upper <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">bound</a>.</li><li><strong>$theType</strong>: Statement range data <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodType">type</a>.</li></ul></p><p>The method will return an instance of this class or raise an exception on errors.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_IRANGE">kOPERATOR_IRANGE</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			RangeInclusive
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theBound1</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theBound2</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theSubject</span><span class="var-description">: Statement subject.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theBound1</span><span class="var-description">: Range lower bound.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theBound2</span><span class="var-description">: Range upper bound.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theType</span><span class="var-description">: Statement object data type.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodRegex" id="Regex"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static Regex</span> (line <span class="line-number">1179</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_REGEX">regular</a> expression statement.</p>
+<p class="description"><p>This method can be used to instantiate a query statement that will select all  elements that match the provided regular expression pattern.</p><p>The statement uses the <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_REGEX">kOPERATOR_REGEX</a> operator and this  method accepts the following parameters:</p><p><ul><li><strong>$theSubject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodSubject">subject</a>.</li><li><strong>$theObject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">object</a> regular expression pattern.</li></ul></p><p>Note that the data type is implicitly a <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_STRING">string</a></p><p>The method will return an instance of this class or raise an exception on errors.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> kOPERATOR_REGEX kTYPE_STRING</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			Regex
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theSubject</span><span class="var-description">: Statement subject.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theObject</span><span class="var-description">: Statement object.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodSuffix" id="Suffix"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static Suffix</span> (line <span class="line-number">1100</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_SUFFIX">prefix</a> statement.</p>
+<p class="description"><p>This method can be used to instantiate a query statement that will select all  elements whose contents end matches the test data.</p><p>The statement uses the <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_SUFFIX">kOPERATOR_SUFFIX</a> operator and this  method accepts the following parameters:</p><p><ul><li><strong>$theSubject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodSubject">subject</a>.</li><li><strong>$theObject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">object</a> suffix string.</li></ul></p><p>Note that the data type is implicitly a <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_STRING">string</a></p><p>The method will return an instance of this class or raise an exception on errors.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> kOPERATOR_SUFFIX kTYPE_STRING</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			Suffix
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theSubject</span><span class="var-description">: Statement subject.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theObject</span><span class="var-description">: Statement object.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodSuffixNoCase" id="SuffixNoCase"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/StaticMethod.png" />
+		<span class="method-title">static SuffixNoCase</span> (line <span class="line-number">1140</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_SUFFIX_NOCASE">case-insensitive</a> suffix statement.</p>
+<p class="description"><p>This method can be used to instantiate a query statement that will select all  elements whose contents end matches the test data in a case and accent insensitive  way.</p><p>The statement uses the <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_SUFFIX_NOCASE">kOPERATOR_SUFFIX_NOCASE</a>  operator and this method accepts the following parameters:</p><p><ul><li><strong>$theSubject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodSubject">subject</a>.</li><li><strong>$theObject</strong>: Statement <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">object</a> suffix string.</li></ul></p><p>Note that the data type is implicitly a <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_STRING">string</a></p><p>The method will return an instance of this class or raise an exception on errors.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> kOPERATOR_SUFFIX_NOCASE kTYPE_STRING</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			SuffixNoCase
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theSubject</span><span class="var-description">: Statement subject.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theObject</span><span class="var-description">: Statement object.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Constructor.png" />
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">291</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Instantiate class.</p>
+<p class="description"><p>The constructor can be used to instantiate a statement either by providing an  existing statement structure, or by providing the statement elements:</p><p><ul><li><strong>$theSubject</strong>: The statement subject:
+	 <ul><li><em>array</em> or <em>ArrayObject</em>: Structures are interpreted as built
+			statements, so the method will scan the structure and load the corresponding
+			elements.</li><li><em>string</em>: Any other type will be converted to a string and interpreted
+			as the statement subject, or data element key.</li></ul></li><li><strong>$thePredicate</strong>: The statement operator or predicate:
+	 <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_DISABLED">kOPERATOR_DISABLED</a></em>: Disabled, it means
+            that the current statement is disabled; the remaining parameters are
+            ignored.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_EQUAL">kOPERATOR_EQUAL</a></em>: Equality (=), this operator
+            implies that the method expects the next two parameters.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_EQUAL_NOT">kOPERATOR_EQUAL_NOT</a></em>: Inequality
+            (!=), negates the <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_EQUAL">kOPERATOR_EQUAL</a>
+            operator; this operator implies that the method expects the next two
+            parameters.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_LIKE">kOPERATOR_LIKE</a></em>: Like, it is an accent and
+            case insensitive equality filter, this operator implies that the method
+            expects the next two parameters.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_LIKE_NOT">kOPERATOR_LIKE_NOT</a></em>: The negation of
+            the <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_LIKE">LIKE</a> operator, this operator implies that the
+            method expects the next two parameters.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_PREFIX">kOPERATOR_PREFIX</a></em>: Starts with, or prefix
+            match, this operator implies that the method expects the next two
+            parameters.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_CONTAINS">kOPERATOR_CONTAINS</a></em>: Contains, selects
+            all elements that contain the match string, this operator implies that the
+            method expects the next two parameters.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_SUFFIX">kOPERATOR_SUFFIX</a></em>: Ends with, or suffix
+            match, this operator implies that the method expects the next two
+            parameters.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_REGEX">kOPERATOR_REGEX</a></em>: Regular expression, this
+            operator implies that the method expects the next two parameters.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_LESS">kOPERATOR_LESS</a></em>: Smaller than (\&lt;), this operator
+            implies that the method expects the next two parameters.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_LESS_EQUAL">kOPERATOR_LESS_EQUAL</a></em>: Smaller than
+            or equal (\&lt;=), this operator implies that the method expects the next two
+            parameters.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_GREAT">kOPERATOR_GREAT</a></em>: Greater than (\&gt;), this operator
+            implies that the method expects the next two parameters.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_GREAT_EQUAL">kOPERATOR_GREAT_EQUAL</a></em>: Greater than
+            or equal (\&gt;=), this operator implies that the method expects the next two
+            parameters.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_IRANGE">kOPERATOR_IRANGE</a></em>: Range inclusive,
+            matches \&gt;= value \&lt;=; this operator implies that the method expects the
+            next three parameters.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_ERANGE">kOPERATOR_ERANGE</a></em>: Range exclusive,
+            matches \&gt; value \&lt;, this operator implies that the method expects the next
+            three parameters.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NULL">kOPERATOR_NULL</a></em>: Is <em>NULL</em> or element
+            is missing.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NOT_NULL">kOPERATOR_NOT_NULL</a></em>:Not <em>NULL</em> or
+            element exists.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_IN">kOPERATOR_IN</a></em>: In, or belongs to set, this operator
+            implies that the method expects the next two parameters.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NI">kOPERATOR_NI</a></em>: Not in, the negation of
+            <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_IN">kOPERATOR_IN</a>, this operator implies that the method
+            expects the next two parameters.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_ALL">kOPERATOR_ALL</a></em>: All, or match the full set, this
+            operator implies that the method expects the next two parameters.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NALL">kOPERATOR_NALL</a></em>: Not all, the negation of
+            the <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_ALL">kOPERATOR_ALL</a> operator, this operator implies that
+            the method expects the next two parameters.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_EX">kOPERATOR_EX</a></em>: Expression, indicates a
+            complex expression, this operator implies that the method expects the next
+            two parameters.</li></ul></li><li><strong>$theType</strong>: The statement object data type, this qualifies all remaining
+        parameters. The allowed values are:
+     <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_STRING">kTYPE_STRING</a></em>: String, we assume in
+            UTF8 character set, the string is expected in the next parameter.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_INT32">kTYPE_INT32</a></em>: 32 bit signed integer, the
+            number is expected in the next parameter, either as an integer, float or
+            string; once received, it will be converted to a
+            <a href="../../MyWrapper/Framework/CDataTypeInt32.html">CDataTypeInt32</a> object.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_INT64">kTYPE_INT64</a></em>: 64 bit signed integer, the
+            number is expected in the next parameter, either as an integer, float or
+            string; once received, it will be converted to a
+            <a href="../../MyWrapper/Framework/CDataTypeInt64.html">CDataTypeInt64</a> object.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_FLOAT">kTYPE_FLOAT</a></em>: Floating point number, the
+            number is expected in the next parameter, either as an integer, float or
+            string.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_DATE">kTYPE_DATE</a></em>: A string date, it is treated
+            as a string date with a YYYYMMDD format in which month and day may be
+            omitted.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_TIME">kTYPE_TIME</a></em>: A string time, it is treated
+            as a string time with a YYYY-MM-DD HH:MM:SS format in which all elements are
+            required; this element will be converted to a
+            <a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_STAMP">kTYPE_STAMP</a> data type.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_STAMP">kTYPE_STAMP</a></em>: A timestamp, optionally
+            including microseconds, elements of this type will be converted to
+            <a href="../../MyWrapper/Framework/CDataTypeStamp.html">CDataTypeStamp</a> objects.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_BOOLEAN">kTYPE_BOOLEAN</a></em>: An on/off switch, it
+            will be converted to a 1/0 pair.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_BINARY">kTYPE_BINARY</a></em>: A binary string, the
+            string will be converted to a <a href="../../MyWrapper/Framework/CDataTypeBinary.html">CDataTypeBinary</a>
+            object.</li></ul></li><li><strong>$theObject</strong>: The statement object data, it should reflect the data type
+        provided in the previous parameter.</li><li><strong>$theRange</strong>: The statement range end or second element. This value must
+        also reflect the data type provided in the previous parameter and will be
+        automatically set if you provided a range and forgot to set it.</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">CQueryStatement</span>
+		<span class="method-name">
+			__construct
+		</span>
+					([<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theSubject</span> = <span class="var-default">NULL</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$thePredicate</span> = <span class="var-default">NULL</span>], [<span class="var-type">string</span>&nbsp;<span class="var-name">$theType</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theObject</span> = <span class="var-default">NULL</span>], [<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theRange</span> = <span class="var-default">NULL</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theSubject</span><span class="var-description">: Statement subject.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$thePredicate</span><span class="var-description">: Statement predicate.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theType</span><span class="var-description">: Statement object data type.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theObject</span><span class="var-description">: Statement object or first range.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theRange</span><span class="var-description">: Statement second range.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodObject" id="Object"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Object</span> (line <span class="line-number">433</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage object.</p>
+<p class="description"><p>This method can be used to manage the query <a href="../../MyWrapper/Persistence/_classes---CQuery.inc.php.html#definekAPI_QUERY_DATA">object</a> or match  data, it accepts a parameter which represents either the statement object or the  requested operation, depending on its value:</p><p><ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the current value.</li><li><em>other</em>: Set the value with the provided parameter.</li></ul></p><p>The second parameter is a boolean which if <em>TRUE</em> will return the <em>old</em>  value when replacing values; if <em>FALSE</em>, it will return the currently set value.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Persistence/_classes---CQuery.inc.php.html#definekAPI_QUERY_DATA">kAPI_QUERY_DATA</a></li>
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">usedby:</span> <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodRange">CQueryStatement::Range()</a></li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">CAttribute::ManageOffset()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			Object
+		</span>
+					([<span class="var-type">string</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Value or operation.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodPredicate" id="Predicate"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Predicate</span> (line <span class="line-number">521</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage predicate.</p>
+<p class="description"><p>This method can be used to manage the query <a href="../../MyWrapper/Persistence/_classes---CQuery.inc.php.html#definekAPI_QUERY_OPERATOR">operator</a> or  predicate, it accepts a parameter which represents either the statement predicate or  the requested operation, depending on its value:</p><p><ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the current value.</li><li><em>other</em>: Set the value with the provided parameter:
+     <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_DISABLED">kOPERATOR_DISABLED</a></em>: Disabled, it means
+            that the current statement is disabled.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_EQUAL">kOPERATOR_EQUAL</a></em>: Equality (=).</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_EQUAL_NOT">kOPERATOR_EQUAL_NOT</a></em>: Inequality
+            (!=), negates the <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_EQUAL">kOPERATOR_EQUAL</a>
+            operator.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_LIKE">kOPERATOR_LIKE</a></em>: Like, it is an accent and
+            case insensitive equality filter.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_LIKE_NOT">kOPERATOR_LIKE_NOT</a></em>: The negation of
+            the <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_LIKE">LIKE</a> operator.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_PREFIX">kOPERATOR_PREFIX</a></em>: Starts with, or prefix
+            match.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_CONTAINS">kOPERATOR_CONTAINS</a></em>: Contains, selects
+            all elements that contain the match string.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_SUFFIX">kOPERATOR_SUFFIX</a></em>: Ends with, or suffix
+            match.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_REGEX">kOPERATOR_REGEX</a></em>: Regular expression.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_LESS">kOPERATOR_LESS</a></em>: Smaller than (\&lt;).</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_LESS_EQUAL">kOPERATOR_LESS_EQUAL</a></em>: Smaller than
+            or equal (\&lt;=).</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_GREAT">kOPERATOR_GREAT</a></em>: Greater than (\&gt;).</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_GREAT_EQUAL">kOPERATOR_GREAT_EQUAL</a></em>: Greater than
+            or equal (\&gt;=).</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_IRANGE">kOPERATOR_IRANGE</a></em>: Range inclusive,
+            matches \&gt;= value \&lt;=.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_ERANGE">kOPERATOR_ERANGE</a></em>: Range exclusive,
+            matches \&gt; value \&lt;.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NULL">kOPERATOR_NULL</a></em>: Is <em>NULL</em> or element
+            is missing.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NOT_NULL">kOPERATOR_NOT_NULL</a></em>:Not <em>NULL</em> or
+            element exists.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_IN">kOPERATOR_IN</a></em>: In, or belongs to set.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NI">kOPERATOR_NI</a></em>: Not in, the negation of
+            <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_IN">kOPERATOR_IN</a>.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_ALL">kOPERATOR_ALL</a></em>: All, or match the full set.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_NALL">kOPERATOR_NALL</a></em>: Not all, the negation of
+            the <a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_ALL">kOPERATOR_ALL</a> operator.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Operators.inc.php.html#definekOPERATOR_EX">kOPERATOR_EX</a></em>: Expression, indicates a
+            complex expression.</li></ul>
+        If the provided value does not match any of the above, the method will raise an
+        exception.</li></ul></p><p>The second parameter is a boolean which if <em>TRUE</em> will return the <em>old</em>  value when replacing values; if <em>FALSE</em>, it will return the currently set value.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Persistence/_classes---CQuery.inc.php.html#definekAPI_QUERY_OPERATOR">kAPI_QUERY_OPERATOR</a></li>
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">CAttribute::ManageOffset()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			Predicate
+		</span>
+					([<span class="var-type">string</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Value or operation.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodRange" id="Range"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Range</span> (line <span class="line-number">689</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage range.</p>
+<p class="description"><p>This method can be used to manage the query <a href="../../MyWrapper/Persistence/_classes---CQuery.inc.php.html#definekAPI_QUERY_DATA">object</a> if it is  in the form of a range. This method will only allow you to set the range, to retrieve  or delete the range you must use the <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">Object</a> method.</p><p>The method accepts the following parameters:</p><p><ul><li><strong>$theBound1</strong>: First range bound.</li><li><strong>$theBound2</strong>: Second range bound.</li><li><strong>$getOld</strong>: If <em>TRUE</em> will return the <em>old</em> value when replacing
+        values; if <em>FALSE</em>, it will return the currently set value.</li></ul></p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Persistence/_classes---CQuery.inc.php.html#definekAPI_QUERY_DATA">kAPI_QUERY_DATA</a></li>
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">CQueryStatement::Object()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			Range
+		</span>
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$theBound1</span>, <span class="var-type">mixed</span>&nbsp;<span class="var-name">$theBound2</span>, [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theBound1</span><span class="var-description">: First bound.</span>			</li>
+					<li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$theBound2</span><span class="var-description">: Second bound.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodSubject" id="Subject"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Subject</span> (line <span class="line-number">395</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage subject.</p>
+<p class="description"><p>This method can be used to manage the query <a href="../../MyWrapper/Persistence/_classes---CQuery.inc.php.html#definekAPI_QUERY_SUBJECT">subject</a>, it  accepts a parameter which represents either the statement subject or the requested  operation, depending on its value:</p><p><ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the current value.</li><li><em>other</em>: Set the value with the provided parameter.</li></ul></p><p>The second parameter is a boolean which if <em>TRUE</em> will return the <em>old</em>  value when replacing values; if <em>FALSE</em>, it will return the currently set value.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Persistence/_classes---CQuery.inc.php.html#definekAPI_QUERY_SUBJECT">kAPI_QUERY_SUBJECT</a></li>
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">CAttribute::ManageOffset()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			Subject
+		</span>
+					([<span class="var-type">string</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Value or operation.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodType" id="Type"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<img src="../../media/images/Method.png" />
+		<span class="method-title">Type</span> (line <span class="line-number">622</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Manage data type.</p>
+<p class="description"><p>This method can be used to manage the query data <a href="../../MyWrapper/Persistence/_classes---CQuery.inc.php.html#definekAPI_QUERY_TYPE">type</a> or  <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">object</a> data type, it accepts a parameter which represents either the  data type in which the <a href="../../MyWrapper/Persistence/CQueryStatement.html#methodObject">object</a> is expressed, or the requested  operation, depending on its value:</p><p><ul><li><em>NULL</em>: Return the current value.</li><li><em>FALSE</em>: Delete the current value.</li><li><em>other</em>: Set the value with the provided parameter:
+     <ul><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_STRING">kTYPE_STRING</a></em>: String, we assume in
+            UTF8 character set.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_INT32">kTYPE_INT32</a></em>: 32 bit signed integer.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_INT64">kTYPE_INT64</a></em>: 64 bit signed integer.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_FLOAT">kTYPE_FLOAT</a></em>: Floating point number.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_DATE">kTYPE_DATE</a></em>: A string date, it means a
+            string date with a YYYYMMDD format in which month and day may be omitted.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_TIME">kTYPE_TIME</a></em>: A string time, it is treated
+            as a string time with a YYYY-MM-DD HH:MM:SS format in which all elements are
+            required.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_STAMP">kTYPE_STAMP</a></em>: A timestamp, optionally
+            including microseconds.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_BOOLEAN">kTYPE_BOOLEAN</a></em>: An on/off switch.</li><li><em><a href="../../MyWrapper/Definitions/_defines---Types.inc.php.html#definekTYPE_BINARY">kTYPE_BINARY</a></em>: A binary string.</li></ul>
+        If the provided value does not match any of the above, the method will raise an
+        exception.</li></ul></p><p>The second parameter is a boolean which if <em>TRUE</em> will return the <em>old</em>  value when replacing values; if <em>FALSE</em>, it will return the currently set value.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../MyWrapper/Persistence/_classes---CQuery.inc.php.html#definekAPI_QUERY_TYPE">kAPI_QUERY_TYPE</a></li>
+				<li><span class="field">access:</span> public</li>
+				<li><span class="field">uses:</span> <a href="../../MyWrapper/Framework/CAttribute.html#methodManageOffset">CAttribute::ManageOffset()</a></li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">mixed</span>
+		<span class="method-name">
+			Type
+		</span>
+					([<span class="var-type">string</span>&nbsp;<span class="var-name">$theValue</span> = <span class="var-default">NULL</span>], [<span class="var-type">boolean</span>&nbsp;<span class="var-name">$getOld</span> = <span class="var-default">FALSE</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$theValue</span><span class="var-description">: Value or operation.</span>			</li>
+					<li>
+				<span class="var-type">boolean</span>
+				<span class="var-name">$getOld</span><span class="var-description">: TRUE get old value.</span>			</li>
+				</ul>
+		
+			
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../MyWrapper/Framework/CArrayObject.html">CArrayObject</a></span></p>
+					<blockquote>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodkeys">CArrayObject::keys()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetGet">CArrayObject::offsetGet()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetSet">CArrayObject::offsetSet()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodoffsetUnset">CArrayObject::offsetUnset()</a></span><br>
+													<img src="../../media/images/Method.png" alt=" "/>
+							<span class="method-name"><a href="../../MyWrapper/Framework/CArrayObject.html#methodvalues">CArrayObject::values()</a></span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+	
+	<p class="notes" id="credit">
+		Documentation generated on Fri, 20 Jul 2012 17:57:54 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>
