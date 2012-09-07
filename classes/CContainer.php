@@ -245,7 +245,7 @@ abstract class CContainer extends CObject
 	 *			A series of other flags determine what are the exact operations:
 	 *		 <ul>
 	 *			<li><i>{@link kFLAG_MODIFY_MASK kFLAG_MODIFY_MASK} off</i>: If none of 
-	 *				 flags in this mask are set, it means that the provided key/value pairs
+	 *				flags in this mask are set, it means that the provided key/value pairs
 	 *				represent a list of elements to add or to remove from the object: if the
 	 *				value is <i>NULL</i>, the field corresponding to the key will be
 	 *				removed; if the value is not <i>NULL</i>, the field value will be set or
