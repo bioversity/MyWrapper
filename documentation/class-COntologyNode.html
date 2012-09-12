@@ -4,10 +4,10 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="generator" content="ApiGen 2.7.0" />
 
-	<title>Class COntologyNode | MyWrapper Reference</title>
+	<title>Class COntologyNode | MyWrapper Reference Documentation</title>
 
-	<script type="text/javascript" src="resources/combined.js?417553483"></script>
-	<script type="text/javascript" src="elementlist.js?1387923255"></script>
+	<script type="text/javascript" src="resources/combined.js?496895167"></script>
+	<script type="text/javascript" src="elementlist.js?8330787"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?1567499433" />
 
 </head>
@@ -23,6 +23,8 @@
 			<ul>
 				<li class="active main"><a href="package-MyWrapper.html">MyWrapper<span></span></a>
 						<ul>
+				<li class="main"><a href="package-MyWrapper.Data.html">Data</a>
+						</li>
 				<li class="main"><a href="package-MyWrapper.Entities.html">Entities</a>
 						</li>
 				<li class="main"><a href="package-MyWrapper.Framework.html">Framework</a>
@@ -38,6 +40,8 @@
 				<li class="main"><a href="package-MyWrapper.Wrappers.html">Wrappers</a>
 						</li>
 							</ul></li>
+				<li><a href="package-None.html">None</a>
+						</li>
 				<li><a href="package-PHP.html">PHP</a>
 						</li>
 			</ul>
@@ -1339,8 +1343,9 @@ a container instance derived from CContainer CContainer.</p>
 kTAG_TERM term property in the node and Commit() commit the
 Term() term.</p>
 
-<p>We also copy the current node's Kind() kind to the term and save it
-if not kFLAG_PERSIST_DELETE deleting.</p>
+<p>We also copy the CCodedUnitObject::Kind() kind, COntologyTermObject::Domain() domain, COntologyTermObject::Category()
+category and COntologyTerm::Type() type elements, if not yet present,
+from the Term() term to the current node.</p>
 
 
 
@@ -1378,7 +1383,7 @@ if not kFLAG_PERSIST_DELETE deleting.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#__FinishCreate">#</a>
-		<code><a href="source-class-COntologyNode.html#1606" title="Go to source code">_FinishCreate</a>( <span>reference <var>&amp; $theContainer</var></span> )</code>
+		<code><a href="source-class-COntologyNode.html#1597" title="Go to source code">_FinishCreate</a>( <span>reference <var>&amp; $theContainer</var></span> )</code>
 
 		<div class="description short">
 			
@@ -1420,7 +1425,7 @@ if not kFLAG_PERSIST_DELETE deleting.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#__FinishLoad">#</a>
-		<code><a href="source-class-COntologyNode.html#1639" title="Go to source code">_FinishLoad</a>( <span>reference <var>&amp; $theContainer</var></span>, <span>reference <var>&amp; $theIdentifier</var></span>, <span>reference <var>&amp; $theModifiers</var></span> )</code>
+		<code><a href="source-class-COntologyNode.html#1630" title="Go to source code">_FinishLoad</a>( <span>reference <var>&amp; $theContainer</var></span>, <span>reference <var>&amp; $theIdentifier</var></span>, <span>reference <var>&amp; $theModifiers</var></span> )</code>
 
 		<div class="description short">
 			
@@ -1467,7 +1472,7 @@ properties and load it.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#__IndexTerms">#</a>
-		<code><a href="source-class-COntologyNode.html#1704" title="Go to source code">_IndexTerms</a>( <span>Everyman\Neo4j\Client <var>$theContainer</var></span> )</code>
+		<code><a href="source-class-COntologyNode.html#1695" title="Go to source code">_IndexTerms</a>( <span>Everyman\Neo4j\Client <var>$theContainer</var></span> )</code>
 
 		<div class="description short">
 			
@@ -1521,7 +1526,7 @@ committed, there are two main indexes for nodes:</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#__IndexNodes">#</a>
-		<code><a href="source-class-COntologyNode.html#1756" title="Go to source code">_IndexNodes</a>( <span>Everyman\Neo4j\Client <var>$theContainer</var></span> )</code>
+		<code><a href="source-class-COntologyNode.html#1747" title="Go to source code">_IndexNodes</a>( <span>Everyman\Neo4j\Client <var>$theContainer</var></span> )</code>
 
 		<div class="description short">
 			
@@ -1584,7 +1589,7 @@ committed, there are two main indexes for node properties:</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#__GetNodeIndex">#</a>
-		<code><a href="source-class-COntologyNode.html#1837" title="Go to source code">_GetNodeIndex</a>( <span>Everyman\Neo4j\Client <var>$theContainer</var></span>, <span>string <var>$theIndex</var></span>, <span>boolean <var>$doClear</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+		<code><a href="source-class-COntologyNode.html#1828" title="Go to source code">_GetNodeIndex</a>( <span>Everyman\Neo4j\Client <var>$theContainer</var></span>, <span>string <var>$theIndex</var></span>, <span>boolean <var>$doClear</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
 
 		<div class="description short">
 			
@@ -1633,7 +1638,7 @@ index tag.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#__ManageProperty">#</a>
-		<code><a href="source-class-COntologyNode.html#1883" title="Go to source code">_ManageProperty</a>( <span>string <var>$theOffset</var></span>, <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+		<code><a href="source-class-COntologyNode.html#1874" title="Go to source code">_ManageProperty</a>( <span>string <var>$theOffset</var></span>, <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
 
 		<div class="description short">
 			
@@ -1722,7 +1727,7 @@ reference, the method will raise an exception.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#__ManagePropertyArray">#</a>
-		<code><a href="source-class-COntologyNode.html#1980" title="Go to source code">_ManagePropertyArray</a>( <span>string <var>$theOffset</var></span>, <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>mixed <var>$theOperation</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
+		<code><a href="source-class-COntologyNode.html#1971" title="Go to source code">_ManagePropertyArray</a>( <span>string <var>$theOffset</var></span>, <span>mixed <var>$theValue</var> = <span class="php-keyword1">NULL</span></span>, <span>mixed <var>$theOperation</var> = <span class="php-keyword1">NULL</span></span>, <span>boolean <var>$getOld</var> = <span class="php-keyword1">FALSE</span> </span> )</code>
 
 		<div class="description short">
 			
@@ -1954,7 +1959,7 @@ accepts the following parameters:</p>
 </div>
 
 	<div id="footer">
-		MyWrapper Reference API documentation generated by <a href="http://apigen.org">ApiGen 2.7.0</a>
+		MyWrapper Reference Documentation API documentation generated by <a href="http://apigen.org">ApiGen 2.7.0</a>
 	</div>
 </div>
 </div>
